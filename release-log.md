@@ -1,7 +1,7 @@
 # Client
 ## Additions
-- Health, name, and chat of entities fade when they go off-screen
-- Entity size change animation
+- Health, name, and chat messages of entities fade when they go off-screen
+- Changed entity size animation
 - Added `drawButton`, a function that lets you draw buttons like "exit" and "respawn" on the death screen or elsewhere
 - Added exit and respawn button
 ## Changes
@@ -32,12 +32,12 @@
 - Fixed sizes and properties of some definitions to make them more arras-like
 - Revamped generators (boss generators and more)
 - Second room rework, made even better
-- Finally changed the skill points at level 45 from 44 to 42 like arras
+- Changed total skill points from 44 to 42 to match Arras
 - Fixed shield capacity and regen being WAYY too high
-- Marksman and fork now work as intended
-- Server update refresh rate has changed back to 30HZ, resulting having a smooth gameplay.
-- The addons have been split into 2. The definitions addons are for mainly tanks only. The game addons are for coding stuff. (The reason why i did this because if you reload definitions `$dev reloaddefs` it reloads the addons too, running your code twice and its not gonna work, so thats why i split the addons.)
-- The tank color will no longer get changed after define gets activated, meaning the current color will stay. 
+- Marksman and Fork now work as intended
+- Server update refresh rate has been changed back to 30Hz, resulting in smoother gameplay.
+- The addons have been split into 2 types. The definitions addons (in `server/lib/addons`) are for mainly tanks only. The game addons (`server/Game/addons`) are for coding other additions to the server. (The reason I did this is because if you reload definitions `$dev reloaddefs` it reloads the addons too, running your code twice and breaking it, so thats why I split the addons.)
+- The tank color will no longer be changed after `define()` gets activated, meaning the current color will stay. 
 ## Removals
 - Removed `StatusEffect` because nobody used it or knew how to use it
 
@@ -55,8 +55,8 @@
 - Changed the folder structure. It'll take a while to get used to, but once you do, it's better.
 - Added `GLITCH_MODE` (see line 19 of config for description)
 - Added `LOAD_MOCKUPS` (see line 14 of config for description)
-- Some features from old aps++ are missing, will be fixed on next beta or add it by yourself.
+- Some features from old aps++ are missing, will be fixed on next beta or you can add it by yourself.
 
 # NOTE FROM DEVELOPER
 
-The server may studder and we do not know whats causing it but we will try our best to fix it.
+The server may stutter and we do not know what is causing it but we will try our best to fix it.
