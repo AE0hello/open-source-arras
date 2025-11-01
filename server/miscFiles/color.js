@@ -31,7 +31,7 @@ class Color {
 	set brightnessShift (value) { this.#brightnessShift = value; this.recompile() }
 	set allowBrightnessInvert (value) { this.#allowBrightnessInvert = value; this.recompile() }
 
-    //let's just say we have to deal with some kind of color value, and we don't know what it is
+    //lets just say we have to deal with some kind of color value and we dont know what it is
     interpret (color) {
     	switch (typeof color) {
     		case 'number':

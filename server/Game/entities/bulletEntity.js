@@ -198,7 +198,35 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
         if (set.CLEAR_ON_MASTER_UPGRADE != null) this.settings.clearOnMasterUpgrade = set.CLEAR_ON_MASTER_UPGRADE;
         if (set.HEALTH_WITH_LEVEL != null) this.settings.healthWithLevel = set.HEALTH_WITH_LEVEL;
         if (set.OBSTACLE != null) this.settings.obstacle = set.OBSTACLE;
-        if (set.NECRO != null) this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
+        if (set.NECRO != null) {
+            this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
+
+            // Necro function for tanks
+            this.settings.necroDefineGuns = {};
+            for (let shape of this.settings.necroTypes) {
+                // Pick the first gun with the right necroType to use for stats and use its defineBullet function
+                this.settings.necroDefineGuns[shape] = Array.from(this.guns).filter((gun) => gun[1].bulletType.NECRO && (gun[1].bulletType.NECRO === shape || (gun[1].bulletType.NECRO === true && gun[1].bulletType.SHAPE === this.shape) || gun[1].bulletType.NECRO.includes(shape)))[0];
+            }
+
+            this.necro = (host) => {
+                let gun = this.settings.necroDefineGuns[host.shape];
+                if (!gun || !gun.checkShootPermission()) return false;
+
+                let savedFacing = host.facing;
+                let savedSize = host.SIZE;
+                
+                host.controllers = [];
+                host.define("genericEntity");
+                gun.bulletInit(host);
+                host.team = this.master.master.team;
+                host.master = this.master;
+                host.color.base = this.color.base;
+                host.facing = savedFacing;
+                host.SIZE = savedSize;
+                host.health.amount = host.health.max;
+                return true;
+            }
+        }
         if (set.HAS_NO_RECOIL != null) this.settings.hasNoRecoil = set.HAS_NO_RECOIL;
         if (set.CRAVES_ATTENTION != null) this.settings.attentionCraver = set.CRAVES_ATTENTION;
         if (set.HEALER) this.healer = true;
@@ -460,6 +488,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
             vx: this.velocity.x,
             vy: this.velocity.y,
             size: this.size,
+            realSize: this.realSize,
             health: this.health.display(),
             shield: this.shield.display(),
             alpha: this.alpha,
@@ -587,7 +616,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
     destroy() {
         // Remove this from views
         global.gameManager.views.forEach(v => v.remove(this));
-        // Remove bullet from bullet list if needed, and the only reason it exists is for bacteria.
+        // Remove bullet from bullet list if needed and the only reason it exists is for bacteria.
         if (this.bulletparent != null) util.remove(this.bulletparent.bulletchildren, this.bulletparent.bulletchildren.indexOf(this))
         // Remove from parent lists if needed
         if (this.parent != null) util.remove(this.parent.children, this.parent.children.indexOf(this));

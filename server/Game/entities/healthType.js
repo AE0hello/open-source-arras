@@ -1,5 +1,3 @@
-let EventEmitter = require('events');
-
 class HealthType {
     constructor(health, type, resist = 0) {
         this.max = health;
@@ -14,9 +12,7 @@ class HealthType {
         this.regen = regen;
     }
     display() {
-        let display = this.amount / this.max;
-        if (Number.isNaN(display)) return 1;
-        return display;
+        return this.amount / this.max;
     }
     getDamage(amount, capped = true) {
         let damageToMax = this.amount - this.max;

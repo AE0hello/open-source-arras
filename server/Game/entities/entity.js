@@ -215,6 +215,7 @@ class Entity extends EventEmitter {
         };
         entities.set(this.id, this);
         for (let v of global.gameManager.views) v.add(this);
+        Events.emit('spawn', this);
     }
 
     life() { bringToLife(this); }
@@ -362,7 +363,35 @@ class Entity extends EventEmitter {
         if (set.CLEAR_ON_MASTER_UPGRADE != null) this.settings.clearOnMasterUpgrade = set.CLEAR_ON_MASTER_UPGRADE;
         if (set.HEALTH_WITH_LEVEL != null) this.settings.healthWithLevel = set.HEALTH_WITH_LEVEL;
         if (set.OBSTACLE != null) this.settings.obstacle = set.OBSTACLE;
-        if (set.NECRO != null) this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
+        if (set.NECRO != null) {
+            this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
+
+            // Necro function for tanks
+            this.settings.necroDefineGuns = {};
+            for (let shape of this.settings.necroTypes) {
+                // Pick the first gun with the right necroType to use for stats and use its defineBullet function
+                this.settings.necroDefineGuns[shape] = Array.from(this.guns).filter((gun) => gun[1].bulletType.NECRO && (gun[1].bulletType.NECRO === shape || (gun[1].bulletType.NECRO === true && gun[1].bulletType.SHAPE === this.shape) || gun[1].bulletType.NECRO.includes(shape)))[0];
+            }
+
+            this.necro = (host) => {
+                let gun = this.settings.necroDefineGuns[host.shape];
+                if (!gun || !gun.checkShootPermission()) return false;
+
+                let savedFacing = host.facing;
+                let savedSize = host.SIZE;
+                
+                host.controllers = [];
+                host.define("genericEntity");
+                gun.bulletInit(host);
+                host.team = this.master.master.team;
+                host.master = this.master;
+                host.color.base = this.color.base;
+                host.facing = savedFacing;
+                host.SIZE = savedSize;
+                host.health.amount = host.health.max;
+                return true;
+            }
+        }
         if (set.HAS_NO_RECOIL != null) this.settings.hasNoRecoil = set.HAS_NO_RECOIL;
         if (set.CRAVES_ATTENTION != null) this.settings.attentionCraver = set.CRAVES_ATTENTION;
         if (set.KILL_MESSAGE != null) this.settings.killMessage = set.KILL_MESSAGE === "" ? "Killed" : set.KILL_MESSAGE;
@@ -398,6 +427,7 @@ class Entity extends EventEmitter {
         if (set.SHOOT_ON_DEATH != null) this.shootOnDeath = set.SHOOT_ON_DEATH;
         if (set.BORDERLESS != null) this.borderless = set.BORDERLESS;
         if (set.DRAW_FILL != null) this.drawFill = set.DRAW_FILL;
+        if (set.IS_IMMUNE_TO_TILES) this.immuneToTiles = set.IS_IMMUNE_TO_TILES;
         if (set.TEAM != null) {
             this.team = set.TEAM;
             if (!global.gameManager.socketManager.players.length) {
@@ -464,6 +494,9 @@ class Entity extends EventEmitter {
                 this.skill.maintain();
             }
             this.refreshBodyAttributes();
+        }
+        if (set.LEVEL_CAP != null) {
+            this.levelCap = set.LEVEL_CAP;
         }
         if (set.SKILL_CAP != null && set.SKILL_CAP != []) {
             if (set.SKILL_CAP.length != 10) throw "Inappropiate skill cap amount.";
@@ -544,6 +577,7 @@ class Entity extends EventEmitter {
                 if (!turretDanger) o.define({ DANGER: 0 });
                 o.collidingBond = def.VULNERABLE;
                 o.bindToMaster(def.POSITION, this, def.VULNERABLE);
+                // o.unbindFromMaster(this); // if you want to unbond this turret, heres how it works.
             }
         }
         if (set.ON != null) {
@@ -605,22 +639,40 @@ class Entity extends EventEmitter {
         // Batch upgrades
         if (this.batchUpgrades && emitEvent) handleBatchUpgradeSplit(this); // Batch upgrades
 
-        // Make the entity targetable if they aren't a bullet, etc.
-        const checkIfTargetAble = ["bullet", "drone", "swarm", "trap", "wall", "food", "unknown"];
+        // Make the entity targetble if they arent a bullet, etc.
+        const checkIfTargetAble = ["bullet", "drone", "swarm", "trap", "wall", "unknown"];
         if (!checkIfTargetAble.includes(this.type)) {
             targetableEntities.set(this.id, this);
         } else targetableEntities.delete(this.id);
     }
 
     refreshBodyAttributes() {
-        let speedReduce = Math.pow(this.size / (this.coreSize || this.SIZE), 1);
+        const level = Math.min(Config.GROWTH ? 120 : 45, this.level);
+        let speedReduce = Math.min(
+            Config.GROWTH ? 4 : 2,
+            this.size / (this.coreSize || this.SIZE)
+        );
         this.acceleration = (1 * global.gameManager.runSpeed * this.ACCELERATION) / speedReduce;
         if (this.settings.reloadToAcceleration) this.acceleration *= this.skill.acl;
         this.topSpeed = (1 * global.gameManager.runSpeed * this.SPEED * this.skill.mob) / speedReduce;
         if (this.settings.reloadToAcceleration) this.topSpeed /= Math.sqrt(this.skill.acl);
-        this.health.set(((this.settings.healthWithLevel ? 2 * this.level : 0) + this.HEALTH) * this.skill.hlt * 1);
+        this.health.set(
+            ((this.settings.healthWithLevel ? 2 * level : 0) + this.HEALTH) *
+                this.skill.hlt *
+                1
+        );
         this.health.resist = 1 - 1 / Math.max(1, this.RESIST + this.skill.brst);
-        this.shield.set(((this.settings.healthWithLevel ? 0.6 * this.level : 0) + this.SHIELD) * this.skill.shi, Math.max(0, ((this.settings.healthWithLevel ? 0.006 * this.level : 0) + 1) * this.REGEN * this.skill.rgn * 1));
+        this.shield.set(
+            ((this.settings.healthWithLevel ? 0.6 * level : 0) + this.SHIELD) *
+                this.skill.shi,
+            Math.max(
+                0,
+                ((this.settings.healthWithLevel ? 0.006 * level : 0) + 1) *
+                    this.REGEN *
+                    this.skill.rgn *
+                    1
+            )
+        );
         this.damage = 1 * this.DAMAGE * this.skill.atk;
         this.penetration = 1 * (this.PENETRATION + 1.5 * (this.skill.brst + 0.8 * (this.skill.atk - 1)));
         if (this.settings.diesAtRange || !this.range) this.range = 1 * this.RANGE;
@@ -667,11 +719,44 @@ class Entity extends EventEmitter {
         this.move();
     }
 
+    unbindFromMaster(bond) {
+        this.bond.turrets.delete(bond.id);
+        this.master.turrets.delete(this.id);
+        this.SIZE = this.bond.size * this.bound.size / 2;
+        this.bond = undefined;
+        this.source = this;
+        this.ignoredByAi = false;
+        this.addToGrid();
+        this.skipLife = false;
+        this.settings.drawShape = true;
+        this.bound = undefined;
+        this.collidingBond = undefined;
+        // Initalize.
+        this.facingType = "toTarget", this.facingTypeArgs = {};
+        this.motionType = "motor";
+        this.motionTypeArgs = {};
+        this.move();
+    }
+
     get level() {
         return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
     }
+    // How this works: in 2025 growth a 3.00m player has the same size as a wall (tile)
     get size() {
-        return this.bond == null ? (this.coreSize || this.SIZE) * this.sizeMultiplier * (1 + this.level / 45) : this.bond.size * this.bound.size;
+        let level = this.level;
+        if (!Config.GROWTH) level = Math.min(45, level);
+        let levelMultiplier = 1;
+        if (this.settings.healthWithLevel) {
+            levelMultiplier += Math.min(45, level) / 45;
+        }
+        if (level > 45 && (this.isPlayer || this.isBot)) {
+            const scoreSince45 = this.skill.score - 26263;
+            // wall size is not accurate for some reason lol
+            const multiplier = 1.065;
+            const wallSize = (global.gameManager.room.width / 32 / 2) * Math.SQRT2 * multiplier;
+            levelMultiplier += ((scoreSince45 / 3e6) * wallSize) / Class.genericTank.SIZE / 2;
+        }
+        return this.bond == null ? (this.coreSize || this.SIZE) * this.sizeMultiplier * levelMultiplier : this.bond.size * this.bound.size;
     }
     get mass() {
         return this.density * (this.size ** 2 + 1);
@@ -729,6 +814,7 @@ class Entity extends EventEmitter {
             vx: this.velocity.x,
             vy: this.velocity.y,
             size: this.size,
+            realSize: this.realSize,
             health: this.health.display(),
             shield: this.shield.display(),
             alpha: this.alpha,
@@ -743,7 +829,6 @@ class Entity extends EventEmitter {
                     this.settings.connectChildrenOnCamera || (this.facingType === "locksFacing" && this.control.alt),
             layer: layerValue,
             color: this.color.compiled,
-            strokeWidth: this.strokeWidth,
             borderless: this.borderless,
             drawFill: this.drawFill,
             name: (this.nameColor || "#ffffff") + this.name,
@@ -1096,6 +1181,18 @@ class Entity extends EventEmitter {
             this.damageReceived = 0;
             return 0;
         }
+        if (this.damageReceived > 0) {
+            let damageInflictor = []
+            let damageTool = []
+
+            for (let i = 0; i < this.collisionArray.length; i++) {
+                let instance = this.collisionArray[i];
+                if (instance.type === 'wall' || !instance.damage) continue;
+                damageInflictor.push(instance.master)
+                damageTool.push(instance)
+            }
+            this.emit('damage', { body: this, damageInflictor, damageTool });
+        }
         // Life-limiting effects
         if (this.settings.diesAtRange) {
             this.range -= 1 / global.gameManager.roomSpeed;
@@ -1154,7 +1251,9 @@ class Entity extends EventEmitter {
                     }
                     instance.master.skill.score += jackpot;
                     killers.push(instance.master); // And keep track of who killed me
-                } else if (instance.settings.acceptsScore) instance.skill.score += jackpot;
+                } else if (instance.settings.acceptsScore) {
+                    instance.skill.score += jackpot;
+                }
                 killTools.push(instance); // Keep track of what actually killed me
             }
             // Remove duplicates
@@ -1166,14 +1265,17 @@ class Entity extends EventEmitter {
 
             for (let i = 0; i < killers.length; i++) {
                 let instance = killers[i];
+
                 switch (this.type) {
                     case "tank":
                         killers.length > 1 ? instance.killCount.assists++ : instance.killCount.solo++;
                         break;
+
                     case "food":
                     case "crasher":
                         instance.killCount.polygons++;
                         break
+
                     case "miniboss":
                         instance.killCount.bosses++;
                         break;
@@ -1190,14 +1292,20 @@ class Entity extends EventEmitter {
                         killText += " and ";
                     }
                     // Only if we give messages
-                    if (doISendAText) instance.sendMessage("You killed " + name + (killers.length > 1 ? " (with some help)." : "."));
-                    if (this.settings.killMessage) instance.sendMessage("You " + this.settings.killMessage + " " + name + (killers.length > 1 ? " (with some help)." : "."));
+                    if (doISendAText) {
+                        instance.sendMessage("You killed " + name + (killers.length > 1 ? " (with some help)." : "."));
+                    }
+                    if (this.settings.killMessage) {
+                        instance.sendMessage("You " + this.settings.killMessage + " " + name + (killers.length > 1 ? " (with some help)." : "."));
+                    }
                 }
                 // Prepare the next part of the next
                 killText = killText.slice(0, -4) + "killed you with ";
             }
             // Broadcast
-            if (this.settings.broadcastMessage) global.gameManager.socketManager.broadcast(this.settings.broadcastMessage);
+            if (this.settings.broadcastMessage) {
+                global.gameManager.socketManager.broadcast(this.settings.broadcastMessage);
+            }
             if (this.settings.defeatMessage) {
                 let text = util.addArticle(this.label, true);
                 if (notJustFood) {
@@ -1209,8 +1317,10 @@ class Entity extends EventEmitter {
                     }
                     text = text.slice(0, -4);
                     text += "!";
-                } else text += " fought a polygon... and the polygon won.";
-                sockets.broadcast(text);
+                } else {
+                    text += " fought a polygon... and the polygon won.";
+                }
+                global.gameManager.socketManager.broadcast(text);
             }
 
             // instead of "a Machine Gunner Bullet and a Machine Gunner Bullet and a Machine Gunner Bullet",
@@ -1228,8 +1338,12 @@ class Entity extends EventEmitter {
 
             // Prepare it and clear the collision array.
             killText = killText.slice(0, -5);
-            if (killText === "You have been kille") killText = "You have died a stupid death";
-            if (!this.dontSendDeathMessage) this.sendMessage(killText + ".");
+            if (killText === "You have been kille") {
+                killText = "You have died a stupid death";
+            }
+            if (!this.dontSendDeathMessage) {
+                this.sendMessage(killText + ".");
+            }
             // If I'm the leader, broadcast it:
             if (this.id === global.gameManager.room.topPlayerID) {
                 let usurptText = this.name === "" ? "The leader" : this.name;
@@ -1246,7 +1360,8 @@ class Entity extends EventEmitter {
                 }
                 global.gameManager.socketManager.broadcast(usurptText);
             }
-            this.emit('dead', { body: this, killers });
+            this.setKillers(killers);
+            this.emit('dead', { body: this, killers, killTools });
             // Kill it
             return 1;
         }
@@ -1265,6 +1380,7 @@ class Entity extends EventEmitter {
     }
 
     sendMessage(message) { } // Dummy
+    setKillers(killers) { } // Dummy
 
     kill() {
         this.invuln = false;
@@ -1280,7 +1396,7 @@ class Entity extends EventEmitter {
         if (i != -1) util.remove(global.gameManager.minimap, i);
         // Remove this from views
         global.gameManager.views.forEach(v => v.remove(this));
-        // Remove bullet from bullet list if needed, and the only reason it exists is for bacteria.
+        // Remove bullet from bullet list if needed and the only reason it exists is for bacteria.
         if (this.bulletparent != null) util.remove(this.bulletparent.bulletchildren, this.bulletparent.bulletchildren.indexOf(this))
         // Remove from parent lists if needed
         if (this.parent != null) util.remove(this.parent.children, this.parent.children.indexOf(this));

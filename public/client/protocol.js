@@ -69,16 +69,16 @@ const protocol = (function() {
                 contentSize += block.length + 1;
             }
             } else {
-            console.error("Unencodable data type:", block);
-            let packetType = message[0];
-            console.error(`Packet type: ${packetType}`);
-            console.error(`Unencoded packet: \n${message.join(' ')}`);
-            if (packetType == 'u') {
-                console.error(`\nThis is an uplink (u) packet. Typically, the error comes from an invalid value in the socket's view data, meaning it's related to entities.`);
-                console.error(`For that, check socket.js flatten() for invalid values. These are because the corresponding values in entity.js Entity.prototype.camera() are also invalid.`);
-                console.error(`It's advised to count forwards or backwards from the easily discernable values of 65535 for health/shield fraction and #ffffff (or another color hexcode) for names.\n`);
-            }
-            throw "Unencodable data type";
+                console.error("Unencodable data type:", block);
+                let packetType = message[0];
+                console.error(`Packet type: ${packetType}`);
+                console.error(`Unencoded packet: \n${message.join(' ')}`);
+                if (packetType == 'u') {
+                    console.error(`\nThis is an uplink (u) packet. Typically, the error comes from an invalid value in the socket's view data, meaning it's related to entities.`);
+                    console.error(`For that, check socket.js flatten() for invalid values. These are because the corresponding values in entity.js Entity.prototype.camera() are also invalid.`);
+                    console.error(`It's advised to count forwards or backwards from the easily discernable values of 65535 for health/shield fraction and #ffffff (or another color hexcode) for names.\n`);
+                }
+                throw "Unencodable data type";
             }
             headers.push(typeCode);
             if (typeCode === lastTypeCode) {

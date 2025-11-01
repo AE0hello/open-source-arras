@@ -10,6 +10,7 @@ new (require("./game.js").gameServer)(
     workerData.region,
     workerData.webProperties,
     workerData.properties,
+    workerData.isFeatured,
     parentPort,
     GLOBAL
 );

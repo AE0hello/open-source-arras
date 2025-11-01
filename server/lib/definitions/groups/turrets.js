@@ -832,7 +832,7 @@ Class.baseSwarmTurret = makeTurret({
             },
         },
     ],
-}, {label: "Protector", independent: true, fov: 0.8, aiSettings: { NO_LEAD: true, CHASE: true }})
+}, {label: "Protector", independent: true, fov: 0.8, aiSettings: { NO_LEAD: true, CHASE: true, IGNORE_SHAPES: true, }})
 Class.antiTankMachineGunArm = {
     PARENT: "genericTank",
     COLOR: "grey",

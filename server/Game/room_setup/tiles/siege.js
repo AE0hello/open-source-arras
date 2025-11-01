@@ -67,5 +67,18 @@ tileClass.sbase1 = new Tile({
 
 tileClass.stopAI = new Tile({
     COLOR: "white",
-    NAME: "stopAI"
+    NAME: "stopAI",
+    TICK: (tile, room) => {
+        let pushx = 2;
+        let pushy = 2;
+        if (Config.BLITZ) pushx = 1;
+        for (let i = 0; i < tile.entities.length; i++) {
+            let entity = tile.entities[i];
+            if (entity.pushability && entity.isBot) {
+                let dirToCenter = Math.atan2(room.height / pushy - entity.y - room.height / 2, room.width / pushx - entity.x - room.width / 2);
+                entity.velocity.x = Math.cos(dirToCenter) * 5 * entity.pushability;
+                entity.velocity.y = Math.sin(dirToCenter) * 5 * entity.pushability;
+            }
+        }
+    }
 })

@@ -1,10 +1,10 @@
 function init() {
     const EnableBulletShaders = true; // enable shaders for bullets, drones, etc.
 
-    const rad = 0.4
+    const rad = 2.4
     const clr = "black"
     const a = 1
-    const r = 1
+    const r = 2.5
 
     if (EnableBulletShaders) {
         Class.genericEntity.GLOW = {

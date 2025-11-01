@@ -129,7 +129,7 @@ class Gun extends EventEmitter {
         }
         if (this.canShoot && !this.body.settings.hasNoRecoil) {
             // Apply recoil to motion
-            if (this.motion > 0) {
+            if (this.motion > 0 || this.body.settings.hasNoReloadDelay) {
                 let recoilForce = (-this.position * this.trueRecoil * this.body.recoilMultiplier * 1.08 / this.body.size) / global.gameManager.roomSpeed;
                 this.body.accel.x += recoilForce * Math.cos(this.recoilDir);
                 this.body.accel.y += recoilForce * Math.sin(this.recoilDir);
@@ -180,7 +180,7 @@ class Gun extends EventEmitter {
     }
 
     spawnBullets(useWhile, shootPermission) {
-        // Find gun's current angle, position and length
+        // Find gun's current angle position and length
         let angle1 = this.direction + this.angle + this.body.facing,
             angle2 = this.angle + this.body.facing,
             gunlength = this.length + this.spawnOffset * this.width * this.settings.size / 2,
@@ -214,21 +214,11 @@ class Gun extends EventEmitter {
 
         // Find the proper skillset for shooting
         let sk = this.bulletStats === "master" ? this.body.skill : this.bulletStats;
+
         // Decides what to do based on child-counting settings
-        let shootPermission = this.countsOwnKids
-            ? this.countsOwnKids >
-                this.children.length * (this.calculator == "necro" ? sk.rld : 1)
-            : this.body.maxChildren
-            ? this.body.maxChildren >
-                this.body.children.length * (this.calculator == "necro" ? sk.rld : 1)
-            : true;
-        if (this.destroyOldestChild) {
-            if (!shootPermission) {
-                shootPermission = true;
-                this.destroyOldest();
-            }
-        }
-        // don't shoot when invuln/not active
+        let shootPermission = this.checkShootPermission();
+
+        // Dont shoot when invuln/not active
         if (this.body.master.invuln || !this.body.master.activation.check()) {
             shootPermission = false;
         }
@@ -256,6 +246,24 @@ class Gun extends EventEmitter {
         } else if (this.cycle > !this.waitToCycle - this.delay && !this.body.settings.hasNoReloadDelay) {
             this.cycle = !this.waitToCycle - this.delay;
         }
+    }
+    checkShootPermission() {
+        let sk = this.bulletStats === "master" ? this.body.skill : this.bulletStats;
+        let shootPermission = this.countsOwnKids
+            ? this.countsOwnKids >
+                this.children.length * (this.calculator == "necro" ? sk.rld : 1)
+            : this.body.maxChildren
+            ? this.body.maxChildren >
+                this.body.children.length * (this.calculator == "necro" ? sk.rld : 1)
+            : true;
+
+        // Handle destroying oldest child
+        if (this.destroyOldestChild && !shootPermission) {
+            shootPermission = true;
+            this.destroyOldest();
+        }
+
+        return shootPermission;
     }
     destroyOldest() {
         let oldestChild,
@@ -289,16 +297,16 @@ class Gun extends EventEmitter {
         this.motion += this.lastShot.power;
         // Find inaccuracy
         let shudder = 0,
-          spread = 0;
+            spread = 0;
         if (this.settings.shudder) {
-          do {
-            shudder = ran.gauss(0, Math.sqrt(this.settings.shudder));
-          } while (Math.abs(shudder) >= this.settings.shudder * 2);
+            do {
+                shudder = ran.gauss(0, Math.sqrt(this.settings.shudder));
+            } while (Math.abs(shudder) >= this.settings.shudder * 2);
         }
         if (this.settings.spray) {
-          do {
-            spread = ran.gauss(0, this.settings.spray * this.settings.shudder);
-          } while (Math.abs(spread) >= this.settings.spray / 2);
+            do {
+                spread = ran.gauss(0, this.settings.spray * this.settings.shudder);
+            } while (Math.abs(spread) >= this.settings.spray / 2);
         }
         spread *= Math.PI / 180;
         // Find speed
@@ -416,32 +424,10 @@ class Gun extends EventEmitter {
         };
         o.source = this.body;
         o.facing = o.velocity.direction;
-        // Necromancers.
-        let oo = o;
-        o.necro = (host) => {
-            if (this.countsOwnKids ?
-                this.countsOwnKids > this.children.length * (this.bulletStats === "master" ? this.body.skill.rld : this.bulletStats.rld)
-              : this.body.maxChildren ?
-                this.body.maxChildren > this.body.children.length * (this.bulletStats === "master" ? this.body.skill.rld : this.bulletStats.rld)
-              : true
-            ) {
-                let save = {
-                    facing: host.facing,
-                    size: host.SIZE,
-                };
-                host.define(Class.genericEntity);
-                this.bulletInit(host);
-                host.team = oo.master.master.team;
-                host.master = oo.master;
-                host.color = oo.color;
-                host.facing = save.facing;
-                host.SIZE = save.size;
-                host.health.amount = host.health.max;
-                return true;
-            }
-            return false;
-        };
-        // Otherwise
+        // Set all necroType gun references to parent gun
+        for (let shape of o.settings.necroTypes) {
+            o.settings.necroDefineGuns[shape] = this;
+        }
         o.refreshBodyAttributes();
         o.life();
         this.onShootFunction();
@@ -623,7 +609,7 @@ class Gun extends EventEmitter {
         };
         this.reloadRateFactor = sk.rld;
         // Special cases
-        switch (this.statCalculator) {
+        switch (this.calculator) {
             case "thruster":
                 this.trueRecoil = shoot.recoil * Math.sqrt(sk.rld * sk.spd);
                 break;

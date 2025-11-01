@@ -27,6 +27,43 @@ Class.rock = {
     VARIES_IN_SIZE: true,
     ACCEPTS_SCORE: false
 }
+Class.pumpkinLine = {
+    LABEL: "Line",
+    SHAPE: -1,
+    COLOR: "#ff9000",
+}
+Class.pumpkinCircle = {
+    LABEL: "Circle",
+    SHAPE: 0,
+    COLOR: "#654320",
+}
+Class.pumpkinStar = {
+    LABEL: "Star",
+    SHAPE: -6,
+    COLOR: "#267524"
+}
+Class.pumpkin = {
+    PARENT: "stone",
+    LABEL: "Pumpkin",
+    SHAPE: 9,
+    COLOR: "#ff9000",
+    GUNS: [],
+    SIZE: 63,
+    PROPS: [
+        ...weaponArray({
+            POSITION: [6, -4.5, 0, 0, 360, 1],
+            TYPE: "pumpkinLine",
+        }, 9),
+        {
+            POSITION: [6.5, 0, 0, 0, 360, 2],
+            TYPE: "pumpkinCircle",
+        },
+        {
+            POSITION: [4.5, 0, 0, 0, 360, 3],
+            TYPE: "pumpkinStar",
+        },
+    ],
+};
 Class.stone = {
     PARENT: "rock",
     LABEL: "Stone",
@@ -53,17 +90,9 @@ Class.eyewall = {
     PARENT: "wall",
     PROPS: [
         {
-            POSITION: [12, 0, 0, 0, 1],
-            TYPE: ["egg", {MIRROR_MASTER_ANGLE: true, COLOR: "#000000"}]
-        },
-        {
-            POSITION: [9, 0, 0, 0, 1],
-            TYPE: ["egg", {MIRROR_MASTER_ANGLE: true, COLOR: "#FFFFFF"}]
-        },
-        {
-            POSITION: [4, 0, 0, 0, 1],
-            TYPE: ["egg", {MIRROR_MASTER_ANGLE: true, COLOR: "#000000"}]
-        },
+            POSITION: [14, 0, 0, 0, 360, 1],
+            TYPE: "eyeturret"
+        }
     ]
 }
 Class.moon = {
@@ -73,7 +102,64 @@ Class.moon = {
     SHAPE: 0,
     VARIES_IN_SIZE: false
 }
-
+// EYES
+Class.whiteEyeturret = {
+    LABEL: "",
+    SHAPE: "M 0 -5 m -3 5 a 3 3 0 1 1 6 0 a 3 3 0 0 1 -6 0 z m 3 -5 a 5 5 0 0 0 0 10 a 5 5 0 0 0 0 -10 z",
+};
+Class.eyeShape = {
+    LABEL: "",
+    SHAPE: "M 0.15 -1 C 0 -1.1 0 -1.1 -0.15 -1 C -1 -0.3 -1 0.3 -0.15 0.99 C 0 1.1 0 1.1 0.15 1 C 1 0.3 1 -0.3 0.15 -1",
+}
+Class.eyeturret = {
+    COLOR: 19,
+    LABEL: "",
+    SHAPE: "M 0.15 -1 C 0 -1.1 0 -1.1 -0.15 -1 C -1 -0.3 -1 0.3 -0.15 0.99 C 0 1.1 0 1.1 0.15 1 C 1 0.3 1 -0.3 0.15 -1",
+    TURRETS: [
+        {
+            /*  SIZE     X       Y     ANGLE    ARC */
+            POSITION: [2.3, 0, 0, 0, 360, 1],
+            TYPE: ["whiteEyeturret", {COLOR: "pureWhite"}]
+        },
+    ]
+};
+Class.hwEye = {
+    PARENT: "spectator",
+    COLOR: "red",
+    DRAW_FILL: false,
+    BORDERLESS: true,
+    LAYER: 12,
+    ALPHA: 0.3,
+    LABEL: "",
+    TURRETS: [
+        {
+            /*  SIZE     X       Y     ANGLE    ARC */
+            POSITION: [40, 0, 0, 0, 360, 0],
+            TYPE: ["eyeShape", {COLOR: "pureWhite"}]
+        },
+        {
+            /*  SIZE     X       Y     ANGLE    ARC */
+            POSITION: [20, 0, 0, 0, 360, 1],
+            TYPE: ["genericEntity", {
+                COLOR: "red",
+                BODY: {
+                    FOV: 0.5,
+                },
+                AI: { IGNORE_SHAPES: true, CHASE: true },
+                CONTROLLERS: [["nearestDifferentMaster", {lockThroughWalls: true}]],
+                TURRETS: [
+                    {
+                        /*  SIZE     X       Y     ANGLE    ARC */
+                        POSITION: [12, 2.5, 0, 0, 360, 1],
+                        TYPE: ["genericEntity", {
+                            COLOR: 19,
+                        }]
+                    },
+                ]
+            }]
+        },
+    ]
+}
 // DOMINATORS
 Class.dominator = {
     PARENT: "genericTank",
@@ -105,6 +191,7 @@ Class.dominator = {
         SHIELD: base.SHIELD * 1.4
     },
     CONTROLLERS: ["nearestDifferentMaster", ["spin", { onlyWhenIdle: true }]],
+    AI: { IGNORE_SHAPES: true },
     DISPLAY_NAME: true,
     TURRETS: [
         {
@@ -241,7 +328,7 @@ for (let tier of sancTiers) {
             }, {
                 POSITION: {LENGTH: 1.5, WIDTH: 4, ASPECT: 1.7, X: 12},
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.trap, {shudder: 0.15, health: 7, reload: 1.5, speed: 1.2}]),
+                    SHOOT_SETTINGS: combineStats([g.trap, {shudder: 0.15, health: 7, reload: 1.5, speed: 1}]),
                     TYPE: ["trap", {BODY: {PUSHABILITY: 0.5}}],
                     STAT_CALCULATOR: "trap",
                     AUTOFIRE: true,
@@ -1011,6 +1098,7 @@ Class.rcs = {
 Class.bot = {
     FACING_TYPE: "looseToTarget",
     CONTROLLERS: ["nearestDifferentMaster", "mapAltToFire", "minion", "fleeAtLowHealth", ["mapFireToAlt", { onlyIfHasAltFireGun: true }], ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
+    AI: { IGNORE_SHAPES: true },
 };
 
 // SCORE KEEPING

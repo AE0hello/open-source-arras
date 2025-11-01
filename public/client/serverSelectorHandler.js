@@ -34,7 +34,7 @@ global.loadServerSelector = (serverData, text) => {
       },
     };
 
-    // If you don't want to have a server filter, just don't run this function.
+    // If you dont want have a server filter, just dont run this function.
     initializeFilter();
 
     servers.forEach(async (server) => {
@@ -50,7 +50,7 @@ global.loadServerSelector = (serverData, text) => {
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
-            server.featured && tr.classList.add("featured"); // make the text yellow if it's featured.
+            server.featured && tr.classList.add("featured"); // make the text yellow if its featured.
             tr.onclick = () => {
                 if (myServer.classList.contains("selected")) {
                     myServer.classList.remove("selected");
@@ -119,9 +119,12 @@ let initializeFilter = () => {
             minigames: [],
         }
     }
+    let nvmText = document.createElement("td");
+    nvmText.textContent = "No Server Matches";
+    nvmText.classList.add("tdCenter");
     let noServerMatches = document.createElement("tr");
     noServerMatches.classList.add("message");
-    noServerMatches.appendChild(document.createTextNode("No Server Matches"));
+    noServerMatches.appendChild(nvmText);
     noServerMatches.style.display = "none";
     noServerMatches.style.width = "325px";
     tbody.appendChild(noServerMatches);

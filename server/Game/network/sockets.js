@@ -141,6 +141,8 @@ class socketManager {
                     player.body.invuln = false;
                     player.body.destroy();
                 } else if (player.body.invuln || global.gameManager.arenaClosed) {
+                    // Leave the clan party if clan wars is active
+                    if (Config.CLAN_WARS) Config.CLAN_WARS_FT.remove(player.body);
                     player.body.invuln = false;
                     player.body.kill();
                     player.body.destroy();
@@ -257,6 +259,7 @@ class socketManager {
                 if (typeof autoLVLup !== "number") { socket.kick("Bad spawn request autoLVLup."); return 1; }
                 // Give it the room state and move the camera.
                 if (needsRoom) {
+                    if (Config.hidden) return socket.close(); // If the server is hidden then just kick the client.
                     this.newPlayer(socket);
                     socket.talk(
                         'R',
@@ -275,9 +278,9 @@ class socketManager {
                             active: Config.BLACKOUT,
                             color: Config.BLACKOUT_FOG,
                         }),
-                        Config.RADIAL_MODE,
                         Config.ARENA_TYPE,
                     );
+                    return;
                 }
                 let loop = setInterval(() => {
                     // You can put your code here to prevent players from spawning.
@@ -285,7 +288,6 @@ class socketManager {
                         clearInterval(loop);
                         let epackage = {};
                         epackage.name = name;
-                        epackage.needsRoom = needsRoom;
                         epackage.autoLVLup = autoLVLup;
                         epackage.transferbodyID = transferbodyID;
                         // Easter eggs
@@ -333,9 +335,6 @@ class socketManager {
                 socket.status.receiving = 0;
                 socket.camera.ping = util.time() - time;
                 socket.camera.lastDowndate = util.time();
-                // Schedule a new update cycle
-                // Either fires immediately or however much longer it's supposed to wait per the config.
-                socket.update(Math.max(0, (1000 / 24) - (util.time() - socket.camera.lastUpdate)));
             } break;
             case "C": {
             // command packet
@@ -378,8 +377,6 @@ class socketManager {
                 player.command.mmb = (commands & 32) >> 5;
                 player.command.rmb = (commands & 64) >> 6;
             }
-            // Update the thingy
-            socket.timeout.set(commands);
             } break;
             case "#": {
                 try {
@@ -408,7 +405,7 @@ class socketManager {
                     "autofire",
                     "override",
                     "autoalt",
-                    "spinlock" //spinlock does something both in the client and server side
+                    "spinlock" //spinlock does something both in client and server side
                 ][tog];
     
                 // Kick if it sent us shit.
@@ -524,9 +521,11 @@ class socketManager {
             } break;
             case "H": {
                 if (player.body == null) return 1;
-                let entities = [];
+                let ent = [];
                 let body = player.body;
-                for (let e of entities.values()) entities.push(e);
+                for (let e of entities.values()) {
+                    if (e.isDominator || e.isMothership) ent.push(e);
+                }
                 body.emit("control", { body });
                 if (body.underControl) {
                     let relinquishedControlMessage = 
@@ -540,7 +539,7 @@ class socketManager {
                     }
                 }
                 if (Config.MOTHERSHIP) {
-                    let motherships = entities
+                    let motherships = ent
                         .map((entry) => {
                             if (
                                 entry.isMothership &&
@@ -568,7 +567,7 @@ class socketManager {
                     player.body.sendMessage("You are now controlling the mothership.");
                     player.body.sendMessage("Press F to relinquish control of the mothership.");
                 } else if (Config.DOMINATION) {
-                    let dominators = entities.map((entry) => {
+                    let dominators = ent.map((entry) => {
                         if (entry.isDominator && entry.team === player.body.team && !entry.underControl) return entry;
                     }).filter(x=>x);
                     if (!dominators.length) {
@@ -631,11 +630,11 @@ class socketManager {
             } break;
             case "T": {
                 // send the upgrade tree mockups
-                if (player.body && socket.status.lastTank != player.body.index) {
+                if (player.body) {
                     socket.status.lastTank = player.body.index;
                     this.sendMockup(player.body.index, socket);
-                    for (let i of player.body.index.split("-")) {
-                        let ind = parseInt(i);
+                    for (let i of player.body.rerootUpgradeTree.split("_")) {
+                        let ind = Class[i].index;
                         let mockup = mockupData.find(o => o.index === `${ind}`);
                         if (!mockup) {
                             let e = this.generateMockup(ind);
@@ -977,7 +976,6 @@ class socketManager {
 
     initalizePlayer(epackage, socket) {
         let name = epackage.name;
-        let needsRoom = epackage.needsRoom;
         let autoLVLup = epackage.autoLVLup;
         let transferbodyID = epackage.transferbodyID;
         let eastereggs = {
@@ -1014,7 +1012,6 @@ class socketManager {
             }
         }
         if (spawn) {
-            if (needsRoom && Config.hidden) return socket.close();
             socket.player = socket.spawn(name);
             setTimeout(() => { // Give the entity a small time to prepare.
                 // Trigger easter eggs if needed.
@@ -1039,14 +1036,14 @@ class socketManager {
                 }
             }
         }
-        // Start the update rhythm immediately
-        socket.update(0);
         // Log it 
-        util.log(`[INFO] [${global.gameManager.name}] ${name == "" ? "An unnamed player" : name} ${needsRoom ? "joined" : "rejoined"} the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
+        util.log(`[INFO] [${global.gameManager.name}] ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
+        // Stop the timeout
+        socket.timeout.stop();
     }
     newPlayer(socket) {
         let { player, loc } = this.getSpawnLocation(socket.rememberedTeam);
-        // Save the player (temporarily as we are still connecting.)
+        // Save the the player (temporaily as we are still connecting.)
         player.socket = socket;
         // Focus on the new location
         socket.camera.x = loc.x;
@@ -1056,10 +1053,14 @@ class socketManager {
         socket.rememberedTeam = player.team; // Save team
         socket.player.loc = loc;
     } 
-    getSpawnLocation(rememberedTeam) {
+    getSpawnLocation(rememberedTeam, name) {
         let player = {},
             loc = {};
         player.team = rememberedTeam;
+        if (Config.CLAN_WARS && name) {
+            Config.CLAN_WARS_FT.add(name);
+            return { player: Config.CLAN_WARS_FT.getPlayerInfo(name), loc: Config.CLAN_WARS_FT.getSpawn(name) };
+        }
         if (Config.MODE == "tdm" || Config.TAG) {
             let team = getWeakestTeam(global.gameManager);
             // Choose from one of the least ones
@@ -1072,8 +1073,8 @@ class socketManager {
         return { player, loc };
     }
     spawn = (socket, name) => {
-        let { player, loc } = this.getSpawnLocation(socket.rememberedTeam);
-        if (socket.player.loc && !global.spawnPoint) loc = socket.player.loc;
+        let { player, loc } = this.getSpawnLocation(socket.rememberedTeam, name);
+        if (socket.player.loc && !global.spawnPoint && !Config.CLAN_WARS) loc = socket.player.loc;
         // Create and bind a body for the player host
         let body;
         const filter = this.disconnections.filter(r => r.ip === socket.ip && r.body && !r.body.isDead());
@@ -1097,7 +1098,7 @@ class socketManager {
                 socket.talk("z", body.nameColor);
             }
             body.become(player); // become it so it can speak and listen.
-            socket.spectateEntity = null; // don't break the camera.
+            socket.spectateEntity = null; // Dont break the camera.
             body.invuln = true;
         }
         player.body = body;
@@ -1105,7 +1106,7 @@ class socketManager {
         body.hasOperator = socket.status.hasOperator;
         // Decide how to color and team the body
         switch (Config.MODE) {
-            case "tdm": {
+            case 'tdm': {
                 body.team = player.team;
                 body.color.base = global.getTeamColor(player.body.team);
                 socket.rememberedTeam = body.team;
@@ -1116,10 +1117,34 @@ class socketManager {
                 socket.rememberedTeam = body.team;
                 Config.TAG_DATA.addPlayer(body);
             } break;
+            case 'clan': {
+                body.team = player.team;
+                body.originalName = body.name;
+                body.clan = player.clan;
+                body.color.base = getTeamColor(TEAM_RED);
+                socket.rememberedTeam = body.team;
+                Config.CLAN_WARS_FT.add(name, body);
+                if (!body.clan) {
+                    let loop = setInterval(() => {
+                    for (let e of Config.CLAN_WARS_FT.getClans()) {
+                            if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
+                                clearInterval(loop);
+                            } else body.team = getRandomTeam();
+                        }
+                    })
+                }
+            } break;
             default: {
-                body.team = -Math.floor(Math.random() * 2000) + 1;
+                body.team = getRandomTeam();
                 body.color.base = Config.RANDOM_COLORS ? 
                     ran.choose([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]) : getTeamColor(TEAM_RED);
+                let loop = setInterval(() => {
+                    for (let e of entities.values()) {
+                        if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
+                            clearInterval(loop);
+                        } else body.team = getRandomTeam();
+                    }
+                })
             }
         }
         this.preparePlayer(socket, player, body);
@@ -1128,7 +1153,7 @@ class socketManager {
 
     preparePlayer(socket, player, body, doNotTakeAction = {}) {
         // Decide what to do about colors when sending updates and stuff
-        player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
+        player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
         // Set up the targeting structure
         player.target = { x: 0, y: 0 };
         // Set up the command structure
@@ -1163,7 +1188,7 @@ class socketManager {
         }
         // Set up the player's gui
         player.gui = this.newgui(player);
-        // Save the player
+        // Save the the player
         player.socket = socket;
         this.players.push(player);
         // Focus on the new player
@@ -1182,6 +1207,8 @@ class socketManager {
         }
         // Move the client camera
         socket.talk("c", socket.camera.x, socket.camera.y, socket.camera.fov);
+        // Mark it so the server gives broadcast.
+        socket.status.readyToBroadcast = true;
     }
 
     flatten(data) {
@@ -1199,7 +1226,7 @@ class socketManager {
                 /*  9 */ data.direction,
                 /* 10 */ data.offset,
                 /* 11 */ data.mirrorMasterAngle,
-            );            
+            );
         } else if (data.type & 0x10) {
             output.push(
                 /*  1 */ data.id,
@@ -1263,7 +1290,7 @@ class socketManager {
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
                 // Set the proper color if it's on our team and decide what to do about colors when sending updates and stuff
-                player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
+                player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
                 // And make it force to our mouse if it ought to
                 if (player.command.autospin) {
                     data[10] = 1;
@@ -1271,7 +1298,7 @@ class socketManager {
             }
             if (
                 player.body.team === e.source.team &&
-                (Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG))
+                (Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG))
             ) {
                 // GROUPS
                 data = data.slice();
@@ -1289,7 +1316,7 @@ class socketManager {
         if (find) {
             // This function generates the mockup.
             buildMockup(find, global.gameManager);
-            // Okay, now we are able to find it without any problems.
+            // Okay now we are able to find it without any problems.
             mock = mockupData.find(o => o.index === `${index}`);
         } else mock = null;
 
@@ -1300,7 +1327,7 @@ class socketManager {
         for (let splittedIndex of index.toString().split("-")) {
             if (socket.status.mockupData.receivedIndexes.includes(splittedIndex)) continue; // Do NOT continue if we have the mockup already.
 
-            let index = parseInt(splittedIndex); // Parse it, without this won't work for some reason.
+            let index = parseInt(splittedIndex); // Parse it, without this wont work for some reason.
             // Now we need to find the mockup.
             let mockup = mockupData.find(o => o.index === `${index}`);
             if (!mockup) { // If not, then make one.
@@ -1311,15 +1338,15 @@ class socketManager {
             socket.talk("M", index, JSON.stringify(mockup));
             // Also push it to the socket's status so we know it.
             socket.status.mockupData.receivedMockups.push(mockup);
-            // Push the index so the function doesn't run a thousands of times.
+            // Push the index so the function doesnt run a thousens of times.
             socket.status.mockupData.receivedIndexes.push(splittedIndex);
             // Now we need the turret mockups.
             for (let turrets of mockup.turrets) {
-                // Run the same function, but it targets the turret mockups.
+                // Run the same function but it targets the turret mockups.
                 this.sendMockup(turrets.index, socket);
             }
             if (mockup.sendAllMockups) { // Send all of its upgrades if needed to prevent bugs.
-                // Target upgrades
+                // Target the upgrades
                 for (let upgrades of mockup.upgrades) {
                     for (let i of upgrades.index.split("-")) { // Split the indexes.
                         this.sendMockup(i, socket);
@@ -1368,10 +1395,6 @@ class socketManager {
                 logs.network.set();
                 // If nothing has changed since the last update, wait (approximately) until then to update
                 let lastCycle = global.gameManager.room.lastCycle;
-                if (lastCycle === socket.camera.lastUpdate) {
-                    socket.update(5 + global.gameManager.room.cycleSpeed - util.time() + lastCycle);
-                    return 1;
-                }
                 // else update it.
                 socket.camera.lastUpdate = lastCycle;
                 // Receive it!
@@ -1385,15 +1408,19 @@ class socketManager {
                     // If we are dead, then let the client know.
                     if (player.body.isDead()) {
                         let purge = () => player.body = null; // Remove our bonded body.
-                        if (player.body.store && player.body.store.dragInterval) { // If we are still dragging an entity, clear it and delete it.
+                        if (player.body.store && player.body.store.dragInterval) { // If we are still dragging a entity, clear it and delete it.
                             clearInterval(player.body.store.dragInterval);
                             delete player.body.store.dragInterval;
                         }
                         let die = () => { // The only reason this exist is because of bacteria's abilities.
                             socket.status.deceased = true;
+                            // Leave the clan party if clan wars is active
+                            if (Config.CLAN_WARS) Config.CLAN_WARS_FT.remove(player.body);
                             // Let the client know it died
                             socket.talk("F", ...player.records());
                             purge(); // Call the function so it can remove the body.
+                            // Start the timeout
+                            socket.timeout.start();
                         }
                         if (player.body.master.label == "Bacteria") { // Why not trigger bacteria's abilities :)
                             let exit = () => die();
@@ -1416,7 +1443,7 @@ class socketManager {
                         player.viewId = player.body.id;
                     }
                 } 
-                if (player.body == null) { // if we have nobody, then u dead bro.
+                if (player.body == null) { // if we have no body, then u dead bro.
                     fovNow = 2000;
                     camera.scoping = false; // No scoping bugs!
                     if (socket.spectateEntity != null) { // If we want to spectate someone, we spectate it.
@@ -1426,8 +1453,8 @@ class socketManager {
                         }
                     }
                 }
-                // The only reason this exists is that the client is smoothing to its updated fov, and so the server does it the same.
-                camera.fov += (fovNow - camera.fov) / 30;
+                // The only reason this exists is because the client is smoothing to its updated fov, and so server does it the same.
+                camera.fov += Math.max((fovNow - camera.fov) / 30, fovNow - camera.fov);
 
                 // Grab entities that we can see
                 if (camera.lastUpdate - lastVisibleUpdate > Config.visibleListInterval) {
@@ -1527,16 +1554,6 @@ class socketManager {
                         ...view
                     );
                 }
-                 // Queue up some for the front util.log if needed
-                if (socket.status.receiving < 1) {
-                    socket.update(Math.max(
-                        0,
-                        (1000 / 24) - (camera.lastDowndate - camera.lastUpdate), 
-                        camera.ping / 1
-                    ));
-                } else {
-                    if (!updateCam) socket.update(0);
-                }
                 logs.network.mark();
             },
         };
@@ -1629,11 +1646,11 @@ class socketManager {
                         Math.round(entry.skill.score),
                         entry.index,
                         entry.name,
-                        color,
+                        entry.leaderboardColor ? color : Config.MODE == 'ffa' && !Config.TAG ? '12 0 1 0 false' : color,
                         color,
                         entry.nameColor || "#FFFFFF",
                         entry.label,
-                        entry.settings.renderOnLeaderboard,
+                        entry.settings.renderOnLeaderboard ?? true,
                     ],
                 });
                 list.splice(top, 1);
@@ -1708,7 +1725,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG) ? '10 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG) ? '10 0 1 0 false' : my.color.compiled,
                         ],
                     });
                 }
@@ -1723,7 +1740,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG) ? '12 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG) ? '12 0 1 0 false' : my.color.compiled,
                         ],
                     });
                 }
@@ -1848,7 +1865,7 @@ class socketManager {
                 
                 // Send the leaderboard tanks' mockups
                 if (global.gameManager.gameHandler.active) {
-                    for (let e of globalLeaderboard.now) {
+                    for (let e of getLeaderboard.now) {
                         this.sendMockup(e.data[1], socket);
                     }
                 }
@@ -1957,7 +1974,7 @@ class socketManager {
         });
         socket.initMockupList = () => {
             return {
-                receivedIndexes: [], // The only reason why this exist is that to prevent lags from the socket gazeUpon, You can find it out by removing this.
+                receivedIndexes: [], // The only reason why this exist is because to prevent lags from the socket gazeUpon, You can find it out by removing this.
                 receivedMockups: [],
                 receivedUpgradePackMockups: [],
                 requestMockups: [],
@@ -1965,16 +1982,15 @@ class socketManager {
         }
         socket.messageManager = socket.on("message", message => this.incoming(message, socket));
         socket.connectedTo = global.gameManager.name;
-        let mem = 0;
         let timer = 0;
         socket.timeout = {
             check: (time) => timer && time - timer > Config.maxHeartbeatInterval,
-            set: (val) => {
-                if (mem !== val) {
-                    mem = val;
-                    timer = performance.now();
-                }
+            start: () => {
+                timer = performance.now();
             },
+            stop: () => {
+                timer = 0;
+            }
         };
         socket.awaiting = {};
         socket.awaitResponse = function (options, callback) {
@@ -2008,6 +2024,7 @@ class socketManager {
             seesAllTeams: false,
             readyToSpawn: true,
             hasOperator: false,
+            readyToBroadcast: false,
             mockupData: socket.initMockupList(),
             lastHeartbeat: util.time(),
         };  
@@ -2042,11 +2059,6 @@ class socketManager {
         // Set up the viewer
         socket.makeView = () => { socket.view = this.eyes(socket); };
         socket.makeView();
-        // And make an update
-        socket.update = time => {
-            socket.loops.cancelUpdate();
-            socket.loops.setUpdate(setTimeout(() => { socket.view.gazeUpon(); }, time));
-        };
 
         // Account for proxies
         // Very simplified reimplementation of what the forwarded-for npm package does

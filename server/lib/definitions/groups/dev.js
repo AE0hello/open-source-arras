@@ -1441,7 +1441,7 @@ Class.ihdtiBolt3 = {
 }
 Class.itHurtsDontTouchIt = {
     PARENT: "genericFlail",
-    LABEL: "It hurts don't touch it",
+    LABEL: "It hurts dont touch it",
     DANGER: 7,
     TURRETS: [{
         POSITION: [6, 10, 0, 0, 190, 0],

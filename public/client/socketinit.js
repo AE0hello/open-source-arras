@@ -6,7 +6,6 @@ window.fakeLagMS = 0;
 var sync = [];
 var clockDiff = 0;
 var serverStart = 0;
-var startedSync = false;
 let levelscore = 0;
 let deduction = 0;
 let level = 1;
@@ -51,7 +50,7 @@ gui = {
     playerid: -1,
     __s: {
         setScore: d => {
-            sscore.set(d);
+            d ? (sscore.set(d), deduction > sscore.get() && (deduction = level = 0)) : (levelscore = 3, deduction = level = 0, sscore = util.AdvancedSmoothBar(0, 2))
         },
         setKills: (solo, assists, bosses) => {
             kills = [solo, assists, bosses];
@@ -270,7 +269,6 @@ const Leaderboard = class {
         };
     }
     update(elements) {
-        global.loggers.processLeaderboard.set();
         elements.sort((a, b) => b.score - a.score);
         for (let value of Object.values(this.entries)) value.old = true;
         for (let element of elements)
@@ -278,7 +276,6 @@ const Leaderboard = class {
             else this.entries[element.id] = new Entry(element);
         for (let [id, value] of Object.entries(this.entries))
             if (value.old) delete this.entries[id];
-        global.loggers.processLeaderboard.mark();
     }
 };
 let minimapAllInt = new Integrate(5),
@@ -440,8 +437,7 @@ function Status() {
 }
 // Make a converter
 const process = (z = {}) => {
-    global.loggers.processEntities.set();
-    let isNew = z.facing == null; // For whatever reason, arguments.length is uglified poorly...
+    let isNew = z.facing == null; // For whatever reason arguments.length is uglified poorly...
     // Figure out what kind of data we're looking at
     let type = get.next();
     // Handle it appropiately
@@ -460,7 +456,7 @@ const process = (z = {}) => {
     } else { // issa something real
         z.interval = global.metrics.rendergap;
         z.id = get.next();
-        // Determine if this is a new entity or if we already know about it
+        // Determine if this is an new entity or if we already know about it
         let i = global.entities.findIndex(x => x.id === z.id);
         if (i !== -1) {
             // remove it if needed (this way we'll only be left with the dead/unused entities)
@@ -620,7 +616,6 @@ const process = (z = {}) => {
             tur = process(tur);
         }
     }
-    global.loggers.processEntities.mark();
     // Return our monsterous creation
     return z;
 };
@@ -793,7 +788,6 @@ const protocols = {
     "https:": "wss://"
 };
 let incoming = async function(message, socket) {
-    global.loggers.socketMaster.set();
     await new Promise(Resolve => setTimeout(Resolve, window.fakeLagMS));
     // Make sure it looks legit.
     global.bandwidth.currentFa += message.data.byteLength;
@@ -819,9 +813,8 @@ let incoming = async function(message, socket) {
 
 
             case 'w': { // welcome to the game
-                if (m[0]) { // Ask to spawn
-                    socket.talk('s', global.playerName, 1, 1 * config.game.autoLevelUp, global.bodyID ? global.bodyID : false);
-                    global.bodyID = undefined;
+                if (m[0]) { // Ask to get the room data first
+                    socket.talk('s', "", 1, 0, false);
                 }
             }; break;
             case 'R': { // room setup
@@ -836,8 +829,9 @@ let incoming = async function(message, socket) {
                 let blackoutData = JSON.parse(m[5]);
                 global.advanced.blackout.active = blackoutData.active;
                 global.advanced.blackout.color = blackoutData.color;
-                global.advanced.radial = m[6];
-                global.advanced.roundMap = m[7] == "circle" ? true : false;
+                global.advanced.roundMap = m[6] == "circle" ? true : false;
+                // Start syncing
+                socket.talk('S', getNow());
             } break;
             case "r": {
                 global.gameWidth = m[0];
@@ -878,30 +872,43 @@ let incoming = async function(message, socket) {
                     delta: delta,
                     latency: laten,
                 });
-                // Do it again a couple of times
+                // Do it again a couple times
                 if (sync.length < 10) {
                     // Erase entities if resync is needed.
                     if (startSettings.neededtoresync) global.entities = [];
                     // Wait a bit just to space things out
-                    setTimeout(() => { socket.talk('S', Date.now() - clockDiff - serverStart) }, 25);
+                    setTimeout(() => socket.talk('S', getNow()), 10);
                 } else {
                     // Calculate the clock error
-                    sync.sort((b, a) => b.latency - a.latency);
-                    let a = sync[Math.floor(sync.length / 2)].latency,
-                        d = Math.sqrt(sync.map(b => b.latency -
-                            a).map(b => b * b).reduce((b, a) => b + a, 0) / sync.length);
-                    delta = sync.filter(b => Math.abs(b.latency - a) < d).map(b => b.delta);
-                    clockDiff = Math.round(delta.reduce((b, a) => b + a, 0) / delta.length);
+                    sync.sort((e, f) => e.latency - f.latency);
+                    let median = sync[Math.floor(sync.length / 2)].latency;
+                    let sd = 0,
+                        sum = 0,
+                        valid = 0;
+                    for (let e of sync) {
+                        sd += Math.pow(e.latency - median, 2);
+                    }
+                    sd = Math.sqrt(sd / sync.length);
+                    for (let e of sync) {
+                        if (Math.abs(e.latency - median) < sd) {
+                            sum += e.delta;
+                            valid++;
+                        }
+                    }
+                    clockDiff = Math.round(sum / valid);
                     if (startSettings.neededtoresync) {
                         startSettings.neededtoresync = false;
                         startSettings.allowtostartgame = true;
                         global.pullSkillBar = false;
                         global.pullUpgradeMenu = false;
-                        socket.talk("NWB"); // Ask for a new broadcast.
+                        socket.talk("NWB"); // Ask for new broadcast.
                     }
-                    global.gameUpdate = true;
                     global.metrics.rendertimes = 1;
                     util.pullTotalPlayers();
+                    global.gameUpdate = true;
+                    // Now we can ask for spawn.
+                    socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, global.bodyID ? global.bodyID : false);
+                    global.bodyID = undefined;
                 }
             } break;
         case 'm': { // message
@@ -996,9 +1003,6 @@ let incoming = async function(message, socket) {
             socket.talk('d', Math.max(global.player.lastUpdate, camtime));
             socket.cmd.talk();
             global.updateTimes++; // metrics
-
-            // Start the syncing process
-            if (!global.gameUpdate && !startedSync) startedSync = true, socket.talk('S', getNow());
         } break;
         case 'T': {
             global.generateTankTree = true;
@@ -1175,7 +1179,6 @@ let incoming = async function(message, socket) {
             }
         } break;
     };
-    global.loggers.socketMaster.mark();
 }
 const socketInit = () => {
     window.resizeEvent();
@@ -1288,7 +1291,6 @@ global.resetSocket = () => {
     minimapTeamInt.elements = {};
     leaderboard.entries = {};
     leaderboardInt.reset();
-    startedSync = false;
     global.socket = [];
 };
 
@@ -1307,7 +1309,6 @@ global.reconnectSocket = () => {
     minimapTeamInt.elements = {};
     leaderboard.entries = {};
     leaderboardInt.reset();
-    startedSync = false;
     global.socket = [];
     global.socket = socketInit();
 }

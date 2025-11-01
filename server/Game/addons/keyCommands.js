@@ -336,10 +336,13 @@ function init() {
                 let walling = targetEntities(player, o => o.type === "wall");
                 if (walling.length) {
                     let o = walling[0];
+                    for (let tur of o.turrets.values()) tur.destroy();
+                    o.turrets.clear();
                     if (o.walltype === 7) {
+                        let size = o.SIZE;
                         o.walltype = 1;
-                        o.color.base = global.wallTypes[0].color;
-                        o.label = global.wallTypes[0].label;
+                        o.define("wall");
+                        o.SIZE = size;
                         return;
                     }
                     if (o.walltype === global.wallTypes.length) o.walltype = 0;
@@ -696,19 +699,19 @@ function init() {
                 let selected = selectPlayer(player);
                 if (selected && selected.socket) {
                     const perms = selected.socket.permissions || {};
-                    if (perms && perms.FullOPperms) {
+                    if (perms && perms.level > 5) {
                         socket.talk("m", 5_000, "You cannot ban this player!");
                         return;
                     }
                     let type = player.body.store.banCommandType ?? 0;
-                    let name = (selected.body && selected.body.name ? selected.body.name.trim() : "unnamed");
+                    let name = selected.name ? selected.name.trim() : "unnamed";
+                    let typeName = typeNames[type][1];
+                    socket.talk("m", 5_000, `${typeName.charAt(0).toUpperCase() + typeName.slice(1)} banned ${name}.`);
                     if (type === 1) {
                         selected.socket.ban("Banned by operator.");
                     } else {
                         selected.socket.permaban("Permanently banned by operator.");
                     }
-                    let typeName = typeNames[type][1];
-                    socket.talk("m", 5_000, `${typeName.charAt(0).toUpperCase() + typeName.slice(1)} banned ${name}.`);
                 } else {
                     player.body.store.banCommandType = (player.body.store.banCommandType ?? -1) + 1;
                     if (player.body.store.banCommandType >= types) player.body.store.banCommandType = 0;
@@ -842,6 +845,6 @@ function init() {
 }
 
 
-// If you don't want to add the key commands, just uncomment the return line.
+// If you dont want to add the key commands, just uncomment the return line.
 // return;
 init();

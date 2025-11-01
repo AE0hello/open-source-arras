@@ -6,7 +6,7 @@ const { makeRarities, makePresent } = require("../facilitators");
 Class.egg = {
     PARENT: "food",
     LABEL: "Egg",
-    VALUE: 10,
+    VALUE: 5,
     SHAPE: 0,
     SIZE: 4.5,
     COLOR: "veryLightGrey",
@@ -391,23 +391,29 @@ Class.tesseract = {
 };
 
 // LABY
-let polyNames = [ "egg", "square", "triangle", "pentagon", "hexagon" ],
-    shinyNames = [ "", "shiny", "legendary", "shadow", "rainbow", "trans" ];
+let polyNames = ['egg', 'square', 'triangle', 'pentagon', 'hexagon'],
+    shinyNames = ['', 'shiny', 'legendary', 'shadow', 'rainbow', 'trans'];
 for (let tier = 0; tier < 6; tier++) {
     for (let poly in polyNames) {
-
         let polyName = polyNames[poly];
         polyName = polyName[0].toUpperCase() + polyName.slice(1);
 
         for (let shiny in shinyNames) {
-
             let shinyName = shinyNames[shiny];
             let food = shinyName + polyName;
             food = food[0].toLowerCase() + food.slice(1);
 
-            Class[`laby_${poly}_${tier}_${shiny}_0`] = makeLaby(Class[food], tier, (polyName === "Triangle" && tier > 0) ? 2/3 : 1);
+            Class[`laby_${poly}_${tier}_${shiny}_0`] = makeLaby(
+                Class[food],
+                parseInt(poly),
+                parseInt(shiny),
+                tier,
+                polyName === 'Triangle' && tier > 0 ? 2 / 3 : 1
+            );
 
-            Class[`laby_${poly}_${tier}_${shiny}_1`] = makeCrasher(Class[`laby_${poly}_${tier}_${shiny}_0`]);
+            Class[`laby_${poly}_${tier}_${shiny}_1`] = makeCrasher(
+                Class[`laby_${poly}_${tier}_${shiny}_0`]
+            );
         }
     }
 }

@@ -472,7 +472,7 @@ exports.makeTurret = (type, options = {}) => {
     - canRepel: whether or not the auto turret can fire backwards with secondary fire
     - limitFov: whether or not the auto turret should bother to try to limit its FOV arc
     - hasAI: whether or not the auto turret can think and shoot on its own
-    - extraStats: array of stats to append onto the shoot settings of all the turret's guns
+    - extraStats: array of stats to append onto the shoot settings of all of the turret's guns
     - label: turret label
     - color: turret color
     - fov: turret FOV
@@ -833,39 +833,83 @@ exports.makeRare = (type, level) => {
     }
 }
 
-exports.makeLaby = (type, level, baseScale = 1) => {
+const labyTierToHealth = {
+    0: 0.25,
+    1: 10,
+    2: 20,
+    3: 150,
+    4: 300
+};
+
+// not accurate values
+const labyRarityToScore = {
+    1: 5,
+    2: 10,
+    3: 40,
+    4: 100,
+    5: 250
+};
+
+const labyRarityToHealth = {
+    1: 2,
+    2: 4,
+    3: 6,
+    4: 8,
+    5: 10
+};
+
+exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
     type = ensureIsClass(type);
     let usableSHAPE = Math.max(type.SHAPE, 3),
         downscale = Math.cos(Math.PI / usableSHAPE),
-        strengthMultiplier = 5 ** level;
+        healthMultiplier = Math.pow(5, level) - (level > 2 ? Math.pow(5, level) / Math.pow(5, level - 2) : 0);
     return {
-        PARENT: "food",
-        LABEL: ["", "Beta ", "Alpha ", "Omega ", "Gamma ", "Delta "][level] + type.LABEL,
-        VALUE: type.VALUE * strengthMultiplier,
+        PARENT: 'food',
+        LABEL: ['', 'Beta ', 'Alpha ', 'Omega ', 'Gamma ', 'Delta '][level] + type.LABEL,
+        VALUE: util.getReversedJackpot(
+            Math.min(
+                5e6,
+                (tier == 0
+                    ? 30 * (level > 1 ? Math.pow(6, level - 1) : level) + 8
+                    : 30 * Math.pow(5, tier + level - 1)) *
+                    (labyRarityToScore[rarity] || 1)
+            )
+        ),
         SHAPE: type.SHAPE,
-        SIZE: type.SIZE * baseScale / downscale ** level,
+        SIZE: (type.SIZE * baseScale) / downscale ** level,
         COLOR: type.COLOR,
         ALPHA: type.ALPHA ?? 1,
         BODY: {
             DAMAGE: type.BODY.DAMAGE,
             DENSITY: type.BODY.DENSITY,
-            HEALTH: type.BODY.HEALTH * strengthMultiplier,
+            HEALTH:
+                (labyTierToHealth[tier] || 1) *
+                healthMultiplier *
+                (labyRarityToHealth[rarity] || 1),
             PENETRATION: type.BODY.PENETRATION,
-            PUSHABILITY: (type.BODY.PUSHABILITY / (level + 1)) || 0,
-            ACCELERATION: type.BODY.ACCELERATION
+            PUSHABILITY: type.BODY.PUSHABILITY / (level + 1) || 0,
+            ACCELERATION: type.BODY.ACCELERATION,
+            SHIELD: 1e-9,
+            REGEN: 1e-18
         },
         INTANGIBLE: type.INTANGIBLE,
         VARIES_IN_SIZE: false,
-        DRAW_HEALTH: type.DRAW_HEALTH,
+        DRAW_HEALTH: type.DRAW_HEALTH && tier != 0,
         GIVE_KILL_MESSAGE: type.GIVE_KILL_MESSAGE || level > 1,
         GUNS: type.GUNS ?? [],
         TURRETS: type.TURRETS ?? [],
         PROPS: Array(level).fill().map((_, i) => ({
-            POSITION: [20 * downscale ** (i + 1), 0, 0, !(i & 1) ? 180 / usableSHAPE : 0, 1],
+            POSITION: [
+                20 * downscale ** (i + 1),
+                0,
+                0,
+                !(i & 1) ? 180 / usableSHAPE : 0,
+                1
+            ],
             TYPE: [type, { COLOR: 'mirror' }]
         }))
     };
-}
+};
 exports.makeRarities = (type) => {
     const ct = type.charAt(0).toUpperCase() + type.slice(1);
     const rarities = ["shiny", "legendary", "shadow", "rainbow", "trans"];
@@ -873,9 +917,6 @@ exports.makeRarities = (type) => {
         const pn = `${rarities[i]}${ct}`;
         Class[pn] = exports.makeRare(`${type}`, [i]);
     }
-}
-exports.calcAspect = (oWidth /*Original*/ , eWidth /*expected*/ ) => {
-    return eWidth / oWidth
 }
 
 //merry Christmas

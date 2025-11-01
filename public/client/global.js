@@ -183,7 +183,6 @@ const global = {
     message: "",
     player: {},
     messages: [],
-    messagesFaded: [],
     mockups: [],
     missingMockup: [missingMockup],
     roomSetup: [],
@@ -221,7 +220,6 @@ const global = {
         mspt: 0,
     },
     advanced: {
-        radial: false,
         roundMap: false,
         blackout: {
             active: false,
@@ -342,8 +340,8 @@ const global = {
         global.entities = [];
         global.roomSetup = [];
         global.messages = [];
-        global.messagesFaded = [];
         global.metrics.latency = [];
+        global.chats = {};
         global.metrics.rendertime = 0;
         global.metrics.rendertimes = 1;
         global.time = 0;
@@ -374,8 +372,8 @@ const global = {
         global.entities = [];
         global.roomSetup = [];
         global.messages = [];
-        global.messagesFaded = [];
         global.metrics.latency = [];
+        global.chats = {};
         global.metrics.rendertime = 0;
         global.metrics.rendertimes = 1;
         global.time = 0;

@@ -1,36 +1,37 @@
 # Client
 ## Additions
-- Added kill bar
-- Added blackout
-- Added radial mode
+- Added Centered minimap
+- Added Optimize mode option to increase performance
 
 ## Changes
-- Leaderboard is more accurate to arras.io
-- Entities will no longer draw outside the minimap
+- Client is now 3x optimized
+- Fixed border themes
+- Fixed FPS and MS not doing anything for a few seconds
 
 # Server
 ## Additions
-- Added sandbox gamemode
-- Added assault gamemode
-- Added space gamemode (WIP)
-- Added train wars gamemode (WIP; you may encounter issues)
-- Added outbreak gamemode
+- Added more assault maps
+- Added train wars gamemode (complete)
+- Added Clan wars
+- Added halloween theme (Enabled on default on this version)
+- Added `UnbindFromMaster()` function to unbind a turret
+- Added wall eyes and halloween eyes
+- Added laby food (Config.LABY_FOOD)
 
 ## Changes
-- Props are no longer handled by the server, except for split upgrades
-- The `entities` list is now a Map
-- `GameManager` is now global
-- The gameManager config settings has been added into config.js
-- Added portal system to travel between servers
-- The tank addon folder has been renamed to `tankAddons`
-
+- Fixed custom walls turrets
+- Fixed tank tree bugs (Almost)
+- Accurated leaderboard
+- Fixed how custom walls are being defined
+- Laby food health is now accurate
+- Made bots smarter, the bots now recognizes the healing tanks and targets their teammates instead
 # Client and Server
 ## Changes
-- Props are handled by the client
 - Overall more optimized
+
+## Removals
+- Radial mode
 
 # NOTE FROM DEVELOPER
 
 The server may stutter; we don't know yet what causes that but we'll try our best to fix it.
-
-The client may lag over time but resizing your window seems to fix it.

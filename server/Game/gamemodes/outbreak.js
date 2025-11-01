@@ -40,10 +40,6 @@ class Outbreak {
         }, 1000)
     }
     start() { this.gameActive = true; };
-
-    redefine(theshit) {
-        global.gameManager = theshit;
-    }
 }
 
 module.exports = { Outbreak };

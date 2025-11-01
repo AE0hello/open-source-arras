@@ -9,7 +9,7 @@
     <meta property="og:image" content="/imgs/round.png">
     <meta property="og:image:width" content="54">
     <meta property="og:image:height" content="54">
-    <title>arras.io</title>
+    <title>Open Source Arras</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700">
     <link rel="stylesheet" href="/main.css" />
     <link rel="icon" type="image/png" sizes="96x96" href="/imgs/round.png">
@@ -30,7 +30,7 @@
         </div>
         <div class="startMenu">
             <div class="startMenuHolder linkHolder">
-                <!--<iframe src="https://discord.com/widget?id=1004907608018264094&theme=dark" width="350" height="350" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>-->
+                <iframe src="https://discord.com/widget?id=1004907608018264094&theme=dark" width="350" height="350" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
             </div>
             <div class="startMenuHolder mainHolder">
             <div class="sliderHolder">
@@ -61,7 +61,7 @@
                     </div>
                     <div id="tabAppearance" class="shadowScroll" style="height: 190px;">
                         <div class="optionsHeader">Themes</div>
-                        <select id="optColors" tabindex="-1">
+                        <select id="optColors" tabindex="-1" onchange="document.getElementById('optCustom').style.display = this.value === 'custom' ? 'block' : 'none'" onfocus="document.getElementById('optCustom').style.display = this.value === 'custom' ? 'block' : 'none'">
                             <option value="normal">Light Colors (by Neph)</option>
                             <option value="dark">Dark Colors (by Neph)</option>
                             <option value="natural">Natural (by Neph)</option>
@@ -96,7 +96,7 @@
                             <option value="neon">Neon Mode</option>
                             <option value="glass">Glass Mode</option>
                         </select>
-                        <input type="hidden" placeholder="Insert Custom Theme" id="optCustom" />
+                        <input style="display: none;" placeholder="Insert Custom Theme" id="optCustom" />
                         <table>
                             <tr>
                                 <td><div><label class="container"><input id="optSharpEdges" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Sharp Edges</label></div></td>
@@ -141,6 +141,9 @@
                                 <td><div><label class="container"><input id="optPredictAnim" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Predict Animations</label></div></td>
                                 <td><div><label class="container"><input id="optLerpAnim" tabindex="-1" title="Smoothing animation" class="checkbox" type="checkbox"><span class="checkmark"></span>Lerp Animations</label></div></td>
                             </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optOptimizeMode" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Optimize mode</label></div></td>
+                            </tr>
                         </table>
                         <div class="optionsHeader">Miscellaneous</div>
                         <table>
@@ -151,6 +154,9 @@
                             <tr>
                                 <td><div><label class="container"><input id="optSlowerFOV" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Slower FOV animation</label></div></td>
                                 <td><div><label class="container"><input id="optFullHD" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Full HD</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optCenterMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Centered Minimap</label></div></td>
                             </tr>
                         </table>
                         <table>

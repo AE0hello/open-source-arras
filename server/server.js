@@ -88,6 +88,7 @@ server = require("http").createServer((req, res) => {
                     players: server.players,
                     maxPlayers: server.maxPlayers,
                     id: server.id,
+                    featured: server.featured,
                     region: server.region,
                     gameMode: server.gameMode,
                 }))
@@ -172,7 +173,7 @@ server = require("http").createServer((req, res) => {
 });
 
 // Loads a game server
-function loadGameServer(loadViaMain = false, host, port, gamemode, region, webProperties, properties) {
+function loadGameServer(loadViaMain = false, host, port, gamemode, region, webProperties, properties, isFeatured) {
     // Determine the new server index and initialize an empty object in the global servers array
     if (!loadViaMain) {
         let index = global.servers.length;
@@ -186,7 +187,8 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, webPr
                 gamemode,
                 region,
                 webProperties,
-                properties
+                properties,
+                isFeatured
             }
         });
 
@@ -216,7 +218,7 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, webPr
                 process.exit(1);
             }
             global.launchedOnMainServer = true;
-            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, webProperties, properties, false);
+            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, webProperties, properties, isFeatured, false);
         }, 10)
     }
 }
@@ -244,15 +246,16 @@ global.onServerLoaded = () => {
 // Start the HTTP Server & Load Game Servers
 server.listen(Config.port, () => {
     Config.SERVERS.forEach(server => {
-        // Load all the servers.
+        // Load all of the servers.
         loadGameServer(
-            server.LOAD_ON_MAINSERVER, 
+            server.LOAD_ON_MAINSERVER,
             server.HOST,
             server.PORT,
-            server.GAMEMODE, 
-            server.REGION, 
-            { id: server.SERVER_ID, maxPlayers: server.MAX_PLAYERS }, 
-            server.PROPERTIES
+            server.GAMEMODE,
+            server.REGION,
+            { id: server.SERVER_ID, maxPlayers: server.MAX_PLAYERS },
+            server.PROPERTIES,
+            server.FEATURED
         );
     })
 });

@@ -8,14 +8,6 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    global.loggers = {
-        processEntities: new util.logger(),
-        renderedEntities: new util.logger(),
-        processMinimap: new util.logger(),
-        processLeaderboard: new util.logger(),
-        master: new util.logger(),
-        socketMaster: new util.logger(),
-    };
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -139,6 +131,7 @@ import * as socketStuff from "./socketinit.js";
             }
         }
     }
+
     window.onload = async () => {
         // Prepare the server selector
         global.serverMap = {};
@@ -168,6 +161,8 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("optPointy");
         util.retrieveFromLocalStorage("optPredictAnim");
         util.retrieveFromLocalStorage("optLerpAnim");
+        util.retrieveFromLocalStorage("optOptimizeMode");
+        util.retrieveFromLocalStorage("optCenterMinimap");
         util.retrieveFromLocalStorage("optBorders");
         util.retrieveFromLocalStorage("optNoGrid");
         util.retrieveFromLocalStorage("optRenderKillbar");
@@ -330,7 +325,7 @@ import * as socketStuff from "./socketinit.js";
                 e !== g &&
                     (buttonTabs.children[e].classList.remove("active"), // Remove the active class
                         buttonTabs.children[g].classList.add("active"), // Add the clicked active class
-                        (tabOptions[e].style.display = "none"), // don't display the old menu.
+                        (tabOptions[e].style.display = "none"), // Dont display the old menu.
                         (tabOptions[g].style.display = "block"), // Display the menu.
                         (e = g))
             });
@@ -341,7 +336,7 @@ import * as socketStuff from "./socketinit.js";
     tabOptionsMenuSwitcher();
 
     // Prepare canvas
-   function resizeEvent() {
+    function resizeEvent() {
         let scale = window.devicePixelRatio;
         if (config.graphical.lowResolution) {
             scale *= 0.5;
@@ -476,13 +471,9 @@ import * as socketStuff from "./socketinit.js";
     function parseTheme(string) {
         // Decode from base64
         try {
-            let stripped = string.replace(/\s+/g, '');
-            if (stripped.length % 4 == 2)
-                stripped += '==';
-            else if (stripped.length % 4 == 3)
-                stripped += '=';
+            var stripped = string.replace(/\s+/g, "");
+            2 == stripped.length % 4 ? (stripped += "==") : 3 == stripped.length % 4 && (stripped += "=");
             let data = atob(stripped);
-
             let name = 'Unknown Theme',
                 author = '';
             let index = data.indexOf('\x00');
@@ -532,15 +523,13 @@ import * as socketStuff from "./socketinit.js";
                 border,
             }
             return { name, author, content };
-        } catch (e) { }
-
+        } catch { }
         // Decode from JSON
         try {
             let output = JSON.parse(string);
             if (typeof output !== 'object')
                 return null;
             let { name = 'Unknown Theme', author = '', content } = output;
-
             for (let colorHex of [
                 content.teal,
                 content.lgreen,
@@ -566,7 +555,6 @@ import * as socketStuff from "./socketinit.js";
             ]) {
                 if (!/^#[0-9a-fA-F]{6}$/.test(colorHex)) return null;
             }
-
             return {
                 name: (typeof name === 'string' && name) || 'Unknown Theme',
                 author: (typeof author === 'string' && author) || '',
@@ -629,6 +617,7 @@ import * as socketStuff from "./socketinit.js";
             sa.appendChild(d)
         }
     }
+
     function loadSettings() {
         config.graphical.fancyAnimations = document.getElementById("optFancy").checked;
         config.graphical.predictAnimations = document.getElementById("optPredictAnim").checked;
@@ -636,6 +625,7 @@ import * as socketStuff from "./socketinit.js";
         config.graphical.smoothcamera = document.getElementById("smoothCamera").checked;
         config.graphical.pointy = document.getElementById("optPointy").checked;
         config.game.autoLevelUp = document.getElementById("autoLevelUp").checked;
+        config.game.centeredMinimap = document.getElementById("optCenterMinimap").checked;
         config.lag.unresponsive = document.getElementById("optPredictive").checked;
         config.graphical.sharpEdges = document.getElementById("optSharpEdges").checked;
         config.graphical.coloredHealthbars = document.getElementById("coloredHealthbars").checked;
@@ -643,6 +633,7 @@ import * as socketStuff from "./socketinit.js";
         config.graphical.lowResolution = document.getElementById("optLowResolution").checked;
         config.graphical.showGrid = !document.getElementById("optNoGrid").checked;
         config.graphical.slowerFOV = document.getElementById("optSlowerFOV").checked;
+        config.graphical.optimizeMode = document.getElementById("optOptimizeMode").checked;
         // GUI
         global.GUIStatus.renderGUI = document.getElementById("optRenderGui").checked;
         global.GUIStatus.renderLeaderboard = document.getElementById("optRenderLeaderboard").checked;
@@ -654,6 +645,41 @@ import * as socketStuff from "./socketinit.js";
         global.GUIStatus.fullHDMode = document.getElementById("optFullHD").checked;
         global.mobileStatus.enableCrosshair = document.getElementById("showCrosshair").checked;
         global.mobileStatus.showJoysticks = document.getElementById("showJoystick").checked;
+        switch (document.getElementById("optBorders").value) {
+            case "normal":
+                config.graphical.darkBorders = config.graphical.neon = false;
+                break;
+            case "dark":
+                config.graphical.darkBorders = true;
+                config.graphical.neon = false;
+                break;
+            case "glass":
+                config.graphical.darkBorders = false;
+                config.graphical.neon = true;
+                break;
+            case "neon":
+                config.graphical.darkBorders = config.graphical.neon = true;
+                break;
+        }
+        switch (document.getElementById("optMobile").value) {
+            case "desktop":
+                global.mobile = false;
+                break;
+            case "mobileWithBigJoysticks":
+                global.mobileStatus.useBigJoysticks = true;
+                break;
+        }
+        util.submitToLocalStorage("optColors");
+        let a = document.getElementById("optColors").value;
+        color = colors[a === "" ? "normal" : a];
+        if (a == "custom") {
+            let customTheme = document.getElementById("optCustom").value;
+            color = parseTheme(customTheme).content;
+            util.submitToLocalStorage("optCustom");
+        }
+        gameDraw.color = color;
+        gameDraw.colorCache = {};
+        global.refreshMonitorColoring(gameDraw);
     }
 
     function startGame() {
@@ -676,6 +702,8 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("optPointy");
         util.submitToLocalStorage("optPredictAnim");
         util.submitToLocalStorage("optLerpAnim");
+        util.submitToLocalStorage("optOptimizeMode");
+        util.submitToLocalStorage("optCenterMinimap");
         util.submitToLocalStorage("autoLevelUp");
         util.submitToLocalStorage("optMobile");
         util.submitToLocalStorage("optPredictive");
@@ -696,25 +724,6 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("showJoystick");
         util.submitToLocalStorage("optFullHD");
         loadSettings();
-        switch (document.getElementById("optMobile").value) {
-            case "desktop":
-                global.mobile = false;
-                break;
-            case "mobileWithBigJoysticks":
-                global.mobileStatus.useBigJoysticks = true;
-                break;
-        }
-        util.submitToLocalStorage("optColors");
-        let a = document.getElementById("optColors").value;
-        color = colors[a === "" ? "normal" : a];
-        if (a == "custom") {
-            let customTheme = document.getElementById("optCustom").value;
-            color = parseTheme(customTheme).content;
-            util.submitToLocalStorage("optCustom");
-        }
-        gameDraw.color = color;
-        gameDraw.colorCache = {};
-        global.refreshMonitorColoring(gameDraw);
         // Other more important stuff
         let playerNameInput = document.getElementById("playerNameInput");
         let playerKeyInput = document.getElementById("playerKeyInput");
@@ -744,21 +753,11 @@ import * as socketStuff from "./socketinit.js";
         document.getElementById("gameAreaWrapper").style.display = "block";
         document.getElementById("gameCanvas").focus();
         window.onbeforeunload = () => (global.gameStart && !global.died && !global.disconnected ? !0 : null);
-        // Start client if it didn't start yet
+        // Start client if it didnt start yet
         !global.clientStarted && startClient();
-        // Load graphics
-        loadGraphics();
     }
     global.startGame = () => startGame();
     function startClient() {
-        let a = document.getElementById("optColors").value;
-        color = colors[a === "" ? "normal" : a];
-        if (a == "custom") {
-            let customTheme = document.getElementById("optCustom").value;
-            color = parseTheme(customTheme).content;
-            util.submitToLocalStorage("optCustom");
-        }
-        gameDraw.color = color;
         animloop(); // Start the client
         global.clientStarted = true; // Set flag
     }
@@ -966,11 +965,12 @@ import * as socketStuff from "./socketinit.js";
 
     // Text functions
     const fontWidth = "bold";
-    const measureText = (text, fontSize, twod = false) => {
+    function measureText(text, fontSize, withHeight = false) {
         fontSize += config.graphical.fontSizeBoost;
         ctx[2].font = fontWidth + " " + fontSize + "px Ubuntu";
-        return twod ? { width: ctx[2].measureText(text).width, height: fontSize } : ctx[2].measureText(text).width;
-    };
+        let measurement = ctx[2].measureText(arrayifyText(text).reduce((a, b, i) => (i & 1) ? a : a + b, ''));
+        return withHeight ? { width: measurement.width, height: fontSize } : measurement.width;
+    }
 
     // Init stuff
     function arrayifyText(rawText) {
@@ -997,7 +997,7 @@ import * as socketStuff from "./socketinit.js";
         return textArray;
     }
 
-    function drawText(rawText, x, y, size, defaultFillStyle, align = "left", center = false, fade = 1, stroke = true, context = ctx[2], radial = false) {
+    function drawText(rawText, x, y, size, defaultFillStyle, align = "left", center = false, fade = 1, stroke = true, context = ctx[2]) {
         size += config.graphical.fontSizeBoost;
         // Get text dimensions and resize/reset the canvas
         let offset = size / 5,
@@ -1039,11 +1039,8 @@ import * as socketStuff from "./socketinit.js";
         context.strokeStyle = color.black;
         context.fillStyle = defaultFillStyle;
         context.save();
-        radial && context.translate(global.screenWidth / 2, global.screenHeight / 2);
-        radial && context.rotate(Math.atan2(-global.player.renderx, -global.player.rendery));
-        radial && context.translate(global.screenWidth / -2, global.screenHeight / -2);
-        context.lineCap = config.graphical.miterText ? "miter" : "round";
-        context.lineJoin = config.graphical.miterText ? "miter" : "round";
+        context.lineCap = "round";
+        context.lineJoin = "round";
         if (ratio !== 1) {
             context.scale(1 / ratio, 1 / ratio);
         }
@@ -1125,23 +1122,24 @@ import * as socketStuff from "./socketinit.js";
         context.stroke();
     }
 
-    function drawBarStroke(x1, y, width, color, h2, context = ctx[2]) {
-        context.lineWidth = 2.5;
-        context.strokeStyle = color;
-        context.beginPath();
-        context.moveTo(x1, y);
-        context.lineTo(x1 + width, y);
-        context.arc(x1 + width, y + h2 / 2, h2 / 2, -Math.PI / 2, Math.PI / 2);
-        context.lineTo(x1, y + h2);
-        context.arc(x1, y + h2 / 2, h2 / 2, Math.PI / 2, -Math.PI / 2);
-        context.stroke();
+
+    function drawBarStroke(x1, y, width, color, h2) {
+        ctx[2].lineWidth = 2.5;
+        ctx[2].strokeStyle = color;
+        ctx[2].beginPath();
+        ctx[2].moveTo(x1, y);
+        ctx[2].lineTo(x1 + width, y);
+        ctx[2].arc(x1 + width, y + h2 / 2, h2 / 2, -Math.PI / 2, Math.PI / 2);
+        ctx[2].lineTo(x1, y + h2);
+        ctx[2].arc(x1, y + h2 / 2, h2 / 2, Math.PI / 2, -Math.PI / 2);
+        ctx[2].stroke();
     }
 
-    function drawBarAdvanced(x1, x2, y, width, color, h2, context = ctx[2]) {
-        context.beginPath();
-        context.roundRect(x1 - width / 2, y - width / 2, x2 - x1 + width, h2 + width, [width / 2]);
-        context.fillStyle = color;
-        context.fill();
+    function drawBarAdvanced(x1, x2, y, width, color, h2) {
+        ctx[2].beginPath();
+        ctx[2].roundRect(x1 - width / 2, y - width / 2, x2 - x1 + width, h2 + width, [width / 2]);
+        ctx[2].fillStyle = color;
+        ctx[2].fill();
     }
 
     function drawButton(x, y, width, height, alpha, type = "rect", text, textSize, color1, color2, color3, clickable = false, clickType, clickableRatio, index) {
@@ -1186,12 +1184,22 @@ import * as socketStuff from "./socketinit.js";
         if (type == "rect") drawGuiRect(x - width / 2, y, width, height, true);
         else if (type == "bar") drawBarStroke(x - width / 2, y, width, color3 ? color3 : color.black, height);
     }
-    /* NOTE: WebGL will be included in the next beta release of osa */
     // Entity drawing (this is a function that makes a function)
-    const drawEntityCanvas2D = (() => {
+    const drawEntity = (() => {
         let drawPolyImgs = [],
+        DEAIC = (assignedContext, Alpha, shape, glow, gunLength, turretsLength) => { // AKA: Draw entity as image check
+            if (global.gameUpdate && config.graphical.fancyAnimations && Alpha < 1 && assignedContext != ctx2) {
+                if (config.graphical.optimizeMode) {
+                    if (gunLength > 0 || turretsLength > 0 || glow.radius) return true;
+                    return false;
+                } else if (shape !== 0 || gunLength > 0 || turretsLength > 0 || glow.radius) {
+                    return true;
+                }
+            }
+            return false;   
+        },
         // Draw body function, (AKA: drawPoly)
-        drawBody = (context, centerX, centerY, radius, sides, angle = 0, borderless, fill, imageInterpolation) => {
+        drawBody = (context, centerX, centerY, radius, sides, angle = 0, borderless, fill, imageInterpolation, hasGlow = false) => {
             try {
                 // Start drawing
                 context.beginPath();
@@ -1249,10 +1257,30 @@ import * as socketStuff from "./socketinit.js";
                     // Circle
                     let fillcolor = context.fillStyle;
                     let strokecolor = context.strokeStyle;
-                    context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
-                    context.fillStyle = strokecolor;
-                    context.lineWidth *= fill ? 1 : 0.5; // Maintain constant border width
-                    if (!borderless) context.stroke();
+                    let borderRadius = context.globalAlpha < 1 ? 4 : 2;
+                    switch (hasGlow) {
+                        case true:
+                            context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
+                            context.fillStyle = strokecolor;
+                            context.lineWidth *= fill ? 1 : 0.5; // Maintain constant border width
+                            if (!borderless) context.stroke();
+                            break;
+                        default:
+                            context.arc(centerX, centerY, radius + context.lineWidth / borderRadius, 0, 2 * Math.PI);
+                            context.fillStyle = strokecolor;
+                            context.lineWidth /= 2; // Maintain constant border width
+                            if (!borderless) {
+                                switch (context.globalAlpha) {
+                                    case 1:
+                                        context.fill();
+                                        break;
+                                    default:
+                                        context.stroke();
+                                        break;
+                                }
+                            }
+                            break;
+                    }
                     context.closePath();
                     context.beginPath();
                     context.fillStyle = fillcolor;
@@ -1363,16 +1391,17 @@ import * as socketStuff from "./socketinit.js";
             
             // --- Early optimization for small or distant objects ---
             if (drawSize < 0.1) return;
-        
+
+            // --- Find upper turrets and props with optimized loop ---
+            const turrets = instance.isImage ? source.turrets : [...source.turrets, ...m.props];
+            if (m.props) turrets.sort((a, b) => a.layer - b.layer);
+
             // --- Gun positions with single update ---
             source.guns.update();
         
             // --- Fancy canvas with reduced state setup ---
             let xx = x, yy = y;
-            const useFancyCanvas = global.gameUpdate && 
-                                  config.graphical.fancyAnimations &&
-                                  assignedContext != ctx2 && 
-                                  alphaFade < 1;
+            const useFancyCanvas = DEAIC(assignedContext, alphaFade, m.shape, m.glow, source.guns.length, turrets.length);
         
             if (useFancyCanvas) {
                 context = ctx2;
@@ -1380,7 +1409,7 @@ import * as socketStuff from "./socketinit.js";
                 xx = context.canvas.width / 2 - (drawSize * m.position.axis * m.position.middle.x * Math.cos(rot)) / 4;
                 yy = context.canvas.height / 2 - (drawSize * m.position.axis * m.position.middle.x * Math.sin(rot)) / 4;
                 context.translate(0.5, 0.5);
-            } else if (alphaFade < 0.5) {
+            } else if (alphaFade < 0.5 && !config.graphical.fancyAnimations) {
                 return;
             }
         
@@ -1396,10 +1425,6 @@ import * as socketStuff from "./socketinit.js";
         
             // --- Size ratio cached for body drawing ---
             const sizeRatio = (drawSize / m.size) * m.realSize;
-        
-            // --- Find upper turrets and props with optimized loop ---
-            const turrets = instance.isImage ? source.turrets : [...source.turrets, ...m.props];
-            if (m.props) turrets.sort((a, b) => a.layer - b.layer);
         
             // --- Draw turrets beneath with cached values ---
             for (let i = 0; i < turrets.length; i++) {
@@ -1421,7 +1446,7 @@ import * as socketStuff from "./socketinit.js";
                     
                     context.lineWidth = initStrokeWidth * t.strokeWidth;
                     
-                    drawEntityCanvas2D(
+                    drawEntity(
                         baseColor,
                         xx + len * cosAng,
                         yy + len * sinAng,
@@ -1473,7 +1498,7 @@ import * as socketStuff from "./socketinit.js";
                     let gunColor = g.color == null ? color.grey : gameDraw.modifyColor(g.color, baseColor);
                     const gunAlpha = g.alpha === undefined ? 1 : g.alpha;
                     let mixedColor = gameDraw.mixColors(gunColor, statusColor, blend);
-                    instance.invuln !== 0 && 100 > (Date.now() - instance.invuln) % 200 && ((mixedColor = gameDraw.mixColors(gunColor, gameDraw.getColor(6), 0.3)));
+                    global.gameUpdate && instance.invuln !== 0 && 100 > (Date.now() - instance.invuln) % 200 && ((mixedColor = gameDraw.mixColors(gunColor, gameDraw.getColor(6), 0.3)));
                     gameDraw.setColor(context, mixedColor);
                     
                     // Draw gun with precalculated values
@@ -1495,7 +1520,7 @@ import * as socketStuff from "./socketinit.js";
         
                 // Draw body between gun layers
                 if (drawAbove === 0) {
-                    context.globalAlpha = 1;
+                    context.globalAlpha = !useFancyCanvas && alphaFade < 1 && config.graphical.fancyAnimations ? alphaFade : 1;
                     context.lineWidth = initStrokeWidth * m.strokeWidth;
                     
                     // Precalculate body color
@@ -1504,7 +1529,7 @@ import * as socketStuff from "./socketinit.js";
                         statusColor,
                         blend
                     );
-                    instance.invuln !== 0 && 100 > (Date.now() - instance.invuln) % 200 && ((bodyColor = gameDraw.mixColors(gameDraw.modifyColor(instance.color, baseColor), gameDraw.getColor(6), 0.3)));
+                    global.gameUpdate && instance.invuln !== 0 && 100 > (Date.now() - instance.invuln) % 200 && ((bodyColor = gameDraw.mixColors(gameDraw.modifyColor(instance.color, baseColor), gameDraw.getColor(6), 0.3)));
                     gameDraw.setColor(context, bodyColor);
         
                     // Optimized glow effect
@@ -1532,7 +1557,7 @@ import * as socketStuff from "./socketinit.js";
                         
                         // Draw glow with minimal state changes
                         for (let i = 0; i < recursion; ++i) {
-                            drawBody(context, xx, yy, sizeRatio, shape, rot, true, m.drawFill);
+                            drawBody(context, xx, yy, sizeRatio, shape, rot, true, m.drawFill, false, true);
                         }
                         
                         context.globalAlpha = 1;
@@ -1570,7 +1595,7 @@ import * as socketStuff from "./socketinit.js";
                     
                     context.lineWidth = initStrokeWidth * t.strokeWidth;
                     
-                    drawEntityCanvas2D(
+                    drawEntity(
                         baseColor,
                         xx + len * cosAng,
                         yy + len * sinAng,
@@ -1609,17 +1634,13 @@ import * as socketStuff from "./socketinit.js";
         }
     })();
 
-
-    const drawEntity = (baseColor, x, y, instance, ratio, alpha = 1, scale = 1, lineWidthMult = 1, rot = 0, turretsObeyRot = false, assignedContext = false, turretInfo = false, render = instance.render, smoothsize = false, forceRenderOnCanvas2D = false) => {
-        return drawEntityCanvas2D(baseColor, x, y, instance, ratio, alpha, scale, lineWidthMult, rot, turretsObeyRot, assignedContext, turretInfo, render, smoothsize);
-    };
     const iconColorOrder = [10, 11, 12, 15, 13, 2, 14, 4, 5, 1, 0, 3];
     function getIconColor(colorIndex) {
         return iconColorOrder[colorIndex % 12].toString();
     }
 
     function drawEntityIcon(model, x, y, len, height, lineWidthMult, angle, alpha, colorIndex, upgradeKey, hover = false) {
-        let picture = (typeof model == "object") ? model : util.requestEntityImage(model, gui.color),
+        let picture = (typeof model == "object") ? model : util.getEntityImageFromMockup(model, gui.color),
             position = picture.position,
             scale = (0.6 * len) / position.axis,
             entityX = x + 0.5 * len,
@@ -1654,9 +1675,8 @@ import * as socketStuff from "./socketinit.js";
         drawGuiRect(x, y + height * 0.6, len, height * 0.4);
         ctx[2].globalAlpha = 1;
 
-        // FIX: Force Canvas2D rendering for tank icons to ensure proper layering
-        // Draw Tank - always use Canvas2D for icons to avoid layering issues with WebGL2
-        drawEntity(baseColor, entityX, entityY, picture, 1, 1, scale / picture.size, lineWidthMult, angle, true, ctx[2], false, picture.render, false, true);
+        // Draw Tank
+        drawEntity(baseColor, entityX, entityY, picture, 1, 1, scale / picture.size, lineWidthMult, angle, true, ctx[2]);
 
         // Tank name
         drawText(picture.upgradeName ?? picture.name, x + (upgradeKey ? 0.9 * len : len) / 2, y + height * 0.94, height / 10, color.guiwhite, "center");
@@ -1687,24 +1707,18 @@ import * as socketStuff from "./socketinit.js";
             roomY = -py + global.screenHeight / 2 - ratio * gameHeight / 2,
             roomWidth = ratio * gameWidth,
             roomHeight = ratio * gameHeight;
-            if (global.advanced.radial) {
-                ctx[0].save();
-                ctx[0].translate(global.screenWidth / 2, global.screenHeight / 2);
-                ctx[0].rotate(Math.atan2(-global.player.renderx, -global.player.rendery));
-                ctx[0].translate(global.screenWidth / -2, global.screenHeight / -2);
-            }
-            if (global.advanced.roundMap) {
-                ctx[0].save();
-                ctx[0].beginPath();
-                ctx[0].arc(
-                    -px + global.screenWidth / 2 - (ratio * gameWidth) * 0,
-                    -py + global.screenHeight / 2 - (ratio * gameHeight) * 0,
-                    (ratio * global.gameWidth) / 2,
-                    0,
-                    Math.PI * 2
-                );
-                ctx[0].clip();
-            }
+        if (global.advanced.roundMap) {
+            ctx[0].save();
+            ctx[0].beginPath();
+            ctx[0].arc(
+                -px + global.screenWidth / 2 - (ratio * gameWidth) * 0,
+                -py + global.screenHeight / 2 - (ratio * gameHeight) * 0,
+                (ratio * global.gameWidth) / 2,
+                0,
+                Math.PI * 2
+            );
+            ctx[0].clip();
+        }
         ctx[0].fillRect(roomX, roomY, roomWidth, roomHeight);
         if (global.roomSetup.length) {
             let W = global.roomSetup[0].length,
@@ -1718,12 +1732,7 @@ import * as socketStuff from "./socketinit.js";
                         bottom = ratio * f * gameHeight / H - py + global.screenHeight / 2 - ratio * gameHeight / 2,
                         left = ratio * (h + 1) * gameWidth / W - px + global.screenWidth / 2 - ratio * gameWidth / 2,
                         right = ratio * (f + 1) * gameHeight / H - py + global.screenHeight / 2 - ratio * gameHeight / 2;
-                    if (!tile) {
-                        ctx[0].fillStyle = gameDraw.getColor("border", true);
-                        ctx[0].fillRect(top, bottom, left - top, right - bottom);
-                        continue;
-                    };
-                    if (tile.image) { // if a tile is an image, then get the image and render it.
+                    if (tile.image) { // if a tile is a image, then get the image and render it.
                         ctx[0].globalAlpha = 1;
                         if (!tile.renderImage) {
                             tile.renderImage = new Image();
@@ -1755,43 +1764,26 @@ import * as socketStuff from "./socketinit.js";
             ctx[0].strokeStyle = color.guiblack;
             ctx[0].globalAlpha = 0.04;
             ctx[0].beginPath();
-            if (global.advanced.radial) {
-                let n =
-                Math.ceil(Math.sqrt(global.screenWidth * global.screenWidth + global.screenHeight * global.screenHeight) / ratio / ratio / 12) * gridsize;
-                for (let u = ((global.screenWidth / 2 - px) % gridsize) - n; u < global.screenWidth + n; u += gridsize)
-                ctx[0].moveTo(u, -n), ctx[0].lineTo(u, n + global.screenHeight);
-                for (let u = ((global.screenHeight / 2 - py) % gridsize) - n; u < global.screenHeight + n; u += gridsize)
-                ctx[0].moveTo(-n, u), ctx[0].lineTo(n + global.screenWidth, u);
-            } else {
-                for (let x = (global.screenWidth / 2 - px) % gridsize; x < global.screenWidth; x += gridsize) {
-                    ctx[0].moveTo(x, 0);
-                    ctx[0].lineTo(x, global.screenHeight);
-                }
-                for (let y = (global.screenHeight / 2 - py) % gridsize; y < global.screenHeight; y += gridsize) {
-                    ctx[0].moveTo(0, y);
-                    ctx[0].lineTo(global.screenWidth, y);
-                }
+            for (let x = (global.screenWidth / 2 - px) % gridsize; x < global.screenWidth; x += gridsize) {
+                ctx[0].moveTo(x, 0);
+                ctx[0].lineTo(x, global.screenHeight);
             }
-
+            for (let y = (global.screenHeight / 2 - py) % gridsize; y < global.screenHeight; y += gridsize) {
+                ctx[0].moveTo(0, y);
+                ctx[0].lineTo(global.screenWidth, y);
+            }
             ctx[0].stroke();
             ctx[0].globalAlpha = 1;
-            global.advanced.radial && ctx[0].restore();
+            ctx[0].restore();
         }
-        global.advanced.radial && ctx[0].restore();
     }
+
     function drawEntities(px, py, ratio, tick) {
-        global.loggers.renderedEntities.set();
         if (global.advanced.blackout.active) {
             document.getElementById("gameCanvas-background").style.display = "none";
             ctx[1].drawImage(ctx[0].canvas, 0, 0, global.screenWidth, global.screenHeight);
             if (global.glCanvas) ctx[1].drawImage(global.glCanvas, 0, 0, global.screenWidth, global.screenHeight);
         } else if (document.getElementById("gameCanvas-background").style.display === "none") document.getElementById("gameCanvas-background").style.display = "block";
-        if (global.advanced.radial) {
-            ctx[1].save();
-            ctx[1].translate(global.screenWidth / 2, global.screenHeight / 2);
-            ctx[1].rotate(Math.atan2(-global.player.renderx, -global.player.rendery));
-            ctx[1].translate(global.screenWidth / -2, global.screenHeight / -2);
-        }
         // Draw things
         for (let instance of global.entities) {
             if (!instance.render.draws) {
@@ -1846,10 +1838,9 @@ import * as socketStuff from "./socketinit.js";
             x += global.screenWidth / 2;
             y += global.screenHeight / 2;
             let alpha = instance.id === gui.playerid ? 1 : instance.alpha;
-            if (!global.advanced.radial) alpha = handleScreenDistance(global.advanced.blackout.active && global.died ? 0 : alpha, instance, false);
+            alpha = handleScreenDistance(alpha, instance, false);
             drawEntity(baseColor, x, y, instance, ratio, instance.id === gui.playerid || global.showInvisible ? instance.alpha ? instance.alpha * 0.75 + 0.25 : 0.25 : instance.alpha * alpha, 1, 1, instance.render.f, false, false, false, instance.render, isize);
         }
-        global.advanced.radial && ctx[1].restore();
         for (let instance of global.entities) {
             let alpha = instance.id === gui.playerid ? 1 : instance.alpha;
             alpha = handleScreenDistance(alpha, instance);
@@ -1928,7 +1919,6 @@ import * as socketStuff from "./socketinit.js";
                 ctx[1].fillRect(0, 0, global.screenWidth, global.screenHeight);
             }
         }
-        global.loggers.renderedEntities.mark();
     }
 
     global.scrollX = global.scrollY = global.fixedScrollX = global.fixedScrollY = -1;
@@ -2057,7 +2047,7 @@ import * as socketStuff from "./socketinit.js";
             }
 
             let K = Math.max(0, Math.min(1, time / 300, duration / 300));
-            if (msg.textJSON) { // If a message is like a big ass box, then draw this instead.
+            if (msg.textJSON) { // If a message is like a big ass box then draw this instead.
                 let len = 0;
                 // Give it a textobj if it doesn't have one
                 msg.textJSON.forEach((txt) => {
@@ -2070,7 +2060,7 @@ import * as socketStuff from "./socketinit.js";
                 // Draw the text
                 msg.textobjs = [];
                 msg.textJSON.forEach((txt) => {
-                    msg.textobjs[msg.textobjs.length] = function () { }; // For some reason, this fixes the text's location, I guess.
+                    msg.textobjs[msg.textobjs.length] = function () { }; // For some reason this fixes the text's location i guess.
                     drawText(txt, x - len / 2, y + 15 + 18 * (msg.textobjs.length - 1), height - 4, color.guiwhite, "left");
                 })
                 y += 23 * K + 18 * (3 - 2 * K) * (msg.textJSON.length - 1) * K * K;
@@ -2101,7 +2091,7 @@ import * as socketStuff from "./socketinit.js";
         //put chat msg above name
         let fade = instance.render.status.getFade();
         fade *= fade;
-        ctx.globalAlpha = fade;
+        ctx[1].globalAlpha = fade;
     
         x += global.screenWidth / 2;
         y += global.screenHeight / 2;
@@ -2109,14 +2099,13 @@ import * as socketStuff from "./socketinit.js";
     
         let messages = global.chats[instance.id];
         if (!messages) return;
+        
+        // Remove expired messages (accounting for full fade-out duration)
+        messages = messages.filter(msg => msg.expires > now - 200);
+        global.chats[instance.id] = messages;
+        
         const messageSpacing = 25 * 0.04 * g;
-
-        if (global.advanced.radial) {
-            ctx[1].save();
-            ctx[1].translate(global.screenWidth / 2, global.screenHeight / 2);
-            ctx[1].rotate(Math.atan2(-global.player.renderx, -global.player.rendery));
-            ctx[1].translate(global.screenWidth / -2, global.screenHeight / -2);
-        }
+        
         // Draw all the messages
         for (let i = 0; i < messages.length; i++) {
             let chatIndex = messages.length - 1 - i;
@@ -2128,8 +2117,10 @@ import * as socketStuff from "./socketinit.js";
                 timeSinceCreated = now - chat.createdAt,
                 fadeInDuration = 300,
                 fadeInAlpha = chat.fadedIn ? 1 : Math.min(1, timeSinceCreated / fadeInDuration),
-                expiryAlpha = Math.max(0, Math.min(200, chat.expires - now) / 200),
+                timeUntilExpiry = chat.expires - now,
+                expiryAlpha = timeUntilExpiry > 1000 ? 1 : Math.max(0, Math.min(1, timeUntilExpiry / 200)),
                 valpha = fadeInAlpha * expiryAlpha;
+            
             if (chat.targetY === undefined) {
                 chat.targetY = i * messageSpacing;
                 chat.currentY = i === 0 ? 0 : (i-1) * messageSpacing;
@@ -2142,13 +2133,15 @@ import * as socketStuff from "./socketinit.js";
             if (fadeInAlpha >= 1 && !chat.fadedIn) {
                 chat.fadedIn = true;
             }
-            if (valpha == 0 && expiryAlpha == 0) util.remove(messages, messages.indexOf(chat));
+            
+            // Skip rendering if completely faded out
+            if (valpha <= 0) continue;
+            
             ctx[1].globalAlpha = 0.5 * valpha * alpha * alpha * fade;
             drawBar(x - msgLengthHalf, x + msgLengthHalf, y - g * (instance.id === gui.playerid ? 2.26 : barScale) - slideOffset, 0.75 * g, gameDraw.modifyColor(instance.color), ctx[1]);
-            global.advanced.radial && ctx[1].restore();
             ctx[1].globalAlpha = valpha * alpha * fade;
             config.graphical.fontStrokeRatio *= 1.2;
-            drawText(text, x, y - g * (instance.id === gui.playerid ? 2.05 : textScale) - slideOffset, 0.50 * g, color.guiwhite, "center", false, 1, true, ctx[1], global.advanced.radial ? true : false);
+            drawText(text, x, y - g * (instance.id === gui.playerid ? 2.05 : textScale) - slideOffset, 0.50 * g, color.guiwhite, "center", false, 1, true, ctx[1]);
             config.graphical.fontStrokeRatio /= 1.2;
         }
     }
@@ -2158,20 +2151,13 @@ import * as socketStuff from "./socketinit.js";
         if (!(0.02 > alpha)) {
             let fade = instance.render.status.getFade();
             fade *= fade;
-            ctx.globalAlpha = fade;
+            ctx[1].globalAlpha = fade;
 
             let size = isize * ratio,
                 indexes = instance.index.split("-"),
                 m = global.mockups[parseInt(indexes[0])];
             if (!m) m = global.missingMockup[0];
             let realSize = (size / m.size) * m.realSize;
-
-            if (global.advanced.radial) {
-                ctx[1].save();
-                ctx[1].translate(global.screenWidth / 2, global.screenHeight / 2);
-                ctx[1].rotate(Math.atan2(-global.player.renderx, -global.player.rendery));
-                ctx[1].translate(global.screenWidth / -2, global.screenHeight / -2);
-            }
 
             if (instance.drawsHealth) {
                 let health = instance.render.health.get(),
@@ -2194,15 +2180,14 @@ import * as socketStuff from "./socketinit.js";
 
                     //shield bar
                     if (shield || config.graphical.seperatedHealthbars) {
-                        if (!config.graphical.seperatedHealthbars) ctx[2].globalAlpha *= 0.7;
+                        if (!config.graphical.seperatedHealthbars) ctx[1].globalAlpha *= 0.7;
                         ctx[1].globalAlpha *= 0.3 + 0.3 * shield,
                             drawBar(x - size, x - size + 2 * size * shield, yy, barWidth, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1]);
                     }
-                    if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.seperatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center", false, 1, true, ctx[1]);
-                    ctx[2].globalAlpha = alpha;
+                    if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.seperatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center");
+                    ctx[1].globalAlpha = alpha;
                 }
             }
-            global.advanced.radial && ctx[1].restore();
         }
     }
 
@@ -2210,7 +2195,7 @@ import * as socketStuff from "./socketinit.js";
         if (!(0.02 > alpha)) {
             let fade = instance.render.status.getFade();
             fade *= fade;
-            ctx[1].globalAlpha = fade;
+            ctx[2].globalAlpha = fade;
 
             let size = isize * ratio;
             x += global.screenWidth / 2;
@@ -2221,8 +2206,8 @@ import * as socketStuff from "./socketinit.js";
                 var namecolor = instance.name.substring(0, 7);
                 ctx[1].globalAlpha = alpha * alpha * fade;
                 let g = Math.max(20, size);
-                if (global.GUIStatus.renderPlayerNames) drawText(name, x, y - g * (global.GUIStatus.renderPlayerScores || typeof instance.score === "string" ? 1.9 : 1.45), 0.55 * g, namecolor == "#ffffff" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1], global.advanced.radial ? true : false);
-                if (global.GUIStatus.renderPlayerScores || typeof instance.score === "string") drawText(typeof instance.score === "string" ? instance.score : util.handleLargeNumber(instance.score, 1), x, y - 1.45 * g, 0.3 * g, namecolor == "#ffffff" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1], global.advanced.radial ? true : false);
+                if (global.GUIStatus.renderPlayerNames) drawText(name, x, y - g * (global.GUIStatus.renderPlayerScores ? 1.9 : 1.45), 0.55 * g, namecolor == "#ffffff" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1]);
+                if (global.GUIStatus.renderPlayerScores || typeof instance.score === "string") drawText(typeof instance.score === "string" ? instance.score : util.handleLargeNumber(instance.score, 1), x, y - 1.45 * g, 0.3 * g, namecolor == "#ffffff" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1]);
                 ctx[1].globalAlpha = 1;
             }
         }
@@ -2362,13 +2347,12 @@ import * as socketStuff from "./socketinit.js";
             global.serverStats.mspt_color = color.orange;
         } else global.serverStats.mspt_color = color.guiwhite;
     }
-
+    const xc = { cc: 0, dc: 0 };
     function drawMinimapAndDebug(spacing, alcoveSize, GRAPHDATA) {
         // Draw minimap and FPS monitors
         // Minimap stuff starts here
         let len = alcoveSize; // * global.screenWidth;
         let height = (len / global.gameWidth) * global.gameHeight;
-        global.loggers.processMinimap.set();
         let upgradeColumns = Math.ceil(gui.upgrades.length / 9);
         let x = global.mobile ? spacing : global.screenWidth - spacing - len - 5;
         let y = global.mobile ? spacing : global.screenHeight - height - spacing - 5;
@@ -2376,11 +2360,16 @@ import * as socketStuff from "./socketinit.js";
             y += global.canUpgrade ? (alcoveSize / 1.5) * mobileUpgradeGlide.get() * upgradeColumns / 1.5 + spacing * (upgradeColumns + 1.55) + 9 : 0;
             y += global.canSkill || global.showSkill ? statMenu.get() * alcoveSize / 2.6 + spacing / 0.75 : 0;
         }
+
+        // Calculate minimap center if needed
+        let centerX = x + len / 2;
+        let centerY = y + height / 2;
+    
         ctx[2].globalAlpha = 0.4;
         ctx[2].save();
         ctx[2].fillStyle = color.white;
         global.advanced.roundMap ? drawGuiCircle(x + len / 2, y + height / 2, len / 2) : drawGuiRect(x, y, len, height);
-        ctx[2].beginPath(); // We will not allow to draw outside the minimap, so we are only allowing minimap entities to draw INSIDE the minimap only
+        ctx[2].beginPath(); // We will not allow to draw outside of the minimap so we are only allowing minimap entities to draw INSIDE the minimap only
         global.advanced.roundMap ? ctx[2].arc(x + len / 2, y + height / 2, len / 2, 0, 2 * Math.PI) : ctx[2].rect(x, y, len, height); // Draw everything inside the minimap
         ctx[2].clip();
 
@@ -2389,24 +2378,41 @@ import * as socketStuff from "./socketinit.js";
                 H = global.roomSetup.length,
                 i = 0;
 
+            // Calculate player's position in game world
+            let playerWorldX = global.player.cx.animX;
+            let playerWorldY = global.player.cy.animY;
+
             for (let ycell = 0; ycell < H; ycell++) {
                 let j = 0;
                 for (let xcell = 0; xcell < W; xcell++) {
                     let cell = global.roomSetup[ycell][xcell];
+                    // Calculate cell world position
+                    let cellWorldX = (xcell / W - 0.5) * global.gameWidth;
+                    let cellWorldY = (ycell / H - 0.5) * global.gameHeight;
+                    
+                    // Calculate relative position to player
+                    let relX = cellWorldX - playerWorldX;
+                    let relY = cellWorldY - playerWorldY;
+                    
+                    // Convert to minimap coordinates
+                    let minimapX = config.game.centeredMinimap ? centerX + (relX / global.gameWidth) * len : x + (j * len) / W;
+                    let minimapY = config.game.centeredMinimap ? centerY + (relY / global.gameHeight) * height : y + (i * height) / H;
+                    let cellWidth = len / W;
+                    let cellHeight = height / H;
                     if (!cell) {
                         ctx[2].fillStyle = gameDraw.getColor("border", true);
-                        drawGuiRect(x + (j * len) / W, y + (i * height) / H, len / W, height / H);
+                        drawGuiRect(minimapX, minimapY, cellWidth, cellHeight);
                     } else {
                         let color = cell.color;
                         if (color == 'none') cell.color = 'pureBlack';
                         if (cell.renderImage) {
                             ctx[2].globalAlpha = 1;
-                            ctx[2].drawImage(cell.renderImage, x + (j * len) / W, y + (i * height) / H, len / W, height / H);
+                            ctx[2].drawImage(cell.renderImage, minimapX, minimapY, cellWidth, cellHeight);
                         }
                         ctx[2].globalAlpha = 0.4;
                         ctx[2].fillStyle = gameDraw.getColor(color);
                         if (gameDraw.getColor(color) !== color.white) {
-                            drawGuiRect(x + (j * len) / W, y + (i * height) / H, len / W, height / H);
+                            drawGuiRect(minimapX, minimapY, cellWidth, cellHeight);
                         }
                     };
                     j++;
@@ -2418,19 +2424,32 @@ import * as socketStuff from "./socketinit.js";
         for (let entity of minimap.get()) {
             ctx[2].fillStyle = gameDraw.mixColors(gameDraw.modifyColor(entity.color), color.black, 0.3);
             ctx[2].globalAlpha = entity.alpha;
+            
+            // Calculate entity position relative to player
+            let relX = entity.x - global.player.cx.animX;
+            let relY = entity.y - global.player.cy.animY;
+            
+            // Convert to minimap coordinates
+            let minimapX = config.game.centeredMinimap ? centerX + (relX / global.gameWidth) * len : x + (entity.x / global.gameWidth + 0.5) * len;
+            let minimapY = config.game.centeredMinimap ? centerY + (relY / global.gameHeight) * height : y + (entity.y / global.gameHeight + 0.5) * height;
+            
             switch (entity.type) {
                 case 2:
-                    // Draw wall entieies
-                    let trueSize = (entity.size + 2) / 1.1283791671; // lazyRealSizes[4] / sqrt(2)
-                    drawGuiRect(x + ((entity.x - trueSize) / global.gameWidth + 0.5) * len, y + ((entity.y - trueSize) / global.gameHeight + 0.5) * height, ((2 * trueSize) / global.gameWidth) * len, ((2 * trueSize) / global.gameWidth) * len + 0.2);
+                    // Draw wall entities
+                    let trueSize = (entity.size + 2) / 1.1283791671;
+                    let sizeOnMap = (trueSize / global.gameWidth) * len;
+                    drawGuiRect(minimapX - sizeOnMap, minimapY - sizeOnMap, sizeOnMap * 2, sizeOnMap * 2);
                     break;
                 case 1:
                     // Draw rock/other entities
-                    drawGuiCircle(x + (entity.x / global.gameWidth + 0.5) * len, y + (entity.y / global.gameHeight + 0.5) * height, (entity.size / global.gameWidth) * len);
+                    let entitySize = (entity.size / global.gameWidth) * len;
+                    drawGuiCircle(minimapX, minimapY, entitySize);
                     break;
                 case 0:
-                    // Draw players
-                    if (entity.id !== gui.playerid) drawGuiCircle(x + (entity.x / global.gameWidth + 0.5) * len, y + (entity.y / global.gameHeight + 0.5) * height, !global.mobile ? 2 : 3.5);
+                    // Draw other players
+                    if (entity.id !== gui.playerid) {
+                        drawGuiCircle(minimapX, minimapY, !global.mobile ? 2 : 3.5);
+                    }
                     break;
             }
         }
@@ -2440,7 +2459,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].strokeStyle = color.guiblack;
         ctx[2].fillStyle = color.guiblack;
         // Draw yourself in the minimap
-        drawGuiCircle(x + (global.player.cx.animX / global.gameWidth + 0.5) * len, y + (global.player.cy.animY / global.gameHeight + 0.5) * height, !global.mobile ? 2 : 3.5, false);
+        drawGuiCircle(config.game.centeredMinimap ? centerX : x + (global.player.cx.animX / global.gameWidth + 0.5) * len, config.game.centeredMinimap ? centerY : y + (global.player.cy.animY / global.gameHeight + 0.5) * height, !global.mobile ? 2 : 3.5, false);
         ctx[2].restore();
         ctx[2].globalAlpha = 1;
         ctx[2].fillStyle = color.black;
@@ -2457,7 +2476,6 @@ import * as socketStuff from "./socketinit.js";
             gapGraph(global.metrics.rendergap, x, y - 40, len, 30, color.pink);
             timingGraph(GRAPHDATA, x, y - 40, len, 30, color.yellow);
         }
-        global.loggers.processMinimap.mark();
         // Minimap stuff ends here
         // Debug stuff
         if (!global.showDebug) y += 13 * 3;
@@ -2466,7 +2484,6 @@ import * as socketStuff from "./socketinit.js";
 
         if (!global.metrics.latency.length) global.metrics.latency.push(0);
         let ping = global.metrics.latency.reduce((b, a) => b + a, 1) / global.metrics.latency.length - 1;
-        let tankSpeed = Math.sqrt(global.player.vx * global.player.vx + global.player.vy * global.player.vy);
         let xloc = global.player.renderx / 30;
         let yloc = global.player.rendery / 30;
         if (global.showDebug) {
@@ -2494,7 +2511,7 @@ import * as socketStuff from "./socketinit.js";
             drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText("Prediction: " + Math.round(GRAPHDATA) + "ms", x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
-            drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
+            drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
             drawText("Open Source Arras", x + len, y - 50 - 3 * 14 - 2, 15, "#1081E5", "right");
@@ -2534,8 +2551,8 @@ import * as socketStuff from "./socketinit.js";
                 lbEntry = leaderboardEntries[entry.id] = {
                     ...entry,
                     leaderboardUpdate,
-                    animX: Smoothbar(0, 0.30, 1.5, 0.025, true),
-                    animY: Smoothbar(0, 0.30, 1.5, 0.025, true),
+                    animX: Smoothbar(0, 0.30, 1.5, 0.045, true),
+                    animY: Smoothbar(0, 0.30, 1.5, 0.045, true),
                     x: 0,
                     y: i,
                     targetX: 1,
@@ -2598,7 +2615,7 @@ import * as socketStuff from "./socketinit.js";
                     let xx = entryX - 1.5 * height - scale * entry.position.middle.x * Math.SQRT1_2,
                         yy = entryY + 0.5 * height - scale * entry.position.middle.y * Math.SQRT1_2,
                         baseColor = entry.color;
-                    drawEntity(baseColor, xx, yy, entry.image, 1 / scale, 1, (scale * scale) / entry.image.size, 3, -Math.PI / 4, true, ctx[2], false, entry.image.render, false, true);
+                    drawEntity(baseColor, xx, yy, entry.image, 1 / scale, 1, (scale * scale) / entry.image.size, 2, -Math.PI / 4, true, ctx[2], false, entry.image.render, false, true);
                 }
             }
         }
@@ -2674,7 +2691,7 @@ import * as socketStuff from "./socketinit.js";
                 upgradeNum++;
             }
 
-            // Draw don't upgrade button
+            // Draw dont upgrade button
             let h = 19.1,
                 textScale = h - 6,
                 msg = "Don't Upgrade",
@@ -3029,7 +3046,7 @@ import * as socketStuff from "./socketinit.js";
         if (global.finalKillers.length) {
             txt = "🔪 Succumbed to";
             for (let e of global.finalKillers) {
-                txt += " " + util.addArticle(util.requestEntityImage(e).name) + " and";
+                txt += " " + util.addArticle(util.getEntityImageFromMockup(e).name) + " and";
             }
             txt = txt.slice(0, -4);
         } else {
@@ -3059,7 +3076,7 @@ import * as socketStuff from "./socketinit.js";
             scale = len / position.axis,
             xx = global.screenWidth / 2 - scale * position.middle.x * 0.707,
             yy = y + scale * position.middle.y * Math.SQRT1_2,
-            picture = util.requestEntityImage(gui.type, gui.color),
+            picture = util.getEntityImageFromMockup(gui.type, gui.color),
             baseColor = picture.color,
             name = global.player.name.substring(7, global.player.name.length + 1),
             timestamp = Math.floor(Date.now() / 1000);
@@ -3067,7 +3084,7 @@ import * as socketStuff from "./socketinit.js";
         clearScreen(color.black, 0.1 + 0.15 * global.lerp(0, 0.5, glide), ctx[2]);
         let ratio = util.getScreenRatio();
         scaleScreenRatio(ratio, true);
-        drawEntity(baseColor, (xx - 190 - len / 2 + 0.5) | 0, (yy - -5 + 0.5) | 0, picture, 1.5, 1, (0.5 * scale) / picture.realSize, 1, -Math.PI / 4, true, ctx[2], false, picture.render, false, true);
+        drawEntity(baseColor, (xx - 190 - len / 2 + 0.5) | 0, (yy - -5 + 0.5) | 0, picture, 1.5, 1, (0.5 * scale) / picture.realSize, 1, -Math.PI / 4, true, ctx[2]);
         drawText("Level " + gui.__s.getLevel(), x - 275, y - -80, 14, color.guiwhite, "center");
         drawText(picture.name, x - 275, y - -110, 24, color.guiwhite, "center");
         drawText(timestamp + '', x, y - 80, 10, color.guiwhite, "center");
@@ -3133,7 +3150,6 @@ import * as socketStuff from "./socketinit.js";
         global.GRAPHDATA = 0;
         let tickMotion = lasttick ? tick - lasttick : null;
         lasttick = tick;
-        global.clientTickMotion = null == tickMotion ? 0 : 0.99 ** tickMotion;
         let motion = compensation();
         motion.set();
         global.GRAPHDATA = motion.getPrediction();
@@ -3144,9 +3160,10 @@ import * as socketStuff from "./socketinit.js";
         if (config.graphical.lerpAnimations) {
             global.player.renderx = util.lerp(global.player.renderx, global.player.cx.x, 0.1, true);
             global.player.rendery = util.lerp(global.player.rendery, global.player.cy.y, 0.1, true);
-        } else if (config.graphical.smoothcamera) {
-            global.player.renderx = global.player.renderx * global.clientTickMotion + playerx * (1 - global.clientTickMotion);
-            global.player.rendery = global.player.rendery * global.clientTickMotion + playery * (1 - global.clientTickMotion);
+        } else if (config.graphical.smoothcamera && config.graphical.shakeProperties.CameraShake.shakeStartTime == -1) {
+            let n = null == tickMotion ? 0 : 0.99 ** tickMotion;
+            global.player.renderx = global.player.renderx * n + playerx * (1 - n);
+            global.player.rendery = global.player.rendery * n + playery * (1 - n);
         } else if (config.graphical.predictAnimations) {
             global.player.renderx = motion.predict(global.player.lastx, global.player.cx.x, global.player.lastvx, global.player.vx),
             global.player.rendery = motion.predict(global.player.lasty, global.player.cy.y, global.player.lastvy, global.player.vy);
@@ -3191,7 +3208,7 @@ import * as socketStuff from "./socketinit.js";
             drawMessages(spacing, alcoveSize);
             drawSkillBars(spacing, alcoveSize);
             drawSelfInfo(max);
-            drawMinimapAndDebug(spacing, alcoveSize, global.GRAPHDATA);
+            drawMinimapAndDebug(spacing, alcoveSize, global.GRAPHDATA, tick);
             if (global.GUIStatus.renderLeaderboard) drawLeaderboard(spacing, alcoveSize, max);
             drawAvailableUpgrades(spacing, alcoveSize);
         } else drawAvailableUpgrades(spacing, alcoveSize);
@@ -3249,17 +3266,16 @@ import * as socketStuff from "./socketinit.js";
         drawText("Error!", global.screenWidth / 2, global.screenHeight / 2, 30, color.red, "center");
         drawText("The client ran into an error, try to move away from the glitched entity.", global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.guiwhite, "center");
         drawText("Press F12 if you're on PC, check the console logs, and report it to the developers.", global.screenWidth / 2, global.screenHeight / 2 + 60, 15, color.guiwhite, "center");
-    };
-        let animationFrame =
-        (!/Chrome\/8[4-6]\.0\.41([4-7][0-9]|8[0-3])\./.test(navigator.userAgent) &&
-          window.requestAnimationFrame) ||
-        ((a) => setTimeout(() => a(Date.now()), 1e3 / 60));
+    }
+    let animationFrame =
+    (!/Chrome\/8[4-6]\.0\.41([4-7][0-9]|8[0-3])\./.test(navigator.userAgent) &&
+      window.requestAnimationFrame) ||
+    ((a) => setTimeout(() => a(Date.now()), 1e3 / 60));
     function animloop(tick) {
-        if (document.hidden) {
+        if (document.getElementById("gameAreaWrapper").style.display === "none") {
             setTimeout(() => animloop(Date.now()), 200); // Slow down when tab is hidden
             return;
         }
-        global.loggers.master.set();
         animationFrame(animloop);
         if (global.needsFovAnimReset) {
             util.fovAnimation.force(2000);
@@ -3277,7 +3293,7 @@ import * as socketStuff from "./socketinit.js";
             global.renderingInfo.turretEntities = 0;
             global.renderingInfo.entitiesWithName = 0;
         }
-    
+
         var ratio = config.graphical.screenshotMode ? 2 : util.getRatio();
         // Set the drawing style
         gameDraw.reanimateColors();
@@ -3294,7 +3310,7 @@ import * as socketStuff from "./socketinit.js";
         // Draw the game
         if (global.gameUpdate && !global.disconnected) {
             global.time = getNow();
-            if (isNaN(global.time)) { // If something isn't right, do a resync and pause the rendering.
+            if (isNaN(global.time)) { // If something isnt right, do a resync and pause the rendering.
                 global.gameUpdate = false;
                 global.pullUpgradeMenu = true;
                 global.pullSkillBar = true;
@@ -3317,16 +3333,11 @@ import * as socketStuff from "./socketinit.js";
                 global.bandwidth.currentHa = 0;
                 global.bandwidth.currentFa = 0;
                 if (!global.secondaryLoop) global.secondaryLoop = true, runSecondary();
-                // Other
-                let sum = global.loggers.master.record();
-                let sum2 = global.loggers.socketMaster.record();
-
-                global.metrics.mspt = (sum+sum2).toFixed(1);
             }
             global.metrics.lag = global.time - global.player.time;
         }
         if (global.GUIStatus.fullHDMode) ctx[2].translate(0.5, 0.5);
-    
+        let p = performance.now();
         try {
             drawGameplay(tick, ratio);
             drawGUI(tick, util.getScreenRatio());
@@ -3341,9 +3352,10 @@ import * as socketStuff from "./socketinit.js";
                 drawDisconnectedScreen();
             }
             if (global.GUIStatus.fullHDMode) ctx[2].translate(-0.5, -0.5);
-    
-            //oh no, we need to throw an error!
+
+            //oh no we need to throw an error!
         } catch (e) {
+
             //hold on....
             drawErrorScreen(); // Draw the error screen.
             if (global.GUIStatus.fullHDMode) ctx[2].translate(-0.5, -0.5);
@@ -3351,6 +3363,7 @@ import * as socketStuff from "./socketinit.js";
             //okay, NOW throw the error!
             throw e;
         }
-        global.loggers.master.mark();
+        let t = performance.now();
+        global.metrics.mspt = t - p;
     }
 })(util, global, config, Canvas, colors, gameDraw, socketStuff)

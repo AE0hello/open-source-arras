@@ -40,18 +40,18 @@ tileClass.wall = new Tile({
         o.on("dead", () => {
             util.remove(walls, walls.indexOf(o));
         })
+        if (Config.HALLOWEEN_THEME) {
+            let eyeSize = 12 * (Math.random() + 0.75);
+            let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
+            spookyEye.define("hwEye");
+            spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})
+            spookyEye.SIZE = eyeSize;
+            spookyEye.minimapColor = 18;
+        }
     }
 });
 tileClass.atmg = new Tile({
     COLOR: "white",
     NAME: "ATMG Tile",
     INIT: (tile, room, gameManager) => spawnPermanentAntiTankMachineGun(tile.loc, gameManager)
-})
-tileClass.botWanderingTile = new Tile({
-    COLOR: "white",
-    NAME: "Bot Wandering Tile",
-    INIT: (tile, room) => {
-        if (!room["botWanderingTiles"]) room["botWanderingTiles"] = [];
-        room["botWanderingTiles"].push(tile);
-    },
 })

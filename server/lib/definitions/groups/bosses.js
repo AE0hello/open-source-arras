@@ -37,7 +37,6 @@ Class.elite = {
 Class.eliteDestroyer = {
     PARENT: "elite",
     UPGRADE_LABEL: "Elite Destroyer",
-    NAME: "Elite Destroyer",
     UPGRADE_COLOR: "pink",
     GUNS: weaponArray({
         POSITION: [5, 16, 1, 6, 0, 60, 0],

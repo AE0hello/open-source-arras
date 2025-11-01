@@ -65,8 +65,8 @@ if (teams === 2 && !spacing) {
 	}
 	for (let i = -2; i <= 2; i++) {
 		let y = Math.floor(Config.roomHeight / 2 - baseprotGap * i);
-		room[y][0] = bases.baseprotected1;
-		room[y][Config.roomWidth - 1] = bases.baseprotected2;
+		room[y][0] = tileClass.baseprotected1;
+		room[y][Config.roomWidth - 1] = tileClass.baseprotected2;
 	}
 } else {
 	for (let i = 1; i <= teams; i++) {

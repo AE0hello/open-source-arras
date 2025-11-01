@@ -8,6 +8,7 @@ module.exports = {
     WAVES: 100, // CLASSIC_SIEGE: false to use this setting
     FOOD_CAP: 40,
     FOOD_CAP_NEST: 5,
+    DO_NOT_OVERRIDE_ROOM: false,
     ROOM_SETUP: ["room_siege_fortress"],
     SANCTUARY_SIZE: 20,
     FORTRESS: true,

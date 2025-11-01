@@ -17,22 +17,22 @@ class Assault {
         o.permanentSize = o.SIZE;
         o.isDominator = true;
         o.displayName = false;
-        if (!tile.isMain) {
+        if (!tile.isSanctuary) {
             o.controllers = [new ioTypes.nearestDifferentMaster(o, {}, global.gameManager), new ioTypes.spin(o, { onlyWhenIdle: true })];
         }
         o.on("dead", () => {
             if (!this.gameActive || global.gameManager.arenaClosed) return;
             if (o.team === TEAM_BLUE) {
-                this.spawnDominator(tile, TEAM_GREEN, tile.isMain ? "sanctuaryTier3" : originalType, originalType);
+                this.spawnDominator(tile, TEAM_GREEN, tile.isSanctuary ? "sanctuaryTier3" : originalType, originalType);
                 tile.color = "green";
                 this.leftDominators++;
-                global.gameManager.socketManager.broadcast(`A GREEN ${tile.isMain ? "Sanctuary" : "Dominator"} has been repaired!`);
+                global.gameManager.socketManager.broadcast(`A GREEN ${tile.isSanctuary ? "Sanctuary" : "Dominator"} has been repaired!`);
                 if (this.leftDominators == 3 && this.timerPaused) this.timerPaused = false;
             } else {
                 this.spawnDominator(tile, TEAM_BLUE, "dominator", originalType);
                 tile.color = "blue";
                 this.leftDominators--;
-                global.gameManager.socketManager.broadcast(`A GREEN ${tile.isMain ? "Sanctuary" : "Dominator"} has been destroyed!`);
+                global.gameManager.socketManager.broadcast(`A GREEN ${tile.isSanctuary ? "Sanctuary" : "Dominator"} has been destroyed!`);
                 if (this.leftDominators == 2) {
                     global.gameManager.socketManager.broadcast("Green bases are down.");
                     this.timerPaused = true;
@@ -66,18 +66,17 @@ class Assault {
 
     start() {
         this.gameActive = true;
-        let mainTile = ran.choose(this.room.spawnable["assaultDominators"]);
-        mainTile.isMain = true;
-        if (!this.room.spawnable[TEAM_GREEN]) this.room.spawnable[TEAM_GREEN] = [];
-        this.room.spawnable[TEAM_GREEN].push(mainTile);
-        this.spawnDominator(mainTile, TEAM_GREEN, "sanctuaryTier3");
         for (let tile of this.room.spawnable["assaultDominators"]) {
             this.leftDominators += 1;
             tile.color = tile.bluePrint.COLOR;
+            if (tile.isSanctuary) {
+                if (!this.room.spawnable[TEAM_GREEN]) this.room.spawnable[TEAM_GREEN] = [];
+                this.room.spawnable[TEAM_GREEN].push(tile);
+                this.spawnDominator(tile, TEAM_GREEN, "sanctuaryTier3");
+                continue;
+            }
             let type = ran.choose(this.choices);
-            if (!tile.isMain) {
-                this.spawnDominator(tile, TEAM_GREEN, type, false, true);
-            };
+            this.spawnDominator(tile, TEAM_GREEN, type, false, true);
         }
         this.timerInterval = setInterval(() => {
             if (global.gameManager.arenaClosed) clearInterval(this.timerInterval);

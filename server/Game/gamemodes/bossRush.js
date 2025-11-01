@@ -1,8 +1,6 @@
-const { triAngle } = require("../../lib/definitions/gunvals");
-
 let calculatePoints = wave => 5 + wave * 3;
 // Each wave has a certain amount of "points" that it can spend on bosses, calculated above.
-// Each boss costs a number of points.
+// Each boss costs an amount of points.
 // It will always buy as many bosses until it has no points or else can't spend them.
 // It picks a boss to buy by filtering the list of boss choices by if they are affordable.
 // Then it picks a boss at random, with all choices being equally likely.
@@ -149,7 +147,7 @@ class bossRush {
         if (addToSanctuaryList) this.sanctuaries.push(o);
         o.on('dead', () => {
             if (o.team === TEAM_ENEMIES) {
-                // Allow the player to spawn, so we add it to the spawnable locations.
+                // Allow the player to spawn so we add it to the spawnable locations.
                 this.room.spawnable[TEAM_BLUE].push(tile);
                 this.spawnSanctuary(tile, TEAM_BLUE, `sanctuaryTier${this.sanctuaryTier}`);
                 tile.color = "blue";
@@ -157,7 +155,7 @@ class bossRush {
                 this.leftSanctuaries++;
                 global.gameManager.socketManager.broadcast('A sanctuary has been restored!');
             } else {
-                // Don't allow players to spawn at the destroyed sanctuary, so we remove it from spawnable location.
+                // Don't allow players to spawn at the destroyed sanctuary so we remove it from spawnable location.
                 if (this.gameActive) util.remove(this.room.spawnable[TEAM_BLUE], this.room.spawnable[TEAM_BLUE].indexOf(tile));
                 util.remove(this.sanctuaries, this.sanctuaries.indexOf(o));
                 let newTeam = TEAM_ENEMIES;
@@ -282,6 +280,18 @@ class bossRush {
     // runs once when the server starts
     start(mazeType) {
         this.gameActive = true;
+        for (let i = 0; i < Class.basic.UPGRADES_TIER_1.length; i++) {
+            let string = Class.basic.UPGRADES_TIER_1[i];
+            if (string === "desmos") {
+                Class.basic.UPGRADES_TIER_1[i] = "healer";
+            }
+        }
+        for (let i = 0; i < Class.basic.UPGRADES_TIER_2.length; i++) {
+            let string = Class.basic.UPGRADES_TIER_2[i];
+            if (string === "smasher") {
+                Class.basic.UPGRADES_TIER_2[i] = "single";
+            }
+        }
         for (let tile of this.room.spawnable[TEAM_BLUE]) {
             tile.color = tile.bluePrint.COLOR;
             this.leftSanctuaries += 1;
@@ -298,9 +308,18 @@ class bossRush {
                 })
                 wall.define("wall");
                 wall.SIZE = global.gameManager.room.width / width / 2 * element.size / lazyRealSizes[4] * Math.SQRT2 - 2;
+                wall.life();
                 wall.protect();
                 makeHitbox(wall);
                 walls.push(wall);
+                if (Config.HALLOWEEN_THEME) {
+                    let eyeSize = 12 * (Math.random() + 0.75);
+                    let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
+                    spookyEye.define("hwEye");
+                    spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})
+                    spookyEye.SIZE = eyeSize;
+                    spookyEye.minimapColor = 18;
+                }
             });
         }
     }
@@ -316,22 +335,22 @@ class bossRush {
 
     // runs every second
     loop() {
-        // If the game isn't active, then don't run the rest of the code.
+        // If the game isnt active, then dont run the rest of the code.
         if (global.gameManager.arenaClosed) this.gameActive = false;
         if (!this.gameActive) return;
-        //the timer has run out? reset the timer and spawn the next wave
+        //the timer has ran out? reset timer and spawn the next wave
         if (this.timer <= 0) {
             this.timer = 3; // 5 seconds
             this.waveId++;
             if (this.waves[this.waveId]) {
                 this.spawnWave(this.waveId);
 
-            //if there is no next wave, then simply let the players win
+            //if there is no next wave then simply let the players win
             } else {
                 this.playerWin();
             }
 
-        //if the timer has not run out and there aren't any remaining enemies left, decrease the timer
+        //if the timer has not ran out and there arent any remaining enemies left, decrease the timer
         } else if (!this.remainingEnemies) {
             this.timer--;
         }

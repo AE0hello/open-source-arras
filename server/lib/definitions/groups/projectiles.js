@@ -370,7 +370,7 @@ Class.healerBullet = {
         RANGE: Class.bullet.BODY.RANGE,
         DENSITY: Class.bullet.BODY.DENSITY,
         HEALTH: Class.bullet.BODY.HEALTH,
-        DAMAGE: Class.bullet.BODY.DAMAGE + 10,
+        DAMAGE: Class.bullet.BODY.DAMAGE + 20,
         PUSHABILITY: Class.bullet.BODY.PENETRATION,
     },
     HEALER: true,
@@ -407,7 +407,7 @@ Class.sunchip = {
     PARENT: "drone",
     SHAPE: 4,
     NECRO: true,
-    HITS_OWN_TYPE: "hard",
+    HITS_OWN_TYPE: "hardWithBuffer",
     BODY: {
         FOV: 0.5,
     },
@@ -481,7 +481,7 @@ Class.minion = {
     LABEL: "Minion",
     TYPE: "minion",
     DAMAGE_CLASS: 0,
-    HITS_OWN_TYPE: "hard",
+    HITS_OWN_TYPE: "hardWithBuffer",
     FACING_TYPE: "smoothToTarget",
     BODY: {
         FOV: 0.5,

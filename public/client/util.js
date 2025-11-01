@@ -119,7 +119,7 @@ const util = (function() {
         formatLargeNumber: x => {
             return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
-        formatKills: (a, b, c) => { // Credit to an anonymous guy
+        formatKills: (a, b, c) => {
             if (c != 0 || b != 0) b = "/" + b, c = "/" + c; else b = "", c = "";
             return a + b + c
         },
@@ -218,37 +218,6 @@ const util = (function() {
             let sum = arr.reduce((a, b) => a + b)
             return sum
         },
-        logger: class {
-            constructor() {
-                this.logTimes = [];
-                this.trackingStart = performance.now();
-                this.tallyCount = 0;
-            }
-            set() {
-                this.trackingStart = performance.now();
-            }
-            mark() {
-                this.logTimes.push(performance.now() - this.trackingStart);
-            }
-            record() {
-                let average = util.averageArray(this.logTimes);
-                this.logTimes = [];
-                return average;
-            }
-            sum() {
-                let sum = util.sumArray(this.logTimes);
-                this.logTimes = [];
-                return sum;
-            }
-            tally() {
-                this.tallyCount++;
-            }
-            getTallyCount() {
-                let tally = this.tallyCount;
-                this.tallyCount = 0;
-                return tally;
-            }
-        },
         averageArray: arr => {
             if (!arr.length) return 0;
             var sum = arr.reduce((a, b) => { return a + b; });
@@ -292,7 +261,7 @@ const util = (function() {
                 props.push(...mockup.props);
                 name += mockup.name.length > 0 ? "-" + mockup.name : "";
                 upgradeTooltip += mockup.upgradeTooltip ? "\n" + mockup.upgradeTooltip : "";
-                if (mockup.rerootUpgradeTree) allRoots.push(...mockup.rerootUpgradeTree.split("\\/"));
+                if (mockup.rerootUpgradeTree) allRoots.push(...mockup.rerootUpgradeTree.split("_"));
             }
             for (let root of allRoots) {
                 if (!rerootUpgradeTree.includes(root))
@@ -406,7 +375,7 @@ const util = (function() {
             if (data.isProp) {
                 return {
                     index: image.index,
-                    color: data.color,
+                    color: image.color,
                     borderless: data.borderless,
                     drawFill: data.drawFill,
                     layer: data.layer,
@@ -420,7 +389,7 @@ const util = (function() {
                     render: image.render,
                     shape: image.shape,
                     guns: image.guns,
-                    turrets: [],
+                    turrets: image.turrets,
                     mirrorMasterAngle: true,
                     isImage: true,
                 }

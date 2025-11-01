@@ -337,6 +337,7 @@ Class.gunner = {
 Class.healer = {
     PARENT: "genericTank",
     LABEL: "Healer",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
     STAT_NAMES: statnames.heal,
     TURRETS: [
         {
@@ -1061,21 +1062,21 @@ Class.crowbar = {
         },
     ],
     TURRETS: [{
-        POSITION: [6, 42, 0, 0, 360, 1],
+        POSITION: [6, 42, 0, 0, 180, 1],
         TYPE: [
             "crowbarTurretTank",
             { INDEPENDENT: true }
         ],
     },
         {
-            POSITION: [6, 32, 0, 0, 360, 1],
+            POSITION: [6, 32, 0, 0, 180, 1],
             TYPE: [
                 "crowbarTurretTank",
                 { INDEPENDENT: true }
             ],
         },
         {
-            POSITION: [6, 22, 0, 0, 360, 1],
+            POSITION: [6, 22, 0, 0, 180, 1],
             TYPE: [
                 "crowbarTurretTank",
                 { INDEPENDENT: true }
@@ -4520,6 +4521,7 @@ Class.landmine = {
 Class.medic = {
     PARENT: "genericTank",
     LABEL: "Medic",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         FOV: base.FOV * 1.2,
     },
@@ -4546,6 +4548,7 @@ Class.medic = {
 Class.ambulance = {
     PARENT: "genericTank",
     LABEL: "Ambulance",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         HEALTH: base.HEALTH * 0.8,
         SHIELD: base.SHIELD * 0.8,
@@ -4591,6 +4594,7 @@ Class.ambulance = {
 Class.surgeon = {
     PARENT: "genericTank",
     LABEL: "Surgeon",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
     STAT_NAMES: statnames.trap,
     BODY: {
         SPEED: base.SPEED * 0.75,
@@ -4629,6 +4633,7 @@ Class.surgeon = {
 Class.paramedic = {
     PARENT: "genericTank",
     LABEL: "Paramedic",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         SPEED: base.SPEED * 0.9,
     },

@@ -2256,7 +2256,7 @@ function makeHexnoughtBodyV2(body) {
 		// Turret adding
 		for (let t = 0; t < body.TURRETS.length; t++) {
 			let turret = body.TURRETS[t];
-			if (turret.POSITION[1]) { // Do the whole turret loop at once
+			if (turret.POSITION[1]) { // Do whole turret loop at once
 				for (let i = 0; i < turretRingLoopLength; i++) {
 					for (let j = 0; j < 6; j++) {
 						turret = body.TURRETS[t + i * 5 + 1];

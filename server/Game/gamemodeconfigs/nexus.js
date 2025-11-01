@@ -4,5 +4,5 @@ module.exports = {
     TILE_WIDTH: 200,
     TILE_HEIGHT: 200,
     ENABLE_FOOD: false,
-    ROOM_SETUP: ['room_nexus']
+    ROOM_SETUP: ['room_nexus_old']
 }

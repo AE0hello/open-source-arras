@@ -50,10 +50,10 @@ class definitionCombiner {
         let folder = fs.readdirSync(directory);
         // And check every file in it
         for (let filename of folder) {
-            // Create this file its own filepath
+            // Create this file it's own filepath
             let filepath = directory + `/${filename}`;
             let isDirectory = fs.statSync(filepath).isDirectory();
-            // If we are fooled, and it's a folder, restart it's court
+            // If we are fooled and it's a folder, restart it's court
             if (isDirectory) {
                 this.loadAddons(filepath);
             }

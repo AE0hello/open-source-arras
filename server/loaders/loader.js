@@ -1,9 +1,9 @@
 // Now lets load the files
 const requires = [
-    "./global.js", // Now lets get the global variables before loading the next files.
+    "./global.js", // Now lets get the global virables before loading the next files.
     // Debug / other
     "../miscFiles/collisionFunctions.js", // The actual collision functions that make the game work.
-    "../miscFiles/color.js", // Color manager that manages the entity's color.
+    "../miscFiles/color.js", // Color manager that manages the entities's color.
     "../Game/debug/lagLogger.js", // Lag Logger.
     "../Game/debug/logs.js", // Logs.
     "../Game/entities/subFunctions.js", // This helps keeping the entities work.
@@ -13,9 +13,9 @@ const requires = [
     "../Game/entities/vector.js", // Define a vector. Required By Entity.js.
     "../Game/entities/skills.js", // Define skills. Required By Entity.js.
     "../Game/entities/gun.js", // Define gun to make guns to work. Required By Entity.js.
-    "../Game/entities/healthType.js", // Define health to make healths work when an entity got hit, or regenerated. Required By Entity.js.
+    "../Game/entities/healthType.js", // Define health to make healths work when a entity got hit, or regenerated. Required By Entity.js.
     "../Game/entities/antiNaN.js", // This file prevents NaN to entities.
-    "../Game/entities/propEntity.js", // This file create prop entities, It's actually a turret entity but It's decorative only. Required By Entity.js.
+    "../Game/entities/propEntity.js", // This file create prop entities, Its actually a turret entity but its decorative only. Required By Entity.js.
     "../Game/entities/bulletEntity.js", // The Entity constructor but with heavy limitations.
     "../Game/entities/entity.js", // The actual Entity constructor.
     // Definitions

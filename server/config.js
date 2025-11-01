@@ -35,7 +35,7 @@ module.exports = {
             // Keep in mind that if "LOAD_ON_MAINSERVER" is set to true then this code will be replaced with the main server's port instead.
             PORT: 3001,
             // Get the gamemode you want to select with.
-            GAMEMODE: ["teams"],
+            GAMEMODE: ["maze"],
             // The region, can be anything.
             REGION: "local",
             // How many players can join until it's full.
@@ -43,6 +43,8 @@ module.exports = {
             // The server ID. Example: (<Yourwebsitename>/#<ServerID>)
             // Important! You cannot make the same server id with a other one or else the server selector will get confused.
             SERVER_ID: "loc",
+            // Make the server featured by turning the text yellow in the server selector.
+            FEATURED: false,
             // This is where you can override settings in the config.js file, and as long the gamemode's config doesn't override it.
             PROPERTIES: {
                 // Amount of bots.
@@ -92,6 +94,9 @@ module.exports = {
     // How long (in ms) a socket can be disconnected without their player dying.
     maxHeartbeatInterval: 300000,
 
+    // Set halloween theme by adding the eye entities to the walls and replacing rocks to pumpkins
+    HALLOWEEN_THEME: true,
+
     // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
     bulletSpawnOffset: 1,
 
@@ -114,7 +119,7 @@ module.exports = {
     LEVEL_SKILL_POINT_FUNCTION: level => {
         if (level < 2) return 0;
         if (level <= 40) return 1;
-        if (level <= 45 && level) return 1;
+        if (level <= 45 && level & 1 === 1) return 1;
         return 0;
     },
 
@@ -160,15 +165,11 @@ module.exports = {
     // How every entity regenerates their health.
     REGENERATE_TICK: 100,
 
-    // How many members a team can have in comparison to an unweighted team.
+    // How many members a team can have in comparison to an unweighed team.
     // Example: Lets say we have team A and B. If the weigh of A is 2 and B is 1, then the game will try to give A twice as many members as B.
     TEAM_WEIGHTS: {},
 
     // Natural Spawns
-
-    // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.
-    // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear as the boss.
-    BOSS_SPAWN_DURATION: 5,
 
     // The possible food types that can spawn.
     FOOD_TYPES: [
@@ -200,6 +201,11 @@ module.exports = {
         ]]
     ],
 
+    // Cooldown (in seconds) of boss spawns being announced.
+    BOSS_SPAWN_COOLDOWN: 260,
+    // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.
+    // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear than the boss.
+    BOSS_SPAWN_DURATION: 6,
     // The possible boss types that can spawn.
     BOSS_TYPES: [{
         bosses: ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner"],
@@ -245,10 +251,12 @@ module.exports = {
     DOMINATION: false,
     RANDOM_COLORS: false,
     SPACE_PHYSICS: false,
+    LABY_FOOD: false,
     ARENA_TYPE: "rect",
     BLACKOUT: false,
-    RADIAL_MODE: false,
     SPACE_MODE: false,
+    CLAN_WARS: false,
+    GROWTH: false,
     GROUPS: false,
     TRAIN: false,
     MAZE: false,

@@ -13,8 +13,8 @@ class Train {
             for (let [i, player] of train.entries()) {
                 if (i === 0) continue;
 
-                player.velocity.x = util.clamp(train[i - 1].x - player.x, -90, 90) * player.damp * 2;
-                player.velocity.y = util.clamp(train[i - 1].y - player.y, -90, 90) * player.damp * 2;
+                player.velocity.x = util.clamp(train[i - 1].x - player.x, -90, 90) * player.damp * 1.35;
+                player.velocity.y = util.clamp(train[i - 1].y - player.y, -90, 90) * player.damp * 1.35;
             }
         }
     }

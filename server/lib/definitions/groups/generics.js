@@ -169,7 +169,6 @@ Class.food = {
     HITS_OWN_TYPE: "repel",
     MOTION_TYPE: "drift",
     FACING_TYPE: "turnWithSpeed",
-    VARIES_IN_SIZE: true,
     IS_IMMUNE_TO_TILES: false,
     LEVEL_CAP: 1,
     BODY: {
@@ -231,7 +230,7 @@ Class.drone = {
         RESIST: 1.5,
         FOV: 0.5,
     },
-    HITS_OWN_TYPE: "hard",
+    HITS_OWN_TYPE: "droneCollision",
     DRAW_HEALTH: false,
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
@@ -264,6 +263,7 @@ Class.swarm = {
 Class.baseSwarmTurret_swarm = {
     PARENT: "swarm",
     MOTION_TYPE: ["swarm", { turnVelocity: 10 }],
+    AI: { IGNORE_SHAPES: true },
     BODY: {
         ACCELERATION: Class.swarm.BODY.ACCELERATION,
         PENETRATION: Class.swarm.BODY.PENETRATION,

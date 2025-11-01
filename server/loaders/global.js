@@ -6,9 +6,9 @@ global.Config = require("../config.js");
 
 global.ran = require("../lib/random.js");
 global.util = require("../lib/util.js");
+global.protocol = require("../lib/fasttalk.js");
 global.mazeGenerator = require("../miscFiles/mazeGenerator.js");
 global.grid = new HashGrid(7);
-global.protocol = require("../lib/fasttalk.js");
 global.cannotRespawn = false;
 global.mockupData = [];
 global.entities = new Map();
@@ -70,10 +70,7 @@ global.getWeakestTeam = () => {
         entries = teamcounts.filter(a => a[1] == lowestTeamCount);
     return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.TEAMS) : ran.choose(entries)[0]);
 };
-
-global.loopThrough = function(array, callback = () => {}) {
-    for (let index = 0, length = array.length; index < length; index++) callback(array[index], index);
-};
+global.getRandomTeam = () => -Math.floor(Math.random() * 3000) + 1;
 
 global.Class = {};
 global.tileClass = {};
@@ -157,9 +154,9 @@ global.bringToLife = (() => {
 
         my.control.target = b.target == null ? my.control.target : b.target;
         my.control.goal = b.goal || { x: my.x, y: my.y };
-        my.control.fire = b.fire;
-        my.control.main = b.main;
-        my.control.alt = b.alt;
+        my.control.fire = b.fire ?? false;
+        my.control.main = b.main ?? false;
+        my.control.alt = b.alt ?? false;
         my.control.power = b.power == null ? 1 : b.power;
 
         // React
@@ -403,7 +400,7 @@ global.flatten = (output, definition) => {
 };
 
 global.makeHitbox = wall => {
-    const _size = wall.size + 4;
+    const _size = wall.size - 4;
     //calculate the relative corners
     let relativeCorners = [
             Math.atan2(    _size,     _size) + wall.angle,
@@ -487,4 +484,71 @@ global.loadAllMockups = (logText = true) => {
     let mockupsLoadEndTime = performance.now();
     if (logText) console.log("Finished created " + mockupData.length + " MockupEntities.");
     if (logText) console.log("Mockups generated in " + util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3) + " milliseconds.\n");
+}
+
+global.activateLabyFood = () => {
+	const disableCrashers = true;
+
+	// there is no `ENEMY_CAP`, so we are "reconstructing them"
+	Config.ENEMY_CAP_NEST = 0;
+
+	// Constructs a four-dimensional array of shape types
+
+	// 3-wide dimension of the 3 base shape types - egg, square, triangle
+	Config.FOOD_TYPES = Array(3).fill().map((_, i, a) => [
+		// Chance of spawning in exponents of 4
+		4 ** (a.length - i),
+		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega
+		Array(3)
+			.fill()
+			.map((_, j, b) => [
+				// Chance of spawning in exponents of 5
+				5 ** (b.length - j),
+				// 6-wide dimension of the 6 shiny modifiers
+				Array(6)
+					.fill()
+					.map((_, k, c) => [
+						// Chance of spawning, set to 200mil for regular polygons and exponents of 10 otherwise
+						k ? 10 ** (c.length - k - 1) : 200_000_000,
+
+						disableCrashers // no crashers
+							? `laby_${i}_${j}_${k}_0`
+							: // 2-wide dimension of the 2 shape "ranks" - normal, crasher
+							  [
+									[24, `laby_${i}_${j}_${k}_0`],
+									[1, `laby_${j}_${i}_${k}_1`]
+							  ]
+					])
+			])
+	]);
+
+	//laby_${poly}_${tier}_${shiny}_${rank}
+
+	// 2-wide dimension of the 2 base shape types - pentagon, hexagon
+	Config.FOOD_TYPES_NEST = Array(2).fill().map((_, i, a) => [
+		// Chance of spawning in exponents of 4
+		4 ** (a.length - i),
+		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega
+		Array(3)
+			.fill()
+			.map((_, j, b) => [
+				// Chance of spawning in exponents of 5
+				5 ** (b.length - j),
+				// 6-wide dimension of the 6 shiny modifiers
+				Array(6)
+					.fill()
+					.map((_, k, c) => [
+						// Chance of spawning, set to 200mil for regular polygons and exponents of 10 otherwise
+						k ? 10 ** (c.length - k - 1) : 200_000_000,
+
+						disableCrashers // no crashers
+							? `laby_${i + 3}_${j}_${k}_0`
+							: // 2-wide dimension of the 2 shape "ranks" - normal, crasher
+							  [
+									[24, `laby_${i + 3}_${j}_${k}_0`],
+									[1, `laby_${i + 3}_${j}_${k}_1`]
+							  ]
+					])
+			])
+	]);
 }

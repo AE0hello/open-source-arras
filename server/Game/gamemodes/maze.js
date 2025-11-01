@@ -4,6 +4,9 @@ class Maze {
     }
     generate() {
         // Spawn maze
+        for (let o of entities.values()) {
+            if (o.type === "wall") o.destroy();
+        }
         let mazeGenerator = new global.mazeGenerator.MazeGenerator(this.type);
         let { squares, width, height } = mazeGenerator.placeMinimal();
         for (let instance of entities) {
@@ -23,6 +26,14 @@ class Maze {
             wall.on("dead", () => {
                 util.remove(walls, walls.indexOf(wall));
             })
+            if (Config.HALLOWEEN_THEME) {
+                let eyeSize = 12 * (Math.random() + 0.75);
+                let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
+                spookyEye.define("hwEye");
+                spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})
+                spookyEye.SIZE = eyeSize;
+                spookyEye.minimapColor = 18;
+            }
         });
     }
     redefine(type) {
