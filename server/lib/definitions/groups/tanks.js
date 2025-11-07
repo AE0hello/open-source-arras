@@ -4790,7 +4790,18 @@ Class.autoSmasher = makeAuto({
             TYPE: "smasherBody"
         }
     ],
-    SKILL_CAP: [smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl]
+    SKILL_CAP: {
+        RELOAD: smshskl,
+        PENETRATION: smshskl,
+        BULLET_HEALTH: smshskl,
+        BULLET_DAMAGE: smshskl,
+        BULLET_SPEED: smshskl,
+        SHIELD_CAPACITY: smshskl,
+        BODY_DAMAGE: smshskl,
+        MAX_HEALTH: smshskl,
+        SHIELD_REGENERATION: smshskl,
+        MOVEMENT_SPEED: smshskl
+    },
 }, "Auto-Smasher", {type: "autoSmasherTurret", size: 11})
 
 // Radial Auto tanks
