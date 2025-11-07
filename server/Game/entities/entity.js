@@ -512,7 +512,7 @@ class Entity extends EventEmitter {
         ];
         if (set.SKILL_CAP != null) {
             let skillCapsToSet = Array.isArray(set.SKILL_CAP) ? set.SKILL_CAP : SKILL_ORDER.map(name => 
-                set.SKILL_CAP[name] !== undefined ? set.SKILL_CAP[name] : 9
+                set.SKILL_CAP[name] !== undefined ? set.SKILL_CAP[name] : 9 // Default max skill points to 9, cant decide if it should be 9 or 0
             );
 
             if (skillCapsToSet.length !== 10) {
@@ -523,7 +523,7 @@ class Entity extends EventEmitter {
 
         if (set.SKILL != null) {
             let skillsToSet = Array.isArray(set.SKILL) ? set.SKILL : SKILL_ORDER.map(name => 
-                set.SKILL[name] !== undefined ? set.SKILL[name] : 0 // Default current skill points to 0
+                set.SKILL[name] !== undefined ? set.SKILL[name] : 0 // Default current skill points to 0, cant decide if it should be 9 or 0
             );
 
             if (skillsToSet.length !== 10) {
