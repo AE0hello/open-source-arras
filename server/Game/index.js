@@ -11,7 +11,7 @@ class gameHandler {
         this.bossTimer = 0;
         this.active = false;
     }
-
+    checkUsers = () => global.gameManager.clients.length >= 1;
     // Collision stuff
     collide = (instance, other) => {
 
@@ -372,8 +372,8 @@ class gameHandler {
             }
         }
         // Spawn bosses
-        if (Config.ENABLE_BOSS_SPAWN && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
-            this.bossTimer = -Config.BOSS_SPAWN_DURATION;
+        if (this.checkUsers() && Config.ENABLE_BOSS_SPAWN && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
+            this.bossTimer = -Config.BOSS_SPAWN_DURATION - 2;
             let selection = Config.BOSS_TYPES[ran.chooseChance(...Config.BOSS_TYPES.map((selection) => selection.chance))],
                 amount = ran.chooseChance(...selection.amount) + 1;
             if (selection.message) {
@@ -501,7 +501,7 @@ class gameHandler {
         this.active = true;
         let gameLoop = setInterval(() => {
             if (!this.active) return clearInterval(gameLoop);
-            if (global.gameManager.clients.length >= 1) { // If there arent clients in the server, then just dont run the run function.
+            if (this.checkUsers()) {
                 try {
                     this.gameloop();
                     syncedDelaysLoop();
