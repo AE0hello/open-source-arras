@@ -2038,7 +2038,6 @@ import * as socketStuff from "./socketinit.js";
         if (global.died) {
             // Hide the tree on death
             global.tankTree("exit");
-            global.canvas.tankTreeProps.enabled = false;
             return;
         }
 

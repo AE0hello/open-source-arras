@@ -348,6 +348,7 @@ const global = {
             global.classTreeDrag.momentum = { x: 0, y: 0 };
             global.searchQuery = '';
             global.searchBarActive = false;
+            global.canvas.tankTreeProps.enabled = false;
         }
     },
     exit: () => { // When exiting and going back to the menu, reset things.
