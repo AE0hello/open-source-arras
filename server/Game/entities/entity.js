@@ -1046,7 +1046,7 @@ class Entity extends EventEmitter {
             } else {
                 givenangle = this.firingArc[0];
             }
-            this.facing += util.loopSmooth(this.facing, givenangle, 4 / global.gameManager.runSpeed);
+            this.facing += util.loopSmooth(this.facing, givenangle, (this.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed);
         }
         switch (this.facingType) {
             case "spin":
@@ -1056,14 +1056,14 @@ class Entity extends EventEmitter {
                 if (t && this.control.fire) this.facing = Math.atan2(t.y, t.x); else this.facing += (this.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
                 break;
             case 'turnWithSpeed':
-                this.facing += this.velocity.length / 90 * Math.PI / global.gameManager.roomSpeed;
+                this.facing += this.velocity.length / 90 * Math.PI / global.gameManager.roomSpeed * (this.facingTypeArgs.multiplier ?? 4);
                 break;
             case 'withMotion':
                 this.facing = this.velocity.direction;
                 break;
             case 'smoothWithMotion':
             case 'looseWithMotion':
-                this.facing += util.loopSmooth(this.facing, this.velocity.direction, 4 / global.gameManager.roomSpeed);
+                this.facing += util.loopSmooth(this.facing, this.velocity.direction, (this.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
                 break;
             case 'withTarget':
             case 'toTarget':
@@ -1081,7 +1081,7 @@ class Entity extends EventEmitter {
             case 'looseWithTarget':
             case 'looseToTarget':
             case 'smoothToTarget':
-                this.facing += util.loopSmooth(this.facing, Math.atan2(t.y, t.x), 4 / global.gameManager.roomSpeed);
+                this.facing += util.loopSmooth(this.facing, Math.atan2(t.y, t.x), (this.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
                 break;
             case "noFacing":
                 if (this.lastSavedFacing !== this.facing) this.facing = this.facingTypeArgs.angle ?? 0;
@@ -1091,7 +1091,7 @@ class Entity extends EventEmitter {
                 defaultBound();
                 break;
             case "spinOnFire":
-                if (t && this.control.fire) this.facing += util.loopSmooth(this.facing, this.facing += 1, 4 / global.gameManager.runSpeed); else defaultBound();
+                if (t && this.control.fire) this.facing += util.loopSmooth(this.facing, this.facing += 1, (this.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed); else defaultBound();
                 break;
             case "manual":
                 if ((this.facingTypeArgs.angle ?? 0) !== this.facing) {
