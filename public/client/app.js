@@ -1926,47 +1926,172 @@ import * as socketStuff from "./socketinit.js";
     global.scrollX = global.scrollY = global.fixedScrollX = global.fixedScrollY = -1;
     global.scrollVelocityY = global.scrollVelocityX = 0;
     let lastGuiType = null;
-    function drawUpgradeTree(spacing, alcoveSize) {
-        if (global.died) {  // Hide the tree on death
-            if (global.showTree) {
-                global.showTree = false;
-                global.pullUpgradeMenu = false;
+    let classTreeDrag = {
+        isDragging: false,
+        startX: 0,
+        startY: 0,
+        lastX: 0,
+        lastY: 0,
+        momentum: { x: 0, y: 0 }
+    };
+
+    // Search functionality - OPTIMIZED
+    let searchResults = [];
+    let filteredTiles = null;
+    let searchCache = new Map(); // Cache search results
+
+    // Optimize rendering with culling
+    const SHOW_NAMES_ZOOM_THRESHOLD = 1.5;
+    const CULL_MARGIN = 200;
+
+    let tankNameCache = new Map();
+    global.searchQuery = '';
+    function searchTankByName(query) {
+        if (!query || query.trim() === '') {
+            searchResults = [];
+            filteredTiles = null;
+            tankNameCache.clear();
+            global.searchQuery = ''; // Update global
+            return;
+        }
+
+        const lowerQuery = query.toLowerCase().trim();
+        global.searchQuery = query; // Update global
+        
+        // Check cache first
+        if (searchCache.has(lowerQuery)) {
+            const cached = searchCache.get(lowerQuery);
+            searchResults = cached.results;
+            filteredTiles = cached.tiles;
+            return;
+        }
+
+        // Build name cache if empty
+        if (tankNameCache.size === 0) {
+            for (let i = 0; i < global.mockups.length; i++) {
+                const m = global.mockups[i];
+                if (m && m.name) {
+                    tankNameCache.set(i, m.name.toLowerCase());
+                }
             }
-            global.scrollX = global.scrollY = global.fixedScrollX = global.fixedScrollY = global.scrollVelocityY = global.scrollVelocityX = 0;
-            global.treeScale = 1;
+        }
+
+        // Search using cache
+        searchResults = [];
+        const matchingIndexes = new Set();
+        
+        for (let [index, name] of tankNameCache) {
+            if (name.includes(lowerQuery)) {
+                searchResults.push(global.mockups[index]);
+                matchingIndexes.add(index);
+            }
+        }
+
+        if (searchResults.length > 0) {
+            // FIXED: Find all tiles in the upgrade path to matching tanks
+            filteredTiles = [];
+            
+            // Helper function to check if a tank leads to any search result
+            const leadsToSearchResult = (tankIndex, visited = new Set()) => {
+                if (visited.has(tankIndex)) return false;
+                visited.add(tankIndex);
+                
+                // Check if this tank is in search results
+                if (matchingIndexes.has(parseInt(tankIndex))) return true;
+                
+                // Check if any of its upgrades lead to search results
+                const mockup = global.mockups[parseInt(tankIndex)];
+                if (mockup && mockup.upgrades) {
+                    for (let upgrade of mockup.upgrades) {
+                        if (leadsToSearchResult(upgrade.index, visited)) {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            };
+            
+            // Include all tiles that either match or lead to matching tanks
+            for (let tile of tiles) {
+                const tileIndex = parseInt(tile.index);
+                if (matchingIndexes.has(tileIndex) || leadsToSearchResult(tile.index)) {
+                    filteredTiles.push(tile);
+                }
+            }
+        } else {
+            // Show only basic if no results found
+            filteredTiles = tiles.filter(tile => {
+                const mockup = global.mockups[parseInt(tile.index)];
+                return mockup && mockup.className === 'basic';
+            });
+        }
+        
+        // Cache the results
+        searchCache.set(lowerQuery, {
+            results: searchResults,
+            tiles: filteredTiles
+        });
+    }
+    global.searchTankByName = searchTankByName;
+
+    function drawUpgradeTree(spacing, alcoveSize) {
+        if (global.died) {
+            // Hide the tree on death
+            global.tankTree("exit");
             return;
         }
 
         if (lastGuiType != gui.type || global.generateTankTree) {
             try {
-                let m = util.requestEntityImage(gui.type), // The mockup that corresponds to the player's tank
-                    rootName = m.rerootUpgradeTree, // The upgrade tree root of the player's tank
+                let m = util.requestEntityImage(gui.type),
+                    rootName = m.rerootUpgradeTree,
                     rootIndex = [];
                 for (let name of rootName) {
                     let mockup = global.mockups.find(i => i && i.className === name);
                     let ind = name == undefined || !mockup ? -1 : mockup.index;
-                    rootIndex.push(ind); // The index of the mockup that corresponds to the root tank (-1 for no root)
+                    rootIndex.push(ind);
                 }
                 if (!rootIndex.includes(-1)) {
                     generateTankTree(rootIndex);
                 }
                 lastGuiType = gui.type;
                 global.generateTankTree = false;
-            } catch { };
+                // Clear search when tree regenerates
+                global.searchQuery = ''; // Use global
+                searchResults = [];
+                filteredTiles = null;
+                searchCache.clear();
+            } catch { }
         }
 
         if (!tankTree) {
             console.log('No tank tree rendered yet.');
             return;
         }
+
         let tileSize = alcoveSize / 2,
-            size = tileSize - 4, // TODO: figure out where this 4 comes from
+            size = tileSize - 4,
             spaceBetween = 10,
             screenDivisor = (spaceBetween + tileSize) * 2 * global.treeScale,
             padding = tileSize / screenDivisor,
             dividedWidth = global.screenWidth / screenDivisor,
             dividedHeight = global.screenHeight / screenDivisor,
             treeFactor = 1 + spaceBetween / tileSize;
+
+        // Apply momentum decay with optimization
+        if (!classTreeDrag.isDragging) {
+            const friction = 0.92;
+            classTreeDrag.momentum.x *= friction;
+            classTreeDrag.momentum.y *= friction;
+            
+            // Stop momentum if very small
+            if (Math.abs(classTreeDrag.momentum.x) < 0.1) classTreeDrag.momentum.x = 0;
+            if (Math.abs(classTreeDrag.momentum.y) < 0.1) classTreeDrag.momentum.y = 0;
+        }
+
+        // Update scroll position with momentum
+        global.scrollVelocityX = classTreeDrag.momentum.x;
+        global.scrollVelocityY = classTreeDrag.momentum.y;
 
         global.fixedScrollX = Math.max(
             dividedWidth - padding,
@@ -1982,42 +2107,194 @@ import * as socketStuff from "./socketinit.js";
                 global.fixedScrollY + global.scrollVelocityY
             )
         );
-        global.scrollX = util.lerp(global.scrollX, global.fixedScrollX, 0.1);
-        global.scrollY = util.lerp(global.scrollY, global.fixedScrollY, 0.1);
-
-        for (let [start, end] of branches) {
-            let sx = ((start.x - global.scrollX) * (tileSize + spaceBetween) + 1 + 0.5 * size) * global.treeScale + global.screenWidth / 2,
-                sy = ((start.y - global.scrollY) * (tileSize + spaceBetween) + 1 + 0.5 * size) * global.treeScale + global.screenHeight / 2,
-                ex = ((end.x - global.scrollX) * (tileSize + spaceBetween) + 1 + 0.5 * size) * global.treeScale + global.screenWidth / 2,
-                ey = ((end.y - global.scrollY) * (tileSize + spaceBetween) + 1 + 0.5 * size) * global.treeScale + global.screenHeight / 2;
-            if (ex < 0 || sx > global.screenWidth || ey < 0 || sy > global.screenHeight) continue;
-            ctx[2].strokeStyle = color.black;
-            ctx[2].lineWidth = 2 * global.treeScale;
-            drawGuiLine(sx, sy, ex, ey);
+        if (Math.abs(global.targetTreeScale - global.treeScale) > 0.001) {
+            global.treeScale += (global.targetTreeScale - global.treeScale) * 0.15;
+            if (Math.abs(global.targetTreeScale - global.treeScale) < 0.001) {
+                global.treeScale = global.targetTreeScale;
+            }
         }
+        // Smooth scroll interpolation
+        global.scrollX = util.lerp(global.scrollX, global.fixedScrollX, 0.10, true);
+        global.scrollY = util.lerp(global.scrollY, global.fixedScrollY, 0.10, true);
+
+        // Draw semi-transparent overlay
         ctx[2].globalAlpha = 0.5;
         ctx[2].fillStyle = color.guiwhite;
-        ctx[2].fillRect(0, 0, innerWidth, innerHeight);
+        ctx[2].fillRect(0, 0, global.screenWidth, global.screenHeight);
         ctx[2].globalAlpha = 1;
 
-        //draw the various tank icons
+        // Determine which tiles to render based on search
+        const tilesToRender = filteredTiles || tiles;
+
+        // OPTIMIZED: Pre-calculate values
+        const halfWidth = global.screenWidth / 2;
+        const halfHeight = global.screenHeight / 2;
+        const tileSpacing = tileSize + spaceBetween;
+        const scaledSpacing = tileSpacing * global.treeScale;
+        const halfSize = 0.5 * size;
+
+        // Draw branches (optimized with culling)
+        ctx[2].strokeStyle = color.black;
+        ctx[2].lineWidth = 2 * global.treeScale;
+        ctx[2].beginPath();
+        
+        for (let [start, end] of branches) {
+            let sx = ((start.x - global.scrollX) * tileSpacing + 1 + halfSize) * global.treeScale + halfWidth,
+                sy = ((start.y - global.scrollY) * tileSpacing + 1 + halfSize) * global.treeScale + halfHeight,
+                ex = ((end.x - global.scrollX) * tileSpacing + 1 + halfSize) * global.treeScale + halfWidth,
+                ey = ((end.y - global.scrollY) * tileSpacing + 1 + halfSize) * global.treeScale + halfHeight;
+            
+            // Culling check with margin
+            if (ex < -CULL_MARGIN || sx > global.screenWidth + CULL_MARGIN || 
+                ey < -CULL_MARGIN || sy > global.screenHeight + CULL_MARGIN) continue;
+            
+            ctx[2].moveTo(sx, sy);
+            ctx[2].lineTo(ex, ey);
+        }
+        ctx[2].stroke();
+
+        // Draw tank icons (optimized with culling)
         let angle = -Math.PI / 4;
-        for (let { x, y, colorIndex, index } of tiles) {
-            let ax = (x - global.scrollX) * (tileSize + spaceBetween) * global.treeScale + global.screenWidth / 2,
-                ay = (y - global.scrollY) * (tileSize + spaceBetween) * global.treeScale + global.screenHeight / 2;
-            if (ax < -tileSize || ax > global.screenWidth + tileSize || ay < -tileSize || ay > global.screenHeight + tileSize) continue;
-            drawEntityIcon(index.toString(), ax, ay, tileSize * global.treeScale, tileSize * global.treeScale, global.treeScale, angle, 1, colorIndex);
+        const scaledTileSize = tileSize * global.treeScale;
+        
+        for (let { x, y, colorIndex, index } of tilesToRender) {
+            let ax = (x - global.scrollX) * scaledSpacing + halfWidth,
+                ay = (y - global.scrollY) * scaledSpacing + halfHeight;
+            
+            // Culling check with margin
+            if (ax < -scaledTileSize - CULL_MARGIN || ax > global.screenWidth + CULL_MARGIN || 
+                ay < -scaledTileSize - CULL_MARGIN || ay > global.screenHeight + CULL_MARGIN) continue;
+            
+            drawEntityIcon(index.toString(), ax, ay, scaledTileSize, scaledTileSize, global.treeScale, angle, 1, colorIndex);
         }
 
-        let text = "Arrow keys to navigate the class tree. Shift to navigate faster. Scroll wheel (or +/- keys) to zoom in/out.";
-        let w = measureText(text, 18);
+        // Draw UI elements
+        drawClassTreeUI(spacing);
+
         ctx[2].globalAlpha = 1;
-        ctx[2].lineWidth = 1;
-        ctx[2].fillStyle = color.dgrey;
-        ctx[2].strokeStyle = color.black;
-        ctx[2].fillText(text, global.screenWidth / 2 - w / 2, innerHeight * 0.04);
-        ctx[2].strokeText(text, global.screenWidth / 2 - w / 2, innerHeight * 0.04);
+    }
+    global.targetTreeScale = 1;
+    global.classTreeDrag = classTreeDrag;
+    function drawClassTreeUI(spacing) {
+        const uiY = spacing + 20;
+        const buttonSize = 40;
+        const buttonSpacing = 10;
+        
+        // Draw close button (X) on the left
+        const closeButtonSize = 35;
+        const closeButtonX = spacing + 760;
+        const closeButtonY = uiY;
+
+        // Draw text for a tip
+        drawText("Arrow keys or mouse to navigate the class tree. Shift to navigate faster. Scroll wheel, (+/- keys) or zoom buttons to zoom in/out.", global.screenWidth / 2, spacing + 10, 17, color.guiwhite, "center");
+
+        // Draw close button
+        drawButton(
+            closeButtonX,
+            closeButtonY,
+            closeButtonSize,
+            closeButtonSize,
+            1,
+            "rect",
+            "✕",
+            24,
+            color.red,
+            color.black,
+            color.black,
+            true,
+            "classTreeClose",
+            global.canvas.height / global.screenHeight / global.ratio,
+            0
+        );
+        
+        // Draw search bar (centered)
+        const searchBarWidth = 300;
+        const searchBarHeight = 35;
+        const searchBarX = global.screenWidth / 2 - searchBarWidth / 2;
+        const searchBarY = uiY;
+        
+        // Highlight if active
+        ctx[2].globalAlpha = global.searchBarActive ? 0.95 : 0.8;
+        ctx[2].fillStyle = global.searchBarActive ? color.vlgrey : color.white;
+        ctx[2].fillRect(searchBarX, searchBarY, searchBarWidth, searchBarHeight);
+        ctx[2].strokeStyle = global.searchBarActive ? color.blue : color.black;
+        ctx[2].lineWidth = global.searchBarActive ? 3 : 2;
+        ctx[2].strokeRect(searchBarX, searchBarY, searchBarWidth, searchBarHeight);
         ctx[2].globalAlpha = 1;
+        
+        const displayText = global.searchBarActive && !global.searchQuery 
+            ? "Type to search..." 
+            : global.searchQuery || "Click to search tanks...";
+        const textColor = color.white;
+        const showCursor = global.searchBarActive && Date.now() % 1000 < 500;
+        
+        drawText(
+            displayText + (showCursor ? "|" : ""),
+            searchBarX + 10,
+            searchBarY + searchBarHeight / 2,
+            14,
+            textColor,
+            "left",
+            true
+        );
+        
+        // Draw zoom buttons (moved to accommodate search bar position)
+        const zoomInX = searchBarX + searchBarWidth + buttonSpacing + 20;
+        const zoomOutX = zoomInX + buttonSize + buttonSpacing;
+        
+        // Zoom In button
+        drawButton(
+            zoomInX,
+            searchBarY,
+            buttonSize,
+            searchBarHeight,
+            1,
+            "rect",
+            "+",
+            20,
+            color.grey,
+            color.black,
+            color.black,
+            true,
+            "classTreeZoomIn",
+            global.canvas.height / global.screenHeight / global.ratio,
+            0
+        );
+        
+        // Zoom Out button
+        drawButton(
+            zoomOutX,
+            searchBarY,
+            buttonSize,
+            searchBarHeight,
+            1,
+            "rect",
+            "-",
+            20,
+            color.grey,
+            color.black,
+            color.black,
+            true,
+            "classTreeZoomOut",
+            global.canvas.height / global.screenHeight / global.ratio,
+            1
+        );
+        
+        // Draw search results info
+        const instructionY = searchBarY + searchBarHeight + 5;
+        if (global.searchQuery) {
+            const resultsText = searchResults.length > 0 
+                ? `Found ${searchResults.length} tank${searchResults.length !== 1 ? 's' : ''} (showing upgrade paths)`
+                : "No tanks found - showing Basic";
+            drawText(
+                resultsText,
+                global.screenWidth / 2,
+                instructionY + 10,
+                11,
+                searchResults.length > 0 ? color.green : color.orange,
+                "center"
+            );
+        }
     }
 
     function drawMessages(spacing, alcoveSize) {

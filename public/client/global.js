@@ -202,6 +202,9 @@ const global = {
         deathRespawn: Region(1),
         reconnect: Region(1),
         graphicsMode: Region(20),
+        classTreeZoomOut: Region(2),
+        classTreeZoomIn: Region(2),
+        classTreeClose: Region(1),
     },
     statHover: false,
     upgradeHover: false,
@@ -326,6 +329,27 @@ const global = {
             nameColor: "#ffffff",
         }
         return list;
+    },
+    tankTree: (type) => {
+        if (type === "open") {
+            if (global.died) return;
+            global.showTree = true;
+            global.pullUpgradeMenu = true;
+            global.pullSkillBar = true;
+            global.socket.talk('T');
+        } else if (type === "exit") {
+            global.showTree = false;
+            global.pullUpgradeMenu = false;
+            global.pullSkillBar = false;
+            global.targetTreeScale = global.treeScale = 1;
+            global.scrollX = global.scrollY = global.fixedScrollX = global.fixedScrollY = -1;
+            global.scrollVelocityY = global.scrollVelocityX = 0;
+            global.classTreeDrag.isDragging = false;
+            global.classTreeDrag.momentum = { x: 0, y: 0 };
+            global.searchQuery = '';
+            global.searchBarActive = false;
+            global.canvas.tankTreeProps.enabled = false;
+        }
     },
     exit: () => { // When exiting and going back to the menu, reset things.
         document.getElementById("gameAreaWrapper").style.display = "none";
