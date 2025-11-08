@@ -73,9 +73,12 @@ module.exports = {
     SANITIZE_CHAT_MESSAGE_COLORS: true,
 
     // Welcome message once a player spawns.
-    WELCOME_MESSAGE: "You have spawned! Welcome to the game.\n"
+    /*WELCOME_MESSAGE: "You have spawned! Welcome to the game.\n"
         + "You will be invulnerable until you move or shoot.\n"
-        + "Please report any bugs you encounter!",
+        + "Please report any bugs you encounter!",*/
+    WELCOME_MESSAGE: "You have spawned! Welcome to the game.\n"
+            + "You will be invulnerable until you move or shoot.\n"
+            + "This is an unstable build of OSA, expect many upcoming bugs.",
 
     // How long a popup message lasts before fading out in milliseconds.
     MESSAGE_DISPLAY_TIME: 10_000,
@@ -95,7 +98,7 @@ module.exports = {
     maxHeartbeatInterval: 300000,
 
     // Set halloween theme by adding the eye entities to the walls and replacing rocks to pumpkins
-    HALLOWEEN_THEME: true,
+    HALLOWEEN_THEME: false,
 
     // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
     bulletSpawnOffset: 1,
@@ -201,6 +204,8 @@ module.exports = {
         ]]
     ],
 
+    // Enable boss spawn.
+    ENABLE_BOSS_SPAWN: true,
     // Cooldown (in seconds) of boss spawns being announced.
     BOSS_SPAWN_COOLDOWN: 260,
     // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.

@@ -372,7 +372,7 @@ class gameHandler {
             }
         }
         // Spawn bosses
-        if (!this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
+        if (Config.ENABLE_BOSS_SPAWN && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
             this.bossTimer = -Config.BOSS_SPAWN_DURATION;
             let selection = Config.BOSS_TYPES[ran.chooseChance(...Config.BOSS_TYPES.map((selection) => selection.chance))],
                 amount = ran.chooseChance(...selection.amount) + 1;

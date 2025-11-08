@@ -8,6 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
+    let buildNumber = "v2.0.70242";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -252,6 +253,7 @@ import * as socketStuff from "./socketinit.js";
                 return d;
             } else throw new Error("Invalid menu tab type.");
         };
+        global.createTabMenu(`Unstable branch, Build: ${buildNumber}`, "warning");
         // Warn the users to turn their phones into landscape.
         if (global.mobile && window.innerHeight > 1.1 * window.innerWidth) {
             let tabMenu = global.createTabMenu("Please turn your device to landscape mode.", "warning", true);
@@ -2514,7 +2516,8 @@ import * as socketStuff from "./socketinit.js";
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
-            drawText("Open Source Arras", x + len, y - 50 - 3 * 14 - 2, 15, "#1081E5", "right");
+            drawText("Open Source Arras", x + len, y - 50 - 4 * 14 - 2, 15, "#1081E5", "right");
+            drawText(`Build: ${buildNumber}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
