@@ -1105,7 +1105,7 @@ class socketManager {
         body.socket = socket;
         body.hasOperator = socket.status.hasOperator;
         // Decide how to color and team the body
-        switch (Config.MODE) {
+        if (!filter.length) switch (Config.MODE) {
             case 'tdm': {
                 body.team = player.team;
                 body.color.base = global.getTeamColor(player.body.team);
