@@ -3372,7 +3372,7 @@ Class.mortar = {
     DANGER: 7,
     GUNS: [
         {
-            POSITION: [13, 3, 1, 0, -8, -7, 0.6],
+            POSITION: [13.5, 3, 0.5, 0, -8, -7, 0.6],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
                 TYPE: "bullet",
@@ -3380,7 +3380,7 @@ Class.mortar = {
             },
         },
         {
-            POSITION: [13, 3, 1, 0, 8, 7, 0.8],
+            POSITION: [13.5, 3, 0.5, 0, 8, 7, 0.8],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
                 TYPE: "bullet",
@@ -3388,7 +3388,7 @@ Class.mortar = {
             },
         },
         {
-            POSITION: [17, 3, 1, 0, -6, -7, 0.2],
+            POSITION: [17.3, 3, 0.4, 0, -6, -7, 0.2],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
                 TYPE: "bullet",
@@ -3396,7 +3396,7 @@ Class.mortar = {
             },
         },
         {
-            POSITION: [17, 3, 1, 0, 6, 7, 0.4],
+            POSITION: [17.3, 3, 0.4, 0, 6, 7, 0.4],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
                 TYPE: "bullet",
