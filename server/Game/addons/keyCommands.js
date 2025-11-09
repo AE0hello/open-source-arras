@@ -837,6 +837,7 @@ function init() {
               gameManager: global.gameManager,
             });
             socket.player.body.refreshBodyAttributes();
+            socket.player.body.minimapColor = "lightGreen";
           } catch (e) {
             console.error(`${command.name.toLowerCase()} key command error`, e);
           }

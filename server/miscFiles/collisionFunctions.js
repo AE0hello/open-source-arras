@@ -52,6 +52,21 @@ function firmcollide(my, n, buffer = 0) {
         n.velocity.x += adjustX;
         n.velocity.y += adjustY;
     }
+    if (my.label.includes("Spike") && n.label.includes("Spike")) {
+        const bounceFactor = 5;
+        const dx = my.x - n.x;
+        const dy = my.y - n.y;
+        const dist = Math.hypot(dx, dy);
+        const nx = dx / dist;
+        const ny = dy / dist;
+        const dot = my.velocity.x * nx + my.velocity.y * ny;
+        if (dist === 0) return;
+        const dot2 = n.velocity.x * (-nx) + n.velocity.y * (-ny);
+        my.velocity.x = (my.velocity.x - 2 * dot * nx) * bounceFactor;
+        my.velocity.y = (my.velocity.y - 2 * dot * ny) * bounceFactor;
+        n.velocity.x = (n.velocity.x - 2 * dot2 * (-nx)) * bounceFactor;
+        n.velocity.y = (n.velocity.y - 2 * dot2 * (-ny)) * bounceFactor;
+    }
 }
 
 function firmcollidehard(my, n, buffer = 0) {

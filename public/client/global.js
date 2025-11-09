@@ -174,7 +174,6 @@ const global = {
     glCanvas: null,
     showChat: 0,
     generateTankTree: false,
-    needsFovAnimReset: true,
     specialPressed: false,
     specialKeysPressed: [],
     backgroundColor: '#f2fbff',
@@ -328,6 +327,7 @@ const global = {
             screenHeight: global.screenHeight,
             nameColor: "#ffffff",
         }
+        list.animv.add(list.renderv);
         return list;
     },
     tankTree: (type) => {

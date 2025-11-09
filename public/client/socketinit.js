@@ -951,6 +951,11 @@ let incoming = async function(message, socket) {
                 theshit = m.slice(7);
                 // More stuff
                 let defaultFov = 2000;
+            if (!global.gameStart && startSettings.allowtostartgame) {
+                // Start the game
+                global.gameStart = true;
+                global.gameConnecting = false;
+            };
             // Process the data
             if (camtime > global.player.lastUpdate) { // Don't accept out-of-date information.
                 if (startSettings.neededtoresync) return; // Do not update anything when the client is out of sync.
@@ -994,11 +999,6 @@ let incoming = async function(message, socket) {
             } else {
                 console.log("Old data! Last given time: " + global.player.time + "; offered packet timestamp: " + camtime + ".");
             }
-            if (!global.gameStart && startSettings.allowtostartgame) {
-                // Start the game
-                global.gameStart = true;
-                global.gameConnecting = false;
-            };
             // Send the downlink and the target
             socket.talk('d', Math.max(global.player.lastUpdate, camtime));
             socket.cmd.talk();

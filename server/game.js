@@ -196,10 +196,11 @@ class gameServer {
         // Now start the server and send data!
         this.start();
 
+        // If no errors has accoured then annouce that the game server has succssfully booted up.
+        console.log("Game server " + this.name + " successfully booted up. Listening on port", this.port);
+
         // Send the info to the main server so the client can get the info.
         this.parentPort.postMessage([false, this.getInfo()]);
-
-        console.log("Game server " + this.name + " successfully booted up. Listening on port", this.port);
 
         // let the main server know that it successfully booted.
         this.parentPort.postMessage(["doneLoading"]);
@@ -506,7 +507,7 @@ class gameServer {
             let alive = false;
             for (const instance of entities.values()) {
                 if (
-                    (instance.isPlayer && !instance.invuln) || instance.isMothership ||
+                    (instance.isPlayer && !instance.invuln && !instance.godmode) || instance.isMothership ||
                     instance.isBot ||
                     (instance.isDominator && instance.team !== TEAM_ENEMIES)
                 ) {

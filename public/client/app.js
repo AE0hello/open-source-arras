@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.70263";
+    let buildNumber = "v2.0.70291";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -773,7 +773,6 @@ import * as socketStuff from "./socketinit.js";
     const mobileUpgradeGlide = Smoothbar(0, 2, 3, 0.08, 0.025, true);
     const lbGlide = AdvancedSmoothBar(0, 0.3, 1.5);
     const chatInput = AdvancedSmoothBar(0, 0.3, 1.3);
-    util.fovAnimation = util.AdvancedSmoothBar(0, 0.2, 1.5);
 
     // Define the graph constructor
     function graph() {
@@ -3557,10 +3556,6 @@ import * as socketStuff from "./socketinit.js";
             return;
         }
         animationFrame(animloop);
-        if (global.needsFovAnimReset) {
-            util.fovAnimation.force(2000);
-            global.needsFovAnimReset = false;
-        }
         if (global.gameStart) {
             // Update fov
             let fovtickMotion = fovlasttick ? tick - fovlasttick : null;
