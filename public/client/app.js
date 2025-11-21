@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.70291";
+    let buildNumber = "v2.0.70464";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -726,6 +726,7 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("showJoystick");
         util.submitToLocalStorage("optFullHD");
         loadSettings();
+        global.optionsCheckboxes = undefined;
         // Other more important stuff
         let playerNameInput = document.getElementById("playerNameInput");
         let playerKeyInput = document.getElementById("playerKeyInput");
@@ -1840,22 +1841,22 @@ import * as socketStuff from "./socketinit.js";
             y += global.screenHeight / 2;
             let alpha = instance.id === gui.playerid ? 1 : instance.alpha;
             alpha = handleScreenDistance(alpha, instance, false);
-            drawEntity(baseColor, x, y, instance, ratio, instance.id === gui.playerid || global.showInvisible ? instance.alpha ? instance.alpha * 0.75 + 0.25 : 0.25 : instance.alpha * alpha, 1, 1, instance.render.f, false, false, false, instance.render, isize);
+            drawEntity(baseColor, x, y, instance, ratio, instance.alpha * alpha, 1, 1, instance.render.f, false, false, false, instance.render, isize);
         }
         for (let instance of global.entities) {
             let alpha = instance.id === gui.playerid ? 1 : instance.alpha;
             alpha = handleScreenDistance(alpha, instance);
             let x = instance.id === gui.playerid ? global.player.screenx : ratio * instance.render.x - px,
                 y = instance.id === gui.playerid ? global.player.screeny : ratio * instance.render.y - py;
-            drawHealth(x, y, instance, ratio, alpha, instance.size);
-            drawName(x, y, instance, ratio, alpha, instance.size);
+            drawHealth(x, y, instance, ratio, gui.visibleEntities ? 1 : alpha, instance.size);
+            drawName(x, y, instance, ratio, gui.visibleEntities ? alpha * 0.75 + 0.25 : alpha, instance.size);
         }
         for (let instance of global.entities) {
             let alpha = instance.id === gui.playerid ? 1 : instance.alpha;
             alpha = handleScreenDistance(alpha, instance);
             let x = instance.id === gui.playerid ? global.player.screenx : ratio * instance.render.x - px,
                 y = instance.id === gui.playerid ? global.player.screeny : ratio * instance.render.y - py;
-            drawChatMessages(x, false, py, instance, ratio, alpha, instance.size, px, py);
+            drawChatMessages(x, false, py, instance, ratio, gui.visibleEntities ? 1 : alpha, instance.size, px, py);
             drawChatInput(x, y, instance, ratio, instance.size);
         }
         if (global.advanced.blackout.active) {
@@ -2903,6 +2904,7 @@ import * as socketStuff from "./socketinit.js";
 
     function drawAvailableUpgrades(spacing, alcoveSize) {
         // Draw upgrade menu
+        if (global.optionsMenu_Anim.isOpened) global.clickables.upgrade.hide();
         if (gui.upgrades.length > 0) {
             let internalSpacing = 15;
             let len = alcoveSize / 2;
@@ -2960,8 +2962,7 @@ import * as socketStuff from "./socketinit.js";
 
                 if (y > initialY) initialY = y;
                 rowWidth = x;
-
-                global.clickables.upgrade.place(i, x * clickableRatio, y * clickableRatio, len * clickableRatio, height * clickableRatio);
+                !global.optionsMenu_Anim.isOpened && global.clickables.upgrade.place(i, x * clickableRatio, y * clickableRatio, len * clickableRatio, height * clickableRatio);
                 let upgradeKey = getClassUpgradeKey(upgradeNum);
 
                 drawEntityIcon(model, x, y, len, height, 1, upgradeSpin, 0.6, colorIndex++, !global.mobile ? upgradeKey : false, !global.mobile ? upgradeNum == upgradeHoverIndex : false);
@@ -3498,6 +3499,405 @@ import * as socketStuff from "./socketinit.js";
         global.metrics.lastrender = getNow();
     }
 
+    function drawOptionsMenu() {
+        // Set up the animation
+        if (!global.optionsMenu_Anim.switchMenu_button) {
+            global.optionsMenu_Anim = {
+                switchMenu_button: Smoothbar(0, 2, 3, 0.08, 0.025, true),
+                optionsButtonProgress: Smoothbar(0, 2, 0.1, 0.08, 0.025, true),
+                mainMenu: Smoothbar(-500, 2, 3, 0.08, 0.025, true),
+                isOpened: false,
+            }
+        }
+        const RENDERX = global.optionsMenu_Anim.switchMenu_button.get();
+        const BTN_SIZE = 30;
+        const BTN_WIDTH_COLLAPSED = BTN_SIZE / 1.57; // Half width when not hovering
+        const BTN_WIDTH_EXPANDED = 119; // Increased from 100 to make it wider
+        const BTN_X = 1;
+        const BTN_Y = 25;
+        const clickableRatio = global.canvas ? global.canvas.height / global.screenHeight / global.ratio : 1;
+        const animValue = global.optionsMenu_Anim.optionsButtonProgress.get();
+        // Check hover state
+        let mpos = {
+            x: global.mouse.x,
+            y: global.mouse.y
+        };
+        
+        // Update clickable area
+        const currentWidth = BTN_WIDTH_COLLAPSED + (BTN_WIDTH_EXPANDED - BTN_WIDTH_COLLAPSED) * animValue;
+        if (global.clickables && global.clickables.optionsMenu.switchButton) {
+            if (global.optionsMenu_Anim.isOpened) {
+                global.clickables.optionsMenu.switchButton.hide();
+            } else global.clickables.optionsMenu.switchButton.place(0, BTN_X * clickableRatio - 4, BTN_Y * clickableRatio, currentWidth * clickableRatio + 4, BTN_SIZE * clickableRatio);
+        }
+        
+        let hover = global.clickables && global.clickables.optionsMenu.switchButton ? global.clickables.optionsMenu.switchButton.check(mpos) === 0 : false;
+        
+        // Change value to activate animation
+        if (hover) {
+            global.optionsMenu_Anim.optionsButtonProgress.set(1);
+        } else {
+            global.optionsMenu_Anim.optionsButtonProgress.set(0);
+        }
+        
+        const animatedWidth = BTN_WIDTH_COLLAPSED + (BTN_WIDTH_EXPANDED - BTN_WIDTH_COLLAPSED) * animValue;
+        ctx[2].translate(RENDERX, 0);
+        ctx[2].save();
+        
+        // Draw button background
+        ctx[2].lineWidth = 3;
+        gameDraw.setColor(ctx[2], color.blue);
+        drawGuiRect(BTN_X, BTN_Y, animatedWidth, BTN_SIZE);
+        if (hover) {
+            gameDraw.setColor(ctx[2], global.clickables.clicked ? "#000" : "#fff");
+            ctx[2].globalAlpha = global.clickables.clicked ? 0.15 : 0.2;
+            drawGuiRect(BTN_X, BTN_Y, animatedWidth, BTN_SIZE);
+            ctx[2].globalAlpha = 1;
+        }
+        // Draw "Options" text
+        if (animValue > 0.1) {
+            const textX = BTN_X + BTN_WIDTH_COLLAPSED / 2 + animatedWidth - 105;
+            const textY = BTN_Y + BTN_SIZE / 2;
+            drawText("Options", textX, textY * 1.13, 13, color.guiwhite, "left");
+        }
+        ctx[2].lineWidth = 3;
+        gameDraw.setColor(ctx[2], color.black);
+        drawGuiRect(BTN_X, BTN_Y, animatedWidth, BTN_SIZE, true); // Draw stroke(Outline) between the box
+        
+        // Draw THICK border
+        
+        // Draw separator line between options area and arrow area (when expanded)
+        if (animValue > 0.001) {
+            const separatorX = BTN_X + animatedWidth - BTN_WIDTH_COLLAPSED - 2;
+            ctx[2].strokeStyle = color.black;
+            ctx[2].lineWidth = 6;
+            ctx[2].beginPath();
+            ctx[2].moveTo(separatorX, BTN_Y + 2);
+            ctx[2].lineTo(separatorX, BTN_Y + BTN_SIZE - 2);
+            ctx[2].stroke();
+        }
+        
+        // Draw arrow - slides to the right as button expands - KEEP YOUR ORIGINAL ARROW
+        const arrowW = BTN_WIDTH_COLLAPSED * 0.3;  // Arrow width (horizontal)
+        const arrowH = BTN_SIZE * 0.3;    // Arrow height (vertical)
+        
+        // Arrow position moves from center of collapsed button to right edge of expanded button
+        const arrowBaseX = BTN_X + BTN_WIDTH_COLLAPSED / 2;
+        const arrowCenterX = arrowBaseX + animatedWidth - 19;
+        const arrowCenterY = BTN_Y + BTN_SIZE / 2;
+        
+        const leftX = arrowCenterX - arrowW / 3; 
+        const tipX = arrowCenterX + arrowW / 2;  
+        const topY = arrowCenterY - arrowH / 2; 
+        const botY = arrowCenterY + arrowH / 2; 
+        
+
+        ctx[2].fillStyle = "#ffffff";
+        ctx[2].lineJoin = "round";
+        ctx[2].lineCap = "round";
+        ctx[2].lineWidth = 3;
+        
+        ctx[2].beginPath();
+        ctx[2].moveTo(leftX, topY);
+        ctx[2].lineTo(tipX, arrowCenterY);
+        ctx[2].lineTo(leftX, botY);
+        ctx[2].closePath();
+        ctx[2].fill();
+        
+        ctx[2].strokeStyle = "#ffffff";
+        ctx[2].stroke();
+        
+        ctx[2].restore();
+        ctx[2].translate(-RENDERX, -0);
+
+        // Draw options menu
+        
+        //if (menuEase <= 0.001) return; // fully hidden
+        const mainMenuAnim = global.optionsMenu_Anim.mainMenu.get();
+        const PANEL_WIDTH = 460;
+        const PANEL_HEIGHT = 730;
+        const PANEL_Y = 75;
+
+        // slide from off-screen left → visible
+        const PANEL_VISIBLE_X = mainMenuAnim;
+        const PANEL_HIDDEN_X = PANEL_VISIBLE_X - PANEL_WIDTH - 30;
+        const panelX = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X);
+
+
+        ctx[2].save();
+        ctx[2].globalAlpha = 1;
+
+        // background
+        ctx[2].lineWidth = 3;
+        gameDraw.setColor(ctx[2], color.grey);
+        drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT);
+        gameDraw.setColor(ctx[2], color.black);
+        drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, true);
+
+        // top tabs (Options / Theme / Keybinds) – visuals only here
+        const TAB_WIDTH = PANEL_WIDTH / 3.73;
+        const TAB_HEIGHT = 50;
+        const TAB_Y = PANEL_Y - TAB_HEIGHT;
+
+        function drawTab(index, label, active) {
+            const x = panelX + index * TAB_WIDTH * 1.162;
+            const cx = x + TAB_WIDTH - 11;
+            const cy = TAB_Y + TAB_HEIGHT - 18;
+            ctx[2].lineWidth = 3;
+            gameDraw.setColor(ctx[2], gameDraw.mixColors(color.grey, gameDraw.getColor(color.black), 0.3));
+            drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
+            gameDraw.setColor(ctx[2], color.black);
+            drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
+            if (active) {
+                ctx[2].lineWidth = 3;
+                gameDraw.setColor(ctx[2], color.grey);
+                drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT + 5);
+                gameDraw.setColor(ctx[2], color.black);
+                drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
+                gameDraw.setColor(ctx[2], color.grey);
+                drawGuiRect(x + 51.6, TAB_Y + 48, TAB_WIDTH - 3, TAB_HEIGHT - 46);
+            }
+            drawText(label, cx, cy, 16, color.guiwhite, "center");
+        }
+        drawTab(0, "Options", true);
+        drawTab(1, "Theme", false);
+        drawTab(2, "Keybinds", false);
+
+        drawText("The ingame options is not finished! Expect missing features and bugs!", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
+
+        drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
+        drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 310, 15.5, color.guiwhite, "center");
+        drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 470, 15.5, color.guiwhite, "center");
+        drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 670, 15.5, color.guiwhite, "center");
+
+        // -------------- Checkboxes + tooltips --------------
+        if (!global.optionsCheckboxes) {
+            // very simple logical layout: column (0 = left, 1 = right) + row index
+            global.optionsCheckboxes = [
+                // Game Appearance
+                { id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player nicknames above tanks." },
+                { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 1, section: "appearance", tooltip: "Changes the health and shield color with their body color." },
+                { id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Toggle the faint grid in the background.", reverseCheck: true },
+                { id: "optSharpEdges",          label: "Sharp Edges",           column: 0, row: 3, section: "appearance", tooltip: "Render the borders(outlines) sharp instead of smooth." },
+
+                { id: "optRenderScores",        label: "Player Scores",         column: 1, row: 0, section: "appearance", tooltip: "Show each player's score under their name." },
+                { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Display tank health bars." },
+                { id: "seperatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Show shield as its own bar instead of over HP." },
+                { id: "optPointy",              label: "Sharp Traps",           column: 1, row: 3, section: "appearance", tooltip: "Draw traps with sharp sides." },
+
+                // UI Elements
+                { id: "optRenderGui",           label: "Render UI",             column: 0, row: 0, section: "ui", tooltip: "Renders the UI." },
+                { id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 1, section: "ui", tooltip: "Show recent kills in a bar." },
+                { id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Show the top players on the right." },
+                { id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 1, section: "ui", tooltip: "Show extra statistics like FPS and latency.", reverseCheck: true },
+
+                // Extra
+                { id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 0, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
+                { id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 1, section: "extra", tooltip: "Automatically spend level-up points." },
+
+                { id: "optFancy",               label: "Fancy Animation",       column: 1, row: 0, section: "extra", tooltip: "Makes dying entities grow and fade instead of shrinking until disappearing." },
+
+                // Performance
+                { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Render the game at a lower resolution for more FPS." },
+            ];
+
+            // default values; hook these into your actual settings as needed
+            for (const cb of global.optionsCheckboxes) {
+                let doc = document.getElementById(cb.id);
+                if (doc) cb.value = doc.checked, cb.lastValue = cb.value;
+            }
+        }
+        if (!global.optionsSlidingBars) {
+            global.optionsSlidingBars = [
+                { maxLowValue: 1, maxValue: config.graphical.borderChunk, affect: config.graphical.borderChunk, column: 0, row: 4, label: "Low Resolution", section: "appearance", tooltip: "Render the game at a lower resolution for more FPS.", }
+            ]
+        }
+
+        const BOX_SIZE = 25;
+        const LINE_HEIGHT = 40;
+
+        for (let i = 0; i < global.optionsCheckboxes.length; i++) {
+            const cb = global.optionsCheckboxes[i];
+            // section offset
+            let baseY = PANEL_Y + 45;     // Game Appearance
+            if (cb.section === "ui")    baseY = PANEL_Y + 325;
+            if (cb.section === "extra") baseY = PANEL_Y + 525;
+            if (cb.section === "perf")  baseY = PANEL_Y + 685;
+
+            const baseXLeft  = panelX + 20;
+            const baseXRight = panelX + PANEL_WIDTH / 2 + 7.5;
+
+            const x = (cb.column === 0 ? baseXLeft : baseXRight);
+            const y = baseY + cb.row * LINE_HEIGHT;
+            // hitbox in screen coords
+            const hitX = x * clickableRatio;
+            const hitY = y * clickableRatio;
+            const hitSize = BOX_SIZE * clickableRatio;
+            // Initalize the tooltip if we didnt.
+            if (!cb.tooltipService) {
+                global.optionsCheckboxes[i].tooltipService = {
+                    text: cb.tooltip,
+                    targetAlpha: 0,
+                    alpha: Smoothbar(0, 2, 3, 0.06, 0.025, true),
+                    x: 0,
+                    y: 0
+                }
+            }
+            // Also update the positions due to animation movement.
+            cb.tooltipService.x = hitX;
+            cb.tooltipService.y = hitY + hitSize + 10;
+            global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitY, hitSize, hitSize);
+            global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitY, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+            let clickHover = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+            let hovered = global.clickables.optionsMenu.HoverBoxes.check(mpos);
+            if (hovered !== -1) {
+                global.optionsCheckboxes[hovered].tooltipService.targetAlpha = 1;
+            } else global.optionsCheckboxes[i].tooltipService.targetAlpha = 0;
+            // If the box got changed the reload the settings
+            if (cb.lastValue !== cb.value) {
+                cb.lastValue = cb.value;
+                loadSettings();
+                if (cb.id === "optLowResolution") resizeEvent();
+            }
+            // draw checkbox
+            const isOn = (cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value);
+            ctx[2].lineWidth = 3;
+            gameDraw.setColor(ctx[2], isOn ? color.blue : color.guiwhite);
+            drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+            if (clickHover !== -1 && clickHover === i) {
+                gameDraw.setColor(ctx[2], !isOn ? global.clickables.clicked ? color.guiblack : color.black : global.clickables.clicked ? color.black : color.guiwhite);
+                ctx[2].globalAlpha = global.clickables.clicked ? 0.25 : 0.2;
+                drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+                ctx[2].globalAlpha = 1;
+            }
+            gameDraw.setColor(ctx[2], color.black);
+            drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
+            // checkmark
+            if (isOn) {
+                ctx[2].strokeStyle = "#ffffff";
+                ctx[2].lineWidth = 3;
+                ctx[2].beginPath();
+                ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
+                ctx[2].lineTo(x + BOX_SIZE / 2 - 3, y + BOX_SIZE - 7);
+                ctx[2].lineTo(x + BOX_SIZE - 6, y + 8);
+                ctx[2].stroke();
+            }
+
+            // label
+            drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left");
+        }
+        for (const cb of global.optionsCheckboxes) {
+            // Draw tooltip
+
+            // Set fade animation
+            cb.tooltipService.alpha.set(cb.tooltipService.targetAlpha);
+            // And get it
+            const anim = cb.tooltipService.alpha.get();
+            // invisible → skip
+            if (anim > 0.01) {
+                ctx[2].save();
+                ctx[2].globalAlpha = anim;
+
+                // FONT (matches the screenshot exactly)
+                ctx[2].font = "bold 16px Ubuntu";  // bold + larger
+                ctx[2].textAlign = "left";
+                ctx[2].textBaseline = "middle";
+
+                const paddingX = 5;
+                const paddingY = 6;
+
+                const textW = ctx[2].measureText(cb.tooltipService.text).width;
+                const textH = 16; // font size
+                const boxW = textW + paddingX * 2;
+                const boxH = textH + paddingY * 2.5;
+
+                // convert from screen → canvas
+                const tipX = cb.tooltipService.x / clickableRatio;
+                const tipY = cb.tooltipService.y / clickableRatio;
+
+                // tooltip sits BELOW checkbox
+                const bx = tipX;
+                const by = tipY;
+
+                // background
+                ctx[2].fillStyle = "rgba(30, 30, 30, 0.5)";
+                drawRoundedRect(bx, by, boxW, boxH, 8);
+                ctx[2].fill();
+
+                // TEXT BORDER (4-way stroke)
+                ctx[2].fillStyle = "#000000";
+                ctx[2].globalAlpha = cb.tooltipService.alpha * 0.7;
+                ctx[2].fillText(cb.tooltipService.text, bx + paddingX + 1, by + boxH / 2 + 1);
+                ctx[2].fillText(cb.tooltipService.text, bx + paddingX - 1, by + boxH / 2 - 1);
+                ctx[2].fillText(cb.tooltipService.text, bx + paddingX + 1, by + boxH / 2 - 1);
+                ctx[2].fillText(cb.tooltipService.text, bx + paddingX - 1, by + boxH / 2 + 1);
+
+                // MAIN WHITE TEXT
+                ctx[2].globalAlpha = cb.tooltipService.alpha;
+                ctx[2].fillStyle = "#ffffff";
+                ctx[2].fillText(cb.tooltipService.text, bx + paddingX, by + boxH / 2);
+
+                ctx[2].restore();
+            }
+        }
+        const CLOSE_SIZE = 30;
+        const closeX = panelX;
+        const closeY = PANEL_Y - CLOSE_SIZE - 20;
+
+        // place clickable
+        global.clickables.optionsMenu.switchButton.place(
+            1,
+            closeX * clickableRatio,
+            closeY * clickableRatio,
+            CLOSE_SIZE * clickableRatio,
+            CLOSE_SIZE * clickableRatio
+        );
+
+        const cstate = global.clickables.optionsMenu.switchButton.check(mpos);
+        // draw red button
+        ctx[2].save();
+        ctx[2].globalAlpha = 1;
+
+        gameDraw.setColor(ctx[2], color.red);
+        ctx[2].lineWidth = 3;
+        drawGuiRect(closeX, closeY, CLOSE_SIZE, CLOSE_SIZE);
+        if (cstate === 1) {
+            gameDraw.setColor(ctx[2], global.clickables.clicked ? "#000" : "#fff");
+            ctx[2].globalAlpha = 0.25;
+            drawGuiRect(closeX, closeY, CLOSE_SIZE, CLOSE_SIZE);
+            ctx[2].globalAlpha = 1;
+        }
+        gameDraw.setColor(ctx[2], color.black);
+        drawGuiRect(closeX, closeY, CLOSE_SIZE, CLOSE_SIZE, true);
+        // draw X
+        ctx[2].strokeStyle = "#ffffff";
+        ctx[2].lineWidth = 4;
+        ctx[2].beginPath();
+        ctx[2].moveTo(closeX + 8, closeY + 8);
+        ctx[2].lineTo(closeX + CLOSE_SIZE - 8, closeY + CLOSE_SIZE - 8);
+        ctx[2].moveTo(closeX + CLOSE_SIZE - 8, closeY + 8);
+        ctx[2].lineTo(closeX + 8, closeY + CLOSE_SIZE - 8);
+        ctx[2].stroke();
+
+        ctx[2].restore();
+        function drawRoundedRect(x, y, w, h, r) {
+            ctx[2].beginPath();
+            ctx[2].moveTo(x+r, y);
+            ctx[2].lineTo(x+w-r, y);
+            ctx[2].quadraticCurveTo(x+w, y, x+w, y+r);
+            ctx[2].lineTo(x+w, y+h-r);
+            ctx[2].quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+            ctx[2].lineTo(x+r, y+h);
+            ctx[2].quadraticCurveTo(x, y+h, x, y+h-r);
+            ctx[2].lineTo(x, y+r);
+            ctx[2].quadraticCurveTo(x, y, x+r, y);
+            ctx[2].closePath();
+        }
+
+
+        ctx[2].restore();
+    }
+
     function runSecondary() {
         let pingAttempt = setInterval(() => {
             if (global.gameUpdate && !global.disconnected) {
@@ -3626,6 +4026,7 @@ import * as socketStuff from "./socketinit.js";
             if (global.disconnected) {
                 drawDisconnectedScreen();
             }
+            drawOptionsMenu(tick, 20, util.getScreenRatio());
             if (global.GUIStatus.fullHDMode) ctx[2].translate(-0.5, -0.5);
 
             //oh no we need to throw an error!

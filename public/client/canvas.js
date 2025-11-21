@@ -1,4 +1,5 @@
 import { global } from "./global.js";
+import { util } from "./util.js";
 import { config } from "./config.js";
 import * as socketStuff from "./socketinit.js";
 import { AdvancedRecorder } from "./recorder.js";
@@ -372,7 +373,7 @@ class Canvas {
                 let upgradeCheck = global.clickables.upgrade.check(mpos);
                 if (statIndex !== -1) {
                     this.socket.talk('x', statIndex, 0);
-                } else if (global.clickables.skipUpgrades.check(mpos) == -1 && upgradeCheck == -1 && !global.died) this.socket.cmd.set(primaryFire, true);
+                } else if (global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && global.clickables.optionsMenu.switchButton.check(mpos) == -1 && global.clickables.skipUpgrades.check(mpos) == -1 && upgradeCheck == -1 && !global.died) this.socket.cmd.set(primaryFire, true);
                 break;
             case 1:
                 this.socket.cmd.set(5, true);
@@ -397,6 +398,29 @@ class Canvas {
                 let respawnCheck = global.clickables.deathRespawn.check(mpos);
                 let exitGame = global.clickables.exitGame.check(mpos);
                 let reconnectCheck = global.clickables.reconnect.check(mpos);
+                let optionsMenu_Switch = global.clickables.optionsMenu.switchButton.check(mpos);
+                let optionsMenu_toggleBox = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                // Options menu clickables
+                if (optionsMenu_Switch === 0) {
+                    global.optionsMenu_Anim.switchMenu_button.set(-40);
+                    global.optionsMenu_Anim.mainMenu.set(25);
+                    global.optionsMenu_Anim.isOpened = true;
+                    break;
+                }
+                if (optionsMenu_Switch === 1) {
+                    global.optionsMenu_Anim.switchMenu_button.set(0);
+                    global.optionsMenu_Anim.mainMenu.set(-500);
+                    global.optionsMenu_Anim.isOpened = false;
+                    break;
+                }
+                if (optionsMenu_toggleBox !== -1) {
+                    let box = global.optionsCheckboxes[optionsMenu_toggleBox];
+                    let doc = document.getElementById(box.id);
+                    box.value = !box.value;
+                    if (doc) doc.checked = box.value;
+                    if (doc) util.submitToLocalStorage(box.id);
+                    break;
+                }
                 // Stop dragging class tree
                 if (global.classTreeDrag.isDragging) {
                     global.classTreeDrag.isDragging = false;

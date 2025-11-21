@@ -363,6 +363,7 @@ class Entity extends EventEmitter {
         if (set.CLEAR_ON_MASTER_UPGRADE != null) this.settings.clearOnMasterUpgrade = set.CLEAR_ON_MASTER_UPGRADE;
         if (set.HEALTH_WITH_LEVEL != null) this.settings.healthWithLevel = set.HEALTH_WITH_LEVEL;
         if (set.OBSTACLE != null) this.settings.obstacle = set.OBSTACLE;
+        if (set.CAN_SEE_INVISIBLE_ENTITIES != null) this.settings.canSeeInvisible = set.CAN_SEE_INVISIBLE_ENTITIES;
         if (set.NECRO != null) {
             this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
 
@@ -1222,7 +1223,7 @@ class Entity extends EventEmitter {
         if (this.isDead() && !this.readyToDie) {
             this.readyToDie = true;
             for (let gun of this.guns.values()) {
-                if (gun.shootOnDeath && gun.body != null) gun.spawnBullets();
+                if (gun.shootOnDeath && gun.body != null) gun.shoot();
             }
 
             // NO MEMORY LEAKS!

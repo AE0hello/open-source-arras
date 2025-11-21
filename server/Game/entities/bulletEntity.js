@@ -594,7 +594,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
         // Check for death
         if (this.isDead()) {
             for (let gun of this.guns.values()) {
-                if (gun.shootOnDeath && gun.body != null) gun.spawnBullets();
+                if (gun.shootOnDeath && gun.body != null) gun.shoot();
             }
             return 1;
         }

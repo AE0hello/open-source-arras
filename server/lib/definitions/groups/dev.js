@@ -108,6 +108,7 @@ Class.spectator = {
     IGNORED_BY_AI: true,
     ARENA_CLOSER: true,
     IS_IMMUNE_TO_TILES: true,
+    CAN_SEE_INVISIBLE_ENTITIES: true,
     TOOLTIP: "Left click to teleport, Right click above or below the screen to change FOV",
     SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
     BODY: {

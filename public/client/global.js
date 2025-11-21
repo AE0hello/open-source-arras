@@ -200,11 +200,16 @@ const global = {
         exitGame: Region(1),
         deathRespawn: Region(1),
         reconnect: Region(1),
-        graphicsMode: Region(20),
         classTreeZoomOut: Region(2),
         classTreeZoomIn: Region(2),
         classTreeClose: Region(1),
+        optionsMenu: {
+            switchButton: Region(2),
+            toggleBoxes: Region(100),
+            HoverBoxes: Region(100),
+        }
     },
+    optionsMenu_Anim: {isOpened: false}, // Placeholder
     statHover: false,
     upgradeHover: false,
     statMaxing: false,

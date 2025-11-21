@@ -880,6 +880,7 @@ class socketManager {
         // Update other
         gui.root.update(b.rerootUpgradeTree);
         gui.class.update(b.label);
+        gui.visibleName.update(b.settings.canSeeInvisible ? 1 : 0);
     }
 
     publish(gui) {
@@ -896,6 +897,7 @@ class socketManager {
             top: gui.topspeed.publish(),
             root: gui.root.publish(),
             class: gui.class.publish(),
+            visibleName: gui.visibleName.publish(),
         };
         // Encode which we'll be updating and capture those values only
         let oo = [0];
@@ -945,6 +947,10 @@ class socketManager {
             oo[0] += 0x0400;
             oo.push(o.class);
         }
+        if (o.visibleName != null) {
+            oo[0] += 0x0800;
+            oo.push(o.visibleName);
+        }
         // Output it
         return oo;
     }
@@ -966,6 +972,7 @@ class socketManager {
             bodyid: -1,
             root: this.floppy(),
             class: this.floppy(),
+            visibleName: this.floppy(),
         };
         // This is the gui itself
         return {
@@ -1284,7 +1291,14 @@ class socketManager {
         // Return it
         return output;
     }
-    
+    getInvisEntityAlpha(player, other) {
+        let alpha;
+        if (player.body.id === other.master.id) {
+            alpha = other.alpha ? other.alpha * 0.75 + 0.25 : 0.25;
+        } else alpha = other.alpha ? other.alpha * 0.55 + 0.45 : 0.45;
+
+        return alpha;
+    }
     perspective(e, player, data) {
         if (player.body != null) {
             if (player.body.id === e.master.id) {
@@ -1295,6 +1309,15 @@ class socketManager {
                 if (player.command.autospin) {
                     data[10] = 1;
                 }
+                // Also let us see for our body.
+                let alpha = this.getInvisEntityAlpha(player, e);
+                if (!e.limited && !player.body.settings.canSeeInvisible) data[18] = Math.round(255 * alpha);
+            }
+            if (player.body.settings.canSeeInvisible) {
+                data = data.slice();
+                let alpha = this.getInvisEntityAlpha(player, e);
+                if (e.limited) data[14] = Math.round(255 * alpha);
+                else data[18] = Math.round(255 * alpha);
             }
             if (
                 player.body.team === e.source.team &&

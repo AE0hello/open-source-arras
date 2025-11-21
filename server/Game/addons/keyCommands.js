@@ -196,36 +196,40 @@ function init() {
             level: 1,
             operatorAccess: true,
             run({ socket, player }) {
-              if (!player.body.store.dragInterval) {
-                let dragged = [];
-                let tx = player.body.x + player.target.x;
-                let ty = player.body.y + player.target.y;
-                for (const e of entities.values()) {
-                    if (e.bond) continue;
-                    if (
-                        !(e.type === "mazeWall" && e.shape === 4) &&
-                        (e.x - tx) * (e.x - tx) + (e.y - ty) * (e.y - ty) <
-                        e.size * e.size * 1
-                    ) {
-                        dragged.push({ e, dx: e.x - tx, dy: e.y - ty });
+                if (!player.body.store.dragInterval) {
+                    let dragged = [];
+                    let tx = player.body.x + player.target.x;
+                    let ty = player.body.y + player.target.y;
+                    for (const e of entities.values()) {
+                        if (e.bond) continue;
+                        if (
+                            !(e.type === "mazeWall" && e.shape === 4) &&
+                            (e.x - tx) * (e.x - tx) + (e.y - ty) * (e.y - ty) <
+                            e.size * e.size * 1
+                        ) {
+                            dragged.push({ e, dx: e.x - tx, dy: e.y - ty });
+                        }
+                    };
+                    if (dragged.length === 0) {
+                        socket.talk("m", 4_000, "No entity picked up!");
+                        return;
                     }
-                };
-                if (dragged.length === 0) {
-                  socket.talk("m", 4_000, "No entity picked up!");
-                  return;
-                }
-                  player.body.store.dragInterval = setInterval(() => {
+                    let body = player.body;
+                    body.store.dragInterval = setInterval(() => {
+                        if (body.isGhost) {
+                            clearInterval(body.store.dragInterval);
+                            delete body.store.dragInterval;
+                            return;
+                        }
                         let tx = player.body.x + player.target.x;
                         let ty = player.body.y + player.target.y;
                         for (let { e: entity, dx, dy } of dragged)
                         if (!entity.isGhost) {
-                            if (entity.isDead()) {
-                                clearInterval(player.body.store.dragInterval);
-                                delete player.body.store.dragInterval;
-                                return;
-                            }
                             entity.x = dx + tx;
                             entity.y = dy + ty;
+                        } else {
+                            clearInterval(body.store.dragInterval);
+                            delete body.store.dragInterval;
                         }
                     });
                 }
@@ -547,7 +551,7 @@ function init() {
                 const force = 45;
                 let t = target(player);
                 for (let entity of entities.values()) {
-                    if (entity.type == "wall") continue;
+                    if (entity.type == "wall" || entity.bond) continue;
                     let dx = entity.x - t.x;
                     let dy = entity.y - t.y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
@@ -699,7 +703,7 @@ function init() {
                 let selected = selectPlayer(player);
                 if (selected && selected.socket) {
                     const perms = selected.socket.permissions || {};
-                    if (perms && perms.level > 5) {
+                    if (perms && perms.level > 2) {
                         socket.talk("m", 5_000, "You cannot ban this player!");
                         return;
                     }
