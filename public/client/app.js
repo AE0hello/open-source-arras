@@ -1386,7 +1386,7 @@ import * as socketStuff from "./socketinit.js";
             if (global.gameUpdate && fade !== 1) {
                 drawSize *= config.graphical.fancyAnimations ? 
                     (1 + 0.5 * (1 - fade)) : 
-                    (1 - 1.6 * (1 - fade));
+                    (1 - 2 * (1 - fade));
                     
                 if (drawSize < 0) drawSize = scale * ratio * instSize;
             }

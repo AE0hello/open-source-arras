@@ -255,7 +255,7 @@ class gameHandler {
             for (const other of grid.query(instance.minX, instance.minY, instance.maxX, instance.maxY).values()) {
                 this.collide(instance, other);
             }
-            if (!instance.bond) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
+            if (instance.isInGrid) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
             logs.collide.mark();
             if (instance.touchingSizeWall === false && instance.originalSize) {
                 instance.SIZE = instance.originalSize;

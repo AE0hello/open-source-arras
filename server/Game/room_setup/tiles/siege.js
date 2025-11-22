@@ -78,6 +78,7 @@ tileClass.stopAI = new Tile({
                 let dirToCenter = Math.atan2(room.height / pushy - entity.y - room.height / 2, room.width / pushx - entity.x - room.width / 2);
                 entity.velocity.x = Math.cos(dirToCenter) * 5 * entity.pushability;
                 entity.velocity.y = Math.sin(dirToCenter) * 5 * entity.pushability;
+                entity.justHittedAWall = true;
             }
         }
     }

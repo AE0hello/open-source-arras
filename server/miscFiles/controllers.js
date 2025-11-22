@@ -268,9 +268,28 @@ class io_boomerang extends IO {
 class io_goToMasterTarget extends IO {
     constructor(body) {
         super(body)
+
+        const master = body.master
+
+        // Start with the raw mouse/input offset
+        let offsetX = master.control.target.x
+        let offsetY = master.control.target.y
+
+        // Match how facing/turrets handle reverse:
+        // reverse = 1 if reverseTargetWithTank is true,
+        // otherwise use reverseTank (usually 1 or -1)
+        const reverseTank = master.reverseTank != null ? master.reverseTank : 1
+        const reverseTargetWithTank = !!master.reverseTargetWithTank
+        const reverse = reverseTargetWithTank ? 1 : reverseTank
+
+        // If reverseTank is -1 (and reverseTargetWithTank is false),
+        // this flips the offset across the tank
+        offsetX *= reverse
+        offsetY *= reverse
+
         this.myGoal = {
-            x: body.master.control.target.x + body.master.x,
-            y: body.master.control.target.y + body.master.y,
+            x: master.x + offsetX,
+            y: master.y + offsetY,
         }
         this.countdown = 5;
     }
@@ -421,7 +440,6 @@ class io_nearestDifferentMaster extends IO {
         this.lockThroughWalls = opts.lockThroughWalls;
         this.mapGoal = opts.mapGoal;
         this.validTargets = [];
-        this.oldHealth = body.health.display();
     }
     validate(e, m, mm, sqrRange, sqrRangeMaster) {
         const myMaster = this.body.master.master;
