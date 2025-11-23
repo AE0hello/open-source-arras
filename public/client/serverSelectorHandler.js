@@ -132,9 +132,9 @@ let initializeFilter = () => {
     for (let s of servers) {
         global.filters.gamemodeFilters.all.push(s);
         global.filters.regions.all.push(s);
-        if (s.region == "USA" || s.region == "usa") global.filters.regions.usa.push(s);
-        if (s.region == "Europe" || s.region == "EUROPE") global.filters.regions.europe.push(s);
-        if (s.region == "Asia" || s.region == "ASIA") global.filters.regions.asia.push(s);
+        if (s.region == "USA" || s.region == "Usa" || s.region == "usa") global.filters.regions.usa.push(s);
+        if (s.region == "EUROPE"|| s.region == "Europe" || s.region == "europe") global.filters.regions.europe.push(s);
+        if (s.region == "ASIA" || s.region == "Asia" || s.region == "asia") global.filters.regions.asia.push(s);
         if (
             !global.filters.regions.usa.includes(s) &&
             !global.filters.regions.europe.includes(s) &&
