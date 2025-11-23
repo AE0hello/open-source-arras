@@ -465,7 +465,7 @@ class Entity extends EventEmitter {
             this.turrets.clear();
             for (let i = 0; i < set.TURRETS.length; i++) {
                 let def = set.TURRETS[i],
-                    o = new turretEntity(def.POSITION, this, def.VULNERABLE),
+                    o = new turretEntity(def.POSITION, this, this.master),
                     turretDanger = false,
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE];
                 for (let j = 0; j < type.length; j++) {

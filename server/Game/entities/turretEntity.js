@@ -1,9 +1,10 @@
 let EventEmitter = require('events');
 class turretEntity extends EventEmitter {
-    constructor(position, bond) {
+    constructor(position, bond, master) {
         super();
+        if (!master) master = this;
         // Inheritance
-        this.master = bond;
+        this.master = master;
         this.source = this;
         this.parent = this;
         this.bulletparent = this;
@@ -189,7 +190,7 @@ class turretEntity extends EventEmitter {
             this.turrets.clear();
             for (let i = 0; i < set.TURRETS.length; i++) {
                 let def = set.TURRETS[i],
-                    o = new turretEntity(def.POSITION, this, def.VULNERABLE),
+                    o = new turretEntity(def.POSITION, this, this.master),
                     turretDanger = false,
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE];
                 for (let j = 0; j < type.length; j++) {
@@ -197,6 +198,7 @@ class turretEntity extends EventEmitter {
                     if (type.TURRET_DANGER) turretDanger = true;
                 }
                 if (!turretDanger) o.define({ DANGER: 0 });
+                o.collidingBond = def.VULNERABLE;
                 o.fixFacing();
             }
         }
@@ -245,13 +247,15 @@ class turretEntity extends EventEmitter {
     };
 
     move() {
-        let bound = this.bound, ref = this.bond;
+        let bound = this.bound,
+            ref = this.bond;
         this.x = ref.x + ref.size * bound.offset * Math.cos(bound.direction + bound.angle + ref.facing);
         this.y = ref.y + ref.size * bound.offset * Math.sin(bound.direction + bound.angle + ref.facing);
-        this.bond.velocity.x += bound.size * this.accel.x;
-        this.bond.velocity.y += bound.size * this.accel.y;
+        ref.velocity.x += bound.size * this.accel.x;
+        ref.velocity.y += bound.size * this.accel.y;
+        this.velocity = ref.velocity;
         this.firingArc = [ref.facing + bound.angle, bound.arc / 2];
-        nullVector(this.accel);
+        this.accel.null();
         this.blend = ref.blend;
     };
 
