@@ -17,37 +17,41 @@ module.exports = {
     // Start up logs and Log speed loop warnings
     LOGS: true,
 
-    // If set to true, it loads all mockups and doesn't needs to generate while ingame. If set to false, does require need to generate mockups ingame but starts the main server instantly.
+    // Set to true if you want all mockups to be loaded when the server starts. May noticeably slow down server startup depending on how many mockups there are.
     LOAD_ALL_MOCKUPS: false,
 
-    // Servers
-    // This is where your server's settings are stored.
+    // Server settings
     SERVERS: [
         {
-            // This is important and usefull,
-            // if your VM (Your machine that hosts the website stuff) doesn't support multi ports,
-            // you are forced to set this to true because it will load via through the main server.
+            // Required if your VM (the machine that hosts the website stuff) doesn't support multi ports, since it must load through the main server.
+            // Only one server at a time can be the main server.
+            // This also overrides the server's HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
             LOAD_ON_MAINSERVER: false,
-            // This is very important where the host is actually being hosted. Keep in mind that the ports gets changed to 3000, to 3001, and it repeats with the other servers.
-            // Keep in mind that if "LOAD_ON_MAINSERVER" is set to true then this code will be replaced with the main server's host instead.
+
+            // This is where the server host is located. Keep in mind that the ports gets changed to 3000, to 3001, and it repeats with the other servers.
             HOST: "localhost:3001",
-            // The port where to host from.
-            // Keep in mind that if "LOAD_ON_MAINSERVER" is set to true then this code will be replaced with the main server's port instead.
+
+            // The port on the server.
             PORT: 3001,
-            // Get the gamemode you want to select with.
+
+            // The gamemode.
             GAMEMODE: ["sandbox"],
-            // The region, can be anything.
+
+            // The region the server is on.
             REGION: "local",
-            // How many players can join until it's full.
-            MAX_PLAYERS: 15,
-            // The server ID. Example: (<Yourwebsitename>/#<ServerID>)
-            // Important! You cannot make the same server id with a other one or else the server selector will get confused.
+
+            // The maximum number of human players the server allows at once. Not including bots.
+            MAX_PLAYERS: 16,
+
+            // The server ID. (<HOST>/#<SERVER_ID>)
+            // Make sure to change this between servers!
             SERVER_ID: "loc",
-            // Make the server featured by turning the text yellow in the server selector.
+
+            // Mark the server as featured in the server selector.
             FEATURED: false,
-            // This is where you can override settings in the config.js file, and as long the gamemode's config doesn't override it.
+
+            // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
             PROPERTIES: {
-                // Amount of bots.
                 BOTS: 45,
                 ENABLE_FOOD: false,
             }
@@ -79,7 +83,7 @@ module.exports = {
         + "Please report any bugs you encounter!",*/
     WELCOME_MESSAGE: "You have spawned! Welcome to the game.\n"
             + "You will be invulnerable until you move or shoot.\n"
-            + "This is an unstable build of OSA, expect many upcoming bugs.",
+            + "This is an unstable build, please report any bugs you see!",
 
     // How long a popup message lasts before fading out in milliseconds.
     MESSAGE_DISPLAY_TIME: 10_000,
@@ -98,7 +102,7 @@ module.exports = {
     // How long (in ms) a socket can be disconnected without their player dying.
     maxHeartbeatInterval: 300000,
 
-    // Set halloween theme by adding the eye entities to the walls and replacing rocks to pumpkins
+    // Force the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
     HALLOWEEN_THEME: false,
 
     // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
@@ -170,7 +174,7 @@ module.exports = {
     REGENERATE_TICK: 100,
 
     // How many members a team can have in comparison to an unweighed team.
-    // Example: Lets say we have team A and B. If the weigh of A is 2 and B is 1, then the game will try to give A twice as many members as B.
+    // Example: We have team A and B. If the weight of A is 2 and B is 1, then the game will try to give A twice as many members as B.
     TEAM_WEIGHTS: {},
 
     // Natural Spawns
