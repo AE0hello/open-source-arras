@@ -282,6 +282,7 @@ exports.makeAuto = (type, name = -1, options = {}) => {
         independent: true,
         color: 16,
         angle: 180,
+        total: 1,
     };
     if (options.type != null) {
         turret.type = options.type;
@@ -298,9 +299,17 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     if (options.angle != null) {
         turret.angle = options.angle;
     }
+    if (options.total != null) {
+        turret.total = options.total;
+    }
     let output = exports.dereference(type);
-    let autogun = {
-        POSITION: [turret.size, 0, 0, turret.angle, 360, 1],
+    let autogun = exports.weaponArray({
+        POSITION: {
+            SIZE: turret.size,
+            ANGLE: turret.angle,
+            ARC: 360 / turret.total,
+            LAYER: 1
+        },
         TYPE: [
             turret.type,
             {
@@ -309,14 +318,14 @@ exports.makeAuto = (type, name = -1, options = {}) => {
                 COLOR: turret.color,
             },
         ],
-    };
+    }, turret.total);
     if (type.GUNS != null) {
         output.GUNS = type.GUNS;
     }
     if (type.TURRETS == null) {
-        output.TURRETS = [autogun];
+        output.TURRETS = [...autogun];
     } else {
-        output.TURRETS = [...type.TURRETS, autogun];
+        output.TURRETS = [...type.TURRETS, ...autogun];
     }
     if (name == -1) {
         output.LABEL = "Auto-" + type.LABEL;
