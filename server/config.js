@@ -102,7 +102,7 @@ module.exports = {
     // How long (in ms) a socket can be disconnected without their player dying.
     maxHeartbeatInterval: 300000,
 
-    // Force the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
+    // Toggles the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
     HALLOWEEN_THEME: false,
 
     // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
@@ -251,8 +251,8 @@ module.exports = {
     FOOD_MAX_GROUP_TOTAL: 6,
 
     // Default values for gamemode related things.
-    // Do not change these, you'll likely break stuff!
-    // Change GAME_MODES instead.
+    // Do not change or remove these, you'll likely break stuff!
+    // Copy the values you want to change to the server's PROPERTIES instead.
     ENABLE_FOOD: true,
     GAMEMODE_NAME_PREFIXES: [],
     SPECIAL_BOSS_SPAWNS: false,
