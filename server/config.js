@@ -250,9 +250,8 @@ module.exports = {
     // What this does is there a chance that it will spawn food with a group, and the value makes it how much.
     FOOD_MAX_GROUP_TOTAL: 6,
 
-    // Default values for gamemode related things.
-    // Do not change or remove these, you'll likely break stuff!
-    // Copy the values you want to change to the server's PROPERTIES instead.
+    // These are the default values for gamemode related things. Do not change or remove these, you'll likely break stuff!
+    // If you want to change them, copy the values you want to change to the server's PROPERTIES instead.
     ENABLE_FOOD: true,
     GAMEMODE_NAME_PREFIXES: [],
     SPECIAL_BOSS_SPAWNS: false,
