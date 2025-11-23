@@ -208,7 +208,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let cycle = options.cycle ?? true;
     let maxChildren = options.maxDrones ?? 3;
     let stats = options.extraStats ?? [];
-    let spawnerType = options.spawnerType/* ?? "drone"*/;
+    let spawnerType = options.spawnerType;
 
     let spawners = [];
     if (spawnerType == "swarm") {
