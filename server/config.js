@@ -261,7 +261,7 @@ module.exports = {
     DOMINATION: false,
     RANDOM_COLORS: false,
     SPACE_PHYSICS: false,
-    LABY_FOOD: false,
+    TIERED_FOOD: false,
     ARENA_TYPE: "rect",
     BLACKOUT: false,
     SPACE_MODE: false,

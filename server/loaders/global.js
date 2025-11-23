@@ -648,7 +648,7 @@ global.loadAllMockups = (logText = true) => {
     if (logText) console.log("Mockups generated in " + util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3) + " milliseconds.\n");
 }
 
-global.activateLabyFood = () => {
+global.activateTieredFood = () => {
 	const disableCrashers = true;
 
 	// there is no `ENEMY_CAP`, so we are "reconstructing them"
