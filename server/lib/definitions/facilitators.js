@@ -208,79 +208,68 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let cycle = options.cycle ?? true;
     let maxChildren = options.maxDrones ?? 3;
     let stats = options.extraStats ?? [];
-    let spawnerProperties = {
-        SHOOT_SETTINGS: exports.combineStats([g.drone, g.overseer, ...stats]),
-        TYPE: ["drone", {INDEPENDENT: independent}],
-        AUTOFIRE: true,
-        SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-        WAIT_TO_CYCLE: cycle,
-        MAX_CHILDREN: maxChildren,
-    };
+    let spawnerType = options.spawnerType/* ?? "drone"*/;
 
     let spawners = [];
-    if (count % 2 == 1) {
-        spawners.push({
-            POSITION: [6, 12, 1.2, 8, 0, 180, 0],
-            PROPERTIES: spawnerProperties,
-        })
-    }
-    for (let i = 2; i <= (count - count % 2); i += 2) {
-        spawners.push({
-            POSITION: [6, 12, 1.2, 8, 0, 180 - angle * i / 2, 0],
-            PROPERTIES: spawnerProperties,
-        }, {
-            POSITION: [6, 12, 1.2, 8, 0, 180 + angle * i / 2, 0],
-            PROPERTIES: spawnerProperties,
-        })
+    if (spawnerType == "swarm") {
+        let spawnerProperties = {
+            SHOOT_SETTINGS: exports.combineStats([g.swarm, ...stats]),
+            TYPE: independent ? "autoswarm" : "swarm",
+            STAT_CALCULATOR: "swarm",
+        }
+        if (count % 2 == 1) {
+            spawners.push({
+                POSITION: [7, 7.5, 0.6, 7, 4, 180, 0],
+                PROPERTIES: spawnerProperties,
+            }, {
+                POSITION: [7, 7.5, 0.6, 7, -4, 180, 0.5],
+                PROPERTIES: spawnerProperties,
+            })
+        }
+        for (let i = 2; i <= (count - count % 2); i += 2) {
+            spawners.push({
+                POSITION: [7, 7.5, 0.6, 7, 4, 180 - angle * i / 2, 0],
+                PROPERTIES: spawnerProperties,
+            }, {
+                POSITION: [7, 7.5, 0.6, 7, -4, 180 - angle * i / 2, 0.5],
+                PROPERTIES: spawnerProperties,
+            }, {
+                POSITION: [7, 7.5, 0.6, 7, 4, 180 + angle * i / 2, 0],
+                PROPERTIES: spawnerProperties,
+            }, {
+                POSITION: [7, 7.5, 0.6, 7, -4, 180 + angle * i / 2, 0.5],
+                PROPERTIES: spawnerProperties,
+            })
+        }
+    } else {
+        let spawnerProperties = {
+            SHOOT_SETTINGS: exports.combineStats([g.drone, g.overseer, ...stats]),
+            TYPE: ["drone", {INDEPENDENT: independent}],
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "drone",
+            WAIT_TO_CYCLE: cycle,
+            MAX_CHILDREN: maxChildren,
+        }
+        if (count % 2 == 1) {
+            spawners.push({
+                POSITION: [6, 12, 1.2, 8, 0, 180, 0],
+                PROPERTIES: spawnerProperties,
+            })
+        }
+        for (let i = 2; i <= (count - count % 2); i += 2) {
+            spawners.push({
+                POSITION: [6, 12, 1.2, 8, 0, 180 - angle * i / 2, 0],
+                PROPERTIES: spawnerProperties,
+            }, {
+                POSITION: [6, 12, 1.2, 8, 0, 180 + angle * i / 2, 0],
+                PROPERTIES: spawnerProperties,
+            })
+        }
     }
     
     output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners);
     output.LABEL = name == -1 ? "Over" + type.LABEL.toLowerCase() : name;
-    return output;
-}
-exports.makeBattle = (type, name = -1, options = {}) => {
-    type = ensureIsClass(type);
-    let output = exports.dereference(type);
-
-    let angle = 180 - (options.angle ?? 125);
-    let count = options.count ?? 2;
-    let independent = options.independent ?? false;
-    let stats = options.extraStats ?? [];
-    let spawnerProperties = {
-        SHOOT_SETTINGS: exports.combineStats([g.swarm, ...stats]),
-        TYPE: independent ? "autoswarm" : "swarm",
-        STAT_CALCULATOR: "swarm",
-    };
-
-    let spawners = [];
-    if (count % 2 == 1) {
-        spawners.push({
-            POSITION: [7, 7.5, 0.6, 7, 4, 180, 0],
-            PROPERTIES: spawnerProperties,
-        }, {
-            POSITION: [7, 7.5, 0.6, 7, -4, 180, 0.5],
-            PROPERTIES: spawnerProperties,
-        })
-    }
-    for (let i = 2; i <= (count - count % 2); i += 2) {
-        spawners.push({
-            POSITION: [7, 7.5, 0.6, 7, 4, 180 - angle * i / 2, 0],
-            PROPERTIES: spawnerProperties,
-        }, {
-            POSITION: [7, 7.5, 0.6, 7, -4, 180 - angle * i / 2, 0.5],
-            PROPERTIES: spawnerProperties,
-        }, {
-            POSITION: [7, 7.5, 0.6, 7, 4, 180 + angle * i / 2, 0],
-            PROPERTIES: spawnerProperties,
-        }, {
-            POSITION: [7, 7.5, 0.6, 7, -4, 180 + angle * i / 2, 0.5],
-            PROPERTIES: spawnerProperties,
-        })
-    }
-    
-    output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners);
-    output.LABEL = name == -1 ? "Battle" + type.LABEL.toLowerCase() : name;
     return output;
 }
 
