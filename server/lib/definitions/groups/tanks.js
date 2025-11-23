@@ -7,7 +7,7 @@ const g = require('../gunvals.js');
 const enable_whirlwind_branch = false
 const enable_scrapped_tanks = false
 
-// Basic & Tier 1
+// Basic Tank
 Class.basic = {
     PARENT: "genericTank",
     LABEL: "Basic",
@@ -52,6 +52,8 @@ Class.basic = {
         }
     ]
 }
+
+// Tier 1
 Class.desmos = {
     PARENT: "genericTank",
     LABEL: "Desmos",
@@ -4897,6 +4899,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
     Class.desmos.UPGRADES_TIER_2 = ["helix"]
         Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"]
 
+// Quick Configurations
 if (enable_whirlwind_branch) {
 Class.basic.UPGRADES_TIER_1.splice(7, 0, "whirlwind")
     // Class.flankGuard.UPGRADES_TIER_2
@@ -4913,7 +4916,6 @@ Class.basic.UPGRADES_TIER_1.splice(7, 0, "whirlwind")
         Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"]
         Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
 }
-
 if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
     // Class.sniper.UPGRADES_TIER_2
