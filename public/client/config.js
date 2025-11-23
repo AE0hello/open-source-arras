@@ -19,7 +19,7 @@ const config = {
         fontStrokeRatio: 4.5,
         neon: false,
         coloredHealthbars: false,
-        seperatedHealthbars: false,
+        separatedHealthbars: false,
         shakeProperties: {
             CameraShake: {
                 shakeStartTime: -1,

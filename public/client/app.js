@@ -167,7 +167,7 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("optBorders");
         util.retrieveFromLocalStorage("optNoGrid");
         util.retrieveFromLocalStorage("optRenderKillbar");
-        util.retrieveFromLocalStorage("seperatedHealthbars");
+        util.retrieveFromLocalStorage("separatedHealthbars");
         util.retrieveFromLocalStorage("autoLevelUp");
         util.retrieveFromLocalStorage("optMobile");
         // GUI
@@ -631,7 +631,7 @@ import * as socketStuff from "./socketinit.js";
         config.lag.unresponsive = document.getElementById("optPredictive").checked;
         config.graphical.sharpEdges = document.getElementById("optSharpEdges").checked;
         config.graphical.coloredHealthbars = document.getElementById("coloredHealthbars").checked;
-        config.graphical.seperatedHealthbars = document.getElementById("seperatedHealthbars").checked;
+        config.graphical.separatedHealthbars = document.getElementById("separatedHealthbars").checked;
         config.graphical.lowResolution = document.getElementById("optLowResolution").checked;
         config.graphical.showGrid = !document.getElementById("optNoGrid").checked;
         config.graphical.slowerFOV = document.getElementById("optSlowerFOV").checked;
@@ -713,7 +713,7 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("optSlowerFOV");
         util.submitToLocalStorage("optRenderKillbar");
         util.submitToLocalStorage("coloredHealthbars");
-        util.submitToLocalStorage("seperatedHealthbars");
+        util.submitToLocalStorage("separatedHealthbars");
         util.submitToLocalStorage("optNoGrid");
         // GUI
         util.submitToLocalStorage("optRenderGui");
@@ -2452,18 +2452,18 @@ import * as socketStuff from "./socketinit.js";
                     ctx[1].globalAlpha = alpha * alpha * fade;
 
                     //background bar
-                    drawBar(x - size, x + size, yy + barWidth * config.graphical.seperatedHealthbars / 2, barWidth * (1 + config.graphical.seperatedHealthbars) + config.graphical.barChunk, color.black, ctx[1]);
+                    drawBar(x - size, x + size, yy + barWidth * config.graphical.separatedHealthbars / 2, barWidth * (1 + config.graphical.separatedHealthbars) + config.graphical.barChunk, color.black, ctx[1]);
 
                     //hp bar
-                    drawBar(x - size, x - size + 2 * size * health, yy + barWidth * config.graphical.seperatedHealthbars, barWidth, col, ctx[1]);
+                    drawBar(x - size, x - size + 2 * size * health, yy + barWidth * config.graphical.separatedHealthbars, barWidth, col, ctx[1]);
 
                     //shield bar
-                    if (shield || config.graphical.seperatedHealthbars) {
-                        if (!config.graphical.seperatedHealthbars) ctx[1].globalAlpha *= 0.7;
+                    if (shield || config.graphical.separatedHealthbars) {
+                        if (!config.graphical.separatedHealthbars) ctx[1].globalAlpha *= 0.7;
                         ctx[1].globalAlpha *= 0.3 + 0.3 * shield,
                             drawBar(x - size, x - size + 2 * size * shield, yy, barWidth, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1]);
                     }
-                    if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.seperatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center");
+                    if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.separatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center");
                     ctx[1].globalAlpha = alpha;
                 }
             }
@@ -3682,7 +3682,7 @@ import * as socketStuff from "./socketinit.js";
 
                 { id: "optRenderScores",        label: "Player Scores",         column: 1, row: 0, section: "appearance", tooltip: "Show each player's score under their name." },
                 { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Display tank health bars." },
-                { id: "seperatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Show shield as its own bar instead of over HP." },
+                { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Show shield as its own bar instead of over HP." },
                 { id: "optPointy",              label: "Sharp Traps",           column: 1, row: 3, section: "appearance", tooltip: "Draw traps with sharp sides." },
 
                 // UI Elements
