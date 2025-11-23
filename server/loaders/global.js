@@ -261,7 +261,7 @@ global.runMove = (() => {
     }
 })()
 global.runFace = (() => {
-    return (my, consoleeee = false) => {
+    return (my) => {
         let t = my.control.target,
             oldFacing = my.facing;
         let defaultBound = () => {

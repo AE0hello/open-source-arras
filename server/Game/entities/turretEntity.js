@@ -2,7 +2,9 @@ let EventEmitter = require('events');
 class turretEntity extends EventEmitter {
     constructor(position, bond, master) {
         super();
-        if (!master) master = this;
+        if (!master) {
+            throw new Error("Undefined master! Please check you're code.");
+        }
         // Inheritance
         this.master = master;
         this.source = this;
@@ -259,7 +261,7 @@ class turretEntity extends EventEmitter {
         this.blend = ref.blend;
     };
 
-    face() { global.runFace(this, true) };
+    face() { global.runFace(this) };
     
     syncTurrets() {
         for (let gun of this.guns.values()) gun.syncChildren();
