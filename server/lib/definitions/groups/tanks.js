@@ -3,6 +3,9 @@ const { base, statnames, dfltskl, smshskl } = require('../constants.js');
 require('./generics.js');
 const g = require('../gunvals.js');
 
+// Quick Configuration
+const enable_whirlwind_branch = false
+
 // Basic & Tier 1
 Class.basic = {
     PARENT: "genericTank",
@@ -4031,6 +4034,28 @@ Class.helix = {
 Class.sidewinder = {
     PARENT: "genericTank",
     LABEL: "Sidewinder",
+    DANGER: 7,
+    BODY: {
+        SPEED: 0.8 * base.SPEED,
+        FOV: 1.3 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: [10, 11, -0.5, 14, 0, 0, 0],
+        },
+        {
+            POSITION: [21, 12, -1.1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder]),
+                TYPE: "snake",
+                STAT_CALCULATOR: "sustained",
+            },
+        },
+    ],
+}
+Class.sidewinderNew = {
+    PARENT: "genericTank",
+    LABEL: "Sidewinder",
     DANGER: 6,
     STAT_NAMES: statnames.desmos,
     UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
@@ -4814,7 +4839,7 @@ Class.banshee.GUNS = weaponArray({
 Class.mega3 = makeRadialAuto("megaAutoTankGun", {isTurret: true, danger: 7, size: 14, label: "Mega-3", body: {SPEED: 0.95 * base.SPEED}})
 
 // Upgrade Paths
-Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", /* "whirlwind", */ "desmos"]
+Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "desmos"]
     Class.basic.UPGRADES_TIER_2 = ["smasher"]
         Class.smasher.UPGRADES_TIER_3 = ["megaSmasher", "spike", "autoSmasher", "landmine"]
         Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"]
@@ -4838,28 +4863,28 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.flankGuard.UPGRADES_TIER_2 = ["hexaTank", "triAngle", "auto3", "trapGuard", "triTrapper"]
         Class.flankGuard.UPGRADES_TIER_3 = ["tripleTwin", "quadruplex"]
-        Class.hexaTank.UPGRADES_TIER_3 = ["octoTank", "cyclone", "hexaTrapper", "hexaWhirl"]
+        Class.hexaTank.UPGRADES_TIER_3 = ["octoTank", "cyclone", "hexaTrapper"]
         Class.triAngle.UPGRADES_TIER_3 = ["fighter", "booster", "falcon", "bomber", "autoTriAngle", "surfer", "eagle", "phoenix", "vulture"]
-        Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee", "whirl3", "crowbar"]
+        Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee", "crowbar"]
 
     Class.director.UPGRADES_TIER_2 = ["overseer", "cruiser", "underseer", "spawner"]
         Class.director.UPGRADES_TIER_3 = ["manager", "bigCheese"]
         Class.overseer.UPGRADES_TIER_3 = ["overlord", "overtrapper", "overgunner", "banshee", "autoOverseer", "overdrive", "commander"]
         Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "autoCruiser", "commander"]
-        Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor", "prophet", "prodigy"]
+        Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor", "prodigy"]
         Class.spawner.UPGRADES_TIER_3 = ["factory", "autoSpawner", "ranch", "megaSpawner", "spawnerdrive"]
 
     Class.pounder.UPGRADES_TIER_2 = ["destroyer", "builder", "artillery", "launcher"]
         Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"]
         Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct"]
-        Class.artillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun", "munition"]
-        Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "rocketeer", "fieldGun", "vortex"]
+        Class.artillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun"]
+        Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "sidewinder", "fieldGun", "rocketeer"]
 
     Class.trapper.UPGRADES_TIER_2 = ["builder", "triTrapper", "trapGuard", "autoTrapper"]
         Class.trapper.UPGRADES_TIER_3 = ["barricade", "overtrapper", "megaTrapper"]
         Class.builder.UPGRADES_TIER_3 = ["construct", "autoBuilder", "engineer", "boomer", "assembler", "architect", "conqueror"]
         Class.triTrapper.UPGRADES_TIER_3 = ["fortress", "hexaTrapper", "septaTrapper", "architect", "prodigy"]
-        Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark", "whirlGuard", "peashooter"]
+        Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark", "peashooter"]
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
 
     Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"]
@@ -4868,12 +4893,24 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
 
     /*Class.desmos.UPGRADES_TIER_2 = ["volute", "helix", "sidewinder", "undertow", "repeater"]
-        Class.volute.UPGRADES_TIER_3 = ["sidewinderOld"]
+        Class.volute.UPGRADES_TIER_3 = ["sidewinderOld"] // ask me before changing this since it has to be old sidewinder -zenphia
         Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex", "coil", "duplicator"]
         Class.sidewinder.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"]
         Class.undertow.UPGRADES_TIER_3 = ["riptide"]
         Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]*/ // TODO: MAKE NEW DESMOS TANKS WORK
 
-    
     Class.desmos.UPGRADES_TIER_2 = ["helix"]
         Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"]
+
+if (enable_whirlwind_branch) {
+    Class.basic.UPGRADES_TIER_1.splice(7, 0, "whirlwind")
+        // Class.flankGuard.UPGRADES_TIER_2
+            Class.hexaTank.UPGRADES_TIER_3.push("hexaWhirl")
+            Class.auto3.UPGRADES_TIER_3.splice(4, 0, "whirl3")
+            Class.trapGuard.UPGRADES_TIER_3.splice(5, 0, "whirlGuard")
+        // Class.director.UPGRADES_TIER_2
+            Class.underseer.UPGRADES_TIER_3.splice(3, 0, "prophet")
+        // Class.pounder.UPGRADES_TIER_2
+            Class.artillery.UPGRADES_TIER_3.push("munition")
+            Class.launcher.UPGRADES_TIER_3.push("vortex")
+}
