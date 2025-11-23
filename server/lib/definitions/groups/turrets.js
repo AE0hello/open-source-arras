@@ -1099,6 +1099,51 @@ Class.dominationBody = {
     SHAPE: 6,
     INDEPENDENT: true,
 }
+Class.cocciPart1 = {
+    PARENT: "genericSmasher",
+    LABEL: "",
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "smasherBody"
+        },
+        {
+            POSITION: [20, -22, 0, 0, 90/4, 0],
+            TYPE: "smasher",
+            VULNERABLE: true
+        },
+    ]
+}
+Class.cocciPart2 = {
+    PARENT: "genericSmasher",
+    LABEL: "",
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "smasherBody"
+        },
+        {
+            POSITION: [20, -22, 0, 0, 90/3, 0],
+            TYPE: "cocciPart1",
+            VULNERABLE: true
+        },
+    ]
+}
+Class.cocciPart3 = {
+    PARENT: "genericSmasher",
+    LABEL: "",
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "smasherBody"
+        },
+        {
+            POSITION: [20, -22, 0, 0, 90/2, 0],
+            TYPE: "cocciPart2",
+            VULNERABLE: true
+        },
+    ]
+}
 
 // Whirlwind
 Class.whirlwindDeco = makeDeco(6)
@@ -1121,3 +1166,292 @@ Class.blizzardDeco1 = makeDeco(5)
 Class.blizzardDeco1.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
 Class.blizzardDeco2 = makeDeco(5)
 Class.blizzardDeco2.CONTROLLERS = [["spin", { independent: true, speed: -0.128 }]]
+
+// FLAIL!!!
+Class.flailBallSpike = {
+    PARENT: "genericTank",
+    COLOR: "black",
+    SHAPE: 6,
+    INDEPENDENT: true,
+}
+Class.flailBall = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    HITS_OWN_TYPE: 'hard',
+    INDEPENDENT: true,
+    TURRETS: [{
+        POSITION: [21.5, 0, 0, 0, 360, 0],
+        TYPE: "flailBallSpike",
+    }],
+    GUNS: [
+        { 
+            POSITION: {WIDTH: 8, LENGTH: 10},
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {
+                    range: 0.1,
+                    speed: 0,
+                    maxSpeed: 0,
+                    recoil: 0,
+                    reload: 0.1,
+                    damage: 4,
+                    size: 2,
+                    health: 1,
+                }]),
+                TYPE: ["bullet", {
+                    ALPHA: 0,
+                    ON: [{
+                        event: 'tick',
+                        handler: ({body}) => {
+                            body.DAMAGE -= 1;
+                            body.SIZE -= 0.6;
+                            if (body.SIZE < 1) body.kill();
+                        }
+                    }],
+                }], 
+                AUTOFIRE: true,
+                BORDERLESS: true,
+                DRAW_FILL: false,
+            }
+        }
+    ]
+}
+Class.flailBolt1 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [40, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [48, 56, 0, 0, 360, 1],
+        TYPE: "flailBall"
+    }],
+}
+Class.flailBolt2 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [30, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [20, 36, 0, 0, 360, 1],
+        TYPE: "flailBolt1"
+    }],
+}
+Class.flailBolt3 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    GUNS: [{
+        POSITION: [30, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [18, 36, 0, 0, 360, 1],
+        TYPE: "flailBolt2"
+    }],
+}
+
+Class.maceBallSpike = {
+    PARENT: "genericTank",
+    COLOR: 9,
+    SHAPE: 3,
+    INDEPENDENT: true,
+}
+Class.maceBall = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    HITS_OWN_TYPE: 'hard',
+    INDEPENDENT: true,
+    TURRETS: [{
+        POSITION: [21.5, 0, 0, 0, 360, 0],
+        TYPE: ["maceBallSpike", { SHAPE: 3 }]
+    }, ],
+    GUNS: [
+        { 
+            POSITION: {WIDTH: 8, LENGTH: 10},
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {
+                    range: 0.1,
+                    speed: 0,
+                    maxSpeed: 0,
+                    recoil: 0,
+                    reload: 0.1,
+                    damage: 4,
+                    size: 2,
+                    health: 1,
+                }]),
+                TYPE: ["bullet", {
+                    ALPHA: 0,
+                    ON: [{
+                        event: 'tick',
+                        handler: ({body}) => {
+                            body.DAMAGE -= 1;
+                            body.SIZE -= 0.6;
+                            if (body.SIZE < 1) body.kill();
+                        }
+                    }],
+                }], 
+                AUTOFIRE: true,
+                BORDERLESS: true,
+                DRAW_FILL: false,
+            }
+        }
+    ]
+}
+Class.maceBolt1 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [48, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [76, 56, 0, 0, 190, 1],
+        TYPE: "maceBall",
+    }],
+}
+Class.maceBolt2 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [24, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [20, 28, 0, 0, 190, 1],
+        TYPE: "maceBolt1"
+        },
+    ],
+}
+Class.maceBolt3 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    GUNS: [{
+        POSITION: [24, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [18, 28, 0, 0, 190, 1],
+        TYPE: "maceBolt2",
+    }],
+}
+Class.mamaBolt1 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [48, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [104, 56, 0, 0, 190, 1],
+        TYPE: "maceBall"
+        },
+    ],
+}
+Class.mamaBolt2 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [18, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [20, 20, 0, 0, 190, 1],
+        TYPE: "mamaBolt1"
+        },
+    ],
+}
+Class.mamaBolt3 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [18, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [18, 20, 0, 0, 190, 1],
+        TYPE: "mamaBolt2"
+        },
+    ],
+}
+Class.ihdtiBall = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    HITS_OWN_TYPE: 'hard',
+    INDEPENDENT: true,
+    TURRETS: [{
+        POSITION: [21.5, 0, 0, 0, 360, 0],
+        TYPE: "maceBallSpike"
+    }, {
+        POSITION: [21.5, 0, 0, 180, 360, 0],
+        TYPE: "maceBallSpike"
+    }],
+    GUNS: [
+        { 
+            POSITION: {WIDTH: 8, LENGTH: 10},
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {
+                    range: 0.1,
+                    speed: 0,
+                    maxSpeed: 0,
+                    recoil: 0,
+                    reload: 0.1,
+                    damage: 6,
+                    size: 2,
+                    health: 1,
+                }]),
+                TYPE: ["bullet", {
+                    ALPHA: 0,
+                    ON: [{
+                        event: 'tick',
+                        handler: ({body}) => {
+                            body.DAMAGE -= 1;
+                            body.SIZE -= 0.6;
+                            if (body.SIZE < 1) body.kill();
+                        }
+                    }],
+                }], 
+                AUTOFIRE: true,
+                BORDERLESS: true,
+                DRAW_FILL: false,
+            }
+        }
+    ]
+}
+Class.ihdtiBolt1 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [48, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [76, 56, 0, 0, 190, 1],
+        TYPE: "ihdtiBall"
+        }
+    ]
+}
+Class.ihdtiBolt2 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    INDEPENDENT: true,
+    GUNS: [{
+        POSITION: [24, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [20, 28, 0, 0, 190, 1],
+        TYPE: "ihdtiBolt1"
+        }
+    ]
+}
+Class.ihdtiBolt3 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    GUNS: [{
+        POSITION: [24, 5, 1, 8, 0, 0, 0]
+    }],
+    TURRETS: [{
+        POSITION: [18, 28, 0, 0, 190, 1],
+        TYPE: "ihdtiBolt2"
+        }
+    ]
+}

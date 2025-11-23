@@ -129,6 +129,12 @@ Class.genericTank = {
     RESET_EVENTS: true,
     HITS_OWN_TYPE: "hardOnlyTanks"
 }
+Class.genericFlail = {
+    PARENT: "genericTank",
+    STAT_NAMES: statnames.flail,
+    SYNC_WITH_TANK: true,
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+}
 Class.genericSmasher = {
     PARENT: "genericTank",
     DANGER: 7,
