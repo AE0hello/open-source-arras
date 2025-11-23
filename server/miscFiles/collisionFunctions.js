@@ -385,6 +385,8 @@ function mooncollide(moon, bounce) {
     // Assign velocity after rotating to the new angle
     bounce.velocity.x = newVelocityMagnitude * Math.sin(Math.PI - relativeVelocityAngle - angleFromMoonToBounce);
     bounce.velocity.y = newVelocityMagnitude * Math.cos(Math.PI - relativeVelocityAngle - angleFromMoonToBounce);
+    // So the bots aint a brain dead npc
+    bounce.justHittedAWall = true;
 }
 
 function mazewallcollidekill(bounce, wall) {

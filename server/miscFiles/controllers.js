@@ -41,6 +41,19 @@ let compressMovementOffsets = [
     // enemy: data to calculte where it is gonna be soon
     // walls: Array<{ ...Vector, hitboxRadius, hitbox: Array<[Vector, Vector]> }>
     wouldHitWall = (me, enemy, directWallCheck = false) => {
+        if (directWallCheck) {
+            if (!me.justHittedAWallTimeout) me.justHittedAWallTimeout = "ready";
+            if (me.justHittedAWall && me.justHittedAWallTimeout === "ready") {
+                me.justHittedAWall = false;
+                me.justHittedAWallTimeout = "null";
+                setTimeout(() => {
+                    me.justHittedAWallTimeout = "ready";
+                    me.justHittedAWall = false;
+                }, 300);
+                return true;
+            }
+            return false;
+        }
         // thing for culling off walls where theres no point of checking
         let inclusionCircle = {
             x: (me.x + enemy.x) / 2,
@@ -56,18 +69,7 @@ let compressMovementOffsets = [
 
             //if the crate intersects with the line, add them to the list of walls that have been hit
             //works by checking if the line from the gun end to the enemy position collides with any line from the crate hitbox
-            if (directWallCheck) {
-                if (!me.justHittedAWallTimeout) me.justHittedAWallTimeout = "ready";
-                if (me.justHittedAWall && me.justHittedAWallTimeout === "ready") {
-                    me.justHittedAWall = false;
-                    me.justHittedAWallTimeout = "null";
-                    setTimeout(() => {
-                        me.justHittedAWallTimeout = "ready";
-                        me.justHittedAWall = false;
-                    }, 300);
-                    return true;
-                }
-            } else for (let j = 0; j < crate.hitbox.length; j++) {
+            for (let j = 0; j < crate.hitbox.length; j++) {
                 let hitboxLine = crate.hitbox[j];
                 if (collisionLineLine(
                     me.x, me.y,
