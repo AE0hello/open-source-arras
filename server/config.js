@@ -34,7 +34,7 @@ module.exports = {
             // The port on the server.
             PORT: 3001,
 
-            // The gamemode.
+            // The selected gamemode.
             GAMEMODE: ["sandbox"],
 
             // The region the server is on.
