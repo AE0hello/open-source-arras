@@ -1039,27 +1039,6 @@ testLayeredBoss.addLayer({turret: {
 }}, true);
 
 //
-Class.tripleFlail = {
-    PARENT: "genericFlail",
-    LABEL: "Triple Flail",
-    DANGER: 7,
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }, {
-        POSITION: [6, 10, 0, 120, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }, {
-        POSITION: [6, 10, 0, 240, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
 Class.tripleAutoBasic = makeAuto("basic", "Triple Auto-Basic", {total: 3})
 
 // Upgrade Tree
