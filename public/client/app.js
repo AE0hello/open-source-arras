@@ -2781,7 +2781,7 @@ import * as socketStuff from "./socketinit.js";
             global.tankSpeedHistory.push(rawSpeed);
             if (global.tankSpeedHistory.length > HISTORY_LENGTH) global.tankSpeedHistory.shift();
             let tankSpeed = global.tankSpeedHistory.reduce((sum, val) => sum + val, 0) / global.tankSpeedHistory.length;
-            drawText("Open Source Arras", x + len, y - 50 - 10 * 14 - 2, 15, "#1081E5", "right");
+            drawText("Open Source Arras", x + len, y - 50 - 10 * 14 - 2, 15, color.blue, "right");
             drawText("Tank Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
             drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
             drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
@@ -2793,12 +2793,12 @@ import * as socketStuff from "./socketinit.js";
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
-            drawText("Open Source Arras", x + len, y - 50 - 4 * 14 - 2, 15, "#1081E5", "right");
+            drawText("Open Source Arras", x + len, y - 50 - 4 * 14 - 2, 15, color.blue, "right");
             drawText(`Build: ${buildNumber}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
-        } else drawText("Open Source Arras", x + len, y - 22 - 2 * 14 - 2, 15, "#1081E5", "right");
+        } else drawText("Open Source Arras", x + len, y - 22 - 2 * 14 - 2, 15, color.blue, "right");
     }
 
     function drawLeaderboard(spacing, alcoveSize, max) {
