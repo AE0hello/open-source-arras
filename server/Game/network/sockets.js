@@ -634,7 +634,7 @@ class socketManager {
                     socket.status.lastTank = player.body.index;
                     this.sendMockup(player.body.index, socket);
                     for (let i of player.body.rerootUpgradeTree.split("_")) {
-                        let ind = Class[i].index;
+                        let ind = Class[i].index; // This bit breaks split upgrades (upgrade to dev-dev in testing or the dreads v2 branch to see this bug)
                         let mockup = mockupData.find(o => o.index === `${ind}`);
                         if (!mockup) {
                             let e = this.generateMockup(ind);
