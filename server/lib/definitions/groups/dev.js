@@ -148,28 +148,6 @@ Class.spectator = {
     }]
 }
 
-Class.generatorBase = {
-    PARENT: "genericTank",
-    LABEL: "Generator",
-    ALPHA: 0,
-    IGNORED_BY_AI: true,
-    CAN_BE_ON_LEADERBOARD: false,
-    ACCEPTS_SCORE: false,
-    DRAW_HEALTH: false,
-    HITS_OWN_TYPE: "never",
-    ARENA_CLOSER: true,
-    IS_IMMUNE_TO_TILES: true,
-    SKILL_CAP: [31, 0, 0, 0, 0, 0, 0, 0, 0, 31],
-    BODY: {
-        SPEED: 5,
-        FOV: 2.5,
-        DAMAGE: 0,
-        HEALTH: 1e100,
-        SHIELD: 1e100,
-        REGEN: 1e100,
-    },
-}
-
 Class.bosses = menu("Bosses")
 Class.bosses.REROOT_UPGRADE_TREE = "bosses"
 Class.sentries = menu("Sentries", "pink", 3.5)
@@ -1042,7 +1020,7 @@ testLayeredBoss.addLayer({turret: {
 Class.tripleAutoBasic = makeAuto("basic", "Triple Auto-Basic", {total: 3})
 
 // Upgrade Tree
-Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "teams", "eggGenerator", "testing", "addons", "shinyMenu"]
+Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "teams", "eggGen", "testing", "addons", "shinyMenu"]
     Class.tanks.UPGRADES_TIER_0 = ["basic", "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
         Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank", "healer"]
         Class.dominators.UPGRADES_TIER_0 = ["destroyerDominator", "gunnerDominator", "trapperDominator"]

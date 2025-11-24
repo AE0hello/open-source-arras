@@ -38,7 +38,7 @@ function init() {
     Class.specialMenu = menu("Special Menu")
     Class.specialMenu.UPGRADES_TIER_0 = [
         "basic",
-        "eggGenerator",
+        "eggGen",
         "specialTanks",
         "bosses",
         "nostalgia",
@@ -1138,7 +1138,7 @@ function init() {
     ]
 
 // Upgrade Tree
-    Class.shinyMenu.UPGRADES_TIER_0 = ["eggGenerator", "specialTanks", "bosses", "nostalgia", "scrapped", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
+    Class.shinyMenu.UPGRADES_TIER_0 = ["eggGen", "specialTanks", "bosses", "nostalgia", "scrapped", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
 
 }
 

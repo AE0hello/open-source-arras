@@ -7,10 +7,11 @@ const g = require('../gunvals.js')
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
 
 // Quick Configuration
-const enable_april_fools = false
-const enable_flail_branch = false
-const enable_whirlwind_branch = false
-const enable_scrapped_tanks = false
+const enable_april_fools = false // Adds the Master from the 2018 April Fools' Day event
+const enable_flail_branch = false // Adds the unfinished Flail branch
+const enable_whirlwind_branch = false // Adds the removed Whirlwind branch
+const enable_scrapped_tanks = false // Adds a bunch of tanks from the Scrapped Menu
+const old_single_upgrade = true // Makes Single upgrade from Basic instead of Assassin
 
 // Basic Tank
 Class.basic = {
