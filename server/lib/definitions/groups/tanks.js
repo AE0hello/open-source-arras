@@ -7,6 +7,7 @@ const g = require('../gunvals.js')
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
 
 // Quick Configuration
+const enable_april_fools = false
 const enable_flail_branch = false
 const enable_whirlwind_branch = false
 const enable_scrapped_tanks = false
@@ -2829,6 +2830,59 @@ Class.maleficitor = {
         },
     ],
 }
+Class.master = {
+    PARENT: "genericTank",
+    LABEL: "Master",
+    BODY: {
+        HEALTH: base.HEALTH * 0.4,
+        SHIELD: base.SHIELD * 0.4,
+        DENSITY: base.DENSITY * 0.3,
+    },
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: [18, 16, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "masterBullet",
+                MAX_CHILDREN: 4,
+                DESTROY_OLDEST_CHILD: true
+            }
+        },
+        {
+            POSITION: [13, 8, 1, 0, -1, 140, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        },
+        {
+            POSITION: [13, 8, 1, 0, 1, 220, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        },
+        {
+            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        },
+        {
+            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        }
+    ]
+}
 Class.medic = {
     PARENT: "genericTank",
     LABEL: "Medic",
@@ -4879,6 +4933,7 @@ Class.xHunter = {
 // Upgrade Paths
 Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "desmos"]
     Class.basic.UPGRADES_TIER_2 = ["smasher"]
+        Class.basic.UPGRADES_TIER_3 = []
         Class.smasher.UPGRADES_TIER_3 = ["megaSmasher", "spike", "autoSmasher", "landmine"]
         Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"]
 
@@ -4937,6 +4992,12 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         //Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]*/ // TODO: MAKE NEW DESMOS TANKS WORK
 
 // Quick Configurations
+if (enable_april_fools) {
+Class.basic.UPGRADES_TIER_3.push("master")
+} else {
+require('./dev.js')
+Class.unavailable.UPGRADES_TIER_0.push("master")
+}
 if (enable_flail_branch) {
 Class.basic.UPGRADES_TIER_1.push("flail")
     Class.flail.UPGRADES_TIER_2 = ["doubleFlail", "mace", "flangle"]
@@ -4980,4 +5041,7 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
+} else {
+require('./dev.js')
+Class.unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "peashooter", "prodigy", "railgun", "rocketeer", "spawnerdrive", "volute")
 }

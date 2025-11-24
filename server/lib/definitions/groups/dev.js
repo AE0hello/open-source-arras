@@ -1044,7 +1044,7 @@ Class.tripleAutoBasic = makeAuto("basic", "Triple Auto-Basic", {total: 3})
 // Upgrade Tree
 Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "teams", "eggGenerator", "testing", "addons", "shinyMenu"]
     Class.tanks.UPGRADES_TIER_0 = ["basic", "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
-        Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank", "master", "healer"]
+        Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank", "healer"]
         Class.dominators.UPGRADES_TIER_0 = ["destroyerDominator", "gunnerDominator", "trapperDominator"]
         Class.sanctuaries.UPGRADES_TIER_0 = ["sanctuaryTier1", "sanctuaryTier2", "sanctuaryTier3", "sanctuaryTier4", "sanctuaryTier5", "sanctuaryTier6"]
 

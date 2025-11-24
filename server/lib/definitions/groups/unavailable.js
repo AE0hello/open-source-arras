@@ -59,61 +59,8 @@ Class.masterBullet = {
         },
     ],
 }
-Class.master = {
-    PARENT: "genericTank",
-    LABEL: "Master",
-    BODY: {
-        HEALTH: base.HEALTH * 0.4,
-        SHIELD: base.SHIELD * 0.4,
-        DENSITY: base.DENSITY * 0.3,
-    },
-    DANGER: 8,
-    GUNS: [
-        {
-            POSITION: [18, 16, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "masterBullet",
-                MAX_CHILDREN: 4,
-                DESTROY_OLDEST_CHILD: true,
-            },
-        },
-        {
-            POSITION: [13, 8, 1, 0, -1, 140, 0.6],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [13, 8, 1, 0, 1, 220, 0.6],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-    ],
-};
 Class.machineShot = {
-    PARENT: ["genericTank"],
+    PARENT: "genericTank",
     LABEL: "Machine Shot",
     DANGER: 7,
     BODY: {
