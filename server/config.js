@@ -290,6 +290,7 @@ module.exports = {
     HUNT: false,
     MODE: "ffa",
     TAG: false,
+    TEAMS: 4,
     SPAWN_CONFINEMENT: {},
 
     // Room setup
