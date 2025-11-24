@@ -12,7 +12,7 @@ let { gamemodeManager } = require("./Game/gamemodeManager.js");
 // Gamemode names
 const getName = (name, gamemodeData) => {
     const nameMap = {
-        teams: `${gamemodeData.TEAMS}TDM`,
+        tdm: `${gamemodeData.TEAMS}TDM`,
         ffa: "FFA",
         tag: "Tag",
         opentdm: `Open ${gamemodeData.TEAMS}TDM`,

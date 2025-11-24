@@ -32,7 +32,7 @@ module.exports = {
             PORT: 3001, // The port on the server. Make sure to change this for every extra server you use!
 
             REGION: "local", // The region the server is on.
-            GAMEMODE: ["teams"], // The selected gamemode.
+            GAMEMODE: ["tdm"], // The selected gamemode.
             MAX_PLAYERS: 16, // Not including bots.
 
             // The server ID. (<HOST>/#<SERVER_ID>)
@@ -44,9 +44,8 @@ module.exports = {
 
             // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
             PROPERTIES: {
-                BOTS: 45,
-                //ENABLE_FOOD: false,
                 TEAMS: 2,
+                BOTS: 45,
             }
         },
         {
@@ -59,7 +58,7 @@ module.exports = {
             PORT: 3002, // The port on the server. Make sure to change this for every extra server you use!
 
             REGION: "local", // The region the server is on.
-            GAMEMODE: ["teams"], // The selected gamemode.
+            GAMEMODE: ["tdm"], // The selected gamemode.
             MAX_PLAYERS: 16, // Not including bots.
 
             // The server ID. (<HOST>/#<SERVER_ID>)
@@ -71,9 +70,8 @@ module.exports = {
 
             // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
             PROPERTIES: {
-                BOTS: 45,
-                //ENABLE_FOOD: false,
                 TEAMS: 4,
+                BOTS: 45,
             }
         },
     ],
