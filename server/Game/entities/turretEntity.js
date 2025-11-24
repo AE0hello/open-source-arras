@@ -177,6 +177,8 @@ class turretEntity extends EventEmitter {
             while (this.skill.maintain()) { }
         }
         if (set.EXTRA_SKILL != null) this.skill.points += set.EXTRA_SKILL;
+        if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
+        if (set.HAS_NO_RECOIL != null) this.settings.hasNoRecoil = set.HAS_NO_RECOIL;
         if (set.GUNS != null) {
             this.guns.clear();
             let newGuns = [];

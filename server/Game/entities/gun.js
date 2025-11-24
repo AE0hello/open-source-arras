@@ -147,6 +147,10 @@ class Gun extends EventEmitter {
             type = ensureIsClass(type);
             util.flattenDefinition(flattenedType, type);
         }
+        for (let e of this.bulletType) {
+            let Tonk = ensureIsClass(e);
+            if (Tonk.TURRETS || Tonk.ON) this.noentitylimit = true;
+        }
         this.bulletType = flattenedType;
         // Set final label to bullet
         if (!this.independentChildren) {
