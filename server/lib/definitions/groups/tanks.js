@@ -1884,7 +1884,7 @@ Class.crowbarTurretTank = {
         FOV: 1,
     },
     TURRETS: [{
-        POSITION: [20, 0, 0, 0, 360, 1],
+        POSITION: [20, 0, 0, 0, 180, 1],
         TYPE: makeTurret({
             PARENT: "genericTank",
             LABEL: "",
