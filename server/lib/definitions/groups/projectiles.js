@@ -464,9 +464,9 @@ Class.healerSanctuaryBullet = {
     PARENT: "healerBullet",
     HITS_OWN_TYPE: "never",
 };
-Class.surgeonPillbox = {
+Class.medkit = {
     PARENT: "trap",
-    LABEL: "Pillbox",
+    LABEL: "Medkit",
     SHAPE: -6,
     MOTION_TYPE: "motor",
     CONTROLLERS: ["goToMasterTarget"],
@@ -479,7 +479,7 @@ Class.surgeonPillbox = {
     TURRETS: [
         {
             POSITION: [13, 0, 0, 0, 360, 1],
-            TYPE: "surgeonPillboxTurret",
+            TYPE: "medkitTurret",
         },
     ],
 }

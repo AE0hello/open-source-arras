@@ -783,7 +783,7 @@ Class.sanctuaryHealer = {
         TYPE: ['healerSymbol', { FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }] }]
     }],
 }
-Class.surgeonPillboxTurret = {
+Class.medkitTurret = {
     PARENT: "genericTank",
     LABEL: "",
     COLOR: "grey",
