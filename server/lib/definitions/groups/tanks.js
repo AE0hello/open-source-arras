@@ -1,7 +1,7 @@
-const { combineStats, makeAuto, makeOver, makeDeco, makeGuard, makeBird, makeRadialAuto, weaponArray, makeTurret } = require('../facilitators.js');
-const { base, statnames, dfltskl, smshskl } = require('../constants.js');
-require('./generics.js');
-const g = require('../gunvals.js');
+const { combineStats, makeAuto, makeOver, makeDeco, makeGuard, makeBird, makeRadialAuto, weaponArray, makeTurret } = require('../facilitators.js')
+const { base, statnames, dfltskl, smshskl } = require('../constants.js')
+require('./generics.js')
+const g = require('../gunvals.js')
 
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
@@ -1045,7 +1045,7 @@ Class.volute = {
             POSITION: [20, 13, 0.8, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.pounder]),
-                TYPE: ["bullet", {MOTION_TYPE: "desmos"}]
+                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
             },
         },
         {
@@ -4375,7 +4375,7 @@ Class.surgeon = {
             PROPERTIES: {
                 MAX_CHILDREN: 2,
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, { speed: 0.9, maxSpeed: 0.9 }]),
-                TYPE: "surgeonPillbox",
+                TYPE: "medkit",
                 NO_LIMITATIONS: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "block"
@@ -4971,11 +4971,13 @@ Class.basic.UPGRADES_TIER_1.push()
     // Class.director.UPGRADES_TIER_2
         Class.underseer.UPGRADES_TIER_3.push("prodigy")
         Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "spawnerdrive")
-    // Class.launcher.UPGRADES_TIER_2
+    Class.pounder.UPGRADES_TIER_2.push("volute")
         Class.launcher.UPGRADES_TIER_3.push("rocketeer")
     Class.trapper.UPGRADES_TIER_2.push("autoTrapper")
         Class.trapper.UPGRADES_TIER_3.push("megaTrapper")
         Class.triTrapper.UPGRADES_TIER_3.push("prodigy")
         Class.trapGuard.UPGRADES_TIER_3.push("peashooter")
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
+    Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
+        Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
 }
