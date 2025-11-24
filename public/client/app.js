@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.7-rev.575";
+    let buildNumber = "v2.0.7-rev.576";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -3662,8 +3662,9 @@ import * as socketStuff from "./socketinit.js";
         drawTab(0, "Options", true);
         drawTab(1, "Theme", false);
         drawTab(2, "Keybinds", false);
+        //drawTab(3, "Secrets", false);
 
-        drawText("The ingame options is not finished! Expect missing features and bugs!", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
+        drawText("ingame options is not finished, expect missing features and bugs lol", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
 
         drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
         drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 310, 15.5, color.guiwhite, "center");
@@ -3675,30 +3676,39 @@ import * as socketStuff from "./socketinit.js";
             // very simple logical layout: column (0 = left, 1 = right) + row index
             global.optionsCheckboxes = [
                 // Game Appearance
-                { id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player nicknames above tanks." },
-                { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 1, section: "appearance", tooltip: "Changes the health and shield color with their body color." },
-                { id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Toggle the faint grid in the background.", reverseCheck: true },
-                { id: "optSharpEdges",          label: "Sharp Edges",           column: 0, row: 3, section: "appearance", tooltip: "Render the borders(outlines) sharp instead of smooth." },
+                { id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player names." },
+                { id: "optRenderScores",        label: "Player Scores",         column: 0, row: 1, section: "appearance", tooltip: "Show player scores." },
+                { id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
+                { id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
+                { id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
+              //{ id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
 
-                { id: "optRenderScores",        label: "Player Scores",         column: 1, row: 0, section: "appearance", tooltip: "Show each player's score under their name." },
-                { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Display tank health bars." },
-                { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Show shield as its own bar instead of over HP." },
-                { id: "optPointy",              label: "Sharp Traps",           column: 1, row: 3, section: "appearance", tooltip: "Draw traps with sharp sides." },
+              //{ id: "optChatMessages",        label: "Chat Messages",         column: 1, row: 0, section: "appearance", tooltip: "Show chat messages." },
+                { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Show health bars." },
+                { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
+              //{ id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
+              //{ id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
+                { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 1, row: 5, section: "appearance", tooltip: "Changes the health and shield color with their body color." },
 
                 // UI Elements
-                { id: "optRenderGui",           label: "Render UI",             column: 0, row: 0, section: "ui", tooltip: "Renders the UI." },
-                { id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 1, section: "ui", tooltip: "Show recent kills in a bar." },
-                { id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Show the top players on the right." },
-                { id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 1, section: "ui", tooltip: "Show extra statistics like FPS and latency.", reverseCheck: true },
+              //{ id: "optUpgrades",            label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
+                { id: "optRenderGui",           label: "Player Bars",            column: 0, row: 1, section: "ui", tooltip: "Toggle the visibility of the score and level bars." },
+                { id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 2, section: "ui", tooltip: "Show recent kills in a bar." },
+
+                { id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Toggle the visibility of the leaderboard." },
+              //{ id: "optMinimap",             label: "Minimap",               column: 1, row: 1, section: "ui", tooltip: "Toggle the visibility of the minimap." },
+                { id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 2, section: "ui", tooltip: "Show various extra information in the bottom right corner.", reverseCheck: true },
 
                 // Extra
                 { id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 0, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
-                { id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 1, section: "extra", tooltip: "Automatically spend level-up points." },
+                { id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 1, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
+              //{ id: "optUnscaledPanel",    label: "Unscaled Old Spawn Panel", column: 0, row: 2, section: "extra", tooltip: "Scale the original spawn panel to look the same regardless of display size." },
 
-                { id: "optFancy",               label: "Fancy Animation",       column: 1, row: 0, section: "extra", tooltip: "Makes dying entities grow and fade instead of shrinking until disappearing." },
+                { id: "optFancy",               label: "Fading Animation",      column: 1, row: 0, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
+              //{ id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 1, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
 
                 // Performance
-                { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Render the game at a lower resolution for more FPS." },
+                { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
             ];
 
             // default values; hook these into your actual settings as needed
@@ -3709,7 +3719,7 @@ import * as socketStuff from "./socketinit.js";
         }
         if (!global.optionsSlidingBars) {
             global.optionsSlidingBars = [
-                { maxLowValue: 1, maxValue: config.graphical.borderChunk, affect: config.graphical.borderChunk, column: 0, row: 4, label: "Low Resolution", section: "appearance", tooltip: "Render the game at a lower resolution for more FPS.", }
+                { maxLowValue: 1, maxValue: config.graphical.borderChunk, affect: config.graphical.borderChunk, column: 0, row: 4, label: "Low Resolution", section: "appearance", tooltip: "Lower the game's resolution. May help to improve the frame rate.", }
             ]
         }
 

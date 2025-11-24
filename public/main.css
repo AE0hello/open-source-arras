@@ -706,6 +706,10 @@ body.mobile .startMenuSlidingContent {
   margin-left: 10px;
 }
 
+.linkButtonHolder {
+  margin-top: 9px;
+}
+
 .startButtonHolder {
   margin-top: 10px;
 }
@@ -728,9 +732,9 @@ body.mobile .startMenuSlidingContent {
 }
 
 #startButton:hover {
-  margin-top: 1px;
-  height: 39px;
-  border-bottom: 1px solid #1B3353;
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #1B3353;
 }
 
 #startButton:active {
@@ -741,6 +745,136 @@ body.mobile .startMenuSlidingContent {
   outline: none;
   box-shadow: none;
 }
+
+#discordButton {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #7289da;
+  border: 0;
+  border-bottom: 2px solid #5b6dae;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #5b6dae;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#discordButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #5b6dae;
+}
+
+#discordButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #5b6dae;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#redditButton {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #f74501;
+  border: 0;
+  border-bottom: 2px solid #c53700;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #c53700;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#redditButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #c53700;
+}
+
+#redditButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #c53700;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#youtubeButton {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #f71701;
+  border: 0;
+  border-bottom: 2px solid #c51200;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #c51200;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#youtubeButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #c51200;
+}
+
+#youtubeButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #c51200;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#youtubeFeaturedButton {
+  margin: 0;
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #f71701;
+  border: 0;
+  border-bottom: 2px solid #c51200;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #c51200;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#youtubeFeaturedButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #c51200;
+}
+
+#youtubeFeaturedButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #c51200;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+
 
 .bottomHolder>a {
   display: inline-block;
