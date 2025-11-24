@@ -56,7 +56,7 @@ class gameServer {
         this.name = "Unknown";
         this.featured = isfeatured;
         this.parentPort = parentPort;
-        this.definitionsCombiner = new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/tankAddons') });
+        this.definitionsCombiner = new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') });
         this.loaderGlobal = loaderGlobal;
         // Initalize.
         this.roomSpeed = Config.gameSpeed;

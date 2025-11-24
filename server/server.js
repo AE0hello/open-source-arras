@@ -24,7 +24,7 @@ for (const key in environment) {
 const GLOBAL = require("./loaders/loader.js");
 
 // Load definitions and tile definitions
-new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/tankAddons') }).loadDefinitions();
+new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') }).loadDefinitions();
 GLOBAL.loadRooms(true);
 
 // Optionally load all mockups if enabled in configuration
