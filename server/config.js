@@ -28,20 +28,12 @@ module.exports = {
             // This also overrides the server's HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
             LOAD_ON_MAINSERVER: false,
 
-            // This is where the server host is located. Keep in mind that the ports gets changed to 3000, to 3001, and it repeats with the other servers.
-            HOST: "localhost:3001",
+            HOST: "localhost:3001", // Server host location.
+            PORT: 3001, // The port on the server. Make sure to change this for every extra server you use!
 
-            // The port on the server.
-            PORT: 3001,
-
-            // The selected gamemode.
-            GAMEMODE: ["sandbox"],
-
-            // The region the server is on.
-            REGION: "local",
-
-            // The maximum number of human players the server allows at once. Not including bots.
-            MAX_PLAYERS: 16,
+            REGION: "local", // The region the server is on.
+            GAMEMODE: ["teams"], // The selected gamemode.
+            MAX_PLAYERS: 16, // Not including bots.
 
             // The server ID. (<HOST>/#<SERVER_ID>)
             // Make sure to change this between servers!
@@ -53,7 +45,35 @@ module.exports = {
             // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
             PROPERTIES: {
                 BOTS: 45,
-                ENABLE_FOOD: false,
+                //ENABLE_FOOD: false,
+                TEAMS: 2,
+            }
+        },
+        {
+            // Required if your VM (the machine that hosts the website stuff) doesn't support multi ports, since it must load through the main server.
+            // Only one server at a time can be the main server.
+            // This also overrides the server's HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
+            LOAD_ON_MAINSERVER: false,
+
+            HOST: "localhost:3002", // Server host location.
+            PORT: 3002, // The port on the server. Make sure to change this for every extra server you use!
+
+            REGION: "local", // The region the server is on.
+            GAMEMODE: ["teams"], // The selected gamemode.
+            MAX_PLAYERS: 16, // Not including bots.
+
+            // The server ID. (<HOST>/#<SERVER_ID>)
+            // Make sure to change this between servers!
+            SERVER_ID: "lod",
+
+            // Mark the server as featured in the server selector.
+            FEATURED: false,
+
+            // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
+            PROPERTIES: {
+                BOTS: 45,
+                //ENABLE_FOOD: false,
+                TEAMS: 4,
             }
         },
     ],
