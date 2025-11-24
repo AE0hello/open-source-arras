@@ -1090,7 +1090,7 @@ class socketManager {
             util.remove(this.disconnections, this.disconnections.indexOf(recover));
             clearTimeout(recover.timeout);
             body = recover.body;
-            body.reset(false);
+            util.remove(body.controllers, body.controllers.indexOf(body.controllers.find(rer => rer instanceof ioTypes.listenToPlayer)));
             body.become(player);
             player.team = body.team;
             socket.rememberedTeam = body.team;
@@ -1142,14 +1142,15 @@ class socketManager {
                 }
             } break;
             default: {
-                body.team = getRandomTeam();
+                let team = filter.length ? player.team : getRandomTeam();
+                body.team = team;
                 body.color.base = Config.RANDOM_COLORS ? 
                     ran.choose([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]) : getTeamColor(TEAM_RED);
                 let loop = setInterval(() => {
                     for (let e of entities.values()) {
                         if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
                             clearInterval(loop);
-                        } else body.team = getRandomTeam();
+                        } else body.team = team;
                     }
                 })
             }
