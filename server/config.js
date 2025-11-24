@@ -121,14 +121,8 @@ module.exports = {
     // How every entity regenerates their health.
     REGENERATE_TICK: 100,
 
-    // How many members a team can have in comparison to an unweighed team.
-    // Example: We have team A and B. If the weight of A is 2 and B is 1, then the game will try to give A twice as many members as B.
-    TEAM_WEIGHTS: {},
-
-    // Natural Spawns
-
-    // The possible food types that can spawn.
-    FOOD_TYPES: [
+    // Food
+    FOOD_TYPES: [ // Possible food types outside the nest
         [1, [
             [65, 'egg'], [64, 'triangle'], [45, 'square'], [7, 'pentagon'], [1, 'hexagon']
         ]],
@@ -139,16 +133,12 @@ module.exports = {
             [1296, 'jewel'], [216, 'legendaryTriangle'], [36, 'legendarySquare'], [6, 'legendaryPentagon'], [1, 'legendaryHexagon']
         ]]
     ],
-
-    // The possible nest food types that can spawn.
-    FOOD_TYPES_NEST: [
+    FOOD_TYPES_NEST: [ // Possible food types in the nest
         [1, [
             [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon']
         ]]
     ],
-
-    // The possible nest enemy types that can spawn.
-    ENEMY_TYPES_NEST: [
+    ENEMY_TYPES_NEST: [ // Possible enemy food types in the nest
         [19, [
             [1, 'crasher']
         ]],
@@ -156,6 +146,11 @@ module.exports = {
             [1, 'sentryGun'], [1, 'sentrySwarm'], [1, 'sentryTrap']
         ]]
     ],
+
+    FOOD_CAP: 70, // Maximum number of regular food at any time.
+    FOOD_CAP_NEST: 15, // Maximum number of nest food at any time.
+    ENEMY_CAP_NEST: 10, // Maximum number of enemy nest food at any time.
+    FOOD_MAX_GROUP_TOTAL: 6, // Number of foods that random food groups spawn with
 
     // Bosses
     ENABLE_BOSS_SPAWN: true,
@@ -182,17 +177,9 @@ module.exports = {
         message: "The darkness arrives as the realms are torn apart!",
     }],
 
-    // How much regular foods can spawn.
-    FOOD_CAP: 350,
-
-    // How much nest foods can spawn.
-    FOOD_CAP_NEST: 15,
-
-    // How much enemy foods can spawn.
-    ENEMY_CAP_NEST: 10,
-
-    // What this does is there a chance that it will spawn food with a group, and the value makes it how much.
-    FOOD_MAX_GROUP_TOTAL: 6,
+    // How many members a team can have in comparison to an unweighed team.
+    // Example: We have team A and B. If the weight of A is 2 and B is 1, then the game will try to give A twice as many members as B.
+    TEAM_WEIGHTS: {},
 
     // These are the default values for gamemode related things. Do not change or remove these, you'll likely break stuff!
     // If you want to change them, copy the values you want to change to the server's PROPERTIES instead.
