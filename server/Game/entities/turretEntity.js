@@ -3,7 +3,7 @@ class turretEntity extends EventEmitter {
     constructor(position, bond, master) {
         super();
         if (!master) {
-            throw new Error("Undefined master! Please check you're code.");
+            throw new Error("Undefined master detected, check your code if anything broke lol");
         }
         // Inheritance
         this.master = master;
