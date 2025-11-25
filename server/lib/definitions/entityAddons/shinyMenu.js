@@ -100,7 +100,6 @@ Class.youtuber = {
 Class.gameAdminMenu = makeMenu("Game Admin Menu") // (BT 3)
 Class.gameModMenu = makeMenu("Game Mod Menu") // (BT 2)
 Class.betaTesterMenu = makeMenu("Beta Tester Menu") // (BT 1)
-
 Class.betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
 
 // Menu upgrades

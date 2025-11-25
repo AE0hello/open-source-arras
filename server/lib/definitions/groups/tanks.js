@@ -10,7 +10,7 @@ const hybridTankOptions = {count: 1, independent: true, cycle: false}
 const enable_april_fools = false
 const enable_flail_branch = false
 const enable_whirlwind_branch = false
-const enable_scrapped_tanks = true
+const enable_scrapped_tanks = false
 
 // Basic Tank
 Class.basic = {
@@ -5022,6 +5022,55 @@ Class.xHunter = {
     ]
 }
 
+// Tierless/Meme
+Class.rapture = {
+    PARENT: "genericTank",
+    LABEL: "Rapture",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [21, 19.5, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
+                TYPE: "speedBullet",
+            },
+        },
+        {
+            POSITION: [4, 3, 1, 11, -3, 0, 0],
+        },
+        {
+            POSITION: [4, 3, 1, 11, 3, 0, 0],
+        },
+        {
+            POSITION: [4, 4, 1, 13, 0, 0, 0],
+        },
+        {
+            POSITION: [1, 4, 1, 12, -1, 0, 0],
+        },
+        {
+            POSITION: [1, 4, 1, 11, 1, 0, 0],
+        },
+        {
+            POSITION: [1, 3, 1, 13, -1, 0, 0],
+        },
+        {
+            POSITION: [1, 3, 1, 13, 1, 0, 0],
+        },
+        {
+            POSITION: [1, 2, 1, 13, 2, 0, 0],
+        },
+        {
+            POSITION: [1, 2, 1, 13, -2, 0, 0],
+        },
+        {
+            POSITION: [15, 13, 1, 6, 0, 0, 0],
+        },
+        {
+            POSITION: [12, 13, -1.3, 4, 0, 0, 0],
+        },
+    ],
+}
+
 // Upgrade Paths
 Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "desmos"]
     Class.basic.UPGRADES_TIER_2 = ["smasher"]
@@ -5096,9 +5145,6 @@ Class.basic.UPGRADES_TIER_1.push("flail")
         Class.doubleFlail.UPGRADES_TIER_3 = ["tripleFlail"]
         Class.mace.UPGRADES_TIER_3 = ["bigMama", "itHurtsDontTouchIt", "flace"]
         Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
-} else {
-require('./dev.js')
-Class.developer.UPGRADES_TIER_0.push("flail")
 }
 if (enable_whirlwind_branch) {
 Class.basic.UPGRADES_TIER_1.push("whirlwind")
@@ -5111,9 +5157,6 @@ Class.basic.UPGRADES_TIER_1.push("whirlwind")
     // Class.pounder.UPGRADES_TIER_2
         Class.artillery.UPGRADES_TIER_3.push("munition")
         Class.launcher.UPGRADES_TIER_3.push("vortex")
-} else {
-require('./dev.js')
-Class.developer.UPGRADES_TIER_0.push("whirlwind")
 }
 if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
@@ -5135,7 +5178,4 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
-} else {
-require('./dev.js')
-Class.developer.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "spawnerdrive", "volute")
 }

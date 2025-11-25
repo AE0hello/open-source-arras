@@ -50,53 +50,6 @@ Class.developer = {
         }
     ]
 };
-Class.rapture = {
-    PARENT: ["genericTank"],
-    LABEL: "Rapture",
-    DANGER: 7,
-    GUNS: [
-        {
-            POSITION: [21, 19.5, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { speed: 2, maxSpeed: 3 }]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [4, 3, 1, 11, -3, 0, 0],
-        },
-        {
-            POSITION: [4, 3, 1, 11, 3, 0, 0],
-        },
-        {
-            POSITION: [4, 4, 1, 13, 0, 0, 0],
-        },
-        {
-            POSITION: [1, 4, 1, 12, -1, 0, 0],
-        },
-        {
-            POSITION: [1, 4, 1, 11, 1, 0, 0],
-        },
-        {
-            POSITION: [1, 3, 1, 13, -1, 0, 0],
-        },
-        {
-            POSITION: [1, 3, 1, 13, 1, 0, 0],
-        },
-        {
-            POSITION: [1, 2, 1, 13, 2, 0, 0],
-        },
-        {
-            POSITION: [1, 2, 1, 13, -2, 0, 0],
-        },
-        {
-            POSITION: [15, 13, 1, 6, 0, 0, 0],
-        },
-        {
-            POSITION: [12, 13, -1.3, 4, 0, 0, 0],
-        },
-    ],
-};
 Class.spectator = {
     PARENT: "genericTank",
     LABEL: "Spectator",
@@ -897,9 +850,6 @@ Class.syncWithTankTest = {
 
 Class.testing = makeMenu("Testing")
 
-Class.addons = makeMenu("Addon Entities")
-Class.addons.UPGRADES_TIER_0 = []
-
 // misc tanks
 let testLayeredBoss = new LayeredBoss("testLayeredBoss", "Test Layered Boss", "terrestrial", 7, 3, "terrestrialTrapTurret", 5, 7, true, {SPEED: 10});
 testLayeredBoss.addLayer({gun: {
@@ -952,6 +902,9 @@ Class.pistol = {
     UPGRADES_TIER_2: ["marksman"]
 }
 
-// Upgrade Tree
-Class.developer.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "specialMenu", "literallyATank", "testing", "addons", "jumpSmasher"]
+Class.addons = makeMenu("Addons Menu")
+Class.addons.UPGRADES_TIER_0 = []
+
+// Upgrade Tree // remaining stuff: "literallyATank", "jumpSmasher"
+Class.developer.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "specialMenu", "testing"]
     Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "tripleAutoBasic", "pistol"]
