@@ -16,7 +16,7 @@ const missingMockup = {
     },
     borderless: false,
     drawFill: true,
-    shape: "image=/unknownNotFound.png",
+    shape: "image=/missingno.png",
     imageInterpolation: "bilinear",
     size: 12,
     realSize: 12,

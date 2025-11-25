@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.7-rev.579";
+    let buildNumber = "v2.0.7-rev.580";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -1222,7 +1222,7 @@ import * as socketStuff from "./socketinit.js";
                             drawPolyImgs[sides] = new Image();
                             drawPolyImgs[sides].src = 
                             defaultDirectory ? 
-                            `imgs${sides.slice(6)}` : 
+                            `img${sides.slice(6)}` : 
                             clientRootDirectory || onlineDirectory ?
                             `${onlineDirectory ? sides.slice(6) : sides.slice(7)}` : 
                             "img/missingno.png";
@@ -1741,7 +1741,7 @@ import * as socketStuff from "./socketinit.js";
                             tile.renderImage.src = `img/${tile.image}`;
                             tile.renderImage.onerror = () => {
                                 console.warn(`Failed to get ${tile.image}! If you are the developer of this game, make sure that you typed the path correctly. Using unknown image.`)
-                                tile.renderImage.src = `img/unknownNotFound.png`;
+                                tile.renderImage.src = `img/missingno.png`;
                             }
                         };
                         ctx[0].drawImage(tile.renderImage, top, bottom, left - top, right - bottom);
