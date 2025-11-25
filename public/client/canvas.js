@@ -215,7 +215,7 @@ class Canvas {
         }
         if (!event.repeat) {
             switch (event.keyCode) {
-                case global.KEY_SPECIAL:
+                case global.KEY_SPECIAL || global.KEY_SPECIAL_SECONDARY:
                     this.socket.talk("#");
                     global.specialPressed = true;
                     global.specialKeysPressed = [];
@@ -295,7 +295,7 @@ class Canvas {
     }
     keyUp(event) {
         switch (event.keyCode) {
-            case global.KEY_SPECIAL:
+            case global.KEY_SPECIAL || global.KEY_SPECIAL_SECONDARY:
                 global.specialPressed = false;
                 global.specialKeysPressed = [];
                 break;

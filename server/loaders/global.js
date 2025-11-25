@@ -387,7 +387,7 @@ global.defineSplit = (() => {
         if (set.TURRETS != null) {
             for (let i = 0; i < set.TURRETS.length; i++) {
                 let def = set.TURRETS[i],
-                    o = new turretEntity(def.POSITION, my.master),
+                    o = new turretEntity(def.POSITION, my, my.master),
                     turretDanger = false,
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE];
                 for (let j = 0; j < type.length; j++) {

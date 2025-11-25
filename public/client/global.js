@@ -91,6 +91,7 @@ const global = {
     // Keys and other mathematical constants. You can find the list here: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
     // Special key for cheats / commands
     KEY_SPECIAL: 192, // `
+    KEY_SPECIAL_SECONDARY: "'",
 
     KEY_ESC: 27,// Escape
     KEY_ENTER: 13,// Enter
