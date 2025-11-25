@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.7-rev.577";
+    let buildNumber = "v2.0.7-rev.578";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -318,7 +318,7 @@ import * as socketStuff from "./socketinit.js";
                 document.getElementById("tabAppearance"),
                 document.getElementById("tabOptions"),
                 document.getElementById("tabControls"),
-                document.getElementById("tabAbout"),
+                document.getElementById("tabLinks"),
             ];
         for (let g = 1; g < tabOptions.length; g++) tabOptions[g].style.display = "none";
         let e = 0;

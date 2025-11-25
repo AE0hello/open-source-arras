@@ -21,7 +21,7 @@ module.exports = {
 
             REGION: "local", // The region the server is on.
             GAMEMODE: ["ffa"], // The selected gamemode.
-            MAX_PLAYERS: 16, // Not including bots.
+            MAX_PLAYERS: 80, // Not including bots.
 
             PROPERTIES: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
                 TEAMS: 2,
@@ -40,7 +40,7 @@ module.exports = {
 
             REGION: "local", // The region the server is on.
             GAMEMODE: ["tdm"], // The selected gamemode.
-            MAX_PLAYERS: 16, // Not including bots.
+            MAX_PLAYERS: 80, // Not including bots.
 
             PROPERTIES: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
                 TEAMS: 4,

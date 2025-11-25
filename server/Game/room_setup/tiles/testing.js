@@ -6,7 +6,7 @@ tileClass.imagetest = new Tile({
 });
 tileClass.imagetest2 = new Tile({
     COLOR: "white",
-    IMAGE: "/goofyahhmantiletest.jpg",
+    IMAGE: "/tileGrass1.jpg",
     NAME: "Image Tile",
 });
 tileClass.imagetest3 = new Tile({

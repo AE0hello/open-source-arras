@@ -842,7 +842,7 @@ body.mobile .startMenuSlidingContent {
   box-shadow: none;
 }
 
-#youtubeFeaturedButton {
+#githubButton {
   margin: 0;
   width: 200px;
   height: 40px;
@@ -850,31 +850,29 @@ body.mobile .startMenuSlidingContent {
   color: white;
   text-align: center;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-  background: #f71701;
+  background: #6f42c1;
   border: 0;
-  border-bottom: 2px solid #c51200;
+  border-bottom: 2px solid #5926a6;
   cursor: pointer;
-  box-shadow: inset 0 -2px #c51200;
+  box-shadow: inset 0 -2px #5926a6;
   border-radius: 5px;
   font: 16px Ubuntu;
 }
 
-#youtubeFeaturedButton:hover {
+#githubButton:hover {
   margin-top: 2px;
   height: 38px;
-  border-bottom: 0px solid #c51200;
+  border-bottom: 0px solid #5926a6;
 }
 
-#youtubeFeaturedButton:active {
+#githubButton:active {
   margin-top: 2px;
   height: 38px;
-  background: #c51200;
+  background: #5926a6;
   border-bottom: 0px;
   outline: none;
   box-shadow: none;
 }
-
-
 
 .bottomHolder>a {
   display: inline-block;
