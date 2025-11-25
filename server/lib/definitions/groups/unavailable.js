@@ -173,30 +173,6 @@ Class.literallyAMachineGun = {
     ]
 }
 // Undercover cop
-Class.hexagonBlue = {
-    LABEL: '',
-    COLOR: 21,
-    SHAPE: 6,
-    INDEPENDENT: true,
-};
-Class.squareBlue = {
-    LABEL: '',
-    COLOR: 22,
-    SHAPE: 4,
-    INDEPENDENT: true,
-};
-Class.hexagonRed = {
-    LABEL: '',
-    COLOR: 23,
-    SHAPE: 6,
-    INDEPENDENT: true,
-};
-Class.squareRed = {
-    LABEL: '',
-    COLOR: 24,
-    SHAPE: 4,
-    INDEPENDENT: true,
-};
 Class.undercoverCop = {
     PARENT: "booster",
     LABEL: "Undercover Cop",

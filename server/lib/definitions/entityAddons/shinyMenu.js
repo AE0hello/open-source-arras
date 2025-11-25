@@ -118,7 +118,7 @@ Class.specialMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanks
         Class.adminTanks.UPGRADES_TIER_0 = ["fakedeveloper", "cx_antiTankMachineGun", "damoclone", "machineShot", "fat456", "wifebeater"]
         Class.misc.UPGRADES_TIER_0 = [/*"theAmalgamation", "theConglomerate", "america", "average4tdmScore", "averageL39Hunt", */"tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank"/*, "genericEntity", "quadCyclone", "beeman", "heptaAutoBasic", "alas"*/]
         Class.digdig.UPGRADES_TIER_0 = [/*"digSmile", "digSmile_kirk", "digFrown", "digFrown_kirk"*/]
-    Class.shinyMemberMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "diepTanks", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
+    Class.shinyMemberMenu.UPGRADES_TIER_0 = [/*Config.SPAWN_CLASS, */"eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "diepTanks", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
     Class.youtuber.UPGRADES_TIER_0 = Class.shinyMemberMenu.UPGRADES_TIER_0
 
     Class.bossesMenu.UPGRADES_TIER_0 = ["sentries", "elites", "mysticals", "nesters", "rogues", "rammers", "terrestrials", "celestials", "eternals", "devBosses"]

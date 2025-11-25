@@ -285,10 +285,10 @@ class bossRush {
             let string = Class.basic.UPGRADES_TIER_2[i];
             if (string === "smasher") {
                 Class.basic.UPGRADES_TIER_2[i] = "healer"
-                /*for (let i = 0; i < Class.unavailable.UPGRADES_TIER_0.length; i++) {
-                    let string = Class.unavailable.UPGRADES_TIER_0[i];
+                /*for (let i = 0; i < Class.developer.UPGRADES_TIER_0.length; i++) {
+                    let string = Class.developer.UPGRADES_TIER_0[i];
                     if (string === "healer") {
-                        Class.unavailable.UPGRADES_TIER_0[i] = "smasher"
+                        Class.developer.UPGRADES_TIER_0[i] = "smasher"
                     }
                 }*/
             }
@@ -297,7 +297,7 @@ class bossRush {
             let string = Class.director.UPGRADES_TIER_2[i];
             if (string === "underseer") {
                 Class.director.UPGRADES_TIER_2.splice(i, 1)
-                /*Class.unavailable.UPGRADES_TIER_0.push("underseer")*/
+                /*Class.developer.UPGRADES_TIER_0.push("underseer")*/
             }
         }
         for (let tile of this.room.spawnable[TEAM_BLUE]) {

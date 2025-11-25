@@ -5088,7 +5088,7 @@ if (enable_april_fools) {
 Class.basic.UPGRADES_TIER_3.push("master")
 } else {
 require('./dev.js')
-Class.unavailable.UPGRADES_TIER_0.push("master")
+Class.developer.UPGRADES_TIER_0.push("master")
 }
 if (enable_flail_branch) {
 Class.basic.UPGRADES_TIER_1.push("flail")
@@ -5098,7 +5098,7 @@ Class.basic.UPGRADES_TIER_1.push("flail")
         Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
 } else {
 require('./dev.js')
-Class.unavailable.UPGRADES_TIER_0.push("flail")
+Class.developer.UPGRADES_TIER_0.push("flail")
 }
 if (enable_whirlwind_branch) {
 Class.basic.UPGRADES_TIER_1.push("whirlwind")
@@ -5113,7 +5113,7 @@ Class.basic.UPGRADES_TIER_1.push("whirlwind")
         Class.launcher.UPGRADES_TIER_3.push("vortex")
 } else {
 require('./dev.js')
-Class.unavailable.UPGRADES_TIER_0.push("whirlwind")
+Class.developer.UPGRADES_TIER_0.push("whirlwind")
 }
 if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
@@ -5137,5 +5137,5 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
 } else {
 require('./dev.js')
-Class.unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "spawnerdrive", "volute")
+Class.developer.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "spawnerdrive", "volute")
 }

@@ -1,5 +1,5 @@
 function init() {
-    let useOldMenu = false;
+    let useOldMenu = true;
     function selectedEntities(player, run) {
         for (const o of entities.values()) {
           if (
@@ -439,6 +439,18 @@ function init() {
                     } else if (player.body.team == TEAM_RED) {
                         player.body.team = TEAM_PURPLE;
                         player.body.color.base = getTeamColor(TEAM_PURPLE);
+                    } else if (player.body.team == TEAM_PURPLE) {
+                        player.body.team = TEAM_YELLOW;
+                        player.body.color.base = getTeamColor(TEAM_YELLOW);
+                    } else if (player.body.team == TEAM_YELLOW) {
+                        player.body.team = TEAM_ORANGE;
+                        player.body.color.base = getTeamColor(TEAM_ORANGE);
+                    } else if (player.body.team == TEAM_ORANGE) {
+                        player.body.team = TEAM_BROWN;
+                        player.body.color.base = getTeamColor(TEAM_BROWN);
+                    } else if (player.body.team == TEAM_BROWN) {
+                        player.body.team = TEAM_CYAN;
+                        player.body.color.base = getTeamColor(TEAM_CYAN);
                     } else {
                         player.body.team = TEAM_BLUE;
                         player.body.color.base = getTeamColor(TEAM_BLUE);

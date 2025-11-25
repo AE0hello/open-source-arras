@@ -148,28 +148,6 @@ Class.spectator = {
     }]
 }
 
-Class.generatorBase = {
-    PARENT: "genericTank",
-    LABEL: "Generator",
-    ALPHA: 0,
-    IGNORED_BY_AI: true,
-    CAN_BE_ON_LEADERBOARD: false,
-    ACCEPTS_SCORE: false,
-    DRAW_HEALTH: false,
-    HITS_OWN_TYPE: "never",
-    ARENA_CLOSER: true,
-    IS_IMMUNE_TO_TILES: true,
-    SKILL_CAP: [31, 0, 0, 0, 0, 0, 0, 0, 0, 31],
-    BODY: {
-        SPEED: 5,
-        FOV: 2.5,
-        DAMAGE: 0,
-        HEALTH: 1e100,
-        SHIELD: 1e100,
-        REGEN: 1e100,
-    },
-}
-
 Class.sentries = makeMenu("Sentries", "pink", 3.5)
 Class.sentries.PROPS = [
     {
@@ -197,8 +175,6 @@ Class.devBosses.UPGRADE_COLOR = "rainbow";
 Class.retiredDevBosses = makeMenu("Retired Developers", "#000000", 3)
 Class.retiredDevBosses.UPGRADE_COLOR = "#000000"
 
-Class.tanks = makeMenu("Tanks")
-Class.unavailable = makeMenu("Unavailable")
 // Testing tanks
 Class.diamondShape = {
     PARENT: "basic",
@@ -444,15 +420,7 @@ Class.imageShapeTest = {
     PARENT: 'genericTank',
     LABEL: "Image Shape Test",
     SHAPE: 'image=/round.png',
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ]
+    GUNS: Class.basic.GUNS
 }
 
 Class.screenShakeTest = {
@@ -484,15 +452,7 @@ Class.screenShakeTest = {
             APPLY_ON_SHOOT: true,   
         },
     ],
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ]
+    GUNS: Class.basic.GUNS
 }
 
 Class.strokeWidthTest = {
@@ -544,7 +504,7 @@ Class.onTest = {
     }, {
         event: "damage",
         handler: ({ body, damageInflictor, damageTool }) => { 
-            body.sendMessage(`I got hurt`)
+            body.sendMessage(`I got hurt.`)
         }
     }],
     GUNS: [{
@@ -590,16 +550,8 @@ Class.auraBasic = {
             TYPE: "auraBasicGen"
         }
     ],
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            },
-        },
-    ],
-};
+    GUNS: Class.basic.GUNS
+}
 Class.auraHealerGen = addAura(-1);
 Class.auraHealer = {
     PARENT: "genericTank",
@@ -610,23 +562,12 @@ Class.auraHealer = {
             TYPE: "auraHealerGen"
         }
     ],
-    GUNS: [
-        {
-            POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
-        },
-        {
-            POSITION: [18, 10, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.healer]),
-                TYPE: "healerBullet",
-            },
-        },
-    ],
-};
+    GUNS: Class.healer.GUNS
+}
 
 Class.ghoster_ghosted = {
     PARENT: "genericTank",
-    TOOLTIP: 'You are now hidden, roam around and find your next target. You will be visible again in 5 seconds',
+    TOOLTIP: 'You are now invisible, roam around and find your next target. You will be visible again in 5 seconds',
     LABEL: 'Ghoster',
     BODY: {
         SPEED: 20,
@@ -642,7 +583,7 @@ Class.ghoster_ghosted = {
 Class.ghoster = {
     PARENT: "genericTank",
     LABEL: 'Ghoster',
-    TOOLTIP: 'Shooting will hide you for 5 seconds',
+    TOOLTIP: 'Shooting will turn you invisible for 5 seconds',
     BODY: {
         SPEED: base.SPEED,
         ACCELERATION: base.ACCEL,
@@ -954,50 +895,6 @@ Class.syncWithTankTest = {
     ]
 }
 
-Class.levels = makeMenu("Levels")
-Class.levels.UPGRADES_TIER_0 = []
-for (let i = 0; i < 12; i++) {
-    let LEVEL = i * Config.TIER_MULTIPLIER;
-    Class["level" + LEVEL] = {
-        PARENT: "levels",
-        LEVEL,
-        LABEL: "Level " + LEVEL
-    };
-    Class.levels.UPGRADES_TIER_0.push("level" + LEVEL);
-}
-
-Class.teams = makeMenu("Teams")
-Class.teams.UPGRADES_TIER_0 = []
-for (let i = 1; i <= 8; i++) {
-    let TEAM = i;
-    Class["Team" + TEAM] = {
-        PARENT: "teams",
-        TEAM: -TEAM,
-        COLOR: getTeamColor(-TEAM),
-        LABEL: "Team " + TEAM
-    };
-    Class.teams.UPGRADES_TIER_0.push("Team" + TEAM);
-}
-Class['Team' + TEAM_DREADNOUGHTS] = {
-    PARENT: "teams",
-    TEAM: TEAM_DREADNOUGHTS,
-    COLOR: getTeamColor(TEAM_DREADNOUGHTS),
-    LABEL: "Dreads Team"
-};
-Class['Team' + TEAM_ROOM] = {
-    PARENT: "teams",
-    TEAM: TEAM_ROOM,
-    COLOR: "yellow",
-    LABEL: "Room Team"
-};
-Class['Team' + TEAM_ENEMIES] = {
-    PARENT: "teams",
-    TEAM: TEAM_ENEMIES,
-    COLOR: "yellow",
-    LABEL: "Enemies Team"
-};
-Class.teams.UPGRADES_TIER_0.push('Team' + TEAM_DREADNOUGHTS, 'Team' + TEAM_ROOM, 'Team' + TEAM_ENEMIES);
-
 Class.testing = makeMenu("Testing")
 
 Class.addons = makeMenu("Addon Entities")
@@ -1056,6 +953,5 @@ Class.pistol = {
 }
 
 // Upgrade Tree
-Class.developer.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "specialMenu", "spectator", "levels", "teams", "eggGen", "unavailable", "testing", "addons"]
-    Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank"]
+Class.developer.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "specialMenu", "literallyATank", "testing", "addons", "jumpSmasher"]
     Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "tripleAutoBasic", "pistol"]

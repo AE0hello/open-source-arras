@@ -1208,7 +1208,7 @@ Class.flailBall = {
     }],
     GUNS: [
         { 
-            POSITION: {WIDTH: 8, LENGTH: 10},
+            POSITION: {WIDTH: 10, LENGTH: -10},
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {
                     range: 0.1,
@@ -1291,7 +1291,7 @@ Class.maceBall = {
     }, ],
     GUNS: [
         { 
-            POSITION: {WIDTH: 8, LENGTH: 10},
+            POSITION: {WIDTH: 10, LENGTH: -10},
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {
                     range: 0.1,
@@ -1410,7 +1410,7 @@ Class.ihdtiBall = {
     }],
     GUNS: [
         { 
-            POSITION: {WIDTH: 8, LENGTH: 10},
+            POSITION: {WIDTH: 10, LENGTH: -10},
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {
                     range: 0.1,
@@ -1477,4 +1477,29 @@ Class.ihdtiBolt3 = {
         TYPE: "ihdtiBolt2"
         }
     ]
+}
+
+// Undercover Cop Headlights
+Class.cop_genericHeadlight = {
+    LABEL: '',
+    SHAPE: 6,
+    INDEPENDENT: true
+}
+Class.hexagonBlue = {
+    PARENT: "cop_genericHeadlight",
+    COLOR: 21
+}
+Class.squareBlue = {
+    PARENT: "cop_genericHeadlight",
+    COLOR: 22,
+    SHAPE: 4
+}
+Class.hexagonRed = {
+    PARENT: "cop_genericHeadlight",
+    COLOR: 23
+}
+Class.squareRed = {
+    PARENT: "cop_genericHeadlight",
+    COLOR: 24,
+    SHAPE: 4
 }
