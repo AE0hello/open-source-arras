@@ -809,7 +809,7 @@ Class.bee = {
     HITS_OWN_TYPE: "hardWithBuffer"
 }
 Class.homingBullet = {
-    PARENT: "autoswarm",
+    PARENT: "swarm",
     SHAPE: 0,
     BODY: {
         PENETRATION: 1,

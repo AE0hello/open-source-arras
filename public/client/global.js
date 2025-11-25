@@ -1,8 +1,8 @@
 import { util } from "./util.js";
 
-const missingMockup = {
+const missingno = {
     index: -1,
-    name: "Missing Mockup",
+    name: "missingno",
     x: 0,
     y: 0,
     color: "mirror 0 1 0 true",
@@ -30,7 +30,7 @@ const missingMockup = {
     },
     statnames: { body_damage: "???", max_health: "???", max_health: "???", bullet_speed: "???", bullet_health: "???", bullet_pen: "???", bullet_damage: "???", reload: "???", move_speed: "???", shield_regen: "???", shield_cap: "???" },
     rerootUpgradeTree: "basic", // todo: find a way to make this automatically change to Config.SPAWN_CLASS without bricking everything
-    className: "missingMockup",
+    className: "missingno",
     upgrades: [],
     guns: [],
     turrets: [],
@@ -183,7 +183,7 @@ const global = {
     player: {},
     messages: [],
     mockups: [],
-    missingMockup: [missingMockup],
+    missingno: [missingno],
     roomSetup: [],
     entities: [],
     cached: {},

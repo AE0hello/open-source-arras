@@ -427,7 +427,7 @@ import * as socketStuff from "./socketinit.js";
     let CalcScreenSize = () => Math.max(global.vscreenSize, (16 / 9) * global.vscreenSizey) / global.player.renderv,
         handleScreenDistance = (alpha, instance, fade = true) => {
             let indexes = instance.index.split("-"),
-            m = global.mockups[parseInt(indexes[0])] ?? global.missingMockup[0];
+            m = global.mockups[parseInt(indexes[0])] ?? global.missingno[0];
             switch (fade) {
                 case true: 
                     GetScreenDistance(instance.render.x - global.player.loc.x, instance.render.y - global.player.loc.y, instance.size) ||
@@ -1376,7 +1376,7 @@ import * as socketStuff from "./socketinit.js";
             const indexStr = instance.index;
             const indexes = indexStr.split("-");
             const mockupIndex = +indexes[0];
-            const m = global.mockups[mockupIndex] || global.missingMockup[0];
+            const m = global.mockups[mockupIndex] || global.missingno[0];
             const source = turretInfo === false ? instance : turretInfo;
             
             // --- Size calculations with cached values ---
@@ -1884,7 +1884,7 @@ import * as socketStuff from "./socketinit.js";
                     let x = ratio * entity.render.x - px,
                         y = ratio * entity.render.y - py,
                         indexes = entity.index.split("-"),
-                        m = global.mockups[parseInt(indexes[0])] ?? global.missingMockup[0];
+                        m = global.mockups[parseInt(indexes[0])] ?? global.missingno[0];
 
                     x += global.screenWidth / 2;
                     y += global.screenHeight / 2;
@@ -2435,7 +2435,7 @@ import * as socketStuff from "./socketinit.js";
             let size = isize * ratio,
                 indexes = instance.index.split("-"),
                 m = global.mockups[parseInt(indexes[0])];
-            if (!m) m = global.missingMockup[0];
+            if (!m) m = global.missingno[0];
             let realSize = (size / m.size) * m.realSize;
 
             if (instance.drawsHealth) {
@@ -2510,7 +2510,7 @@ import * as socketStuff from "./socketinit.js";
         try {
             namedata = gui.getStatNames(global.mockups[parseInt(gui.type.split("-")[0])].statnames);
         } catch (e) {
-            namedata = gui.getStatNames(global.missingMockup[0].statnames);
+            namedata = gui.getStatNames(global.missingno[0].statnames);
         }
         let clickableRatio = global.canvas.height / global.screenHeight / global.ratio;
 
@@ -3175,7 +3175,7 @@ import * as socketStuff from "./socketinit.js";
             try {
                 statNames = gui.getStatNames(global.mockups[parseInt(gui.type.split("-")[0])].statnames);
             } catch (e) {
-                statNames = gui.getStatNames(global.missingMockup[0].statnames);
+                statNames = gui.getStatNames(global.missingno[0].statnames);
             }
 
         if (global.canSkill || global.showSkill) {

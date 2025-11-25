@@ -237,7 +237,7 @@ const Entry = class {
     publish() {
         let indexes = this.index.split("-"),
             ref = global.mockups[parseInt(indexes[0])];
-            if (!ref) ref = global.missingMockup[0];
+            if (!ref) ref = global.missingno[0];
 
         return {
             id: this.id,
