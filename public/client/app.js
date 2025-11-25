@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.7-rev.578";
+    let buildNumber = "v2.0.7-rev.579";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -1225,9 +1225,9 @@ import * as socketStuff from "./socketinit.js";
                             `imgs${sides.slice(6)}` : 
                             clientRootDirectory || onlineDirectory ?
                             `${onlineDirectory ? sides.slice(6) : sides.slice(7)}` : 
-                            "imgs/unknownNotFound.png";
+                            "img/missingno.png";
                             drawPolyImgs[sides].onerror = function() {
-                                drawPolyImgs[sides].src = "imgs/unknownNotFound.png";
+                                drawPolyImgs[sides].src = "img/missingno.png";
                             }
         
                             let img = drawPolyImgs[sides];
@@ -1738,10 +1738,10 @@ import * as socketStuff from "./socketinit.js";
                         ctx[0].globalAlpha = 1;
                         if (!tile.renderImage) {
                             tile.renderImage = new Image();
-                            tile.renderImage.src = `imgs/${tile.image}`;
+                            tile.renderImage.src = `img/${tile.image}`;
                             tile.renderImage.onerror = () => {
                                 console.warn(`Failed to get ${tile.image}! If you are the developer of this game, make sure that you typed the path correctly. Using unknown image.`)
-                                tile.renderImage.src = `imgs/unknownNotFound.png`;
+                                tile.renderImage.src = `img/unknownNotFound.png`;
                             }
                         };
                         ctx[0].drawImage(tile.renderImage, top, bottom, left - top, right - bottom);

@@ -456,7 +456,7 @@ body.mobile .startMenuHolder.changelogHolder {
 
 .menuTab.discord {
   padding: 6px 12px 6px 36px;
-  background: #7289da url(/imgs/discord.png) 8px 4px/23px no-repeat;
+  background: #7289da url(/img/discord.png) 8px 4px/23px no-repeat;
 }
 
 .menuTab.stat {
