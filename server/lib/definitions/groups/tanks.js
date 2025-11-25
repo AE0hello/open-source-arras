@@ -2708,6 +2708,18 @@ Class.iterator = {
         }
     ]
 }
+Class.jumpSmasher = {
+    PARENT: "genericSmasher",
+    LABEL: "Jump Smasher",
+    DANGER: 7,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "smasherBody"
+        }
+    ]
+}
 Class.landmine = {
     PARENT: "genericSmasher",
     LABEL: "Landmine",

@@ -199,23 +199,6 @@ Class.retiredDevBosses.UPGRADE_COLOR = "#000000"
 
 Class.tanks = makeMenu("Tanks")
 Class.unavailable = makeMenu("Unavailable")
-Class.dominators = makeMenu("Dominators")
-Class.dominators.PROPS = [
-    {
-        POSITION: [22, 0, 0, 360, 0],
-        TYPE: "dominationBody",
-    }
-]
-Class.sanctuaries = makeMenu("Sanctuaries")
-Class.sanctuaries.PROPS = [
-    {
-        POSITION: [22, 0, 0, 360, 0],
-        TYPE: "dominationBody",
-    }, {
-        POSITION: [13, 0, 0, 360, 1],
-        TYPE: "healerSymbol",
-    }
-]
 // Testing tanks
 Class.diamondShape = {
     PARENT: "basic",
@@ -1073,11 +1056,6 @@ Class.pistol = {
 }
 
 // Upgrade Tree
-Class.developer.UPGRADES_TIER_0 = ["tanks", "bossesMenu", "spectator", "levels", "teams", "eggGen", "testing", "addons"]
-    Class.tanks.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
-        Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank", "healer"]
-        Class.dominators.UPGRADES_TIER_0 = ["destroyerDominator", "gunnerDominator", "trapperDominator"]
-        Class.sanctuaries.UPGRADES_TIER_0 = ["sanctuaryTier1", "sanctuaryTier2", "sanctuaryTier3", "sanctuaryTier4", "sanctuaryTier5", "sanctuaryTier6"]
-
+Class.developer.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "specialMenu", "spectator", "levels", "teams", "eggGen", "unavailable", "testing", "addons"]
+    Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank"]
     Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "tripleAutoBasic", "pistol"]
-    

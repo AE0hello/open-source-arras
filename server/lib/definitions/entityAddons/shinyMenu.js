@@ -6,6 +6,7 @@ const g = require("../gunvals")
 function init() {
 
 const better_upgrade_labels = true // Shortens pretty much all menu names in the upgrade menu to minimize overlapping
+const fancy_menus = true // Makes certain menus look more thematic
 
 // Menus
 Class.specialMenu = makeMenu("Special Menu")
@@ -138,23 +139,40 @@ Class.gameAdminMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "gameModMenu", "spect
     Class.gameModMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "betaTesterMenu", "spectator"/*, "guillotine"*/, "nostalgiaMenu", "scrappedMenu"]
         Class.betaTesterMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS/*, "betaTesterB"*/, "spectator", "nostalgiaMenu", "scrappedMenu"] // todo: check if beta tester b actually existed here
 
-Class.addons.UPGRADES_TIER_0.push("gameAdminMenu", "shinyMemberMenu", "youtuber")
-
 if (better_upgrade_labels) {
-    Class.specialMenu.UPGRADE_LABEL = "Special"
-    Class.specialTanksMenu.UPGRADE_LABEL = "Special Tanks"
-    Class.healerMenu.UPGRADE_LABEL = "Healers"
-    Class.sanctuaryTierMenu.UPGRADE_LABEL = "Sanctuaries"
-    Class.dominatorMenu.UPGRADE_LABEL = "Dominators"
-    Class.bossesMenu.UPGRADE_LABEL = "Bosses"
-    Class.nostalgiaMenu.UPGRADE_LABEL = "Nostalgia"
-    Class.scrappedMenu.UPGRADE_LABEL = "Scrapped"
-    Class.scrappedMenu2.UPGRADE_LABEL = "Scrapped"
-    Class.diep2Menu.UPGRADE_LABEL = "Diep2"
-    Class.shinyMemberMenu.UPGRADE_LABEL = "Shiny Member"
-    Class.gameAdminMenu.UPGRADE_LABEL = "Game Admin"
-    Class.gameModMenu.UPGRADE_LABEL = "Game Mod"
-    Class.betaTesterMenu.UPGRADE_LABEL = "Beta Tester"
+Class.specialMenu.UPGRADE_LABEL = "Special"
+Class.specialTanksMenu.UPGRADE_LABEL = "Special Tanks"
+Class.healerMenu.UPGRADE_LABEL = "Healers"
+Class.dominatorMenu.UPGRADE_LABEL = "Dominators"
+Class.sanctuaryTierMenu.UPGRADE_LABEL = "Sanctuaries"
+Class.bossesMenu.UPGRADE_LABEL = "Bosses"
+Class.nostalgiaMenu.UPGRADE_LABEL = "Nostalgia"
+Class.scrappedMenu.UPGRADE_LABEL = "Scrapped"
+Class.scrappedMenu2.UPGRADE_LABEL = "Scrapped"
+Class.diep2Menu.UPGRADE_LABEL = "Diep2"
+Class.shinyMemberMenu.UPGRADE_LABEL = "Shiny Member"
+Class.gameAdminMenu.UPGRADE_LABEL = "Game Admin"
+Class.gameModMenu.UPGRADE_LABEL = "Game Mod"
+Class.betaTesterMenu.UPGRADE_LABEL = "Beta Tester"
+}
+
+if (fancy_menus) {
+Class.dominatorMenu.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    }
+]
+Class.sanctuaryTierMenu.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    },
+    {
+        POSITION: [13, 0, 0, 360, 1],
+        TYPE: "healerSymbol"
+    }
+]
 }
 
 // Shiny Member Menu / YouTuber
