@@ -2768,11 +2768,29 @@ Class.jumpSmasher = {
     PARENT: "genericSmasher",
     LABEL: "Jump Smasher",
     DANGER: 7,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    BODY: {
+        SPEED: 1.15 * base.SPEED,
+        DENSITY: 1 * base.DENSITY,
+        HEALTH: 1 * base.HEALTH * 1.4,
+        SHIELD: 1 * base.SHIELD * 1.4
+    },
     TURRETS: [
         {
             POSITION: [21.5, 0, 0, 0, 360, 0],
             TYPE: "smasherBody"
+        }
+    ],
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 2,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { reload: 11, recoil: 9.75 }/*, { reload: 12.5, recoil: 8.2875 }*/]),
+                TYPE: ["bullet", { ALPHA: 0 }]
+            }
         }
     ]
 }
@@ -5260,6 +5278,8 @@ Class.basic.UPGRADES_TIER_1.push("whirlwind")
 }
 if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
+    // Class.basic.UPGRADES_TIER_2
+        Class.smasher.UPGRADES_TIER_3.push("jumpSmasher")
     // Class.sniper.UPGRADES_TIER_2
         Class.sniper.UPGRADES_TIER_3.push("railgun")
         Class.assassin.UPGRADES_TIER_3.push("sniper3")
