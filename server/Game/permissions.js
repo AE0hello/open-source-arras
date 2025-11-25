@@ -41,7 +41,7 @@ module.exports = [
         key: process.env.DEVELOPER,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "developer",
+        class: "specialMenu",
         administrator: true,
         level: 3,
         name: "unnamed#0000",

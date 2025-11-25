@@ -57,7 +57,7 @@ Class.growBullet = {
     PARENT: "bullet",
     MOTION_TYPE: "grow",
 }
-Class.cx_antiTankMachineGun_bullet = {
+Class.cxATMGBullet = {
     PARENT: "bullet",
     SHAPE: Class.cube.SHAPE,
 }

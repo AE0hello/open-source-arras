@@ -105,7 +105,7 @@ Class.genericTank = {
     SYNC_WITH_TANK: false,
     IS_IMMUNE_TO_TILES: false,
     RENDER_ON_LEADERBOARD: true,
-    REROOT_UPGRADE_TREE: "basic",
+    REROOT_UPGRADE_TREE: Config.SPAWN_CLASS,
     BODY: {
         ACCELERATION: base.ACCEL,
         SPEED: base.SPEED,

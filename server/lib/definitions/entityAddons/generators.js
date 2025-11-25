@@ -189,7 +189,8 @@ Class.rainbowAlphaPentagonGen = makeGenerator("rainbowAlphaPentagon", "Rainbow L
 Class.transAlphaPentagonGen = makeGenerator("transAlphaPentagon", "Trans Legendary Alpha Pentagon", "TransAPnt.", "pentagon", 15, 5, 37, Class.alphaPentagon.SIZE + 90)
 
 //MISC GENERATORS
-Class.gemGen = makeGenerator("gem", "Gem", "Gem", "gem", 4.75, 6, "teal", Class.gem.SIZE, 100, 0)
+Class.gemGen = makeGenerator("gem", "Gem", "Gem", "gem", 4.75, 6, "aqua", Class.gem.SIZE, 100, 0)
+Class.jewelGen = makeGenerator("jewel", "Jewel", "Jewel", "jewel", 7, 6, "yellow", Class.jewel.SIZE, 100, 0)
 Class.wallGen = makeGenerator("wall", "Wall", "Wall", "wall", 15, 4, "grey", Class.wall.SIZE, 100, 0)
 Class.gravelGen = makeGenerator("gravel", "Gravel", "Gravel", "gravel", 7, -7, "grey", Class.gravel.SIZE, 100, 0)
 Class.stoneGen = makeGenerator("stone", "Stone", "Stone", "stone", 10, -7, "grey", Class.stone.SIZE, 100, 0)
@@ -284,7 +285,7 @@ function generatorMatrix(matrix, previous, next) {
 			}
 
 			gen.UPGRADES_TIER_0.push(
-				"basic", top, previous,
+				Config.SPAWN_CLASS, top, previous,
 				left, center, right,
 				"spectator", bottom, next
 			);

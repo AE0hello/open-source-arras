@@ -68,4 +68,4 @@ Class.abomination = {
 };
 Class.exampleAddon = makeMenu("Example Addon")
 Class.exampleAddon.UPGRADES_TIER_0 = ["abomination"]
-Class.addons.UPGRADES_TIER_0.push("exampleAddon");
+Class.menu_addons.UPGRADES_TIER_0.push("exampleAddon");

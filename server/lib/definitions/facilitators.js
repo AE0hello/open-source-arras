@@ -1,6 +1,6 @@
 const { MAX_SKILL } = require("../../config.js")
 const g = require('./gunvals.js')
-const {basePolygonDamage, basePolygonHealth} = require("./constants");
+const { basePolygonDamage, basePolygonHealth, dfltskl } = require("./constants")
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -598,6 +598,8 @@ exports.makeMenu = (name = -1, color = "mirror", shape = 0, overrideLabel = fals
         UPGRADE_COLOR: color == "mirror" ? null : color,
         SHAPE: shape,
         IGNORED_BY_AI: true,
+        SKILL_CAP: Array(10).fill(dfltskl),
+        RESET_CHILDREN: true,
     };
 }
 exports.weaponArray = (weapons, count, delayIncrement = 0, delayOverflow = false) => {

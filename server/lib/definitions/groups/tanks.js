@@ -5135,9 +5135,6 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 // Quick Configurations
 if (enable_april_fools) {
 Class.basic.UPGRADES_TIER_3.push("master")
-} else {
-require('./dev.js')
-Class.developer.UPGRADES_TIER_0.push("master")
 }
 if (enable_flail_branch) {
 Class.basic.UPGRADES_TIER_1.push("flail")

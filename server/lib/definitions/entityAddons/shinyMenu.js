@@ -103,7 +103,7 @@ Class.betaTesterMenu = makeMenu("Beta Tester Menu") // (BT 1)
 Class.betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
 
 // Menu upgrades
-Class.specialMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "memes", "dreadOfficialV1", "shinyMemberMenu"]
+Class.specialMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "memes", "dreadOfficialV1", "shinyMemberMenu", "menu_addons"]
     Class.specialTanksMenu.UPGRADES_TIER_0 = ["specialMenu", "healerMenu", "dominatorMenu", "sanctuaryTierMenu", "arenaCloser", "bacteria", "literallyAMachineGun", "mothership", "flagship", "turkey", "undercoverCop"]
         Class.healerMenu.UPGRADES_TIER_0 = ["healer", "medic", "ambulance", "surgeon", "paramedic"/*, "physician", "doctor"*/, "smasher", "underseer"]
         Class.dominatorMenu.UPGRADES_TIER_0 = ["specialTanksMenu", "dominator", "destroyerDominator", "gunnerDominator", "trapperDominator", /*"destroyerDominator_armsRace", "gunnerDominator_armsRace", "trapperDominator_armsRace", */"antiTankMachineGun", "baseProtector"]
@@ -114,7 +114,7 @@ Class.specialMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanks
     Class.memes.UPGRADES_TIER_0 = ["diepTanks", "adminTanks", "misc", "digdig"]
         Class.diepTanks.UPGRADES_TIER_0 = ["diep2Menu"/*, "diep_tank"*/]
             Class.diep2Menu.UPGRADES_TIER_0 = [/*"blaster", "gatlingGun", "machineFlank", "machineTriple", "rifle_old", "buttbuttin", "blower", "quadTwin", "tornado_old", "subverter", "battery", "deathStar", "bonker", "protector", "doubleTrapGuard*/]
-        Class.adminTanks.UPGRADES_TIER_0 = ["fakedeveloper", "cx_antiTankMachineGun", "damoclone", "machineShot", "fat456", "wifebeater"]
+        Class.adminTanks.UPGRADES_TIER_0 = ["developer", "cxATMG", "damoclone", "machineShot", "fat456", "wifeBeater"]
         Class.misc.UPGRADES_TIER_0 = [/*"theAmalgamation", "theConglomerate", "america", "average4tdmScore", "averageL39Hunt", */"tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank"/*, "genericEntity", "quadCyclone", "beeman", "heptaAutoBasic", "alas"*/]
         Class.digdig.UPGRADES_TIER_0 = [/*"digSmile", "digSmile_kirk", "digFrown", "digFrown_kirk"*/]
     Class.shinyMemberMenu.UPGRADES_TIER_0 = [/*Config.SPAWN_CLASS, */"eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "diepTanks", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
@@ -177,33 +177,6 @@ Class.sanctuaryTierMenu.PROPS = [
 // Shiny Member Menu / YouTuber
 // SPECIAL MENU UPGRADES AND TANKS
 // MEMES TANKS
-    Class.fakedeveloper = {
-        PARENT: "developer",
-        UPGRADES_TIER_0: [],
-        UPGRADES_TIER_1: [],
-        UPGRADES_TIER_2: [],
-        UPGRADES_TIER_3: [],
-        SHAPE: [
-            [-1, -0.8],
-            [-0.8, -1],
-            [0.8, -1],
-            [1, -0.8],
-            [0.2, 0],
-            [1, 0.8],
-            [0.8, 1],
-            [-0.8, 1],
-            [-1, 0.8],
-        ],
-        GUNS: [
-            {
-                POSITION: [18, 10, -1.4, 0, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.06, damage: 2, health: 1, speed: 8, maxSpeed: 7, recoil: 4}]),
-                    TYPE: "developerBullet"
-                }
-            }
-        ]
-    }
     Class.fat456 = {
         PARENT: "genericTank",
         SIZE: 30,
@@ -228,7 +201,7 @@ Class.sanctuaryTierMenu.PROPS = [
             },
         ],
     }
-    Class.wifebeater = {
+    Class.wifeBeater = {
         PARENT: "overlord",
         LABEL: 'Wife Beater',
         DANGER: 8,
@@ -502,33 +475,6 @@ Class.sanctuaryTierMenu.PROPS = [
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.weak]),
                     TYPE: "setTrap",
-                },
-            },
-        ],
-    }
-    Class.oldCommanderGun = {
-        PARENT: "genericTank",
-        LABEL: "",
-        BODY: {
-            FOV: 3,
-        },
-        CONTROLLERS: ["nearestDifferentMaster"],
-        COLOR: 16,
-        MAX_CHILDREN: 6,
-        AI: {
-            NO_LEAD: true,
-            SKYNET: true,
-            FULL_VIEW: true,
-        },
-        GUNS: [
-            {
-                POSITION: [8, 14, 1.3, 8, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.drone, g.commander]),
-                    TYPE: "drone",
-                    AUTOFIRE: true,
-                    SYNCS_SKILLS: true,
-                    STAT_CALCULATOR: "drone",
                 },
             },
         ],

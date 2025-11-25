@@ -848,7 +848,7 @@ Class.antiTankMachineGun = {
     }]
 }
 // CX-ATMG
-Class.cx_antiTankMachineGun = {
+Class.cxATMG = {
     PARENT: "dominator",
     LABEL: "CX-ATMG",
     UPGRADE_LABEL: "CX-ATMG",
@@ -873,28 +873,28 @@ Class.cx_antiTankMachineGun = {
             POSITION: [15, 2.5, 1, 0, 2, 0, 0.2],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
             POSITION: [15, 2.5, 1, 0, -2, 0, 0.2],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
             POSITION: [1, 2.5, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
             POSITION: [16.5, 3.5, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
@@ -909,10 +909,10 @@ Class.cx_antiTankMachineGun = {
     ],
     TURRETS: [{
         POSITION: [20, 0, 25, 0, 180, 1],
-        TYPE: ["cx_antiTankMachineGunArm"]
+        TYPE: ["cxATMGArm"]
     }, {
         POSITION: [20, 0, -25, 0, 180, 1],
-        TYPE: ["cx_antiTankMachineGunArm"]
+        TYPE: ["cxATMGArm"]
     }, {
         POSITION: [26, 0, 0, 0, 360, 0],
         TYPE: ["dominationBody"]
