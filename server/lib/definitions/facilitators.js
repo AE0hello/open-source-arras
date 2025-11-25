@@ -578,9 +578,13 @@ exports.setTurretProjectileRecoil = (type, recoilFactor) => {
 }
 
 // misc functions
-exports.menu = (name = -1, color = -1, shape = 0, overrideGuns = false) => {
+exports.makeMenu = (name = -1, color = "mirror", shape = 0, overrideLabel = false, overrideGuns = false) => {
     let defaultGun = {
-        POSITION: [18, 10, -1.4, 0, 0, 0, 0],
+        POSITION: {
+            LENGTH: 18,
+            WIDTH: 10,
+            ASPECT: -1.4
+        },
         PROPERTIES: {
             SHOOT_SETTINGS: exports.combineStats([g.basic]),
             TYPE: "bullet",
@@ -590,8 +594,8 @@ exports.menu = (name = -1, color = -1, shape = 0, overrideGuns = false) => {
         PARENT: "genericTank",
         LABEL: name == -1 ? undefined : name,
         GUNS: overrideGuns ? overrideGuns : [defaultGun],
-        COLOR: color == -1 ? null : color,
-        UPGRADE_COLOR: color == -1 ? null : color,
+        COLOR: color == "mirror" ? null : color,
+        UPGRADE_COLOR: color == "mirror" ? null : color,
         SHAPE: shape,
         IGNORED_BY_AI: true,
     };

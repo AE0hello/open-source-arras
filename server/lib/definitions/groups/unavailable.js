@@ -1,4 +1,4 @@
-const { combineStats, menu, addAura, makeDeco,  weaponArray, makeTurret } = require('../facilitators.js');
+const { combineStats, makeDeco,  weaponArray } = require('../facilitators.js');
 const { base, } = require('../constants.js');
 const g = require('../gunvals.js');
 const {makeGuard, makeAuto} = require("../facilitators");
@@ -209,28 +209,28 @@ Class.squareRed = {
     SHAPE: 4,
     INDEPENDENT: true,
 };
-Class.undercovercop = {
+Class.undercoverCop = {
     PARENT: "booster",
-    LABEL: 'Undercover Cop',
+    LABEL: "Undercover Cop",
     TURRETS: [
-        { /*  SIZE     X       Y     ANGLE    ARC */
+        {
             POSITION: [6, 0, 8, 0, 360, 1], 
             TYPE: "hexagonBlue",
         },
-        { /*  SIZE     X       Y     ANGLE    ARC */
+        {
             POSITION: [6, 0, -8, 0, 360, 1], 
             TYPE: "hexagonRed",
         },
-        { /*  SIZE     X       Y     ANGLE    ARC */
+        {
             POSITION: [6, 0, 3, 0, 360, 1], 
             TYPE: "squareBlue",
         },
-        { /*  SIZE     X       Y     ANGLE    ARC */
+        {
             POSITION: [6, 0, -3, 0, 360, 1], 
             TYPE: "squareRed",
         }
-    ],
-};
+    ]
+}
 
 // TURKEY
 Class.turkeynose = {

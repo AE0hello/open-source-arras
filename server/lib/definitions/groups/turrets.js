@@ -90,6 +90,20 @@ Class.megaAutoTankGun = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true})
+Class.sniper3gun = makeTurret({
+    GUNS: [
+        {
+            POSITION: [27, 9, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.autoTurret, g.assassin]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [5, 9, -1.5, 8, 0, 0, 0],
+        },
+    ],
+}, {canRepel: true, limitFov: true, fov: 5})
 Class.architectGun = makeTurret({
     GUNS: [
         {
@@ -1048,8 +1062,9 @@ Class.tracker3gun = makeTurret({
 }, {canRepel: true, limitFov: true, fov: 3, color: "#1AFF00"})
 
 // Decorations
-Class.overdriveDeco = makeDeco(4)
+Class.deco_trianglePureWhite = makeDeco(3, "pureWhite")
 Class.mendersymbol = makeDeco(3)
+Class.overdriveDeco = makeDeco(4)
 Class.assemblerEffect = {
     PARENT: "bullet",
     MOTION_TYPE: 'assembler',
@@ -1092,6 +1107,14 @@ Class.spikeBody = {
     PARENT: "smasherBody",
     SHAPE: 3
 }
+Class.weirdSpikeBody1 = {
+    PARENT: "spikeBody",
+    FACING_TYPE: ["spin", { speed: 0.20 }]
+}
+Class.weirdSpikeBody2 = {
+    PARENT: "spikeBody",
+    FACING_TYPE: ["spin", { speed: -0.17 }]
+};
 Class.dominationBody = {
     LABEL: "",
     FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }],

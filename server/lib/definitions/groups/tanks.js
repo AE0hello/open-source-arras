@@ -10,7 +10,7 @@ const hybridTankOptions = {count: 1, independent: true, cycle: false}
 const enable_april_fools = false
 const enable_flail_branch = false
 const enable_whirlwind_branch = false
-const enable_scrapped_tanks = false
+const enable_scrapped_tanks = true
 
 // Basic Tank
 Class.basic = {
@@ -3009,6 +3009,61 @@ Class.megaTrapper = {
         }
     ]
 }
+Class.mender = {
+    PARENT: "genericTank",
+    LABEL: "Mender",
+    DANGER: 7,
+    TOOLTIP: "Right click to heal yourself (use sparingly, has a long cooldown once used!)",
+    GUNS: [
+        {
+            POSITION: [17, 3, 1, 0, -6, -7, 0.25],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.gunner, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary"
+            }
+        },
+        {
+            POSITION: [17, 3, 1, 0, 6, 7, 0.75],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.gunner, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary"
+            }
+        },
+        {
+            POSITION: [19, 12, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy"
+            }
+        },
+        {
+            POSITION: [17, 10, 1, 0, 0, 180, 0]
+        },
+        {
+            POSITION: [5, 18, 1, -19, 0, 0, 0], // todo: work out cooldown time
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                g.basic,
+                    g.pounder,
+                    g.destroyer,
+                    g.healer,
+                    //[2, 0, 1, 1, 1, -1, 1, 1, 1, 0.1, 1, 1, 1],
+                ]),
+                TYPE: "healerBullet",
+                ALT_FIRE: true
+            }
+        }
+    ],
+    TURRETS: [
+        {
+            POSITION: [7, 0, 0, 0, 0, 1],
+            TYPE: "mendersymbol"
+        }
+    ]
+}
 Class.mortar = {
     PARENT: "genericTank",
     LABEL: "Mortar",
@@ -4068,7 +4123,7 @@ Class.sidewinder = {
         },
     ],
 }
-Class.sidewinderNew = {
+Class.sidewinder_new = {
     PARENT: "genericTank",
     LABEL: "Sidewinder",
     DANGER: 6,
@@ -4131,6 +4186,7 @@ Class.skimmer = {
         },
     ],
 }
+Class.sniper3 = makeRadialAuto("sniper3gun", {isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: {SPEED: 0.8 * base.SPEED, FOV: 1.25 * base.FOV}})
 Class.spawnerdrive = {
     PARENT: "genericTank",
     LABEL: "Spawnerdrive",
@@ -4170,6 +4226,7 @@ Class.spawnerdrive = {
 Class.spike = {
     PARENT: "genericSmasher",
     LABEL: "Spike",
+    DANGER: 7,
     BODY: {
         SPEED: base.SPEED * 0.9,
         DAMAGE: base.DAMAGE * 1.1,
@@ -4192,6 +4249,29 @@ Class.spike = {
             TYPE: "spikeBody",
         },
     ],
+}
+Class.spike_old = {
+    PARENT: "genericTank",
+    LABEL: "Weird Spike",
+    DANGER: 7,
+    BODY: {
+        DAMAGE: 1.15 * base.DAMAGE,
+        FOV: 1.05 * base.FOV,
+        DENSITY: 1.5 * base.DENSITY
+    },
+    IS_SMASHER: true,
+    SKILL_CAP: [smshskl, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
+    STAT_NAMES: statnames.smasher,
+    TURRETS: [
+        {
+            POSITION: [20.5, 0, 0, 0, 360, 0],
+            TYPE: "weirdSpikeBody1"
+        },
+        {
+            POSITION: [20.5, 0, 0, 180, 360, 0],
+            TYPE: "weirdSpikeBody2"
+        }
+    ]
 }
 Class.spreadshot = {
     PARENT: "genericTank",
@@ -4984,10 +5064,10 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"]
         Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
 
-    Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "sidewinderNew", "undertow", "repeater"*/]
+    Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "sidewinder_new", "undertow", "repeater"*/]
         //Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
         Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"/*, "coil", "duplicator"*/]
-        //Class.sidewinder.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"]
+        //Class.sidewinder_new.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"]
         //Class.undertow.UPGRADES_TIER_3 = ["riptide"]
         //Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]*/ // TODO: MAKE NEW DESMOS TANKS WORK
 
@@ -5027,12 +5107,14 @@ if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
     // Class.sniper.UPGRADES_TIER_2
         Class.sniper.UPGRADES_TIER_3.push("railgun")
+        Class.assassin.UPGRADES_TIER_3.push("sniper3")
     // Class.flankGuard.UPGRADES_TIER_2
-        Class.auto3.UPGRADES_TIER_3.push("crowbar")
+        Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar")
     // Class.director.UPGRADES_TIER_2
         Class.underseer.UPGRADES_TIER_3.push("prodigy")
         Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "spawnerdrive")
     Class.pounder.UPGRADES_TIER_2.push("volute")
+        Class.artillery.UPGRADES_TIER_3.push("mender")
         Class.launcher.UPGRADES_TIER_3.push("rocketeer")
     Class.trapper.UPGRADES_TIER_2.push("autoTrapper")
         Class.trapper.UPGRADES_TIER_3.push("megaTrapper")
@@ -5043,5 +5125,5 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
 } else {
 require('./dev.js')
-Class.unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "peashooter", "prodigy", "railgun", "rocketeer", "spawnerdrive", "volute")
+Class.unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "spawnerdrive", "volute")
 }

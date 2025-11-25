@@ -1,56 +1,166 @@
-const {base, statnames, smshskl} = require("../constants");
-const {combineStats, menu, weaponArray, makeDeco} = require("../facilitators");
-const g = require("../gunvals");
+const {base, statnames, smshskl} = require("../constants")
+const {combineStats, makeMenu, weaponArray, makeDeco} = require("../facilitators")
+const g = require("../gunvals")
 
+// todo-ing: fix shit code
 function init() {
 
-// SHINY MENU & YOUTUBER TANK
-    Class.youtuber = {
-        PARENT: "genericTank",
-        LABEL: "YouTuber",
-        DANGER: 4,
-        COLOR: "#FF0000",
-        BODY: {
-            SPEED: 20,
-            HEALTH: 1e6,
-            DAMAGE: 10,
-            SHIELD: 1e4,
-            REGEN: 10,
-            FOV: base.FOV * 3,
+const better_upgrade_labels = true // Shortens pretty much all menu names in the upgrade menu to minimize overlapping
+
+// Menus
+Class.specialMenu = makeMenu("Special Menu")
+Class.specialTanksMenu = makeMenu("Special Tanks Menu")
+Class.healerMenu = makeMenu("Healer Menu", "mirror", 0, overrideGuns = [
+    {
+        POSITION: {
+            LENGTH: 18,
+            WIDTH: 10,
+            ASPECT: -1.4
         },
-        PROPS: [
-            {
-                POSITION: [7, 0, 0, 360, 1],
-                TYPE: ["mendersymbol", {COLOR: "#ffffff"}],
-            }
-        ],
-        GUNS: [
-            {
-                POSITION: {LENGTH: 18, WIDTH: 8, ASPECT: 1},
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic]),
-                    TYPE: ["bullet", {COLOR: "#ffffff"}],
-                }
-            }
-        ]
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic]),
+            TYPE: ["bullet", {
+                TURRETS: [
+                    {
+                        POSITION: {
+                            SIZE: 13,
+                            ARC: 360,
+                            LAYER: 1
+                        },
+                        TYPE: "healerSymbol"
+                    }
+                ]
+            }],
+            NO_LIMITATIONS: true
+        }
     }
-// SPECIAL MENU UPGRADES AND TANKS
-    Class.specialMenu = menu("Special Menu")
-    Class.specialMenu.UPGRADES_TIER_0 = [
-        "basic",
-        "eggGenerator",
-        "specialTanks",
-        "bosses",
-        "nostalgia",
-        "scrapped",
-        "memes",
-        "dreadOfficialV1",
-        "shinyMenu"
+])
+Class.healerMenu.TURRETS = [
+    {
+        POSITION: {
+            SIZE: 13,
+            ARC: 360,
+            LAYER: 1
+        },
+        TYPE: "healerSymbol"
+    }
+]
+Class.sanctuaryTierMenu = makeMenu("Sanctuary Tier Menu")
+Class.dominatorMenu = makeMenu("Dominator Menu")
+Class.bossesMenu = makeMenu("Bosses Menu"), Class.bossesMenu.REROOT_UPGRADE_TREE = "bossesMenu"
+Class.nostalgiaMenu = makeMenu("Nostalgia Menu")
+Class.scrappedMenu = makeMenu("Scrapped Menu")
+Class.scrappedMenu2 = makeMenu("Srapped Menu 2")
+Class.memes = makeMenu("Memes")
+Class.diepTanks = makeMenu("Diep Tanks")
+Class.diep2Menu = makeMenu("Diep2 Menu")
+Class.adminTanks = makeMenu("Admin Tanks")
+Class.misc = makeMenu("Misc")
+Class.digdig = makeMenu("DigDig")
+Class.shinyMemberMenu = makeMenu("Shiny Member Menu")
+Class.youtuber = {
+    PARENT: "genericTank",
+    LABEL: "YouTuber",
+    DANGER: 4,
+    COLOR: "#FF0000",
+    BODY: {
+        SPEED: 20,
+        HEALTH: 1e6,
+        DAMAGE: 10,
+        SHIELD: 1e4,
+        REGEN: 10,
+        FOV: base.FOV * 3,
+    },
+    PROPS: [
+        {
+            POSITION: {
+                SIZE: 7,
+                ARC: 360,
+                LAYER: 1
+            },
+            TYPE: "deco_trianglePureWhite",
+        }
+    ],
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ASPECT: 1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: ["bullet", {COLOR: "#ffffff"}],
+            }
+        }
     ]
+}
+
+Class.gameAdminMenu = makeMenu("Game Admin Menu") // (BT 3)
+Class.gameModMenu = makeMenu("Game Mod Menu") // (BT 2)
+Class.betaTesterMenu = makeMenu("Beta Tester Menu") // (BT 1)
+
+Class.betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
+
+// Menu upgrades
+Class.specialMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "memes", "dreadOfficialV1", "shinyMemberMenu"]
+    Class.specialTanksMenu.UPGRADES_TIER_0 = ["specialMenu", "healerMenu", "dominatorMenu", "sanctuaryTierMenu", "arenaCloser", "bacteria", "literallyAMachineGun", "mothership", "flagship", "turkey", "undercoverCop"]
+        Class.healerMenu.UPGRADES_TIER_0 = ["healer", "medic", "ambulance", "surgeon", "paramedic"/*, "physician", "doctor"*/, "smasher", "underseer"]
+        Class.dominatorMenu.UPGRADES_TIER_0 = ["specialTanksMenu", "dominator", "destroyerDominator", "gunnerDominator", "trapperDominator", /*"destroyerDominator_armsRace", "gunnerDominator_armsRace", "trapperDominator_armsRace", */"antiTankMachineGun", "baseProtector"]
+        Class.sanctuaryTierMenu.UPGRADES_TIER_0 = ["specialTanksMenu", "sanctuaryTier1", "sanctuaryTier2", "sanctuaryTier3", "sanctuaryTier4", "sanctuaryTier5", "sanctuaryTier6"]
+        Class.nostalgiaMenu.UPGRADES_TIER_0 = ["spreadshot_old", "boomer_old", "quadBuilder", "quintuplet", "vulcan", "sniper3", "spike_old", "master", "commander_old", "blunderbuss", "rimfire_old", "armsman_old"]
+        Class.scrappedMenu.UPGRADES_TIER_0 = ["scrappedMenu2", "rocketeer", "crowbar", "peashooter", "autoTrapper", "megaTrapper", "railgun", "megaSpawner", "badDreadnought"]
+            Class.scrappedMenu2.UPGRADES_TIER_0 = ["gameModMenu", "scrappedMenu", "mender", "infestor", "prodigy", "spawnerdrive", "rimfire_old", "productionist", "vulture"]
+    Class.memes.UPGRADES_TIER_0 = ["diepTanks", "adminTanks", "misc", "digdig"]
+        Class.diepTanks.UPGRADES_TIER_0 = ["diep2Menu"/*, "diep_tank"*/]
+            Class.diep2Menu.UPGRADES_TIER_0 = [/*"blaster", "gatlingGun", "machineFlank", "machineTriple", "rifle_old", "buttbuttin", "blower", "quadTwin", "tornado_old", "subverter", "battery", "deathStar", "bonker", "protector", "doubleTrapGuard*/]
+        Class.adminTanks.UPGRADES_TIER_0 = ["fakedeveloper", "cx_antiTankMachineGun", "damoclone", "machineShot", "fat456", "wifebeater"]
+        Class.misc.UPGRADES_TIER_0 = [/*"theAmalgamation", "theConglomerate", "america", "average4tdmScore", "averageL39Hunt", */"tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank"/*, "genericEntity", "quadCyclone", "beeman", "heptaAutoBasic", "alas"*/]
+        Class.digdig.UPGRADES_TIER_0 = [/*"digSmile", "digSmile_kirk", "digFrown", "digFrown_kirk"*/]
+    Class.shinyMemberMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "diepTanks", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
+    Class.youtuber.UPGRADES_TIER_0 = Class.shinyMemberMenu.UPGRADES_TIER_0
+
+    Class.bossesMenu.UPGRADES_TIER_0 = ["sentries", "elites", "mysticals", "nesters", "rogues", "rammers", "terrestrials", "celestials", "eternals", "devBosses"]
+        Class.sentries.UPGRADES_TIER_0 = ["sentrySwarm", "sentryGun", "sentryTrap", "shinySentrySwarm", "shinySentryGun", "shinySentryTrap", "sentinelMinigun", "sentinelLauncher", "sentinelCrossbow"]
+        Class.elites.UPGRADES_TIER_0 = ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner", "eliteTrapGuard", "eliteSpinner", "eliteSkimmer", "legionaryCrasher", "guardian", "defender", "sprayerLegion", "deltas"]
+        Class.deltas.UPGRADES_TIER_0 = ["deltaDestroyer", "deltaGunner", "deltaSprayer", "deltaBattleship"]
+        Class.mysticals.UPGRADES_TIER_0 = ["sorcerer", "summoner", "enchantress", "exorcistor", "shaman", "thaumaturge"]
+        Class.nesters.UPGRADES_TIER_0 = ["nestKeeper", "nestWarden", "nestGuardian", "nestCurator", "nestDeacon", "nestChampion"]
+        Class.rogues.UPGRADES_TIER_0 = ["roguePalisade", "rogueAlcazar", "rogueArmada", "julius", "genghis", "napoleon"]
+        Class.rammers.UPGRADES_TIER_0 = ["bob", "nemesis"]
+        Class.terrestrials.UPGRADES_TIER_0 = ["ares", "gersemi", "ezekiel", "eris", "selene"]
+        Class.celestials.UPGRADES_TIER_0 = ["paladin", "freyja", "zaphkiel", "nyx", "theia", "atlas", "rhea", "julius", "genghis", "napoleon"]
+        Class.eternals.UPGRADES_TIER_0 = ["ragnarok", "kronos"]
+        Class.devBosses.UPGRADES_TIER_0 = ["retiredDevBosses", "zephiBoss", "dogeiscutBoss", "toothlessBoss", "AEMKShipBoss", "helenaBoss"]
+            Class.retiredDevBosses.UPGRADES_TIER_0 = ["taureonBoss", "trplnrBoss", "frostBoss"]
+
+Class.gameAdminMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "gameModMenu", "spectator"/*, "banHammer", "guillotine"*/, "nostalgiaMenu", "scrappedMenu"] // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gamemod
+    Class.gameModMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "betaTesterMenu", "spectator"/*, "guillotine"*/, "nostalgiaMenu", "scrappedMenu"]
+        Class.betaTesterMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS/*, "betaTesterB"*/, "spectator", "nostalgiaMenu", "scrappedMenu"] // todo: check if beta tester b actually existed here
+
+Class.addons.UPGRADES_TIER_0.push("gameAdminMenu", "shinyMemberMenu", "youtuber")
+
+if (better_upgrade_labels) {
+    Class.specialMenu.UPGRADE_LABEL = "Special"
+    Class.specialTanksMenu.UPGRADE_LABEL = "Special Tanks"
+    Class.healerMenu.UPGRADE_LABEL = "Healers"
+    Class.sanctuaryTierMenu.UPGRADE_LABEL = "Sanctuaries"
+    Class.dominatorMenu.UPGRADE_LABEL = "Dominators"
+    Class.bossesMenu.UPGRADE_LABEL = "Bosses"
+    Class.nostalgiaMenu.UPGRADE_LABEL = "Nostalgia"
+    Class.scrappedMenu.UPGRADE_LABEL = "Scrapped"
+    Class.scrappedMenu2.UPGRADE_LABEL = "Scrapped"
+    Class.diep2Menu.UPGRADE_LABEL = "Diep2"
+    Class.shinyMemberMenu.UPGRADE_LABEL = "Shiny Member"
+    Class.gameAdminMenu.UPGRADE_LABEL = "Game Admin"
+    Class.gameModMenu.UPGRADE_LABEL = "Game Mod"
+    Class.betaTesterMenu.UPGRADE_LABEL = "Beta Tester"
+}
+
+// Shiny Member Menu / YouTuber
+// SPECIAL MENU UPGRADES AND TANKS
 // MEMES TANKS
-    Class.memes = menu("Memes");
-    Class.memesAdminTanks = menu("Admin Tanks");
-    Class.memes_fakedeveloper = {
+    Class.fakedeveloper = {
         PARENT: "developer",
         UPGRADES_TIER_0: [],
         UPGRADES_TIER_1: [],
@@ -77,7 +187,7 @@ function init() {
             }
         ]
     }
-    Class.memes_fat456 = {
+    Class.fat456 = {
         PARENT: "genericTank",
         SIZE: 30,
         LABEL: "Fat456",
@@ -101,8 +211,7 @@ function init() {
             },
         ],
     }
-
-    Class.memes_wifebeater = {
+    Class.wifebeater = {
         PARENT: "overlord",
         LABEL: 'Wife Beater',
         DANGER: 8,
@@ -127,66 +236,16 @@ function init() {
     }
 
 // MEMES UPGRADES
-    Class.memes.UPGRADES_TIER_0 = ["memesAdminTanks"];
-    Class.memesAdminTanks.UPGRADES_TIER_0 = ["memes_fakedeveloper", "cx_antiTankMachineGun", "damoclone", "machineShot", "memes_fat456", "memes_wifebeater"];
 
 // SHINY MEMBER UPGRADES AND TANKS
 
-    Class.shinyMenu = menu("Shiny Member Menu")
-
 // SPECIAL TANKS MENU
-    Class.specialTanks = menu("Special Tanks Menu")
-    Class.specialTanksDominator = menu("Dominator Menu");
-    Class.specialTanksDominator.UPGRADES_TIER_0 = [
-        "specialTanks",
-        "dominator",
-        "destroyerDominator",
-        "gunnerDominator",
-        "trapperDominator",
-        "antiTankMachineGun",
-        "baseProtector",
-    ]
-    Class.specialTanksSanctuary = menu("Sanctuary Tier Menu");
-    Class.specialTanksSanctuary.UPGRADES_TIER_0 = [
-        "specialTanks",
-        "sanctuaryTier1",
-        "sanctuaryTier2",
-        "sanctuaryTier3",
-        "sanctuaryTier4",
-        "sanctuaryTier5",
-        "sanctuaryTier6",
-    ]
-    Class.healerMenu = menu("Healer Menu", -1, 0, overrideGuns = [
-        {
-            POSITION: [18, 10, -1.4, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["bullet", {
-                    TURRETS: [
-                        {
-                            POSITION: [13, 0, 0, 0, 360, 1],
-                            TYPE: "healerSymbol",
-                        }
-                    ]
-                }],
-                NO_LIMITATIONS: true,
-            },
-        }
-    ])
-    Class.healerMenu.TURRETS = [
-        {
-            POSITION: [13, 0, 0, 0, 360, 1],
-            TYPE: "healerSymbol",
-        }
-    ]
 // SPECIAL TANKS MENU UPGRADES
-    Class.specialTanks.UPGRADES_TIER_0 = ["specialMenu", "healerMenu", "specialTanksDominator", "specialTanksSanctuary", "arenaCloser", "bacteria", "literallyAMachineGun", "mothership", "flagship", "turkey", "undercovercop"]
 
     //NOSTALGIA MENU AND UPGRADES
-    Class.nostalgia = menu("Nostalgia Menu")
 
 // OLD TANKS
-    Class.oldSpreadshot = {
+    Class.spreadshot_old = {
         PARENT: "genericTank",
         LABEL: "Old Spreadshot",
         DANGER: 7,
@@ -345,8 +404,8 @@ function init() {
                 },
             },
         ],
-    };
-    Class.bentBoomer = {
+    }
+    Class.boomer_old = {
         PARENT: "genericTank",
         DANGER: 7,
         LABEL: "Bent Boomer",
@@ -377,7 +436,7 @@ function init() {
                 },
             },
         ],
-    };
+    }
     Class.quadBuilder = {
         PARENT: "genericTank",
         DANGER: 7,
@@ -429,44 +488,7 @@ function init() {
                 },
             },
         ],
-    };
-    Class.weirdSpikeBody1 = {
-        LABEL: "",
-        FACING_TYPE: ["spin", { speed: 0.20 }],
-        COLOR: 9,
-        SHAPE: 3,
-        INDEPENDENT: true,
-    };
-    Class.weirdSpikeBody2 = {
-        LABEL: "",
-        FACING_TYPE: ["spin", { speed: -0.17 }],
-        COLOR: 9,
-        SHAPE: 3,
-        INDEPENDENT: true,
-    };
-    Class.weirdSpike = {
-        PARENT: "genericTank",
-        LABEL: "Weird Spike",
-        DANGER: 7,
-        BODY: {
-            DAMAGE: 1.15 * base.DAMAGE,
-            FOV: 1.05 * base.FOV,
-            DENSITY: 1.5 * base.DENSITY,
-        },
-        IS_SMASHER: true,
-        SKILL_CAP: [smshskl, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
-        STAT_NAMES: statnames.smasher,
-        TURRETS: [
-            {
-                POSITION: [20.5, 0, 0, 0, 360, 0],
-                TYPE: "weirdSpikeBody1",
-            },
-            {
-                POSITION: [20.5, 0, 0, 180, 360, 0],
-                TYPE: "weirdSpikeBody2",
-            },
-        ],
-    };
+    }
     Class.oldCommanderGun = {
         PARENT: "genericTank",
         LABEL: "",
@@ -493,8 +515,8 @@ function init() {
                 },
             },
         ],
-    };
-    Class.oldCommander = {
+    }
+    Class.commander_old = {
         PARENT: "genericTank",
         LABEL: "Old Commander",
         STAT_NAMES: statnames.drone,
@@ -517,8 +539,7 @@ function init() {
                 TYPE: ["oldCommanderGun", { INDEPENDENT: true }],
             },
         ],
-    };
-
+    }
     Class.blunderbuss = {
         PARENT: "genericTank",
         LABEL: "Blunderbuss",
@@ -610,8 +631,8 @@ function init() {
                 POSITION: [14, 10.5, 1, 0, 0, 0, 0],
             },
         ],
-    };
-    Class.oldRimfire = {
+    }
+    Class.rimfire_old = {
         PARENT: "genericTank",
         LABEL: "Rimfire",
         GUNS: [
@@ -645,7 +666,7 @@ function init() {
                 },
             },
         ],
-    };
+    }
     Class.vulcan = {
         PARENT: "genericTank",
         LABEL: "Vulcan",
@@ -694,7 +715,7 @@ function init() {
                 POSITION: [5, 13, 1, 20, 0, 0, 0],
             },
         ],
-    };
+    }
     Class.quintuplet = {
         PARENT: "genericTank",
         DANGER: 7,
@@ -739,68 +760,16 @@ function init() {
                 },
             },
         ],
-    };
-    Class.sniper3gun = {
-        PARENT: "genericTank",
-        LABEL: "",
-        BODY: {
-            FOV: 5,
-        },
-        CONTROLLERS: [
-            "canRepel",
-            "onlyAcceptInArc",
-            "mapAltToFire",
-            "nearestDifferentMaster",
-        ],
-        COLOR: 16,
-        GUNS: [
-            {
-                POSITION: [27, 9, 1, 0, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([ g.basic, g.sniper, g.autoTurret, g.assassin ]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [5, 9, -1.5, 8, 0, 0, 0],
-            },
-        ],
-    };
-    Class.sniper3 = {
-        PARENT: "genericTank",
-        LABEL: "Sniper-3",
-        DANGER: 7,
-        BODY: {
-            SPEED: 0.8 * base.SPEED,
-            FOV: 1.25 * base.FOV,
-        },
-        FACING_TYPE: "spin",
-        TURRETS: [
-            {
-                POSITION: [13, 8, 0, 0, 170, 0],
-                TYPE: "sniper3gun",
-            },
-            {
-                POSITION: [13, 8, 0, 120, 170, 0],
-                TYPE: "sniper3gun",
-            },
-            {
-                POSITION: [13, 8, 0, 240, 170, 0],
-                TYPE: "sniper3gun",
-            },
-        ],
-    };
-    Class.oldarmsman = {
+    }
+    Class.armsman_old = {
         PARENT: "genericTank",
         LABEL: "Old Armsman",
-        UPGRADE_TOOLTIP: "Originally called: 'Ransacker'",
         BODY: {
             FOV: base.FOV * 1.225,
         },
         DANGER: 7,
         GUNS: [
             {
-                /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
                 POSITION: [20, 12, 1, 0, 0, 0, 0],
             },
             {
@@ -822,7 +791,8 @@ function init() {
                 },
             },
         ],
-    };
+    }
+
     Class.badDreadnought = {
         PARENT: "genericTank",
         LABEL: "Bad Dreadnought",
@@ -865,59 +835,7 @@ function init() {
                 },
             },
         ],
-    };
-    Class.mender = {
-        PARENT: "genericTank",
-        LABEL: "Mender",
-        DANGER: 7,
-        GUNS: [
-            {
-                /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
-                POSITION: [17, 3, 1, 0, -6, -7, 0.25],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.gunner, g.artillery]),
-                    TYPE: "bullet",
-                    LABEL: "Secondary",
-                },
-            },
-            {
-                POSITION: [17, 3, 1, 0, 6, 7, 0.75],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.gunner, g.artillery]),
-                    TYPE: "bullet",
-                    LABEL: "Secondary",
-                },
-            },
-            {
-                POSITION: [19, 12, 1, 0, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
-                    TYPE: "bullet",
-                    LABEL: "Heavy",
-                },
-            },
-            {   POSITION: [17, 10, 1, 0, 0, 180, 0]   },
-            {
-                POSITION: [5, 18, 1, -19, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.pounder,
-                        g.destroyer,
-                        [2, 0, 1, 1, 1, -1, 1, 1, 1, 0.1, 1, 1, 1],
-                    ]),
-                    TYPE: "bullet",
-                    ALT_FIRE: true,
-                },
-            },
-        ],
-        TURRETS: [
-            {
-                POSITION: [7, 0, 0, 0, 0, 1],
-                TYPE: makeDeco(3),
-            },
-        ],
-    };
+    }
     Class.productionist = {
         PARENT: "genericTank",
         LABEL: "Productionist",
@@ -929,7 +847,6 @@ function init() {
         },
         GUNS: [
             {
-                /**** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
                 POSITION: [4.5, 6, 1, 10, 4.75, 0, 0],
             },
             {
@@ -960,21 +877,7 @@ function init() {
                 POSITION: [7.5, 7.25, -1.3, 3.5, -4.75, 0, 0.5],
             },
         ],
-    };
-    Class.nostalgia.UPGRADES_TIER_0 = [
-        "oldSpreadshot",
-        "bentBoomer",
-        "quadBuilder",
-        "quintuplet",
-        "vulcan",
-        "sniper3",
-        "weirdSpike",
-        "master",
-        "oldCommander",
-        "blunderbuss",
-        "oldRimfire",
-        "oldarmsman",
-    ]
+    }
     Class.worstTank = {
         PARENT: "genericTank",
         LABEL: "Worst Tank",
@@ -1111,34 +1014,8 @@ function init() {
         ], 4)
     }
     // SCRAPPED MENU & UPGRADES
-    Class.scrapped = menu("Scrapped Menu")
-    Class.scrapped2 = menu("Srapped Menu 2")
-
-    Class.scrapped.UPGRADES_TIER_0 = [
-        "scrapped2",
-        "rocketeer",
-        "crowbar",
-        "peashooter",
-        "autoTrapper",
-        "megaTrapper",
-        "railgun",
-        "megaSpawner",
-        "badDreadnought"
-    ]
-    Class.scrapped2.UPGRADES_TIER_0 = [
-        "genericEntity", // "gameModMenu" // TODO: ADD GAME MOD MENU
-        "scrapped",
-        "mender",
-        "infestor",
-        "prodigy",
-        "spawnerdrive",
-        "oldRimfire",
-        "productionist",
-        "vulture",
-    ]
 
 // Upgrade Tree
-    Class.shinyMenu.UPGRADES_TIER_0 = ["eggGenerator", "specialTanks", "bosses", "nostalgia", "scrapped", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
 
 }
 

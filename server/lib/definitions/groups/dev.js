@@ -1,4 +1,4 @@
-const { combineStats, menu, addAura, makeDeco, LayeredBoss, newWeapon, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js');
+const { combineStats, makeMenu, addAura, makeDeco, LayeredBoss, newWeapon, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js');
 const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js');
 const g = require('../gunvals.js');
 require('./tanks.js');
@@ -170,45 +170,43 @@ Class.generatorBase = {
     },
 }
 
-Class.bosses = menu("Bosses")
-Class.bosses.REROOT_UPGRADE_TREE = "bosses"
-Class.sentries = menu("Sentries", "pink", 3.5)
+Class.sentries = makeMenu("Sentries", "pink", 3.5)
 Class.sentries.PROPS = [
     {
         POSITION: [9, 0, 0, 0, 360, 1],
         TYPE: "genericEntity"
     }
 ]
-Class.elites = menu("Elites", "pink", 3.5)
-Class.deltas = menu("Deltas", "pink", 3)
-Class.mysticals = menu("Mysticals", "gold", 4)
-Class.nesters = menu("Nesters", "purple", 5.5)
-Class.rogues = menu("Rogues", "darkGrey", 6)
-Class.rammers = menu("Rammers", "aqua")
+Class.elites = makeMenu("Elites", "pink", 3.5)
+Class.deltas = makeMenu("Deltas", "pink", 3)
+Class.mysticals = makeMenu("Mysticals", "gold", 4)
+Class.nesters = makeMenu("Nesters", "purple", 5.5)
+Class.rogues = makeMenu("Rogues", "darkGrey", 6)
+Class.rammers = makeMenu("Rammers", "aqua")
 Class.rammers.PROPS = [
     {
         POSITION: [21.5, 0, 0, 360, 0],
         TYPE: "smasherBody",
     }
 ]
-Class.terrestrials = menu("Terrestrials", "orange", 7)
-Class.celestials = menu("Celestials", "lightGreen", 9)
-Class.eternals = menu("Eternals", "veryLightGrey", 11)
-Class.devBosses = menu("Developers", "lightGreen", 4)
+Class.terrestrials = makeMenu("Terrestrials", "orange", 7)
+Class.celestials = makeMenu("Celestials", "lightGreen", 9)
+Class.eternals = makeMenu("Eternals", "veryLightGrey", 11)
+Class.devBosses = makeMenu("Developers", "lightGreen", 4)
 Class.devBosses.UPGRADE_COLOR = "rainbow";
-Class.retiredDevBosses = menu("Retired Developers", "#000000", 3)
+Class.retiredDevBosses = makeMenu("Retired Developers", "#000000", 3)
 Class.retiredDevBosses.UPGRADE_COLOR = "#000000"
 
-Class.tanks = menu("Tanks")
-Class.unavailable = menu("Unavailable")
-Class.dominators = menu("Dominators")
+Class.tanks = makeMenu("Tanks")
+Class.unavailable = makeMenu("Unavailable")
+Class.dominators = makeMenu("Dominators")
 Class.dominators.PROPS = [
     {
         POSITION: [22, 0, 0, 360, 0],
         TYPE: "dominationBody",
     }
 ]
-Class.sanctuaries = menu("Sanctuaries")
+Class.sanctuaries = makeMenu("Sanctuaries")
 Class.sanctuaries.PROPS = [
     {
         POSITION: [22, 0, 0, 360, 0],
@@ -973,7 +971,7 @@ Class.syncWithTankTest = {
     ]
 }
 
-Class.levels = menu("Levels")
+Class.levels = makeMenu("Levels")
 Class.levels.UPGRADES_TIER_0 = []
 for (let i = 0; i < 12; i++) {
     let LEVEL = i * Config.TIER_MULTIPLIER;
@@ -985,7 +983,7 @@ for (let i = 0; i < 12; i++) {
     Class.levels.UPGRADES_TIER_0.push("level" + LEVEL);
 }
 
-Class.teams = menu("Teams")
+Class.teams = makeMenu("Teams")
 Class.teams.UPGRADES_TIER_0 = []
 for (let i = 1; i <= 8; i++) {
     let TEAM = i;
@@ -1017,9 +1015,9 @@ Class['Team' + TEAM_ENEMIES] = {
 };
 Class.teams.UPGRADES_TIER_0.push('Team' + TEAM_DREADNOUGHTS, 'Team' + TEAM_ROOM, 'Team' + TEAM_ENEMIES);
 
-Class.testing = menu("Testing")
+Class.testing = makeMenu("Testing")
 
-Class.addons = menu("Addon Entities")
+Class.addons = makeMenu("Addon Entities")
 Class.addons.UPGRADES_TIER_0 = []
 
 // misc tanks
@@ -1040,27 +1038,46 @@ testLayeredBoss.addLayer({turret: {
 
 //
 Class.tripleAutoBasic = makeAuto("basic", "Triple Auto-Basic", {total: 3})
+Class.pistol = {
+    PARENT: "genericTank",
+    LABEL: "Pistol",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 8.5,
+                ASPECT: 1.3,
+                X: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 8.5,
+                ASPECT: 1.3,
+                X: 13
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.marksman]),
+                TYPE: "bullet"
+            }
+        }
+    ],
+    UPGRADES_TIER_2: ["marksman"]
+}
 
 // Upgrade Tree
-Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "teams", "eggGenerator", "testing", "addons", "shinyMenu"]
-    Class.tanks.UPGRADES_TIER_0 = ["basic", "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
+Class.developer.UPGRADES_TIER_0 = ["tanks", "bossesMenu", "spectator", "levels", "teams", "eggGen", "testing", "addons"]
+    Class.tanks.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
         Class.unavailable.UPGRADES_TIER_0 = ["jumpSmasher", "literallyAMachineGun", "literallyATank", "healer"]
         Class.dominators.UPGRADES_TIER_0 = ["destroyerDominator", "gunnerDominator", "trapperDominator"]
         Class.sanctuaries.UPGRADES_TIER_0 = ["sanctuaryTier1", "sanctuaryTier2", "sanctuaryTier3", "sanctuaryTier4", "sanctuaryTier5", "sanctuaryTier6"]
 
-    Class.bosses.UPGRADES_TIER_0 = ["sentries", "elites", "mysticals", "nesters", "rogues", "rammers", "terrestrials", "celestials", "eternals", "devBosses"]
-        Class.sentries.UPGRADES_TIER_0 = ["sentrySwarm", "sentryGun", "sentryTrap", "shinySentrySwarm", "shinySentryGun", "shinySentryTrap", "sentinelMinigun", "sentinelLauncher", "sentinelCrossbow"]
-        Class.elites.UPGRADES_TIER_0 = ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner", "eliteTrapGuard", "eliteSpinner", "eliteSkimmer", "legionaryCrasher", "guardian", "defender", "sprayerLegion", "deltas"]
-        Class.deltas.UPGRADES_TIER_0 = ["deltaDestroyer", "deltaGunner", "deltaSprayer", "deltaBattleship"]
-        Class.mysticals.UPGRADES_TIER_0 = ["sorcerer", "summoner", "enchantress", "exorcistor", "shaman", "thaumaturge"]
-        Class.nesters.UPGRADES_TIER_0 = ["nestKeeper", "nestWarden", "nestGuardian", "nestCurator", "nestDeacon", "nestChampion"]
-        Class.rogues.UPGRADES_TIER_0 = ["roguePalisade", "rogueAlcazar", "rogueArmada", "julius", "genghis", "napoleon"]
-	    Class.rammers.UPGRADES_TIER_0 = ["bob", "nemesis"]
-        Class.terrestrials.UPGRADES_TIER_0 = ["ares", "gersemi", "ezekiel", "eris", "selene"]
-        Class.celestials.UPGRADES_TIER_0 = ["paladin", "freyja", "zaphkiel", "nyx", "theia", "atlas", "rhea", "julius", "genghis", "napoleon"]
-        Class.eternals.UPGRADES_TIER_0 = ["ragnarok", "kronos"]
-        Class.devBosses.UPGRADES_TIER_0 = ["retiredDevBosses", "zephiBoss", "dogeiscutBoss", "toothlessBoss", "AEMKShipBoss", "helenaBoss"]
-            Class.retiredDevBosses.UPGRADES_TIER_0 = ["taureonBoss", "trplnrBoss", "frostBoss"]
-
-    Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "tripleAutoBasic"]
+    Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "tripleAutoBasic", "pistol"]
     

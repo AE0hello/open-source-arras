@@ -11,12 +11,12 @@ tileClass.imagetest2 = new Tile({
 });
 tileClass.imagetest3 = new Tile({
     COLOR: "white",
-    IMAGE: "/Grass_c_0.svg",
+    IMAGE: "/Grass_c_0.png",
     NAME: "Image Tile",
 });
 tileClass.imagetest4 = new Tile({
     COLOR: "white",
-    IMAGE: "/Grass_c_0.png",
+    IMAGE: "/Grass_c_0.svg",
     NAME: "Image Tile",
 });
 tileClass.imagetesterror = new Tile({
