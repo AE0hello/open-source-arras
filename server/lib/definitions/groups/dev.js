@@ -4,6 +4,9 @@ const g = require('../gunvals.js');
 require('./tanks.js');
 require('./food.js');
 
+const better_upgrade_labels = true // Shortens pretty much all menu names in the upgrade menu to minimize overlapping
+const fancy_menus = true // Makes certain menus look more thematic
+
 // Menus
 Class.developer = {
     PARENT: "genericTank",
@@ -49,7 +52,7 @@ Class.developer = {
             }
         }
     ]
-};
+}
 Class.spectator = {
     PARENT: "genericTank",
     LABEL: "Spectator",
@@ -125,20 +128,18 @@ Class.celestials = makeMenu("Celestials", "lightGreen", 9)
 Class.eternals = makeMenu("Eternals", "veryLightGrey", 11)
 Class.devBosses = makeMenu("Developers", "lightGreen", 4)
 Class.devBosses.UPGRADE_COLOR = "rainbow";
-Class.retiredDevBosses = makeMenu("Retired Developers", "#000000", 3)
-Class.retiredDevBosses.UPGRADE_COLOR = "#000000"
+Class.retiredDevBosses = makeMenu("Retired Developers", "pureBlack", 3)
 
 // Testing tanks
 Class.diamondShape = {
     PARENT: "basic",
     LABEL: "Rotated Body",
     SHAPE: 4.5
-};
-
+}
 Class.mummyHat = {
     SHAPE: 4.5,
     COLOR: -1
-};
+}
 Class.mummy = {
     PARENT: "drone",
     SHAPE: 4,
@@ -147,7 +148,7 @@ Class.mummy = {
         POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
         TYPE: ["mummyHat"]
     }]
-};
+}
 Class.mummifier = {
     PARENT: "genericTank",
     LABEL: "Mummifier",
@@ -181,7 +182,7 @@ Class.mummifier = {
         POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
         TYPE: ["mummyHat"]
     }]
-};
+}
 Class.miscTestHelper2 = {
     PARENT: "genericTank",
     LABEL: "Turret Reload 3",
@@ -197,7 +198,7 @@ Class.miscTestHelper2 = {
             },
         },
     ],
-};
+}
 Class.miscTestHelper = {
     PARENT: "genericTank",
     LABEL: "Turret Reload 2",
@@ -222,7 +223,7 @@ Class.miscTestHelper = {
           TYPE: "miscTestHelper2",
         }
     ]
-};
+}
 Class.miscTest = {
     PARENT: "genericTank",
     LABEL: "Turret Reload",
@@ -242,7 +243,7 @@ Class.miscTest = {
             TYPE: "miscTestHelper",
         }
     ]
-};
+}
 Class.mmaTest2 = {
     PARENT: "genericTank",
     MIRROR_MASTER_ANGLE: true,
@@ -275,7 +276,6 @@ Class.mmaTest = {
         },
     ]
 }
-
 Class.vulnturrettest_turret = {
     PARENT: "genericTank",
     COLOR: "grey",
@@ -283,7 +283,6 @@ Class.vulnturrettest_turret = {
     LABEL: 'Shield',
     COLOR: 'teal',
 }
-
 Class.vulnturrettest = {
     PARENT: "genericTank",
     LABEL: "Vulnerable Turrets",
@@ -304,8 +303,7 @@ Class.vulnturrettest = {
         TYPE: "vulnturrettest_turret",
         VULNERABLE: true
     }, 10)
-};
-
+}
 Class.turretLayerTesting = {
     PARENT: 'genericTank',
     LABEL: 'Turret Layer Testing',
@@ -332,7 +330,6 @@ Class.turretLayerTesting = {
         },
     ]
 }
-
 Class.alphaGunTest = {
     PARENT: "basic",
     LABEL: "Translucent Guns",
@@ -345,7 +342,6 @@ Class.alphaGunTest = {
         }
     }]
 }
-
 Class.radialAutoTest = makeRadialAuto("gunner", {
     count: 5,
     isTurret: false,
@@ -368,14 +364,12 @@ Class.makeAutoTest = {
         TYPE: 'makeAutoTestTurret'
     }, 3)
 }
-
 Class.imageShapeTest = {
     PARENT: 'genericTank',
     LABEL: "Image Shape Test",
     SHAPE: 'image=/round.png',
     GUNS: Class.basic.GUNS
 }
-
 Class.screenShakeTest = {
     PARENT: 'genericTank',
     LABEL: "Screen Shake Test",
@@ -407,7 +401,6 @@ Class.screenShakeTest = {
     ],
     GUNS: Class.basic.GUNS
 }
-
 Class.strokeWidthTest = {
     PARENT: "basic",
     LABEL: "Stroke Width Test",
@@ -421,7 +414,6 @@ Class.strokeWidthTest = {
         }
     }]
 }
-
 Class.onTest = {
     PARENT: 'genericTank',
     LABEL: "ON property test",
@@ -483,7 +475,6 @@ Class.onTest = {
         }
     }]
 }
-
 Class.turretStatScaleTest = {
     PARENT: 'genericTank',
     LABEL: 'Turret Stat Test',
@@ -492,7 +483,6 @@ Class.turretStatScaleTest = {
         TYPE: ['autoTankGun', {GUN_STAT_SCALE: {speed: 1 + i / 5, maxSpeed: 1 + i / 5, reload: 1 + i / 5, recoil: 0}}]
     }))
 }
-
 Class.auraBasicGen = addAura();
 Class.auraBasic = {
     PARENT: "genericTank",
@@ -517,7 +507,6 @@ Class.auraHealer = {
     ],
     GUNS: Class.healer.GUNS
 }
-
 Class.ghoster_ghosted = {
     PARENT: "genericTank",
     TOOLTIP: 'You are now invisible, roam around and find your next target. You will be visible again in 5 seconds',
@@ -532,7 +521,6 @@ Class.ghoster_ghosted = {
     }],
     ALPHA: 0.6,
 }
-
 Class.ghoster = {
     PARENT: "genericTank",
     LABEL: 'Ghoster',
@@ -568,7 +556,6 @@ Class.ghoster = {
     }],
     ALPHA: 1,
 }
-
 Class.switcheroo = {
     PARENT: "basic",
     LABEL: 'Switcheroo',
@@ -596,7 +583,6 @@ Class.switcheroo = {
         }
     }]
 }
-
 Class.vanquisher = {
     PARENT: "genericTank",
     DANGER: 8,
@@ -705,38 +691,12 @@ Class.armyOfOne = {
             },
         }
     ],
-};
-Class.weirdAutoBasic = {
-    PARENT: "genericTank",
-    LABEL: "Weirdly Defined Auto-Basic",
-    GUNS: [{
-        POSITION: {
-            LENGTH: 20,
-            WIDTH: 10
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, [0.8, 0.8, 1.5, 1, 0.8, 0.8, 0.9, 1, 1, 1, 1, 2, 1]]),
-            TYPE: "bullet"
-        },
-    }],
-    TURRETS: [{
-        POSITION: {
-            ANGLE: 180,
-            LAYER: 1
-        },
-        TYPE: ["autoTurret", {
-            CONTROLLERS: ["nearestDifferentMaster"],
-            INDEPENDENT: true
-        }]
-    }]
 }
-
 Class.tooltipTank = {
     PARENT: 'genericTank',
     LABEL: "Tooltips",
     UPGRADE_TOOLTIP: "Allan please add details"
 }
-
 Class.bulletSpawnTest = {
     PARENT: 'genericTank',
     LABEL: "Bullet Spawn Position",
@@ -758,7 +718,6 @@ Class.bulletSpawnTest = {
         }
     ]
 }
-
 Class.propTestProp = {
     PARENT: 'genericTank',
     SHAPE: 6,
@@ -776,15 +735,7 @@ Class.propTestProp = {
 Class.propTest = {
     PARENT: 'genericTank',
     LABEL: 'Deco Prop Test',
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ],
+    GUNS: Class.basic.GUNS,
     PROPS: [
         {
             POSITION: [10, 0, 0, 0, 1],
@@ -817,7 +768,6 @@ Class.weaponArrayTest = {
         }
     , 5),
 }
-
 Class.gunBenchmark = {
     PARENT: 'genericTank',
     LABEL: "Gun Benchmark",
@@ -829,25 +779,14 @@ Class.gunBenchmark = {
         }
     }, 720)
 }
-
-
 Class.syncWithTankTest = {
     PARENT: 'genericTank',
     LABEL: "Sync With Tank Test",
     SHAPE: 6,
     SYNC_WITH_TANK: true,
     FACING_TYPE: ["smoothToTarget", { smoothness: 30 }],
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ]
+    GUNS: Class.basic.GUNS
 }
-
 Class.testing = makeMenu("Testing")
 
 // misc tanks
@@ -866,45 +805,10 @@ testLayeredBoss.addLayer({turret: {
     TYPE: "crowbarTurret",
 }}, true);
 
-//
-Class.tripleAutoBasic = makeAuto("basic", "Triple Auto-Basic", {total: 3})
-Class.pistol = {
-    PARENT: "genericTank",
-    LABEL: "Pistol",
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5,
-                WIDTH: 8.5,
-                ASPECT: 1.3,
-                X: 8
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5,
-                WIDTH: 8.5,
-                ASPECT: 1.3,
-                X: 13
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.marksman]),
-                TYPE: "bullet"
-            }
-        }
-    ],
-    UPGRADES_TIER_2: ["marksman"]
+Class.menu_addons = makeMenu("Addons Menu")
+Class.menu_addons.UPGRADES_TIER_0 = ["testing"]
+    Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "ghoster", "gunBenchmark", "switcheroo", [Config.SPAWN_CLASS, Config.SPAWN_CLASS], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest"]
+
+if (better_upgrade_labels) {
+Class.menu_addons.UPGRADE_LABEL = "Addons"
 }
-
-Class.addons = makeMenu("Addons Menu")
-Class.addons.UPGRADES_TIER_0 = []
-
-// Upgrade Tree // remaining stuff: "literallyATank", "jumpSmasher"
-Class.developer.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "specialMenu", "testing"]
-    Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "tripleAutoBasic", "pistol"]

@@ -1920,7 +1920,7 @@ Class.dreadOfficialV2.UPGRADES_TIER_0 = [
 Class.dreadWeaponOfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2", "pacifierOfficialV2", "peacekeeperOfficialV2", "invaderOfficialV2", "centaurOfficialV2"];
 */
 
-Class.addons.UPGRADES_TIER_0.push("dreadOfficialV2");
+Class.menu_addons.UPGRADES_TIER_0.push("dreadOfficialV2");
 
 	Class.sword2OfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2"];
 	Class.pacifier2OfficialV2.UPGRADES_TIER_0 = ["pacifierOfficialV2"];

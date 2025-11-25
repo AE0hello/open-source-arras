@@ -887,7 +887,7 @@ Class.antiTankMachineGunArm = {
         }
     ],
 }
-Class.cx_antiTankMachineGunArm = {
+Class.cxATMGArm = {
     PARENT: "genericTank",
     COLOR: "white",
     SHAPE: [[0.1,0],[0.6,-0.8660254037844386],[1.1,0],[0.6,0.8660254037844386],[0.1,0],[-0.05,0.08660254037844387],[0.45,0.9526279441628825],[-0.55,0.9526279441628825],[-1.05,0.08660254037844387],[-0.05,0.08660254037844387],[0.1,0],[-0.05,-0.08660254037844387],[-1.05,-0.08660254037844387],[-0.55,-0.9526279441628825],[0.45,-0.9526279441628825],[-0.05,-0.08660254037844387]],
@@ -898,28 +898,28 @@ Class.cx_antiTankMachineGunArm = {
             POSITION: [15, 2.5, 1, 0, 2, 0, 0.2],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
             POSITION: [15, 2.5, 1, 0, -2, 0, 0.2],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
             POSITION: [1, 2.5, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
             POSITION: [16.5, 3.5, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-                TYPE: "cx_antiTankMachineGun_bullet",
+                TYPE: "cxATMGBullet",
             }
         },
         {
@@ -1060,6 +1060,34 @@ Class.tracker3gun = makeTurret({
         }
     ]
 }, {canRepel: true, limitFov: true, fov: 3, color: "#1AFF00"})
+
+    Class.oldCommanderGun = {
+        PARENT: "genericTank",
+        LABEL: "",
+        BODY: {
+            FOV: 3,
+        },
+        CONTROLLERS: ["nearestDifferentMaster"],
+        COLOR: 16,
+        MAX_CHILDREN: 6,
+        AI: {
+            NO_LEAD: true,
+            SKYNET: true,
+            FULL_VIEW: true,
+        },
+        GUNS: [
+            {
+                POSITION: [8, 14, 1.3, 8, 0, 0, 0],
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.drone, g.commander]),
+                    TYPE: "drone",
+                    AUTOFIRE: true,
+                    SYNCS_SKILLS: true,
+                    STAT_CALCULATOR: "drone",
+                },
+            },
+        ],
+    }
 
 // Decorations
 Class.deco_trianglePureWhite = makeDeco(3, "pureWhite")

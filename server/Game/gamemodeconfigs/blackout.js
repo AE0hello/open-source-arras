@@ -1,6 +1,5 @@
-// You can edit the fog and minimap glitching color!
 let blackout_fog = "#000000";
-let minimap_glitching_color = 19;
+let minimap_glitching_color = "pureBlack";
 
 module.exports = {
     BLACKOUT: true,

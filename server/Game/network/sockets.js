@@ -1099,6 +1099,10 @@ class socketManager {
             body.protect();
             body.isPlayer = true;
             body.define(Config.SPAWN_CLASS);
+            let string = Class.specialMenu.UPGRADES_TIER_0[0];
+            if (string !== "basic") {
+                Class.specialMenu.UPGRADES_TIER_0.push("basic")
+            }
             body.name = name;
             if (socket.permissions && socket.permissions.nameColor) {
                 body.nameColor = socket.permissions.nameColor;
