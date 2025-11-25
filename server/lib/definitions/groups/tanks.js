@@ -1547,6 +1547,38 @@ Class.boomer = {
         },
     ],
 }
+Class.boomer_old = {
+    PARENT: "genericTank",
+    DANGER: 7,
+    LABEL: "Bent Boomer",
+    STAT_NAMES: statnames.trap,
+    BODY: {
+        SPEED: 0.8 * base.SPEED,
+        FOV: 1.15 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: [8, 10, 1, 8, -2, -35, 0]
+        },
+        {
+            POSITION: [8, 10, 1, 8, 2, 35, 0]
+        },
+        {
+            POSITION: [2, 10, 1.3, 16, -2, -35, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.fast, g.twin]),
+                TYPE: "boomerang"
+            }
+        },
+        {
+            POSITION: [2, 10, 1.3, 16, 2, 35, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.fast, g.twin]),
+                TYPE: "boomerang"
+            }
+        }
+    ]
+}
 Class.booster = {
     PARENT: "genericTank",
     LABEL: "Booster",
@@ -1762,6 +1794,30 @@ Class.commander = {
                 STAT_CALCULATOR: "swarm",
             },
         }, 3, 1/3),
+    ]
+}
+Class.commander_old = {
+    PARENT: "genericTank",
+    LABEL: "Old Commander",
+    STAT_NAMES: statnames.drone,
+    DANGER: 7,
+    BODY: {
+        FOV: 1.15 * base.FOV,
+    },
+    FACING_TYPE: "spin",
+    TURRETS: [
+        {
+            POSITION: [16, 1, 0, 0, 0, 0],
+                TYPE: "oldCommanderGun",
+        },
+        {
+            POSITION: [16, 1, 0, 120, 0, 0],
+            TYPE: ["oldCommanderGun", { INDEPENDENT: true }], // me when i can't use weaponarray :skull:
+        },
+        {
+            POSITION: [16, 1, 0, 240, 0, 0],
+            TYPE: ["oldCommanderGun", { INDEPENDENT: true }],
+        }
     ]
 }
 Class.conqueror = {
@@ -5018,6 +5074,53 @@ Class.xHunter = {
         },
         {
             POSITION: [5, 12, -1.2, 7, 0, 0, 0]
+        }
+    ]
+}
+
+// Tier 4
+Class.quintuplet = {
+    PARENT: "genericTank",
+    DANGER: 7,
+    BODY: {
+        FOV: 1.1 * base.FOV
+    },
+    LABEL: "Quintuplet",
+    GUNS: [
+        {
+            POSITION: [16, 10, 1, 0, -5, 0, 0.667],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [16, 10, 1, 0, 5, 0, 0.667],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [19, 10, 1, 0, -3, 0, 0.333],
+             PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [19, 10, 1, 0, 3, 0, 0.333],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [22, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
         }
     ]
 }
