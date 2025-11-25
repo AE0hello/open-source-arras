@@ -242,7 +242,7 @@ const util = (function() {
             }
             let firstIndex = parseInt(index.split("-")[0]),
                 mainMockup = global.mockups[firstIndex];
-                if (!mainMockup) fail(), mainMockup = global.missingMockup[0];
+                if (!mainMockup) fail(), mainMockup = global.missingno[0];
                 let guns = [],
                 turrets = [],
                 props = [],
@@ -256,7 +256,7 @@ const util = (function() {
             
             for (let i of index.split("-")) {
                 let mockup = global.mockups[parseInt(i)];
-                if (!mockup) fail(parseInt(i)), mockup = global.missingMockup[0];
+                if (!mockup) fail(parseInt(i)), mockup = global.missingno[0];
                 guns.push(...mockup.guns);
                 turrets.push(...mockup.turrets);
                 props.push(...mockup.props);
