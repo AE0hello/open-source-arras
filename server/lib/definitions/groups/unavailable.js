@@ -1,8 +1,6 @@
-const { combineStats, makeDeco,  weaponArray } = require('../facilitators.js');
-const { base, } = require('../constants.js');
-const g = require('../gunvals.js');
-const {makeGuard, makeAuto} = require("../facilitators");
-const {statnames} = require("../constants");
+const { combineStats, makeDeco, weaponArray, makeGuard, makeAuto } = require('../facilitators.js')
+const { base, statnames, dfltskl } = require('../constants.js')
+const g = require('../gunvals.js')
 
 // misc tanks, cont.
 Class.masterBullet = {
@@ -1199,7 +1197,7 @@ Class.literallyATank = {
             },
         ],
     }
-    Class.mdym = {
+    Class.meDoingYourMom = {
         PARENT: "genericTank",
         LABEL: "Me doing your mom",
         DANGER: 7,

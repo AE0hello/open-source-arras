@@ -5256,6 +5256,9 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 // Quick Configurations
 if (enable_april_fools) {
 Class.basic.UPGRADES_TIER_3.push("master")
+} else {
+require('./dev.js')
+Class.menu_unavailable.UPGRADES_TIER_0.push("master")
 }
 if (enable_flail_branch) {
 Class.basic.UPGRADES_TIER_1.push("flail")
@@ -5263,6 +5266,9 @@ Class.basic.UPGRADES_TIER_1.push("flail")
         Class.doubleFlail.UPGRADES_TIER_3 = ["tripleFlail"]
         Class.mace.UPGRADES_TIER_3 = ["bigMama", "itHurtsDontTouchIt", "flace"]
         Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
+} else {
+require('./dev.js')
+Class.menu_unavailable.UPGRADES_TIER_0.push("flail")
 }
 if (enable_whirlwind_branch) {
 Class.basic.UPGRADES_TIER_1.push("whirlwind")
@@ -5275,6 +5281,9 @@ Class.basic.UPGRADES_TIER_1.push("whirlwind")
     // Class.pounder.UPGRADES_TIER_2
         Class.artillery.UPGRADES_TIER_3.push("munition")
         Class.launcher.UPGRADES_TIER_3.push("vortex")
+} else {
+require('./dev.js')
+Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind")
 }
 if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
@@ -5298,4 +5307,7 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
+} else {
+require('./dev.js')
+Class.menu_unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "jumpSmasher", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "sniper3", "spawnerdrive", "volute")
 }

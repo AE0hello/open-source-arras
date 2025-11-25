@@ -1,14 +1,10 @@
-const { combineStats, makeMenu, addAura, makeDeco, LayeredBoss, newWeapon, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js');
-const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js');
-const g = require('../gunvals.js');
-require('./tanks.js');
-require('./food.js');
+const { combineStats, makeMenu, addAura, makeDeco, LayeredBoss, newWeapon, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
+const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js')
+const g = require('../gunvals.js')
+require('./tanks.js')
+require('./food.js')
 
-const better_upgrade_labels = true // Shortens pretty much all menu names in the upgrade menu to minimize overlapping
-const fancy_menus = true // Makes certain menus look more thematic
-const true_developer = true // Makes Developer the main dev tank instead of Special Menu
-
-// Developer
+// Main Developer Tank
 Class.developer = {
     PARENT: "genericTank",
     LABEL: "Developer",
@@ -52,8 +48,18 @@ Class.developer = {
                 TYPE: "developerBullet"
             }
         }
+    ],
+    UPGRADES_TIER_0: [
+        "menu_tanks",
+        "menu_bosses",
+        "spectator",
+        "menu_addons",
+        "menu_testing",
+        "eggGen",
     ]
 }
+
+// Spectator
 Class.spectator = {
     PARENT: "genericTank",
     LABEL: "Spectator",
@@ -105,35 +111,262 @@ Class.spectator = {
     }]
 }
 
-// Boss Menus
-Class.sentries = makeMenu("Sentries", "pink", 3.5)
-Class.sentries.PROPS = [
+// Tank Menu(s)
+Class.menu_tanks = makeMenu("Tanks")
+Class.menu_tanks.UPGRADES_TIER_0 = [
+    Config.SPAWN_CLASS,
+    "menu_unavailable",
+    "arenaCloser",
+    "menu_mapEntities",
+    "menu_motherships",
+    "undercoverCop",
+]
+
+Class.menu_unavailable = makeMenu("Unavailable")
+Class.menu_unavailable.UPGRADES_TIER_0 = [
+    "healer",
+]
+
+Class.menu_mapEntities = makeMenu("Map Entities")
+Class.menu_mapEntities.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    }
+]
+Class.menu_mapEntities.UPGRADES_TIER_0 = [
+    "menu_dominators",
+    "baseProtector",
+    "antiTankMachineGun",
+    "menu_sanctuaries",
+]
+
+Class.menu_dominators = makeMenu("Dominators")
+Class.menu_dominators.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    }
+]
+Class.menu_dominators.UPGRADES_TIER_0 = [
+    "destroyerDominator",
+    "gunnerDominator",
+    "trapperDominator",
+]
+
+Class.menu_sanctuaries = makeMenu("Sanctuaries")
+Class.menu_sanctuaries.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    },
+    {
+        POSITION: [13, 0, 0, 360, 1],
+        TYPE: "healerSymbol"
+    }
+]
+Class.menu_sanctuaries.UPGRADES_TIER_0 = [
+    "sanctuaryTier1",
+    "sanctuaryTier2",
+    "sanctuaryTier3",
+    "sanctuaryTier4",
+    "sanctuaryTier5",
+    "sanctuaryTier6",
+]
+
+Class.menu_motherships = makeMenu("Motherships", "mirror", 16)
+Class.menu_motherships.UPGRADES_TIER_0 = [
+    "mothership",
+    "flagship",
+    "turkey",
+]
+
+// Boss Menu(s)
+Class.menu_bosses = makeMenu("Bosses")
+Class.menu_bosses.REROOT_UPGRADE_TREE = "menu_bosses"
+Class.menu_bosses.UPGRADES_TIER_0 = [
+    "menu_sentries",
+    "menu_elites",
+    "menu_mysticals",
+    "menu_nesters",
+    "menu_rogues",
+    "menu_rammers",
+    "menu_terrestrials",
+    "menu_celestials",
+    "menu_eternals",
+    "menu_devBosses",
+]
+
+Class.menu_sentries = makeMenu("Sentries", "pink", 3.5)
+Class.menu_sentries.PROPS = [
     {
         POSITION: [9, 0, 0, 0, 360, 1],
         TYPE: "genericEntity"
     }
 ]
-Class.elites = makeMenu("Elites", "pink", 3.5)
-Class.deltas = makeMenu("Deltas", "pink", 3)
-Class.mysticals = makeMenu("Mysticals", "gold", 4)
-Class.nesters = makeMenu("Nesters", "purple", 5.5)
-Class.rogues = makeMenu("Rogues", "darkGrey", 6)
-Class.rammers = makeMenu("Rammers", "aqua")
-Class.rammers.PROPS = [
+Class.menu_sentries.UPGRADES_TIER_0 = [
+    "sentrySwarm",
+    "sentryGun",
+    "sentryTrap",
+    "shinySentrySwarm",
+    "shinySentryGun",
+    "shinySentryTrap",
+    "sentinelMinigun",
+    "sentinelLauncher",
+    "sentinelCrossbow",
+]
+
+Class.menu_elites = makeMenu("Elites", "pink", 3.5)
+Class.menu_elites.UPGRADES_TIER_0 = [
+    "eliteDestroyer",
+    "eliteGunner",
+    "eliteSprayer",
+    "eliteBattleship",
+    "eliteSpawner",
+    "eliteTrapGuard",
+    "eliteSpinner",
+    "eliteSkimmer",
+    "legionaryCrasher",
+    "guardian",
+    "defender",
+    "sprayerLegion",
+    "menu_deltas",
+]
+
+Class.menu_deltas = makeMenu("Deltas", "pink", 3)
+Class.menu_deltas.UPGRADES_TIER_0 = [
+    "deltaDestroyer",
+    "deltaGunner",
+    "deltaSprayer",
+    "deltaBattleship",
+]
+
+Class.menu_mysticals = makeMenu("Mysticals", "gold", 4)
+Class.menu_mysticals.UPGRADES_TIER_0 = [
+    "sorcerer",
+    "summoner",
+    "thaumaturge",
+    "enchantress",
+    "exorcistor",
+    "shaman",
+]
+
+Class.menu_nesters = makeMenu("Nesters", "purple", 5.5)
+Class.menu_nesters.UPGRADES_TIER_0 = [
+    "nestKeeper",
+    "nestWarden",
+    "nestGuardian",
+    "nestCurator",
+    "nestDeacon",
+    "nestChampion",
+]
+
+Class.menu_rogues = makeMenu("Rogues", "darkGrey", 6)
+Class.menu_rogues.UPGRADES_TIER_0 = [
+    "roguePalisade",
+    "rogueAlcazar",
+    "rogueArmada",
+    "julius",
+    "genghis",
+    "napoleon",
+]
+
+Class.menu_rammers = makeMenu("Rammers", "aqua")
+Class.menu_rammers.PROPS = [
     {
         POSITION: [21.5, 0, 0, 360, 0],
         TYPE: "smasherBody",
     }
 ]
-Class.terrestrials = makeMenu("Terrestrials", "orange", 7)
-Class.celestials = makeMenu("Celestials", "lightGreen", 9)
-Class.eternals = makeMenu("Eternals", "veryLightGrey", 11)
-Class.devBosses = makeMenu("Developers", "lightGreen", 4)
-Class.devBosses.UPGRADE_COLOR = "rainbow";
-Class.retiredDevBosses = makeMenu("Retired Developers", "pureBlack", 3)
+Class.menu_rammers.UPGRADES_TIER_0 = [
+    "bob",
+    "nemesis",
+]
+
+Class.menu_terrestrials = makeMenu("Terrestrials", "orange", 7)
+Class.menu_terrestrials.UPGRADES_TIER_0 = [
+    "ares",
+    "gersemi",
+    "ezekiel",
+    "eris",
+    "selene",
+]
+
+Class.menu_celestials = makeMenu("Celestials", "lightGreen", 9)
+Class.menu_celestials.UPGRADES_TIER_0 = [
+    "paladin",
+    "freyja",
+    "zaphkiel",
+    "nyx",
+    "theia",
+    "atlas",
+    "rhea",
+    "julius",
+    "genghis",
+    "napoleon",
+]
+
+Class.menu_eternals = makeMenu("Eternals", "veryLightGrey", 11)
+Class.menu_eternals.UPGRADES_TIER_0 = [
+    "ragnarok",
+    "kronos",
+]
+
+Class.menu_devBosses = makeMenu("Developers", "lightGreen", 4)
+Class.menu_devBosses.UPGRADE_COLOR = "rainbow"
+Class.menu_devBosses.UPGRADES_TIER_0 = [
+    "AEMKShipBoss",
+    "dogeiscutBoss",
+    "helenaBoss",
+    "toothlessBoss",
+    "zephiBoss",
+    "menu_retiredDevBosses",
+]
+
+Class.menu_retiredDevBosses = makeMenu("Retired Developers", "pureBlack", 4)
+Class.menu_retiredDevBosses.UPGRADES_TIER_0 = [
+    "frostBoss",
+    "taureonBoss",
+    "trplnrBoss",
+]
+
+// Addons Menu
+Class.menu_addons = makeMenu("Addons")
+Class.menu_addons.UPGRADES_TIER_0 = [] // Empty by default, gets filled up with all the addons you add
+
+// Testing Menu
+Class.menu_testing = makeMenu("Testing")
+Class.menu_testing.UPGRADES_TIER_0 = [
+    "diamondShape",
+    "miscTest",
+    "mmaTest",
+    "vulnturrettest",
+    "onTest",
+    "alphaGunTest",
+    "strokeWidthTest",
+    "testLayeredBoss",
+    "tooltipTank",
+    "turretLayerTesting",
+    "bulletSpawnTest",
+    "propTest",
+    "weaponArrayTest",
+    "radialAutoTest",
+    "makeAutoTest",
+    "imageShapeTest",
+    "screenShakeTest",
+    "turretStatScaleTest",
+    "auraBasic",
+    "auraHealer",
+    "ghoster",
+    "gunBenchmark",
+    "switcheroo",
+    "armyOfOne",
+    "vanquisher",
+    "mummifier",
+    "syncWithTankTest",
+]
 
 // Testing tanks
-Class.testing = makeMenu("Testing")
 Class.diamondShape = {
     PARENT: "basic",
     LABEL: "Rotated Body",
@@ -804,224 +1037,3 @@ testLayeredBoss.addLayer({turret: {
     POSITION: [10, 7.5, 0, null, 160, 0],
     TYPE: "crowbarTurret",
 }}, true);
-
-// Menus
-Class.specialMenu = makeMenu("Special Menu")
-Class.specialTanksMenu = makeMenu("Special Tanks Menu")
-Class.healerMenu = makeMenu("Healer Menu", "mirror", 0, overrideGuns = [
-    {
-        POSITION: {
-            LENGTH: 18,
-            WIDTH: 10,
-            ASPECT: -1.4
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: ["bullet", {
-                TURRETS: [
-                    {
-                        POSITION: {
-                            SIZE: 13,
-                            ARC: 360,
-                            LAYER: 1
-                        },
-                        TYPE: "healerSymbol"
-                    }
-                ]
-            }],
-            NO_LIMITATIONS: true
-        }
-    }
-])
-Class.healerMenu.TURRETS = [
-    {
-        POSITION: {
-            SIZE: 13,
-            ARC: 360,
-            LAYER: 1
-        },
-        TYPE: "healerSymbol"
-    }
-]
-Class.sanctuaryTierMenu = makeMenu("Sanctuary Tier Menu")
-Class.dominatorMenu = makeMenu("Dominator Menu")
-Class.bossesMenu = makeMenu("Bosses Menu"), Class.bossesMenu.REROOT_UPGRADE_TREE = "bossesMenu"
-Class.nostalgiaMenu = makeMenu("Nostalgia Menu")
-Class.scrappedMenu = makeMenu("Scrapped Menu")
-Class.scrappedMenu2 = makeMenu("Srapped Menu 2")
-Class.memes = makeMenu("Memes")
-Class.diepTanks = makeMenu("Diep Tanks")
-Class.diep2Menu = makeMenu("Diep2 Menu")
-Class.adminTanks = makeMenu("Admin Tanks")
-Class.misc = makeMenu("Misc")
-Class.digdig = makeMenu("DigDig")
-Class.shinyMemberMenu = makeMenu("Shiny Member Menu")
-Class.youtuber = {
-    PARENT: "genericTank",
-    LABEL: "YouTuber",
-    DANGER: 4,
-    COLOR: "#FF0000",
-    BODY: {
-        SPEED: 20,
-        HEALTH: 1e6,
-        DAMAGE: 10,
-        SHIELD: 1e4,
-        REGEN: 10,
-        FOV: base.FOV * 3,
-    },
-    PROPS: [
-        {
-            POSITION: {
-                SIZE: 7,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "deco_trianglePureWhite",
-        }
-    ],
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18,
-                WIDTH: 8,
-                ASPECT: 1
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["bullet", {COLOR: "#ffffff"}],
-            }
-        }
-    ]
-}
-
-Class.gameAdminMenu = makeMenu("Game Admin Menu") // (BT 3)
-Class.gameModMenu = makeMenu("Game Mod Menu") // (BT 2)
-Class.betaTesterMenu = makeMenu("Beta Tester Menu") // (BT 1)
-Class.betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
-
-Class.menu_addons = makeMenu("Addons Menu")
-
-// Tree
-Class.specialMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "memes", "dreadOfficialV1", "shinyMemberMenu", "menu_addons"]
-    Class.specialTanksMenu.UPGRADES_TIER_0 = ["specialMenu", "healerMenu", "dominatorMenu", "sanctuaryTierMenu", "arenaCloser", "bacteria", "literallyAMachineGun", "mothership", "flagship", "turkey", "undercoverCop"]
-        Class.healerMenu.UPGRADES_TIER_0 = ["healer", "medic", "ambulance", "surgeon", "paramedic"/*, "physician", "doctor"*/, "smasher", "underseer"]
-        Class.dominatorMenu.UPGRADES_TIER_0 = ["specialTanksMenu", "dominator", "destroyerDominator", "gunnerDominator", "trapperDominator", /*"destroyerDominator_armsRace", "gunnerDominator_armsRace", "trapperDominator_armsRace", */"antiTankMachineGun", "baseProtector"]
-        Class.sanctuaryTierMenu.UPGRADES_TIER_0 = ["specialTanksMenu", "sanctuaryTier1", "sanctuaryTier2", "sanctuaryTier3", "sanctuaryTier4", "sanctuaryTier5", "sanctuaryTier6"]
-        Class.nostalgiaMenu.UPGRADES_TIER_0 = ["spreadshot_old", "boomer_old", "quadBuilder", "quintuplet", "vulcan", "sniper3", "spike_old", "master", "commander_old", "blunderbuss", "rimfire_old", "armsman_old"]
-        Class.scrappedMenu.UPGRADES_TIER_0 = ["scrappedMenu2", "rocketeer", "crowbar", "peashooter", "autoTrapper", "megaTrapper", "railgun", "megaSpawner", "badDreadnought"]
-            Class.scrappedMenu2.UPGRADES_TIER_0 = ["gameModMenu", "scrappedMenu", "mender", "infestor", "prodigy", "spawnerdrive", "rimfire_old", "productionist", "vulture"]
-    Class.memes.UPGRADES_TIER_0 = ["diepTanks", "adminTanks", "misc", "digdig"]
-        Class.diepTanks.UPGRADES_TIER_0 = ["diep2Menu"/*, "diep_tank"*/]
-            Class.diep2Menu.UPGRADES_TIER_0 = [/*"blaster", "gatlingGun", "machineFlank", "machineTriple", "rifle_old", "buttbuttin", "blower", "quadTwin", "tornado_old", "subverter", "battery", "deathStar", "bonker", "protector", "doubleTrapGuard*/]
-        Class.adminTanks.UPGRADES_TIER_0 = ["developer", "cxATMG", "damoclone", "machineShot", "fat456", "wifeBeater"]
-        Class.misc.UPGRADES_TIER_0 = [/*"theAmalgamation", "theConglomerate", "america", "average4tdmScore", "averageL39Hunt", */"tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank"/*, "genericEntity", "quadCyclone", "beeman", "heptaAutoBasic", "alas"*/]
-        Class.digdig.UPGRADES_TIER_0 = [/*"digSmile", "digSmile_kirk", "digFrown", "digFrown_kirk"*/]
-    Class.shinyMemberMenu.UPGRADES_TIER_0 = [/*Config.SPAWN_CLASS, */"eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "diepTanks", "dreadOfficialV2", "tracker3", "momwtdym", "mdym", "rapture", "bigBalls", "tetraGunner", "worstTank", "machineShot"]
-    Class.youtuber.UPGRADES_TIER_0 = Class.shinyMemberMenu.UPGRADES_TIER_0
-
-    Class.bossesMenu.UPGRADES_TIER_0 = ["sentries", "elites", "mysticals", "nesters", "rogues", "rammers", "terrestrials", "celestials", "eternals", "devBosses"]
-        Class.sentries.UPGRADES_TIER_0 = ["sentrySwarm", "sentryGun", "sentryTrap", "shinySentrySwarm", "shinySentryGun", "shinySentryTrap", "sentinelMinigun", "sentinelLauncher", "sentinelCrossbow"]
-        Class.elites.UPGRADES_TIER_0 = ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner", "eliteTrapGuard", "eliteSpinner", "eliteSkimmer", "legionaryCrasher", "guardian", "defender", "sprayerLegion", "deltas"]
-        Class.deltas.UPGRADES_TIER_0 = ["deltaDestroyer", "deltaGunner", "deltaSprayer", "deltaBattleship"]
-        Class.mysticals.UPGRADES_TIER_0 = ["sorcerer", "summoner", "enchantress", "exorcistor", "shaman", "thaumaturge"]
-        Class.nesters.UPGRADES_TIER_0 = ["nestKeeper", "nestWarden", "nestGuardian", "nestCurator", "nestDeacon", "nestChampion"]
-        Class.rogues.UPGRADES_TIER_0 = ["roguePalisade", "rogueAlcazar", "rogueArmada", "julius", "genghis", "napoleon"]
-        Class.rammers.UPGRADES_TIER_0 = ["bob", "nemesis"]
-        Class.terrestrials.UPGRADES_TIER_0 = ["ares", "gersemi", "ezekiel", "eris", "selene"]
-        Class.celestials.UPGRADES_TIER_0 = ["paladin", "freyja", "zaphkiel", "nyx", "theia", "atlas", "rhea", "julius", "genghis", "napoleon"]
-        Class.eternals.UPGRADES_TIER_0 = ["ragnarok", "kronos"]
-        Class.devBosses.UPGRADES_TIER_0 = ["retiredDevBosses", "zephiBoss", "dogeiscutBoss", "toothlessBoss", "AEMKShipBoss", "helenaBoss"]
-            Class.retiredDevBosses.UPGRADES_TIER_0 = ["taureonBoss", "trplnrBoss", "frostBoss"]
-
-Class.gameAdminMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "gameModMenu", "spectator"/*, "banHammer", "guillotine"*/, "nostalgiaMenu", "scrappedMenu"] // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gamemod
-    Class.gameModMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS, "betaTesterMenu", "spectator"/*, "guillotine"*/, "nostalgiaMenu", "scrappedMenu"]
-        Class.betaTesterMenu.UPGRADES_TIER_0 = [Config.SPAWN_CLASS/*, "betaTesterB"*/, "spectator", "nostalgiaMenu", "scrappedMenu"] // todo: check if beta tester b actually existed here
-
-Class.menu_addons.UPGRADES_TIER_0 = ["testing"]
-    Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "ghoster", "gunBenchmark", "switcheroo", [Config.SPAWN_CLASS, Config.SPAWN_CLASS], "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest"]
-
-if (better_upgrade_labels) {
-Class.specialMenu.UPGRADE_LABEL = "Special"
-Class.specialTanksMenu.UPGRADE_LABEL = "Special Tanks"
-Class.healerMenu.UPGRADE_LABEL = "Healers"
-Class.dominatorMenu.UPGRADE_LABEL = "Dominators"
-Class.sanctuaryTierMenu.UPGRADE_LABEL = "Sanctuaries"
-Class.bossesMenu.UPGRADE_LABEL = "Bosses"
-Class.nostalgiaMenu.UPGRADE_LABEL = "Nostalgia"
-Class.scrappedMenu.UPGRADE_LABEL = "Scrapped"
-Class.scrappedMenu2.UPGRADE_LABEL = "Scrapped"
-Class.diep2Menu.UPGRADE_LABEL = "Diep2"
-Class.shinyMemberMenu.UPGRADE_LABEL = "Shiny Member"
-Class.gameAdminMenu.UPGRADE_LABEL = "Game Admin"
-Class.gameModMenu.UPGRADE_LABEL = "Game Mod"
-Class.betaTesterMenu.UPGRADE_LABEL = "Beta Tester"
-Class.menu_addons.UPGRADE_LABEL = "Addons"
-}
-
-if (fancy_menus) {
-Class.dominatorMenu.PROPS = [
-    {
-        POSITION: [22, 0, 0, 360, 0],
-        TYPE: "dominationBody"
-    }
-]
-Class.sanctuaryTierMenu.PROPS = [
-    {
-        POSITION: [22, 0, 0, 360, 0],
-        TYPE: "dominationBody"
-    },
-    {
-        POSITION: [13, 0, 0, 360, 1],
-        TYPE: "healerSymbol"
-    }
-]
-}
-
-if (true_developer) {
-Class.specialMenu = {
-    PARENT: "genericTank",
-    LABEL: "Developer",
-    BODY: {
-        SHIELD: 1000,
-        REGEN: 10,
-        HEALTH: 100,
-        DAMAGE: 10,
-        DENSITY: 20,
-        FOV: 2,
-    },
-    SKILL_CAP: Array(10).fill(dfltskl),
-    IGNORED_BY_AI: true,
-    RESET_CHILDREN: true,
-    ACCEPTS_SCORE: true,
-    CAN_BE_ON_LEADERBOARD: true,
-    CAN_GO_OUTSIDE_ROOM: false,
-    IS_IMMUNE_TO_TILES: false,
-    DRAW_HEALTH: true,
-    ARENA_CLOSER: true,
-    INVISIBLE: [0, 0],
-    ALPHA: [0, 1],
-    HITS_OWN_TYPE: "hardOnlyTanks",
-    NECRO: false,
-    SHAPE: [
-        [-1, -0.8],
-        [-0.8, -1],
-        [0.8, -1],
-        [1, -0.8],
-        [0.2, 0],
-        [1, 0.8],
-        [0.8, 1],
-        [-0.8, 1],
-        [-1, 0.8],
-    ],
-    GUNS: [
-        {
-            POSITION: [18, 10, -1.4, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.op]),
-                TYPE: "developerBullet"
-            }
-        }
-    ],
-    UPGRADES_TIER_0: [Config.SPAWN_CLASS, "eggGen", "specialTanksMenu", "bossesMenu", "nostalgiaMenu", "scrappedMenu", "memes", "dreadOfficialV1", "shinyMemberMenu", "menu_addons"]
-}
-}

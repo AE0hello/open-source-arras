@@ -14,7 +14,7 @@ module.exports = [
         key: process.env.SHINY,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "shinyMemberMenu",
+        class: "arrasMenu_shinyMember",
         level: 2,
         name: "unnamed#0000",
         note: "note here"
@@ -23,7 +23,7 @@ module.exports = [
         key: process.env.YOUTUBER,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "youtuber",
+        class: "arrasMenu_youtuber",
         level: 2,
         name: "unnamed#0000",
         note: "note here"
@@ -32,7 +32,7 @@ module.exports = [
         key: process.env.BETA_TESTER,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "betaTesterMenu",
+        class: "arrasMenu_betaTester",
         level: 3,
         name: "unnamed#0000",
         note: "note here"
@@ -41,7 +41,7 @@ module.exports = [
         key: process.env.DEVELOPER,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "specialMenu",
+        class: "developer",
         administrator: true,
         level: 3,
         name: "unnamed#0000",
