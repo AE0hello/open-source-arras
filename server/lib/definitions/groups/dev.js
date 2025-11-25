@@ -128,8 +128,7 @@ Class.celestials = makeMenu("Celestials", "lightGreen", 9)
 Class.eternals = makeMenu("Eternals", "veryLightGrey", 11)
 Class.devBosses = makeMenu("Developers", "lightGreen", 4)
 Class.devBosses.UPGRADE_COLOR = "rainbow";
-Class.retiredDevBosses = makeMenu("Retired Developers", "#000000", 3)
-Class.retiredDevBosses.UPGRADE_COLOR = "#000000"
+Class.retiredDevBosses = makeMenu("Retired Developers", "pureBlack", 3)
 
 // Testing tanks
 Class.diamondShape = {
