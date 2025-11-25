@@ -6,8 +6,7 @@ require('./food.js');
 
 const better_upgrade_labels = true // Shortens pretty much all menu names in the upgrade menu to minimize overlapping
 const fancy_menus = true // Makes certain menus look more thematic
-
-const developer_over_specialMenu = true
+const true_developer = true // Makes Developer the main dev tank instead of Special Menu
 
 // Developer
 Class.developer = {
@@ -978,7 +977,7 @@ Class.sanctuaryTierMenu.PROPS = [
 ]
 }
 
-if (developer_over_specialMenu) {
+if (true_developer) {
 Class.specialMenu = {
     PARENT: "genericTank",
     LABEL: "Developer",
