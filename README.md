@@ -80,8 +80,6 @@ Now everything should work, if you find any problems, contact support by joining
 
 ## Useful Tools
 - [Create a custom shape](https://arras.io/ext/custom-shape)
-- [Official Addon list](https://github.com/Taureon/aps-plus-plus-addons)
-- [Unofficial Server list](https://zyrafaq.com/arras-server-list/)
 
 ## Other Links
 - [Our Discord server](https://discord.gg/kvCAZfUCjy)
