@@ -367,9 +367,64 @@ Class.menu_testing.UPGRADES_TIER_0 = [
     "vanquisher",
     "mummifier",
     "syncWithTankTest",
+    "concept",
 ]
 
 // Testing tanks
+Class.conceptBullet = {
+    LABEL: "Bullet",
+    TYPE: "bullet",
+    ACCEPTS_SCORE: false,
+    BODY: {
+        PENETRATION: 1,
+        SPEED: 3.75,
+        RANGE: 90,
+        DENSITY: 1.25,
+        HEALTH: 0.165,
+        DAMAGE: 6,
+        PUSHABILITY: 0.3,
+    },
+    FACING_TYPE: "smoothWithMotion",
+    CAN_GO_OUTSIDE_ROOM: true,
+    HITS_OWN_TYPE: "never",
+    DIE_AT_RANGE: true,
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 3; i++) {
+            output.push({
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    TYPE: ["satellite", {ANGLE: i * 120}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            })
+        }
+        return output
+    })()
+}
+Class.concept = {
+    PARENT: "genericTank",
+    LABEL: "Concept",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "conceptBullet",
+            }
+        }
+    ]
+}
+
+
 Class.diamondShape = {
     PARENT: "basic",
     LABEL: "Rotated Body",
