@@ -4,6 +4,9 @@ const g = require('../gunvals.js')
 require('../groups/tanks.js')
 require('../groups/food.js')
 
+// Developer tank that doesn't upgrade to anything
+Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
+
 // Special Menu
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
@@ -192,7 +195,7 @@ Class.arrasMenu_diep2.UPGRADES_TIER_0 = [
 
 Class.arrasMenu_adminTanks = makeMenu("Admin Tanks")
 Class.arrasMenu_adminTanks.UPGRADES_TIER_0 = [
-    "developer",
+    "arrasMenu_developer",
     "cxATMG",
     "damoclone",
     "machineShot",
