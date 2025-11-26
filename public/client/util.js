@@ -493,6 +493,7 @@ const util = (function() {
                     size: image.size * data.sizeFactor,
                     sizeFactor: data.sizeFactor,
                     angle: data.angle,
+                    setAngle: data.setAngle,
                     offset: data.offset,
                     direction: data.direction,
                     facing: data.direction + data.angle,
