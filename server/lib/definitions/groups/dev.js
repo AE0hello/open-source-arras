@@ -113,6 +113,7 @@ Class.spectator = {
 
 // Tank Menu(s)
 Class.menu_tanks = makeMenu("Tanks")
+//Class.menu_tanks.UPGRADE_TOOLTIP = "Every tank. Need I say more?"
 Class.menu_tanks.UPGRADES_TIER_0 = [
     Config.SPAWN_CLASS,
     "menu_unavailable",
@@ -124,7 +125,22 @@ Class.menu_tanks.UPGRADES_TIER_0 = [
 
 Class.menu_unavailable = makeMenu("Unavailable")
 Class.menu_unavailable.UPGRADES_TIER_0 = [
+    "menu_dailyTanks",
     "healer",
+]
+
+Class.menu_dailyTanks = makeMenu("Daily Tanks", "rainbow")
+Class.menu_dailyTanks.UPGRADE_TOOLTIP = "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available. \n" +
+                                        "The Daily Tank for a server can be added or changed in config."
+Class.menu_dailyTanks.UPGRADES_TIER_0 = [
+    "whirlwind",
+    "master",
+    "undertow",
+    "literallyAMachineGun",
+    "literallyATank",
+    "rocketeer",
+    "jumpSmasher",
+    "rapture"
 ]
 
 Class.menu_mapEntities = makeMenu("Map Entities")

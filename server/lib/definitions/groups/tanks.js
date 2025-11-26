@@ -1422,6 +1422,41 @@ Class.beekeeper = {
         },
     ],
 }
+Class.bender = {
+    PARENT: "genericTank",
+    LABEL: "Bender",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: 1.1,
+    },
+    GUNS: [
+        {
+            POSITION: [4.5, 10, 1, 10.5, 0, 0, 0],
+        },
+        {
+            POSITION: [1, 12, 1, 15, 0, 0, 0],
+            PROPERTIES: {
+                MAX_CHILDREN: 4, // todo: check if this is still 3
+                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                TYPE: "desmosMinion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+            },
+        },
+        {
+            POSITION: [11.5, 12, 1, 0, 0, 0, 0],
+        },
+        {
+            POSITION: [5, 7.5, 2.5, 1, -4.5, 95, 0],
+        },
+        {
+            POSITION: [5, 7.5, 2.5, 1, 4.5, -95, 0],
+        },
+    ],
+}
 Class.bentDouble = {
     PARENT: "genericTank",
     LABEL: "Bent Double",
@@ -4021,7 +4056,7 @@ Class.railgun = {
         },
     ],
 }
-Class.ranch = {
+Class.ranch = { // ranch is old bender, it fires train minions with 3 bodies (though only one of them has a gun)
     PARENT: "genericTank",
     LABEL: "Ranch",
     DANGER: 7,
@@ -5437,7 +5472,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.overseer.UPGRADES_TIER_3 = ["overlord", "overtrapper", "overgunner", "banshee", "autoOverseer", "overdrive", "commander"]
         Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "autoCruiser", "commander"]
         Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor"]
-        Class.spawner.UPGRADES_TIER_3 = ["factory", "autoSpawner"/*, "ranch"*/]
+        Class.spawner.UPGRADES_TIER_3 = ["factory", "autoSpawner"/*, "bender", "ranch"*/]
 
     Class.pounder.UPGRADES_TIER_2 = ["destroyer", "builder", "artillery", "launcher"/*, "volute"*/]
         Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"]
@@ -5457,6 +5492,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
 
     Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "spiral", "undertow", "repeater"*/]
+        //Class.desmos.UPGRADES_TIER_3 = ["bender"]
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
         Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"/*, "coil"*/, "duplicator"]
         //Class.spiral.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"] // TODO: MAKE SPIRAL BRANCH WORK
@@ -5468,8 +5504,6 @@ require("./dev.js")
 
 if (enable_april_fools) {
 Class.basic.UPGRADES_TIER_3.push("master")
-} else {
-Class.menu_unavailable.UPGRADES_TIER_0.push("master")
 }
 
 if (enable_flail_branch) {
@@ -5499,9 +5533,8 @@ Class.whirlwind_old.UPGRADE_LABEL = "Whirlwind"
 Class.whirlwind.UPGRADE_LABEL = "Whirlwind (new)"
 Class.basic.UPGRADES_TIER_2.push("whirlwind_old")
     Class.smasher.UPGRADES_TIER_3.push("monsoon")
-Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind")
 } else {
-Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind", "whirlwind_old")
+Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind_old")
 }
 
 if (enable_scrapped_tanks) {
@@ -5525,9 +5558,10 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.trapGuard.UPGRADES_TIER_3.push("peashooter")
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
+    Class.desmos.UPGRADES_TIER_2.push("undertow", "repeater")
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
 } else {
-Class.menu_unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "jumpSmasher", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "sniper3", "spawnerdrive", "volute")
+Class.menu_unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "repeater", "riptide", "sniper3", "spawnerdrive", "volute")
 }
 
 if (enable_weird_spike) {

@@ -640,6 +640,24 @@ Class.megaMinion = {
         },
     ],
 }
+Class.desmosMinion = {
+    PARENT: "minion",
+    GUNS: [
+        {
+            POSITION: [20, 8, -4/3, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
+            }
+        },
+        {
+            POSITION: [3.75, 10, 2.125, 1.5, -6.25, 90, 0]
+        },
+        {
+            POSITION: [3.75, 10, 2.125, 1.5, 6.25, -90, 0]
+        }
+    ]
+}
 Class.autoMinion = makeAuto("minion", {type: "droneAutoTurret"})
 Class.sentrySwarmMinion = {
     PARENT: 'drone',
