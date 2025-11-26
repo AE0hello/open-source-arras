@@ -740,7 +740,7 @@ Class.repeater = {
     LABEL: "Repeater",
     GUNS: [
         {
-            POSITION: [20, 10, 0.8, 0, 0, 0, 0],
+            POSITION: [20, 8, -4/3, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
                 TYPE: ["splitterBullet", {CONTROLLERS: ['snake']}]
