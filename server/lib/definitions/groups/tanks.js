@@ -5485,6 +5485,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.builder.UPGRADES_TIER_3 = ["construct", "autoBuilder", "engineer", "boomer", "assembler", "architect", "conqueror"]
         Class.triTrapper.UPGRADES_TIER_3 = ["fortress", "hexaTrapper", "septaTrapper", "architect"]
         Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"]
+        Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
 
     Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"]
         Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"]
@@ -5556,10 +5557,8 @@ Class.basic.UPGRADES_TIER_1.push()
         Class.trapper.UPGRADES_TIER_3.push("megaTrapper")
         Class.triTrapper.UPGRADES_TIER_3.push("prodigy")
         Class.trapGuard.UPGRADES_TIER_3.push("peashooter")
-        Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
     Class.desmos.UPGRADES_TIER_2.push("undertow", "repeater")
-        Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
 } else {
 Class.menu_unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "repeater", "riptide", "sniper3", "spawnerdrive", "volute")
 }

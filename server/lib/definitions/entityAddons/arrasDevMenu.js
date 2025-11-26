@@ -1,8 +1,6 @@
 const { combineStats, makeMenu, addAura, makeDeco, LayeredBoss, newWeapon, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
 const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js')
 const g = require('../gunvals.js')
-require('../groups/tanks.js')
-require('../groups/food.js')
 
 // Developer tank that doesn't upgrade to anything
 Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
@@ -320,11 +318,33 @@ Class.arrasMenu_betaTester.UPGRADES_TIER_0 = [
     Config.SPAWN_CLASS,
     //"arrasMenu_betaTesterB", // todo: check if beta tester b actually existed here
     "spectator",
+    "arrasMenu_tankChanges", // existed here at one point
     "arrasMenu_nostalgia",
     "arrasMenu_scrapped",
 ]
 
+Class.arrasMenu_tankChanges = makeMenu("Tank Changes Menu") // (Trial BT?)
+
 Class.arrasMenu_betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
 
+Class.arrasMenu_retrograde = makeMenu("Retrograde") // feature-reduced menu for retrograde event
+Class.arrasMenu_retrograde.UPGRADES_TIER_0 = [
+    "arrasMenu_diep",
+    "arrasMenu_digdig",
+    "menu_celestials", // placeholder until we get the arras'd version of this menu (celestial bosses, all rigged to self-destruct in 10 seconds)
+    "menu_elites", // placeholder until we get the arras'd version of this menu (elite bosses)
+    "menu_mysticals", // placeholder until we get the arras'd version of this menu (strange bosses)
+    "arrasMenu_nostalgia",
+    "arrasMenu_scrapped",
+    "arrasMenu_miscRetrograde",
+]
+
+Class.arrasMenu_miscRetrograde = makeMenu("Misc Retrograde") // former menu, for retrograde event
+Class.arrasMenu_miscRetrograde.UPGRADES_TIER_0 = [
+    "tracker3",
+    "tetraGunner",
+    "worstTank",
+]
+
 // Push everything to addons
-Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_special", "arrasMenu_youtuber", "arrasMenu_gameAdmin")
+Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_special", "arrasMenu_youtuber", "arrasMenu_gameAdmin", "arrasMenu_retrograde")
