@@ -329,8 +329,10 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     }
     if (name == -1) {
         output.LABEL = "Auto-" + type.LABEL;
+        output.UPGRADE_LABEL = "Auto-" + type.LABEL;
     } else {
         output.LABEL = name;
+        output.UPGRADE_LABEL = name;
     }
     output.DANGER = type.DANGER + 1;
     return output;
