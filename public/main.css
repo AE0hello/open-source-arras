@@ -240,13 +240,14 @@ input {
   text-align: center;
   width: 100%;
   padding: 10px;
-  border: solid 1px #dcdcdc;
+  border: solid 2px #cccccc;
   box-sizing: border-box;
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
   outline: none;
   font-family: Ubuntu;
+  font-weight: bold;
   background: #fff;
   transition: border 0.3s, background 0.3s, color 0.3s;
 }
@@ -258,6 +259,7 @@ input:disabled {
 #playerNameInput {
   padding: 10px;
   font-size: larger;
+  color: gray;
 }
 
 #playerKeyInput {
@@ -266,11 +268,11 @@ input:disabled {
 }
 
 input:focus {
-  border: solid 1px #ccc;
+  border: solid 2px #ccc;
 }
 
 input.error {
-  border: solid 1px #f00;
+  border: solid 2px #f00;
   background: #fee;
   color: #a00;
 }
