@@ -341,7 +341,7 @@ import * as socketStuff from "./socketinit.js";
             if (e.value === "custom") customPlate = e;
         }
         let {name, author} = getThemeDisplayName(themeValue);
-        customPlate.textContent = `Custom - ${name} ${author}`;
+        if (name !== 'null') customPlate.textContent = `Custom - ${name} ${author}`;
         themeValue.addEventListener("input", () => {
             let {name, author} = getThemeDisplayName(themeValue);
             customPlate.textContent = `Custom - ${name} ${author}`;
@@ -614,6 +614,9 @@ import * as socketStuff from "./socketinit.js";
                     author: displayAuthor
                 }
             }
+        } else return {
+            name: null,
+            author: null,
         }
     }
     function initalizeChangelog(b, a) { // From CX Client (Modified) + decoded;
