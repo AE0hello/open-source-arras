@@ -332,11 +332,13 @@ Class.menu_retiredDevBosses.UPGRADES_TIER_0 = [
 
 // Addons Menu
 Class.menu_addons = makeMenu("Addons")
+//Class.menu_addons.UPGRADE_TOOLTIP = ""
 Class.menu_addons.UPGRADES_TIER_0 = [] // Empty by default, gets filled up with all the addons you add
 
 // Testing Menu
 Class.menu_testing = makeMenu("Testing")
-Class.menu_testing.UPGRADE_TOOLTIP = "WARNING: There are a lot of tanks in here and having this menu open may cause noticeable frame drops!"
+Class.menu_testing.UPGRADE_TOOLTIP = "A large selection of tanks that use many of the features of Open Source Arras. \n" +
+                                     "WARNING: There are a lot of tanks in here and having this menu open may cause noticeable frame drops!"
 Class.menu_testing.UPGRADES_TIER_0 = [
     "diamondShape",
     "miscTest",

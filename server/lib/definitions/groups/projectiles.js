@@ -7,46 +7,26 @@ const {addAura} = require("../facilitators");
 Class.splitterBullet = {
     PARENT: "bullet",
     INDEPENDENT: true,
-    GUNS: [
-        {
-            POSITION: [8, 8, 1, 0, 0, 90, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-                SHOOT_ON_DEATH: true,
-            }
-        },
-        {
-            POSITION: [8, 8, 1, 0, 0, 270, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-                SHOOT_ON_DEATH: true,
-            }
-        },
-    ]
+    GUNS: weaponArray({
+        POSITION: [8, 8, 1, 0, 0, 90, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
+            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
+            SHOOT_ON_DEATH: true
+        }
+    }, 2)
 }
 Class.superSplitterBullet = {
     PARENT: "bullet",
     INDEPENDENT: true,
-    GUNS: [
-        {
-            POSITION: [8, 8, 1, 0, 0, 90, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
-                SHOOT_ON_DEATH: true,
-            }
-        },
-        {
-            POSITION: [8, 8, 1, 0, 0, 270, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
-                SHOOT_ON_DEATH: true,
-            }
-        },
-    ]
+    GUNS: weaponArray({
+        POSITION: [8, 8, 1, 0, 0, 90, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
+            TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
+            SHOOT_ON_DEATH: true
+        }
+    }, 2)
 }
 Class.turretedBullet = makeAuto('bullet', "Auto-Bullet", {type: "bulletAutoTurret", size: 14, color: "veryLightGrey", angle: 0});
 Class.speedBullet = {
@@ -55,7 +35,7 @@ Class.speedBullet = {
 }
 Class.growBullet = {
     PARENT: "bullet",
-    MOTION_TYPE: "grow",
+    MOTION_TYPE: "grow", // todo: reimplement grow motion_type
 }
 Class.cxATMGBullet = {
     PARENT: "bullet",
