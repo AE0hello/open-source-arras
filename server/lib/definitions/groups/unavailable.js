@@ -174,22 +174,39 @@ Class.literallyAMachineGun = {
 Class.undercoverCop = {
     PARENT: "booster",
     LABEL: "Undercover Cop",
-    TURRETS: [
+    UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
+    PROPS: [
         {
-            POSITION: [6, 0, 8, 0, 360, 1], 
-            TYPE: "hexagonBlue",
+            POSITION: {
+                SIZE: 6,
+                Y: 8,
+                LAYER: 1
+            },
+            TYPE: "hexagonBlue"
         },
         {
-            POSITION: [6, 0, -8, 0, 360, 1], 
-            TYPE: "hexagonRed",
+            POSITION: {
+                SIZE: 6,
+                Y: -8,
+                LAYER: 1
+            },
+            TYPE: "hexagonRed"
         },
         {
-            POSITION: [6, 0, 3, 0, 360, 1], 
-            TYPE: "squareBlue",
+            POSITION: {
+                SIZE: 6,
+                Y: 3,
+                LAYER: 1
+            },
+            TYPE: "squareBlue"
         },
         {
-            POSITION: [6, 0, -3, 0, 360, 1], 
-            TYPE: "squareRed",
+            POSITION: {
+                SIZE: 6,
+                Y: -3,
+                LAYER: 1
+            },
+            TYPE: "squareRed"
         }
     ]
 }

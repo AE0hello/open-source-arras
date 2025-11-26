@@ -1511,7 +1511,8 @@ Class.ihdtiBolt3 = {
 Class.cop_genericHeadlight = {
     LABEL: '',
     SHAPE: 6,
-    INDEPENDENT: true
+    INDEPENDENT: true,
+    MIRROR_MASTER_ANGLE: true
 }
 Class.hexagonBlue = {
     PARENT: "cop_genericHeadlight",
@@ -1524,10 +1525,10 @@ Class.squareBlue = {
 }
 Class.hexagonRed = {
     PARENT: "cop_genericHeadlight",
-    COLOR: 23
+    COLOR: 24
 }
 Class.squareRed = {
     PARENT: "cop_genericHeadlight",
-    COLOR: 24,
+    COLOR: 23,
     SHAPE: 4
 }
