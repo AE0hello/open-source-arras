@@ -319,7 +319,7 @@ Class.menu_devBosses.UPGRADES_TIER_0 = [
     "dogeiscutBoss",
     "helenaBoss",
     "toothlessBoss",
-    "zephiBoss",
+    "tgsBoss",
     "menu_retiredDevBosses",
 ]
 
