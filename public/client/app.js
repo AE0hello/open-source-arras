@@ -4028,7 +4028,7 @@ import * as socketStuff from "./socketinit.js";
                 global.metrics.rendertimes = 0;
                 global.fps = global.metrics.rendertime;
                 // Do update rate.
-                global.metrics.updatetime = global.updateTimes + 1;
+                global.metrics.updatetime = global.updateTimes;
                 global.updateTimes = 0;
                 // Get the final bandwidth.
                 global.bandwidth.finalHa = global.bandwidth.currentHa;
