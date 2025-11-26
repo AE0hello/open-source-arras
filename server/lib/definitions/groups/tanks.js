@@ -6,11 +6,12 @@ const g = require('../gunvals.js')
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
 
-// Quick Configuration
+// Quick Configuration (dev testing, will be removed by next patch)
 const enable_april_fools = false
 const enable_flail_branch = false
-const enable_whirlwind_branch = false
+const enable_whirlwind_branch = 0 // Set to 1 for the ingame (lv15) branch, set to 2 for the prototype (lv30) branch
 const enable_scrapped_tanks = false
+const enable_weird_spike = false
 
 // Basic Tank
 Class.basic = {
@@ -820,6 +821,31 @@ Class.spawner = {
         },
     ],
 }
+Class.spiral = {
+    PARENT: "genericTank",
+    LABEL: "Spiral",
+    DANGER: 6,
+    STAT_NAMES: statnames.desmos,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    GUNS: [
+        {
+            POSITION: [10, 8.5, 1.4, 7, 0, 0, 0]
+        },
+        {
+            POSITION: [20, 8, -4/3, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
+            }
+        },
+        {
+            POSITION: [4.25, 11, 2, 2.25, -4.25, 92.5, 0]
+        },
+        {
+            POSITION: [4.25, 11, 2, 2.25, 4.25, -92.5, 0]
+        }
+    ]
+}
 Class.sprayer = {
     PARENT: "genericTank",
     LABEL: "Sprayer",
@@ -1057,6 +1083,41 @@ Class.volute = {
         },
     ],
 }
+Class.whirlwind_old = {
+    PARENT: "genericTank",
+    LABEL: "Whirlwind",
+    UPGRADE_LABEL: "Whirlwind (old)",
+    ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    STAT_NAMES: statnames.whirlwind,
+    TURRETS: [
+        {
+            POSITION: [24, 0, 0, 0, 360, 0],
+            TYPE: "genericEntity"
+        }
+    ],
+    AI: {
+        SPEED: 2, 
+    },
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 6; i++) { 
+            output.push({ 
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    TYPE: ["satellite_old", {ANGLE: i * 60}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            }) 
+        }
+        return output
+    })()
+}
 
 // Tier 3
 Class.ambulance = {
@@ -1221,7 +1282,7 @@ Class.autoSmasher = makeAuto({
             TYPE: "smasherBody"
         }
     ],
-    SKILL_CAP: [smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl, smshskl]
+    SKILL_CAP: Array(10).fill(smshskl)
 }, "Auto-Smasher", {type: "autoSmasherTurret", size: 11})
 Class.autoSpawner = makeAuto("spawner")
 Class.autoTriAngle = makeAuto("triAngle")
@@ -1550,7 +1611,8 @@ Class.boomer = {
 Class.boomer_old = {
     PARENT: "genericTank",
     DANGER: 7,
-    LABEL: "Bent Boomer",
+    LABEL: "Boomer",
+    UPGRADE_LABEL: "Bent Boomer",
     STAT_NAMES: statnames.trap,
     BODY: {
         SPEED: 0.8 * base.SPEED,
@@ -1798,7 +1860,8 @@ Class.commander = {
 }
 Class.commander_old = {
     PARENT: "genericTank",
-    LABEL: "Old Commander",
+    LABEL: "Commander",
+    UPGRADE_LABEL: "Old Commander",
     STAT_NAMES: statnames.drone,
     DANGER: 7,
     BODY: {
@@ -2858,6 +2921,7 @@ Class.machineGunner = {
         },
     ],
 }
+Class.maelstrom = makeAuto("whirlwind_old", "Maelstrom")
 Class.manager = {
     PARENT: "genericTank",
     LABEL: "Manager",
@@ -3150,6 +3214,50 @@ Class.mender = {
         }
     ]
 }
+Class.monsoon = {
+    PARENT: "genericTank",
+    LABEL: "Monsoon",
+    ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    IS_SMASHER: true,
+    BODY: {
+        FOV: 1.05 * base.FOV,
+        DENSITY: 2 * base.DENSITY
+    },
+    STAT_NAMES: statnames.whirlwind,
+    TURRETS: [
+        {
+            POSITION: [26, 0, 0, 0, 360, 0],
+            TYPE: "smasherBody"
+        },
+        {
+            POSITION: { SIZE: 24 },
+            TYPE: "genericEntity"
+        }
+    ],
+    AI: {
+        SPEED: 2, 
+    },
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 6; i++) { 
+            output.push({ 
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    TYPE: ["satellite_old", {ANGLE: i * 60}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            }) 
+        }
+        return output
+    })()
+}
+Class.monsoon.SKILL_CAP = Array(10).fill(smshskl)
 Class.mortar = {
     PARENT: "genericTank",
     LABEL: "Mortar",
@@ -4209,31 +4317,6 @@ Class.sidewinder = {
         },
     ],
 }
-Class.sidewinder_new = {
-    PARENT: "genericTank",
-    LABEL: "Sidewinder",
-    DANGER: 6,
-    STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
-    GUNS: [
-        {
-            POSITION: [10, 8.5, 1.4, 7, 0, 0, 0]
-        },
-        {
-            POSITION: [20, 8, -4/3, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
-            }
-        },
-        {
-            POSITION: [4.25, 11, 2, 2.25, -4.25, 92.5, 0]
-        },
-        {
-            POSITION: [4.25, 11, 2, 2.25, 4.25, -92.5, 0]
-        }
-    ]
-}
 Class.single = {
     PARENT: "genericTank",
     LABEL: "Single",
@@ -4338,7 +4421,8 @@ Class.spike = {
 }
 Class.spike_old = {
     PARENT: "genericTank",
-    LABEL: "Weird Spike",
+    LABEL: "Spike",
+    UPGRADE_LABEL: "Weird Spike",
     DANGER: 7,
     BODY: {
         DAMAGE: 1.15 * base.DAMAGE,
@@ -4711,6 +4795,41 @@ Class.thunderbolt = {
         return output
     })()
 }
+Class.tornado_old = {
+    PARENT: "genericTank",
+    LABEL: "Tornado",
+    DANGER: 7,
+    TURRETS: [
+        {
+            POSITION: { SIZE: 30 },
+            TYPE: "genericEntity"
+        }
+    ],
+    ANGLE: 360,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    STAT_NAMES: statnames.whirlwind,
+    AI: {
+        SPEED: 2, 
+    }, 
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 1; i++) { 
+            output.push({ 
+                POSITION: {WIDTH: 12, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite, g.pounder, g.destroyer, g.annihilator]), 
+                    TYPE: ["satellite_old", {ANGLE: i * 360}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            }) 
+        }
+        return output
+    })()
+}
 Class.tripleFlail = {
     PARENT: "genericFlail",
     LABEL: "Triple Flail",
@@ -4882,6 +5001,58 @@ Class.typhoon = {
         return output
     })()
 }
+Class.typhoon_old = {
+    PARENT: "genericTank",
+    LABEL: "Typhoon",
+    DANGER: 7,
+    TURRETS: [
+        {
+            POSITION: [28, 0, 0, 0, 360, 0],
+            TYPE: "genericEntity"
+        },
+        {
+            POSITION: [24, 0, 0, 0, 360, 0],
+            TYPE: "genericEntity"
+        }
+    ],
+    ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    STAT_NAMES: statnames.whirlwind,
+    AI: {
+        SPEED: 2, 
+    }, 
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 6; i++) { 
+            output.push({ 
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    TYPE: ["satellite_old", { ANGLE: i * 60 }], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            }) 
+        }
+        for (let i = 0; i < 6; i++) { 
+            output.push({ 
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    TYPE: ["satellite_old", { ANGLE: i * 60, CONTROLLERS: [['orbit', {invert: true}]] }], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            }) 
+        }
+        return output
+    })()
+}
 Class.vortex = {
     PARENT: "genericTank",
     LABEL: "Vortex",
@@ -4892,7 +5063,7 @@ Class.vortex = {
     ANGLE: 90,
     CONTROLLERS: ["whirlwind"],
     HAS_NO_RECOIL: true,
-    STAT_NAMES: statnames.whirlwind,
+    STAT_NAMES: statnames.mixed,
     TURRETS: [
         {
             POSITION: [8, 0, 0, 0, 360, 1],
@@ -4933,6 +5104,44 @@ Class.vortex.GUNS.push(
         },
     }
 )
+Class.vortex_old = {
+    PARENT: "genericTank",
+    LABEL: "Vortex",
+    ANGLE: 36,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    STAT_NAMES: statnames.whirlwind,
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "vortexBody"
+        },
+        {
+            POSITION: [21.5, 0, 0, 180, 360, 0],
+            TYPE: "vortexBody"
+        }
+    ],
+    AI: {
+        SPEED: 2, 
+    },
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 10; i++) { 
+            output.push({ 
+                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    TYPE: ["satellite_old", {ANGLE: i * 36}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            }) 
+        }
+        return output
+    })()
+}
 Class.vulture = makeBird({
     PARENT: "genericTank",
     DANGER: 7,
@@ -5246,20 +5455,22 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"]
         Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
 
-    Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "sidewinder_new", "undertow", "repeater"*/]
-        //Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
-        Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"/*, "coil", "duplicator"*/]
-        //Class.sidewinder_new.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"]
+    Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "spiral", "undertow", "repeater"*/]
+        Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
+        Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"/*, "coil"*/, "duplicator"]
+        //Class.spiral.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"] // TODO: MAKE SPIRAL BRANCH WORK
         //Class.undertow.UPGRADES_TIER_3 = ["riptide"]
-        //Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]*/ // TODO: MAKE NEW DESMOS TANKS WORK
+        Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]
 
 // Quick Configurations
+require("./dev.js")
+
 if (enable_april_fools) {
 Class.basic.UPGRADES_TIER_3.push("master")
 } else {
-require('./dev.js')
 Class.menu_unavailable.UPGRADES_TIER_0.push("master")
 }
+
 if (enable_flail_branch) {
 Class.basic.UPGRADES_TIER_1.push("flail")
     Class.flail.UPGRADES_TIER_2 = ["doubleFlail", "mace", "flangle"]
@@ -5267,10 +5478,10 @@ Class.basic.UPGRADES_TIER_1.push("flail")
         Class.mace.UPGRADES_TIER_3 = ["bigMama", "itHurtsDontTouchIt", "flace"]
         Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
 } else {
-require('./dev.js')
 Class.menu_unavailable.UPGRADES_TIER_0.push("flail")
 }
-if (enable_whirlwind_branch) {
+
+if (enable_whirlwind_branch == 1) {
 Class.basic.UPGRADES_TIER_1.push("whirlwind")
     // Class.flankGuard.UPGRADES_TIER_2
         Class.hexaTank.UPGRADES_TIER_3.push("hexaWhirl")
@@ -5281,10 +5492,18 @@ Class.basic.UPGRADES_TIER_1.push("whirlwind")
     // Class.pounder.UPGRADES_TIER_2
         Class.artillery.UPGRADES_TIER_3.push("munition")
         Class.launcher.UPGRADES_TIER_3.push("vortex")
-} else {
-require('./dev.js')
+Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind_old")
+} else if (enable_whirlwind_branch == 2) {
+Class.whirlwind_old.UPGRADE_LABEL = "Whirlwind"
+Class.whirlwind.UPGRADE_LABEL = "Whirlwind (new)"
+Class.basic.UPGRADES_TIER_2.push("whirlwind_old")
+    Class.smasher.UPGRADES_TIER_3.push("monsoon")
+    Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]
 Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind")
+} else {
+Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind", "whirlwind_old")
 }
+
 if (enable_scrapped_tanks) {
 Class.basic.UPGRADES_TIER_1.push()
     // Class.basic.UPGRADES_TIER_2
@@ -5308,6 +5527,18 @@ Class.basic.UPGRADES_TIER_1.push()
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
         Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
 } else {
-require('./dev.js')
 Class.menu_unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "jumpSmasher", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "rocketeer", "sniper3", "spawnerdrive", "volute")
+}
+
+if (enable_weird_spike) {
+    Class.spike_old.UPGRADE_LABEL = "Spike"
+    Class.spike.UPGRADE_LABEL = "Normal Spike"
+    for (let i = 0; i < Class.smasher.UPGRADES_TIER_3.length; i++) {
+        if (Class.smasher.UPGRADES_TIER_3[i] === "spike") {
+            Class.smasher.UPGRADES_TIER_3[i] = "spike_old"
+        }
+    }
+    Class.menu_unavailable.UPGRADES_TIER_0.push("spike")
+} else {
+    Class.menu_unavailable.UPGRADES_TIER_0.push("spike_old")
 }
