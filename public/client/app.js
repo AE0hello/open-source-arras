@@ -555,7 +555,15 @@ import * as socketStuff from "./socketinit.js";
                 content.white,
                 content.guiblack,
             ]) {
-                if (!/^#[0-9a-fA-F]{6}$/.test(colorHex)) return null;
+                if (!/^#[0-9a-fA-F]{6}$/.test(colorHex)) {
+                    if (!content.aqua) { // Old theme dont have `aqua`, so we just warn the user.
+                        alert("Warning: Your theme is old, please update your theme before it becomes incompatible on the future.");
+                        content.aqua = "#7adbba";
+                    } else {
+                        alert("An error has accoured while reading your theme, it may be corrupted or outdated.");
+                        return null;
+                    }
+                };
             }
             return {
                 name: (typeof name === 'string' && name) || 'Unknown Theme',
@@ -4020,7 +4028,7 @@ import * as socketStuff from "./socketinit.js";
                 global.metrics.rendertimes = 0;
                 global.fps = global.metrics.rendertime;
                 // Do update rate.
-                global.metrics.updatetime = global.updateTimes;
+                global.metrics.updatetime = global.updateTimes + 1;
                 global.updateTimes = 0;
                 // Get the final bandwidth.
                 global.bandwidth.finalHa = global.bandwidth.currentHa;
