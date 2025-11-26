@@ -612,7 +612,7 @@ Class.literallyATank = {
     BODY: {
         HEALTH: base.HEALTH * 1.2,
     },
-    LABEL: "Literally a Tank",
+    LABEL: "Literally A Tank",
     SHAPE: "M -1 -1 H 0 C 1 -1 1 0 1 0 C 1 0 1 1 0 1 H -1 V -1",
     GUNS: [
         {
