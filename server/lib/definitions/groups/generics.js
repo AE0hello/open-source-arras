@@ -331,6 +331,15 @@ Class.satellite = {
     BUFF_VS_FOOD: true,
     MOTION_TYPE: 'motor'
 }
+Class.satellite_old = {
+    PARENT: "satellite",
+    TURRETS: [
+        {
+            POSITION: [28, 0, 0, 0, 360, 0],
+            TYPE: "genericEntity"
+        }
+    ],
+}
 Class.squareSatellite = {
     PARENT: "satellite",
     SHAPE: 4

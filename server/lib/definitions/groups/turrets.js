@@ -1093,6 +1093,8 @@ Class.tracker3gun = makeTurret({
 Class.deco_trianglePureWhite = makeDeco(3, "pureWhite")
 Class.mendersymbol = makeDeco(3)
 Class.overdriveDeco = makeDeco(4)
+Class.vortexBody = makeDeco(5)
+Class.vortexBody.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
 Class.assemblerEffect = {
     PARENT: "bullet",
     MOTION_TYPE: 'assembler',
