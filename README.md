@@ -17,9 +17,9 @@ Major updates may introduce breaking changes that alter how certain things work.
 
 This guide covers setting up your server on your own hardware and only supports PCs running up-to-date versions of Windows/macOS/Linux.
 
-You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if you pick the LTS or Latest version, they'll both work fine.
+You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if you pick the LTS or Latest version, they'll both work fine. Make sure to run `npm i ws` in your terminal to install `ws`, since this is also required.
 
-Once `Node.js` is installed, [download the source code of the latest release of Open Source Arras](https://github.com/AE0hello/open-source-arras/releases). Extract it once it's downloaded and open either `run.bat` (if you're on Windows) or `run.sh` (if you're not). If there aren't any errors, your server will start up. Go to `localhost:3000` in your favourite web browser (keep the terminal window open, closing it will shut down the server) to play.
+Once `Node.js` and `ws` are installed, [download the source code of the latest release of Open Source Arras](https://github.com/AE0hello/open-source-arras/releases). Extract it once it's downloaded and open either `run.bat` (if you're on Windows) or `run.sh` (if you're not). If there aren't any errors, your server will start up. Go to `localhost:3000` in your favourite web browser (keep the terminal window open, closing it will shut down the server) to play.
 
 [If you need a more detailed guide, click here for a step by step list.](https://github.com/Taureon/aps-plus-plus/wiki/Frequently-Asked-Questions#how-do-i-set-up-my-server)
 
