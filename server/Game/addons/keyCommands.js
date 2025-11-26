@@ -1,5 +1,5 @@
 function init() {
-    let useOldMenu = true;
+    let useOldMenu = false;
     function selectedEntities(player, run) {
         for (const o of entities.values()) {
           if (

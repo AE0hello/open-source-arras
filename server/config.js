@@ -109,7 +109,7 @@ module.exports = {
     MAX_UPGRADE_TIER: 9, // Amount of tank tiers.
     TIER_MULTIPLIER: 15, // Level difference between each tier.
 
-    INDEX_HTML: "index.html", // Where the client's html is located.
+    INDEX_HTML: "index.html", // Where the main menu is located.
 
     // Bots
     BOTS: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
