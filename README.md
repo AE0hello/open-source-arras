@@ -6,12 +6,9 @@
 ![Discord](https://img.shields.io/discord/1004907608018264094)
 ![GitHub repo size](https://img.shields.io/github/repo-size/AE0Hello/open-source-arras)
 
-## WARNING
-This is an unstable build. Use at your own risk and expect many upcoming bugs.
-#
-**Open Source Arras is beta software.** This build is of a work-in-progress rewrite and is **not** representative of the final product. Expect lots of bugs and missing features! (also the links still go to the old repo)
+**Open Source Arras is beta software.** The latest build is **not** representative of the final product. Expect lots of bugs and missing features!
 
-Major updates may introduce breaking changes that alter how certain things work. It is **your responsibility** to keep your private server up-to-date and functioning!
+Major updates may introduce breaking changes that alter how certain things work. It is **your responsibility** to keep your private server up-to-date and functioning.
 
 ## Setup Guide (Localhost)
 
