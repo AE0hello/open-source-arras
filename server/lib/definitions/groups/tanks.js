@@ -5407,6 +5407,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.basic.UPGRADES_TIER_3 = []
         Class.smasher.UPGRADES_TIER_3 = ["megaSmasher", "spike", "autoSmasher", "landmine"]
         Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"]
+        Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]
 
     Class.twin.UPGRADES_TIER_2 = ["doubleTwin", "tripleShot", "gunner", "hexaTank", "helix"]
         Class.twin.UPGRADES_TIER_3 = ["dual", "bulwark", "musket"]
@@ -5498,7 +5499,6 @@ Class.whirlwind_old.UPGRADE_LABEL = "Whirlwind"
 Class.whirlwind.UPGRADE_LABEL = "Whirlwind (new)"
 Class.basic.UPGRADES_TIER_2.push("whirlwind_old")
     Class.smasher.UPGRADES_TIER_3.push("monsoon")
-    Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]
 Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind")
 } else {
 Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind", "whirlwind_old")
