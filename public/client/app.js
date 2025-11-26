@@ -538,6 +538,7 @@ import * as socketStuff from "./socketinit.js";
                 content.orange,
                 content.yellow,
                 content.aqua,
+                content.lavender,
                 content.pink,
                 content.vlgrey,
                 content.lgrey,
@@ -556,11 +557,14 @@ import * as socketStuff from "./socketinit.js";
                 content.guiblack,
             ]) {
                 if (!/^#[0-9a-fA-F]{6}$/.test(colorHex)) {
-                    if (!content.aqua) { // Old theme dont have `aqua`, so we just warn the user.
-                        alert("Warning: Your theme is old, please update your theme before it becomes incompatible on the future.");
-                        content.aqua = "#7adbba";
+                    if (!content.aqua) { // old themes don't have aqua, so just warn the user
+                        alert("Your theme does not an entry for \"aqua\" (the color used by Hexagons). A fallback has been provided.");
+                        content.aqua = content.teal;
+                    } else if (!content.lavender) {
+                        alert("Your theme does not an entry for \"lavender\" (the color used by the nest. A fallback has been provided.");
+                        content.lavender = "#b58efd";
                     } else {
-                        alert("An error has accoured while reading your theme, it may be corrupted or outdated.");
+                        alert("An error occured while loading your theme, it may be corrupted or outdated.");
                         return null;
                     }
                 };
