@@ -158,7 +158,6 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("coloredHealthbars");
         util.retrieveFromLocalStorage("smoothCamera");
         util.retrieveFromLocalStorage("optColors");
-        util.retrieveFromLocalStorage("optCustom");
         util.retrieveFromLocalStorage("optPointy");
         util.retrieveFromLocalStorage("optPredictAnim");
         util.retrieveFromLocalStorage("optLerpAnim");
@@ -333,9 +332,26 @@ import * as socketStuff from "./socketinit.js";
             });
     }
 
+    // Custom theme display handler
+    function customThemeDisplayHandler() {
+        util.retrieveFromLocalStorage("optCustom");
+        let themeValue = document.getElementById("optCustom");
+        let customPlate;
+        for (let e of document.getElementById("optColors").children) {
+            if (e.value === "custom") customPlate = e;
+        }
+        let {name, author} = getThemeDisplayName(themeValue);
+        customPlate.textContent = `Custom - ${name} ${author}`;
+        themeValue.addEventListener("input", () => {
+            let {name, author} = getThemeDisplayName(themeValue);
+            customPlate.textContent = `Custom - ${name} ${author}`;
+        });
+    }
+
     // Important functions
     toggleOptionsMenu();
     tabOptionsMenuSwitcher();
+    customThemeDisplayHandler();
 
     // Prepare canvas
     function resizeEvent() {
@@ -470,7 +486,7 @@ import * as socketStuff from "./socketinit.js";
             );
         };
 
-    function parseTheme(string) {
+    function parseTheme(string, logError = true) {
         // Decode from base64
         try {
             var stripped = string.replace(/\s+/g, "");
@@ -557,22 +573,44 @@ import * as socketStuff from "./socketinit.js";
             ]) {
                 if (!/^#[0-9a-fA-F]{6}$/.test(colorHex)) {
                     if (!content.aqua) { // Old theme dont have `aqua`, so we just warn the user.
-                        alert("Warning: Your theme is old, please update your theme before it becomes incompatible on the future.");
+                        logError && alert("Warning: Your theme is old, please update your theme before it becomes incompatible on the future.");
                         content.aqua = "#7adbba";
                     } else {
-                        alert("An error has accoured while reading your theme, it may be corrupted or outdated.");
-                        return null;
+                        if (logError) { 
+                            throw new Error("Unable to read the theme"); 
+                        } else return {
+                            name: 'Unknown Theme',
+                            author: '?',
+                            content: null,
+                        }
                     }
                 };
             }
             return {
-                name: (typeof name === 'string' && name) || 'Unknown Theme',
+                name: (typeof name === 'string' && name) || 'Unnamed Theme',
                 author: (typeof author === 'string' && author) || '',
                 content,
             }
-        } catch (e) { }
+        } catch (e) { logError && alert("An error has accoured while reading your theme, it may be corrupted or outdated."); }
 
-        return null;
+        return {
+            name: 'Unknown Theme',
+            author: '?',
+            content: null,
+        };
+    }
+    function getThemeDisplayName(doc) {
+        if (doc.value !== "") {
+            let {name, author, content} = parseTheme(doc.value);
+            if (content !== "null") {
+                let displayName = name;
+                let displayAuthor = author === "" ? "" : author === "fan-made" || author === "Fan-made" || author === "Fan-Made" ? "(Fan-Made)" : `(by ${author})`;
+                return {
+                    name: displayName,
+                    author: displayAuthor
+                }
+            }
+        }
     }
     function initalizeChangelog(b, a) { // From CX Client (Modified) + decoded;
         var sa = document.getElementById("patchNotes");
