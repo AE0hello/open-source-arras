@@ -70,7 +70,7 @@ class MockupEntityGun {
 }
 
 class MockupEntityProp {
-    constructor(position, bond) {
+    constructor(def, bond) {
         this.guns = [];
         this.colorUnboxed = {
             base: 16,
@@ -87,6 +87,8 @@ class MockupEntityProp {
         // Bind prop
         this.bond = bond;
         this.bond.props.push(this);
+        
+        let position = def.POSITION;
         // Get my position.
         if (Array.isArray(position)) {
             position = {
@@ -111,6 +113,7 @@ class MockupEntityProp {
             layer: position.LAYER,
         };
         // Initalize.
+        this.setAngle = def.ANGLE ?? null;
         this.facing = 0;
         this.x = 0;
         this.y = 0;
@@ -395,7 +398,7 @@ class MockupEntity {
             for (let i = 0; i < set.PROPS.length; i++) {
                 let def = set.PROPS[i],
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE],
-                    o = new MockupEntityProp(def.POSITION, this);
+                    o = new MockupEntityProp(def, this);
                 for (let j = 0; j < type.length; j++) {
                     o.define(type[j]);
                 }

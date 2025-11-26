@@ -274,6 +274,7 @@ Class.arrasMenu_youtuber = {
                 LAYER: 1
             },
             TYPE: "deco_trianglePureWhite",
+            ANGLE: 0,
         }
     ],
     GUNS: [
