@@ -2981,6 +2981,16 @@ import * as socketStuff from "./socketinit.js";
 
             drawButton(buttonX, buttonY, m, h, 1, "rect", msg, textScale - 3.3, false, false, false, true, "skipUpgrades", clickableRatio, 0);
 
+            if (gui.dailyTank) {
+                let image = util.requestEntityImage(gui.dailyTank, gui.color);
+                let hover = global.clickables.dailyTankUpgrade.check({ x: global.mouse.x, y: global.mouse.y });
+                image.upgradeColor = "36 0 1 0 false";
+                drawEntityIcon(image, xStart, initialY + height + internalSpacing + 50, len, height, 1, upgradeSpin, 0.4, 10, false, hover);
+                drawText("Daily Tank!", xStart + 50, initialY + height + internalSpacing + 67, 12, gameDraw.getColor(36), "center");
+                global.clickables.dailyTankUpgrade.set(xStart * clickableRatio, (initialY + height + internalSpacing + 50) * clickableRatio, len * clickableRatio, height * clickableRatio);
+                
+            }
+
             // Upgrade tooltip
             if (upgradeHoverIndex > -1 && upgradeHoverIndex < gui.upgrades.length && !global.mobile) {
                 let picture = gui.upgrades[upgradeHoverIndex][2];

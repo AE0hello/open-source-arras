@@ -373,7 +373,14 @@ class Canvas {
                 let upgradeCheck = global.clickables.upgrade.check(mpos);
                 if (statIndex !== -1) {
                     this.socket.talk('x', statIndex, 0);
-                } else if (global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && global.clickables.optionsMenu.switchButton.check(mpos) == -1 && global.clickables.skipUpgrades.check(mpos) == -1 && upgradeCheck == -1 && !global.died) this.socket.cmd.set(primaryFire, true);
+                } else if (
+                    global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && 
+                    global.clickables.optionsMenu.switchButton.check(mpos) == -1 && 
+                    global.clickables.skipUpgrades.check(mpos) == -1 && 
+                    global.clickables.dailyTankUpgrade.check(mpos) == false && 
+                    upgradeCheck == -1 && 
+                    !global.died
+                ) this.socket.cmd.set(primaryFire, true);
                 break;
             case 1:
                 this.socket.cmd.set(5, true);
@@ -395,6 +402,7 @@ class Canvas {
                     y: mouse.clientY * global.ratio,
                 };
                 let upgradeIndex = global.clickables.upgrade.check(mpos);
+                let dailyTankUpgrade = global.clickables.dailyTankUpgrade.check(mpos);
                 let respawnCheck = global.clickables.deathRespawn.check(mpos);
                 let exitGame = global.clickables.exitGame.check(mpos);
                 let reconnectCheck = global.clickables.reconnect.check(mpos);
@@ -468,7 +476,9 @@ class Canvas {
                     if (global.disconnected || (global.died && !global.cannotRespawn)) global.exit();
                 } else 
                 if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length) this.socket.talk('U', upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
-                else if (global.clickables.skipUpgrades.check(mpos) !== -1) {
+                else if (dailyTankUpgrade == true) {
+                    this.socket.talk('U', JSON.stringify([{isDailyUpgrade: true, tank: gui.dailyTank}]), "null");
+                } else if (global.clickables.skipUpgrades.check(mpos) !== -1) {
                     global.clearUpgrades();
                 } else this.socket.cmd.set(primaryFire, false);
                 break;

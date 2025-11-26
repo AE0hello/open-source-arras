@@ -193,6 +193,7 @@ const global = {
     clickables: {
         stat: Region(10),
         upgrade: Region(100),
+        dailyTankUpgrade: Clickable(),
         clicked: false,
         hover: Region(1),
         skipUpgrades: Region(1),

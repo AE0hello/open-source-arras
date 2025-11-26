@@ -231,7 +231,6 @@ Class.dreadOfficialV2 = {
 	PARENT: "genericEggnought",
 	LABEL: "Dreadnought",
 	UPGRADE_LABEL: "Dreads V2",
-	SEND_ALL_MOCKUPS: true,
 	LEVEL: 90,
 	EXTRA_SKILL: 18,
 }

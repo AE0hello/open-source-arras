@@ -782,36 +782,49 @@ class Entity extends EventEmitter {
 
     upgrade(number, branchId) {
         // Account for upgrades that are too high level for the player to access
-        for (let i = 0; i < branchId; i++) { number += this.skippedUpgrades[i] ?? 0; };
-        if (number < this.upgrades.length && this.skill.level >= this.upgrades[number].level) {
-            let upgrade = this.upgrades[number], upgradeClass = upgrade.class, upgradeBranch = upgrade.branch, redefineAll = upgrade.redefineAll;
-            if (redefineAll) {
-                for (let i = 0; i < upgradeClass.length; i++) upgradeClass[i] = ensureIsClass(...upgradeClass[i]);
+        let upgraded = false;
+        if (number.isDailyUpgrade) {
+            let requestedIndex = parseInt(number.tank);
+            if (requestedIndex === ensureIsClass(Config.DAILY_TANK.tank).index && this.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER) {
+                upgraded = true;
+                this.hasUpgradedToDailyTank = true;
                 this.upgrades = [];
-                this.define(upgradeClass);
-            } else {
-                this.defs.splice(upgradeBranch, 1, ...upgradeClass);
-                this.upgrades = [];
-                this.define(this.defs);
+                this.define(Config.DAILY_TANK.tank);
             }
-            this.emit("upgrade", { body: this });
-            if (this.settings.shakeProperties) this.settings.shakeProperties.forEach(info => {
-                if (info.applyOn.upgrade) {
-                    this.socket.talk("SH", JSON.stringify(info));
+        } else {
+            for (let i = 0; i < branchId; i++) { number += this.skippedUpgrades[i] ?? 0; };
+            if (number < this.upgrades.length && this.skill.level >= this.upgrades[number].level) {
+                upgraded = true;
+                let upgrade = this.upgrades[number], upgradeClass = upgrade.class, upgradeBranch = upgrade.branch, redefineAll = upgrade.redefineAll;
+                if (redefineAll) {
+                    for (let i = 0; i < upgradeClass.length; i++) upgradeClass[i] = ensureIsClass(...upgradeClass[i]);
+                    this.upgrades = [];
+                    this.define(upgradeClass);
+                } else {
+                    this.defs.splice(upgradeBranch, 1, ...upgradeClass);
+                    this.upgrades = [];
+                    this.define(this.defs);
                 }
-            })
-            this.sendMessage("You have upgraded to " + this.label + ".");
-            for (let def of this.defs) {
-                def = ensureIsClass(def);
-                if (def.TOOLTIP != null && def.TOOLTIP.length > 0) this.sendMessage(def.TOOLTIP);
             }
-            for (let instance of entities.values()) {
-                if (instance.settings.clearOnMasterUpgrade && instance.master.id === this.id) instance.kill();
-            }
-            this.skill.update();
-            this.syncTurrets();
-            this.refreshBodyAttributes();
         }
+        if (!upgraded) return;
+        this.emit("upgrade", { body: this });
+        if (this.settings.shakeProperties) this.settings.shakeProperties.forEach(info => {
+            if (info.applyOn.upgrade) {
+                this.socket.talk("SH", JSON.stringify(info));
+            }
+        })
+        this.sendMessage("You have upgraded to " + this.label + ".");
+        for (let def of this.defs) {
+            def = ensureIsClass(def);
+            if (def.TOOLTIP != null && def.TOOLTIP.length > 0) this.sendMessage(def.TOOLTIP);
+        }
+        for (let instance of entities.values()) {
+            if (instance.settings.clearOnMasterUpgrade && instance.master.id === this.id) instance.kill();
+        }
+        this.skill.update();
+        this.syncTurrets();
+        this.refreshBodyAttributes();
     }
 
     damageMultiplier() {

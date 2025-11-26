@@ -422,6 +422,8 @@ class socketManager {
             } break;
             case "U": {
                 // upgrade request
+                m[0] = util.isStringified(m[0]);
+                if (Array.isArray(m[0])) m[0] = m[0][0];
                 if (m.length !== 2) {
                     socket.kick("Ill-sized upgrade request.");
                     return 1;
@@ -431,8 +433,10 @@ class socketManager {
                 let branchId = m[1];
                 // Verify the request
                 if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || branchId < 0) {
-                    socket.kick("Bad upgrade request.");
-                    return 1;
+                    if (!upgrade.isDailyUpgrade) { // Atleast allow the daily upgrade request, else get out.
+                        socket.kick("Bad upgrade request.");
+                        return 1;
+                    }
                 }
                 // Upgrade it
                 if (player.body != null) {
@@ -633,8 +637,10 @@ class socketManager {
                 if (player.body) {
                     socket.status.lastTank = player.body.index;
                     this.sendMockup(player.body.index, socket);
+                    console.log(player.body.rerootUpgradeTree)
                     for (let i of player.body.rerootUpgradeTree.split("_")) {
                         let ind = Class[i].index; // This bit breaks split upgrades (upgrade to dev-dev in testing or the dreads v2 branch to see this bug)
+                        console.log(i, ind)
                         let mockup = mockupData.find(o => o.index === `${ind}`);
                         if (!mockup) {
                             let e = this.generateMockup(ind);
@@ -848,6 +854,7 @@ class socketManager {
         // We can't run if we don't have a body to look at
         if (!b) return 0;
         gui.bodyid = b.id;
+        let dailyTank = null;
         // Update most things
         gui.fps.update(Math.min(1, (global.fps / global.gameManager.roomSpeed / 1000) * 30)); 
         gui.color.update(gui.master.teamColor);
@@ -871,6 +878,13 @@ class socketManager {
         }
         b.skippedUpgrades = skippedUpgrades;
         gui.upgrades.update(upgrades);
+        // Update daily tank
+        if (Config.DAILY_TANK) {
+            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER && !b.hasUpgradedToDailyTank) {
+                dailyTank = Config.DAILY_TANK_INDEX;
+            }
+        }
+        gui.dailyTank.update(JSON.stringify(dailyTank));
         // Update the stats and skills
         gui.stats.update();
         gui.skills.update(this.getstuff(b.skill));
@@ -898,6 +912,7 @@ class socketManager {
             root: gui.root.publish(),
             class: gui.class.publish(),
             visibleName: gui.visibleName.publish(),
+            dailyTank: gui.dailyTank.publish(),
         };
         // Encode which we'll be updating and capture those values only
         let oo = [0];
@@ -951,6 +966,10 @@ class socketManager {
             oo[0] += 0x0800;
             oo.push(o.visibleName);
         }
+        if (o.dailyTank != null) {
+            oo[0] += 0x1000;
+            oo.push(o.dailyTank);
+        }
         // Output it
         return oo;
     }
@@ -973,6 +992,7 @@ class socketManager {
             root: this.floppy(),
             class: this.floppy(),
             visibleName: this.floppy(),
+            dailyTank: this.floppy(),
         };
         // This is the gui itself
         return {
@@ -1099,9 +1119,10 @@ class socketManager {
             body.protect();
             body.isPlayer = true;
             body.define(Config.SPAWN_CLASS);
-            if (Class.menu_tanks.UPGRADES_TIER_0[0] !== "basic") {
-                if (Class.developer.UPGRADES_TIER_0[0] !== "basic") {
-                    Class.menu_addons.UPGRADES_TIER_0.push("basic")
+            if (Class.specialMenu) {
+                let string = Class.specialMenu.UPGRADES_TIER_0[0];
+                if (string !== "basic") {
+                    Class.specialMenu.UPGRADES_TIER_0.push("basic")
                 }
             }
             body.name = name;
@@ -1387,23 +1408,20 @@ class socketManager {
     }
 
     sendMockupUpgrades(index, socket) {
-        let allowToContinue = true;
-        for (let i = 0; i < socket.status.mockupData.receivedUpgradePackMockups.length; i++) {
-            let entry = socket.status.mockupData.receivedUpgradePackMockups[i];
-            if (entry.index == `${index}`) allowToContinue = false;
+        for (let splittedIndex of index.toString().split("-")) {
+            if (socket.status.mockupData.receivedUpgradePackIndexes.includes(splittedIndex)) continue; // Do NOT continue if we have the mockup already.
+            let index = parseInt(splittedIndex);
+            let mockup = mockupData.find(o => o.index === `${index}`);
+            if (!mockup) {
+                let e = this.generateMockup(index);
+                mockup = mockupData.find(o => o.index === `${e.index}`);
+            }
+            socket.status.mockupData.receivedUpgradePackMockups.push(mockup);
+            for (let upgrades of mockup.upgrades) {
+                this.sendMockup(upgrades.index, socket);
+                this.sendMockupUpgrades(upgrades.index, socket);
+            }
         }
-        if (!allowToContinue) return;
-        index = parseInt(index);
-        let mockup = mockupData.find(o => o.index === `${index}`);
-        if (!mockup) {
-            let e = this.generateMockup(index);
-            mockup = mockupData.find(o => o.index === `${e.index}`);
-        }
-        socket.status.mockupData.receivedUpgradePackMockups.push(mockup);
-        for (let e of mockup.upgrades) {
-            this.sendMockup(e.index, socket);
-            this.sendMockupUpgrades(e.index, socket);
-        };
     }
 
     eyes(socket) {
@@ -2005,6 +2023,7 @@ class socketManager {
             return {
                 receivedIndexes: [], // The only reason why this exist is because to prevent lags from the socket gazeUpon, You can find it out by removing this.
                 receivedMockups: [],
+                receivedUpgradePackIndexes: [],
                 receivedUpgradePackMockups: [],
                 requestMockups: [],
             }
@@ -2142,6 +2161,20 @@ class socketManager {
         if (Config.LOAD_ALL_MOCKUPS) {
             for (let i = 0; i < mockupData.length; i++) {
                 socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
+            }
+        }
+
+        if (!Config.LOAD_ALL_MOCKUPS && Config.DAILY_TANK && !Array.isArray(Config.DAILY_TANK)) {
+            const tank = ensureIsClass(Config.DAILY_TANK.tank);
+            if (tank) {
+                Config.DAILY_TANK_INDEX = tank.index.toString();
+                let mockup = mockupData.find(o => o.index === `${tank.index}`);
+                if (!mockup) {
+                    let e = this.generateMockup(tank.index);
+                    mockup = mockupData.find(o => o.index === `${e.index}`);
+                }
+                socket.talk("M", mockup.index, JSON.stringify(mockup));
+                socket.status.mockupData.receivedIndexes.push(tank.index.toString());
             }
         }
 

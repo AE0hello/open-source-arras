@@ -75,6 +75,7 @@ gui = {
     root: "",
     class: "",
     visibleEntities: false,
+    dailyTank: null,
     fps: 0,
     color: 0,
     accel: 0,
@@ -660,6 +661,7 @@ const convert = {
         let index = get.next(),
             // Translate the encoded index
             indices = {
+                dailyTank: index & 0x1000,
                 visibleName: index & 0x0800,
                 class: index & 0x0400,
                 root: index & 0x0200,
@@ -731,6 +733,9 @@ const convert = {
         }
         if (indices.visibleName) {
             gui.visibleEntities = get.next();
+        }
+        if (indices.dailyTank) {
+            gui.dailyTank = JSON.parse(get.next());
         }
     },
     broadcast: () => {
