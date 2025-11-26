@@ -336,6 +336,7 @@ Class.menu_addons.UPGRADES_TIER_0 = [] // Empty by default, gets filled up with 
 
 // Testing Menu
 Class.menu_testing = makeMenu("Testing")
+Class.menu_testing.UPGRADE_TOOLTIP = "WARNING: There are a lot of tanks in here and having this menu open may cause noticeable frame drops!"
 Class.menu_testing.UPGRADES_TIER_0 = [
     "diamondShape",
     "miscTest",
