@@ -1492,7 +1492,7 @@ import * as socketStuff from "./socketinit.js";
                 if (!t.layer) {
                     const ang = t.direction + t.angle + rot;
                     const len = t.offset * drawSize;
-                    const facing = t.setAngle === undefined ?  (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.setAngle;
+                    const facing = t.setAngle !== "null" ? t.setAngle : (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing;
                     const cosAng = Math.cos(ang);
                     const sinAng = Math.sin(ang);
                     
@@ -1641,7 +1641,7 @@ import * as socketStuff from "./socketinit.js";
                 if (t.layer) {
                     const ang = t.direction + t.angle + rot;
                     const len = t.offset * drawSize;
-                    const facing = t.setAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.setAngle;
+                    const facing = t.setAngle !== "null" ? t.setAngle : (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing;
                     const cosAng = Math.cos(ang);
                     const sinAng = Math.sin(ang);
                     
