@@ -346,31 +346,17 @@ Class.twin = {
 Class.twin_diep2 = {
     PARENT: "genericTank",
     LABEL: "Twin",
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8,
-                Y: 5.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
-                TYPE: "bullet"
-            }
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 20,
+            WIDTH: 8,
+            Y: 5.5
         },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8,
-                Y: -5.5,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
-                TYPE: "bullet"
-            }
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
+            TYPE: "bullet"
         }
-    ]
+    })
 }
 Class.whirlwind = {
     PARENT: "genericTank",
@@ -551,22 +537,17 @@ Class.doubleTwin = {
     PARENT: "genericTank",
     LABEL: "Double Twin",
     DANGER: 6,
-    GUNS: weaponArray([
-        {
-            POSITION: [20, 8, 1, 0, 5.5, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
-                TYPE: "bullet"
-            }
+    GUNS: weaponArray(weaponMirror({
+        POSITION: {
+            LENGTH: 20,
+            WIDTH: 8,
+            Y: 5.5
         },
-        {
-            POSITION: [20, 8, 1, 0, -5.5, 0, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
-                TYPE: "bullet"
-            }
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
+            TYPE: "bullet"
         }
-    ], 2)
+    }), 2)
 }
 Class.flangle = {
     PARENT: "genericFlail",
@@ -628,16 +609,9 @@ Class.gunner = {
     PARENT: "genericTank",
     LABEL: "Gunner",
     DANGER: 6,
-    GUNS: [
+    GUNS: weaponMirror([
         {
             POSITION: [12, 3.5, 1, 0, 7.25, 0, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [12, 3.5, 1, 0, -7.25, 0, 0.75],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
                 TYPE: "bullet"
@@ -649,15 +623,8 @@ Class.gunner = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
                 TYPE: "bullet"
             }
-        },
-        {
-            POSITION: [16, 3.5, 1, 0, -3.75, 0, 0.25],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-                TYPE: "bullet"
-            }
         }
-    ]
+    ], 0.25)
 }
 Class.healer = {
     PARENT: "genericTank",
