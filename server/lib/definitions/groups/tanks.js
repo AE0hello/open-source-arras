@@ -403,6 +403,37 @@ Class.whirlwind = {
 }
 
 // Tier 2
+Class.artillery = {
+    PARENT: "genericTank",
+    LABEL: "Artillery",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: [17, 3, 1, 0, -6, -7, 0.25],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [17, 3, 1, 0, 6, 7, 0.75],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Secondary",
+            },
+        },
+        {
+            POSITION: [19, 12, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
+                TYPE: "bullet",
+                LABEL: "Heavy",
+            },
+        },
+    ],
+}
 Class.assassin = {
     PARENT: "genericTank",
     DANGER: 6,
@@ -1319,6 +1350,7 @@ Class.whirlwind_old = {
 Class.ambulance = {
     PARENT: "genericTank",
     LABEL: "Ambulance",
+    STAT_NAMES: statnames.heal,
     HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         HEALTH: base.HEALTH * 0.8,
@@ -1343,24 +1375,15 @@ Class.ambulance = {
                 LABEL: "Front",
             },
         },
-        {
+        ...weaponMirror({
             POSITION: [16, 8, 1, 0, 0, 150, 0.1],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
                 TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
+                LABEL: "thruster"
+            }
+        }, 0)
     ],
-    STAT_NAMES: statnames.heal,
 }
 Class.annihilator = {
     PARENT: "genericTank",
@@ -1378,37 +1401,6 @@ Class.annihilator = {
 }
 Class.armsman = makeOver("rifle", "Armsman", hybridTankOptions)
 Class.architect = makeRadialAuto("architectGun", {isTurret: true, danger: 7, size: 12, label: "Architect", body: {SPEED: 1.1 * base.SPEED}})
-Class.artillery = {
-    PARENT: "genericTank",
-    LABEL: "Artillery",
-    DANGER: 6,
-    GUNS: [
-        {
-            POSITION: [17, 3, 1, 0, -6, -7, 0.25],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
-                TYPE: "bullet",
-                LABEL: "Secondary",
-            },
-        },
-        {
-            POSITION: [17, 3, 1, 0, 6, 7, 0.75],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery]),
-                TYPE: "bullet",
-                LABEL: "Secondary",
-            },
-        },
-        {
-            POSITION: [19, 12, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery]),
-                TYPE: "bullet",
-                LABEL: "Heavy",
-            },
-        },
-    ],
-}
 Class.assembler = {
     PARENT: "genericTank",
     DANGER: 7,
