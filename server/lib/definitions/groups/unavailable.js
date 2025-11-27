@@ -175,7 +175,7 @@ Class.undercoverCop = {
     PARENT: "booster",
     LABEL: "Undercover Cop",
     UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
-    PROPS: [
+    TURRETS: [
         {
             POSITION: {
                 SIZE: 6,

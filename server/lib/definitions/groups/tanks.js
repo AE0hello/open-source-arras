@@ -1,4 +1,4 @@
-const { combineStats, makeAuto, makeOver, makeDeco, makeGuard, makeBird, makeRadialAuto, weaponArray, makeTurret } = require('../facilitators.js')
+const { combineStats, makeAuto, makeOver, makeDeco, makeGuard, makeBird, makeRadialAuto, weaponArray, weaponMirror, makeTurret } = require('../facilitators.js')
 const { base, statnames, dfltskl, smshskl } = require('../constants.js')
 require('./generics.js')
 const g = require('../gunvals.js')
@@ -49,6 +49,31 @@ Class.basic = {
                 NEGATIVE_RECOIL: false
             }
         }
+    ],
+    UPGRADES_TIER_3: []
+}
+Class.basic_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Basic",
+    DANGER: 4,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet"
+            }
+        }
+    ],
+    UPGRADES_TIER_1: [
+        "machineGun_diep2",
+        "twin_diep2",
+        "pounder_diep2",
+        "sniper_diep2",
+        "flankGuard_diep2",
     ]
 }
 
@@ -109,7 +134,12 @@ Class.flail = {
         TYPE: ["flailBolt3", {
             INDEPENDENT: true
         }]
-    }]
+    }],
+    UPGRADES_TIER_2: [
+        "doubleFlail",
+        "mace",
+        "flangle",
+    ]
 }
 Class.flankGuard = {
     PARENT: "genericTank",
@@ -127,6 +157,40 @@ Class.flankGuard = {
             TYPE: "bullet"
         }
     }, 3)
+}
+Class.flankGuard_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Flank Guard",
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 18,
+            WIDTH: 8
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
+            TYPE: "bullet"
+        }
+    }, 3),
+    UPGRADES_TIER_2: [
+        "hexaTank_diep2",
+    ]
+}
+Class.flankGuard_diep2_old = {
+    PARENT: "genericTank",
+    LABEL: "Triple Tank",
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 18,
+            WIDTH: 8
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
+            TYPE: "bullet"
+        }
+    }, 3),
+    UPGRADES_TIER_2: [
+        "hexaTank_diep2",
+    ]
 }
 Class.machineGun = {
     PARENT: "genericTank",
@@ -146,6 +210,27 @@ Class.machineGun = {
         }
     ]
 }
+Class.machineGun_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Machine Gun",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: 1.7
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
+                TYPE: "bullet"
+            }
+        }
+    ],
+    UPGRADES_TIER_2: [
+        "blaster_diep2",
+        "gatlingGun_diep2",
+    ]
+}
 Class.pounder = {
     PARENT: "genericTank",
     LABEL: "Pounder",
@@ -162,11 +247,47 @@ Class.pounder = {
         }
     ]
 }
+Class.pounder_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Pounder",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 12
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.sniper = {
     PARENT: "genericTank",
     LABEL: "Sniper",
     BODY: {
         FOV: 1.2 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
+Class.sniper_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Sniper",
+    BODY: {
+        ACCELERATION: 0.7 * base.ACCEL,
+        FOV: 1.1 * base.FOV
     },
     GUNS: [
         {
@@ -208,6 +329,21 @@ Class.trapper = {
     ]
 }
 Class.twin = {
+    PARENT: "genericTank",
+    LABEL: "Twin",
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 20,
+            WIDTH: 8,
+            Y: 5.5
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
+            TYPE: "bullet"
+        }
+    })
+}
+Class.twin_diep2 = {
     PARENT: "genericTank",
     LABEL: "Twin",
     GUNS: [
@@ -268,7 +404,19 @@ Class.whirlwind = {
             }) 
         }
         return output
-    })()
+    })(),
+    UPGRADES_TIER_2: [
+        "tornado",
+        "hurricane",
+    ],
+    UPGRADES_TIER_3: [
+        "hexaWhirl",
+        "munition",
+        "whirl3",
+        "whirlGuard",
+        "prophet",
+        "vortex",
+    ]
 }
 
 // Tier 2
@@ -295,6 +443,26 @@ Class.assassin = {
 }
 Class.auto3 = makeRadialAuto("autoTankGun", {isTurret: true, danger: 6, label: "Auto-3"})
 Class.autoTrapper = makeAuto("trapper")
+Class.blaster_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Blaster",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ASPECT: 1.9,
+                X: 4
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster]),
+                TYPE: "bullet"
+            }
+        }
+    ],
+    UPGRADES_TIER_3: ["flamethrower_diep2"]
+}
 Class.builder = {
     PARENT: "genericTank",
     LABEL: "Builder",
@@ -374,7 +542,10 @@ Class.doubleFlail = {
         TYPE: ["flailBolt3", {
             INDEPENDENT: true
         }]
-    }]
+    }],
+    UPGRADES_TIER_3: [
+        "tripleFlail",
+    ]
 }
 Class.doubleTwin = {
     PARENT: "genericTank",
@@ -427,6 +598,31 @@ Class.flangle = {
         }]
     }],
     SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+    UPGRADES_TIER_3: [
+        "flooster",
+        "flace",
+    ]
+}
+Class.gatlingGun_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Gatling Gun",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8,
+                ASPECT: 1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal]),
+                TYPE: "bullet"
+            }
+        }
+    ],
+    UPGRADES_TIER_3: [
+        "sprayer_diep2",
+    ]
 }
 Class.gunner = {
     PARENT: "genericTank",
@@ -493,6 +689,12 @@ Class.healer = {
                 TYPE: "healerBullet"
             }
         }
+    ],
+    UPGRADES_TIER_3: [
+        "medic",
+        "ambulance",
+        "surgeon",
+        "paramedic",
     ]
 }
 Class.helix = {
@@ -537,6 +739,21 @@ Class.hexaTank = {
             TYPE: "bullet"
         }
     }, 6, 0.5)
+}
+Class.hexaTank_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Hexa Tank",
+    DANGER: 6,
+    GUNS: weaponArray({
+        POSITION: [18, 8, 1, 0, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard]),
+            TYPE: "bullet"
+        }
+    }, 6, 0.5),
+    UPGRADES_TIER_3: [
+        "octoTank_diep2",
+    ]
 }
 Class.hunter = {
     PARENT: "genericTank",
@@ -598,7 +815,11 @@ Class.hurricane = {
             }) 
         }
         return output
-    })()
+    })(),
+    UPGRADES_TIER_3: [
+        "typhoon",
+        "blizzard",
+    ]
 }
 Class.launcher = {
     PARENT: "genericTank",
@@ -630,7 +851,12 @@ Class.mace = {
         TYPE: ["maceBolt3", {
             INDEPENDENT: true
         }]
-    }]
+    }],
+    UPGRADES_TIER_3: [
+        "bigMama",
+        "itHurtsDontTouchIt",
+        "flace",
+    ]
 }
 Class.marksman = {
     PARENT: "genericTank",
@@ -860,6 +1086,48 @@ Class.sprayer = {
         }
     ]
 }
+Class.sprayer_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Sprayer",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [24, 6, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [20, 8, 1.7, -1, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, { recoil: 0.5 }]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
+Class.sprayer_diep2_old = {
+    PARENT: "genericTank",
+    LABEL: "Sprayer",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [24, 8, 1.5, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [20, 8, 1.7, -1, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.tornado = {
     PARENT: "genericTank",
     LABEL: "Tornado",
@@ -893,7 +1161,12 @@ Class.tornado = {
             }) 
         }
         return output
-    })()
+    })(),
+    UPGRADES_TIER_3: [
+        "megaTornado",
+        "tempest",
+        "thunderbolt",
+    ]
 }
 Class.trapGuard = makeGuard({
     PARENT: "genericTank",
@@ -1109,7 +1382,14 @@ Class.whirlwind_old = {
             }) 
         }
         return output
-    })()
+    })(),
+    UPGRADES_TIER_3: [
+        "monsoon",
+        "maelstrom",
+        "tornado_old",
+        "typhoon_old",
+        "vortex_old",
+    ]
 }
 
 // Tier 3
@@ -1173,7 +1453,7 @@ Class.annihilator = {
         },
     ],
 }
-Class.armsman = makeOver('rifle', "Armsman", hybridTankOptions)
+Class.armsman = makeOver("rifle", "Armsman", hybridTankOptions)
 Class.architect = makeRadialAuto("architectGun", {isTurret: true, danger: 7, size: 12, label: "Architect", body: {SPEED: 1.1 * base.SPEED}})
 Class.artillery = {
     PARENT: "genericTank",
@@ -1478,7 +1758,7 @@ Class.bentDouble = {
         }
     ], 2)
 }
-Class.bentHybrid = makeOver('tripleShot', "Bent Hybrid", hybridTankOptions)
+Class.bentHybrid = makeOver("tripleShot", "Bent Hybrid", hybridTankOptions)
 Class.bigCheese = {
     PARENT: "genericTank",
     LABEL: "Big Cheese",
@@ -2471,6 +2751,33 @@ Class.flace = {
     }],
     SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
 }
+Class.flamethrower_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Flamethrower",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 20,
+                ASPECT: 0.95,
+                X: 13
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster]),
+                TYPE: "growBullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 12,
+                ASPECT: 2,
+                X: 4
+            }
+        }
+    ]
+}
 Class.flooster = {
     PARENT: "genericFlail",
     LABEL: "Flooster",
@@ -2683,21 +2990,7 @@ Class.hewnDouble = {
                 TYPE: "bullet"
             }
         },
-        {
-            POSITION: [20, 8, 1, 0, 5.5, 180, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin, g.hewnDouble, { recoil: 1.15 }]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [20, 8, 1, 0, -5.5, 180, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin, g.hewnDouble, { recoil: 1.15 }]),
-                TYPE: "bullet"
-            }
-        },
-        {
+        ...weaponArray([{
             POSITION: [20, 8, 1, 0, 5.5, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin, g.hewnDouble]),
@@ -2710,7 +3003,7 @@ Class.hewnDouble = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin, g.hewnDouble]),
                 TYPE: "bullet"
             }
-        }
+        }], 2)
     ]
 }
 Class.hexaTrapper = makeAuto({
@@ -3595,6 +3888,28 @@ Class.octoTank = {
         }
     ], 4)
 }
+Class.octoTank_diep2 = {
+    PARENT: "genericTank",
+    LABEL: "Octo Tank",
+    DANGER: 7,
+    GUNS: weaponArray([
+        // Must be kept like this to preserve visual layering
+        {
+            POSITION: [19, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [19, 8, 1, 0, 0, 45, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet"
+            }
+        }
+    ], 4)
+}
 Class.ordnance = {
     PARENT: "genericTank",
     LABEL: "Ordnance",
@@ -4001,7 +4316,7 @@ Class.prophet.GUNS.push(
         }
     }
 )
-Class.python = { // super spiral?
+Class.python = { // likely also super spiral
     PARENT: "genericTank",
     LABEL: "Python",
     DANGER: 7,
@@ -4091,7 +4406,7 @@ Class.railgun = {
         },
     ],
 }
-Class.ranch = { // ranch is old bender, it fires train minions with 3 bodies (though only one of them has a gun)
+Class.ranch = { // ranch/wrangler is old bender, it fires train minions with 3 bodies (though only one of them has a gun)
     PARENT: "genericTank",
     LABEL: "Ranch",
     DANGER: 7,
@@ -5422,7 +5737,7 @@ Class.quintuplet = {
     ]
 }
 
-// Tierless/Meme
+// Tierless / Fun
 Class.rapture = {
     PARENT: "genericTank",
     LABEL: "Rapture",
@@ -5474,10 +5789,8 @@ Class.rapture = {
 // Upgrade Paths
 Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "desmos"]
     Class.basic.UPGRADES_TIER_2 = ["smasher"]
-        Class.basic.UPGRADES_TIER_3 = []
         Class.smasher.UPGRADES_TIER_3 = ["megaSmasher", "spike", "autoSmasher", "landmine"]
         Class.healer.UPGRADES_TIER_3 = ["medic", "ambulance", "surgeon", "paramedic"]
-        Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]
 
     Class.twin.UPGRADES_TIER_2 = ["doubleTwin", "tripleShot", "gunner", "hexaTank", "helix"]
         Class.twin.UPGRADES_TIER_3 = ["dual", "bulwark", "musket"]
@@ -5521,16 +5834,6 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.triTrapper.UPGRADES_TIER_3 = ["fortress", "hexaTrapper", "septaTrapper", "architect"]
         Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"/*, "whirlGuard"*/]
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
-
-    Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"]
-        Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"]
-        Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"]
-        Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
-
-    Class.flail.UPGRADES_TIER_2 = ["doubleFlail", "mace", "flangle"]
-        Class.doubleFlail.UPGRADES_TIER_3 = ["tripleFlail"]
-        Class.mace.UPGRADES_TIER_3 = ["bigMama", "itHurtsDontTouchIt", "flace"]
-        Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
 
     Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "spiral", "undertow", "repeater"*/]
         //Class.desmos.UPGRADES_TIER_3 = ["bender"]

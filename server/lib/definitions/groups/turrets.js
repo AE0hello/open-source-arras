@@ -690,6 +690,17 @@ Class.autoTurret = makeTurret({
         },
     ],
 }, {label: "Turret", fov: 0.8, extraStats: []})
+Class.megaAutoTurret = makeTurret({
+    GUNS: [
+        {
+            POSITION: [22, 14, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}, {label: "Turret", fov: 0.8, extraStats: []})
 Class.droneAutoTurret = makeTurret({
     GUNS: [
         {

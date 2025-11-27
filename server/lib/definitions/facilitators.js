@@ -123,7 +123,7 @@ exports.makeGuard = (type, name = -1) => {
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name;
     return output;
 }
-exports.addBackGunner = (type, name = -1) => {
+exports.makeRearGunner = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);
     let cannons = [{
@@ -635,6 +635,34 @@ exports.weaponArray = (weapons, count, delayIncrement = 0, delayOverflow = false
             }
             output.push(newWeapon);
         }
+    }
+    return output;
+}
+exports.weaponMirror = (weapons, delayIncrement = 0.5, delayOverflow = false) => {
+    // delayIncrement: how much each side's delay increases by
+    // delayOverflow: false to constrain the delay value between [0, 1)
+    if (!Array.isArray(weapons)) {
+        weapons = [weapons]
+    }
+    let yKey = 4;
+    let angleKey = 5;
+    let delayKey = 6;
+
+    let output = [];
+    for (let weapon of weapons) {
+        let newWeapon = exports.dereference(weapon);
+
+        if (!Array.isArray(newWeapon.POSITION)) {
+            yKey = "Y";
+            angleKey = "ANGLE";
+            delayKey = "DELAY";
+        }
+
+        newWeapon.POSITION[yKey] = (newWeapon.POSITION[yKey] ?? 0) * -1;
+        newWeapon.POSITION[angleKey] = (newWeapon.POSITION[angleKey] ?? 0) * -1;
+        newWeapon.POSITION[delayKey] = (newWeapon.POSITION[delayKey] ?? 0) + delayIncrement;
+        output.push(weapon, newWeapon);
+
     }
     return output;
 }

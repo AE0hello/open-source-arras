@@ -127,25 +127,10 @@ Class.menu_tanks.UPGRADES_TIER_0 = [
 Class.menu_unused = makeMenu("Unused")
 Class.menu_unused.UPGRADE_TOOLTIP = "Tanks that aren't used by the game, for whatever reason."
 Class.menu_unused.UPGRADES_TIER_0 = [
-    "menu_dailyTanks",
+    "healer",
     "menu_unreleased",
     "menu_removed",
     "menu_fun",
-    "healer",
-]
-
-Class.menu_dailyTanks = makeMenu("Daily Tanks", "rainbow")
-Class.menu_dailyTanks.UPGRADE_TOOLTIP = "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available. \n" +
-                                        "The Daily Tank for a server can be added or changed in config."
-Class.menu_dailyTanks.UPGRADES_TIER_0 = [
-    "whirlwind",
-    "master",
-    "undertow",
-    "literallyAMachineGun",
-    "literallyATank",
-    "rocketeer",
-    "jumpSmasher",
-    "rapture"
 ]
 
 Class.menu_unreleased = makeMenu("Unreleased")
@@ -162,7 +147,6 @@ Class.menu_unreleased.UPGRADES_TIER_0 = [
     "rimfire_old",
     "spiral",
     "volute",
-    "vulcan",
     "whirlwind_old",
     "whirlwind_bent",
 ]
@@ -170,9 +154,33 @@ Class.menu_unreleased.UPGRADES_TIER_0 = [
 Class.menu_removed = makeMenu("Removed")
 Class.menu_removed.UPGRADE_TOOLTIP = "Tanks that were either removed entirely or replaced with redesigned versions."
 Class.menu_removed.UPGRADES_TIER_0 = [
+    "menu_dailyTanks",
+    "menu_diep2",
     "boomer_old",
     "spike_old",
     "spreadshot_old",
+]
+
+Class.menu_dailyTanks = makeMenu("Daily Tanks", "rainbow")
+Class.menu_dailyTanks.UPGRADE_TOOLTIP = "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available. \n" +
+                                        "The Daily Tank for a server can be added or changed in config."
+Class.menu_dailyTanks.UPGRADES_TIER_0 = [
+    "whirlwind", // dec 13/21
+    "master", // dec 14/22
+    "undertow", // dec 15/23
+    "literallyAMachineGun", // dec 16/24
+    "literallyATank", // dec 17
+    "rocketeer", // dec 18
+    "jumpSmasher", // dec 19/20
+    "rapture" // dec 25
+]
+
+Class.menu_diep2 = makeMenu("Diep2")
+Class.menu_diep2.UPGRADE_TOOLTIP = "Tanks that were included in the early mockup builds of arras.io."
+Class.menu_diep2.UPGRADES_TIER_0 = [
+    "basic_diep2",
+    "sprayer_diep2_old",
+    "flankGuard_diep2_old",
 ]
 
 Class.menu_fun = makeMenu("Fun")
@@ -482,7 +490,6 @@ Class.airblast = {
 Class.satelliteBullet = {
     PARENT: "bullet",
     ANGLE: 60,
-    CONTROLLERS: ["whirlwind"],
     HAS_NO_RECOIL: true,
     AI: {
         SPEED: 2, 
@@ -494,7 +501,7 @@ Class.satelliteBullet = {
                 POSITION: {WIDTH: 16, LENGTH: 1, DELAY: i * 0.25},
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.satellite]), 
-                    TYPE: ["satellite", {ANGLE: i * 120}], 
+                    TYPE: ["satellite", {ANGLE: i * 120, INDEPENDENT: true}], 
                     MAX_CHILDREN: 1,   
                     AUTOFIRE: true,  
                     SYNCS_SKILLS: false,
