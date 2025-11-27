@@ -491,6 +491,7 @@ Class.airblast = {
 Class.satelliteBullet = {
     PARENT: "bullet",
     ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
     HAS_NO_RECOIL: true,
     CONTROLLERS: ["whirlwind"],
     AI: {
@@ -569,6 +570,7 @@ Class.whirlwind_bent = {
         }
     ]
 }
+Class.developer.UPGRADES_TIER_0.push("satelliteBullet", "whirlwind_bent")
 Class.hurricane_bent = {
     PARENT: "genericTank",
     LABEL: "Hurricane",
