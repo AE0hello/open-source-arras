@@ -1133,7 +1133,7 @@ class Entity extends EventEmitter {
         if (this.parent != null) util.remove(this.parent.children, this.parent.children.indexOf(this));
         // Kill all of its children
         for (const instance of entities.values()) {
-            if (instance.source.id === this.id) {
+            if (instance.source.id === this.id || instance.parentID == this.id) {
                 if (instance.settings.persistsAfterDeath) {
                     instance.source = instance;
                 } else if (this.master.label !== "Bacteria") {

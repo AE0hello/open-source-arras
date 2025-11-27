@@ -335,6 +335,7 @@ class Gun extends EventEmitter {
             var o = new Entity(spawnOffset);
             o.color.base = undefined;
             this.bulletInitIndependent(o);
+            o.parentID = this.body.id;
             o.color.base = o.color.base ?? this.body.master.color.base;
             o.SIZE = (this.body.size * this.width * this.settings.size) / 2;
             o.velocity = s;
