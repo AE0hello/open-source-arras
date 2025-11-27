@@ -1115,9 +1115,9 @@ class io_orbit extends IO {
         this.invert = opts.invert ?? false;
     }
   
-    think(input) { // TODO: fix this in case someone fires a bullet with satellites on it
+    think(input) { // TODO: fix this
         let invertFactor = this.invert ? -1 : 1,
-            master = this.body.master.master,
+            master = this.body.master.master, // WHY? this forces satellites to appear with the parent tank even if they're shot by a bullet
             dist = this.invert ? master.inverseDist : master.dist,
             angle = (this.body.angle * Math.PI / 180 + master.angle) * invertFactor;
         

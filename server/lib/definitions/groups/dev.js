@@ -509,6 +509,11 @@ Class.whirlwind_bent = {
     PARENT: "genericTank",
     LABEL: "Whirlwind",
     UPGRADE_LABEL: "Bent Whirlwind",
+    ANGLE: 120,
+    CONTROLLERS: ["whirlwind"],
+    AI: {
+        SPEED: 2, 
+    },
     GUNS: [
         {
             POSITION: {
@@ -558,6 +563,11 @@ Class.whirlwind_bent = {
 Class.hurricane_bent = {
     PARENT: "genericTank",
     LABEL: "Hurricane",
+    ANGLE: 120,
+    CONTROLLERS: ["whirlwind"],
+    AI: {
+        SPEED: 2, 
+    },
     GUNS: weaponArray([{
         POSITION: {
             LENGTH: 15,
@@ -581,6 +591,11 @@ Class.hurricane_bent = {
 Class.maelstrom_bent = {
     PARENT: "genericTank",
     LABEL: "Maelstrom",
+    ANGLE: 120,
+    CONTROLLERS: ["whirlwind"],
+    AI: {
+        SPEED: 2, 
+    },
     GUNS: [
         {
             POSITION: {
@@ -645,6 +660,11 @@ Class.monsoon_bent = { // closest i could get, if you wanna try making it better
     PARENT: "genericTank",
     LABEL: "Monsoon",
     STAT_NAMES: statnames.trap,
+    ANGLE: 120,
+    CONTROLLERS: ["whirlwind"],
+    AI: {
+        SPEED: 2, 
+    },
     GUNS: [
         {
             POSITION: {
@@ -716,6 +736,11 @@ Class.monsoon_bent = { // closest i could get, if you wanna try making it better
 Class.tempest_bent = {
     PARENT: "genericTank",
     LABEL: "Tempest",
+    ANGLE: 120,
+    CONTROLLERS: ["whirlwind"],
+    AI: {
+        SPEED: 2, 
+    },
     GUNS: [
         {
             POSITION: {
@@ -741,6 +766,11 @@ Class.tempest_bent = {
 Class.typhoon_bent = {
     PARENT: "genericTank",
     LABEL: "Typhoon",
+    ANGLE: 120,
+    CONTROLLERS: ["whirlwind"],
+    AI: {
+        SPEED: 2, 
+    },
     GUNS: [
         {
             POSITION: {
