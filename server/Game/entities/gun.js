@@ -54,6 +54,7 @@ class Gun extends EventEmitter {
             this.syncsSkills = info.PROPERTIES.SYNCS_SKILLS == null ? false : info.PROPERTIES.SYNCS_SKILLS;
             this.negRecoil = info.PROPERTIES.NEGATIVE_RECOIL == null ? false : info.PROPERTIES.NEGATIVE_RECOIL;
             this.independentChildren = info.PROPERTIES.INDEPENDENT_CHILDREN == null ? false : info.PROPERTIES.INDEPENDENT_CHILDREN;
+            this.independentMaster = info.PROPERTIES.INDEPENDENT_MASTER == null ? false : info.PROPERTIES.INDEPENDENT_MASTER;
             this.borderless = info.PROPERTIES.BORDERLESS == null ? false : info.PROPERTIES.BORDERLESS;
             this.drawFill = info.PROPERTIES.DRAW_FILL == null ? true : info.PROPERTIES.drawFill;
             this.spawnOffset = info.PROPERTIES.SPAWN_OFFSET == null ? Config.bulletSpawnOffset : info.PROPERTIES.SPAWN_OFFSET;
@@ -329,6 +330,26 @@ class Gun extends EventEmitter {
         let spawnOffset = {
             x: this.body.x + this.body.size * gx - s.x,
             y: this.body.y + this.body.size * gy - s.y,
+        }
+        if (this.independentMaster) {
+            var o = new Entity(spawnOffset);
+            o.color.base = undefined;
+            this.bulletInitIndependent(o);
+            o.color.base = o.color.base ?? this.body.master.color.base;
+            o.SIZE = (this.body.size * this.width * this.settings.size) / 2;
+            o.velocity = s;
+            o.facing = o.velocity.direction;
+            o.refreshBodyAttributes();
+            o.life();
+            this.onShootFunction();
+            this.recoilDir = this.body.facing + this.angle;
+            this.master.emit(this.altFire ? 'altFire' : 'fire', {
+                gun: this,
+                store: this.store,
+                globalStore: this.globalStore,
+                child: o,
+            });
+            return;
         }
         if (this.independentChildren) {
             var o;

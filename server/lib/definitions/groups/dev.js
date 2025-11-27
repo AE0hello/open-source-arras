@@ -492,6 +492,7 @@ Class.satelliteBullet = {
     PARENT: "bullet",
     ANGLE: 60,
     HAS_NO_RECOIL: true,
+    CONTROLLERS: ["whirlwind"],
     AI: {
         SPEED: 2, 
     },
@@ -499,9 +500,9 @@ Class.satelliteBullet = {
         let output = []
         for (let i = 0; i < 3; i++) {
             output.push({
-                POSITION: {WIDTH: 16, LENGTH: 1, DELAY: i * 0.25},
+                POSITION: {WIDTH: 16, LENGTH: 1, DELAY: 0},
                 PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.satellite]), 
+                    SHOOT_SETTINGS: combineStats([g.satellite, {reload: 0}]), 
                     TYPE: ["satellite", {ANGLE: i * 120, INDEPENDENT: true}], 
                     MAX_CHILDREN: 1,   
                     AUTOFIRE: true,  
@@ -517,8 +518,6 @@ Class.whirlwind_bent = {
     PARENT: "genericTank",
     LABEL: "Whirlwind",
     UPGRADE_LABEL: "Bent Whirlwind",
-    ANGLE: 120,
-    CONTROLLERS: ["whirlwind"],
     AI: {
         SPEED: 2, 
     },
@@ -533,6 +532,7 @@ Class.whirlwind_bent = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
                 TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
@@ -546,6 +546,7 @@ Class.whirlwind_bent = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
                 TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
@@ -584,7 +585,8 @@ Class.hurricane_bent = {
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin]),
-            TYPE: "satelliteBullet"
+            TYPE: "satelliteBullet",
+            INDEPENDENT_MASTER: true,
         }
     },
     {
@@ -615,6 +617,7 @@ Class.maelstrom_bent = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
                 TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
@@ -627,6 +630,7 @@ Class.maelstrom_bent = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
                 TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
@@ -653,6 +657,7 @@ Class.maelstrom_bent = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
                 TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
@@ -759,7 +764,8 @@ Class.tempest_bent = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }]),
-                TYPE: "satelliteBullet"
+                TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
@@ -788,6 +794,7 @@ Class.typhoon_bent = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
                 TYPE: "satelliteBullet",
+                INDEPENDENT_MASTER: true,
             }
         },
         {
