@@ -1115,7 +1115,7 @@ class io_orbit extends IO {
         this.invert = opts.invert ?? false;
     }
   
-    think(input) {
+    think(input) { // TODO: fix this in case someone fires a bullet with satellites on it
         let invertFactor = this.invert ? -1 : 1,
             master = this.body.master.master,
             dist = this.invert ? master.inverseDist : master.dist,
@@ -1127,8 +1127,8 @@ class io_orbit extends IO {
         else if(this.realDist < dist){
             this.realDist += Math.min(10, Math.abs(dist - this.realDist));
         }
-        this.body.x = master.x + Math.cos(angle) * this.realDist; // TODO: fix these in case someone fires a bullet with satellites on it
-        this.body.y = master.y + Math.sin(angle) * this.realDist; // TODO: fix these in case someone fires a bullet with satellites on it
+        this.body.x = master.x + Math.cos(angle) * this.realDist;
+        this.body.y = master.y + Math.sin(angle) * this.realDist;
         
         this.body.facing = angle;
     }
