@@ -141,7 +141,7 @@ Class.arrasMenu_scrapped.UPGRADES_TIER_0 = [
     "megaTrapper",
     "railgun",
     "megaSpawner",
-    "badDreadnought",
+    "dreadnought_old",
 ]
 
 Class.arrasMenu_scrapped2 = makeMenu("Scrapped Menu 2")

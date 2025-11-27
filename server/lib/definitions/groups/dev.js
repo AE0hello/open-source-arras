@@ -16,6 +16,7 @@ Class.developer = {
         DENSITY: 20,
         FOV: 2,
     },
+    //COLOR: "mirror", // todo: make sure mirror colour doesnt grey out your leaderboard
     SKILL_CAP: Array(10).fill(dfltskl),
     IGNORED_BY_AI: true,
     RESET_CHILDREN: true,
@@ -116,16 +117,20 @@ Class.menu_tanks = makeMenu("Tanks")
 //Class.menu_tanks.UPGRADE_TOOLTIP = "Every tank. Need I say more?"
 Class.menu_tanks.UPGRADES_TIER_0 = [
     Config.SPAWN_CLASS,
-    "menu_unavailable",
+    "menu_unused",
     "arenaCloser",
     "menu_mapEntities",
     "menu_motherships",
     "undercoverCop",
 ]
 
-Class.menu_unavailable = makeMenu("Unavailable")
-Class.menu_unavailable.UPGRADES_TIER_0 = [
+Class.menu_unused = makeMenu("Unused")
+Class.menu_unused.UPGRADE_TOOLTIP = "Tanks that aren't used by the game, for whatever reason."
+Class.menu_unused.UPGRADES_TIER_0 = [
     "menu_dailyTanks",
+    "menu_unreleased",
+    "menu_removed",
+    "menu_fun",
     "healer",
 ]
 
@@ -143,7 +148,65 @@ Class.menu_dailyTanks.UPGRADES_TIER_0 = [
     "rapture"
 ]
 
+Class.menu_unreleased = makeMenu("Unreleased")
+Class.menu_unreleased.UPGRADE_TOOLTIP = "Tanks that were fully created and likely intended to be added, but never were."
+Class.menu_unreleased.UPGRADES_TIER_0 = [
+    "autoTrapper",
+    "blunderbuss",
+    "dreadnought_old",
+    "flail",
+    "mender",
+    "prodigy",
+    "quadBuilder",
+    "repeater",
+    "rimfire_old",
+    "spiral",
+    "volute",
+    "vulcan",
+    "whirlwind_old",
+    "whirlwind_bent",
+]
+
+Class.menu_removed = makeMenu("Removed")
+Class.menu_removed.UPGRADE_TOOLTIP = "Tanks that were either removed entirely or replaced with redesigned versions."
+Class.menu_removed.UPGRADES_TIER_0 = [
+    "boomer_old",
+    "spike_old",
+    "spreadshot_old",
+]
+
+Class.menu_fun = makeMenu("Fun")
+Class.menu_fun.UPGRADE_TOOLTIP = "Tanks that, let's be honest, aren't used for a good reason.\n" +
+                                 //"\n" +
+                                 "DISCLAIMER: Some of the content in here may be in poor taste. Blame the arras.io devs, not us."
+Class.menu_fun.UPGRADES_TIER_0 = [
+    //"alas",
+    //"average4tdmScore",
+    //"averageL39Hunt",
+    //"beeman",
+    "bigBalls",
+    "cxATMG",
+    "damoclone",
+    "fat456",
+    //"heptaAutoBasic",
+    "machineShot",
+    "meDoingYourMom",
+    "momwtdym",
+    //"quadCyclone",
+    "rapture",
+    "riptide",
+    //"schoolShooter",
+    //"smasher3",
+    "tetraGunner",
+    //"theAmalgamation",
+    //"theConglomerate",
+    "tracker3",
+    "wifeBeater",
+    "worstTank",
+]
+
 Class.menu_mapEntities = makeMenu("Map Entities")
+Class.menu_mapEntities.UPGRADE_TOOLTIP = "Tanks that spawn as part of the map layout."
 Class.menu_mapEntities.PROPS = [
     {
         POSITION: [22, 0, 0, 360, 0],
@@ -191,6 +254,7 @@ Class.menu_sanctuaries.UPGRADES_TIER_0 = [
 ]
 
 Class.menu_motherships = makeMenu("Motherships", "mirror", 16)
+Class.menu_motherships.UPGRADE_TOOLTIP = "Giant Enemy Tanks that you attack the weak points of for massive damage."
 Class.menu_motherships.UPGRADES_TIER_0 = [
     "mothership",
     "flagship",
@@ -348,7 +412,7 @@ Class.menu_retiredDevBosses.UPGRADES_TIER_0 = [
 
 // Addons Menu
 Class.menu_addons = makeMenu("Addons")
-//Class.menu_addons.UPGRADE_TOOLTIP = ""
+Class.menu_addons.UPGRADE_TOOLTIP = "Content that is (usually) not part of Open Source Arras but was added by someone else."
 Class.menu_addons.UPGRADES_TIER_0 = [] // Empty by default, gets filled up with all the addons you add
 
 // Testing Menu
@@ -383,32 +447,51 @@ Class.menu_testing.UPGRADES_TIER_0 = [
     "vanquisher",
     "mummifier",
     "syncWithTankTest",
-    "concept",
+    "airblast",
 ]
 
-// Testing tanks
-Class.conceptBullet = {
-    LABEL: "Bullet",
-    TYPE: "bullet",
-    ACCEPTS_SCORE: false,
-    BODY: {
-        PENETRATION: 1,
-        SPEED: 3.75,
-        RANGE: 90,
-        DENSITY: 1.25,
-        HEALTH: 0.165,
-        DAMAGE: 6,
-        PUSHABILITY: 0.3,
+// airblast testing
+Class.airblast = {
+    PARENT: "genericTank",
+    LABEL: "Airblast",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 10,
+                ASPECT: 1.4,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }]),
+                TYPE: "airblastBullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 8,
+                ASPECT: 1.4,
+                X: 8
+            }
+        }
+    ]
+}
+
+// Bent Whirlwind Testing and debugging
+Class.satelliteBullet = {
+    PARENT: "bullet",
+    ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    AI: {
+        SPEED: 2, 
     },
-    FACING_TYPE: "smoothWithMotion",
-    CAN_GO_OUTSIDE_ROOM: true,
-    HITS_OWN_TYPE: "never",
-    DIE_AT_RANGE: true,
     GUNS: (() => { 
         let output = []
         for (let i = 0; i < 3; i++) {
             output.push({
-                POSITION: {WIDTH: 8, LENGTH: 1, DELAY: i * 0.25},
+                POSITION: {WIDTH: 16, LENGTH: 1, DELAY: i * 0.25},
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.satellite]), 
                     TYPE: ["satellite", {ANGLE: i * 120}], 
@@ -422,25 +505,266 @@ Class.conceptBullet = {
         return output
     })()
 }
-Class.concept = {
+Class.whirlwind_bent = {
     PARENT: "genericTank",
-    LABEL: "Concept",
+    LABEL: "Whirlwind",
+    UPGRADE_LABEL: "Bent Whirlwind",
     GUNS: [
         {
             POSITION: {
-                LENGTH: 18,
+                LENGTH: 15,
                 WIDTH: 8,
-                ASPECT: -1.5
+                Y: 4.5,
+                ANGLE: 15
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "conceptBullet",
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
+                TYPE: "satelliteBullet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                Y: -4.5,
+                ANGLE: -15,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin]),
+                TYPE: "satelliteBullet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 4,
+                ASPECT: -1.5,
+                Y: 4.5,
+                ANGLE: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 4,
+                ASPECT: -1.5,
+                Y: -4.5,
+                ANGLE: -15
+            }
+        }
+    ]
+}
+Class.hurricane_bent = {
+    PARENT: "genericTank",
+    LABEL: "Hurricane",
+    GUNS: weaponArray([{
+        POSITION: {
+            LENGTH: 15,
+            WIDTH: 8,
+            ANGLE: 45
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin]),
+            TYPE: "satelliteBullet"
+        }
+    },
+    {
+        POSITION: {
+            LENGTH: 16,
+            WIDTH: 4,
+            ASPECT: -1.5,
+            ANGLE: 45
+        }
+    }], 4)
+}
+Class.maelstrom_bent = {
+    PARENT: "genericTank",
+    LABEL: "Maelstrom",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                ANGLE: 45,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: "satelliteBullet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                ANGLE: -45,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: "satelliteBullet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 4,
+                ASPECT: -1.5,
+                ANGLE: 45
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 4,
+                ASPECT: -1.5,
+                ANGLE: -45
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 8,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: "satelliteBullet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 4,
+                ASPECT: -1.5
+            }
+        }
+    ]
+}
+Class.monsoon_bent = { // closest i could get, if you wanna try making it better then go ahead
+    PARENT: "genericTank",
+    LABEL: "Monsoon",
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                Y: 2,
+                ANGLE: 30
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                Y: -2,
+                ANGLE: -30,
+                DELAY: 0.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 8,
+                ASPECT: 1.25,
+                X: 14,
+                Y: 2,
+                ANGLE: 30
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 8,
+                ASPECT: 1.25,
+                X: 14,
+                Y: -2,
+                ANGLE: -30
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 4,
+                ASPECT: -1.5,
+                Y: 2,
+                ANGLE: 30
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 4,
+                ASPECT: -1.5,
+                Y: -2,
+                ANGLE: -30
+            }
+        }
+    ]
+}
+Class.tempest_bent = {
+    PARENT: "genericTank",
+    LABEL: "Tempest",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }]),
+                TYPE: "satelliteBullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 6,
+                ASPECT: -2
+            }
+        }
+    ]
+}
+Class.typhoon_bent = {
+    PARENT: "genericTank",
+    LABEL: "Typhoon",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 12,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
+                TYPE: "satelliteBullet",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ASPECT: -1.5
             }
         }
     ]
 }
 
+Class.whirlwind_bent.UPGRADES_TIER_3 = ["maelstrom_bent", "hurricane_bent", "monsoon_bent", "typhoon_bent", "tempest_bent"] // not sure if this is actually t2
 
+// Testing tanks
 Class.diamondShape = {
     PARENT: "basic",
     LABEL: "Rotated Body",

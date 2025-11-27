@@ -6,13 +6,6 @@ const g = require('../gunvals.js')
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
 
-// Quick Configuration (dev testing, will be removed by next patch)
-const enable_april_fools = false
-const enable_flail_branch = false
-const enable_whirlwind_branch = 0 // Set to 1 for the ingame (lv15) branch, set to 2 for the prototype (lv30) branch
-const enable_scrapped_tanks = false
-const enable_weird_spike = false
-
 // Basic Tank
 Class.basic = {
     PARENT: "genericTank",
@@ -2172,6 +2165,48 @@ Class.deadeye = {
         }
     ]
 }
+Class.dreadnought_old = {
+    PARENT: "genericTank",
+    LABEL: "Dreadnought",
+    UPGRADE_LABEL: "Bad Dreadnought",
+    DANGER: 7,
+    FACING_TYPE: "locksFacing",
+    STAT_NAMES: statnames.swarm,
+    BODY: {
+        FOV: base.FOV * 1.2,
+    },
+    TURRETS: [
+        {
+            POSITION: [20, -4, 0, 0, 0, 0],
+            TYPE: "genericEntity",
+        },
+    ],
+    GUNS: [
+        {
+            POSITION: [18, 8, 1, 0, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        },
+        {
+            POSITION: [6, 16, 1, 16, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.fake]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        },
+        {
+            POSITION: [1, 3, 1, 3, 0, 180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([ g.basic, g.twin, g.gunner, g.machineGun, g.thruster, [0.1, 3, 1, 1, 1, 1, 1, 1, 1, 0.075, 1, 2, 1] ]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.dual = {
     PARENT: "genericTank",
     LABEL: "Dual",
@@ -3966,7 +4001,7 @@ Class.prophet.GUNS.push(
         }
     }
 )
-Class.python = {
+Class.python = { // super spiral?
     PARENT: "genericTank",
     LABEL: "Python",
     DANGER: 7,
@@ -5463,28 +5498,28 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
 
     Class.flankGuard.UPGRADES_TIER_2 = ["hexaTank", "triAngle", "auto3", "trapGuard", "triTrapper"]
         Class.flankGuard.UPGRADES_TIER_3 = ["tripleTwin", "quadruplex"]
-        Class.hexaTank.UPGRADES_TIER_3 = ["octoTank", "cyclone", "hexaTrapper"]
+        Class.hexaTank.UPGRADES_TIER_3 = ["octoTank", "cyclone", "hexaTrapper"/*, "hexaWhirl*/]
         Class.triAngle.UPGRADES_TIER_3 = ["fighter", "booster", "falcon", "bomber", "autoTriAngle", "surfer", "eagle", "phoenix", "vulture"]
-        Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee"]
+        Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee"/*, "whirl3"*/]
 
     Class.director.UPGRADES_TIER_2 = ["overseer", "cruiser", "underseer", "spawner"]
         Class.director.UPGRADES_TIER_3 = ["manager", "bigCheese"]
         Class.overseer.UPGRADES_TIER_3 = ["overlord", "overtrapper", "overgunner", "banshee", "autoOverseer", "overdrive", "commander"]
         Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "autoCruiser", "commander"]
-        Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor"]
+        Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "infestor"/*, "prophet"*/]
         Class.spawner.UPGRADES_TIER_3 = ["factory", "autoSpawner"/*, "bender", "ranch"*/]
 
     Class.pounder.UPGRADES_TIER_2 = ["destroyer", "builder", "artillery", "launcher"/*, "volute"*/]
         Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle"]
         Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct"]
-        Class.artillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun"]
-        Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "sidewinder", "fieldGun"]
+        Class.artillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun"/*, "munition"*/]
+        Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "sidewinder", "fieldGun"/*, "vortex"*/]
 
     Class.trapper.UPGRADES_TIER_2 = ["builder", "triTrapper", "trapGuard"]
         Class.trapper.UPGRADES_TIER_3 = ["barricade", "overtrapper"]
         Class.builder.UPGRADES_TIER_3 = ["construct", "autoBuilder", "engineer", "boomer", "assembler", "architect", "conqueror"]
         Class.triTrapper.UPGRADES_TIER_3 = ["fortress", "hexaTrapper", "septaTrapper", "architect"]
-        Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"]
+        Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"/*, "whirlGuard"*/]
         Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
 
     Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"]
@@ -5492,86 +5527,15 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"]
         Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"]
 
-    Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "spiral", "undertow", "repeater"*/]
-        //Class.desmos.UPGRADES_TIER_3 = ["bender"]
-        Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
-        Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"/*, "coil"*/, "duplicator"]
-        //Class.spiral.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"] // TODO: MAKE SPIRAL BRANCH WORK
-        //Class.undertow.UPGRADES_TIER_3 = ["riptide"]
-        Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]
-
-// Quick Configurations
-require("./dev.js")
-
-if (enable_april_fools) {
-Class.basic.UPGRADES_TIER_3.push("master")
-}
-
-if (enable_flail_branch) {
-Class.basic.UPGRADES_TIER_1.push("flail")
     Class.flail.UPGRADES_TIER_2 = ["doubleFlail", "mace", "flangle"]
         Class.doubleFlail.UPGRADES_TIER_3 = ["tripleFlail"]
         Class.mace.UPGRADES_TIER_3 = ["bigMama", "itHurtsDontTouchIt", "flace"]
         Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
-} else {
-Class.menu_unavailable.UPGRADES_TIER_0.push("flail")
-}
 
-if (enable_whirlwind_branch == 1) {
-Class.basic.UPGRADES_TIER_1.push("whirlwind")
-    // Class.flankGuard.UPGRADES_TIER_2
-        Class.hexaTank.UPGRADES_TIER_3.push("hexaWhirl")
-        Class.auto3.UPGRADES_TIER_3.push("whirl3")
-        Class.trapGuard.UPGRADES_TIER_3.push("whirlGuard")
-    // Class.director.UPGRADES_TIER_2
-        Class.underseer.UPGRADES_TIER_3.push("prophet")
-    // Class.pounder.UPGRADES_TIER_2
-        Class.artillery.UPGRADES_TIER_3.push("munition")
-        Class.launcher.UPGRADES_TIER_3.push("vortex")
-Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind_old")
-} else if (enable_whirlwind_branch == 2) {
-Class.whirlwind_old.UPGRADE_LABEL = "Whirlwind"
-Class.whirlwind.UPGRADE_LABEL = "Whirlwind (new)"
-Class.basic.UPGRADES_TIER_2.push("whirlwind_old")
-    Class.smasher.UPGRADES_TIER_3.push("monsoon")
-} else {
-Class.menu_unavailable.UPGRADES_TIER_0.push("whirlwind_old")
-}
-
-if (enable_scrapped_tanks) {
-Class.basic.UPGRADES_TIER_1.push()
-    // Class.basic.UPGRADES_TIER_2
-        Class.smasher.UPGRADES_TIER_3.push("jumpSmasher")
-    // Class.sniper.UPGRADES_TIER_2
-        Class.sniper.UPGRADES_TIER_3.push("railgun")
-        Class.assassin.UPGRADES_TIER_3.push("sniper3")
-    // Class.flankGuard.UPGRADES_TIER_2
-        Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar")
-    // Class.director.UPGRADES_TIER_2
-        Class.underseer.UPGRADES_TIER_3.push("prodigy")
-        Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "spawnerdrive")
-    Class.pounder.UPGRADES_TIER_2.push("volute")
-        Class.artillery.UPGRADES_TIER_3.push("mender")
-        Class.launcher.UPGRADES_TIER_3.push("rocketeer")
-    Class.trapper.UPGRADES_TIER_2.push("autoTrapper")
-        Class.trapper.UPGRADES_TIER_3.push("megaTrapper")
-        Class.triTrapper.UPGRADES_TIER_3.push("prodigy")
-        Class.trapGuard.UPGRADES_TIER_3.push("peashooter")
-    Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
-    Class.desmos.UPGRADES_TIER_2.push("undertow", "repeater")
-} else {
-Class.menu_unavailable.UPGRADES_TIER_0.push("autoTrapper", "crowbar", "megaSpawner", "megaTrapper", "mender", "peashooter", "prodigy", "railgun", "repeater", "riptide", "sniper3", "spawnerdrive", "volute")
-}
-
-if (enable_weird_spike) {
-    Class.spike_old.UPGRADE_LABEL = "Spike"
-    Class.spike.UPGRADE_LABEL = "Normal Spike"
-    for (let i = 0; i < Class.smasher.UPGRADES_TIER_3.length; i++) {
-        if (Class.smasher.UPGRADES_TIER_3[i] === "spike") {
-            Class.smasher.UPGRADES_TIER_3[i] = "spike_old"
-        }
-    }
-    Class.menu_unavailable.UPGRADES_TIER_0.push("spike")
-} else {
-    Class.menu_unavailable.UPGRADES_TIER_0.push("spike_old")
-}
+    Class.desmos.UPGRADES_TIER_2 = [/*"volute", */"helix"/*, "spiral", "undertow", "repeater"*/]
+        //Class.desmos.UPGRADES_TIER_3 = ["bender"]
+        Class.volute.UPGRADES_TIER_3 = ["sidewinder"]
+        Class.helix.UPGRADES_TIER_3 = ["triplex", "quadruplex"/*, "coil", "duplicator"*/]
+        Class.spiral.UPGRADES_TIER_3 = ["coil", "python", "ranch", "oroboros", "cocci"] // TODO: MAKE SPIRAL BRANCH WORK
+        //Class.undertow.UPGRADES_TIER_3 = ["riptide"]
+        Class.repeater.UPGRADES_TIER_3 = ["iterator", "duplicator"]

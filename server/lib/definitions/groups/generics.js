@@ -286,6 +286,7 @@ Class.baseSwarmTurret_swarm = {
         KNOCKBACK: 15,
     },
 }
+Class.airblastBullet = { PARENT: "bullet", ALPHA: 0.5, BODY: { KNOCKBACK: 30 } }
 Class.trap = {
     LABEL: "Thrown Trap",
     TYPE: "trap",
