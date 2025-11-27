@@ -90,12 +90,9 @@ Class.desmos = {
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}]
             }
         },
-        {
+        ...weaponMirror({
             POSITION: [3.75, 10, 2.125, 1.5, -6.25, 90, 0]
-        },
-        {
-            POSITION: [3.75, 10, 2.125, 1.5, 6.25, -90, 0]
-        }
+        })
     ]
 }
 Class.director = {
@@ -481,24 +478,14 @@ Class.cruiser = {
     BODY: {
         FOV: 1.2 * base.FOV,
     },
-    GUNS: [
-        {
-            POSITION: [7, 7.5, 0.6, 7, 4, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "swarm",
-                STAT_CALCULATOR: "swarm",
-            },
-        },
-        {
-            POSITION: [7, 7.5, 0.6, 7, -4, 0, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "swarm",
-                STAT_CALCULATOR: "swarm",
-            },
-        },
-    ],
+    GUNS: weaponMirror({
+        POSITION: [7, 7.5, 0.6, 7, 4, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.swarm]),
+            TYPE: "swarm",
+            STAT_CALCULATOR: "swarm"
+        }
+    })
 }
 Class.destroyer = {
     PARENT: "genericTank",
@@ -684,12 +671,9 @@ Class.helix = {
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true}]]}]
             },
         },
-        {
+        ...weaponMirror({
             POSITION: [3.625, 7.5, 2.75, 5.75, -6.75, 90, 0],
-        },
-        {
-            POSITION: [3.625, 7.5, 2.75, 5.75, 6.75, -90, 0],
-        },
+        }),
         {
             POSITION: [6, 8, 0.25, 10.5, 0, 0, 0],
         },
@@ -933,18 +917,12 @@ Class.repeater = {
                 TYPE: ["splitterBullet", {CONTROLLERS: ['snake']}]
             }
         },
-        {
+        ...weaponMirror([{
             POSITION: [4.625, 9.5, 2, 0.375, -8, 91.5, 0]
         },
         {
-            POSITION: [4.625, 9.5, 2, 0.375, 8, -91.5, 0]
-        },
-        {
             POSITION: [3.75, 10, 2.125, 0, -4.75, 50, 0]
-        },
-        {
-            POSITION: [3.75, 10, 2.125, 0, 4.75, -50, 0]
-        }
+        }])
     ]
 }
 Class.rifle = {
@@ -1024,12 +1002,9 @@ Class.spiral = {
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}]
             }
         },
-        {
+        ...weaponMirror({
             POSITION: [4.25, 11, 2, 2.25, -4.25, 92.5, 0]
-        },
-        {
-            POSITION: [4.25, 11, 2, 2.25, 4.25, -92.5, 0]
-        }
+        })
     ]
 }
 Class.sprayer = {
@@ -1160,30 +1135,30 @@ Class.triAngle = {
     DANGER: 6,
     GUNS: [
         {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }]),
                 TYPE: "bullet",
-                LABEL: "Front",
-            },
+                LABEL: "Front"
+            }
         },
-        {
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 150,
+                DELAY: 0.1
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
                 TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-    ],
+                LABEL: "thruster"
+            }
+        }, 0)
+    ]
 }
 Class.triTrapper = {
     PARENT: "genericTank",
@@ -1212,7 +1187,7 @@ Class.tripleShot = {
         SPEED: base.SPEED * 0.9
     },
     GUNS: [
-        {
+        ...weaponMirror({
             POSITION: {
                 LENGTH: 19,
                 WIDTH: 8,
@@ -1224,20 +1199,7 @@ Class.tripleShot = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
                 TYPE: "bullet"
             }
-        },
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8,
-                Y: 2,
-                ANGLE: 17.5,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
-                TYPE: "bullet"
-            }
-        },
+        }, 0),
         {
             POSITION: {
                 LENGTH: 22,
@@ -1287,12 +1249,9 @@ Class.undertow = {
                 TYPE: 'undertowBullet'
             }
         },
-        {
+        ...weaponMirror({
             POSITION: [11.25, 8, 0.15, 4.25, 4, 13.5, 0]
-        },
-        {
-            POSITION: [11.25, 8, 0.15, 4.25, -4, -13.5, 0]
-        }
+        })
     ]
 }
 Class.volute = {
@@ -1306,15 +1265,12 @@ Class.volute = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.pounder]),
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}]
-            },
+            }
         },
-        {
+        ...weaponMirror({
             POSITION: [5, 10, 2.125, 1, -6.375, 90, 0],
-        },
-        {
-            POSITION: [5, 10, 2.125, 1, 6.375, -90, 0],
-        },
-    ],
+        })
+    ]
 }
 Class.whirlwind_old = {
     PARENT: "genericTank",
