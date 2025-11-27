@@ -161,7 +161,8 @@ Class.menu_removed.UPGRADES_TIER_0 = [
     "spreadshot_old",
 ]
 
-Class.menu_dailyTanks = makeMenu("Daily Tanks", "rainbow")
+Class.menu_dailyTanks = makeMenu("Daily Tanks")
+Class.menu_dailyTanks.UPGRADE_COLOR = "rainbow"
 Class.menu_dailyTanks.UPGRADE_TOOLTIP = "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available. \n" +
                                         "The Daily Tank for a server can be added or changed in config."
 Class.menu_dailyTanks.UPGRADES_TIER_0 = [
