@@ -321,7 +321,7 @@ class bossRush {
                 makeHitbox(wall);
                 walls.push(wall);
                 if (Config.HALLOWEEN_THEME) {
-                    let eyeSize = 12 * (Math.random() + 0.75);
+                    let eyeSize = 12 * (Math.random() + 0.45);
                     let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
                     spookyEye.define("hwEye");
                     spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})

@@ -568,9 +568,7 @@ function mazewallcustomcollide(wall, bounce) {
             case 7:
                 if (canResize) {
                     bounce.touchingFovWall = true;
-                    if (bounce.FOV < bounce.originalFov * 3) {
-                        bounce.FOV = Math.min(bounce.FOV * 1.1, bounce.originalFov * 3);
-                    }
+                    bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
         }

@@ -880,7 +880,7 @@ class socketManager {
         gui.upgrades.update(upgrades);
         // Update daily tank
         if (Config.DAILY_TANK) {
-            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER && !b.hasUpgradedToDailyTank) {
+            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER && b.defs.includes(Config.SPAWN_CLASS)) {
                 dailyTank = Config.DAILY_TANK_INDEX;
             }
         }
