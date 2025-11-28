@@ -118,6 +118,59 @@ Class.undertowBullet = {
         }
     ],
 }
+Class.satelliteBullet = {
+    PARENT: "bullet",
+    ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    AI: {
+        SPEED: 2, 
+    },
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 3; i++) {
+            output.push({
+                POSITION: {WIDTH: 16, LENGTH: 1, DELAY: 0},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite, {reload: 0}]), 
+                    TYPE: ["satellite", {ANGLE: i * 120, INDEPENDENT: true}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true
+                }
+            })
+        }
+        return output
+    })()
+}
+Class.satelliteTrap = {
+    PARENT: "trap",
+    ANGLE: 60,
+    CONTROLLERS: ["whirlwind"],
+    HAS_NO_RECOIL: true,
+    AI: {
+        SPEED: 2, 
+    },
+    GUNS: (() => { 
+        let output = []
+        for (let i = 0; i < 3; i++) {
+            output.push({
+                POSITION: {WIDTH: 16, LENGTH: 1, DELAY: 0},
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.satellite, {reload: 0}]), 
+                    TYPE: ["satellite", {ANGLE: i * 120, INDEPENDENT: true}], 
+                    MAX_CHILDREN: 1,   
+                    AUTOFIRE: true,  
+                    SYNCS_SKILLS: false,
+                    WAIT_TO_CYCLE: true,
+                    ALPHA: 0
+                }
+            })
+        }
+        return output
+    })()
+}
 
 // Missiles
 Class.missile = {

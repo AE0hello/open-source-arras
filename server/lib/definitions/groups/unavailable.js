@@ -1160,6 +1160,7 @@ Class.literallyATank = {
     Class.momwtdym = {
         PARENT: "genericTank",
         LABEL: "Me on my way to do your mom",
+        UPGRADE_LABEL: "MOMWTDYM",
         DANGER: 7,
         GUNS: [
             {
@@ -1174,6 +1175,7 @@ Class.literallyATank = {
     Class.meDoingYourMom = {
         PARENT: "genericTank",
         LABEL: "Me doing your mom",
+        UPGRADE_LABEL: "MDYM",
         DANGER: 7,
         BODY: {
             SPEED: 0.8 * base.SPEED,
