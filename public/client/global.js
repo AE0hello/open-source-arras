@@ -345,6 +345,7 @@ const global = {
             global.socket.talk('T');
         } else if (type === "exit") {
             global.showTree = false;
+            global.renderTankTree = false;
             global.pullUpgradeMenu = false;
             global.pullSkillBar = false;
             global.targetTreeScale = global.treeScale = 1;

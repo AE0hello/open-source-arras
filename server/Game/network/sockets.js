@@ -633,43 +633,25 @@ class socketManager {
                 this.chatLoop();
             } break;
             case "T": {
-                // send the upgrade tree mockups
-                if (player.body) {
+                // Send the upgrade tree mockups
+                if (player.body && socket.status.lastTank != player.body.index) {
                     socket.status.lastTank = player.body.index;
                     this.sendMockup(player.body.index, socket);
-                    console.log(player.body.rerootUpgradeTree)
-                    for (let i of player.body.rerootUpgradeTree.split("_")) {
-                        let ind = Class[i].index; // This bit breaks split upgrades (upgrade to dev-dev in testing or the dreads v2 branch to see this bug)
-                        console.log(i, ind)
-                        let mockup = mockupData.find(o => o.index === `${ind}`);
-                        if (!mockup) {
-                            let e = this.generateMockup(ind);
-                            mockup = mockupData.find(o => o.index === `${e.index}`);
-                        }
+                    let allRoots = [],
+                        rerootUpgradeTree = [];
+                    for (let i of player.body.index.split("-")) {
+                        let mockup = mockupData.find(o => o.index === `${i}`);
+                        if (mockup.rerootUpgradeTree) allRoots.push(...mockup.rerootUpgradeTree.split("\\/"));
+                    }
+                    for (let root of allRoots) {
+                        if (!rerootUpgradeTree.includes(root)) rerootUpgradeTree.push(root);
+                    }
+                    for (let i of rerootUpgradeTree) {
+                        let ind = Class[i].index;
                         this.sendMockupUpgrades(ind, socket);
                     }
-                    socket.talk("T");
                 }
-            } break;
-            case "K": {
-                if (socket.status.mockupData.requestMockups.includes(`${m[0]}`)) return;
-                let index = parseInt(m[0]);
-                let mockup = mockupData.find(o => o.index === `${index}`);
-                if (!mockup) {
-                    let e = this.generateMockup(index);
-                    mockup = mockupData.find(o => o.index === `${e.index}`);
-                }
-                //console.log(`${socket.player.body ? `Player ${socket.player.body.name}` : "A unnamed player"}'s Client needs a mockup ${index}!, sending the mockup...`);
-                this.sendMockup(index, socket);
-                for (let e of mockup.upgrades) {
-                    for (let i of e.index.split("-")) {
-                        this.sendMockup(i, socket);
-                        this.sendMockupUpgrades(i, socket);
-                    }
-                    this.sendMockup(e.index, socket);
-                    this.sendMockupUpgrades(e.index, socket);
-                };
-                socket.status.mockupData.requestMockups.push(m[0]);
+                socket.talk("T");
             } break;
             case "NWB": {
                 socket.status.forceNewBroadcast = true;
@@ -1399,7 +1381,6 @@ class socketManager {
                 // Target the upgrades
                 for (let upgrades of mockup.upgrades) {
                     for (let i of upgrades.index.split("-")) { // Split the indexes.
-                        this.sendMockup(i, socket);
                         this.sendMockupUpgrades(i, socket);
                     }
                 }
@@ -1410,16 +1391,17 @@ class socketManager {
     sendMockupUpgrades(index, socket) {
         for (let splittedIndex of index.toString().split("-")) {
             if (socket.status.mockupData.receivedUpgradePackIndexes.includes(splittedIndex)) continue; // Do NOT continue if we have the mockup already.
-            let index = parseInt(splittedIndex);
-            let mockup = mockupData.find(o => o.index === `${index}`);
+            this.sendMockup(index, socket);
+            let parsedindex = parseInt(splittedIndex);
+            let mockup = mockupData.find(o => o.index === `${parsedindex}`);
             if (!mockup) {
-                let e = this.generateMockup(index);
+                let e = this.generateMockup(parsedindex);
                 mockup = mockupData.find(o => o.index === `${e.index}`);
             }
             socket.status.mockupData.receivedUpgradePackMockups.push(mockup);
-            for (let upgrades of mockup.upgrades) {
-                this.sendMockup(upgrades.index, socket);
-                this.sendMockupUpgrades(upgrades.index, socket);
+            socket.status.mockupData.receivedUpgradePackIndexes.push(splittedIndex);
+            for (let { index } of mockup.upgrades) {
+                for (let i of index.toString().split("-")) this.sendMockupUpgrades(i, socket);
             }
         }
     }
@@ -2168,13 +2150,7 @@ class socketManager {
             const tank = ensureIsClass(Config.DAILY_TANK.tank);
             if (tank) {
                 Config.DAILY_TANK_INDEX = tank.index.toString();
-                let mockup = mockupData.find(o => o.index === `${tank.index}`);
-                if (!mockup) {
-                    let e = this.generateMockup(tank.index);
-                    mockup = mockupData.find(o => o.index === `${e.index}`);
-                }
-                socket.talk("M", mockup.index, JSON.stringify(mockup));
-                socket.status.mockupData.receivedIndexes.push(tank.index.toString());
+                this.sendMockup(Config.DAILY_TANK_INDEX, socket);
             }
         }
 

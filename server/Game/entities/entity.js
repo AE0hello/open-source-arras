@@ -481,8 +481,8 @@ class Entity extends EventEmitter {
         if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(this.rerootUpgradeTree)) {
             let finalRoot = "";
-            for (let root of this.rerootUpgradeTree) finalRoot += root + "_";
-            this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 1);
+            for (let root of this.rerootUpgradeTree) finalRoot += root + "\\/";
+            this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 2);
         }
         if (set.ON_MINIMAP != null) this.allowedOnMinimap = set.ON_MINIMAP;
         if (set.TURRETS != null) {

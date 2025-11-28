@@ -121,7 +121,7 @@ Class.undertowBullet = {
 Class.satelliteBullet = {
     PARENT: "bullet",
     ANGLE: 60,
-    CONTROLLERS: ["whirlwind"],
+    CONTROLLERS: [["whirlwind", {useOwnMaster: true}]],
     HAS_NO_RECOIL: true,
     AI: {
         SPEED: 2, 

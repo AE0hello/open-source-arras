@@ -2121,105 +2121,108 @@ import * as socketStuff from "./socketinit.js";
             console.log('No tank tree rendered yet.');
             return;
         }
-
-        let tileSize = alcoveSize / 2,
-            size = tileSize - 4,
-            spaceBetween = 10,
-            screenDivisor = (spaceBetween + tileSize) * 2 * global.treeScale,
-            padding = tileSize / screenDivisor,
-            dividedWidth = global.screenWidth / screenDivisor,
-            dividedHeight = global.screenHeight / screenDivisor,
-            treeFactor = 1 + spaceBetween / tileSize;
-
-        // Apply momentum decay with optimization
-        if (!classTreeDrag.isDragging) {
-            const friction = 0.92;
-            classTreeDrag.momentum.x *= friction;
-            classTreeDrag.momentum.y *= friction;
-            
-            // Stop momentum if very small
-            if (Math.abs(classTreeDrag.momentum.x) < 0.1) classTreeDrag.momentum.x = 0;
-            if (Math.abs(classTreeDrag.momentum.y) < 0.1) classTreeDrag.momentum.y = 0;
-        }
-
-        // Update scroll position with momentum
-        global.scrollVelocityX = classTreeDrag.momentum.x;
-        global.scrollVelocityY = classTreeDrag.momentum.y;
-
-        global.fixedScrollX = Math.max(
-            dividedWidth - padding,
-            Math.min(
-                tankTree.width * treeFactor + padding - dividedWidth,
-                global.fixedScrollX + global.scrollVelocityX
-            )
-        );
-        global.fixedScrollY = Math.max(
-            dividedHeight - padding,
-            Math.min(
-                tankTree.height * treeFactor + padding - dividedHeight,
-                global.fixedScrollY + global.scrollVelocityY
-            )
-        );
-        if (Math.abs(global.targetTreeScale - global.treeScale) > 0.001) {
-            global.treeScale += (global.targetTreeScale - global.treeScale) * 0.15;
-            if (Math.abs(global.targetTreeScale - global.treeScale) < 0.001) {
-                global.treeScale = global.targetTreeScale;
-            }
-        }
-        // Smooth scroll interpolation
-        global.scrollX = util.lerp(global.scrollX, global.fixedScrollX, 0.10, true);
-        global.scrollY = util.lerp(global.scrollY, global.fixedScrollY, 0.10, true);
-
         // Draw semi-transparent overlay
         ctx[2].globalAlpha = 0.5;
         ctx[2].fillStyle = color.guiwhite;
         ctx[2].fillRect(0, 0, global.screenWidth, global.screenHeight);
         ctx[2].globalAlpha = 1;
 
-        // Determine which tiles to render based on search
-        const tilesToRender = filteredTiles || tiles;
+        // Render the tank tree if ready.
+        if (global.renderTankTree) {
+            let tileSize = alcoveSize / 2,
+                size = tileSize - 4,
+                spaceBetween = 10,
+                screenDivisor = (spaceBetween + tileSize) * 2 * global.treeScale,
+                padding = tileSize / screenDivisor,
+                dividedWidth = global.screenWidth / screenDivisor,
+                dividedHeight = global.screenHeight / screenDivisor,
+                treeFactor = 1 + spaceBetween / tileSize;
 
-        // OPTIMIZED: Pre-calculate values
-        const halfWidth = global.screenWidth / 2;
-        const halfHeight = global.screenHeight / 2;
-        const tileSpacing = tileSize + spaceBetween;
-        const scaledSpacing = tileSpacing * global.treeScale;
-        const halfSize = 0.5 * size;
+            // Apply momentum decay with optimization
+            if (!classTreeDrag.isDragging) {
+                const friction = 0.92;
+                classTreeDrag.momentum.x *= friction;
+                classTreeDrag.momentum.y *= friction;
+                
+                // Stop momentum if very small
+                if (Math.abs(classTreeDrag.momentum.x) < 0.1) classTreeDrag.momentum.x = 0;
+                if (Math.abs(classTreeDrag.momentum.y) < 0.1) classTreeDrag.momentum.y = 0;
+            }
 
-        // Draw branches (optimized with culling)
-        ctx[2].strokeStyle = color.black;
-        ctx[2].lineWidth = 2 * global.treeScale;
-        ctx[2].beginPath();
-        
-        for (let [start, end] of branches) {
-            let sx = ((start.x - global.scrollX) * tileSpacing + 1 + halfSize) * global.treeScale + halfWidth,
-                sy = ((start.y - global.scrollY) * tileSpacing + 1 + halfSize) * global.treeScale + halfHeight,
-                ex = ((end.x - global.scrollX) * tileSpacing + 1 + halfSize) * global.treeScale + halfWidth,
-                ey = ((end.y - global.scrollY) * tileSpacing + 1 + halfSize) * global.treeScale + halfHeight;
+            // Update scroll position with momentum
+            global.scrollVelocityX = classTreeDrag.momentum.x;
+            global.scrollVelocityY = classTreeDrag.momentum.y;
+
+            global.fixedScrollX = Math.max(
+                dividedWidth - padding,
+                Math.min(
+                    tankTree.width * treeFactor + padding - dividedWidth,
+                    global.fixedScrollX + global.scrollVelocityX
+                )
+            );
+            global.fixedScrollY = Math.max(
+                dividedHeight - padding,
+                Math.min(
+                    tankTree.height * treeFactor + padding - dividedHeight,
+                    global.fixedScrollY + global.scrollVelocityY
+                )
+            );
+            if (Math.abs(global.targetTreeScale - global.treeScale) > 0.001) {
+                global.treeScale += (global.targetTreeScale - global.treeScale) * 0.15;
+                if (Math.abs(global.targetTreeScale - global.treeScale) < 0.001) {
+                    global.treeScale = global.targetTreeScale;
+                }
+            }
+            // Smooth scroll interpolation
+            global.scrollX = util.lerp(global.scrollX, global.fixedScrollX, 0.10, true);
+            global.scrollY = util.lerp(global.scrollY, global.fixedScrollY, 0.10, true);
+
+            // Determine which tiles to render based on search
+            const tilesToRender = filteredTiles || tiles;
+
+            // OPTIMIZED: Pre-calculate values
+            const halfWidth = global.screenWidth / 2;
+            const halfHeight = global.screenHeight / 2;
+            const tileSpacing = tileSize + spaceBetween;
+            const scaledSpacing = tileSpacing * global.treeScale;
+            const halfSize = 0.5 * size;
+
+            // Draw branches (optimized with culling)
+            ctx[2].strokeStyle = color.black;
+            ctx[2].lineWidth = 2 * global.treeScale;
+            ctx[2].beginPath();
             
-            // Culling check with margin
-            if (ex < -CULL_MARGIN || sx > global.screenWidth + CULL_MARGIN || 
-                ey < -CULL_MARGIN || sy > global.screenHeight + CULL_MARGIN) continue;
+            for (let [start, end] of branches) {
+                let sx = ((start.x - global.scrollX) * tileSpacing + 1 + halfSize) * global.treeScale + halfWidth,
+                    sy = ((start.y - global.scrollY) * tileSpacing + 1 + halfSize) * global.treeScale + halfHeight,
+                    ex = ((end.x - global.scrollX) * tileSpacing + 1 + halfSize) * global.treeScale + halfWidth,
+                    ey = ((end.y - global.scrollY) * tileSpacing + 1 + halfSize) * global.treeScale + halfHeight;
+                
+                // Culling check with margin
+                if (ex < -CULL_MARGIN || sx > global.screenWidth + CULL_MARGIN || 
+                    ey < -CULL_MARGIN || sy > global.screenHeight + CULL_MARGIN) continue;
+                
+                ctx[2].moveTo(sx, sy);
+                ctx[2].lineTo(ex, ey);
+            }
+            ctx[2].stroke();
+
+            // Draw tank icons (optimized with culling)
+            let angle = -Math.PI / 4;
+            const scaledTileSize = tileSize * global.treeScale;
             
-            ctx[2].moveTo(sx, sy);
-            ctx[2].lineTo(ex, ey);
+            for (let { x, y, colorIndex, index } of tilesToRender) {
+                let ax = (x - global.scrollX) * scaledSpacing + halfWidth,
+                    ay = (y - global.scrollY) * scaledSpacing + halfHeight;
+                
+                // Culling check with margin
+                if (ax < -scaledTileSize - CULL_MARGIN || ax > global.screenWidth + CULL_MARGIN || 
+                    ay < -scaledTileSize - CULL_MARGIN || ay > global.screenHeight + CULL_MARGIN) continue;
+                
+                drawEntityIcon(index.toString(), ax, ay, scaledTileSize, scaledTileSize, global.treeScale, angle, 1, colorIndex);
+            }
         }
-        ctx[2].stroke();
 
-        // Draw tank icons (optimized with culling)
-        let angle = -Math.PI / 4;
-        const scaledTileSize = tileSize * global.treeScale;
-        
-        for (let { x, y, colorIndex, index } of tilesToRender) {
-            let ax = (x - global.scrollX) * scaledSpacing + halfWidth,
-                ay = (y - global.scrollY) * scaledSpacing + halfHeight;
-            
-            // Culling check with margin
-            if (ax < -scaledTileSize - CULL_MARGIN || ax > global.screenWidth + CULL_MARGIN || 
-                ay < -scaledTileSize - CULL_MARGIN || ay > global.screenHeight + CULL_MARGIN) continue;
-            
-            drawEntityIcon(index.toString(), ax, ay, scaledTileSize, scaledTileSize, global.treeScale, angle, 1, colorIndex);
-        }
 
         // Draw UI elements
         drawClassTreeUI(spacing);
@@ -2229,36 +2232,16 @@ import * as socketStuff from "./socketinit.js";
     global.targetTreeScale = 1;
     global.classTreeDrag = classTreeDrag;
     function drawClassTreeUI(spacing) {
+        if (!global.renderTankTree) {
+            drawText("Loading tank tree...", global.screenWidth / 2, global.screenHeight / 2, 25, color.guiwhite, "center");
+            return;
+        }
         const uiY = spacing + 20;
         const buttonSize = 40;
         const buttonSpacing = 10;
-        
-        // Draw close button (X) on the left
-        const closeButtonSize = 35;
-        const closeButtonX = spacing + 760;
-        const closeButtonY = uiY;
 
         // Draw text for a tip
         drawText("Arrow keys or mouse to navigate the class tree. Shift to navigate faster. Scroll wheel, (+/- keys) or zoom buttons to zoom in/out.", global.screenWidth / 2, spacing + 10, 17, color.guiwhite, "center");
-
-        // Draw close button
-        drawButton(
-            closeButtonX,
-            closeButtonY,
-            closeButtonSize,
-            closeButtonSize,
-            1,
-            "rect",
-            "✕",
-            24,
-            color.red,
-            color.black,
-            color.black,
-            true,
-            "classTreeClose",
-            global.canvas.height / global.screenHeight / global.ratio,
-            0
-        );
         
         // Draw search bar (centered)
         const searchBarWidth = 300;
@@ -2331,6 +2314,29 @@ import * as socketStuff from "./socketinit.js";
             "classTreeZoomOut",
             global.canvas.height / global.screenHeight / global.ratio,
             1
+        );
+
+        // Draw close button (X) on the left
+        const closeButtonSize = 35;
+        const closeButtonX = searchBarX - buttonSpacing * 2.6;
+        const closeButtonY = uiY;
+        // Draw close button
+        drawButton(
+            closeButtonX,
+            closeButtonY,
+            closeButtonSize,
+            closeButtonSize,
+            1,
+            "rect",
+            "✕",
+            24,
+            color.red,
+            color.black,
+            color.black,
+            true,
+            "classTreeClose",
+            global.canvas.height / global.screenHeight / global.ratio,
+            0
         );
         
         // Draw search results info

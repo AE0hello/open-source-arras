@@ -1080,6 +1080,7 @@ class io_formulaTarget extends IO {
 class io_whirlwind extends IO {
     constructor(body, opts = {}) {
         super(body);
+        this.body.useOwnMaster = opts.useOwnMaster;
         this.body.angle = 0;
         this.minDistance = opts.minDistance ?? 3.5;
         this.maxDistance = opts.maxDistance ?? 10;
@@ -1116,8 +1117,9 @@ class io_orbit extends IO {
     }
   
     think(input) {
+        console.log(this.body.master.useOwnMaster)
         let invertFactor = this.invert ? -1 : 1,
-            master = this.body.master.master,
+            master = this.body.master.useOwnMaster ? this.body.master : this.body.master.master,
             dist = this.invert ? master.inverseDist : master.dist,
             angle = (this.body.angle * Math.PI / 180 + master.angle) * invertFactor;
         

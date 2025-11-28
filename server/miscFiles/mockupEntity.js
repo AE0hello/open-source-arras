@@ -258,8 +258,8 @@ class MockupEntity {
         if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(this.rerootUpgradeTree)) {
             let finalRoot = "";
-            for (let root of this.rerootUpgradeTree) finalRoot += root + "_";
-            this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 1);
+            for (let root of this.rerootUpgradeTree) finalRoot += root + "\\/";
+            this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 2);
         }
         if (set.STAT_NAMES != null) this.settings.skillNames = {
             body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? 'Body Damage',
@@ -366,7 +366,7 @@ class MockupEntity {
             if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
             if (Array.isArray(this.rerootUpgradeTree)) {
                 let finalRoot = "";
-                for (let root of this.rerootUpgradeTree) finalRoot += root + "_";
+                for (let root of this.rerootUpgradeTree) finalRoot += root + "\\/";
                 this.rerootUpgradeTree += finalRoot.substring(0, finalRoot.length - 2);
             }
         }

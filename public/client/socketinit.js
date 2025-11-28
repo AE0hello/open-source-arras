@@ -1014,9 +1014,6 @@ let incoming = async function(message, socket) {
             socket.cmd.talk();
             global.updateTimes++; // metrics
         } break;
-        case 'T': {
-            global.generateTankTree = true;
-        } break;
         case "b": {
             if (startSettings.neededtoresync) return;
             convert.begin(m);
@@ -1138,7 +1135,11 @@ let incoming = async function(message, socket) {
             // Reconnect server
             global.reconnect();
         } break;
-
+        case 'T': {
+            global.generateTankTree = true;
+            global.renderTankTree = true;
+        } break;
+        
         case 'K': { // kicked
             // Put your code while being kicked from the server. 
         } break;
