@@ -6,11 +6,10 @@
 ![Discord](https://img.shields.io/discord/1004907608018264094)
 ![GitHub repo size](https://img.shields.io/github/repo-size/AE0Hello/open-source-arras)
 
-## Important Notice
-
-**Open Source Arras is beta software.** This build is **not** representative of the final product. Expect bugs and missing features.
-
-Major updates may introduce breaking changes that alter how certain things work. It is **your responsibility** to keep your private server up-to-date and functioning.
+> [!WARNING]
+> **Open Source Arras is beta software.** This build is **not** representative of the final product. Expect bugs and missing features.
+> 
+> Major updates may introduce breaking changes that alter how certain things work. It is **your responsibility** to keep your private server up-to-date and functioning.
 
 ## Setup Guide (Localhost)
 
@@ -20,17 +19,17 @@ You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if
 
 Once `Node.js` is installed, open Terminal and run the command `npm i ws`. This will install the WebSocket library that Open Source Arras uses.
 
-After installing `ws`, [download the source code of the latest release of Open Source Arras](https://github.com/AE0hello/open-source-arras/releases). Extract it once it's downloaded and open either `run.bat` (if you're on Windows) or `run.sh` (if you're not). If there aren't any errors, your server will start up. Go to `localhost:26301` in your favourite web browser (keep the terminal window open, closing it will shut down the server) to play.
+After installing `ws`, [download the source code of the latest release of Open Source Arras](https://github.com/AE0hello/open-source-arras/releases). Extract it once it's downloaded and open either `run.bat` (if you're on Windows) or `run.sh` (if you're not). If there aren't any errors, your server will start up. Go to `localhost:3000` in your favourite web browser (keep the terminal window open, closing it will shut down the server) to play.
 
-If you want to stay up to date, fork this template, download a git client, and sync the fork whenever there's a major update.
+> [!NOTE]
+> If you want to stay up to date, create a fork, download a git client (such as GitHub Desktop), and sync the fork whenever there's a major update.
 
 ## Setup Guide (Webhost)
-
 Don't have a supported device or don't want to mess around with localhost? Get a webhost to do the dirty work for you.
 
 Create a new project and choose to import one from GitHub. When prompted for the URL of the repository, type in `https://github.com/AE0hello/open-source-arras.git`.
 
-Navigate to `server/config.js` and replace `localhost:3000` with the URL for your project.
+Navigate to `server/config.js` and replace `localhost:3000` with the URL for your project. Make sure to also set `LOAD_ON_MAINSERVER` to `true`.
 
 After doing that, your server should be ready!
 
