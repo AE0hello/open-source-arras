@@ -3115,7 +3115,7 @@ Class.master = {
                 DESTROY_OLDEST_CHILD: true
             }
         },
-        ...weaponMirror({
+        ...weaponMirror([{
             POSITION: [13, 8, 1, 0, -1, 140, 0.6],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
@@ -3130,7 +3130,7 @@ Class.master = {
                 TYPE: "bullet",
                 LABEL: "thruster"
             }
-        }, 0)
+        }], 0)
     ]
 }
 Class.medic = {
@@ -4304,6 +4304,7 @@ Class.skimmer = {
         },
     ],
 }
+Class.sniper3 = makeRadialAuto("sniper3gun", {isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: {SPEED: 0.8 * base.SPEED, FOV: 1.25 * base.FOV}})
 Class.spawnerdrive = {
     PARENT: "genericTank",
     LABEL: "Spawnerdrive",
@@ -5161,6 +5162,87 @@ Class.xHunter = {
             POSITION: [5, 12, -1.2, 7, 0, 0, 0]
         }
     ]
+}
+
+// Tier 4
+Class.quintuplet = {
+    PARENT: "genericTank",
+    LABEL: "Quintuplet",
+    DANGER: 7,
+    BODY: {
+        FOV: 1.1 * base.FOV
+    },
+    GUNS: [
+        ...weaponMirror([{
+            POSITION: [16, 10, 1, 0, 5, 0, 2/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [19, 10, 1, 0, 3, 0, 1/3],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        }]),
+        {
+            POSITION: [22, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
+Class.vulcan = {
+    PARENT: "genericTank",
+    LABEL: "Vulcan",
+    DANGER: 7,
+    GUNS: [
+        {
+            POSITION: [28, 2, 1, 0, 4, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [28, 2, 1, 0, -4, 0, 0.8],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [28, 2, 1, 0, 2.25, 0, 0.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [28, 2, 1, 0, -2.25, 0, 0.6],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [28, 2, 1, 0, 0, 0, 0.4],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [5, 13, 1, 7, 0, 0, 0],
+        },
+        {
+            POSITION: [5, 13, 1, 20, 0, 0, 0],
+        },
+    ],
 }
 
 // Tierless / Fun
