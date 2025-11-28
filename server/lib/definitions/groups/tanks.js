@@ -2289,6 +2289,45 @@ Class.crossbow = {
         }
     ]
 }
+Class.crowbar = {
+    PARENT: "genericTank",
+    DANGER: 7,
+    LABEL: "Crowbar",
+    BODY: {
+        SPEED: 0.85 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: [42, 6.5, 1, 0, 0, 0, 0],
+        },
+        {
+            POSITION: [6, 8.5, -1.5, 8, 0, 0, 0]
+        }
+    ],
+    TURRETS: [{
+        POSITION: [6, 42, 0, 0, 180, 1],
+        TYPE: [
+            "crowbarTurretTank",
+            { INDEPENDENT: true }
+        ],
+    },
+        {
+            POSITION: [6, 32, 0, 0, 180, 1],
+            TYPE: [
+                "crowbarTurretTank",
+                { INDEPENDENT: true }
+            ],
+        },
+        {
+            POSITION: [6, 22, 0, 0, 180, 1],
+            TYPE: [
+                "crowbarTurretTank",
+                { INDEPENDENT: true }
+            ],
+        },
+    ],
+}
 Class.cyclone = {
     PARENT: "genericTank",
     LABEL: "Cyclone",
@@ -3176,6 +3215,35 @@ Class.megaSmasher = {
         },
     ],
 }
+Class.megaSpawner = {
+    PARENT: "genericTank",
+    LABEL: "Mega-Spawner",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: 1.1,
+    },
+    GUNS: [
+        {
+            POSITION: [4.5, 12, 1, 10.5, 0, 0, 0],
+        },
+        {
+            POSITION: [4.5, 14, 1, 7, 0, 0, 0],
+        },
+        {
+            POSITION: [1, 14, 1, 15, 0, 0, 0],
+            PROPERTIES: {
+                MAX_CHILDREN: 4,
+                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, {size: 0.833 }]),
+                TYPE: "megaMinion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+            },
+        },
+    ],
+}
 Class.megaTornado = {
     PARENT: "genericTank",
     LABEL: "Mega-Tornado",
@@ -3210,6 +3278,25 @@ Class.megaTornado = {
         }
         return output
     })()
+}
+Class.megaTrapper = {
+    PARENT: "genericTank",
+    LABEL: "Mega Trapper",
+    DANGER: 7,
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: [ 13, 12, 1, 0, 0, 0, 0, ],
+        },
+        {
+        POSITION: [ 5, 12, 1.7, 13, 0, 0, 0, ],
+        PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.megaTrapper]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ]
 }
 Class.mender = {
     PARENT: "genericTank",
