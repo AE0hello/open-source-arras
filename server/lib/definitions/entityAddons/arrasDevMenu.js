@@ -17,7 +17,7 @@ Class.arrasMenu_addonMenu.UPGRADES_TIER_0 = [
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
     Config.SPAWN_CLASS,
-    "arrasMenu_gameAdmin",
+    "arrasMenu_gameAdmin", // psure its removed but kept here for completeness
     "eggGen",
     "arrasMenu_specialTanks",
     "arrasMenu_bosses",
