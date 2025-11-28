@@ -99,7 +99,7 @@ class bossRush {
             [ 50, "theia"],
 
             //eternals
-            [100, "legionaryCrasherFix" /*fucking mid*/],
+            [100, "legionaryCrasherFix"], // fucking mid
             [100, "kronos"],
             [100, "ragnarok"],
         ];
@@ -280,16 +280,24 @@ class bossRush {
     // runs once when the server starts
     start(mazeType) {
         this.gameActive = true;
-        for (let i = 0; i < Class.basic.UPGRADES_TIER_1.length; i++) {
-            let string = Class.basic.UPGRADES_TIER_1[i];
-            if (string === "desmos") {
-                Class.basic.UPGRADES_TIER_1[i] = "healer";
-            }
-        }
+        // Replace/remove certain tanks.
         for (let i = 0; i < Class.basic.UPGRADES_TIER_2.length; i++) {
             let string = Class.basic.UPGRADES_TIER_2[i];
             if (string === "smasher") {
-                Class.basic.UPGRADES_TIER_2[i] = "single";
+                Class.basic.UPGRADES_TIER_2[i] = "healer"
+                for (let i = 0; i < Class.menu_unused.UPGRADES_TIER_0.length; i++) {
+                    let string = Class.menu_unused.UPGRADES_TIER_0[i];
+                    if (string === "healer") {
+                        Class.menu_unused.UPGRADES_TIER_0[i] = "smasher"
+                    }
+                }
+            }
+        }
+        for (let i = 0; i < Class.director.UPGRADES_TIER_2.length; i++) {
+            let string = Class.director.UPGRADES_TIER_2[i];
+            if (string === "underseer") {
+                Class.director.UPGRADES_TIER_2.splice(i, 1)
+                Class.menu_unused.UPGRADES_TIER_0.push("underseer")
             }
         }
         for (let tile of this.room.spawnable[TEAM_BLUE]) {
@@ -313,7 +321,7 @@ class bossRush {
                 makeHitbox(wall);
                 walls.push(wall);
                 if (Config.HALLOWEEN_THEME) {
-                    let eyeSize = 12 * (Math.random() + 0.75);
+                    let eyeSize = 12 * (Math.random() + 0.45);
                     let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
                     spookyEye.define("hwEye");
                     spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})

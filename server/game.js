@@ -12,7 +12,7 @@ let { gamemodeManager } = require("./Game/gamemodeManager.js");
 // Gamemode names
 const getName = (name, gamemodeData) => {
     const nameMap = {
-        teams: "TDM",
+        tdm: `${gamemodeData.TEAMS}TDM`,
         ffa: "FFA",
         tag: "Tag",
         opentdm: `Open ${gamemodeData.TEAMS}TDM`,
@@ -22,7 +22,8 @@ const getName = (name, gamemodeData) => {
         nexus: "Nexus",
         blackout: "Blackout",
         outbreak: "Outbreak",
-        space: "space",
+        space: "Space",
+        armsRace: "Arms Race",
         siege_blitz: "Siege Blitz",
         siege_citadel: "Siege Citadel",
         siege_fortress: "Siege Fortress",
@@ -56,7 +57,7 @@ class gameServer {
         this.name = "Unknown";
         this.featured = isfeatured;
         this.parentPort = parentPort;
-        this.definitionsCombiner = new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/tankAddons') });
+        this.definitionsCombiner = new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') });
         this.loaderGlobal = loaderGlobal;
         // Initalize.
         this.roomSpeed = Config.gameSpeed;
@@ -196,10 +197,11 @@ class gameServer {
         // Now start the server and send data!
         this.start();
 
+        // If no errors has accoured then annouce that the game server has succssfully booted up.
+        console.log("Game server " + this.name + " successfully booted up. Listening on port", this.port);
+
         // Send the info to the main server so the client can get the info.
         this.parentPort.postMessage([false, this.getInfo()]);
-
-        console.log("Game server " + this.name + " successfully booted up. Listening on port", this.port);
 
         // let the main server know that it successfully booted.
         this.parentPort.postMessage(["doneLoading"]);
@@ -226,7 +228,7 @@ class gameServer {
             // Update the server gamemode name
             this.name = this.gamemode.map(x => getName(x, Config) || (x[0].toUpperCase() + x.slice(1))).join(' ');
             // Activate laby food if enabled
-            if (Config.LABY_FOOD) global.activateLabyFood();
+            if (Config.TIERED_FOOD) global.activateTieredFood();
             // Initalize the room
             this.setRoom();
             setTimeout(() => {
@@ -506,7 +508,7 @@ class gameServer {
             let alive = false;
             for (const instance of entities.values()) {
                 if (
-                    (instance.isPlayer && !instance.invuln) || instance.isMothership ||
+                    (instance.isPlayer && !instance.invuln && !instance.godmode) || instance.isMothership ||
                     instance.isBot ||
                     (instance.isDominator && instance.team !== TEAM_ENEMIES)
                 ) {

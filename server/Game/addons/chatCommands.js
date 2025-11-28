@@ -149,6 +149,52 @@ let commands = [
         }
     },
     {
+        command: ["define"],
+        description: "Change your level.",
+        level: 2,
+        hidden: true,
+        run: ({ args, socket }) => {
+            if (!args[0]) {
+                socket.talk("m", 5_000, "No entity specified.");
+            }
+            else {
+                socket.player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                socket.player.body.define(args[0]);
+                socket.talk("m", 5_000, `Changed to ${socket.player.body.label}`);
+            }
+        },
+    },
+    {
+        command: ["level"],
+        description: "Change your level.",
+        level: 2,
+        hidden: true,
+        run: ({ args, socket }) => {
+            if (!args[0]) {
+                socket.talk("m", 5_000, "No level specified.");
+            }
+            else {
+                socket.player.body.define({ LEVEL: args[0] });
+                socket.talk("m", 5_000, `Changed to level ${socket.player.body.level}`);
+            }
+        },
+    },
+    {
+        command: ["team"],
+        description: "Change your team.", // player teams are -1 through -8, dreads are -10, room is -100 and enemies is -101
+        level: 2,
+        hidden: true,
+        run: ({ args, socket }) => {
+            if (!args[0]) {
+                socket.talk("m", 5_000, "No team specified.");
+            }
+            else {
+                socket.player.body.define({ COLOR: getTeamColor(args[0]), TEAM: args[0] });
+                socket.talk("m", 5_000, `Changed to team ${socket.player.body.team}`);
+            }
+        },
+    },
+    {
         command: ["developer", "dev"],
         description: "Developer commands, go troll some players or just take a look for yourself.",
         level: 3,

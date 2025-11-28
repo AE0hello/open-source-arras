@@ -74,6 +74,8 @@ gui = {
     type: 0,
     root: "",
     class: "",
+    visibleEntities: false,
+    dailyTank: null,
     fps: 0,
     color: 0,
     accel: 0,
@@ -236,7 +238,7 @@ const Entry = class {
     publish() {
         let indexes = this.index.split("-"),
             ref = global.mockups[parseInt(indexes[0])];
-            if (!ref) ref = global.missingMockup[0];
+            if (!ref) ref = global.missingno[0];
 
         return {
             id: this.id,
@@ -659,6 +661,8 @@ const convert = {
         let index = get.next(),
             // Translate the encoded index
             indices = {
+                dailyTank: index & 0x1000,
+                visibleName: index & 0x0800,
                 class: index & 0x0400,
                 root: index & 0x0200,
                 topspeed: index & 0x0100,
@@ -726,6 +730,12 @@ const convert = {
         }
         if (indices.class) {
             gui.class = get.next();
+        }
+        if (indices.visibleName) {
+            gui.visibleEntities = get.next();
+        }
+        if (indices.dailyTank) {
+            gui.dailyTank = JSON.parse(get.next());
         }
     },
     broadcast: () => {
@@ -951,6 +961,11 @@ let incoming = async function(message, socket) {
                 theshit = m.slice(7);
                 // More stuff
                 let defaultFov = 2000;
+            if (!global.gameStart && startSettings.allowtostartgame) {
+                // Start the game
+                global.gameStart = true;
+                global.gameConnecting = false;
+            };
             // Process the data
             if (camtime > global.player.lastUpdate) { // Don't accept out-of-date information.
                 if (startSettings.neededtoresync) return; // Do not update anything when the client is out of sync.
@@ -994,11 +1009,6 @@ let incoming = async function(message, socket) {
             } else {
                 console.log("Old data! Last given time: " + global.player.time + "; offered packet timestamp: " + camtime + ".");
             }
-            if (!global.gameStart && startSettings.allowtostartgame) {
-                // Start the game
-                global.gameStart = true;
-                global.gameConnecting = false;
-            };
             // Send the downlink and the target
             socket.talk('d', Math.max(global.player.lastUpdate, camtime));
             socket.cmd.talk();

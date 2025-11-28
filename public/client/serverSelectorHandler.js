@@ -117,6 +117,7 @@ let initializeFilter = () => {
             squads: [],
             tdm: [],
             minigames: [],
+            sandbox: [],
         }
     }
     let nvmText = document.createElement("td");
@@ -132,9 +133,12 @@ let initializeFilter = () => {
     for (let s of servers) {
         global.filters.gamemodeFilters.all.push(s);
         global.filters.regions.all.push(s);
-        if (s.region == "USA" || s.region == "usa") global.filters.regions.usa.push(s);
-        if (s.region == "Europe" || s.region == "EUROPE") global.filters.regions.europe.push(s);
-        if (s.region == "Asia" || s.region == "ASIA") global.filters.regions.asia.push(s);
+        if (s.region == "USA" || s.region == "Usa" || s.region == "usa") global.filters.regions.usa.push(s);
+        if (s.region == "EUROPE"|| s.region == "Europe" || s.region == "europe") global.filters.regions.europe.push(s);
+        if (
+            s.region == "ASIA" || s.region == "Asia" || s.region == "asia" ||
+            s.region == "OCEANIA" || s.region == "Oceania" || s.region == "oceania"
+        ) global.filters.regions.asia.push(s);
         if (
             !global.filters.regions.usa.includes(s) &&
             !global.filters.regions.europe.includes(s) &&
@@ -144,18 +148,19 @@ let initializeFilter = () => {
         }
         if (
             s.gameMode.includes("FFA") || 
-            s.gameMode.includes("ffa") || 
             s.gameMode.includes("Maze") || 
-            s.gameMode.includes("ManHunt") ||
-            s.gameMode.includes("MANHUNT") ||
             s.gameMode.includes("Manhunt")
         ) global.filters.gamemodeFilters.ffa.push(s);
         if (
             s.gameMode.includes("TDM") 
         ) global.filters.gamemodeFilters.tdm.push(s);
         if (
-            s.gameMode.includes("Mothership") /* || s.gameMode.includes("YourGameModename")*/
+            s.gameMode.includes("Domination") ||
+            s.gameMode.includes("Mothership")
         ) global.filters.gamemodeFilters.minigames.push(s);
+        if (
+            s.gameMode.includes("Sandbox")
+        ) global.filters.gamemodeFilters.sandbox.push(s);
     };
     let l = [];
     let createFilter = (type, data) => {
@@ -206,7 +211,7 @@ let initializeFilter = () => {
             let e = checkFilter(h, global.filters.regions.europe);
             return e;
         } },
-        { name: "Asia", filter: (h) => { 
+        { name: "Asia/Oceania", filter: (h) => { 
             let e = checkFilter(h, global.filters.regions.asia);
             return e;
         } },
@@ -231,6 +236,10 @@ let initializeFilter = () => {
         } },
         { name: "Minigames", filter: (h) => {
             let e = checkFilter(h, global.filters.gamemodeFilters.minigames);
+            return e;
+        } },
+        { name: "Sandbox", filter: (h) => {
+            let e = checkFilter(h, global.filters.gamemodeFilters.sandbox);
             return e;
         } },
     ]);

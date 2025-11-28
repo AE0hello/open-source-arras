@@ -181,7 +181,6 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
             }
         };
         if (set.NO_COLLISIONS) this.settings.no_collisions = set.NO_COLLISIONS;
-        if (set.MIRROR_MASTER_ANGLE != null) this.settings.mirrorMasterAngle = set.MIRROR_MASTER_ANGLE
         if (set.DRAW_HEALTH != null) this.settings.drawHealth = set.DRAW_HEALTH;
         if (set.DRAW_SELF != null) this.settings.drawShape = set.DRAW_SELF;
         if (set.DAMAGE_EFFECTS != null) this.settings.damageEffects = set.DAMAGE_EFFECTS;
@@ -350,126 +349,8 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
 
     updateBodyInfo() {};
 
-    move() {
-        let g = { x: this.control.goal.x - this.x, y: this.control.goal.y - this.y },
-        gactive = (g.x !== 0 || g.y !== 0),
-        engine = { x: 0, y: 0, },
-        a = this.acceleration / global.gameManager.roomSpeed;
-        switch (this.motionType) {
-            case 'glide':
-                this.maxSpeed = this.topSpeed;
-                this.damp = 0.05;
-                break;
-            case 'motor':
-                this.maxSpeed = 0;
-                if (this.topSpeed) {
-                    this.damp = a / this.topSpeed;
-                }
-                if (gactive) {
-                    let len = Math.sqrt(g.x * g.x + g.y * g.y);
-                    engine = { x: a * g.x / len, y: a * g.y / len, };
-                }
-                break;
-            case 'swarm':
-                this.maxSpeed = this.topSpeed;
-                let l = util.getDistance({ x: 0, y: 0, }, g) + 1;
-                if (gactive && l > this.size) {
-                    let desiredxspeed = this.topSpeed * g.x / l,
-                        desiredyspeed = this.topSpeed * g.y / l,
-                        turning = Math.sqrt((this.topSpeed * Math.max(1, this.motionTypeArgs.turnVelocity ?? this.range) + 1) / a);
-                    engine = {
-                        x: (desiredxspeed - this.velocity.x) / Math.max(5, turning),
-                        y: (desiredyspeed - this.velocity.y) / Math.max(5, turning),
-                    };
-                } else {
-                    if (this.velocity.length < this.topSpeed) {
-                        engine = {
-                            x: this.velocity.x * a / 20,
-                            y: this.velocity.y * a / 20,
-                        };
-                    }
-                }
-                break;
-            case 'chase':
-                if (gactive) {
-                    let l = util.getDistance({ x: 0, y: 0, }, g);
-                    if (l > this.size * 2) {
-                        this.maxSpeed = this.topSpeed;
-                        let desiredxspeed = this.topSpeed * g.x / l,
-                            desiredyspeed = this.topSpeed * g.y / l;
-                        engine = {
-                            x: (desiredxspeed - this.velocity.x) * a,
-                            y: (desiredyspeed - this.velocity.y) * a,
-                        };
-                    } else if (this.motionTypeArgs.keepSpeed) {
-                        if (this.velocity.length < this.topSpeed) {
-                            engine = {
-                                x: this.velocity.x * a / 20,
-                                y: this.velocity.y * a / 20,
-                            };
-                        }
-                    } else this.maxSpeed = 0;
-                } else if (this.motionTypeArgs.keepSpeed) {
-                    if (this.velocity.length < this.topSpeed) {
-                        engine = {
-                            x: this.velocity.x * a / 20,
-                            y: this.velocity.y * a / 20,
-                        };
-                    }
-                } else this.maxSpeed = 0;
-                break;
-            case 'drift':
-                this.maxSpeed = 0;
-                engine = { x: g.x * a, y: g.y * a, };
-                break;
-            case "withMaster":
-                this.x = this.source.x;
-                this.y = this.source.y;
-                this.velocity.x = this.source.velocity.x;
-                this.velocity.y = this.source.velocity.y;
-                break;
-        }
-
-        this.accel.x += engine.x * this.control.power;
-        this.accel.y += engine.y * this.control.power;
-    };
-    face() {
-        let t = this.control.target;
-        switch (this.facingType) {
-            case "spin":
-                this.facing += (this.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
-                break;
-            case "spinWhenIdle":
-                if (t && this.control.fire) this.facing = Math.atan2(t.y, t.x); else this.facing += (this.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
-                break;
-            case 'turnWithSpeed':
-                this.facing += this.velocity.length / 90 * Math.PI / global.gameManager.roomSpeed;
-                break;
-            case 'withMotion':
-                this.facing = this.velocity.direction;
-                break;
-            case 'smoothWithMotion':
-            case 'looseWithMotion':
-                this.facing += util.loopSmooth(this.facing, this.velocity.direction, 4 / global.gameManager.roomSpeed);
-                break;
-            case 'withTarget':
-            case 'toTarget':
-                this.facing = Math.atan2(t.y, t.x);
-                break;
-            case 'locksFacing':
-                if (!this.control.alt) this.facing = Math.atan2(t.y, t.x);
-                break;
-            case 'looseWithTarget':
-            case 'looseToTarget':
-            case 'smoothToTarget':
-                this.facing += util.loopSmooth(this.facing, Math.atan2(t.y, t.x), 4 / global.gameManager.roomSpeed);
-                break;
-            case "noFacing":
-                if (this.lastSavedFacing !== this.facing) this.facing = this.facingTypeArgs.angle ?? 0;
-                this.lastSavedFacing = this.facing;
-                break;
-        }
-    };
+    move() { global.runMove(this) };
+    face() { global.runFace(this) };
 
     damageMultiplier() {
         switch (this.type) {
@@ -594,7 +475,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
         // Check for death
         if (this.isDead()) {
             for (let gun of this.guns.values()) {
-                if (gun.shootOnDeath && gun.body != null) gun.spawnBullets();
+                if (gun.shootOnDeath && gun.body != null) gun.shoot();
             }
             return 1;
         }

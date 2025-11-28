@@ -11,7 +11,7 @@ class gameHandler {
         this.bossTimer = 0;
         this.active = false;
     }
-
+    checkUsers = () => global.gameManager.clients.length >= 1;
     // Collision stuff
     collide = (instance, other) => {
 
@@ -255,7 +255,7 @@ class gameHandler {
             for (const other of grid.query(instance.minX, instance.minY, instance.maxX, instance.maxY).values()) {
                 this.collide(instance, other);
             }
-            if (!instance.bond) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
+            if (instance.isInGrid) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
             logs.collide.mark();
             if (instance.touchingSizeWall === false && instance.originalSize) {
                 instance.SIZE = instance.originalSize;
@@ -372,8 +372,8 @@ class gameHandler {
             }
         }
         // Spawn bosses
-        if (!this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
-            this.bossTimer = -Config.BOSS_SPAWN_DURATION;
+        if (this.checkUsers() && Config.ENABLE_BOSS_SPAWN && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
+            this.bossTimer = -Config.BOSS_SPAWN_DELAY - 2;
             let selection = Config.BOSS_TYPES[ran.chooseChance(...Config.BOSS_TYPES.map((selection) => selection.chance))],
                 amount = ran.chooseChance(...selection.amount) + 1;
             if (selection.message) {
@@ -399,7 +399,7 @@ class gameHandler {
                 }
 
                 global.gameManager.socketManager.broadcast(`${util.listify(names)} ${names.length == 1 ? 'has' : 'have'} arrived!`);
-            }, Config.BOSS_SPAWN_DURATION * 30);
+            }, Config.BOSS_SPAWN_DELAY * 30);
         }
     };
 
@@ -501,7 +501,7 @@ class gameHandler {
         this.active = true;
         let gameLoop = setInterval(() => {
             if (!this.active) return clearInterval(gameLoop);
-            if (global.gameManager.clients.length >= 1) { // If there arent clients in the server, then just dont run the run function.
+            if (this.checkUsers()) {
                 try {
                     this.gameloop();
                     syncedDelaysLoop();

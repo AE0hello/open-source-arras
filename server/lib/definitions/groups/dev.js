@@ -1,10 +1,10 @@
-const { combineStats, menu, addAura, makeDeco, LayeredBoss, newWeapon, weaponArray, makeRadialAuto, makeTurret } = require('../facilitators.js');
-const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js');
-const g = require('../gunvals.js');
-require('./tanks.js');
-require('./food.js');
+const { combineStats, makeMenu, addAura, makeDeco, LayeredBoss, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
+const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js')
+const g = require('../gunvals.js')
+require('./tanks.js')
+require('./food.js')
 
-// Menus
+// Main Developer Tank
 Class.developer = {
     PARENT: "genericTank",
     LABEL: "Developer",
@@ -16,6 +16,7 @@ Class.developer = {
         DENSITY: 20,
         FOV: 2,
     },
+    //COLOR: "mirror", // todo: make sure mirror colour doesnt grey out your leaderboard
     SKILL_CAP: Array(10).fill(dfltskl),
     IGNORED_BY_AI: true,
     RESET_CHILDREN: true,
@@ -48,55 +49,18 @@ Class.developer = {
                 TYPE: "developerBullet"
             }
         }
-    ]
-};
-Class.rapture = {
-    PARENT: ["genericTank"],
-    LABEL: "Rapture",
-    DANGER: 7,
-    GUNS: [
-        {
-            POSITION: [21, 19.5, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { speed: 2, maxSpeed: 3 }]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [4, 3, 1, 11, -3, 0, 0],
-        },
-        {
-            POSITION: [4, 3, 1, 11, 3, 0, 0],
-        },
-        {
-            POSITION: [4, 4, 1, 13, 0, 0, 0],
-        },
-        {
-            POSITION: [1, 4, 1, 12, -1, 0, 0],
-        },
-        {
-            POSITION: [1, 4, 1, 11, 1, 0, 0],
-        },
-        {
-            POSITION: [1, 3, 1, 13, -1, 0, 0],
-        },
-        {
-            POSITION: [1, 3, 1, 13, 1, 0, 0],
-        },
-        {
-            POSITION: [1, 2, 1, 13, 2, 0, 0],
-        },
-        {
-            POSITION: [1, 2, 1, 13, -2, 0, 0],
-        },
-        {
-            POSITION: [15, 13, 1, 6, 0, 0, 0],
-        },
-        {
-            POSITION: [12, 13, -1.3, 4, 0, 0, 0],
-        },
     ],
-};
+    UPGRADES_TIER_0: [
+        "menu_tanks",
+        "menu_bosses",
+        "spectator",
+        "menu_addons",
+        "menu_testing",
+        "eggGen",
+    ]
+}
+
+// Spectator
 Class.spectator = {
     PARENT: "genericTank",
     LABEL: "Spectator",
@@ -108,6 +72,7 @@ Class.spectator = {
     IGNORED_BY_AI: true,
     ARENA_CLOSER: true,
     IS_IMMUNE_TO_TILES: true,
+    CAN_SEE_INVISIBLE_ENTITIES: true,
     TOOLTIP: "Left click to teleport, Right click above or below the screen to change FOV",
     SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
     BODY: {
@@ -147,87 +112,392 @@ Class.spectator = {
     }]
 }
 
-Class.generatorBase = {
-    PARENT: "genericTank",
-    LABEL: "Generator",
-    ALPHA: 0,
-    IGNORED_BY_AI: true,
-    CAN_BE_ON_LEADERBOARD: false,
-    ACCEPTS_SCORE: false,
-    DRAW_HEALTH: false,
-    HITS_OWN_TYPE: "never",
-    ARENA_CLOSER: true,
-    IS_IMMUNE_TO_TILES: true,
-    SKILL_CAP: [31, 0, 0, 0, 0, 0, 0, 0, 0, 31],
-    BODY: {
-        SPEED: 5,
-        FOV: 2.5,
-        DAMAGE: 0,
-        HEALTH: 1e100,
-        SHIELD: 1e100,
-        REGEN: 1e100,
-    },
-}
+// Tank Menu(s)
+Class.menu_tanks = makeMenu("Tanks")
+//Class.menu_tanks.UPGRADE_TOOLTIP = "Every tank. Need I say more?"
+Class.menu_tanks.UPGRADES_TIER_0 = [
+    Config.SPAWN_CLASS,
+    "menu_unused",
+    "arenaCloser",
+    "menu_mapEntities",
+    "menu_motherships",
+    "undercoverCop",
+]
 
-Class.bosses = menu("Bosses")
-Class.bosses.REROOT_UPGRADE_TREE = "bosses"
-Class.sentries = menu("Sentries", "pink", 3.5)
-Class.sentries.PROPS = [
+Class.menu_unused = makeMenu("Unused")
+Class.menu_unused.UPGRADE_TOOLTIP = "Tanks that aren't used by the game, for whatever reason."
+Class.menu_unused.UPGRADES_TIER_0 = [
+    "healer",
+    "menu_unreleased",
+    "menu_removed",
+    "menu_fun",
+]
+
+Class.menu_unreleased = makeMenu("Unreleased")
+Class.menu_unreleased.UPGRADE_TOOLTIP = "Tanks that were fully created and likely intended to be added, but never were."
+Class.menu_unreleased.UPGRADES_TIER_0 = [
+    "autoTrapper",
+    "blunderbuss",
+    "dreadnought_old",
+    "flail",
+    "mender",
+    "prodigy",
+    "quadBuilder",
+    "repeater",
+    "rimfire_old",
+    "spiral",
+    "volute",
+    "whirlwind_old",
+    "whirlwind_bent",
+]
+
+Class.menu_removed = makeMenu("Removed")
+Class.menu_removed.UPGRADE_TOOLTIP = "Tanks that were either removed entirely or replaced with redesigned versions."
+Class.menu_removed.UPGRADES_TIER_0 = [
+    "menu_dailyTanks",
+    "menu_diep2",
+    "boomer_old",
+    "auto4_old",
+    "spike_old",
+    "spreadshot_old",
+]
+
+Class.menu_dailyTanks = makeMenu("Daily Tanks")
+Class.menu_dailyTanks.UPGRADE_COLOR = "rainbow"
+Class.menu_dailyTanks.UPGRADE_TOOLTIP = "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available. \n" +
+                                        "The Daily Tank for a server can be added or changed in config."
+Class.menu_dailyTanks.UPGRADES_TIER_0 = [
+    "whirlwind", // dec 13/21
+    "master", // dec 14/22
+    "undertow", // dec 15/23
+    "literallyAMachineGun", // dec 16/24
+    "literallyATank", // dec 17
+    "rocketeer", // dec 18
+    "jumpSmasher", // dec 19/20
+    "rapture" // dec 25
+]
+
+Class.menu_diep2 = makeMenu("Diep2")
+Class.menu_diep2.UPGRADE_TOOLTIP = "Tanks that were included in the early mockup builds of arras.io."
+Class.menu_diep2.UPGRADES_TIER_0 = [
+    "basic_diep2",
+    "sprayer_diep2_old",
+    "flankGuard_diep2_old",
+]
+
+Class.menu_fun = makeMenu("Fun")
+Class.menu_fun.UPGRADE_TOOLTIP = "Tanks that, let's be honest, aren't used for a good reason.\n" +
+                                 //"\n" +
+                                 "DISCLAIMER: Some of the content in here may be in poor taste. Blame the arras.io devs, not us."
+Class.menu_fun.UPGRADES_TIER_0 = [
+    //"alas",
+    //"average4tdmScore",
+    //"averageL39Hunt",
+    //"beeman",
+    "bigBalls",
+    "cxATMG",
+    "damoclone",
+    "fat456",
+    //"heptaAutoBasic",
+    "machineShot",
+    "meDoingYourMom",
+    "momwtdym",
+    //"quadCyclone",
+    "rapture",
+    "riptide",
+    //"schoolShooter",
+    //"smasher3",
+    "tetraGunner",
+    //"theAmalgamation",
+    //"theConglomerate",
+    "tracker3",
+    "wifeBeater",
+    "worstTank",
+]
+
+Class.menu_mapEntities = makeMenu("Map Entities")
+Class.menu_mapEntities.UPGRADE_TOOLTIP = "Tanks that spawn as part of the map layout."
+Class.menu_mapEntities.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    }
+]
+Class.menu_mapEntities.UPGRADES_TIER_0 = [
+    "menu_dominators",
+    "baseProtector",
+    "antiTankMachineGun",
+    "menu_sanctuaries",
+]
+
+Class.menu_dominators = makeMenu("Dominators")
+Class.menu_dominators.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    }
+]
+Class.menu_dominators.UPGRADES_TIER_0 = [
+    "destroyerDominator",
+    "gunnerDominator",
+    "trapperDominator",
+]
+
+Class.menu_sanctuaries = makeMenu("Sanctuaries")
+Class.menu_sanctuaries.PROPS = [
+    {
+        POSITION: [22, 0, 0, 360, 0],
+        TYPE: "dominationBody"
+    },
+    {
+        POSITION: [13, 0, 0, 360, 1],
+        TYPE: "healerSymbol"
+    }
+]
+Class.menu_sanctuaries.UPGRADES_TIER_0 = [
+    "sanctuaryTier1",
+    "sanctuaryTier2",
+    "sanctuaryTier3",
+    "sanctuaryTier4",
+    "sanctuaryTier5",
+    "sanctuaryTier6",
+]
+
+Class.menu_motherships = makeMenu("Motherships", "mirror", 16)
+Class.menu_motherships.UPGRADE_TOOLTIP = "Giant Enemy Tanks that you attack the weak points of for massive damage."
+Class.menu_motherships.UPGRADES_TIER_0 = [
+    "mothership",
+    "flagship",
+    "turkey",
+]
+
+// Boss Menu(s)
+Class.menu_bosses = makeMenu("Bosses")
+Class.menu_bosses.REROOT_UPGRADE_TREE = "menu_bosses"
+Class.menu_bosses.UPGRADES_TIER_0 = [
+    "menu_sentries",
+    "menu_elites",
+    "menu_mysticals",
+    "menu_nesters",
+    "menu_rogues",
+    "menu_rammers",
+    "menu_terrestrials",
+    "menu_celestials",
+    "menu_eternals",
+    "menu_devBosses",
+]
+
+Class.menu_sentries = makeMenu("Sentries", "pink", 3.5)
+Class.menu_sentries.PROPS = [
     {
         POSITION: [9, 0, 0, 0, 360, 1],
         TYPE: "genericEntity"
     }
 ]
-Class.elites = menu("Elites", "pink", 3.5)
-Class.deltas = menu("Deltas", "pink", 3)
-Class.mysticals = menu("Mysticals", "gold", 4)
-Class.nesters = menu("Nesters", "purple", 5.5)
-Class.rogues = menu("Rogues", "darkGrey", 6)
-Class.rammers = menu("Rammers", "aqua")
-Class.rammers.PROPS = [
+Class.menu_sentries.UPGRADES_TIER_0 = [
+    "sentrySwarm",
+    "sentryGun",
+    "sentryTrap",
+    "shinySentrySwarm",
+    "shinySentryGun",
+    "shinySentryTrap",
+    "sentinelMinigun",
+    "sentinelLauncher",
+    "sentinelCrossbow",
+]
+
+Class.menu_elites = makeMenu("Elites", "pink", 3.5)
+Class.menu_elites.UPGRADES_TIER_0 = [
+    "eliteDestroyer",
+    "eliteGunner",
+    "eliteSprayer",
+    "eliteBattleship",
+    "eliteSpawner",
+    "eliteTrapGuard",
+    "eliteSpinner",
+    "eliteSkimmer",
+    "legionaryCrasher",
+    "guardian",
+    "defender",
+    "sprayerLegion",
+    "menu_deltas",
+]
+
+Class.menu_deltas = makeMenu("Deltas", "pink", 3)
+Class.menu_deltas.UPGRADES_TIER_0 = [
+    "deltaDestroyer",
+    "deltaGunner",
+    "deltaSprayer",
+    "deltaBattleship",
+]
+
+Class.menu_mysticals = makeMenu("Mysticals", "gold", 4)
+Class.menu_mysticals.UPGRADES_TIER_0 = [
+    "sorcerer",
+    "summoner",
+    "thaumaturge",
+    "enchantress",
+    "exorcistor",
+    "shaman",
+]
+
+Class.menu_nesters = makeMenu("Nesters", "purple", 5.5)
+Class.menu_nesters.UPGRADES_TIER_0 = [
+    "nestKeeper",
+    "nestWarden",
+    "nestGuardian",
+    "nestCurator",
+    "nestDeacon",
+    "nestChampion",
+]
+
+Class.menu_rogues = makeMenu("Rogues", "darkGrey", 6)
+Class.menu_rogues.UPGRADES_TIER_0 = [
+    "roguePalisade",
+    "rogueAlcazar",
+    "rogueArmada",
+    "julius",
+    "genghis",
+    "napoleon",
+]
+
+Class.menu_rammers = makeMenu("Rammers", "aqua")
+Class.menu_rammers.PROPS = [
     {
         POSITION: [21.5, 0, 0, 360, 0],
         TYPE: "smasherBody",
     }
 ]
-Class.terrestrials = menu("Terrestrials", "orange", 7)
-Class.celestials = menu("Celestials", "lightGreen", 9)
-Class.eternals = menu("Eternals", "veryLightGrey", 11)
-Class.devBosses = menu("Developers", "lightGreen", 4)
-Class.devBosses.UPGRADE_COLOR = "rainbow";
-Class.retiredDevBosses = menu("Retired Developers", "#000000", 3)
-Class.retiredDevBosses.UPGRADE_COLOR = "#000000"
+Class.menu_rammers.UPGRADES_TIER_0 = [
+    "bob",
+    "nemesis",
+]
 
-Class.tanks = menu("Tanks")
-Class.unavailable = menu("Unavailable")
-Class.dominators = menu("Dominators")
-Class.dominators.PROPS = [
-    {
-        POSITION: [22, 0, 0, 360, 0],
-        TYPE: "dominationBody",
-    }
+Class.menu_terrestrials = makeMenu("Terrestrials", "orange", 7)
+Class.menu_terrestrials.UPGRADES_TIER_0 = [
+    "ares",
+    "gersemi",
+    "ezekiel",
+    "eris",
+    "selene",
 ]
-Class.sanctuaries = menu("Sanctuaries")
-Class.sanctuaries.PROPS = [
-    {
-        POSITION: [22, 0, 0, 360, 0],
-        TYPE: "dominationBody",
-    }, {
-        POSITION: [13, 0, 0, 360, 1],
-        TYPE: "healerSymbol",
-    }
+
+Class.menu_celestials = makeMenu("Celestials", "lightGreen", 9)
+Class.menu_celestials.UPGRADES_TIER_0 = [
+    "paladin",
+    "freyja",
+    "zaphkiel",
+    "nyx",
+    "theia",
+    "atlas",
+    "rhea",
+    "julius",
+    "genghis",
+    "napoleon",
 ]
+
+Class.menu_eternals = makeMenu("Eternals", "veryLightGrey", 11)
+Class.menu_eternals.UPGRADES_TIER_0 = [
+    "ragnarok",
+    "kronos",
+]
+
+Class.menu_devBosses = makeMenu("Developers", "lightGreen", 4)
+Class.menu_devBosses.UPGRADE_COLOR = "rainbow"
+Class.menu_devBosses.UPGRADES_TIER_0 = [
+    "AEMKShipBoss",
+    "dogeiscutBoss",
+    "helenaBoss",
+    "toothlessBoss",
+    "tgsBoss",
+    "menu_retiredDevBosses",
+]
+
+Class.menu_retiredDevBosses = makeMenu("Retired Developers", "pureBlack", 4)
+Class.menu_retiredDevBosses.UPGRADES_TIER_0 = [
+    "frostBoss",
+    "taureonBoss",
+    "trplnrBoss",
+]
+
+// Addons Menu
+Class.menu_addons = makeMenu("Addons")
+Class.menu_addons.UPGRADE_TOOLTIP = "Content that is (usually) not part of Open Source Arras but was added by someone else."
+Class.menu_addons.UPGRADES_TIER_0 = [] // Empty by default, gets filled up with all the addons you add
+
+// Testing Menu
+Class.menu_testing = makeMenu("Testing")
+Class.menu_testing.UPGRADE_TOOLTIP = "A large selection of tanks that use many of the features of Open Source Arras. \n" +
+                                     "WARNING: There are a lot of tanks in here and having this menu open may cause noticeable frame drops!"
+Class.menu_testing.UPGRADES_TIER_0 = [
+    "diamondShape",
+    "miscTest",
+    "mmaTest",
+    "vulnturrettest",
+    "onTest",
+    "alphaGunTest",
+    "strokeWidthTest",
+    "testLayeredBoss",
+    "tooltipTank",
+    "turretLayerTesting",
+    "bulletSpawnTest",
+    "propTest",
+    "weaponArrayTest",
+    "radialAutoTest",
+    "makeAutoTest",
+    "imageShapeTest",
+    "screenShakeTest",
+    "turretStatScaleTest",
+    "auraBasic",
+    "auraHealer",
+    "ghoster",
+    "gunBenchmark",
+    "switcheroo",
+    "armyOfOne",
+    "vanquisher",
+    "mummifier",
+    "syncWithTankTest",
+    "airblast",
+]
+
+// airblast testing
+Class.airblast = {
+    PARENT: "genericTank",
+    LABEL: "Airblast",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 10,
+                ASPECT: 1.4,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }]),
+                TYPE: "airblastBullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 8,
+                ASPECT: 1.4,
+                X: 8
+            }
+        }
+    ]
+}
+
 // Testing tanks
 Class.diamondShape = {
     PARENT: "basic",
     LABEL: "Rotated Body",
     SHAPE: 4.5
-};
-
+}
 Class.mummyHat = {
     SHAPE: 4.5,
     COLOR: -1
-};
+}
 Class.mummy = {
     PARENT: "drone",
     SHAPE: 4,
@@ -236,7 +506,7 @@ Class.mummy = {
         POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
         TYPE: ["mummyHat"]
     }]
-};
+}
 Class.mummifier = {
     PARENT: "genericTank",
     LABEL: "Mummifier",
@@ -270,7 +540,7 @@ Class.mummifier = {
         POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
         TYPE: ["mummyHat"]
     }]
-};
+}
 Class.miscTestHelper2 = {
     PARENT: "genericTank",
     LABEL: "Turret Reload 3",
@@ -286,7 +556,7 @@ Class.miscTestHelper2 = {
             },
         },
     ],
-};
+}
 Class.miscTestHelper = {
     PARENT: "genericTank",
     LABEL: "Turret Reload 2",
@@ -311,7 +581,7 @@ Class.miscTestHelper = {
           TYPE: "miscTestHelper2",
         }
     ]
-};
+}
 Class.miscTest = {
     PARENT: "genericTank",
     LABEL: "Turret Reload",
@@ -331,7 +601,7 @@ Class.miscTest = {
             TYPE: "miscTestHelper",
         }
     ]
-};
+}
 Class.mmaTest2 = {
     PARENT: "genericTank",
     MIRROR_MASTER_ANGLE: true,
@@ -364,7 +634,6 @@ Class.mmaTest = {
         },
     ]
 }
-
 Class.vulnturrettest_turret = {
     PARENT: "genericTank",
     COLOR: "grey",
@@ -372,7 +641,6 @@ Class.vulnturrettest_turret = {
     LABEL: 'Shield',
     COLOR: 'teal',
 }
-
 Class.vulnturrettest = {
     PARENT: "genericTank",
     LABEL: "Vulnerable Turrets",
@@ -393,8 +661,7 @@ Class.vulnturrettest = {
         TYPE: "vulnturrettest_turret",
         VULNERABLE: true
     }, 10)
-};
-
+}
 Class.turretLayerTesting = {
     PARENT: 'genericTank',
     LABEL: 'Turret Layer Testing',
@@ -421,7 +688,6 @@ Class.turretLayerTesting = {
         },
     ]
 }
-
 Class.alphaGunTest = {
     PARENT: "basic",
     LABEL: "Translucent Guns",
@@ -434,7 +700,6 @@ Class.alphaGunTest = {
         }
     }]
 }
-
 Class.radialAutoTest = makeRadialAuto("gunner", {
     count: 5,
     isTurret: false,
@@ -457,22 +722,12 @@ Class.makeAutoTest = {
         TYPE: 'makeAutoTestTurret'
     }, 3)
 }
-
 Class.imageShapeTest = {
     PARENT: 'genericTank',
     LABEL: "Image Shape Test",
     SHAPE: 'image=/round.png',
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ]
+    GUNS: Class.basic.GUNS
 }
-
 Class.screenShakeTest = {
     PARENT: 'genericTank',
     LABEL: "Screen Shake Test",
@@ -502,17 +757,8 @@ Class.screenShakeTest = {
             APPLY_ON_SHOOT: true,   
         },
     ],
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ]
+    GUNS: Class.basic.GUNS
 }
-
 Class.strokeWidthTest = {
     PARENT: "basic",
     LABEL: "Stroke Width Test",
@@ -526,7 +772,6 @@ Class.strokeWidthTest = {
         }
     }]
 }
-
 Class.onTest = {
     PARENT: 'genericTank',
     LABEL: "ON property test",
@@ -562,7 +807,7 @@ Class.onTest = {
     }, {
         event: "damage",
         handler: ({ body, damageInflictor, damageTool }) => { 
-            body.sendMessage(`I got hurt`)
+            body.sendMessage(`I got hurt.`)
         }
     }],
     GUNS: [{
@@ -588,7 +833,6 @@ Class.onTest = {
         }
     }]
 }
-
 Class.turretStatScaleTest = {
     PARENT: 'genericTank',
     LABEL: 'Turret Stat Test',
@@ -597,7 +841,6 @@ Class.turretStatScaleTest = {
         TYPE: ['autoTankGun', {GUN_STAT_SCALE: {speed: 1 + i / 5, maxSpeed: 1 + i / 5, reload: 1 + i / 5, recoil: 0}}]
     }))
 }
-
 Class.auraBasicGen = addAura();
 Class.auraBasic = {
     PARENT: "genericTank",
@@ -608,16 +851,8 @@ Class.auraBasic = {
             TYPE: "auraBasicGen"
         }
     ],
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            },
-        },
-    ],
-};
+    GUNS: Class.basic.GUNS
+}
 Class.auraHealerGen = addAura(-1);
 Class.auraHealer = {
     PARENT: "genericTank",
@@ -628,23 +863,11 @@ Class.auraHealer = {
             TYPE: "auraHealerGen"
         }
     ],
-    GUNS: [
-        {
-            POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
-        },
-        {
-            POSITION: [18, 10, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.healer]),
-                TYPE: "healerBullet",
-            },
-        },
-    ],
-};
-
+    GUNS: Class.healer.GUNS
+}
 Class.ghoster_ghosted = {
     PARENT: "genericTank",
-    TOOLTIP: 'You are now hidden, roam around and find your next target. You will be visible again in 5 seconds',
+    TOOLTIP: 'You are now invisible, roam around and find your next target. You will be visible again in 5 seconds',
     LABEL: 'Ghoster',
     BODY: {
         SPEED: 20,
@@ -656,11 +879,10 @@ Class.ghoster_ghosted = {
     }],
     ALPHA: 0.6,
 }
-
 Class.ghoster = {
     PARENT: "genericTank",
     LABEL: 'Ghoster',
-    TOOLTIP: 'Shooting will hide you for 5 seconds',
+    TOOLTIP: 'Shooting will turn you invisible for 5 seconds',
     BODY: {
         SPEED: base.SPEED,
         ACCELERATION: base.ACCEL,
@@ -692,7 +914,6 @@ Class.ghoster = {
     }],
     ALPHA: 1,
 }
-
 Class.switcheroo = {
     PARENT: "basic",
     LABEL: 'Switcheroo',
@@ -720,7 +941,6 @@ Class.switcheroo = {
         }
     }]
 }
-
 Class.vanquisher = {
     PARENT: "genericTank",
     DANGER: 8,
@@ -829,38 +1049,12 @@ Class.armyOfOne = {
             },
         }
     ],
-};
-Class.weirdAutoBasic = {
-    PARENT: "genericTank",
-    LABEL: "Weirdly Defined Auto-Basic",
-    GUNS: [{
-        POSITION: {
-            LENGTH: 20,
-            WIDTH: 10
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, [0.8, 0.8, 1.5, 1, 0.8, 0.8, 0.9, 1, 1, 1, 1, 2, 1]]),
-            TYPE: "bullet"
-        },
-    }],
-    TURRETS: [{
-        POSITION: {
-            ANGLE: 180,
-            LAYER: 1
-        },
-        TYPE: ["autoTurret", {
-            CONTROLLERS: ["nearestDifferentMaster"],
-            INDEPENDENT: true
-        }]
-    }]
 }
-
 Class.tooltipTank = {
     PARENT: 'genericTank',
     LABEL: "Tooltips",
     UPGRADE_TOOLTIP: "Allan please add details"
 }
-
 Class.bulletSpawnTest = {
     PARENT: 'genericTank',
     LABEL: "Bullet Spawn Position",
@@ -882,7 +1076,6 @@ Class.bulletSpawnTest = {
         }
     ]
 }
-
 Class.propTestProp = {
     PARENT: 'genericTank',
     SHAPE: 6,
@@ -900,15 +1093,7 @@ Class.propTestProp = {
 Class.propTest = {
     PARENT: 'genericTank',
     LABEL: 'Deco Prop Test',
-    GUNS: [
-        {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet",
-            }
-        }
-    ],
+    GUNS: Class.basic.GUNS,
     PROPS: [
         {
             POSITION: [10, 0, 0, 0, 1],
@@ -941,7 +1126,6 @@ Class.weaponArrayTest = {
         }
     , 5),
 }
-
 Class.gunBenchmark = {
     PARENT: 'genericTank',
     LABEL: "Gun Benchmark",
@@ -953,115 +1137,14 @@ Class.gunBenchmark = {
         }
     }, 720)
 }
-
-Class.levels = menu("Levels")
-Class.levels.UPGRADES_TIER_0 = []
-for (let i = 0; i < 12; i++) {
-    let LEVEL = i * Config.TIER_MULTIPLIER;
-    Class["level" + LEVEL] = {
-        PARENT: "levels",
-        LEVEL,
-        LABEL: "Level " + LEVEL
-    };
-    Class.levels.UPGRADES_TIER_0.push("level" + LEVEL);
+Class.syncWithTankTest = {
+    PARENT: 'genericTank',
+    LABEL: "Sync With Tank Test",
+    SHAPE: 6,
+    SYNC_WITH_TANK: true,
+    FACING_TYPE: ["smoothToTarget", { smoothness: 30 }],
+    GUNS: Class.basic.GUNS
 }
-
-Class.teams = menu("Teams")
-Class.teams.UPGRADES_TIER_0 = []
-for (let i = 1; i <= 8; i++) {
-    let TEAM = i;
-    Class["Team" + TEAM] = {
-        PARENT: "teams",
-        TEAM: -TEAM,
-        COLOR: getTeamColor(-TEAM),
-        LABEL: "Team " + TEAM
-    };
-    Class.teams.UPGRADES_TIER_0.push("Team" + TEAM);
-}
-Class['Team' + TEAM_DREADNOUGHTS] = {
-    PARENT: "teams",
-    TEAM: TEAM_DREADNOUGHTS,
-    COLOR: getTeamColor(TEAM_DREADNOUGHTS),
-    LABEL: "Dreads Team"
-};
-Class['Team' + TEAM_ROOM] = {
-    PARENT: "teams",
-    TEAM: TEAM_ROOM,
-    COLOR: "yellow",
-    LABEL: "Room Team"
-};
-Class['Team' + TEAM_ENEMIES] = {
-    PARENT: "teams",
-    TEAM: TEAM_ENEMIES,
-    COLOR: "yellow",
-    LABEL: "Enemies Team"
-};
-Class.teams.UPGRADES_TIER_0.push('Team' + TEAM_DREADNOUGHTS, 'Team' + TEAM_ROOM, 'Team' + TEAM_ENEMIES);
-
-Class.testing = menu("Testing")
-
-Class.addons = menu("Addon Entities")
-Class.addons.UPGRADES_TIER_0 = []
-
-// misc tanks
-Class.snakeOld = {
-    PARENT: "missile",
-    LABEL: "Snake",
-    GUNS: [
-        {
-            POSITION: [6, 12, 1.4, 8, 0, 180, 0],
-            PROPERTIES: {
-                AUTOFIRE: true,
-                STAT_CALCULATOR: "thruster",
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.snake, g.snakeskin]),
-                TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-            },
-        },
-        {
-            POSITION: [10, 12, 0.8, 8, 0, 180, 0.5],
-            PROPERTIES: {
-                AUTOFIRE: true,
-                NEGATIVE_RECOIL: true,
-                STAT_CALCULATOR: "thruster",
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.snake]),
-                TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-            },
-        },
-    ],
-}
-Class.sidewinderOld = {
-    PARENT: "genericTank",
-    LABEL: "Sidewinder (Legacy)",
-    DANGER: 7,
-    BODY: {
-        SPEED: 0.8 * base.SPEED,
-        FOV: 1.3 * base.FOV,
-    },
-    GUNS: [
-        {
-            POSITION: [10, 11, -0.5, 14, 0, 0, 0],
-        },
-        {
-            POSITION: [21, 12, -1.1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder]),
-                TYPE: "snakeOld",
-                STAT_CALCULATOR: "sustained",
-            },
-        },
-    ],
-}
-
-
-// Whirlwind upgrades
-
-// Tornado upgrades
-
-// Hurricane upgrades
-
-// Whirlwind hybrids
-
-
 let testLayeredBoss = new LayeredBoss("testLayeredBoss", "Test Layered Boss", "terrestrial", 7, 3, "terrestrialTrapTurret", 5, 7, true, {SPEED: 10});
 testLayeredBoss.addLayer({gun: {
     POSITION: [3.6, 7, -1.4, 8, 0, null, 0],
@@ -1076,513 +1159,3 @@ testLayeredBoss.addLayer({turret: {
     POSITION: [10, 7.5, 0, null, 160, 0],
     TYPE: "crowbarTurret",
 }}, true);
-
-// FLAIL!!!
-Class.flailBallSpike = {
-    PARENT: "genericTank",
-    COLOR: "black",
-    SHAPE: 6,
-    INDEPENDENT: true,
-}
-Class.flailBall = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    HITS_OWN_TYPE: 'hard',
-    INDEPENDENT: true,
-    TURRETS: [{
-        POSITION: [21.5, 0, 0, 0, 360, 0],
-        TYPE: "flailBallSpike",
-    }],
-    GUNS: [
-        { 
-            POSITION: {WIDTH: 8, LENGTH: 10},
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {
-                    range: 0.1,
-                    speed: 0,
-                    maxSpeed: 0,
-                    recoil: 0,
-                    reload: 0.1,
-                    damage: 4,
-                    size: 2,
-                    health: 1,
-                }]),
-                TYPE: ["bullet", {
-                    ALPHA: 0,
-                    ON: [{
-                        event: 'tick',
-                        handler: ({body}) => {
-                            body.DAMAGE -= 1;
-                            body.SIZE -= 0.6;
-                            if (body.SIZE < 1) body.kill();
-                        }
-                    }],
-                }], 
-                AUTOFIRE: true,
-                BORDERLESS: true,
-                DRAW_FILL: false,
-            }
-        }
-    ]
-}
-Class.flailBolt1 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [40, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [48, 56, 0, 0, 360, 1],
-        TYPE: "flailBall"
-    }],
-}
-Class.flailBolt2 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [30, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [20, 36, 0, 0, 360, 1],
-        TYPE: "flailBolt1"
-    }],
-}
-Class.flailBolt3 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    GUNS: [{
-        POSITION: [30, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [18, 36, 0, 0, 360, 1],
-        TYPE: "flailBolt2"
-    }],
-}
-Class.genericFlail = {
-    PARENT: "genericTank",
-    STAT_NAMES: statnames.flail,
-    SYNC_WITH_TANK: true,
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
-}
-Class.flail = {
-    PARENT: "genericFlail",
-    LABEL: "Flail",
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
-Class.doubleFlail = {
-    PARENT: "genericFlail",
-    LABEL: "Double Flail",
-    DANGER: 6,
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }, {
-        POSITION: [6, 10, 0, 180, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
-Class.tripleFlail = {
-    PARENT: "genericFlail",
-    LABEL: "Triple Flail",
-    DANGER: 7,
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }, {
-        POSITION: [6, 10, 0, 120, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }, {
-        POSITION: [6, 10, 0, 240, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
-Class.maceBallSpike = {
-    PARENT: "genericTank",
-    COLOR: 9,
-    SHAPE: 3,
-    INDEPENDENT: true,
-}
-Class.maceBall = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    HITS_OWN_TYPE: 'hard',
-    INDEPENDENT: true,
-    TURRETS: [{
-        POSITION: [21.5, 0, 0, 0, 360, 0],
-        TYPE: ["maceBallSpike", { SHAPE: 3 }]
-    }, ],
-    GUNS: [
-        { 
-            POSITION: {WIDTH: 8, LENGTH: 10},
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {
-                    range: 0.1,
-                    speed: 0,
-                    maxSpeed: 0,
-                    recoil: 0,
-                    reload: 0.1,
-                    damage: 4,
-                    size: 2,
-                    health: 1,
-                }]),
-                TYPE: ["bullet", {
-                    ALPHA: 0,
-                    ON: [{
-                        event: 'tick',
-                        handler: ({body}) => {
-                            body.DAMAGE -= 1;
-                            body.SIZE -= 0.6;
-                            if (body.SIZE < 1) body.kill();
-                        }
-                    }],
-                }], 
-                AUTOFIRE: true,
-                BORDERLESS: true,
-                DRAW_FILL: false,
-            }
-        }
-    ]
-}
-Class.maceBolt1 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [48, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [76, 56, 0, 0, 190, 1],
-        TYPE: "maceBall",
-    }],
-}
-Class.maceBolt2 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [24, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [20, 28, 0, 0, 190, 1],
-        TYPE: "maceBolt1"
-        },
-    ],
-}
-Class.maceBolt3 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    GUNS: [{
-        POSITION: [24, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [18, 28, 0, 0, 190, 1],
-        TYPE: "maceBolt2",
-    }],
-}
-Class.mace = {
-    PARENT: "genericFlail",
-    LABEL: "Mace",
-    DANGER: 6,
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["maceBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
-Class.mamaBolt1 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [48, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [104, 56, 0, 0, 190, 1],
-        TYPE: "maceBall"
-        },
-    ],
-}
-Class.mamaBolt2 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [18, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [20, 20, 0, 0, 190, 1],
-        TYPE: "mamaBolt1"
-        },
-    ],
-}
-Class.mamaBolt3 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [18, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [18, 20, 0, 0, 190, 1],
-        TYPE: "mamaBolt2"
-        },
-    ],
-}
-Class.bigMama = {
-    PARENT: "genericFlail",
-    LABEL: "BIG MAMA",
-    DANGER: 7,
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["mamaBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
-Class.ihdtiBall = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    HITS_OWN_TYPE: 'hard',
-    INDEPENDENT: true,
-    TURRETS: [{
-        POSITION: [21.5, 0, 0, 0, 360, 0],
-        TYPE: "maceBallSpike"
-    }, {
-        POSITION: [21.5, 0, 0, 180, 360, 0],
-        TYPE: "maceBallSpike"
-    }],
-    GUNS: [
-        { 
-            POSITION: {WIDTH: 8, LENGTH: 10},
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {
-                    range: 0.1,
-                    speed: 0,
-                    maxSpeed: 0,
-                    recoil: 0,
-                    reload: 0.1,
-                    damage: 6,
-                    size: 2,
-                    health: 1,
-                }]),
-                TYPE: ["bullet", {
-                    ALPHA: 0,
-                    ON: [{
-                        event: 'tick',
-                        handler: ({body}) => {
-                            body.DAMAGE -= 1;
-                            body.SIZE -= 0.6;
-                            if (body.SIZE < 1) body.kill();
-                        }
-                    }],
-                }], 
-                AUTOFIRE: true,
-                BORDERLESS: true,
-                DRAW_FILL: false,
-            }
-        }
-    ]
-}
-Class.ihdtiBolt1 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [48, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [76, 56, 0, 0, 190, 1],
-        TYPE: "ihdtiBall"
-        }
-    ]
-}
-Class.ihdtiBolt2 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    INDEPENDENT: true,
-    GUNS: [{
-        POSITION: [24, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [20, 28, 0, 0, 190, 1],
-        TYPE: "ihdtiBolt1"
-        }
-    ]
-}
-Class.ihdtiBolt3 = {
-    PARENT: "genericTank",
-    COLOR: "grey",
-    GUNS: [{
-        POSITION: [24, 5, 1, 8, 0, 0, 0]
-    }],
-    TURRETS: [{
-        POSITION: [18, 28, 0, 0, 190, 1],
-        TYPE: "ihdtiBolt2"
-        }
-    ]
-}
-Class.itHurtsDontTouchIt = {
-    PARENT: "genericFlail",
-    LABEL: "It hurts dont touch it",
-    DANGER: 7,
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["ihdtiBolt3", {
-            INDEPENDENT: true
-        }]
-    }]
-}
-Class.flangle = {
-    PARENT: "genericFlail",
-    LABEL: "Flangle",
-    DANGER: 6,
-    STAT_NAMES: statnames.mixed,
-    GUNS: [
-        {
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-    ],
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }],
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
-}
-Class.flooster = {
-    PARENT: "genericFlail",
-    LABEL: "Flooster",
-    DANGER: 7,
-    STAT_NAMES: statnames.mixed,
-    GUNS: [
-        {
-            POSITION: [13, 8, 1, 0, -1, 140, 0.6],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [13, 8, 1, 0, 1, 220, 0.6],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-    ],
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["flailBolt3", {
-            INDEPENDENT: true
-        }]
-    }],
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
-}
-Class.flace = {
-    PARENT: "genericFlail",
-    LABEL: "Flace",
-    DANGER: 7,
-    STAT_NAMES: statnames.mixed,
-    GUNS: [
-        {
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-        {
-            POSITION: [16, 8, 1, 0, 0, 210, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: "bullet",
-                LABEL: "thruster",
-            },
-        },
-    ],
-    TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
-        TYPE: ["maceBolt3", {
-            INDEPENDENT: true
-        }]
-    }],
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
-}
-// Upgrade Tree
-Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "teams", "eggGenerator", "testing", "addons", "shinyMenu"]
-    Class.tanks.UPGRADES_TIER_0 = ["basic", "unavailable", "arenaCloser", "dominators", "sanctuaries", "mothership", "baseProtector", "antiTankMachineGun"]
-        Class.unavailable.UPGRADES_TIER_0 = ["flail", "jumpSmasher", "healer", "literallyAMachineGun", "literallyATank", "master"]
-            Class.flail.UPGRADES_TIER_2 = ["doubleFlail", "mace", "flangle"]
-                Class.doubleFlail.UPGRADES_TIER_3 = ["tripleFlail"]
-                Class.mace.UPGRADES_TIER_3 = ["bigMama", "itHurtsDontTouchIt", "flace"]
-                Class.flangle.UPGRADES_TIER_3 = ["flooster", "flace"]
-        Class.dominators.UPGRADES_TIER_0 = ["destroyerDominator", "gunnerDominator", "trapperDominator"]
-        Class.sanctuaries.UPGRADES_TIER_0 = ["sanctuaryTier1", "sanctuaryTier2", "sanctuaryTier3", "sanctuaryTier4", "sanctuaryTier5", "sanctuaryTier6"]
-
-    Class.bosses.UPGRADES_TIER_0 = ["sentries", "elites", "mysticals", "nesters", "rogues", "rammers", "terrestrials", "celestials", "eternals", "devBosses"]
-        Class.sentries.UPGRADES_TIER_0 = ["sentrySwarm", "sentryGun", "sentryTrap", "shinySentrySwarm", "shinySentryGun", "shinySentryTrap", "sentinelMinigun", "sentinelLauncher", "sentinelCrossbow"]
-        Class.elites.UPGRADES_TIER_0 = ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner", "eliteTrapGuard", "eliteSpinner", "eliteSkimmer", "legionaryCrasher", "guardian", "defender", "sprayerLegion", "deltas"]
-        Class.deltas.UPGRADES_TIER_0 = ["deltaDestroyer", "deltaGunner", "deltaSprayer", "deltaBattleship"]
-        Class.mysticals.UPGRADES_TIER_0 = ["sorcerer", "summoner", "enchantress", "exorcistor", "shaman", "thaumaturge"]
-        Class.nesters.UPGRADES_TIER_0 = ["nestKeeper", "nestWarden", "nestGuardian", "nestCurator", "nestDeacon", "nestChampion"]
-        Class.rogues.UPGRADES_TIER_0 = ["roguePalisade", "rogueAlcazar", "rogueArmada", "julius", "genghis", "napoleon"]
-	    Class.rammers.UPGRADES_TIER_0 = ["bob", "nemesis"]
-        Class.terrestrials.UPGRADES_TIER_0 = ["ares", "gersemi", "ezekiel", "eris", "selene"]
-        Class.celestials.UPGRADES_TIER_0 = ["paladin", "freyja", "zaphkiel", "nyx", "theia", "atlas", "rhea", "julius", "genghis", "napoleon"]
-        Class.eternals.UPGRADES_TIER_0 = ["ragnarok", "kronos"]
-        // Class.devBosses.UPGRADES_TIER_0 = ["retiredDevBosses", "zephiBoss", "dogeiscutBoss", "toothlessBoss", "AEMKShipBoss", "helenaBoss"]
-        //     Class.retiredDevBosses.UPGRADES_TIER_0 = ["taureonBoss", "trplnrBoss", "frostBoss"]
-
-    Class.testing.UPGRADES_TIER_0 = ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "makeAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "weirdAutoBasic", "ghoster", "gunBenchmark", "switcheroo", ["developer", "developer"], "armyOfOne", "vanquisher", "mummifier"]
-    

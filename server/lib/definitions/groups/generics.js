@@ -28,6 +28,7 @@ Class.genericEntity = {
     RATEFFECTS: true,
     MOTION_EFFECTS: true,
     INTANGIBLE: false,
+    CAN_SEE_INVISIBLE_ENTITIES: false,
     ACCEPTS_SCORE: true,
     GIVE_KILL_MESSAGE: false,
     CAN_GO_OUTSIDE_ROOM: false,
@@ -100,10 +101,11 @@ Class.genericTank = {
     MAX_CHILDREN: 0,
     DAMAGE_EFFECTS: false,
     IGNORED_BY_AI: false,
+    CAN_SEE_INVISIBLE_ENTITIES: false,
     SYNC_WITH_TANK: false,
     IS_IMMUNE_TO_TILES: false,
     RENDER_ON_LEADERBOARD: true,
-    REROOT_UPGRADE_TREE: "basic",
+    REROOT_UPGRADE_TREE: Config.SPAWN_CLASS,
     BODY: {
         ACCELERATION: base.ACCEL,
         SPEED: base.SPEED,
@@ -126,6 +128,12 @@ Class.genericTank = {
     DRAW_HEALTH: true,
     RESET_EVENTS: true,
     HITS_OWN_TYPE: "hardOnlyTanks"
+}
+Class.genericFlail = {
+    PARENT: "genericTank",
+    STAT_NAMES: statnames.flail,
+    SYNC_WITH_TANK: true,
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
 }
 Class.genericSmasher = {
     PARENT: "genericTank",
@@ -289,6 +297,7 @@ Class.baseSwarmTurret_swarm = {
         KNOCKBACK: 15,
     },
 }
+Class.airblastBullet = { PARENT: "bullet", ALPHA: 0.5, BODY: { KNOCKBACK: 30 } }
 Class.trap = {
     LABEL: "Thrown Trap",
     TYPE: "trap",
@@ -333,6 +342,15 @@ Class.satellite = {
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
     MOTION_TYPE: 'motor'
+}
+Class.satellite_old = {
+    PARENT: "satellite",
+    TURRETS: [
+        {
+            POSITION: [28, 0, 0, 0, 360, 0],
+            TYPE: "genericEntity"
+        }
+    ],
 }
 Class.squareSatellite = {
     PARENT: "satellite",

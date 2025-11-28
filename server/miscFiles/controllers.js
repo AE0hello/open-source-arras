@@ -41,6 +41,19 @@ let compressMovementOffsets = [
     // enemy: data to calculte where it is gonna be soon
     // walls: Array<{ ...Vector, hitboxRadius, hitbox: Array<[Vector, Vector]> }>
     wouldHitWall = (me, enemy, directWallCheck = false) => {
+        if (directWallCheck) {
+            if (!me.justHittedAWallTimeout) me.justHittedAWallTimeout = "ready";
+            if (me.justHittedAWall && me.justHittedAWallTimeout === "ready") {
+                me.justHittedAWall = false;
+                me.justHittedAWallTimeout = "null";
+                setTimeout(() => {
+                    me.justHittedAWallTimeout = "ready";
+                    me.justHittedAWall = false;
+                }, 300);
+                return true;
+            }
+            return false;
+        }
         // thing for culling off walls where theres no point of checking
         let inclusionCircle = {
             x: (me.x + enemy.x) / 2,
@@ -56,18 +69,7 @@ let compressMovementOffsets = [
 
             //if the crate intersects with the line, add them to the list of walls that have been hit
             //works by checking if the line from the gun end to the enemy position collides with any line from the crate hitbox
-            if (directWallCheck) {
-                if (!me.justHittedAWallTimeout) me.justHittedAWallTimeout = "ready";
-                if (me.justHittedAWall && me.justHittedAWallTimeout === "ready") {
-                    me.justHittedAWall = false;
-                    me.justHittedAWallTimeout = "null";
-                    setTimeout(() => {
-                        me.justHittedAWallTimeout = "ready";
-                        me.justHittedAWall = false;
-                    }, 300);
-                    return true;
-                }
-            } else for (let j = 0; j < crate.hitbox.length; j++) {
+            for (let j = 0; j < crate.hitbox.length; j++) {
                 let hitboxLine = crate.hitbox[j];
                 if (collisionLineLine(
                     me.x, me.y,
@@ -268,9 +270,28 @@ class io_boomerang extends IO {
 class io_goToMasterTarget extends IO {
     constructor(body) {
         super(body)
+
+        const master = body.master
+
+        // Start with the raw mouse/input offset
+        let offsetX = master.control.target.x
+        let offsetY = master.control.target.y
+
+        // Match how facing/turrets handle reverse:
+        // reverse = 1 if reverseTargetWithTank is true,
+        // otherwise use reverseTank (usually 1 or -1)
+        const reverseTank = master.reverseTank != null ? master.reverseTank : 1
+        const reverseTargetWithTank = !!master.reverseTargetWithTank
+        const reverse = reverseTargetWithTank ? 1 : reverseTank
+
+        // If reverseTank is -1 (and reverseTargetWithTank is false),
+        // this flips the offset across the tank
+        offsetX *= reverse
+        offsetY *= reverse
+
         this.myGoal = {
-            x: body.master.control.target.x + body.master.x,
-            y: body.master.control.target.y + body.master.y,
+            x: master.x + offsetX,
+            y: master.y + offsetY,
         }
         this.countdown = 5;
     }
@@ -421,7 +442,6 @@ class io_nearestDifferentMaster extends IO {
         this.lockThroughWalls = opts.lockThroughWalls;
         this.mapGoal = opts.mapGoal;
         this.validTargets = [];
-        this.oldHealth = body.health.display();
     }
     validate(e, m, mm, sqrRange, sqrRangeMaster) {
         const myMaster = this.body.master.master;

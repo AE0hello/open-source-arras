@@ -3,8 +3,8 @@
 // Addons that are dependant on other addons should be named something like
 // "[PARENT ADDON NAME]-[EXTENSION NAME].js", to make sure that it would run after that addon ran.
 
-const { base } = require('../constants.js');
-const {menu} = require("../facilitators");
+const {base} = require('../constants.js');
+const {makeMenu} = require("../facilitators");
 
 // This addon is disabled by default.
 // You can also disable addons by not making them end with '.js'
@@ -66,6 +66,6 @@ Class.abomination = {
 	EXTRA_SKILL: 28,
 	MAX_CHILDREN, GUNS, TURRETS
 };
-Class.exampleAddon = menu("Example Addon")
+Class.exampleAddon = makeMenu("Example Addon")
 Class.exampleAddon.UPGRADES_TIER_0 = ["abomination"]
-Class.addons.UPGRADES_TIER_0.push("exampleAddon");
+Class.menu_addons.UPGRADES_TIER_0.push("exampleAddon");

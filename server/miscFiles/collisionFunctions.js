@@ -52,6 +52,21 @@ function firmcollide(my, n, buffer = 0) {
         n.velocity.x += adjustX;
         n.velocity.y += adjustY;
     }
+    if (my.label.includes("Spike") && n.label.includes("Spike")) {
+        const bounceFactor = 5;
+        const dx = my.x - n.x;
+        const dy = my.y - n.y;
+        const dist = Math.hypot(dx, dy);
+        const nx = dx / dist;
+        const ny = dy / dist;
+        const dot = my.velocity.x * nx + my.velocity.y * ny;
+        if (dist === 0) return;
+        const dot2 = n.velocity.x * (-nx) + n.velocity.y * (-ny);
+        my.velocity.x = (my.velocity.x - 2 * dot * nx) * bounceFactor;
+        my.velocity.y = (my.velocity.y - 2 * dot * ny) * bounceFactor;
+        n.velocity.x = (n.velocity.x - 2 * dot2 * (-nx)) * bounceFactor;
+        n.velocity.y = (n.velocity.y - 2 * dot2 * (-ny)) * bounceFactor;
+    }
 }
 
 function firmcollidehard(my, n, buffer = 0) {
@@ -232,7 +247,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         } else if (my.type === 'food' && n.settings.necroTypes.includes(my.shape)) {
             bail = n.necro(my);
         }
-        if (!bail) {
+        if (!bail && !my.invuln && !n.invuln) {
             // Calculate base damage
             let resistDiff = my.health.resist - n.health.resist,
                 damage = {
@@ -370,6 +385,8 @@ function mooncollide(moon, bounce) {
     // Assign velocity after rotating to the new angle
     bounce.velocity.x = newVelocityMagnitude * Math.sin(Math.PI - relativeVelocityAngle - angleFromMoonToBounce);
     bounce.velocity.y = newVelocityMagnitude * Math.cos(Math.PI - relativeVelocityAngle - angleFromMoonToBounce);
+    // So the bots aint a brain dead npc
+    bounce.justHittedAWall = true;
 }
 
 function mazewallcollidekill(bounce, wall) {
@@ -551,9 +568,7 @@ function mazewallcustomcollide(wall, bounce) {
             case 7:
                 if (canResize) {
                     bounce.touchingFovWall = true;
-                    if (bounce.FOV < bounce.originalFov * 3) {
-                        bounce.FOV = Math.min(bounce.FOV * 1.1, bounce.originalFov * 3);
-                    }
+                    bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
         }

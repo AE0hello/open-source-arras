@@ -325,7 +325,7 @@ Class.icosahedron = {
 
 // PRESENTS
 Class.presentSymbol = {
-    SHAPE: Class.healerSymbol.SHAPE,
+    SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
     SIZE: 13,
     COLOR: "white"
 }

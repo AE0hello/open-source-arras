@@ -176,7 +176,169 @@ global.bringToLife = (() => {
         if (my.skill.maintain()) my.refreshBodyAttributes();
     }
 })();
-
+global.runMove = (() => {
+    return my => {
+        let g = { x: my.control.goal.x - my.x, y: my.control.goal.y - my.y },
+            gactive = (g.x !== 0 || g.y !== 0),
+            engine = { x: 0, y: 0, },
+            a = my.acceleration / global.gameManager.roomSpeed;
+        switch (my.motionType) {
+            case 'glide':
+                my.maxSpeed = my.topSpeed;
+                my.damp = 0.05;
+                break;
+            case 'motor':
+                my.maxSpeed = 0;
+                if (my.topSpeed) {
+                    my.damp = a / my.topSpeed;
+                }
+                if (gactive) {
+                    let len = Math.sqrt(g.x * g.x + g.y * g.y);
+                    engine = { x: a * g.x / len, y: a * g.y / len, };
+                }
+                break;
+            case 'swarm':
+                my.maxSpeed = my.topSpeed;
+                let l = util.getDistance({ x: 0, y: 0, }, g) + 1;
+                if (gactive && l > my.size) {
+                    let desiredxspeed = my.topSpeed * g.x / l,
+                        desiredyspeed = my.topSpeed * g.y / l,
+                        turning = Math.sqrt((my.topSpeed * Math.max(1, my.motionTypeArgs.turnVelocity ?? my.range) + 1) / a);
+                    engine = {
+                        x: (desiredxspeed - my.velocity.x) / Math.max(5, turning),
+                        y: (desiredyspeed - my.velocity.y) / Math.max(5, turning),
+                    };
+                } else {
+                    if (my.velocity.length < my.topSpeed) {
+                        engine = {
+                            x: my.velocity.x * a / 20,
+                            y: my.velocity.y * a / 20,
+                        };
+                    }
+                }
+                break;
+            case 'chase':
+                if (gactive) {
+                    let l = util.getDistance({ x: 0, y: 0, }, g);
+                    if (l > my.size * 2) {
+                        my.maxSpeed = my.topSpeed;
+                        let desiredxspeed = my.topSpeed * g.x / l,
+                            desiredyspeed = my.topSpeed * g.y / l;
+                        engine = {
+                            x: (desiredxspeed - my.velocity.x) * a,
+                            y: (desiredyspeed - my.velocity.y) * a,
+                        };
+                    } else if (my.motionTypeArgs.keepSpeed) {
+                        if (my.velocity.length < my.topSpeed) {
+                            engine = {
+                                x: my.velocity.x * a / 20,
+                                y: my.velocity.y * a / 20,
+                            };
+                        }
+                    } else my.maxSpeed = 0;
+                } else if (my.motionTypeArgs.keepSpeed) {
+                    if (my.velocity.length < my.topSpeed) {
+                        engine = {
+                            x: my.velocity.x * a / 20,
+                            y: my.velocity.y * a / 20,
+                        };
+                    }
+                } else my.maxSpeed = 0;
+                break;
+            case 'drift':
+                my.maxSpeed = 0;
+                engine = { x: g.x * a, y: g.y * a, };
+                break;
+            case "withMaster":
+                my.x = my.source.x;
+                my.y = my.source.y;
+                my.velocity.x = my.source.velocity.x;
+                my.velocity.y = my.source.velocity.y;
+                break;
+        }
+        my.accel.x += engine.x * my.control.power;
+        my.accel.y += engine.y * my.control.power;
+    }
+})()
+global.runFace = (() => {
+    return (my) => {
+        let t = my.control.target,
+            oldFacing = my.facing;
+        let defaultBound = () => {
+            let givenangle;
+            if (my.control.main) {
+                if (my.master.master.isPlayer) {
+                    let reverse = my.master.master.reverseTargetWithTank ? 1 : my.master.master.reverseTank;
+                    givenangle = Math.atan2(t.y * reverse, t.x * reverse);
+                } else {
+                    givenangle = Math.atan2(t.y, t.x);
+                }
+                let diff = util.angleDifference(givenangle, my.firingArc[0]);
+                if (Math.abs(diff) >= my.firingArc[1]) {
+                    givenangle = my.firingArc[0];
+                }
+            } else {
+                givenangle = my.firingArc[0];
+            }
+            my.facing += util.loopSmooth(my.facing, givenangle, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed);
+        }
+        switch (my.facingType) {
+            case "spin":
+                my.facing += (my.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
+                break;
+            case "spinWhenIdle":
+                if (t && my.control.fire) my.facing = Math.atan2(t.y, t.x); else my.facing += (my.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
+                break;
+            case 'turnWithSpeed':
+                my.facing += my.velocity.length / 90 * Math.PI / global.gameManager.roomSpeed * (my.facingTypeArgs.multiplier ?? 1);
+                break;
+            case 'withMotion':
+                my.facing = my.velocity.direction;
+                break;
+            case 'smoothWithMotion':
+            case 'looseWithMotion':
+                my.facing += util.loopSmooth(my.facing, my.velocity.direction, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
+                break;
+            case 'withTarget':
+            case 'toTarget':
+                if (my.eastereggs.braindamage) return;
+                if (my.isPlayer) {
+                    let reverse = my.reverseTargetWithTank ? 1 : my.reverseTank;
+                    my.facing = Math.atan2(t.y * reverse, t.x * reverse);
+                } else {
+                    my.facing = Math.atan2(t.y, t.x);
+                }
+                break;
+            case 'locksFacing':
+                if (!my.control.alt) my.facing = Math.atan2(t.y, t.x);
+                break;
+            case 'looseWithTarget':
+            case 'looseToTarget':
+            case 'smoothToTarget':
+                my.facing += util.loopSmooth(my.facing, Math.atan2(t.y, t.x), (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
+                break;
+            case "noFacing":
+                if (my.lastSavedFacing !== my.facing) my.facing = my.facingTypeArgs.angle ?? 0;
+                my.lastSavedFacing = my.facing;
+                break;
+            case 'bound':
+                defaultBound();
+                break;
+            case "spinOnFire":
+                if (t && my.control.fire) my.facing += util.loopSmooth(my.facing, my.facing += 1, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed); else defaultBound();
+                break;
+            case "manual":
+                if ((my.facingTypeArgs.angle ?? 0) !== my.facing) {
+                    my.facing = my.facingTypeArgs.angle;
+                }
+                break;
+        }
+        // Loop
+        const TAU = 2 * Math.PI
+        my.facing = (my.facing % TAU + TAU) % TAU;
+        my.vfacing = util.angleDifference(oldFacing, my.facing) * global.gameManager.roomSpeed;
+    }
+})();
 global.defineSplit = (() => {
     return (defs, branch, set, my, emitEvent) => {
         set = ensureIsClass(defs[branch]);
@@ -225,7 +387,7 @@ global.defineSplit = (() => {
         if (set.TURRETS != null) {
             for (let i = 0; i < set.TURRETS.length; i++) {
                 let def = set.TURRETS[i],
-                    o = new Entity(my, my.master),
+                    o = new turretEntity(def.POSITION, my, my.master),
                     turretDanger = false,
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE];
                 for (let j = 0; j < type.length; j++) {
@@ -233,7 +395,7 @@ global.defineSplit = (() => {
                     if (type.TURRET_DANGER) turretDanger = true;
                 }
                 if (!turretDanger) o.define({ DANGER: 0 });
-                o.bindToMaster(def.POSITION, my);
+                o.fixFacing();
             }
         }
         if (set.PROPS != null) {
@@ -486,7 +648,7 @@ global.loadAllMockups = (logText = true) => {
     if (logText) console.log("Mockups generated in " + util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3) + " milliseconds.\n");
 }
 
-global.activateLabyFood = () => {
+global.activateTieredFood = () => {
 	const disableCrashers = true;
 
 	// there is no `ENEMY_CAP`, so we are "reconstructing them"

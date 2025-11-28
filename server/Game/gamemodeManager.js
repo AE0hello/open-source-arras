@@ -19,7 +19,7 @@ class gamemodeManager {
         this.gameSandbox = new Sandbox(global.gameManager);
         this.gameMaze = new Maze(global.gameManager, null);
         this.gameTrain = new Train();
-        this.gameOutreak = new Outbreak(global.gameManager);
+        this.gameOutbreak = new Outbreak(global.gameManager);
         this.gameClanwars = new ClanWars(global.gameManager);
     }
 
@@ -31,7 +31,7 @@ class gamemodeManager {
             if (Config.DOMINATION) this.gameDomination.start();
             if (Config.MOTHERSHIP) this.gameMothership.start();
             if (Config.MAZE_TYPE !== undefined && !Config.SPECIAL_BOSS_SPAWNS) this.gameMaze.generate();
-            if (Config.OUTBREAK) this.gameOutreak.start();
+            if (Config.OUTBREAK) this.gameOutbreak.start();
         }
         if (type == "loop") {
             global.gameManager.lagLogger.set();

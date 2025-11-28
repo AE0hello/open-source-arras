@@ -1,34 +1,102 @@
 var color = {
+    // Ingame arras themes
     "normal": {
-        "teal": "#7ad3db",
-        "lgreen": "#b9e87e",
-        "orange": "#e7896d",
-        "yellow": "#fdf380",
-        "lavender": "#b58efd",
-        "aqua": "#7adbba",
-        "pink": "#ef99c3",
-        "vlgrey": "#e8ebf7",
-        "lgrey": "#a4a4ad", //"#aa9f9e",
-        "guiwhite": "#ffffff",
-        "black": "#484848",
-        "blue": "#3ca4cb",
-        "green": "#8abc3f",
-        "red": "#e03e41",
-        "gold": "#efc74b",
-        "purple": "#8d6adf",
-        "magenta": "#cc669c",
-        "grey": "#a7a7af",
-        "dgrey": "#726f6f",
-        "white": "#dbdbdb",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+        "blue": "#3ca4cb", // Blue Team
+        "green": "#8abc3f", // Green Team
+        "red": "#e03e41", // Red Team
+        "magenta": "#cc669c", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#fdf380", // Netural Team
+        "dgrey": "#726f6f", // Rogue Team
+
+        "vlgrey": "#e8ebf7", // Eggs
+        "gold": "#efc74b", // Squares
+        "orange": "#e7896d", // Triangles
+        "purple": "#8d6adf", // Pentagons
+        "aqua": "#7adbba", // Hexagons
+        "pink": "#ef99c3", // Crashers
+        "lavender": "#b58efd", // Nest
+        "lgrey": "#a4a4ad", // Maze Walls (#aa9f9e is old lgrey (todo: reassign this as beige))
+
+        "lgreen": "#b9e87e", // Health Bars, Shiny Polygons
+        "teal": "#7ad3db", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#dbdbdb", // Arena Background
+        "grey": "#a7a7af", // Barrels, Bar Backgrounds
+        "black": "#484848", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.6509803921568628
+        "border": 0.6509803921568628 // I LOVE FLOATING POINT
     },
     "dark": {
+        "blue": "#379fc6", // Blue Team
+        "green": "#8abc3f", // Green Team
+        "red": "#ff6c6e", // Red Team
+        "magenta": "#c8679b", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#caca4e", // Netural Team
+        "dgrey": "#73747a", // Rogue Team
+
+        "vlgrey": "#1e1e1e", // Eggs
+        "gold": "#ffc665", // Squares
+        "orange": "#c46748", // Triangles
+        "purple": "#9673e8", // Pentagons
+        "aqua": "#62caa7", // Hexagons
+        "pink": "#d153cc", // Crashers
+        "lavender": "#7d56c5", // Nest
+        "lgrey": "#3c3a3a", // Maze Walls
+
+        "lgreen": "#26bf57", // Health Bars, Shiny Polygons
+        "teal": "#6ecedc", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#f2f2f2", // Text
+        "white": "#0a0a0a", // Arena Background
+        "grey": "#635f5f", // Barrels, Bar Backgrounds
+        "black": "#131313", // Borders
+        "guiblack": "#ffffff", // Grid
+        "paletteSize": 20,
+        "border": 0.14901960784313725 // I LOVE FLOATING POINT
+    },
+    "classic": {
+        "blue": "#00b2e1", // Blue Team
+        "green": "#00e16e", // Green Team
+        "red": "#f14e54", // Red Team
+        "magenta": "#bf7ff5", // Purple Team
+        "mustard": "#c49608", // Yellow Team
+        "tangerine": "#ec7b0f", // Orange Team
+        "brown": "#895918", // Brown Team (#d68165 is more accurate to diep)
+        "cyan": "#13808e", // Cyan Team
+        "yellow": "#ffe869", // Netural Team
+        "dgrey": "#555555", // Rogue Team
+
+        "vlgrey": "#e0e0e0", // Eggs
+        "gold": "#ffe869", // Squares
+        "orange": "#fc7677", // Triangles
+        "purple": "#768dfc", // Pentagons
+        "aqua": "#72eacf", // Hexagons (#8543ff is more accurate to diep)
+        "pink": "#f177dd", // Crashers
+        "lavender": "#b58eff", // Nest
+        "lgrey": "#bbbbbb", // Maze Walls (#aa9f9e is old lgrey (todo: reassign this as beige))
+
+        "lgreen": "#85e37d", // Health Bars, Shiny Polygons
+        "teal": "#6cfffa", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#cccccc", // Arena Background
+        "grey": "#999999", // Barrels, Bar Backgrounds
+        "black": "#444444", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.5019607843137255 // I LOVE FLOATING POINT
+    },
+    "classicDark": {
         "teal": "#6ecedc",
         "lgreen": "#0c491d",
         "orange": "#c46748",
@@ -50,534 +118,618 @@ var color = {
         "dgrey": "#73747a",
         "white": "#11110f",
         "guiblack": "#ffffff",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
         "paletteSize": 20,
-        "border": 0.14901960784313725
+        "border": 0.14901960784313725 // I LOVE FLOATING POINT
     },
     "natural": {
-        "teal": "#76c1bb",
-        "lgreen": "#aad35d",
-        "orange": "#e09545",
-        "yellow": "#ffd993",
-        "lavender": "#939fff",
-        "aqua": "#76c1bb",
-        "pink": "#d87fb2",
-        "vlgrey": "#c4b6b6",
-        "lgrey": "#7f7f7f",
-        "guiwhite": "#ffffff",
-        "black": "#373834",
-        "blue": "#4f93b5",
-        "green": "#00b659",
-        "red": "#e14f65",
-        "gold": "#e5bf42",
-        "purple": "#8053a0",
-        "magenta": "#b67caa",
-        "grey": "#998f8f",
-        "dgrey": "#494954",
-        "white": "#a5b2a5",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+        "blue": "#4f93b5", // Blue Team
+        "green": "#00b659", // Green Team
+        "red": "#e14f65", // Red Team
+        "magenta": "#b67caa", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#ffd993", // Netural Team
+        "dgrey": "#494954", // Rogue Team
+
+        "vlgrey": "#c4b6b6", // Eggs
+        "gold": "#e5bf42", // Squares
+        "orange": "#e09545", // Triangles
+        "purple": "#8053a0", // Pentagons
+        "aqua": "#76aac1", // Hexagons
+        "pink": "#d87fb2", // Crashers
+        "lavender": "#939fff", // Nest
+        "lgrey": "#998f8f", // Maze Walls (#aa9f9e is old lgrey (todo: reassign this as beige))
+
+        "lgreen": "#aad35d", // Health Bars, Shiny Polygons
+        "teal": "#76c1bb", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#a5b2a5", // Arena Background
+        "grey": "#998f8f", // Barrels, Bar Backgrounds
+        "black": "#373834", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.2
-    },
-    "classic": {
-        "teal": "#6cfffa",
-        "lgreen": "#85e37d",
-        "orange": "#fc7676",
-        "yellow": "#ffeb8e",
-        "lavender": "#b58eff",
-        "aqua": "#72eacf",
-        "pink": "#f177dd",
-        "vlgrey": "#cdcdcd",
-        "lgrey": "#999999",
-        "guiwhite": "#ffffff",
-        "black": "#525252",
-        "blue": "#00b0e1",
-        "green": "#00e06c",
-        "red": "#f04f54",
-        "gold": "#ffe46b",
-        "purple": "#768cfc",
-        "magenta": "#be7ff5",
-        "grey": "#999999",
-        "dgrey": "#545454",
-        "white": "#c0c0c0",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.5019607843137255
-    },
-    "forest": {
-        "teal": "#884aa5",
-        "lgreen": "#8c9b3e",
-        "orange": "#d16a80",
-        "yellow": "#97596d",
-        "lavender": "#499855",
-        "aqua": "#884aa5",
-        "pink": "#60294f",
-        "vlgrey": "#ddc6b8",
-        "lgrey": "#7e949e",
-        "guiwhite": "#ffffe8",
-        "black": "#665750",
-        "blue": "#807bb6",
-        "green": "#a1be55",
-        "red": "#e5b05b",
-        "gold": "#ff4747",
-        "purple": "#bac674",
-        "magenta": "#ba78d1",
-        "grey": "#998866",
-        "dgrey": "#529758",
-        "white": "#7da060",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.7019607843137254
-    },
-    "midnight": {
-        "teal": "#2b9098",
-        "lgreen": "#4baa5d",
-        "orange": "#345678",
-        "yellow": "#cdc684",
-        "lavender": "#89778e",
-        "aqua": "#2b9098",
-        "pink": "#a85c90",
-        "vlgrey": "#cccccc",
-        "lgrey": "#a7b2b7",
-        "guiwhite": "#bac6ff",
-        "black": "#091f28",
-        "blue": "#123455",
-        "green": "#098765",
-        "red": "#000013",
-        "gold": "#566381",
-        "purple": "#743784",
-        "magenta": "#b29098",
-        "grey": "#555555",
-        "dgrey": "#649eb7",
-        "white": "#444444",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.6
-    },
-    "snow": {
-        "teal": "#89bfba",
-        "lgreen": "#b5d17d",
-        "orange": "#e5e0e0",
-        "yellow": "#b5bbe5",
-        "lavender": "#939fff",
-        "aqua": "#89bfba",
-        "pink": "#646de5",
-        "vlgrey": "#b2b2b2",
-        "lgrey": "#7f7f7f",
-        "guiwhite": "#ffffff",
-        "black": "#383835",
-        "blue": "#aeaeff",
-        "green": "#aeffae",
-        "red": "#ffaeae",
-        "gold": "#ffffff",
-        "purple": "#c3c3d8",
-        "magenta": "#ffb5ff",
-        "grey": "#cccccc",
-        "dgrey": "#a0a0b2",
-        "white": "#f2f2f2",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.34901960784313724
-    },
-    "coralReef": {
-        "teal": "#76eec6",
-        "lgreen": "#41aa78",
-        "orange": "#ff7f50",
-        "yellow": "#ffd250",
-        "lavender": "#dc3388",
-        "aqua": "#76eec6",
-        "pink": "#fa8072",
-        "vlgrey": "#8b8886",
-        "lgrey": "#bfc1c2",
-        "guiwhite": "#ffffff",
-        "black": "#12466b",
-        "blue": "#4200ae",
-        "green": "#0d6338",
-        "red": "#dc4333",
-        "gold": "#fea904",
-        "purple": "#7b4bab",
-        "magenta": "#5c246e",
-        "grey": "#656884",
-        "dgrey": "#d4d7d9",
-        "white": "#3283bc",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.2980392156862745
-    },
-    "badlands": {
-        "teal": "#f9cb9c",
-        "lgreen": "#f1c232",
-        "orange": "#38761d",
-        "yellow": "#e69138",
-        "lavender": "#b7b7b7",
-        "aqua": "#f9cb9c",
-        "pink": "#78866b",
-        "vlgrey": "#6aa84f",
-        "lgrey": "#b7b7b7",
-        "guiwhite": "#a4c2f4",
-        "black": "#000000",
-        "blue": "#0c5a9e",
-        "green": "#6e8922",
-        "red": "#5b0000",
-        "gold": "#783f04",
-        "purple": "#591c77",
-        "magenta": "#20124d",
-        "grey": "#2f1c16",
-        "dgrey": "#999999",
-        "white": "#543517",
-        "guiblack": "#cfe2f3",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.4
-    },
-    "bleach": {
-        "teal": "#00ffff",
-        "lgreen": "#00ff00",
-        "orange": "#ff3200",
-        "yellow": "#ffec00",
-        "lavender": "#ff24a7",
-        "aqua": "#00ffff",
-        "pink": "#ff3cbd",
-        "vlgrey": "#fff186",
-        "lgrey": "#918181",
-        "guiwhite": "#f1f1f1",
-        "black": "#5f5f5f",
-        "blue": "#0025ff",
-        "green": "#00ff00",
-        "red": "#ff0000",
-        "gold": "#fffa23",
-        "purple": "#3100ff",
-        "magenta": "#d4d3d3",
-        "grey": "#838383",
-        "dgrey": "#4c4c4c",
-        "white": "#fffefe",
-        "guiblack": "#080808",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.4
-    },
-    "pumpkinSkeleton": {
-        "teal": "#721970",
-        "lgreen": "#ff6347",
-        "orange": "#1b713a",
-        "yellow": "#fdf380",
-        "lavender": "#941100",
-        "aqua": "#721970",
-        "pink": "#194417",
-        "vlgrey": "#1b713a",
-        "lgrey": "#aa9f9e",
-        "guiwhite": "#fed8b1",
-        "black": "#484848",
-        "blue": "#3ca4cb",
-        "green": "#76eec6",
-        "red": "#f04f54",
-        "gold": "#1b713a",
-        "purple": "#1b713a",
-        "magenta": "#cc669c",
-        "grey": "#ffffff",
-        "dgrey": "#726f6f",
-        "white": "#ff9b58",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 1
-    },
-    "retro": {
-        "teal": "#ffff62",
-        "lgreen": "#06bf3b",
-        "orange": "#318e95",
-        "yellow": "#937d00",
-        "lavender": "#eee8d5",
-        "aqua": "#ffff62",
-        "pink": "#e72c76",
-        "vlgrey": "#c8d8e7",
-        "lgrey": "#073642",
-        "guiwhite": "#ffffff",
-        "black": "#000000",
-        "blue": "#2c3eb9",
-        "green": "#efb209",
-        "red": "#b91234",
-        "gold": "#82dfe4",
-        "purple": "#1e616a",
-        "magenta": "#8b124c",
-        "grey": "#839496",
-        "dgrey": "#76b68b",
-        "white": "#081e20",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.7529411764705882
-    },
-    "pastel": {
-        "teal": "#ffff98",
-        "lgreen": "#8affb2",
-        "orange": "#d8b384",
-        "yellow": "#ffeb76",
-        "lavender": "#eee8d5",
-        "aqua": "#ffff98",
-        "pink": "#ff8dbd",
-        "vlgrey": "#f3f0d7",
-        "lgrey": "#073642",
-        "guiwhite": "#ffffb5",
-        "black": "#675240",
-        "blue": "#397697",
-        "green": "#3ff7a1",
-        "red": "#f65f64",
-        "gold": "#d2b869",
-        "purple": "#81654a",
-        "magenta": "#a75299",
-        "grey": "#c1c1c1",
-        "dgrey": "#8da996",
-        "white": "#f5dba7",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.7529411764705882
+        "border": 0.2 // I LOVE FLOATING POINT
     },
     "discord": {
-        "teal": "#d53f3f",
-        "lgreen": "#29b399",
-        "orange": "#ff2828",
-        "yellow": "#ffeb8e",
-        "lavender": "#b58eff",
-        "aqua": "#d53f3f",
-        "pink": "#ff68ff",
-        "vlgrey": "#cdcdcd",
-        "lgrey": "#999999",
-        "guiwhite": "#e0e0e0",
-        "black": "#000000",
-        "blue": "#7289da",
-        "green": "#43b581",
-        "red": "#f04747",
-        "gold": "#ffe800",
-        "purple": "#5c79ff",
-        "magenta": "#faa419",
-        "grey": "#999999",
-        "dgrey": "#545454",
-        "white": "#1e2124",
-        "guiblack": "#36393e",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+        "blue": "#7289da", // Blue Team
+        "green": "#43b581", // Green Team
+        "red": "#f04747", // Red Team
+        "magenta": "#faa419", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#ffeb8e", // Netural Team
+        "dgrey": "#545454", // Rogue Team
+
+        "vlgrey": "#cdcdcd", // Eggs
+        "gold": "#ffe800", // Squares
+        "orange": "#ff2828", // Triangles
+        "purple": "#5c79ff", // Pentagons
+        "aqua": "#3fd5c8", // Hexagons
+        "pink": "#ff68ff", // Crashers
+        "lavender": "#b58eff", // Nest
+        "lgrey": "#999999", // Maze Walls
+
+        "lgreen": "#29b399", // Health Bars, Shiny Polygons
+        "teal": "#d53f3f", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#e0e0e0", // Text
+        "white": "#1e2124", // Arena Background
+        "grey": "#999999", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#36393e", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882
+        "border": 0.7529411764705882 // I LOVE FLOATING POINT
     },
-    "wrSheetTheme": {
-        "teal": "#fd9827",
-        "lgreen": "#689168",
-        "orange": "#bb8e75",
-        "yellow": "#f5deba",
-        "lavender": "#9e8171",
-        "aqua": "#fd9827",
-        "pink": "#b35757",
-        "vlgrey": "#eae0c9",
-        "lgrey": "#aa9f9e",
-        "guiwhite": "#ffffff",
-        "black": "#795548",
-        "blue": "#6bb2bf",
-        "green": "#68c56c",
-        "red": "#b86358",
-        "gold": "#d8bc67",
-        "purple": "#6e78aa",
-        "magenta": "#846187",
-        "grey": "#868788",
-        "dgrey": "#726f6f",
-        "white": "#cbb690",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+    "midnight": {
+        "blue": "#123455", // Blue Team
+        "green": "#098765", // Green Team
+        "red": "#b29098", // Red Team
+        "magenta": "#030007", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#cdc684", // Netural Team
+        "dgrey": "#649eb7", // Rogue Team
+
+        "vlgrey": "#cccccc", // Eggs
+        "gold": "#566381", // Squares
+        "orange": "#345678", // Triangles
+        "purple": "#743784", // Pentagons
+        "aqua": "#7e2816", // Hexagons
+        "pink": "#a85c90", // Crashers
+        "lavender": "#89778e", // Nest
+        "lgrey": "#555555", // Maze Walls
+
+        "lgreen": "#4baa5d", // Health Bars, Shiny Polygons
+        "teal": "#2b9098", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#bac6ff", // Text
+        "white": "#444444", // Arena Background
+        "grey": "#555555", // Barrels, Bar Backgrounds
+        "black": "#091f28", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.2980392156862745
-    },
-    "descent": {
-        "teal": "#95cecf",
-        "lgreen": "#ffa5ff",
-        "orange": "#bc8989",
-        "yellow": "#ffffb2",
-        "lavender": "#000000",
-        "aqua": "#95cecf",
-        "pink": "#bd91c4",
-        "vlgrey": "#7f7360",
-        "lgrey": "#000000",
-        "guiwhite": "#ffffff",
-        "black": "#000000",
-        "blue": "#ababab",
-        "green": "#a69768",
-        "red": "#545454",
-        "gold": "#fde7a5",
-        "purple": "#878777",
-        "magenta": "#85a686",
-        "grey": "#c4bb9d",
-        "dgrey": "#2e2e32",
-        "white": "#3b3b37",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
-        "paletteSize": 20,
-        "border": 0.5019607843137255
+        "border": 0.6 // I HATE FLOATING POINT
     },
     "solarizedDark": {
-        "teal": "#b58900",
-        "lgreen": "#2aa198",
-        "orange": "#cb4b16",
-        "yellow": "#657b83",
-        "lavender": "#eee8d5",
-        "aqua": "#b58900",
-        "pink": "#d33682",
-        "vlgrey": "#e0e2e4",
-        "lgrey": "#073642",
-        "guiwhite": "#ffffff",
-        "black": "#000000",
-        "blue": "#268bd2",
-        "green": "#869600",
-        "red": "#dc322f",
-        "gold": "#b58900",
-        "purple": "#678cb1",
-        "magenta": "#a082bd",
-        "grey": "#839496",
-        "dgrey": "#073642",
-        "white": "#002b36",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+        "blue": "#268bd2", // Blue Team
+        "green": "#869600", // Green Team
+        "red": "#dc322f", // Red Team
+        "magenta": "#a082bd", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#657b83", // Netural Team
+        "dgrey": "#073642", // Rogue Team
+
+        "vlgrey": "#e0e2e4", // Eggs
+        "gold": "#b58900", // Squares
+        "orange": "#cb4b16", // Triangles
+        "purple": "#678cb1", // Pentagons
+        "aqua": "#b58900", // Hexagons
+        "pink": "#d33682", // Crashers
+        "lavender": "#eee8d5", // Nest
+        "lgrey": "#839496", // Maze Walls
+
+        "lgreen": "#b58900", // Health Bars, Shiny Polygons
+        "teal": "#2b9098", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#002b36", // Arena Background
+        "grey": "#839496", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882
+        "border": 0.7529411764705882 // I LOVE FLOATING POINT
     },
-    "eggplant": {
-        "teal": "#e96ba8",
-        "lgreen": "#78d4b6",
-        "orange": "#d6100f",
-        "yellow": "#a39e9b",
-        "lavender": "#e7e9db",
-        "aqua": "#e96ba8",
-        "pink": "#e96ba8",
-        "vlgrey": "#8d8687",
-        "lgrey": "#2b1a29",
-        "guiwhite": "#ffffff",
-        "black": "#2b1a29",
-        "blue": "#06b6ef",
-        "green": "#48b685",
-        "red": "#ef6155",
-        "gold": "#f99b15",
-        "purple": "#815ba4",
-        "magenta": "#fec418",
-        "grey": "#b9b6b0",
-        "dgrey": "#40113f",
-        "white": "#50374d",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+    "retro": {
+        "blue": "#2c3eb9", // Blue Team
+        "green": "#efb209", // Green Team
+        "red": "#b91234", // Red Team
+        "magenta": "#8b124c", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#937d00", // Netural Team
+        "dgrey": "#76b68b", // Rogue Team
+
+        "vlgrey": "#c8d8e7", // Eggs
+        "gold": "#82dfe4", // Squares
+        "orange": "#318e95", // Triangles
+        "purple": "#1e616a", // Pentagons
+        "aqua": "#123e43", // Hexagons
+        "pink": "#e72c76", // Crashers
+        "lavender": "#eee8d5", // Nest
+        "lgrey": "#839496", // Maze Walls
+
+        "lgreen": "#06bf3b", // Health Bars, Shiny Polygons
+        "teal": "#ffff62", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#081e20", // Arena Background
+        "grey": "#839496", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882
+        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+    },
+    "snow": {
+        "blue": "#aeaeff", // Blue Team
+        "green": "#aeffae", // Green Team
+        "red": "#ffaeae", // Red Team
+        "magenta": "#ffb5ff", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#b5bbe5", // Netural Team
+        "dgrey": "#a0a0b2", // Rogue Team
+
+        "vlgrey": "#b2b2b2", // Eggs
+        "gold": "#ffffff", // Squares
+        "orange": "#e5e0e0", // Triangles
+        "purple": "#c3c3d8", // Pentagons
+        "aqua": "#8b8ba9", // Hexagons
+        "pink": "#646de5", // Crashers
+        "lavender": "#939fff", // Nest
+        "lgrey": "#cccccc", // Maze Walls
+
+        "lgreen": "#b5d17d", // Health Bars, Shiny Polygons
+        "teal": "#89bfba", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#f2f2f2", // Arena Background
+        "grey": "#cccccc", // Barrels, Bar Backgrounds
+        "black": "#383835", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.34901960784313724 // I LOVE FLOATING POINT
+    },
+    "navigator": {
+        "blue": "#087089", // Blue Team
+        "green": "#4d872e", // Green Team
+        "red": "#ce2960", // Red Team
+        "magenta": "#a877cb", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#8466dc", // Netural Team
+        "dgrey": "#726f6f", // Rogue Team
+
+        "vlgrey": "#4d872e", // Eggs
+        "gold": "#ffc665", // Squares
+        "orange": "#fa4883", // Triangles
+        "purple": "#ce2960", // Pentagons
+        "aqua": "#9b033a", // Hexagons
+        "pink": "#ef99c3", // Crashers
+        "lavender": "#7d56c5", // Nest
+        "lgrey": "#9c8993", // Maze Walls
+
+        "lgreen": "#c20644", // Health Bars, Shiny Polygons
+        "teal": "#8975b7", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#1f1f1f", // Arena Background
+        "grey": "#9c8993", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#ffffff", // Grid
+        "paletteSize": 20, // (Placeholder)
+        "border": 0.25 // I HATE FLOATING POINT (Placeholder)
+    },
+    "coralReef": {
+        "blue": "#4200ae", // Blue Team
+        "green": "#0d6338", // Green Team
+        "red": "#dc4333", // Red Team
+        "magenta": "#5c246e", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#ffd250", // Netural Team
+        "dgrey": "#d4d7d9", // Rogue Team
+
+        "vlgrey": "#8b8886", // Eggs
+        "gold": "#fea904", // Squares
+        "orange": "#ff7f50", // Triangles
+        "purple": "#7b4bab", // Pentagons
+        "aqua": "#50c0d3", // Hexagons
+        "pink": "#fa8072", // Crashers
+        "lavender": "#dc3388", // Nest
+        "lgrey": "#656884", // Maze Walls
+
+        "lgreen": "#41aa78", // Health Bars, Shiny Polygons
+        "teal": "#76eec6", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#3283bc", // Arena Background
+        "grey": "#656884", // Barrels, Bar Backgrounds
+        "black": "#12466b", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.2980392156862745 // I LOVE FLOATING POINT
     },
     "gruvbox": {
-        "teal": "#83a598",
-        "lgreen": "#8ec07c",
-        "orange": "#d65d0e",
-        "yellow": "#d79920",
-        "lavender": "#d3869b",
-        "aqua": "#83a598",
-        "pink": "#d3869b",
-        "vlgrey": "#bdae93",
-        "lgrey": "#aa9f9e",
-        "guiwhite": "#ebddd2",
-        "black": "#000000",
-        "blue": "#458588",
-        "green": "#98971a",
-        "red": "#cc241d",
-        "gold": "#d79920",
-        "purple": "#417b58",
-        "magenta": "#b16186",
-        "grey": "#928374",
-        "dgrey": "#000000",
-        "white": "#282828",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+        "blue": "#458588", // Blue Team
+        "green": "#98971a", // Green Team
+        "red": "#cc241d", // Red Team
+        "magenta": "#b16186", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#d79920", // Netural Team
+        "dgrey": "#000000", // Rogue Team
+
+        "vlgrey": "#bdae93", // Eggs
+        "gold": "#d79920", // Squares
+        "orange": "#d65d0e", // Triangles
+        "purple": "#417b58", // Pentagons
+        "aqua": "#525c73", // Hexagons
+        "pink": "#d3869b", // Crashers
+        "lavender": "#d3869b", // Nest
+        "lgrey": "#656884", // Maze Walls
+
+        "lgreen": "#8ec07c", // Health Bars, Shiny Polygons
+        "teal": "#83a598", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ebddd2", // Text
+        "white": "#282828", // Arena Background
+        "grey": "#928374", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.6
+        "border": 0.6 // I HATE FLOATING POINT
+    },
+    "eggplant": {
+        "blue": "#06b6ef", // Blue Team
+        "green": "#48b685", // Green Team
+        "red": "#ef6155", // Red Team
+        "magenta": "#fec418", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#a39e9b", // Netural Team
+        "dgrey": "#40113f", // Rogue Team
+
+        "vlgrey": "#8d8687", // Eggs
+        "gold": "#f99b15", // Squares
+        "orange": "#d6100f", // Triangles
+        "purple": "#815ba4", // Pentagons
+        "aqua": "#5ac5ca", // Hexagons
+        "pink": "#e96ba8", // Crashers
+        "lavender": "#e7e9db", // Nest
+        "lgrey": "#b9b6b0", // Maze Walls
+
+        "lgreen": "#78d4b6", // Health Bars, Shiny Polygons
+        "teal": "#e96ba8", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#50374d", // Arena Background
+        "grey": "#b9b6b0", // Barrels, Bar Backgrounds
+        "black": "#2b1a29", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+    },
+    "wrSheetTheme": {
+        "blue": "#6bb2bf", // Blue Team
+        "green": "#68c56c", // Green Team
+        "red": "#b86358", // Red Team
+        "magenta": "#846187", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#f5deba", // Netural Team
+        "dgrey": "#726f6f", // Rogue Team
+
+        "vlgrey": "#eae0c9", // Eggs
+        "gold": "#d8bc67", // Squares
+        "orange": "#bb8e75", // Triangles
+        "purple": "#6e78aa", // Pentagons
+        "aqua": "#6ca8a4", // Hexagons
+        "pink": "#b35757", // Crashers
+        "lavender": "#9e8171", // Nest
+        "lgrey": "#868788", // Maze Walls
+
+        "lgreen": "#689168", // Health Bars, Shiny Polygons
+        "teal": "#fd9827", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#cbb690", // Arena Background
+        "grey": "#868788", // Barrels, Bar Backgrounds
+        "black": "#56372b", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.2980392156862745 // I LOVE FLOATING POINT
     },
     "lyric": {
-        "teal": "#92a59f",
-        "lgreen": "#931a1a",
-        "orange": "#8c8c8c",
-        "yellow": "#781717",
-        "lavender": "#b58efd",
-        "aqua": "#92a59f",
-        "pink": "#696969",
-        "vlgrey": "#999999",
-        "lgrey": "#aa9f9e",
-        "guiwhite": "#ffffff",
-        "black": "#000000",
-        "blue": "#771d1d",
-        "green": "#8abc3f",
-        "red": "#282424",
-        "gold": "#7d7d7d",
-        "purple": "#757575",
-        "magenta": "#cc669c",
-        "grey": "#787878",
-        "dgrey": "#262626",
-        "white": "#554e4e",
-        "guiblack": "#000000",
-        "mustard": "#c49608",
-        "tangerine": "#ec7b0f",
-        "brown": "#895918",
-        "cyan": "#13808e",
+        "blue": "#771d1d", // Blue Team
+        "green": "#8abc3f", // Green Team
+        "red": "#282424", // Red Team
+        "magenta": "#cc669c", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#781717", // Netural Team
+        "dgrey": "#262626", // Rogue Team
+
+        "vlgrey": "#999999", // Eggs
+        "gold": "#7d7d7d", // Squares
+        "orange": "#8c8c8c", // Triangles
+        "purple": "#757575", // Pentagons
+        "aqua": "#adada6", // Hexagons
+        "pink": "#696969", // Crashers
+        "lavender": "#b58efd", // Nest
+        "lgrey": "#787878", // Maze Walls
+
+        "lgreen": "#931a1a", // Health Bars, Shiny Polygons
+        "teal": "#92a59f", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#554e4e", // Arena Background
+        "grey": "#787878", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0
+        "border": 0 // I HATE FLOATING POINT
+    },
+
+    // Removed arras themes
+    "bleach": {
+        "blue": "#0025ff", // Blue Team
+        "green": "#00ff00", // Green Team
+        "red": "#ff0000", // Red Team
+        "magenta": "#d4d3d3", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#ffec00", // Netural Team
+        "dgrey": "#4c4c4c", // Rogue Team
+
+        "vlgrey": "#fff186", // Eggs
+        "gold": "#fffa23", // Squares
+        "orange": "#ff3200", // Triangles
+        "purple": "#3100ff", // Pentagons
+        "aqua": "#00ffff", // Hexagons
+        "pink": "#ff3cbd", // Crashers
+        "lavender": "#ff24a7", // Nest
+        "lgrey": "#838383", // Maze Walls
+
+        "lgreen": "#00ff00", // Health Bars, Shiny Polygons
+        "teal": "#00ffff", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#f1f1f1", // Text
+        "white": "#fffefe", // Arena Background
+        "grey": "#838383", // Barrels, Bar Backgrounds
+        "black": "#5f5f5f", // Borders
+        "guiblack": "#080808", // Grid
+        "paletteSize": 20, // (Placeholder)
+        "border": 0.4 // I HATE FLOATING POINT
+    },
+    "nebula": {
+        "blue": "#9274e6", // Blue Team
+        "green": "#89f470", // Green Team
+        "red": "#e08e5d", // Red Team
+        "magenta": "#ea58ec", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#d5d879", // Netural Team
+        "dgrey": "#303030", // Rogue Team
+
+        "vlgrey": "#f0f2cc", // Eggs
+        "gold": "#ecdc58", // Squares
+        "orange": "#d26e7f", // Triangles
+        "purple": "#58cbec", // Pentagons
+        "aqua": "#38b06e", // Hexagons
+        "pink": "#df3e3e", // Crashers
+        "lavender": "#7d56c5", // Nest
+        "lgrey": "#7e5713", // Maze Walls
+
+        "lgreen": "#22882e", // Health Bars, Shiny Polygons
+        "teal": "#38b06e", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#c2c5ef", // Text
+        "white": "#555555", // Arena Background
+        "grey": "#7e5713", // Barrels, Bar Backgrounds
+        "black": "#484848", // Borders
+        "guiblack": "#eaeaea", // Grid
+        "paletteSize": 20, // (Placeholder)
+        "border": 0.6509803921568628 // I LOVE FLOATING POINT (Placeholder)
+    },
+    "forest": {
+        "blue": "#807bb6", // Blue Team
+        "green": "#a1be55", // Green Team
+        "red": "#e5b05b", // Red Team
+        "magenta": "#ba78d1", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#97596d", // Netural Team
+        "dgrey": "#529758", // Rogue Team
+
+        "vlgrey": "#ddc6b8", // Eggs
+        "gold": "#ff4747", // Squares
+        "orange": "#d16a80", // Triangles
+        "purple": "#bac674", // Pentagons
+        "aqua": "#884aa5", // Hexagons
+        "pink": "#60294f", // Crashers
+        "lavender": "#499855", // Nest
+        "lgrey": "#998866", // Maze Walls
+
+        "lgreen": "#8c9b3e", // Health Bars, Shiny Polygons
+        "teal": "#884aa5", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffe8", // Text
+        "white": "#7da060", // Arena Background
+        "grey": "#998866", // Barrels, Bar Backgrounds
+        "black": "#665750", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.7019607843137254 // I LOVE FLOATING POINT
+    },
+    "pastel": {
+        "blue": "#397697", // Blue Team
+        "green": "#3ff7a1", // Green Team
+        "red": "#f65f64", // Red Team
+        "magenta": "#a75299", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#ffeb76", // Netural Team
+        "dgrey": "#8da996", // Rogue Team
+
+        "vlgrey": "#f3f0d7", // Eggs
+        "gold": "#d2b869", // Squares
+        "orange": "#d8b384", // Triangles
+        "purple": "#81654a", // Pentagons
+        "aqua": "#ffff98", // Hexagons
+        "pink": "#ff8dbd", // Crashers
+        "lavender": "#eee8d5", // Nest
+        "lgrey": "#c1c1c1", // Maze Walls
+
+        "lgreen": "#8affb2", // Health Bars, Shiny Polygons
+        "teal": "#ffff98", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffb5", // Text
+        "white": "#f5dba7", // Arena Background
+        "grey": "#c1c1c1", // Barrels, Bar Backgrounds
+        "black": "#675240", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+    },
+    "descent": {
+        "blue": "#ababab", // Blue Team
+        "green": "#a69768", // Green Team
+        "red": "#545454", // Red Team
+        "magenta": "#85a686", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#ffffb2", // Netural Team
+        "dgrey": "#2e2e32", // Rogue Team
+
+        "vlgrey": "#7f7360", // Eggs
+        "gold": "#fde7a5", // Squares
+        "orange": "#bc8989", // Triangles
+        "purple": "#878777", // Pentagons
+        "aqua": "#95cecf", // Hexagons
+        "pink": "#bd91c4", // Crashers
+        "lavender": "#000000", // Nest
+        "lgrey": "#c4bb9d", // Maze Walls
+
+        "lgreen": "#ffa5ff", // Health Bars, Shiny Polygons
+        "teal": "#95cecf", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#ffffff", // Text
+        "white": "#3b3b37", // Arena Background
+        "grey": "#c4bb9d", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 0.5019607843137255 // I LOVE FLOATING POINT
+    },
+    "badlands": {
+        "blue": "#0c5a9e", // Blue Team
+        "green": "#6e8922", // Green Team
+        "red": "#5b0000", // Red Team
+        "magenta": "#20124d", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#e69138", // Netural Team
+        "dgrey": "#999999", // Rogue Team
+
+        "vlgrey": "#6aa84f", // Eggs
+        "gold": "#783f04", // Squares
+        "orange": "#38761d", // Triangles
+        "purple": "#591c77", // Pentagons
+        "aqua": "#f9cb9c", // Hexagons
+        "pink": "#bd91c4", // Crashers
+        "lavender": "#b7b7b7", // Nest
+        "lgrey": "#2f1c16", // Maze Walls
+
+        "lgreen": "#f1c232", // Health Bars, Shiny Polygons
+        "teal": "#f9cb9c", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#a4c2f4", // Text
+        "white": "#543517", // Arena Background
+        "grey": "#2f1c16", // Barrels, Bar Backgrounds
+        "black": "#000000", // Borders
+        "guiblack": "#cfe2f3", // Grid
+        "paletteSize": 20,
+        "border": 0.4 // I HATE FLOATING POINT
+    },
+    "pumpkinSkeleton": {
+        "blue": "#3ca4cb", // Blue Team
+        "green": "#76eec6", // Green Team
+        "red": "#f04f54", // Red Team
+        "magenta": "#cc669c", // Purple Team
+        "mustard": "#c49608", // Yellow Team (todo: make colours that arent from diep theme)
+        "tangerine": "#ec7b0f", // Orange Team (todo: make colours that arent from diep theme)
+        "brown": "#895918", // Brown Team (todo: make colours that arent from diep theme)
+        "cyan": "#13808e", // Cyan Team (todo: make colours that arent from diep theme)
+        "yellow": "#fdf380", // Netural Team
+        "dgrey": "#726f6f", // Rogue Team
+
+        "vlgrey": "#1b713a", // Eggs
+        "gold": "#1b713a", // Squares
+        "orange": "#1b713a", // Triangles
+        "purple": "#1b713a", // Pentagons
+        "aqua": "#1b713a", // Hexagons
+        "pink": "#194417", // Crashers
+        "lavender": "#941100", // Nest
+        "lgrey": "#ffffff", // Maze Walls
+
+        "lgreen": "#ff6347", // Health Bars, Shiny Polygons
+        "teal": "#721970", // Shield Bars, Legendary Polygons
+
+        "guiwhite": "#fed8b1", // Text
+        "white": "#ff9b58", // Arena Background
+        "grey": "#ffffff", // Barrels, Bar Backgrounds
+        "black": "#484848", // Borders
+        "guiblack": "#000000", // Grid
+        "paletteSize": 20,
+        "border": 1 // I HATE FLOATING POINT
     },
     "blindness": {
         "teal": "#000000",
@@ -607,6 +759,6 @@ var color = {
         "cyan": "#000000",
         "paletteSize": 20,
         "border": 0
-    }
+    },
 };
 export { color }
