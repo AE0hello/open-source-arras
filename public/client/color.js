@@ -71,7 +71,7 @@ var color = {
         "magenta": "#bf7ff5", // Purple Team
         "mustard": "#c49608", // Yellow Team
         "tangerine": "#ec7b0f", // Orange Team
-        "brown": "#895918", // Brown Team
+        "brown": "#895918", // Brown Team (#d68165 is more accurate to diep)
         "cyan": "#13808e", // Cyan Team
         "yellow": "#ffe869", // Netural Team
         "dgrey": "#555555", // Rogue Team
@@ -80,7 +80,7 @@ var color = {
         "gold": "#ffe869", // Squares
         "orange": "#fc7677", // Triangles
         "purple": "#768dfc", // Pentagons
-        "aqua": "#72eacf", // Hexagons
+        "aqua": "#72eacf", // Hexagons (#8543ff is more accurate to diep)
         "pink": "#f177dd", // Crashers
         "lavender": "#b58eff", // Nest
         "lgrey": "#bbbbbb", // Maze Walls (#aa9f9e is old lgrey (todo: reassign this as beige))
@@ -759,6 +759,6 @@ var color = {
         "cyan": "#000000",
         "paletteSize": 20,
         "border": 0
-    }
+    },
 };
 export { color }
