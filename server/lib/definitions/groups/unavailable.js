@@ -989,55 +989,6 @@ Class.literallyATank = {
             },
         ],
     }
-    Class.vulcan = {
-        PARENT: "genericTank",
-        LABEL: "Vulcan",
-        DANGER: 7,
-        GUNS: [
-            {
-                /*** LENGTH  WIDTH   ASPECT    X       Y     ANGLE   DELAY */
-                POSITION: [28, 2, 1, 0, 4, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [28, 2, 1, 0, -4, 0, 0.8],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [28, 2, 1, 0, 2.25, 0, 0.2],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [28, 2, 1, 0, -2.25, 0, 0.6],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [28, 2, 1, 0, 0, 0, 0.4],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [5, 13, 1, 7, 0, 0, 0],
-            },
-            {
-                POSITION: [5, 13, 1, 20, 0, 0, 0],
-            },
-        ],
-    }
     Class.armsman_old = {
         PARENT: "genericTank",
         LABEL: "Old Armsman",

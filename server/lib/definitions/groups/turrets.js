@@ -656,27 +656,6 @@ Class.gadgetGunTripleTurret = {
     }
     ], 3)
 }
-Class.scatterer = {
-    PARENT: "genericTank",
-    LABEL: "Scatterer",
-    DANGER: 7,
-    GUNS: [
-        {
-            POSITION: [12, 10, 1.4, 11, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [12, 10, 1.4, 8, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        }
-    ]
-}
 
 // Mounted Turrets
 Class.autoTurret = makeTurret({

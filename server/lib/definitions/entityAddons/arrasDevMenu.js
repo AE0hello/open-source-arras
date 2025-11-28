@@ -6,16 +6,18 @@ const g = require('../gunvals.js')
 Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
 
 // Addon menu (Mainly for developers)
-Class.arrasMenu_addonMenu = makeMenu("Shiny Special Menu")
-Class.arrasMenu_addonMenu.UPGRADE_TOOLTIP = "The unoffical special tanks.\n Some tanks are not implemented yet!";
+Class.arrasMenu_addonMenu = makeMenu("arras.io Menus")
 Class.arrasMenu_addonMenu.UPGRADES_TIER_0 = [
-    "arrasMenu_special", "arrasMenu_youtuber", "arrasMenu_gameAdmin", "arrasMenu_retrograde"
+    "arrasMenu_special",
+    "arrasMenu_youtuber",
+    "arrasMenu_retrograde",
 ]
 
 // Special Menu
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
     Config.SPAWN_CLASS,
+    "arrasMenu_gameAdmin",
     "eggGen",
     "arrasMenu_specialTanks",
     "arrasMenu_bosses",
