@@ -37,33 +37,25 @@ After doing that, your server should be ready!
 You can set up in-game servers in config.js file, in `SERVERS`. For further explanation, see the setting itself. It's an array of objects was each object is a server.
 
 ### Travelling between servers (Nexus)
-First copy this code to the server's `PROPERTIES`:
+Copy this code into your server's `PROPERTIES`:
 ```
 SERVER_TRAVEL_PROPERTIES: {
-    LOOP_INTERVAL: 10000,
-    AMOUNT: 1,
+    LOOP_INTERVAL: 10000, // how often the portal loop executes
+    AMOUNT: 1, // amount of portals to spawn
 },
 SERVER_TRAVEL: [
     {
-        IP: "<YourIP>", // don't add "https://" or this "/".
+        IP: "<YourIP>", // destination server IP, don't add "https://" or any slashes to it
         PORTAL_PROPERTIES: {
-            SPAWN_CHANCE: 3,
-            COLOR: 12
+            SPAWN_CHANCE: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = more chances)
+            COLOR: 12, // portal color
         }
     }
 ]
 ```
-Paste as `IP` you destination server IP address.
 
-`SPAWN_CHANCE` is a chance for a portal to spawn somewhere in the map each loop iteration. The higher, the more chances.
-
-`COLOR` color of the portal.
-
-`LOOP_INTERVAL` is how often will the portal loop execute.
-
-`AMOUNT` is the amount of portals to spawn.
-
-Before you launch the server, You need to set `ALLOW_SERVER_TRAVEL` to true in your destination server's `PROPERTIES`.
+> [!NOTE]
+> Make sure to set `ALLOW_SERVER_TRAVEL` to true in your destination server's `PROPERTIES`.
 
 ## Useful Tools
 - [Create a custom shape](https://arras.io/ext/custom-shape)
