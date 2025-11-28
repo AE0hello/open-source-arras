@@ -2043,27 +2043,6 @@ Class.quadTwin = {
         }
     }), 4)
 }
-Class.scatterer = {
-    PARENT: "genericTank",
-    LABEL: "Scatterer",
-    DANGER: 8,
-    GUNS: [
-        {
-            POSITION: [12, 10, 1.4, 11, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [12, 10, 1.4, 8, 0, 0, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        }
-    ]
-}
 Class.sharpshooter = {
     PARENT: "genericTank",
     LABEL: "Sharpshooter",
