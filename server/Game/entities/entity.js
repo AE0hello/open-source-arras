@@ -396,13 +396,38 @@ class Entity extends EventEmitter {
         if (set.LEVEL_CAP != null) {
             this.levelCap = set.LEVEL_CAP;
         }
-        if (set.SKILL_CAP != null && set.SKILL_CAP != []) {
-            if (set.SKILL_CAP.length != 10) throw "Inappropiate skill cap amount.";
-            this.skill.setCaps(set.SKILL_CAP);
+        const SKILL_ORDER = [
+            "RELOAD",
+            "PENETRATION",
+            "BULLET_HEALTH",
+            "BULLET_DAMAGE",
+            "BULLET_SPEED",
+            "SHIELD_CAPACITY",
+            "BODY_DAMAGE",
+            "MAX_HEALTH",
+            "SHIELD_REGENERATION",
+            "MOVEMENT_SPEED"
+        ];
+        if (set.SKILL_CAP != null) {
+            let skillCapsToSet = Array.isArray(set.SKILL_CAP) ? set.SKILL_CAP : SKILL_ORDER.map(name => 
+                set.SKILL_CAP[name] !== undefined ? set.SKILL_CAP[name] : 9 // Default max skill points to 9, cant decide if it should be 9 or 0
+            );
+
+            if (skillCapsToSet.length !== 10) {
+                throw "Inappropriate skill cap amount.";
+            }
+            this.skill.setCaps(skillCapsToSet);
         }
-        if (set.SKILL != null && set.SKILL != []) {
-            if (set.SKILL.length != 10) throw "Inappropiate skill raws.";
-            this.skill.set(set.SKILL);
+
+        if (set.SKILL != null) {
+            let skillsToSet = Array.isArray(set.SKILL) ? set.SKILL : SKILL_ORDER.map(name => 
+                set.SKILL[name] !== undefined ? set.SKILL[name] : 0 // Default current skill points to 0, cant decide if it should be 9 or 0
+            );
+
+            if (skillsToSet.length !== 10) {
+                throw "Inappropriate skill raws.";
+            }
+            this.skill.set(skillsToSet);
         }
         if (set.VALUE != null) this.skill.score = Math.max(this.skill.score, set.VALUE * this.squiggle);
         if (set.ALT_ABILITIES != null) this.abilities = set.ALT_ABILITIES;
