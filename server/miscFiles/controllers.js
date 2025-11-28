@@ -1117,7 +1117,6 @@ class io_orbit extends IO {
     }
   
     think(input) {
-        console.log(this.body.master.useOwnMaster)
         let invertFactor = this.invert ? -1 : 1,
             master = this.body.master.useOwnMaster ? this.body.master : this.body.master.master,
             dist = this.invert ? master.inverseDist : master.dist,
