@@ -1,4 +1,4 @@
-const { combineStats, makeMenu, addAura, makeDeco, LayeredBoss, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
+const { combineStats, makeMenu, makeAura, makeDeco, LayeredBoss, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
 const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js')
 const g = require('../gunvals.js')
 require('./tanks.js')
@@ -458,6 +458,7 @@ Class.menu_testing.UPGRADES_TIER_0 = [
     "mummifier",
     "syncWithTankTest",
     "airblast",
+    "angleseer",
 ]
 
 // airblast testing
@@ -486,6 +487,36 @@ Class.airblast = {
             }
         }
     ]
+}
+Class.trichip = {
+    PARENT: "sunchip",
+    NECRO: [3],
+    SHAPE: 3
+}
+Class.angleseer = {
+    PARENT: "genericTank",
+    LABEL: "Angleseer",
+    DANGER: 7,
+    NECRO: true,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        FOV: base.FOV * 1.1,
+    },
+    SHAPE: 3.5,
+    MAX_CHILDREN: 12,
+    GUNS: weaponArray({
+        POSITION: [5, 11, 1.3, 7, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}]),
+            TYPE: "trichip",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "necro",
+            WAIT_TO_CYCLE: true,
+            DELAY_SPAWN: false,
+        }
+    }, 3)
 }
 
 // Testing tanks
@@ -841,7 +872,7 @@ Class.turretStatScaleTest = {
         TYPE: ['autoTankGun', {GUN_STAT_SCALE: {speed: 1 + i / 5, maxSpeed: 1 + i / 5, reload: 1 + i / 5, recoil: 0}}]
     }))
 }
-Class.auraBasicGen = addAura();
+Class.auraBasicGen = makeAura();
 Class.auraBasic = {
     PARENT: "genericTank",
     LABEL: "Aura Basic",
@@ -853,7 +884,7 @@ Class.auraBasic = {
     ],
     GUNS: Class.basic.GUNS
 }
-Class.auraHealerGen = addAura(-1);
+Class.auraHealerGen = makeAura(-1);
 Class.auraHealer = {
     PARENT: "genericTank",
     LABEL: "Aura Healer",

@@ -2233,7 +2233,7 @@ import * as socketStuff from "./socketinit.js";
     global.classTreeDrag = classTreeDrag;
     function drawClassTreeUI(spacing) {
         if (!global.renderTankTree) {
-            drawText("Loading upgrade tree...", global.screenWidth / 2, global.screenHeight / 2, 25, color.guiwhite, "center");
+            //drawText("Loading upgrade tree...", global.screenWidth / 2, global.screenHeight / 2, 25, color.guiwhite, "center");
             return;
         }
         const uiY = spacing + 20;

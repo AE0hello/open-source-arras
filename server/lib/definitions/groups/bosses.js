@@ -1,4 +1,4 @@
-const { combineStats, skillSet, makeAuto, addAura, LayeredBoss, makeDeco, weaponArray, setTurretProjectileRecoil } = require('../facilitators.js');
+const { combineStats, skillSet, makeAuto, makeAura, LayeredBoss, makeDeco, weaponArray, setTurretProjectileRecoil } = require('../facilitators.js');
 const { base, statnames, smshskl } = require('../constants.js');
 const g = require('../gunvals.js');
 require('./generics.js');
@@ -2455,7 +2455,7 @@ Class.dogeiscutBoss = {
         },
     ]
 }
-Class.trplnrBossAuraBulletAura = addAura(1, 0.8)
+Class.trplnrBossAuraBulletAura = makeAura(1, 0.8)
 Class.trplnrBossAuraBullet = {
     PARENT: 'genericTank',
     LABEL: 'Nest',
@@ -3276,11 +3276,11 @@ Class.toothlessBoss = {
     ],
 };
 
-Class.MKAura = addAura(5, 0, 0.1, 42);
-Class.MKDoneAura = addAura(2, 1, 0.3, 32);
-Class.MKFactoryAura = addAura(2.6, 1, 0.3, "trans");
-Class.MKCarrierAura = addAura(2.1, 1, 0.3, 1);
-Class.MKMinionAura = addAura(1.1, 1, 0.3, 32);
+Class.MKAura = makeAura(5, 0, 0.1, 42);
+Class.MKDoneAura = makeAura(2, 1, 0.3, 32);
+Class.MKFactoryAura = makeAura(2.6, 1, 0.3, "trans");
+Class.MKCarrierAura = makeAura(2.1, 1, 0.3, 1);
+Class.MKMinionAura = makeAura(1.1, 1, 0.3, 32);
 Class.MKDrone = {
     PARENT: "drone",
     LABEL: "MKShip Drone",
@@ -3557,7 +3557,7 @@ Class.AEMKShipBoss = {
     })(),
 }
 
-Class.helenaBossBaseAura = addAura(2, 2, 0)
+Class.helenaBossBaseAura = makeAura(2, 2, 0)
 const helenaBossBase = {
     PARENT: "genericTank",
     COLOR: "crasher",
@@ -3643,7 +3643,7 @@ Class.helenaBossHDDMinion = {
         )
     ]
 }
-Class.helenaBossAuraBulletAura = addAura(0.333, 1.5, 0.3, "crasher")
+Class.helenaBossAuraBulletAura = makeAura(0.333, 1.5, 0.3, "crasher")
 Class.helenaBossAuraBullet = {
     PARENT: "bullet",
     TURRETS: [
