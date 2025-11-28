@@ -1385,7 +1385,7 @@ Class.waarrk = {
                 TYPE: "trap",
                 STAT_CALCULATOR: "trap",
             },
-        }], 2),
+        }], 0),
         {
             POSITION: [18, 8, 1, 0, 0, 0, 0],
         },
@@ -2219,7 +2219,7 @@ Class.waarrkwaarrk = {
                 TYPE: "trap",
                 STAT_CALCULATOR: "trap",
             },
-        }], 2),
+        }], 0),
         {
             POSITION: [18, 8, 1, 0, 0, 0, 0],
         },
