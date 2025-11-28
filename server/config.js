@@ -196,6 +196,7 @@ module.exports = {
     ARENA_TYPE: "rect",
     BLACKOUT: false,
     SPACE_MODE: false,
+    ARMS_RACE: false,
     CLAN_WARS: false,
     GROWTH: false,
     GROUPS: false,
