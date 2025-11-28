@@ -28,6 +28,41 @@ Class.arrasMenu_special.UPGRADES_TIER_0 = [
     "arrasMenu_shinyMember"
 ]
 
+// Game Admin/Mod / Beta Tester Menu(s)
+Class.arrasMenu_gameAdmin = makeMenu("Game Admin Menu") // (BT 3)
+Class.arrasMenu_gameAdmin.UPGRADES_TIER_0 = [
+    Config.SPAWN_CLASS,
+    "arrasMenu_gameMod",
+    "spectator",
+    //"banHammer", // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gameMod
+    //"guillotine",
+    "arrasMenu_nostalgia",
+    "arrasMenu_scrapped",
+]
+
+Class.arrasMenu_gameMod = makeMenu("Game Mod Menu") // (BT 2)
+Class.arrasMenu_gameMod.UPGRADES_TIER_0 = [
+    Config.SPAWN_CLASS,
+    "arrasMenu_betaTester",
+    "spectator",
+    //"guillotine",
+    "arrasMenu_nostalgia",
+    "arrasMenu_scrapped",
+]
+
+Class.arrasMenu_betaTester = makeMenu("Beta Tester Menu") // (BT 1)
+Class.arrasMenu_betaTester.UPGRADES_TIER_0 = [
+    Config.SPAWN_CLASS,
+    //"arrasMenu_betaTesterB", // todo: check if beta tester b actually existed here
+    "spectator",
+    "arrasMenu_tankChanges", // existed here at one point
+    "arrasMenu_nostalgia",
+    "arrasMenu_scrapped",
+]
+
+Class.arrasMenu_tankChanges = makeMenu("Tank Changes Menu") // (Trial BT?)
+Class.arrasMenu_betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
+
 // Special Tanks Menu(s)
 Class.arrasMenu_specialTanks = makeMenu("Special Tanks Menu")
 Class.arrasMenu_specialTanks.UPGRADES_TIER_0 = [
@@ -41,6 +76,7 @@ Class.arrasMenu_specialTanks.UPGRADES_TIER_0 = [
     "mothership",
     "flagship",
     "turkey",
+    //"arrasMenu_developer",
     "undercoverCop",
 ]
 
@@ -299,42 +335,7 @@ Class.arrasMenu_youtuber = {
 }
 Class.arrasMenu_youtuber.UPGRADES_TIER_0 = Class.arrasMenu_shinyMember.UPGRADES_TIER_0
 
-// Beta Tester Menu(s)
-Class.arrasMenu_gameAdmin = makeMenu("Game Admin Menu") // (BT 3)
-Class.arrasMenu_gameAdmin.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
-    "arrasMenu_gameMod",
-    "spectator",
-    //"banHammer", // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gameMod
-    //"guillotine",
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
-]
-
-Class.arrasMenu_gameMod = makeMenu("Game Mod Menu") // (BT 2)
-Class.arrasMenu_gameMod.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
-    "arrasMenu_betaTester",
-    "spectator",
-    //"guillotine",
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
-]
-
-Class.arrasMenu_betaTester = makeMenu("Beta Tester Menu") // (BT 1)
-Class.arrasMenu_betaTester.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
-    //"arrasMenu_betaTesterB", // todo: check if beta tester b actually existed here
-    "spectator",
-    "arrasMenu_tankChanges", // existed here at one point
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
-]
-
-Class.arrasMenu_tankChanges = makeMenu("Tank Changes Menu") // (Trial BT?)
-
-Class.arrasMenu_betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
-
+// Retrograde
 Class.arrasMenu_retrograde = makeMenu("Retrograde") // feature-reduced menu for retrograde event
 Class.arrasMenu_retrograde.UPGRADES_TIER_0 = [
     "arrasMenu_diep",
