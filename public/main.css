@@ -241,6 +241,7 @@ input {
   width: 100%;
   padding: 10px;
   border: solid 2px #cccccc;
+  color: #cccccc;
   box-sizing: border-box;
   border-radius: 5px;
   margin-top: 5px;
@@ -259,12 +260,12 @@ input:disabled {
 #playerNameInput {
   padding: 10px;
   font-size: larger;
-  color: gray;
+  color: black;
 }
 
 #playerKeyInput {
   padding: 3px;
-  color: gray;
+  color: black;
 }
 
 input:focus {

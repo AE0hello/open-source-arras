@@ -1,4 +1,5 @@
 var color = {
+    // Ingame arras themes
     "normal": {
         "blue": "#3ca4cb", // Blue Team
         "green": "#8abc3f", // Green Team
@@ -504,6 +505,8 @@ var color = {
         "paletteSize": 20,
         "border": 0 // I HATE FLOATING POINT
     },
+
+    // Removed arras themes
     "bleach": {
         "blue": "#0025ff", // Blue Team
         "green": "#00ff00", // Green Team
