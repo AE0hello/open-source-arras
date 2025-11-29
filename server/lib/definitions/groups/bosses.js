@@ -2096,7 +2096,7 @@ Class.tgsBoss = {
         HEALTH: 15 * base.HEALTH,
         DAMAGE: 5 * base.DAMAGE,
     },
-    UPGRADE_TOOLTIP: "Good luck.",
+    UPGRADE_TOOLTIP: "Someone has taken their love of Shiny Squares one step too far.",
     GUNS: weaponArray([
         ...weaponMirror({
             POSITION: [2.5, 3, 1.2, 8, 5, 0, 0],

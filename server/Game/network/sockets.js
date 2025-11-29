@@ -1101,10 +1101,10 @@ class socketManager {
             body.protect();
             body.isPlayer = true;
             body.define(Config.SPAWN_CLASS);
-            if (Class.specialMenu) {
-                let string = Class.specialMenu.UPGRADES_TIER_0[0];
+            if (Class.menu_tanks) {
+                let string = Class.menu_tanks.UPGRADES_TIER_0[0];
                 if (string !== "basic") {
-                    Class.specialMenu.UPGRADES_TIER_0.push("basic")
+                    Class.menu_addons.UPGRADES_TIER_0.push("basic")
                 }
             }
             body.name = name;

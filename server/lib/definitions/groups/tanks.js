@@ -5192,6 +5192,7 @@ Class.whirl3 = {
     CONTROLLERS: ["whirlwind"],
     HAS_NO_RECOIL: true,
     STAT_NAMES: statnames.whirlwind,
+    FACING_TYPE: "spin",
     TURRETS: [
         {
             POSITION: [8, 0, 0, 0, 360, 1],
