@@ -577,7 +577,7 @@ import * as socketStuff from "./socketinit.js";
                         alert("Your theme does not an entry for \"aqua\" (the color used by Hexagons). A fallback has been provided.");
                         content.aqua = content.teal;
                     } else if (!content.lavender) { // same for lavender.
-                        alert("Your theme does not an entry for \"lavender\" (the color used by the nest. A fallback has been provided.");
+                        alert("Your theme does not an entry for \"lavender\" (the color used by the nest). A fallback has been provided.");
                         content.lavender = "#b58efd";
                     } else {
                         if (logError) { 
