@@ -1,4 +1,4 @@
-const { combineStats, skillSet, makeAuto, makeAura, LayeredBoss, makeDeco, weaponArray, setTurretProjectileRecoil } = require('../facilitators.js');
+const { combineStats, skillSet, makeAuto, makeAura, LayeredBoss, makeDeco, weaponArray, weaponMirror, setTurretProjectileRecoil } = require('../facilitators.js');
 const { base, statnames, smshskl } = require('../constants.js');
 const g = require('../gunvals.js');
 require('./generics.js');
@@ -849,7 +849,7 @@ Class.summoner = {
     PARENT: "miniboss",
     LABEL: "Summoner",
     NAME: "Summoner",
-    DISPLAY_NAME: false,
+    //DISPLAY_NAME: false,
     DANGER: 8,
     SHAPE: 4,
     COLOR: "gold",
@@ -964,6 +964,36 @@ Class.shaman = {
             WAIT_TO_CYCLE: true,
         },
     }, 6, 1/6)
+};
+Class.witch = {
+    PARENT: "miniboss",
+    LABEL: "Witch",
+    NAME: "Witch",
+    DISPLAY_NAME: false,
+    DANGER: 8,
+    SHAPE: 3.5,
+    COLOR: "pink",
+    UPGRADE_COLOR: "pink",
+    SIZE: 26,
+    MAX_CHILDREN: 40,
+    VALUE: 2.5e5,
+    BODY: {
+        FOV: 0.5,
+        SPEED: 0.11 * base.SPEED,
+        HEALTH: 6.5 * base.HEALTH,
+        DAMAGE: 2.3 * base.DAMAGE,
+    },
+    GUNS: weaponArray({
+        POSITION: [3.5, 8.65, 1.2, 8, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.summoner, { size: 0.4, damage: 1.1 }]),
+            TYPE: "dorito",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "drone",
+            WAIT_TO_CYCLE: true,
+        },
+    }, 3)
 };
 Class.eliteSkimmer = {
     PARENT: "elite",
@@ -1996,10 +2026,11 @@ Class.taureonBoss = {
     }]
 };
 
-Class.tgsMiscDeco = makeDeco(4, "white")
-Class.tgsMiscDeco2 = makeDeco(4, "black")
-Class.tgsSunchip = makeAuto({
+Class.tgsEggDeco = makeDeco(0, "mirror")
+Class.tgsSquareDeco = makeDeco(4, "mirror")
+Class.tgsSunchip = {
     PARENT: "drone",
+    LABEL: "Omega Sunchip",
     SHAPE: 4,
     HITS_OWN_TYPE: "hard",
     BODY: {
@@ -2011,15 +2042,18 @@ Class.tgsSunchip = makeAuto({
     },
     TURRETS: [{
         POSITION: [20 * Math.SQRT1_2, 0, 0, 45, 0, 1],
-        TYPE: ["overdriveDeco", { MIRROR_MASTER_ANGLE: true }]
+        TYPE: ["tgsSquareDeco", { MIRROR_MASTER_ANGLE: true }]
     },{
         POSITION: [20 * Math.SQRT1_2 ** 2, 0, 0, 0, 0, 1],
-        TYPE: ["shinySquare", { MIRROR_MASTER_ANGLE: true }]
+        TYPE: ["tgsSquareDeco", { MIRROR_MASTER_ANGLE: true }]
+    },{
+        POSITION: [20 * Math.SQRT1_2 ** 3, 0, 0, 45, 0, 1],
+        TYPE: ["tgsSquareDeco", { MIRROR_MASTER_ANGLE: true }]
     }]
-}, "Robo-Sunchip", {type: 'autoSmasherTurret', size: 6})
+}
 Class.tgsEggchip = {
     PARENT: "drone",
-    LABEL: "Guided Missile",
+    LABEL: "Beta Sunchip",
     SHAPE: 0,
     HITS_OWN_TYPE: "hard",
     BODY: {
@@ -2029,40 +2063,14 @@ Class.tgsEggchip = {
         BLIND: true,
         FARMER: true,
     },
-    GUNS: [
-        {
-            POSITION: [14, 6, 1, 0, 0, 180, 0],
-            PROPERTIES: {
-                AUTOFIRE: true,
-                SHOOT_SETTINGS: combineStats([g.basic, g.skimmer, g.lowPower, { reload: 0.5, recoil: 1.35, speed: 1.3, maxSpeed: 1.3 }]),
-                TYPE: ["bullet", { COLOR: "black", PERSISTS_AFTER_DEATH: true }],
-                STAT_CALCULATOR: "thruster",
-            },
-        },
-    ],
     TURRETS: [{
         POSITION: [10, 0, 0, 45, 0, 1],
-        TYPE: "gem"
+        TYPE: "tgsEggDeco"
     }]
 }
-Class.tgsGearOuter = makeDeco('M 0.5 0.0929 V -0.0908 L 0.3875 -0.1096 C 0.3792 -0.1409 0.3667 -0.1701 0.3521 -0.1952 L 0.4187 -0.2871 L 0.2896 -0.4186 L 0.1958 -0.3539 C 0.1687 -0.3685 0.1396 -0.381 0.1104 -0.3894 L 0.0917 -0.5 H -0.0917 L -0.1104 -0.3873 C -0.1417 -0.3789 -0.1688 -0.3664 -0.1958 -0.3518 L -0.2875 -0.4165 L -0.4188 -0.2871 L -0.3521 -0.1952 C -0.3667 -0.1681 -0.3792 -0.1388 -0.3875 -0.1075 L -0.5 -0.0908 V 0.0929 L -0.3875 0.1117 C -0.3792 0.143 -0.3667 0.1701 -0.3521 0.1973 L -0.4188 0.2912 L -0.2896 0.4207 L -0.1958 0.3539 C -0.1688 0.3685 -0.1396 0.381 -0.1083 0.3894 L -0.0896 0.5 H 0.0938 L 0.1125 0.3873 C 0.1417 0.3789 0.1708 0.3664 0.1979 0.3518 L 0.2917 0.4186 L 0.4208 0.2891 L 0.3542 0.1952 C 0.3688 0.1681 0.3812 0.1409 0.3896 0.1096 L 0.5 0.0929 Z M 0.3333 0 C 0.3333 0.1841 0.1841 0.3333 0 0.3333 C -0.1841 0.3333 -0.3333 0.1841 -0.3333 0 C -0.3333 -0.1841 -0.1841 -0.3333 0 -0.3333 C 0.1841 -0.3333 0.3333 -0.1841 0.3333 0 Z', '#7F7F7F')
-Class.tgsGearOuter.CONTROLLERS = [["spin", { independent: true }]]
-Class.tgsGearOuter.BORDERLESS = true
-Class.tgsGearCentre = makeDeco(0, '#1F1F1F')
-Class.tgsGearCentre.CONTROLLERS = [["spin", { independent: true }]]
-Class.tgsGearCentre.BORDERLESS = true
-Class.tgsGearRed = makeDeco('M -0.2667 0 C -0.2667 0.0074 -0.2664 0.0147 -0.2658 0.022 C -0.2651 0.0293 -0.2642 0.0366 -0.263 0.0439 C -0.2618 0.0511 -0.2603 0.0583 -0.2585 0.0655 C -0.2567 0.0726 -0.2546 0.0796 -0.2522 0.0866 C -0.2498 0.0935 -0.2472 0.1004 -0.2442 0.1071 C -0.2412 0.1139 -0.238 0.1205 -0.2345 0.1269 C -0.231 0.1334 -0.2273 0.1397 -0.2232 0.1459 C -0.2192 0.152 -0.2149 0.158 -0.2104 0.1638 C -0.2059 0.1696 -0.2012 0.1752 -0.1962 0.1806 C -0.1912 0.186 -0.186 0.1912 -0.1806 0.1962 C -0.1752 0.2012 -0.1696 0.2059 -0.1638 0.2104 C -0.158 0.215 -0.152 0.2192 -0.1458 0.2232 C -0.1397 0.2273 -0.1334 0.231 -0.1269 0.2345 C -0.1204 0.238 -0.1138 0.2413 -0.1071 0.2442 C -0.1032 0.2458 -0.1 0.2436 -0.1 0.2393 V -0.2393 C -0.1 -0.2436 -0.1032 -0.2458 -0.1071 -0.2442 C -0.1138 -0.2413 -0.1204 -0.238 -0.1269 -0.2345 C -0.1334 -0.231 -0.1397 -0.2273 -0.1458 -0.2232 C -0.152 -0.2192 -0.158 -0.215 -0.1638 -0.2104 C -0.1696 -0.2059 -0.1752 -0.2012 -0.1806 -0.1962 C -0.186 -0.1912 -0.1912 -0.186 -0.1962 -0.1806 C -0.2012 -0.1752 -0.2059 -0.1696 -0.2104 -0.1638 C -0.2149 -0.158 -0.2192 -0.152 -0.2232 -0.1458 C -0.2273 -0.1397 -0.231 -0.1334 -0.2345 -0.1269 C -0.238 -0.1205 -0.2412 -0.1138 -0.2442 -0.1071 C -0.2472 -0.1004 -0.2498 -0.0935 -0.2522 -0.0866 C -0.2546 -0.0796 -0.2567 -0.0726 -0.2585 -0.0655 C -0.2603 -0.0583 -0.2618 -0.0511 -0.263 -0.0439 C -0.2642 -0.0366 -0.2651 -0.0293 -0.2658 -0.022 C -0.2664 -0.0147 -0.2667 -0.0073 -0.2667 0 Z', '#FF1F1F')
-Class.tgsGearRed.CONTROLLERS = [["spin", { independent: true }]]
-Class.tgsGearRed.BORDERLESS = true
-Class.tgsGearGreen = makeDeco('M 0.0771 -0.2552 C 0.0743 -0.2561 0.0691 -0.2576 0.0657 -0.2585 L 0.0607 -0.2597 C 0.0571 -0.2605 0.0514 -0.2617 0.0479 -0.2623 L 0.0428 -0.2632 C 0.0392 -0.2638 0.0334 -0.2646 0.0299 -0.265 L 0.0247 -0.2655 C 0.0211 -0.2659 0.0153 -0.2662 0.0117 -0.2664 L 0.0066 -0.2666 C 0.003 -0.2667 -0.0029 -0.2667 -0.0065 -0.2666 L -0.0116 -0.2664 C -0.0153 -0.2662 -0.0211 -0.2659 -0.0247 -0.2655 L -0.0298 -0.265 C -0.0334 -0.2646 -0.0392 -0.2638 -0.0427 -0.2632 L -0.0478 -0.2623 C -0.0514 -0.2617 -0.0571 -0.2605 -0.0606 -0.2597 L -0.0656 -0.2585 C -0.0691 -0.2576 -0.0747 -0.256 -0.0782 -0.2549 C -0.081 -0.254 -0.0833 -0.2502 -0.0833 -0.2466 V 0.2466 C -0.0833 0.2502 -0.0805 0.2541 -0.0771 0.2552 C -0.0743 0.2561 -0.0691 0.2576 -0.0656 0.2585 L -0.0606 0.2597 C -0.0571 0.2605 -0.0514 0.2617 -0.0478 0.2623 L -0.0427 0.2632 C -0.0392 0.2638 -0.0334 0.2646 -0.0298 0.265 L -0.0247 0.2655 C -0.0211 0.2659 -0.0153 0.2663 -0.0116 0.2664 L -0.0065 0.2666 C -0.0029 0.2667 0.003 0.2667 0.0066 0.2666 L 0.0117 0.2664 C 0.0153 0.2663 0.0211 0.2659 0.0247 0.2655 L 0.0299 0.265 C 0.0334 0.2646 0.0392 0.2638 0.0428 0.2632 L 0.0479 0.2623 C 0.0514 0.2617 0.0571 0.2605 0.0607 0.2597 L 0.0657 0.2585 C 0.0691 0.2576 0.0748 0.256 0.0782 0.2549 C 0.0811 0.254 0.0834 0.2502 0.0834 0.2466 V -0.2466 C 0.0834 -0.2502 0.0806 -0.2541 0.0771 -0.2552 Z', '#1FDF1F')
-Class.tgsGearGreen.CONTROLLERS = [["spin", { independent: true }]]
-Class.tgsGearGreen.BORDERLESS = true
-Class.tgsGearBlue = makeDeco('M -0.2667 0 C -0.2667 0.0074 -0.2664 0.0147 -0.2658 0.022 C -0.2651 0.0293 -0.2642 0.0366 -0.263 0.0439 C -0.2618 0.0511 -0.2603 0.0583 -0.2585 0.0655 C -0.2567 0.0726 -0.2546 0.0796 -0.2522 0.0866 C -0.2498 0.0935 -0.2472 0.1004 -0.2442 0.1071 C -0.2412 0.1139 -0.238 0.1205 -0.2345 0.1269 C -0.231 0.1334 -0.2273 0.1397 -0.2232 0.1459 C -0.2192 0.152 -0.2149 0.158 -0.2104 0.1638 C -0.2059 0.1696 -0.2012 0.1752 -0.1962 0.1806 C -0.1912 0.186 -0.186 0.1912 -0.1806 0.1962 C -0.1752 0.2012 -0.1696 0.2059 -0.1638 0.2104 C -0.158 0.215 -0.152 0.2192 -0.1458 0.2232 C -0.1397 0.2273 -0.1334 0.231 -0.1269 0.2345 C -0.1204 0.238 -0.1138 0.2413 -0.1071 0.2442 C -0.1032 0.2458 -0.1 0.2436 -0.1 0.2393 V -0.2393 C -0.1 -0.2436 -0.1032 -0.2458 -0.1071 -0.2442 C -0.1138 -0.2413 -0.1204 -0.238 -0.1269 -0.2345 C -0.1334 -0.231 -0.1397 -0.2273 -0.1458 -0.2232 C -0.152 -0.2192 -0.158 -0.215 -0.1638 -0.2104 C -0.1696 -0.2059 -0.1752 -0.2012 -0.1806 -0.1962 C -0.186 -0.1912 -0.1912 -0.186 -0.1962 -0.1806 C -0.2012 -0.1752 -0.2059 -0.1696 -0.2104 -0.1638 C -0.2149 -0.158 -0.2192 -0.152 -0.2232 -0.1458 C -0.2273 -0.1397 -0.231 -0.1334 -0.2345 -0.1269 C -0.238 -0.1205 -0.2412 -0.1138 -0.2442 -0.1071 C -0.2472 -0.1004 -0.2498 -0.0935 -0.2522 -0.0866 C -0.2546 -0.0796 -0.2567 -0.0726 -0.2585 -0.0655 C -0.2603 -0.0583 -0.2618 -0.0511 -0.263 -0.0439 C -0.2642 -0.0366 -0.2651 -0.0293 -0.2658 -0.022 C -0.2664 -0.0147 -0.2667 -0.0073 -0.2667 0 Z', '#1F7FDF')
-Class.tgsGearBlue.CONTROLLERS = [["spin", { independent: true }]]
-Class.tgsGearBlue.BORDERLESS = true
 Class.tgsBoss = {
     PARENT: "miniboss",
-    LABEL: "Shiny Mecha-Thaumaturge",
+    LABEL: "Shiny Omega Thaumaturge",
     NAME: "TGS",
     DANGER: 10,
     SHAPE: 4,
@@ -2090,37 +2098,24 @@ Class.tgsBoss = {
     },
     UPGRADE_TOOLTIP: "Good luck.",
     GUNS: weaponArray([
-        {
+        ...weaponMirror({
             POSITION: [2.5, 3, 1.2, 8, 5, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, { speed: 2.5 }, g.machineGun, { spray: 50, speed: 1.25, shudder: 1.25 }]),
-                TYPE: ["tgsEggchip", {COLOR: "black"}],
+                TYPE: "tgsEggchip",
                 MAX_CHILDREN: 8,
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
-                COLOR: "black",
                 NO_LIMITATIONS: true,
             }
-        }, {
-            POSITION: [2.5, 3, 1.2, 8, -5, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, { speed: 2.5 }, g.machineGun, { spray: 150, speed: 1.25, shudder: 1.25 }]),
-                TYPE: ["tgsEggchip", {COLOR: "black"}],
-                MAX_CHILDREN: 8,
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true,
-                COLOR: "black",
-                NO_LIMITATIONS: true,
-            }
-        }, {
+        }, 0),
+        {
             POSITION: [3.5, 8.65, 1.2, 8, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.destroyer, g.destroyer, { speed: 2.5 }, { maxSpeed: 3 }]),
-                TYPE: ["tgsSunchip", {COLOR: "black"}],
+                TYPE: "tgsSunchip",
                 MAX_CHILDREN: 4,
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -2131,29 +2126,14 @@ Class.tgsBoss = {
         }
     ], 4),
     TURRETS: [{
-        POSITION: [16 * Math.SQRT1_2, 0, 0, 0, 360, 2],
-        TYPE: "tgsGearOuter"
-    },{
-        POSITION: [5.375 * Math.SQRT1_2, 0, 0, 0, 360, 2],
-        TYPE: "tgsGearCentre"
-    },{
-        POSITION: [16 * Math.SQRT1_2, 0, 0, 0, 360, 2],
-        TYPE: "tgsGearRed"
-    },{
-        POSITION: [16 * Math.SQRT1_2, 0, 0, 0, 360, 2],
-        TYPE: "tgsGearGreen"
-    },{
-        POSITION: [16 * Math.SQRT1_2, 0, 0, 180, 360, 2],
-        TYPE: "tgsGearBlue"
-    },{
         POSITION: [20 * Math.SQRT1_2, 0, 0, 45, 0, 1],
-        TYPE: "overdriveDeco"
+        TYPE: "tgsSquareDeco"
     },{
         POSITION: [20 * Math.SQRT1_2 ** 2, 0, 0, 0, 0, 1],
-        TYPE: "tgsMiscDeco2"
+        TYPE: "tgsSquareDeco"
     },{
         POSITION: [20 * Math.SQRT1_2 ** 3, 0, 0, 45, 0, 1],
-        TYPE: "tgsMiscDeco"
+        TYPE: "tgsSquareDeco"
     }]
 };
 

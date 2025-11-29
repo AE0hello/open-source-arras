@@ -335,10 +335,11 @@ Class.menu_mysticals = makeMenu("Mysticals", "gold", 4)
 Class.menu_mysticals.UPGRADES_TIER_0 = [
     "sorcerer",
     "summoner",
-    "thaumaturge",
+    //"thaumaturge",
     "enchantress",
     "exorcistor",
     "shaman",
+    "witch",
 ]
 
 Class.menu_nesters = makeMenu("Nesters", "purple", 5.5)

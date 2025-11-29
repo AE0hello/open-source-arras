@@ -20,12 +20,12 @@ module.exports = {
             FEATURED: false, // Mark the server as featured in the server selector.
 
             REGION: "local", // The region the server is on.
-            GAMEMODE: ["opentdm"], // The selected gamemode.
+            GAMEMODE: ["ffa"], // The selected gamemode.
             MAX_PLAYERS: 80, // Not including bots.
 
             PROPERTIES: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
-                TEAMS: 3,
-                BOTS: 45,
+                //TEAMS: 3,
+                //BOTS: 45,
                 DAILY_TANK: { tank: "whirlwind", TIER: 3 },
             }
         },
