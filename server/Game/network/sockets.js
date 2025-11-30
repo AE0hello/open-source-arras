@@ -1520,7 +1520,7 @@ class socketManager {
                 camera.fov += Math.max((fovNow - camera.fov) / 30, fovNow - camera.fov);
 
                 // Grab entities that we can see
-                if (camera.lastUpdate - lastVisibleUpdate > Config.visibleListInterval) {
+                if (camera.lastUpdate - lastVisibleUpdate > Config.visible_list_interval) {
                     // Update our timer
                     lastVisibleUpdate = camera.lastUpdate;
                     
@@ -1563,7 +1563,7 @@ class socketManager {
                         Math.abs(entity.y - camY) < fovDivY + 1.5 * entity.size
                     ) {
                         // Add mockup to batch if needed
-                        if (!Config.LOAD_ALL_MOCKUPS && entity.index) {
+                        if (!Config.load_all_mockups && entity.index) {
                             mockupsToSend.add(entity.index);
                         }
                 
@@ -1578,14 +1578,14 @@ class socketManager {
                 }
                 
                 // Send mockups as a batch if needed
-                if (!Config.LOAD_ALL_MOCKUPS && mockupsToSend.size > 0) {
+                if (!Config.load_all_mockups && mockupsToSend.size > 0) {
                     for (const index of mockupsToSend) {
                         this.sendMockup(index, socket);
                     }
                 }
                 // Spread it for upload
                 const view = [].concat(...visible);
-                if (!Config.LOAD_ALL_MOCKUPS) {
+                if (!Config.load_all_mockups) {
                     for (let upgrade of (player.body?.upgrades || [])) {
                         if (player.body.skill.level >= upgrade.level) {
                             this.sendMockup(upgrade.index, socket);
@@ -2175,13 +2175,13 @@ class socketManager {
         }
         util.log(`[INFO]: [${this.gamemode}] Client has been welcomed!`);
 
-        if (Config.LOAD_ALL_MOCKUPS) {
+        if (Config.load_all_mockups) {
             for (let i = 0; i < mockupData.length; i++) {
                 socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
             }
         }
 
-        if (!Config.LOAD_ALL_MOCKUPS && Config.DAILY_TANK && !Array.isArray(Config.DAILY_TANK)) {
+        if (!Config.load_all_mockups && Config.DAILY_TANK && !Array.isArray(Config.DAILY_TANK)) {
             const tank = ensureIsClass(Config.DAILY_TANK.tank);
             if (tank) {
                 Config.DAILY_TANK_INDEX = tank.index.toString();

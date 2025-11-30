@@ -28,7 +28,7 @@ new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/defi
 GLOBAL.loadRooms(true);
 
 // Optionally load all mockups if enabled in configuration
-if (Config.LOAD_ALL_MOCKUPS) global.loadAllMockups();
+if (Config.load_all_mockups) global.loadAllMockups();
 
 // Log loader information including creation date and time
 console.log(`Loader successfully loaded all files. Info: [ Created Date: ${GLOBAL.creationDate} Created Time: ${GLOBAL.creationTime} ]`);
@@ -58,7 +58,7 @@ try {
 }
 
 // Log a warning if Access-Control-Allow-Origin is enabled
-if (Config.allowAccessControlAllowOrigin && Config.LOGS) {
+if (Config.allowAccessControlAllowOrigin && Config.startup_logs) {
     util.warn("'Access-Control-Allow-Origin' is enabled, which allows any server/client to access it.");
 }
 
@@ -230,7 +230,7 @@ global.onServerLoaded = () => {
     // Once all servers are loaded, log the status and routing table
     if (loadedServers >= global.servers.length) {
         util.saveToLog("Servers up", "All servers booted up.", 0x37F554);
-        if (Config.LOGS) {
+        if (Config.startup_logs) {
             util.log("Dumping endpoint -> gamemode routing table");
             for (const game of global.servers) {
                 console.log("> " + `${Config.host}/#${game.id}`.padEnd(40, " ") + " -> " + game.gameMode);
@@ -285,4 +285,4 @@ let bunLoop = setInterval(() => {
 }, 1000);
 
 // Log that the web server has been initialized if logging is enabled
-if (Config.LOGS) console.log("Web Server initialized.");
+if (Config.startup_logs) console.log("Web Server initialized.");

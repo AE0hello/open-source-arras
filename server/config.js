@@ -3,10 +3,10 @@ module.exports = {
     host: "localhost:3000", // Game server domain. If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
     port: 3000, // Which port to run the web server on.
 
-    // Servers
-    visibleListInterval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
-    LOGS: true, // Enable startup logs and log speed loop warnings in terminal
-    LOAD_ALL_MOCKUPS: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
+    // Server
+    visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
+    startup_logs: true, // Enable startup logs and log speed loop warnings in terminal
+    load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
 
     SERVERS: [ // Make sure to change the HOST, PORT and SERVER_ID between servers!
         {
@@ -28,20 +28,23 @@ module.exports = {
                 //BOTS: 45,
                 //SPAWN_CLASS: ["di3p_body", "di3p_turret", "di3p_rear", "di3p_front"],
                 DAILY_TANK: { 
-                    tank: "whirlwind", 
-                    TIER: 3, 
+                    tank: "whirlwind",
+                    TIER: 3,
                     ADS: {
                         ENABLED: true,
-                        SOURCE: [{
-                            src: "testadvideo.mp4",
-                            REGULAR_AD_SIZE: true,
-                        },{
-                            src: "testadimage.png",
-                            WAIT_TIME: 3, // This setting only applies on ads image.
-                            REGULAR_AD_SIZE: true,
-                        }]
+                        SOURCE: [
+                            {
+                                src: "testadvideo.mp4",
+                                REGULAR_AD_SIZE: true,
+                            },
+                            {
+                                src: "testadimage.png",
+                                WAIT_TIME: 3, // This setting only applies to images.
+                                REGULAR_AD_SIZE: true,
+                            }
+                        ]
                     } 
-                },
+                }
             }
         },
         {
@@ -61,6 +64,13 @@ module.exports = {
             PROPERTIES: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
                 TEAMS: 4,
                 BOTS: 45,
+                DAILY_TANK: { 
+                    tank: "master",
+                    TIER: 3,
+                    ADS: {
+                        ENABLED: false
+                    } 
+                }
             }
         },
     ],

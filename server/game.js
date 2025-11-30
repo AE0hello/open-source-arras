@@ -192,7 +192,7 @@ class gameServer {
         this.loaderGlobal.loadRooms(false);
 
         // Also load all mockups if needed.
-        if (Config.LOAD_ALL_MOCKUPS) global.loadAllMockups(false);
+        if (Config.load_all_mockups) global.loadAllMockups(false);
 
         // Now start the server and send data!
         this.start();
