@@ -75,7 +75,7 @@ gui = {
     root: "",
     class: "",
     visibleEntities: false,
-    dailyTank: null,
+    dailyTank: {tank: null, ads: false},
     fps: 0,
     color: 0,
     accel: 0,
@@ -735,7 +735,9 @@ const convert = {
             gui.visibleEntities = get.next();
         }
         if (indices.dailyTank) {
-            gui.dailyTank = JSON.parse(get.next());
+            let dailyTank = JSON.parse(get.next());
+            gui.dailyTank.tank = dailyTank[0];
+            gui.dailyTank.ads = dailyTank[1];
         }
     },
     broadcast: () => {
@@ -1073,6 +1075,64 @@ let incoming = async function(message, socket) {
                 global.syncingWithTank = false;
             }
         } break;
+        case 'DTA': {
+            let data = JSON.parse(m[0]);
+            if (data.waitTime == "isVideo") {
+                let renderDoc = document.createElement("video");
+                renderDoc.onloadeddata = function() {
+                    renderDoc.muted = false;
+                    renderDoc.volume = 1;
+                    global.dailyTankAd.isVideo = true;
+                    global.dailyTankAd.render = renderDoc;
+                    global.dailyTankAd.orginWidth = global.dailyTankAd.width;
+                    global.dailyTankAd.orginHeight = global.dailyTankAd.height;
+                    if (!data.normalAdSize) {
+                        global.dailyTankAd.width = this.videoWidth;
+                        global.dailyTankAd.height = this.videoHeight;
+                    }
+                    socket.talk("DTAST", renderDoc.duration);
+                };
+                renderDoc.onerror = () => {
+                    global.dailyTankAd.renderUI = false;
+                    global.createMessage("Failed to load the ad!");
+                }
+                renderDoc.src = `./ads/${data.src}`;
+            } else {
+                let renderDoc = new Image();
+                renderDoc.onload = () => {
+                    global.dailyTankAd.render = renderDoc;
+                    global.dailyTankAd.orginWidth = global.dailyTankAd.width;
+                    global.dailyTankAd.orginHeight = global.dailyTankAd.height;
+                    if (!data.normalAdSize) {
+                        global.dailyTankAd.width = renderDoc.width;
+                        global.dailyTankAd.height = renderDoc.height;
+                    }
+                    global.dailyTankAd.readyToRender = true;
+                    setTimeout(() => {
+                        global.dailyTankAd.closeable = true;
+                    }, `${data.waitTime}000`);
+                }
+                renderDoc.onerror = () => {
+                    global.dailyTankAd.renderUI = false;
+                    global.createMessage("Failed to load the ad!");
+                }
+                renderDoc.src = `./ads/${data.src}`;
+            }
+            global.dailyTankAd.renderUI = true;
+        } break;
+        case 'DTAD': {
+            global.dailyTankAd.exit();
+        } break;
+        case 'DTAST': {
+            global.dailyTankAd.render.onended = () => {
+                global.dailyTankAd.requestInterval = setInterval(() => {
+                    socket.talk("DTAD");
+                }, 2000)
+                socket.talk("DTAD");
+            }
+            global.dailyTankAd.render.play();
+            global.dailyTankAd.readyToRender = true;
+        } break;
         case 'SH': {
             let data = JSON.parse(m[0]);
             if (data.type == "camera") { // If the server wants to shake our camera...
@@ -1114,6 +1174,7 @@ let incoming = async function(message, socket) {
             // Close the socket
             socket.onclose = () => { };
             socket.close();
+            global.dailyTankAd.exit();
             socket.open = false;
             clearInterval(socket.commandCycle);
             global.gameStart = false;
@@ -1260,6 +1321,7 @@ const socketInit = () => {
         if (!global.gameLoading) return;
         clearInterval(socket.commandCycle);
         clearInterval(global.socketMotionCycle);
+        if (global.dailyTankAd.render) global.dailyTankAd.exit();
         socket.open = false;
         global.disconnected = true;
     };

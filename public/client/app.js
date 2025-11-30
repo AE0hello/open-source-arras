@@ -1201,7 +1201,16 @@ import * as socketStuff from "./socketinit.js";
         // If width is set to true, that means we want to calculate it on the text's length.
         if (width == true) width = measureText(text, height);
         // Set the clickable's position
-        if (clickable) global.clickables[clickType].place(index, (x - width / 2) * clickableRatio, y * clickableRatio, width * clickableRatio, height * clickableRatio);
+        if (clickable) {
+            switch (index) {
+                case false:
+                    global.clickables[clickType].set((x - width / 2) * clickableRatio, y * clickableRatio, width * clickableRatio, height * clickableRatio);
+                    break;
+                default:
+                    global.clickables[clickType].place(index, (x - width / 2) * clickableRatio, y * clickableRatio, width * clickableRatio, height * clickableRatio);
+                    break;
+            }
+        }
         let hover = false;
         if (clickable) hover = global.clickables[clickType].check({ x: global.mouse.x, y: global.mouse.y });
         // Draw boxes
@@ -1211,7 +1220,7 @@ import * as socketStuff from "./socketinit.js";
         else if (type == "bar") drawBar(x - width / 2, x + width / 2, y + height / 2, height, color1 ? color1 : color.grey);
         ctx[2].globalAlpha = 0.1 * alpha;
         // Shaders
-        if (clickable && hover == index) {
+        if (clickable && (index !== false && hover == index) || hover === true) {
             if (global.clickables.clicked) {
                 ctx[2].globalAlpha = 0.2 * alpha;
                 ctx[2].fillStyle = color.black;
@@ -3040,14 +3049,14 @@ import * as socketStuff from "./socketinit.js";
 
             drawButton(buttonX, buttonY, m, h, 1, "rect", msg, textScale - 3.3, false, false, false, true, "skipUpgrades", clickableRatio, 0);
 
-            if (gui.dailyTank) {
-                let image = util.requestEntityImage(gui.dailyTank, gui.color);
+            if (gui.dailyTank && gui.dailyTank.tank) {
+                let image = util.requestEntityImage(gui.dailyTank.tank, gui.color);
                 let hover = global.clickables.dailyTankUpgrade.check({ x: global.mouse.x, y: global.mouse.y });
                 image.upgradeColor = "36 0 1 0 false";
                 drawEntityIcon(image, xStart, initialY + height + internalSpacing + 50, len, height, 1, upgradeSpin, 0.4, 10, false, hover);
                 drawText("Daily Tank!", xStart + 50, initialY + height + internalSpacing + 67, 12, gameDraw.getColor(36), "center");
                 global.clickables.dailyTankUpgrade.set(xStart * clickableRatio, (initialY + height + internalSpacing + 50) * clickableRatio, len * clickableRatio, height * clickableRatio);
-                
+                gui.dailyTank.ads && drawButton(xStart + 50, initialY + height + internalSpacing + 160, m, h, 1, "rect", "Watch An Ad", textScale - 3.3, false, false, false, true, "dailyTankAd", clickableRatio, false);
             }
 
             // Upgrade tooltip
@@ -3359,6 +3368,68 @@ import * as socketStuff from "./socketinit.js";
             global.canvas.chatInput.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
             if (global.canvas.chatBox && global.canvas.chatBox.style.opacity == 0 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
         }
+    }
+    /*global.dailyTankAd = {
+        render: new Image(),
+        closeable: true,
+        readyToRender: false,
+        width: 1204,
+        height: 670,
+    }
+    global.dailyTankAd.render.onload = () => {
+        //global.dailyTankAd.width = global.dailyTankAd.render.width - 700;
+        //global.dailyTankAd.height = global.dailyTankAd.render.height - 400;
+        console.log(global.dailyTankAd.width, global.dailyTankAd.height)
+        global.dailyTankAd.readyToRender = true;
+    }
+    global.dailyTankAd.render.src = "./ads/testad.png";*/
+    let drawAdScreen = () => {
+        gameDraw.setColor(ctx[2], "#000");
+        ctx[2].globalAlpha = 0.8;
+        drawGuiRect(0, 0, global.screenWidth, global.screenHeight);
+        let width = global.dailyTankAd.width;
+        let height = global.dailyTankAd.height;
+        let x = (global.screenWidth - width) / 2;
+        let y = (global.screenHeight - height) / 2;
+        ctx[2].globalAlpha = 1;
+        gameDraw.setColor(ctx[2], "#000");
+        drawGuiRect(x, y, width, height);
+        gameDraw.setColor(ctx[2], color.grey);
+        ctx[2].lineWidth = 3;
+        drawGuiRect(x, y, width, height, true);
+        if (global.dailyTankAd.readyToRender) {
+            ctx[2].imageSmoothingEnabled = true;
+            ctx[2].drawImage(global.dailyTankAd.render, x + 1.7, y + 1.7, width - 3.5, height - 3.6);
+            ctx[2].imageSmoothingEnabled = false;
+            if (global.dailyTankAd.isVideo) {
+                if (!global.dailyTankAd.videoBar) {
+                    global.dailyTankAd.videoBar = AdvancedSmoothBar(0, 4, 1);
+                    global.dailyTankAd.videoBar.set(0);
+                }
+                const duration = global.dailyTankAd.render.duration;
+                global.dailyTankAd.videoBar.set(global.dailyTankAd.render.currentTime);
+                gameDraw.setColor(ctx[2], "#eafc47");
+                drawGuiRect(x + 1.8, y + height - 22, (Math.min(width, global.dailyTankAd.render.currentTime * width / duration - 4)), 20.2);
+            }
+            if (global.dailyTankAd.closeable) {
+                if (!global.dailyTankAd.closebtnAnim) {
+                    global.dailyTankAd.closebtnAnim = AdvancedSmoothBar(0, 0.3, 1);
+                    setTimeout(() => {
+                        global.dailyTankAd.closebtnAnim.set(1);
+                    }, 1000)
+                }
+                drawButton(x + width - 25, y + 7, 35, 35, global.dailyTankAd.closebtnAnim.get(), "rect", "✕", 24, color.red, color.red, false, true, "dailyTankCloseAd", global.canvas.height / global.screenHeight / global.ratio, false);
+            }
+        } else {
+            drawText("Loading...", global.screenWidth / 2, global.screenHeight / 2, 40, "#fff", "center", false, 1, false);
+        }
+        let wwidth = global.dailyTankAd.width + 2;
+        let hheight = 35;
+        gameDraw.setColor(ctx[2], "#828282");
+        ctx[2].globalAlpha = 0.5;
+        drawGuiRect(x - 1.5, y + height + 10, wwidth, hheight);
+        ctx[2].globalAlpha = 1;
+        drawText("Watch this ad to get your reward!", x + wwidth / 2, y + height + 34, 20, "#fff", "center", false, 1, false);
     }
 
     let getKills = () => {
@@ -4105,6 +4176,7 @@ import * as socketStuff from "./socketinit.js";
             if (global.disconnected) {
                 drawDisconnectedScreen();
             }
+            if (global.dailyTankAd.renderUI) drawAdScreen();
             drawOptionsMenu(tick, 20, util.getScreenRatio());
             if (global.GUIStatus.fullHDMode) ctx[2].translate(-0.5, -0.5);
 

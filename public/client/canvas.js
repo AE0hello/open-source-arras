@@ -113,6 +113,7 @@ class Canvas {
         global.showChat = true;
     }
     keyDown(event) {
+        if (global.dailyTankAd.renderUI) return;
         if (global.specialPressed) {
             event.preventDefault();
             if (!event.repeat) global.specialKeysPressed.push(event.keyCode);
@@ -294,6 +295,7 @@ class Canvas {
         }
     }
     keyUp(event) {
+        if (global.dailyTankAd.renderUI) return;
         switch (event.keyCode) {
             case global.KEY_SPECIAL:
                 global.specialPressed = false;
@@ -374,10 +376,12 @@ class Canvas {
                 if (statIndex !== -1) {
                     this.socket.talk('x', statIndex, 0);
                 } else if (
+                    !global.dailyTankAd.renderUI &&
                     global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && 
                     global.clickables.optionsMenu.switchButton.check(mpos) == -1 && 
                     global.clickables.skipUpgrades.check(mpos) == -1 && 
-                    global.clickables.dailyTankUpgrade.check(mpos) == false && 
+                    global.clickables.dailyTankUpgrade.check(mpos) == false &&
+                    global.clickables.dailyTankAd.check(mpos) === false &&
                     upgradeCheck == -1 && 
                     !global.died
                 ) this.socket.cmd.set(primaryFire, true);
@@ -403,6 +407,8 @@ class Canvas {
                 };
                 let upgradeIndex = global.clickables.upgrade.check(mpos);
                 let dailyTankUpgrade = global.clickables.dailyTankUpgrade.check(mpos);
+                let dailyTankAd = global.clickables.dailyTankAd.check(mpos);
+                let dailyTankCloseAd = global.clickables.dailyTankCloseAd.check(mpos);
                 let respawnCheck = global.clickables.deathRespawn.check(mpos);
                 let exitGame = global.clickables.exitGame.check(mpos);
                 let reconnectCheck = global.clickables.reconnect.check(mpos);
@@ -475,9 +481,13 @@ class Canvas {
                 if (exitGame !== -1) {
                     if (global.disconnected || (global.died && !global.cannotRespawn)) global.exit();
                 } else 
-                if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length) this.socket.talk('U', upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
-                else if (dailyTankUpgrade == true) {
-                    this.socket.talk('U', JSON.stringify([{isDailyUpgrade: true, tank: gui.dailyTank}]), "null");
+                if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length && !global.dailyTankAd.renderUI) this.socket.talk('U', upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
+                else if (dailyTankUpgrade == true && !global.dailyTankAd.renderUI) {
+                    this.socket.talk('U', JSON.stringify([{isDailyUpgrade: true, tank: gui.dailyTank.tank}]), "null");
+                } else if (dailyTankAd == true) {
+                    this.socket.talk("DTA"); // Request to get an ad
+                } else if (dailyTankCloseAd == true && global.dailyTankAd.renderUI) {
+                    this.socket.talk("DTAD");
                 } else if (global.clickables.skipUpgrades.check(mpos) !== -1) {
                     global.clearUpgrades();
                 } else this.socket.cmd.set(primaryFire, false);

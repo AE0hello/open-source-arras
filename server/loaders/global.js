@@ -450,7 +450,7 @@ global.defineSplit = (() => {
         if (set.REROOT_UPGRADE_TREE) my.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(my.rerootUpgradeTree)) {
             let finalRoot = "";
-            for (let root of my.rerootUpgradeTree) finalRoot += root + "_";
+            for (let root of my.rerootUpgradeTree) finalRoot += root + "\\/";
             my.rerootUpgradeTree += finalRoot.substring(0, finalRoot.length - 2);
         }
     }

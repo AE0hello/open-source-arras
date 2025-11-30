@@ -809,12 +809,15 @@ class Entity extends EventEmitter {
         // Account for upgrades that are too high level for the player to access
         let upgraded = false;
         if (number.isDailyUpgrade) {
+            let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
+            if (!Config.DAILY_TANK.ADS.ENABLED) hasWatchedAd = true;
             let requestedIndex = parseInt(number.tank);
             if (requestedIndex === ensureIsClass(Config.DAILY_TANK.tank).index && this.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER) {
-                upgraded = true;
-                this.hasUpgradedToDailyTank = true;
-                this.upgrades = [];
-                this.define(Config.DAILY_TANK.tank);
+                if (hasWatchedAd) {
+                    upgraded = true;
+                    this.upgrades = [];
+                    this.define(Config.DAILY_TANK.tank);
+                } else this.sendMessage("You must watch an ad before you can upgrade.");
             }
         } else {
             for (let i = 0; i < branchId; i++) { number += this.skippedUpgrades[i] ?? 0; };

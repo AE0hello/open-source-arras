@@ -653,6 +653,38 @@ class socketManager {
                 }
                 socket.talk("T");
             } break;
+            case "DTA": {
+                if (player.body && player.body.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER && Config.DAILY_TANK.ADS.ENABLED && !socket.status.daily_tank_watched_ad) {
+                    let chosenAd = ran.choose(Config.DAILY_TANK.ADS.SOURCE);
+                    let isImage = chosenAd.src.endsWith(".png") || chosenAd.src.endsWith(".jpg") || chosenAd.src.endsWith(".jpeg")
+                    socket.talk("DTA", JSON.stringify({src: chosenAd.src, normalAdSize: chosenAd.REGULAR_AD_SIZE ?? true, waitTime: isImage ? chosenAd.WAIT_TIME : "isVideo"}));
+                    if (isImage) {
+                        setTimeout(() => {
+                            setTimeout(() => {
+                                socket.status.daily_tank_watched_ad_client = true;
+                            }, `${chosenAd.WAIT_TIME}000`)
+                        }, socket.camera.ping) // make the counter accurate sycned as possible with the client.
+                    }
+                }
+            } break;
+            case "DTAD": {
+                if (socket.status.daily_tank_watched_ad_client) {
+                    socket.status.daily_tank_watched_ad = true;
+                    socket.talk("DTAD");
+                }
+            } break;
+            case "DTAST": {
+                let time = String(m[0]).split(".")[0];
+                if (parseInt(time) < 10) {
+                    socket.kick("The ad must be at least 10 seconds long or incompatible.");
+                }
+                socket.talk("DTAST");
+                setTimeout(() => {
+                    setTimeout(() => {
+                        socket.status.daily_tank_watched_ad_client = true;
+                    }, `${time}000`)
+                }, socket.camera.ping);
+            }
             case "NWB": {
                 socket.status.forceNewBroadcast = true;
             } break;
@@ -866,7 +898,7 @@ class socketManager {
                 dailyTank = Config.DAILY_TANK_INDEX;
             }
         }
-        gui.dailyTank.update(JSON.stringify(dailyTank));
+        gui.dailyTank.update(JSON.stringify([dailyTank, Config.DAILY_TANK.ADS.ENABLED && !b.socket.status.daily_tank_watched_ad ? true : false]));
         // Update the stats and skills
         gui.stats.update();
         gui.skills.update(this.getstuff(b.skill));
@@ -1119,6 +1151,8 @@ class socketManager {
         player.body = body;
         body.socket = socket;
         body.hasOperator = socket.status.hasOperator;
+        socket.status.daily_tank_watched_ad = false;
+        socket.status.daily_tank_watched_ad_client = false;
         // Decide how to color and team the body
         if (!filter.length) switch (Config.MODE) {
             case 'tdm': {
@@ -2052,6 +2086,7 @@ class socketManager {
             forceNewBroadcast: false,
             selectedLeaderboard: false,
             seesAllTeams: false,
+            daily_tank_watched_ad: false,
             readyToSpawn: true,
             hasOperator: false,
             readyToBroadcast: false,

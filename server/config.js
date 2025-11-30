@@ -27,7 +27,21 @@ module.exports = {
                 //TEAMS: 3,
                 //BOTS: 45,
                 //SPAWN_CLASS: ["di3p_body", "di3p_turret", "di3p_rear", "di3p_front"],
-                DAILY_TANK: { tank: "whirlwind", TIER: 3 },
+                DAILY_TANK: { 
+                    tank: "whirlwind", 
+                    TIER: 3, 
+                    ADS: {
+                        ENABLED: true,
+                        SOURCE: [{
+                            src: "testadvideo.mp4",
+                            REGULAR_AD_SIZE: true,
+                        },{
+                            src: "testadimage.png",
+                            WAIT_TIME: 3, // This setting only applies on ads image.
+                            REGULAR_AD_SIZE: true,
+                        }]
+                    } 
+                },
             }
         },
         {

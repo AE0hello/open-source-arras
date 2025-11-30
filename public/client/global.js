@@ -193,7 +193,6 @@ const global = {
     clickables: {
         stat: Region(10),
         upgrade: Region(100),
-        dailyTankUpgrade: Clickable(),
         clicked: false,
         hover: Region(1),
         skipUpgrades: Region(1),
@@ -204,6 +203,10 @@ const global = {
         classTreeZoomOut: Region(2),
         classTreeZoomIn: Region(2),
         classTreeClose: Region(1),
+        // Daily tanks buttons
+        dailyTankUpgrade: Clickable(),
+        dailyTankAd: Clickable(),
+        dailyTankCloseAd: Clickable(),
         optionsMenu: {
             switchButton: Region(2),
             toggleBoxes: Region(100),
@@ -211,6 +214,26 @@ const global = {
         }
     },
     optionsMenu_Anim: {isOpened: false}, // Placeholder
+    dailyTankAd: {
+        render: undefined,
+        closeable: false,
+        renderUI: false,
+        readyToRender: false,
+        isVideo: false,
+        width: 1204,
+        height: 670,
+        exit: () => {
+            try {
+                global.dailyTankAd.render.pause();
+            } catch { };
+            global.dailyTankAd.renderUI = false;
+            global.dailyTankAd.readyToRender = false;
+            global.dailyTankAd.closeable = false;
+            global.dailyTankAd.width = global.dailyTankAd.orginWidth;
+            global.dailyTankAd.height = global.dailyTankAd.orginHeight;
+            global.dailyTankAd.render = undefined;
+        }
+    },
     statHover: false,
     upgradeHover: false,
     statMaxing: false,
