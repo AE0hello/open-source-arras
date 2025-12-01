@@ -131,31 +131,52 @@ Class.menu_unused.UPGRADES_TIER_0 = [
     "menu_unreleased",
     "menu_removed",
     "menu_fun",
+    "spiral",
+    "repeater",
 ]
 
 Class.menu_unreleased = makeMenu("Unreleased")
 Class.menu_unreleased.UPGRADE_TOOLTIP = "Tanks that were fully created and likely intended to be added, but never were."
 Class.menu_unreleased.UPGRADES_TIER_0 = [
-    "autoTrapper",
-    "blunderbuss",
-    "dreadnought_old",
+    "menu_unreleased_T1",
+    "menu_unreleased_T2",
+    "menu_unreleased_T3",
+]
+
+Class.menu_unreleased_T1 = makeMenu("Unreleased (Tier 1)")
+Class.menu_unreleased_T1.UPGRADE_LABEL = "Tier 1 (Lv.15)"
+Class.menu_unreleased_T1.UPGRADES_TIER_0 = [
     "flail",
-    "mender",
-    "prodigy",
-    "quadBuilder",
-    "repeater",
-    "rimfire_old",
-    "spiral",
-    "volute",
-    "whirlwind_old",
     "whirlwind_bent",
 ]
 
+Class.menu_unreleased_T2 = makeMenu("Unreleased (Tier 2)")
+Class.menu_unreleased_T2.UPGRADE_LABEL = "Tier 2 (Lv.30)"
+Class.menu_unreleased_T2.UPGRADES_TIER_0 = [
+    "autoTrapper",
+    "volute",
+    "whirlwind_old",
+]
+
+Class.menu_unreleased_T3 = makeMenu("Unreleased (Tier 3)")
+Class.menu_unreleased_T3.UPGRADE_LABEL = "Tier 3 (Lv.45)"
+Class.menu_unreleased_T3.UPGRADES_TIER_0 = [
+    "blunderbuss",
+    "cocci",
+    "dreadnought_old",
+    "mender",
+    "oroboros",
+    "prodigy",
+    "quadBuilder",
+    "rimfire_old",
+    "rocket",
+    "wrangler",
+]
+
 Class.menu_removed = makeMenu("Removed")
-Class.menu_removed.UPGRADE_TOOLTIP = "Tanks that were either removed entirely or replaced with redesigned versions."
+Class.menu_removed.UPGRADE_TOOLTIP = "Tanks that were previously accessible in-game in some form before being removed."
 Class.menu_removed.UPGRADES_TIER_0 = [
     "menu_dailyTanks",
-    "menu_diep2",
     "boomer_old",
     "auto4_old",
     "spike_old",
@@ -175,14 +196,6 @@ Class.menu_dailyTanks.UPGRADES_TIER_0 = [
     "rocketeer", // dec 18
     "jumpSmasher", // dec 19/20
     "rapture" // dec 25
-]
-
-Class.menu_diep2 = makeMenu("Diep2")
-Class.menu_diep2.UPGRADE_TOOLTIP = "Tanks that were included in the early mockup builds of arras.io."
-Class.menu_diep2.UPGRADES_TIER_0 = [
-    "basic_diep2",
-    "sprayer_diep2_old",
-    "flankGuard_diep2_old",
 ]
 
 Class.menu_fun = makeMenu("Fun")

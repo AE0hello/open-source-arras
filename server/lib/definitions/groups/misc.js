@@ -768,6 +768,7 @@ Class.arenaCloser = {
     HITS_OWN_TYPE: "never",
     ARENA_CLOSER: true,
     IS_IMMUNE_TO_TILES: true,
+    UPGRADE_TOOLTIP: "Hackerman",
     GUNS: [{
         POSITION: [14, 10, 1, 0, 0, 0, 0],
         PROPERTIES: {

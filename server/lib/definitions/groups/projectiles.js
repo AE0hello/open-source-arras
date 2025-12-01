@@ -4,30 +4,6 @@ const g = require('../gunvals.js');
 const {makeAura} = require("../facilitators");
 
 // Bullets
-Class.splitterBullet = {
-    PARENT: "bullet",
-    INDEPENDENT: true,
-    GUNS: weaponArray({
-        POSITION: [8, 8, 1, 0, 0, 90, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-            SHOOT_ON_DEATH: true
-        }
-    }, 2)
-}
-Class.superSplitterBullet = {
-    PARENT: "bullet",
-    INDEPENDENT: true,
-    GUNS: weaponArray({
-        POSITION: [8, 8, 1, 0, 0, 90, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-            TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
-            SHOOT_ON_DEATH: true
-        }
-    }, 2)
-}
 Class.turretedBullet = makeAuto('bullet', "Auto-Bullet", {type: "bulletAutoTurret", size: 14, color: "veryLightGrey", angle: 0});
 Class.speedBullet = {
     PARENT: "bullet",
@@ -873,7 +849,7 @@ Class.homingBullet = {
     },
     CAN_GO_OUTSIDE_ROOM: true
 }
-Class.forkSplitterBullet = {
+Class.splitterBullet = {
     PARENT: "bullet",
     INDEPENDENT: true,
     GUNS: [
@@ -911,4 +887,43 @@ Class.forkSplitterBullet = {
             },
         },
     ],
-};
+}
+Class.superSplitterBullet = {
+    PARENT: "bullet",
+    INDEPENDENT: true,
+    GUNS: [
+        {
+            POSITION: [8, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    { size: 2.4, range: 0.1 },
+                ]),
+                TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
+                SHOOT_ON_DEATH: true,
+            },
+        },
+        {
+            POSITION: [8, 8, 1, 0, 0, 30, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    { size: 2.4, range: 0.1 },
+                ]),
+                TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
+                SHOOT_ON_DEATH: true,
+            },
+        },
+        {
+            POSITION: [8, 8, 1, 0, 0, -30, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    { size: 2.4, range: 0.1 },
+                ]),
+                TYPE: ["splitterBullet", { PERSISTS_AFTER_DEATH: true }],
+                SHOOT_ON_DEATH: true,
+            },
+        },
+    ],
+}
