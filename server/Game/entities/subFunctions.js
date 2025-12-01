@@ -2,7 +2,7 @@ class Activation {
     constructor(body) {
         this.body = body;
         this.active = true;
-        this.timer = ran.irandomRange(15);
+        this.timer = 15;
     }
     update() {
         if (this.body.skipLife) { return this.active = false; }

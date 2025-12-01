@@ -1121,6 +1121,7 @@ let incoming = async function(message, socket) {
             global.dailyTankAd.renderUI = true;
         } break;
         case 'DTAD': {
+            if (global.dailyTankAd.requestInterval) clearInterval(global.dailyTankAd.requestInterval)
             global.dailyTankAd.exit();
         } break;
         case 'DTAST': {

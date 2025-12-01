@@ -1703,10 +1703,10 @@ import * as socketStuff from "./socketinit.js";
         return iconColorOrder[colorIndex % 12].toString();
     }
 
-    function drawEntityIcon(model, x, y, len, height, lineWidthMult, angle, alpha, colorIndex, upgradeKey, hover = false) {
+    function drawEntityIcon(model, x, y, len, height, lineWidthMult, angle, alpha, colorIndex, upgradeKey, hover = false, extraScale = 1) {
         let picture = (typeof model == "object") ? model : util.getEntityImageFromMockup(model, gui.color),
             position = picture.position,
-            scale = (0.6 * len) / position.axis,
+            scale = (0.6 * len * extraScale) / position.axis,
             entityX = x + 0.5 * len,
             entityY = y + 0.5 * height,
             baseColor = picture.color;
@@ -2228,7 +2228,7 @@ import * as socketStuff from "./socketinit.js";
                 if (ax < -scaledTileSize - CULL_MARGIN || ax > global.screenWidth + CULL_MARGIN || 
                     ay < -scaledTileSize - CULL_MARGIN || ay > global.screenHeight + CULL_MARGIN) continue;
                 
-                drawEntityIcon(index.toString(), ax, ay, scaledTileSize, scaledTileSize, global.treeScale, angle, 1, colorIndex);
+                drawEntityIcon(index.toString(), ax, ay, scaledTileSize, scaledTileSize, global.treeScale, angle, 1, colorIndex, false, false, 1);
             }
         }
 
@@ -3369,20 +3369,6 @@ import * as socketStuff from "./socketinit.js";
             if (global.canvas.chatBox && global.canvas.chatBox.style.opacity == 0 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
         }
     }
-    /*global.dailyTankAd = {
-        render: new Image(),
-        closeable: true,
-        readyToRender: false,
-        width: 1204,
-        height: 670,
-    }
-    global.dailyTankAd.render.onload = () => {
-        //global.dailyTankAd.width = global.dailyTankAd.render.width - 700;
-        //global.dailyTankAd.height = global.dailyTankAd.render.height - 400;
-        console.log(global.dailyTankAd.width, global.dailyTankAd.height)
-        global.dailyTankAd.readyToRender = true;
-    }
-    global.dailyTankAd.render.src = "./ads/testad.png";*/
     let drawAdScreen = () => {
         gameDraw.setColor(ctx[2], "#000");
         ctx[2].globalAlpha = 0.8;
