@@ -24,17 +24,8 @@ After installing `ws`, [download the source code of the latest release of Open S
 > 
 > **Major updates may introduce breaking changes that alter how certain things work. It is *your responsibility* to keep your private server up-to-date and functioning.**
 
-## Setup Guide (Webhost)
-Don't have a supported device or don't want to mess around with localhost? Get a webhost to do the dirty work for you.
-
-Create a new project and choose to import one from GitHub. When prompted for the URL of the repository, type in `https://github.com/AE0hello/open-source-arras.git`.
-
-Navigate to `server/config.js` and replace `localhost:3000` with the URL for your project. Make sure to also set `LOAD_ON_MAINSERVER` to `true`.
-
-After doing that, your server should be ready!
-
 ## Server setup
-You can set up in-game servers in config.js file, in `SERVERS`. For further explanation, see the setting itself. It's an array of objects was each object is a server.
+You can set up in-game servers in config.js file, in `SERVERS`. For further explanation, see the setting itself. It's an array of objects where each object is a server.
 
 ### Travelling between servers (Nexus)
 Copy this code into your server's `PROPERTIES`:
