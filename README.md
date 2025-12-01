@@ -8,8 +8,6 @@
 
 > [!WARNING]
 > **Open Source Arras is beta software.** This build is **not** representative of the final product. Expect bugs and missing features.
-> 
-> Major updates may introduce breaking changes that alter how certain things work. It is **your responsibility** to keep your private server up-to-date and functioning.
 
 ## Setup Guide (Localhost)
 
@@ -23,6 +21,8 @@ After installing `ws`, [download the source code of the latest release of Open S
 
 > [!NOTE]
 > If you want to stay up to date, create a fork, download a git client (such as GitHub Desktop), and sync the fork whenever there's a major update.
+> 
+> **Major updates may introduce breaking changes that alter how certain things work. It is *your responsibility* to keep your private server up-to-date and functioning.**
 
 ## Setup Guide (Webhost)
 Don't have a supported device or don't want to mess around with localhost? Get a webhost to do the dirty work for you.
@@ -48,7 +48,7 @@ SERVER_TRAVEL: [
         IP: "<YourIP>", // destination server IP, don't add "https://" or any slashes to it
         PORTAL_PROPERTIES: {
             SPAWN_CHANCE: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = more chances)
-            COLOR: 12, // portal color
+            COLOR: "red", // portal color
         }
     }
 ]
