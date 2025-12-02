@@ -26,7 +26,6 @@ module.exports = {
             PROPERTIES: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
                 //TEAMS: 3,
                 //BOTS: 45,
-                //SPAWN_CLASS: ["di3p_body", "di3p_turret", "di3p_rear", "di3p_front"],
                 DAILY_TANK: { 
                     tank: "whirlwind",
                     TIER: 3,
