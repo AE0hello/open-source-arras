@@ -3106,6 +3106,7 @@ Class.monsoon = {
         DENSITY: 2 * base.DENSITY
     },
     STAT_NAMES: statnames.whirlwind,
+    SKILL_CAP: Array(10).fill(smshskl),
     TURRETS: [
         {
             POSITION: [26, 0, 0, 0, 360, 0],
@@ -3137,7 +3138,6 @@ Class.monsoon = {
         return output
     })()
 }
-Class.monsoon.SKILL_CAP = Array(10).fill(smshskl)
 Class.mortar = {
     PARENT: "genericTank",
     LABEL: "Mortar",
@@ -5043,27 +5043,6 @@ Class.quintuplet = {
             POSITION: [22, 10, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
-                TYPE: "bullet"
-            }
-        }
-    ]
-}
-Class.scatterer = {
-    PARENT: "genericTank",
-    LABEL: "Scatterer",
-    DANGER: 8,
-    GUNS: [
-        {
-            POSITION: [12, 10, 1.4, 11, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [12, 10, 1.4, 8, 0, 0, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
                 TYPE: "bullet"
             }
         }

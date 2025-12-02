@@ -9,7 +9,7 @@ const megaAutoOptions = {type: "megaAutoTurret", size: 12}
 // - anguisj, helenadev: general help
 // - u/SkyShredder89: tier 3/4 sprayer branch
 
-return
+//return
 
 // not too concerned about following actual arms race tiers since they don't make any fucking sense
 Config.LEVEL_CAP = 60
@@ -74,14 +74,17 @@ const makeTripleAuto = (type, name = -1, options = {}) => {
     output.DANGER = type.DANGER + 2;
     return output;
 }
+const makePLACEHOLDER = (name = -1) => {
+    return {
+        PARENT: "genericTank",
+        LABEL: name == -1 ? "PLACEHOLDER" : name,
+        COLOR: "black",
+        UPGRADE_COLOR: "black",
+    }
+}
 
 // PLACEHOLDER
-Class.PLACEHOLDER = {
-    PARENT: "genericTank",
-    LABEL: "PLACEHOLDER",
-    COLOR: "black",
-    UPGRADE_COLOR: "black"
-}
+Class.PLACEHOLDER = makePLACEHOLDER()
 
 // Projectiles
 Class.fastDrone = makeFast('drone')
@@ -93,348 +96,9 @@ Class.turretedTrap = makeAuto("trap", {type: "bulletAutoTurret", size: 14, color
 
 
 
-// Tier 1 (existing)
-Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
-Class.desmos.UPGRADES_TIER_2.push(
-    "spiral",
-    //"undertow",
-    "repeater",
-)
-Class.desmos.UPGRADES_TIER_3 = [
-    "bender",
-]
-Class.director.UPGRADES_TIER_2.push(
-    "directordrive",
-    "honcho",
-    "doper",
-)
-Class.director.UPGRADES_TIER_3.splice(1, 1) // remove big cheese
-Class.director.UPGRADES_TIER_4 = [
-    "coordinator",
-]
-Class.flankGuard.UPGRADES_TIER_4 = [
-    "ternion",
-]
-Class.machineGun.UPGRADES_TIER_2.push(
-    "diesel",
-    "machineTrapper",
-)
-Class.machineGun.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"gadgetGun",
-]
-Class.pounder.UPGRADES_TIER_2.push(
-    "volute",
-)
-Class.pounder.UPGRADES_TIER_3.push(
-    "PLACEHOLDER",//"subverter",
-)
-Class.pounder.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"bruiser",
-]
-Class.sniper.UPGRADES_TIER_3.push(
-    "railgun",
-)
-Class.sniper.UPGRADES_TIER_4 = [
-    "sharpshooter",
-]
-Class.trapper.UPGRADES_TIER_2.push(
-    "pen",
-    "mech",
-    "machineTrapper",
-    "wark",
-)
-Class.trapper.UPGRADES_TIER_3.splice(0, 1) // remove barricade
-Class.trapper.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"sawedOff",
-    "PLACEHOLDER",//"tricker",
-]
-Class.trapper.UPGRADES_TIER_3.push(
-    "megaTrapper",
-)
-Class.twin.UPGRADES_TIER_2.push(
-    "wark",
-)
-Class.twin.UPGRADES_TIER_3.splice(1, 1) // remove bulwark
-Class.twin.UPGRADES_TIER_4 = [
-    "duo",
-]
 
 
-
-// Tier 2 (existing)
-Class.artillery.UPGRADES_TIER_3.push(
-    "recharger",
-)
-Class.assassin.UPGRADES_TIER_3.push(
-    "buttbuttin",
-    "hitman",
-    "sniper3",
-    "PLACEHOLDER",//"enforcer",
-    "PLACEHOLDER",//"courser",
-)
-Class.assassin.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"executor",
-    "PLACEHOLDER",//"finger",
-]
-Class.auto3.UPGRADES_TIER_3.push(
-    "sniper3",
-    "crowbar",
-    "autoAuto3",
-    "combo",
-)
-Class.autoTrapper.UPGRADES_TIER_3.splice(0, 0,
-    "megaAutoTrapper",
-    "tripleAutoTrapper",
-)
-Class.autoTrapper.UPGRADES_TIER_3.push(
-    "autoTrapGuard",
-)
-Class.autoTrapper.UPGRADES_TIER_4 = [
-    "autoOvertrapper",
-    "autoMegaTrapper",
-]
-Class.doubleTwin.UPGRADES_TIER_3.push(
-    "doubleFlankTwin",
-    "doubleGunner",
-    "doubleHelix",
-    "warkwark",
-)
-Class.doubleTwin.UPGRADES_TIER_4 = [
-    "doubleDual",
-    "doubleMusket",
-    "overdoubleTwin",
-]
-Class.gunner.UPGRADES_TIER_3.push(
-    "battery",
-    "buttbuttin",
-    "blower",
-    "rimfire",
-    "PLACEHOLDER",//"volley",
-    "doubleGunner",
-    "bentGunner",
-    "PLACEHOLDER",//"equalizer",
-)
-Class.gunner.UPGRADES_TIER_4 = [
-    "dam",
-]
-Class.helix.UPGRADES_TIER_3.push(
-    "coil",
-    "duplicator",
-    "doubleHelix",
-    "autoHelix",
-)
-Class.hexaTank.UPGRADES_TIER_3.push(
-    "deathStar",
-    "autoHexaTank",
-    "mingler",
-    "combo",
-)
-Class.hunter.UPGRADES_TIER_3.push(
-    "autoHunter",
-)
-Class.smasher.UPGRADES_TIER_3.push(
-    "bonker",
-    "PLACEHOLDER",//"banger",
-    "PLACEHOLDER",//"drifter",
-)
-Class.spawner.UPGRADES_TIER_3.push(
-    "bender",
-)
-Class.sprayer.UPGRADES_TIER_3.push(
-    "frother",
-    "foamer",
-    "faucet",
-    "shower",
-    "autoSprayer",
-    "stormer",
-)
-Class.trapGuard.UPGRADES_TIER_3.push(
-    "peashooter",
-    "PLACEHOLDER",//"incarcerator",
-    "PLACEHOLDER",//"mechGuard",
-    "autoTrapGuard",
-    "PLACEHOLDER",//"machineGuard",
-    "PLACEHOLDER",//"triTrapGuard",
-)
-Class.trapGuard.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"garrison",
-    "PLACEHOLDER",//"maw",
-    "PLACEHOLDER",//"overtrapGuard",
-    "custodian",
-]
-Class.triAngle.UPGRADES_TIER_3.push(
-    "quadAngle",
-)
-Class.tripleShot.UPGRADES_TIER_3.push(
-    "splitShot",
-    "autoTripleShot",
-    "bentGunner",
-    "bentMinigun",
-    "defect",
-    "waarrk",
-)
-Class.rifle.UPGRADES_TIER_3.push(
-    "autoRifle",
-)
-Class.volute.UPGRADES_TIER_3.push(
-    "recharger",
-)
-
-
-
-// Tier 3 (existing)
-Class.atomizer.UPGRADES_TIER_4 = [
-    "scatterer",
-    "PLACEHOLDER",//"nebulizer",
-    "ziz",
-    "PLACEHOLDER",//"focus",
-    "PLACEHOLDER",//"spewer",
-    "PLACEHOLDER",//"bubbler",
-    "sprinkler",
-    "PLACEHOLDER",//"leak",
-    "autoAtomizer",
-    "PLACEHOLDER",//"typhoon",
-]
-Class.autoDouble.UPGRADES_TIER_4 = [
-    "megaAutoDouble",
-    "tripleAutoDouble",
-    "autoTripleTwin",
-    "autoHewnDouble",
-    "autoBentDouble",
-    "autoDoubleFlankTwin",
-    "autoDoubleGunner",
-    "autoDoubleHelix",
-    "autoWarkwark",
-]
-Class.bentDouble.UPGRADES_TIER_4 = [
-    "bentTriple",
-    "pentaDouble",
-    "autoBentDouble",
-    "doubleTriplet",
-    "cleft",
-    "doubleSpreadshot",
-    "bentFlankDouble",
-    "PLACEHOLDER",//"bentDoubleGunner",
-    "doubleTriplex",
-    "PLACEHOLDER",//"bentDoubleMinigun",
-    "PLACEHOLDER",//"splitDouble",
-    "waarrkwaarrk",
-]
-Class.bulwark.UPGRADES_TIER_4 = [
-    "dam",
-]
-Class.focal.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"concentrator",
-    "PLACEHOLDER",//"scope",
-    "alicanto",
-    "PLACEHOLDER",//"focus",
-    "PLACEHOLDER",//"negentropy",
-    "PLACEHOLDER",//"bucket",
-    "pressureWasher",
-    "PLACEHOLDER",//"tap",
-    "autoFocal",
-    "PLACEHOLDER",//"leafBlower",
-]
-Class.hewnDouble.UPGRADES_TIER_4 = [
-    "hewnTriple",
-    "autoHewnDouble",
-    "cleft",
-    "skewnDouble",
-    "PLACEHOLDER",//"hewnFlankDouble",
-    "PLACEHOLDER",//"hewnGunner",
-    "hewnHelix",
-    "PLACEHOLDER",//"warkwawarkrk",
-]
-Class.nailgun.UPGRADES_TIER_4 = [
-    "vulcan",
-    "overnailer",
-    "PLACEHOLDER",//"tacker",
-    "autoNailgun",
-    "PLACEHOLDER",//"stapler",
-    "PLACEHOLDER",//"pincer",
-    "PLACEHOLDER",//"pinner",
-    "PLACEHOLDER",//"fang",
-    "PLACEHOLDER",//"licker",
-    "PLACEHOLDER",//"jolter",
-    "PLACEHOLDER",//"bracer",
-    "doubleNailgun",
-    "PLACEHOLDER",//"binder",
-    "PLACEHOLDER",//"hammer",
-]
-Class.octoTank.UPGRADES_TIER_4 = [
-    "decaTank",
-]
-Class.phoenix.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"firebird",
-    "PLACEHOLDER",//"birdOfPrey",
-    "nymph",
-    "ziz",
-    "alicanto",
-    "pamola",
-    "aethon",
-    "simurgh",
-    "autoPhoenix",
-    "sirin",
-]
-Class.quadruplex.UPGRADES_TIER_4 = [
-    "autoQuadruplex",
-]
-Class.redistributor.UPGRADES_TIER_4 = [
-    "PLACEHOLDER",//"recentralizer",
-    "nymph",
-    "PLACEHOLDER",//"nebulizer",
-    "PLACEHOLDER",//"scope",
-    "PLACEHOLDER",//"eruptor",
-    "PLACEHOLDER",//"inflamer",
-    "hose",
-    "PLACEHOLDER",//"monobloc",
-    "autoRedistributor",
-    "PLACEHOLDER",//"nova",
-]
-Class.single.UPGRADES_TIER_4 = [
-    "duo",
-    "sharpshooter",
-    "PLACEHOLDER",//"gadgetGun",
-    "ternion",
-    "coordinator",
-    "PLACEHOLDER",//"bruiser",
-    "PLACEHOLDER",//"tricker",
-    "PLACEHOLDER",//"mono",
-    "avian",
-    "custodian",
-    "assistant",
-    "autoSingle",
-]
-Class.spreadshot.UPGRADES_TIER_4 = [
-    "doubleSpreadshot",
-    "smearer",
-    "autoSpreadshot",
-    "PLACEHOLDER",//"dauber",
-    "PLACEHOLDER",//"ballista",
-    "bozo",
-    "PLACEHOLDER",//"fungus",
-]
-Class.tripleTwin.UPGRADES_TIER_4 = [
-    "quadTwin",
-    "autoTripleTwin",
-    "bentTriple",
-    "hewnTriple",
-    "tripleFlankTwin",
-    "tripleGunner",
-    "tripleHelix",
-    "warkwarkwark",
-]
-Class.triplet.UPGRADES_TIER_4 = [
-    "quintuplet",
-]
-Class.triplex.UPGRADES_TIER_4 = [
-    "doubleTriplex",
-    "autoTriplex",
-]
-
-
-
-// Tier 2 (new)
+// Tier 2
 Class.diesel = {
     PARENT: "genericTank",
     LABEL: "Diesel",
@@ -601,7 +265,7 @@ Class.pen = {
         }
     ]
 }
-Class.wark = {
+Class.wark_AR = {
     PARENT: "genericTank",
     LABEL: "Wark",
     DANGER: 6,
@@ -622,7 +286,7 @@ Class.wark = {
     UPGRADES_TIER_3: [
         "warkwark",
         "waarrk",
-        "PLACEHOLDER",//"equalizer",
+        "equalizer",
         "hexaTrapper",
         "PLACEHOLDER",//"hutch",
         "PLACEHOLDER",//"cog",
@@ -635,83 +299,10 @@ Class.wark = {
 
 
 
-// Tier 3 (new, autos)
-Class.autoAuto3 = makeAuto("auto3")
-Class.autoHelix = makeAuto("helix")
-Class.autoHelix.UPGRADES_TIER_4 = [
-    "autoTriplex",
-    "autoQuadruplex",
-    "autoDoubleHelix",
-]
-Class.autoHexaTank = makeAuto("hexaTank")
-Class.autoHunter = makeAuto("hunter")
-Class.autoHunter.UPGRADES_TIER_4 = [
-    "tripleAutoHunter",
-]
-Class.autoRifle = makeAuto("rifle")
-Class.autoRifle.UPGRADES_TIER_4 = [
-    "tripleAutoRifle",
-]
-Class.autoSprayer = makeAuto("sprayer")
-Class.autoSprayer.UPGRADES_TIER_4 = [
-    "megaAutoSprayer",
-    "tripleAutoSprayer",
-    "autoRedistributor",
-    "autoPhoenix",
-    "autoAtomizer",
-    "autoFocal",
-    "autoFrother",
-    "autoFoamer",
-    "autoFaucet",
-    "autoShower",
-    "autoStormer",
-]
-Class.autoTripleShot = makeAuto("tripleShot")
-Class.autoTripleShot.UPGRADES_TIER_4 = [
-    "tripleAutoTripleShot",
-]
-Class.autoWark = makeAuto("wark")
-Class.megaAutoTrapper = makeAuto("trapper", "Mega Auto-Trapper", megaAutoOptions)
-Class.tripleAutoTrapper = makeTripleAuto("trapper", "Triple Auto-Trapper")
 
 
-
-// Tier 3 (new, birds)
-Class.defect = makeBird("tripleShot", "Defect")
-
-
-
-// Tier 3 (new, hybrids)
-Class.hitman = makeOver("assassin", "Hitman", hybridTankOptions)
-Class.shower = makeOver("sprayer", "Shower", hybridTankOptions)
-Class.shower.UPGRADES_TIER_4 = [
-    "oversprayer",
-    "PLACEHOLDER",//"cleaner",
-    "PLACEHOLDER",//"showerdrive",
-    "PLACEHOLDER",//"extinguisher",
-    "hose",
-    "sprinkler",
-    "pressureWasher",
-    "abberation",
-    "gusher",
-    "raincloud",
-    "autoShower",
-    "drain",
-]
-
-
-
-// Tier 3 (new, radials)
-
-
-
-// Tier 3 (new, rear gunners)
-Class.blower = makeRearGunner("destroyer", "Blower")
-Class.buttbuttin = makeRearGunner("assassin", "Buttbuttin")
-
-
-
-// Tier 3 (new, everything else)
+// Tier 3
+Class.banger = makePLACEHOLDER("Banger")
 Class.battery = {
     PARENT: "genericTank",
     LABEL: "Battery",
@@ -881,6 +472,7 @@ Class.combo = {
         },
     ], 3)
 }
+Class.courser = makePLACEHOLDER("Courser")
 Class.deathStar = {
     PARENT: "genericTank",
     LABEL: "Death Star",
@@ -1067,6 +659,9 @@ Class.doubleSpreadshot = {
         }
     ], 2)
 }
+Class.drifter = makePLACEHOLDER("Drifter")
+Class.enforcer = makePLACEHOLDER("Enforcer")
+Class.equalizer = makePLACEHOLDER("Equalizer")
 Class.faucet = {
     PARENT: "genericTank",
     LABEL: "Faucet",
@@ -1185,6 +780,10 @@ Class.frother = {
         "PLACEHOLDER",//"overflower",
     ]
 }
+Class.gadgetGun = makePLACEHOLDER("Gadget Gun")
+Class.incarcerator = makePLACEHOLDER("Incarcerator")
+Class.machineGuard = makePLACEHOLDER("Machine Guard")
+Class.mechGuard = makePLACEHOLDER("Mech Guard")
 Class.megaTrapper.UPGRADES_TIER_4 = [
     "autoMegaTrapper",
 ]
@@ -1208,6 +807,34 @@ Class.mingler = {
             }
         }
     ], 6, 0.5)
+}
+Class.quadAngle = {
+    PARENT: "genericTank",
+    LABEL: "Quad-Angle",
+    BODY: {
+        HEALTH: 0.8 * base.HEALTH,
+        SHIELD: 0.8 * base.SHIELD,
+        DENSITY: 0.6 * base.DENSITY,
+    },
+    DANGER: 7,
+    TURRETS: [
+        {
+            POSITION: [9, 8, 0, 45, 190, 0],
+            TYPE: "autoTankGun",
+        },
+        {
+            POSITION: [9, 8, 0, -45, 190, 0],
+            TYPE: "autoTankGun",
+        },
+    ],
+    GUNS: weaponMirror({
+        POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+            TYPE: "bullet",
+            LABEL: "thruster"
+        }
+    }, 0)
 }
 Class.recharger = {
     PARENT: "genericTank",
@@ -1342,34 +969,9 @@ Class.stormer = {
         "autoStormer",
     ]
 }
-Class.quadAngle = {
-    PARENT: "genericTank",
-    LABEL: "Quad-Angle",
-    BODY: {
-        HEALTH: 0.8 * base.HEALTH,
-        SHIELD: 0.8 * base.SHIELD,
-        DENSITY: 0.6 * base.DENSITY,
-    },
-    DANGER: 7,
-    TURRETS: [
-        {
-            POSITION: [9, 8, 0, 45, 190, 0],
-            TYPE: "autoTankGun",
-        },
-        {
-            POSITION: [9, 8, 0, -45, 190, 0],
-            TYPE: "autoTankGun",
-        },
-    ],
-    GUNS: weaponMirror({
-        POSITION: [16, 8, 1, 0, 0, 150, 0.1],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-            TYPE: "bullet",
-            LABEL: "thruster"
-        }
-    }, 0)
-}
+Class.subverter = makePLACEHOLDER("Subverter")
+Class.triTrapGuard = makePLACEHOLDER("Tri-Trap Guard")
+Class.volley = makePLACEHOLDER("Volley")
 Class.waarrk = {
     PARENT: "genericTank",
     LABEL: "Waarrk",
@@ -1430,117 +1032,36 @@ Class.warkwark = {
     ]
 }
 
+// Tier 3 Autos
+Class.autoAuto3 = makeAuto("auto3")
+Class.autoHelix = makeAuto("helix")
+Class.autoHexaTank = makeAuto("hexaTank")
+Class.autoHunter = makeAuto("hunter")
+Class.autoRifle = makeAuto("rifle")
+Class.autoSprayer = makeAuto("sprayer")
+Class.autoTripleShot = makeAuto("tripleShot")
+Class.autoWark = makeAuto("wark_AR")
+Class.megaAutoTrapper = makeAuto("trapper", "Mega Auto-Trapper", megaAutoOptions)
+Class.tripleAutoTrapper = makeTripleAuto("trapper", "Triple Auto-Trapper")
 
+// Tier 3 Birds
+Class.defect = makeBird("tripleShot", "Defect")
 
-// Tier 4 (new, autos)
-Class.autoAtomizer = makeAuto("atomizer")
-Class.autoBentDouble = makeAuto("bentDouble")
-Class.autoCyclone = makeAuto("cyclone")
-Class.autoDoubleFlankTwin = makeAuto("doubleFlankTwin")
-Class.autoDoubleGunner = makeAuto("doubleGunner")
-Class.autoDoubleHelix = makeAuto("doubleHelix")
-Class.autoFaucet = makeAuto("faucet")
-Class.autoFoamer = makeAuto("foamer")
-Class.autoFocal = makeAuto("focal")
-Class.autoFrother = makeAuto("frother")
-Class.autoHewnDouble = makeAuto("hewnDouble")
-Class.autoMegaTrapper = makeAuto("megaTrapper")
-Class.autoNailgun = makeAuto("nailgun")
-Class.autoOctoTank = makeAuto("octoTank")
-Class.autoOvertrapper = makeAuto("overtrapper")
-Class.autoPhoenix = makeAuto("phoenix")
-Class.autoQuadruplex = makeAuto("quadruplex")
-Class.autoRedistributor = makeAuto("redistributor")
-Class.autoShower = makeAuto("shower")
-Class.autoSingle = makeAuto("single")
-Class.autoSpreadshot = makeAuto("spreadshot")
-Class.autoStormer = makeAuto("stormer")
-Class.autoTrapGuard = makeAuto("trapGuard")
-Class.autoTripleTwin = makeAuto("tripleTwin")
-Class.autoTriplex = makeAuto("triplex")
-Class.autoWarkwark = makeAuto("warkwark")
-Class.megaAutoDouble = makeAuto("doubleTwin", "Mega Auto-Double", megaAutoOptions)
-Class.megaAutoSprayer = makeAuto("sprayer", "Mega Auto-Sprayer", megaAutoOptions)
-Class.tripleAutoDouble = makeTripleAuto("doubleTwin", "Triple Auto-Double")
-Class.tripleAutoHunter = makeTripleAuto("hunter")
-Class.tripleAutoTripleShot = makeTripleAuto("tripleShot")
-Class.tripleAutoRifle = makeTripleAuto("rifle")
-Class.tripleAutoSprayer = makeTripleAuto("sprayer")
+// Tier 3 Guards
+
+// Tier 3 Hybrids
+Class.hitman = makeOver("assassin", "Hitman", hybridTankOptions)
+Class.shower = makeOver("sprayer", "Shower", hybridTankOptions)
+
+// Tier 3 Rear Gunners
+Class.blower = makeRearGunner("destroyer", "Blower")
+Class.buttbuttin = makeRearGunner("assassin", "Buttbuttin")
 
 
 
-// Tier 4 (new, birds)
-Class.aethon = makeBird("foamer", "Aethon")
-Class.alicanto = makeBird("focal", "Alicanto")
-Class.avian = makeBird("single", "Avian")
-Class.bozo = makeBird("spreadshot", "Bozo")
-Class.nymph = makeBird("redistributor", "Nymph")
-Class.pamola = makeBird("frother", "Pamola")
-Class.simurgh = makeBird("faucet", "Simurgh")
-Class.sirin = makeBird("stormer", "Sirin")
-Class.ziz = makeBird("atomizer", "Ziz")
 
 
-
-// Tier 4 (new, guards)
-Class.custodian = makeGuard("single", "Custodian")
-
-
-
-// Tier 4 (new, hybrids)
-Class.abberation = makeOver("frother", "Abberation", hybridTankOptions)
-Class.assistant = makeOver("single", "Assistant", hybridTankOptions)
-Class.drain = makeOver("stormer", "Drain", hybridTankOptions)
-Class.flexedHybrid = makeOver("pentaShot", "Flexed Hybrid", hybridTankOptions)
-Class.gusher = makeOver("foamer", "Gusher", hybridTankOptions)
-Class.hose = makeOver("redistributor", "Hose", hybridTankOptions)
-Class.pressureWasher = makeOver("focal", "Pressure Washer", hybridTankOptions)
-Class.raincloud = makeOver("faucet", "Raincloud", hybridTankOptions)
-Class.smearer = makeOver("spreadshot", "Smearer", hybridTankOptions)
-Class.sprinkler = makeOver("atomizer", "Sprinkler", hybridTankOptions)
-Class.triprid = makeOver("triplet", "Triprid", hybridTankOptions)
-
-
-
-// Tier 4 (new, overs)
-Class.overangle = makeOver("triAngle", "Overangle", {angle: 90})
-Class.overartillery = makeOver("artillery")
-Class.overassassin = makeOver("assassin")
-Class.overbuilder = makeOver("builder")
-Class.overdestroyer = makeOver("destroyer")
-Class.overdiesel = makeOver("diesel")
-Class.overdoubleGunner = makeOver({
-    PARENT: "genericTank",
-    DANGER: 7,
-    GUNS: weaponArray([
-        ...weaponMirror({
-            POSITION: [19, 2, 1, 0, -2.5, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard, { recoil: 1.8 }, g.doubleTwin]),
-                TYPE: "bullet"
-            }
-        }),
-        {
-            POSITION: [12, 11, 1, 0, 0, 0, 0]
-        }
-    ], 2)
-}, "Overdouble Gunner", {angle: 90})
-Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", {angle: 90})
-Class.overhunter = makeOver("hunter")
-Class.overmach = makeOver("machineTrapper", "Overmach")
-Class.overmech = makeOver("mech")
-Class.overminigun = makeOver("minigun")
-Class.overnailer = makeOver("nailgun", "Overnailer")
-Class.overpen = makeOver("pen")
-Class.overrifle = makeOver("rifle")
-Class.overshot = makeOver("tripleShot", "Overshot")
-Class.oversprayer = makeOver("sprayer")
-Class.overtrapGuard = makeOver("trapGuard", "Overtrap Guard", {angle: 90})
-Class.overwark = makeOver("wark")
-
-
-
-// Tier 4 (new, everything else)
+// Tier 4
 Class.adderall = { 
     PARENT: "genericTank",
     LABEL: "Adderall",
@@ -1566,6 +1087,9 @@ Class.adderall = {
         }
     ]
 }
+Class.ballista = makePLACEHOLDER("Ballista")
+Class.bentDoubleGunner = makePLACEHOLDER("Bent Double Gunner")
+Class.bentDoubleMinigun = makePLACEHOLDER("Bent Double Minigun")
 Class.bentFlankDouble = {
     PARENT: "genericTank",
     LABEL: "Bent Flank Double",
@@ -1622,6 +1146,11 @@ Class.bentTriple = {
         }
     ], 3)
 }
+Class.binder = makePLACEHOLDER("Binder")
+Class.bracer = makePLACEHOLDER("Bracer")
+Class.bruiser = makePLACEHOLDER("Bruiser")
+Class.bubbler = makePLACEHOLDER("Bubbler")
+Class.bucket = makePLACEHOLDER("Bucket")
 Class.cleft = {
     PARENT: "genericTank",
     LABEL: "Cleft",
@@ -1643,6 +1172,7 @@ Class.cleft = {
         }
     ]), 2)
 }
+Class.concentrator_AR = makePLACEHOLDER("Concentrator")
 Class.coordinator = {
     PARENT: "genericTank",
     LABEL: "Coordinator",
@@ -1702,6 +1232,7 @@ Class.dam = {
         }
     ])
 }
+Class.dauber = makePLACEHOLDER("Dauber")
 Class.decaTank = {
     PARENT: "genericTank",
     LABEL: "Deca Tank",
@@ -1934,6 +1465,16 @@ Class.duo = {
         }
     ]
 }
+Class.eruptor = makePLACEHOLDER("Eruptor")
+Class.executor = makePLACEHOLDER("Executor")
+Class.fang = makePLACEHOLDER("Fang")
+Class.finger = makePLACEHOLDER("Finger")
+Class.focus = makePLACEHOLDER("Focus")
+Class.fungus = makePLACEHOLDER("Fungus")
+Class.garrison = makePLACEHOLDER("Garrison")
+Class.hammer = makePLACEHOLDER("Hammer")
+Class.hewnFlankDouble = makePLACEHOLDER("Hewn Flank Double")
+Class.hewnGunner = makePLACEHOLDER("Hewn Gunner")
 Class.hewnHelix = {
     PARENT: "genericTank",
     LABEL: "Hewn Helix",
@@ -2000,6 +1541,18 @@ Class.hewnTriple = {
         }), 3)
     ]
 }
+Class.icbm = makePLACEHOLDER("ICBM")
+Class.inflamer = makePLACEHOLDER("Inflamer")
+Class.jolter = makePLACEHOLDER("Jolter")
+Class.leafBlower = makePLACEHOLDER("Leaf Blower")
+Class.leak = makePLACEHOLDER("Leak")
+Class.licker = makePLACEHOLDER("Licker")
+Class.maw = makePLACEHOLDER("Maw")
+Class.mono = makePLACEHOLDER("Mono")
+Class.monobloc = makePLACEHOLDER("Monobloc")
+Class.nebulizer = makePLACEHOLDER("Nebulizer")
+Class.negentropy = makePLACEHOLDER("Negentropy")
+Class.nova = makePLACEHOLDER("Nova")
 Class.pentaDouble = {
     PARENT: "genericTank",
     LABEL: "Penta Double",
@@ -2031,6 +1584,8 @@ Class.pentaDouble = {
         }
     ], 2)
 }
+Class.pincer = makePLACEHOLDER("Pincer")
+Class.pinner = makePLACEHOLDER("Pinner")
 Class.quadTwin = {
     PARENT: "genericTank",
     LABEL: "Quad Twin",
@@ -2043,6 +1598,30 @@ Class.quadTwin = {
         }
     }), 4)
 }
+Class.recentralizer = makePLACEHOLDER("Recentralizer")
+Class.sawedOff = makePLACEHOLDER("Sawed Off")
+Class.scatterer = {
+    PARENT: "genericTank",
+    LABEL: "Scatterer",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: [12, 10, 1.4, 11, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: [12, 10, 1.4, 8, 0, 0, 0.5],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
+Class.scope_AR = makePLACEHOLDER("Scope")
 Class.sharpshooter = {
     PARENT: "genericTank",
     LABEL: "Sharpshooter",
@@ -2091,6 +1670,11 @@ Class.skewnDouble = {
         }), 2)
     ]
 }
+Class.spewer = makePLACEHOLDER("Spewer")
+Class.splitDouble = makePLACEHOLDER("Split Double")
+Class.stapler = makePLACEHOLDER("Stapler")
+Class.tacker = makePLACEHOLDER("Tacker")
+Class.tap = makePLACEHOLDER("Tap")
 Class.ternion = {
     PARENT: "genericTank",
     LABEL: "Ternion",
@@ -2134,6 +1718,7 @@ Class.triFrother = {
         }
     ], 3)
 }
+Class.tricker = makePLACEHOLDER("Tricker")
 Class.tripleFlankTwin = {
     PARENT: "genericTank",
     LABEL: "Triple Flank Twin",
@@ -2204,6 +1789,7 @@ Class.tripleHelix = {
         },
     ], 3)
 }
+Class.typhoon_AR = makePLACEHOLDER("Typhoon")
 Class.waarrkwaarrk = {
     PARENT: "genericTank",
     LABEL: "Waarrkwaarrk",
@@ -2252,3 +1838,195 @@ Class.warkwarkwark = {
         }
     ]), 3)
 }
+Class.warkwawarkrk = makePLACEHOLDER("Warkwawarkrk")
+
+// Tier 4 Autos
+Class.autoAtomizer = makeAuto("atomizer")
+Class.autoBentDouble = makeAuto("bentDouble")
+Class.autoCyclone = makeAuto("cyclone")
+Class.autoDoubleFlankTwin = makeAuto("doubleFlankTwin")
+Class.autoDoubleGunner = makeAuto("doubleGunner")
+Class.autoDoubleHelix = makeAuto("doubleHelix")
+Class.autoFaucet = makeAuto("faucet")
+Class.autoFoamer = makeAuto("foamer")
+Class.autoFocal = makeAuto("focal")
+Class.autoFrother = makeAuto("frother")
+Class.autoHewnDouble = makeAuto("hewnDouble")
+Class.autoMegaTrapper = makeAuto("megaTrapper")
+Class.autoNailgun = makeAuto("nailgun")
+Class.autoOctoTank = makeAuto("octoTank")
+Class.autoOvertrapper = makeAuto("overtrapper")
+Class.autoPhoenix = makeAuto("phoenix")
+Class.autoQuadruplex = makeAuto("quadruplex")
+Class.autoRedistributor = makeAuto("redistributor")
+Class.autoShower = makeAuto("shower")
+Class.autoSingle = makeAuto("single")
+Class.autoSpreadshot = makeAuto("spreadshot")
+Class.autoStormer = makeAuto("stormer")
+Class.autoTrapGuard = makeAuto("trapGuard")
+Class.autoTripleTwin = makeAuto("tripleTwin")
+Class.autoTriplex = makeAuto("triplex")
+Class.autoWarkwark = makeAuto("warkwark")
+Class.megaAutoDouble = makeAuto("doubleTwin", "Mega Auto-Double", megaAutoOptions)
+Class.megaAutoSprayer = makeAuto("sprayer", "Mega Auto-Sprayer", megaAutoOptions)
+Class.tripleAutoDouble = makeTripleAuto("doubleTwin", "Triple Auto-Double")
+Class.tripleAutoHunter = makeTripleAuto("hunter")
+Class.tripleAutoTripleShot = makeTripleAuto("tripleShot")
+Class.tripleAutoRifle = makeTripleAuto("rifle")
+Class.tripleAutoSprayer = makeTripleAuto("sprayer")
+
+// Tier 4 Birds
+Class.aethon = makeBird("foamer", "Aethon")
+Class.alicanto = makeBird("focal", "Alicanto")
+Class.avian = makeBird("single", "Avian")
+Class.birdOfPrey = makePLACEHOLDER("Bird of Prey")
+Class.bozo = makeBird("spreadshot", "Bozo")
+Class.firebird = makePLACEHOLDER("Firebird")
+Class.nymph = makeBird("redistributor", "Nymph")
+Class.pamola = makeBird("frother", "Pamola")
+Class.simurgh = makeBird("faucet", "Simurgh")
+Class.sirin = makeBird("stormer", "Sirin")
+Class.ziz = makeBird("atomizer", "Ziz")
+
+// Tier 4 Guards
+Class.custodian = makeGuard("single", "Custodian")
+
+// Tier 4 Hybrids
+Class.assistant = makeOver("single", "Assistant", hybridTankOptions)
+Class.abberation = makeOver("frother", "Abberation", hybridTankOptions)
+Class.cleaner = makePLACEHOLDER("Cleaner")
+Class.drain = makeOver("stormer", "Drain", hybridTankOptions)
+Class.extinguisher = makePLACEHOLDER("Extinguisher")
+Class.flexedHybrid = makeOver("pentaShot", "Flexed Hybrid", hybridTankOptions)
+Class.gusher = makeOver("foamer", "Gusher", hybridTankOptions)
+Class.hose = makeOver("redistributor", "Hose", hybridTankOptions)
+Class.pressureWasher = makeOver("focal", "Pressure Washer", hybridTankOptions)
+Class.raincloud = makeOver("faucet", "Raincloud", hybridTankOptions)
+Class.showerdrive = makePLACEHOLDER("Showerdrive")
+Class.smearer = makeOver("spreadshot", "Smearer", hybridTankOptions)
+Class.sprinkler = makeOver("atomizer", "Sprinkler", hybridTankOptions)
+Class.triprid = makeOver("triplet", "Triprid", hybridTankOptions)
+
+// Tier 4 Rear Gunners
+
+// Tier 4 Overs
+Class.overangle = makeOver("triAngle", "Overangle", {angle: 90})
+Class.overartillery = makeOver("artillery")
+Class.overassassin = makeOver("assassin")
+Class.overbuilder = makeOver("builder")
+Class.overdestroyer = makeOver("destroyer")
+Class.overdiesel = makeOver("diesel")
+Class.overdoubleGunner = makeOver({
+    PARENT: "genericTank",
+    DANGER: 7,
+    GUNS: weaponArray([
+        ...weaponMirror({
+            POSITION: [19, 2, 1, 0, -2.5, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard, { recoil: 1.8 }, g.doubleTwin]),
+                TYPE: "bullet"
+            }
+        }),
+        {
+            POSITION: [12, 11, 1, 0, 0, 0, 0]
+        }
+    ], 2)
+}, "Overdouble Gunner", {angle: 90})
+Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", {angle: 90})
+Class.overhunter = makeOver("hunter")
+Class.overmach = makeOver("machineTrapper", "Overmach")
+Class.overmech = makeOver("mech")
+Class.overminigun = makeOver("minigun")
+Class.overnailer = makeOver("nailgun", "Overnailer")
+Class.overpen = makeOver("pen")
+Class.overrifle = makeOver("rifle")
+Class.overshot = makeOver("tripleShot", "Overshot")
+Class.oversprayer = makeOver("sprayer")
+Class.overtrapGuard = makeOver("trapGuard", "Overtrap Guard", {angle: 90})
+Class.overwark = makeOver("wark_AR")
+
+
+
+
+
+// Upgrade Tree
+//Class.basic.UPGRADES_TIER_1
+    //Class.basic.UPGRADES_TIER_2
+        Class.smasher.UPGRADES_TIER_3.push("bonker", "banger", "drifter")
+
+    Class.twin.UPGRADES_TIER_2.push("wark_AR")
+        Class.twin.UPGRADES_TIER_3.splice(1, 1) // remove bulwark
+            Class.twin.UPGRADES_TIER_4 = ["duo"]
+        Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin", "doubleGunner", "doubleHelix", "warkwark")
+            Class.doubleTwin.UPGRADES_TIER_4 = ["doubleDual", "doubleMusket", "overdoubleTwin"]
+            Class.tripleTwin.UPGRADES_TIER_4 = ["quadTwin", "autoTripleTwin", "bentTriple", "hewnTriple", "tripleFlankTwin", "tripleGunner", "tripleHelix", "warkwarkwark"]
+            Class.hewnDouble.UPGRADES_TIER_4 = ["hewnTriple", "autoHewnDouble", "cleft", "skewnDouble", "hewnFlankDouble", "hewnGunner", "hewnHelix", "warkwawarkrk"]
+            Class.autoDouble.UPGRADES_TIER_4 = ["megaAutoDouble", "tripleAutoDouble", "autoTripleTwin", "autoHewnDouble", "autoBentDouble", "autoDoubleFlankTwin", "autoDoubleGunner", "autoDoubleHelix", "autoWarkwark"]
+        Class.tripleShot.UPGRADES_TIER_3.push("splitShot", "autoTripleShot", "bentGunner", "bentMinigun", "defect", "waarrk")
+            Class.spreadshot.UPGRADES_TIER_4 = ["doubleSpreadshot", "smearer", "autoSpreadshot", "dauber", "ballista", "bozo", "fungus"]
+            Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "pentaDouble", "autoBentDouble", "doubleTriplet", "cleft", "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "doubleTriplex", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"]
+            Class.triplet.UPGRADES_TIER_4 = ["quintuplet"]
+            Class.autoTripleShot.UPGRADES_TIER_4 = ["tripleAutoTripleShot"]
+        Class.gunner.UPGRADES_TIER_3.push("battery", "buttbuttin", "blower", "rimfire", "volley", "doubleGunner", "bentGunner", "equalizer")
+            Class.gunner.UPGRADES_TIER_4 = ["dam"]
+            Class.nailgun.UPGRADES_TIER_4 = ["vulcan", "overnailer", "tacker", "autoNailgun", "stapler", "pincer", "pinner", "fang", "licker", "jolter", "bracer", "doubleNailgun", "binder", "hammer"]
+
+    //Class.sniper.UPGRADES_TIER_2
+        Class.sniper.UPGRADES_TIER_3.push("railgun")
+            Class.sniper.UPGRADES_TIER_4 = ["sharpshooter"]
+        Class.assassin.UPGRADES_TIER_3.push("buttbuttin", "hitman", "sniper3", "enforcer", "courser")
+            Class.assassin.UPGRADES_TIER_4 = ["executor", "finger"]
+            Class.single.UPGRADES_TIER_4 = ["duo", "sharpshooter", "gadgetGun", "ternion", "coordinator", "bruiser", "tricker", "mono", "avian", "custodian", "assistant", "autoSingle"]
+        Class.hunter.UPGRADES_TIER_3.push("autoHunter")
+            Class.autoHunter.UPGRADES_TIER_4 = ["tripleAutoHunter"]
+        Class.rifle.UPGRADES_TIER_3.push("autoRifle")
+            Class.autoRifle.UPGRADES_TIER_4 = ["tripleAutoRifle"]
+
+    Class.machineGun.UPGRADES_TIER_2.push("diesel", "machineTrapper")
+        //Class.machineGun.UPGRADES_TIER_3
+            Class.machineGun.UPGRADES_TIER_4 = ["gadgetGun"]
+        Class.sprayer.UPGRADES_TIER_3.push("frother", "foamer", "faucet", "shower", "autoSprayer", "stormer")
+            Class.redistributor.UPGRADES_TIER_4 = ["recentralizer", "nymph", "nebulizer", "scope_AR", "eruptor", "inflamer", "hose", "monobloc", "autoRedistributor", "nova"]
+            Class.phoenix.UPGRADES_TIER_4 = ["firebird", "birdOfPrey", "nymph", "ziz", "alicanto", "pamola", "aethon", "simurgh", "autoPhoenix", "sirin"]
+            Class.atomizer.UPGRADES_TIER_4 = ["scatterer", "nebulizer", "ziz", "focus", "spewer", "bubbler", "sprinkler", "leak", "autoAtomizer", "typhoon_AR"]
+            Class.focal.UPGRADES_TIER_4 = ["concentrator_AR", "scope_AR", "alicanto", "focus", "negentropy", "bucket", "pressureWasher", "tap", "autoFocal", "leafBlower"]
+            Class.shower.UPGRADES_TIER_4 = ["oversprayer", "cleaner", "showerdrive", "extinguisher", "hose", "sprinkler", "pressureWasher", "abberation", "gusher", "raincloud", "autoShower", "drain"]
+            Class.autoSprayer.UPGRADES_TIER_4 = ["megaAutoSprayer", "tripleAutoSprayer", "autoRedistributor", "autoPhoenix", "autoAtomizer", "autoFocal", "autoFrother", "autoFoamer", "autoFaucet", "autoShower", "autoStormer"]
+
+    //Class.flankGuard.UPGRADES_TIER_2
+        //Class.flankGuard.UPGRADES_TIER_3
+            Class.flankGuard.UPGRADES_TIER_4 = ["ternion"]
+        Class.hexaTank.UPGRADES_TIER_3.push("deathStar", "autoHexaTank", "mingler", "combo")
+            Class.octoTank.UPGRADES_TIER_4 = ["decaTank"]
+        Class.triAngle.UPGRADES_TIER_3.push("quadAngle")
+        Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar", "autoAuto3", "combo")
+
+    Class.director.UPGRADES_TIER_2.push("directordrive", "honcho", "doper")
+        Class.director.UPGRADES_TIER_3.splice(1, 1) // remove big cheese
+            Class.director.UPGRADES_TIER_4 = ["coordinator"]
+        Class.spawner.UPGRADES_TIER_3.push("bender")
+
+    //Class.pounder.UPGRADES_TIER_2.push("volute")
+        Class.pounder.UPGRADES_TIER_3.push("subverter")
+            Class.pounder.UPGRADES_TIER_4 = ["bruiser"]
+        //Class.artillery.UPGRADES_TIER_3.push("recharger")
+
+    Class.trapper.UPGRADES_TIER_2.push("pen", "mech", "machineTrapper", "wark_AR")
+        Class.trapper.UPGRADES_TIER_3.splice(0, 1) // remove barricade
+        Class.trapper.UPGRADES_TIER_3.push("megaTrapper")
+            Class.trapper.UPGRADES_TIER_4 = ["sawedOff", "tricker"]
+        Class.trapGuard.UPGRADES_TIER_3.push("peashooter", "incarcerator", "mechGuard", "autoTrapGuard", "machineGuard", "triTrapGuard")
+            Class.trapGuard.UPGRADES_TIER_4 = ["garrison", "maw", "overtrapGuard", "custodian"]
+            Class.bulwark.UPGRADES_TIER_4 = ["dam"]
+        Class.autoTrapper.UPGRADES_TIER_3.splice(0, 0, "megaAutoTrapper", "tripleAutoTrapper")
+        Class.autoTrapper.UPGRADES_TIER_3.push("autoTrapGuard")
+            Class.autoTrapper.UPGRADES_TIER_4 = ["autoOvertrapper", "autoMegaTrapper"]
+
+    //Class.desmos.UPGRADES_TIER_2.splice(0, 0, "volute")
+    Class.desmos.UPGRADES_TIER_2.push("spiral"/*, "undertow"*/, "repeater")
+        Class.desmos.UPGRADES_TIER_3 = ["bender"]
+        //Class.volute.UPGRADES_TIER_3.push("recharger")
+        Class.helix.UPGRADES_TIER_3.push("coil", "duplicator", "doubleHelix", "autoHelix")
+            Class.triplex.UPGRADES_TIER_4 = ["doubleTriplex", "autoTriplex"]
+            Class.quadruplex.UPGRADES_TIER_4 = ["autoQuadruplex"]
+            Class.autoHelix.UPGRADES_TIER_4 = ["autoTriplex", "autoQuadruplex", "autoDoubleHelix"]
