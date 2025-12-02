@@ -2273,6 +2273,8 @@ Class.dogeiscutBoss = {
     NAME: "DogeisCut",
     DANGER: 10,
     FACING_TYPE: "smoothToTarget",
+    UPGRADE_TOOLTIP: "Huh? You want a cool and edgy boss tooltip? Too bad!", 
+    SYNC_WITH_TANK: true,
     SHAPE: [[1,0],[-0.7,0.7],[-0.35,0],[-0.7,-0.7]],
     COLOR: "yellow",
     UPGRADE_COLOR: "yellow",
