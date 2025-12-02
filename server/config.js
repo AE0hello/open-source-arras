@@ -80,21 +80,14 @@ module.exports = {
     map_tile_width: 420,
     map_tile_height: 420,
 
-    // How long a chat message lasts in milliseconds.
-    // Includes the fade-out period.
-    chat_message_duration: 15_000,
-
-    // If you don't want your players to color their messages.
-    // They get sanitized after addons interpret them, but before they're added to the chat message dictionary.
-    sanitize_chat_input: true,
-
     // The message that appears once a player spawns.
     spawn_message: "You have spawned! Welcome to the game.\n"
                  + "You will be invulnerable until you move or shoot.\n"
                  + "Please report any bugs you encounter!",
 
+    chat_message_duration: 15_000, // How long a chat message lasts in milliseconds. Includes the fade-out period.
     popup_message_duration: 10_000, // How long (in milliseconds) a popup message lasts before fading out.
-    respawn_delay: 0, // How long you have to wait to respawn in seconds. Set to 0 to disable.
+    sanitize_chat_input: true, // If you don't want your players to color their messages. They get sanitized after addons interpret them, but before they're added to the chat message dictionary.
 
     // Toggles the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
     spooky_theme: false,
@@ -103,6 +96,7 @@ module.exports = {
     game_speed: 1, // General game speed.
     run_speed: 1.5, // General multiplier for acceleration and max speeds.
     max_heartbeat_interval: 300_000, // How long (in milliseconds) a socket can be disconnected before their tank self-destructs.
+    respawn_delay: 0, // How long you have to wait to respawn in seconds. Set to 0 to disable.
 
     bullet_spawn_offset: 1, // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
     damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
@@ -128,13 +122,13 @@ module.exports = {
 
     // Bots
     bot_cap: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
-    bot_xp_gain: 60, // How much XP player-bots get until they reach LEVEL_CAP.
-    bot_start_level: 45, // How much XP player-bots will receive when first created.
-    bot_skill_upgrade_chances: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1], // The chances of a player-bot upgrading a specific skill when skill upgrades are available.
-    bot_class_upgrade_chances: [1, 5, 20, 37, 37], // The chances of a player-bot upgrading a specific amount of times before it stops upgrading.
+    bot_xp_gain: 60, // How much XP bots get until they reach LEVEL_CAP.
+    bot_start_level: 45, // How much XP bots will receive when first created.
+    bot_skill_upgrade_chances: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1], // The chances of a bot upgrading a specific skill when skill upgrades are available.
+    bot_class_upgrade_chances: [1, 5, 20, 37, 37], // The chances of a bot upgrading a specific amount of times before it stops upgrading.
     bot_name_prefix: "[AI] ", // This is prefixed before the bot's randomly chosen name.
 
-    // The class that players and player-bots spawn as.
+    // The class that players and bots spawn as.
     spawn_class: "basic",
 
     // How every entity regenerates their health.
@@ -166,10 +160,10 @@ module.exports = {
         ]]
     ],
 
-    FOOD_CAP: 70, // Maximum number of regular food at any time.
-    FOOD_CAP_NEST: 15, // Maximum number of nest food at any time.
-    ENEMY_CAP_NEST: 10, // Maximum number of enemy nest food at any time.
-    FOOD_MAX_GROUP_TOTAL: 6, // Number of foods that random food groups spawn with
+    food_cap: 70, // Maximum number of regular food at any time.
+    food_cap_nest: 15, // Maximum number of nest food at any time.
+    enemy_cap_nest: 10, // Maximum number of enemy nest food at any time.
+    food_group_cap: 6, // Number of foods that random food groups spawn with
 
     // Bosses
     bosses_spawn: true,
@@ -201,20 +195,20 @@ module.exports = {
     // Check gamemodeconfigs to see how this works.
     team_weights: {},
 
-    // These are the default values for gamemode related things. Do not change or remove these, you'll likely break stuff!
-    // If you want to change them, copy the values you want to change to the server's PROPERTIES instead.
-    ENABLE_FOOD: true,
-    GAMEMODE_NAME_PREFIXES: [],
-    SPECIAL_BOSS_SPAWNS: false,
+    // These are the default values for gamemode related things.
+    // If you want to change them, copy the values you want to change to the server's properties. Changing them here could break stuff!
+    enable_food: true,
+    gamemode_name_prefixes: [],
+    special_boss_spawns: false,
     CLASSIC_SIEGE: false,
     MOTHERSHIP: false,
     DOMINATION: false,
     RANDOM_COLORS: false,
     SPACE_PHYSICS: false,
     TIERED_FOOD: false,
-    ARENA_TYPE: "rect",
-    BLACKOUT: false,
-    SPACE_MODE: false,
+    arena_shape: "rect",
+    blackout: false,
+    space_physics: false,
     ARMS_RACE: false,
     CLAN_WARS: false,
     GROWTH: false,
@@ -222,10 +216,10 @@ module.exports = {
     TRAIN: false,
     MAZE: false,
     HUNT: false,
-    MODE: "ffa",
+    mode: "ffa",
     TAG: false,
     TEAMS: 4,
-    SPAWN_CONFINEMENT: {},
+    spawn_confinement: {},
 
     // Room setup
     room_setup: ["room_default"],

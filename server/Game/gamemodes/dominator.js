@@ -50,7 +50,7 @@ class Domination {
                 }
     
                 let killer = ran.choose(killers);
-                killer = killer ? killer.master.master : { team: TEAM_ROOM, color: Config.MODE === "tdm" ? 3 : 12 };
+                killer = killer ? killer.master.master : { team: TEAM_ROOM, color: Config.mode === "tdm" ? 3 : 12 };
     
                 newTeam = killer.team;
                 newColor = getTeamColor(newTeam);

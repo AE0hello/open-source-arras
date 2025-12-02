@@ -110,7 +110,7 @@ class bossRush {
         this.defineProperties();
     }
     defineProperties() {
-        this.length = Config.CLASSIC_SIEGE ? this.waveCodes.length : Config.WAVES;
+        this.length = Config.CLASSIC_SIEGE ? this.waveCodes.length : Config.wave_cap;
         this.waves = this.generateWaves();
         this.waveId = 52;
         this.gameActive = false;

@@ -660,7 +660,7 @@ global.activateTieredFood = () => {
 	const disableCrashers = true;
 
 	// there is no `ENEMY_CAP`, so we are "reconstructing them"
-	Config.ENEMY_CAP_NEST = 0;
+	Config.enemy_cap_nest = 0;
 
 	// Constructs a four-dimensional array of shape types
 

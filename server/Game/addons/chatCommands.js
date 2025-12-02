@@ -85,19 +85,19 @@ let commands = [
                     `- ${prefix} arena spawnpoint [x] [y] - Set a location where all players spawn on default`,
                     `- ${prefix} arena close - Close the arena`,
                 ];
-                if (!Config.SANDBOX) lines.splice(1, 1)
+                if (!Config.sandbox) lines.splice(1, 1)
                 socket.talk("Em", 10_000, JSON.stringify(lines));
             }
             if (!args[0]) sendAvailableArenaMessage(); else {
                 switch (args[0]) {
                     case "size":
                         if (args[1] === "dynamic") {
-                            if (!Config.SANDBOX) return socket.talk("m", 3_000, "This command is only available on sandbox.");
+                            if (!Config.sandbox) return socket.talk("m", 3_000, "This command is only available on sandbox.");
                             gameManager.room.settings.sandbox.do_not_change_arena_size = false;
                         } else {
                             if (!args[1] || !args[2]) return socket.talk("m", 3_000, "Invalid arguments.");
                             if (args[1] % 2 === 0 && args[2] % 2 === 0) {
-                                if (Config.SANDBOX) gameManager.room.settings.sandbox.do_not_change_arena_size = true;
+                                if (Config.sandbox) gameManager.room.settings.sandbox.do_not_change_arena_size = true;
                                 gameManager.updateBounds(args[1] * 30, args[2] * 30);
                             } else {
                                 socket.talk("m", 3000, "Arena size must be even.");
@@ -107,11 +107,11 @@ let commands = [
                     case "team":
                         if (!args[1]) return socket.talk("m", 3_000, "Invalid argument.");
                         if (args[1] === "0") {
-                            Config.MODE = "ffa";
+                            Config.mode = "ffa";
                             Config.TEAMS = null;
                             socket.rememberedTeam = undefined;
                         } else {
-                            Config.MODE = "tdm";
+                            Config.mode = "tdm";
                             Config.TEAMS = args[1];
                             socket.rememberedTeam = undefined;
                         }

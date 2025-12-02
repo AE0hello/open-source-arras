@@ -275,10 +275,10 @@ class socketManager {
                         JSON.stringify(util.serverStartTime),
                         global.gameManager.roomSpeed,
                         JSON.stringify({
-                            active: Config.BLACKOUT,
-                            color: Config.BLACKOUT_FOG,
+                            active: Config.blackout,
+                            color: Config.blackout_fog,
                         }),
-                        Config.ARENA_TYPE,
+                        Config.arena_shape,
                     );
                     return;
                 }
@@ -292,9 +292,9 @@ class socketManager {
                         epackage.transferbodyID = transferbodyID;
                         // Easter eggs
                         epackage.braindamagemode = false;
-                        if (name.includes("Brain Damage") || name.includes("brain Damage") || name.includes("Brain damage") || name.includes("brain damage")) {
+                        /*if (name.includes("Brain Damage") || name.includes("brain Damage") || name.includes("Brain damage") || name.includes("brain damage")) {
                             epackage.braindamagemode = true;
-                        }
+                        }*/ // disabled because of epilepsy concerns, reenable at your own risk
                         this.initalizePlayer(epackage, socket);
                     }
                 }, 20)
@@ -1102,7 +1102,7 @@ class socketManager {
             Config.CLAN_WARS_FT.add(name);
             return { player: Config.CLAN_WARS_FT.getPlayerInfo(name), loc: Config.CLAN_WARS_FT.getSpawn(name) };
         }
-        if (Config.MODE == "tdm" || Config.TAG) {
+        if (Config.mode == "tdm" || Config.TAG) {
             let team = getWeakestTeam(global.gameManager);
             // Choose from one of the least ones
             if (player.team == null || (player.team !== team && global.defeatedTeams.includes(player.team))) {
@@ -1154,7 +1154,7 @@ class socketManager {
         socket.status.daily_tank_watched_ad = false;
         socket.status.daily_tank_watched_ad_client = false;
         // Decide how to color and team the body
-        if (!filter.length) switch (Config.MODE) {
+        if (!filter.length) switch (Config.mode) {
             case 'tdm': {
                 body.team = player.team;
                 body.color.base = global.getTeamColor(player.body.team);
@@ -1203,7 +1203,7 @@ class socketManager {
 
     preparePlayer(socket, player, body, doNotTakeAction = {}) {
         // Decide what to do about colors when sending updates and stuff
-        player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
+        player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
         // Set up the targeting structure
         player.target = { x: 0, y: 0 };
         // Set up the command structure
@@ -1347,7 +1347,7 @@ class socketManager {
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
                 // Set the proper color if it's on our team and decide what to do about colors when sending updates and stuff
-                player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
+                player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
                 // And make it force to our mouse if it ought to
                 if (player.command.autospin) {
                     data[10] = 1;
@@ -1364,7 +1364,7 @@ class socketManager {
             }
             if (
                 player.body.team === e.source.team &&
-                (Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG))
+                (Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG))
             ) {
                 // GROUPS
                 data = data.slice();
@@ -1701,7 +1701,7 @@ class socketManager {
                 if (is === 0) break;
                 let entry = list[top];
                 let color = entry.leaderboardColor ? entry.leaderboardColor + " 0 1 0 false" 
-                    : Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG) ? '11 0 1 0 false'
+                    : Config.GROUPS || (Config.mode == 'ffa' && !Config.TAG) ? '11 0 1 0 false'
                     : entry.color.compiled;
                 topTen.push({
                     id: entry.id,
@@ -1709,7 +1709,7 @@ class socketManager {
                         Math.round(entry.skill.score),
                         entry.index,
                         entry.name,
-                        entry.leaderboardColor ? color : Config.MODE == 'ffa' && !Config.TAG ? '12 0 1 0 false' : color,
+                        entry.leaderboardColor ? color : Config.mode == 'ffa' && !Config.TAG ? '12 0 1 0 false' : color,
                         color,
                         entry.nameColor || "#FFFFFF",
                         entry.label,
@@ -1763,15 +1763,15 @@ class socketManager {
                     my.type === "miniboss" || my.type == "portal" || 
                     my.isMothership
                 )) {
-                    const x = Config.BLACKOUT ? Math.floor(Math.random() * global.gameManager.room.width - global.gameManager.room.width / 2) : my.x;
-                    const y = Config.BLACKOUT ? Math.floor(Math.random() * global.gameManager.room.height - global.gameManager.room.height / 2) : my.y;
+                    const x = Config.blackout ? Math.floor(Math.random() * global.gameManager.room.width - global.gameManager.room.width / 2) : my.x;
+                    const y = Config.blackout ? Math.floor(Math.random() * global.gameManager.room.height - global.gameManager.room.height / 2) : my.y;
                     all.push({
                         id: my.id,
                         data: [
-                            Config.BLACKOUT ? 0 : my.type === "wall" || my.isMothership ? my.shape === 4 ? 2 : 1 : 0,
+                            Config.blackout ? 0 : my.type === "wall" || my.isMothership ? my.shape === 4 ? 2 : 1 : 0,
                             util.clamp(Math.floor((256 * x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * y) / global.gameManager.room.height), -128, 127),
-                            Config.BLACKOUT ? Config.BLACKOUT_MINIMAP_COLOR + " 0 1 0 false" : my.minimapColor ? my.minimapColor + " 0 1 0 false" : my.color.compiled,
+                            Config.blackout ? Config.blackout_minimap_color + " 0 1 0 false" : my.minimapColor ? my.minimapColor + " 0 1 0 false" : my.color.compiled,
                             Math.round(my.SIZE),
                         ],
                     });
@@ -1788,7 +1788,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG) ? '10 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG) ? '10 0 1 0 false' : my.color.compiled,
                         ],
                     });
                 }
@@ -1803,7 +1803,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.MODE == 'ffa' || Config.MODE == 'clan' && !Config.TAG) ? '12 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG) ? '12 0 1 0 false' : my.color.compiled,
                         ],
                     });
                 }
@@ -1922,7 +1922,7 @@ class socketManager {
 
                 leaderboardUpdate = getLeaderboard.update(
                     socket.id,
-                    (Config.GROUPS || (Config.MODE == 'ffa' && !Config.TAG)) && socket.player.body ? socket.player.body.id : null
+                    (Config.GROUPS || (Config.mode == 'ffa' && !Config.TAG)) && socket.player.body ? socket.player.body.id : null
                 );
                 let team = socket.status.seesAllTeams ? minimapAllTeamsUpdate : minimapTeamUpdates;
                 

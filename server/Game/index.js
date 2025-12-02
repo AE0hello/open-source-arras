@@ -310,7 +310,7 @@ class gameHandler {
 
         let totalFoods = 1;
         if (Math.random() < 0.2) { // 1/5 chance to spawn a group
-            totalFoods = 1 + Math.floor(Math.random() * Config.FOOD_MAX_GROUP_TOTAL);
+            totalFoods = 1 + Math.floor(Math.random() * Config.food_group_cap);
         }
 
         // Helper for cleanup interval
@@ -326,14 +326,14 @@ class gameHandler {
         // Nest food/enemy spawn
         if (Math.random() < 1 / 3 && global.gameManager.room.spawnable[TEAM_ENEMIES]) {
             // Enemy spawn
-            if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.ENEMY_CAP_NEST) {
+            if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 const o = spawnFoodEntity(tile, Config.enemy_types_nest);
                 this.enemyFoods.push(o);
                 setupCleanup(this.enemyFoods, o);
             }
             // Nest food spawn
-            if (this.nestFoods.length < Config.FOOD_CAP_NEST) {
+            if (this.nestFoods.length < Config.food_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 for (let i = 0; i < totalFoods; i++) {
                     const o = spawnFoodEntity(tile, Config.food_types_nest);
@@ -341,7 +341,7 @@ class gameHandler {
                     setupCleanup(this.nestFoods, o);
                 }
             }
-        } else if (this.foods.length < Config.FOOD_CAP) {
+        } else if (this.foods.length < Config.food_cap) {
             // Regular food spawn
             const tile = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
             for (let i = 0; i < totalFoods; i++) {
@@ -416,7 +416,7 @@ class gameHandler {
         }
         // Add new bots if arena is open
         if (!global.gameManager.arenaClosed && !global.cannotRespawn && this.bots.length < Config.bot_cap) {
-            let team = Config.MODE === "tdm" || Config.MODE === "tag" ? getWeakestTeam(global.gameManager) : undefined,
+            let team = Config.mode === "tdm" || Config.mode === "tag" ? getWeakestTeam(global.gameManager) : undefined,
             limit = 20, // give up after 20 attempts and just pick whatever is currently chosen
             loc;
             do {
@@ -505,7 +505,7 @@ class gameHandler {
                 try {
                     this.gameloop();
                     syncedDelaysLoop();
-                    if (Config.ENABLE_FOOD) this.foodloop();
+                    if (Config.enable_food) this.foodloop();
                     global.gameManager.roomLoop();
                     global.gameManager.gamemodeManager.request("quickloop");
                 } catch (e) {

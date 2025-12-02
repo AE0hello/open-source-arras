@@ -1,5 +1,5 @@
 module.exports = {
-    MODE: "tdm",
+    mode: "tdm",
     TEAMS: (Math.random() * 3 | 0) + 2,
     MOTHERSHIP: true,
 };

@@ -1,13 +1,13 @@
 module.exports = {
-    MODE: "tdm",
+    mode: "tdm",
     TEAMS: 1,
-    SPECIAL_BOSS_SPAWNS: true,
+    special_boss_spawns: true,
     CLASSIC_SIEGE: false,
     map_tile_width: 300,
     map_tile_height: 300,
-    WAVES: 100, // CLASSIC_SIEGE: false to use this setting
-    FOOD_CAP: 30,
-    FOOD_CAP_NEST: 5,
+    wave_cap: 100, // CLASSIC_SIEGE: false to use this setting
+    food_cap: 30,
+    food_cap_nest: 5,
     room_setup: ["room_siege_legacy"],
     SANCTUARY_SIZE: 15,
     bot_xp_gain: 500,

@@ -1,5 +1,5 @@
 module.exports = {
-    MODE: "tdm",
+    mode: "tdm",
     TEAMS: 2,
     ASSAULT: true,
     map_tile_width: 413,

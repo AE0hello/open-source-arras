@@ -25,17 +25,17 @@ class gamemodeManager {
 
     request(type) {
         if (type == "start") {
-            if (Config.SPECIAL_BOSS_SPAWNS) this.gameSiege.start(Config.MAZE_TYPE ?? false);
+            if (Config.special_boss_spawns) this.gameSiege.start(Config.MAZE_TYPE ?? false);
             if (Config.ASSAULT) this.gameAssault.start();
             if (Config.TAG) Config.TAG_DATA.initAndStart();
             if (Config.DOMINATION) this.gameDomination.start();
             if (Config.MOTHERSHIP) this.gameMothership.start();
-            if (Config.MAZE_TYPE !== undefined && !Config.SPECIAL_BOSS_SPAWNS) this.gameMaze.generate();
+            if (Config.MAZE_TYPE !== undefined && !Config.special_boss_spawns) this.gameMaze.generate();
             if (Config.OUTBREAK) this.gameOutbreak.start();
         }
         if (type == "loop") {
             global.gameManager.lagLogger.set();
-            if (Config.SPECIAL_BOSS_SPAWNS) this.gameSiege.loop();
+            if (Config.special_boss_spawns) this.gameSiege.loop();
             if (Config.MOTHERSHIP) this.gameMothership.loop();
             global.gameManager.lagLogger.mark();
             if (global.gameManager.lagLogger.totalTime > 100) {
@@ -46,13 +46,13 @@ class gamemodeManager {
             }
         }
         if (type == "quickloop") { // Mainly for sandbox and trainwars only, but you can also put your own gamemode loop here incase the regular loop doesnt fit.
-            if (Config.SANDBOX) this.gameSandbox.update();
+            if (Config.sandbox) this.gameSandbox.update();
             if (Config.TRAIN) this.gameTrain.loop();
         }
     }
 
     terminate() {
-        if (Config.SPECIAL_BOSS_SPAWNS) this.gameSiege.reset();
+        if (Config.special_boss_spawns) this.gameSiege.reset();
         if (Config.ASSAULT) this.gameAssault.reset();
         if (Config.TAG) Config.TAG_DATA.resetAndStop();
         if (Config.DOMINATION) this.gameDomination.reset();

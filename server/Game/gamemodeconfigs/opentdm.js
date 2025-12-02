@@ -1,4 +1,4 @@
 module.exports = {
-    MODE: "tdm",
+    mode: "tdm",
     TEAMS: Config.TEAMS
 };

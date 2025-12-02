@@ -308,10 +308,10 @@ class gameServer {
         };
         if (!this.wallGrid) {
             this.room.wallGrid = {
-                xgrid: Config.SANDBOX ? 10 : 15,
-                ygrid: Config.SANDBOX ? 10 : 15,
-                width: Config.SANDBOX ? 600 : 900,
-                height: Config.SANDBOX ? 600 : 900,
+                xgrid: Config.sandbox ? 10 : 15,
+                ygrid: Config.sandbox ? 10 : 15,
+                width: Config.sandbox ? 600 : 900,
+                height: Config.sandbox ? 600 : 900,
                 getGrid: (location) => {
                     let x = Math.floor((location.x + this.room.wallGrid.width / 2) * this.room.wallGrid.xgrid / this.room.wallGrid.width);
                     let y = Math.floor((location.y + this.room.wallGrid.height / 2) * this.room.wallGrid.ygrid / this.room.wallGrid.height);

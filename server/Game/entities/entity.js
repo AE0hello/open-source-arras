@@ -918,7 +918,7 @@ class Entity extends EventEmitter {
             return 0;
         }
         if (!this.settings.canGoOutsideRoom) {
-            if (Config.ARENA_TYPE === "circle") {
+            if (Config.arena_shape === "circle") {
                 let centerPoint = {
                     x: global.gameManager.room.width - global.gameManager.room.width,
                     y: global.gameManager.room.height - global.gameManager.room.height,
