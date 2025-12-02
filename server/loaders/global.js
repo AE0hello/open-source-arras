@@ -589,18 +589,8 @@ global.makeHitbox = wall => {
     wall.hitboxRadius = distance;
 }
 
+// this is going to get replaced later by the radial wall switching so im emptying it out to prevent crashes until then
 global.wallTypes = [
-    { color: 16, label: 'Wall',    alpha: 1, class: 'wall' },
-    { color: 12, label: 'deadly',  alpha: 1, class: 'wall' },
-    { color: 11, label: 'heal',    alpha: 1, class: 'wall' },
-    { color: 19, label: 'bouncy',  alpha: 1, class: 'wall' },
-    { color: 5,  label: 'breaker', alpha: 1, class: 'wall' },
-    { color: 0,  label: 'chunks',  alpha: 1, class: 'wall' },
-    { color: 13, label: 'optical', alpha: 1, class: 'eyewall' },
-    { color: 17, label: '!up',     alpha: 1, class: 'uparrow' },
-    { color: 17, label: '!down',   alpha: 1, class: 'downarrow' },
-    { color: 17, label: '!left',   alpha: 1, class: 'leftarrow' },
-    { color: 17, label: '!right',  alpha: 1, class: 'rightarrow' },
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {

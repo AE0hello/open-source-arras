@@ -4,3 +4,4 @@
 `PR2000` = `worker_threads`\
 `Excel` = Clan Wars, Manhunt\
 `DenisC!!!` = Accurate growth curve
+`kuoworic` = Extracted and dumped accurate mockups
