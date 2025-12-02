@@ -703,7 +703,7 @@ class Entity extends EventEmitter {
         }
     }
 
-    camera() {        
+    camera() {
         // Get bound data
         const turretsAndProps = Array.from(this.turrets).concat(Array.from(this.props));
         turretsAndProps.sort((a, b) => a[1].bound.layer - b[1].bound.layer);

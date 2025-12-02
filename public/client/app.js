@@ -924,7 +924,7 @@ import * as socketStuff from "./socketinit.js";
     // The skill bar dividers
     let skas = [];
     for (let i = 1; i <= 256; i++) { //if you want to have more skill levels than 255, then update this
-        skas.push((i - 2) * 0.01 + Math.log(4 * (i / 9) + 1) / 1.6);
+        skas.push((i - 2) * 0.01 + Math.log(4 * (i / 9) + 1) / 1.513);
     }
     const ska = (x) => skas[x];
     var getClassUpgradeKey = function (number) {
@@ -2567,12 +2567,12 @@ import * as socketStuff from "./socketinit.js";
         global.clickables.stat.hide();
 
         let vspacing = 5;
-        let height = 14.5;
-        let gap = 37;
-        let len = alcoveSize; // * global.screenWidth; // The 30 is for the value modifiers
+        let height = 14;
+        let gap = 44.5;
+        let len = alcoveSize - 10; // * global.screenWidth; // The 30 is for the value modifiers
         let save = len;
-        let x = spacing + (statMenu.get() - 1) * (height + 50 + len * ska(gui.skills.reduce((largest, skill) => Math.max(largest, skill.cap), 0)));
-        let y = global.screenHeight - spacing - height;
+        let x = spacing + 3 + (statMenu.get() - 1) * (height + 50 + len * ska(gui.skills.reduce((largest, skill) => Math.max(largest, skill.cap), 0)));
+        let y = global.screenHeight - spacing - 5.5 - height;
         let ticker = 11;
         let namedata;
         try {
@@ -2603,8 +2603,9 @@ import * as socketStuff from "./socketinit.js";
             }
 
             //bar fills
-            drawBar(x + height / 2, x - height / 2 + len * ska(cap), y + height / 2, height - 4 + config.graphical.barChunk, color.black);
+            drawBar(x + height / 2, x - height / 2 + len * ska(cap) - 14, y + height / 2, height - 2.8 + config.graphical.barChunk, color.black);
             drawBar(x + height / 2, x + height / 2 + len * ska(cap) - gap, y + height / 2, height - 3, color.grey);
+            drawBar(x + height / 2, x + height / 2 + len * ska(level) - gap, y + height / 2, height - 5.5 + config.graphical.barChunk, color.black);
             drawBar(x + height / 2, x + height / 2 + len * ska(level) - gap, y + height / 2, height - 3.5, col);
 
             // Blocked-off area
@@ -2626,10 +2627,10 @@ import * as socketStuff from "./socketinit.js";
             // Skill name
             len = save * ska(max);
             let textcolor = level == maxLevel ? col : !gui.points || (cap !== maxLevel && level == cap) ? color.grey : color.guiwhite;
-            drawText(name, Math.round(x + len / 2) + 0.5, y + height / 2, height - 5, textcolor, "center", true);
+            drawText(name, Math.round(x + len / 2) - 5.5, y + height / 2, height - 4.1, textcolor, "center", true);
 
             // Skill key
-            drawText("[" + (ticker % 10) + "]", Math.round(x + len - height * 0.25) - 1.5, y + height / 2, height - 5, textcolor, "right", true);
+            drawText("[" + (ticker % 10) + "]", Math.round(x + len - height * 0.25) - 14.5, y + height / 2, height - 6, textcolor, "right", true);
             if (textcolor === color.guiwhite) {
                 // If it's active
                 global.clickables.stat.place(ticker - 1, x * clickableRatio, y * clickableRatio, len * clickableRatio, height * clickableRatio);
@@ -2647,7 +2648,7 @@ import * as socketStuff from "./socketinit.js";
         global.clickables.hover.place(0, 0, y * clickableRatio, 0.8 * len * clickableRatio, (global.screenHeight - y) * clickableRatio);
         if (gui.points !== 0) {
             // Draw skillpoints to spend
-            drawText("x" + gui.points, Math.round(x + len - 2) + 0.5, Math.round(y + height - 4) + 0.5, 20, color.guiwhite, "right");
+            drawText("x" + gui.points, Math.round(x + len - 2) - 13, Math.round(y + height - 4) + 2, 18.5, color.guiwhite, "right");
         }
     }
 
