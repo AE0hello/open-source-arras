@@ -49,6 +49,6 @@ SERVER_TRAVEL: [
 > Make sure to set `ALLOW_SERVER_TRAVEL` to true in your destination server's `PROPERTIES`.
 
 ## Other Links
-- [Our Discord server](https://discord.gg/kvCAZfUCjy)
+- [Our Discord server](https://discord.gg/arrasio)
 
 *p.s. if something goes terribly wrong it's not our fault*
