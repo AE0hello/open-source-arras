@@ -1,6 +1,18 @@
-# Credits
-`funny0_0` = Maze generation codes, Shiny tanks, SVG shapes, Kill bar system\
-`LA3T` = Custom wall collisions\
-`PR2000` = Implemented `worker_threads`\
-`Excel` = Implemented Clan Wars, Reworked by the head developer
-`DenisC!!!` = Implemented accurated growth curve
+# Active Developers
+`Zenphia`/`TGS` = TODO\
+`Dogeiscut` = TODO\
+`Toothless` = TODO\
+`AE0Hello` = Current Project Owner, TODO\
+`Helena` = TODO\
+
+# Former Developers
+`Taureon` = Project Founder, Major Project Refactoring\
+`Trioplane` = TODO\
+`Frostbyte` = Split upgrades, TODO\
+
+# Other Notable Contributors
+`funny0_0` = More Maze Generations, Shiny Tanks, SVG Shapes, Kill Bars\
+`LA3T` = Custom Wall Collisions\
+`PR2000` = Multiple Instances via `worker_threads`\
+`Excel` = Clan Wars\
+`DenisC!!!` = Accurate Growth Curve\
