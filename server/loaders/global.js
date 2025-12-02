@@ -561,6 +561,14 @@ global.flatten = (output, definition) => {
     return output;
 };
 
+global.convertExportsToClass = (exp) => {
+    if ("object" === typeof Class) {
+        for (const [key, definition] of Object.entries(exp)) {
+            Class[key] = definition;
+            Class[key].Converted = true;
+        }
+    }
+}
 global.makeHitbox = wall => {
     const _size = wall.size - 4;
     //calculate the relative corners
