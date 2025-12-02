@@ -48,9 +48,6 @@ SERVER_TRAVEL: [
 > [!NOTE]
 > Make sure to set `ALLOW_SERVER_TRAVEL` to true in your destination server's `PROPERTIES`.
 
-## Useful Tools
-- [Create a custom shape](https://arras.io/ext/custom-shape)
-
 ## Other Links
 - [Our Discord server](https://discord.gg/kvCAZfUCjy)
 
