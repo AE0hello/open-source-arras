@@ -106,7 +106,7 @@ let initializeFilter = () => {
     global.filters = {
         regions: {
             all: [],
-            usa: [],
+            america: [],
             europe: [],
             asia: [],
             other: [],
@@ -133,14 +133,11 @@ let initializeFilter = () => {
     for (let s of servers) {
         global.filters.gamemodeFilters.all.push(s);
         global.filters.regions.all.push(s);
-        if (s.region == "USA" || s.region == "Usa" || s.region == "usa") global.filters.regions.usa.push(s);
-        if (s.region == "EUROPE"|| s.region == "Europe" || s.region == "europe") global.filters.regions.europe.push(s);
+        if (s.region == "US West" || s.region == "US Central" || s.region == "US East") global.filters.regions.america.push(s);
+        if (s.region == "Europe") global.filters.regions.europe.push(s);
+        if (s.region == "Asia" || s.region == "Oceania") global.filters.regions.asia.push(s);
         if (
-            s.region == "ASIA" || s.region == "Asia" || s.region == "asia" ||
-            s.region == "OCEANIA" || s.region == "Oceania" || s.region == "oceania"
-        ) global.filters.regions.asia.push(s);
-        if (
-            !global.filters.regions.usa.includes(s) &&
+            !global.filters.regions.america.includes(s) &&
             !global.filters.regions.europe.includes(s) &&
             !global.filters.regions.asia.includes(s)
         ) {
@@ -204,7 +201,7 @@ let initializeFilter = () => {
     createFilter(svFilterRegionDoc, [
         { name: "All", filter: () => !0 },
         { name: "USA", filter: (h) => {
-            let e = checkFilter(h, global.filters.regions.usa);
+            let e = checkFilter(h, global.filters.regions.america);
             return e;
         } },
         { name: "Europe", filter: (h) => { 
