@@ -142,7 +142,7 @@ class socketManager {
                     player.body.destroy();
                 } else if (player.body.invuln || global.gameManager.arenaClosed) {
                     // Leave the clan party if clan wars is active
-                    if (Config.CLAN_WARS) Config.CLAN_WARS_FT.remove(player.body);
+                    if (Config.clan_wars) Config.clan_wars_ft.remove(player.body);
                     player.body.invuln = false;
                     player.body.kill();
                     player.body.destroy();
@@ -487,7 +487,7 @@ class socketManager {
                 }
                 // cheatingbois
                 if (player.body == null || player.body.underControl) return;
-                if (player.body.skill.level < Config.LEVEL_CHEAT_CAP || (socket.permissions && socket.permissions.infiniteLevelUp)) {
+                if (player.body.skill.level < Config.level_cap_cheat || (socket.permissions && socket.permissions.infiniteLevelUp)) {
                     player.body.skill.score += player.body.skill.levelScore;
                     player.body.skill.maintain();
                     player.body.refreshBodyAttributes();
@@ -533,16 +533,16 @@ class socketManager {
                 body.emit("control", { body });
                 if (body.underControl) {
                     let relinquishedControlMessage = 
-                    Config.DOMINATION ? "dominator" : 
-                    Config.MOTHERSHIP ? "mothership" :
+                    Config.domination ? "dominator" : 
+                    Config.mothership ? "mothership" :
                     "special tank"
-                    if (Config.DOMINATION || Config.MOTHERSHIP) {
+                    if (Config.domination || Config.mothership) {
                         player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
                         body.giveUp(player, body.isDominator ? "" : undefined);
                         return 1;
                     }
                 }
-                if (Config.MOTHERSHIP) {
+                if (Config.mothership) {
                     let motherships = ent
                         .map((entry) => {
                             if (
@@ -570,7 +570,7 @@ class socketManager {
                     player.body.name = body.name;
                     player.body.sendMessage("You are now controlling the mothership.");
                     player.body.sendMessage("Press F to relinquish control of the mothership.");
-                } else if (Config.DOMINATION) {
+                } else if (Config.domination) {
                     let dominators = ent.map((entry) => {
                         if (entry.isDominator && entry.team === player.body.team && !entry.underControl) return entry;
                     }).filter(x=>x);
@@ -654,7 +654,7 @@ class socketManager {
                 socket.talk("T");
             } break;
             case "DTA": {
-                if (player.body && player.body.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier && Config.daily_tank.ads.enabled && !socket.status.daily_tank_watched_ad) {
+                if (player.body && player.body.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && Config.daily_tank.ads.enabled && !socket.status.daily_tank_watched_ad) {
                     let chosenAd = ran.choose(Config.daily_tank.ads.source);
                     let isImage = chosenAd.file.endsWith(".png") || chosenAd.file.endsWith(".jpg") || chosenAd.file.endsWith(".jpeg")
                     socket.talk("DTA", JSON.stringify({src: chosenAd.file, normalAdSize: chosenAd.use_regular_ad_size ?? true, waitTime: isImage ? chosenAd.image_wait_time : "isVideo"}));
@@ -894,7 +894,7 @@ class socketManager {
         gui.upgrades.update(upgrades);
         // Update daily tank
         if (Config.daily_tank) {
-            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier && b.defs.includes(Config.spawn_class)) {
+            if (b.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && b.defs.includes(Config.spawn_class)) {
                 dailyTank = Config.daily_tank_INDEX;
             }
         }
@@ -1043,7 +1043,7 @@ class socketManager {
                 }
                 socket.player.body.skill.score = bodyInfo.score;
                 socket.player.body.skill.deduction = bodyInfo.score;
-                for (let i = 0; i < Config.LEVEL_CHEAT_CAP; i++) socket.player.body.skill.maintain();
+                for (let i = 0; i < Config.level_cap_cheat; i++) socket.player.body.skill.maintain();
                 socket.player.body.killCount = bodyInfo.killCount;
                 socket.player.body.skill.setCaps(bodyInfo.skillcap);
                 socket.player.body.skill.set(bodyInfo.skill);
@@ -1070,7 +1070,7 @@ class socketManager {
             }, 100)
             if (autoLVLup) {
                 if (!socket.player.body) return;
-                while (socket.player.body.skill.level < Config.LEVEL_CHEAT_CAP) {
+                while (socket.player.body.skill.level < Config.level_cap_cheat) {
                     socket.player.body.skill.score += socket.player.body.skill.levelScore;
                     socket.player.body.skill.maintain();
                     socket.player.body.refreshBodyAttributes();
@@ -1098,11 +1098,11 @@ class socketManager {
         let player = {},
             loc = {};
         player.team = rememberedTeam;
-        if (Config.CLAN_WARS && name) {
-            Config.CLAN_WARS_FT.add(name);
-            return { player: Config.CLAN_WARS_FT.getPlayerInfo(name), loc: Config.CLAN_WARS_FT.getSpawn(name) };
+        if (Config.clan_wars && name) {
+            Config.clan_wars_ft.add(name);
+            return { player: Config.clan_wars_ft.getPlayerInfo(name), loc: Config.clan_wars_ft.getSpawn(name) };
         }
-        if (Config.mode == "tdm" || Config.TAG) {
+        if (Config.mode == "tdm" || Config.tag) {
             let team = getWeakestTeam(global.gameManager);
             // Choose from one of the least ones
             if (player.team == null || (player.team !== team && global.defeatedTeams.includes(player.team))) {
@@ -1115,7 +1115,7 @@ class socketManager {
     }
     spawn = (socket, name) => {
         let { player, loc } = this.getSpawnLocation(socket.rememberedTeam, name);
-        if (socket.player.loc && !global.spawnPoint && !Config.CLAN_WARS) loc = socket.player.loc;
+        if (socket.player.loc && !global.spawnPoint && !Config.clan_wars) loc = socket.player.loc;
         // Create and bind a body for the player host
         let body;
         const filter = this.disconnections.filter(r => r.ip === socket.ip && r.body && !r.body.isDead());
@@ -1164,7 +1164,7 @@ class socketManager {
                 body.team = player.team;
                 body.color.base = global.getTeamColor(player.body.team);
                 socket.rememberedTeam = body.team;
-                Config.TAG_DATA.addPlayer(body);
+                Config.tag_data.addPlayer(body);
             } break;
             case 'clan': {
                 body.team = player.team;
@@ -1172,10 +1172,10 @@ class socketManager {
                 body.clan = player.clan;
                 body.color.base = getTeamColor(TEAM_RED);
                 socket.rememberedTeam = body.team;
-                Config.CLAN_WARS_FT.add(name, body);
+                Config.clan_wars_ft.add(name, body);
                 if (!body.clan) {
                     let loop = setInterval(() => {
-                    for (let e of Config.CLAN_WARS_FT.getClans()) {
+                    for (let e of Config.clan_wars_ft.getClans()) {
                             if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
                                 clearInterval(loop);
                             } else body.team = getRandomTeam();
@@ -1186,7 +1186,7 @@ class socketManager {
             default: {
                 let team = filter.length ? player.team : getRandomTeam();
                 body.team = team;
-                body.color.base = Config.RANDOM_COLORS ? 
+                body.color.base = Config.random_body_colors ? 
                     ran.choose([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]) : getTeamColor(TEAM_RED);
                 let loop = setInterval(() => {
                     for (let e of entities.values()) {
@@ -1203,7 +1203,7 @@ class socketManager {
 
     preparePlayer(socket, player, body, doNotTakeAction = {}) {
         // Decide what to do about colors when sending updates and stuff
-        player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
+        player.teamColor = new Color(!Config.random_body_colors && (Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
         // Set up the targeting structure
         player.target = { x: 0, y: 0 };
         // Set up the command structure
@@ -1347,7 +1347,7 @@ class socketManager {
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
                 // Set the proper color if it's on our team and decide what to do about colors when sending updates and stuff
-                player.teamColor = new Color(!Config.RANDOM_COLORS && (Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
+                player.teamColor = new Color(!Config.random_body_colors && (Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
                 // And make it force to our mouse if it ought to
                 if (player.command.autospin) {
                     data[10] = 1;
@@ -1364,9 +1364,9 @@ class socketManager {
             }
             if (
                 player.body.team === e.source.team &&
-                (Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG))
+                (Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag))
             ) {
-                // GROUPS
+                // groups
                 data = data.slice();
                 if (e.limited) data[11] = player.teamColor;
                 else data[12] = player.teamColor;
@@ -1478,7 +1478,7 @@ class socketManager {
                         let die = () => { // The only reason this exist is because of bacteria's abilities.
                             socket.status.deceased = true;
                             // Leave the clan party if clan wars is active
-                            if (Config.CLAN_WARS) Config.CLAN_WARS_FT.remove(player.body);
+                            if (Config.clan_wars) Config.clan_wars_ft.remove(player.body);
                             // Let the client know it died
                             socket.talk("F", ...player.records());
                             purge(); // Call the function so it can remove the body.
@@ -1701,7 +1701,7 @@ class socketManager {
                 if (is === 0) break;
                 let entry = list[top];
                 let color = entry.leaderboardColor ? entry.leaderboardColor + " 0 1 0 false" 
-                    : Config.GROUPS || (Config.mode == 'ffa' && !Config.TAG) ? '11 0 1 0 false'
+                    : Config.groups || (Config.mode == 'ffa' && !Config.tag) ? '11 0 1 0 false'
                     : entry.color.compiled;
                 topTen.push({
                     id: entry.id,
@@ -1709,7 +1709,7 @@ class socketManager {
                         Math.round(entry.skill.score),
                         entry.index,
                         entry.name,
-                        entry.leaderboardColor ? color : Config.mode == 'ffa' && !Config.TAG ? '12 0 1 0 false' : color,
+                        entry.leaderboardColor ? color : Config.mode == 'ffa' && !Config.tag ? '12 0 1 0 false' : color,
                         color,
                         entry.nameColor || "#FFFFFF",
                         entry.label,
@@ -1788,7 +1788,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG) ? '10 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag) ? '10 0 1 0 false' : my.color.compiled,
                         ],
                     });
                 }
@@ -1803,7 +1803,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.GROUPS || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.TAG) ? '12 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag) ? '12 0 1 0 false' : my.color.compiled,
                         ],
                     });
                 }
@@ -1811,8 +1811,8 @@ class socketManager {
         });
         let globalLeaderboard = new Delta(7, args => {
             let list = [];
-            if (Config.TAG) {
-                let teams = Config.TAG_DATA.getData();
+            if (Config.tag) {
+                let teams = Config.tag_data.getData();
                 for (let i = 0; i < teams.length; i++) {
                   list.push({
                     id: i,
@@ -1830,8 +1830,8 @@ class socketManager {
                 }
                 return list;
             }
-            if (Config.MOTHERSHIP) {
-                let teams = Config.MOTHERSHIP_DATA.getData();
+            if (Config.mothership) {
+                let teams = Config.mothership_data.getData();
                 for (let i = 0; i < teams.length; i++) {
                     let m = teams[i];
                     if (!m.isDead()) {
@@ -1922,7 +1922,7 @@ class socketManager {
 
                 leaderboardUpdate = getLeaderboard.update(
                     socket.id,
-                    (Config.GROUPS || (Config.mode == 'ffa' && !Config.TAG)) && socket.player.body ? socket.player.body.id : null
+                    (Config.groups || (Config.mode == 'ffa' && !Config.tag)) && socket.player.body ? socket.player.body.id : null
                 );
                 let team = socket.status.seesAllTeams ? minimapAllTeamsUpdate : minimapTeamUpdates;
                 

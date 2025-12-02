@@ -1,12 +1,12 @@
 module.exports = {
     mode: "tdm",
-    TEAMS: 2,
+    teams: 2,
     ASSAULT: true,
     map_tile_width: 413,
     map_tile_height: 412,
     do_not_override_room: false,
     room_setup: ["room_assault_line"],
-    MAZE_TYPE: 17,
+    maze_type: 17,
     BOT_MOVE: [{
         TEAM: TEAM_GREEN,
         RANGE: 70,

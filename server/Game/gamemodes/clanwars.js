@@ -4,7 +4,7 @@ class ClanWars {
         this.clans = [];
         this.index = -1;
         this.teamID = 110;
-        Config.CLAN_WARS_FT = {
+        Config.clan_wars_ft = {
             getClans: () => this.clans,
             add: (name, addToPartyList = false) => {
                 let clanCheck = name.match(/\[(.*?)\]/);

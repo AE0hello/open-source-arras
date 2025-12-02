@@ -355,7 +355,7 @@ class Entity extends EventEmitter {
         if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER, this.ac = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.MAX_UPGRADE_TIER; i++) {
+        for (let i = 0; i < Config.tier_cap; i++) {
             let tierProp = 'UPGRADES_TIER_' + i;
             if (set[tierProp] != null && emitEvent) {
                 for (let j = 0; j < set[tierProp].length; j++) {
@@ -370,7 +370,7 @@ class Entity extends EventEmitter {
                     }
                     this.upgrades.push({
                         class: trueUpgrades,
-                        level: Config.TIER_MULTIPLIER * i,
+                        level: Config.tier_multiplier * i,
                         index: index.substring(0, index.length - 1),
                         tier: i,
                         branch: 0,
@@ -393,8 +393,8 @@ class Entity extends EventEmitter {
             }
             this.refreshBodyAttributes();
         }
-        if (set.LEVEL_CAP != null) {
-            this.levelCap = set.LEVEL_CAP;
+        if (set.level_cap != null) {
+            this.levelCap = set.level_cap;
         }
         const SKILL_ORDER = [
             "RELOAD",
@@ -445,7 +445,7 @@ class Entity extends EventEmitter {
         if (set.GUN_STAT_SCALE) this.gunStatScale = set.GUN_STAT_SCALE;
         if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
         if (set.MAX_BULLETS != null) this.maxBullets = set.MAX_BULLETS; 
-        if ("function" === typeof set.LEVEL_SKILL_POINT_FUNCTION) this.skill.LSPF = set.LEVEL_SKILL_POINT_FUNCTION;
+        if ("function" === typeof set.defineLevelSkillPoints) this.skill.LSPF = set.defineLevelSkillPoints;
         if (set.RECALC_SKILL != null) {
             let score = this.skill.score;
             this.skill.reset();
@@ -570,9 +570,9 @@ class Entity extends EventEmitter {
     }
 
     refreshBodyAttributes() {
-        const level = Math.min(Config.GROWTH ? 120 : 45, this.level);
+        const level = Math.min(Config.growth ? 120 : 45, this.level);
         let speedReduce = Math.min(
-            Config.GROWTH ? 4 : 2,
+            Config.growth ? 4 : 2,
             this.size / (this.coreSize || this.SIZE)
         );
         this.acceleration = (1 * global.gameManager.runSpeed * this.ACCELERATION) / speedReduce;
@@ -662,12 +662,12 @@ class Entity extends EventEmitter {
     }
 
     get level() {
-        return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
+        return Math.min(this.levelCap ?? Config.level_cap, this.skill.level);
     }
     // How this works: in 2025 growth a 3.00m player has the same size as a wall (tile)
     get size() {
         let level = this.level;
-        if (!Config.GROWTH) level = Math.min(45, level);
+        if (!Config.growth) level = Math.min(45, level);
         let levelMultiplier = 1;
         if (this.settings.healthWithLevel) {
             levelMultiplier += Math.min(45, level) / 45;
@@ -812,7 +812,7 @@ class Entity extends EventEmitter {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
             if (!Config.daily_tank.ads.enabled) hasWatchedAd = true;
             let requestedIndex = parseInt(number.tank);
-            if (requestedIndex === ensureIsClass(Config.daily_tank.tank).index && this.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier) {
+            if (requestedIndex === ensureIsClass(Config.daily_tank.tank).index && this.skill.level >= Config.tier_multiplier * Config.daily_tank.tier) {
                 if (hasWatchedAd) {
                     upgraded = true;
                     this.upgrades = [];

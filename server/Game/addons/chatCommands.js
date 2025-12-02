@@ -108,11 +108,11 @@ let commands = [
                         if (!args[1]) return socket.talk("m", 3_000, "Invalid argument.");
                         if (args[1] === "0") {
                             Config.mode = "ffa";
-                            Config.TEAMS = null;
+                            Config.teams = null;
                             socket.rememberedTeam = undefined;
                         } else {
                             Config.mode = "tdm";
-                            Config.TEAMS = args[1];
+                            Config.teams = args[1];
                             socket.rememberedTeam = undefined;
                         }
                         break;

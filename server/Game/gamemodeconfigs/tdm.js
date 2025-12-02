@@ -1,6 +1,6 @@
 module.exports = {
     mode: "tdm",
-    TEAMS: Config.TEAMS,
+    teams: Config.teams,
     do_not_override_room: true,
     room_setup: ["room_tdm"],
 };

@@ -180,7 +180,7 @@ class gameHandler {
                             !instance.isDominator &&
                             !other.isDominator
                         ) {
-                            switch (Config.TRAIN) {
+                            switch (Config.train) {
                                 case true:
                                     firmcollidehard(instance, other, 20);
                                     break;
@@ -367,7 +367,7 @@ class gameHandler {
         // Upgrade bots's skill
         for (let i = 0; i < this.bots.length; i++) {
             let o = this.bots[i];
-            if (o.skill.level < Config.LEVEL_CAP && o.skill.level >= Config.bot_start_level) {
+            if (o.skill.level < Config.level_cap && o.skill.level >= Config.bot_start_level) {
                 o.skill.score += Config.bot_xp_gain;            
             }
         }
@@ -437,7 +437,7 @@ class gameHandler {
         o.name = botName;
         o.invuln = true;
         o.leftoverUpgrades = ran.chooseChance(...Config.bot_class_upgrade_chances);
-        let color = Config.RANDOM_COLORS ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
+        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
         o.color.base = color;
         o.leaderboardColor = color;
         o.minimapColor = color;
@@ -451,7 +451,7 @@ class gameHandler {
         o.refreshBodyAttributes();
         if (team) o.team = team;
         this.bots.push(o);
-        if (Config.TAG) Config.TAG_DATA.addBot(o), global.nextTagBotTeam = null;
+        if (Config.tag) Config.tag_data.addBot(o), global.nextTagBotTeam = null;
         setTimeout(() => {
             // allow them to move
             let CC = Class[o.defs[0]];

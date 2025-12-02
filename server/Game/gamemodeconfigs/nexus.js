@@ -1,6 +1,6 @@
 module.exports = {
     mode: "tdm",
-    TEAMS: 1,
+    teams: 1,
     map_tile_width: 200,
     map_tile_height: 200,
     enable_food: false,

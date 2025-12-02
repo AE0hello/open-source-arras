@@ -12,13 +12,13 @@ let { gamemodeManager } = require("./Game/gamemodeManager.js");
 // Gamemode names
 const getName = (name, gamemodeData) => {
     const nameMap = {
-        tdm: `${gamemodeData.TEAMS}TDM`,
+        tdm: `${gamemodeData.teams}TDM`,
         ffa: "FFA",
         tag: "Tag",
-        opentdm: `Open ${gamemodeData.TEAMS}TDM`,
+        opentdm: `Open ${gamemodeData.teams}TDM`,
         clanwars: "Clan Wars",
         trainwars: "Train Wars",
-        old_dreadnoughts: `Old Dreadnoughts ${gamemodeData.TEAMS}TDM`,
+        old_dreadnoughts: `Old Dreadnoughts ${gamemodeData.teams}TDM`,
         nexus: "Nexus",
         blackout: "Blackout",
         outbreak: "Outbreak",
@@ -229,7 +229,7 @@ class gameServer {
             // Update the server gamemode name
             this.name = this.gamemode.map(x => getName(x, Config) || (x[0].toUpperCase() + x.slice(1))).join(' ');
             // Activate laby food if enabled
-            if (Config.TIERED_FOOD) global.activateTieredFood();
+            if (Config.tiered_food) global.activateTieredFood();
             // Initalize the room
             this.setRoom();
             setTimeout(() => {

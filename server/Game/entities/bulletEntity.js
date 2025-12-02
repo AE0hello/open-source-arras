@@ -309,7 +309,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
     }
 
     get level() {
-        return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
+        return Math.min(this.levelCap ?? Config.level_cap, this.skill.level);
     }
     get size() {
         return this.bond == null ? (this.coreSize || this.SIZE) * this.sizeMultiplier * (1 + this.level / 45) : this.bond.size * this.bound.size;

@@ -60,7 +60,7 @@ module.exports = {
             player_cap: 80, // Not including bots.
 
             properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
-                TEAMS: 4,
+                teams: 4,
                 bot_cap: 45,
                 daily_tank: { 
                     tank: "master",
@@ -89,8 +89,8 @@ module.exports = {
     popup_message_duration: 10_000, // How long (in milliseconds) a popup message lasts before fading out.
     sanitize_chat_input: true, // If you don't want your players to color their messages. They get sanitized after addons interpret them, but before they're added to the chat message dictionary.
 
-    // Toggles the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
-    spooky_theme: false,
+    // Seasonal
+    spooky_theme: false, // Toggles the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
 
     // Gameplay
     game_speed: 1, // General game speed.
@@ -106,23 +106,23 @@ module.exports = {
     soft_max_skill: 0.59, // TODO: Find out what the intention behind the implementation of this configuration is.
 
     // When an entity reaches a level, this function is called and returns how many skill points that entity gets for reaching that level.
-    LEVEL_SKILL_POINT_FUNCTION: level => {
+    defineLevelSkillPoints: level => {
         if (level < 2) return 0;
         if (level <= 40) return 1;
         if (level <= 45 && level & 1 === 1) return 1;
         return 0;
     },
 
-    LEVEL_CAP: 45, // Maximum normally achievable level.
-    LEVEL_CHEAT_CAP: 45, // Maximum level via the level-up key and auto-level-up.
+    level_cap: 45, // Maximum normally achievable level.
+    level_cap_cheat: 45, // Maximum level via the level-up key and auto-level-up.
 
-    MAX_SKILL: 9, // Default skill caps.
-    MAX_UPGRADE_TIER: 9, // Amount of tank tiers.
-    TIER_MULTIPLIER: 15, // Level difference between each tier.
+    skill_cap: 9, // Default skill caps.
+    tier_cap: 9, // Amount of tank tiers.
+    tier_multiplier: 15, // Level difference between each tier.
 
     // Bots
     bot_cap: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
-    bot_xp_gain: 60, // How much XP bots get until they reach LEVEL_CAP.
+    bot_xp_gain: 60, // How much XP bots get until they reach level_cap.
     bot_start_level: 45, // How much XP bots will receive when first created.
     bot_skill_upgrade_chances: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1], // The chances of a bot upgrading a specific skill when skill upgrades are available.
     bot_class_upgrade_chances: [1, 5, 20, 37, 37], // The chances of a bot upgrading a specific amount of times before it stops upgrading.
@@ -195,30 +195,29 @@ module.exports = {
     // Check gamemodeconfigs to see how this works.
     team_weights: {},
 
+    // Fun
+    random_body_colors: false,
+
     // These are the default values for gamemode related things.
     // If you want to change them, copy the values you want to change to the server's properties. Changing them here could break stuff!
     enable_food: true,
     gamemode_name_prefixes: [],
     special_boss_spawns: false,
-    CLASSIC_SIEGE: false,
-    MOTHERSHIP: false,
-    DOMINATION: false,
-    RANDOM_COLORS: false,
-    SPACE_PHYSICS: false,
-    TIERED_FOOD: false,
+    use_limited_waves: false,
+    mothership: false,
+    domination: false,
+    tiered_food: false,
     arena_shape: "rect",
     blackout: false,
     space_physics: false,
-    ARMS_RACE: false,
-    CLAN_WARS: false,
-    GROWTH: false,
-    GROUPS: false,
-    TRAIN: false,
-    MAZE: false,
-    HUNT: false,
+    arms_race: false,
+    clan_wars: false,
+    growth: false,
+    groups: false,
+    train: false,
     mode: "ffa",
-    TAG: false,
-    TEAMS: 4,
+    tag: false,
+    teams: 4,
     spawn_confinement: {},
 
     // Room setup

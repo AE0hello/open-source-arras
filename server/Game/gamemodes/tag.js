@@ -3,7 +3,7 @@ class Tag {
         this.won = false;
         this.canStart = false;
         this.teams = null;
-        Config.TAG_DATA = {
+        Config.tag_data = {
             getData: () => this.teams,
             initAndStart: () => {
                 this.canStart = true;
@@ -11,9 +11,9 @@ class Tag {
             resetAndStop: () => {
                 this.canStart = false;
                 this.won = false;
-                this.teams = Array(Config.TEAMS).fill(0);
+                this.teams = Array(Config.teams).fill(0);
             },
-            redefineTeams: () => { this.teams = Array(Config.TEAMS).fill(0); },
+            redefineTeams: () => { this.teams = Array(Config.teams).fill(0); },
             addToTeam: (team) => {
                 this.teams[team - 1]++;
                 this.checkWin();
@@ -24,18 +24,18 @@ class Tag {
             },
             addPlayer: entity => {
                 let team = -entity.team;
-                Config.TAG_DATA.addToTeam(team);
+                Config.tag_data.addToTeam(team);
                 entity.on("dead", ({ killers }) => {
-                  Config.TAG_DATA.removeFromTeam(team);
+                  Config.tag_data.removeFromTeam(team);
                   let players = killers.filter(entity => entity.isPlayer || entity.isBot);
                   if (players.length) entity.socket.rememberedTeam = players[0].team;
                 });
             },
             addBot: entity => {
                 let team = -entity.team;
-                Config.TAG_DATA.addToTeam(team);
+                Config.tag_data.addToTeam(team);
                 entity.on("dead", ({ killers }) => {
-                  Config.TAG_DATA.removeFromTeam(team);
+                  Config.tag_data.removeFromTeam(team);
                   let killer = killers.filter(entity => entity.isPlayer || entity.isBot);
                   if (killer.length) global.nextTagBotTeam = killer[0].team;
                 });
@@ -64,7 +64,7 @@ class Tag {
         }, 3e3);
     }
     redefine(theshit) {
-        Config.TAG_DATA.redefineTeams();
+        Config.tag_data.redefineTeams();
     }
 }
 

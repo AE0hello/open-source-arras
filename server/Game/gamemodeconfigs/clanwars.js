@@ -1,4 +1,4 @@
 module.exports = {
     mode: "clan",
-    CLAN_WARS: true,
+    clan_wars: true,
 }

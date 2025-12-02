@@ -50,7 +50,7 @@ global.getTeamColor = (team, fixMode = false) => {
 global.isPlayerTeam = team => /*team < 0 && */team > -11;
 global.getWeakestTeam = () => {
     let teamcounts = {};
-    for (let i = -Config.TEAMS; i < 0; i++) {
+    for (let i = -Config.teams; i < 0; i++) {
         if (global.defeatedTeams.includes(i)) continue;
         teamcounts[i] = 0;
     }
@@ -68,7 +68,7 @@ global.getWeakestTeam = () => {
     });
     let lowestTeamCount = Math.min(...teamcounts.map(x => x[1])),
         entries = teamcounts.filter(a => a[1] == lowestTeamCount);
-    return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.TEAMS) : ran.choose(entries)[0]);
+    return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.teams) : ran.choose(entries)[0]);
 };
 global.getRandomTeam = () => -Math.floor(Math.random() * 3000) + 1;
 
@@ -422,7 +422,7 @@ global.defineSplit = (() => {
             my.addController(toAdd);
         }
         if (set.BATCH_UPGRADES != null) my.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.MAX_UPGRADE_TIER; i++) {
+        for (let i = 0; i < Config.tier_cap; i++) {
             let tierProp = 'UPGRADES_TIER_' + i;
             if (set[tierProp] != null && emitEvent) {
                 for (let j = 0; j < set[tierProp].length; j++) {
@@ -437,7 +437,7 @@ global.defineSplit = (() => {
                     }
                     my.upgrades.push({
                         class: trueUpgrades,
-                        level: Config.TIER_MULTIPLIER * i,
+                        level: Config.tier_multiplier * i,
                         index: index.substring(0, index.length - 1),
                         tier: i,
                         branch,
@@ -477,7 +477,7 @@ global.handleBatchUpgradeSplit = (() => {
             }
             my.upgrades.push({
                 class: upgradeClass,
-                level: Config.TIER_MULTIPLIER * upgradeTier,
+                level: Config.tier_multiplier * upgradeTier,
                 index: upgradeIndex.substring(0, upgradeIndex.length - 1),
                 tier: upgradeTier,
                 branch: 0,

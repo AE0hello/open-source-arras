@@ -169,7 +169,7 @@ class turretEntity extends EventEmitter {
             if (set.SKILL_CAP.length != 10) throw "Inappropiate skill cap amount.";
             this.skill.setCaps(set.SKILL_CAP);
         }
-        if ("function" === typeof set.LEVEL_SKILL_POINT_FUNCTION) this.skill.LSPF = set.LEVEL_SKILL_POINT_FUNCTION;
+        if ("function" === typeof set.defineLevelSkillPoints) this.skill.LSPF = set.defineLevelSkillPoints;
         if (set.RECALC_SKILL != null) {
             let score = this.skill.score;
             this.skill.reset();

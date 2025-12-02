@@ -176,7 +176,7 @@ Class.dominator = {
         spd: 1,
     }),
     LEVEL: 45,
-    LEVEL_CAP: 45,
+    level_cap: 45,
     SIZE: 50,
     SYNC_WITH_TANK: true,
     BODY: {

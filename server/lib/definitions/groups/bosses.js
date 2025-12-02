@@ -3116,14 +3116,14 @@ Class.toothlessBase = {
         HEALTH: 6 * base.HEALTH,
         DAMAGE: 2 * base.DAMAGE,
     },
-    LEVEL_CAP: 45,
+    level_cap: 45,
     EXTRA_SKILL: 78, // 120 - 42
     SHAPE: 3,
     VALUE: 30e3,
     SIZE: 24,
     COLOR: "purple",
     SKILL_CAP: Array(10).fill(smshskl + 3),
-    LEVEL_SKILL_POINT_FUNCTION: (level) => {
+    defineLevelSkillPoints: (level) => {
         if (level < 2) return 0;
         if (level <= 40) return 1;
         if (level <= 45 && level & (1 == 1)) return 1;
@@ -3467,7 +3467,7 @@ Class.AEMKShipBoss = {
         RECURSION: 3,
     },
     DANGER: 10,
-    LEVEL_CAP: 45,
+    level_cap: 45,
     LEVEL: 45,
     SIZE: Class.genericTank.SIZE * (17 / 3),
     SHAPE: 16,

@@ -14,9 +14,9 @@ const skcnv = {
 let curvePoints = [];
 
 let curve = (x) => {
-    let index = x * Config.MAX_SKILL;
+    let index = x * Config.skill_cap;
     if (!curvePoints[index])
-        curvePoints[index] = Math.log(4 * (index / Config.MAX_SKILL) + 1) / 1.6;
+        curvePoints[index] = Math.log(4 * (index / Config.skill_cap) + 1) / 1.6;
     return curvePoints[index];
 };
 function apply(f, x) {
@@ -28,7 +28,7 @@ class Skill {
         // Just skill stuff.
         this.raw = inital;
         this.caps = [];
-        this.setCaps([ Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL, Config.MAX_SKILL ]);
+        this.setCaps([ Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap ]);
         this.name = [
             "Reload",
             "Bullet Penetration",
@@ -76,7 +76,7 @@ class Skill {
         }
         let attrib = [];
         for (let i = 0; i < 10; i++) {
-            attrib[i] = curve(this.raw[i] / Config.MAX_SKILL);
+            attrib[i] = curve(this.raw[i] / Config.skill_cap);
         }
         this.rld = Math.pow(0.5, attrib[skcnv.rld]);
         this.pen = apply(2.5, attrib[skcnv.pen]);
@@ -139,7 +139,7 @@ class Skill {
         return this.levelScore ? (this.score - this.deduction) / this.levelScore : 0;
     }
     get levelPoints() {
-        return this.LSPF ? this.LSPF(this.level) : Config.LEVEL_SKILL_POINT_FUNCTION(this.level);
+        return this.LSPF ? this.LSPF(this.level) : Config.defineLevelSkillPoints(this.level);
     }
     cap(skill, real = false) {
         return this.caps[skcnv[skill]];
