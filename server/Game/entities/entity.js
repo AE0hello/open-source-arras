@@ -141,7 +141,7 @@ class Entity extends EventEmitter {
 
     become(player, dom = false) {
         this.addController(new ioTypes.listenToPlayer(this, { player, static: dom })); // Make it listen.
-        this.sendMessage = (content, displayTime = Config.MESSAGE_DISPLAY_TIME) =>
+        this.sendMessage = (content, displayTime = Config.popup_message_duration) =>
             player.socket.talk("m", displayTime, content);  // make sure that it sends messages.
         this.kick = (reason) => player.socket.kick(reason);
     }
@@ -810,13 +810,13 @@ class Entity extends EventEmitter {
         let upgraded = false;
         if (number.isDailyUpgrade) {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
-            if (!Config.DAILY_TANK.ADS.ENABLED) hasWatchedAd = true;
+            if (!Config.daily_tank.ads.enabled) hasWatchedAd = true;
             let requestedIndex = parseInt(number.tank);
-            if (requestedIndex === ensureIsClass(Config.DAILY_TANK.tank).index && this.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER) {
+            if (requestedIndex === ensureIsClass(Config.daily_tank.tank).index && this.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier) {
                 if (hasWatchedAd) {
                     upgraded = true;
                     this.upgrades = [];
-                    this.define(Config.DAILY_TANK.tank);
+                    this.define(Config.daily_tank.tank);
                 } else this.sendMessage("You must watch an ad before you can upgrade.");
             }
         } else {
@@ -924,15 +924,15 @@ class Entity extends EventEmitter {
                     y: global.gameManager.room.height - global.gameManager.room.height,
                 }, dist = util.getDistance(this, centerPoint);
                 if (dist > global.gameManager.room.width - global.gameManager.room.width / 2) {
-                    let strength = (dist - global.gameManager.room.width / 2) * Config.ROOM_BOUND_FORCE / (Config.runSpeed * 350);
+                    let strength = (dist - global.gameManager.room.width / 2) * Config.room_bound_force / (Config.runSpeed * 350);
                     this.x = util.lerp(this.x, centerPoint.x, strength);
                     this.y = util.lerp(this.y, centerPoint.y, strength);
                 }
             } else {
-                this.accel.x -= Math.min(this.x - this.realSize + global.gameManager.room.width / 2 + 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.x -= Math.max(this.x + this.realSize - global.gameManager.room.width / 2 - 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.y -= Math.min(this.y - this.realSize + global.gameManager.room.height / 2 + 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
+                this.accel.x -= Math.min(this.x - this.realSize + global.gameManager.room.width / 2 + 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.x -= Math.max(this.x + this.realSize - global.gameManager.room.width / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.y -= Math.min(this.y - this.realSize + global.gameManager.room.height / 2 + 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
             }
         }
     }
@@ -1131,7 +1131,7 @@ class Entity extends EventEmitter {
         entitiesToAvoid.push(this); this.isProtected = true;
     }
     
-    say(message, duration = Config.CHAT_MESSAGE_DURATION) {
+    say(message, duration = Config.chat_message_duration) {
         if (!chats[this.id]) {
             chats[this.id] = [];
         }

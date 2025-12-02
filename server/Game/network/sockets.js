@@ -22,7 +22,7 @@ class socketManager {
 
     broadcast(message) {
         for (let i = 0; i < this.clients.length; i++) {
-            this.clients[i].talk("m", Config.MESSAGE_DISPLAY_TIME, message);
+            this.clients[i].talk("m", Config.popup_message_duration, message);
         }
     };
     broadcastRoom() {
@@ -607,7 +607,7 @@ class socketManager {
     
                 util.log(player.body.name + ': ' + original);
     
-                if (Config.SANITIZE_CHAT_MESSAGE_COLORS) {
+                if (Config.sanitize_chat_input) {
                     // I thought it should be "§§" but it only works if you do "§§§§"?
                     message = message.replace(/§/g, "§§§§");
                     original = original.replace(/§/g, "§§§§");
@@ -627,7 +627,7 @@ class socketManager {
                     chats[id] = [];
                 }
 
-                chats[id].unshift({ message, expires: Date.now() + Config.CHAT_MESSAGE_DURATION });
+                chats[id].unshift({ message, expires: Date.now() + Config.chat_message_duration });
     
                 // do one tick of the chat loop so they don't need to wait 100ms to receive it.
                 this.chatLoop();
@@ -654,10 +654,10 @@ class socketManager {
                 socket.talk("T");
             } break;
             case "DTA": {
-                if (player.body && player.body.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER && Config.DAILY_TANK.ADS.ENABLED && !socket.status.daily_tank_watched_ad) {
-                    let chosenAd = ran.choose(Config.DAILY_TANK.ADS.SOURCE);
-                    let isImage = chosenAd.src.endsWith(".png") || chosenAd.src.endsWith(".jpg") || chosenAd.src.endsWith(".jpeg")
-                    socket.talk("DTA", JSON.stringify({src: chosenAd.src, normalAdSize: chosenAd.REGULAR_AD_SIZE ?? true, waitTime: isImage ? chosenAd.WAIT_TIME : "isVideo"}));
+                if (player.body && player.body.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier && Config.daily_tank.ads.enabled && !socket.status.daily_tank_watched_ad) {
+                    let chosenAd = ran.choose(Config.daily_tank.ads.source);
+                    let isImage = chosenAd.file.endsWith(".png") || chosenAd.file.endsWith(".jpg") || chosenAd.file.endsWith(".jpeg")
+                    socket.talk("DTA", JSON.stringify({src: chosenAd.file, normalAdSize: chosenAd.use_regular_ad_size ?? true, waitTime: isImage ? chosenAd.image_wait_time : "isVideo"}));
                     if (isImage) {
                         setTimeout(() => {
                             setTimeout(() => {
@@ -717,7 +717,7 @@ class socketManager {
         // This function wiSl be called in the slow loop
         return () => {
             // Kick if it's d/c'd
-            if (util.time() - socket.status.lastHeartbeat > Config.maxHeartbeatInterval) {
+            if (util.time() - socket.status.lastHeartbeat > Config.max_heartbeat_interval) {
                 socket.kick("Heartbeat lost.");
                 return 0;
             }
@@ -893,12 +893,12 @@ class socketManager {
         b.skippedUpgrades = skippedUpgrades;
         gui.upgrades.update(upgrades);
         // Update daily tank
-        if (Config.DAILY_TANK) {
-            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER && b.defs.includes(Config.SPAWN_CLASS)) {
-                dailyTank = Config.DAILY_TANK_INDEX;
+        if (Config.daily_tank) {
+            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier && b.defs.includes(Config.SPAWN_CLASS)) {
+                dailyTank = Config.daily_tank_INDEX;
             }
         }
-        gui.dailyTank.update(JSON.stringify([dailyTank, Config.DAILY_TANK.ADS.ENABLED && !b.socket.status.daily_tank_watched_ad ? true : false]));
+        gui.dailyTank.update(JSON.stringify([dailyTank, Config.daily_tank.ads.enabled && !b.socket.status.daily_tank_watched_ad ? true : false]));
         // Update the stats and skills
         gui.stats.update();
         gui.skills.update(this.getstuff(b.skill));
@@ -1227,7 +1227,7 @@ class socketManager {
             player.records = () => [
                 player.body.skill.score,
                 Math.floor((util.time() - begin) / 1000),
-                Config.RESPAWN_TIMEOUT,
+                Config.respawn_delay,
                 player.body.killCount.solo,
                 player.body.killCount.assists,
                 player.body.killCount.bosses,
@@ -1250,7 +1250,7 @@ class socketManager {
 
         //send the welcome message
         if (!doNotTakeAction.dontSendWelcomeMessage) {
-            let msg = Config.WELCOME_MESSAGE.split("\n");
+            let msg = Config.spawn_message.split("\n");
             for (let i = 0; i < msg.length; i++) {
                 body.sendMessage(msg[i]);
             }
@@ -1960,7 +1960,7 @@ class socketManager {
             let time = performance.now();
             for (let socket of this.clients) {
                 if (socket.timeout.check(time)) socket.lastWords("K");
-                if (time - socket.statuslastHeartbeat > Config.maxHeartbeatInterval) socket.kick("Lost heartbeat.");
+                if (time - socket.statuslastHeartbeat > Config.max_heartbeat_interval) socket.kick("Lost heartbeat.");
             }
         }, 250);
         const broadcast = {
@@ -2048,7 +2048,7 @@ class socketManager {
         socket.connectedTo = global.gameManager.name;
         let timer = 0;
         socket.timeout = {
-            check: (time) => timer && time - timer > Config.maxHeartbeatInterval,
+            check: (time) => timer && time - timer > Config.max_heartbeat_interval,
             start: () => {
                 timer = performance.now();
             },
@@ -2181,11 +2181,11 @@ class socketManager {
             }
         }
 
-        if (!Config.load_all_mockups && Config.DAILY_TANK && !Array.isArray(Config.DAILY_TANK)) {
-            const tank = ensureIsClass(Config.DAILY_TANK.tank);
+        if (!Config.load_all_mockups && Config.daily_tank && !Array.isArray(Config.daily_tank)) {
+            const tank = ensureIsClass(Config.daily_tank.tank);
             if (tank) {
-                Config.DAILY_TANK_INDEX = tank.index.toString();
-                this.sendMockup(Config.DAILY_TANK_INDEX, socket);
+                Config.daily_tank_INDEX = tank.index.toString();
+                this.sendMockup(Config.daily_tank_INDEX, socket);
             }
         }
 

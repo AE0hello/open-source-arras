@@ -1,7 +1,7 @@
 module.exports = {
     MODE: "ffa",
-    TILE_WIDTH: 30,
-    TILE_HEIGHT: 30,
+    map_tile_width: 30,
+    map_tile_height: 30,
     ROOM_SETUP: ["room_sandbox"],
     BOTS: 0,
     FOOD_CAP: 12,

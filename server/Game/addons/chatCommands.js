@@ -218,7 +218,7 @@ let commands = [
                 let time = performance.now();
                 let sinceLastReload = time - global.reloadDefinitionsInfo.lastReloadTime;
                 if (sinceLastReload < 5000) {
-                    socket.talk('m', Config.MESSAGE_DISPLAY_TIME, `Wait ${Math.floor((5000 - sinceLastReload) / 100) / 10} seconds and try again.`);
+                    socket.talk('m', Config.popup_message_duration, `Wait ${Math.floor((5000 - sinceLastReload) / 100) / 10} seconds and try again.`);
                     return;
                 }
                 // Set the timeout timer ---
@@ -281,7 +281,7 @@ let commands = [
                 }
 
                 // Tell the command sender
-                socket.talk('m', Config.MESSAGE_DISPLAY_TIME, "Successfully reloaded all definitions.");
+                socket.talk('m', Config.popup_message_duration, "Successfully reloaded all definitions.");
 
 
                 // Erase mockups so it can rebuild.

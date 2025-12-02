@@ -372,9 +372,9 @@ class gameHandler {
             }
         }
         // Spawn bosses
-        if (this.checkUsers() && Config.ENABLE_BOSS_SPAWN && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
-            this.bossTimer = -Config.BOSS_SPAWN_DELAY - 2;
-            let selection = Config.BOSS_TYPES[ran.chooseChance(...Config.BOSS_TYPES.map((selection) => selection.chance))],
+        if (this.checkUsers() && Config.bosses_spawn && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.boss_spawn_cooldown) {
+            this.bossTimer = -Config.boss_spawn_delay - 2;
+            let selection = Config.boss_types[ran.chooseChance(...Config.boss_types.map((selection) => selection.chance))],
                 amount = ran.chooseChance(...selection.amount) + 1;
             if (selection.message) {
                 global.gameManager.socketManager.broadcast(selection.message);
@@ -399,7 +399,7 @@ class gameHandler {
                 }
 
                 global.gameManager.socketManager.broadcast(`${util.listify(names)} ${names.length == 1 ? 'has' : 'have'} arrived!`);
-            }, Config.BOSS_SPAWN_DELAY * 30);
+            }, Config.boss_spawn_delay * 30);
         }
     };
 

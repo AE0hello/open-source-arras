@@ -434,15 +434,15 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
                     y: global.gameManager.room.height - global.gameManager.room.height,
                 }, dist = util.getDistance(this, centerPoint);
                 if (dist > global.gameManager.room.width - global.gameManager.room.width / 2) {
-                    let strength = (dist - global.gameManager.room.width / 2) * Config.ROOM_BOUND_FORCE / (Config.runSpeed * 350);
+                    let strength = (dist - global.gameManager.room.width / 2) * Config.room_bound_force / (Config.runSpeed * 350);
                     this.x = util.lerp(this.x, centerPoint.x, strength);
                     this.y = util.lerp(this.y, centerPoint.y, strength);
                 }
             } else {
-                this.accel.x -= Math.min(this.x - this.realSize + global.gameManager.room.width / 2 + 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.x -= Math.max(this.x + this.realSize - global.gameManager.room.width / 2 - 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.y -= Math.min(this.y - this.realSize + global.gameManager.room.height / 2 + 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
+                this.accel.x -= Math.min(this.x - this.realSize + global.gameManager.room.width / 2 + 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.x -= Math.max(this.x + this.realSize - global.gameManager.room.width / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.y -= Math.min(this.y - this.realSize + global.gameManager.room.height / 2 + 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
             }
         }
     };

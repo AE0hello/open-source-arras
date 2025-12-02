@@ -61,8 +61,8 @@ class gameServer {
         this.definitionsCombiner = new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') });
         this.loaderGlobal = loaderGlobal;
         // Initalize.
-        this.roomSpeed = Config.gameSpeed;
-        this.runSpeed = Config.runSpeed;
+        this.roomSpeed = Config.game_speed;
+        this.runSpeed = Config.run_speed;
         this.clients = [];
         this.views = [];
         this.minimap = [];
@@ -380,16 +380,16 @@ class gameServer {
     setRoomProperties() {
         // It's size
         Object.defineProperties(this.room, {
-            tileWidth: { get: () => Config.TILE_WIDTH, set: v => Config.TILE_WIDTH = v },
-            tileHeight: { get: () => Config.TILE_HEIGHT, set: v => Config.TILE_HEIGHT = v },
-            width: { get: () => this.room.xgrid * Config.TILE_WIDTH, set: v => Config.TILE_WIDTH = v / this.room.xgrid },
-            height: { get: () => this.room.ygrid * Config.TILE_HEIGHT, set: v => Config.TILE_HEIGHT = v / this.room.ygrid }
+            tileWidth: { get: () => Config.map_tile_width, set: v => Config.map_tile_width = v },
+            tileHeight: { get: () => Config.map_tile_height, set: v => Config.map_tile_height = v },
+            width: { get: () => this.room.xgrid * Config.map_tile_width, set: v => Config.map_tile_width = v / this.room.xgrid },
+            height: { get: () => this.room.ygrid * Config.map_tile_height, set: v => Config.map_tile_height = v / this.room.ygrid }
         });
 
         // And center
         Object.defineProperties(this.room.center, {
-            x: { get: () => this.room.xgrid * Config.TILE_WIDTH / 2 - this.room.width / 2, set: v => Config.TILE_WIDTH = v * 2 / this.room.xgrid - this.room.width / 2 },
-            y: { get: () => this.room.ygrid * Config.TILE_HEIGHT / 2 - this.room.height / 2, set: v => Config.TILE_HEIGHT = v * 2 / this.room.ygrid - this.room.height / 2 }
+            x: { get: () => this.room.xgrid * Config.map_tile_width / 2 - this.room.width / 2, set: v => Config.map_tile_width = v * 2 / this.room.xgrid - this.room.width / 2 },
+            y: { get: () => this.room.ygrid * Config.map_tile_height / 2 - this.room.height / 2, set: v => Config.map_tile_height = v * 2 / this.room.ygrid - this.room.height / 2 }
         });
     }
 

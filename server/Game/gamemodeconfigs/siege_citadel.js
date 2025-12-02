@@ -3,8 +3,8 @@ module.exports = {
     TEAMS: 1,
     SPECIAL_BOSS_SPAWNS: true,
     CLASSIC_SIEGE: false,
-    TILE_WIDTH: 450,
-    TILE_HEIGHT: 450,
+    map_tile_width: 450,
+    map_tile_height: 450,
     WAVES: 100, // CLASSIC_SIEGE: false to use this setting
     FOOD_CAP: 40,
     FOOD_CAP_NEST: 5,

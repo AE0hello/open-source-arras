@@ -63,7 +63,7 @@ global.getWeakestTeam = () => {
         }
     }
     teamcounts = Object.entries(teamcounts).map(([teamId, amount]) => {
-        let weight = teamId in Config.TEAM_WEIGHTS ? Config.TEAM_WEIGHTS[teamId] : 1;
+        let weight = teamId in Config.team_weights ? Config.team_weights[teamId] : 1;
         return [teamId, amount / weight];
     });
     let lowestTeamCount = Math.min(...teamcounts.map(x => x[1])),

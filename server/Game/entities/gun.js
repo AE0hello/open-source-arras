@@ -57,7 +57,7 @@ class Gun extends EventEmitter {
             this.independentMaster = info.PROPERTIES.INDEPENDENT_MASTER == null ? false : info.PROPERTIES.INDEPENDENT_MASTER;
             this.borderless = info.PROPERTIES.BORDERLESS == null ? false : info.PROPERTIES.BORDERLESS;
             this.drawFill = info.PROPERTIES.DRAW_FILL == null ? true : info.PROPERTIES.drawFill;
-            this.spawnOffset = info.PROPERTIES.SPAWN_OFFSET == null ? Config.bulletSpawnOffset : info.PROPERTIES.SPAWN_OFFSET;
+            this.spawnOffset = info.PROPERTIES.SPAWN_OFFSET == null ? Config.bullet_spawn_offset : info.PROPERTIES.SPAWN_OFFSET;
             this.destroyOldestChild = info.PROPERTIES.DESTROY_OLDEST_CHILD == null ? false : info.PROPERTIES.DESTROY_OLDEST_CHILD;
             this.shootOnDeath = (info.PROPERTIES.SHOOT_ON_DEATH == null) ? false : info.PROPERTIES.SHOOT_ON_DEATH;
             if (info.PROPERTIES.COLOR != null) {
