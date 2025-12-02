@@ -23,6 +23,7 @@ const getName = (name, gamemodeData) => {
         blackout: "Blackout",
         outbreak: "Outbreak",
         space: "Space",
+        classic: "Classic",
         armsRace: "Arms Race",
         siege_blitz: "Siege Blitz",
         siege_citadel: "Siege Citadel",
