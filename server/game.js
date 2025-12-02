@@ -217,10 +217,10 @@ class gameServer {
             for (let gamemode of this.gamemode) {
                 let mode = require(`./Game/gamemodeconfigs/${gamemode}.js`);
                 for (let key in mode) {
-                    if (key == "DO_NOT_OVERRIDE_ROOM") {
+                    if (key == "do_not_override_room") {
                         overrideRoom = mode[key];
-                    } else if (key == "ROOM_SETUP") {
-                        if (!overrideRoom) Config.ROOM_SETUP = mode[key]; else Config[key].push(...mode[key]);
+                    } else if (key == "room_setup") {
+                        if (!overrideRoom) Config.room_setup = mode[key]; else Config[key].push(...mode[key]);
                     } else {
                         Config[key] = mode[key];
                     }
@@ -396,7 +396,7 @@ class gameServer {
     // Set up the room
     setRoom() {
         // Get the room setup(s)
-        for (let filename of Config.ROOM_SETUP) {
+        for (let filename of Config.room_setup) {
             // ... get the current setup
             this.currentRoom = require(`./Game/room_setup/rooms/${filename}.js`);
             Config.roomHeight = this.currentRoom.length;

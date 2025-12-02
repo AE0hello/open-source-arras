@@ -4,8 +4,8 @@ module.exports = {
     ASSAULT: true,
     map_tile_width: 413,
     map_tile_height: 412,
-    DO_NOT_OVERRIDE_ROOM: false,
-    ROOM_SETUP: ["room_assault_line"],
+    do_not_override_room: false,
+    room_setup: ["room_assault_line"],
     MAZE_TYPE: 17,
     BOT_MOVE: [{
         TEAM: TEAM_GREEN,

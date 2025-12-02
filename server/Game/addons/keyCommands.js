@@ -106,7 +106,7 @@ function init() {
             run: ({ socket, player }) => {
                 if (socket.permissions?.class) {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                    player.body.define(socket.permissions?.class || Config.SPAWN_CLASS);
+                    player.body.define(socket.permissions?.class || Config.spawn_class);
                 } else {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                     player.body.define("healer");

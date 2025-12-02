@@ -18,7 +18,7 @@ module.exports = {
             host: "localhost:3001", // Server host location.
             port: 3001, // The port on the server.
             id: "loc", // (<host>/#<id>)
-            featured: false, // Mark the server as featured in the server selector.
+            featured: false,
 
             region: "local", // The region the server is on.
             gamemode: ["ffa"], // The selected gamemode.
@@ -53,7 +53,7 @@ module.exports = {
             host: "localhost:3002", // Server host location.
             port: 3002, // The port on the server.
             id: "lod", // (<HOST>/#<SERVER_ID>)
-            featured: false, // Mark the server as featured in the server selector.
+            featured: false,
 
             region: "local", // The region the server is on.
             gamemode: ["tdm"], // The selected gamemode.
@@ -61,7 +61,7 @@ module.exports = {
 
             properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
                 TEAMS: 4,
-                BOTS: 45,
+                bot_cap: 45,
                 daily_tank: { 
                     tank: "master",
                     tier: 3,
@@ -127,42 +127,42 @@ module.exports = {
     TIER_MULTIPLIER: 15, // Level difference between each tier.
 
     // Bots
-    BOTS: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
-    BOT_XP: 60, // How much XP player-bots get until they reach LEVEL_CAP.
-    BOT_START_LEVEL: 45, // How much XP player-bots will receive when first created.
-    BOT_SKILL_UPGRADE_CHANCES: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1], // The chances of a player-bot upgrading a specific skill when skill upgrades are available.
-    BOT_CLASS_UPGRADE_CHANCES: [1, 5, 20, 37, 37], // The chances of a player-bot upgrading a specific amount of times before it stops upgrading.
-    BOT_NAME_PREFIX: '[AI] ', // The prefix of the player-bots names.
+    bot_cap: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
+    bot_xp_gain: 60, // How much XP player-bots get until they reach LEVEL_CAP.
+    bot_start_level: 45, // How much XP player-bots will receive when first created.
+    bot_skill_upgrade_chances: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1], // The chances of a player-bot upgrading a specific skill when skill upgrades are available.
+    bot_class_upgrade_chances: [1, 5, 20, 37, 37], // The chances of a player-bot upgrading a specific amount of times before it stops upgrading.
+    bot_name_prefix: "[AI] ", // This is prefixed before the bot's randomly chosen name.
 
     // The class that players and player-bots spawn as.
-    SPAWN_CLASS: "basic",
+    spawn_class: "basic",
 
     // How every entity regenerates their health.
-    REGENERATE_TICK: 100,
+    regenerate_tick: 100,
 
     // Food
-    FOOD_TYPES: [ // Possible food types outside the nest
+    food_types: [ // Possible food types outside the nest
         [1, [
-            [65, 'egg'], [64, 'triangle'], [45, 'square'], [7, 'pentagon'], [1, 'hexagon']
+            [65, "egg"], [64, "triangle"], [45, "square"], [7, "pentagon"], [1, "hexagon"]
         ]],
         [1/50000, [
-            [625, 'gem'], [125, 'shinyTriangle'], [25, 'shinySquare'], [5, 'shinyPentagon'], [1, 'shinyHexagon']
+            [625, "gem"], [125, "shinyTriangle"], [25, "shinySquare"], [5, "shinyPentagon"], [1, "shinyHexagon"]
         ]],
         [1/1000000, [
-            [1296, 'jewel'], [216, 'legendaryTriangle'], [36, 'legendarySquare'], [6, 'legendaryPentagon'], [1, 'legendaryHexagon']
+            [1296, "jewel"], [216, "legendaryTriangle"], [36, "legendarySquare"], [6, "legendaryPentagon"], [1, "legendaryHexagon"]
         ]]
     ],
-    FOOD_TYPES_NEST: [ // Possible food types in the nest
+    food_types_nest: [ // Possible food types in the nest
         [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon']
+            [16, "pentagon"], [ 4, "betaPentagon"], [ 1, "alphaPentagon"]
         ]]
     ],
-    ENEMY_TYPES_NEST: [ // Possible enemy food types in the nest
-        [19, [
-            [1, 'crasher']
+    enemy_types_nest: [ // Possible enemy food types in the nest
+        [1, [
+            [1, "crasher"]
         ]],
-        [1, [
-            [1, 'sentryGun'], [1, 'sentrySwarm'], [1, 'sentryTrap']
+        [1/20, [
+            [1, "sentryGun"], [1, "sentrySwarm"], [1, "sentryTrap"]
         ]]
     ],
 
@@ -228,5 +228,5 @@ module.exports = {
     SPAWN_CONFINEMENT: {},
 
     // Room setup
-    ROOM_SETUP: ["room_default"],
+    room_setup: ["room_default"],
 }

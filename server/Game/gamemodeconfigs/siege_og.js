@@ -8,9 +8,9 @@ module.exports = {
     WAVES: 100, // CLASSIC_SIEGE: false to use this setting
     FOOD_CAP: 30,
     FOOD_CAP_NEST: 5,
-    ROOM_SETUP: ["room_siege_og"],
+    room_setup: ["room_siege_og"],
     SANCTUARY_SIZE: 18,
     FORTRESS: true,
-    BOT_XP: 500,
+    bot_xp_gain: 500,
     MAZE_TYPE: 14,
 };

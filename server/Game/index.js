@@ -328,7 +328,7 @@ class gameHandler {
             // Enemy spawn
             if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.ENEMY_CAP_NEST) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
-                const o = spawnFoodEntity(tile, Config.ENEMY_TYPES_NEST);
+                const o = spawnFoodEntity(tile, Config.enemy_types_nest);
                 this.enemyFoods.push(o);
                 setupCleanup(this.enemyFoods, o);
             }
@@ -336,7 +336,7 @@ class gameHandler {
             if (this.nestFoods.length < Config.FOOD_CAP_NEST) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 for (let i = 0; i < totalFoods; i++) {
-                    const o = spawnFoodEntity(tile, Config.FOOD_TYPES_NEST);
+                    const o = spawnFoodEntity(tile, Config.food_types_nest);
                     this.nestFoods.push(o);
                     setupCleanup(this.nestFoods, o);
                 }
@@ -345,7 +345,7 @@ class gameHandler {
             // Regular food spawn
             const tile = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
             for (let i = 0; i < totalFoods; i++) {
-                const o = spawnFoodEntity(tile, Config.FOOD_TYPES);
+                const o = spawnFoodEntity(tile, Config.food_types);
                 this.foods.push(o);
                 setupCleanup(this.foods, o);
             }
@@ -367,8 +367,8 @@ class gameHandler {
         // Upgrade bots's skill
         for (let i = 0; i < this.bots.length; i++) {
             let o = this.bots[i];
-            if (o.skill.level < Config.LEVEL_CAP && o.skill.level >= Config.BOT_START_LEVEL) {
-                o.skill.score += Config.BOT_XP;            
+            if (o.skill.level < Config.LEVEL_CAP && o.skill.level >= Config.bot_start_level) {
+                o.skill.score += Config.bot_xp_gain;            
             }
         }
         // Spawn bosses
@@ -408,14 +408,14 @@ class gameHandler {
         for (let i = 0; i < this.bots.length; i++) {
             let o = this.bots[i];
             o.skill.maintain();
-            o.skillUp([ "atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi" ][ran.chooseChance(...Config.BOT_SKILL_UPGRADE_CHANCES)]);
+            o.skillUp([ "atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi" ][ran.chooseChance(...Config.bot_skill_upgrade_chances)]);
             o.refreshSkills();
             if (o.leftoverUpgrades && o.upgrade(ran.irandomRange(0, o.upgrades.length))) {
                 o.leftoverUpgrades--;
             }
         }
         // Add new bots if arena is open
-        if (!global.gameManager.arenaClosed && !global.cannotRespawn && this.bots.length < Config.BOTS) {
+        if (!global.gameManager.arenaClosed && !global.cannotRespawn && this.bots.length < Config.bot_cap) {
             let team = Config.MODE === "tdm" || Config.MODE === "tag" ? getWeakestTeam(global.gameManager) : undefined,
             limit = 20, // give up after 20 attempts and just pick whatever is currently chosen
             loc;
@@ -428,22 +428,22 @@ class gameHandler {
     }
 
     spawnBots(loc, team) {
-        let botName = Config.BOT_NAME_PREFIX + ran.chooseBotName();
+        let botName = Config.bot_name_prefix + ran.chooseBotName();
         let o = new Entity(loc);
-        o.define(Config.SPAWN_CLASS);
+        o.define(Config.spawn_class);
         o.define({ CONTROLLERS: ["nearestDifferentMaster"] }, false, false, false);
         o.refreshBodyAttributes();
         o.isBot = true;
         o.name = botName;
         o.invuln = true;
-        o.leftoverUpgrades = ran.chooseChance(...Config.BOT_CLASS_UPGRADE_CHANCES);
+        o.leftoverUpgrades = ran.chooseChance(...Config.bot_class_upgrade_chances);
         let color = Config.RANDOM_COLORS ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
         o.color.base = color;
         o.leaderboardColor = color;
         o.minimapColor = color;
         o.skill.reset();
         let leveling = setInterval(() => {
-            if (o.skill.level < Config.BOT_START_LEVEL) {
+            if (o.skill.level < Config.bot_start_level) {
                 o.skill.score += o.skill.levelScore;
                 o.skill.maintain();
             } else clearInterval(leveling);
@@ -528,7 +528,7 @@ class gameHandler {
         let healingLoop = setInterval(() => {
             if (!this.active) return clearInterval(healingLoop);
             this.regenHealthAndShield();
-        }, Config.REGENERATE_TICK);
+        }, Config.regenerate_tick);
     }
     stop() {
         this.active = false;

@@ -116,7 +116,7 @@ Class.spectator = {
 Class.menu_tanks = makeMenu("Tanks")
 //Class.menu_tanks.UPGRADE_TOOLTIP = "Every tank. Need I say more?"
 Class.menu_tanks.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
+    Config.spawn_class,
     "menu_unused",
     "arenaCloser",
     "menu_mapEntities",

@@ -894,7 +894,7 @@ class socketManager {
         gui.upgrades.update(upgrades);
         // Update daily tank
         if (Config.daily_tank) {
-            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier && b.defs.includes(Config.SPAWN_CLASS)) {
+            if (b.skill.level >= Config.TIER_MULTIPLIER * Config.daily_tank.tier && b.defs.includes(Config.spawn_class)) {
                 dailyTank = Config.daily_tank_INDEX;
             }
         }
@@ -1132,7 +1132,7 @@ class socketManager {
             body = new Entity(loc);
             body.protect();
             body.isPlayer = true;
-            body.define(Config.SPAWN_CLASS);
+            body.define(Config.spawn_class);
             if (Class.menu_tanks) {
                 let string = Class.menu_tanks.UPGRADES_TIER_0[0];
                 if (string !== "basic") {

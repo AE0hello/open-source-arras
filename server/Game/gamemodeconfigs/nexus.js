@@ -4,5 +4,5 @@ module.exports = {
     map_tile_width: 200,
     map_tile_height: 200,
     ENABLE_FOOD: false,
-    ROOM_SETUP: ['room_nexus_old']
+    room_setup: ['room_nexus_old']
 }
