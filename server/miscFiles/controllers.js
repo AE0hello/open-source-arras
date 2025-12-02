@@ -1148,8 +1148,8 @@ class io_snake extends IO {
         this.waveAngle = this.body.master.facing + (opts.angle ?? 0);
         this.startX = this.body.x;
         this.startY = this.body.y;
-        this.body.x += Math.cos(this.body.velocity.direction) * this.body.size * Config.bulletSpawnOffset + 0;
-        this.body.y += Math.sin(this.body.velocity.direction) * this.body.size * Config.bulletSpawnOffset + 0;
+        this.body.x += Math.cos(this.body.velocity.direction) * this.body.size * Config.bullet_spawn_offset + 0;
+        this.body.y += Math.sin(this.body.velocity.direction) * this.body.size * Config.bullet_spawn_offset + 0;
         // Clamp scale to [45, 75]
         // Attempts to get the bullets to intersect with the cursor
         this.waveHorizontalScale = util.clamp(util.getDistance(this.body.master.master.control.target, {x: 0, y: 0}) / Math.PI, 45, 75);

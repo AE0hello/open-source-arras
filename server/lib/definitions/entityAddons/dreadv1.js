@@ -715,7 +715,7 @@ Class.medicaidOfficialV1 = {
 // Account for lower level cap
 let tier1 = 10;
 let tier2 = 12;
-if (Config.MAX_UPGRADE_TIER < 10) {
+if (Config.tier_cap < 10) {
 	tier1 = 0;
 	tier2 = 0;
 }

@@ -1,5 +1,5 @@
 module.exports = {
-    MODE: "tag",
-    TEAMS: Config.TEAMS,
+    mode: "tag",
+    teams: Config.teams,
     TAG: true,
 };

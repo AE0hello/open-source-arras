@@ -2,7 +2,7 @@ class Mothership {
     constructor() {
         this.choices = ["mothership"];
         this.defineProperties();
-        Config.MOTHERSHIP_DATA = {
+        Config.mothership_data = {
             getData: () => this.globalMotherships,
         }
     };
@@ -43,7 +43,7 @@ class Mothership {
             x: global.gameManager.room.width * 0.5 - global.gameManager.room.width / 2,
             y: global.gameManager.room.height * 0.1 - global.gameManager.room.height / 2,
         }].sort(() => 0.5 - Math.random());
-        for (let i = 0; i < Config.TEAMS; i++) {
+        for (let i = 0; i < Config.teams; i++) {
             let o = new Entity(locs[i]),
                 team = -i - 1;
             o.define(ran.choose(this.choices));

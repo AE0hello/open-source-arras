@@ -50,7 +50,7 @@ global.getTeamColor = (team, fixMode = false) => {
 global.isPlayerTeam = team => /*team < 0 && */team > -11;
 global.getWeakestTeam = () => {
     let teamcounts = {};
-    for (let i = -Config.TEAMS; i < 0; i++) {
+    for (let i = -Config.teams; i < 0; i++) {
         if (global.defeatedTeams.includes(i)) continue;
         teamcounts[i] = 0;
     }
@@ -63,12 +63,12 @@ global.getWeakestTeam = () => {
         }
     }
     teamcounts = Object.entries(teamcounts).map(([teamId, amount]) => {
-        let weight = teamId in Config.TEAM_WEIGHTS ? Config.TEAM_WEIGHTS[teamId] : 1;
+        let weight = teamId in Config.team_weights ? Config.team_weights[teamId] : 1;
         return [teamId, amount / weight];
     });
     let lowestTeamCount = Math.min(...teamcounts.map(x => x[1])),
         entries = teamcounts.filter(a => a[1] == lowestTeamCount);
-    return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.TEAMS) : ran.choose(entries)[0]);
+    return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.teams) : ran.choose(entries)[0]);
 };
 global.getRandomTeam = () => -Math.floor(Math.random() * 3000) + 1;
 
@@ -422,7 +422,7 @@ global.defineSplit = (() => {
             my.addController(toAdd);
         }
         if (set.BATCH_UPGRADES != null) my.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.MAX_UPGRADE_TIER; i++) {
+        for (let i = 0; i < Config.tier_cap; i++) {
             let tierProp = 'UPGRADES_TIER_' + i;
             if (set[tierProp] != null && emitEvent) {
                 for (let j = 0; j < set[tierProp].length; j++) {
@@ -437,7 +437,7 @@ global.defineSplit = (() => {
                     }
                     my.upgrades.push({
                         class: trueUpgrades,
-                        level: Config.TIER_MULTIPLIER * i,
+                        level: Config.tier_multiplier * i,
                         index: index.substring(0, index.length - 1),
                         tier: i,
                         branch,
@@ -477,7 +477,7 @@ global.handleBatchUpgradeSplit = (() => {
             }
             my.upgrades.push({
                 class: upgradeClass,
-                level: Config.TIER_MULTIPLIER * upgradeTier,
+                level: Config.tier_multiplier * upgradeTier,
                 index: upgradeIndex.substring(0, upgradeIndex.length - 1),
                 tier: upgradeTier,
                 branch: 0,
@@ -561,6 +561,14 @@ global.flatten = (output, definition) => {
     return output;
 };
 
+global.convertExportsToClass = (exp) => {
+    if ("object" === typeof Class) {
+        for (const [key, definition] of Object.entries(exp)) {
+            Class[key] = definition;
+            Class[key].Converted = true;
+        }
+    }
+}
 global.makeHitbox = wall => {
     const _size = wall.size - 4;
     //calculate the relative corners
@@ -642,12 +650,12 @@ global.activateTieredFood = () => {
 	const disableCrashers = true;
 
 	// there is no `ENEMY_CAP`, so we are "reconstructing them"
-	Config.ENEMY_CAP_NEST = 0;
+	Config.enemy_cap_nest = 0;
 
 	// Constructs a four-dimensional array of shape types
 
 	// 3-wide dimension of the 3 base shape types - egg, square, triangle
-	Config.FOOD_TYPES = Array(3).fill().map((_, i, a) => [
+	Config.food_types = Array(3).fill().map((_, i, a) => [
 		// Chance of spawning in exponents of 4
 		4 ** (a.length - i),
 		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega
@@ -677,7 +685,7 @@ global.activateTieredFood = () => {
 	//laby_${poly}_${tier}_${shiny}_${rank}
 
 	// 2-wide dimension of the 2 base shape types - pentagon, hexagon
-	Config.FOOD_TYPES_NEST = Array(2).fill().map((_, i, a) => [
+	Config.food_types_nest = Array(2).fill().map((_, i, a) => [
 		// Chance of spawning in exponents of 4
 		4 ** (a.length - i),
 		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega

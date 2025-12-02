@@ -1,4 +1,4 @@
-const { MAX_SKILL } = require("../../config.js")
+const { skill_cap } = require("../../config.js")
 const g = require('./gunvals.js')
 const { basePolygonDamage, basePolygonHealth, dfltskl } = require("./constants")
 let skcnv = {
@@ -75,7 +75,7 @@ exports.skillSet = (args) => {
     let skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let s in args) {
         if (!args.hasOwnProperty(s)) continue;
-        skills[skcnv[s]] = Math.round(MAX_SKILL * args[s]);
+        skills[skcnv[s]] = Math.round(skill_cap * args[s]);
     }
     return skills;
 }
@@ -734,14 +734,14 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
     let relicCasing = {
         PARENT: 'genericEntity',
         LABEL: 'Relic Casing',
-        LEVEL_CAP: 45,
+        level_cap: 45,
         COLOR: type.COLOR,
         MIRROR_MASTER_ANGLE: true,
         SHAPE: [[-0.4,-1],[0.4,-0.25],[0.4,0.25],[-0.4,1]].map(r => r.map(s => s * scale))
     }, relicBody = {
         PARENT: 'genericEntity',
         LABEL: 'Relic Mantle',
-        LEVEL_CAP: 45,
+        level_cap: 45,
         COLOR: type.COLOR,
         MIRROR_MASTER_ANGLE: true,
         SHAPE: type.SHAPE

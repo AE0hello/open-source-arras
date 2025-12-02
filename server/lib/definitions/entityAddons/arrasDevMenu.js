@@ -16,7 +16,7 @@ Class.arrasMenu_addonMenu.UPGRADES_TIER_0 = [
 // Special Menu
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
+    Config.spawn_class,
     "arrasMenu_gameAdmin", // psure its removed but kept here for completeness
     "eggGen",
     "arrasMenu_specialTanks",
@@ -31,7 +31,7 @@ Class.arrasMenu_special.UPGRADES_TIER_0 = [
 // Game Admin/Mod / Beta Tester Menu(s)
 Class.arrasMenu_gameAdmin = makeMenu("Game Admin Menu") // (BT 3)
 Class.arrasMenu_gameAdmin.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
+    Config.spawn_class,
     "arrasMenu_gameMod",
     "spectator",
     //"banHammer", // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gameMod
@@ -42,7 +42,7 @@ Class.arrasMenu_gameAdmin.UPGRADES_TIER_0 = [
 
 Class.arrasMenu_gameMod = makeMenu("Game Mod Menu") // (BT 2)
 Class.arrasMenu_gameMod.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
+    Config.spawn_class,
     "arrasMenu_betaTester",
     "spectator",
     //"guillotine",
@@ -52,7 +52,7 @@ Class.arrasMenu_gameMod.UPGRADES_TIER_0 = [
 
 Class.arrasMenu_betaTester = makeMenu("Beta Tester Menu") // (BT 1)
 Class.arrasMenu_betaTester.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
+    Config.spawn_class,
     //"arrasMenu_betaTesterB", // todo: check if beta tester b actually existed here
     "spectator",
     "arrasMenu_tankChanges", // existed here at one point

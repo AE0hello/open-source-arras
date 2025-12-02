@@ -1,3 +1,3 @@
 module.exports = {
-    ARMS_RACE: true,
+    arms_race: true,
 };

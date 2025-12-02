@@ -40,7 +40,7 @@ tileClass.wall = new Tile({
         o.on("dead", () => {
             util.remove(walls, walls.indexOf(o));
         })
-        if (Config.HALLOWEEN_THEME) {
+        if (Config.spookyTheme) {
             let eyeSize = 12 * (Math.random() + 0.75);
             let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
             spookyEye.define("hwEye");

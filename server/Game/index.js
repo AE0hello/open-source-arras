@@ -180,7 +180,7 @@ class gameHandler {
                             !instance.isDominator &&
                             !other.isDominator
                         ) {
-                            switch (Config.TRAIN) {
+                            switch (Config.train) {
                                 case true:
                                     firmcollidehard(instance, other, 20);
                                     break;
@@ -310,7 +310,7 @@ class gameHandler {
 
         let totalFoods = 1;
         if (Math.random() < 0.2) { // 1/5 chance to spawn a group
-            totalFoods = 1 + Math.floor(Math.random() * Config.FOOD_MAX_GROUP_TOTAL);
+            totalFoods = 1 + Math.floor(Math.random() * Config.food_group_cap);
         }
 
         // Helper for cleanup interval
@@ -326,26 +326,26 @@ class gameHandler {
         // Nest food/enemy spawn
         if (Math.random() < 1 / 3 && global.gameManager.room.spawnable[TEAM_ENEMIES]) {
             // Enemy spawn
-            if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.ENEMY_CAP_NEST) {
+            if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
-                const o = spawnFoodEntity(tile, Config.ENEMY_TYPES_NEST);
+                const o = spawnFoodEntity(tile, Config.enemy_types_nest);
                 this.enemyFoods.push(o);
                 setupCleanup(this.enemyFoods, o);
             }
             // Nest food spawn
-            if (this.nestFoods.length < Config.FOOD_CAP_NEST) {
+            if (this.nestFoods.length < Config.food_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 for (let i = 0; i < totalFoods; i++) {
-                    const o = spawnFoodEntity(tile, Config.FOOD_TYPES_NEST);
+                    const o = spawnFoodEntity(tile, Config.food_types_nest);
                     this.nestFoods.push(o);
                     setupCleanup(this.nestFoods, o);
                 }
             }
-        } else if (this.foods.length < Config.FOOD_CAP) {
+        } else if (this.foods.length < Config.food_cap) {
             // Regular food spawn
             const tile = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
             for (let i = 0; i < totalFoods; i++) {
-                const o = spawnFoodEntity(tile, Config.FOOD_TYPES);
+                const o = spawnFoodEntity(tile, Config.food_types);
                 this.foods.push(o);
                 setupCleanup(this.foods, o);
             }
@@ -367,14 +367,14 @@ class gameHandler {
         // Upgrade bots's skill
         for (let i = 0; i < this.bots.length; i++) {
             let o = this.bots[i];
-            if (o.skill.level < Config.LEVEL_CAP && o.skill.level >= Config.BOT_START_LEVEL) {
-                o.skill.score += Config.BOT_XP;            
+            if (o.skill.level < Config.level_cap && o.skill.level >= Config.bot_start_level) {
+                o.skill.score += Config.bot_xp_gain;            
             }
         }
         // Spawn bosses
-        if (this.checkUsers() && Config.ENABLE_BOSS_SPAWN && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.BOSS_SPAWN_COOLDOWN) {
-            this.bossTimer = -Config.BOSS_SPAWN_DELAY - 2;
-            let selection = Config.BOSS_TYPES[ran.chooseChance(...Config.BOSS_TYPES.map((selection) => selection.chance))],
+        if (this.checkUsers() && Config.bosses_spawn && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.boss_spawn_cooldown) {
+            this.bossTimer = -Config.boss_spawn_delay - 2;
+            let selection = Config.boss_types[ran.chooseChance(...Config.boss_types.map((selection) => selection.chance))],
                 amount = ran.chooseChance(...selection.amount) + 1;
             if (selection.message) {
                 global.gameManager.socketManager.broadcast(selection.message);
@@ -399,7 +399,7 @@ class gameHandler {
                 }
 
                 global.gameManager.socketManager.broadcast(`${util.listify(names)} ${names.length == 1 ? 'has' : 'have'} arrived!`);
-            }, Config.BOSS_SPAWN_DELAY * 30);
+            }, Config.boss_spawn_delay * 30);
         }
     };
 
@@ -408,15 +408,15 @@ class gameHandler {
         for (let i = 0; i < this.bots.length; i++) {
             let o = this.bots[i];
             o.skill.maintain();
-            o.skillUp([ "atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi" ][ran.chooseChance(...Config.BOT_SKILL_UPGRADE_CHANCES)]);
+            o.skillUp([ "atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi" ][ran.chooseChance(...Config.bot_skill_upgrade_chances)]);
             o.refreshSkills();
             if (o.leftoverUpgrades && o.upgrade(ran.irandomRange(0, o.upgrades.length))) {
                 o.leftoverUpgrades--;
             }
         }
         // Add new bots if arena is open
-        if (!global.gameManager.arenaClosed && !global.cannotRespawn && this.bots.length < Config.BOTS) {
-            let team = Config.MODE === "tdm" || Config.MODE === "tag" ? getWeakestTeam(global.gameManager) : undefined,
+        if (!global.gameManager.arenaClosed && !global.cannotRespawn && this.bots.length < Config.bot_cap) {
+            let team = Config.mode === "tdm" || Config.mode === "tag" ? getWeakestTeam(global.gameManager) : undefined,
             limit = 20, // give up after 20 attempts and just pick whatever is currently chosen
             loc;
             do {
@@ -428,22 +428,22 @@ class gameHandler {
     }
 
     spawnBots(loc, team) {
-        let botName = Config.BOT_NAME_PREFIX + ran.chooseBotName();
+        let botName = Config.bot_name_prefix + ran.chooseBotName();
         let o = new Entity(loc);
-        o.define(Config.SPAWN_CLASS);
+        o.define(Config.spawn_class);
         o.define({ CONTROLLERS: ["nearestDifferentMaster"] }, false, false, false);
         o.refreshBodyAttributes();
         o.isBot = true;
         o.name = botName;
         o.invuln = true;
-        o.leftoverUpgrades = ran.chooseChance(...Config.BOT_CLASS_UPGRADE_CHANCES);
-        let color = Config.RANDOM_COLORS ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
+        o.leftoverUpgrades = ran.chooseChance(...Config.bot_class_upgrade_chances);
+        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
         o.color.base = color;
         o.leaderboardColor = color;
         o.minimapColor = color;
         o.skill.reset();
         let leveling = setInterval(() => {
-            if (o.skill.level < Config.BOT_START_LEVEL) {
+            if (o.skill.level < Config.bot_start_level) {
                 o.skill.score += o.skill.levelScore;
                 o.skill.maintain();
             } else clearInterval(leveling);
@@ -451,7 +451,7 @@ class gameHandler {
         o.refreshBodyAttributes();
         if (team) o.team = team;
         this.bots.push(o);
-        if (Config.TAG) Config.TAG_DATA.addBot(o), global.nextTagBotTeam = null;
+        if (Config.tag) Config.tag_data.addBot(o), global.nextTagBotTeam = null;
         setTimeout(() => {
             // allow them to move
             let CC = Class[o.defs[0]];
@@ -505,7 +505,7 @@ class gameHandler {
                 try {
                     this.gameloop();
                     syncedDelaysLoop();
-                    if (Config.ENABLE_FOOD) this.foodloop();
+                    if (Config.enable_food) this.foodloop();
                     global.gameManager.roomLoop();
                     global.gameManager.gamemodeManager.request("quickloop");
                 } catch (e) {
@@ -528,7 +528,7 @@ class gameHandler {
         let healingLoop = setInterval(() => {
             if (!this.active) return clearInterval(healingLoop);
             this.regenHealthAndShield();
-        }, Config.REGENERATE_TICK);
+        }, Config.regenerate_tick);
     }
     stop() {
         this.active = false;

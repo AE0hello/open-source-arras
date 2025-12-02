@@ -141,7 +141,7 @@ class Entity extends EventEmitter {
 
     become(player, dom = false) {
         this.addController(new ioTypes.listenToPlayer(this, { player, static: dom })); // Make it listen.
-        this.sendMessage = (content, displayTime = Config.MESSAGE_DISPLAY_TIME) =>
+        this.sendMessage = (content, displayTime = Config.popup_message_duration) =>
             player.socket.talk("m", displayTime, content);  // make sure that it sends messages.
         this.kick = (reason) => player.socket.kick(reason);
     }
@@ -355,7 +355,7 @@ class Entity extends EventEmitter {
         if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER, this.ac = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.MAX_UPGRADE_TIER; i++) {
+        for (let i = 0; i < Config.tier_cap; i++) {
             let tierProp = 'UPGRADES_TIER_' + i;
             if (set[tierProp] != null && emitEvent) {
                 for (let j = 0; j < set[tierProp].length; j++) {
@@ -370,7 +370,7 @@ class Entity extends EventEmitter {
                     }
                     this.upgrades.push({
                         class: trueUpgrades,
-                        level: Config.TIER_MULTIPLIER * i,
+                        level: Config.tier_multiplier * i,
                         index: index.substring(0, index.length - 1),
                         tier: i,
                         branch: 0,
@@ -393,8 +393,8 @@ class Entity extends EventEmitter {
             }
             this.refreshBodyAttributes();
         }
-        if (set.LEVEL_CAP != null) {
-            this.levelCap = set.LEVEL_CAP;
+        if (set.level_cap != null) {
+            this.levelCap = set.level_cap;
         }
         const SKILL_ORDER = [
             "RELOAD",
@@ -445,7 +445,7 @@ class Entity extends EventEmitter {
         if (set.GUN_STAT_SCALE) this.gunStatScale = set.GUN_STAT_SCALE;
         if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
         if (set.MAX_BULLETS != null) this.maxBullets = set.MAX_BULLETS; 
-        if ("function" === typeof set.LEVEL_SKILL_POINT_FUNCTION) this.skill.LSPF = set.LEVEL_SKILL_POINT_FUNCTION;
+        if ("function" === typeof set.defineLevelSkillPoints) this.skill.LSPF = set.defineLevelSkillPoints;
         if (set.RECALC_SKILL != null) {
             let score = this.skill.score;
             this.skill.reset();
@@ -570,9 +570,9 @@ class Entity extends EventEmitter {
     }
 
     refreshBodyAttributes() {
-        const level = Math.min(Config.GROWTH ? 120 : 45, this.level);
+        const level = Math.min(Config.growth ? 120 : 45, this.level);
         let speedReduce = Math.min(
-            Config.GROWTH ? 4 : 2,
+            Config.growth ? 4 : 2,
             this.size / (this.coreSize || this.SIZE)
         );
         this.acceleration = (1 * global.gameManager.runSpeed * this.ACCELERATION) / speedReduce;
@@ -662,12 +662,12 @@ class Entity extends EventEmitter {
     }
 
     get level() {
-        return Math.min(this.levelCap ?? Config.LEVEL_CAP, this.skill.level);
+        return Math.min(this.levelCap ?? Config.level_cap, this.skill.level);
     }
     // How this works: in 2025 growth a 3.00m player has the same size as a wall (tile)
     get size() {
         let level = this.level;
-        if (!Config.GROWTH) level = Math.min(45, level);
+        if (!Config.growth) level = Math.min(45, level);
         let levelMultiplier = 1;
         if (this.settings.healthWithLevel) {
             levelMultiplier += Math.min(45, level) / 45;
@@ -810,13 +810,13 @@ class Entity extends EventEmitter {
         let upgraded = false;
         if (number.isDailyUpgrade) {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
-            if (!Config.DAILY_TANK.ADS.ENABLED) hasWatchedAd = true;
+            if (!Config.daily_tank.ads.enabled) hasWatchedAd = true;
             let requestedIndex = parseInt(number.tank);
-            if (requestedIndex === ensureIsClass(Config.DAILY_TANK.tank).index && this.skill.level >= Config.TIER_MULTIPLIER * Config.DAILY_TANK.TIER) {
+            if (requestedIndex === ensureIsClass(Config.daily_tank.tank).index && this.skill.level >= Config.tier_multiplier * Config.daily_tank.tier) {
                 if (hasWatchedAd) {
                     upgraded = true;
                     this.upgrades = [];
-                    this.define(Config.DAILY_TANK.tank);
+                    this.define(Config.daily_tank.tank);
                 } else this.sendMessage("You must watch an ad before you can upgrade.");
             }
         } else {
@@ -918,21 +918,21 @@ class Entity extends EventEmitter {
             return 0;
         }
         if (!this.settings.canGoOutsideRoom) {
-            if (Config.ARENA_TYPE === "circle") {
+            if (Config.arena_shape === "circle") {
                 let centerPoint = {
                     x: global.gameManager.room.width - global.gameManager.room.width,
                     y: global.gameManager.room.height - global.gameManager.room.height,
                 }, dist = util.getDistance(this, centerPoint);
                 if (dist > global.gameManager.room.width - global.gameManager.room.width / 2) {
-                    let strength = (dist - global.gameManager.room.width / 2) * Config.ROOM_BOUND_FORCE / (Config.runSpeed * 350);
+                    let strength = (dist - global.gameManager.room.width / 2) * Config.room_bound_force / (Config.runSpeed * 350);
                     this.x = util.lerp(this.x, centerPoint.x, strength);
                     this.y = util.lerp(this.y, centerPoint.y, strength);
                 }
             } else {
-                this.accel.x -= Math.min(this.x - this.realSize + global.gameManager.room.width / 2 + 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.x -= Math.max(this.x + this.realSize - global.gameManager.room.width / 2 - 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.y -= Math.min(this.y - this.realSize + global.gameManager.room.height / 2 + 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
-                this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.ROOM_BOUND_FORCE / global.gameManager.roomSpeed;
+                this.accel.x -= Math.min(this.x - this.realSize + global.gameManager.room.width / 2 + 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.x -= Math.max(this.x + this.realSize - global.gameManager.room.width / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.y -= Math.min(this.y - this.realSize + global.gameManager.room.height / 2 + 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
+                this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
             }
         }
     }
@@ -1131,7 +1131,7 @@ class Entity extends EventEmitter {
         entitiesToAvoid.push(this); this.isProtected = true;
     }
     
-    say(message, duration = Config.CHAT_MESSAGE_DURATION) {
+    say(message, duration = Config.chat_message_duration) {
         if (!chats[this.id]) {
             chats[this.id] = [];
         }

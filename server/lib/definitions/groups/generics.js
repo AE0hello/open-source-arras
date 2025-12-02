@@ -105,7 +105,7 @@ Class.genericTank = {
     SYNC_WITH_TANK: false,
     IS_IMMUNE_TO_TILES: false,
     RENDER_ON_LEADERBOARD: true,
-    REROOT_UPGRADE_TREE: Config.SPAWN_CLASS,
+    REROOT_UPGRADE_TREE: Config.spawn_class,
     BODY: {
         ACCELERATION: base.ACCEL,
         SPEED: base.SPEED,
@@ -189,7 +189,7 @@ Class.food = {
     MOTION_TYPE: "drift",
     FACING_TYPE: "turnWithSpeed",
     IS_IMMUNE_TO_TILES: false,
-    LEVEL_CAP: 1,
+    level_cap: 1,
     BODY: {
         STEALTH: 30,
         PUSHABILITY: 1,

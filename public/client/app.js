@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.7-dev";
+    let buildNumber = "v2.0.8-dev";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -348,10 +348,62 @@ import * as socketStuff from "./socketinit.js";
         });
     }
 
+    function snowAndFireworkEffects() {
+        let currentDate = new Date(),
+        snowAmount = global.mobile
+        ? 0
+        : Math.max(
+            0,
+            1 -
+                Math.abs(
+                currentDate.getTime() -
+                    new Date(currentDate.getFullYear() - (6 > currentDate.getMonth() ? 1 : 0), 11, 25)
+                ) / 20736e5
+            );
+        if (snowAmount) {
+            let snowCanvas = document.createElement("canvas");
+            snowCanvas.style.position = "absolute";
+            snowCanvas.style.top = "0";
+            document.body.insertBefore(snowCanvas, document.body.firstChild);
+            let b = snowCanvas.getContext("2d"),
+            snows = [],
+            updateSnow = () => {
+                snowCanvas.width !== window.innerWidth && (snowCanvas.width = window.innerWidth);
+                snowCanvas.height !== window.innerHeight && (snowCanvas.height = window.innerHeight);
+                b.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
+                b.fillStyle = "#ffffff";
+                for (let snow of snows) {
+                snow.x += 1 / snow.speed + Math.random();
+                snow.y += 3.5 / snow.speed + Math.random();
+                let fade = 2 * Math.min(0.4, 1 - snow.y / snowCanvas.height);
+                0 < fade
+                    ? ((b.globalAlpha = fade),
+                    b.beginPath(),
+                    b.arc(snow.x, snow.y, snow.speed, 0, 2 * Math.PI),
+                    b.fill())
+                    : (snow.vanished = !0);
+                }
+                0.001 * snowCanvas.width * snowAmount > Math.random() &&
+                snows.push({
+                    x: snowCanvas.width * (1.5 * Math.random() - 0.5),
+                    y: -50 - 100 * Math.random(),
+                    speed: 2 + Math.random() * Math.random() * 7,
+                });
+                if (global.gameStart) snowCanvas.remove();
+                else requestAnimationFrame(updateSnow);
+            };
+            setInterval(() => {
+                snows = snows.filter((g) => !g.vanished);
+            }, 2e3);
+            updateSnow();
+        }
+    }
+
     // Important functions
     toggleOptionsMenu();
     tabOptionsMenuSwitcher();
     customThemeDisplayHandler();
+    snowAndFireworkEffects();
 
     // Prepare canvas
     function resizeEvent() {
@@ -2638,7 +2690,7 @@ import * as socketStuff from "./socketinit.js";
 
             // Skill value
             if (level) {
-                drawText(textcolor === col ? "MAX" : "+" + level, Math.round(x + len + 4) + 0.5, y + height / 2, height - 5, col, "left", true);
+                drawText(textcolor === col ? "MAX" : "+" + level, Math.round(x + len + 4) - 5.5, y + height / 2, height - 5, col, "left", true);
             }
 
             // Move on

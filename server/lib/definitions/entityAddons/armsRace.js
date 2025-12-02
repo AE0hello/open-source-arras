@@ -12,8 +12,8 @@ const megaAutoOptions = {type: "megaAutoTurret", size: 12}
 //return
 
 // not too concerned about following actual arms race tiers since they don't make any fucking sense
-Config.LEVEL_CAP = 60
-Config.LEVEL_CHEAT_CAP = 60
+Config.level_cap = 60
+Config.level_cap_cheat = 60
 
 // Extra gunvals
 g.diesel = { reload: 0.375, recoil: 0.8, shudder: 1.2, size: 0.625, health: 0.95, damage: 0.9, maxSpeed: 0.8, spray: 1.3 }

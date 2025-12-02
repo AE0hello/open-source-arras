@@ -58,8 +58,8 @@ try {
 }
 
 // Log a warning if Access-Control-Allow-Origin is enabled
-if (Config.allowAccessControlAllowOrigin && Config.startup_logs) {
-    util.warn("'Access-Control-Allow-Origin' is enabled, which allows any server/client to access it.");
+if (Config.allow_ACAO && Config.startup_logs) {
+    util.warn("Access-Control-Allow-Origin is enabled, which allows any server/client to access data from the WebServer.");
 }
 
 // Create an HTTP server to handle both API and static file requests
@@ -73,7 +73,7 @@ server = require("http").createServer((req, res) => {
         let http = server.ip.startsWith("localhost") ? `http://${server.ip}` : `https://${server.ip}`;
         serversIP.push(http);
     };
-    if (Config.allowAccessControlAllowOrigin || serversIP.includes(req.headers.origin)) {
+    if (Config.allow_ACAO || serversIP.includes(req.headers.origin)) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -153,9 +153,9 @@ server = require("http").createServer((req, res) => {
             ok = false;
             let fileToGet = path.join(publicRoot, req.url);
 
-            // If the requested file doesn't exist or isn't a file, default to the INDEX_HTML file
+            // If the requested file doesn't exist or isn't a file, default to the main_menu file
             if (!fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {
-                fileToGet = path.join(publicRoot, Config.INDEX_HTML);
+                fileToGet = path.join(publicRoot, Config.main_menu);
             }
 
             // Determine the file's MIME type based on its extension and serve the file stream
@@ -245,17 +245,17 @@ global.onServerLoaded = () => {
 
 // Start the HTTP Server & Load Game Servers
 server.listen(Config.port, () => {
-    Config.SERVERS.forEach(server => {
+    Config.servers.forEach(server => {
         // Load all of the servers.
         loadGameServer(
-            server.LOAD_ON_MAINSERVER,
-            server.HOST,
-            server.PORT,
-            server.GAMEMODE,
-            server.REGION,
-            { id: server.SERVER_ID, maxPlayers: server.MAX_PLAYERS },
-            server.PROPERTIES,
-            server.FEATURED
+            server.use_client_server,
+            server.host,
+            server.port,
+            server.gamemode,
+            server.region,
+            { id: server.id, maxPlayers: server.player_cap },
+            server.properties,
+            server.featured
         );
     })
 });

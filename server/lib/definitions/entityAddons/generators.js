@@ -285,7 +285,7 @@ function generatorMatrix(matrix, previous, next) {
 			}
 
 			gen.UPGRADES_TIER_0.push(
-				Config.SPAWN_CLASS, top, previous,
+				Config.spawn_class, top, previous,
 				left, center, right,
 				"spectator", bottom, next
 			);

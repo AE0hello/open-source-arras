@@ -8,7 +8,7 @@ class definitionCombiner {
         this.tankAddonLoc = data.addonsFolder;
     }
 
-    loadDefinitions(log = true, includeGameAddons = true, definitionCount = 0, definitionGroupsLoadStart = performance.now()) {
+    loadDefinitions(log = true, includeGameAddons = true, definitionCount = 0, convertedExportsCount = 0, definitionGroupsLoadStart = performance.now()) {
         if (Config.startup_logs && log) console.log(`Loading ${this.groupLoc.length} groups...`);
         // Load all the groups
         for (let filename of this.groupLoc) {
@@ -25,6 +25,7 @@ class definitionCombiner {
 
         // Calculate the length.
         definitionCount = Object.keys(Class).length;
+        convertedExportsCount = Object.keys(Class).filter(o => Class[o].Converted == true).length;
 
         let addonsLoadEnd = performance.now();
         if (Config.startup_logs && log) console.log("Loaded addons in " + util.rounder(addonsLoadEnd - definitionGroupsLoadEnd, 3) + " milliseconds. \n");
@@ -34,6 +35,8 @@ class definitionCombiner {
 
         let gameaddonsLoadEnd = performance.now();
         if (Config.startup_logs && log) console.log("Loaded game addons in " + util.rounder(gameaddonsLoadEnd - addonsLoadEnd, 3) + " milliseconds. \n");
+
+        if (Config.startup_logs && log && convertedExportsCount !== 0) console.log(`Converted ${convertedExportsCount} Exports class${convertedExportsCount == 1 ? "" : "es"} into Class! \n`);
 
         if (Config.startup_logs && log) console.log(`Combined ${this.groupLoc.length} definition groups and ${loadedAddons.length} addons into ${definitionCount} definitions!\n`);
 

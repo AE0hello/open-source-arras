@@ -29,7 +29,7 @@ const missingno = {
         }
     },
     statnames: { body_damage: "???", max_health: "???", max_health: "???", bullet_speed: "???", bullet_health: "???", bullet_pen: "???", bullet_damage: "???", reload: "???", move_speed: "???", shield_regen: "???", shield_cap: "???" },
-    rerootUpgradeTree: "basic", // todo: find a way to make this automatically change to Config.SPAWN_CLASS without bricking everything
+    rerootUpgradeTree: "basic", // todo: find a way to make this automatically change to Config.spawn_class without bricking everything
     className: "missingno",
     upgrades: [],
     guns: [],

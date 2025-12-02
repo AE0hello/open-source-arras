@@ -251,8 +251,8 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
             // Calculate base damage
             let resistDiff = my.health.resist - n.health.resist,
                 damage = {
-                    _me: Config.DAMAGE_CONSTANT * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * Math.min(2, Math.max(speedFactor._me, 1) * speedFactor._me),
-                    _n:  Config.DAMAGE_CONSTANT * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n , 1) * speedFactor._n ),
+                    _me: Config.damage_multiplier * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * Math.min(2, Math.max(speedFactor._me, 1) * speedFactor._me),
+                    _n:  Config.damage_multiplier * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n , 1) * speedFactor._n ),
                 };
             // Advanced damage calculations
             if (my.settings.ratioEffects) {
@@ -324,7 +324,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
             knockback = my.knockback;
         } else if (n.knockback) {
             knockback = n.knockback;
-        } else knockback = Config.KNOCKBACK_CONSTANT;
+        } else knockback = Config.knockback_multiplier;
         let elasticity = 2 - 4 * Math.atan(my.penetration * n.penetration) / Math.PI;
         if (doInelastic && my.settings.motionEffects && n.settings.motionEffects) {
             elasticity *= savedHealthRatio._me / pen._me.sqrt + savedHealthRatio._n / pen._n.sqrt;

@@ -116,7 +116,7 @@ Class.spectator = {
 Class.menu_tanks = makeMenu("Tanks")
 //Class.menu_tanks.UPGRADE_TOOLTIP = "Every tank. Need I say more?"
 Class.menu_tanks.UPGRADES_TIER_0 = [
-    Config.SPAWN_CLASS,
+    Config.spawn_class,
     "menu_unused",
     "arenaCloser",
     "menu_mapEntities",
@@ -473,6 +473,7 @@ Class.menu_testing.UPGRADES_TIER_0 = [
     "syncWithTankTest",
     "airblast",
     "angleseer",
+    "backwardsexports",
 ]
 
 // airblast testing
@@ -1190,6 +1191,12 @@ Class.syncWithTankTest = {
     FACING_TYPE: ["smoothToTarget", { smoothness: 30 }],
     GUNS: Class.basic.GUNS
 }
+exports.backwardsexports = {
+    PARENT: "genericTank",
+    LABEL: "Basic `Exports` exported tank",
+    BODY: Class.basic.BODY,
+    GUNS: Class.basic.GUNS,
+}
 let testLayeredBoss = new LayeredBoss("testLayeredBoss", "Test Layered Boss", "terrestrial", 7, 3, "terrestrialTrapTurret", 5, 7, true, {SPEED: 10});
 testLayeredBoss.addLayer({gun: {
     POSITION: [3.6, 7, -1.4, 8, 0, null, 0],
@@ -1204,3 +1211,5 @@ testLayeredBoss.addLayer({turret: {
     POSITION: [10, 7.5, 0, null, 160, 0],
     TYPE: "crowbarTurret",
 }}, true);
+
+global.convertExportsToClass(exports);
