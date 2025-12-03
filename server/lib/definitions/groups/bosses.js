@@ -1816,7 +1816,7 @@ eros.addLayer({turret: {
 let tethys = new LayeredBoss(null, "Tethys", "celestial", 9, "#E2CF58", "baseTrapTurret", 6.5, 5.5);
 tethys.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
-    TYPE: "bentBoomerTurret",
+    TYPE: ["bentBoomerTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.91}}],
 }});
 tethys.addLayer({turret: {
     POSITION: [10.5, 8, 0, null, 160, 0],
@@ -1838,10 +1838,10 @@ iapetus.addLayer({turret: {
 let apollo = new LayeredBoss(null, "Apollo", "celestial", 9, "#D4C1A1", "baseTrapTurret", 6.5, 5.5);
 apollo.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
-    TYPE: "blunderbussTurret",
+    TYPE: ["blunderbussTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 1.1}}],
 }});
 apollo.addLayer({turret: {
-    POSITION: [8.5, 9, 0, null, 180, 0],
+    POSITION: [11, 9, 0, null, 180, 0],
     TYPE: "heavyTurret", // https://discord.com/channels/1004907608018264094/1051533268861857863/1445496968406368266
 }});
 
@@ -2002,18 +2002,18 @@ osiris.addLayer({turret: {
 let horus = new LayeredBoss(null, "Horus", "celestial", 9, "#8BA867", "baseTrapTurret", 6.5, 5.5);
 horus.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
-    TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.2, damage: 1.2, speed: 1.15, maxSpeed: 0.9, resist: 1.2}}],
+    TYPE: ["basicTurret", { INDEPENDENT: true, GUN_STAT_SCALE: {health: 1.8, damage: 1.3} }],
 }});
 horus.addLayer({turret: {
     POSITION: [10.5, 8, 0, null, 160, 0],
-    TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.2, damage: 1.2, speed: 1.15, maxSpeed: 0.9, resist: 1.2}}]
+    TYPE: ["basicTurret", { INDEPENDENT: true, GUN_STAT_SCALE: {health: 1.8, damage: 1.3} }],
 }});
 
 // ANUBIS
 let anubis = new LayeredBoss(null, "Anubis", "celestial", 9, "#D66950", "baseTrapTurret", 6.5, 5.5);
 anubis.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
-    TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.2, damage: 1.2, speed: 1.15, maxSpeed: 0.9, resist: 1.2}}],
+    TYPE: ["basicTurret", { INDEPENDENT: true, GUN_STAT_SCALE: {health: 1.8, damage: 1.3} }],
 }});
 anubis.addLayer({turret: {
     POSITION: [10.5, 8, 0, null, 160, 0],
@@ -2039,7 +2039,7 @@ ptah.addLayer({turret: {
 }});
 ptah.addLayer({turret: {
     POSITION: [10.5, 8, 0, null, 160, 0],
-    TYPE: "sprayerTurret"
+    TYPE: "focalTurret"
 }});
 
 // JULIUS
@@ -2108,6 +2108,21 @@ ragnarok.addLayer({turret: {
     POSITION: [8, 9, 0, null, 160, 0],
     TYPE: "gunnerCruiserTurret",
 }}, true, 4.5);
+
+let amun = new LayeredBoss(null, "Amun", "eternal", 11, "darkGrey", "baseTrapTurret", 6, 5.5);
+amun.addLayer({turret: {
+    POSITION: [6, 9, 0, null, 160, 0],
+    TYPE: "desmosTurret",
+}});
+amun.addLayer({turret: {
+    POSITION: [6.5, 9, 0, null, 160, 0],
+    TYPE: "undertowTurret",
+}}, true, 4);
+amun.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 160, 0],
+    TYPE: "forkTurret",
+}}, true, 4);
+Class.amun.ALPHA = 0.3
 
 // Developer Bosses
 Class.taureonCoreBase = {

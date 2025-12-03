@@ -432,13 +432,14 @@ Class.menu_celestials.UPGRADES_TIER_0 = [
     "rhea", 
     "julius", 
     "genghis", 
-    "napoleon"
+    "napoleon",
 ]
 
 Class.menu_eternals = makeMenu("Eternals", "veryLightGrey", 11)
 Class.menu_eternals.UPGRADES_TIER_0 = [
     "ragnarok",
     "kronos",
+    "amun",
 ]
 
 Class.menu_devBosses = makeMenu("Developers", "lightGreen", 4)
