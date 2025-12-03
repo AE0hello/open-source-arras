@@ -435,7 +435,6 @@ Class.menu_celestials.UPGRADES_TIER_0 = [
     "napoleon"
 ]
 
-
 Class.menu_eternals = makeMenu("Eternals", "veryLightGrey", 11)
 Class.menu_eternals.UPGRADES_TIER_0 = [
     "ragnarok",
