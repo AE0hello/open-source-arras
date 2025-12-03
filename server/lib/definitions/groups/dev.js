@@ -192,6 +192,7 @@ Class.rammers.PROPS = [
 ]
 Class.terrestrials = menu("Terrestrials", "orange", 7)
 Class.celestials = menu("Celestials", "lightGreen", 9)
+Class.celestials.UPGRADE_TOOLTIP = "WARNING: This menu is very laggy."
 Class.eternals = menu("Eternals", "veryLightGrey", 11)
 Class.devBosses = menu("Developers", "lightGreen", 4)
 Class.devBosses.UPGRADE_COLOR = "rainbow";
@@ -1579,7 +1580,7 @@ Class.developer.UPGRADES_TIER_0 = ["tanks", "bosses", "spectator", "levels", "te
         Class.rogues.UPGRADES_TIER_0 = ["roguePalisade", "rogueAlcazar", "rogueArmada", "julius", "genghis", "napoleon"]
 	    Class.rammers.UPGRADES_TIER_0 = ["bob", "nemesis"]
         Class.terrestrials.UPGRADES_TIER_0 = ["ares", "gersemi", "ezekiel", "eris", "selene"]
-        Class.celestials.UPGRADES_TIER_0 = ["paladin", "freyja", "zaphkiel", "nyx", "theia", "atlas", "rhea", "julius", "genghis", "napoleon"]
+        Class.celestials.UPGRADES_TIER_0 = ["paladin", "freyja", "zaphkiel", "nyx", "theia", "atlas", "hera", "horus", "anubis", "isis", "tethys", "ullr", "dellingr", "osiris", "alcis", "khonsu", "hyperion", "nephthys", "tyr", "vor", "aether", "iapetus", "baldr", "eros", "hjordis", "sif", "freyr", "styx", "apollo", "ptah", "rhea", "julius", "genghis", "napoleon"]
         Class.eternals.UPGRADES_TIER_0 = ["ragnarok", "kronos"]
         // Class.devBosses.UPGRADES_TIER_0 = ["retiredDevBosses", "zephiBoss", "dogeiscutBoss", "toothlessBoss", "AEMKShipBoss", "helenaBoss"]
         //     Class.retiredDevBosses.UPGRADES_TIER_0 = ["taureonBoss", "trplnrBoss", "frostBoss"]
