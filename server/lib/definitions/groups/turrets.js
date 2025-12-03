@@ -594,7 +594,7 @@ Class.swarmerTurret = makeTurret('swarmer', {canRepel: true, limitFov: true, ext
 Class.basicTurret = makeTurret({
     GUNS: [
         {
-            POSITION: [20, 8, 1, 0, 0, 0, 0],
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, g.pelleter, g.twin, g.power, { speed: 0.7, maxSpeed: 0.7 }]),
                 TYPE: "bullet",
