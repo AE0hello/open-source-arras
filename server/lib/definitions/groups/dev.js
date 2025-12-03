@@ -397,18 +397,44 @@ Class.menu_terrestrials.UPGRADES_TIER_0 = [
 ]
 
 Class.menu_celestials = makeMenu("Celestials", "lightGreen", 9)
+Class.menu_celestials.UPGRADE_TOOLTIP = "WARNING: This menu is very laggy."
 Class.menu_celestials.UPGRADES_TIER_0 = [
-    "paladin",
-    "freyja",
-    "zaphkiel",
-    "nyx",
-    "theia",
-    "atlas",
-    "rhea",
-    "julius",
-    "genghis",
-    "napoleon",
+    "paladin", 
+    "freyja", 
+    "zaphkiel", 
+    "nyx", 
+    "theia", 
+    "atlas", 
+    "hera", 
+    "horus", 
+    "anubis", 
+    "isis", 
+    "tethys", 
+    "ullr", 
+    "dellingr", 
+    "osiris", 
+    "alcis", 
+    "khonsu", 
+    "hyperion", 
+    "nephthys", 
+    "tyr", 
+    "vor", 
+    "aether", 
+    "iapetus", 
+    "baldr", 
+    "eros", 
+    "hjordis", 
+    "sif", 
+    "freyr", 
+    "styx", 
+    "apollo", 
+    "ptah", 
+    "rhea", 
+    "julius", 
+    "genghis", 
+    "napoleon"
 ]
+
 
 Class.menu_eternals = makeMenu("Eternals", "veryLightGrey", 11)
 Class.menu_eternals.UPGRADES_TIER_0 = [
