@@ -380,7 +380,7 @@ Class.menu_bosses.UPGRADES_TIER_0 = [
 Class.menu_sentries = makeMenu("Sentries", "pink", 3.5)
 Class.menu_sentries.PROPS = [
     {
-        POSITION: [9, 0, 0, 0, 360, 1],
+        POSITION: [12, 0, 0, 0, 360, 1],
         TYPE: "genericEntity"
     }
 ]
@@ -388,6 +388,9 @@ Class.menu_sentries.UPGRADES_TIER_0 = [
     "sentrySwarm",
     "sentryGun",
     "sentryTrap",
+    "sentinelSwarm",
+    "sentinelGun",
+    "sentinelTrap",
     "shinySentrySwarm",
     "shinySentryGun",
     "shinySentryTrap",
