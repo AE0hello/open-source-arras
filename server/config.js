@@ -11,7 +11,7 @@ module.exports = {
 
     servers: [ // Make sure to change the HOST, PORT and SERVER_ID between servers!
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
+            use_client_server: false, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
 
@@ -21,31 +21,11 @@ module.exports = {
             featured: false,
 
             region: "local", // The region the server is on.
-            gamemode: ["tdm"], // The selected gamemode.
+            gamemode: ["ffa"], // The selected gamemode.
             player_cap: 80, // The maximum number of players that can join the server. Not including bots.
 
             properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
-                teams: 2,
-                bot_cap: 32,
-            }
-        },
-        {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
-
-            host: "localhost:3002", // Server host location.
-            port: 3002, // The port on the server.
-            id: "lod", // (<HOST>/#<SERVER_ID>)
-            featured: false,
-
-            region: "local", // The region the server is on.
-            gamemode: ["ffa"], // The selected gamemode.
-            player_cap: 80, // Not including bots.
-
-            properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
-                bot_cap: 16,
-                daily_tank: {
+                daily_tank: { 
                     tank: "whirlwind",
                     tier: 3,
                     ads: {
@@ -61,8 +41,34 @@ module.exports = {
                                 use_regular_ad_size: true,
                             }
                         ]
-                    }
-                },
+                    } 
+                }
+            }
+        },
+        {
+            use_client_server: false, // Only one server at a time can have this enabled.
+            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
+            // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
+
+            host: "localhost:3002", // Server host location.
+            port: 3002, // The port on the server.
+            id: "lod", // (<HOST>/#<SERVER_ID>)
+            featured: false,
+
+            region: "local", // The region the server is on.
+            gamemode: ["tdm"], // The selected gamemode.
+            player_cap: 80, // Not including bots.
+
+            properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
+                teams: 4,
+                bot_cap: 45,
+                daily_tank: { 
+                    tank: "master",
+                    tier: 3,
+                    ads: {
+                        enabled: false
+                    } 
+                }
             }
         },
     ],

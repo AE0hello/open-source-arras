@@ -248,7 +248,7 @@ server.listen(Config.port, () => {
     Config.servers.forEach(server => {
         // Load all of the servers.
         loadGameServer(
-            server.share_client_server,
+            server.use_client_server,
             server.host,
             server.port,
             server.gamemode,
