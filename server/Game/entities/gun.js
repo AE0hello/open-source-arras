@@ -46,6 +46,7 @@ class Gun extends EventEmitter {
             this.fixedReload = info.PROPERTIES.FIXED_RELOAD == null ? false : info.PROPERTIES.FIXED_RELOAD;
             this.calculator = info.PROPERTIES.STAT_CALCULATOR == null ? "default" : info.PROPERTIES.STAT_CALCULATOR;
             this.waitToCycle = info.PROPERTIES.WAIT_TO_CYCLE == null ? false : info.PROPERTIES.WAIT_TO_CYCLE;
+            this.delaySpawn = info.PROPERTIES.DELAY_SPAWN ?? this.waitToCycle;
             this.bulletStats = (info.PROPERTIES.BULLET_STATS == null || info.PROPERTIES.BULLET_STATS == "master") ? "master" : new Skill(info.PROPERTIES.BULLET_STATS);
             this.settings = info.PROPERTIES.SHOOT_SETTINGS == null ? [] : JSON.parse(JSON.stringify(info.PROPERTIES.SHOOT_SETTINGS));
             this.countsOwnKids = info.PROPERTIES.MAX_CHILDREN == null ? false : info.PROPERTIES.MAX_CHILDREN;
@@ -53,9 +54,10 @@ class Gun extends EventEmitter {
             this.syncsSkills = info.PROPERTIES.SYNCS_SKILLS == null ? false : info.PROPERTIES.SYNCS_SKILLS;
             this.negRecoil = info.PROPERTIES.NEGATIVE_RECOIL == null ? false : info.PROPERTIES.NEGATIVE_RECOIL;
             this.independentChildren = info.PROPERTIES.INDEPENDENT_CHILDREN == null ? false : info.PROPERTIES.INDEPENDENT_CHILDREN;
+            this.independentMaster = info.PROPERTIES.INDEPENDENT_MASTER == null ? false : info.PROPERTIES.INDEPENDENT_MASTER;
             this.borderless = info.PROPERTIES.BORDERLESS == null ? false : info.PROPERTIES.BORDERLESS;
             this.drawFill = info.PROPERTIES.DRAW_FILL == null ? true : info.PROPERTIES.drawFill;
-            this.spawnOffset = info.PROPERTIES.SPAWN_OFFSET == null ? Config.bulletSpawnOffset : info.PROPERTIES.SPAWN_OFFSET;
+            this.spawnOffset = info.PROPERTIES.SPAWN_OFFSET == null ? Config.bullet_spawn_offset : info.PROPERTIES.SPAWN_OFFSET;
             this.destroyOldestChild = info.PROPERTIES.DESTROY_OLDEST_CHILD == null ? false : info.PROPERTIES.DESTROY_OLDEST_CHILD;
             this.shootOnDeath = (info.PROPERTIES.SHOOT_ON_DEATH == null) ? false : info.PROPERTIES.SHOOT_ON_DEATH;
             if (info.PROPERTIES.COLOR != null) {
@@ -103,11 +105,11 @@ class Gun extends EventEmitter {
         this.angle = (position.ANGLE * Math.PI) / 180;
         this.direction = _off.direction;
         this.offset = _off.length / 10;
-        this.delay = position.DELAY;
+        this.maxCycleTimer = !this.delaySpawn - position.DELAY;
         this.position = 0;
         this.motion = 0;
         if (this.canShoot) {
-            this.cycle = !this.waitToCycle - this.delay;
+            this.cycleTimer = this.maxCycleTimer;
             this.trueRecoil = this.settings.recoil;
             this.recoilDir = 0;
         }
@@ -146,6 +148,10 @@ class Gun extends EventEmitter {
             type = ensureIsClass(type);
             util.flattenDefinition(flattenedType, type);
         }
+        for (let e of this.bulletType) {
+            let Tonk = ensureIsClass(e);
+            if (Tonk.TURRETS || Tonk.ON) this.noentitylimit = true;
+        }
         this.bulletType = flattenedType;
         // Set final label to bullet
         if (!this.independentChildren) {
@@ -179,7 +185,7 @@ class Gun extends EventEmitter {
         return this.lastShot;
     }
 
-    spawnBullets(useWhile, shootPermission) {
+    shoot() {
         // Find gun's current angle position and length
         let angle1 = this.direction + this.angle + this.body.facing,
             angle2 = this.angle + this.body.facing,
@@ -196,16 +202,7 @@ class Gun extends EventEmitter {
             offsetFinalY = offset_base_y + offset_end_y,
             skill = this.bulletStats === "master" ? this.body.skill : this.bulletStats;
         
-        // Shoot, multiple times in a tick if needed
-        do {
-            this.fire(offsetFinalX, offsetFinalY, skill);
-            this.cycle--;
-            shootPermission =
-                  this.countsOwnKids    ? this.countsOwnKids    > this.children.length
-                : this.body.maxChildren ? this.body.maxChildren > this.body.children.length
-                : true;
-
-        } while (useWhile && shootPermission && this.cycle-1 >= 1);
+        this.fire(offsetFinalX, offsetFinalY, skill);
     }
     live() {
         this.recoil();
@@ -228,23 +225,26 @@ class Gun extends EventEmitter {
         // Cycle up if we should
         if (shootPermission || !this.waitToCycle) {
             let speed = this.fixedReload ? global.gameManager.roomSpeed : global.gameManager.runSpeed;
-            if (this.cycle < 1) {
-                this.cycle += 1 / (this.settings.reload * speed * (this.calculator == "necro" || this.calculator == "fixed reload" ? 1 : sk.rld));
+            if (this.cycleTimer < 1) {
+                this.cycleTimer += 1 / (this.settings.reload * speed * (this.calculator == "necro" || this.calculator == "fixed reload" ? 1 : sk.rld));
             }
         }
         // Firing routines
-        if (shootPermission &&
-            (this.autofire || (this.altFire ? this.body.control.alt : this.body.control.fire))
-        ) {
-            if (this.body.settings.hasNoReloadDelay) return (
-                this.spawnBullets(true, shootPermission),
-                this.cycle = 0
+        if (this.autofire || (this.altFire ? this.body.control.alt : this.body.control.fire)) {
+            if (this.body.settings.hasNoReloadDelay && shootPermission) return (
+                this.shoot(),
+                this.cycleTimer = this.maxCycleTimer
               )
-            if (this.cycle >= 1) {
-                this.spawnBullets(true, shootPermission);
-            } // If we're not shooting, only cycle up to where we'll have the proper firing delay
-        } else if (this.cycle > !this.waitToCycle - this.delay && !this.body.settings.hasNoReloadDelay) {
-            this.cycle = !this.waitToCycle - this.delay;
+            while (shootPermission && this.cycleTimer >= 1) {
+                this.shoot();
+                this.cycleTimer--;
+
+                // Repeatedly check for shoot permission to prevent ultra low reload guns from exceeding the child limit in 1 tick
+                shootPermission = this.checkShootPermission();
+            }
+        // If we're not shooting, only cycle up to where we'll have the proper firing delay
+        } else if (this.cycleTimer > this.maxCycleTimer) {
+            this.cycleTimer = this.maxCycleTimer;
         }
     }
     checkShootPermission() {
@@ -330,6 +330,27 @@ class Gun extends EventEmitter {
         let spawnOffset = {
             x: this.body.x + this.body.size * gx - s.x,
             y: this.body.y + this.body.size * gy - s.y,
+        }
+        if (this.independentMaster) {
+            var o = new Entity(spawnOffset);
+            o.color.base = undefined;
+            this.bulletInitIndependent(o);
+            o.parentID = this.body.id;
+            o.color.base = o.color.base ?? this.body.master.color.base;
+            o.SIZE = (this.body.size * this.width * this.settings.size) / 2;
+            o.velocity = s;
+            o.facing = o.velocity.direction;
+            o.refreshBodyAttributes();
+            o.life();
+            this.onShootFunction();
+            this.recoilDir = this.body.facing + this.angle;
+            this.master.emit(this.altFire ? 'altFire' : 'fire', {
+                gun: this,
+                store: this.store,
+                globalStore: this.globalStore,
+                child: o,
+            });
+            return;
         }
         if (this.independentChildren) {
             var o;

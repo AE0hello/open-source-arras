@@ -1,4 +1,4 @@
 module.exports = {
-    SPACE_MODE: true,
-    ARENA_TYPE: "circle",
+    space_physics: true,
+    arena_shape: "circle",
 };

@@ -1,213 +1,169 @@
 module.exports = {
-    // Server host
-
-    // Game server domain.
-    // If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
-    host: "localhost:3000",
-
-    // Which port to run the web server on.
-    port: 3000,
+    // Main Menu
+    main_menu: "index.html", // Where the main menu is located (in the /public folder).
+    host: "localhost:3000", // Game server domain. If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
+    port: 3000, // Which port to run the web server on.
 
     // Server
+    visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
+    startup_logs: true, // Enable startup logs and log speed loop warnings in terminal
+    load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
 
-    // How often to update the list of the entities that players can see.
-    // Has effects of when entities are activated.
-    visibleListInterval: 250,
-
-    // Start up logs and Log speed loop warnings
-    LOGS: true,
-
-    // If set to true, it loads all mockups and doesn't needs to generate while ingame. If set to false, does require need to generate mockups ingame but starts the main server instantly.
-    LOAD_ALL_MOCKUPS: false,
-
-    // Servers
-    // This is where your server's settings are stored.
-    SERVERS: [
+    servers: [ // Make sure to change the HOST, PORT and SERVER_ID between servers!
         {
-            // This is important and usefull,
-            // if your VM (Your machine that hosts the website stuff) doesn't support multi ports,
-            // you are forced to set this to true because it will load via through the main server.
-            LOAD_ON_MAINSERVER: false,
-            // This is very important where the host is actually being hosted. Keep in mind that the ports gets changed to 3000, to 3001, and it repeats with the other servers.
-            // Keep in mind that if "LOAD_ON_MAINSERVER" is set to true then this code will be replaced with the main server's host instead.
-            HOST: "localhost:3001",
-            // The port where to host from.
-            // Keep in mind that if "LOAD_ON_MAINSERVER" is set to true then this code will be replaced with the main server's port instead.
-            PORT: 3001,
-            // Get the gamemode you want to select with.
-            GAMEMODE: ["maze"],
-            // The region, can be anything.
-            REGION: "local",
-            // How many players can join until it's full.
-            MAX_PLAYERS: 15,
-            // The server ID. Example: (<Yourwebsitename>/#<ServerID>)
-            // Important! You cannot make the same server id with a other one or else the server selector will get confused.
-            SERVER_ID: "loc",
-            // Make the server featured by turning the text yellow in the server selector.
-            FEATURED: false,
-            // This is where you can override settings in the config.js file, and as long the gamemode's config doesn't override it.
-            PROPERTIES: {
-                // Amount of bots.
-                BOTS: 5,
+            share_client_server: false, // Only one server at a time can have this enabled.
+            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
+            // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
+
+            host: "localhost:3001", // Server host location.
+            port: 3001, // The port on the server.
+            id: "loc", // (<host>/#<id>)
+            featured: false,
+
+            region: "local", // The region the server is on.
+            gamemode: ["tdm"], // The selected gamemode.
+            player_cap: 80, // The maximum number of players that can join the server. Not including bots.
+
+            properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
+                teams: 2,
+                bot_cap: 32,
+            }
+        },
+        {
+            share_client_server: false, // Only one server at a time can have this enabled.
+            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
+            // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
+
+            host: "localhost:3002", // Server host location.
+            port: 3002, // The port on the server.
+            id: "lod", // (<HOST>/#<SERVER_ID>)
+            featured: false,
+
+            region: "local", // The region the server is on.
+            gamemode: ["ffa"], // The selected gamemode.
+            player_cap: 80, // Not including bots.
+
+            properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
+                bot_cap: 16,
+                daily_tank: {
+                    tank: "whirlwind",
+                    tier: 3,
+                    ads: {
+                        enabled: true,
+                        source: [
+                            {
+                                file: "testadvideo.mp4",
+                                use_regular_ad_size: true,
+                            },
+                            {
+                                file: "testadimage.png",
+                                image_wait_time: 3,
+                                use_regular_ad_size: true,
+                            }
+                        ]
+                    }
+                },
             }
         },
     ],
 
     // Web Server
+    allow_ACAO: false, // Access-Control-Allow-Origin, allows any server/client to access data from the WebServer.
 
-    // Allow other servers to get data from this server.
-    allowAccessControlAllowOrigin: false,
+    // Map
+    map_tile_width: 420,
+    map_tile_height: 420,
 
-    // Miscellaneous
+    // The message that appears once a player spawns.
+    spawn_message: "You have spawned! Welcome to the game.\n"
+                 + "You will be invulnerable until you move or shoot.\n"
+                 + "Please report any bugs you encounter!",
 
-    // The dimensions of a single tile on the map.
-    TILE_WIDTH: 420,
-    TILE_HEIGHT: 420,
+    chat_message_duration: 15_000, // How long a chat message lasts in milliseconds. Includes the fade-out period.
+    popup_message_duration: 10_000, // How long (in milliseconds) a popup message lasts before fading out.
+    sanitize_chat_input: true, // If you don't want your players to color their messages. They get sanitized after addons interpret them, but before they're added to the chat message dictionary.
 
-    // How long a chat message lasts in milliseconds.
-    // Includes the fade-out period.
-    CHAT_MESSAGE_DURATION: 15_000,
-
-    // If you don't want your players to color their messages.
-    // They get sanitized after addons interpret them, but before they're added to the chat message dictionary.
-    SANITIZE_CHAT_MESSAGE_COLORS: true,
-
-    // Welcome message once a player spawns.
-    WELCOME_MESSAGE: "You have spawned! Welcome to the game.\n"
-        + "You will be invulnerable until you move or shoot.\n"
-        + "Please report any bugs you encounter!",
-
-    // How long a popup message lasts before fading out in milliseconds.
-    MESSAGE_DISPLAY_TIME: 10_000,
-
-    // How long you have to wait to respawn in seconds.
-    RESPAWN_TIMEOUT: 0,
+    // Seasonal
+    spooky_theme: false, // Toggles the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
 
     // Gameplay
+    game_speed: 1, // General game speed.
+    run_speed: 1.5, // General multiplier for acceleration and max speeds.
+    max_heartbeat_interval: 300_000, // How long (in milliseconds) a socket can be disconnected before their tank self-destructs.
+    respawn_delay: 0, // How long you have to wait to respawn in seconds. Set to 0 to disable.
 
-    // General game speed.
-    gameSpeed: 1,
+    bullet_spawn_offset: 1, // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
+    damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
+    knockback_multiplier: 1.1, // General knockback multiplier everytime knockback is applied.
+    glass_health_factor: 2, // TODO: Figure out how the math behind this works.
+    room_bound_force: 0.01,// How strong the force is that confines entities to the map and portals apply to entities.
+    soft_max_skill: 0.59, // TODO: Find out what the intention behind the implementation of this configuration is.
 
-    // General multiplier for acceleration and max speeds.
-    runSpeed: 1.5,
-
-    // How long (in ms) a socket can be disconnected without their player dying.
-    maxHeartbeatInterval: 300000,
-
-    // Set halloween theme by adding the eye entities to the walls and replacing rocks to pumpkins
-    HALLOWEEN_THEME: true,
-
-    // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
-    bulletSpawnOffset: 1,
-
-    // General damage multiplier everytime damage is dealt.
-    DAMAGE_CONSTANT: 1,
-
-    // General knockback multiplier everytime knockback is applied.
-    KNOCKBACK_CONSTANT: 1.1,
-
-    // TODO: Figure out how the math behind this works.
-    GLASS_HEALTH_FACTOR: 2,
-
-    // How strong the force is that confines entities to the map and portals apply to entities.
-    ROOM_BOUND_FORCE: 0.01,
-
-    // TODO: Find out what the intention behind the implementation of this configuration is.
-    SOFT_MAX_SKILL: 0.59,
-
-    // When an entity reaches a level, this function is called and returns how many points that entity gets for reaching that level.
-    LEVEL_SKILL_POINT_FUNCTION: level => {
+    // When an entity reaches a level, this function is called and returns how many skill points that entity gets for reaching that level.
+    defineLevelSkillPoints: level => {
         if (level < 2) return 0;
         if (level <= 40) return 1;
         if (level <= 45 && level & 1 === 1) return 1;
         return 0;
     },
 
-    // Maximum normally achievable level.
-    LEVEL_CAP: 45,
+    level_cap: 45, // Maximum normally achievable level.
+    level_cap_cheat: 45, // Maximum level via the level-up key and auto-level-up.
 
-    // Maximum level via the level-up key and auto-level-up.
-    LEVEL_CHEAT_CAP: 45,
+    skill_cap: 9, // Default skill caps.
+    tier_cap: 9, // Amount of tank tiers.
+    tier_multiplier: 15, // Level difference between each tier.
 
-    // Default skill caps.
-    MAX_SKILL: 9,
+    // Bots
+    bot_cap: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
+    bot_xp_gain: 60, // How much XP bots get until they reach level_cap.
+    bot_start_level: 45, // How much XP bots will receive when first created.
+    bot_skill_upgrade_chances: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1], // The chances of a bot upgrading a specific skill when skill upgrades are available.
+    bot_class_upgrade_chances: [1, 5, 20, 37, 37], // The chances of a bot upgrading a specific amount of times before it stops upgrading.
+    bot_name_prefix: "[AI] ", // This is prefixed before the bot's randomly chosen name.
 
-    // Amount of tank tiers.
-    MAX_UPGRADE_TIER: 9,
-
-    // Level difference between each tier.
-    TIER_MULTIPLIER: 15,
-
-    // Where the client's html is located.
-    INDEX_HTML: "index.html",
-
-    // How many bots can be spawned.
-    BOTS: 0,
-
-    // How much XP player-bots get until they reach LEVEL_CAP.
-    BOT_XP: 60,
-
-    // How much XP player-bots will receive when first created.
-    BOT_START_LEVEL: 45,
-
-    // The chances of a player-bot upgrading a specific skill when skill upgrades are available.
-    BOT_SKILL_UPGRADE_CHANCES: [1, 1, 3, 4, 4, 4, 4, 2, 1, 1],
-
-    // The chances of a player-bot upgrading a specific amount of times before it stops upgrading.
-    BOT_CLASS_UPGRADE_CHANCES: [1, 5, 20, 37, 37],
-
-    // The prefix of the player-bots names.
-    BOT_NAME_PREFIX: '[AI] ',
-
-    // The class that players and player-bots spawn as.
-    SPAWN_CLASS: 'basic',
+    // The class that players and bots spawn as.
+    spawn_class: "basic",
 
     // How every entity regenerates their health.
-    REGENERATE_TICK: 100,
+    regenerate_tick: 100,
 
-    // How many members a team can have in comparison to an unweighed team.
-    // Example: Lets say we have team A and B. If the weigh of A is 2 and B is 1, then the game will try to give A twice as many members as B.
-    TEAM_WEIGHTS: {},
-
-    // Natural Spawns
-
-    // The possible food types that can spawn.
-    FOOD_TYPES: [
-        [2000, [
-            [65, 'egg'], [64, 'triangle'], [45, 'square'], [7, 'pentagon'], [1, 'hexagon']
-        ]],
+    // Food
+    food_types: [ // Possible food types outside the nest
         [1, [
-            [625, 'gem'], [125, 'shinyTriangle'], [25, 'shinySquare'], [5, 'shinyPentagon'], [1, 'shinyHexagon']
+            [65, "egg"], [64, "triangle"], [45, "square"], [7, "pentagon"], [1, "hexagon"]
         ]],
-        [0.1, [
-            [1296, 'jewel'], [216, 'legendaryTriangle'], [36, 'legendarySquare'], [6, 'legendaryPentagon'], [1, 'legendaryHexagon']
+        [1/50000, [
+            [625, "gem"], [125, "shinyTriangle"], [25, "shinySquare"], [5, "shinyPentagon"], [1, "shinyHexagon"]
+        ]],
+        [1/1000000, [
+            [1296, "jewel"], [216, "legendaryTriangle"], [36, "legendarySquare"], [6, "legendaryPentagon"], [1, "legendaryHexagon"]
+        ]]
+    ],
+    food_types_nest: [ // Possible food types in the nest
+        [1, [
+            [16, "pentagon"], [ 4, "betaPentagon"], [ 1, "alphaPentagon"]
+        ]]
+    ],
+    enemy_types_nest: [ // Possible enemy food types in the nest
+        [1, [
+            [1, "crasher"]
+        ]],
+        [1/20, [
+            [1, "sentryGun"], [1, "sentrySwarm"], [1, "sentryTrap"]
         ]]
     ],
 
-    // The possible nest food types that can spawn.
-    FOOD_TYPES_NEST: [
-        [1, [
-            [16, 'pentagon'], [ 4, 'betaPentagon'], [ 1, 'alphaPentagon']
-        ]]
-    ],
+    food_cap: 70, // Maximum number of regular food at any time.
+    food_cap_nest: 15, // Maximum number of nest food at any time.
+    enemy_cap_nest: 10, // Maximum number of enemy nest food at any time.
+    food_group_cap: 6, // Number of foods that random food groups spawn with
 
-    // The possible nest enemy types that can spawn.
-    ENEMY_TYPES_NEST: [
-        [19, [
-            [1, 'crasher']
-        ]],
-        [1, [
-            [1, 'sentryGun'], [1, 'sentrySwarm'], [1, 'sentryTrap']
-        ]]
-    ],
-
-    // Cooldown (in seconds) of boss spawns being announced.
-    BOSS_SPAWN_COOLDOWN: 260,
-    // The delay (in seconds) between the boss spawns being announced and the bosses actually spawning.
-    // NOTE: The spawn message (ex. "A strange trembling...") takes half as long to appear than the boss.
-    BOSS_SPAWN_DURATION: 6,
-    // The possible boss types that can spawn.
-    BOSS_TYPES: [{
+    // Bosses
+    bosses_spawn: true,
+    boss_spawn_cooldown: 260, // The delay (in seconds) between boss spawns.
+    boss_spawn_delay: 6, // The delay (in seconds) between the boss spawn being announced and the boss(es) actually spawning.
+    boss_types: [{
         bosses: ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner"],
         amount: [5, 5, 4, 2, 1], chance: 2, nameType: "a",
     },{
@@ -228,43 +184,36 @@ module.exports = {
         message: "The darkness arrives as the realms are torn apart!",
     }],
 
-    // How much regular foods can spawn.
-    FOOD_CAP: 70,
+    // How many members a team can have in comparison to an unweighed team.
+    // Example: We have team A and B. If the weight of A is 2 and B is 1, then the game will try to give A twice as many members as B.
+    // Check gamemodeconfigs to see how this works.
+    team_weights: {},
 
-    // How much nest foods can spawn.
-    FOOD_CAP_NEST: 15,
+    // Fun
+    random_body_colors: false,
 
-    // How much enemy foods can spawn.
-    ENEMY_CAP_NEST: 10,
-
-    // What this does is there a chance that it will spawn food with a group, and the value makes it how much.
-    FOOD_MAX_GROUP_TOTAL: 6,
-
-    // Default values for gamemode related things.
-    // Do not change these, you'll likely break stuff!
-    // Change GAME_MODES instead.
-    ENABLE_FOOD: true,
-    GAMEMODE_NAME_PREFIXES: [],
-    SPECIAL_BOSS_SPAWNS: false,
-    CLASSIC_SIEGE: false,
-    MOTHERSHIP: false,
-    DOMINATION: false,
-    RANDOM_COLORS: false,
-    SPACE_PHYSICS: false,
-    LABY_FOOD: false,
-    ARENA_TYPE: "rect",
-    BLACKOUT: false,
-    SPACE_MODE: false,
-    CLAN_WARS: false,
-    GROWTH: false,
-    GROUPS: false,
-    TRAIN: false,
-    MAZE: false,
-    HUNT: false,
-    MODE: "ffa",
-    TAG: false,
-    SPAWN_CONFINEMENT: {},
+    // These are the default values for gamemode related things.
+    // If you want to change them, copy the values you want to change to the server's properties. Changing them here could break stuff!
+    enable_food: true,
+    gamemode_name_prefixes: [],
+    special_boss_spawns: false,
+    use_limited_waves: false,
+    mothership: false,
+    domination: false,
+    tiered_food: false,
+    arena_shape: "rect",
+    blackout: false,
+    space_physics: false,
+    arms_race: false,
+    clan_wars: false,
+    growth: false,
+    groups: false,
+    train: false,
+    mode: "ffa",
+    tag: false,
+    teams: 4,
+    spawn_confinement: {},
 
     // Room setup
-    ROOM_SETUP: ["room_default"],
+    room_setup: ["room_default"],
 }

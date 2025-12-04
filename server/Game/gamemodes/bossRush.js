@@ -99,7 +99,7 @@ class bossRush {
             [ 50, "theia"],
 
             //eternals
-            [100, "legionaryCrasherFix" /*fucking mid*/],
+            [100, "legionaryCrasherFix"], // fucking mid
             [100, "kronos"],
             [100, "ragnarok"],
         ];
@@ -110,7 +110,7 @@ class bossRush {
         this.defineProperties();
     }
     defineProperties() {
-        this.length = Config.CLASSIC_SIEGE ? this.waveCodes.length : Config.WAVES;
+        this.length = Config.use_limited_waves ? this.waveCodes.length : Config.wave_cap;
         this.waves = this.generateWaves();
         this.waveId = 52;
         this.gameActive = false;
@@ -134,7 +134,7 @@ class bossRush {
                 wave.push(boss);
             }
 
-            waves.push(Config.CLASSIC_SIEGE ? this.waveCodes[i] : wave);
+            waves.push(Config.use_limited_waves ? this.waveCodes[i] : wave);
         }
         return waves;
     }
@@ -196,7 +196,7 @@ class bossRush {
         entity.color.base = customName && customName === "DESTROYED" ? "grey" : getTeamColor(entity.team);
         entity.skill.score = 111069;
         entity.name = `${customName ? customName : getTeamName(entity.team)} Sanctuary`;
-        entity.SIZE = this.room.tileWidth / Config.SANCTUARY_SIZE ?? 13.5;
+        entity.SIZE = this.room.tileWidth / Config.sanctuary_size ?? 13.5;
         entity.isDominator = true;
         entity.displayName = true;
         entity.nameColor = "#ffffff";
@@ -230,7 +230,7 @@ class bossRush {
         enemy.refreshSkills();
         enemy.refreshBodyAttributes();
         enemy.isBoss = true;
-        if (Config.FORTRESS || Config.CITADEL) enemy.controllers.push(new ioTypes.bossRushAI(enemy, {}, global.gameManager));
+        if (Config.fortress || Config.citadel) enemy.controllers.push(new ioTypes.bossRushAI(enemy, {}, global.gameManager));
         this.remainingEnemies++;
         enemy.on('dead', () => {
             //this enemy has been killed, decrease the remainingEnemies counter
@@ -256,7 +256,7 @@ class bossRush {
             enemy.define({ DANGER: 25 + enemy.SIZE / 5 });
         }
 
-        if (!Config.CLASSIC_SIEGE) {
+        if (!Config.use_limited_waves) {
             //spawn fodder enemies
             for (let i = 0; i < this.waveId / 5; i++) {
                 this.spawnEnemyWrapper(ran.choose(global.gameManager.room.spawnable["bossSpawnTile"]).randomInside(), ran.choose(this.sentinelChoices));
@@ -280,16 +280,24 @@ class bossRush {
     // runs once when the server starts
     start(mazeType) {
         this.gameActive = true;
-        for (let i = 0; i < Class.basic.UPGRADES_TIER_1.length; i++) {
-            let string = Class.basic.UPGRADES_TIER_1[i];
-            if (string === "desmos") {
-                Class.basic.UPGRADES_TIER_1[i] = "healer";
-            }
-        }
+        // Replace/remove certain tanks.
         for (let i = 0; i < Class.basic.UPGRADES_TIER_2.length; i++) {
             let string = Class.basic.UPGRADES_TIER_2[i];
             if (string === "smasher") {
-                Class.basic.UPGRADES_TIER_2[i] = "single";
+                Class.basic.UPGRADES_TIER_2[i] = "healer"
+                for (let i = 0; i < Class.menu_unused.UPGRADES_TIER_0.length; i++) {
+                    let string = Class.menu_unused.UPGRADES_TIER_0[i];
+                    if (string === "healer") {
+                        Class.menu_unused.UPGRADES_TIER_0[i] = "smasher"
+                    }
+                }
+            }
+        }
+        for (let i = 0; i < Class.director.UPGRADES_TIER_2.length; i++) {
+            let string = Class.director.UPGRADES_TIER_2[i];
+            if (string === "underseer") {
+                Class.director.UPGRADES_TIER_2.splice(i, 1)
+                Class.menu_unused.UPGRADES_TIER_0.push("underseer")
             }
         }
         for (let tile of this.room.spawnable[TEAM_BLUE]) {
@@ -312,8 +320,8 @@ class bossRush {
                 wall.protect();
                 makeHitbox(wall);
                 walls.push(wall);
-                if (Config.HALLOWEEN_THEME) {
-                    let eyeSize = 12 * (Math.random() + 0.75);
+                if (Config.spooky_theme) {
+                    let eyeSize = 12 * (Math.random() + 0.45);
                     let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
                     spookyEye.define("hwEye");
                     spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})

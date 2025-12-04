@@ -1,5 +1,5 @@
 module.exports = {
-    MODE: "tdm",
-    TEAMS: 1,
-    ROOM_SETUP: ["room_tiles_test"],
+    mode: "tdm",
+    teams: 1,
+    room_setup: ["room_tiles_test"],
 };

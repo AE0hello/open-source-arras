@@ -1,13 +1,13 @@
 module.exports = {
-    MODE: "tdm",
-    TEAMS: 2,
+    mode: "tdm",
+    teams: 2,
     ASSAULT: true,
-    TILE_WIDTH: 400,
-    TILE_HEIGHT: 400,
-    DO_NOT_OVERRIDE_ROOM: false,
-    ROOM_SETUP: ["room_assault_bunker"],
-    MAZE_TYPE: 10,
-    TEAM_WEIGHTS: {
+    map_tile_width: 400,
+    map_tile_height: 400,
+    do_not_override_room: false,
+    room_setup: ["room_assault_bunker"],
+    maze_type: 10,
+    team_weights: {
         [TEAM_BLUE]: 1.1
     }
 }

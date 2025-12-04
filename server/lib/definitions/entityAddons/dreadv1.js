@@ -715,12 +715,12 @@ Class.medicaidOfficialV1 = {
 // Account for lower level cap
 let tier1 = 10;
 let tier2 = 12;
-if (Config.MAX_UPGRADE_TIER < 10) {
+if (Config.tier_cap < 10) {
 	tier1 = 0;
 	tier2 = 0;
 }
 
-Class.addons.UPGRADES_TIER_0.push("dreadOfficialV1");
+Class.menu_addons.UPGRADES_TIER_0.push("dreadOfficialV1");
 	Class.dreadOfficialV1[`UPGRADES_TIER_${tier1}`] = ["swordOfficialV1", "pacifierOfficialV1", "invaderOfficialV1", "centaurOfficialV1"];
 		Class.swordOfficialV1.UPGRADES_TIER_M1 = ["sabreOfficialV1", "gladiusOfficialV1"];
 		Class.pacifierOfficialV1.UPGRADES_TIER_M1 = ["appeaserOfficialV1", "peacekeeperOfficialV1", "diplomatOfficialV1"];

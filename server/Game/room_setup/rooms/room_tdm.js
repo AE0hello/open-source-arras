@@ -1,4 +1,4 @@
-let teams = require('../../gamemodeconfigs/teams.js').TEAMS,
+let teams = require('../../gamemodeconfigs/tdm.js').teams,
 	room = Array(Config.roomHeight).fill(() => Array(Config.roomWidth).fill()).map(x => x()),
 	spacing = 0,
 locations = [

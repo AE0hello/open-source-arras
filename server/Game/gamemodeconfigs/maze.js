@@ -1,3 +1,3 @@
 module.exports = {
-    MAZE_TYPE: 1,
+    maze_type: 1,
 }

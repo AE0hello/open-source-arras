@@ -52,6 +52,21 @@ function firmcollide(my, n, buffer = 0) {
         n.velocity.x += adjustX;
         n.velocity.y += adjustY;
     }
+    if (my.label.includes("Spike") && n.label.includes("Spike")) {
+        const bounceFactor = 5;
+        const dx = my.x - n.x;
+        const dy = my.y - n.y;
+        const dist = Math.hypot(dx, dy);
+        const nx = dx / dist;
+        const ny = dy / dist;
+        const dot = my.velocity.x * nx + my.velocity.y * ny;
+        if (dist === 0) return;
+        const dot2 = n.velocity.x * (-nx) + n.velocity.y * (-ny);
+        my.velocity.x = (my.velocity.x - 2 * dot * nx) * bounceFactor;
+        my.velocity.y = (my.velocity.y - 2 * dot * ny) * bounceFactor;
+        n.velocity.x = (n.velocity.x - 2 * dot2 * (-nx)) * bounceFactor;
+        n.velocity.y = (n.velocity.y - 2 * dot2 * (-ny)) * bounceFactor;
+    }
 }
 
 function firmcollidehard(my, n, buffer = 0) {
@@ -232,12 +247,12 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         } else if (my.type === 'food' && n.settings.necroTypes.includes(my.shape)) {
             bail = n.necro(my);
         }
-        if (!bail) {
+        if (!bail && !my.invuln && !n.invuln) {
             // Calculate base damage
             let resistDiff = my.health.resist - n.health.resist,
                 damage = {
-                    _me: Config.DAMAGE_CONSTANT * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * Math.min(2, Math.max(speedFactor._me, 1) * speedFactor._me),
-                    _n:  Config.DAMAGE_CONSTANT * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n , 1) * speedFactor._n ),
+                    _me: Config.damage_multiplier * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * Math.min(2, Math.max(speedFactor._me, 1) * speedFactor._me),
+                    _n:  Config.damage_multiplier * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n , 1) * speedFactor._n ),
                 };
             // Advanced damage calculations
             if (my.settings.ratioEffects) {
@@ -309,7 +324,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
             knockback = my.knockback;
         } else if (n.knockback) {
             knockback = n.knockback;
-        } else knockback = Config.KNOCKBACK_CONSTANT;
+        } else knockback = Config.knockback_multiplier;
         let elasticity = 2 - 4 * Math.atan(my.penetration * n.penetration) / Math.PI;
         if (doInelastic && my.settings.motionEffects && n.settings.motionEffects) {
             elasticity *= savedHealthRatio._me / pen._me.sqrt + savedHealthRatio._n / pen._n.sqrt;
@@ -370,6 +385,8 @@ function mooncollide(moon, bounce) {
     // Assign velocity after rotating to the new angle
     bounce.velocity.x = newVelocityMagnitude * Math.sin(Math.PI - relativeVelocityAngle - angleFromMoonToBounce);
     bounce.velocity.y = newVelocityMagnitude * Math.cos(Math.PI - relativeVelocityAngle - angleFromMoonToBounce);
+    // So the bots aint a brain dead npc
+    bounce.justHittedAWall = true;
 }
 
 function mazewallcollidekill(bounce, wall) {
@@ -551,9 +568,7 @@ function mazewallcustomcollide(wall, bounce) {
             case 7:
                 if (canResize) {
                     bounce.touchingFovWall = true;
-                    if (bounce.FOV < bounce.originalFov * 3) {
-                        bounce.FOV = Math.min(bounce.FOV * 1.1, bounce.originalFov * 3);
-                    }
+                    bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
         }

@@ -1,4 +1,4 @@
-const { combineStats, addAura, makeAuto, weaponArray, dereference } = require('../facilitators.js');
+const { combineStats, makeAura, makeAuto, weaponArray, dereference } = require('../facilitators.js');
 const { smshskl, base } = require('../constants.js');
 const g = require('../gunvals.js');
 
@@ -201,24 +201,24 @@ Class.betadrone = {
 }
 
 // Auras
-Class.atmosphereAuraOfficialV2 = addAura(1, 1, 0.15);
-Class.coronaAuraOfficialV2 = addAura(1.15, 0.8, 0.15);
-Class.trinoughtBigAura = addAura(0.7, 1.5);
-Class.trinoughtSmallAura = addAura(0.7, 2.1, 0.15);
-Class.pentanoughtBigAura = addAura(1.2, 1.45);
-Class.pentanoughtSmallAura = addAura(1.2, 1.6, 0.15);
+Class.atmosphereAuraOfficialV2 = makeAura(1, 1, 0.15);
+Class.coronaAuraOfficialV2 = makeAura(1.15, 0.8, 0.15);
+Class.trinoughtBigAura = makeAura(0.7, 1.5);
+Class.trinoughtSmallAura = makeAura(0.7, 2.1, 0.15);
+Class.pentanoughtBigAura = makeAura(1.2, 1.45);
+Class.pentanoughtSmallAura = makeAura(1.2, 1.6, 0.15);
 if (useOldPhotosphere) {
-	Class.photosphereSmallAuraOfficialV2 = addAura(1.25, 1.85, 0.15);
-	Class.photosphereBigAuraOfficialV2 = addAura(0.25, 4);
+	Class.photosphereSmallAuraOfficialV2 = makeAura(1.25, 1.85, 0.15);
+	Class.photosphereBigAuraOfficialV2 = makeAura(0.25, 4);
 }
-Class.gladiatorAuraMinionAuraOfficialV2 = addAura(0.333, 1.2);
+Class.gladiatorAuraMinionAuraOfficialV2 = makeAura(0.333, 1.2);
 
-Class.thermosphereAuraOfficialV2 = addAura(-1, 1.5);
-Class.trinoughtBigHealAura = addAura(-0.7, 1.5);
-Class.trinoughtSmallHealAura = addAura(-0.7, 2.1, 0.15);
-Class.pentanoughtBigHealAura = addAura(-0.8, 1.45);
-Class.pentanoughtSmallHealAura = addAura(-0.8, 1.6, 0.15);
-Class.gladiatorHealAuraMinionAuraOfficialV2 = addAura(-0.333, 1.2);
+Class.thermosphereAuraOfficialV2 = makeAura(-1, 1.5);
+Class.trinoughtBigHealAura = makeAura(-0.7, 1.5);
+Class.trinoughtSmallHealAura = makeAura(-0.7, 2.1, 0.15);
+Class.pentanoughtBigHealAura = makeAura(-0.8, 1.45);
+Class.pentanoughtSmallHealAura = makeAura(-0.8, 1.6, 0.15);
+Class.gladiatorHealAuraMinionAuraOfficialV2 = makeAura(-0.333, 1.2);
 
 // gStat turret modifiers
 g.triSecondaryAuto = {reload: 1.1, health: 0.83};
@@ -231,7 +231,6 @@ Class.dreadOfficialV2 = {
 	PARENT: "genericEggnought",
 	LABEL: "Dreadnought",
 	UPGRADE_LABEL: "Dreads V2",
-	SEND_ALL_MOCKUPS: true,
 	LEVEL: 90,
 	EXTRA_SKILL: 18,
 }
@@ -1920,7 +1919,7 @@ Class.dreadOfficialV2.UPGRADES_TIER_0 = [
 Class.dreadWeaponOfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2", "pacifierOfficialV2", "peacekeeperOfficialV2", "invaderOfficialV2", "centaurOfficialV2"];
 */
 
-Class.addons.UPGRADES_TIER_0.push("dreadOfficialV2");
+Class.menu_addons.UPGRADES_TIER_0.push("dreadOfficialV2");
 
 	Class.sword2OfficialV2.UPGRADES_TIER_0 = ["swordOfficialV2"];
 	Class.pacifier2OfficialV2.UPGRADES_TIER_0 = ["pacifierOfficialV2"];

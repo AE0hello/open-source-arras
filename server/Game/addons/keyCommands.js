@@ -106,7 +106,7 @@ function init() {
             run: ({ socket, player }) => {
                 if (socket.permissions?.class) {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                    player.body.define(socket.permissions?.class || Config.SPAWN_CLASS);
+                    player.body.define(socket.permissions?.class || Config.spawn_class);
                 } else {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                     player.body.define("healer");
@@ -196,36 +196,40 @@ function init() {
             level: 1,
             operatorAccess: true,
             run({ socket, player }) {
-              if (!player.body.store.dragInterval) {
-                let dragged = [];
-                let tx = player.body.x + player.target.x;
-                let ty = player.body.y + player.target.y;
-                for (const e of entities.values()) {
-                    if (e.bond) continue;
-                    if (
-                        !(e.type === "mazeWall" && e.shape === 4) &&
-                        (e.x - tx) * (e.x - tx) + (e.y - ty) * (e.y - ty) <
-                        e.size * e.size * 1
-                    ) {
-                        dragged.push({ e, dx: e.x - tx, dy: e.y - ty });
+                if (!player.body.store.dragInterval) {
+                    let dragged = [];
+                    let tx = player.body.x + player.target.x;
+                    let ty = player.body.y + player.target.y;
+                    for (const e of entities.values()) {
+                        if (e.bond) continue;
+                        if (
+                            !(e.type === "mazeWall" && e.shape === 4) &&
+                            (e.x - tx) * (e.x - tx) + (e.y - ty) * (e.y - ty) <
+                            e.size * e.size * 1
+                        ) {
+                            dragged.push({ e, dx: e.x - tx, dy: e.y - ty });
+                        }
+                    };
+                    if (dragged.length === 0) {
+                        socket.talk("m", 4_000, "No entity picked up!");
+                        return;
                     }
-                };
-                if (dragged.length === 0) {
-                  socket.talk("m", 4_000, "No entity picked up!");
-                  return;
-                }
-                  player.body.store.dragInterval = setInterval(() => {
+                    let body = player.body;
+                    body.store.dragInterval = setInterval(() => {
+                        if (body.isGhost) {
+                            clearInterval(body.store.dragInterval);
+                            delete body.store.dragInterval;
+                            return;
+                        }
                         let tx = player.body.x + player.target.x;
                         let ty = player.body.y + player.target.y;
                         for (let { e: entity, dx, dy } of dragged)
                         if (!entity.isGhost) {
-                            if (entity.isDead()) {
-                                clearInterval(player.body.store.dragInterval);
-                                delete player.body.store.dragInterval;
-                                return;
-                            }
                             entity.x = dx + tx;
                             entity.y = dy + ty;
+                        } else {
+                            clearInterval(body.store.dragInterval);
+                            delete body.store.dragInterval;
                         }
                     });
                 }
@@ -435,6 +439,18 @@ function init() {
                     } else if (player.body.team == TEAM_RED) {
                         player.body.team = TEAM_PURPLE;
                         player.body.color.base = getTeamColor(TEAM_PURPLE);
+                    } else if (player.body.team == TEAM_PURPLE) {
+                        player.body.team = TEAM_YELLOW;
+                        player.body.color.base = getTeamColor(TEAM_YELLOW);
+                    } else if (player.body.team == TEAM_YELLOW) {
+                        player.body.team = TEAM_ORANGE;
+                        player.body.color.base = getTeamColor(TEAM_ORANGE);
+                    } else if (player.body.team == TEAM_ORANGE) {
+                        player.body.team = TEAM_BROWN;
+                        player.body.color.base = getTeamColor(TEAM_BROWN);
+                    } else if (player.body.team == TEAM_BROWN) {
+                        player.body.team = TEAM_CYAN;
+                        player.body.color.base = getTeamColor(TEAM_CYAN);
                     } else {
                         player.body.team = TEAM_BLUE;
                         player.body.color.base = getTeamColor(TEAM_BLUE);
@@ -528,7 +544,7 @@ function init() {
             level: 1,
             run: ({ player, gameManager }) => {
                 player.body.define({ RESET_UPGRADES: true });
-                player.body.define("undercovercop");
+                player.body.define("undercoverCop");
                 player.body.name = "TEAM POLICE";
                 let skills = Array(10).fill(15);
                 player.body.skill.setCaps(skills);
@@ -547,7 +563,7 @@ function init() {
                 const force = 45;
                 let t = target(player);
                 for (let entity of entities.values()) {
-                    if (entity.type == "wall") continue;
+                    if (entity.type == "wall" || entity.bond) continue;
                     let dx = entity.x - t.x;
                     let dy = entity.y - t.y;
                     let dist = Math.sqrt(dx * dx + dy * dy);
@@ -699,7 +715,7 @@ function init() {
                 let selected = selectPlayer(player);
                 if (selected && selected.socket) {
                     const perms = selected.socket.permissions || {};
-                    if (perms && perms.level > 5) {
+                    if (perms && perms.level > 2) {
                         socket.talk("m", 5_000, "You cannot ban this player!");
                         return;
                     }
@@ -837,6 +853,7 @@ function init() {
               gameManager: global.gameManager,
             });
             socket.player.body.refreshBodyAttributes();
+            socket.player.body.minimapColor = "lightGreen";
           } catch (e) {
             console.error(`${command.name.toLowerCase()} key command error`, e);
           }

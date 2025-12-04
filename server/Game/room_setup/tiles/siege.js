@@ -30,7 +30,7 @@ let bossTick = (tile, pushTo, allow) => {
         ) entity.kill();
         if (pushTo == "right" && 
             allow == "blitz" && 
-            Config.BLITZ &&
+            Config.blitz &&
             entity.isBoss && 
             !entity.control.fire
         ) {
@@ -43,7 +43,7 @@ tileClass.bossSpawn = new Tile({
     COLOR: "red",
     NAME: "Boss Spawn",
     INIT: (tile, room) => {
-        if (!Config.BLITZ && !Config.FORTRESS && !Config.CITADEL) addTileToBossSpawnTile(tile, room);
+        if (!Config.blitz && !Config.fortress && !Config.citadel) addTileToBossSpawnTile(tile, room);
     },
     TICK: (tile, room) => bossTick(tile, "right", "blitz")
 });
@@ -51,7 +51,7 @@ tileClass.bossSpawnVoid = new Tile({
     COLOR: "white",
     NAME: "Boss Spawn",
     INIT: (tile, room) => {
-        if (Config.BLITZ || Config.FORTRESS || Config.CITADEL) addTileToBossSpawnTile(tile, room);
+        if (Config.blitz || Config.fortress || Config.citadel) addTileToBossSpawnTile(tile, room);
     },
     TICK: (tile, room) => bossTick(tile, "right", "blitz")
 })
@@ -71,13 +71,14 @@ tileClass.stopAI = new Tile({
     TICK: (tile, room) => {
         let pushx = 2;
         let pushy = 2;
-        if (Config.BLITZ) pushx = 1;
+        if (Config.blitz) pushx = 1;
         for (let i = 0; i < tile.entities.length; i++) {
             let entity = tile.entities[i];
             if (entity.pushability && entity.isBot) {
                 let dirToCenter = Math.atan2(room.height / pushy - entity.y - room.height / 2, room.width / pushx - entity.x - room.width / 2);
                 entity.velocity.x = Math.cos(dirToCenter) * 5 * entity.pushability;
                 entity.velocity.y = Math.sin(dirToCenter) * 5 * entity.pushability;
+                entity.justHittedAWall = true;
             }
         }
     }

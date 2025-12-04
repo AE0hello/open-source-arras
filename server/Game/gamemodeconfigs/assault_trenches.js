@@ -1,12 +1,12 @@
 module.exports = {
-    MODE: "tdm",
-    TEAMS: 2,
+    mode: "tdm",
+    teams: 2,
     ASSAULT: true,
-    TILE_WIDTH: 440,
-    TILE_HEIGHT: 440,
-    DO_NOT_OVERRIDE_ROOM: false,
-    ROOM_SETUP: ["room_assault_trenches"],
-    MAZE_TYPE: 16,
+    map_tile_width: 440,
+    map_tile_height: 440,
+    do_not_override_room: false,
+    room_setup: ["room_assault_trenches"],
+    maze_type: 16,
     BOT_MOVE: [{
         TEAM: TEAM_GREEN,
         RANGE: 70,
@@ -31,7 +31,7 @@ module.exports = {
             [-22.50, 3.48],
         ]
     }],
-    TEAM_WEIGHTS: {
+    team_weights: {
         [TEAM_BLUE]: 1.1
     }
 }

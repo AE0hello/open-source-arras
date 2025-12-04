@@ -15,6 +15,7 @@ const requires = [
     "../Game/entities/gun.js", // Define gun to make guns to work. Required By Entity.js.
     "../Game/entities/healthType.js", // Define health to make healths work when a entity got hit, or regenerated. Required By Entity.js.
     "../Game/entities/antiNaN.js", // This file prevents NaN to entities.
+    "../Game/entities/turretEntity.js", // The Entity constructer for turrets. Required By Entity.js.
     "../Game/entities/propEntity.js", // This file create prop entities, Its actually a turret entity but its decorative only. Required By Entity.js.
     "../Game/entities/bulletEntity.js", // The Entity constructor but with heavy limitations.
     "../Game/entities/entity.js", // The actual Entity constructor.
@@ -37,9 +38,9 @@ let fs = require('fs'),
 	groups = fs.readdirSync(path.resolve(__dirname, '../Game/room_setup/tiles/')),
     loadRooms = (log = false) => {
         // Now we need to define every tile.
-        if (Config.LOGS && log) console.log(`Importing tile definitions...`);
+        if (Config.startup_logs && log) console.log(`Importing tile definitions...`);
         for (let filename of groups) {
-            if (Config.LOGS && log) console.log(`Loading tile file: ${filename}`);
+            if (Config.startup_logs && log) console.log(`Loading tile file: ${filename}`);
             require('../Game/room_setup/tiles/' + filename);
         }
 

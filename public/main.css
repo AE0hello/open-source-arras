@@ -143,7 +143,7 @@ h3 {
 }
 
 .horizontalSelector span.active {
-  background: #0074DA;
+  background: #8abc3f;
   color: #ffffff;
   border-radius: 5px;
   cursor: default;
@@ -183,7 +183,7 @@ body.mobile .serverSelector {
 }
 
 .serverSelector tr.selected {
-  color: #1B3353;
+  color: #8abc3f;
   cursor: default;
 }
 
@@ -240,13 +240,15 @@ input {
   text-align: center;
   width: 100%;
   padding: 10px;
-  border: solid 1px #dcdcdc;
+  border: solid 2px #cccccc;
+  color: #cccccc;
   box-sizing: border-box;
   border-radius: 5px;
   margin-top: 5px;
   margin-bottom: 5px;
   outline: none;
   font-family: Ubuntu;
+  font-weight: bold;
   background: #fff;
   transition: border 0.3s, background 0.3s, color 0.3s;
 }
@@ -258,19 +260,20 @@ input:disabled {
 #playerNameInput {
   padding: 10px;
   font-size: larger;
+  color: black;
 }
 
 #playerKeyInput {
   padding: 3px;
-  color: gray;
+  color: black;
 }
 
 input:focus {
-  border: solid 1px #ccc;
+  border: solid 2px #ccc;
 }
 
 input.error {
-  border: solid 1px #f00;
+  border: solid 2px #f00;
   background: #fee;
   color: #a00;
 }
@@ -456,7 +459,7 @@ body.mobile .startMenuHolder.changelogHolder {
 
 .menuTab.discord {
   padding: 6px 12px 6px 36px;
-  background: #7289da url(/imgs/discord.png) 8px 4px/23px no-repeat;
+  background: #7289da url(/img/discord.png) 8px 4px/23px no-repeat;
 }
 
 .menuTab.stat {
@@ -706,6 +709,10 @@ body.mobile .startMenuSlidingContent {
   margin-left: 10px;
 }
 
+.linkButtonHolder {
+  margin-top: 9px;
+}
+
 .startButtonHolder {
   margin-top: 10px;
 }
@@ -718,25 +725,153 @@ body.mobile .startMenuSlidingContent {
   color: white;
   text-align: center;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-  background: #336699;
+  background: #A9D86D;
   border: 0;
-  border-bottom: 2px solid #1B3353;
+  border-bottom: 2px solid #8abc3f;
   cursor: pointer;
-  box-shadow: inset 0 -2px #1B3353;
+  box-shadow: inset 0 -2px #8abc3f;
   border-radius: 5px;
   font: 16px Ubuntu;
 }
 
 #startButton:hover {
-  margin-top: 1px;
-  height: 39px;
-  border-bottom: 1px solid #1B3353;
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #8abc3f;
 }
 
 #startButton:active {
   margin-top: 2px;
   height: 38px;
-  background: #1B3353;
+  background: #8abc3f;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#discordButton {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #7289da;
+  border: 0;
+  border-bottom: 2px solid #5b6dae;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #5b6dae;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#discordButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #5b6dae;
+}
+
+#discordButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #5b6dae;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#redditButton {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #f74501;
+  border: 0;
+  border-bottom: 2px solid #c53700;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #c53700;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#redditButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #c53700;
+}
+
+#redditButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #c53700;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#youtubeButton {
+  margin: 0;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #f71701;
+  border: 0;
+  border-bottom: 2px solid #c51200;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #c51200;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#youtubeButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #c51200;
+}
+
+#youtubeButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #c51200;
+  border-bottom: 0px;
+  outline: none;
+  box-shadow: none;
+}
+
+#githubButton {
+  margin: 0;
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+  color: white;
+  text-align: center;
+  text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+  background: #6f42c1;
+  border: 0;
+  border-bottom: 2px solid #5926a6;
+  cursor: pointer;
+  box-shadow: inset 0 -2px #5926a6;
+  border-radius: 5px;
+  font: 16px Ubuntu;
+}
+
+#githubButton:hover {
+  margin-top: 2px;
+  height: 38px;
+  border-bottom: 0px solid #5926a6;
+}
+
+#githubButton:active {
+  margin-top: 2px;
+  height: 38px;
+  background: #5926a6;
   border-bottom: 0px;
   outline: none;
   box-shadow: none;
@@ -846,20 +981,20 @@ body.mobile .startMenuSlidingContent {
 
 .container input:checked~.checkmark,
 .container input:checked~.radio {
-  background-color: #0074DA;
-  border: 1px solid #0074DA;
+  background-color: #8abc3f;
+  border: 1px solid #8abc3f;
 }
 
 .container:hover input:checked~.checkmark,
 .container:hover input:checked~.radio {
-  background-color: #004894;
-  border: 1px solid #004894;
+  background-color: #7FA843;
+  border: 1px solid #7FA843;
 }
 
 .container input:disabled:checked~.checkmark,
 .container input:disabled:checked~.radio {
-  background-color: #002C5B;
-  border: 1px solid #002C5B;
+  background-color: #7FA843;
+  border: 1px solid #7FA843;
 }
 
 .container .checkmark:after {
