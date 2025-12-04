@@ -6,8 +6,6 @@
 ![Discord](https://img.shields.io/discord/1004907608018264094)
 ![GitHub repo size](https://img.shields.io/github/repo-size/AE0Hello/open-source-arras)
 
-Open Source Arras is licensed under a [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International](https://creativecommons.org/licenses/by-nc-sa/4.0/) license.
-
 > [!WARNING]
 > **Open Source Arras is beta software.** This build is **not** representative of the final product. Expect bugs and missing features.
 
