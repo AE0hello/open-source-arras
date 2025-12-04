@@ -633,7 +633,7 @@ class socketManager {
                 this.chatLoop();
             } break;
             case "T": {
-                // Send the upgrade tree mockups
+                // Send the class tree mockups
                 if (player.body && socket.status.lastTank != player.body.index) {
                     socket.status.lastTank = player.body.index;
                     this.sendMockup(player.body.index, socket);
@@ -675,9 +675,9 @@ class socketManager {
             } break;
             case "DTAST": {
                 let time = String(m[0]).split(".")[0];
-                if (parseInt(time) < 10) {
+                /*if (parseInt(time) < 10) {
                     socket.kick("The ad must be at least 10 seconds long or incompatible.");
-                }
+                }*/
                 socket.talk("DTAST");
                 setTimeout(() => {
                     setTimeout(() => {
@@ -897,8 +897,8 @@ class socketManager {
             if (b.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && b.defs.includes(Config.spawn_class)) {
                 dailyTank = Config.daily_tank_INDEX;
             }
+            gui.dailyTank.update(JSON.stringify([dailyTank, Config.daily_tank.ads.enabled && !b.socket.status.daily_tank_watched_ad ? true : false]));
         }
-        gui.dailyTank.update(JSON.stringify([dailyTank, Config.daily_tank.ads.enabled && !b.socket.status.daily_tank_watched_ad ? true : false]));
         // Update the stats and skills
         gui.stats.update();
         gui.skills.update(this.getstuff(b.skill));

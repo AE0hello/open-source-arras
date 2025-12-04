@@ -1096,7 +1096,7 @@ let incoming = async function(message, socket) {
                     global.dailyTankAd.renderUI = false;
                     global.createMessage("Failed to load the ad!");
                 }
-                renderDoc.src = `./ads/${data.src}`;
+                renderDoc.src = `./img/ads/${data.src}`;
             } else {
                 let renderDoc = new Image();
                 renderDoc.onload = () => {
@@ -1116,7 +1116,7 @@ let incoming = async function(message, socket) {
                     global.dailyTankAd.renderUI = false;
                     global.createMessage("Failed to load the ad!");
                 }
-                renderDoc.src = `./ads/${data.src}`;
+                renderDoc.src = `./img/ads/${data.src}`;
             }
             global.dailyTankAd.renderUI = true;
         } break;

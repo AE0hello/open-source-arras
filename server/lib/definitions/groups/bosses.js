@@ -1767,6 +1767,281 @@ rhea.addLayer({turret: {
     TYPE: "crowbarTurret",
 }}, true, 6);
 
+// HYPERION
+let hyperion = new LayeredBoss(null, "Hyperion", "celestial", 9, "#aec996", "baseTrapTurret", 6.5, 5.5);
+hyperion.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "destroyerTurret",
+}});
+hyperion.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "skimmerTurret", // should be old sidewinder
+}}, true, 6);
+// color: light - #aec996, dark - #36A5B3, natural - #a0b36e, solarized dark - #399c9e, lyric - #8c3131
+
+//AETHER
+let aether = new LayeredBoss(null, "Aether", "celestial", 9, "#dca171", "baseTrapTurret", 6.5, 5.5);
+aether.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "rifleTurret",
+}});
+aether.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "streamlinerTurret",
+}}, true, 6);
+
+// STYX
+let styx = new LayeredBoss(null, "Styx", "celestial", 9, "#EFA5A5", "baseTrapTurret", 6.5, 5.5);
+styx.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "gunnerTurret",
+}});
+styx.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "skimmerTurret", // should be old sidewinder
+}}, true, 6);
+
+// EROS
+let eros = new LayeredBoss(null, "Eros", "celestial", 9, "#D1818A", "baseTrapTurret", 6.5, 5.5);
+eros.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "sprayerTurret",
+}});
+eros.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "singleTurret",
+}}, true, 6);
+
+//TETHYS
+let tethys = new LayeredBoss(null, "Tethys", "celestial", 9, "#E2CF58", "baseTrapTurret", 6.5, 5.5);
+tethys.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: ["bentBoomerTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.91}}],
+}});
+tethys.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "boomerTurret",
+}}, true, 6);
+
+//IAPETUS
+let iapetus = new LayeredBoss(null, "Iapetus", "celestial", 9, "#ED95AE", "baseTrapTurret", 6.5, 5.5);
+iapetus.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "volleyTurret",
+}});
+iapetus.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "rimflakTurret",
+}}, true, 6);
+
+// APOLLO
+let apollo = new LayeredBoss(null, "Apollo", "celestial", 9, "#D4C1A1", "baseTrapTurret", 6.5, 5.5);
+apollo.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: ["blunderbussTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 1.1}}],
+}});
+apollo.addLayer({turret: {
+    POSITION: [11, 9, 0, null, 180, 0],
+    TYPE: "heavyTurret", // https://discord.com/channels/1004907608018264094/1051533268861857863/1445496968406368266
+}});
+
+// HERA
+let hera = new LayeredBoss(null, "Hera", "celestial", 9, "#A472C3", "baseTrapTurret", 6.5, 5.5);
+hera.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "barricadeTurret",
+}});
+hera.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "engineerTurret",
+}});
+
+// SIF
+let sif = new LayeredBoss(null, "Sif", "celestial", 9, "#C7E071", "baseTrapTurret", 6.5, 5.5);
+sif.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "warkTurret",
+}});
+sif.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "crossbowTurret",
+}});
+
+// FREYR
+let freyr = new LayeredBoss(null, "Freyr", "celestial", 9, "#E98D83", "baseTrapTurret", 6.5, 5.5);
+freyr.addLayer({gun: {
+    POSITION: [3.8, 6, 1.4, 8, 0, null, 0],
+    PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.destroyer, {health: 1.4, damage: 1.4, resist: 1.2, density: 1.8, maxSpeed: 1.325}]),
+        TYPE: ["dorito", {INDEPENDENT: true}], // up to devs discussion or just waiting until we see it officially to determine what this'll be
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+    },
+}}, true, null, 16);
+freyr.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "carrierTurret",
+}});
+
+// TYR
+let tyr = new LayeredBoss(null, "Tyr", "celestial", 9, "#D78DCA", "baseTrapTurret", 6.5, 5.5);
+tyr.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "machineGunTurret",
+}});
+tyr.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "musketTurret",
+}});
+
+// "GERSEMI" - renaming to Hjordis
+let hjordis = new LayeredBoss(null, "Hjordis", "celestial", 9, "#988AC7", "baseTrapTurret", 6.5, 5.5);
+hjordis.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "tripleShotTurret",
+}});
+hjordis.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "constructorTurret",
+}});
+
+// VOR
+let vor = new LayeredBoss(null, "Vor", "celestial", 9, "#C5D07A", "baseTrapTurret", 6.5, 5.5);
+vor.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "tripletTurret",
+}});
+vor.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "builderTurret",
+}});
+
+// ALCIS
+let alcis = new LayeredBoss(null, "Alcis", "celestial", 9, "#E99965", "baseTrapTurret", 6.5, 5.5);
+alcis.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "trapperTurret",
+}});
+alcis.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "spreadshotTurret",
+}});
+
+// BALDR
+let baldr = new LayeredBoss(null, "Baldr", "celestial", 9, "#EFBC69", "baseTrapTurret", 6.5, 5.5);
+baldr.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "minigunTurret",
+}});
+baldr.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "rangerTurret",
+}});
+
+// DELLINGR
+let dellingr = new LayeredBoss(null, "Dellingr", "celestial", 9, "#BE82D1", "baseTrapTurret", 6.5, 5.5);
+dellingr.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "sniperTurret",
+}});
+dellingr.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "pentaShotTurret",
+}});
+
+// ULLR
+let ullr = new LayeredBoss(null, "Ullr", "celestial", 9, "#CB4969", "baseTrapTurret", 6.5, 5.5);
+ullr.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "ullrLowerTurret",
+}});
+ullr.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "dualTurret",
+}});
+
+// ISIS
+let isis = new LayeredBoss(null, "Isis", "celestial", 9, "#C78795", "baseTrapTurret", 6.5, 5.5);
+isis.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "isisLowerTurret",
+}});
+isis.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "predatorTurret",
+}});
+
+// NEPHTHYS
+let nephthys = new LayeredBoss(null, "Nephthys", "celestial", 9, "#679DB4", "baseTrapTurret", 6.5, 5.5);
+nephthys.addLayer({gun: {
+    POSITION: [4.6, 6, 1.4, 8, 0, null, 0],
+    PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.destroyer, {health: 1.4, damage: 1.4, resist: 1.2, density: 1.8, maxSpeed: 1.325}]),
+        TYPE: ["demonchip", {INDEPENDENT: true}], // up to devs discussion or just waiting until we see it officially to determine what this'll be
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+    },
+}}, true, null, 16);
+nephthys.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "rangerTurret",
+}});
+
+// OSIRIS
+let osiris = new LayeredBoss(null, "Osiris", "celestial", 9, "#A3BF42", "baseTrapTurret", 6.5, 5.5);
+osiris.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "fieldGunTurret",
+}});
+osiris.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "beekeeperTurret",
+}});
+
+// HORUS
+let horus = new LayeredBoss(null, "Horus", "celestial", 9, "#8BA867", "baseTrapTurret", 6.5, 5.5);
+horus.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: ["basicTurret", { INDEPENDENT: true, GUN_STAT_SCALE: {health: 1.8, damage: 1.3} }],
+}});
+horus.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: ["basicTurret", { INDEPENDENT: true, GUN_STAT_SCALE: {health: 1.8, damage: 1.3} }],
+}});
+
+// ANUBIS
+let anubis = new LayeredBoss(null, "Anubis", "celestial", 9, "#D66950", "baseTrapTurret", 6.5, 5.5);
+anubis.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: ["basicTurret", { INDEPENDENT: true, GUN_STAT_SCALE: {health: 1.8, damage: 1.3} }],
+}});
+anubis.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "annihilatorTurret"
+}});
+
+// KHONSU
+let khonsu = new LayeredBoss(null, "Khonsu", "celestial", 9, "#D36F90", "baseTrapTurret", 6.5, 5.5);
+khonsu.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "sprayerTurret"
+}});
+khonsu.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "mortarTurret"
+}});
+
+// PTAH
+let ptah = new LayeredBoss(null, "Ptah", "celestial", 9, "#69A1C9", "baseTrapTurret", 6.5, 5.5);
+ptah.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 180, 0],
+    TYPE: "ordnanceTurret"
+}});
+ptah.addLayer({turret: {
+    POSITION: [10.5, 8, 0, null, 160, 0],
+    TYPE: "focalTurret"
+}});
+
 // JULIUS
 let julius = new LayeredBoss(null, "Julius", "celestial", 9, "darkGrey", "baseTrapTurret", 6.5, 5.5);
 julius.addLayer({turret: {
@@ -1833,6 +2108,21 @@ ragnarok.addLayer({turret: {
     POSITION: [8, 9, 0, null, 160, 0],
     TYPE: "gunnerCruiserTurret",
 }}, true, 4.5);
+
+let amun = new LayeredBoss(null, "Amun", "eternal", 11, "darkGrey", "baseTrapTurret", 6, 5.5);
+amun.addLayer({turret: {
+    POSITION: [6, 9, 0, null, 160, 0],
+    TYPE: "desmosTurret",
+}});
+amun.addLayer({turret: {
+    POSITION: [6.5, 9, 0, null, 160, 0],
+    TYPE: "undertowTurret",
+}}, true, 4);
+amun.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 160, 0],
+    TYPE: "forkTurret",
+}}, true, 4);
+Class.amun.ALPHA = 0.3
 
 // Developer Bosses
 Class.taureonCoreBase = {
