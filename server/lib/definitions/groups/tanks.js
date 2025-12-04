@@ -1822,17 +1822,35 @@ Class.bulwark = {
     DANGER: 7,
     GUNS: weaponMirror([
         {
-            POSITION: [20, 8, 1, 0, 5.5, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.twin]),
                 TYPE: "bullet",
             },
         },
         {
-            POSITION: [14, 8, 1, 0, 5.5, 185, 0],
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                ASPECT: 1,
+                X: 0,
+                Y: 5.5,
+                ANGLE: 185
+            }
         },
         {
-            POSITION: [3, 9, 1.5, 14, 5.5, 185, 0],
+            POSITION: {
+                LENGTH: 3.25,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 15,
+                Y: 5.5,
+                ANGLE: 185
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.twin]),
                 TYPE: "trap",
