@@ -2726,6 +2726,7 @@ Class.iterator = {
     LABEL: "Iterator",
     DANGER: 7,
     STAT_NAMES: statnames.desmos,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
             POSITION: [22, 8, -4/3, 0, 0, 0, 0],
