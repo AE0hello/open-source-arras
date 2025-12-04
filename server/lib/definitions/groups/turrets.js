@@ -90,6 +90,17 @@ Class.megaAutoTankGun = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true})
+Class.ultraAutoTankGun = makeTurret({
+    GUNS: [
+        {
+            POSITION: [22, 20, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}, {canRepel: true, limitFov: true})
 Class.sniper3gun = makeTurret({
     GUNS: [
         {
@@ -128,6 +139,21 @@ Class.trapTurret = makeTurret({
         },
         {
             POSITION: [4, 14, 1.8, 16, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.lowPower, { shudder: 0.4, speed: 0.9, reload: 2 }]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        },
+    ],
+}, {limitFov: true, aiSettings: {SKYNET: true, FULL_VIEW: true, independent: true, extraStats: []}})
+Class.megaTrapTurret = makeTurret({
+    GUNS: [
+        {
+            POSITION: [16, 18, 1, 0, 0, 0, 0],
+        },
+        {
+            POSITION: [4, 18, 1.8, 16, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.lowPower, { shudder: 0.4, speed: 0.9, reload: 2 }]),
                 TYPE: "trap",

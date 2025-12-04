@@ -112,6 +112,83 @@ Class.spectator = {
     }]
 }
 
+// Guillotine + Ban Hammer
+Class.guillotine = {
+    PARENT: "spectator",
+    LABEL: "Guillotine",
+    CAN_GO_OUTSIDE_ROOM: true,
+    TOOLTIP: "Use left click to inspect and right click to teleport. Press F to kill the selected entity.",
+    GUNS: [ {
+        POSITION: [5, 13, 1, 8.5, 2, -15, 0], }, {
+        POSITION: [8, 10, 1, 30, 0, 0, 0], }, {
+        POSITION: [40, 2, 1, 0, 7, 0, 0], }, {
+        POSITION: [40, 2, 1, 0, -7, 0, 0], }, 
+    ],
+    TURRETS: [
+        {
+            POSITION: [2, 34, 0, 0, 0, 1],
+            TYPE: "genericEntity"
+        }
+    ],
+    ON: [
+        {
+            event: "mousedown",
+            handler: ({ body, button }) => {
+                if (body == null) return;
+                switch (button) {
+                    case "left":
+                        let target = {
+                            x: body.x + body.control.target.x,
+                            y: body.y + body.control.target.y
+                        };
+                        let selected = null;
+                        for (let entity of entities) {
+                            if (((entity.x - target.x) ** 2 + (entity.y - target.y) ** 2) < entity.size ** 2) {
+                                selected = entity;
+                                break;
+                            }
+                        }
+                        if (selected) {
+                            body.store.guillotineSelection = selected;
+                            body.socket.talk("m", `Selected ${selected.name ? `${selected.name}'s` : "an unnamed"} ${selected.label} (ID #${selected.id}). Score: ${Math.floor(selected.skill.score)}; Build: ${selected.skill.raw.join("/")};`);
+                        } else {
+                            delete body.store.guillotineSelection;
+                            body.socket.talk("m", "Cleared selection.");
+                        }
+                        break;
+                    case "right":
+                        body.x += body.control.target.x;
+                        body.y += body.control.target.y;
+                        break;
+                }
+            }
+        },
+        {
+            event: "action",
+            handler: ({ body }) => {
+                if (body == null) return;
+                    if (body.store.guillotineSelection && !body.store.guillotineSelection.isDead()) {
+                    body.store.guillotineSelection.kill();
+                    body.socket.talk("m", "Killed selection!");
+                } else body.socket.talk("m", "Nothing was selected!");
+            }
+        }
+    ]
+}
+Class.banHammer = {
+    PARENT: "spectator",
+    LABEL: "Ban Hammer",
+    CAN_GO_OUTSIDE_ROOM: true,
+    TOOLTIP: "Use left click to inspect and right click to teleport. Press F to ban the selected player.",
+    GUNS: [
+        {POSITION: [30, 7, 1.3, 0, 0, 0, 0]},
+        {POSITION: [3, 11, 0.75, 7.5, -36, 90, 0]},
+        {POSITION: [3, 11, 0.75, 7.5, 36, -90, 0]},
+        {POSITION: [11, 14, 1, 30.5, 0, 0, 0]},
+        {POSITION: [13, 10.5, -1.2, 0, 0, 0, 0]},
+    ]
+}
+
 // Tank Menu(s)
 Class.menu_tanks = makeMenu("Tanks")
 //Class.menu_tanks.UPGRADE_TOOLTIP = "Every tank. Need I say more?"
@@ -303,7 +380,7 @@ Class.menu_bosses.UPGRADES_TIER_0 = [
 Class.menu_sentries = makeMenu("Sentries", "pink", 3.5)
 Class.menu_sentries.PROPS = [
     {
-        POSITION: [9, 0, 0, 0, 360, 1],
+        POSITION: [12, 0, 0, 0, 360, 1],
         TYPE: "genericEntity"
     }
 ]
@@ -311,6 +388,9 @@ Class.menu_sentries.UPGRADES_TIER_0 = [
     "sentrySwarm",
     "sentryGun",
     "sentryTrap",
+    "sentinelSwarm",
+    "sentinelGun",
+    "sentinelTrap",
     "shinySentrySwarm",
     "shinySentryGun",
     "shinySentryTrap",
@@ -399,40 +479,40 @@ Class.menu_terrestrials.UPGRADES_TIER_0 = [
 Class.menu_celestials = makeMenu("Celestials", "lightGreen", 9)
 Class.menu_celestials.UPGRADE_TOOLTIP = "WARNING: This menu is very laggy."
 Class.menu_celestials.UPGRADES_TIER_0 = [
-    "paladin", 
-    "freyja", 
-    "zaphkiel", 
-    "nyx", 
-    "theia", 
-    "atlas", 
-    "hera", 
-    "horus", 
-    "anubis", 
-    "isis", 
-    "tethys", 
-    "ullr", 
-    "dellingr", 
-    "osiris", 
-    "alcis", 
-    "khonsu", 
-    "hyperion", 
-    "nephthys", 
-    "tyr", 
-    "vor", 
-    "aether", 
-    "iapetus", 
-    "baldr", 
-    "eros", 
-    "hjordis", 
-    "sif", 
-    "freyr", 
-    "styx", 
-    "apollo", 
-    "ptah", 
-    "rhea", 
-    "julius", 
-    "genghis", 
-    "napoleon",
+    "paladin",
+    "freyja",
+    "zaphkiel",
+    "nyx",
+    "theia",
+    "atlas",
+    "hera",
+    "horus",
+    "anubis",
+    "isis",
+    "tethys",
+    "ullr",
+    "dellingr",
+    "osiris",
+    "alcis",
+    "khonsu",
+    "baldr",
+    "nephthys",
+    "tyr",
+    "vor",
+    "aether",
+    "iapetus",
+    "apollo",
+    "eros",
+    "hjordis",
+    "sif",
+    "freyr",
+    "styx",
+    "hyperion",
+    "ptah",
+    "rhea",
+    "julius",
+    "genghis",
+    "napoleon"
 ]
 
 Class.menu_eternals = makeMenu("Eternals", "veryLightGrey", 11)

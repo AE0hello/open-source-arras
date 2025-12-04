@@ -2082,21 +2082,21 @@ Class.crowbar = {
         }
     ],
     TURRETS: [{
-        POSITION: [6, 42, 0, 0, 360, 1],
+        POSITION: [6, 42, 0, 0, 180, 1],
         TYPE: [
             "crowbarTurretTank",
             { INDEPENDENT: true }
         ],
     },
         {
-            POSITION: [6, 32, 0, 0, 360, 1],
+            POSITION: [6, 32, 0, 0, 180, 1],
             TYPE: [
                 "crowbarTurretTank",
                 { INDEPENDENT: true }
             ],
         },
         {
-            POSITION: [6, 22, 0, 0, 360, 1],
+            POSITION: [6, 22, 0, 0, 180, 1],
             TYPE: [
                 "crowbarTurretTank",
                 { INDEPENDENT: true }
@@ -2726,6 +2726,7 @@ Class.iterator = {
     LABEL: "Iterator",
     DANGER: 7,
     STAT_NAMES: statnames.desmos,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
             POSITION: [22, 8, -4/3, 0, 0, 0, 0],
