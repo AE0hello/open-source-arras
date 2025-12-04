@@ -325,7 +325,7 @@ class MockupEntity {
         if (!this.defs) this.defs = [];
         for (let def of vclass) this.defs.push(def);
         if (this.batchUpgrades) handleBatchUpgradeSplit(this); // Batch upgrades
-        for (let branch = 1; branch < this.defs.length; branch++) { // Define additional stats for other split upgrades (And fix upgrade tree too)
+        for (let branch = 1; branch < this.defs.length; branch++) { // Define additional stats for other split upgrades (And fix class tree too)
             set = ensureIsClass(this.defs[branch]);
             if (set.index != null) this.index += "-" + set.index;
             if (set.PARENT != null) {
