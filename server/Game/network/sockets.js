@@ -633,7 +633,7 @@ class socketManager {
                 this.chatLoop();
             } break;
             case "T": {
-                // Send the upgrade tree mockups
+                // Send the class tree mockups
                 if (player.body && socket.status.lastTank != player.body.index) {
                     socket.status.lastTank = player.body.index;
                     this.sendMockup(player.body.index, socket);

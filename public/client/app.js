@@ -2179,7 +2179,7 @@ import * as socketStuff from "./socketinit.js";
         }
 
         if (!tankTree) {
-            console.log('No upgrade tree rendered yet.');
+            console.log('No class tree rendered yet.');
             return;
         }
         // Draw semi-transparent overlay
@@ -2188,7 +2188,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].fillRect(0, 0, global.screenWidth, global.screenHeight);
         ctx[2].globalAlpha = 1;
 
-        // Render the upgrade tree if ready.
+        // Render the class tree if ready.
         if (global.renderTankTree) {
             let tileSize = alcoveSize / 2,
                 size = tileSize - 4,
@@ -2294,7 +2294,7 @@ import * as socketStuff from "./socketinit.js";
     global.classTreeDrag = classTreeDrag;
     function drawClassTreeUI(spacing) {
         if (!global.renderTankTree) {
-            //drawText("Loading upgrade tree...", global.screenWidth / 2, global.screenHeight / 2, 25, color.guiwhite, "center");
+            //drawText("Loading class tree...", global.screenWidth / 2, global.screenHeight / 2, 25, color.guiwhite, "center");
             return;
         }
         const uiY = spacing + 20;
@@ -2302,7 +2302,7 @@ import * as socketStuff from "./socketinit.js";
         const buttonSpacing = 10;
 
         // Draw text for a tip
-        drawText("Arrow keys or mouse to navigate the upgrade tree. Shift to navigate faster. Scroll wheel, (+/- keys) or zoom buttons to zoom in/out.", global.screenWidth / 2, spacing + 10, 17, color.guiwhite, "center");
+        drawText("Arrow keys or mouse to navigate the class tree. Shift to navigate faster. Scroll wheel, (+/- keys) or zoom buttons to zoom in/out.", global.screenWidth / 2, spacing + 10, 17, color.guiwhite, "center");
         
         // Draw search bar (centered)
         const searchBarWidth = 300;
