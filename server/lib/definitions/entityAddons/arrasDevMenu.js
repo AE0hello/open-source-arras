@@ -55,12 +55,16 @@ Class.arrasMenu_betaTester.UPGRADES_TIER_0 = [
     Config.spawn_class,
     //"arrasMenu_betaTesterB", // todo: check if beta tester b actually existed here
     "spectator",
-    "arrasMenu_tankChanges", // existed here at one point
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
+    "arrasMenu_tankChanges",
+    //"arrasMenu_nostalgia", // existed here at one point
+    //"arrasMenu_scrapped", // existed here at one point
 ]
 
 Class.arrasMenu_tankChanges = makeMenu("Tank Changes Menu") // (Trial BT?)
+Class.arrasMenu_tankChanges.UPGRADES_TIER_0 = [
+    "arrasMenu_betaTester",
+]
+
 Class.arrasMenu_betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
 
 // Special Tanks Menu(s)
