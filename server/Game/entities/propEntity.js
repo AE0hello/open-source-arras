@@ -1,6 +1,7 @@
 class Prop {
     constructor(position, bond) {
         this.guns = [];
+        this.id = entitiesIdLog++;
         this.color = new Color(16);
         this.borderless = false;
         this.drawFill = true;
@@ -8,7 +9,7 @@ class Prop {
 
         // Bind prop
         this.bond = bond;
-        this.bond.props.push(this);
+        this.bond.props.set(this.id, this);
         // Get my position.
         if (Array.isArray(position)) {
             position = {
@@ -58,13 +59,14 @@ class Prop {
         }
         if (set.index != null) this.index = set.index.toString();
         if (set.SHAPE != null) {
-            this.shape = typeof set.SHAPE === "number" ? set.SHAPE : (set.SHAPE_NUM ?? 0);
+            this.shape = typeof set.SHAPE === "number" ? set.SHAPE : 0;
             this.shapeData = set.SHAPE;
         }
         this.imageInterpolation = set.IMAGE_INTERPOLATION != null ? set.IMAGE_INTERPOLATION : 'bilinear'
         if (set.COLOR != null) {
             this.color.interpret(set.COLOR);
         }
+        if (set.STROKE_WIDTH != null) this.strokeWidth = set.STROKE_WIDTH
         if (set.BORDERLESS != null) this.borderless = set.BORDERLESS;
         if (set.DRAW_FILL != null) this.drawFill = set.DRAW_FILL;
         if (set.GUNS != null) {
@@ -90,6 +92,7 @@ class Prop {
             mirrorMasterAngle: this.settings.mirrorMasterAngle,
             layer: this.bound.layer,
             color: this.color.compiled,
+            strokeWidth: this.strokeWidth,
             borderless: this.borderless,
             drawFill: this.drawFill,
             guns: this.guns.map((gun) => gun.getPhotoInfo()),

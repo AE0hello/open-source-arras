@@ -1,4 +1,5 @@
 import { global } from "./global.js";
+import { util } from "./util.js";
 import { config } from "./config.js";
 import * as socketStuff from "./socketinit.js";
 import { AdvancedRecorder } from "./recorder.js";
@@ -39,6 +40,10 @@ class Canvas {
         this.treeScrollSpeed = 0.5;
         this.treeScrollSpeedMultiplier = 1;
         this.initalized = false;
+        this.tankTreeProps = {
+            searchQuery: '',
+            enabled: false,
+        }
         global.canvas = this;
     }
     init() {
@@ -75,19 +80,19 @@ class Canvas {
     wheel(event) {
         if (!global.died && global.showTree) {
             if (event.deltaY > 1) {
-                global.treeScale /= 1.1;
+                global.targetTreeScale = Math.max(global.targetTreeScale / 1.2, 0.5);
             } else {
-                global.treeScale *= 1.1;
+                global.targetTreeScale = Math.min(global.targetTreeScale * 1.2, 8);
             }
         }
     }
     keyPress(event) {
         switch (event.keyCode) {
             case global.KEY_ZOOM_OUT:
-                if (!global.died && global.showTree) global.treeScale /= 1.1;
+                if (!global.died && global.showTree) global.targetTreeScale = Math.max(global.targetTreeScale / 1.2, 0.5);
                 break;
             case global.KEY_ZOOM_IN:
-                if (!global.died && global.showTree) global.treeScale *= 1.1;
+                if (!global.died && global.showTree) global.targetTreeScale = Math.min(global.targetTreeScale * 1.2, 8);
                 break;
         }
     }
@@ -108,12 +113,39 @@ class Canvas {
         global.showChat = true;
     }
     keyDown(event) {
+        if (global.dailyTankAd.renderUI) return;
         if (global.specialPressed) {
             event.preventDefault();
             if (!event.repeat) global.specialKeysPressed.push(event.keyCode);
             this.socket.talk("#", ...global.specialKeysPressed);
             return;
         }
+
+        // Handle search input when tree is open and search bar is active
+        if (global.showTree && global.searchBarActive) {
+            if (event.key.length === 1 && !event.ctrlKey && !event.altKey && !event.metaKey) {
+                event.preventDefault();
+                this.tankTreeProps.searchQuery += event.key;
+                global.searchTankByName(this.tankTreeProps.searchQuery);
+                return;
+            } else if (event.keyCode === 8) { // Backspace
+                event.preventDefault();
+                this.tankTreeProps.searchQuery = this.tankTreeProps.searchQuery.slice(0, -1);
+                global.searchTankByName(this.tankTreeProps.searchQuery);
+                return;
+            } else if (event.keyCode === 27) { // Escape
+                event.preventDefault();
+                this.tankTreeProps.searchQuery = '';
+                global.searchTankByName('');
+                global.searchBarActive = false;
+                return;
+            } else if (event.keyCode === global.KEY_ENTER) {
+                event.preventDefault();
+                global.searchBarActive = false;
+                return;
+            }
+        }
+
         switch (event.keyCode) {
             case global.KEY_SHIFT:
                 this.treeScrollSpeedMultiplier = 5;
@@ -135,22 +167,22 @@ class Canvas {
                 break;
 
             case global.KEY_UP_ARROW:
-                if (!global.died && global.showTree) return global.scrollVelocityY = -this.treeScrollSpeed * this.treeScrollSpeedMultiplier;
+                if (!global.died && global.showTree) return (global.classTreeDrag.isDragging = true, global.classTreeDrag.momentum.y = -this.treeScrollSpeed * this.treeScrollSpeedMultiplier);
             case global.KEY_UP:
                 this.socket.cmd.set(0, true);
                 break;
             case global.KEY_DOWN_ARROW:
-                if (!global.died && global.showTree) return global.scrollVelocityY = +this.treeScrollSpeed * this.treeScrollSpeedMultiplier;
+                if (!global.died && global.showTree) return (global.classTreeDrag.isDragging = true, global.classTreeDrag.momentum.y = +this.treeScrollSpeed * this.treeScrollSpeedMultiplier);
             case global.KEY_DOWN:
                 this.socket.cmd.set(1, true);
                 break;
             case global.KEY_LEFT_ARROW:
-                if (!global.died && global.showTree) return global.scrollVelocityX = -this.treeScrollSpeed * this.treeScrollSpeedMultiplier;
+                if (!global.died && global.showTree) return (global.classTreeDrag.isDragging = true, global.classTreeDrag.momentum.x = -this.treeScrollSpeed * this.treeScrollSpeedMultiplier);
             case global.KEY_LEFT:
                 this.socket.cmd.set(2, true);
                 break;
             case global.KEY_RIGHT_ARROW:
-                if (!global.died && global.showTree) return global.scrollVelocityX = +this.treeScrollSpeed * this.treeScrollSpeedMultiplier;
+                if (!global.died && global.showTree) return (global.classTreeDrag.isDragging = true, global.classTreeDrag.momentum.x = +this.treeScrollSpeed * this.treeScrollSpeedMultiplier);
             case global.KEY_RIGHT:
                 this.socket.cmd.set(3, true);
                 break;
@@ -166,7 +198,7 @@ class Canvas {
             case global.KEY_LEVEL_UP:
                 this.socket.talk('L');
                 break;
-            case global.KEY_FUCK_YOU:
+            case global.KEY_TOKEN:
                 this.socket.talk('0');
                 break;
             case global.KEY_BECOME:
@@ -219,10 +251,8 @@ class Canvas {
                     global.showDebug = !global.showDebug;
                     break;
                 case global.KEY_CLASS_TREE:
-                    global.treeScale = 1;
-                    global.showTree = !global.showTree;
-                    global.pullUpgradeMenu = !global.pullUpgradeMenu;
-                    if (global.showTree) this.socket.talk('T');
+                    this.tankTreeProps.enabled = !this.tankTreeProps.enabled;
+                    global.tankTree(this.tankTreeProps.enabled ? "open" : "exit");
                     break;
                 case global.KEY_RECORD:
                     this.record();
@@ -265,6 +295,7 @@ class Canvas {
         }
     }
     keyUp(event) {
+        if (global.dailyTankAd.renderUI) return;
         switch (event.keyCode) {
             case global.KEY_SPECIAL:
                 global.specialPressed = false;
@@ -274,22 +305,26 @@ class Canvas {
                 this.treeScrollSpeedMultiplier = 1;
                 break;
             case global.KEY_UP_ARROW:
-                global.scrollVelocityY = 0;
+                global.classTreeDrag.momentum.y = 0;
+                global.classTreeDrag.isDragging = false;
             case global.KEY_UP:
                 this.socket.cmd.set(0, false);
                 break;
             case global.KEY_DOWN_ARROW:
-                global.scrollVelocityY = 0;
+                global.classTreeDrag.momentum.y = 0;
+                global.classTreeDrag.isDragging = false;
             case global.KEY_DOWN:
                 this.socket.cmd.set(1, false);
                 break;
             case global.KEY_LEFT_ARROW:
-                global.scrollVelocityX = 0;
+                global.classTreeDrag.momentum.x = 0;
+                global.classTreeDrag.isDragging = false;
             case global.KEY_LEFT:
                 this.socket.cmd.set(2, false);
                 break;
             case global.KEY_RIGHT_ARROW:
-                global.scrollVelocityX = 0;
+                global.classTreeDrag.momentum.x = 0;
+                global.classTreeDrag.isDragging = false;
             case global.KEY_RIGHT:
                 this.socket.cmd.set(3, false);
                 break;
@@ -328,11 +363,28 @@ class Canvas {
                     x: mouse.clientX * global.ratio,
                     y: mouse.clientY * global.ratio,
                 };
+                if (global.showTree) {
+                    // Start dragging if not clicking UI elements
+                    global.classTreeDrag.isDragging = true;
+                    global.classTreeDrag.startX = global.classTreeDrag.lastX = mouse.clientX;
+                    global.classTreeDrag.startY = global.classTreeDrag.lastY = mouse.clientY;
+                    global.classTreeDrag.momentum = { x: 0, y: 0 };
+                    break;
+                }
                 let statIndex = global.clickables.stat.check(mpos);
                 let upgradeCheck = global.clickables.upgrade.check(mpos);
                 if (statIndex !== -1) {
                     this.socket.talk('x', statIndex, 0);
-                } else if (global.clickables.skipUpgrades.check(mpos) == -1 && upgradeCheck == -1 && !global.died) this.socket.cmd.set(primaryFire, true);
+                } else if (
+                    !global.dailyTankAd.renderUI &&
+                    global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && 
+                    global.clickables.optionsMenu.switchButton.check(mpos) == -1 && 
+                    global.clickables.skipUpgrades.check(mpos) == -1 && 
+                    global.clickables.dailyTankUpgrade.check(mpos) == false &&
+                    global.clickables.dailyTankAd.check(mpos) === false &&
+                    upgradeCheck == -1 && 
+                    !global.died
+                ) this.socket.cmd.set(primaryFire, true);
                 break;
             case 1:
                 this.socket.cmd.set(5, true);
@@ -354,9 +406,69 @@ class Canvas {
                     y: mouse.clientY * global.ratio,
                 };
                 let upgradeIndex = global.clickables.upgrade.check(mpos);
+                let dailyTankUpgrade = global.clickables.dailyTankUpgrade.check(mpos);
+                let dailyTankAd = global.clickables.dailyTankAd.check(mpos);
+                let dailyTankCloseAd = global.clickables.dailyTankCloseAd.check(mpos);
                 let respawnCheck = global.clickables.deathRespawn.check(mpos);
                 let exitGame = global.clickables.exitGame.check(mpos);
                 let reconnectCheck = global.clickables.reconnect.check(mpos);
+                let optionsMenu_Switch = global.clickables.optionsMenu.switchButton.check(mpos);
+                let optionsMenu_toggleBox = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                // Options menu clickables
+                if (optionsMenu_Switch === 0) {
+                    global.optionsMenu_Anim.switchMenu_button.set(-40);
+                    global.optionsMenu_Anim.mainMenu.set(25);
+                    global.optionsMenu_Anim.isOpened = true;
+                    break;
+                }
+                if (optionsMenu_Switch === 1) {
+                    global.optionsMenu_Anim.switchMenu_button.set(0);
+                    global.optionsMenu_Anim.mainMenu.set(-500);
+                    global.optionsMenu_Anim.isOpened = false;
+                    break;
+                }
+                if (optionsMenu_toggleBox !== -1) {
+                    let box = global.optionsCheckboxes[optionsMenu_toggleBox];
+                    let doc = document.getElementById(box.id);
+                    box.value = !box.value;
+                    if (doc) doc.checked = box.value;
+                    if (doc) util.submitToLocalStorage(box.id);
+                    break;
+                }
+                // Stop dragging class tree
+                if (global.classTreeDrag.isDragging) {
+                    global.classTreeDrag.isDragging = false;
+                }
+                if (global.clickables.classTreeClose.check(mpos) === 0) {
+                    global.tankTree("exit");
+                    break;
+                }
+                
+                // Check zoom buttons
+                if (global.clickables.classTreeZoomIn.check(mpos) === 0) {
+                    global.targetTreeScale = Math.min(global.targetTreeScale * 1.2, 8);
+                    break;
+                }
+                if (global.clickables.classTreeZoomOut.check(mpos) === 1) {
+                    global.targetTreeScale = Math.max(global.targetTreeScale / 1.2, 0.5);
+                    break;
+                }
+                
+                // Check search bar click
+                const searchBarWidth = 300;
+                const searchBarHeight = 35;
+                const searchBarX = global.screenWidth / 2 / global.ratio - searchBarWidth / 2;
+                const searchBarY = 30;
+                
+                if (mpos.x / global.ratio >= searchBarX && 
+                    mpos.x / global.ratio <= searchBarX + searchBarWidth &&
+                    mpos.y / global.ratio >= searchBarY && 
+                    mpos.y / global.ratio <= searchBarY + searchBarHeight) {
+                    global.searchBarActive = true;
+                    break;
+                } else {
+                    global.searchBarActive = false;
+                }
                 if (respawnCheck !== -1 && !global.disconnected) {
                     if (!global.cannotRespawn && global.died) {
                         this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
@@ -369,8 +481,14 @@ class Canvas {
                 if (exitGame !== -1) {
                     if (global.disconnected || (global.died && !global.cannotRespawn)) global.exit();
                 } else 
-                if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length) this.socket.talk('U', upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
-                else if (global.clickables.skipUpgrades.check(mpos) !== -1) {
+                if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length && !global.dailyTankAd.renderUI) this.socket.talk('U', upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
+                else if (dailyTankUpgrade == true && !global.dailyTankAd.renderUI) {
+                    this.socket.talk('U', JSON.stringify([{isDailyUpgrade: true, tank: gui.dailyTank.tank}]), "null");
+                } else if (dailyTankAd == true) {
+                    this.socket.talk("DTA"); // Request to get an ad
+                } else if (dailyTankCloseAd == true && global.dailyTankAd.renderUI) {
+                    this.socket.talk("DTAD");
+                } else if (global.clickables.skipUpgrades.check(mpos) !== -1) {
                     global.clearUpgrades();
                 } else this.socket.cmd.set(primaryFire, false);
                 break;
@@ -383,6 +501,19 @@ class Canvas {
         }
     }
     mouseMove(mouse) {
+        // Handle class tree dragging with smooth momentum
+        if (global.showTree && global.classTreeDrag.isDragging) {
+            const dx = (mouse.clientX - global.classTreeDrag.lastX) / global.treeScale;
+            const dy = (mouse.clientY - global.classTreeDrag.lastY) / global.treeScale;
+            
+            // Smooth momentum update
+            global.classTreeDrag.momentum.x = -dx * 0.01;
+            global.classTreeDrag.momentum.y = -dy * 0.01;
+
+            global.classTreeDrag.lastX = mouse.clientX;
+            global.classTreeDrag.lastY = mouse.clientY;
+            return;
+        }
         global.statHover =
             global.clickables.hover.check({
                 x: mouse.clientX * global.ratio,
@@ -396,7 +527,7 @@ class Canvas {
             global.socket.cmd.reactNow();
         }
     }
-  record() {
+    record() {
         let AdvancedCanvasCapturer = () => {
             let canvas = this.cvb.cloneNode();
             let ctx = canvas.getContext("2d");

@@ -26,11 +26,13 @@ class Maze {
             wall.on("dead", () => {
                 util.remove(walls, walls.indexOf(wall));
             })
-            if (Config.HALLOWEEN_THEME) {
-                let eyeSize = 12 * (Math.random() + 0.75);
+            if (Config.spooky_theme) {
+                let eyeSize = 12 * (Math.random() + 0.65);
                 let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
                 spookyEye.define("hwEye");
-                spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})
+                setTimeout(() => {
+                    spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]})
+                }, 1000)
                 spookyEye.SIZE = eyeSize;
                 spookyEye.minimapColor = 18;
             }

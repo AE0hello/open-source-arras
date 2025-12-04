@@ -19,24 +19,24 @@ class gamemodeManager {
         this.gameSandbox = new Sandbox(global.gameManager);
         this.gameMaze = new Maze(global.gameManager, null);
         this.gameTrain = new Train();
-        this.gameOutreak = new Outbreak(global.gameManager);
+        this.gameOutbreak = new Outbreak(global.gameManager);
         this.gameClanwars = new ClanWars(global.gameManager);
     }
 
     request(type) {
         if (type == "start") {
-            if (Config.SPECIAL_BOSS_SPAWNS) this.gameSiege.start(Config.MAZE_TYPE ?? false);
+            if (Config.special_boss_spawns) this.gameSiege.start(Config.maze_type ?? false);
             if (Config.ASSAULT) this.gameAssault.start();
-            if (Config.TAG) Config.TAG_DATA.initAndStart();
-            if (Config.DOMINATION) this.gameDomination.start();
-            if (Config.MOTHERSHIP) this.gameMothership.start();
-            if (Config.MAZE_TYPE !== undefined && !Config.SPECIAL_BOSS_SPAWNS) this.gameMaze.generate();
-            if (Config.OUTBREAK) this.gameOutreak.start();
+            if (Config.tag) Config.tag_data.initAndStart();
+            if (Config.domination) this.gameDomination.start();
+            if (Config.mothership) this.gameMothership.start();
+            if (Config.maze_type !== undefined && !Config.special_boss_spawns) this.gameMaze.generate();
+            if (Config.OUTBREAK) this.gameOutbreak.start();
         }
         if (type == "loop") {
             global.gameManager.lagLogger.set();
-            if (Config.SPECIAL_BOSS_SPAWNS) this.gameSiege.loop();
-            if (Config.MOTHERSHIP) this.gameMothership.loop();
+            if (Config.special_boss_spawns) this.gameSiege.loop();
+            if (Config.mothership) this.gameMothership.loop();
             global.gameManager.lagLogger.mark();
             if (global.gameManager.lagLogger.totalTime > 100) {
                 console.log("Gamemode loop is taking a long time!");
@@ -46,18 +46,18 @@ class gamemodeManager {
             }
         }
         if (type == "quickloop") { // Mainly for sandbox and trainwars only, but you can also put your own gamemode loop here incase the regular loop doesnt fit.
-            if (Config.SANDBOX) this.gameSandbox.update();
-            if (Config.TRAIN) this.gameTrain.loop();
+            if (Config.sandbox) this.gameSandbox.update();
+            if (Config.train) this.gameTrain.loop();
         }
     }
 
     terminate() {
-        if (Config.SPECIAL_BOSS_SPAWNS) this.gameSiege.reset();
+        if (Config.special_boss_spawns) this.gameSiege.reset();
         if (Config.ASSAULT) this.gameAssault.reset();
-        if (Config.TAG) Config.TAG_DATA.resetAndStop();
-        if (Config.DOMINATION) this.gameDomination.reset();
-        if (Config.MOTHERSHIP) this.gameMothership.reset();
-        if (Config.CLAN_WARS) this.gameClanwars.reset();
+        if (Config.tag) Config.tag_data.resetAndStop();
+        if (Config.domination) this.gameDomination.reset();
+        if (Config.mothership) this.gameMothership.reset();
+        if (Config.clan_wars) this.gameClanwars.reset();
     }
 
     redefine(theshit) {
@@ -65,7 +65,7 @@ class gamemodeManager {
         this.gameAssault.redefine(theshit);
         this.gameTag.redefine(theshit);
         this.gameSandbox.redefine(theshit);
-        this.gameMaze.redefine(Config.MAZE_TYPE);
+        this.gameMaze.redefine(Config.maze_type);
         this.gameClanwars.redefine(theshit);
     }
 }

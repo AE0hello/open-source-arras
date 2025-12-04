@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<meta property="og:image" content="/img/round.png">
+	<meta property="og:image:width" content="54">
+	<meta property="og:image:height" content="54">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu Mono:400,700">
+	<title>Custom Shape Builder - Open Source Arras</title>
+
+	<style>
+	#output {
+		font: 16px Ubuntu Mono;
+		margin: 16px 4px;
+		outline: none;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 6px;
+		background-color: #ffffff;
+		width: 493px;
+	}
+	#add, #remove {
+		margin: 0 4px 16px;
+	}
+	.mainWrapper {
+		padding: 75px 20px 0;
+	}
+	#startMenuWrapper {
+		transition: top 1s;
+		position: relative;
+		top: 0px;
+		z-index: 5;
+		max-width: 1150px;
+		margin: 0 auto;
+	}
+	.startMenuHolder.mainHolder {
+		flex-shrink: 0;
+	}
+	.startMenu {
+		display: flex;
+		max-height: 390px;
+		padding: 10px;
+		border-radius: 5px;
+		background-color: #dde6eb;
+		overflow: hidden;
+	}
+	#calculator {
+		width: 350px;
+		height: 350px;
+	}
+	body {
+		font-family: Ubuntu;
+		font-size: 14px;
+		background-color: #484848;
+	}
+	button {
+		margin: 0;
+		width: 120px;
+		height: 40px;
+		box-sizing: border-box;
+		color: white;
+		text-align: center;
+		text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
+		background: #336699;
+		border: 0;
+		border-bottom: 2px solid #1B3353;
+		cursor: pointer;
+		box-shadow: inset 0 -2px #1B3353;
+		border-radius: 5px;
+		font: bold 16px Ubuntu;
+	}
+	button:hover {
+		margin-top: 2px;
+		height: 38px;
+		border-bottom: 0px solid #1B3353;
+	}
+	button:active {
+		margin-top: 2px;
+		height: 38px;
+		background: #1B3353;
+		border-bottom: 0px;
+		outline: none;
+		box-shadow: none;
+	}
+	.buttonHolder {
+		margin-top: 10px;
+	}
+	</style>
+</head>
+<body>
+	<script src="https://www.desmos.com/api/v1.2/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6"></script>
+	<div id="mainWrapper">
+		<div id="startMenuWrapper">
+			<div class="startMenu">
+				<div>
+					<div id="calculator"></div>
+				</div>
+				<div>
+					<div id="output" contenteditable></div>
+				</div>
+				<div>
+					<div class="buttonHolder">
+						<button id="add">Add Point</button>
+						<button id="remove">Remove Point</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+	let calculatorElement = document.getElementById('calculator')
+	let addElement = document.getElementById('add')
+	let removeElement = document.getElementById('remove')
+	let outputElement = document.getElementById('output')
+
+	let calculator = Desmos.GraphingCalculator(calculatorElement)
+	calculator.updateSettings({
+		expressionsCollapsed: true
+	})
+	calculator.setExpression({
+		id: 'table',
+		type: 'table',
+		columns: [{
+			latex: 'x_1',
+			values: [-1, 0.5, 1, 1, 0.5, -1],
+		}, {
+			latex: 'y_1',
+			values: [-1, -1, -0.5, 0.5, 1, 1],
+			dragMode: Desmos.DragModes.XY,
+			color: Desmos.Colors.BLACK,
+		}],
+	})
+	calculator.setExpression({
+		id: 'tableReconnect',
+		latex: '\\operatorname{polygon}\\left(x_1,\\ y_1\\right)',
+		color: Desmos.Colors.BLACK,
+		fill: null,
+	})
+	calculator.setExpression({
+		id: 'hitbox',
+		latex: 'x^2+y^2=1',
+		color: Desmos.Colors.RED,
+	})
+	calculator.setMathBounds({
+		left: -2,
+		right: 2,
+		bottom: -2,
+		top: 2,
+	})
+
+
+	let xList = calculator.HelperExpression({ latex: 'x_1' })
+	let xListValue = [-1, 0.5, 1, 1, 0.5, -1]
+	let yList = calculator.HelperExpression({ latex: 'y_1' })
+	let yListValue = [-1, -1, -0.5, 0.5, 1, 1]
+
+	xList.observe('listValue', () => {
+		xListValue = xList.listValue
+		updateCode()
+	})
+	yList.observe('listValue', () => {
+		yListValue = yList.listValue
+		updateCode()
+	})
+
+	let lock = false
+	let updateCode = () => {
+		if (lock) {
+			lock = false
+			return
+		}
+		let x = xListValue.slice()
+		let y = yListValue.slice()
+		let out = []
+		while (x.length > 0 && y.length > 0) {
+			out.push([x.shift(), y.shift()])
+		}
+		outputElement.style.color = '#000'
+		outputElement.innerText = 'SHAPE: ' + JSON.stringify(out) + ','
+	}
+	let updateExpression = () => {
+		calculator.setExpression({
+			id: 'table',
+			type: 'table',
+			columns: [{
+				latex: 'x_1',
+				values: xListValue,
+			}, {
+				latex: 'y_1',
+				values: yListValue,
+				lines: true,
+				dragMode: Desmos.DragModes.XY,
+				color: Desmos.Colors.BLACK,
+			}],
+		})
+	}
+
+	addElement.onclick = () => {
+		xListValue.push(Math.round(Math.random() * 20 - 10) / 5)
+		yListValue.push(Math.round(Math.random() * 20 - 10) / 5)
+		updateExpression()
+		updateCode()
+	}
+	removeElement.onclick = () => {
+		if (xListValue.length > 1) {
+			xListValue.pop()
+			yListValue.pop()
+		}
+		updateExpression()
+		updateCode()
+	}
+	outputElement.addEventListener('input', () => {
+		let output = outputElement.innerText.match(/\[\s*\[.*]\s*]/) || ['']
+		try {
+			let points = JSON.parse(output)
+			xListValue = points.map(r => r[0])
+			yListValue = points.map(r => r[1])
+			outputElement.style.color = '#000'
+			lock = true
+			updateExpression()
+		} catch(e) {
+			outputElement.style.color = '#b00'
+		}
+	}, false)
+	updateCode()
+	</script>
+</body>
+</html>

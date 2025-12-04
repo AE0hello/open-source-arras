@@ -77,7 +77,7 @@ if (loadedAddons.includes("chatCommands")) {
                 socket.talk("m", 5_000, "No server specified.");
                 return;
             }
-            let server = Config.SERVERS.find(
+            let server = Config.servers.find(
                 s => s.SERVER_ID === args[0]
             );
             if (!server) {

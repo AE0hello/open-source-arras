@@ -1,8 +1,8 @@
 import { util } from "./util.js";
 
-const missingMockup = {
+const missingno = {
     index: -1,
-    name: "Missing Mockup",
+    name: "missingno",
     x: 0,
     y: 0,
     color: "mirror 0 1 0 true",
@@ -16,7 +16,7 @@ const missingMockup = {
     },
     borderless: false,
     drawFill: true,
-    shape: "image=/unknownNotFound.png",
+    shape: "image=/missingno.png",
     imageInterpolation: "bilinear",
     size: 12,
     realSize: 12,
@@ -29,8 +29,8 @@ const missingMockup = {
         }
     },
     statnames: { body_damage: "???", max_health: "???", max_health: "???", bullet_speed: "???", bullet_health: "???", bullet_pen: "???", bullet_damage: "???", reload: "???", move_speed: "???", shield_regen: "???", shield_cap: "???" },
-    rerootUpgradeTree: "basic",
-    className: "missingMockup",
+    rerootUpgradeTree: "basic", // todo: find a way to make this automatically change to Config.spawn_class without bricking everything
+    className: "missingno",
     upgrades: [],
     guns: [],
     turrets: [],
@@ -118,7 +118,7 @@ const global = {
     KEY_SPIN_LOCK: 88,// X
 
     KEY_LEVEL_UP: 78,
-    KEY_FUCK_YOU: 80,// P
+    KEY_TOKEN: 80,// P
     KEY_CLASS_TREE: 84,// T
     KEY_MAX_STAT: 77,// M
     KEY_SUICIDE: 79,// O
@@ -174,7 +174,6 @@ const global = {
     glCanvas: null,
     showChat: 0,
     generateTankTree: false,
-    needsFovAnimReset: true,
     specialPressed: false,
     specialKeysPressed: [],
     backgroundColor: '#f2fbff',
@@ -184,7 +183,7 @@ const global = {
     player: {},
     messages: [],
     mockups: [],
-    missingMockup: [missingMockup],
+    missingno: [missingno],
     roomSetup: [],
     entities: [],
     cached: {},
@@ -201,7 +200,41 @@ const global = {
         exitGame: Region(1),
         deathRespawn: Region(1),
         reconnect: Region(1),
-        graphicsMode: Region(20),
+        classTreeZoomOut: Region(2),
+        classTreeZoomIn: Region(2),
+        classTreeClose: Region(1),
+        // Daily tanks buttons
+        dailyTankUpgrade: Clickable(),
+        dailyTankAd: Clickable(),
+        dailyTankCloseAd: Clickable(),
+        optionsMenu: {
+            switchButton: Region(2),
+            toggleBoxes: Region(100),
+            HoverBoxes: Region(100),
+        }
+    },
+    optionsMenu_Anim: {isOpened: false}, // Placeholder
+    dailyTankAd: {
+        render: undefined,
+        closeable: false,
+        renderUI: false,
+        readyToRender: false,
+        isVideo: false,
+        width: 1204,
+        height: 670,
+        exit: () => {
+            try {
+                global.dailyTankAd.render.pause();
+            } catch { };
+            global.dailyTankAd.renderUI = false;
+            global.dailyTankAd.readyToRender = false;
+            global.dailyTankAd.closeable = false;
+            global.dailyTankAd.videoBar = undefined;
+            global.dailyTankAd.closebtnAnim = undefined;
+            global.dailyTankAd.width = global.dailyTankAd.orginWidth;
+            global.dailyTankAd.height = global.dailyTankAd.orginHeight;
+            global.dailyTankAd.render = undefined;
+        }
     },
     statHover: false,
     upgradeHover: false,
@@ -325,7 +358,30 @@ const global = {
             screenHeight: global.screenHeight,
             nameColor: "#ffffff",
         }
+        list.animv.add(list.renderv);
         return list;
+    },
+    tankTree: (type) => {
+        if (type === "open") {
+            if (global.died) return;
+            global.showTree = true;
+            global.pullUpgradeMenu = true;
+            global.pullSkillBar = true;
+            global.socket.talk('T');
+        } else if (type === "exit") {
+            global.showTree = false;
+            global.renderTankTree = false;
+            global.pullUpgradeMenu = false;
+            global.pullSkillBar = false;
+            global.targetTreeScale = global.treeScale = 1;
+            global.scrollX = global.scrollY = global.fixedScrollX = global.fixedScrollY = -1;
+            global.scrollVelocityY = global.scrollVelocityX = 0;
+            global.classTreeDrag.isDragging = false;
+            global.classTreeDrag.momentum = { x: 0, y: 0 };
+            global.searchQuery = '';
+            global.searchBarActive = false;
+            global.canvas.tankTreeProps.enabled = false;
+        }
     },
     exit: () => { // When exiting and going back to the menu, reset things.
         document.getElementById("gameAreaWrapper").style.display = "none";

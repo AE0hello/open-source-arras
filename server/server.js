@@ -24,11 +24,11 @@ for (const key in environment) {
 const GLOBAL = require("./loaders/loader.js");
 
 // Load definitions and tile definitions
-new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/tankAddons') }).loadDefinitions();
+new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') }).loadDefinitions();
 GLOBAL.loadRooms(true);
 
 // Optionally load all mockups if enabled in configuration
-if (Config.LOAD_ALL_MOCKUPS) global.loadAllMockups();
+if (Config.load_all_mockups) global.loadAllMockups();
 
 // Log loader information including creation date and time
 console.log(`Loader successfully loaded all files. Info: [ Created Date: ${GLOBAL.creationDate} Created Time: ${GLOBAL.creationTime} ]`);
@@ -58,8 +58,8 @@ try {
 }
 
 // Log a warning if Access-Control-Allow-Origin is enabled
-if (Config.allowAccessControlAllowOrigin && Config.LOGS) {
-    util.warn("'Access-Control-Allow-Origin' is enabled, which allows any server/client to access it.");
+if (Config.allow_ACAO && Config.startup_logs) {
+    util.warn("Access-Control-Allow-Origin is enabled, which allows any server/client to access data from the WebServer.");
 }
 
 // Create an HTTP server to handle both API and static file requests
@@ -73,7 +73,7 @@ server = require("http").createServer((req, res) => {
         let http = server.ip.startsWith("localhost") ? `http://${server.ip}` : `https://${server.ip}`;
         serversIP.push(http);
     };
-    if (Config.allowAccessControlAllowOrigin || serversIP.includes(req.headers.origin)) {
+    if (Config.allow_ACAO || serversIP.includes(req.headers.origin)) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
@@ -153,9 +153,9 @@ server = require("http").createServer((req, res) => {
             ok = false;
             let fileToGet = path.join(publicRoot, req.url);
 
-            // If the requested file doesn't exist or isn't a file, default to the INDEX_HTML file
+            // If the requested file doesn't exist or isn't a file, default to the main_menu file
             if (!fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {
-                fileToGet = path.join(publicRoot, Config.INDEX_HTML);
+                fileToGet = path.join(publicRoot, Config.main_menu);
             }
 
             // Determine the file's MIME type based on its extension and serve the file stream
@@ -230,7 +230,7 @@ global.onServerLoaded = () => {
     // Once all servers are loaded, log the status and routing table
     if (loadedServers >= global.servers.length) {
         util.saveToLog("Servers up", "All servers booted up.", 0x37F554);
-        if (Config.LOGS) {
+        if (Config.startup_logs) {
             util.log("Dumping endpoint -> gamemode routing table");
             for (const game of global.servers) {
                 console.log("> " + `${Config.host}/#${game.id}`.padEnd(40, " ") + " -> " + game.gameMode);
@@ -245,17 +245,17 @@ global.onServerLoaded = () => {
 
 // Start the HTTP Server & Load Game Servers
 server.listen(Config.port, () => {
-    Config.SERVERS.forEach(server => {
+    Config.servers.forEach(server => {
         // Load all of the servers.
         loadGameServer(
-            server.LOAD_ON_MAINSERVER,
-            server.HOST,
-            server.PORT,
-            server.GAMEMODE,
-            server.REGION,
-            { id: server.SERVER_ID, maxPlayers: server.MAX_PLAYERS },
-            server.PROPERTIES,
-            server.FEATURED
+            server.share_client_server,
+            server.host,
+            server.port,
+            server.gamemode,
+            server.region,
+            { id: server.id, maxPlayers: server.player_cap },
+            server.properties,
+            server.featured
         );
     })
 });
@@ -285,4 +285,4 @@ let bunLoop = setInterval(() => {
 }, 1000);
 
 // Log that the web server has been initialized if logging is enabled
-if (Config.LOGS) console.log("Web Server initialized.");
+if (Config.startup_logs) console.log("Web Server initialized.");

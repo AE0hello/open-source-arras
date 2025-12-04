@@ -70,7 +70,7 @@ class MockupEntityGun {
 }
 
 class MockupEntityProp {
-    constructor(position, bond) {
+    constructor(def, bond) {
         this.guns = [];
         this.colorUnboxed = {
             base: 16,
@@ -87,6 +87,8 @@ class MockupEntityProp {
         // Bind prop
         this.bond = bond;
         this.bond.props.push(this);
+        
+        let position = def.POSITION;
         // Get my position.
         if (Array.isArray(position)) {
             position = {
@@ -111,6 +113,7 @@ class MockupEntityProp {
             layer: position.LAYER,
         };
         // Initalize.
+        this.setAngle = def.ANGLE ?? null;
         this.facing = 0;
         this.x = 0;
         this.y = 0;
@@ -255,8 +258,8 @@ class MockupEntity {
         if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(this.rerootUpgradeTree)) {
             let finalRoot = "";
-            for (let root of this.rerootUpgradeTree) finalRoot += root + "_";
-            this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 1);
+            for (let root of this.rerootUpgradeTree) finalRoot += root + "\\/";
+            this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 2);
         }
         if (set.STAT_NAMES != null) this.settings.skillNames = {
             body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? 'Body Damage',
@@ -288,12 +291,12 @@ class MockupEntity {
             }
         }
         else if (set.LEVEL != null) level = set.LEVEL;
-        this.size = (set.SIZE ?? 1) * (set.VARIES_IN_SIZE ? ran.randomRange(0.8, 1.2) : 1) * (1 + Math.min(set.LEVEL_CAP ?? Config.LEVEL_CAP, level) / 45);
+        this.size = (set.SIZE ?? 1) * (set.VARIES_IN_SIZE ? ran.randomRange(0.8, 1.2) : 1) * (1 + Math.min(set.level_cap ?? Config.level_cap, level) / 45);
         this.realSize = util.rounder(this.size * lazyRealSizes[Math.floor(Math.abs(this.shape))]);
         this.size = util.rounder(this.size);
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.MAX_UPGRADE_TIER; i++) {
+        for (let i = 0; i < Config.tier_cap; i++) {
             let tierProp = 'UPGRADES_TIER_' + i;
             if (set[tierProp] != null) {
                 for (let j = 0; j < set[tierProp].length; j++) {
@@ -308,7 +311,7 @@ class MockupEntity {
                     }
                     this.upgrades.push({
                         class: trueUpgrades,
-                        level: Config.TIER_MULTIPLIER * i,
+                        level: Config.tier_multiplier * i,
                         index: index.substring(0, index.length - 1),
                         tier: i,
                         branch: 0,
@@ -335,7 +338,7 @@ class MockupEntity {
                 }
             }
             if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-            for (let i = 0; i < Config.MAX_UPGRADE_TIER; i++) {
+            for (let i = 0; i < Config.tier_cap; i++) {
                 let tierProp = 'UPGRADES_TIER_' + i;
                 if (set[tierProp] != null) {
                     for (let j = 0; j < set[tierProp].length; j++) {
@@ -350,7 +353,7 @@ class MockupEntity {
                         }
                         this.upgrades.push({
                             class: trueUpgrades,
-                            level: Config.TIER_MULTIPLIER * i,
+                            level: Config.tier_multiplier * i,
                             index: index.substring(0, index.length - 1),
                             tier: i,
                             branch: 0,
@@ -363,7 +366,7 @@ class MockupEntity {
             if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
             if (Array.isArray(this.rerootUpgradeTree)) {
                 let finalRoot = "";
-                for (let root of this.rerootUpgradeTree) finalRoot += root + "_";
+                for (let root of this.rerootUpgradeTree) finalRoot += root + "\\/";
                 this.rerootUpgradeTree += finalRoot.substring(0, finalRoot.length - 2);
             }
         }
@@ -395,7 +398,7 @@ class MockupEntity {
             for (let i = 0; i < set.PROPS.length; i++) {
                 let def = set.PROPS[i],
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE],
-                    o = new MockupEntityProp(def.POSITION, this);
+                    o = new MockupEntityProp(def, this);
                 for (let j = 0; j < type.length; j++) {
                     o.define(type[j]);
                 }

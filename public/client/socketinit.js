@@ -74,6 +74,8 @@ gui = {
     type: 0,
     root: "",
     class: "",
+    visibleEntities: false,
+    dailyTank: {tank: null, ads: false},
     fps: 0,
     color: 0,
     accel: 0,
@@ -236,7 +238,7 @@ const Entry = class {
     publish() {
         let indexes = this.index.split("-"),
             ref = global.mockups[parseInt(indexes[0])];
-            if (!ref) ref = global.missingMockup[0];
+            if (!ref) ref = global.missingno[0];
 
         return {
             id: this.id,
@@ -659,6 +661,8 @@ const convert = {
         let index = get.next(),
             // Translate the encoded index
             indices = {
+                dailyTank: index & 0x1000,
+                visibleName: index & 0x0800,
                 class: index & 0x0400,
                 root: index & 0x0200,
                 topspeed: index & 0x0100,
@@ -726,6 +730,14 @@ const convert = {
         }
         if (indices.class) {
             gui.class = get.next();
+        }
+        if (indices.visibleName) {
+            gui.visibleEntities = get.next();
+        }
+        if (indices.dailyTank) {
+            let dailyTank = JSON.parse(get.next());
+            gui.dailyTank.tank = dailyTank[0];
+            gui.dailyTank.ads = dailyTank[1];
         }
     },
     broadcast: () => {
@@ -951,6 +963,11 @@ let incoming = async function(message, socket) {
                 theshit = m.slice(7);
                 // More stuff
                 let defaultFov = 2000;
+            if (!global.gameStart && startSettings.allowtostartgame) {
+                // Start the game
+                global.gameStart = true;
+                global.gameConnecting = false;
+            };
             // Process the data
             if (camtime > global.player.lastUpdate) { // Don't accept out-of-date information.
                 if (startSettings.neededtoresync) return; // Do not update anything when the client is out of sync.
@@ -994,18 +1011,10 @@ let incoming = async function(message, socket) {
             } else {
                 console.log("Old data! Last given time: " + global.player.time + "; offered packet timestamp: " + camtime + ".");
             }
-            if (!global.gameStart && startSettings.allowtostartgame) {
-                // Start the game
-                global.gameStart = true;
-                global.gameConnecting = false;
-            };
             // Send the downlink and the target
             socket.talk('d', Math.max(global.player.lastUpdate, camtime));
             socket.cmd.talk();
             global.updateTimes++; // metrics
-        } break;
-        case 'T': {
-            global.generateTankTree = true;
         } break;
         case "b": {
             if (startSettings.neededtoresync) return;
@@ -1066,6 +1075,65 @@ let incoming = async function(message, socket) {
                 global.syncingWithTank = false;
             }
         } break;
+        case 'DTA': {
+            let data = JSON.parse(m[0]);
+            if (data.waitTime == "isVideo") {
+                let renderDoc = document.createElement("video");
+                renderDoc.onloadeddata = function() {
+                    renderDoc.muted = false;
+                    renderDoc.volume = 1;
+                    global.dailyTankAd.isVideo = true;
+                    global.dailyTankAd.render = renderDoc;
+                    global.dailyTankAd.orginWidth = global.dailyTankAd.width;
+                    global.dailyTankAd.orginHeight = global.dailyTankAd.height;
+                    if (!data.normalAdSize) {
+                        global.dailyTankAd.width = this.videoWidth;
+                        global.dailyTankAd.height = this.videoHeight;
+                    }
+                    socket.talk("DTAST", renderDoc.duration);
+                };
+                renderDoc.onerror = () => {
+                    global.dailyTankAd.renderUI = false;
+                    global.createMessage("Failed to load the ad!");
+                }
+                renderDoc.src = `./img/ads/${data.src}`;
+            } else {
+                let renderDoc = new Image();
+                renderDoc.onload = () => {
+                    global.dailyTankAd.render = renderDoc;
+                    global.dailyTankAd.orginWidth = global.dailyTankAd.width;
+                    global.dailyTankAd.orginHeight = global.dailyTankAd.height;
+                    if (!data.normalAdSize) {
+                        global.dailyTankAd.width = renderDoc.width;
+                        global.dailyTankAd.height = renderDoc.height;
+                    }
+                    global.dailyTankAd.readyToRender = true;
+                    setTimeout(() => {
+                        global.dailyTankAd.closeable = true;
+                    }, `${data.waitTime}000`);
+                }
+                renderDoc.onerror = () => {
+                    global.dailyTankAd.renderUI = false;
+                    global.createMessage("Failed to load the ad!");
+                }
+                renderDoc.src = `./img/ads/${data.src}`;
+            }
+            global.dailyTankAd.renderUI = true;
+        } break;
+        case 'DTAD': {
+            if (global.dailyTankAd.requestInterval) clearInterval(global.dailyTankAd.requestInterval)
+            global.dailyTankAd.exit();
+        } break;
+        case 'DTAST': {
+            global.dailyTankAd.render.onended = () => {
+                global.dailyTankAd.requestInterval = setInterval(() => {
+                    socket.talk("DTAD");
+                }, 2000)
+                socket.talk("DTAD");
+            }
+            global.dailyTankAd.render.play();
+            global.dailyTankAd.readyToRender = true;
+        } break;
         case 'SH': {
             let data = JSON.parse(m[0]);
             if (data.type == "camera") { // If the server wants to shake our camera...
@@ -1107,6 +1175,7 @@ let incoming = async function(message, socket) {
             // Close the socket
             socket.onclose = () => { };
             socket.close();
+            global.dailyTankAd.exit();
             socket.open = false;
             clearInterval(socket.commandCycle);
             global.gameStart = false;
@@ -1128,7 +1197,11 @@ let incoming = async function(message, socket) {
             // Reconnect server
             global.reconnect();
         } break;
-
+        case 'T': {
+            global.generateTankTree = true;
+            global.renderTankTree = true;
+        } break;
+        
         case 'K': { // kicked
             // Put your code while being kicked from the server. 
         } break;
@@ -1249,6 +1322,7 @@ const socketInit = () => {
         if (!global.gameLoading) return;
         clearInterval(socket.commandCycle);
         clearInterval(global.socketMotionCycle);
+        if (global.dailyTankAd.render) global.dailyTankAd.exit();
         socket.open = false;
         global.disconnected = true;
     };

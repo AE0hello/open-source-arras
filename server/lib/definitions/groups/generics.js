@@ -3,7 +3,7 @@ const { base, statnames, dfltskl, smshskl } = require('../constants.js');
 
 Class.genericEntity = {
     NAME: "",
-    LABEL: "Unknown Entity",
+    LABEL: "",//"Unknown Entity",
     TYPE: "unknown",
     DAMAGE_CLASS: 0,
     DANGER: 0,
@@ -28,6 +28,7 @@ Class.genericEntity = {
     RATEFFECTS: true,
     MOTION_EFFECTS: true,
     INTANGIBLE: false,
+    CAN_SEE_INVISIBLE_ENTITIES: false,
     ACCEPTS_SCORE: true,
     GIVE_KILL_MESSAGE: false,
     CAN_GO_OUTSIDE_ROOM: false,
@@ -100,10 +101,11 @@ Class.genericTank = {
     MAX_CHILDREN: 0,
     DAMAGE_EFFECTS: false,
     IGNORED_BY_AI: false,
+    CAN_SEE_INVISIBLE_ENTITIES: false,
     SYNC_WITH_TANK: false,
     IS_IMMUNE_TO_TILES: false,
     RENDER_ON_LEADERBOARD: true,
-    REROOT_UPGRADE_TREE: "basic",
+    REROOT_UPGRADE_TREE: Config.spawn_class,
     BODY: {
         ACCELERATION: base.ACCEL,
         SPEED: base.SPEED,
@@ -127,11 +129,28 @@ Class.genericTank = {
     RESET_EVENTS: true,
     HITS_OWN_TYPE: "hardOnlyTanks"
 }
+Class.genericFlail = {
+    PARENT: "genericTank",
+    STAT_NAMES: statnames.flail,
+    SYNC_WITH_TANK: true,
+    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+}
 Class.genericSmasher = {
     PARENT: "genericTank",
     DANGER: 7,
     IS_SMASHER: true,
-    SKILL_CAP: [smshskl, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
+    SKILL_CAP: {
+        RELOAD: smshskl,
+        PENETRATION: 0,
+        BULLET_HEALTH: 0,
+        BULLET_DAMAGE: 0,
+        BULLET_SPEED: 0,
+        SHIELD_CAPACITY: smshskl,
+        BODY_DAMAGE: smshskl,
+        MAX_HEALTH: smshskl,
+        SHIELD_REGENERATION: smshskl,
+        MOVEMENT_SPEED: smshskl
+    },
     STAT_NAMES: statnames.smasher,
     BODY: {
         FOV: 1.05 * base.FOV,
@@ -170,7 +189,7 @@ Class.food = {
     MOTION_TYPE: "drift",
     FACING_TYPE: "turnWithSpeed",
     IS_IMMUNE_TO_TILES: false,
-    LEVEL_CAP: 1,
+    level_cap: 1,
     BODY: {
         STEALTH: 30,
         PUSHABILITY: 1,
@@ -278,6 +297,7 @@ Class.baseSwarmTurret_swarm = {
         KNOCKBACK: 15,
     },
 }
+Class.airblastBullet = { PARENT: "bullet", ALPHA: 0.5, BODY: { KNOCKBACK: 30 } }
 Class.trap = {
     LABEL: "Thrown Trap",
     TYPE: "trap",
@@ -322,6 +342,15 @@ Class.satellite = {
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
     MOTION_TYPE: 'motor'
+}
+Class.satellite_old = {
+    PARENT: "satellite",
+    TURRETS: [
+        {
+            POSITION: [28, 0, 0, 0, 360, 0],
+            TYPE: "genericEntity"
+        }
+    ],
 }
 Class.squareSatellite = {
     PARENT: "satellite",

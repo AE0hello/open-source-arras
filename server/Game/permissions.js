@@ -7,12 +7,14 @@
 } 
 */
 
+// If your Discord username doesn't have a 4-digit tag anymore, leave it as #0000.
+
 module.exports = [
     {
         key: process.env.SHINY,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "shinyMenu",
+        class: "arrasMenu_shinyMember",
         level: 2,
         name: "unnamed#0000",
         note: "note here"
@@ -21,7 +23,7 @@ module.exports = [
         key: process.env.YOUTUBER,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "youtuber",
+        class: "arrasMenu_youtuber",
         level: 2,
         name: "unnamed#0000",
         note: "note here"
@@ -30,7 +32,7 @@ module.exports = [
         key: process.env.BETA_TESTER,
         discordID: "0",
         nameColor: "#ffffff",
-        class: "shinyMenu", // "betaTester" TODO: CREATE BETA TESTER
+        class: "arrasMenu_betaTester",
         level: 3,
         name: "unnamed#0000",
         note: "note here"
@@ -43,6 +45,6 @@ module.exports = [
         administrator: true,
         level: 3,
         name: "unnamed#0000",
-        note: "note here",
+        note: "note here"
     },
 ]

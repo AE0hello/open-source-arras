@@ -233,21 +233,15 @@ const util = (function() {
             return x > -r && x < global.screenWidth / ratio + r && y > -r && y < global.screenHeight / ratio + r;
         },
         getEntityImageFromMockup: (index, color) => {
-            let fail = (findex) => {
-                let nindex = findex ? findex : index;
-                if (nindex !== "") {
-                    console.warn(`Failed to get mockup ${nindex}! Requesting that mockup!`);
-                    global.socket.talk("K", nindex);
-                }
-            }
             let firstIndex = parseInt(index.split("-")[0]),
                 mainMockup = global.mockups[firstIndex];
-                if (!mainMockup) fail(), mainMockup = global.missingMockup[0];
+                if (!mainMockup) mainMockup = global.missingno[0];
                 let guns = [],
                 turrets = [],
                 props = [],
                 name = "",
                 upgradeTooltip = "",
+                positionData = [],
                 rerootUpgradeTree = [],
                 allRoots = [],
                 trueColor = mainMockup.color;
@@ -255,13 +249,14 @@ const util = (function() {
             
             for (let i of index.split("-")) {
                 let mockup = global.mockups[parseInt(i)];
-                if (!mockup) fail(parseInt(i)), mockup = global.missingMockup[0];
+                if (!mockup) mockup = global.missingno[0];
                 guns.push(...mockup.guns);
                 turrets.push(...mockup.turrets);
                 props.push(...mockup.props);
+                positionData.push(mockup.position);
                 name += mockup.name.length > 0 ? "-" + mockup.name : "";
                 upgradeTooltip += mockup.upgradeTooltip ? "\n" + mockup.upgradeTooltip : "";
-                if (mockup.rerootUpgradeTree) allRoots.push(...mockup.rerootUpgradeTree.split("_"));
+                if (mockup.rerootUpgradeTree) allRoots.push(...mockup.rerootUpgradeTree.split("\\/"));
             }
             for (let root of allRoots) {
                 if (!rerootUpgradeTree.includes(root))
@@ -314,7 +309,7 @@ const util = (function() {
                 score: 0,
                 tiggle: 0,
                 layer: mainMockup.layer,
-                position: mainMockup.position,
+                position: util.sizeMultipleMockups(positionData),
                 rerootUpgradeTree,
                 guns: {
                     length: guns.length,
@@ -356,6 +351,114 @@ const util = (function() {
                 }),
             };
         },
+        sizeMultipleMockups: (positionData) => {
+            let endPoints = [];
+
+            function rounder(val) {
+                if (Math.abs(val) < 0.00001) val = 0;
+                return +val.toPrecision(6);
+            }
+            
+            function getFurthestFrom(x, y) {
+                let furthestDistance = 0,
+                    furthestPoint = [x, y],
+                    furthestIndex = 0;
+                for (let i = 0; i < endPoints.length; i++) {
+                    let point = endPoints[i];
+                    let distance = (point[0] - x) ** 2 + (point[1] - y) ** 2;
+                    if (distance > furthestDistance) {
+                        furthestDistance = distance;
+                        furthestPoint = point;
+                        furthestIndex = i;
+                    }
+                }
+                endPoints.splice(furthestIndex, 1);
+                return [rounder(furthestPoint[0]), rounder(furthestPoint[1])];
+            }
+            
+            function checkIfSamePoint(p1, p2) {
+                return p1[0] == p2[0] && p1[1] == p2[1];
+            }
+            
+            function checkIfOnLine(endpoint1, endpoint2, checkPoint) {
+                let xDiff = endpoint2[0] - endpoint1[0],
+                    yDiff = endpoint2[1] - endpoint1[1];
+                
+                // Endpoints on the same vertical line
+                if (xDiff == 0) {
+                    return (checkPoint[0] == endpoint1[0]);
+                }
+            
+                let slope = yDiff / xDiff,
+                    xLengthToCheck = checkPoint[0] - endpoint1[0],
+                    predictedY = endpoint1[1] + xLengthToCheck * slope;
+                // Check point is on the line with a small margin
+                return Math.abs(checkPoint[1] - predictedY) <= 1e-5;
+            }
+
+            // Find circumcircle and circumcenter
+            function constructCircumcirle(point1, point2, point3) {
+                // Rounder to avoid floating point nonsense
+                let x1 = rounder(point1[0]);
+                let y1 = rounder(point1[1]);
+                let x2 = rounder(point2[0]);
+                let y2 = rounder(point2[1]);
+                let x3 = rounder(point3[0]);
+                let y3 = rounder(point3[1]);
+
+                // Invalid math protection
+                if (x3 == x1 || x3 == x2) {
+                    x3 += 1e-5;
+                }
+                
+                let numer1 = x3 ** 2 + y3 ** 2 - x1 ** 2 - y1 ** 2;
+                let numer2 = x2 ** 2 + y2 ** 2 - x1 ** 2 - y1 ** 2;
+                let factorX1 = 2 * x2 - 2 * x1;
+                let factorX2 = 2 * x3 - 2 * x1;
+                let factorY1 = 2 * y1 - 2 * y2;
+                let factorY2 = 2 * y1 - 2 * y3;
+                let y = (numer1 * factorX1 - numer2 * factorX2) / (factorY1 * factorX2 - factorY2 * factorX1);
+                let x = ((y - y3) ** 2 - (y - y1) ** 2 - x1 ** 2 + x3 ** 2) / factorX2;
+                let r = Math.sqrt(Math.pow(x - x1, 2) + Math.pow(y - y1, 2));
+
+                return {x, y, r};
+            }
+            
+            // Draw each mockup circumcircle as a ring of 32 points
+            for (let position of positionData) {
+                let {axis, middle} = position;
+                for (let i = 0; i < 32; i++) {
+                    let theta = Math.PI / 16 * i;
+                    endPoints.push([middle.x + Math.cos(theta) * axis / 2, middle.y + Math.sin(theta) * axis / 2]);
+                }
+            }
+
+            // Convert to useful info
+            endPoints.sort((a, b) => (b[0] ** 2 + b[1] ** 2 - a[0] ** 2 - a[1] ** 2));
+            let point1 = getFurthestFrom(0, 0),
+                point2 = getFurthestFrom(...point1);
+            
+            // Repeat selecting the second point until at least one of the first two points is off the centerline
+            while (point1[0] == 0 && point2[0] == 0 || point1[1] == 0 && point2[1] == 0) {
+                point2 = getFurthestFrom(...point1);
+            }
+
+            let avgX = (point1[0] + point2[0]) / 2,
+                avgY = (point1[1] + point2[1]) / 2,
+                point3 = getFurthestFrom(avgX, avgY);
+            
+            // Repeat selecting the third point until it's actually different from the other points and it's not collinear with them
+            while (checkIfSamePoint(point3, point1) || checkIfSamePoint(point3, point2) || checkIfOnLine(point1, point2, point3)) {
+                point3 = getFurthestFrom(avgX, avgY);
+            }
+            
+            let {x, y, r} = constructCircumcirle(point1, point2, point3);
+
+            return {
+                axis: r * 2,
+                middle: {x, y},
+            };
+        },
         requestEntityImage: (data, color = "16 0 1 0 false") => {
             if (!global.cached.imageEntities) global.cached.imageEntities = [];
             if (!global.cached.indexes) global.cached.indexes = [];
@@ -383,6 +486,7 @@ const util = (function() {
                     size: image.size * data.sizeFactor,
                     sizeFactor: data.sizeFactor,
                     angle: data.angle,
+                    setAngle: data.setAngle,
                     offset: data.offset,
                     direction: data.direction,
                     facing: data.direction + data.angle,

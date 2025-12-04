@@ -85,19 +85,19 @@ let commands = [
                     `- ${prefix} arena spawnpoint [x] [y] - Set a location where all players spawn on default`,
                     `- ${prefix} arena close - Close the arena`,
                 ];
-                if (!Config.SANDBOX) lines.splice(1, 1)
+                if (!Config.sandbox) lines.splice(1, 1)
                 socket.talk("Em", 10_000, JSON.stringify(lines));
             }
             if (!args[0]) sendAvailableArenaMessage(); else {
                 switch (args[0]) {
                     case "size":
                         if (args[1] === "dynamic") {
-                            if (!Config.SANDBOX) return socket.talk("m", 3_000, "This command is only available on sandbox.");
+                            if (!Config.sandbox) return socket.talk("m", 3_000, "This command is only available on sandbox.");
                             gameManager.room.settings.sandbox.do_not_change_arena_size = false;
                         } else {
                             if (!args[1] || !args[2]) return socket.talk("m", 3_000, "Invalid arguments.");
                             if (args[1] % 2 === 0 && args[2] % 2 === 0) {
-                                if (Config.SANDBOX) gameManager.room.settings.sandbox.do_not_change_arena_size = true;
+                                if (Config.sandbox) gameManager.room.settings.sandbox.do_not_change_arena_size = true;
                                 gameManager.updateBounds(args[1] * 30, args[2] * 30);
                             } else {
                                 socket.talk("m", 3000, "Arena size must be even.");
@@ -107,12 +107,12 @@ let commands = [
                     case "team":
                         if (!args[1]) return socket.talk("m", 3_000, "Invalid argument.");
                         if (args[1] === "0") {
-                            Config.MODE = "ffa";
-                            Config.TEAMS = null;
+                            Config.mode = "ffa";
+                            Config.teams = null;
                             socket.rememberedTeam = undefined;
                         } else {
-                            Config.MODE = "tdm";
-                            Config.TEAMS = args[1];
+                            Config.mode = "tdm";
+                            Config.teams = args[1];
                             socket.rememberedTeam = undefined;
                         }
                         break;
@@ -149,6 +149,52 @@ let commands = [
         }
     },
     {
+        command: ["define"],
+        description: "Change your level.",
+        level: 2,
+        hidden: true,
+        run: ({ args, socket }) => {
+            if (!args[0]) {
+                socket.talk("m", 5_000, "No entity specified.");
+            }
+            else {
+                socket.player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                socket.player.body.define(args[0]);
+                socket.talk("m", 5_000, `Changed to ${socket.player.body.label}`);
+            }
+        },
+    },
+    {
+        command: ["level"],
+        description: "Change your level.",
+        level: 2,
+        hidden: true,
+        run: ({ args, socket }) => {
+            if (!args[0]) {
+                socket.talk("m", 5_000, "No level specified.");
+            }
+            else {
+                socket.player.body.define({ LEVEL: args[0] });
+                socket.talk("m", 5_000, `Changed to level ${socket.player.body.level}`);
+            }
+        },
+    },
+    {
+        command: ["team"],
+        description: "Change your team.", // player teams are -1 through -8, dreads are -10, room is -100 and enemies is -101
+        level: 2,
+        hidden: true,
+        run: ({ args, socket }) => {
+            if (!args[0]) {
+                socket.talk("m", 5_000, "No team specified.");
+            }
+            else {
+                socket.player.body.define({ COLOR: getTeamColor(args[0]), TEAM: args[0] });
+                socket.talk("m", 5_000, `Changed to team ${socket.player.body.team}`);
+            }
+        },
+    },
+    {
         command: ["developer", "dev"],
         description: "Developer commands, go troll some players or just take a look for yourself.",
         level: 3,
@@ -172,7 +218,7 @@ let commands = [
                 let time = performance.now();
                 let sinceLastReload = time - global.reloadDefinitionsInfo.lastReloadTime;
                 if (sinceLastReload < 5000) {
-                    socket.talk('m', Config.MESSAGE_DISPLAY_TIME, `Wait ${Math.floor((5000 - sinceLastReload) / 100) / 10} seconds and try again.`);
+                    socket.talk('m', Config.popup_message_duration, `Wait ${Math.floor((5000 - sinceLastReload) / 100) / 10} seconds and try again.`);
                     return;
                 }
                 // Set the timeout timer ---
@@ -235,13 +281,13 @@ let commands = [
                 }
 
                 // Tell the command sender
-                socket.talk('m', Config.MESSAGE_DISPLAY_TIME, "Successfully reloaded all definitions.");
+                socket.talk('m', Config.popup_message_duration, "Successfully reloaded all definitions.");
 
 
                 // Erase mockups so it can rebuild.
                 mockupData = [];
                 // Load all mockups if enabled in configuration
-                if (Config.LOAD_ALL_MOCKUPS) global.loadAllMockups(false);
+                if (Config.load_all_mockups) global.loadAllMockups(false);
 
                 setTimeout(() => { // Let it sit for a second.
                     // Erase cached mockups for each connected clients.
@@ -250,7 +296,7 @@ let commands = [
                         socket.status.selectedLeaderboard2 = socket.status.selectedLeaderboard;
                         socket.status.selectedLeaderboard = "stop";
                         socket.talk("RE"); // Also reset the global.entities in the client so it can refresh.
-                        if (Config.LOAD_ALL_MOCKUPS) for (let i = 0; i < mockupData.length; i++) {
+                        if (Config.load_all_mockups) for (let i = 0; i < mockupData.length; i++) {
                             socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
                         }
                         socket.status.selectedLeaderboard = socket.status.selectedLeaderboard2;

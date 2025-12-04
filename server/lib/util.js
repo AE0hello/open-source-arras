@@ -203,3 +203,9 @@ exports.flattenDefinition = (output, definition) => {
 
     return output;
 };
+
+exports.isStringified = (str) => { 
+    try {  
+        return JSON.parse(str);  
+    } catch(e) { return str } 
+}
