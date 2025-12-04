@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.8";
+    let buildNumber = "v2.1.0-dev";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -252,7 +252,7 @@ import * as socketStuff from "./socketinit.js";
                 return d;
             } else throw new Error("Invalid menu tab type.");
         };
-        //global.createTabMenu(`Unstable branch (build: ${buildNumber})`, "warning");
+        global.createTabMenu(`Unstable branch (build: ${buildNumber})`, "warning");
         // Warn the users to turn their phones into landscape.
         if (global.mobile && window.innerHeight > 1.1 * window.innerWidth) {
             let tabMenu = global.createTabMenu("Please turn your device to landscape mode.", "warning", true);
