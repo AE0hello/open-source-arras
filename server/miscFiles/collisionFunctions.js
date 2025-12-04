@@ -331,7 +331,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         } else {
             elasticity *= 2;
         }
-        let spring = 2 * Math.sqrt(savedHealthRatio._me * savedHealthRatio._n) / Config.runSpeed,
+        let spring = 2 * Math.sqrt(savedHealthRatio._me * savedHealthRatio._n) / Config.run_speed,
             elasticImpulse =
             Math.pow(combinedDepth.down, 2) *
             elasticity * component *
