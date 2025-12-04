@@ -97,11 +97,37 @@ class bossRush {
             [ 50, "zaphkiel"],
             [ 50, "nyx"],
             [ 50, "theia"],
+            [ 50, "atlas"],
+            [ 50, "hera"],
+            [ 50, "horus"],
+            [ 50, "anubis"],
+            [ 50, "isis"],
+            [ 50, "tethys"],
+            [ 50, "ullr"],
+            [ 50, "dellingr"],
+            [ 50, "osiris"],
+            [ 50, "alcis"],
+            [ 50, "khonsu"],
+            [ 50, "hyperion"],
+            [ 50, "nephthys"],
+            [ 50, "tyr"],
+            [ 50, "vor"],
+            [ 50, "aether"],
+            [ 50, "iapetus"],
+            [ 50, "baldr"],
+            [ 50, "eros"],
+            [ 50, "hjordis"],
+            [ 50, "sif"],
+            [ 50, "freyr"],
+            [ 50, "styx"],
+            [ 50, "apollo"],
+            [ 50, "ptah"],
 
             //eternals
             [100, "legionaryCrasherFix"], // fucking mid
             [100, "kronos"],
             [100, "ragnarok"],
+            [100, "amun"],
         ];
         this.friendlyBossChoices = ["roguePalisade", "rogueArmada", "julius", "genghis", "napoleon"];
         this.bigFodderChoices = ["sentryGun", "sentrySwarm", "sentryTrap", "shinySentryGun"];
