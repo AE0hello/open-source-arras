@@ -143,7 +143,7 @@ h3 {
 }
 
 .horizontalSelector span.active {
-  background: #0074DA;
+  background: #8abc3f;
   color: #ffffff;
   border-radius: 5px;
   cursor: default;
@@ -183,7 +183,7 @@ body.mobile .serverSelector {
 }
 
 .serverSelector tr.selected {
-  color: #1B3353;
+  color: #8abc3f;
   cursor: default;
 }
 
@@ -725,11 +725,11 @@ body.mobile .startMenuSlidingContent {
   color: white;
   text-align: center;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-  background: #336699;
+  background: #A9D86D;
   border: 0;
-  border-bottom: 2px solid #1B3353;
+  border-bottom: 2px solid #8abc3f;
   cursor: pointer;
-  box-shadow: inset 0 -2px #1B3353;
+  box-shadow: inset 0 -2px #8abc3f;
   border-radius: 5px;
   font: 16px Ubuntu;
 }
@@ -737,13 +737,13 @@ body.mobile .startMenuSlidingContent {
 #startButton:hover {
   margin-top: 2px;
   height: 38px;
-  border-bottom: 0px solid #1B3353;
+  border-bottom: 0px solid #8abc3f;
 }
 
 #startButton:active {
   margin-top: 2px;
   height: 38px;
-  background: #1B3353;
+  background: #8abc3f;
   border-bottom: 0px;
   outline: none;
   box-shadow: none;
@@ -981,20 +981,20 @@ body.mobile .startMenuSlidingContent {
 
 .container input:checked~.checkmark,
 .container input:checked~.radio {
-  background-color: #0074DA;
-  border: 1px solid #0074DA;
+  background-color: #8abc3f;
+  border: 1px solid #8abc3f;
 }
 
 .container:hover input:checked~.checkmark,
 .container:hover input:checked~.radio {
-  background-color: #004894;
-  border: 1px solid #004894;
+  background-color: #7FA843;
+  border: 1px solid #7FA843;
 }
 
 .container input:disabled:checked~.checkmark,
 .container input:disabled:checked~.radio {
-  background-color: #002C5B;
-  border: 1px solid #002C5B;
+  background-color: #7FA843;
+  border: 1px solid #7FA843;
 }
 
 .container .checkmark:after {

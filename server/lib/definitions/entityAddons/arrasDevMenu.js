@@ -34,8 +34,8 @@ Class.arrasMenu_gameAdmin.UPGRADES_TIER_0 = [
     Config.spawn_class,
     "arrasMenu_gameMod",
     "spectator",
-    //"banHammer", // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gameMod
-    //"guillotine",
+    "guillotine",
+    "banHammer", // not sure which order banhammer and guillotine go in, so i'm just using a guess based on gameMod
     "arrasMenu_nostalgia",
     "arrasMenu_scrapped",
 ]
@@ -45,7 +45,7 @@ Class.arrasMenu_gameMod.UPGRADES_TIER_0 = [
     Config.spawn_class,
     "arrasMenu_betaTester",
     "spectator",
-    //"guillotine",
+    "guillotine",
     "arrasMenu_nostalgia",
     "arrasMenu_scrapped",
 ]
