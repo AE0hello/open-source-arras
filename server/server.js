@@ -67,6 +67,8 @@ server = require("http").createServer((req, res) => {
     let readString = ""; // Response content for API endpoints
     let ok = true; // Flag to indicate whether we use default API response
     let serversIP = [];
+    let clientHeaders = ["/ext/custom-shape"];
+    let selectedHeader = null;
 
     // Set CORS headers if enabled in the configuration or allow only the children servers.
     for (let server of global.servers) if (server.ip !== Config.host && server.ip) {
@@ -78,7 +80,11 @@ server = require("http").createServer((req, res) => {
         res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
         res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
     }
-
+    for (let i = 0; i < clientHeaders.length; i++) {
+        if (clientHeaders[i] == req.url) {
+            selectedHeader = clientHeaders[i];
+        }
+    }
     // Handle specific API endpoints based on the request URL
     switch (req.url) {
         case "/getServers.json": {
@@ -148,6 +154,22 @@ server = require("http").createServer((req, res) => {
         case "/isOnline": {
             readString = "true";
         } break;
+        case selectedHeader: {
+            // For all other routes, serve static files from the public directory
+            ok = false;
+            let fileToGet = path.join(publicRoot, req.url);
+
+            // If the requested file doesn't exist or isn't a file, default to the INDEX_HTML file
+            if (!fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {
+                fileToGet = path.join(publicRoot, `${selectedHeader}/index.html`);
+            }
+
+            // Determine the file's MIME type based on its extension and serve the file stream
+            const extension = fileToGet.split(".").pop();
+            res.writeHead(200, { "Content-Type": mimeSet[extension] || "text/html" });
+            fs.createReadStream(fileToGet).pipe(res);
+        } break;
+
         default: {
             // For all other routes, serve static files from the public directory
             ok = false;
