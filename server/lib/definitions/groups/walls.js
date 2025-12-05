@@ -101,7 +101,7 @@ Class.paintWall = {
         {
             TYPE: 'paintWallLayer',
             POSITION: {
-                SIZE: 20 * Math.SQRT1_2,
+                SIZE: 10 * Math.SQRT2,
                 ANGLE: 45,
                 LAYER: 1
             }
@@ -121,7 +121,7 @@ Class.filterWall = {
         {
             TYPE: 'filterWallLayer',
             POSITION: {
-                SIZE: 20 * Math.SQRT1_2,
+                SIZE: 10 * Math.SQRT2,
                 ANGLE: 45,
                 LAYER: 1
             }
