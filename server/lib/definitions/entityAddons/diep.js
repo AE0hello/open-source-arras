@@ -108,6 +108,7 @@ Class.twin_diep = {
 Class.quadTank_diep = {
     PARENT: "diep",
     LABEL: "Quad Tank",
+    DANGER: 6,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 19,
@@ -124,16 +125,6 @@ Class.tripleShot_diep = {
     LABEL: "Triple Shot",
     DANGER: 6,
     GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
-                TYPE: "bullet"
-            }
-        },
         ...weaponMirror({
             POSITION: {
                 LENGTH: 19,
@@ -144,7 +135,17 @@ Class.tripleShot_diep = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
                 TYPE: "bullet"
             }
-        })
+        }, 0),
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: "bullet"
+            }
+        }
     ]
 }
 Class.twinFlank_diep = {
@@ -164,9 +165,44 @@ Class.twinFlank_diep = {
     }), 2)
 }
 
+// Tier 3
+Class.octoTank_diep = {
+    PARENT: "diep",
+    LABEL: "Octo Tank",
+    DANGER: 7,
+    GUNS: weaponArray([
+        // Must be kept like this to preserve visual layering
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                ANGLE: 45,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet"
+            }
+        }
+    ], 4)
+}
+
 // Class Tree
 Class.tank_diep.UPGRADES_TIER_1 = ["twin_diep", "sniper_diep", "machineGun_diep", "flankGuard_diep"]
     Class.twin_diep.UPGRADES_TIER_2 = ["tripleShot_diep", "quadTank_diep", "twinFlank_diep"]
+        Class.tripleShot_diep.UPGRADES_TIER_3 = []
+        Class.twinFlank_diep.UPGRADES_TIER_3 = []
     Class.sniper_diep.UPGRADES_TIER_2 = []
     Class.machineGun_diep.UPGRADES_TIER_2 = []
     Class.flankGuard_diep.UPGRADES_TIER_2 = ["quadTank_diep", "twinFlank_diep"]
+        Class.quadTank_diep.UPGRADES_TIER_3 = ["octoTank_diep"]
