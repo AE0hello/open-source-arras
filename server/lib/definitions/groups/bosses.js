@@ -413,10 +413,10 @@ Class.deltaSprayer = {
             },{
                 POSITION: [7.75, 6, -8, 60, 130, 0],
                 TYPE: ["sprayer", { COLOR: "grey" }],
-            }, {
-                POSITION: [9, 6, 0, 60, 130, 0],
-                TYPE: ["scatterer", { COLOR: "grey" }],
-            },
+            }, //{
+            //    POSITION: [9, 6, 0, 60, 130, 0],
+            //    TYPE: ["scatterer", { COLOR: "grey" }],
+            //},
         ], 3)
     ],
 }

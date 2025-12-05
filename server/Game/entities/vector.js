@@ -84,9 +84,4 @@ function timeOfImpact(p, v, s) {
     return validTimes.length > 0 ? Math.min(...validTimes) : 0;
 }
 
-// Null vector that will turn a vector into null.
-function nullVector(v) {
-    v.x = 0;
-    v.y = 0;
-};
-module.exports = { Vector, nearest, timeOfImpact, nullVector };
+module.exports = { Vector, nearest, timeOfImpact };
