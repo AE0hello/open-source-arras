@@ -60,14 +60,25 @@ Class.desmos = {
     STAT_NAMES: statnames.desmos,
     GUNS: [
         {
-            POSITION: [20, 8, -4/3, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}]
             }
         },
         ...weaponMirror({
-            POSITION: [3.75, 10, 2.125, 1.5, -6.25, 90, 0]
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 5,
+                ASPECT: 4,
+                X: 0.25,
+                Y: -7.25,
+                ANGLE: 90
+            }
         })
     ]
 }
@@ -81,12 +92,11 @@ Class.director = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 6,
+                LENGTH: 5,
                 WIDTH: 11,
                 ASPECT: 1.3,
-                X: 7
+                X: 8
             },
-            POSITION: [6, 11, 1.3, 7, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone]),
                 TYPE: "drone",
@@ -175,7 +185,7 @@ Class.sniper = {
         {
             POSITION: {
                 LENGTH: 24,
-                WIDTH: 8.5
+                WIDTH: 8
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
@@ -1617,7 +1627,12 @@ Class.bigCheese = {
     },
     GUNS: [
         {
-            POSITION: [16, 16, 1.4, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 17,
+                ASPECT: 1.3,
+                X: 2
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.bigCheese]),
                 TYPE: "drone",
@@ -2859,7 +2874,12 @@ Class.manager = {
     MAX_CHILDREN: 8,
     GUNS: [
         {
-            POSITION: [6, 12, 1.2, 8, 0, 0, 0],
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }]),
                 TYPE: "drone",
@@ -3760,35 +3780,62 @@ Class.quadruplex = {
     STAT_NAMES: statnames.desmos,
     GUNS: [
         {
-            POSITION: [20, 8, -4/3, 0, 0, 45, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5,
+                ANGLE: 45
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.twin, { reload: 2 }]),
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true, amplitude: 180, yOffset: 50}]]}]
             }
         },
         {
-            POSITION: [20, 8, -4/3, 0, 0, -135, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5,
+                ANGLE: -135
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.twin, { reload: 2 }]),
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true, amplitude: 180, yOffset: -50}]]}]
             }
         },
         {
-            POSITION: [20, 8, -4/3, 0, 0, -45, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5,
+                ANGLE: -45
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.twin, { reload: 2 }]),
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: false, amplitude: 180, yOffset: -50}]]}]
             }
         },
         {
-            POSITION: [20, 8, -4/3, 0, 0, 135, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5,
+                ANGLE: 135
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.twin, { reload: 2 }]),
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: false, amplitude: 180, yOffset: 50}]]}]
             }
         },
         ...weaponArray(weaponMirror({
-            POSITION: [3.75, 10, 2.125, 1.5, 6.25, 45, 0]
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 5,
+                ASPECT: 4,
+                X: 0.25,
+                Y: -7.25,
+                ANGLE: 45
+            }
         }), 4)
     ]
 }
@@ -4612,21 +4659,21 @@ Class.triplex = {
     STAT_NAMES: statnames.desmos,
     GUNS: [
         {
-            POSITION: [18, 7, -4/3, 0, 0, 0, 0],
+            POSITION: [18, 7, -1.5, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, {speed: 1.25, maxSpeed: 1.25}]),
                 TYPE: "bullet",
             },
         },
         {
-            POSITION: [18, 7, -4/3, 0, 0, 45, 0.5],
+            POSITION: [18, 7, -1.5, 0, 0, 45, 0.5],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.desmos]),
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}]
             },
         },
         {
-            POSITION: [18, 7, -4/3, 0, 0, -45, 0.5],
+            POSITION: [18, 7, -1.5, 0, 0, -45, 0.5],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.desmos]),
                 TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true}]]}]
@@ -4646,14 +4693,23 @@ Class.twister = {
     TOOLTIP: "Hold right click to reverse missile rotation.",
     DANGER: 7,
     BODY: {
-        FOV: 1.1 * base.FOV,
+        FOV: 1.1 * base.FOV
     },
     GUNS: [
         {
-            POSITION: [10, 13, -0.5, 9, 0, 0, 0],
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 13,
+                ASPECT: -0.5,
+                X: 9
+            }
         },
         {
-            POSITION: [17, 14, -1.4, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 14,
+                ASPECT: -1.4
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, { speed: 0.6, reload: 4/3, shudder: 0.1, }]),
                 TYPE: "spinmissile",

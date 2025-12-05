@@ -1128,6 +1128,7 @@ Class.assemblerDot = {
     INDEPENDENT: true
 }
 Class.healerSymbol = {
+    LABEL: "Healer Hat",
     SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
     SIZE: 13,
     COLOR: "red",

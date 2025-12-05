@@ -217,7 +217,6 @@ Class.arrasMenu_memes.UPGRADES_TIER_0 = [
 Class.arrasMenu_diep = makeMenu("Diep Tanks")
 Class.arrasMenu_diep.UPGRADES_TIER_0 = [
     "arrasMenu_diep2",
-    //"diep_tank",
 ]
 
 Class.arrasMenu_diep2 = makeMenu("Diep2 Menu")
