@@ -170,24 +170,31 @@ exports.makeBird = (type, name = -1, options = {}) => {
     // Thrusters
     let backRecoil = 0.5 * backRecoilFactor;
     let thrusterProperties = { SHOOT_SETTINGS: exports.combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster, { recoil: backRecoil }]), TYPE: "bullet", LABEL: "thruster" };
-    let shootyBois = [{
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+    let shootyBois = [
+        ...exports.weaponMirror({
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 153,
+                DELAY: 0.1
+            },
             PROPERTIES: thrusterProperties
-        }, {
-            POSITION: [16, 8, 1, 0, 0, -150, 0.1],
+        }, 0),
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ANGLE: 180,
+                DELAY: 0.6
+            },
             PROPERTIES: thrusterProperties
-        }, {
-            POSITION: [18, 8, 1, 0, 0, 180, 0.6],
-            PROPERTIES: thrusterProperties
-        }];
+        }
+    ];
     if (superBird) {
-        shootyBois.splice(0, 0, {
+        shootyBois.splice(0, 0, ...exports.weaponMirror({
             POSITION: [14, 8, 1, 0, 0, 130, 0.6],
             PROPERTIES: thrusterProperties
-        }, {
-            POSITION: [14, 8, 1, 0, 0, -130, 0.6],
-            PROPERTIES: thrusterProperties
-        })
+        }, 0))
     }
     // Assign thruster color
     if (color) for (let gun of shootyBois) {
