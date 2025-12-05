@@ -725,11 +725,12 @@ body.mobile .startMenuSlidingContent {
   color: white;
   text-align: center;
   text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-  background: #A9D86D;
+  background: linear-gradient(to bottom right, #336699, #336699, #A9D86D, #A9D86D) padding-box,
+              linear-gradient(to right, #1B3353, #8abc3f) bottom; /* Fix the border bottom color */
   border: 0;
-  border-bottom: 2px solid #8abc3f;
+  border-bottom: 2px solid;
   cursor: pointer;
-  box-shadow: inset 0 -2px #8abc3f;
+  box-shadow: inset 0 -2px;
   border-radius: 5px;
   font: 16px Ubuntu;
 }
@@ -743,7 +744,7 @@ body.mobile .startMenuSlidingContent {
 #startButton:active {
   margin-top: 2px;
   height: 38px;
-  background: #8abc3f;
+  background: linear-gradient(to bottom right, #1B3353, #1B3353, #8abc3f);
   border-bottom: 0px;
   outline: none;
   box-shadow: none;
