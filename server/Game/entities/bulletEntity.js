@@ -393,13 +393,14 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
             util.error(this.collisionArray);
             util.error(this.label);
             util.error(this);
-            nullVector(this.accel); nullVector(this.velocity);
+            this.accel.null();
+            this.velocity.null();
         }
         // Apply acceleration
         this.velocity.x += this.accel.x;
         this.velocity.y += this.accel.y;
         // Reset acceleration
-        nullVector(this.accel);
+        this.accel.null();
         // Apply motion
         this.stepRemaining = 1;
         this.x += this.stepRemaining * this.velocity.x / global.gameManager.roomSpeed;
@@ -424,7 +425,8 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
             util.error(this.collisionArray);
             util.error(this.label);
             util.error(this);
-            nullVector(this.accel); nullVector(this.velocity);
+            this.accel.null();
+            this.velocity.null();
             return 0;
         }
         if (!this.settings.canGoOutsideRoom) {
