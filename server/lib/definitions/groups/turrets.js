@@ -1145,7 +1145,7 @@ Class.smasherBody = {
 }
 Class.landmineBody = {
     LABEL: "",
-    FACING_TYPE: ["spin", { speed: 0.3 }],
+    FACING_TYPE: ["spin", { speed: 0.32 }],
     COLOR: 9,
     SHAPE: 6,
     INDEPENDENT: true

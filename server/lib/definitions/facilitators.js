@@ -274,17 +274,36 @@ exports.makeOver = (type, name = -1, options = {}) => {
         }
         if (count % 2 == 1) {
             spawners.push({
-                POSITION: [6, 12, 1.2, 8, 0, 180, 0],
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 8,
+                    ANGLE: 180
+                },
                 PROPERTIES: spawnerProperties,
             })
         }
         for (let i = 2; i <= (count - count % 2); i += 2) {
             spawners.push({
-                POSITION: [6, 12, 1.2, 8, 0, 180 - angle * i / 2, 0],
-                PROPERTIES: spawnerProperties,
-            }, {
-                POSITION: [6, 12, 1.2, 8, 0, 180 + angle * i / 2, 0],
-                PROPERTIES: spawnerProperties,
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 8,
+                    ANGLE: 180 - angle * i / 2
+                },
+                PROPERTIES: spawnerProperties
+            },
+            {
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 8,
+                    ANGLE: 180 + angle * i / 2
+                },
+                PROPERTIES: spawnerProperties
             })
         }
     }
