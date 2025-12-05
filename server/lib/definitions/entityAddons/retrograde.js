@@ -3,7 +3,7 @@ const { base } = require('../constants.js')
 const g = require('../gunvals.js')
 
 // Settings
-const add_to_main_class_tree = true // Set to true to enable Retrograde mode
+const add_to_main_class_tree = false // Set to true to enable Retrograde mode
 const public_retrograde_menu = false // Set to true to allow access to the Retrograde menu and everything inside it for all players
 const replace_newer_classes = false // Set to true to make the class tree replace certain entries with Retrograde equivalents
 
@@ -17,12 +17,12 @@ Class.arrasMenu_diep2.UPGRADES_TIER_0.push(
     "blower_RG",
     "quadTwin_RG",
     "tornado_RG",
-    //"subverter_RG",
-    //"battery_RG",
-    //"deathStar_RG",
-    //"bonker_RG",
+    "subverter_RG",
+    "battery_RG",
+    "deathStar_RG",
+    "bonker_RG",
     "protector_RG",
-    //"doubleTrapGuard_RG",
+    "doubleTrapGuard_RG",
 )
 
 Class.arrasMenu_retrograde = makeMenu("Retrograde") // feature-reduced menu for retrograde event
@@ -152,8 +152,137 @@ Class.accurator_RG = {
         }
     ]
 }
+Class.battery_RG = {
+    PARENT: "genericTank",
+    LABEL: "Battery",
+    DANGER: 7,
+    GUNS: [
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 3.5,
+                Y: 7.25,
+                DELAY: 0.6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 3.5,
+                Y: 3.75,
+                DELAY: 0.2
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+                TYPE: "bullet"
+            }
+        }], 0.2),
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 3.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
+Class.bonker_RG = {
+    PARENT: "genericSmasher",
+    LABEL: "Bonker",
+    SIZE: 8.5,
+    BODY: {
+        FOV: 1.2 * base.FOV,
+        HEALTH: 0.95 * base.HEALTH,
+        SPEED: 1.1 * base.SPEED,
+    },
+    TURRETS: [
+        {
+            POSITION: {
+                SIZE: 21.5,
+                ARC: 360
+            },
+            TYPE: "smasherBody"
+        }
+    ]
+}
 Class.blower_RG = makeRearGunner("destroyer", "Blower")
 Class.buttbuttin_RG = makeRearGunner("assassin", "Buttbuttin")
+Class.deathStar_RG = {
+    PARENT: "genericTank",
+    LABEL: "Death Star",
+    DANGER: 7,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 20.5,
+                WIDTH: 12,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.flankGuard, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.5,
+                WIDTH: 12,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.flankGuard, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        }
+    ], 3)
+}
+Class.doubleTrapGuard_RG = {
+    PARENT: "genericTank",
+    LABEL: "Double Trap Guard",
+    DANGER: 7,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.twin]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 7,
+                Y: 6.25,
+                ANGLE: 180
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 13,
+                Y: 6.25,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.twin]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ])
+}
 Class.halfNHalf_RG = {
     PARENT: "genericTank",
     LABEL: "Half 'n Half",
@@ -368,6 +497,48 @@ Class.spreadRifle_RG = {
         }
     ]
 }
+Class.subverter_RG = {
+    PARENT: "genericTank",
+    LABEL: "Subverter",
+    DANGER: 7,
+    BODY: {
+        FOV: base.FOV * 1.2
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 14
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.minigun]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 14,
+                DELAY: 1/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.minigun]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 14,
+                DELAY: 2/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.minigun]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.tornado_RG = {
     PARENT: "genericTank",
     LABEL: "Tornado",
@@ -498,15 +669,21 @@ Class.machineFlank_RG.UPGRADES_TIER_3 = ["machineTriple_RG", "halfNHalf_RG"]
 Class.rifle_RG.UPGRADES_TIER_3 = ["sniperRifle_RG", "rifleGuard_RG", "spreadRifle_RG"]
 
 if (add_to_main_class_tree) {
+//Class.basic.UPGRADES_TIER_1
+    //Class.basic.UPGRADES_TIER_2
+        Class.smasher.UPGRADES_TIER_3.push("bonker_RG")
     //Class.twin.UPGRADES_TIER_2
         Class.tripleShot.UPGRADES_TIER_3.push("triBlaster_RG")
+        Class.gunner.UPGRADES_TIER_3.push("battery_RG")
     //Class.sniper.UPGRADES_TIER_2
         Class.assassin.UPGRADES_TIER_3.push("buttbuttin_RG")
     Class.machineGun.UPGRADES_TIER_2.push("blaster_RG", "gatlingGun_RG", "machineFlank_RG")
+        Class.minigun.UPGRADES_TIER_3.push("subverter_RG")
         Class.sprayer.UPGRADES_TIER_3.push("sprayer_RG", "splasher_RG")
     //Class.flankGuard.UPGRADES_TIER_2
-        if (!replace_newer_classes) { Class.hexaTank.UPGRADES_TIER_3.push("tornado_RG") }
+        if (!replace_newer_classes) { Class.hexaTank.UPGRADES_TIER_3.push("tornado_RG", "deathStar_RG") } else { Class.hexaTank.UPGRADES_TIER_3.push("deathStar_RG") }
     //Class.pounder.UPGRADES_TIER_2
+        Class.pounder.UPGRADES_TIER_3.push("subverter_RG")
         Class.destroyer.UPGRADES_TIER_3.push("blower_RG")
 }
 
@@ -521,7 +698,12 @@ if (public_retrograde_menu) {
 if (replace_newer_classes) {
     for (let i = 0; i < Class.twin.UPGRADES_TIER_3.length; i++) {
         let string = Class.twin.UPGRADES_TIER_3[i];
-        if (string === "musket") {
+        if (string === "bulwark") {
+            Class.twin.UPGRADES_TIER_3.splice(i, 1)
+            Class.doubleTwin.UPGRADES_TIER_3.push("doubleTrapGuard_RG")
+        }
+        let string2 = Class.twin.UPGRADES_TIER_3[i];
+        if (string2 === "musket") {
             Class.twin.UPGRADES_TIER_3.splice(i, 1)
         }
     }
@@ -530,6 +712,12 @@ if (replace_newer_classes) {
         if (string === "tripleTwin") {
             Class.doubleTwin.UPGRADES_TIER_3.splice(i, 1, "quadTwin_RG")
             Class.menu_unused.UPGRADES_TIER_0.push("tripleTwin")
+        }
+    }
+    for (let i = 0; i < Class.gunner.UPGRADES_TIER_3.length; i++) {
+        let string = Class.gunner.UPGRADES_TIER_3[i];
+        if (string === "cyclone") {
+            Class.gunner.UPGRADES_TIER_3.splice(i, 1)
         }
     }
     for (let i = 0; i < Class.sniper.UPGRADES_TIER_2.length; i++) {
@@ -569,12 +757,20 @@ if (replace_newer_classes) {
         let string = Class.hexaTank.UPGRADES_TIER_3[i];
         if (string === "cyclone") {
             Class.hexaTank.UPGRADES_TIER_3.splice(i, 1, "tornado_RG")
+            Class.menu_unused.UPGRADES_TIER_0.push("cyclone")
         }
     }
     for (let i = 0; i < Class.triAngle.UPGRADES_TIER_3.length; i++) {
         let string = Class.triAngle.UPGRADES_TIER_3[i];
         if (string === "phoenix") {
             Class.triAngle.UPGRADES_TIER_3.splice(i, 1)
+        }
+    }
+    for (let i = 0; i < Class.trapGuard.UPGRADES_TIER_3.length; i++) {
+        let string = Class.trapGuard.UPGRADES_TIER_3[i];
+        if (string === "bulwark") {
+            Class.trapGuard.UPGRADES_TIER_3.splice(i, 1)
+            Class.menu_unused.UPGRADES_TIER_0.push("bulwark")
         }
     }
 }
