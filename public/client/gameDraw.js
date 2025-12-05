@@ -257,10 +257,30 @@ var gameDraw = {
         42: true,
         animatedMagenta: true,
     },
-    getColor: (colorNumber) => {
+    getColor: (colorNumber, ctx, x1, y1, x2, y2) => {
         if (colorNumber == undefined || colorNumber == null) return gameDraw.color.black;
         if (colorNumber[0] == '#') return colorNumber;
         if (util.isNumeric(colorNumber)) colorNumber = parseInt(colorNumber);
+        // Gradient color
+        if (colorNumber.gradient && ctx) {
+            try {
+                // Scale all coordinates proportionally
+                const gx1 = (x1 ?? 0);
+                const gy1 = (y1 ?? 0);
+                const gx2 = (x2 ?? 0);
+                const gy2 = (y2 ?? 0);
+                
+                let gradient = ctx.createLinearGradient(gx1, gy1, gx2, gy2);
+                
+                // Color stops remain at same percentages
+                for (let i = 0; i < colorNumber.asset.length; i++) {
+                    gradient.addColorStop(i, gameDraw.getColor(colorNumber.asset[i].color));
+                }
+                return gradient;
+            } catch (e) {
+                return gameDraw.color.black;
+            }
+        }
         switch (colorNumber) {
             case 0:
             case "teal":

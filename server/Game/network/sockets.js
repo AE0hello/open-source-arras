@@ -675,9 +675,9 @@ class socketManager {
             } break;
             case "DTAST": {
                 let time = String(m[0]).split(".")[0];
-                /*if (parseInt(time) < 10) {
-                    socket.kick("The ad must be at least 10 seconds long or incompatible.");
-                }*/
+                if (parseInt(time) < 4) {
+                    socket.kick("The ad must be at least 4 seconds long or incompatible.");
+                }
                 socket.talk("DTAST");
                 setTimeout(() => {
                     setTimeout(() => {
