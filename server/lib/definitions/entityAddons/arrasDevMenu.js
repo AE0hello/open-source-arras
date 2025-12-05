@@ -215,28 +215,10 @@ Class.arrasMenu_memes.UPGRADES_TIER_0 = [
 ]
 
 Class.arrasMenu_diep = makeMenu("Diep Tanks")
-Class.arrasMenu_diep.UPGRADES_TIER_0 = [
-    "arrasMenu_diep2",
-]
+Class.arrasMenu_diep.UPGRADES_TIER_0 = ["arrasMenu_diep2"]
 
 Class.arrasMenu_diep2 = makeMenu("Diep2 Menu")
-Class.arrasMenu_diep2.UPGRADES_TIER_0 = [
-    //"blaster",
-    //"gatlingGun",
-    //"machineFlank",
-    //"machineTriple",
-    //"rifle_old",
-    //"buttbuttin",
-    //"blower",
-    //"quadTwin",
-    //"tornado_old",
-    //"subverter",
-    //"battery",
-    //"deathStar",
-    //"bonker",
-    //"protector",
-    //"doubleTrapGuard",
-]
+Class.arrasMenu_diep2.UPGRADES_TIER_0 = []
 
 Class.arrasMenu_adminTanks = makeMenu("Admin Tanks")
 Class.arrasMenu_adminTanks.UPGRADES_TIER_0 = [
@@ -337,26 +319,6 @@ Class.arrasMenu_youtuber = {
     ]
 }
 Class.arrasMenu_youtuber.UPGRADES_TIER_0 = Class.arrasMenu_shinyMember.UPGRADES_TIER_0
-
-// Retrograde
-Class.arrasMenu_retrograde = makeMenu("Retrograde") // feature-reduced menu for retrograde event
-Class.arrasMenu_retrograde.UPGRADES_TIER_0 = [
-    "arrasMenu_diep",
-    "arrasMenu_digdig",
-    "menu_celestials", // placeholder until we get the arras'd version of this menu (celestial bosses, all rigged to self-destruct in 10 seconds)
-    "menu_elites", // placeholder until we get the arras'd version of this menu (elite bosses)
-    "menu_mysticals", // placeholder until we get the arras'd version of this menu (strange bosses)
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
-    "arrasMenu_miscRetrograde",
-]
-
-Class.arrasMenu_miscRetrograde = makeMenu("Misc Retrograde") // former menu, for retrograde event
-Class.arrasMenu_miscRetrograde.UPGRADES_TIER_0 = [
-    "tracker3",
-    "tetraGunner",
-    "worstTank",
-]
 
 // Push everything to addons
 Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_addonMenu");

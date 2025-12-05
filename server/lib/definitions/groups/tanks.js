@@ -449,10 +449,10 @@ Class.destroyer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
-                TYPE: "bullet",
-            },
-        },
-    ],
+                TYPE: "bullet"
+            }
+        }
+    ]
 }
 Class.doubleFlail = {
     PARENT: "genericFlail",
