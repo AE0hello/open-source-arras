@@ -383,6 +383,7 @@ global.defineSplit = (() => {
             for (let guns of newGuns) {
                 my.guns.set(guns.id, guns);
             }
+            my.gunsArrayed.push(...newGuns);
         }
         if (set.TURRETS != null) {
             for (let i = 0; i < set.TURRETS.length; i++) {
