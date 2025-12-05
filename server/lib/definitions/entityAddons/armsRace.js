@@ -13,10 +13,10 @@ Class.wark_AR = {
             POSITION: {
                 LENGTH: 15,
                 WIDTH: 8,
-                ASPECT: 1,
-                X: 0,
+                //ASPECT: 1,
+                //X: -2.404126497879133e-7,
                 Y: 5.5,
-                ANGLE: 5
+                ANGLE: 5,
             }
         },
         {
@@ -24,11 +24,15 @@ Class.wark_AR = {
                 LENGTH: 3.25,
                 WIDTH: 8,
                 ASPECT: 1.7,
-                X: 15,
+                X: 14,
                 Y: 5.5,
-                ANGLE: 5
+                ANGLE: 5,
             },
-            PROPERTIES: {}
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.twin]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
         }
     ])
 }
