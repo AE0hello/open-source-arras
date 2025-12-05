@@ -2181,11 +2181,11 @@ class socketManager {
             }
         }
 
-        if (!Config.load_all_mockups && Config.daily_tank && !Array.isArray(Config.daily_tank)) {
+        if (Config.daily_tank && !Array.isArray(Config.daily_tank)) {
             const tank = ensureIsClass(Config.daily_tank.tank);
             if (tank) {
                 Config.daily_tank_INDEX = tank.index.toString();
-                this.sendMockup(Config.daily_tank_INDEX, socket);
+                !Config.load_all_mockups && this.sendMockup(Config.daily_tank_INDEX, socket);
             }
         }
 
