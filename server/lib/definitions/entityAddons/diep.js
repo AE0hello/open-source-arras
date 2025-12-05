@@ -52,6 +52,23 @@ Class.flankGuard_diep = {
         }
     ]
 }
+Class.machineGun_diep = {
+    PARENT: "diep",
+    LABEL: "Machine Gun",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                ASPECT: 1.77
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.sniper_diep = {
     PARENT: "diep",
     LABEL: "Sniper",
@@ -117,7 +134,7 @@ Class.tripleShot_diep = {
                 TYPE: "bullet"
             }
         },
-        weaponMirror({
+        ...weaponMirror({
             POSITION: {
                 LENGTH: 19,
                 WIDTH: 8,
@@ -148,6 +165,8 @@ Class.twinFlank_diep = {
 }
 
 // Class Tree
-Class.tank_diep.UPGRADES_TIER_1 = ["twin_diep", "sniper_diep", "flankGuard_diep"]
+Class.tank_diep.UPGRADES_TIER_1 = ["twin_diep", "sniper_diep", "machineGun_diep", "flankGuard_diep"]
     Class.twin_diep.UPGRADES_TIER_2 = ["tripleShot_diep", "quadTank_diep", "twinFlank_diep"]
+    Class.sniper_diep.UPGRADES_TIER_2 = []
+    Class.machineGun_diep.UPGRADES_TIER_2 = []
     Class.flankGuard_diep.UPGRADES_TIER_2 = ["quadTank_diep", "twinFlank_diep"]
