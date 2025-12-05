@@ -1475,31 +1475,48 @@ Class.ambulance = {
     },
     TURRETS: [
         {
-            POSITION: [13, 0, 0, 0, 360, 1],
-            TYPE: "healerSymbol",
-        },
+            POSITION: {
+                SIZE: 13,
+                ARC: 360,
+                LAYER: 1
+            },
+            TYPE: "healerSymbol"
+        }
     ],
     GUNS: [
         {
-            POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
+            POSITION: {
+                LENGTH: 11,
+                WIDTH: 9,
+                ASPECT: -0.4,
+                X: -9.5
+            }
         },
         {
-            POSITION: [18, 10, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 10
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }, g.healer]),
                 TYPE: "healerBullet",
-                LABEL: "Front",
-            },
+                LABEL: "Front"
+            }
         },
         ...weaponMirror({
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 150,
+                DELAY: 0.1
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
                 TYPE: "bullet",
                 LABEL: "thruster"
             }
         }, 0)
-    ],
+    ]
 }
 Class.annihilator = {
     PARENT: "genericTank",
@@ -1507,13 +1524,16 @@ Class.annihilator = {
     DANGER: 7,
     GUNS: [
         {
-            POSITION: [20.5, 19.5, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 20.5,
+                WIDTH: 19.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
-                TYPE: "bullet",
-            },
-        },
-    ],
+                TYPE: "bullet"
+            }
+        }
+    ]
 }
 Class.armsman = makeOver("rifle", "Armsman", hybridTankOptions)
 Class.architect = makeRadialAuto("architectGun", {isTurret: true, danger: 7, size: 12, label: "Architect", body: {SPEED: 1.1 * base.SPEED}})
@@ -1528,10 +1548,18 @@ Class.assembler = {
     },
     GUNS: [
         {
-            POSITION: [18, 12, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 12
+            }
         },
         {
-            POSITION: [2, 12, 1.1, 18, 0, 0, 0],
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 12,
+                ASPECT: 1.1,
+                X: 18
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
                 TYPE: 'assemblerTrap',
@@ -1543,8 +1571,12 @@ Class.assembler = {
     ],
     TURRETS: [
         {
-            POSITION: [2.5, 14, 0, 0,    360, 1],
-            TYPE: 'assemblerDot'
+            POSITION: {
+                SIZE: 2,
+                X: 14,
+                LAYER: 1
+            },
+            TYPE: "assemblerDot"
         }
     ]
 }
@@ -3125,9 +3157,13 @@ Class.medic = {
     },
     TURRETS: [
         {
-            POSITION: [13, 0, 0, 0, 360, 1],
-            TYPE: "healerSymbol",
-        },
+            POSITION: {
+                SIZE: 13,
+                ARC: 360,
+                LAYER: 1
+            },
+            TYPE: "healerSymbol"
+        }
     ],
     GUNS: [
         {
@@ -3704,7 +3740,11 @@ Class.paramedic = {
     },
     TURRETS: [
         {
-            POSITION: [13, 0, 0, 0, 360, 1],
+            POSITION: {
+                SIZE: 13,
+                ARC: 360,
+                LAYER: 1
+            },
             TYPE: "healerSymbol"
         }
     ],
@@ -4584,9 +4624,13 @@ Class.surgeon = {
     },
     TURRETS: [
         {
-            POSITION: [13, 0, 0, 0, 360, 1],
-            TYPE: "healerSymbol",
-        },
+            POSITION: {
+                SIZE: 13,
+                ARC: 360,
+                LAYER: 1
+            },
+            TYPE: "healerSymbol"
+        }
     ],
     GUNS: [
         {
@@ -5054,25 +5098,39 @@ Class.vulture = makeBird({
     PARENT: "genericTank",
     DANGER: 7,
     BODY: {
-        FOV: base.FOV * 1.2,
+        FOV: base.FOV * 1.2
     },
     GUNS: [
         {
-            POSITION: [22, 7, -1.5, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 22,
+                WIDTH: 7,
+                ASPECT: -1.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
                 TYPE: "bullet"
             }
         },
         {
-            POSITION: [20, 7.5, -1.5, 0, 0, 0, 1/3],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7.5,
+                ASPECT: -1.5,
+                DELAY: 1/3
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, {size: 7/7.5}]),
                 TYPE: "bullet"
             }
         },
         {
-            POSITION: [18, 8, -1.5, 0, 0, 0, 2/3],
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ASPECT: -1.5,
+                DELAY: 2/3
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, {size: 7/8}]),
                 TYPE: "bullet"
@@ -5228,21 +5286,32 @@ Class.xHunter = {
     TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         {
-            POSITION: [24, 8, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary]),
                 TYPE: "bullet"
             }
         },
         {
-            POSITION: [21, 12, 1, 0, 0, 0, 0.25],
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 11,
+                DELAY: 0.25
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter]),
                 TYPE: "bullet"
             }
         },
         {
-            POSITION: [5, 12, -1.2, 7, 0, 0, 0]
+            POSITION: {
+                LENGTH: 12.5,
+                WIDTH: 11,
+                ASPECT: -1.65
+            }
         }
     ]
 }
