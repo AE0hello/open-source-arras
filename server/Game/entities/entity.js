@@ -48,6 +48,7 @@ class Entity extends EventEmitter {
         this.health = new HealthType(1, 'static', 0);
         this.shield = new HealthType(0, 'dynamic');
         this.guns = new Map();
+        this.gunsArrayed = [];
         this.turrets = new Map();
         this.props = new Map();
         this.upgrades = [];
@@ -433,6 +434,7 @@ class Entity extends EventEmitter {
         if (set.ALT_ABILITIES != null) this.abilities = set.ALT_ABILITIES;
         if (set.GUNS != null) {
             this.guns.clear();
+            this.gunsArrayed = [];
             let newGuns = [];
             for (let i = 0; i < set.GUNS.length; i++) {
                 newGuns.push(new Gun(this, set.GUNS[i]));
@@ -440,6 +442,7 @@ class Entity extends EventEmitter {
             for (let guns of newGuns) {
                 this.guns.set(guns.id, guns);
             }
+            this.gunsArrayed = newGuns;
         }
         if (set.CONNECT_CHILDREN_ON_CAMERA) this.settings.connectChildrenOnCamera = true;
         if (set.GUN_STAT_SCALE) this.gunStatScale = set.GUN_STAT_SCALE;
