@@ -3,7 +3,7 @@ const { base, statnames } = require('../constants.js')
 const g = require('../gunvals.js')
 
 // Settings
-const enable_addon = false
+const enable_addon = true
 
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
