@@ -749,7 +749,7 @@ function mergeDreads(dread1, dread2, sourceDread, tier) {
 		UPGRADE_TOOLTIP = `${dread1.UPGRADE_TOOLTIP ?? ""}+${dread2.UPGRADE_TOOLTIP ?? ""}`;
 
 	// Label it
-	if (dread1.LABEL == dread2.LABEL) LABEL = dread1.LABEL;
+	if (dread1.LABEL == dread2.LABEL) LABEL = dread1.LABEL + " II";
 	if (dread1.UPGRADE_TOOLTIP == dread2.UPGRADE_TOOLTIP) UPGRADE_TOOLTIP = dread1.UPGRADE_TOOLTIP;
 
 	// Guns
