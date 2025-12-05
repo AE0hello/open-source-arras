@@ -74,9 +74,9 @@ Class.desmos = {
             POSITION: {
                 LENGTH: 5,
                 WIDTH: 5,
-                ASPECT: 4,
-                X: 0.25,
-                Y: -7.25,
+                ASPECT: -4,
+                X: -5.25,
+                Y: -7,
                 ANGLE: 90
             }
         })
@@ -1408,20 +1408,30 @@ Class.atomizer = {
     DANGER: 7,
     GUNS: [
         {
-            POSITION: [5, 7.5, 1.3, 18.5, 0, 0, 0],
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 7,
+                ASPECT: 1.4,
+                X: 18
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.lowPower, g.machineGun, { recoil: 1.15 }, g.atomizer]),
-                TYPE: "bullet",
-            },
+                TYPE: "bullet"
+            }
         },
         {
-            POSITION: [12, 10, 1.4, 8, 0, 0, 0],
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 10,
+                ASPECT: 1.4,
+                X: 8
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet",
-            },
-        },
-    ],
+                TYPE: "bullet"
+            }
+        }
+    ]
 }
 Class.auto4 = makeRadialAuto("auto4gun", {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4})
 Class.auto4_old = makeRadialAuto("auto4gun", {isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3})
