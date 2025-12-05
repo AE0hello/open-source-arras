@@ -109,16 +109,30 @@ exports.dereference = type => {
 exports.makeGuard = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type),
-    cannons = [{
-        POSITION: [13, 8, 1, 0, 0, 180, 0],
-    }, {
-        POSITION: [4, 8, 1.7, 13, 0, 180, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.trap]),
-            TYPE: "trap",
-            STAT_CALCULATOR: "trap",
+    cannons = [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ANGLE: 180
+            }
         },
-    }];
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 13,
+                Y: 0,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: exports.combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        }
+    ];
     output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name;
     return output;
