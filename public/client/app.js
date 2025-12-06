@@ -8,7 +8,7 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.9";
+    let buildNumber = "v2.0.10";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -373,8 +373,8 @@ import * as socketStuff from "./socketinit.js";
                 b.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
                 b.fillStyle = "#ffffff";
                 for (let snow of snows) {
-                snow.x += 1 / snow.speed + Math.random();
-                snow.y += 3.5 / snow.speed + Math.random();
+                snow.x += 5 / snow.speed + Math.random();
+                snow.y += 12.5 / snow.speed + Math.random();
                 let fade = 2 * Math.min(0.4, 1 - snow.y / snowCanvas.height);
                 0 < fade
                     ? ((b.globalAlpha = fade),
@@ -1112,10 +1112,6 @@ import * as socketStuff from "./socketinit.js";
             textArray = arrayifyText(rawText),
             renderedFullText = textArray.reduce((a, b, i) => (i & 1) ? a : a + b, '');
 
-        if (context.getTransform) {
-            ratio = context.getTransform().d;
-            offset *= ratio;
-        }
         if (ratio !== 1) {
             size *= ratio;
         }
@@ -2886,6 +2882,10 @@ import * as socketStuff from "./socketinit.js";
         let ping = global.metrics.latency.reduce((b, a) => b + a, 1) / global.metrics.latency.length - 1;
         let xloc = global.player.renderx / 30;
         let yloc = global.player.rendery / 30;
+        let watermarkText = "Open Source Arras";
+        let length = Math.max(measureText(watermarkText, 32)) / 12;
+        let watermarkTextPos1 = Math.round(x + len / 2) + 0.5;
+        let watermarkColor = gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.07, watermarkTextPos1 + length, 0);
         if (global.showDebug) {
             let getRenderingInfo = (data, isTurret) => {
                 isTurret ? global.renderingInfo.turretEntities += data.length : global.renderingInfo.entities += data.length;
@@ -2902,7 +2902,7 @@ import * as socketStuff from "./socketinit.js";
             global.tankSpeedHistory.push(rawSpeed);
             if (global.tankSpeedHistory.length > HISTORY_LENGTH) global.tankSpeedHistory.shift();
             let tankSpeed = global.tankSpeedHistory.reduce((sum, val) => sum + val, 0) / global.tankSpeedHistory.length;
-            drawText("Open Source Arras", x + len, y - 50 - 10 * 14 - 2, 15, color.green, "right");
+            drawText(watermarkText, x + len, y - 50 - 10 * 14 - 2, 15, watermarkColor, "right");
             drawText("Tank Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
             drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
             drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
@@ -2914,12 +2914,12 @@ import * as socketStuff from "./socketinit.js";
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
-            drawText("Open Source Arras", x + len, y - 50 - 4 * 14 - 2, 15, color.green, "right");
+            drawText(watermarkText, x + len, y - 50 - 4 * 14 - 2, 15, watermarkColor, "right");
             drawText(`Build: ${buildNumber}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
-        } else drawText("Open Source Arras", x + len, y - 22 - 2 * 14 - 2, 15, color.green, "right");
+        } else drawText(watermarkText, x + len, y - 22 - 2 * 14 - 2, 15, watermarkColor, "right");
     }
 
     function drawLeaderboard(spacing, alcoveSize, max) {
@@ -3814,7 +3814,7 @@ import * as socketStuff from "./socketinit.js";
         drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, true);
 
         // top tabs (Options / Theme / Keybinds) – visuals only here
-        const TAB_WIDTH = PANEL_WIDTH / 3.73;
+        const TAB_WIDTH = PANEL_WIDTH / 3.73; /* 5.035*/
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
 

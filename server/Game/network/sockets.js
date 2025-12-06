@@ -675,9 +675,6 @@ class socketManager {
             } break;
             case "DTAST": {
                 let time = String(m[0]).split(".")[0];
-                /*if (parseInt(time) < 10) {
-                    socket.kick("The ad must be at least 10 seconds long or incompatible.");
-                }*/
                 socket.talk("DTAST");
                 setTimeout(() => {
                     setTimeout(() => {
@@ -2181,11 +2178,11 @@ class socketManager {
             }
         }
 
-        if (!Config.load_all_mockups && Config.daily_tank && !Array.isArray(Config.daily_tank)) {
+        if (Config.daily_tank && !Array.isArray(Config.daily_tank)) {
             const tank = ensureIsClass(Config.daily_tank.tank);
             if (tank) {
                 Config.daily_tank_INDEX = tank.index.toString();
-                this.sendMockup(Config.daily_tank_INDEX, socket);
+                !Config.load_all_mockups && this.sendMockup(Config.daily_tank_INDEX, socket);
             }
         }
 

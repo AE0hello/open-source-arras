@@ -183,6 +183,9 @@ global.runMove = (() => {
             engine = { x: 0, y: 0, },
             a = my.acceleration / global.gameManager.roomSpeed;
         switch (my.motionType) {
+            case "grow":
+                my.SIZE += my.motionTypeArgs.growSpeed ?? 1;
+                break;
             case 'glide':
                 my.maxSpeed = my.topSpeed;
                 my.damp = 0.05;
@@ -383,6 +386,7 @@ global.defineSplit = (() => {
             for (let guns of newGuns) {
                 my.guns.set(guns.id, guns);
             }
+            my.gunsArrayed.push(...newGuns);
         }
         if (set.TURRETS != null) {
             for (let i = 0; i < set.TURRETS.length; i++) {

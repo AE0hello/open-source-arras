@@ -477,7 +477,7 @@ Class.menu_terrestrials.UPGRADES_TIER_0 = [
 ]
 
 Class.menu_celestials = makeMenu("Celestials", "lightGreen", 9)
-Class.menu_celestials.UPGRADE_TOOLTIP = "WARNING: This menu is very laggy."
+Class.menu_celestials.UPGRADE_TOOLTIP = "WARNING: There are a lot of tanks in here and having this menu open may cause noticeable frame drops!"
 Class.menu_celestials.UPGRADES_TIER_0 = [
     "paladin",
     "freyja",

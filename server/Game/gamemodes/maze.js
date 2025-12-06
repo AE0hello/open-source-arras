@@ -27,7 +27,7 @@ class Maze {
                 util.remove(walls, walls.indexOf(wall));
             })
             if (Config.spooky_theme) {
-                let eyeSize = 12 * (Math.random() + 0.65);
+                let eyeSize = 12 * (Math.random() + 0.45);
                 let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 })
                 spookyEye.define("hwEye");
                 setTimeout(() => {
