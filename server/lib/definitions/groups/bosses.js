@@ -3779,8 +3779,8 @@ const helenaBossBase = {
     PARENT: "genericTank",
     COLOR: "crasher",
     UPGRADE_COLOR: "crasher",
-    UPGRADE_LABEL: "CM-2048-XX", //CrasherMachinery 2048-bit Xtra Xtra
-    LABEL: "CM-2048-XX",
+    UPGRADE_LABEL: "CMX-2048-XX", //CrasherMachinery X 2048-bit Xtra Xtra
+    LABEL: "CMX-2048-XX",
     NAME: "Prime Crasher",
     SHAPE: 3.5,
     SIZE: 32,
@@ -3903,7 +3903,7 @@ Class.helenaBossChip = {
 }
 Class.helenaBoss = {
     ...helenaBossBase,
-    UPGRADE_TOOLTIP: "CrasherMachinery's Top Secret project. A crasher that will return glory to the crasher race.\nEngineered with binary-system weapons for a faster and faultless combat experience.\nProject name: \"Prime Crasher\".\nModel name: \"CrasherMachinery 2048-bit Xtra Xtra\".\nPlease report all sightings to CrasherMachinery Corp.!",
+    UPGRADE_TOOLTIP: "CrasherMachinery's Top Secret project. A crasher that will return glory to the crasher race.\nEngineered with binary-system weapons for a faster and faultless combat experience.\nProject name: \"Prime Crasher\".\nModel name: \"CrasherMachinery X 2048-bit Xtra Xtra\".\nPlease report all sightings to CrasherMachinery Corp.!",
     CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "minion"],
     PROPS: [
         {
