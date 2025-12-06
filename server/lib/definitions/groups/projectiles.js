@@ -758,9 +758,9 @@ Class.boomerang = {
         RANGE: 120,
     },
 }
-Class.assemblerTrap = {
+Class.assemblent = {
     PARENT: "setTrap",
-    LABEL: "Assembler Trap",
+    LABEL: "Assemblent",
     BODY: {
         SPEED: 0.7,
         ACCEL: 0.75,
@@ -770,10 +770,10 @@ Class.assemblerTrap = {
     TURRETS: [
         {
             POSITION: [4, 0, 0, 0, 360, 1],
-            TYPE: 'assemblerDot'
+            TYPE: "assemblerDot"
         }
     ],
-    HITS_OWN_TYPE: 'assembler'
+    HITS_OWN_TYPE: "assembler"
 }
 Class.shotTrapBox = {
     PARENT: 'unsetTrap',

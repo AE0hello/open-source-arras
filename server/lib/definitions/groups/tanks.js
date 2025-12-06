@@ -1563,7 +1563,7 @@ Class.assembler = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-                TYPE: 'assemblerTrap',
+                TYPE: "assemblent",
                 NO_LIMITATIONS: true,
                 MAX_CHILDREN: 8,
                 STAT_CALCULATOR: "block",
@@ -2184,20 +2184,65 @@ Class.carrier = {
         }
     ]
 }
-Class.cocci = {
+Class.cocciSegment = {
     PARENT: "genericSmasher",
-    LABEL: "Cocci",
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    COLOR: "mirror",
+    CAN_BE_ON_LEADERBOARD: false,
+    DISPLAY_NAME: false,
     TURRETS: [
         {
             POSITION: [21.5, 0, 0, 0, 360, 0],
             TYPE: "smasherBody"
-        },
-        /*{
-            POSITION: [20, -22, 0, 0, 90, 0],
-            TYPE: "cocciPart3",
-            VULNERABLE: true
-        }*/
+        }
+    ]
+}
+Class.cocci = {
+    PARENT: "genericSmasher",
+    LABEL: "Cocci",
+    TURRETS: [
+        {
+            POSITION: [21.5, 0, 0, 0, 360, 0],
+            TYPE: "smasherBody"
+        }
+    ],
+    ON: [
+        {
+            event: "tick",
+            handler: ({ body }) => {
+                const numOfSegments = 5;
+                const segmentClass = "cocciSegment";
+
+                body.store.snakeSegments ??= [];
+
+                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
+                    let seg = new Entity(body, body);
+                    seg.health = body.health;
+                    seg.shield = body.shield;
+                    seg.master = body;
+                    seg.source = body;
+                    seg.skill.score = body.skill.score;
+                    seg.define(segmentClass);
+                    body.store.snakeSegments.push(seg);
+                }
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+            
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
     ]
 }
 Class.coil = {
@@ -4597,16 +4642,16 @@ Class.riptide = {
         })
     ]
 }
-Class.rocket = {
+Class.rocketSegment = {
     PARENT: "genericTank",
-    LABEL: "Rocket",
+    COLOR: "mirror",
     BODY: {
         HEALTH: base.HEALTH * 0.4,
         SHIELD: base.SHIELD * 0.4,
         DENSITY: base.DENSITY * 0.3
     },
-    DANGER: 7,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    CAN_BE_ON_LEADERBOARD: false,
+    DISPLAY_NAME: false,
     GUNS: [
         {
             POSITION: [18, 8, 1, 0, 0, 0, 0],
@@ -4616,22 +4661,81 @@ Class.rocket = {
                 LABEL: "Front"
             }
         },
-        ...weaponMirror([{
+        ...weaponMirror({
             POSITION: [14, 8, 1, 0, -1, 140, 0.1],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
                 TYPE: "bullet",
                 LABEL: "thruster"
             }
-        }/*,
+        }, 0)
+    ]
+}
+Class.rocket = {
+    PARENT: "genericTank",
+    LABEL: "Rocket",
+    DANGER: 7,
+    BODY: {
+        HEALTH: base.HEALTH * 0.4,
+        SHIELD: base.SHIELD * 0.4,
+        DENSITY: base.DENSITY * 0.3
+    },
+    GUNS: [
         {
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }]),
+                TYPE: "bullet",
+                LABEL: "Front"
+            }
+        },
+        ...weaponMirror({
+            POSITION: [14, 8, 1, 0, -1, 140, 0.1],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
                 TYPE: "bullet",
                 LABEL: "thruster"
             }
-        }*/], 0)
+        }, 0)
+    ],
+    ON: [
+        {
+            event: "tick",
+            handler: ({ body }) => {
+                const numOfSegments = 2;
+                const segmentClass = "rocketSegment";
+
+                body.store.snakeSegments ??= [];
+
+                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
+                    let seg = new Entity(body, body);
+                    seg.health = body.health;
+                    seg.shield = body.shield;
+                    seg.master = body;
+                    seg.source = body;
+                    seg.skill.score = body.skill.score;
+                    seg.define(segmentClass);
+                    body.store.snakeSegments.push(seg);
+                }
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+            
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
     ]
 }
 Class.septaTrapper = {

@@ -3,7 +3,7 @@ const { base, statnames } = require('../constants.js')
 const g = require('../gunvals.js')
 
 // Settings
-const enable_addon = true
+const enable_addon = false
 const use_original_tree = false // Set to true to enable the original arras.io Arms Race tree and level cap, complete with all the bugs it had.
 
 // Presets
