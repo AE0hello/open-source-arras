@@ -394,7 +394,7 @@ Class.deltaSprayer = {
                 TYPE: ["sprayer", { COLOR: "grey" }],
             }, {
                 POSITION: [9, 6, 0, 60, 130, 0],
-                TYPE: ["scatterer", { COLOR: "grey" }], // what? (it didn't work on scatterer_AR)
+                TYPE: ["scatterer_AR", { COLOR: "grey" }],
             },
         ], 3)
     ],
