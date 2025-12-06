@@ -531,6 +531,7 @@ Class.menu_devBosses.UPGRADES_TIER_0 = [
     "toothlessBoss",
     "tgsBoss",
     "menu_retiredDevBosses",
+    "zyrafaqBoss"
 ]
 
 Class.menu_retiredDevBosses = makeMenu("Retired Developers", "pureBlack", 4)

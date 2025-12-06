@@ -4,7 +4,7 @@ const g = require('../gunvals.js');
 require('./generics.js');
 require('./tanks.js');
 require('./turrets.js');
-const {makeTurret} = require("../facilitators");
+const { makeTurret, addDevAura } = require("../facilitators");
 
 Class.miniboss = {
     PARENT: "genericBoss",
@@ -3058,7 +3058,97 @@ Class.trplnrBossVulnerableForm = {
         }
     }]
 }
+// ZYRAFAQ DEV TANK (as a boss)
+Class.zyrafaqBoss = {
+    PARENT: "bot",
+    SHAPE: [
+        [-1, -0.8],
+        [-0.8, -1],
+        [0.8, -1],
+        [1, -0.8],
+        [0.2, 0],
+        [1, 0.8],
+        [0.8, 1],
+        [-0.8, 1],
+        [-1, 0.8],
+    ],
+    LABEL: "Developer",
+    UPGRADE_LABEL: "Zyrafaq BOSS",
+    BROADCAST_MESSAGE: "A visitor has left!",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 10,
+                ASPECT: -1.4,
+                X: 0,
+                Y: 0,
+                ANGLE: 0,
+                DELAY: 0
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.op]),
+                TYPE: "developerBullet",
+            },
+        },
+    ],
+    TURRETS: [
+        {
+            POSITION: [28, 0, 0, 0, 360, 0],
+            TYPE: ["TheDeveloperShapeNoGlow", { COLOR: "mirror", CONTROLLERS: [["spin", {speed: 0.04, independent: true}]] }],
+            INDEPENDENT: true,
+        },
+        // {
+        //     POSITION: [21, 0, 0, 0, 360, 1],
+        //     TYPE: ["starturret",{CONTROLLERS: [ ["spin", {speed: 0.04, independent: true}] ], COLOR: "#ffffff", BORDERLESS: true}],
+        // },
+    ]
+};
+for (let i = 1; i < 5; i++) {
+    Class.zyrafaqBoss.TURRETS.push({
+        POSITION: {
+            LENGTH: (43 * i) / 25,
+            WIDTH: 0,
+            ASPECT: 0,
+            X: 0,
+            Y: 0,
+            ANGLE: 360,
+            DELAY: 0,
+        },
+        TYPE: "zyrafaqAura",
+        COLOR: 31,
+        INDEPENDENT: false,
+    });
+}
 
+Class.zyrafaqAura = makeAura(2, 0.7, 0.08, "blue");
+Class.theDeveloperShape = {
+    PARENT: "genericEntity",
+    LABEL: "The Developer Shape",
+    SHAPE: 6,
+    DAMAGE_CLASS: 1,
+    GLOW: {
+        RADIUS: 2,
+        COLOR: 43,
+        ALPHA: 1.9,
+        RECURSION: 6,
+    },
+    COLOR: 12,
+    BODY: {
+        SPEED: 0,
+        HEALTH: base.HEALTH * 25000000000,
+        DAMAGE: base.DAMAGE * 10,
+        SHIELD: base.SHIELD * 50000,
+        REGEN: base.REGEN * 2500000,
+        FOV: base.FOV * 5,
+        SIZE: 1,
+    },
+};
+Class.TheDeveloperShapeNoGlow = {
+    PARENT: "theDeveloperShape",
+    LABEL: "The Developer Shape (No glow)",
+    GLOW: null,
+};
 Class.frostAuraSmall = {
 	PARENT: "aura",
 	LAYER: 30,
