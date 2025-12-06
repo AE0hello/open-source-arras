@@ -3775,7 +3775,7 @@ Class.AEMKShipBoss = {
 }
 
 Class.helenaBossBaseAura = makeAura(2, 2, 0)
-const helenaBossBase = {
+Class.helenaBossBase = {
     PARENT: "genericTank",
     COLOR: "crasher",
     UPGRADE_COLOR: "crasher",
@@ -3902,7 +3902,7 @@ Class.helenaBossChip = {
     ]
 }
 Class.helenaBoss = {
-    ...helenaBossBase,
+    PARENT: "helenaBossBase",
     UPGRADE_TOOLTIP: "CrasherMachinery's Top Secret project. A crasher that will return glory to the crasher race.\nEngineered with binary-system weapons for a faster and faultless combat experience.\nProject name: \"Prime Crasher\".\nModel name: \"CrasherMachinery X 2048-bit Xtra Xtra\".\nPlease report all sightings to CrasherMachinery Corp.!",
     CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "minion"],
     PROPS: [
