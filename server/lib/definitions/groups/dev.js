@@ -433,8 +433,6 @@ Class.menu_elites.UPGRADES_TIER_0 = [
     "eliteSpinner",
     "eliteSkimmer",
     "legionaryCrasher",
-    "guardian",
-    "defender",
     "sprayerLegion",
     "menu_deltas",
 ]

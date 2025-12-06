@@ -353,8 +353,8 @@ Class.artillery = {
 }
 Class.assassin = {
     PARENT: "genericTank",
-    DANGER: 6,
     LABEL: "Assassin",
+    DANGER: 6,
     BODY: {
         SPEED: 0.85 * base.SPEED,
         FOV: 1.4 * base.FOV
@@ -4215,35 +4215,6 @@ Class.paramedic = {
     ],
     STAT_NAMES: statnames.heal,
 }
-Class.peashooter = makeGuard({
-    PARENT: "genericTank",
-    STAT_NAMES: statnames.mixed,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 7,
-                WIDTH: 7.5,
-                ASPECT: 0.6,
-                X: 7
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "swarm",
-                STAT_CALCULATOR: "swarm"
-            }
-        }
-    ]
-}, "Peashooter")
 Class.pentaShot = {
     PARENT: "genericTank",
     LABEL: "Penta Shot",
@@ -5070,8 +5041,8 @@ Class.spreadshot = {
 }
 Class.stalker = {
     PARENT: "genericTank",
-    DANGER: 7,
     LABEL: "Stalker",
+    DANGER: 7,
     BODY: {
         SPEED: 0.85 * base.SPEED,
         FOV: 1.35 * base.FOV

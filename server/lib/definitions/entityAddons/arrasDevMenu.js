@@ -184,7 +184,7 @@ Class.arrasMenu_scrapped.UPGRADES_TIER_0 = [
     "arrasMenu_scrapped2",
     "rocketeer_AR",
     "crowbar_AR",
-    "peashooter",
+    "peashooter_AR",
     "autoTrapper",
     "megaTrapper_AR",
     "railgun_AR",

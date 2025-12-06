@@ -123,7 +123,6 @@ exports.makeGuard = (type, name = -1) => {
                 WIDTH: 8,
                 ASPECT: 1.7,
                 X: 13,
-                Y: 0,
                 ANGLE: 180
             },
             PROPERTIES: {
