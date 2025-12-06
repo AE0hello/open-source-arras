@@ -324,10 +324,17 @@ Class.icosahedron = {
 };
 
 // PRESENTS
-Class.presentSymbol = {
-    SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
-    SIZE: 13,
-    COLOR: "white"
+Class.yellowwrap = {
+    PARENT: "healerSymbol",
+    COLOR: "yellow",
+}
+Class.purplewrap = {
+    PARENT: "healerSymbol",
+    COLOR: "purple",
+}
+Class.whitewrap = {
+    PARENT: "healerSymbol",
+    COLOR: "white",
 }
 Class.presentRY = makePresent("red", "yellow")
 Class.presentRP = makePresent("red", "purple")

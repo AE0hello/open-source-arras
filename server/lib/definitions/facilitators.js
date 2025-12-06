@@ -953,7 +953,7 @@ exports.makeRarities = (type) => {
     }
 }
 
-//merry Christmas
+// Merry Christmas and happy holidays!
 exports.makePresent = (outcolor, wrapcolor) => {
     return {
         PARENT: "food",
@@ -974,7 +974,7 @@ exports.makePresent = (outcolor, wrapcolor) => {
         PROPS: [
             {
                 POSITION: [19.5, 0, 0, 0, 360, 1],
-                TYPE: ["healerSymbol", { COLOR: wrapcolor}]
+                TYPE: wrapcolor+"wrap",
             }
         ]
     }
