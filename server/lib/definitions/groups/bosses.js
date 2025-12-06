@@ -3073,7 +3073,7 @@ Class.zyrafaqBoss = {
         [-1, 0.8],
     ],
     LABEL: "Developer",
-    UPGRADE_LABEL: "Zyrafaq BOSS",
+    UPGRADE_LABEL: "Zyrafaq BOSS WIP",
     BROADCAST_MESSAGE: "A visitor has left!",
     GUNS: [
         {
