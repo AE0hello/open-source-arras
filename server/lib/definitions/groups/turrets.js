@@ -628,7 +628,7 @@ Class.basicTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, extraStats: []})
-Class.tripletTurret = makeTurret({
+Class.kronosTripletTurret = makeTurret({
     GUNS: [
         {
             POSITION: [18, 10, 1, 0, 5, 0, 0.5],
@@ -1613,6 +1613,8 @@ Class.ordnanceTurret = makeTurret("ordnance", {canRepel: true, limitFov: true, e
 Class.focalTurret = makeTurret("focal", {canRepel: true, limitFov: true, extraStats: []})
 Class.undertowTurret = makeTurret("undertow", {canRepel: true, limitFov: true, extraStats: []})
 Class.forkTurret = makeTurret("fork", {canRepel: true, limitFov: true, extraStats: []})
+Class.hunterTurret = makeTurret("hunter", {canRepel: true, limitFov: true, extraStats: []})
+Class.tripletTurret = makeTurret("triplet", {canRepel: true, limitFov: true, extraStats: []})
 Class.heavyTurret = makeTurret({
     GUNS: [
             {
@@ -1670,26 +1672,22 @@ Class.warkTurret = makeTurret({
 Class.ullrLowerTurret = makeTurret({
     GUNS: weaponMirror([
         {
-            POSITION: [5, 5.5, 1, 10.5, -5.5, -5, 0], //help i cant get it right sob
+            POSITION: [4.5, 6, 1, 10.5, -5.5, 0, 0],
         },
         {
-            POSITION: [3, 7, 1, 15.5, -5.5, -5, 0],
-        },
-        {
-            POSITION: [2, 7, 1.3, 18, -5.5, -5, 0],
+            POSITION: [1, 8, 1, 15, -5.5, 0, 0],
             PROPERTIES: {
-                MAX_CHILDREN: 6,
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-                TYPE: "pillbox",
-                NO_LIMITATIONS: true,
+                MAX_CHILDREN: 4,
+                SHOOT_SETTINGS: combineStats([g.swarm, g.babyfactory, { size: 1.2, reload: 1.5 }]),
+                TYPE: "minion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
                 SYNCS_SKILLS: true,
-                DESTROY_OLDEST_CHILD: true,
-                STAT_CALCULATOR: "block"
             },
         },
         {
-            POSITION: [4, 7, 1, 8, -5.5, -5, 0],
-        }
+            POSITION: [11.5, 8, 1, 0, -5.5, 0, 0],
+        },
     ])
 }, {canRepel: true, limitFov: true, extraStats: []})
 Class.isisLowerTurret = makeTurret({
@@ -1796,17 +1794,19 @@ Class.blunderbussTurret = makeTurret({
                 },
             ],
 }, {canRepel: true, limitFov: true, extraStats: []})
-Class.bentBoomerTurret = makeTurret({
-    GUNS: weaponMirror([{
-            POSITION: [8, 10, 1, 8, -2, -35, 0],
+Class.bentBuilderTurret = makeTurret({
+    GUNS: weaponMirror([
+        {
+        POSITION: [16, 11, 1, 0, -2, -35, 0],
         },
         {
-            POSITION: [2, 10, 1.3, 16, -2, -35, 0],
+            POSITION: [2, 11, 1.1, 16, -2, -35, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.fast, g.twin]),
-                TYPE: "boomerang",
-            },
-        },
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin]),
+                TYPE: "setTrap",
+                STAT_CALCULATOR: "block"
+            }
+        }
     ]),
 }, {canRepel: true, limitFov: true, extraStats: []})
 Class.volleyTurret = makeTurret({
