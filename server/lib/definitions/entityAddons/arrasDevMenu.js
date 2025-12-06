@@ -182,8 +182,8 @@ Class.arrasMenu_nostalgia.UPGRADES_TIER_0 = [
 Class.arrasMenu_scrapped = makeMenu("Scrapped Menu")
 Class.arrasMenu_scrapped.UPGRADES_TIER_0 = [
     "arrasMenu_scrapped2",
-    "rocketeer",
-    "crowbar",
+    "rocketeer_AR",
+    "crowbar_AR",
     "peashooter",
     "autoTrapper",
     "megaTrapper_AR",
@@ -197,12 +197,12 @@ Class.arrasMenu_scrapped2.UPGRADES_TIER_0 = [
     "arrasMenu_gameMod",
     "arrasMenu_scrapped",
     "mender",
-    "infestor_AR",
+    "infestor",
     "prodigy",
     "spawnerdrive_AR",
     "rimfire_AR",
     "productionist",
-    //"taser",
+    "vulture",
 ]
 
 // Memes Menu(s)

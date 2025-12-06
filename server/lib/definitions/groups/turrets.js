@@ -312,7 +312,35 @@ Class.hyperTwisterTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
-Class.rocketeerTurret = makeTurret('rocketeer', {canRepel: true, limitFov: true})
+Class.rocketeerTurret = makeTurret({
+    PARENT: "genericTank",
+    LABEL: "Rocketeer",
+    DANGER: 7,
+    BODY: {
+        FOV: 1.15 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 7.73,
+                ASPECT: 1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
+                TYPE: "rocketeerMissile",
+                STAT_CALCULATOR: "sustained",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 11,
+                ASPECT: -1.5
+            }
+        }
+    ]
+}, {canRepel: true, limitFov: true})
 Class.boomerTurret = makeTurret('boomer', {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
 Class.ultraBoomerTurret = makeTurret({
     GUNS: [

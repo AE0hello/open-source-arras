@@ -222,14 +222,20 @@ Class.wark_AR = {
 
 // Tier 3
 Class.autoArtillery_AR = makeAuto("artillery")
+Class.autoAuto3_AR = makeAuto("auto3")
 Class.autoDiesel_AR = makeAuto("diesel_AR")
+Class.autoDoper_AR = makeAuto("doper_AR")
 Class.autoHelix_AR = makeAuto("helix")
 Class.autoHexaTank_AR = makeAuto("hexaTank")
+Class.autoHoncho_AR = makeAuto("honcho_AR")
 Class.autoHunter_AR = makeAuto("hunter")
 Class.autoMachineTrapper_AR = makeAuto("machineTrapper_AR")
+Class.autoMech_AR = makeAuto("mech_AR")
 Class.autoMinigun_AR = makeAuto("minigun")
+Class.autoPen_AR = makeAuto("pen_AR")
 Class.autoRifle_AR = makeAuto("rifle")
 Class.autoSprayer_AR = makeAuto("sprayer")
+Class.autoTrapGuard_AR = makeAuto("trapGuard")
 Class.autoTripleShot_AR = makeAuto("tripleShot")
 Class.autoUnderseer_AR = makeAuto("underseer")
 Class.autoWark_AR = makeAuto("wark_AR")
@@ -352,7 +358,51 @@ Class.bentMinigun_AR = {
 }
 Class.blower_AR = makeRearGunner("destroyer", "Blower")
 Class.buttbuttin_AR = makeRearGunner("assassin", "Buttbuttin")
+Class.captain_AR = {
+    PARENT: "genericTank",
+    LABEL: "Captain",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: base.FOV * 1.1
+    },
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 10,
+                X: 10.5,
+                ANGLE: 90
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 12,
+                X: 15,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                TYPE: "minion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                MAX_CHILDREN: 4,
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 11.5,
+                WIDTH: 12,
+                ANGLE: 90
+            }
+        }
+    ], 2)
+}
 Class.coalesce_AR = makeOver("wark_AR", "Coalesce", hybridTankOptions)
+Class.cobbler_AR = makeOver("mech_AR", "Cobbler", hybridTankOptions)
 Class.cog_AR = {
     PARENT: "genericTank",
     LABEL: "Cog",
@@ -438,6 +488,68 @@ Class.courser_AR = {
                 WIDTH: 11,
                 ASPECT: -1.7
             }
+        }
+    ]
+}
+Class.crowbar_AR = {
+    PARENT: "genericTank",
+    LABEL: "Crowbar",
+    DANGER: 7,
+    BODY: {
+        SPEED: 0.85 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 40,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 9,
+                ASPECT: -2
+            }
+        }
+    ],
+    TURRETS: [
+        {
+            POSITION: {
+                SIZE: 6,
+                X: 40,
+                ARC: 180,
+                LAYER: 1
+            },
+            TYPE: [
+                "crowbarTurretTank",
+                { INDEPENDENT: true }
+            ]
+        },
+        {
+            POSITION: {
+                SIZE: 6,
+                X: 29.75,
+                ARC: 180,
+                LAYER: 1
+            },
+            TYPE: [
+                "crowbarTurretTank",
+                { INDEPENDENT: true }
+            ]
+        },
+        {
+            POSITION: {
+                SIZE: 6,
+                X: 19.5,
+                ARC: 180,
+                LAYER: 1
+            },
+            TYPE: [
+                "crowbarTurretTank",
+                { INDEPENDENT: true }
+            ]
         }
     ]
 }
@@ -773,43 +885,25 @@ Class.foamer_AR = {
         }
     ]
 }
-Class.frother_AR = {
+Class.foreman_AR = {
     PARENT: "genericTank",
-    LABEL: "Frother",
+    LABEL: "Foreman",
     DANGER: 7,
-    STAT_NAMES: statnames.trap,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18,
-                WIDTH: 5,
-                ASPECT: 1.4
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.3,
-                X: 18
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 9,
-                ASPECT: 1.4
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 13,
-                ASPECT: 1.3,
-                X: 15
-            }
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: 0.9 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+    },
+    MAX_CHILDREN: 6,
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 12,
+            WIDTH: 15,
+            ASPECT: 1.3,
+            X: 2,
+            ANGLE: 90,
         }
-    ]
+    }, 2)
 }
 Class.foctillery_AR = {
     PARENT: "genericTank",
@@ -886,6 +980,44 @@ Class.forger_AR = {
         }
     ]
 }
+Class.frother_AR = {
+    PARENT: "genericTank",
+    LABEL: "Frother",
+    DANGER: 7,
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 5,
+                ASPECT: 1.4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.3,
+                X: 18
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 9,
+                ASPECT: 1.4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 13,
+                ASPECT: 1.3,
+                X: 15
+            }
+        }
+    ]
+}
 Class.hitman_AR = makeOver("assassin", "Hitman", hybridTankOptions)
 Class.hutch_AR = {
     PARENT: "genericTank",
@@ -912,6 +1044,7 @@ Class.hutch_AR = {
         }
     ])
 }
+Class.interner_AR = makeOver("pen_AR", "Interner", hybridTankOptions)
 Class.jalopy_AR = {
     PARENT: "genericTank",
     LABEL: "Jalopy",
@@ -1156,6 +1289,35 @@ Class.rimfire_AR = {
                 LENGTH: 12,
                 WIDTH: 10,
                 X: 2
+            }
+        }
+    ]
+}
+Class.rocketeer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Rocketeer",
+    DANGER: 7,
+    BODY: {
+        FOV: 1.15 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 7.73,
+                ASPECT: 1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
+                TYPE: "rocketeerMissile",
+                STAT_CALCULATOR: "sustained",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 11,
+                ASPECT: -1.5
             }
         }
     ]
@@ -1632,7 +1794,7 @@ Config.level_cap_cheat = 60
 
 //Class.basic.UPGRADES_TIER_1
     //Class.basic.UPGRADES_TIER_2
-        //Class.basic.UPGRADES_TIER_3
+        Class.smasher.UPGRADES_TIER_3.push()
 
     Class.twin.UPGRADES_TIER_2.push("wark_AR")
         Class.twin.UPGRADES_TIER_3.splice(1, 1) //remove bulwark
@@ -1653,30 +1815,33 @@ Config.level_cap_cheat = 60
 
     //Class.flankGuard.UPGRADES_TIER_2
         Class.hexaTank.UPGRADES_TIER_3.push("deathStar_AR", "autoHexaTank_AR", "mingler_AR", "combo_AR")
+        Class.auto3.UPGRADES_TIER_3.push("sniper3_AR", "crowbar_AR", "autoAuto3_AR", "combo_AR")
 
     Class.director.UPGRADES_TIER_2.push("directordrive_AR", "honcho_AR", "doper_AR")
         Class.director.UPGRADES_TIER_3.splice(1, 1) //remove bigCheese
-        Class.overseer.UPGRADES_TIER_3.push()
+        Class.overseer.UPGRADES_TIER_3.push("captain_AR", "foreman_AR")
         Class.cruiser.UPGRADES_TIER_3.push()
         Class.underseer.UPGRADES_TIER_3.push("autoUnderseer_AR", "underdrive_AR", "pentaseer_AR")
-        Class.spawner.UPGRADES_TIER_3.push("spawnerdrive_AR")
-        Class.directordrive_AR.UPGRADES_TIER_3 = ["overdrive"]
-        Class.honcho_AR.UPGRADES_TIER_3 = ["bigCheese"]
-        Class.doper_AR.UPGRADES_TIER_3 = []
+        Class.spawner.UPGRADES_TIER_3.push("spawnerdrive_AR", "captain_AR")
+        Class.directordrive_AR.UPGRADES_TIER_3 = ["overdrive", "underdrive_AR", "spawnerdrive_AR"]
+        Class.honcho_AR.UPGRADES_TIER_3 = ["foreman_AR", "bigCheese", "autoHoncho_AR"]
+        Class.doper_AR.UPGRADES_TIER_3 = ["autoDoper_AR"]
 
     //Class.pounder.UPGRADES_TIER_2
         Class.pounder.UPGRADES_TIER_3.push("subverter_AR")
         Class.artillery.UPGRADES_TIER_3.push("queller_AR", "forger_AR", "force_AR", "autoArtillery_AR", "foctillery_AR", "discharger_AR")
+        Class.launcher.UPGRADES_TIER_3.push("rocketeer_AR")
 
     Class.trapper.UPGRADES_TIER_2.push("pen_AR", "mech_AR", "machineTrapper_AR", "wark_AR")
         Class.trapper.UPGRADES_TIER_3.splice(0, 1) //remove barricade
         Class.trapper.UPGRADES_TIER_3.push("megaTrapper_AR")
-        Class.pen_AR.UPGRADES_TIER_3 = []
-        Class.mech_AR.UPGRADES_TIER_3 = ["engineer"]
+        Class.trapGuard.UPGRADES_TIER_3.push("autoTrapGuard_AR")
+        Class.pen_AR.UPGRADES_TIER_3 = ["hutch_AR", "interner_AR", "autoPen_AR"]
+        Class.mech_AR.UPGRADES_TIER_3 = ["engineer", "cog_AR", "cobbler_AR", "autoMech_AR"]
         Class.machineTrapper_AR.UPGRADES_TIER_3 = ["dieselTrapper_AR", "barricade", "equalizer_AR", "frother_AR", "expeller_AR", "autoMachineTrapper_AR", "deviation_AR"]
         Class.wark_AR.UPGRADES_TIER_3 = ["warkwark_AR", "waarrk_AR", "equalizer_AR", "hexaTrapper", "hutch_AR", "cog_AR", "expeller_AR", "bulwark", "coalesce_AR", "autoWark_AR"]
 
-    //Class.desmos.UPGRADES_TIER_2
+    //Class.desmos.UPGRADES_TIER_2.push("spiral", "repeater")
         Class.helix.UPGRADES_TIER_3.push("autoHelix_AR")
             //Class.triplex.UPGRADES_TIER_4
             //Class.quadruplex.UPGRADES_TIER_4
@@ -1688,6 +1853,7 @@ Class.vulture.LABEL = "Taser"
 Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper"]
     Class.basic.UPGRADES_TIER_2 = ["smasher"]
         Class.basic.UPGRADES_TIER_3 = ["single"]
+            Class.single.UPGRADES_TIER_3 = []
 
     Class.twin.UPGRADES_TIER_2 = ["doubleTwin", "tripleShot", "gunner", "hexaTank", "wark_AR"]
         Class.twin.UPGRADES_TIER_3 = ["dual", "bulwark", "musket"]
@@ -1712,31 +1878,31 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.flankGuard.UPGRADES_TIER_3 = ["tripleTwin"]
         Class.hexaTank.UPGRADES_TIER_3 = ["octoTank", "cyclone", "hexaTrapper", "deathStar_AR", "autoHexaTank_AR", "mingler_AR", "combo_AR"]
         Class.triAngle.UPGRADES_TIER_3 = ["fighter", "booster", "falcon", "bomber", "autoTriAngle", "surfer", "eagle"]
-        Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee"]
+        Class.auto3.UPGRADES_TIER_3 = ["auto5", "mega3", "auto4", "banshee", "sniper3_AR", "crowbar_AR", "autoAuto3_AR", "combo_AR"]
 
     Class.director.UPGRADES_TIER_2 = ["overseer", "cruiser", "underseer", "spawner", "directordrive_AR", "honcho_AR", "doper_AR"]
         Class.director.UPGRADES_TIER_3 = ["manager"]
-        Class.overseer.UPGRADES_TIER_3 = ["overlord", "banshee", "autoOverseer", "overdrive", "commander"]
+        Class.overseer.UPGRADES_TIER_3 = ["overlord", "banshee", "autoOverseer", "overdrive", "commander", "captain_AR", "foreman_AR"]
         Class.cruiser.UPGRADES_TIER_3 = ["carrier", "battleship", "fortress", "autoCruiser", "commander"]
         Class.underseer.UPGRADES_TIER_3 = ["necromancer", "maleficitor", "autoUnderseer_AR", "underdrive_AR", "infestor", "pentaseer_AR"]
-        Class.spawner.UPGRADES_TIER_3 = ["factory", "autoSpawner", "spawnerdrive_AR"]
+        Class.spawner.UPGRADES_TIER_3 = ["factory", "autoSpawner", "spawnerdrive_AR", "captain_AR"]
         Class.directordrive_AR.UPGRADES_TIER_3 = ["overdrive", "underdrive_AR", "spawnerdrive_AR"]
-        Class.honcho_AR.UPGRADES_TIER_3 = ["bigCheese"]
-        Class.doper_AR.UPGRADES_TIER_3 = []
+        Class.honcho_AR.UPGRADES_TIER_3 = ["foreman_AR", "bigCheese", "autoHoncho_AR"]
+        Class.doper_AR.UPGRADES_TIER_3 = ["autoDoper_AR"]
 
     Class.pounder.UPGRADES_TIER_2 = ["destroyer", "builder", "artillery", "launcher"]
         Class.pounder.UPGRADES_TIER_3 = ["shotgun", "eagle", "subverter_AR"]
         Class.destroyer.UPGRADES_TIER_3 = ["conqueror", "annihilator", "hybrid", "construct"]
         Class.artillery.UPGRADES_TIER_3 = ["mortar", "ordnance", "beekeeper", "fieldGun", "queller_AR", "forger_AR", "fieldGun", "force_AR", "autoArtillery_AR", "foctillery_AR", "discharger_AR"]
-        Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "sidewinder", "fieldGun"]
+        Class.launcher.UPGRADES_TIER_3 = ["skimmer", "twister", "swarmer", "sidewinder", "fieldGun", "rocketeer_AR", "fieldGun"]
 
     Class.trapper.UPGRADES_TIER_2 = ["builder", "triTrapper", "trapGuard", "pen_AR", "mech_AR", "machineTrapper_AR", "wark_AR"]
         Class.trapper.UPGRADES_TIER_3 = ["barricade", "overtrapper", "megaTrapper_AR"]
         Class.builder.UPGRADES_TIER_3 = ["construct", "autoBuilder", "engineer", "boomer", "assembler", "architect", "conqueror"]
         Class.triTrapper.UPGRADES_TIER_3 = ["fortress", "hexaTrapper", "septaTrapper", "architect"]
-        Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"]
-        Class.pen_AR.UPGRADES_TIER_3 = []
-        Class.mech_AR.UPGRADES_TIER_3 = ["engineer"]
+        Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark", "autoTrapGuard_AR"]
+        Class.pen_AR.UPGRADES_TIER_3 = ["hutch_AR", "interner_AR", "autoPen_AR"]
+        Class.mech_AR.UPGRADES_TIER_3 = ["engineer", "cog_AR", "cobbler_AR", "autoMech_AR"]
         Class.machineTrapper_AR.UPGRADES_TIER_3 = ["dieselTrapper_AR", "barricade", "equalizer_AR", "expeller_AR", "autoMachineTrapper_AR", "deviation_AR"]
             Class.machineTrapper_AR.UPGRADES_TIER_3.push("frother_AR")
         Class.wark_AR.UPGRADES_TIER_3 = ["warkwark_AR", "waarrk_AR", "equalizer_AR", "hexaTrapper", "hutch_AR", "cog_AR", "expeller_AR", "bulwark", "coalesce_AR", "autoWark_AR"]

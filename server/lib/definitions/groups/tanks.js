@@ -2430,45 +2430,6 @@ Class.crossbow = {
         }
     ]
 }
-Class.crowbar = {
-    PARENT: "genericTank",
-    DANGER: 7,
-    LABEL: "Crowbar",
-    BODY: {
-        SPEED: 0.85 * base.SPEED,
-        FOV: 1.1 * base.FOV,
-    },
-    GUNS: [
-        {
-            POSITION: [42, 6.5, 1, 0, 0, 0, 0],
-        },
-        {
-            POSITION: [6, 8.5, -1.5, 8, 0, 0, 0]
-        }
-    ],
-    TURRETS: [{
-        POSITION: [6, 42, 0, 0, 180, 1],
-        TYPE: [
-            "crowbarTurretTank",
-            { INDEPENDENT: true }
-        ],
-    },
-        {
-            POSITION: [6, 32, 0, 0, 180, 1],
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ],
-        },
-        {
-            POSITION: [6, 22, 0, 0, 180, 1],
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ],
-        },
-    ],
-}
 Class.cyclone = {
     PARENT: "genericTank",
     LABEL: "Cyclone",
@@ -4671,35 +4632,6 @@ Class.rocket = {
                 LABEL: "thruster"
             }
         }*/], 0)
-    ]
-}
-Class.rocketeer = {
-    PARENT: "genericTank",
-    LABEL: "Rocketeer",
-    BODY: {
-        FOV: 1.15 * base.FOV
-    },
-    DANGER: 7,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 7.73,
-                ASPECT: 1.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
-                TYPE: "rocketeerMissile",
-                STAT_CALCULATOR: "sustained",
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 11,
-                ASPECT: -1.5
-            }
-        }
     ]
 }
 Class.septaTrapper = {
