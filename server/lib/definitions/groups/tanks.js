@@ -962,6 +962,7 @@ Class.monsoon_bent = {
         }
     ])
 }
+
 Class.overseer = {
     PARENT: "genericTank",
     LABEL: "Overseer",
@@ -1351,7 +1352,7 @@ Class.underseer = {
     PARENT: "genericTank",
     LABEL: "Underseer",
     DANGER: 6,
-    NECRO: true,
+    NECRO: [4],
     STAT_NAMES: statnames.drone,
     BODY: {
         SPEED: base.SPEED * 0.9,
@@ -3195,7 +3196,7 @@ Class.infestor = {
     PARENT: "genericTank",
     LABEL: "Infestor",
     DANGER: 7,
-    NECRO: true,
+    NECRO: [0],
     STAT_NAMES: statnames.drone,
     BODY: {
         SPEED: base.SPEED * 0.9,
@@ -3398,7 +3399,7 @@ Class.maleficitor = {
     PARENT: "genericTank",
     LABEL: "Maleficitor",
     DANGER: 7,
-    NECRO: true,
+    NECRO: [4],
     TOOLTIP: "Press R and wait to turn your drones invisible.",
     STAT_NAMES: statnames.necro,
     BODY: {
@@ -3590,25 +3591,6 @@ Class.megaTornado = {
         }
         return output
     })()
-}
-Class.megaTrapper = {
-    PARENT: "genericTank",
-    LABEL: "Mega Trapper",
-    DANGER: 7,
-    STAT_NAMES: statnames.trap,
-    GUNS: [
-        {
-            POSITION: [ 13, 12, 1, 0, 0, 0, 0, ],
-        },
-        {
-        POSITION: [ 5, 12, 1.7, 13, 0, 0, 0, ],
-        PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.megaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ]
 }
 Class.mender = {
     PARENT: "genericTank",
@@ -3882,7 +3864,7 @@ Class.necromancer = {
     PARENT: "genericTank",
     LABEL: "Necromancer",
     DANGER: 7,
-    NECRO: true,
+    NECRO: [4],
     STAT_NAMES: statnames.necro,
     BODY: {
         SPEED: 0.8 * base.SPEED,
@@ -4525,40 +4507,6 @@ Class.quadruplex = {
         }), 4)
     ]
 }
-Class.railgun = {
-    PARENT: "genericTank",
-    LABEL: "Railgun",
-    DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.2
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 7.95
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24,
-                WIDTH: 5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.railgun]),
-                TYPE: "bullet",
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5,
-                WIDTH: 8,
-                ASPECT: -1.8,
-                X: 6.5
-            }
-        }
-    ]
-}
 Class.ranger = {
     PARENT: "genericTank",
     LABEL: "Ranger",
@@ -4954,57 +4902,6 @@ Class.skimmer = {
             },
         },
     ],
-}
-Class.sniper3 = makeRadialAuto("sniper3gun", {isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: {SPEED: 0.8 * base.SPEED, FOV: 1.25 * base.FOV}})
-Class.spawnerdrive = {
-    PARENT: "genericTank",
-    LABEL: "Spawnerdrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        SPEED: base.SPEED * 0.8,
-        FOV: base.FOV * 1.1
-    },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 9,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "overdriveDeco"
-        }
-    ],
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.5,
-                WIDTH: 10,
-                X: 10.5
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 1,
-                WIDTH: 12,
-                X: 15
-            },
-            PROPERTIES: {
-                MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
-                TYPE: "autoMinion",
-                STAT_CALCULATOR: "drone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 11.5,
-                WIDTH: 12
-            }
-        }
-    ]
 }
 Class.spike = {
     PARENT: "genericSmasher",

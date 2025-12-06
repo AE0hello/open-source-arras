@@ -500,7 +500,7 @@ Class.turretedDrone = makeAuto('drone', "Auto-Drone", {type: 'droneAutoTurret'})
 Class.sunchip = {
     PARENT: "drone",
     SHAPE: 4,
-    NECRO: true,
+    NECRO: [4],
     HITS_OWN_TYPE: "hardWithBuffer",
     BODY: {
         FOV: 0.5,
@@ -511,11 +511,13 @@ Class.sunchip = {
     },
     DRAW_HEALTH: false,
 }
+Class.turretedSunchip = makeAuto("sunchip", {type: "droneAutoTurret"})
 Class.eggchip = {
     PARENT: "sunchip",
     NECRO: [0],
     SHAPE: 0
 }
+Class.turretedEggchip = makeAuto("eggchip", {type: "droneAutoTurret"})
 Class.minichip = {
     PARENT: "sunchip",
     NECRO: false,
@@ -687,7 +689,7 @@ Class.desmosMinion = {
         }
     ]
 }
-Class.autoMinion = makeAuto("minion", {type: "droneAutoTurret"})
+Class.turretedMinion = makeAuto("minion", {type: "droneAutoTurret"})
 Class.sentrySwarmMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
@@ -828,6 +830,7 @@ Class.autoswarm = {
     },
     INDEPENDENT: true
 }
+Class.turretedSwarm = makeAuto("swarm", {type: "droneAutoTurret"})
 Class.bee = {
     PARENT: "swarm",
     PERSISTS_AFTER_DEATH: true,
