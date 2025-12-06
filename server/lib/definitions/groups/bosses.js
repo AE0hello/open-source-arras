@@ -394,7 +394,7 @@ Class.deltaSprayer = {
                 TYPE: ["sprayer", { COLOR: "grey" }],
             }, {
                 POSITION: [9, 6, 0, 60, 130, 0],
-                TYPE: ["scatterer_AR", { COLOR: "grey" }],
+                TYPE: ["scatterer", { COLOR: "grey" }], // what? (it didn't work on scatterer_AR)
             },
         ], 3)
     ],
@@ -1691,7 +1691,7 @@ theia.addLayer({turret: {
 }}, true, 6);
 
 // ATLAS
-let atlas = new LayeredBoss(null, "Atlas", "celestial", 9, "purple", "baseTrapTurret", 6.5, 5.5);
+let atlas = new LayeredBoss(null, "Atlas", "celestial", 9, "#EDB854", "baseTrapTurret", 6.5, 5.5);
 atlas.addLayer({turret: {
     POSITION: [7, 9, 0, null, 180, 0],
     TYPE: "artilleryTurret",
@@ -1702,7 +1702,7 @@ atlas.addLayer({turret: {
 }}, true, 6);
 
 // RHEA
-let rhea = new LayeredBoss(null, "Rhea", "celestial", 9, "darkGrey", "baseTrapTurret", 6.5, 5.5);
+let rhea = new LayeredBoss(null, "Rhea", "celestial", 9, "#D7B070", "baseTrapTurret", 6.5, 5.5);
 rhea.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
     TYPE: "wrenchTurret",
@@ -1743,7 +1743,7 @@ styx.addLayer({turret: {
 }});
 styx.addLayer({turret: {
     POSITION: [10.5, 8, 0, null, 160, 0],
-    TYPE: "skimmerTurret", // should be old sidewinder
+    TYPE: "hunterTurret",
 }}, true, 6);
 
 // EROS
@@ -1760,12 +1760,12 @@ eros.addLayer({turret: {
 //TETHYS
 let tethys = new LayeredBoss(null, "Tethys", "celestial", 9, "#E2CF58", "baseTrapTurret", 6.5, 5.5);
 tethys.addLayer({turret: {
-    POSITION: [8.5, 9, 0, null, 180, 0],
-    TYPE: ["bentBoomerTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.91}}],
+    POSITION: [7.5, 9, 0, null, 180, 0],
+    TYPE: ["bentBuilderTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.91}}],
 }});
 tethys.addLayer({turret: {
-    POSITION: [10.5, 8, 0, null, 160, 0],
-    TYPE: "boomerTurret",
+    POSITION: [11.5, 8, 0, null, 160, 0],
+    TYPE: ["boomerTurret", {COLOR: "grey"}],
 }}, true, 6);
 
 //IAPETUS
@@ -1853,7 +1853,7 @@ hjordis.addLayer({turret: {
 // VOR
 let vor = new LayeredBoss(null, "Vor", "celestial", 9, "#C5D07A", "baseTrapTurret", 6.5, 5.5);
 vor.addLayer({turret: {
-    POSITION: [8.5, 9, 0, null, 180, 0],
+    POSITION: [7.5, 9, 0, null, 180, 0],
     TYPE: "tripletTurret",
 }});
 vor.addLayer({turret: {
@@ -1899,7 +1899,7 @@ let ullr = new LayeredBoss(null, "Ullr", "celestial", 9, "#CB4969", "baseTrapTur
 ullr.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
     TYPE: "ullrLowerTurret",
-}});
+}}, true, null, 32);
 ullr.addLayer({turret: {
     POSITION: [10.5, 8, 0, null, 160, 0],
     TYPE: "dualTurret",
@@ -2032,7 +2032,7 @@ kronos.addLayer({turret: {
 }}, true, 4);
 kronos.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 160, 0],
-    TYPE: ["tripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}],
+    TYPE: ["kronosTripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}],
 }}, true, 4);
 
 let ragnarok = new LayeredBoss(null, "Ragnarok", "eternal", 11, "aqua", "baseTrapTurret", 4.5, 3.5);
@@ -2060,7 +2060,7 @@ amun.addLayer({turret: {
     TYPE: "desmosTurret",
 }});
 amun.addLayer({turret: {
-    POSITION: [6.5, 9, 0, null, 160, 0],
+    POSITION: [7.5, 9, 0, null, 160, 0],
     TYPE: "undertowTurret",
 }}, true, 4);
 amun.addLayer({turret: {
