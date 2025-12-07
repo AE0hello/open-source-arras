@@ -409,6 +409,55 @@ Class.twinFlank_diep = {
 Class.auto5_diep = makeRadialAuto("autoTankGun", {isTurret: true, danger: 7, label: "Auto 5", count: 5})
 Class.autoGunner_diep = makeAuto("gunner_diep", "Auto Gunner")
 Class.autoTank_diep = makeAuto("tank_diep", "Auto Tank")
+Class.booster_diep = {
+    PARENT: "diep",
+    LABEL: "Booster",
+    DANGER: 7,
+    BODY: {
+        HEALTH: base.HEALTH * 0.4,
+        SHIELD: base.SHIELD * 0.4,
+        DENSITY: base.DENSITY * 0.3
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }]),
+                TYPE: "bullet",
+                LABEL: "Front"
+            }
+        },
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 8,
+                ANGLE: 135,
+                DELAY: 0.6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 150,
+                DELAY: 0.1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        }], 0)
+    ]
+}
 Class.gunnerTrapper_diep = {
     PARENT: "diep",
     LABEL: "Gunner Trapper",
@@ -762,6 +811,7 @@ Class.tank_diep.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard"]
         Class.gunner_diep.UPGRADES_TIER_3 = ["autoGunner", "gunnerTrapper", "streamliner"].map(x => x + "_diep")
 
     Class.flankGuard_diep.UPGRADES_TIER_2 = ["triAngle", "quadTank", "twinFlank", "auto3"].map(x => x + "_diep")
+        Class.triAngle_diep.UPGRADES_TIER_3 = ["booster"].map(x => x + "_diep")
         Class.quadTank_diep.UPGRADES_TIER_3 = ["octoTank", "auto5"].map(x => x + "_diep")
         Class.triAngle_diep.UPGRADES_TIER_3 = [].map(x => x + "_diep")
         Class.auto3_diep.UPGRADES_TIER_3 = ["auto5", "autoGunner"].map(x => x + "_diep")

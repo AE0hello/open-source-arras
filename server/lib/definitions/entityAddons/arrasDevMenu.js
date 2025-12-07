@@ -125,8 +125,8 @@ Class.arrasMenu_healers.UPGRADES_TIER_0 = [
     "ambulance",
     "surgeon",
     "paramedic",
-    //"physician",
-    //"doctor",
+    "physician_AR",
+    "doctor_AR",
     "smasher",
     "underseer",
 ]

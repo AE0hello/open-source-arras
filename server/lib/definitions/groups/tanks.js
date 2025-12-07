@@ -545,20 +545,8 @@ Class.gunner = {
     ], 0.25)
 }
 Class.healer = {
-    PARENT: "genericTank",
+    PARENT: "genericHealer",
     LABEL: "Healer",
-    HEALING_TANK: true, // Mainly for bots to recognize the tank
-    STAT_NAMES: statnames.heal,
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 13,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "healerSymbol"
-        }
-    ],
     GUNS: [
         {
             POSITION: {
@@ -1465,25 +1453,13 @@ Class.whirlwind_old = {
 
 // Tier 3
 Class.ambulance = {
-    PARENT: "genericTank",
+    PARENT: "genericHealer",
     LABEL: "Ambulance",
-    STAT_NAMES: statnames.heal,
-    HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         HEALTH: base.HEALTH * 0.8,
         SHIELD: base.SHIELD * 0.8,
         DENSITY: base.DENSITY * 0.6,
     },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 13,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "healerSymbol"
-        }
-    ],
     GUNS: [
         {
             POSITION: {
@@ -3477,22 +3453,11 @@ Class.master = {
     ]
 }
 Class.medic = {
-    PARENT: "genericTank",
+    PARENT: "genericHealer",
     LABEL: "Medic",
-    HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         FOV: base.FOV * 1.2
     },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 13,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "healerSymbol"
-        }
-    ],
     GUNS: [
         {
             POSITION: {
@@ -3512,8 +3477,7 @@ Class.medic = {
                 TYPE: "healerBullet"
             }
         }
-    ],
-    STAT_NAMES: statnames.heal,
+    ]
 }
 Class.mega3 = makeRadialAuto("megaAutoTankGun", {isTurret: true, danger: 7, size: 14, label: "Mega-3", body: {SPEED: 0.95 * base.SPEED}})
 Class.megaSmasher = {
@@ -4154,22 +4118,11 @@ Class.overtrapper = makeOver({
     ]
 })
 Class.paramedic = {
-    PARENT: "genericTank",
+    PARENT: "genericHealer",
     LABEL: "Paramedic",
-    HEALING_TANK: true, // Mainly for bots to recognize the tank
     BODY: {
         SPEED: base.SPEED * 0.9
     },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 13,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "healerSymbol"
-        }
-    ],
     GUNS: [
         ...weaponMirror([{
             POSITION: {
@@ -4212,8 +4165,7 @@ Class.paramedic = {
                 TYPE: "healerBullet"
             }
         }
-    ],
-    STAT_NAMES: statnames.heal,
+    ]
 }
 Class.pentaShot = {
     PARENT: "genericTank",
@@ -5199,24 +5151,13 @@ Class.surfer = {
     ]
 }
 Class.surgeon = {
-    PARENT: "genericTank",
+    PARENT: "genericHealer",
     LABEL: "Surgeon",
-    HEALING_TANK: true, // Mainly for bots to recognize the tank
     STAT_NAMES: statnames.trap,
     BODY: {
         SPEED: base.SPEED * 0.75,
         FOV: base.FOV * 1.15,
     },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 13,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "healerSymbol"
-        }
-    ],
     GUNS: [
         {
             POSITION: {
@@ -5255,8 +5196,7 @@ Class.surgeon = {
                 WIDTH: 13
             }
         }
-    ],
-    STAT_NAMES: statnames.heal,
+    ]
 }
 Class.swarmer = {
     PARENT: "genericTank",

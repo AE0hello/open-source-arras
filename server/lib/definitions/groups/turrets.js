@@ -1155,12 +1155,13 @@ Class.assemblerDot = {
     COLOR: "darkGrey",
     INDEPENDENT: true
 }
-Class.healerSymbol = {
+Class.healerHat = {
     LABEL: "Healer Hat",
     SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
     SIZE: 13,
     COLOR: "red",
 }
+Class.healerSymbol = { PARENT: "healerHat" }
 
 // Bodies
 Class.smasherBody = {
@@ -1181,6 +1182,10 @@ Class.landmineBody = {
 Class.spikeBody = {
     PARENT: "smasherBody",
     SHAPE: 3
+}
+Class.physicianBody = {
+    PARENT: "smasherBody",
+    SHAPE: 5
 }
 Class.weirdSpikeBody1 = {
     PARENT: "spikeBody",
