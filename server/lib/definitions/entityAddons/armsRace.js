@@ -4,7 +4,7 @@ const g = require('../gunvals.js')
 
 // Settings
 const enable_addon = true
-const use_original_tree = false // Set to true to enable the original arras.io Arms Race tree and level cap, complete with all the bugs it had.
+const use_original_tree = true // Set to true to enable the original arras.io Arms Race tree and level cap, complete with all the bugs it had.
 
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
@@ -2439,6 +2439,31 @@ Class.actuary_AR = {
         }
     ]
 }
+Class.antidote_AR = {
+    PARENT: "genericHealer",
+    LABEL: "Antidote",
+    STAT_NAMES: statnames.swarm,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 6.5,
+                WIDTH: 5.2,
+                ASPECT: -0.4,
+                X: 9.5,
+                Y: 4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 8.2,
+                ASPECT: 0.6,
+                X: 5,
+                Y: 4
+            }
+        }
+    ])
+}
 Class.autoCoil_AR = makeAuto("coil")
 Class.autoDoubleHelix_AR = makeAuto("doubleHelix_AR")
 Class.autoDuplicator_AR = makeAuto("duplicator")
@@ -2888,6 +2913,40 @@ Class.hextuplex_AR = {
         }), 3)
     ]
 }
+Class.injection_AR = {
+    PARENT: "genericHealer",
+    LABEL: "Injection",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 6,
+                ASPECT: -0.4,
+                X: 14
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 7,
+                ASPECT: -0.4,
+                X: 14
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 11
+            }
+        }
+    ]
+}
 Class.intern_AR = {
     PARENT: "genericHealer",
     LABEL: "Intern",
@@ -2904,6 +2963,60 @@ Class.intern_AR = {
             POSITION: {
                 LENGTH: 25,
                 WIDTH: 10
+            }
+        }
+    ]
+}
+Class.medicare_AR = {
+    PARENT: "genericHealer",
+    LABEL: "Medicare",
+    STAT_NAMES: statnames.drone,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 8,
+                X: 10.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 10,
+                X: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.5,
+                WIDTH: 10,
+                X: 8
+            }
+        }
+    ]
+}
+Class.ointment_AR = {
+    PARENT: "genericHealer",
+    LABEL: "Ointment",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 13
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11,
+                WIDTH:7,
+                ASPECT: -0.4,
+                X: 14
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 22,
+                WIDTH: 8
             }
         }
     ]
@@ -3238,13 +3351,13 @@ Config.level_cap_cheat = 60
         Class.smasher.UPGRADES_TIER_3.push("cocci")
         Class.healer.UPGRADES_TIER_3 = ["medic", "scientist_AR", "nurse_AR", "triHealer_AR", "analyzer_AR", "psychiatrist_AR", "soother_AR"]
             Class.healer.UPGRADES_TIER_4 = ["renovater_AR", "physician_AR"]
-            Class.medic.UPGRADES_TIER_4 = ["intern_AR"/*, "ointment_AR", "injection_AR"*/, "actuary_AR"]
+            Class.medic.UPGRADES_TIER_4 = ["intern_AR", "ointment_AR", "injection_AR", "actuary_AR"]
             Class.scientist_AR.UPGRADES_TIER_4 = ["surgeon", "professor_AR", "chemist_AR"]
             Class.nurse_AR.UPGRADES_TIER_4 = ["paramedic", "therapist_AR", "clinician_AR"]
             Class.triHealer_AR.UPGRADES_TIER_4 = ["ambulance", "healer3_AR", "hexaHealer_AR", "chemist_AR"]
             Class.analyzer_AR.UPGRADES_TIER_4 = ["accountant_AR", "clerk_AR", "guru_AR"]
             Class.psychiatrist_AR.UPGRADES_TIER_4 = ["therapist_AR", "guru_AR", "actuary_AR"]
-            Class.soother_AR.UPGRADES_TIER_4 = ["doctor_AR"/*, "antidote_AR", "medicare_AR"*/]
+            Class.soother_AR.UPGRADES_TIER_4 = ["doctor_AR", "antidote_AR", "medicare_AR"]
 
     Class.twin.UPGRADES_TIER_2.push("wark_AR")
         Class.twin.UPGRADES_TIER_3.splice(1, 1) //remove bulwark
@@ -3320,14 +3433,14 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.basic.UPGRADES_TIER_3 = ["single"]
             Class.single.UPGRADES_TIER_3 = []
         Class.healer.UPGRADES_TIER_3 = ["medic", "scientist_AR", "nurse_AR", "triHealer_AR", "analyzer_AR", "psychiatrist_AR", "soother_AR"]
-            //Class.healer.UPGRADES_TIER_4 = ["renovater_AR", "physician_AR"]
-            Class.medic.UPGRADES_TIER_4 = []
-            Class.scientist_AR.UPGRADES_TIER_4 = ["surgeon"]
-            Class.nurse_AR.UPGRADES_TIER_4 = ["paramedic"]
-            Class.triHealer_AR.UPGRADES_TIER_4 = []
-            Class.analyzer_AR.UPGRADES_TIER_4 = []
-            Class.psychiatrist_AR.UPGRADES_TIER_4 = []
-            Class.soother_AR.UPGRADES_TIER_4 = []
+            Class.healer.UPGRADES_TIER_4 = ["renovater_AR", "physician_AR"]
+            Class.medic.UPGRADES_TIER_4 = ["intern_AR", "ointment_AR", "injection_AR", "actuary_AR"]
+            Class.scientist_AR.UPGRADES_TIER_4 = ["surgeon", "professor_AR", "chemist_AR"]
+            Class.nurse_AR.UPGRADES_TIER_4 = ["paramedic", "therapist_AR", "clinician_AR"]
+            Class.triHealer_AR.UPGRADES_TIER_4 = ["ambulance", "healer3_AR", "hexaHealer_AR", "chemist_AR"]
+            Class.analyzer_AR.UPGRADES_TIER_4 = ["accountant_AR", "clerk_AR", "guru_AR"]
+            Class.psychiatrist_AR.UPGRADES_TIER_4 = ["therapist_AR", "guru_AR", "actuary_AR"]
+            Class.soother_AR.UPGRADES_TIER_4 = ["doctor_AR", "antidote_AR", "medicare_AR"]
 
     Class.twin.UPGRADES_TIER_2 = ["doubleTwin", "tripleShot", "gunner", "hexaTank", "wark_AR"]
         Class.twin.UPGRADES_TIER_3 = ["dual", "bulwark", "musket"]
