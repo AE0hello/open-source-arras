@@ -1183,6 +1183,10 @@ Class.spikeBody = {
     PARENT: "smasherBody",
     SHAPE: 3
 }
+Class.drifterBody = {
+    PARENT: "smasherBody",
+    SHAPE: 4
+}
 Class.physicianBody = {
     PARENT: "smasherBody",
     SHAPE: 5

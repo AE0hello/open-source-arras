@@ -4,13 +4,20 @@ const g = require('../gunvals.js')
 
 // Settings
 const enable_addon = true
-const use_original_tree = true // Set to true to enable the original arras.io Arms Race tree and level cap, complete with all the bugs it had.
+const integrate_healers = false
+const use_original_tree = false // Set to true to enable the original arras.io Arms Race tree and level cap, with some minor bugfixes.
 
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
 
 // Credits
 // - u/SkyShredder89: Default Tier 3/4 Sprayer upgrades
+
+// Bodies
+Class.bangerBody_AR = {
+    PARENT: "smasherBody",
+    SHAPE: [[1,0],[0.9499300122261047,0.04666706919670105],[0.9144831299781799,0.09006872773170471],[0.8830859661102295,0.13099342584609985],[0.8547371625900269,0.1700177937746048],[0.8292582631111145,0.2077183872461319],[0.8066451549530029,0.24469313025474548],[0.786886990070343,0.28155267238616943],[0.7698996067047119,0.318902850151062],[0.7555009126663208,0.35732531547546387],[0.7434084415435791,0.39736008644104004],[0.7332532405853271,0.4394950866699219],[0.7246111631393433,0.48416969180107117],[0.7170624136924744,0.5318097472190857],[0.7103254199028015,0.5829489827156067],[0.7047005295753479,0.6387033462524414],[0.7071067690849304,0.7071067690849304],[0.6387033462524414,0.7047005295753479],[0.5829489827156067,0.7103254199028015],[0.5318097472190857,0.7170624136924744],[0.48416969180107117,0.7246111631393433],[0.4394950866699219,0.7332532405853271],[0.39736008644104004,0.7434084415435791],[0.35732531547546387,0.7555009126663208],[0.318902850151062,0.7698996067047119],[0.28155267238616943,0.786886990070343],[0.24469313025474548,0.8066451549530029],[0.2077183872461319,0.8292582631111145],[0.1700177937746048,0.8547371625900269],[0.13099342584609985,0.8830859661102295],[0.09006872773170471,0.9144831299781799],[0.04666706919670105,0.9499300122261047],[6.123234262925839e-17,1],[-0.04666706919670105,0.9499300122261047],[-0.09006872773170471,0.9144831299781799],[-0.13099342584609985,0.8830859661102295],[-0.1700177937746048,0.8547371625900269],[-0.2077183872461319,0.8292582631111145],[-0.24469313025474548,0.8066451549530029],[-0.28155267238616943,0.786886990070343],[-0.318902850151062,0.7698996067047119],[-0.35732531547546387,0.7555009126663208],[-0.39736008644104004,0.7434084415435791],[-0.4394950866699219,0.7332532405853271],[-0.48416969180107117,0.7246111631393433],[-0.5318097472190857,0.7170624136924744],[-0.5829489827156067,0.7103254199028015],[-0.6387033462524414,0.7047005295753479],[-0.7071067690849304,0.7071067690849304],[-0.7047005295753479,0.6387033462524414],[-0.7103254199028015,0.5829489827156067],[-0.7170624136924744,0.5318097472190857],[-0.7246111631393433,0.48416969180107117],[-0.7332532405853271,0.4394950866699219],[-0.7434084415435791,0.39736008644104004],[-0.7555009126663208,0.35732531547546387],[-0.7698996067047119,0.318902850151062],[-0.786886990070343,0.28155267238616943],[-0.8066451549530029,0.24469313025474548],[-0.8292582631111145,0.2077183872461319],[-0.8547371625900269,0.1700177937746048],[-0.8830859661102295,0.13099342584609985],[-0.9144831299781799,0.09006872773170471],[-0.9499300122261047,0.04666706919670105],[-1,1.2246468525851679e-16],[-0.9499300122261047,-0.04666706919670105],[-0.9144831299781799,-0.09006872773170471],[-0.8830859661102295,-0.13099342584609985],[-0.8547371625900269,-0.1700177937746048],[-0.8292582631111145,-0.2077183872461319],[-0.8066451549530029,-0.24469313025474548],[-0.786886990070343,-0.28155267238616943],[-0.7698996067047119,-0.318902850151062],[-0.7555009126663208,-0.35732531547546387],[-0.7434084415435791,-0.39736008644104004],[-0.7332532405853271,-0.4394950866699219],[-0.7246111631393433,-0.48416969180107117],[-0.7170624136924744,-0.5318097472190857],[-0.7103254199028015,-0.5829489827156067],[-0.7047005295753479,-0.6387033462524414],[-0.7071067690849304,-0.7071067690849304],[-0.6387033462524414,-0.7047005295753479],[-0.5829489827156067,-0.7103254199028015],[-0.5318097472190857,-0.7170624136924744],[-0.48416969180107117,-0.7246111631393433],[-0.4394950866699219,-0.7332532405853271],[-0.39736008644104004,-0.7434084415435791],[-0.35732531547546387,-0.7555009126663208],[-0.318902850151062,-0.7698996067047119],[-0.28155267238616943,-0.786886990070343],[-0.24469313025474548,-0.8066451549530029],[-0.2077183872461319,-0.8292582631111145],[-0.1700177937746048,-0.8547371625900269],[-0.13099342584609985,-0.8830859661102295],[-0.09006872773170471,-0.9144831299781799],[-0.04666706919670105,-0.9499300122261047],[-1.8369701465288538e-16,-1],[0.04666706919670105,-0.9499300122261047],[0.09006872773170471,-0.9144831299781799],[0.13099342584609985,-0.8830859661102295],[0.1700177937746048,-0.8547371625900269],[0.2077183872461319,-0.8292582631111145],[0.24469313025474548,-0.8066451549530029],[0.28155267238616943,-0.786886990070343],[0.318902850151062,-0.7698996067047119],[0.35732531547546387,-0.7555009126663208],[0.39736008644104004,-0.7434084415435791],[0.4394950866699219,-0.7332532405853271],[0.48416969180107117,-0.7246111631393433],[0.5318097472190857,-0.7170624136924744],[0.5829489827156067,-0.7103254199028015],[0.6387033462524414,-0.7047005295753479],[0.7071067690849304,-0.7071067690849304],[0.7047005295753479,-0.6387033462524414],[0.7103254199028015,-0.5829489827156067],[0.7170624136924744,-0.5318097472190857],[0.7246111631393433,-0.48416969180107117],[0.7332532405853271,-0.4394950866699219],[0.7434084415435791,-0.39736008644104004],[0.7555009126663208,-0.35732531547546387],[0.7698996067047119,-0.318902850151062],[0.786886990070343,-0.28155267238616943],[0.8066451549530029,-0.24469313025474548],[0.8292582631111145,-0.2077183872461319],[0.8547371625900269,-0.1700177937746048],[0.8830859661102295,-0.13099342584609985],[0.9144831299781799,-0.09006872773170471],[0.9499300122261047,-0.04666706919670105]],
+}
 
 // Turrets
 Class.healerAutoTankGun = makeTurret({
@@ -295,6 +302,17 @@ Class.autoTripleShot_AR = makeAuto("tripleShot")
 Class.autoUnderseer_AR = makeAuto("underseer")
 Class.autoVolute_AR = makeAuto("volute")
 Class.autoWark_AR = makeAuto("wark_AR")
+Class.banger_AR = {
+    PARENT: "genericSmasher",
+    LABEL: "Banger",
+    DANGER: 7,
+    TURRETS: [
+        {
+            TYPE: "bangerBody_AR",
+            POSITION: { SIZE: 27 }
+        }
+    ]
+}
 Class.battery_AR = {
     PARENT: "genericTank",
     LABEL: "Battery",
@@ -413,6 +431,18 @@ Class.bentMinigun_AR = {
     ]
 }
 Class.blower_AR = makeRearGunner("destroyer", "Blower")
+Class.bonker_AR = {
+    PARENT: "genericSmasher",
+    LABEL: "Bonker",
+    SIZE: 8,
+    DANGER: 7,
+    TURRETS: [
+        {
+            TYPE: "smasherBody",
+            POSITION: { SIZE: 21.5 }
+        }
+    ]
+}
 Class.buttbuttin_AR = makeRearGunner("assassin", "Buttbuttin")
 Class.captain_AR = {
     PARENT: "genericTank",
@@ -830,6 +860,17 @@ Class.doubleHelix_AR = {
             }
         })
     ], 2)
+}
+Class.drifter_AR = {
+    PARENT: "genericSmasher",
+    LABEL: "Drifter",
+    DANGER: 7,
+    TURRETS: [
+        {
+            TYPE: "drifterBody",
+            POSITION: { SIZE: 21.5 }
+        }
+    ]
 }
 Class.encircler_AR = {
     PARENT: "genericTank",
@@ -2995,6 +3036,78 @@ Class.medicare_AR = {
         }
     ]
 }
+Class.megaCocciSegment_AR = {
+    PARENT: "genericSmasher",
+    COLOR: "mirror",
+    CAN_BE_ON_LEADERBOARD: false,
+    DISPLAY_NAME: false,
+    BODY: {
+        SPEED: 1.05 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+        DENSITY: 4 * base.DENSITY
+    },
+    TURRETS: [
+        {
+            TYPE: "smasherBody",
+            POSITION: { SIZE: 25 }
+        }
+    ]
+}
+Class.megaCocci_AR = {
+    PARENT: "genericSmasher",
+    LABEL: "Mega Cocci",
+    DANGER: 8,
+    BODY: {
+        SPEED: 1.05 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+        DENSITY: 4 * base.DENSITY
+    },
+    TURRETS: [
+        {
+            TYPE: "smasherBody",
+            POSITION: { SIZE: 25 }
+        }
+    ],
+    ON: [
+        {
+            event: "tick",
+            handler: ({ body }) => {
+                const numOfSegments = 5;
+                const segmentClass = "megaCocciSegment_AR";
+
+                body.store.snakeSegments ??= [];
+
+                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
+                    let seg = new Entity(body, body);
+                    seg.health = body.health;
+                    seg.shield = body.shield;
+                    seg.master = body;
+                    seg.source = body;
+                    seg.skill.score = body.skill.score;
+                    seg.define(segmentClass);
+                    body.store.snakeSegments.push(seg);
+                }
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+            
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
+}
 Class.ointment_AR = {
     PARENT: "genericHealer",
     LABEL: "Ointment",
@@ -3250,6 +3363,41 @@ Class.scatterer_AR = {
         }
     ]
 }
+Class.scribble_AR = {
+    PARENT: "genericHealer",
+    LABEL: "Scribble",
+    STAT_NAMES: statnames.mixed,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 11,
+                WIDTH: 6,
+                ASPECT: -0.4,
+                X: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 21.5,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.5,
+                WIDTH: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.5,
+                X: 16
+            }
+        }
+    ]
+}
 Class.therapist_AR = {
     PARENT: "genericHealer",
     LABEL: "Therapist",
@@ -3347,17 +3495,25 @@ Config.level_cap = 60
 Config.level_cap_cheat = 60
 
 //Class.basic.UPGRADES_TIER_1
-    Class.basic.UPGRADES_TIER_2.push("healer")
-        Class.smasher.UPGRADES_TIER_3.push("cocci")
-        Class.healer.UPGRADES_TIER_3 = ["medic", "scientist_AR", "nurse_AR", "triHealer_AR", "analyzer_AR", "psychiatrist_AR", "soother_AR"]
-            Class.healer.UPGRADES_TIER_4 = ["renovater_AR", "physician_AR"]
-            Class.medic.UPGRADES_TIER_4 = ["intern_AR", "ointment_AR", "injection_AR", "actuary_AR"]
-            Class.scientist_AR.UPGRADES_TIER_4 = ["surgeon", "professor_AR", "chemist_AR"]
-            Class.nurse_AR.UPGRADES_TIER_4 = ["paramedic", "therapist_AR", "clinician_AR"]
-            Class.triHealer_AR.UPGRADES_TIER_4 = ["ambulance", "healer3_AR", "hexaHealer_AR", "chemist_AR"]
-            Class.analyzer_AR.UPGRADES_TIER_4 = ["accountant_AR", "clerk_AR", "guru_AR"]
-            Class.psychiatrist_AR.UPGRADES_TIER_4 = ["therapist_AR", "guru_AR", "actuary_AR"]
-            Class.soother_AR.UPGRADES_TIER_4 = ["doctor_AR", "antidote_AR", "medicare_AR"]
+    //Class.basic.UPGRADES_TIER_2
+        Class.smasher.UPGRADES_TIER_3.push("cocci", "bonker_AR", "banger_AR", "drifter_AR")
+            Class.megaSmasher.UPGRADES_TIER_4 = ["megaCocci"].map(x => x + "_AR")
+            //Class.spike.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            //Class.autoSmasher.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            //Class.landmine.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            Class.cocci.UPGRADES_TIER_4 = ["megaCocci"].map(x => x + "_AR")
+            //Class.bonker_AR.UPGRADES_TIER_4 = ["decoy", "spear", "autoBonker", "megaBonker", "basher", "thwacker", "bundler"].map(x => x + "_AR")
+            //Class.banger_AR.UPGRADES_TIER_4 = ["megaBanger", "prick", "autoBanger", "tripwire", "thwacker", "sharper"].map(x => x + "_AR")
+            //Class.drifter_AR.UPGRADES_TIER_4 = ["buncher", "megaDrifter", "autoDrifter", "vessel", "cauldron", "sharper", "bundler"].map(x => x + "_AR")
+        Class.healer.UPGRADES_TIER_3 = ["nurse_AR", "medic", "psychiatrist_AR", "triHealer_AR", "soother_AR", "analyzer_AR", "scientist_AR"/*, [DESMOS HEALER]*/]
+            Class.healer.UPGRADES_TIER_4 = ["physician", "renovater"].map(x => x + "_AR")
+            Class.nurse_AR.UPGRADES_TIER_4 = ["clinician_AR", "paramedic", "therapist_AR", "hexaHealer_AR"/*, [HELIX HEALER], [WARK HEALER]*/]
+            Class.medic.UPGRADES_TIER_4 = ["intern", "injection", "actuary", "ointment"].map(x => x + "_AR")
+            Class.psychiatrist_AR.UPGRADES_TIER_4 = ["guru", "actuary", "therapist"/*, [SPRAYER HEALER], [DIESEL HEALER], [MACHTRAP HEALER]*/].map(x => x + "_AR")
+            Class.triHealer_AR.UPGRADES_TIER_4 = ["hexaHealer_AR", "ambulance", "healer3_AR", "professor_AR", "chemist_AR"]
+            Class.soother_AR.UPGRADES_TIER_4 = [/*[OVERSEER HEALER], */"antidote"/*, [UNDERSEER HEALER]*/, "medicare"/*, "sootherdrive_AR"*/, "doctor"/*, [DOPER HEALER]*/].map(x => x + "_AR")
+            Class.analyzer_AR.UPGRADES_TIER_4 = ["accountant_AR", "surgeon", "clerk_AR", "guru_AR"]
+            Class.scientist_AR.UPGRADES_TIER_4 = ["surgeon", "chemist_AR", "professor_AR", "scribble_AR"/*, [MECH HEALER], [MACHTRAP HEALER], [WARK HEALER]*/]
 
     Class.twin.UPGRADES_TIER_2.push("wark_AR")
         Class.twin.UPGRADES_TIER_3.splice(1, 1) //remove bulwark
@@ -3424,6 +3580,39 @@ Config.level_cap_cheat = 60
             //Class.duplicator.UPGRADES_TIER_4 = ["doubleDuplicator_AR", "autoDuplicator_AR"]
             //Class.autoRepeater_AR.UPGRADES_TIER_4 = ["autoIterator_AR", "autoDuplicator_AR"]
 
+if (integrate_healers) {
+    Class.basic.UPGRADES_TIER_2.push("healer")
+            //Class.smasher.UPGRADES_TIER_4.push("physician_AR")
+            //Class.single.UPGRADES_TIER_4.push("renovater_AR")
+        Class.twin.UPGRADES_TIER_3.push("nurse_AR")
+            //Class.doubleTwin.UPGRADES_TIER_4.push("clinician_AR")
+            //Class.tripleShot.UPGRADES_TIER_4.push("paramedic_AR")
+            //Class.gunner.UPGRADES_TIER_4.push("therapist_AR")
+        Class.sniper.UPGRADES_TIER_3.push("medic")
+            //Class.assassin.UPGRADES_TIER_4.push("intern_AR")
+            //Class.hunter.UPGRADES_TIER_4.push("injection_AR")
+            //Class.rifle.UPGRADES_TIER_4.push("ointment_AR")
+        Class.machineGun.UPGRADES_TIER_3 = ["psychiatrist_AR"]
+            //Class.minigun.UPGRADES_TIER_4.push("actuary_AR")
+        Class.flankGuard.UPGRADES_TIER_3.push("triHealer_AR")
+            //Class.hexaTank.UPGRADES_TIER_4.push("hexaHealer_AR")
+            //Class.triAngle.UPGRADES_TIER_4.push("ambulance_AR")
+            //Class.auto3.UPGRADES_TIER_4.push("healer3_AR")
+        Class.director.UPGRADES_TIER_3.push("soother_AR")
+            //Class.cruiser.UPGRADES_TIER_4.push("antidote_AR")
+            //Class.spawner.UPGRADES_TIER_4.push("medicare_AR")
+            //Class.honcho.UPGRADES_TIER_4.push("doctor_AR")
+        Class.pounder.UPGRADES_TIER_3.push("analyzer_AR")
+            //Class.destroyer.UPGRADES_TIER_4.push("accountant_AR")
+            //Class.artillery.UPGRADES_TIER_4.push("guru_AR")
+            //Class.launcher.UPGRADES_TIER_4.push("clerk_AR")
+        Class.trapper.UPGRADES_TIER_3.push("scientist_AR")
+            //Class.builder.UPGRADES_TIER_4.push("surgeon_AR")
+            //Class.triTrapper.UPGRADES_TIER_4.push("chemist_AR")
+            //Class.trapGuard.UPGRADES_TIER_4.push("professor_AR")
+            //Class.pen_AR.UPGRADES_TIER_4.push("scribble_AR")
+}
+
 } else {
 Class.infestor.SHAPE = 4
 Class.vulture.LABEL = "Taser"
@@ -3434,13 +3623,13 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
             Class.single.UPGRADES_TIER_3 = []
         Class.healer.UPGRADES_TIER_3 = ["medic", "scientist_AR", "nurse_AR", "triHealer_AR", "analyzer_AR", "psychiatrist_AR", "soother_AR"]
             Class.healer.UPGRADES_TIER_3.push("renovater_AR", "physician_AR")
-            Class.medic.UPGRADES_TIER_3 = ["intern_AR", "ointment_AR", "injection_AR", "actuary_AR"]
+            Class.medic.UPGRADES_TIER_3 = ["intern", "ointment", "injection", "actuary"].map(x => x + "_AR")
             Class.scientist_AR.UPGRADES_TIER_3 = ["surgeon", "professor_AR", "chemist_AR"]
             Class.nurse_AR.UPGRADES_TIER_3 = ["paramedic", "therapist_AR", "clinician_AR"]
             Class.triHealer_AR.UPGRADES_TIER_3 = ["ambulance", "healer3_AR", "hexaHealer_AR", "chemist_AR"]
-            Class.analyzer_AR.UPGRADES_TIER_3 = ["accountant_AR", "clerk_AR", "guru_AR"]
-            Class.psychiatrist_AR.UPGRADES_TIER_3 = ["therapist_AR", "guru_AR", "actuary_AR"]
-            Class.soother_AR.UPGRADES_TIER_3 = ["doctor_AR", "antidote_AR", "medicare_AR"]
+            Class.analyzer_AR.UPGRADES_TIER_3 = ["accountant", "clerk", "guru"].map(x => x + "_AR")
+            Class.psychiatrist_AR.UPGRADES_TIER_3 = ["therapist", "guru", "actuary"].map(x => x + "_AR")
+            Class.soother_AR.UPGRADES_TIER_3 = ["doctor", "antidote", "medicare"].map(x => x + "_AR")
 
     Class.twin.UPGRADES_TIER_2 = ["doubleTwin", "tripleShot", "gunner", "hexaTank", "wark_AR"]
         Class.twin.UPGRADES_TIER_3 = ["dual", "bulwark", "musket"]

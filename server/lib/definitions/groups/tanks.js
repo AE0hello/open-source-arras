@@ -3490,11 +3490,8 @@ Class.megaSmasher = {
     },
     TURRETS: [
         {
-            POSITION: {
-                SIZE: 25,
-                ARC: 360
-            },
-            TYPE: "smasherBody"
+            TYPE: "smasherBody",
+            POSITION: { SIZE: 25 }
         }
     ]
 }

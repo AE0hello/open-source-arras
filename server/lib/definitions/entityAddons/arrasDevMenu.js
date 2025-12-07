@@ -5,14 +5,6 @@ const g = require('../gunvals.js')
 // Developer tank that doesn't upgrade to anything
 Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
 
-// Addon menu (Mainly for developers)
-Class.arrasMenu_addonMenu = makeMenu("arras.io Menus")
-Class.arrasMenu_addonMenu.UPGRADES_TIER_0 = [
-    "arrasMenu_special",
-    "arrasMenu_youtuber",
-    "arrasMenu_retrograde",
-]
-
 // Special Menu
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
@@ -321,4 +313,4 @@ Class.arrasMenu_youtuber = {
 Class.arrasMenu_youtuber.UPGRADES_TIER_0 = Class.arrasMenu_shinyMember.UPGRADES_TIER_0
 
 // Push everything to addons
-Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_addonMenu");
+Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_special", "arrasMenu_youtuber");
