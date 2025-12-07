@@ -1490,7 +1490,7 @@ Class.ambulance = {
                 LENGTH: 11,
                 WIDTH: 9,
                 ASPECT: -0.4,
-                X: -9.5
+                X: 9.5
             }
         },
         {
