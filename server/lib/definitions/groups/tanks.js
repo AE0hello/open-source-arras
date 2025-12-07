@@ -1325,7 +1325,12 @@ Class.ambulance = {
     ],
     GUNS: [
         {
-            POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
+            POSITION: {
+                LENGTH: 11,
+                WIDTH: 9,
+                ASPECT: -0.4,
+                X: 9.5
+            }
         },
         {
             POSITION: [18, 10, 1, 0, 0, 0, 0],
