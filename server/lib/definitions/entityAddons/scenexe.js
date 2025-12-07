@@ -5,7 +5,7 @@ const {combineStats, makeTurret, makeDeco, weaponMirror, weaponArray} = require(
 // This addon is enabled by default. If you want to enable it, simply make the line below run.
 // return console.log("[scenexe.js] is disabled.");
 
-let enableOnSpawn = disable; // edit this to toggle spawning as a scenexe tank in the server
+let enableOnSpawn = false; // edit this to toggle spawning as a scenexe tank in the server
 
 let g = {
     // Bases
