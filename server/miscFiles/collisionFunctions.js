@@ -536,6 +536,9 @@ function mazewallcustomcollide(wall, bounce) {
             case 2:
                 if (bounce.health && !bounce.godmode && !bounce.passive && !bounce.isInvulnerable && !bounce.invuln) {
                     bounce.health.amount -= bounce.health.max * 0.2;
+                    for (let axis in wallPushPositions[i]) {
+                        bounce.velocity[axis] *= -1;
+                    }
                 }
                 break;
             case 3:
@@ -544,9 +547,9 @@ function mazewallcustomcollide(wall, bounce) {
                 }
                 break;
             case 4:
-                const bounceFactor = 2.5;
+                const bounceFactor = 12.5;
                 for (let axis in wallPushPositions[i]) {
-                    bounce.velocity[axis] *= -bounceFactor;
+                    bounce.accel[axis] *= -bounceFactor;
                 }
                 break;
             case 5:
@@ -575,7 +578,7 @@ function mazewallcustomcollide(wall, bounce) {
         
         for (let axis in wallPushPositions[i]) {
             bounce[axis] = wallPushPositions[i][axis];
-            if (wall.walltype !== 4) {
+            if (wall.walltype !== 4 && wall.walltype !== 2) {
                 bounce.velocity[axis] = 0;
             }
             return true;
@@ -637,9 +640,7 @@ function mazewallcustomcollide(wall, bounce) {
             case 7:
                 if (canResize) {
                     bounce.touchingFovWall = true;
-                    if (bounce.FOV < bounce.originalFov * 3) {
-                        bounce.FOV = Math.min(bounce.FOV * 1.1, bounce.originalFov * 3);
-                    }
+                    bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
         }

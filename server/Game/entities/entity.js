@@ -444,7 +444,7 @@ class Entity extends EventEmitter {
             }
             this.gunsArrayed = newGuns;
         }
-        if (set.CONNECT_CHILDREN_ON_CAMERA) this.settings.connectChildrenOnCamera = true;
+        if (set.CONNECT_CHILDREN_ON_CAMERA) this.settings.connectChildrenOnCamera = set.CONNECT_CHILDREN_ON_CAMERA;
         if (set.GUN_STAT_SCALE) this.gunStatScale = set.GUN_STAT_SCALE;
         if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
         if (set.MAX_BULLETS != null) this.maxBullets = set.MAX_BULLETS; 
@@ -555,6 +555,9 @@ class Entity extends EventEmitter {
         }
         if (emitEvent) {
             this.emit('define', { body: this, set });
+            // We dont want a broken camera
+            this.cameraOverrideX = null;
+            this.cameraOverrideY = null;
         }
         if (overrideDefs) {
             this.defs = [];

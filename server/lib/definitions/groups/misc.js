@@ -88,6 +88,7 @@ Class.wall = {
 }
 Class.eyewall = {
     PARENT: "wall",
+    LABEL: "Optical Wall",
     PROPS: [
         {
             POSITION: [15, 0, 0, 0, 360, 1],
