@@ -30,7 +30,7 @@ var color = {
         "black": "#484848", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.6509803921568628 // I LOVE FLOATING POINT
+        "border": 0.65
     },
     "dark": {
         "blue": "#379fc6", // Blue Team
@@ -62,7 +62,7 @@ var color = {
         "black": "#131313", // Borders
         "guiblack": "#ffffff", // Grid
         "paletteSize": 20,
-        "border": 0.14901960784313725 // I LOVE FLOATING POINT
+        "border": 0.15
     },
     "classic": {
         "blue": "#00b2e1", // Blue Team
@@ -94,7 +94,7 @@ var color = {
         "black": "#444444", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.5019607843137255 // I LOVE FLOATING POINT
+        "border": 0.5
     },
     "classicDark": {
         "teal": "#6ecedc",
@@ -119,7 +119,7 @@ var color = {
         "white": "#11110f",
         "guiblack": "#ffffff",
         "paletteSize": 20,
-        "border": 0.14901960784313725 // I LOVE FLOATING POINT
+        "border": 0.15
     },
     "natural": {
         "blue": "#4f93b5", // Blue Team
@@ -151,7 +151,7 @@ var color = {
         "black": "#373834", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.2 // I LOVE FLOATING POINT
+        "border": 0.2
     },
     "discord": {
         "blue": "#7289da", // Blue Team
@@ -183,7 +183,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#36393e", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+        "border": 0.75
     },
     "midnight": {
         "blue": "#123455", // Blue Team
@@ -215,7 +215,7 @@ var color = {
         "black": "#091f28", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.6 // I HATE FLOATING POINT
+        "border": 0.6
     },
     "solarizedDark": {
         "blue": "#268bd2", // Blue Team
@@ -247,7 +247,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+        "border": 0.75
     },
     "retro": {
         "blue": "#2c3eb9", // Blue Team
@@ -279,7 +279,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+        "border": 0.75
     },
     "snow": {
         "blue": "#aeaeff", // Blue Team
@@ -311,7 +311,7 @@ var color = {
         "black": "#383835", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.34901960784313724 // I LOVE FLOATING POINT
+        "border": 0.35
     },
     "navigator": {
         "blue": "#087089", // Blue Team
@@ -343,7 +343,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#ffffff", // Grid
         "paletteSize": 20, // (Placeholder)
-        "border": 0.25 // I HATE FLOATING POINT (Placeholder)
+        "border": 0.25 // (Placeholder)
     },
     "coralReef": {
         "blue": "#4200ae", // Blue Team
@@ -375,7 +375,7 @@ var color = {
         "black": "#12466b", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.2980392156862745 // I LOVE FLOATING POINT
+        "border": 0.3
     },
     "gruvbox": {
         "blue": "#458588", // Blue Team
@@ -407,7 +407,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.6 // I HATE FLOATING POINT
+        "border": 0.6
     },
     "eggplant": {
         "blue": "#06b6ef", // Blue Team
@@ -439,7 +439,7 @@ var color = {
         "black": "#2b1a29", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+        "border": 0.75
     },
     "wrSheetTheme": {
         "blue": "#6bb2bf", // Blue Team
@@ -471,7 +471,7 @@ var color = {
         "black": "#56372b", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.2980392156862745 // I LOVE FLOATING POINT
+        "border": 0.3
     },
     "lyric": {
         "blue": "#771d1d", // Blue Team
@@ -503,7 +503,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0 // I HATE FLOATING POINT
+        "border": 0
     },
 
     // Removed arras themes
@@ -537,7 +537,7 @@ var color = {
         "black": "#5f5f5f", // Borders
         "guiblack": "#080808", // Grid
         "paletteSize": 20, // (Placeholder)
-        "border": 0.4 // I HATE FLOATING POINT
+        "border": 0.4 // (Placeholder)
     },
     "nebula": {
         "blue": "#9274e6", // Blue Team
@@ -569,7 +569,7 @@ var color = {
         "black": "#484848", // Borders
         "guiblack": "#eaeaea", // Grid
         "paletteSize": 20, // (Placeholder)
-        "border": 0.6509803921568628 // I LOVE FLOATING POINT (Placeholder)
+        "border": 0.65 // (Placeholder)
     },
     "forest": {
         "blue": "#807bb6", // Blue Team
@@ -601,7 +601,7 @@ var color = {
         "black": "#665750", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7019607843137254 // I LOVE FLOATING POINT
+        "border": 0.7
     },
     "pastel": {
         "blue": "#397697", // Blue Team
@@ -633,7 +633,7 @@ var color = {
         "black": "#675240", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.7529411764705882 // I LOVE FLOATING POINT
+        "border": 0.75
     },
     "descent": {
         "blue": "#ababab", // Blue Team
@@ -665,7 +665,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 0.5019607843137255 // I LOVE FLOATING POINT
+        "border": 0.5
     },
     "badlands": {
         "blue": "#0c5a9e", // Blue Team
@@ -697,7 +697,7 @@ var color = {
         "black": "#000000", // Borders
         "guiblack": "#cfe2f3", // Grid
         "paletteSize": 20,
-        "border": 0.4 // I HATE FLOATING POINT
+        "border": 0.4
     },
     "pumpkinSkeleton": {
         "blue": "#3ca4cb", // Blue Team
@@ -729,7 +729,7 @@ var color = {
         "black": "#484848", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,
-        "border": 1 // I HATE FLOATING POINT
+        "border": 1
     },
     "blindness": {
         "teal": "#000000",
