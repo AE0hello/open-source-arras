@@ -114,7 +114,7 @@ Class.bacteriaChildren = {
     CLEAR_ON_MASTER_UPGRADE: false,
     GUNS: [
         {
-            POSITION: [4, 32, 1, 1.5, 0, 0, 2],
+            POSITION: { LENGTH: 5, WIDTH: 32.00000047683716, ASPECT: 1, X: 0, Y: 0, ANGLE: 0 },
         },
     ],
 };
@@ -125,7 +125,7 @@ Class.bacteria = {
     CONNECT_CHILDREN_ON_CAMERA: true,
     GUNS: [
         {
-            POSITION: [4, 32, 1, 1.5, 0, 0, 2],
+			POSITION: { LENGTH: 5, WIDTH: 32.00000047683716, ASPECT: 1, X: 0, Y: 0, ANGLE: 0 },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.bacteria]),
                 TYPE: "bacteriaChildren",

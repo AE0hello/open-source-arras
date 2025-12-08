@@ -609,10 +609,10 @@ global.wallTypes = [
     { color: 5,  label: 'breaker', alpha: 1, class: 'wall' },
     { color: 0,  label: 'chunks',  alpha: 1, class: 'wall' },
     { color: 13, label: 'optical', alpha: 1, class: 'eyewall' },
-    { color: 17, label: '!up',     alpha: 1, class: 'uparrow' },
-    { color: 17, label: '!down',   alpha: 1, class: 'downarrow' },
-    { color: 17, label: '!left',   alpha: 1, class: 'leftarrow' },
-    { color: 17, label: '!right',  alpha: 1, class: 'rightarrow' },
+    { color: 17, label: '!up',     alpha: 1, class: 'oneWayUpWall' },
+    { color: 17, label: '!down',   alpha: 1, class: 'oneWayDownWall' },
+    { color: 17, label: '!left',   alpha: 1, class: 'oneWayLeftWall' },
+    { color: 17, label: '!right',  alpha: 1, class: 'oneWayRightWall' },
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {

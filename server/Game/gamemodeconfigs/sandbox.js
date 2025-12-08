@@ -9,4 +9,5 @@ module.exports = {
     enemy_cap_nest: 1,
     food_group_cap: 1,
     sandbox: true,
+    bosses_spawn: false,
 };

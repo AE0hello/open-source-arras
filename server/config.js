@@ -142,7 +142,7 @@ module.exports = {
     ],
     food_types_nest: [ // Possible food types in the nest
         [1, [
-            [16, "pentagon"], [ 4, "betaPentagon"], [ 1, "alphaPentagon"]
+            [16, "pentagon"], [ 4, "betaPentagon"], [ 1, "alphaPentagon"], [16, "presentRY"], [16, "presentRP"], [16, "presentRW"], [16, "presentGY"], [16, "presentGP"], [16, "presentGW"], [16, "presentBY"], [16, "presentBP"], [16, "presentBW"],
         ]]
     ],
     enemy_types_nest: [ // Possible enemy food types in the nest

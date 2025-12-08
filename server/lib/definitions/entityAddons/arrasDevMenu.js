@@ -288,7 +288,7 @@ Class.arrasMenu_youtuber = {
     PROPS: [
         {
             POSITION: {
-                SIZE: 6,
+                SIZE: 8.999999761581421,
                 ARC: 360,
                 LAYER: 1
             },

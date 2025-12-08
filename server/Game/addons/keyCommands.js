@@ -342,13 +342,6 @@ function init() {
                     let o = walling[0];
                     for (let tur of o.turrets.values()) tur.destroy();
                     o.turrets.clear();
-                    if (o.walltype === 7) {
-                        let size = o.SIZE;
-                        o.walltype = 1;
-                        o.define("wall");
-                        o.SIZE = size;
-                        return;
-                    }
                     if (o.walltype === global.wallTypes.length) o.walltype = 0;
                     o.walltype = o.walltype + 1;
                     let wallsettings = global.wallTypes[o.walltype - 1];
