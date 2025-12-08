@@ -3522,9 +3522,9 @@ Class.quintuplex_AR = {
     ]
 }
 Class.ransacker_AR = makeGuard("rifle", "Ransacker")
-Class.renovater_AR = {
+Class.renovator_AR = {
     PARENT: "genericHealer",
-    LABEL: "Renovater",
+    LABEL: "Renovator",
     GUNS: [
         {
             POSITION: {
@@ -3794,7 +3794,7 @@ Config.level_cap_cheat = 60
             //Class.banger_AR.UPGRADES_TIER_4 = ["megaBanger", "prick", "autoBanger", "tripwire", "thwacker", "sharper"].map(x => x + "_AR")
             //Class.drifter_AR.UPGRADES_TIER_4 = ["buncher", "megaDrifter", "autoDrifter", "vessel", "cauldron", "sharper", "bundler"].map(x => x + "_AR")
         Class.healer.UPGRADES_TIER_3 = ["nurse_AR", "medic", "psychiatrist_AR", "triHealer_AR", "soother_AR", "analyzer_AR", "scientist_AR", "recalibrator_AR"]
-            Class.healer.UPGRADES_TIER_4 = ["physician", "renovater"].map(x => x + "_AR")
+            Class.healer.UPGRADES_TIER_4 = ["physician", "renovator"].map(x => x + "_AR")
             Class.nurse_AR.UPGRADES_TIER_4 = ["clinician_AR", "paramedic", "therapist_AR", "hexaHealer_AR", "geneticist_AR"/*, [WARK HEALER]*/]
             Class.medic.UPGRADES_TIER_4 = ["intern", "injection", "actuary", "ointment"].map(x => x + "_AR")
             Class.psychiatrist_AR.UPGRADES_TIER_4 = ["guru", "actuary", "therapist", "PLACEHOLDER_healerSprayer"/*, [DIESEL HEALER], [MACHTRAP HEALER]*/].map(x => x + "_AR")
@@ -3906,6 +3906,7 @@ if (integrate_healers) {
 
 } else {
 Class.infestor.SHAPE = 4
+Class.renovator_AR.LABEL = "Renovater"
 Class.vulture.LABEL = "Taser"
 
 Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper"]
@@ -3914,7 +3915,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
             Class.single.UPGRADES_TIER_3 = []
         Class.smasher.UPGRADES_TIER_3 = ["megaSmasher", "spike", "autoSmasher", "landmine", "bonker_AR", "banger_AR", "drifter_AR"]
         Class.healer.UPGRADES_TIER_3 = ["medic", "scientist_AR", "nurse_AR", "triHealer_AR", "analyzer_AR", "psychiatrist_AR", "soother_AR"]
-            Class.healer.UPGRADES_TIER_3.push("renovater_AR", "physician_AR")
+            Class.healer.UPGRADES_TIER_3.push("renovator_AR", "physician_AR")
             Class.medic.UPGRADES_TIER_3 = ["intern", "ointment", "injection", "actuary"].map(x => x + "_AR")
             Class.scientist_AR.UPGRADES_TIER_3 = ["surgeon", "professor_AR", "chemist_AR"]
             Class.nurse_AR.UPGRADES_TIER_3 = ["paramedic", "therapist_AR", "clinician_AR"]
