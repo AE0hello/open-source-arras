@@ -479,36 +479,11 @@ function mazewallcustomcollide(wall, bounce) {
         bounce.y - bounce.size > wall.y + trueWallSize
     );
     
+
     if (!isColliding) {
-        if (canResize) {
-            bounce.touchingSizeWall = false;
-            bounce.touchingFovWall = false;
-            if (!bounce.touchingSizeWall && bounce.originalSize && bounce.SIZE !== bounce.originalSize) {
-                const restoreSpeed = 0.05;
-                if (Math.abs(bounce.SIZE - bounce.originalSize) < restoreSpeed) {
-                    bounce.SIZE = bounce.originalSize;
-                } else if (bounce.SIZE < bounce.originalSize) {
-                    bounce.SIZE = Math.min(bounce.SIZE + restoreSpeed, bounce.originalSize);
-                } else {
-                    bounce.SIZE = Math.max(bounce.SIZE - restoreSpeed, bounce.originalSize);
-                }
-            }
-            if (!bounce.touchingFovWall && bounce.originalFov && bounce.FOV !== bounce.originalFov) {
-                const restoreSpeed = 0.1;
-                if (Math.abs(bounce.FOV - bounce.originalFov) < restoreSpeed) {
-                    bounce.FOV = bounce.originalFov;
-                } else if (bounce.FOV < bounce.originalFov) {
-                    bounce.FOV = Math.min(bounce.FOV + restoreSpeed, bounce.originalFov);
-                } else {
-                    bounce.FOV = Math.max(bounce.FOV - restoreSpeed, bounce.originalFov);
-                }
-            }
-        }
-        return;
-    }
-    if (canResize) {
         bounce.touchingSizeWall = false;
         bounce.touchingFovWall = false;
+        return;
     }
     
     const collisionFaces = [
@@ -547,9 +522,11 @@ function mazewallcustomcollide(wall, bounce) {
                 }
                 break;
             case 4:
-                const bounceFactor = 12.5;
+                const bounceFactor = 18.5;
                 for (let axis in wallPushPositions[i]) {
-                    bounce.accel[axis] *= -bounceFactor;
+                    if (i === 0 || i === 1) {
+                        bounce.accel[axis] -= bounceFactor;
+                    } else bounce.accel[axis] += bounceFactor;
                 }
                 break;
             case 5:
@@ -574,11 +551,15 @@ function mazewallcustomcollide(wall, bounce) {
                     bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
+            case 8:
+                for (let axis in wallPushPositions[i]) {
+                }
+                break;
         }
         
         for (let axis in wallPushPositions[i]) {
             bounce[axis] = wallPushPositions[i][axis];
-            if (wall.walltype !== 4 && wall.walltype !== 2) {
+            if (wall.walltype !== 2 && wall.walltype !== 4 && wall.walltype !== 8) {
                 bounce.velocity[axis] = 0;
             }
             return true;
@@ -611,15 +592,15 @@ function mazewallcustomcollide(wall, bounce) {
                 }
                 break;
             case 4:
-                const bounceFactor = 2.5;
+                const bounceFactor = 18.5;
                 const dx = bounce.x - cornerX;
                 const dy = bounce.y - cornerY;
                 const dist = Math.hypot(dx, dy);
                 const nx = dx / dist;
                 const ny = dy / dist;
-                const dot = bounce.velocity.x * nx + bounce.velocity.y * ny;
-                bounce.velocity.x = (bounce.velocity.x - 2 * dot * nx) * bounceFactor;
-                bounce.velocity.y = (bounce.velocity.y - 2 * dot * ny) * bounceFactor;
+                const dot = bounce.accel.x * nx + bounce.accel.y * ny;
+                bounce.accel.x += (bounce.accel.x - 2 * dot * nx) * bounceFactor;
+                bounce.accel.y += (bounce.accel.y - 2 * dot * ny) * bounceFactor;
                 break;
             case 5:
                 if (canResize) {
@@ -643,10 +624,18 @@ function mazewallcustomcollide(wall, bounce) {
                     bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
+            case 8: 
+                for (let axis in cornerPositions[i]) {
+                    if (i == 2) {
+                        bounce.velocity[axis] *= 2.5;
+                    }
+                }
+                break;
         }
-        
-        bounce.x = cornerX + bounce.size * Math.cos(angleFromCornerToBounce);
-        bounce.y = cornerY + bounce.size * Math.sin(angleFromCornerToBounce);
+        if (wall.walltype !== 8) {
+            bounce.x = cornerX + bounce.size * Math.cos(angleFromCornerToBounce);
+            bounce.y = cornerY + bounce.size * Math.sin(angleFromCornerToBounce);
+        }
         return true;
     }
 }

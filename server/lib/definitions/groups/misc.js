@@ -82,7 +82,6 @@ Class.wall = {
     SIZE: 25,
     SHAPE: 4,
     ANGLE: 0,
-    FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }],
     WALL_TYPE: 1,
     VARIES_IN_SIZE: false
 }
@@ -96,6 +95,70 @@ Class.eyewall = {
             ANGLE: Math.PI / 2,
         }
     ]
+}
+Class.oneWayUpWall = {
+    PARENT: "wall",
+	LABEL: "One-Way Wall (Up)",
+	PROPS: [
+		{
+			POSITION: {
+				SIZE: 6.9999998807907104,
+				X: -0.5000000074505786,
+				Y: -4.371139062259668e-8,
+                ANGLE: 270,
+				LAYER: 1,
+			},
+			TYPE: "deco_oneWayTriangle",
+		}
+	]
+}
+Class.oneWayDownWall = {
+    PARENT: "wall",
+	LABEL: "One-Way Wall (Down)",
+	PROPS: [
+		{
+			POSITION: {
+				SIZE: 6.9999998807907104,
+				X: -0.5000000074505786,
+				Y: -4.371139062259668e-8,
+                ANGLE: 90,
+				LAYER: 1,
+			},
+			TYPE: "deco_oneWayTriangle",
+		}
+	]
+}
+Class.oneWayLeftWall = {
+    PARENT: "wall",
+	LABEL: "One-Way Wall (Left)",
+	PROPS: [
+		{
+			POSITION: {
+				SIZE: 6.9999998807907104,
+				X: -0.5000000074505786,
+				Y: -4.371139062259668e-8,
+                ANGLE: 180,
+				LAYER: 1,
+			},
+			TYPE: "deco_oneWayTriangle",
+		}
+	]
+}
+Class.oneWayRightWall = {
+    PARENT: "wall",
+	LABEL: "One-Way Wall (Right)",
+	PROPS: [
+		{
+			POSITION: {
+				SIZE: 6.9999998807907104,
+				X: -0.5000000074505786,
+				Y: -4.371139062259668e-8,
+                ANGLE: 0,
+				LAYER: 1,
+			},
+			TYPE: "deco_oneWayTriangle",
+		}
+	]
 }
 Class.moon = {
     PARENT: "rock",
