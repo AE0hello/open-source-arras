@@ -20,6 +20,12 @@ module.exports = {
 			SHIELD_REGEN: 'Shield Regeneration',
 			SHIELD_CAP: 'Shield Capacity',
 		},
+		bullet: { // placeholder
+			BULLET_SPEED: 'Bullet Speed',
+			BULLET_HEALTH: 'Bullet Health',
+			BULLET_PEN: 'Bullet Penetration',
+			BULLET_DAMAGE: 'Bullet Damage',
+		},
 		mixed: {
 			BULLET_SPEED: 'Weapon Speed',
 			BULLET_HEALTH: 'Weapon Health',

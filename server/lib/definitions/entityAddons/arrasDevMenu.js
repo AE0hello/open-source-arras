@@ -5,14 +5,6 @@ const g = require('../gunvals.js')
 // Developer tank that doesn't upgrade to anything
 Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
 
-// Addon menu (Mainly for developers)
-Class.arrasMenu_addonMenu = makeMenu("arras.io Menus")
-Class.arrasMenu_addonMenu.UPGRADES_TIER_0 = [
-    "arrasMenu_special",
-    "arrasMenu_youtuber",
-    "arrasMenu_retrograde",
-]
-
 // Special Menu
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
@@ -55,12 +47,16 @@ Class.arrasMenu_betaTester.UPGRADES_TIER_0 = [
     Config.spawn_class,
     //"arrasMenu_betaTesterB", // todo: check if beta tester b actually existed here
     "spectator",
-    "arrasMenu_tankChanges", // existed here at one point
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
+    "arrasMenu_tankChanges",
+    //"arrasMenu_nostalgia", // existed here at one point
+    //"arrasMenu_scrapped", // existed here at one point
 ]
 
 Class.arrasMenu_tankChanges = makeMenu("Tank Changes Menu") // (Trial BT?)
+Class.arrasMenu_tankChanges.UPGRADES_TIER_0 = [
+    "arrasMenu_betaTester",
+]
+
 Class.arrasMenu_betaTesterB = makeMenu("Beta Tester B") // (Trial BT?) documented, though likely no longer exists
 
 // Special Tanks Menu(s)
@@ -121,8 +117,8 @@ Class.arrasMenu_healers.UPGRADES_TIER_0 = [
     "ambulance",
     "surgeon",
     "paramedic",
-    //"physician",
-    //"doctor",
+    "physician_AR",
+    "doctor_AR",
     "smasher",
     "underseer",
 ]
@@ -165,7 +161,7 @@ Class.arrasMenu_nostalgia.UPGRADES_TIER_0 = [
     "quadBuilder",
     "quintuplet",
     "vulcan",
-    "sniper3",
+    "sniper3_AR",
     "spike_old",
     "master",
     "commander_old",
@@ -178,12 +174,12 @@ Class.arrasMenu_nostalgia.UPGRADES_TIER_0 = [
 Class.arrasMenu_scrapped = makeMenu("Scrapped Menu")
 Class.arrasMenu_scrapped.UPGRADES_TIER_0 = [
     "arrasMenu_scrapped2",
-    "rocketeer",
-    "crowbar",
-    "peashooter",
+    "rocketeer_AR",
+    "crowbar_AR",
+    "peashooter_AR",
     "autoTrapper",
-    "megaTrapper",
-    "railgun",
+    "megaTrapper_AR",
+    "railgun_AR",
     "megaSpawner",
     "dreadnought_old",
 ]
@@ -195,10 +191,10 @@ Class.arrasMenu_scrapped2.UPGRADES_TIER_0 = [
     "mender",
     "infestor",
     "prodigy",
-    "spawnerdrive",
-    //"rimfire",
+    "spawnerdrive_AR",
+    "rimfire_AR",
     "productionist",
-    //"taser",
+    "vulture",
 ]
 
 // Memes Menu(s)
@@ -211,29 +207,10 @@ Class.arrasMenu_memes.UPGRADES_TIER_0 = [
 ]
 
 Class.arrasMenu_diep = makeMenu("Diep Tanks")
-Class.arrasMenu_diep.UPGRADES_TIER_0 = [
-    "arrasMenu_diep2",
-    //"diep_tank",
-]
+Class.arrasMenu_diep.UPGRADES_TIER_0 = ["arrasMenu_diep2"]
 
 Class.arrasMenu_diep2 = makeMenu("Diep2 Menu")
-Class.arrasMenu_diep2.UPGRADES_TIER_0 = [
-    //"blaster",
-    //"gatlingGun",
-    //"machineFlank",
-    //"machineTriple",
-    //"rifle_old",
-    //"buttbuttin",
-    //"blower",
-    //"quadTwin",
-    //"tornado_old",
-    //"subverter",
-    //"battery",
-    //"deathStar",
-    //"bonker",
-    //"protector",
-    //"doubleTrapGuard",
-]
+Class.arrasMenu_diep2.UPGRADES_TIER_0 = []
 
 Class.arrasMenu_adminTanks = makeMenu("Admin Tanks")
 Class.arrasMenu_adminTanks.UPGRADES_TIER_0 = [
@@ -335,25 +312,5 @@ Class.arrasMenu_youtuber = {
 }
 Class.arrasMenu_youtuber.UPGRADES_TIER_0 = Class.arrasMenu_shinyMember.UPGRADES_TIER_0
 
-// Retrograde
-Class.arrasMenu_retrograde = makeMenu("Retrograde") // feature-reduced menu for retrograde event
-Class.arrasMenu_retrograde.UPGRADES_TIER_0 = [
-    "arrasMenu_diep",
-    "arrasMenu_digdig",
-    "menu_celestials", // placeholder until we get the arras'd version of this menu (celestial bosses, all rigged to self-destruct in 10 seconds)
-    "menu_elites", // placeholder until we get the arras'd version of this menu (elite bosses)
-    "menu_mysticals", // placeholder until we get the arras'd version of this menu (strange bosses)
-    "arrasMenu_nostalgia",
-    "arrasMenu_scrapped",
-    "arrasMenu_miscRetrograde",
-]
-
-Class.arrasMenu_miscRetrograde = makeMenu("Misc Retrograde") // former menu, for retrograde event
-Class.arrasMenu_miscRetrograde.UPGRADES_TIER_0 = [
-    "tracker3",
-    "tetraGunner",
-    "worstTank",
-]
-
 // Push everything to addons
-Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_addonMenu");
+Class.menu_addons.UPGRADES_TIER_0.push("arrasMenu_special", "arrasMenu_youtuber");

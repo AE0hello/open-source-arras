@@ -109,16 +109,29 @@ exports.dereference = type => {
 exports.makeGuard = (type, name = -1) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type),
-    cannons = [{
-        POSITION: [13, 8, 1, 0, 0, 180, 0],
-    }, {
-        POSITION: [4, 8, 1.7, 13, 0, 180, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: exports.combineStats([g.trap]),
-            TYPE: "trap",
-            STAT_CALCULATOR: "trap",
+    cannons = [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ANGLE: 180
+            }
         },
-    }];
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 13,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: exports.combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap",
+            },
+        }
+    ];
     output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name;
     return output;
@@ -156,24 +169,31 @@ exports.makeBird = (type, name = -1, options = {}) => {
     // Thrusters
     let backRecoil = 0.5 * backRecoilFactor;
     let thrusterProperties = { SHOOT_SETTINGS: exports.combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster, { recoil: backRecoil }]), TYPE: "bullet", LABEL: "thruster" };
-    let shootyBois = [{
-            POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+    let shootyBois = [
+        ...exports.weaponMirror({
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 153,
+                DELAY: 0.1
+            },
             PROPERTIES: thrusterProperties
-        }, {
-            POSITION: [16, 8, 1, 0, 0, -150, 0.1],
+        }, 0),
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ANGLE: 180,
+                DELAY: 0.6
+            },
             PROPERTIES: thrusterProperties
-        }, {
-            POSITION: [18, 8, 1, 0, 0, 180, 0.6],
-            PROPERTIES: thrusterProperties
-        }];
+        }
+    ];
     if (superBird) {
-        shootyBois.splice(0, 0, {
+        shootyBois.splice(0, 0, ...exports.weaponMirror({
             POSITION: [14, 8, 1, 0, 0, 130, 0.6],
             PROPERTIES: thrusterProperties
-        }, {
-            POSITION: [14, 8, 1, 0, 0, -130, 0.6],
-            PROPERTIES: thrusterProperties
-        })
+        }, 0))
     }
     // Assign thruster color
     if (color) for (let gun of shootyBois) {
@@ -253,17 +273,36 @@ exports.makeOver = (type, name = -1, options = {}) => {
         }
         if (count % 2 == 1) {
             spawners.push({
-                POSITION: [6, 12, 1.2, 8, 0, 180, 0],
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 8,
+                    ANGLE: 180
+                },
                 PROPERTIES: spawnerProperties,
             })
         }
         for (let i = 2; i <= (count - count % 2); i += 2) {
             spawners.push({
-                POSITION: [6, 12, 1.2, 8, 0, 180 - angle * i / 2, 0],
-                PROPERTIES: spawnerProperties,
-            }, {
-                POSITION: [6, 12, 1.2, 8, 0, 180 + angle * i / 2, 0],
-                PROPERTIES: spawnerProperties,
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 8,
+                    ANGLE: 180 - angle * i / 2
+                },
+                PROPERTIES: spawnerProperties
+            },
+            {
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 8,
+                    ANGLE: 180 + angle * i / 2
+                },
+                PROPERTIES: spawnerProperties
             })
         }
     }

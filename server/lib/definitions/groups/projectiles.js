@@ -467,12 +467,35 @@ Class.healerBullet = {
         DAMAGE: Class.bullet.BODY.DAMAGE + 20,
         PUSHABILITY: Class.bullet.BODY.PENETRATION,
     },
+    HEALER: true
+}
+Class.healerSatellite = {
+    PARENT: "satellite",
+    HITS_OWN_TYPE: "push",
+    BODY: {
+        PENETRATION: Class.satellite.BODY.PENETRATION,
+        SPEED: Class.satellite.BODY.SPEED,
+        RANGE: Class.satellite.BODY.RANGE,
+        DENSITY: Class.satellite.BODY.DENSITY,
+        HEALTH: Class.satellite.BODY.HEALTH,
+        DAMAGE: Class.satellite.BODY.DAMAGE + 20,
+        PUSHABILITY: Class.satellite.BODY.PENETRATION,
+    },
     HEALER: true,
-};
+    TURRETS: [
+        {
+            POSITION: {
+                SIZE: 13,
+                LAYER: 1
+            },
+            TYPE: "healerHat"
+        }
+    ]
+}
 Class.healerSanctuaryBullet = {
     PARENT: "healerBullet",
-    HITS_OWN_TYPE: "never",
-};
+    HITS_OWN_TYPE: "never"
+}
 Class.medkit = {
     PARENT: "trap",
     LABEL: "Medkit",
@@ -500,7 +523,7 @@ Class.turretedDrone = makeAuto('drone', "Auto-Drone", {type: 'droneAutoTurret'})
 Class.sunchip = {
     PARENT: "drone",
     SHAPE: 4,
-    NECRO: true,
+    NECRO: [4],
     HITS_OWN_TYPE: "hardWithBuffer",
     BODY: {
         FOV: 0.5,
@@ -511,11 +534,13 @@ Class.sunchip = {
     },
     DRAW_HEALTH: false,
 }
+Class.turretedSunchip = makeAuto("sunchip", {type: "droneAutoTurret"})
 Class.eggchip = {
     PARENT: "sunchip",
     NECRO: [0],
     SHAPE: 0
 }
+Class.turretedEggchip = makeAuto("eggchip", {type: "droneAutoTurret"})
 Class.minichip = {
     PARENT: "sunchip",
     NECRO: false,
@@ -687,7 +712,7 @@ Class.desmosMinion = {
         }
     ]
 }
-Class.autoMinion = makeAuto("minion", {type: "droneAutoTurret"})
+Class.turretedMinion = makeAuto("minion", {type: "droneAutoTurret"})
 Class.sentrySwarmMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
@@ -756,9 +781,9 @@ Class.boomerang = {
         RANGE: 120,
     },
 }
-Class.assemblerTrap = {
+Class.assemblent = {
     PARENT: "setTrap",
-    LABEL: "Assembler Trap",
+    LABEL: "Assemblent",
     BODY: {
         SPEED: 0.7,
         ACCEL: 0.75,
@@ -768,10 +793,10 @@ Class.assemblerTrap = {
     TURRETS: [
         {
             POSITION: [4, 0, 0, 0, 360, 1],
-            TYPE: 'assemblerDot'
+            TYPE: "assemblerDot"
         }
     ],
-    HITS_OWN_TYPE: 'assembler'
+    HITS_OWN_TYPE: "assembler"
 }
 Class.shotTrapBox = {
     PARENT: 'unsetTrap',
@@ -828,6 +853,7 @@ Class.autoswarm = {
     },
     INDEPENDENT: true
 }
+Class.turretedSwarm = makeAuto("swarm", {type: "droneAutoTurret"})
 Class.bee = {
     PARENT: "swarm",
     PERSISTS_AFTER_DEATH: true,

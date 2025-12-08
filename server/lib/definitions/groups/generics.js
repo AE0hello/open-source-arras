@@ -135,6 +135,20 @@ Class.genericFlail = {
     SYNC_WITH_TANK: true,
     SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
 }
+Class.genericHealer = {
+    PARENT: "genericTank",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
+    STAT_NAMES: statnames.heal,
+    TURRETS: [
+        {
+            POSITION: {
+                SIZE: 13,
+                LAYER: 1
+            },
+            TYPE: "healerHat"
+        }
+    ]
+}
 Class.genericSmasher = {
     PARENT: "genericTank",
     DANGER: 7,

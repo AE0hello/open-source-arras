@@ -1,4 +1,4 @@
-const { combineStats, makeMenu, makeAura, makeDeco, LayeredBoss, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
+const { combineStats, LayeredBoss, makeAura, makeAuto, makeDeco, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror } = require('../facilitators.js')
 const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js')
 const g = require('../gunvals.js')
 require('./tanks.js')
@@ -118,49 +118,72 @@ Class.guillotine = {
     LABEL: "Guillotine",
     CAN_GO_OUTSIDE_ROOM: true,
     TOOLTIP: "Use left click to inspect and right click to teleport. Press F to kill the selected entity.",
-    GUNS: [ {
-        POSITION: [5, 13, 1, 8.5, 2, -15, 0], }, {
-        POSITION: [8, 10, 1, 30, 0, 0, 0], }, {
-        POSITION: [40, 2, 1, 0, 7, 0, 0], }, {
-        POSITION: [40, 2, 1, 0, -7, 0, 0], }, 
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 12,
+                X: 31
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 10,
+                ASPECT: 1.6,
+                X: -5,
+                Y: -8,
+                ANGLE: 90
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 40,
+                WIDTH: 2,
+                Y: 7
+            }
+        })
     ],
     TURRETS: [
         {
-            POSITION: [2, 34, 0, 0, 0, 1],
+            POSITION: {
+                SIZE: 2.0000000298023224,
+                X: 35,
+                LAYER: 1
+            },
             TYPE: "genericEntity"
         }
     ],
-    ON: [
+    ON: [ // todo: fix this crap
         {
-            event: "mousedown",
-            handler: ({ body, button }) => {
+            event: "fire",
+            handler: ({ body }) => {
                 if (body == null) return;
-                switch (button) {
-                    case "left":
-                        let target = {
-                            x: body.x + body.control.target.x,
-                            y: body.y + body.control.target.y
-                        };
-                        let selected = null;
-                        for (let entity of entities) {
-                            if (((entity.x - target.x) ** 2 + (entity.y - target.y) ** 2) < entity.size ** 2) {
-                                selected = entity;
-                                break;
-                            }
-                        }
-                        if (selected) {
-                            body.store.guillotineSelection = selected;
-                            body.socket.talk("m", `Selected ${selected.name ? `${selected.name}'s` : "an unnamed"} ${selected.label} (ID #${selected.id}). Score: ${Math.floor(selected.skill.score)}; Build: ${selected.skill.raw.join("/")};`);
-                        } else {
-                            delete body.store.guillotineSelection;
-                            body.socket.talk("m", "Cleared selection.");
-                        }
+                let target = {
+                    x: body.x + body.control.target.x,
+                    y: body.y + body.control.target.y
+                };
+                let selected = null;
+                for (let entity of entities) {
+                    if (((entity.x - target.x) ** 2 + (entity.y - target.y) ** 2) < entity.size ** 2) {
+                        selected = entity;
                         break;
-                    case "right":
-                        body.x += body.control.target.x;
-                        body.y += body.control.target.y;
-                        break;
+                    }
                 }
+                if (selected) {
+                    body.store.guillotineSelection = selected;
+                    body.socket.talk("m", `Selected ${selected.name ? `${selected.name}'s` : "an unnamed"} ${selected.label} (ID #${selected.id}). Score: ${Math.floor(selected.skill.score)}; Build: ${selected.skill.raw.join("/")};`);
+                } else {
+                    delete body.store.guillotineSelection;
+                    body.socket.talk("m", "Cleared selection.");
+                }
+            }
+        },
+        {
+            event: "altFire",
+            handler: ({ body }) => {
+                body.x = body.x + body.control.target.x
+                body.y = body.y + body.control.target.y
             }
         },
         {
@@ -270,7 +293,7 @@ Class.menu_dailyTanks.UPGRADES_TIER_0 = [
     "undertow", // dec 15/23
     "literallyAMachineGun", // dec 16/24
     "literallyATank", // dec 17
-    "rocketeer", // dec 18
+    "rocketeer_AR", // dec 18
     "jumpSmasher", // dec 19/20
     "rapture" // dec 25
 ]
@@ -410,8 +433,6 @@ Class.menu_elites.UPGRADES_TIER_0 = [
     "eliteSpinner",
     "eliteSkimmer",
     "legionaryCrasher",
-    "guardian",
-    "defender",
     "sprayerLegion",
     "menu_deltas",
 ]

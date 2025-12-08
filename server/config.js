@@ -7,7 +7,7 @@ module.exports = {
     // Server
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
     startup_logs: true, // Enable startup logs and log speed loop warnings in terminal
-    load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
+    load_all_mockups: true, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
 
     servers: [ // Make sure to change the HOST, PORT and SERVER_ID between servers!
         {

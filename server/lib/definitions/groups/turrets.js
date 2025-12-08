@@ -312,7 +312,35 @@ Class.hyperTwisterTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
-Class.rocketeerTurret = makeTurret('rocketeer', {canRepel: true, limitFov: true})
+Class.rocketeerTurret = makeTurret({
+    PARENT: "genericTank",
+    LABEL: "Rocketeer",
+    DANGER: 7,
+    BODY: {
+        FOV: 1.15 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 7.73,
+                ASPECT: 1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
+                TYPE: "rocketeerMissile",
+                STAT_CALCULATOR: "sustained",
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 11,
+                ASPECT: -1.5
+            }
+        }
+    ]
+}, {canRepel: true, limitFov: true})
 Class.boomerTurret = makeTurret('boomer', {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
 Class.ultraBoomerTurret = makeTurret({
     GUNS: [
@@ -1127,11 +1155,13 @@ Class.assemblerDot = {
     COLOR: "darkGrey",
     INDEPENDENT: true
 }
-Class.healerSymbol = {
+Class.healerHat = {
+    LABEL: "Healer Hat",
     SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
     SIZE: 13,
     COLOR: "red",
 }
+Class.healerSymbol = { PARENT: "healerHat" }
 
 // Bodies
 Class.smasherBody = {
@@ -1144,7 +1174,7 @@ Class.smasherBody = {
 }
 Class.landmineBody = {
     LABEL: "",
-    FACING_TYPE: ["spin", { speed: 0.3 }],
+    FACING_TYPE: ["spin", { speed: 0.32 }],
     COLOR: 9,
     SHAPE: 6,
     INDEPENDENT: true
@@ -1152,6 +1182,14 @@ Class.landmineBody = {
 Class.spikeBody = {
     PARENT: "smasherBody",
     SHAPE: 3
+}
+Class.drifterBody = {
+    PARENT: "smasherBody",
+    SHAPE: 4
+}
+Class.physicianBody = {
+    PARENT: "smasherBody",
+    SHAPE: 5
 }
 Class.weirdSpikeBody1 = {
     PARENT: "spikeBody",
