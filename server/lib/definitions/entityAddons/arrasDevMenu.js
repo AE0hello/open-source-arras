@@ -93,7 +93,7 @@ Class.arrasMenu_healers = makeMenu("Healer Menu", "mirror", 0, overrideGuns = [
                             ARC: 360,
                             LAYER: 1
                         },
-                        TYPE: "healerSymbol"
+                        TYPE: "healerHat"
                     }
                 ]
             }],
@@ -108,7 +108,7 @@ Class.arrasMenu_healers.TURRETS = [
             ARC: 360,
             LAYER: 1
         },
-        TYPE: "healerSymbol"
+        TYPE: "healerHat"
     }
 ]
 Class.arrasMenu_healers.UPGRADES_TIER_0 = [
@@ -290,7 +290,7 @@ Class.arrasMenu_youtuber = {
             POSITION: {
                 SIZE: 9
             },
-            TYPE: "deco_trianglePureWhite",
+            TYPE: "youtuberHat",
             ANGLE: 0,
         }
     ],

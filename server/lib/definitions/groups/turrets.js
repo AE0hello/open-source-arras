@@ -838,7 +838,7 @@ Class.sanctuaryHealer = {
     FACING_TYPE: ["spin", { speed: -0.05 }],
     TURRETS: [{ 
         POSITION: { SIZE: 13, LAYER: 1 },
-        TYPE: ['healerSymbol', { FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }] }]
+        TYPE: ['healerHat', { FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }] }]
     }],
 }
 Class.medkitTurret = {
@@ -850,7 +850,7 @@ Class.medkitTurret = {
     TURRETS: [
         {
             POSITION: [13, 0, 0, 0, 360, 1],
-            TYPE: "healerSymbol",
+            TYPE: "healerHat",
         },
     ],
     GUNS: weaponArray({
@@ -1104,8 +1104,7 @@ Class.tracker3gun = makeTurret({
         }
     ]
 }, {canRepel: true, limitFov: true, fov: 3, color: "#1AFF00"})
-
-    Class.oldCommanderGun = {
+Class.oldCommanderGun = {
         PARENT: "genericTank",
         LABEL: "",
         BODY: {
@@ -1131,30 +1130,6 @@ Class.tracker3gun = makeTurret({
                 },
             },
         ],
-    }
-
-// Decorations
-Class.deco_trianglePureWhite = makeDeco(3, "pureWhite")
-Class.deco_oneWayTriangle = makeDeco(3, 16);
-Class.mendersymbol = makeDeco(3)
-Class.overdriveDeco = makeDeco(4)
-Class.vortexBody = makeDeco(5)
-Class.vortexBody.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
-Class.assemblerEffect = {
-    PARENT: "bullet",
-    MOTION_TYPE: 'assembler',
-    LABEL: '',
-    BODY: {
-        DAMAGE: 0,
-        RANGE: 10
-    },
-    ALPHA: 0.8
-}
-Class.assemblerDot = {
-    LABEL: '',
-    SHAPE: -4,
-    COLOR: "darkGrey",
-    INDEPENDENT: true
 }
 
 // Bodies

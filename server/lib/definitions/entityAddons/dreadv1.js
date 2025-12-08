@@ -296,7 +296,7 @@ Class.medicareTurret = {
 	], 3),
 	TURRETS: [{
 		POSITION: [13, 0, 0, 0, 360, 1],
-		TYPE: "healerSymbol",
+		TYPE: "healerHat",
 	}]
 }
 Class.medicaidTurret = {
@@ -319,7 +319,7 @@ Class.medicaidTurret = {
 	], 5),
 	TURRETS: [{
 		POSITION: [13, 0, 0, 0, 360, 1],
-		TYPE: "healerSymbol",
+		TYPE: "healerHat",
 	}]
 }
 Class.turretedTrap = makeAuto("trap", "Auto-Trap", {size: 7.5, type: 'droneAutoTurret'});

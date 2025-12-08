@@ -325,15 +325,15 @@ Class.icosahedron = {
 
 // PRESENTS
 Class.yellowwrap = {
-    PARENT: "healerSymbol",
+    PARENT: "healerHat",
     COLOR: "yellow",
 }
 Class.purplewrap = {
-    PARENT: "healerSymbol",
+    PARENT: "healerHat",
     COLOR: "purple",
 }
 Class.whitewrap = {
-    PARENT: "healerSymbol",
+    PARENT: "healerHat",
     COLOR: "white",
 }
 Class.presentRY = makePresent("red", "yellow")

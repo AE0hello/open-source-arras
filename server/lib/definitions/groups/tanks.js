@@ -3605,7 +3605,7 @@ Class.mender = {
     TURRETS: [
         {
             POSITION: [7, 0, 0, 0, 0, 1],
-            TYPE: "mendersymbol"
+            TYPE: "menderHat"
         }
     ]
 }

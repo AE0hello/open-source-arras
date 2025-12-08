@@ -364,7 +364,7 @@ Class.menu_sanctuaries.PROPS = [
     },
     {
         POSITION: [13, 0, 0, 360, 1],
-        TYPE: "healerSymbol"
+        TYPE: "healerHat"
     }
 ]
 Class.menu_sanctuaries.UPGRADES_TIER_0 = [

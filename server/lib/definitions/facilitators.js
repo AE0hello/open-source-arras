@@ -561,7 +561,7 @@ exports.makeTurret = (type, options = {}) => {
 exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) => {
     let isHeal = damageFactor < 0;
     let auraType = isHeal ? "healAura" : "aura";
-    let symbolType = isHeal ? "healerSymbol" : "auraSymbol";
+    let symbolType = isHeal ? "healerHat" : "auraSymbol";
     auraColor = auraColor ?? (isHeal ? 12 : 0);
     return {
         PARENT: "genericTank",
