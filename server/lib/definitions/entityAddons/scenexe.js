@@ -3,7 +3,7 @@ const {basePolygonDamage, basePolygonHealth, statnames} = require("../constants"
 const {combineStats, makeTurret, makeDeco, weaponMirror, weaponArray, makeAuto} = require("../facilitators");
 
 // This addon is enabled by default. If you want to enable it, simply make the line below run.
-// return console.log("[scenexe.js] is disabled.");
+return console.log("[scenexe.js] is disabled.");
 
 let enableOnSpawn = false; // edit this to toggle spawning as a scenexe tank in the server
 
