@@ -1135,6 +1135,7 @@ Class.tracker3gun = makeTurret({
 
 // Decorations
 Class.deco_trianglePureWhite = makeDeco(3, "pureWhite")
+Class.deco_oneWayTriangle = makeDeco(3, 16);
 Class.mendersymbol = makeDeco(3)
 Class.overdriveDeco = makeDeco(4)
 Class.vortexBody = makeDeco(5)
