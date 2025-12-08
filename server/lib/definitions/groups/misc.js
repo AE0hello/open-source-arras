@@ -102,11 +102,9 @@ Class.oneWayUpWall = {
 	PROPS: [
 		{
 			POSITION: {
-				SIZE: 6.9999998807907104,
-				X: -0.5000000074505786,
-				Y: -4.371139062259668e-8,
-                ANGLE: 270,
-				LAYER: 1,
+				SIZE: 7,
+				X: -0.5,
+                ANGLE: 270
 			},
 			TYPE: "deco_oneWayTriangle",
 		}
@@ -118,11 +116,9 @@ Class.oneWayDownWall = {
 	PROPS: [
 		{
 			POSITION: {
-				SIZE: 6.9999998807907104,
-				X: -0.5000000074505786,
-				Y: -4.371139062259668e-8,
-                ANGLE: 90,
-				LAYER: 1,
+				SIZE: 7,
+				X: -0.5,
+                ANGLE: 90
 			},
 			TYPE: "deco_oneWayTriangle",
 		}
@@ -134,11 +130,9 @@ Class.oneWayLeftWall = {
 	PROPS: [
 		{
 			POSITION: {
-				SIZE: 6.9999998807907104,
-				X: -0.5000000074505786,
-				Y: -4.371139062259668e-8,
-                ANGLE: 180,
-				LAYER: 1,
+                SIZE: 7,
+                X: -0.5,
+                ANGLE: 180
 			},
 			TYPE: "deco_oneWayTriangle",
 		}
@@ -150,11 +144,8 @@ Class.oneWayRightWall = {
 	PROPS: [
 		{
 			POSITION: {
-				SIZE: 6.9999998807907104,
-				X: -0.5000000074505786,
-				Y: -4.371139062259668e-8,
-                ANGLE: 0,
-				LAYER: 1,
+                SIZE: 7,
+                X: -0.5
 			},
 			TYPE: "deco_oneWayTriangle",
 		}
