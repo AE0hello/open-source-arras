@@ -467,12 +467,35 @@ Class.healerBullet = {
         DAMAGE: Class.bullet.BODY.DAMAGE + 20,
         PUSHABILITY: Class.bullet.BODY.PENETRATION,
     },
+    HEALER: true
+}
+Class.healerSatellite = {
+    PARENT: "satellite",
+    HITS_OWN_TYPE: "push",
+    BODY: {
+        PENETRATION: Class.satellite.BODY.PENETRATION,
+        SPEED: Class.satellite.BODY.SPEED,
+        RANGE: Class.satellite.BODY.RANGE,
+        DENSITY: Class.satellite.BODY.DENSITY,
+        HEALTH: Class.satellite.BODY.HEALTH,
+        DAMAGE: Class.satellite.BODY.DAMAGE + 20,
+        PUSHABILITY: Class.satellite.BODY.PENETRATION,
+    },
     HEALER: true,
-};
+    TURRETS: [
+        {
+            POSITION: {
+                SIZE: 13,
+                LAYER: 1
+            },
+            TYPE: "healerHat"
+        }
+    ]
+}
 Class.healerSanctuaryBullet = {
     PARENT: "healerBullet",
-    HITS_OWN_TYPE: "never",
-};
+    HITS_OWN_TYPE: "never"
+}
 Class.medkit = {
     PARENT: "trap",
     LABEL: "Medkit",

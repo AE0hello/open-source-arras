@@ -244,7 +244,10 @@ Class.whirlwind = {
     STAT_NAMES: statnames.whirlwind,
     TURRETS: [
         {
-            POSITION: [8, 0, 0, 0, 360, 1],
+            POSITION: {
+                SIZE: 8,
+                LAYER: 1
+            },
             TYPE: "whirlwindDeco"
         }
     ],
