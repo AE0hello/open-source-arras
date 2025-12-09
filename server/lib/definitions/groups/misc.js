@@ -101,12 +101,13 @@ Class.oneWayUpWall = {
 	LABEL: "One-Way Wall (Up)",
 	PROPS: [
 		{
+            TYPE: "triangleHat",
 			POSITION: {
 				SIZE: 7,
 				X: -0.5,
-                ANGLE: 270
-			},
-			TYPE: "deco_oneWayTriangle",
+                ANGLE: 270,
+                LAYER: 1
+			}
 		}
 	]
 }
@@ -115,12 +116,13 @@ Class.oneWayDownWall = {
 	LABEL: "One-Way Wall (Down)",
 	PROPS: [
 		{
+            TYPE: "triangleHat",
 			POSITION: {
 				SIZE: 7,
 				X: -0.5,
-                ANGLE: 90
-			},
-			TYPE: "deco_oneWayTriangle",
+                ANGLE: 90,
+                LAYER: 1
+			}
 		}
 	]
 }
@@ -129,12 +131,13 @@ Class.oneWayLeftWall = {
 	LABEL: "One-Way Wall (Left)",
 	PROPS: [
 		{
+            TYPE: "triangleHat",
 			POSITION: {
                 SIZE: 7,
                 X: -0.5,
-                ANGLE: 180
-			},
-			TYPE: "deco_oneWayTriangle",
+                ANGLE: 180,
+                LAYER: 1
+			}
 		}
 	]
 }
@@ -143,11 +146,12 @@ Class.oneWayRightWall = {
 	LABEL: "One-Way Wall (Right)",
 	PROPS: [
 		{
+            TYPE: "triangleHat",
 			POSITION: {
                 SIZE: 7,
-                X: -0.5
-			},
-			TYPE: "deco_oneWayTriangle",
+                X: -0.5,
+                LAYER: 1
+			}
 		}
 	]
 }

@@ -3611,7 +3611,13 @@ Class.sootherdrive_AR = {
                 LAYER: 1
             }
         },
-        ...driveHat
+        {
+            TYPE: "squareHat",
+            POSITION: {
+                SIZE: 9,
+                LAYER: 1
+            }
+        }
     ],
     GUNS: [
         {

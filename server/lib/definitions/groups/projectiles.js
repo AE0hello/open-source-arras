@@ -791,8 +791,8 @@ Class.assemblent = {
     DIE_AT_RANGE: true,
     TURRETS: [
         {
-            POSITION: [4, 0, 0, 0, 360, 1],
-            TYPE: "assemblerDot"
+            TYPE: ["squareHatCurved", { COLOR: "darkGrey" }],
+            POSITION: [4, 0, 0, 0, 360, 1]
         }
     ],
     HITS_OWN_TYPE: "assembler"

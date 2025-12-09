@@ -1550,12 +1550,12 @@ Class.assembler = {
     ],
     TURRETS: [
         {
+            TYPE: ["squareHatCurved", { COLOR: "darkGrey" }],
             POSITION: {
                 SIZE: 2,
                 X: 14,
                 LAYER: 1
-            },
-            TYPE: "assemblerDot"
+            }
         }
     ]
 }
@@ -3604,7 +3604,7 @@ Class.mender = {
     TURRETS: [
         {
             POSITION: [7, 0, 0, 0, 0, 1],
-            TYPE: "menderHat"
+            TYPE: "triangleHat"
         }
     ]
 }

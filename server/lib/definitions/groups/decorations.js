@@ -10,8 +10,7 @@ Class.megaTornadoDeco = makeDeco(-2)
 Class.megaTornadoDeco.CONTROLLERS = [["spin", { independent: true }]]
 
 // 3-Hats
-Class.menderHat = makeDeco(3)
-Class.deco_oneWayTriangle = makeDeco(3, "grey")
+Class.triangleHat = makeDeco(3)
 Class.youtuberHat = makeDeco(3, "pureWhite")
 Class.tempestDeco1 = makeDeco(3)
 Class.tempestDeco1.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
@@ -20,7 +19,7 @@ Class.tempestDeco2.CONTROLLERS = [["spin", { independent: true, speed: -0.128 }]
 
 // 4-Hats
 Class.squareHat = makeDeco(4)
-Class.assemblerDot = makeDeco(-4, "darkGrey")
+Class.squareHatCurved = makeDeco(-4)
 Class.tornadoDeco = makeDeco(4)
 Class.tornadoDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
 Class.thunderboltDeco = makeDeco(4)
