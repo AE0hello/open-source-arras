@@ -11,7 +11,6 @@ Class.megaTornadoDeco.CONTROLLERS = [["spin", { independent: true }]]
 
 // 3-Hats
 Class.triangleHat = makeDeco(3)
-Class.youtuberHat = makeDeco(3, "pureWhite")
 Class.tempestDeco1 = makeDeco(3)
 Class.tempestDeco1.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
 Class.tempestDeco2 = makeDeco(3)

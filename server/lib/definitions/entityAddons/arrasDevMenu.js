@@ -1,6 +1,9 @@
-const { combineStats, makeMenu, makeAura, makeDeco, LayeredBoss, weaponArray, makeRadialAuto, makeTurret, makeAuto } = require('../facilitators.js')
-const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require('../constants.js')
+const { combineStats, makeDeco, makeMenu } = require('../facilitators.js')
+const { base } = require('../constants.js')
 const g = require('../gunvals.js')
+
+// Hats
+Class.youtuberHat = makeDeco(3, "pureWhite")
 
 // Developer tank that doesn't upgrade to anything
 Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
@@ -287,11 +290,11 @@ Class.arrasMenu_youtuber = {
     },
     PROPS: [
         {
+            TYPE: "youtuberHat",
             POSITION: {
                 SIZE: 9
             },
-            TYPE: "youtuberHat",
-            ANGLE: 0,
+            ANGLE: 0
         }
     ],
     GUNS: [
