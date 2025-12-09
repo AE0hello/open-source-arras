@@ -1,10 +1,9 @@
-const { combineStats, skillSet, makeAuto, makeAura, LayeredBoss, makeDeco, weaponArray, weaponMirror, setTurretProjectileRecoil } = require('../facilitators.js');
-const { base, statnames, smshskl } = require('../constants.js');
-const g = require('../gunvals.js');
-require('./generics.js');
-require('./tanks.js');
-require('./turrets.js');
-const {makeTurret} = require("../facilitators");
+const { combineStats, makeAura, makeAuto, makeDeco, makeTurret, LayeredBoss, setTurretProjectileRecoil, skillSet, weaponArray, weaponMirror } = require('../facilitators.js')
+const { base, smshskl, statnames } = require('../constants.js')
+const g = require('../gunvals.js')
+require('./generics.js')
+require('./tanks.js')
+require('./turrets.js')
 
 Class.miniboss = {
     PARENT: "genericBoss",

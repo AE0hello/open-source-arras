@@ -1,7 +1,6 @@
-const { combineStats, makeAuto, weaponArray } = require('../facilitators.js');
-const { base } = require('../constants.js');
-const g = require('../gunvals.js');
-const {makeAura} = require("../facilitators");
+const { combineStats, makeAura, makeAuto, weaponArray } = require('../facilitators.js')
+const { base } = require('../constants.js')
+const g = require('../gunvals.js')
 
 // Bullets
 Class.turretedBullet = makeAuto('bullet', "Auto-Bullet", {type: "bulletAutoTurret", size: 14, color: "veryLightGrey", angle: 0});
@@ -11,29 +10,29 @@ Class.speedBullet = {
 }
 Class.growBullet = {
     PARENT: "bullet",
-    MOTION_TYPE: "grow", // todo: reimplement grow motion_type
+    MOTION_TYPE: "grow"
 }
 Class.cxATMGBullet = {
     PARENT: "bullet",
-    SHAPE: Class.cube.SHAPE,
+    SHAPE: Class.cube.SHAPE
 }
 Class.flare = {
     PARENT: "growBullet",
     LABEL: "Flare",
-    SHAPE: 4,
+    SHAPE: 4
 }
 Class.developerBullet = {
     PARENT: "bullet",
-    SHAPE: [[-1, -1], [1, -1], [2, 0], [1, 1], [-1, 1]],
+    SHAPE: [[-1, -1], [1, -1], [2, 0], [1, 1], [-1, 1]]
 }
 Class.casing = {
     PARENT: "bullet",
     LABEL: "Shell",
-    TYPE: "swarm",
+    TYPE: "swarm"
 }
 Class.undertowEffect = {
-    PARENT: 'genericTank',
-    TYPE: 'undertowEffect',
+    PARENT: "genericTank",
+    TYPE: "undertowEffect",
     SIZE: 5,
     COLOR: 1,
     HITS_OWN_TYPE: "never",
@@ -45,7 +44,7 @@ Class.undertowEffect = {
         HEALTH: 9e99,
         DAMAGE: 0,
         RANGE: 5,
-        PUSHABILITY: 0,
+        PUSHABILITY: 0
     }
 }
 Class.undertowBullet = {

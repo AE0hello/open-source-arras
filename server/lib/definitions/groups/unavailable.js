@@ -1,4 +1,4 @@
-const { combineStats, makeDeco, weaponArray, makeGuard, makeAuto } = require('../facilitators.js')
+const { combineStats, weaponArray, makeGuard, makeAuto } = require('../facilitators.js')
 const { base, statnames, dfltskl } = require('../constants.js')
 const g = require('../gunvals.js')
 
@@ -433,7 +433,6 @@ class io_turretWithMotion extends IO {
     }
 }
 ioTypes.turretWithMotion = io_turretWithMotion
-Class.latTop = makeDeco(0)
 Class.latDeco1 = {
     PARENT: "genericTank",
     LABEL: "Tank Deco",
@@ -635,11 +634,11 @@ Class.literallyATank = {
     TURRETS: [
         {
             POSITION: [15, 0, 0, 0, 360, 1],
-            TYPE: [ "latTop", { COLOR: "#5C533F" } ],
+            TYPE: [ "circleHat", { COLOR: "#5C533F" } ],
         },
         {
             POSITION: [10, 0, 0, 0, 360, 1],
-            TYPE: [ "latTop", { COLOR: "#736245" } ],
+            TYPE: [ "circleHat", { COLOR: "#736245" } ],
         },
         {
             POSITION: [35, 0, 0, 0, 360, 0],

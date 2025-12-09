@@ -1,5 +1,5 @@
-const { skillSet } = require('../facilitators.js');
-const { base, statnames, dfltskl, smshskl } = require('../constants.js');
+const { skillSet } = require('../facilitators.js')
+const { base, dfltskl, smshskl, statnames } = require('../constants.js')
 
 Class.genericEntity = {
     NAME: "",

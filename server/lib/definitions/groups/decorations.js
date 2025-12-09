@@ -2,6 +2,9 @@ const { makeBody, makeDeco } = require('../facilitators.js')
 
 // Hats
 
+// 0-Hats
+Class.circleHat = makeDeco(0)
+
 // 2-Hats
 Class.megaTornadoDeco = makeDeco(-2)
 Class.megaTornadoDeco.CONTROLLERS = [["spin", { independent: true }]]
@@ -16,7 +19,7 @@ Class.tempestDeco2 = makeDeco(3)
 Class.tempestDeco2.CONTROLLERS = [["spin", { independent: true, speed: -0.128 }]]
 
 // 4-Hats
-Class.overdriveDeco = makeDeco(4)
+Class.squareHat = makeDeco(4)
 Class.assemblerDot = makeDeco(-4, "darkGrey")
 Class.tornadoDeco = makeDeco(4)
 Class.tornadoDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]

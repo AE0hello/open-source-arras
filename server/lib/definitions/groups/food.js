@@ -1,6 +1,5 @@
-const { basePolygonDamage, basePolygonHealth } = require('../constants.js');
-const { makeRelic, makeCrasher, makeLaby } = require('../facilitators.js');
-const { makeRarities, makePresent } = require("../facilitators");
+const { makeCrasher, makeLaby, makePresent, makeRarities, makeRelic } = require('../facilitators.js')
+const { basePolygonDamage, basePolygonHealth } = require('../constants.js')
 
 // EGGS
 Class.egg = {

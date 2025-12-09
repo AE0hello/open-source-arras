@@ -9,6 +9,13 @@ const use_original_tree = false // Set to true to enable the original arras.io A
 
 // Presets
 const hybridTankOptions = {count: 1, independent: true, cycle: false}
+const driveHat = {
+    TYPE: "squareHat",
+    POSITION: {
+        SIZE: 9,
+        LAYER: 1
+    }
+}
 
 // Credits
 // - u/SkyShredder89: Default Tier 3/4 Sprayer upgrades
@@ -77,16 +84,7 @@ Class.directordrive_AR = {
     BODY: {
         FOV: base.FOV * 1.1
     },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 9,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "overdriveDeco"
-        }
-    ],
+    TURRETS: [driveHat],
     GUNS: [
         {
             POSITION: {
@@ -1945,16 +1943,7 @@ Class.spawnerdrive_AR = {
         SPEED: base.SPEED * 0.8,
         FOV: base.FOV * 1.1
     },
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 9,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "overdriveDeco"
-        }
-    ],
+    TURRETS: [driveHat],
     GUNS: [
         {
             POSITION: {
@@ -2271,16 +2260,7 @@ Class.underdrive_AR = {
     },
     SHAPE: 4,
     MAX_CHILDREN: 14,
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 9,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "overdriveDeco"
-        }
-    ],
+    TURRETS: [driveHat],
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,
@@ -3631,14 +3611,7 @@ Class.sootherdrive_AR = {
                 LAYER: 1
             }
         },
-        {
-            POSITION: {
-                SIZE: 9,
-                ARC: 360,
-                LAYER: 1
-            },
-            TYPE: "overdriveDeco"
-        }
+        ...driveHat
     ],
     GUNS: [
         {

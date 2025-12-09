@@ -1,6 +1,5 @@
-const { combineStats, makeAuto, makeOver, makeDeco, makeGuard, makeBird, makeRadialAuto, weaponArray, weaponMirror, makeTurret } = require('../facilitators.js')
-const { base, statnames, dfltskl, smshskl } = require('../constants.js')
-require('./generics.js')
+const { combineStats, makeAuto, makeBird, makeGuard, makeOver, makeRadialAuto, weaponArray, weaponMirror } = require('../facilitators.js')
+const { base, dfltskl, smshskl, statnames } = require('../constants.js')
 const g = require('../gunvals.js')
 
 // Presets
@@ -4007,12 +4006,11 @@ Class.overdrive = {
     },
     TURRETS: [
         {
+            TYPE: "squareHat",
             POSITION: {
                 SIZE: 9,
-                ARC: 360,
                 LAYER: 1
-            },
-            TYPE: "overdriveDeco"
+            }
         }
     ],
     GUNS: weaponArray({
