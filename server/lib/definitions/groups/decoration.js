@@ -61,6 +61,7 @@ Class.hwEye = {
 
 // Hats
 Class.menderHat = makeDeco(3)
+Class.deco_oneWayTriangle = makeDeco(3, "grey")
 Class.youtuberHat = makeDeco(3, "pureWhite")
 Class.healerHat = {
     LABEL: "Healer Hat",
