@@ -1118,6 +1118,18 @@ Class.rcs = {
     ],
 }
 
+// randoms
+Class.assemblerEffect = {
+    PARENT: "bullet",
+    MOTION_TYPE: 'assembler',
+    LABEL: '',
+    BODY: {
+        DAMAGE: 0,
+        RANGE: 10
+    },
+    ALPHA: 0.8
+}
+
 // Bots
 Class.bot = {
     FACING_TYPE: "looseToTarget",

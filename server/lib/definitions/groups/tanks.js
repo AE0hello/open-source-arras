@@ -5609,8 +5609,8 @@ Class.vortex = {
     STAT_NAMES: statnames.mixed,
     TURRETS: [
         {
-            POSITION: [8, 0, 0, 0, 360, 1],
-            TYPE: "tornadoDeco"
+            TYPE: "tornadoDeco",
+            POSITION: [8, 0, 0, 0, 360, 1]
         }
     ],
     AI: {
@@ -5661,16 +5661,10 @@ Class.vortex_old = {
     CONTROLLERS: ["whirlwind"],
     HAS_NO_RECOIL: true,
     STAT_NAMES: statnames.whirlwind,
-    TURRETS: [
-        {
-            POSITION: [21.5, 0, 0, 0, 360, 0],
-            TYPE: "vortexBody"
-        },
-        {
-            POSITION: [21.5, 0, 0, 180, 360, 0],
-            TYPE: "vortexBody"
-        }
-    ],
+    TURRETS: weaponArray({
+        TYPE: "oldVortexBody",
+        POSITION: { SIZE: 21.5 }
+    }, 2),
     AI: {
         SPEED: 2, 
     },

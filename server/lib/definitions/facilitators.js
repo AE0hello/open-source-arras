@@ -419,6 +419,16 @@ exports.makeCeption = (type, name = -1, options = {}) => {
     output.DANGER = type.DANGER + 1;
     return output;
 }
+exports.makeBody = (shape = 6, color = "black", rotationSpeed = 0.16) => {
+    return {
+        LABEL: "",
+        FACING_TYPE: ["spin", { speed: rotationSpeed }],
+        COLOR: color,
+        SHAPE: shape,
+        SIZE: 12,
+        INDEPENDENT: true
+    }
+}
 exports.makeDeco = (shape = 0, color = 16) => {
     return {
         PARENT: "genericTank",

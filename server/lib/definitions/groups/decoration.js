@@ -1,4 +1,4 @@
-const { makeDeco } = require('../facilitators.js')
+const { makeBody, makeDeco } = require('../facilitators.js')
 
 // Eyes
 Class.whiteEyeturret = {
@@ -59,10 +59,16 @@ Class.hwEye = {
     ]
 }
 
-// Hats
+// Triangle Hats
 Class.menderHat = makeDeco(3)
 Class.deco_oneWayTriangle = makeDeco(3, "grey")
 Class.youtuberHat = makeDeco(3, "pureWhite")
+
+// Square Hats
+Class.overdriveDeco = makeDeco(4)
+Class.assemblerDot = makeDeco(-4, "darkGrey")
+
+// Custom Hats
 Class.healerHat = {
     LABEL: "Healer Hat",
     SHAPE: [[0.3, -0.3],[1,-0.3],[1,0.3],[0.3,0.3],[0.3,1],[-0.3,1],[-0.3,0.3],[-1,0.3],[-1,-0.3],[-0.3,-0.3],[-0.3,-1],[0.3,-1]],
@@ -70,23 +76,25 @@ Class.healerHat = {
     SIZE: 13
 }
 
-// Decorations
-Class.overdriveDeco = makeDeco(4)
-Class.vortexBody = makeDeco(5)
-Class.vortexBody.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
-Class.assemblerEffect = {
-    PARENT: "bullet",
-    MOTION_TYPE: 'assembler',
-    LABEL: '',
-    BODY: {
-        DAMAGE: 0,
-        RANGE: 10
-    },
-    ALPHA: 0.8
-}
-Class.assemblerDot = {
-    LABEL: '',
-    SHAPE: -4,
-    COLOR: "darkGrey",
-    INDEPENDENT: true
+// Triangle Bodies
+Class.spikeBody = makeBody(3)
+Class.weirdSpikeBody1 = makeBody(3, "black", 0.20)
+Class.weirdSpikeBody2 = makeBody(3, "black", -0.17)
+
+// Square Bodies
+Class.drifterBody = makeBody(4)
+
+// Pentagon Bodies
+Class.physicianBody = makeBody(5)
+Class.oldVortexBody = makeBody(5, "grey", 0.128)
+
+// Hexagon Bodies
+Class.smasherBody = makeBody()
+Class.landmineBody = makeBody(6, "black", 0.32)
+Class.dominationBody = {
+    LABEL: "",
+    FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }],
+    COLOR: "black",
+    SHAPE: 6,
+    INDEPENDENT: true,
 }
