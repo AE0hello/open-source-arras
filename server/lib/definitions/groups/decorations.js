@@ -59,14 +59,44 @@ Class.hwEye = {
     ]
 }
 
-// Triangle Hats
+// 2-Hats
+Class.megaTornadoDeco = makeDeco(-2)
+Class.megaTornadoDeco.CONTROLLERS = [["spin", { independent: true }]]
+
+// 3-Hats
 Class.menderHat = makeDeco(3)
 Class.deco_oneWayTriangle = makeDeco(3, "grey")
 Class.youtuberHat = makeDeco(3, "pureWhite")
+Class.tempestDeco1 = makeDeco(3)
+Class.tempestDeco1.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
+Class.tempestDeco2 = makeDeco(3)
+Class.tempestDeco2.CONTROLLERS = [["spin", { independent: true, speed: -0.128 }]]
 
-// Square Hats
+// 4-Hats
 Class.overdriveDeco = makeDeco(4)
 Class.assemblerDot = makeDeco(-4, "darkGrey")
+Class.tornadoDeco = makeDeco(4)
+Class.tornadoDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
+Class.thunderboltDeco = makeDeco(4)
+Class.thunderboltDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.16 }]]
+
+// 5-Hats
+Class.blizzardDeco1 = makeDeco(5)
+Class.blizzardDeco1.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
+Class.blizzardDeco2 = makeDeco(5)
+Class.blizzardDeco2.CONTROLLERS = [["spin", { independent: true, speed: -0.128 }]]
+
+// 6-Hats
+Class.whirlwindDeco = makeDeco(6)
+Class.whirlwindDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
+
+// 8-Hats
+Class.hurricaneDeco = makeDeco(8)
+Class.hurricaneDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
+
+// 10-Hats
+Class.typhoonDeco = makeDeco(10)
+Class.typhoonDeco.CONTROLLERS = [["spin", { independent: true, speed: 0.128 }]]
 
 // Custom Hats
 Class.healerHat = {
@@ -76,25 +106,20 @@ Class.healerHat = {
     SIZE: 13
 }
 
-// Triangle Bodies
+// 3-Bodies
 Class.spikeBody = makeBody(3)
 Class.weirdSpikeBody1 = makeBody(3, "black", 0.20)
 Class.weirdSpikeBody2 = makeBody(3, "black", -0.17)
 
-// Square Bodies
+// 4-Bodies
 Class.drifterBody = makeBody(4)
 
-// Pentagon Bodies
+// 5-Bodies
 Class.physicianBody = makeBody(5)
 Class.oldVortexBody = makeBody(5, "grey", 0.128)
 
-// Hexagon Bodies
+// 6-Bodies
 Class.smasherBody = makeBody()
 Class.landmineBody = makeBody(6, "black", 0.32)
-Class.dominationBody = {
-    LABEL: "",
-    FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }],
-    COLOR: "black",
-    SHAPE: 6,
-    INDEPENDENT: true,
-}
+Class.dominationBody = makeBody()
+Class.dominationBody.FACING_TYPE = ["noFacing", { angle: Math.PI / 2 }]
