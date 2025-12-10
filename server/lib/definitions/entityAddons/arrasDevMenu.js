@@ -12,7 +12,7 @@ Class.arrasMenu_developer = { PARENT: "developer", UPGRADES_TIER_0: [] }
 Class.arrasMenu_special = makeMenu("Special Menu")
 Class.arrasMenu_special.UPGRADES_TIER_0 = [
     Config.spawn_class,
-    "arrasMenu_gameAdmin", // psure its removed but kept here for completeness
+    "arrasMenu_gameAdmin", // removed but kept here for completeness
     "eggGen",
     "arrasMenu_specialTanks",
     "arrasMenu_bosses",
