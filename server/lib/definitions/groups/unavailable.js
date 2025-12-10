@@ -861,98 +861,134 @@ Class.literallyATank = {
             },
         ],
     }
-    Class.blunderbuss = {
-        PARENT: "genericTank",
-        LABEL: "Blunderbuss",
-        DANGER: 7,
-        BODY: {
-            FOV: base.FOV * 1.225,
+Class.blunderbuss = {
+    PARENT: "genericTank",
+    LABEL: "Blunderbuss",
+    DANGER: 7,
+    BODY: {
+        FOV: base.FOV * 1.225,
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 4,
+                Y: -3,
+                ANGLE: -9,
+            },
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.sniper,
+                    g.rifle,
+                    g.blunderbuss
+                ])
+            }
         },
-        GUNS: [
-            {
-                POSITION: [13, 4, 1, 0, -3, -9, 0.3],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.sniper,
-                        g.rifle,
-                        g.blunderbuss,
-                    ]),
-                },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 4,
+                Y: -2.5,
+                ANGLE: -6,
             },
-            {
-                POSITION: [15, 4, 1, 0, -2.5, -6, 0.2],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.sniper,
-                        g.rifle,
-                        g.blunderbuss,
-                    ]),
-                },
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.sniper,
+                    g.rifle,
+                    g.blunderbuss
+                ])
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 4,
+                Y: -2,
+                ANGLE: -3,
             },
-            {
-                POSITION: [16, 4, 1, 0, -2, -3, 0.1],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.sniper,
-                        g.rifle,
-                        g.blunderbuss,
-                    ]),
-                },
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.sniper,
+                    g.rifle,
+                    g.blunderbuss
+                ])
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 4,
+                Y: 3,
+                ANGLE: 9,
             },
-            {
-                POSITION: [13, 4, 1, 0, 3, 9, 0.3],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.sniper,
-                        g.rifle,
-                        g.blunderbuss,
-                    ]),
-                },
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.sniper,
+                    g.rifle,
+                    g.blunderbuss
+                ])
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 4,
+                Y: 2.5,
+                ANGLE: 6,
             },
-            {
-                POSITION: [15, 4, 1, 0, 2.5, 6, 0.2],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.sniper,
-                        g.rifle,
-                        g.blunderbuss,
-                    ]),
-                },
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.sniper,
+                    g.rifle,
+                    g.blunderbuss
+                ])
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 4,
+                Y: 2,
+                ANGLE: 3,
             },
-            {
-                POSITION: [16, 4, 1, 0, 2, 3, 0.1],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([
-                        g.basic,
-                        g.sniper,
-                        g.rifle,
-                        g.blunderbuss,
-                    ]),
-                },
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([
+                    g.basic,
+                    g.sniper,
+                    g.rifle,
+                    g.blunderbuss
+                ])
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25,
+                WIDTH: 7
             },
-            {
-                POSITION: [25, 7, 1, 0, 0, 0, 0],
-                PROPERTIES: {
-                    TYPE: "bullet",
-                    SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle]),
-                },
-            },
-            {
-                POSITION: [14, 10.5, 1, 0, 0, 0, 0],
-            },
-        ],
-    }
+            PROPERTIES: {
+                TYPE: "bullet",
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle])
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 10.5
+            }
+        }
+    ]
+}
     Class.rimfire_old = {
         PARENT: "genericTank",
         LABEL: "Rimfire",
@@ -988,38 +1024,7 @@ Class.literallyATank = {
             },
         ],
     }
-    Class.armsman_old = {
-        PARENT: "genericTank",
-        LABEL: "Old Armsman",
-        BODY: {
-            FOV: base.FOV * 1.225,
-        },
-        DANGER: 7,
-        GUNS: [
-            {
-                POSITION: [20, 12, 1, 0, 0, 0, 0],
-            },
-            {
-                POSITION: [24, 7, 1, 0, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle]),
-                    TYPE: "bullet",
-                },
-            },
-            {
-                POSITION: [13, 8.5, 1, 0, 0, 180, 0],
-            },
-            {
-                POSITION: [4, 8.5, 1.7, 13, 0, 180, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.trap]),
-                    TYPE: "bullet",
-                    STAT_CALCULATOR: "trap",
-                },
-            },
-        ],
-    }
-
+Class.armsman_old = makeGuard("rifle", "Old Armsman")
     Class.productionist = {
         PARENT: "genericTank",
         LABEL: "Productionist",
