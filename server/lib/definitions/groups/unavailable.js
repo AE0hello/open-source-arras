@@ -1,4 +1,4 @@
-const { combineStats, weaponArray, makeGuard, makeAuto } = require('../facilitators.js')
+const { combineStats, makeAuto, makeGuard, weaponArray, weaponMirror } = require('../facilitators.js')
 const { base, statnames, dfltskl } = require('../constants.js')
 const g = require('../gunvals.js')
 
@@ -1150,57 +1150,50 @@ Class.armsman_old = makeGuard("rifle", "Old Armsman")
             },
         ],
     }
-    Class.bigBall = {
-        PARENT: "drone",
-        SHAPE: 8
-    }
-    Class.bigBalls = {
-        PARENT: "genericTank",
-        LABEL: "BIG Balls",
-        DANGER: 7,
-        STAT_NAMES: statnames.drone,
-        BODY: {
-            SPEED: 0.9 * base.SPEED,
-            FOV: 1.1 * base.FOV,
-        },
-        MAX_CHILDREN: 2,
-        GUNS: weaponArray({
-            POSITION: [8, 18, 1.2, 6, 0, 90, 0],
+Class.bigBall = {
+    PARENT: "drone",
+    SHAPE: 8
+}
+Class.bigBalls = {
+    PARENT: "genericTank",
+    LABEL: "BIG Balls",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: 0.9 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+    },
+    MAX_CHILDREN: 2,
+    GUNS: weaponArray({
+        POSITION: [8, 18, 1.2, 6, 0, 90, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.bigBalls]),
+            TYPE: "bigBall",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "drone",
+            WAIT_TO_CYCLE: true
+        }
+    }, 2)
+}
+Class.tetraGunner = {
+    PARENT: "genericTank",
+    LABEL: "Tetra Gunner",
+    DANGER: 7,
+    GUNS: weaponArray([
+        ...weaponMirror({
+            POSITION: [8, 3.5, 1, 7.25, 4, 0, 0.5],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.bigBalls]),
-                TYPE: "bigBall",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+                TYPE: "bullet"
             }
-        }, 2)
-    }
-    Class.tetraGunner = {
-        PARENT: "genericTank",
-        LABEL: "Tetra Gunner",
-        DANGER: 7,
-        GUNS: weaponArray([
-            {
-                POSITION: [8, 3.5, 1, 7.25, -4, 0, 0.5],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-                    TYPE: "bullet"
-                }
-            },
-            {
-                POSITION: [8, 3.5, 1, 7.25, 4, 0, 0.5],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-                    TYPE: "bullet"
-                }
-            },
-            {
-                POSITION: [12, 3.5, 1, 7.25, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-                    TYPE: "bullet"
-                }
-            },
-        ], 4)
-    }
+        }, 0),
+        {
+            POSITION: [12, 3.5, 1, 7.25, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+                TYPE: "bullet"
+            }
+        },
+    ], 4)
+}
