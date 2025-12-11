@@ -74,7 +74,7 @@ function init() {
                     ...commands
                     .filter(
                         (c) =>
-                        (level >= c.level || (operator && c.operatorAccess)) && !c.hidden && !c.attribute
+                        (level >= c.level || (operator && c.operatorAccess)) && !c.hidden && !c.attribute && !c.skill
                     )
                     .map(command => makeHelpList(command)),
                     "Warning: Avoid zooming all the way out to prevent lagging the server.",
@@ -488,7 +488,7 @@ function init() {
                 }
             }
         },
-        {
+        /*{
             name: "Stronger",
             keys: [[[83, "S"]]],
             level: 1,
@@ -503,6 +503,128 @@ function init() {
                 player.body.refreshBodyAttributes();
                 socket.talk("m", 4_000, "Maxed all stats!");
             }
+        },*/
+        {
+            name: "Skill",
+            keys: [[[83, "S"], [191, "/"]], [[83, "S"], [112, "F1"]]],
+            displayKey: "S+?",
+            level: 1,
+            operatorAccess: true,
+            run: ({ socket, level, operator }) => {
+                let lines = [
+                    "Help menu:",
+                    ...commands
+                    .filter(
+                        (c) =>
+                        (level >= c.level || (operator && c.operatorAccess)) && !c.hidden && c.skill
+                    )
+                    .map(command => makeHelpList(command, false))
+                ];
+                if (useOldMenu) {
+                    for (let line of lines.reverse()) {
+                        socket.talk("m", 15_000, line);
+                    }
+                } else socket.talk("Em", 15_000, JSON.stringify(lines));
+            },
+        },
+        {
+            name: "Reset skills",
+            keys: [[[83, "S"], [82, "R"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                player.body.skill.setCaps(Array(10).fill(9));
+                player.body.skill.set(Array(10).fill(0));
+                let score = player.body.skill.score;
+                player.body.skill.reset();
+                player.body.skill.score = score;
+                while (player.body.skill.maintain()) { }
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+                
+            },
+        },
+        {
+            name: "Clear skills",
+            keys: [[[83, "S"], [67, "C"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                let refundedSkillPoints = player.body.skill.raw.reduce((total, amount)=> total + amount, 0);
+                player.body.skill.set(Array(10).fill(0));
+                player.body.skill.points += refundedSkillPoints;
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+            },
+        },
+        {
+            name: "Maximize skills",
+            keys: [[[83, "S"], [77, "M"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                player.body.skill.set(player.body.skill.caps);
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+            },
+        },
+        {
+            name: "Remove skill point",
+            keys: [[[83, "S"], [68, "D"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                player.body.skill.points = Math.max(0, player.body.skill.points - 1);
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+            },
+        },
+        {
+            name: "Add skill point",
+            keys: [[[83, "S"], [70, "F"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                let currentUsedPoints = player.body.skill.raw.reduce((total, v)=> total+v, 0);
+                let maxSkills = player.body.skill.caps.reduce((total, capAmount) => total + capAmount, 0);
+                player.body.skill.points = Math.min(maxSkills - currentUsedPoints, player.body.skill.points + 1);
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+            },
+        },
+        {
+            name: "Reduce skill cap",
+            keys: [[[83, "S"], [71, "G"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                let newSkillCaps = player.body.skill.caps.map((x)=> Math.max(0, x - 1));
+                let maxSkillPoints = newSkillCaps.reduce((total, x) => total + x, 0);
+                player.body.skill.setCaps(newSkillCaps);
+                maxSkillPoints -= player.body.skill.raw.reduce((total, x) => total + x, 0);
+                player.body.skill.points = Math.min(player.body.skill.points, maxSkillPoints);
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+            },
+        },
+        {
+            name: "Increase skill cap",
+            keys: [[[83, "S"], [72, "H"]]],
+            skill: true,
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                let skills = player.body.skill.caps.map((cap)=> cap = Math.min(20, cap + 1));
+                player.body.skill.setCaps(skills);
+                player.body.syncTurrets();
+                player.body.refreshBodyAttributes();
+            },
         },
         {
             name: "Get Data",
