@@ -234,7 +234,6 @@ class gameServer {
             // Initalize the room
             this.setRoom();
 
-            // Get the definitions
             setTimeout(() => {
                 // Set the gamemode manager
                 this.gamemodeManager.redefine(this);
