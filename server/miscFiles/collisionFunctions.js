@@ -532,9 +532,7 @@ function mazewallcustomcollide(wall, bounce) {
             case 5:
                 if (canResize) {
                     bounce.touchingSizeWall = true;
-                    if (bounce.SIZE < 25) {
-                        bounce.SIZE = Math.min(bounce.SIZE * 1.05, 25);
-                    }
+                    bounce.SIZE = bounce.originalSize * 2;
                 }
                 break;
             case 6:
@@ -605,9 +603,7 @@ function mazewallcustomcollide(wall, bounce) {
             case 5:
                 if (canResize) {
                     bounce.touchingSizeWall = true;
-                    if (bounce.SIZE < 25) {
-                        bounce.SIZE = Math.min(bounce.SIZE * 1.05, 25);
-                    }
+                    bounce.SIZE = bounce.originalSize * 2;
                 }
                 break;
             case 6:

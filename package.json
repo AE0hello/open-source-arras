@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "server/index.js",
   "scripts": {
-    "start": "node --max-old-space-size=4096 --no-lazy index"
+    "start": "node --no-lazy index"
   },
   "dependencies": {
     "ws": "^8.18.3"

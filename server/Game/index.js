@@ -257,11 +257,11 @@ class gameHandler {
             }
             if (instance.isInGrid) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
             logs.collide.mark();
-            if (instance.touchingSizeWall === false && instance.originalSize) {
+            if ((instance.touchingSizeWall === false || instance.collisionArray.length === 0) && instance.originalSize) {
                 instance.SIZE = instance.originalSize;
                 instance.originalSize = undefined;
             }
-            if (instance.touchingFovWall === false && instance.originalFov) {
+            if ((instance.touchingFovWall === false || instance.collisionArray.length === 0) && instance.originalFov) {
                 instance.FOV = instance.originalFov;
                 instance.originalFov = undefined;
             }

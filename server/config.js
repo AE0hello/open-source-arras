@@ -11,7 +11,7 @@ module.exports = {
 
     servers: [ // Make sure to change the HOST, PORT and SERVER_ID between servers!
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
+            load_on_mainserver: true, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
 
@@ -21,7 +21,7 @@ module.exports = {
             featured: false,
 
             region: "local", // The region the server is on.
-            gamemode: ["tdm"], // The selected gamemode.
+            gamemode: ["sandbox"], // The selected gamemode.
             player_cap: 80, // The maximum number of players that can join the server. Not including bots.
 
             properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
@@ -30,7 +30,7 @@ module.exports = {
             }
         },
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
+            load_on_mainserver: false, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
 

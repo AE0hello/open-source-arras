@@ -186,16 +186,7 @@ class gameServer {
         // Start the WS Server
         this.startWebServer(this.socketManager);
 
-        // Get the definitions before we can initalize the server.
-        this.definitionsCombiner.loadDefinitions(false);
-
-        // Get the tile definitions
-        this.loaderGlobal.loadRooms(false);
-
-        // Also load all mockups if needed.
-        if (Config.load_all_mockups) global.loadAllMockups(false);
-
-        // Now start the server and send data!
+        // Start the server and send data!
         this.start();
 
         // If no errors has accoured then annouce that the game server has succssfully booted up.
@@ -230,8 +221,20 @@ class gameServer {
             this.name = this.gamemode.map(x => getName(x, Config) || (x[0].toUpperCase() + x.slice(1))).join(' ');
             // Activate laby food if enabled
             if (Config.tiered_food) global.activateTieredFood();
+
+            // Get the definitions before we can initalize the rest.
+            this.definitionsCombiner.loadDefinitions(false);
+
+            // Get the tile definitions
+            if (this.parentPort) this.loaderGlobal.loadRooms(false);
+
+            // Also load all mockups if needed.
+            if (Config.load_all_mockups) global.loadAllMockups(false);
+
             // Initalize the room
             this.setRoom();
+
+            // Get the definitions
             setTimeout(() => {
                 // Set the gamemode manager
                 this.gamemodeManager.redefine(this);
