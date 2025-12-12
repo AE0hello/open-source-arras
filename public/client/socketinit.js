@@ -242,6 +242,7 @@ const Entry = class {
 
         return {
             id: this.id,
+            color: this.color,
             image: util.requestEntityImage(this.index, this.color),
             position: ref.position,
             barColor: this.bar,
