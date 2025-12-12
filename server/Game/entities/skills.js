@@ -28,7 +28,7 @@ class Skill {
         // Just skill stuff.
         this.raw = inital;
         this.caps = [];
-        this.setCaps([ Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap, Config.skill_cap ]);
+        this.setCaps(Array(10).fill(Config.skill_cap));
         this.name = [
             "Reload",
             "Bullet Penetration",
