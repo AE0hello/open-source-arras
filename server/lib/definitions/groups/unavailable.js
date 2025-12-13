@@ -65,42 +65,43 @@ Class.machineShot = {
       SPEED: 0.85 * base.SPEED,
     },
     GUNS: [
-        {
-            POSITION: [16, 8, 1, 0, -3, -30, 0.667],
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                Y: 3,
+                ANGLE: 30,
+                DELAY: 2/3
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.machineShot]),
-                TYPE: "bullet",
-            },
+                TYPE: "bullet"
+            }
         },
         {
-            POSITION: [16, 8, 1, 0, 3, 30, 0.667],
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                Y: 2,
+                ANGLE: 15,
+                DELAY: 1/3
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.machineShot]),
-                TYPE: "bullet",
-            },
-        },
+                TYPE: "bullet"
+            }
+        }], 0),
         {
-            POSITION: [19, 8, 1, 0, -2, -15, 0.333],
+            POSITION: {
+                LENGTH: 22,
+                WIDTH: 8
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.machineShot]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [19, 8, 1, 0, 2, 15, 0.333],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.machineShot]),
-                TYPE: "bullet",
-            },
-        },
-        {
-            POSITION: [22, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.machineShot]),
-                TYPE: "bullet",
-            },
-        },
-    ],
+                TYPE: "bullet"
+            }
+        }
+    ]
 };
 Class.bacteriaChildren = {
     PARENT: "genericTank",

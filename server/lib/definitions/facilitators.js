@@ -128,8 +128,8 @@ exports.makeGuard = (type, name = -1) => {
             PROPERTIES: {
                 SHOOT_SETTINGS: exports.combineStats([g.trap]),
                 TYPE: "trap",
-                STAT_CALCULATOR: "trap",
-            },
+                STAT_CALCULATOR: "trap"
+            }
         }
     ];
     output.GUNS = type.GUNS == null ? cannons : type.GUNS.concat(cannons);
@@ -317,17 +317,16 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     type = ensureIsClass(type);
     let turret = {
         type: "autoTurret",
-        size: 10,
         independent: true,
-        color: 16,
+        color: "grey",
+        size: 10,
+        x: 0,
+        y: 0,
         angle: 180,
         total: 1,
     };
     if (options.type != null) {
         turret.type = options.type;
-    }
-    if (options.size != null) {
-        turret.size = options.size;
     }
     if (options.independent != null) {
         turret.independent = options.independent;
@@ -335,18 +334,29 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     if (options.color != null) {
         turret.color = options.color;
     }
-    if (options.angle != null) {
-        turret.angle = options.angle;
-    }
     if (options.total != null) {
         turret.total = options.total;
+    }
+    if (options.size != null) {
+        turret.size = options.size;
+    }
+    if (options.x != null) {
+        turret.x = options.x;
+    }
+    if (options.y != null) {
+        turret.y = options.y;
+    }
+    if (options.angle != null) {
+        turret.angle = options.angle;
     }
     let output = exports.dereference(type);
     let autogun = exports.weaponArray({
         POSITION: {
-            SIZE: turret.size,
+            SIZE: turret.size, // 10 = 1, 6.5 = 3
             ANGLE: turret.angle,
-            ARC: 360 / turret.total,
+            X: turret.x, // 0 = 1, 5.2 = 3
+            Y: turret.y,
+            ARC: 360,
             LAYER: 1
         },
         TYPE: [
@@ -354,9 +364,9 @@ exports.makeAuto = (type, name = -1, options = {}) => {
             {
                 CONTROLLERS: ["nearestDifferentMaster"],
                 INDEPENDENT: turret.independent,
-                COLOR: turret.color,
-            },
-        ],
+                COLOR: turret.color
+            }
+        ]
     }, turret.total);
     if (type.GUNS != null) {
         output.GUNS = type.GUNS;
@@ -376,49 +386,6 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     output.DANGER = type.DANGER + 1;
     return output;
 }
-exports.makeCeption = (type, name = -1, options = {}) => {
-    type = ensureIsClass(type);
-    let turret = {
-        type: "autoTurret",
-        size: 12.5,
-        independent: true,
-    };
-    if (options.type != null) {
-        turret.type = options.type;
-    }
-    if (options.size != null) {
-        turret.size = options.size;
-    }
-    if (options.independent != null) {
-        turret.independent = options.independent;
-    }
-    let output = exports.dereference(type);
-    let autogun = {
-        POSITION: [turret.size, 0, 0, 180, 360, 1],
-        TYPE: [
-            type,
-            {
-                CONTROLLERS: ["nearestDifferentMaster"],
-                INDEPENDENT: turret.independent,
-            },
-        ],
-    };
-    if (type.GUNS != null) {
-        output.GUNS = type.GUNS;
-    }
-    if (type.TURRETS == null) {
-        output.TURRETS = [autogun];
-    } else {
-        output.TURRETS = [...type.TURRETS, autogun];
-    }
-    if (name == -1) {
-        output.LABEL = type.LABEL + "-Ception";
-    } else {
-        output.LABEL = name;
-    }
-    output.DANGER = type.DANGER + 1;
-    return output;
-}
 exports.makeBody = (shape = 6, color = "black", rotationSpeed = 0.16) => {
     return {
         LABEL: "",
@@ -433,8 +400,8 @@ exports.makeDeco = (shape = 0, color = 16) => {
     return {
         PARENT: "genericTank",
         SHAPE: shape,
-        COLOR: color,
-    };
+        COLOR: color
+    }
 }
 exports.makeRadialAuto = (type, options = {}) => {
 
@@ -506,6 +473,7 @@ exports.makeRadialAuto = (type, options = {}) => {
         FACING_TYPE: ["spin", {speed: options.rotation ?? 0.02}],
         DANGER: options.danger ?? (type.DANGER + 2),
         BODY: options.body ?? undefined,
+        GUNS: [],
         TURRETS: exports.weaponArray({
             POSITION: [turretSize, turretX, 0, turretAngle, turretArc, 0],
             TYPE: turretIdentifier

@@ -93,7 +93,7 @@ Class.megaAutoTankGun = makeTurret({
 Class.ultraAutoTankGun = makeTurret({
     GUNS: [
         {
-            POSITION: [22, 20, 1, 0, 0, 0, 0],
+            POSITION: [22, 19.5, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
                 TYPE: "bullet",
@@ -728,7 +728,18 @@ Class.megaAutoTurret = makeTurret({
         {
             POSITION: [22, 14, 1, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pelleter, g.power, { recoil: 1.15 }, g.turret]),
+                TYPE: "bullet",
+            },
+        },
+    ],
+}, {label: "Turret", fov: 0.8, extraStats: []})
+Class.ultraAutoTurret = makeTurret({
+    GUNS: [
+        {
+            POSITION: [22, 19.5, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.pelleter, g.power, { recoil: 1.15 }, g.turret]),
                 TYPE: "bullet",
             },
         },
@@ -757,24 +768,14 @@ Class.bulletAutoTurret = makeTurret({
     ]
 }, {label: "Turret", fov: 0.8, extraStats: []})
 Class.autoSmasherTurret = makeTurret({
-    GUNS: [
-        {
-            POSITION: [20, 6, 1, 0, 5, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret, { speed: 1.2 }, g.machineGun, g.pounder, { reload: 0.75 }, { reload: 0.75 }]),
-                TYPE: "bullet",
-                STAT_CALCULATOR: "fixedReload",
-            },
+    GUNS: weaponMirror({
+        POSITION: [20, 6, 1, 0, 5, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret, { speed: 1.2 }, g.machineGun, g.pounder, { reload: 0.75 }, { reload: 0.75 }]),
+            TYPE: "bullet",
+            STAT_CALCULATOR: "fixedReload",
         },
-        {
-            POSITION: [20, 6, 1, 0, -5, 0, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret, { speed: 1.2 }, g.machineGun, g.pounder, { reload: 0.75 }, { reload: 0.75 }]),
-                TYPE: "bullet",
-                STAT_CALCULATOR: "fixedReload",
-            },
-        },
-    ],
+    })
 }, {label: "Turret", fov: 0.8, extraStats: []})
 Class.pillboxTurret = makeTurret({
     HAS_NO_RECOIL: true,

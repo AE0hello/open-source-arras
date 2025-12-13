@@ -3070,6 +3070,7 @@ Class.gunnerTrapper = {
         }
     ]
 }
+Class.heptaAutoBasic = makeAuto("basic", "Hepta Auto-Basic", { size: 4, x: 6.5, angle: 0, total: 7 })
 Class.hewnDouble = {
     PARENT: "genericTank",
     LABEL: "Hewn Double",

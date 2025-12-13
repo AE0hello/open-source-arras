@@ -242,7 +242,7 @@ Class.arrasMenu_misc.UPGRADES_TIER_0 = [
     //"genericEntity",
     //"quadCyclone",
     //"beeman",
-    //"heptaAutoBasic",
+    "heptaAutoBasic",
     //"alas",
 ]
 

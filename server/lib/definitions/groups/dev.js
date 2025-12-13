@@ -311,7 +311,7 @@ Class.menu_fun.UPGRADES_TIER_0 = [
     "cxATMG",
     "damoclone",
     "fat456",
-    //"heptaAutoBasic",
+    "heptaAutoBasic",
     "machineShot",
     "meDoingYourMom",
     "momwtdym",
