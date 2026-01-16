@@ -42,7 +42,8 @@ mimeSet = {
     css: "text/css",
     html: "text/html",
     md: "text/markdown",
-    //"png": "image/png",
+    png: "image/png",
+    svg: "image/svg+xml",
 };
 
 let wsServer; // WebSocket server instance
