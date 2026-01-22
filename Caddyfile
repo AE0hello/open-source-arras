@@ -1,3 +1,0 @@
-arras-ce.duckdns.org {
-    reverse_proxy host.docker.internal:3000
-}   
