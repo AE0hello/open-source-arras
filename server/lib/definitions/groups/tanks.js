@@ -52,6 +52,28 @@ Class.basic = {
     ],
     UPGRADES_TIER_3: []
 }
+Class.laser = {
+    PARENT: "genericTank",
+    LABEL: "Laser",
+    DANGER: 6,
+    SPEED_STAT_USES_SIZE: true,
+    STAT_NAMES: {
+        BULLET_SPEED: "Beam Width",
+        BULLET_HEALTH: "Beam Health",
+        BULLET_PEN: "Beam Penetration",
+        BULLET_DAMAGE: "Beam Damage",
+        RELOAD: "Beam Rate",
+    },
+    GUNS: [
+        {
+            POSITION: [22, 6, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { reload: 0.12, damage: 0.18, pen: 1, health: 0.7, speed: 2, maxSpeed: 2, range: 1.2, size: 1.4, recoil: 0.05, shudder: 0.05, spray: 0.05 }]),
+                TYPE: "laserBolt"
+            }
+        }
+    ]
+}
 
 // Tier 1
 Class.desmos = {
@@ -391,7 +413,7 @@ Class.cruiser = {
     GUNS: weaponMirror({
         POSITION: [7, 7.5, 0.6, 7, 4, 0, 0],
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.swarm]),
+            SHOOT_SETTINGS: combineStats([g.swarm, g.cruiser]),
             TYPE: "swarm",
             STAT_CALCULATOR: "swarm"
         }
@@ -1524,7 +1546,7 @@ Class.battleship = {
         ...weaponMirror({
             POSITION: [7, 7.5, 0.6, 7, 4, 270, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm]),
+                SHOOT_SETTINGS: combineStats([g.swarm, g.battleship]),
                 TYPE: "autoswarm",
                 STAT_CALCULATOR: "swarm",
                 LABEL: "Autonomous"
@@ -4157,6 +4179,52 @@ Class.spike = {
             TYPE: "spikeBody",
         }
     ], 4)
+}
+Class.spikeDaily = {
+    PARENT: "spike",
+    LABEL: "Cushionike",
+    IS_SMASHER: true,
+    SKILL_CAP: {
+        RELOAD: 6,
+        PENETRATION: 0,
+        BULLET_HEALTH: 0,
+        BULLET_DAMAGE: 0,
+        BULLET_SPEED: 6,
+        SHIELD_CAPACITY: 6,
+        BODY_DAMAGE: 6,
+        MAX_HEALTH: 6,
+        SHIELD_REGENERATION: 6,
+        MOVEMENT_SPEED: 6,
+    },
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        DAMAGE: base.DAMAGE * 0.9,
+        HEALTH: base.HEALTH * 0.9,
+    },
+    STAT_NAMES: {
+        RELOAD: 'Engine Acceleration',
+        BULLET_SPEED: 'Spin Speed',
+    },
+    ON: [{
+        event: "tick",
+        handler: ({ body }) => {
+            if (body.cushionAngle == null) body.cushionAngle = 0;
+            // Base spin 0.015, scales up to ~0.045 with max bullet speed skill
+            const spinSpeed = 0.015 + (body.skill.raw[4] * 0.005);
+            body.cushionAngle += spinSpeed;
+            body.angle = body.cushionAngle;
+            body.dist = 120;
+            body.inverseDist = 120;
+        }
+    }],
+    HAS_NO_RECOIL: true,
+    TURRETS: [
+        ...Class.spike.TURRETS,
+        {
+            POSITION: [6, 0, 0, 0, 360, 1],
+            TYPE: "cushionCore",
+        },
+    ],
 }
 Class.spike_old = {
     PARENT: "genericTank",

@@ -48,7 +48,7 @@ module.exports = {
     focal: { reload: 1.25, recoil: 4/3, shudder: 0.8, health: 0.8, pen: 1.1, speed: 1.25, maxSpeed: 1.25, range: 1.1, density: 1.25, spray: 0.5, resist: 1.1 },
     atomizer: { reload: 0.3, recoil: 0.8, size: 0.5, damage: 0.75, speed: 1.2, maxSpeed: 0.8, spray: 2.25 },
     spam: { reload: 1.1, size: 1.05, damage: 1.1, speed: 0.9, maxSpeed: 0.7, resist: 1.05 },
-    gunnerDominator: { reload: 1.1, recoil: 0, shudder: 1.1, size: 0.5, health: 0.5, damage: 0.5, speed: 1.1, density: 0.9, spray: 1.2, resist: 0.8 },
+    gunnerDominator: { reload: 1.2, recoil: 0, shudder: 1.1, size: 0.5, health: 0.45, damage: 0.45, speed: 1, density: 0.9, spray: 1.2, resist: 0.8 },
 
 // Flanks
     flankGuard: { recoil: 1.2, health: 1.02, damage: 0.81, pen: 0.9, maxSpeed: 0.85, density: 1.2 },
@@ -62,8 +62,9 @@ module.exports = {
     overdrive: { reload: 2.5, health: 0.8, damage: 0.8, pen: 0.8, speed: 0.9, maxSpeed: 0.9, range: 0.9, spray: 1.2 },
     commander: { reload: 1.5, health: 0.4, damage: 0.7 },
     baseProtector: { reload: 0.7, size: 1.5, recoil: 0.000001, health: 100, speed: 2.3, maxSpeed: 1.1, range: 0.5, density: 5, resist: 10 },
-    battleship: { health: 1.25, damage: 1.15, maxSpeed: 0.85, resist: 1.1 },
-    carrier: { reload: 1.5, damage: 0.8, speed: 1.3, maxSpeed: 1.2, range: 1.2 },
+    battleship: { health: 1.875, damage: 1.725, maxSpeed: 0.85, resist: 1.1 },
+    carrier: { reload: 1.5, health: 1.5, damage: 1.2, speed: 1.3, maxSpeed: 1.2, range: 1.2 },
+    cruiser: { health: 1.5, damage: 1.5 },
     bee: { reload: 1.3, size: 1.4, damage: 1.5, pen: 0.5, speed: 1.5, maxSpeed: 1.5, density: 0.25 },
     sunchip: { reload: 4, size: 1.4, health: 0.5, damage: 0.4, pen: 0.6, density: 0.8 },
     maleficitor: { reload: 0.25, size: 1.05, health: 1.15, damage: 1.15, pen: 1.15, speed: 0.8, maxSpeed: 0.8, density: 1.15 },
@@ -82,7 +83,7 @@ module.exports = {
     artillery: { reload: 1.2, recoil: 0.7, size: 0.9, speed: 1.15, maxSpeed: 1.1, density: 1.5 },
     mortar: { reload: 1.2, health: 1.1, speed: 0.8, maxSpeed: 0.8 },
     shotgun: { reload: 8, recoil: 0.4, size: 1.5, damage: 0.4, pen: 0.8, speed: 1.8, maxSpeed: 0.6, density: 1.2, spray: 1.2 },
-    destroyerDominator: { reload: 6.5, recoil: 0, size: 0.975, health: 5, damage: 5, pen: 5, speed: 0.575, maxSpeed: 0.475, spray: 0.5 },
+    destroyerDominator: { reload: 7.5, recoil: 0, size: 0.95, health: 4, damage: 4, pen: 4, speed: 0.5, maxSpeed: 0.45, spray: 0.5 },
 
 // Missiles
     launcher: { reload: 1.5, recoil: 1.5, shudder: 0.1, size: 0.72, health: 1.05, damage: 0.925, speed: 0.9, maxSpeed: 1.2, range: 1.1, resist: 1.5 },
@@ -100,7 +101,7 @@ module.exports = {
     boomerang: { reload: 0.8, health: 0.5, damage: 0.5, speed: 0.75, maxSpeed: 0.75, range: 4/3 },
     nestKeeper: { reload: 3, size: 0.75, health: 1.05, damage: 1.05, pen: 1.1, speed: 0.5, maxSpeed: 0.5, range: 0.5, density: 1.1 },
     hexaTrapper: { reload: 1.3, shudder: 1.25, speed: 0.8, range: 0.5 },
-    trapperDominator: { reload: 1.46, recoil: 0, shudder: 0.25, health: 1.25, damage: 1.45, pen: 1.6, speed: 0.5, maxSpeed: 2, range: 1.1, spray: 0.5 },
+    trapperDominator: { reload: 1.65, recoil: 0, shudder: 0.25, health: 1.05, damage: 1.15, pen: 1.25, speed: 0.45, maxSpeed: 1.6, range: 1.05, spray: 0.5 },
     megaTrapper: { reload: 2, damage: 2, recoil: 2, size: 1.2 },
     barricade: { reload: 0.75, damage: 0.79, range: 0.5 },
 

@@ -139,7 +139,7 @@ let commands = [
         description: "Broadcast a message to all players.",
         level: 2,
         hidden: true,
-        run: ({ args, socket }) => {
+        run: ({ args, socket, gameManager }) => {
             if (!args[0]) {
                 socket.talk("m", 5_000, "No message specified.");
             }
@@ -199,14 +199,103 @@ let commands = [
         description: "Developer commands, go troll some players or just take a look for yourself.",
         level: 3,
         run: ({ socket, args, gameManager }) => {
-            let sendAvailableDevCommandsMessage = () => {
-                let lines = [
-                    "Help menu:",
-                    "- $ (developer / dev) reloaddefs - reloads definitions.",
+            const sendAvailableDevCommandsMessage = () => {
+                const lines = [
+                    "Dev commands:",
+                    "- $ dev god [on|off]",
+                    "- $ dev noclip [on|off]",
+                    "- $ dev invisible [on|off]",
+                    "- $ dev tp <x> <y>",
+                    "- $ dev tphere <name|id>",
+                    "- $ dev tpall <x> <y>",
+                    "- $ dev setlevel <n>",
+                    "- $ dev setscore <n>",
+                    "- $ dev setskill <stat> <n>",
+                    "- $ dev maxskills",
+                    "- $ dev heal",
+                    "- $ dev killme",
+                    "- $ dev kill <name|id>",
+                    "- $ dev respawn",
+                    "- $ dev resetstats",
+                    "- $ dev spawn <entity> [count]",
+                    "- $ dev despawn <radius>",
+                    "- $ dev clearbots",
+                    "- $ dev addbots <n>",
+                    "- $ dev freeze [on|off]",
+                    "- $ dev restart",
+                    "- $ dev closearena",
+                    "- $ dev speed <mult>",
+                    "- $ dev size <mult>",
+                    "- $ dev fov <mult>",
+                    "- $ dev recoil [on|off]",
+                    "- $ dev autocannon [on|off]",
+                    "- $ dev nohit [on|off]",
+                    "- $ dev nofire [on|off]",
+                    "- $ dev nomove [on|off]",
+                    "- $ dev dev",
+                    "- $ dev listplayers",
+                    "- $ dev info <name|id>",
+                    "- $ dev giveop <name|id>",
+                    "- $ dev revokeop <name|id>",
+                    "- $ dev ban <name|id>",
+                    "- $ dev permaban <name|id>",
+                    "- $ dev unban <ip>",
+                    "- $ dev reloaddefs",
+                    "- $ dev reloadroom",
+                    "- $ dev mockups",
+                    "- $ dev perf",
+                    "- $ dev entities",
+                    "- $ dev reload <n|inf>",
+                    "- $ dev reloadattrs",
                 ];
                 socket.talk("Em", 10_000, JSON.stringify(lines));
-            }
-            let command = args[0];
+            };
+            const command = args[0];
+            const body = socket.player?.body;
+            const clampToggle = (value) => {
+                if (value == null) return null;
+                if (["on", "true", "1"].includes(value)) return true;
+                if (["off", "false", "0"].includes(value)) return false;
+                return null;
+            };
+            const parseNumber = (value) => Number.isFinite(Number(value)) ? Number(value) : null;
+            const findPlayer = (query) => {
+                if (!query) return null;
+                const lower = query.toLowerCase();
+                for (const client of gameManager.clients) {
+                    const playerBody = client.player?.body;
+                    if (!playerBody) continue;
+                    if (String(playerBody.id) === query) return client;
+                    if ((playerBody.name || "").toLowerCase() === lower) return client;
+                }
+                return null;
+            };
+            const ensureBody = () => {
+                if (!body) {
+                    socket.talk("m", 5_000, "You must be spawned.");
+                    return false;
+                }
+                return true;
+            };
+            const setToggle = (value, fallback) => {
+                const parsed = clampToggle(value);
+                return parsed == null ? !fallback : parsed;
+            };
+            const statIndex = {
+                atk: 6,
+                hlt: 7,
+                spd: 4,
+                str: 2,
+                pen: 1,
+                dam: 3,
+                rld: 0,
+                mob: 9,
+                rgn: 8,
+                shi: 5,
+            };
+
+            if (!command) return sendAvailableDevCommandsMessage();
+
             if (command === "reloaddefs" || command === "redefs") {
                 /* IMPORT FROM (defsReloadCommand.js) */
                 if (!global.reloadDefinitionsInfo) {
@@ -222,7 +311,7 @@ let commands = [
                     return;
                 }
                 // Set the timeout timer ---
-                lastReloadTime = time;
+                global.reloadDefinitionsInfo.lastReloadTime = time;
 
                 // Remove function so all for(let x in arr) loops work
                 delete Array.prototype.remove;
@@ -307,7 +396,381 @@ let commands = [
                     util.warn(`[IMPORTANT] Definitions are successfully reloaded on server ${gameManager.gamemode} (${gameManager.webProperties.id})!`);
                     gameManager.gameHandler.run();
                 }, 1000)
-            } else sendAvailableDevCommandsMessage();
+                return;
+            }
+
+            if (command === "reloadroom") {
+                gameManager.setRoom();
+                gameManager.defineRoom();
+                gameManager.socketManager.broadcastRoom();
+                socket.talk("m", 5_000, "Room reloaded.");
+                return;
+            }
+
+            if (command === "mockups") {
+                mockupData = [];
+                if (Config.load_all_mockups) global.loadAllMockups(false);
+                socket.talk("m", 5_000, "Mockups reloaded.");
+                return;
+            }
+
+            if (command === "perf") {
+                socket.talk("m", 5_000, `Lag ${gameManager.lagLogger.totalTime.toFixed(2)}ms, roomSpeed ${gameManager.roomSpeed}.`);
+                return;
+            }
+
+            if (command === "entities") {
+                const counts = {};
+                for (const e of entities.values()) {
+                    counts[e.type] = (counts[e.type] || 0) + 1;
+                }
+                const lines = ["Entities:", ...Object.entries(counts).map(([k, v]) => `- ${k}: ${v}`)];
+                socket.talk("Em", 10_000, JSON.stringify(lines));
+                return;
+            }
+
+            if (command === "listplayers") {
+                const lines = ["Players:"];
+                for (const client of gameManager.clients) {
+                    const b = client.player?.body;
+                    if (!b) continue;
+                    lines.push(`- ${b.name || "unnamed"} (id ${b.id}, team ${b.team})`);
+                }
+                socket.talk("Em", 10_000, JSON.stringify(lines));
+                return;
+            }
+
+            if (command === "info") {
+                const target = findPlayer(args[1]);
+                if (!target?.player?.body) return socket.talk("m", 5_000, "Player not found.");
+                const b = target.player.body;
+                socket.talk("m", 8_000, `${b.name || "unnamed"} id=${b.id} team=${b.team} score=${b.skill.score} lvl=${b.skill.level}`);
+                return;
+            }
+
+            if (command === "giveop" || command === "revokeop") {
+                const target = findPlayer(args[1]);
+                if (!target?.player?.body) return socket.talk("m", 5_000, "Player not found.");
+                const enable = command === "giveop";
+                target.player.body.hasOperator = enable;
+                target.status.hasOperator = enable;
+                target.talk("m", 8_000, enable ? "You are now an operator." : "You are no longer an operator.");
+                socket.talk("m", 5_000, enable ? "Operator granted." : "Operator revoked.");
+                return;
+            }
+
+            if (command === "ban" || command === "permaban") {
+                const target = findPlayer(args[1]);
+                if (!target) return socket.talk("m", 5_000, "Player not found.");
+                command === "ban" ? target.ban("Banned by developer.") : target.permaban("Permanently banned by developer.");
+                return;
+            }
+
+            if (command === "unban") {
+                const ip = args[1];
+                if (!ip) return socket.talk("m", 5_000, "No IP specified.");
+                if (global.bans) global.bans = global.bans.filter(b => b.ip !== ip);
+                if (global.permBans) global.permBans = global.permBans.filter(b => b.ip !== ip);
+                socket.talk("m", 5_000, `Unbanned ${ip}.`);
+                return;
+            }
+
+            if (!ensureBody()) return;
+
+            if (command === "god" || command === "invuln") {
+                const enable = setToggle(args[1], body.godmode);
+                body.godmode = enable;
+                socket.talk("m", 4_000, `Invulnerability ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "noclip") {
+                const enable = setToggle(args[1], body.store.noWallCollision);
+                body.store.noWallCollision = enable;
+                socket.talk("m", 4_000, `Noclip ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "invisible") {
+                const enable = setToggle(args[1], body.alpha === 0);
+                body.invisible = [0, 0];
+                body.alpha = enable ? 0 : 1;
+                body.allowedOnMinimap = !enable;
+                socket.talk("m", 4_000, `Invisibility ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "tp") {
+                const x = parseNumber(args[1]);
+                const y = parseNumber(args[2]);
+                if (x == null || y == null) return socket.talk("m", 5_000, "Invalid coordinates.");
+                body.x = x;
+                body.y = y;
+                socket.talk("m", 4_000, "Teleported.");
+                return;
+            }
+
+            if (command === "tphere") {
+                const target = findPlayer(args[1]);
+                if (!target?.player?.body) return socket.talk("m", 5_000, "Player not found.");
+                target.player.body.x = body.x;
+                target.player.body.y = body.y;
+                socket.talk("m", 4_000, "Teleported player.");
+                return;
+            }
+
+            if (command === "tpall") {
+                const x = parseNumber(args[1]);
+                const y = parseNumber(args[2]);
+                if (x == null || y == null) return socket.talk("m", 5_000, "Invalid coordinates.");
+                for (const client of gameManager.clients) {
+                    const b = client.player?.body;
+                    if (!b) continue;
+                    b.x = x;
+                    b.y = y;
+                }
+                socket.talk("m", 4_000, "Teleported all players.");
+                return;
+            }
+
+            if (command === "setlevel") {
+                const level = parseNumber(args[1]);
+                if (level == null) return socket.talk("m", 5_000, "Invalid level.");
+                body.define({ LEVEL: level });
+                socket.talk("m", 4_000, `Level set to ${body.skill.level}.`);
+                return;
+            }
+
+            if (command === "setscore") {
+                const score = parseNumber(args[1]);
+                if (score == null) return socket.talk("m", 5_000, "Invalid score.");
+                body.skill.score = score;
+                while (body.skill.maintain()) {}
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Score updated.");
+                return;
+            }
+
+            if (command === "setskill") {
+                const stat = args[1];
+                const value = parseNumber(args[2]);
+                if (!stat || value == null || statIndex[stat] == null) return socket.talk("m", 5_000, "Usage: setskill <stat> <n>");
+                body.skill.raw[statIndex[stat]] = Math.max(0, value);
+                body.skill.update();
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Skill updated.");
+                return;
+            }
+
+            if (command === "maxskills") {
+                body.skill.set(body.skill.caps);
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Skills maxed.");
+                return;
+            }
+
+            if (command === "heal") {
+                body.health.amount = body.health.max;
+                if (body.shield?.max) body.shield.amount = body.shield.max;
+                socket.talk("m", 4_000, "Healed.");
+                return;
+            }
+
+            if (command === "killme") {
+                body.kill();
+                return;
+            }
+
+            if (command === "kill") {
+                const target = findPlayer(args[1]);
+                if (!target?.player?.body) return socket.talk("m", 5_000, "Player not found.");
+                target.player.body.kill();
+                return;
+            }
+
+            if (command === "respawn") {
+                socket.status.deceased = true;
+                socket.spawn(body.name || "");
+                return;
+            }
+
+            if (command === "resetstats") {
+                body.skill.reset();
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Stats reset.");
+                return;
+            }
+
+            if (command === "spawn") {
+                const entity = args[1];
+                const count = parseNumber(args[2]) ?? 1;
+                if (!entity) return socket.talk("m", 5_000, "No entity specified.");
+                let classDef;
+                try {
+                    classDef = ensureIsClass(entity);
+                } catch (e) {
+                    return socket.talk("m", 5_000, "Unknown entity.");
+                }
+                for (let i = 0; i < Math.min(50, count); i++) {
+                    const loc = getSpawnableArea(undefined, gameManager);
+                    let o = new Entity({ x: loc.x, y: loc.y });
+                    o.define(classDef);
+                }
+                socket.talk("m", 4_000, `Spawned ${count}.`);
+                return;
+            }
+
+            if (command === "despawn") {
+                const radius = parseNumber(args[1]) ?? 500;
+                const radiusSq = radius * radius;
+                let removed = 0;
+                for (const e of entities.values()) {
+                    if (e.isPlayer || e.isBot) continue;
+                    const dx = e.x - body.x;
+                    const dy = e.y - body.y;
+                    if (dx * dx + dy * dy <= radiusSq) {
+                        e.kill();
+                        removed++;
+                    }
+                }
+                socket.talk("m", 4_000, `Removed ${removed} entities.`);
+                return;
+            }
+
+            if (command === "clearbots") {
+                let removed = 0;
+                for (const e of entities.values()) {
+                    if (!e.isBot) continue;
+                    e.kill();
+                    removed++;
+                }
+                socket.talk("m", 4_000, `Removed ${removed} bots.`);
+                return;
+            }
+
+            if (command === "addbots") {
+                const amount = parseNumber(args[1]) ?? 1;
+                for (let i = 0; i < Math.min(50, amount); i++) {
+                    const loc = getSpawnableArea(undefined, gameManager);
+                    gameManager.gameHandler.spawnBots(loc);
+                }
+                socket.talk("m", 4_000, `Added ${amount} bots.`);
+                return;
+            }
+
+            if (command === "freeze") {
+                const enable = setToggle(args[1], !gameManager.gameHandler.active);
+                if (enable) gameManager.gameHandler.stop();
+                else if (!gameManager.gameHandler.active) gameManager.gameHandler.run();
+                socket.talk("m", 4_000, enable ? "Game frozen." : "Game resumed.");
+                return;
+            }
+
+            if (command === "restart") {
+                gameManager.closeArena();
+                return;
+            }
+
+            if (command === "closearena") {
+                gameManager.closeArena();
+                return;
+            }
+
+            if (command === "speed") {
+                const value = parseNumber(args[1]);
+                if (value == null) return socket.talk("m", 5_000, "Invalid value.");
+                body.SPEED = value;
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Speed updated.");
+                return;
+            }
+
+            if (command === "size") {
+                const value = parseNumber(args[1]);
+                if (value == null) return socket.talk("m", 5_000, "Invalid value.");
+                body.SIZE = value;
+                body.coreSize = value;
+                socket.talk("m", 4_000, "Size updated.");
+                return;
+            }
+
+            if (command === "fov") {
+                const value = parseNumber(args[1]);
+                if (value == null) return socket.talk("m", 5_000, "Invalid value.");
+                body.FOV = value;
+                socket.talk("m", 4_000, "FOV updated.");
+                return;
+            }
+
+            if (command === "recoil") {
+                const enable = setToggle(args[1], body.settings.hasNoRecoil);
+                body.settings.hasNoRecoil = enable;
+                socket.talk("m", 4_000, `No recoil ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "autocannon") {
+                socket.player.command.autofire = !socket.player.command.autofire;
+                socket.talk("m", 4_000, `Autofire ${socket.player.command.autofire ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "nohit") {
+                const enable = setToggle(args[1], body.settings.noHit);
+                body.settings.noHit = enable;
+                socket.talk("m", 4_000, `No-hit ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "nofire") {
+                const enable = setToggle(args[1], body.settings.noFire);
+                body.settings.noFire = enable;
+                socket.talk("m", 4_000, `No-fire ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "nomove") {
+                const enable = setToggle(args[1], body.settings.noMove);
+                body.settings.noMove = enable;
+                socket.talk("m", 4_000, `No-move ${enable ? "enabled" : "disabled"}.`);
+                return;
+            }
+
+            if (command === "dev") {
+                body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                body.define("developer");
+                socket.talk("m", 4_000, "Switched to Developer.");
+                return;
+            }
+
+            if (command === "reload") {
+                const raw = args[1];
+                if (!raw) return socket.talk("m", 5_000, "Usage: reload <n|inf>");
+                if (["inf", "infinite", "max"].includes(raw.toLowerCase())) {
+                    body.settings.hasNoReloadDelay = true;
+                    socket.talk("m", 4_000, "Reload set to infinite.");
+                    return;
+                }
+                const value = parseNumber(raw);
+                if (value == null) return socket.talk("m", 5_000, "Usage: reload <n|inf>");
+                body.settings.hasNoReloadDelay = false;
+                body.skill.raw[statIndex.rld] = Math.max(0, value);
+                body.skill.update();
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Reload updated.");
+                return;
+            }
+
+            if (command === "reloadattrs") {
+                const defs = body.defs;
+                body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                body.define(defs);
+                body.refreshBodyAttributes();
+                socket.talk("m", 4_000, "Attributes reloaded.");
+                return;
+            }
+
+            sendAvailableDevCommandsMessage();
         },
     },
 ]

@@ -21,6 +21,7 @@ class Outbreak {
         zombieEntity.define(liveEntity.defs);
         zombieEntity.define({ AI: { CHASE: true }, FACING_TYPE: ["manual", {angle: liveEntity.facing}] });
         zombieEntity.color.base = "grey";
+        zombieEntity.leaderboardColor = getTeamColor(TEAM_GREEN);
         zombieEntity.skill = liveEntity.skill;
         zombieEntity.name = liveEntity.name;
         zombieEntity.invuln = true;

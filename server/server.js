@@ -6,6 +6,7 @@ const path = require("path");
 const fs = require("fs");
 
 const { Worker } = require("worker_threads");
+const userDB = require("./lib/userDatabase.js");
 
 // Increase the stack trace limit for better debugging
 Error.stackTraceLimit = Infinity;
@@ -88,9 +89,11 @@ server = require("http").createServer((req, res) => {
     // Handle specific API endpoints based on the request URL
     switch (req.url) {
         case "/getServers.json": {
+            const forwardedHost = (req.headers["x-forwarded-host"] || req.headers.host || "").split(",")[0].trim();
+            const hostOnly = forwardedHost ? forwardedHost.split(":")[0] : "";
             // Serve a list of active servers (excluding hidden ones)
             readString = JSON.stringify(servers.filter((s) => s && !s.hidden).map((server) => ({
-                    ip: server.ip,
+                    ip: (!server.ip || ["localhost", "127.0.0.1", "::1"].includes(server.ip)) && hostOnly ? hostOnly : server.ip,
                     players: server.players,
                     maxPlayers: server.maxPlayers,
                     id: server.id,
@@ -154,6 +157,291 @@ server = require("http").createServer((req, res) => {
         case "/isOnline": {
             readString = "true";
         } break;
+
+        case "/api/config": {
+            readString = JSON.stringify({ account: Config.account });
+        } break;
+
+        // User Account API Routes (only enabled if Config.account is true)
+        case "/api/register": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { username, password } = JSON.parse(body);
+                    const result = userDB.register(username, password);
+                    res.writeHead(result.success ? 200 : 400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/login": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { username, password } = JSON.parse(body);
+                    const result = userDB.login(username, password);
+                    res.writeHead(result.success ? 200 : 401, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/logout": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token } = JSON.parse(body);
+                    const result = userDB.logout(token);
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/validate": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token } = JSON.parse(body);
+                    const username = userDB.validateToken(token);
+                    if (username) {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: true, username }));
+                    } else {
+                        res.writeHead(401, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "Invalid or expired token" }));
+                    }
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/profile": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { username } = JSON.parse(body);
+                    const profile = userDB.getProfile(username);
+                    if (profile) {
+                        res.writeHead(200, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: true, profile }));
+                    } else {
+                        res.writeHead(404, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "User not found" }));
+                    }
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/friends": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token } = JSON.parse(body);
+                    const username = userDB.validateToken(token);
+                    if (!username) {
+                        res.writeHead(401, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "Not logged in" }));
+                        return;
+                    }
+                    // Get online players from all servers
+                    const onlinePlayers = [];
+                    for (const server of global.servers) {
+                        if (server.gameManager && server.gameManager.players) {
+                            for (const player of server.gameManager.players) {
+                                if (player.accountUsername) onlinePlayers.push(player.accountUsername);
+                            }
+                        }
+                    }
+                    const friends = userDB.getFriends(username, onlinePlayers);
+                    res.writeHead(200, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: true, ...friends }));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/friends/add": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token, username: friendUsername } = JSON.parse(body);
+                    const username = userDB.validateToken(token);
+                    if (!username) {
+                        res.writeHead(401, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "Not logged in" }));
+                        return;
+                    }
+                    const result = userDB.sendFriendRequest(username, friendUsername);
+                    res.writeHead(result.success ? 200 : 400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/friends/accept": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token, username: fromUsername } = JSON.parse(body);
+                    const username = userDB.validateToken(token);
+                    if (!username) {
+                        res.writeHead(401, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "Not logged in" }));
+                        return;
+                    }
+                    const result = userDB.acceptFriendRequest(username, fromUsername);
+                    res.writeHead(result.success ? 200 : 400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/friends/decline": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token, username: fromUsername } = JSON.parse(body);
+                    const username = userDB.validateToken(token);
+                    if (!username) {
+                        res.writeHead(401, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "Not logged in" }));
+                        return;
+                    }
+                    const result = userDB.declineFriendRequest(username, fromUsername);
+                    res.writeHead(result.success ? 200 : 400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
+        case "/api/friends/remove": {
+            if (!Config.account) {
+                ok = false;
+                res.writeHead(404, { "Content-Type": "application/json" });
+                res.end(JSON.stringify({ success: false, error: "Accounts are disabled" }));
+                break;
+            }
+            ok = false;
+            let body = "";
+            req.on("data", c => body += c);
+            req.on("end", () => {
+                try {
+                    const { token, username: friendUsername } = JSON.parse(body);
+                    const username = userDB.validateToken(token);
+                    if (!username) {
+                        res.writeHead(401, { "Content-Type": "application/json" });
+                        res.end(JSON.stringify({ success: false, error: "Not logged in" }));
+                        return;
+                    }
+                    const result = userDB.removeFriend(username, friendUsername);
+                    res.writeHead(result.success ? 200 : 400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify(result));
+                } catch (e) {
+                    res.writeHead(400, { "Content-Type": "application/json" });
+                    res.end(JSON.stringify({ success: false, error: "Invalid request" }));
+                }
+            });
+        } break;
+
         case selectedHeader: {
             // For all other routes, serve static files from the public directory
             ok = false;
@@ -235,10 +523,7 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, webPr
     } else {
         global.servers.push({ loadedViaMainServer: true });
         setTimeout(() => { // Space it a little out.
-            if (global.launchedOnMainServer) {
-                console.warn("Only one server can be loaded via through the main server!\nProcess terminated.");
-                process.exit(1);
-            }
+
             global.launchedOnMainServer = true;
             new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, webProperties, properties, isFeatured, false);
         }, 10)
@@ -285,14 +570,23 @@ server.listen(Config.port, () => {
 // Upgrade HTTP connections to WebSocket connections if applicable
 server.on("upgrade", (req, socket, head) => {
     wsServer.handleUpgrade(req, socket, head, (ws) => {
-        if (global.launchedOnMainServer) {
-            for (let i = 0; i < global.servers.length; i++) {
-                let server = global.servers[i];
-                if (server.gameManager) server.gameManager.socketManager.connect(ws, req);
-            }
-        } else {
+        if (!global.launchedOnMainServer) {
             ws.close();
+            return;
         }
+        const path = (req.url || "").split("?")[0];
+        const serverId = path.replace(/^\/+/, "");
+        const target = serverId ? global.servers.find(s => s.id === serverId && s.gameManager) : null;
+        if (target) {
+            target.gameManager.socketManager.connect(ws, req);
+            return;
+        }
+        const fallback = global.servers.find(s => s.gameManager);
+        if (fallback) {
+            fallback.gameManager.socketManager.connect(ws, req);
+            return;
+        }
+        ws.close();
     });
 });
 

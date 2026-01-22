@@ -204,6 +204,7 @@ Class.bullet = {
     LABEL: "Bullet",
     TYPE: "bullet",
     ACCEPTS_SCORE: false,
+    INFINITE_MAX_SPEED: true,
     BODY: {
         PENETRATION: 1,
         SPEED: 3.75,

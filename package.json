@@ -1,5 +1,5 @@
 {
-  "name": "open-source-arras",
+  "name": "arras-community-edition",
   "version": "1.0.0",
   "main": "server/index.js",
   "scripts": {

@@ -7,7 +7,7 @@ class ClanWars {
         Config.clan_wars_ft = {
             getClans: () => this.clans,
             add: (name, addToPartyList = false) => {
-                let clanCheck = name.match(/\[(.*?)\]/);
+                let clanCheck = this.checkName(name);
                 if (clanCheck) {
                     let clan = this.clans.find(o => o.clanName === clanCheck[1]);
                     if (!clan) {
@@ -30,6 +30,7 @@ class ClanWars {
                 let clanCheck = this.checkName(entity.originalName);
                 if (clanCheck) {
                     let clan = this.clans.find(o => o.clanName === clanCheck[1]);
+                    if (!clan || !Array.isArray(clan.partyEntities)) return;
                     util.remove(clan.partyEntities, clan.partyEntities.indexOf(entity));
                 }
             },
@@ -37,6 +38,9 @@ class ClanWars {
                 let clanCheck = this.checkName(name);
                 if (clanCheck) {
                     let clan = this.clans.find(o => o.clanName === clanCheck[1]);
+                    if (!clan || !Array.isArray(clan.partyEntities)) {
+                        return getSpawnableArea(null, this.gameManager);
+                    }
                     let TheChosenOne = ran.choose(clan.partyEntities);
                     if (TheChosenOne) {
                         return { 
@@ -50,6 +54,7 @@ class ClanWars {
                 let clanCheck = this.checkName(name);
                 if (clanCheck) {
                     let clan = this.clans.find(o => o.clanName === clanCheck[1]);
+                    if (!clan) return { clan: null, team: getRandomTeam() };
                     return {
                         team: clan.team,
                         clan: clan.fullClanName
@@ -61,7 +66,16 @@ class ClanWars {
             }
         }
     }
-    checkName(name) {return name.match(/\[(.*?)\]/)};
+    checkName(name) {
+        if (!name) return null;
+        let matches = name.matchAll(/\[(.*?)\]/g);
+        for (let match of matches) {
+            if (!match[1]) continue;
+            if (match[1].toLowerCase() === "ai") continue;
+            return match;
+        }
+        return null;
+    };
     redefine(theshit) {
         this.gameManager = theshit;
     }

@@ -14,6 +14,7 @@ class socketManager {
         this.disconnections = [];
         this.playersReceived = [];
         this.bans = [];
+        this.rememberedTeams = new Map();
         // Import permissions
         for (let entry of require("../permissions.js")) {
             this.permissionsDict[entry.key] = entry;
@@ -134,6 +135,24 @@ class socketManager {
         if (index != -1) {
             // Kill the body if it exists
             if (player.body != null) {
+                if (socket.accountUsername && socket.accountToken && !socket.statsRecorded) {
+                    try {
+                        const userDB = require('../../lib/userDatabase.js');
+                        const playtimeSeconds = Math.max(0, Math.floor(socket.playtimeMs / 1000));
+                        userDB.updateStats(socket.accountUsername, {
+                            kills: player.body.killCount || 0,
+                            deaths: player.body.isDead() ? 1 : 0,
+                            score: player.body.skill.score || 0,
+                            playtimeSeconds
+                        });
+                        socket.statsRecorded = true;
+                    } catch (e) {
+                        // Silently fail if userDB not available
+                    }
+                }
+                if (isPlayerTeam(player.body.team)) {
+                    this.rememberedTeams.set(socket.ip, player.body.team);
+                }
                 if (player.body.underControl) {
                     player.body.giveUp(player);
                 }
@@ -244,7 +263,22 @@ class socketManager {
                 let needsRoom = m[1];
                 let autoLVLup = m[2];
                 let transferbodyID = m[3];
+                let accountToken = m[4]; // Account authentication token
                 if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
+
+                // Validate account token if provided
+                if (accountToken && typeof accountToken === 'string') {
+                    try {
+                        const userDB = require('../../lib/userDatabase.js');
+                        const accountUsername = userDB.validateToken(accountToken);
+                        if (accountUsername) {
+                            socket.accountUsername = accountUsername;
+                            socket.accountToken = accountToken;
+                        }
+                    } catch (e) {
+                        // Silently fail if userDB not available
+                    }
+                }
                 if (global.gameManager.arenaClosed) {
                     if (needsRoom) {
                       socket.talk("message", "Arena closed. Try again in a few seconds.");
@@ -788,7 +822,6 @@ class socketManager {
 
     container(player) {
         let vars = [],
-            skills = player.body.skill,
             out = [],
             statnames = ["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi"];
         // Load everything (b/c I'm too lazy to do it manually)
@@ -799,6 +832,8 @@ class socketManager {
         }
         return {
             update: () => {
+                let skills = player.body?.skill;
+                if (!skills) return;
                 let needsupdate = false,
                     i = 0;
                 // Update the things
@@ -1016,9 +1051,18 @@ class socketManager {
         let name = epackage.name;
         let autoLVLup = epackage.autoLVLup;
         let transferbodyID = epackage.transferbodyID;
+        let joinedClanName = null;
         let eastereggs = {
             braindamage: epackage.braindamagemode
         };
+        if (Config.train && Config.clan_wars && !/\[(.*?)\]/.test(name)) {
+            const clans = Config.clan_wars_ft?.getClans?.() || [];
+            if (clans.length) {
+                let clan = ran.choose(clans);
+                joinedClanName = clan.fullClanName;
+                name = `${joinedClanName}${name ? " " + name : ""}`;
+            }
+        }
         // Bring to life
         socket.status.deceased = false;
         // Define the player.
@@ -1074,6 +1118,12 @@ class socketManager {
                 }
             }
         }
+        if (joinedClanName) {
+            socket.talk("m", 4_000, `Joined ${joinedClanName}!`);
+        }
+        socket.playtimeMs = 0;
+        socket.lastPlaytimeAt = Date.now();
+        socket.statsRecorded = false;
         // Log it 
         util.log(`[INFO] [${global.gameManager.name}] ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
         // Stop the timeout
@@ -1099,13 +1149,25 @@ class socketManager {
             Config.clan_wars_ft.add(name);
             return { player: Config.clan_wars_ft.getPlayerInfo(name), loc: Config.clan_wars_ft.getSpawn(name) };
         }
-        if (Config.mode == "tdm" || Config.tag) {
+        if (Config.mode == "tdm") {
             let team = getWeakestTeam(global.gameManager);
             // Choose from one of the least ones
             if (player.team == null || (player.team !== team && global.defeatedTeams.includes(player.team))) {
                 player.team = team;
             }
-        };
+        }
+        if (Config.tag) {
+            // In tag mode, use the remembered team (killer's team) or pick a random team
+            const allowedTeams = [TEAM_BLUE, TEAM_GREEN, TEAM_RED, TEAM_PURPLE];
+            console.log("[TAG DEBUG] getSpawnLocation called. rememberedTeam:", rememberedTeam, "allowedTeams:", allowedTeams);
+            if (!allowedTeams.includes(player.team)) {
+                const randomTeam = ran.choose(allowedTeams);
+                console.log("[TAG DEBUG] Team not in allowed list, picking random:", randomTeam);
+                player.team = randomTeam;
+            } else {
+                console.log("[TAG DEBUG] Using remembered team:", player.team);
+            }
+        }
         if (global.spawnPoint) loc = global.spawnPoint;
         else loc = getSpawnableArea(player.team, global.gameManager);
         return { player, loc };
@@ -1453,6 +1515,11 @@ class socketManager {
             check: (e) => { return check(socket.camera, e); },
             gazeUpon: (updateCam = false) => {
                 logs.network.set();
+                const now = Date.now();
+                if (socket.status.hasSpawned && socket.player.body && !socket.player.body.isDead()) {
+                    socket.playtimeMs += Math.max(0, now - socket.lastPlaytimeAt);
+                }
+                socket.lastPlaytimeAt = now;
                 // If nothing has changed since the last update, wait (approximately) until then to update
                 let lastCycle = global.gameManager.room.lastCycle;
                 // else update it.
@@ -1476,6 +1543,23 @@ class socketManager {
                             socket.status.deceased = true;
                             // Leave the clan party if clan wars is active
                             if (Config.clan_wars) Config.clan_wars_ft.remove(player.body);
+                            // Update account stats if logged in
+                            if (socket.accountUsername && socket.accountToken) {
+                                try {
+                                    const userDB = require('../../lib/userDatabase.js');
+                                    const playtimeSeconds = Math.max(0, Math.floor(socket.playtimeMs / 1000));
+                                    userDB.updateStats(socket.accountUsername, {
+                                        kills: player.body.killCount || 0,
+                                        deaths: 1,
+                                        score: player.body.skill.score || 0,
+                                        playtimeSeconds
+                                    });
+                                    socket.statsRecorded = true;
+                                } catch (e) {
+                                    // Silently fail if userDB not available
+                                }
+                            }
+                            socket.playtimeMs = 0;
                             // Let the client know it died
                             socket.talk("F", ...player.records());
                             purge(); // Call the function so it can remove the body.
@@ -1687,7 +1771,7 @@ class socketManager {
             let topTen = [];
             for (let i = 0; i < 10 && list.length; i++) {
                 let top,
-                    is = 0;
+                    is = Config.leaderboard_allow_zero_score ? -Infinity : 0;
                 for (let j = 0; j < list.length; j++) {
                     let val = list[j].skill.score;
                     if (val > is) {
@@ -1695,7 +1779,7 @@ class socketManager {
                         top = j;
                     }
                 }
-                if (is === 0) break;
+                if (top == null || (!Config.leaderboard_allow_zero_score && is === 0)) break;
                 let entry = list[top];
                 let color = entry.leaderboardColor ? entry.leaderboardColor + " 0 1 0 false" 
                     : Config.groups || (Config.mode == 'ffa' && !Config.tag) ? '11 0 1 0 false'
@@ -1762,13 +1846,18 @@ class socketManager {
                 )) {
                     const x = Config.blackout ? Math.floor(Math.random() * global.gameManager.room.width - global.gameManager.room.width / 2) : my.x;
                     const y = Config.blackout ? Math.floor(Math.random() * global.gameManager.room.height - global.gameManager.room.height / 2) : my.y;
+                    const isClanTank = Config.clan_wars && my.type === "tank" && my.master === my;
+                    const baseColor = my.minimapColor
+                        ? my.minimapColor + " 0 1 0 false"
+                        : my.color.compiled;
+                    const minimapColor = isClanTank ? "10 0 1 0 false" : baseColor;
                     all.push({
                         id: my.id,
                         data: [
                             Config.blackout ? 0 : my.type === "wall" || my.isMothership ? my.shape === 4 ? 2 : 1 : 0,
                             util.clamp(Math.floor((256 * x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * y) / global.gameManager.room.height), -128, 127),
-                            Config.blackout ? Config.blackout_minimap_color + " 0 1 0 false" : my.minimapColor ? my.minimapColor + " 0 1 0 false" : my.color.compiled,
+                            Config.blackout ? Config.blackout_minimap_color + " 0 1 0 false" : minimapColor,
                             Math.round(my.SIZE),
                         ],
                     });
@@ -1780,12 +1869,18 @@ class socketManager {
             let all = [];
             for (const my of entities.values())
                 if (my.type === "tank" && my.team === args[0] && my.master === my && my.allowedOnMinimap) {
+                    const teammateColor = "10 0 1 0 false";
+                    const defaultColor = Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag)
+                        ? '10 0 1 0 false'
+                        : my.color.compiled;
+                    const color = Config.clan_wars ? teammateColor : defaultColor;
+                    const isClanTank = Config.clan_wars;
                     all.push({
                         id: my.id,
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag) ? '10 0 1 0 false' : my.color.compiled,
+                            isClanTank ? color : (my.minimapColor ? my.minimapColor + " 0 1 0 false" : color),
                         ],
                     });
                 }
@@ -2090,6 +2185,9 @@ class socketManager {
             mockupData: socket.initMockupList(),
             lastHeartbeat: util.time(),
         };  
+        socket.playtimeMs = 0;
+        socket.lastPlaytimeAt = Date.now();
+        socket.statsRecorded = false;
         // Set up loops
         let nextUpdateCall = null; // has to be started manually
         let trafficMonitoring = setInterval(() => this.traffic(socket), 1500);
@@ -2144,6 +2242,9 @@ class socketManager {
         }
 
         socket.ip = ips[0];
+        if (this.rememberedTeams.has(socket.ip)) {
+            socket.rememberedTeam = this.rememberedTeams.get(socket.ip);
+        }
 
         try {
             if (fs.existsSync(PERMABAN_FILE)) {

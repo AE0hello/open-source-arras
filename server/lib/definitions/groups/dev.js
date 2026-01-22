@@ -265,6 +265,7 @@ Class.menu_dailyTanks.UPGRADE_COLOR = "rainbow"
 Class.menu_dailyTanks.UPGRADE_TOOLTIP = "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available. \n" +
                                         "The Daily Tank for a server can be added or changed in config."
 Class.menu_dailyTanks.UPGRADES_TIER_0 = [
+    "laser",
     "whirlwind", // dec 13/21
     "master", // dec 14/22
     "undertow", // dec 15/23
@@ -303,6 +304,7 @@ Class.menu_fun.UPGRADES_TIER_0 = [
     "tracker3",
     "wifeBeater",
     "worstTank",
+    "hack",
 ]
 
 Class.menu_mapEntities = makeMenu("Map Entities")
@@ -543,12 +545,12 @@ Class.menu_retiredDevBosses.UPGRADES_TIER_0 = [
 
 // Addons Menu
 Class.menu_addons = makeMenu("Addons")
-Class.menu_addons.UPGRADE_TOOLTIP = "Content that is (usually) not part of Open Source Arras but was added by someone else."
+Class.menu_addons.UPGRADE_TOOLTIP = "Content that is (usually) not part of Arras Community Edition but was added by someone else."
 Class.menu_addons.UPGRADES_TIER_0 = [] // Empty by default, gets filled up with all the addons you add
 
 // Testing Menu
 Class.menu_testing = makeMenu("Testing")
-Class.menu_testing.UPGRADE_TOOLTIP = "A large selection of tanks that use many of the features of Open Source Arras. \n" +
+Class.menu_testing.UPGRADE_TOOLTIP = "A large selection of tanks that use many of the features of Arras Community Edition. \n" +
                                      "WARNING: There are a lot of tanks in here and having this menu open may cause noticeable frame drops!"
 Class.menu_testing.UPGRADES_TIER_0 = [
     "diamondShape",
@@ -582,6 +584,126 @@ Class.menu_testing.UPGRADES_TIER_0 = [
     "angleseer",
     "backwardsexports",
 ]
+
+Class.hack = {
+    PARENT: "genericTank",
+    LABEL: "Hack",
+    MAX_CHILDREN: 100,
+    GUNS: [
+        {
+            POSITION: [18, 8, 1, 0, 0, 7.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -7.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 172.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -172.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -82.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 82.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -97.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 97.5, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -90, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 90, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -180, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -45, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "drone",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, -135, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "drone",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 135, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "drone",
+            },
+        },
+        {
+            POSITION: [18, 8, 1, 0, 0, 45, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "drone",
+            },
+        },
+    ],
+}
 
 // airblast testing
 Class.airblast = {

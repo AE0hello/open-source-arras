@@ -178,6 +178,13 @@ global.bringToLife = (() => {
 })();
 global.runMove = (() => {
     return my => {
+        if (my.settings?.noMove) {
+            my.accel.x = 0;
+            my.accel.y = 0;
+            my.control.goal.x = my.x;
+            my.control.goal.y = my.y;
+            return;
+        }
         let g = { x: my.control.goal.x - my.x, y: my.control.goal.y - my.y },
             gactive = (g.x !== 0 || g.y !== 0),
             engine = { x: 0, y: 0, },
@@ -258,6 +265,9 @@ global.runMove = (() => {
                 my.velocity.x = my.source.velocity.x;
                 my.velocity.y = my.source.velocity.y;
                 break;
+        }
+        if (my.settings?.infiniteMaxSpeed) {
+            my.maxSpeed = Infinity;
         }
         my.accel.x += engine.x * my.control.power;
         my.accel.y += engine.y * my.control.power;

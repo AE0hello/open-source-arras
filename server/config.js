@@ -1,69 +1,221 @@
+const parseNumber = (value, fallback) => {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : fallback;
+};
+
+const PUBLIC_HOST = process.env.PUBLIC_HOST || process.env.HOST || "localhost";
+const WEB_PORT = parseNumber(process.env.PORT, 3000);
+const GAME_HOST = process.env.GAME_HOST || PUBLIC_HOST;
+const GAME_PORT_BASE = parseNumber(process.env.GAME_PORT_BASE, 3001);
+
+const withPort = (host, port) => {
+    if (!host) return `localhost:${port}`;
+    if (host.includes(":") && !host.startsWith("[")) return host;
+    return `${host}:${port}`;
+};
+
 module.exports = {
+    // Accounts
+    account: false, // Enable the account system (login, registration, friends, stats tracking).
+
     // Main Menu
     main_menu: "index.html", // Where the main menu is located (in the /public folder).
-    host: "localhost:3000", // Game server domain. If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
-    port: 3000, // Which port to run the web server on.
+    host: withPort(PUBLIC_HOST, WEB_PORT), // Game server domain. If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
+    port: WEB_PORT, // Which port to run the web server on.
 
     // Server
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
+    always_active_when_players: false, // If true, all entities stay active when at least one player is connected.
     startup_logs: true, // Enable startup logs and log speed loop warnings in the terminal
     load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
 
     servers: [ // Make sure to change the HOST, PORT and SERVER_ID between servers!
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
-
-            host: "localhost:3001", // Server host location.
-            port: 3001, // The port on the server.
-            id: "loc", // (<host>/#<id>)
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 0),
+            port: GAME_PORT_BASE + 0,
+            id: "ffa",
             featured: false,
-
-            region: "local", // The region the server is on.
-            gamemode: ["tdm"], // The selected gamemode.
-            player_cap: 80, // The maximum number of players that can join the server. Not including bots.
-
-            properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
-                teams: 2,
-                bot_cap: 32,
-            }
+            region: "local",
+            gamemode: ["ffa"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
         },
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below HOST and PORT settings to be identical to the main server's HOST/PORT (by default, 3000).
-
-            host: "localhost:3002", // Server host location.
-            port: 3002, // The port on the server.
-            id: "lod", // (<HOST>/#<SERVER_ID>)
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 1),
+            port: GAME_PORT_BASE + 1,
+            id: "tdm",
             featured: false,
-
-            region: "local", // The region the server is on.
-            gamemode: ["ffa"], // The selected gamemode.
-            player_cap: 80, // Not including bots.
-
-            properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
-                bot_cap: 16,
-                daily_tank: {
-                    tank: "whirlwind",
-                    tier: 3,
-                    ads: {
-                        enabled: true,
-                        source: [
-                            {
-                                file: "testadvideo.mp4",
-                                use_regular_ad_size: true,
-                            },
-                            {
-                                file: "testadimage.png",
-                                image_wait_time: 3,
-                                use_regular_ad_size: true,
-                            }
-                        ]
-                    }
-                },
-            }
+            region: "local",
+            gamemode: ["tdm"],
+            player_cap: 80,
+            properties: { teams: 2, bot_cap: 32 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 2),
+            port: GAME_PORT_BASE + 2,
+            id: "domination",
+            featured: false,
+            region: "local",
+            gamemode: ["domination"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 3),
+            port: GAME_PORT_BASE + 3,
+            id: "mothership",
+            featured: false,
+            region: "local",
+            gamemode: ["mothership"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 4),
+            port: GAME_PORT_BASE + 4,
+            id: "tag",
+            featured: false,
+            region: "local",
+            gamemode: ["tag"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 5),
+            port: GAME_PORT_BASE + 5,
+            id: "maze",
+            featured: false,
+            region: "local",
+            gamemode: ["maze"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 6),
+            port: GAME_PORT_BASE + 6,
+            id: "sandbox",
+            featured: false,
+            region: "local",
+            gamemode: ["sandbox"],
+            player_cap: 80,
+            properties: { bot_cap: 0 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 7),
+            port: GAME_PORT_BASE + 7,
+            id: "growth",
+            featured: false,
+            region: "local",
+            gamemode: ["growth"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 8),
+            port: GAME_PORT_BASE + 8,
+            id: "space",
+            featured: false,
+            region: "local",
+            gamemode: ["space"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 9),
+            port: GAME_PORT_BASE + 9,
+            id: "blackout",
+            featured: false,
+            region: "local",
+            gamemode: ["blackout"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 10),
+            port: GAME_PORT_BASE + 10,
+            id: "classic",
+            featured: false,
+            region: "local",
+            gamemode: ["classic"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 11),
+            port: GAME_PORT_BASE + 11,
+            id: "opentdm",
+            featured: false,
+            region: "local",
+            gamemode: ["opentdm"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 12),
+            port: GAME_PORT_BASE + 12,
+            id: "trainwars",
+            featured: false,
+            region: "local",
+            gamemode: ["trainwars"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 13),
+            port: GAME_PORT_BASE + 13,
+            id: "clanwars",
+            featured: false,
+            region: "local",
+            gamemode: ["clanwars"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 14),
+            port: GAME_PORT_BASE + 14,
+            id: "outbreak",
+            featured: false,
+            region: "local",
+            gamemode: ["outbreak"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 15),
+            port: GAME_PORT_BASE + 15,
+            id: "siege",
+            featured: false,
+            region: "local",
+            gamemode: ["siege_og"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
+        },
+        {
+            share_client_server: false,
+            host: withPort(GAME_HOST, GAME_PORT_BASE + 16),
+            port: GAME_PORT_BASE + 16,
+            id: "assault",
+            featured: false,
+            region: "local",
+            gamemode: ["assault_eye"],
+            player_cap: 80,
+            properties: { bot_cap: 16 }
         },
     ],
 
@@ -91,8 +243,10 @@ module.exports = {
     run_speed: 1.5, // General multiplier for acceleration and max speeds.
     max_heartbeat_interval: 300_000, // How long (in milliseconds) a socket can be disconnected before their tank self-destructs.
     respawn_delay: 0, // How long you have to wait to respawn in seconds. Set to 0 to disable.
+    wall_crush_damage: 0.1, // Percent of max health per second when stuck between walls (0 disables).
 
     bullet_spawn_offset: 1, // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
+    bullet_speed_scale: 0.8, // Global multiplier for projectile speed.
     damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
     knockback_multiplier: 1.1, // General knockback multiplier everytime knockback is applied.
     glass_health_factor: 2, // TODO: Figure out how the math behind this works.
@@ -124,6 +278,15 @@ module.exports = {
 
     // The class that players and bots spawn as.
     spawn_class: "basic",
+
+    daily_tank: {
+        tank: "spikeDaily",
+        tier: 3,
+        ads: {
+            enabled: false,
+            source: []
+        }
+    },
 
     // How every entity regenerates their health.
     regenerate_tick: 100,

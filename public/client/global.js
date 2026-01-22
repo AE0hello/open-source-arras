@@ -387,6 +387,10 @@ const global = {
         document.getElementById("gameAreaWrapper").style.display = "none";
         global.socket && global.socket.close();
         document.getElementById("startMenuWrapper").style.display = "block";
+        const accountCorner = document.getElementById("accountCorner");
+        if (accountCorner) {
+            accountCorner.style.display = "block";
+        }
         global.player = global.initPlayer();
         global.gameLoading = false;
         global.gameStart = false;

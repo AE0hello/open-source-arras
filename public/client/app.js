@@ -846,6 +846,14 @@ import * as socketStuff from "./socketinit.js";
         global.screenWidth = window.innerWidth;
         global.screenHeight = window.innerHeight;
         document.getElementById("startMenuWrapper").style.top = "-700px";
+        const accountCorner = document.getElementById("accountCorner");
+        if (accountCorner) {
+            accountCorner.style.display = "none";
+        }
+        const accountModal = document.getElementById("accountModal");
+        const friendsModal = document.getElementById("friendsModal");
+        if (accountModal) accountModal.style.display = "none";
+        if (friendsModal) friendsModal.style.display = "none";
         setTimeout(() => {
             document.getElementById("startMenuWrapper").style.display = "none";
         }, 1e3);
@@ -2019,15 +2027,19 @@ import * as socketStuff from "./socketinit.js";
                     }
                 }
                 ctx[1].globalAlpha = 1;
-                ctx[1].fillStyle = global.advanced.blackout.color;
+                const blackoutColor = "#000000";
+                ctx[1].globalAlpha = 1;
+                ctx[1].fillStyle = blackoutColor;
                 ctx[1].globalCompositeOperation = "destination-in";
                 ctx[1].fill();
                 ctx[1].globalCompositeOperation = "destination-over";
+                ctx[1].fillStyle = blackoutColor;
                 ctx[1].fillRect(0, 0, global.screenWidth, global.screenHeight);
                 ctx[1].globalCompositeOperation = "source-over";
             } else {
+                const blackoutColor = "#000000";
                 ctx[1].globalAlpha = 1;
-                ctx[1].fillStyle = global.advanced.blackout.color;
+                ctx[1].fillStyle = blackoutColor;
                 ctx[1].fillRect(0, 0, global.screenWidth, global.screenHeight);
             }
         }
@@ -2651,17 +2663,21 @@ import * as socketStuff from "./socketinit.js";
             }
 
             //bar fills
-            drawBar(x + height / 2, x - height / 2 + len * ska(cap) - 14, y + height / 2, height - 2.8 + config.graphical.barChunk, color.black);
-            drawBar(x + height / 2, x + height / 2 + len * ska(cap) - gap, y + height / 2, height - 3, color.grey);
-            drawBar(x + height / 2, x + height / 2 + len * ska(level) - gap, y + height / 2, height - 5.5 + config.graphical.barChunk, color.black);
-            drawBar(x + height / 2, x + height / 2 + len * ska(level) - gap, y + height / 2, height - 3.5, col);
+            let barStart = x + height / 2;
+            let barEnd = x + height / 2 + len * ska(cap) - gap;
+            let barWidth = Math.max(0, barEnd - barStart);
+            let fillEnd = barStart + barWidth * (level / cap);
+            drawBar(barStart, x - height / 2 + len * ska(cap) - 14, y + height / 2, height - 2.8 + config.graphical.barChunk, color.black);
+            drawBar(barStart, barEnd, y + height / 2, height - 3, color.grey);
+            drawBar(barStart, fillEnd, y + height / 2, height - 5.5 + config.graphical.barChunk, color.black);
+            drawBar(barStart, fillEnd, y + height / 2, height - 3.5, col);
 
             // Blocked-off area
             if (blocking) {
                 ctx[2].lineWidth = 1;
                 ctx[2].strokeStyle = color.grey;
                 for (let j = cap + 1; j < max; j++) {
-                    drawGuiLine(x + len * ska(j) - gap, y + 1.5, x + len * ska(j) - gap, y - 3 + height);
+                    drawGuiLine(barStart + barWidth * (j / cap), y + 1.5, barStart + barWidth * (j / cap), y - 3 + height);
                 }
             }
 
@@ -2669,7 +2685,7 @@ import * as socketStuff from "./socketinit.js";
             ctx[2].strokeStyle = color.black;
             ctx[2].lineWidth = 1;
             for (let j = 1; j < level + 1; j++) {
-                drawGuiLine(x + len * ska(j) - gap, y + 1.5, x + len * ska(j) - gap, y - 3 + height);
+                drawGuiLine(barStart + barWidth * (j / cap), y + 1.5, barStart + barWidth * (j / cap), y - 3 + height);
             }
 
             // Skill name
@@ -2882,7 +2898,7 @@ import * as socketStuff from "./socketinit.js";
         let ping = global.metrics.latency.reduce((b, a) => b + a, 1) / global.metrics.latency.length - 1;
         let xloc = global.player.renderx / 30;
         let yloc = global.player.rendery / 30;
-        let watermarkText = "Open Source Arras";
+        let watermarkText = "Arras Community Edition";
         let length = Math.max(measureText(watermarkText, 32)) / 12;
         let watermarkTextPos1 = Math.round(x + len / 2) + 0.5;
         let watermarkColor = gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.07, watermarkTextPos1 + length, 0);

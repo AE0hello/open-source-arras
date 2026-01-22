@@ -180,18 +180,19 @@ Class.dominator = {
     SIZE: 50,
     SYNC_WITH_TANK: true,
     BODY: {
-        RESIST: 100,
-        SPEED: 1.32,
-        ACCELERATION: 0.8,
-        HEALTH: 590,
-        DAMAGE: 6,
+        RESIST: 60,
+        SPEED: 1.2,
+        ACCELERATION: 0.7,
+        HEALTH: 440,
+        DAMAGE: 5,
         PENETRATION: 0.25,
         FOV: 0.5,
         PUSHABILITY: 0,
         HETERO: 0,
-        SHIELD: base.SHIELD * 1.4
+        SHIELD: base.SHIELD * 1.1
     },
     CONTROLLERS: ["nearestDifferentMaster", ["spin", { onlyWhenIdle: true }]],
+    FACING_TYPE: ["smoothToTarget", { smoothness: 12 }],
     AI: { IGNORE_SHAPES: true },
     DISPLAY_NAME: true,
     TURRETS: [
@@ -1122,9 +1123,9 @@ Class.rcs = {
 
 // BOTS
 Class.bot = {
-    FACING_TYPE: "looseToTarget",
+    FACING_TYPE: ["smoothToTarget", { smoothness: 8 }],
     CONTROLLERS: ["nearestDifferentMaster", "mapAltToFire", "minion", "fleeAtLowHealth", ["mapFireToAlt", { onlyIfHasAltFireGun: true }], ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
-    AI: { IGNORE_SHAPES: true },
+    AI: { IGNORE_SHAPES: true, AWARENESS: 0.6, SCAN_INTERVAL: 10, AVOID_SWARM: true },
 };
 
 // SCORE KEEPING

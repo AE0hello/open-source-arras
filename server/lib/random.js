@@ -95,9 +95,12 @@ exports.nameLists = {
     bots: ["Alice", "Bob", "Carmen", "David", "Edith", "Freddy", "Gustav", "Helga", "Janet", "Lorenzo", "Mary", "Nora", "Olivia", "Peter", "Queen", "Roger", "Suzanne", "Tommy", "Ursula", "Vincent", "Wilhelm", "Xerxes", "Yvonne", "Zachary", "Alpha", "Bravo", "Charlie", "Delta", "Echo", "Foxtrot", "Hotel", "India", "Juliet", "Kilo", "Lima", "Mike", "November", "Oscar", "Papa", "Quebec", "Romeo", "Sierra", "Tango", "Uniform", "Victor", "Whiskey", "X-Ray", "Yankee", "Zulu"],
     a: ["Archimedes", "Akilina", "Anastasios", "Athena", "Alkaios", "Amyntas", "Aniketos", "Artemis", "Anaxagoras", "Apollon"],
     castle: ["Berezhany", "Lutsk", "Dobromyl", "Akkerman", "Palanok", "Zolochiv", "Palanok", "Mangup", "Olseko", "Brody", "Isiaslav", "Kaffa", "Bilhorod"],
-    legion: ["Vesta", "Juno", "Orcus", "Janus", "Minerva", "Ceres"]
+    legion: ["Vesta", "Juno", "Orcus", "Janus", "Minerva", "Ceres"],
+    clans: ["base", "KPK", "VN", "w2ng", "Null", "Sidewinder", "fire", "wind", "water", "earth", "Cool", "Growth-39", "OG", "Legacy", "Apex", "Nova", "Frost", "Phantom", "Echo", "Viper", "LM", "OVLD", "Jizz", "rice", "SK", "SVK", "wing", "w3ng", "w+ng", "XwX", "3D", "D4rk", "TattleTale", "Joe-39", "BS", "MG", "AL", "PL", "PH", "K"]
 }
 
 exports.chooseBotName = () => exports.choose(exports.nameLists.bots)
+
+exports.chooseClanName = () => "[" + exports.choose(exports.nameLists.clans) + "]"
 
 exports.chooseBossName = (code, amount) => code in exports.nameLists ? exports.chooseN(exports.nameLists[code], amount) : []

@@ -138,7 +138,7 @@ class bossRush {
     defineProperties() {
         this.length = Config.use_limited_waves ? this.waveCodes.length : Config.wave_cap;
         this.waves = this.generateWaves();
-        this.waveId = 52;
+        this.waveId = -1;
         this.gameActive = false;
         this.timer = 0;
         this.remainingEnemies = 0;

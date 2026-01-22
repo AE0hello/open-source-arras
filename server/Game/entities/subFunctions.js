@@ -8,6 +8,9 @@ class Activation {
         if (this.body.skipLife) { return this.active = false; }
         if (this.body.alwaysActive) { return this.active = true; }
         if (this.body.isDead()) { return 0; }
+        if (Config.always_active_when_players && global.gameManager.clients.length > 0) {
+            return this.active = true;
+        }
         switch (this.active) {
             case false:
                 this.body.removeFromGrid();

@@ -1,4 +1,4 @@
-const { skill_cap } = require("../../config.js")
+const { skill_cap, bullet_speed_scale } = require("../../config.js")
 const g = require('./gunvals.js')
 const { basePolygonDamage, basePolygonHealth, dfltskl } = require("./constants")
 let skcnv = {
@@ -59,6 +59,9 @@ exports.combineStats = function (stats) {
             data.spray *= gStat.spray ?? 1;
             data.resist *= gStat.resist ?? 1;
         }
+        let speedScale = bullet_speed_scale ?? 1;
+        data.speed *= speedScale;
+        data.maxSpeed *= speedScale;
         return data;
     } catch (err) {
         console.log(err);

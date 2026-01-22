@@ -1,6 +1,7 @@
 async function getServer(server) {
     try {
-        let data = await fetch(`${server.IP.startsWith("localhost") ? "http" : "https"}://${server.IP}/portalPermission`).then(r => r.json()).catch(() => false);
+        const baseIP = server.IP.split("/")[0];
+        let data = await fetch(`${baseIP.startsWith("localhost") ? "http" : "https"}://${baseIP}/portalPermission`).then(r => r.json()).catch(() => false);
         if (!data) return false;
         data = data[0];
         return { name: data.gameMode.trim(), players: data.players, ip: server.IP, destination: `${server.IP.startsWith("localhost") ? "http://" : "https://"}${data.ip}` };

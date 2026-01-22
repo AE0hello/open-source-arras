@@ -237,8 +237,8 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         };
     if (doDamage) {
         let speedFactor = { // Avoid NaNs and infinities
-            _me: my.maxSpeed ? Math.pow(motion._me.length / my.maxSpeed, 0.25) : 1,
-            _n: n.maxSpeed ? Math.pow(motion._n.length / n.maxSpeed, 0.25) : 1,
+            _me: Number.isFinite(my.maxSpeed) && my.maxSpeed > 0 ? Math.pow(motion._me.length / my.maxSpeed, 0.25) : 1,
+            _n: Number.isFinite(n.maxSpeed) && n.maxSpeed > 0 ? Math.pow(motion._n.length / n.maxSpeed, 0.25) : 1,
         };
         /********** DO DAMAGE *********/
         let bail = false;
@@ -266,6 +266,24 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
                     accelerationFactor *
                     (1 + (componentNorm - 1) * (1 - depth._n) / my.penetration) *
                     (1 + pen._n.sqrt * depth._n - depth._n) / pen._n.sqrt;
+            }
+            if (my.settings.damageMultiplierVsPlayers && (n.isPlayer || n.isBot)) {
+                damage._me *= my.settings.damageMultiplierVsPlayers;
+            }
+            if (n.settings.damageMultiplierVsPlayers && (my.isPlayer || my.isBot)) {
+                damage._n *= n.settings.damageMultiplierVsPlayers;
+            }
+            if (my.settings.damageMultiplierVsProjectiles && ["bullet", "drone", "trap", "swarm", "satellite"].includes(n.type)) {
+                damage._me *= my.settings.damageMultiplierVsProjectiles;
+            }
+            if (n.settings.damageMultiplierVsProjectiles && ["bullet", "drone", "trap", "swarm", "satellite"].includes(my.type)) {
+                damage._n *= n.settings.damageMultiplierVsProjectiles;
+            }
+            if (my.settings.damageCap != null) {
+                damage._me = Math.min(damage._me, my.settings.damageCap);
+            }
+            if (n.settings.damageCap != null) {
+                damage._n = Math.min(damage._n, n.settings.damageCap);
             }
             if (n.settings.damageEffects) {
                 damage._n *=
@@ -389,6 +407,27 @@ function mooncollide(moon, bounce) {
     bounce.justHittedAWall = true;
 }
 
+function applyWallBlock(bounce, wall, axis) {
+    if (!bounce) return;
+    let block = bounce.wallBlock;
+    if (!block) {
+        block = {
+            posX: false,
+            negX: false,
+            posY: false,
+            negY: false,
+        };
+        bounce.wallBlock = block;
+    }
+    if (axis === "x") {
+        if (wall.x > bounce.x) block.posX = true;
+        else block.negX = true;
+    } else {
+        if (wall.y > bounce.y) block.posY = true;
+        else block.negY = true;
+    }
+}
+
 function mazewallcollidekill(bounce, wall) {
     if (bounce.type !== 'tank' && bounce.type !== 'miniboss' && bounce.type !== 'food' && bounce.type !== 'crasher') {
         bounce.destroy();
@@ -401,6 +440,7 @@ function mazewallcollide(wall, bounce) {
     if (bounce.god === true || bounce.passive === true || bounce.isArenaCloser || bounce.master.isArenaCloser) return;
     if (bounce.store.noWallCollision) return;
     if (bounce.team === wall.team && bounce.type === "tank") return;
+    const shouldReflect = bounce.settings && bounce.settings.reflectsWalls;
     const trueWallSize = wall.size * lazyRealSizes[4] / Math.SQRT2 + 2;
     if (bounce.x + bounce.size < wall.x - trueWallSize ||
         bounce.x - bounce.size > wall.x + trueWallSize ||
@@ -428,7 +468,16 @@ function mazewallcollide(wall, bounce) {
     ];
     for (let i = 0; i < 4; i++) {
         if (!collisionFaces[i] | extendedOverFaces[(i + 3) % 4] | extendedOverFaces[(i + 1) % 4]) continue;
+        bounce.collisionArray.push(wall);
+        if (shouldReflect) {
+            const axis = i % 2 === 0 ? "x" : "y";
+            bounce[axis] = wallPushPositions[i][axis];
+            bounce.velocity[axis] *= -1;
+            bounce.justHittedAWall = true;
+            return true;
+        }
         mazewallcollidekill(bounce, wall);
+        applyWallBlock(bounce, wall, i % 2 === 0 ? "x" : "y");
         for (let axis in wallPushPositions[i]) {
             bounce[axis] = wallPushPositions[i][axis];
             bounce.velocity[axis] = 0;
@@ -450,8 +499,25 @@ function mazewallcollide(wall, bounce) {
         const cornerX = cornerPositions[i].x;
         const cornerY = cornerPositions[i].y;
         if (Math.hypot(bounce.x - cornerX, bounce.y - cornerY) > bounce.size) return;
-        mazewallcollidekill(bounce, wall);
         const angleFromCornerToBounce = Math.atan2(bounce.y - cornerY, bounce.x - cornerX);
+        bounce.collisionArray.push(wall);
+        if (shouldReflect) {
+            const dx = bounce.x - cornerX;
+            const dy = bounce.y - cornerY;
+            const dist = Math.hypot(dx, dy) || 1;
+            const nx = dx / dist;
+            const ny = dy / dist;
+            const dot = bounce.velocity.x * nx + bounce.velocity.y * ny;
+            bounce.velocity.x -= 2 * dot * nx;
+            bounce.velocity.y -= 2 * dot * ny;
+            bounce.x = cornerX + bounce.size * Math.cos(angleFromCornerToBounce);
+            bounce.y = cornerY + bounce.size * Math.sin(angleFromCornerToBounce);
+            bounce.justHittedAWall = true;
+            return true;
+        }
+        mazewallcollidekill(bounce, wall);
+        applyWallBlock(bounce, wall, "x");
+        applyWallBlock(bounce, wall, "y");
         bounce.x = cornerX + bounce.size * Math.cos(angleFromCornerToBounce);
         bounce.y = cornerY + bounce.size * Math.sin(angleFromCornerToBounce);
         bounce.justHittedAWall = true;
@@ -532,6 +598,7 @@ function mazewallcustomcollide(wall, bounce) {
     for (let i = 0; i < 4; i++) {
         if (!collisionFaces[i] | extendedOverFaces[(i + 3) % 4] | extendedOverFaces[(i + 1) % 4]) continue;
         bounce.collisionArray.push(wall);
+        applyWallBlock(bounce, wall, i % 2 === 0 ? "x" : "y");
         switch (wall.walltype) {
             case 2:
                 if (bounce.health && !bounce.godmode && !bounce.passive && !bounce.isInvulnerable && !bounce.invuln) {
@@ -594,6 +661,8 @@ function mazewallcustomcollide(wall, bounce) {
         const cornerY = cornerPositions[i].y;
         if (Math.hypot(bounce.x - cornerX, bounce.y - cornerY) > bounce.size) continue;
         bounce.collisionArray.push(wall);
+        applyWallBlock(bounce, wall, "x");
+        applyWallBlock(bounce, wall, "y");
         
         const angleFromCornerToBounce = Math.atan2(bounce.y - cornerY, bounce.x - cornerX);
         switch (wall.walltype) {

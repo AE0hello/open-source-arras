@@ -9,7 +9,7 @@
     <meta property="og:image" content="/img/round.png">
     <meta property="og:image:width" content="54">
     <meta property="og:image:height" content="54">
-    <title>Open Source Arras</title>
+    <title>Arras Community Edition</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700">
     <link rel="stylesheet" href="/main.css" />
     <link rel="icon" type="image/png" sizes="96x96" href="/img/round.png">
@@ -24,6 +24,75 @@
         <canvas id="gameCanvas-gameplay" tabindex="3"></canvas>
         <canvas id="gameCanvas-gui" tabindex="4"></canvas>
     </div>
+    <!-- Account Button (Top Right) - Hidden by default, shown if accounts enabled -->
+    <div id="accountCorner" style="display: none;">
+        <div id="accountLoggedOut" class="accountCornerBtn">
+            <span>Login/Signup</span>
+        </div>
+        <div id="accountLoggedIn" class="accountCornerInfo" style="display: none;">
+            <div class="accountUserInfo">
+                <span id="accountUsername">User</span>
+                <div class="accountLevel">
+                    <span>Lv. <span id="accountLevel">1</span></span>
+                    <div class="levelProgressBar">
+                        <div id="levelProgress" class="levelProgressFill"></div>
+                    </div>
+                </div>
+            </div>
+            <button id="accountMenuBtn" class="accountMenuBtn">&#9662;</button>
+        </div>
+        <div id="accountDropdown" class="accountDropdown" style="display: none;">
+            <div class="dropdownStats">
+                <div>Kills: <span id="dropdownKills">0</span></div>
+                <div>Deaths: <span id="dropdownDeaths">0</span></div>
+                <div>Best: <span id="dropdownBest">0</span></div>
+            </div>
+            <div class="dropdownDivider"></div>
+            <button id="friendsBtn" class="dropdownBtn">Friends</button>
+            <button id="logoutBtn" class="dropdownBtn logoutBtn">Logout</button>
+        </div>
+    </div>
+
+    <!-- Account Modal (Popup) -->
+    <div id="accountModal" class="accountModal" style="display: none;">
+        <div class="modalBackdrop"></div>
+        <div class="modalContent">
+            <button id="modalClose" class="modalClose">&times;</button>
+            <div class="modalTabs">
+                <span id="modalLoginTab" class="active">Login</span>
+                <span id="modalRegisterTab">Sign Up</span>
+            </div>
+            <div id="modalLoginForm" class="modalForm">
+                <input type="text" id="modalLoginUsername" placeholder="Username" maxlength="20" />
+                <input type="password" id="modalLoginPassword" placeholder="Password" maxlength="64" />
+                <button id="modalLoginBtn" class="modalSubmitBtn">Login</button>
+                <div id="modalLoginError" class="modalError"></div>
+            </div>
+            <div id="modalRegisterForm" class="modalForm" style="display: none;">
+                <input type="text" id="modalRegisterUsername" placeholder="Username (3-20 chars)" maxlength="20" />
+                <input type="password" id="modalRegisterPassword" placeholder="Password (6+ chars)" maxlength="64" />
+                <input type="password" id="modalRegisterConfirm" placeholder="Confirm Password" maxlength="64" />
+                <button id="modalRegisterBtn" class="modalSubmitBtn">Sign Up</button>
+                <div id="modalRegisterError" class="modalError"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Friends Modal -->
+    <div id="friendsModal" class="accountModal" style="display: none;">
+        <div class="modalBackdrop"></div>
+        <div class="modalContent friendsModalContent">
+            <button id="friendsModalClose" class="modalClose">&times;</button>
+            <h3>Friends</h3>
+            <div class="addFriendSection">
+                <input type="text" id="addFriendInput" placeholder="Add friend by username" maxlength="20" />
+                <button id="sendFriendRequest">Add</button>
+            </div>
+            <div id="friendRequests" class="friendRequests"></div>
+            <div id="friendsList" class="friendsList shadowScroll"></div>
+        </div>
+    </div>
+
     <div class="mainWrapper">
         <div id="startMenuWrapper">
         <div id="menuTabs" class="menuTabs" style="text-align: right;">
@@ -43,7 +112,7 @@
             </div>
             <div class="startMenuHolder mainHolder">
             <div class="sliderHolder">
-                <div class="slider startMenuSlidingContent">
+                <div class="slider startMenuSlidingContent startMenuMainPanel">
                     <div class="header">
                         <a class="icon" tabindex="-1"><img src="/img/round.png" alt="OSA icon"></a>
                         <h1>arras.io</h1>
@@ -281,6 +350,7 @@
         </div>
     </div>
     <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script src="./client/account.js"></script>
     <script type="module" src="./client/app.js"></script>
     <script type="module" src="./client/config.js"></script>
     <script type="module" src="./client/gameDraw.js"></script>

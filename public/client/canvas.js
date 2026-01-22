@@ -105,7 +105,25 @@ class Canvas {
             // Input
             this.chatInput = document.createElement("input");
             this.chatInput.id = "chatInput";
+            this.chatInput.type = "text";
             this.chatInput.style.zIndex = 11;
+            this.chatInput.autocomplete = "off";
+            this.chatInput.autocorrect = "off";
+            this.chatInput.autocapitalize = "off";
+            this.chatInput.spellcheck = false;
+            this.chatInput.setAttribute("autocomplete", "off");
+            this.chatInput.setAttribute("autocomplete", "new-password");
+            this.chatInput.setAttribute("autocorrect", "off");
+            this.chatInput.setAttribute("autocapitalize", "off");
+            this.chatInput.setAttribute("spellcheck", "false");
+            this.chatInput.setAttribute("aria-autocomplete", "none");
+            this.chatInput.setAttribute("data-lpignore", "true");
+            this.chatInput.setAttribute("data-1p-ignore", "true");
+            this.chatInput.setAttribute("data-bwignore", "true");
+            this.chatInput.setAttribute("data-keeper-ignore", "true");
+            this.chatInput.setAttribute("data-form-type", "other");
+            this.chatInput.setAttribute("inputmode", "text");
+            this.chatInput.name = "chat-" + Math.random().toString(36).slice(2);
             this.chatInput.addEventListener('keydown', event => this.chatListener("chatInput", event));
             document.getElementById("gameAreaWrapper").appendChild(this.chatInput);
         }
@@ -154,7 +172,7 @@ class Canvas {
             case global.KEY_ENTER:
                 // Enter to respawn
                 if (global.died && !global.cannotRespawn) {
-                    this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
+                    this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, false, window.AccountManager?.token ?? "");
                     global.died = false;
                     break;
                 }
@@ -471,7 +489,7 @@ class Canvas {
                 }
                 if (respawnCheck !== -1 && !global.disconnected) {
                     if (!global.cannotRespawn && global.died) {
-                        this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
+                        this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, false, window.AccountManager?.token ?? "");
                         global.died = false;
                     }
                 } else
@@ -941,7 +959,7 @@ class Canvas {
                 // Shoot
                 if (this.gamepad.buttons[7].pressed) {
                     if (global.died && !global.cannotRespawn) {
-                        this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
+                        this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, false, window.AccountManager?.token ?? "");
                         global.died = false;
                     } else {
                         this.socket.cmd.set(4, true);

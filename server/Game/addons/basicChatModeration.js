@@ -6,13 +6,46 @@ let recent = {},
 	ratelimit = 3,
 	decay = 10_000;
 
+const bannedWords = [
+	"fuck", "shit", "bitch", "asshole", "cunt", "nigger", "faggot", "retard", "whore", "slut",
+];
+
+const urlPattern = /(https?:\/\/|www\.)\S+/i;
+const invitePattern = /(discord\.gg|discord\.com\/invite|t\.me\/|telegram\.me\/)/i;
+
+const normalizeMessage = (message) => {
+	let msg = message
+		.normalize("NFKD")
+		.replace(/[\u0300-\u036f]/g, "")
+		.toLowerCase();
+	msg = msg
+		.replace(/[@4]/g, "a")
+		.replace(/[!1|]/g, "i")
+		.replace(/[3]/g, "e")
+		.replace(/[0]/g, "o")
+		.replace(/[5$]/g, "s")
+		.replace(/[7]/g, "t");
+	msg = msg.replace(/[^a-z0-9]+/g, "");
+	return msg;
+};
+
 Events.on('chatMessage', ({ message, socket, preventDefault, setMessage }) => {
 	let perms = socket.permissions,
 		id = socket.player.body.id;
 
-	// Here we block out some very bad and banned word by replacing it with asterisks,
-	// then we set the message that others will see to that filtered message.
-	setMessage(message.replaceAll('someverybadandbannedword', '************************'));
+	// Basic filtering for profanity/links/invites.
+	let normalized = normalizeMessage(message);
+	if (urlPattern.test(message) || invitePattern.test(message)) {
+		preventDefault();
+		socket.talk('m', Config.popup_message_duration, 'Links are not allowed.');
+		return;
+	}
+	for (let word of bannedWords) {
+		if (normalized.includes(word)) {
+			setMessage(message.replace(new RegExp(word, "ig"), "*".repeat(word.length)));
+			break;
+		}
+	}
 
 	// They are allowed to spam ANYTHING they want INFINITELY.
 	if (perms && perms.allowSpam) return;

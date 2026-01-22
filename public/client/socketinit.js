@@ -685,9 +685,11 @@ const convert = {
             gui.playerid = get.next();
         }
         if (indices.score) {
-            let score = JSON.parse(get.next());
-            gui.__s.setScore(score[0]);
-            gui.__s.setKills(score[1], score[2], score[3]);
+            let scoreRaw = get.next();
+            let score = Array.isArray(scoreRaw) ? scoreRaw : JSON.parse(scoreRaw);
+            let scoreValue = Number(score[0]) || 0;
+            gui.__s.setScore(scoreValue);
+            gui.__s.setKills(Number(score[1]) || 0, Number(score[2]) || 0, Number(score[3]) || 0);
         }
         if (indices.points) {
             gui.points = get.next();
@@ -826,7 +828,7 @@ let incoming = async function(message, socket) {
 
             case 'w': { // welcome to the game
                 if (m[0]) { // Ask to get the room data first
-                    socket.talk('s', "", 1, 0, false);
+                    socket.talk('s', "", 1, 0, false, window.AccountManager?.token ?? "");
                 }
             }; break;
             case 'R': { // room setup
@@ -919,7 +921,7 @@ let incoming = async function(message, socket) {
                     util.pullTotalPlayers();
                     global.gameUpdate = true;
                     // Now we can ask for spawn.
-                    socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, global.bodyID ? global.bodyID : false);
+                    socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, global.bodyID ? global.bodyID : false, window.AccountManager?.token ?? "");
                     global.bodyID = undefined;
                 }
             } break;

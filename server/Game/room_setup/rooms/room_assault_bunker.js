@@ -1,6 +1,6 @@
 const {
     normal: ____,
-    nest,
+    assaultNest: nest,
     base1: bas1,
     baseprotected1: bap1,
     sabase2: bas2,

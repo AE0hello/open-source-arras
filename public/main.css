@@ -166,6 +166,31 @@ body.mobile .serverSelector {
   height: 68px;
 }
 
+.startMenuMainPanel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.startMenuMainPanel .serverSelector {
+  height: auto;
+  flex: 1 1 0;
+  min-height: 0;
+}
+
+body.mobile .startMenuMainPanel .serverSelector {
+  min-height: 0;
+}
+
+.startMenuMainPanel input {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+
+#playerNameInput {
+  margin-top: auto;
+}
+
 .serverSelector tr {
   color: #828282;
   cursor: pointer;
@@ -1201,4 +1226,426 @@ i.flag::before {
 
 i.flag.down::before {
   margin-bottom: 2px;
+}
+
+/* Account Corner (Top Right) */
+#accountCorner {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+  font-family: Ubuntu;
+}
+
+.accountCornerBtn {
+  background: rgba(74, 144, 217, 0.9);
+  color: white;
+  padding: 10px 18px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.accountCornerBtn:hover {
+  background: rgba(58, 123, 200, 0.95);
+}
+
+.accountCornerInfo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255,255,255,0.95);
+  padding: 8px 12px;
+  border-radius: 5px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.accountUserInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+#accountUsername {
+  font-weight: bold;
+  color: #333;
+  font-size: 14px;
+}
+
+.accountLevel {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #666;
+}
+
+.levelProgressBar {
+  width: 60px;
+  height: 6px;
+  background: #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.levelProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #4a90d9, #5cb85c);
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.accountMenuBtn {
+  background: transparent;
+  border: none;
+  color: #666;
+  cursor: pointer;
+  font-size: 12px;
+  padding: 5px;
+}
+
+.accountMenuBtn:hover {
+  color: #333;
+}
+
+.accountDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 5px;
+  background: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+  min-width: 150px;
+  overflow: hidden;
+}
+
+.dropdownStats {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  font-size: 11px;
+  color: #666;
+  background: #f5f5f5;
+}
+
+.dropdownDivider {
+  height: 1px;
+  background: #eee;
+}
+
+.dropdownBtn {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border: none;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+  font-family: Ubuntu;
+  font-size: 13px;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.dropdownBtn:hover {
+  background: #f0f0f0;
+}
+
+.dropdownBtn.logoutBtn {
+  color: #d9534f;
+}
+
+.dropdownBtn.logoutBtn:hover {
+  background: #fee;
+}
+
+/* Account Modal */
+.accountModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  position: relative;
+  background: white;
+  border-radius: 10px;
+  padding: 30px;
+  width: 320px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  animation: modalIn 0.2s ease-out;
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modalClose {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  color: #999;
+  cursor: pointer;
+  line-height: 1;
+  padding: 5px;
+}
+
+.modalClose:hover {
+  color: #333;
+}
+
+.modalTabs {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #eee;
+}
+
+.modalTabs span {
+  flex: 1;
+  text-align: center;
+  padding: 12px;
+  cursor: pointer;
+  color: #888;
+  font-weight: bold;
+  font-size: 15px;
+  transition: all 0.2s;
+}
+
+.modalTabs span.active {
+  color: #4a90d9;
+  border-bottom: 2px solid #4a90d9;
+  margin-bottom: -2px;
+}
+
+.modalTabs span:hover:not(.active) {
+  color: #555;
+}
+
+.modalForm input {
+  width: 100%;
+  padding: 12px 14px;
+  margin-bottom: 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  box-sizing: border-box;
+  font-family: Ubuntu;
+  font-size: 14px;
+  color: #000;
+  transition: border-color 0.2s;
+}
+
+.modalForm input:focus {
+  border-color: #4a90d9;
+  outline: none;
+}
+
+.modalSubmitBtn {
+  width: 100%;
+  padding: 14px;
+  background: #4a90d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: Ubuntu;
+  font-weight: bold;
+  font-size: 15px;
+  transition: background 0.2s;
+}
+
+.modalSubmitBtn:hover {
+  background: #3a7bc8;
+}
+
+.modalError {
+  color: #d9534f;
+  font-size: 13px;
+  margin-top: 10px;
+  text-align: center;
+  min-height: 18px;
+}
+
+/* Friends Modal */
+.friendsModalContent {
+  width: 350px;
+}
+
+.friendsModalContent h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 18px;
+}
+
+.addFriendSection {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.addFriendSection input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  font-family: Ubuntu;
+  font-size: 13px;
+  color: #000;
+}
+
+.addFriendSection input:focus {
+  border-color: #4a90d9;
+  outline: none;
+}
+
+.addFriendSection button {
+  padding: 10px 16px;
+  background: #4a90d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: Ubuntu;
+  font-weight: bold;
+}
+
+.addFriendSection button:hover {
+  background: #3a7bc8;
+}
+
+.friendRequests {
+  margin-bottom: 10px;
+}
+
+.friendRequest {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: rgba(74, 144, 217, 0.15);
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.friendRequest span {
+  color: #333;
+}
+
+.friendRequest .actions {
+  display: flex;
+  gap: 6px;
+}
+
+.friendRequest button {
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white;
+}
+
+.friendRequest button.accept {
+  background: #5cb85c;
+}
+
+.friendRequest button.accept:hover {
+  background: #4a9a4a;
+}
+
+.friendRequest button.decline {
+  background: #d9534f;
+}
+
+.friendRequest button.decline:hover {
+  background: #c9433f;
+}
+
+.friendsList {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.friendItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.friendItem .friendName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #333;
+}
+
+.friendItem .onlineStatus {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #ccc;
+}
+
+.friendItem .onlineStatus.online {
+  background: #5cb85c;
+}
+
+.friendItem button {
+  width: 24px;
+  height: 24px;
+  padding: 0;
+  border: none;
+  border-radius: 4px;
+  background: #d9534f;
+  color: white;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+.friendItem button:hover {
+  background: #c9433f;
+}
+
+.noFriends {
+  text-align: center;
+  color: #999;
+  font-size: 13px;
+  padding: 20px;
 }

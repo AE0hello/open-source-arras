@@ -52,7 +52,10 @@ class Mothership {
             o.team = team;
             o.name = "Mothership";
             o.isMothership = true;
-            o.controllers.push(new ioTypes.nearestDifferentMaster(o, {}, global.gameManager), new ioTypes.mapTargetToGoal(o));
+            o.controllers.push(
+            new ioTypes.nearestDifferentMaster(o, {}, global.gameManager),
+            new ioTypes.keepDistance(o, { minDistance: o.size * 30, maxDistance: o.size * 54, strafeDistance: o.size * 24 })
+        );
             o.refreshBodyAttributes();
             this.motherships.push([o.id, team]);
             this.globalMotherships.push(o);

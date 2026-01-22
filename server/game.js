@@ -91,7 +91,10 @@ class gameServer {
     getInfo(includegameManager = false) {
         return {
             hidden: this.serverProperties.hidden ?? false,
-            ip: this.host === "localhost" ? `${this.host}:${this.port}` : this.host,
+            ip: (() => {
+                const baseHost = this.host === "localhost" ? `${this.host}:${this.port}` : this.host;
+                return this.parentPort ? baseHost : `${baseHost}/${this.webProperties.id}`;
+            })(),
             port: this.port,
             players: this.socketManager.clients.length,
             maxPlayers: this.webProperties.maxPlayers,
@@ -176,7 +179,10 @@ class gameServer {
             // Send the info to the main server so the client can get the info. (in a expensive way)
             for (let i = 0; i < global.servers.length; i++) {
                 let server = global.servers[i];
-                if (server.loadedViaMainServer) global.servers[i] = this.getInfo(true);
+                if (server.loadedViaMainServer) {
+                    global.servers[i] = this.getInfo(true);
+                    break;
+                }
             }
             console.log(global.servers.length == 1 ? "Your game server has successfully booted." : "Game server " + this.name + " successfully booted up via main server.");
             onServerLoaded();
@@ -559,6 +565,11 @@ class gameServer {
                 this.views = [];
                 this.minimap = [];
                 this.walls = [];
+                this.clients = [];
+                this.socketManager.clients = this.clients;
+                this.socketManager.players = [];
+                this.socketManager.playersReceived = [];
+                this.socketManager.disconnections = [];
                 this.gameHandler.bots = [];
                 this.gameHandler.foods = [];
                 this.gameHandler.nestFoods = [];

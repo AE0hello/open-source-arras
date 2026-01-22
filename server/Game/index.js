@@ -297,6 +297,7 @@ class gameHandler {
 
         // Helper to spawn a food entity
         const spawnFoodEntity = (tile, layeredSet) => {
+            if (dirtyCheck(tile, 0)) return null;
             const o = new Entity(tile);
             const type = pickFromChanceSet(layeredSet);
             o.define(type);
@@ -329,16 +330,20 @@ class gameHandler {
             if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 const o = spawnFoodEntity(tile, Config.enemy_types_nest);
-                this.enemyFoods.push(o);
-                setupCleanup(this.enemyFoods, o);
+                if (o) {
+                    this.enemyFoods.push(o);
+                    setupCleanup(this.enemyFoods, o);
+                }
             }
             // Nest food spawn
             if (this.nestFoods.length < Config.food_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 for (let i = 0; i < totalFoods; i++) {
                     const o = spawnFoodEntity(tile, Config.food_types_nest);
-                    this.nestFoods.push(o);
-                    setupCleanup(this.nestFoods, o);
+                    if (o) {
+                        this.nestFoods.push(o);
+                        setupCleanup(this.nestFoods, o);
+                    }
                 }
             }
         } else if (this.foods.length < Config.food_cap) {
@@ -346,8 +351,10 @@ class gameHandler {
             const tile = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
             for (let i = 0; i < totalFoods; i++) {
                 const o = spawnFoodEntity(tile, Config.food_types);
-                this.foods.push(o);
-                setupCleanup(this.foods, o);
+                if (o) {
+                    this.foods.push(o);
+                    setupCleanup(this.foods, o);
+                }
             }
         }
     }
@@ -428,16 +435,39 @@ class gameHandler {
     }
 
     spawnBots(loc, team) {
-        let botName = Config.bot_name_prefix + ran.chooseBotName();
+        let botName;
+        // In clan wars mode, use clan tag instead of [AI] prefix
+        if (Config.clan_wars) {
+            let clanTag = ran.chooseClanName();
+            botName = "[AI] " + clanTag + " " + ran.chooseBotName();
+            // Register clan and get player info
+            Config.clan_wars_ft.add(botName);
+        } else {
+            botName = Config.bot_name_prefix + ran.chooseBotName();
+        }
         let o = new Entity(loc);
         o.define(Config.spawn_class);
         o.define({ CONTROLLERS: ["nearestDifferentMaster"] }, false, false, false);
         o.refreshBodyAttributes();
         o.isBot = true;
         o.name = botName;
+        o.originalName = botName;
         o.invuln = true;
         o.leftoverUpgrades = ran.chooseChance(...Config.bot_class_upgrade_chances);
-        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
+
+        // Handle clan wars team assignment
+        let color;
+        if (Config.clan_wars) {
+            let playerInfo = Config.clan_wars_ft.getPlayerInfo(botName);
+            o.team = playerInfo.team;
+            o.clan = playerInfo.clan;
+            // Use TEAM_RED color for all clan wars entities (same as players)
+            color = getTeamColor(TEAM_RED);
+            // Add bot to clan party
+            Config.clan_wars_ft.add(botName, o);
+        } else {
+            color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : getTeamColor(TEAM_RED);
+        }
         o.color.base = color;
         o.leaderboardColor = color;
         o.minimapColor = color;
@@ -449,25 +479,27 @@ class gameHandler {
             } else clearInterval(leveling);
         }, 100)
         o.refreshBodyAttributes();
-        if (team) o.team = team;
+        if (team && !Config.clan_wars) o.team = team;
         this.bots.push(o);
         if (Config.tag) Config.tag_data.addBot(o), global.nextTagBotTeam = null;
+        const botAI = Config.bot_ai_settings ? { ...Class.bot.AI, ...Config.bot_ai_settings } : Class.bot.AI;
         setTimeout(() => {
             // allow them to move
             let CC = Class[o.defs[0]];
             if (!CC) CC = {};
             o.controllers = [];
+            const botFacing = ["smoothToTarget", { smoothness: 8 }];
             o.define({
                 CONTROLLERS: CC.CONTROLLERS ? [...Class.bot.CONTROLLERS, ...CC.CONTROLLERS] : Class.bot.CONTROLLERS,
-                FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
-                AI: Class.bot.AI,
+                FACING_TYPE: botFacing,
+                AI: botAI,
             }, false, true, false)
             if (CC && CC.HEALING_TANK) {
                 o.controllers = [];
                 o.define({
                     CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
-                    FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
-                    AI: Class.bot.AI,
+                    FACING_TYPE: botFacing,
+                    AI: botAI,
                 }, false, true, false);
             }
             o.name = botName;
@@ -479,11 +511,11 @@ class gameHandler {
                     o.controllers = [];
                     o.define({ 
                         CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
-                        FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
-                        AI: Class.bot.AI,
+                        FACING_TYPE: botFacing,
+                        AI: botAI,
                     }, false, true, false);
                 }
-                o.define({ FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE, AI: Class.bot.AI, }, false, true, false) // Just reoverride the facing type.
+                o.define({ FACING_TYPE: botFacing, AI: botAI, }, false, true, false) // Just reoverride the facing type.
             })
         }, 3000 + Math.floor(Math.random() * 7000));
         o.on('dead', () => {

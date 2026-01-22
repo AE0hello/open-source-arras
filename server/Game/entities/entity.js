@@ -253,6 +253,9 @@ class Entity extends EventEmitter {
         if (set.ACCEPTS_SCORE != null) this.settings.acceptsScore = set.ACCEPTS_SCORE;
         if (set.GIVE_KILL_MESSAGE != null) this.settings.givesKillMessage = set.GIVE_KILL_MESSAGE;
         if (set.CAN_GO_OUTSIDE_ROOM != null) this.settings.canGoOutsideRoom = set.CAN_GO_OUTSIDE_ROOM;
+        if (set.INFINITE_MAX_SPEED != null) this.settings.infiniteMaxSpeed = set.INFINITE_MAX_SPEED;
+        if (set.REFLECTS_WALLS != null) this.settings.reflectsWalls = set.REFLECTS_WALLS;
+        if (set.SPEED_STAT_USES_SIZE != null) this.settings.speedStatUsesSize = set.SPEED_STAT_USES_SIZE;
         if (set.HITS_OWN_TYPE != null) this.settings.hitsOwnType = set.HITS_OWN_TYPE;
         if (set.DIE_AT_LOW_SPEED != null) this.settings.diesAtLowSpeed = set.DIE_AT_LOW_SPEED;
         if (set.DIE_AT_RANGE != null) this.settings.diesAtRange = set.DIE_AT_RANGE;
@@ -302,6 +305,9 @@ class Entity extends EventEmitter {
         if (set.BUFF_VS_FOOD != null) this.settings.buffVsFood = set.BUFF_VS_FOOD;
         if (set.CAN_BE_ON_LEADERBOARD != null) this.settings.leaderboardable = set.CAN_BE_ON_LEADERBOARD;
         if (set.RENDER_ON_LEADERBOARD != null) this.settings.renderOnLeaderboard = set.RENDER_ON_LEADERBOARD;
+        if (set.DAMAGE_MULTIPLIER_VS_PLAYERS != null) this.settings.damageMultiplierVsPlayers = set.DAMAGE_MULTIPLIER_VS_PLAYERS;
+        if (set.DAMAGE_MULTIPLIER_VS_PROJECTILES != null) this.settings.damageMultiplierVsProjectiles = set.DAMAGE_MULTIPLIER_VS_PROJECTILES;
+        if (set.DAMAGE_CAP != null) this.settings.damageCap = set.DAMAGE_CAP;
         if (set.INTANGIBLE != null) this.intangibility = set.INTANGIBLE;
         if (set.IS_SMASHER != null) this.settings.reloadToAcceleration = set.IS_SMASHER;
         if (set.STAT_NAMES != null) this.settings.skillNames = {
@@ -894,6 +900,13 @@ class Entity extends EventEmitter {
         this.velocity.y += this.accel.y;
         // Reset acceleration
         this.accel.null();
+        if (this.wallBlock) {
+            if (this.wallBlock.posX && this.velocity.x > 0) this.velocity.x = 0;
+            if (this.wallBlock.negX && this.velocity.x < 0) this.velocity.x = 0;
+            if (this.wallBlock.posY && this.velocity.y > 0) this.velocity.y = 0;
+            if (this.wallBlock.negY && this.velocity.y < 0) this.velocity.y = 0;
+            this.wallBlock = null;
+        }
         // Apply motion
         this.stepRemaining = 1;
         this.x += this.stepRemaining * this.velocity.x / global.gameManager.roomSpeed;
@@ -947,6 +960,10 @@ class Entity extends EventEmitter {
             this.damageReceived = 0;
             return 0;
         }
+        if (this.settings.noHit) {
+            this.damageReceived = 0;
+            return 0;
+        }
         if (this.damageReceived > 0) {
             let damageInflictor = []
             let damageTool = []
@@ -958,6 +975,30 @@ class Entity extends EventEmitter {
                 damageTool.push(instance)
             }
             this.emit('damage', { body: this, damageInflictor, damageTool });
+        }
+        if (Config.wall_crush_damage && this.health && !this.passive && !this.isInvulnerable) {
+            let hasLeft = false;
+            let hasRight = false;
+            let hasUp = false;
+            let hasDown = false;
+            for (let i = 0; i < this.collisionArray.length; i++) {
+                const wall = this.collisionArray[i];
+                if (wall.type !== "wall") continue;
+                const dx = wall.x - this.x;
+                const dy = wall.y - this.y;
+                if (Math.abs(dx) >= Math.abs(dy)) {
+                    if (dx < 0) hasLeft = true;
+                    if (dx > 0) hasRight = true;
+                } else {
+                    if (dy < 0) hasDown = true;
+                    if (dy > 0) hasUp = true;
+                }
+                if ((hasLeft && hasRight) || (hasUp && hasDown)) break;
+            }
+            if ((hasLeft && hasRight) || (hasUp && hasDown)) {
+                const perTick = (this.health.max * Config.wall_crush_damage) / (30 * global.gameManager.roomSpeed);
+                this.damageReceived += perTick;
+            }
         }
         // Life-limiting effects
         if (this.settings.diesAtRange) {

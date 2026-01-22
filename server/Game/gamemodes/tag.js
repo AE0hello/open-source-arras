@@ -27,8 +27,14 @@ class Tag {
                 Config.tag_data.addToTeam(team);
                 entity.on("dead", ({ killers }) => {
                   Config.tag_data.removeFromTeam(team);
-                  let players = killers.filter(entity => entity.isPlayer || entity.isBot);
-                  if (players.length) entity.socket.rememberedTeam = players[0].team;
+                  let players = killers.filter(e => e.isPlayer || e.isBot);
+                  console.log("[TAG DEBUG] Player died. Killers:", killers.length, "Player killers:", players.length);
+                  if (players.length) {
+                    console.log("[TAG DEBUG] Setting rememberedTeam to killer's team:", players[0].team);
+                    entity.socket.rememberedTeam = players[0].team;
+                  } else {
+                    console.log("[TAG DEBUG] No player/bot killers found, rememberedTeam unchanged");
+                  }
                 });
             },
             addBot: entity => {
