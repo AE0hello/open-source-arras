@@ -524,7 +524,6 @@ exports.makeRadialAuto = (type, options = {}) => {
     let count = options.count ?? 3;
     let isTurret = options.isTurret ?? false;
     let turretIdentifier = type;
-    let noRecoil = options.noRecoil ?? false;
 
     if (!isTurret) {
         type = exports.dereference(type);
@@ -558,10 +557,6 @@ exports.makeRadialAuto = (type, options = {}) => {
 
     let LABEL = options.label ?? (type.LABEL + "-" + count);
     let HAS_NO_RECOIL = options.noRecoil ?? false;
-    let turretSize = options.size ?? 11;
-    let turretX = options.x ?? 8;
-    let turretArc = options.arc ?? 190;
-    let turretAngle = options.angle ?? 0;
 
     return {
         PARENT: 'genericTank',
@@ -572,8 +567,14 @@ exports.makeRadialAuto = (type, options = {}) => {
         BODY: options.body ?? undefined,
         GUNS: [],
         TURRETS: exports.weaponArray({
-            POSITION: [turretSize, turretX, 0, turretAngle, turretArc, 0],
-            TYPE: turretIdentifier
+            TYPE: turretIdentifier,
+            POSITION: {
+                SIZE: options.size ?? 11,
+                X: options.x ?? 8,
+                ANGLE: options.angle ?? 0,
+                ARC: options.arc ?? 190,
+                LAYER: options.layer ?? 0
+            }
         }, count)
     }
 }
