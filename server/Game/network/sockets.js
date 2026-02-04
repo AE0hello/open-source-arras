@@ -189,7 +189,7 @@ class socketManager {
         // Remember who we are
         let player = socket.player;
         // Make sure it looks legit
-        if (m === -1) {
+        if (m === null) {
             socket.kick("Malformed packet.");
             return 1;
         }
@@ -250,7 +250,6 @@ class socketManager {
                 let transferbodyID = m[3];
                 let incognitoMode = m[4];
                 if (incognitoMode) socket.status.incognito = true;
-                if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
                 if (global.gameManager.arenaClosed) {
                     if (needsRoom) {
                       socket.talk("message", "Arena closed. Try again in a few seconds.");
@@ -264,6 +263,9 @@ class socketManager {
                 if (typeof m[1] !== "number") { socket.kick("Bad spawn request needsRoom."); return 1; }
                 if (typeof autoLVLup !== "number") { socket.kick("Bad spawn request autoLVLup."); return 1; }
                 if (typeof incognitoMode !== "number") { socket.kick("Bad spawn request incognito."); return 1; }
+                if (typeof transferbodyID != "string") { socket.kick("Bad body transfer transferbodyID."); return 1; }
+                if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
+                
                 // Give it the room state and move the camera.
                 if (needsRoom) {
                     if (Config.hidden) return socket.close(); // If the server is hidden then just kick the client.
