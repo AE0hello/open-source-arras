@@ -263,7 +263,7 @@ class socketManager {
                 if (typeof m[1] !== "number") { socket.kick("Bad spawn request needsRoom."); return 1; }
                 if (typeof autoLVLup !== "number") { socket.kick("Bad spawn request autoLVLup."); return 1; }
                 if (typeof incognitoMode !== "number") { socket.kick("Bad spawn request incognito."); return 1; }
-                if (typeof transferbodyID != "string") { socket.kick("Bad body transfer transferbodyID."); return 1; }
+                if (transferbodyID && typeof transferbodyID != "string") { socket.kick("Bad body transfer transferbodyID."); return 1; }
                 if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
                 
                 // Give it the room state and move the camera.
