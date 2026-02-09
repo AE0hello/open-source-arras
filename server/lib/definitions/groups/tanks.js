@@ -1,4 +1,4 @@
-const {combineStats, makeAuto, makeBird, makeDrive, makeOver, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeOver, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
@@ -326,8 +326,6 @@ Class.assassin = {
     ]
 }
 Class.auto3 = makeRadialAuto("autoTankGun", {isTurret: true, danger: 6, label: "Auto-3"})
-Class.autoTrapper = makeAuto("trapper")
-Class.autoTrapper.UPGRADES_TIER_3 = ["autoBuilder", "hexaTrapper"]
 Class.blaster = {
     PARENT: "genericTank",
     LABEL: "Blaster",
@@ -1278,6 +1276,7 @@ Class.volute = {
 Class.whirlwind_old = makeWhirlwind("genericTank", {hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Whirlwind"})
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind"
 Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]
+makeAutoArray(["trapper"], {tier: 1})
 
 // Tier 3
 Class.accurator = {
@@ -1437,12 +1436,7 @@ Class.atomizer = {
 Class.auto4 = makeRadialAuto("auto4gun", {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4})
 Class.auto4_old = makeRadialAuto("auto4gun", {isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3})
 Class.auto5 = makeRadialAuto("autoTankGun", {isTurret: true, danger: 7, label: "Auto-5", count: 5})
-Class.autoAssassin = makeAuto("assassin")
-Class.autoBuilder = makeAuto("builder")
-Class.autoCruiser = makeAuto("cruiser")
 Class.autoDouble = makeAuto("doubleTwin", "Auto-Double")
-Class.autoGunner = makeAuto("gunner")
-Class.autoOverseer = makeAuto("overseer")
 Class.autoSmasher = makeAuto({
     PARENT: "genericSmasher",
     DANGER: 6,
@@ -1465,8 +1459,6 @@ Class.autoSmasher = makeAuto({
         MOVEMENT_SPEED: smshskl
     },
 }, "Auto-Smasher", {type: "autoSmasherTurret", size: 11})
-Class.autoSpawner = makeAuto("spawner")
-Class.autoTriAngle = makeAuto("triAngle")
 Class.banshee = makeRadialAuto("bansheegun", {isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: {SPEED: 0.8 * base.SPEED, FOV: 1.1 * base.FOV}})
 Class.banshee.GUNS = weaponArray({
     POSITION: {
@@ -3174,7 +3166,6 @@ Class.halfNHalf = {
         }
     ]
 }
-Class.heptaAutoBasic = makeAuto("basic", "Hepta Auto-Basic", preset.heptaAuto)
 Class.hewnDouble = {
     PARENT: "genericTank",
     LABEL: "Hewn Double",
@@ -5775,8 +5766,10 @@ Class.xHunter = {
         }
     ]
 }
+makeAutoArray(["assassin", "builder", "cruiser", "gunner", "overseer", "spawner", "triAngle"])
 
 // Tier 4
+Class.heptaAutoBasic = makeAuto("basic", "Hepta Auto-Basic", preset.heptaAuto)
 Class.ransacker_old = {
     PARENT: "genericTank",
     LABEL: "Rifle Guard",
@@ -6251,6 +6244,7 @@ Class.basic.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard", "di
         Class.builder.UPGRADES_TIER_3 = ["construct", "autoBuilder", "engineer", "boomer", "assembler", "architect", "conqueror"]
         Class.triTrapper.UPGRADES_TIER_3 = ["fortress", "hexaTrapper", "septaTrapper", "architect"]
         Class.trapGuard.UPGRADES_TIER_3 = ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"/*, "whirlGuard"*/]
+        Class.autoTrapper.UPGRADES_TIER_3 = ["megaAutoTrapper", "tripleAutoTrapper", "autoBuilder", "hexaTrapper"]
 
     Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"]
         Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"]

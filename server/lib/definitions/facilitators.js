@@ -1,7 +1,7 @@
 const {skill_cap} = require('../../config.js')
 const {statnames} = require('./constants.js')
 const g = require('./gunvals.js')
-const { basePolygonDamage, basePolygonHealth, dfltskl } = require("./constants")
+const {basePolygonDamage, basePolygonHealth, dfltskl} = require("./constants")
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -1387,3 +1387,27 @@ exports.makePolychoron = function (info) {
         (info.SCALE || 1)
     );
 };
+
+// tgs
+exports.makeAutoArray = (type, options = {}) => {
+    suffix = options.suffix ?? ""
+    for (const types of type) {
+        name = ensureIsClass(types)
+        label = name.LABEL
+        classLabel = label.replaceAll(' ', '').replaceAll('-', '').replaceAll("'n", 'N') // delete whitespaces and hyphens + special case for halfnhalf
+
+        Class["auto" + classLabel + suffix] = exports.makeAuto(types)
+        if (options.tier >= 1) {
+            Class["megaAuto" + classLabel + suffix] = exports.makeAuto(types, `Mega Auto-${label}`, {type: "megaAutoTurret", size: 12})
+            Class["tripleAuto" + classLabel + suffix] = exports.makeAuto(types, `Triple Auto-${label}`, {size: 6.5, x: 5.2, angle: 0, total: 3})
+            if (options.tier >= 2) {
+                //Class["ultraAuto" + classLabel + suffix] = exports.makeAuto(types, `Ultra Auto-${label}`, {type: "ultraAutoTurret", size: 14})
+                Class["tripleMegaAuto" + classLabel + suffix] = exports.makeAuto(types, `Triple Mega Auto-${label}`, {type: "megaAutoTurret", size: 7.5, x: 5.2, angle: 0, total: 3})
+                Class["pentaAuto" + classLabel + suffix] = exports.makeAuto(types, `Penta Auto-${label}`, {size: 5.2, x: 6.5, angle: 0, total: 5})
+                if (options.tier >= 3) {
+                    Class["heptaAuto" + classLabel + suffix] = exports.makeAuto(types, `Hepta Auto-${label}`, {size: 4, x: 6.5, angle: 0, total: 7})
+                }
+            }
+        }
+    }
+}
