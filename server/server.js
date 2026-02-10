@@ -212,7 +212,8 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, webPr
                 region,
                 webProperties,
                 properties,
-                isFeatured
+                isFeatured,
+                index,
             }
         });
 

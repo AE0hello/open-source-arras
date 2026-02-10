@@ -1088,7 +1088,7 @@ class socketManager {
             }
         }
         // Log it 
-        util.log(`[INFO]: [${global.gameManager.host}/${global.gameManager.port}]: ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
+        util.log(`[INFO]: ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
         // Stop the timeout
         socket.timeout.stop();
     }
@@ -2019,7 +2019,7 @@ class socketManager {
     };
 
     connect(socket, req) {
-        util.log(`[INFO]: [${global.gameManager.host}/${global.gameManager.port}]: A client wants to connect...`);
+        util.log(`[INFO]: A client wants to connect...`);
         socket.player = { camera: {} };
         socket.nearby = [];
         socket.spectateEntity = null;
@@ -2187,7 +2187,7 @@ class socketManager {
         } else {
             global.gameManager.parentPort.postMessage([true, this.clients.length]);
         }
-        util.log(`[INFO]: [${global.gameManager.host}/${global.gameManager.port}]: Client has been welcomed!`);
+        util.log(`[INFO]: Client has been welcomed!`);
 
         if (Config.load_all_mockups) {
             for (let i = 0; i < mockupData.length; i++) {
@@ -2211,7 +2211,7 @@ class socketManager {
         let check = this.clients.find(o => o.id === socket.id);
         if (check) {
             check.loops.terminate();
-            util.log(`[INFO]: [${global.gameManager.host}/${global.gameManager.port}]: ${check.player.body ? check.player.body.name : "A Client"} has disconnected!`);
+            util.log(`[INFO]: ${check.player.body ? check.player.body.name : "A Client"} has disconnected!`);
             // Free the view
             util.remove(global.gameManager.views, global.gameManager.views.indexOf(socket.view));
             // Remove the client from the server.

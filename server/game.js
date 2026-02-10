@@ -1,3 +1,5 @@
+const { workerData } = require('worker_threads');
+
 const http = require("http");
 const ws = require("ws");
 const fs = require("fs");
@@ -106,10 +108,15 @@ class gameServer {
         this.importedRoom = [];
         this.importRoom = [];
         this.currentRoom = null;
+        this.showConsoleLoggings = true;
         this.lagLogger = new LagLogger();
         this.socketManager = new socketManager(this);
         this.gameHandler = new gameHandler(this);
         this.gameSpeedCheckHandler = new speedcheckloop(this);
+
+        // Modify the console log with an instance index on it.
+        console._log = console.log;
+        console.log = (...args) => this.showConsoleLoggings && console._log(`[I${workerData.index}]`, ...args);
 
         // Make it public
         global.gameManager = this;
@@ -254,6 +261,8 @@ class gameServer {
             // Update the server gamemode name
             this.name = this.gamemode.map(x => getName(x, Config) || (x[0].toUpperCase() + x.slice(1))).join(' ');
 
+            this.showConsoleLoggings = false; // We do not like duplicate messages that uses console.log();
+
             // Activate tiered food if enabled
             if (!Config.classic_food) global.activateTieredFood();
 
@@ -265,6 +274,9 @@ class gameServer {
 
             // Also load all mockups if needed.
             if (Config.load_all_mockups) global.loadAllMockups(false);
+
+            // Now we can show everything whatever it shows.
+            this.showConsoleLoggings = true;
 
             // Initalize the room
             this.setRoom();
@@ -302,7 +314,7 @@ class gameServer {
             // Redefine the room
             this.defineRoom();
             // Log that we are running again
-            util.log(`[${global.gameManager.host}/${global.gameManager.port}]: New game instance is now running`);
+            util.log(`New game instance is now running`);
 
             // Init every tile
             for (let y = 0; y < this.room.setup.length; y++) {
@@ -495,7 +507,7 @@ class gameServer {
         if (this.arenaClosed) return;
         // Log this
         util.saveToLog("Game Instance Ending", "Game running " + this.gamemode + " at `" + this.gamemode + "` is now closing.", 0xEE4132);
-        util.log(`[${global.gameManager.host}/${global.gameManager.port}]: Arena Closing initiated`);
+        util.log(`Arena Closing initiated`);
         // And broadcast it
         this.socketManager.broadcast("Arena closed: No players may join!");
         this.arenaClosed = true;
@@ -571,7 +583,7 @@ class gameServer {
 
     close(spawnTimeout) {
         // Log that we are closing
-        util.log(`[${global.gameManager.host}/${global.gameManager.port}]: Ending Game instance`);
+        util.log(`Ending Game instance`);
         // Clear the timeout if the arena closers did not spawn yet
         if (spawnTimeout) clearTimeout(spawnTimeout);
         // Now broadcast it
@@ -606,7 +618,7 @@ class gameServer {
 
     onEnd() {
         // Log that we are restarting
-        util.log(`[${global.gameManager.host}/${global.gameManager.port}]: Game instance is now over. Soft restarting the server.`);
+        util.log(`Game instance is now over. Soft restarting the server.`);
         // Set this to true to run the softstart code
         this.start(true);
     }

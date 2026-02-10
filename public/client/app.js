@@ -189,7 +189,16 @@ import * as socketStuff from "./socketinit.js";
         // Set default theme
         if (document.getElementById("optColors").value === "") {
             document.getElementById("optColors").value = "normal";
-            // Also do auto check for GUI stuff.
+        }
+        if (document.getElementById("optBorders").value === "") {
+            document.getElementById("optBorders").value = "normal";
+        }
+        // Mobile Selection stuff
+        if (document.getElementById("optMobile").value === "") {
+            document.getElementById("optMobile").value = "mobile";
+        }
+        // If we are loaded for the first time then load the default options settings.
+        if (!localStorage.getItem("loadedForFirstTime") === "true") {
             document.getElementById("optRenderGui").checked = true;
             document.getElementById("optRenderLeaderboard").checked = true;
             document.getElementById("optRenderUpgrades").checked = true;
@@ -200,13 +209,18 @@ import * as socketStuff from "./socketinit.js";
             document.getElementById("optRenderPlayerBars").checked = true;
             document.getElementById("optFancy").checked = true;
             if (global.mobile) document.getElementById("showCrosshair").checked = true, document.getElementById("showJoystick").checked = true;
-        }
-        if (document.getElementById("optBorders").value === "") {
-            document.getElementById("optBorders").value = "normal";
-        }
-        // Mobile Selection stuff
-        if (document.getElementById("optMobile").value === "") {
-            document.getElementById("optMobile").value = "mobile";
+            // Dont forget to save it.
+            util.submitToLocalStorage("optRenderGui");
+            util.submitToLocalStorage("optRenderLeaderboard");
+            util.submitToLocalStorage("optRenderUpgrades");
+            util.submitToLocalStorage("optRenderMinimap");
+            util.submitToLocalStorage("optRenderNames");
+            util.submitToLocalStorage("optRenderHealth");
+            util.submitToLocalStorage("optRenderScores");
+            util.submitToLocalStorage("optRenderPlayerBars");
+            util.submitToLocalStorage("showCrosshair");
+            util.submitToLocalStorage("showJoystick");
+            localStorage.setItem("loadedForFirstTime", "true");
         }
         loadSettings();
         // Keybinds stuff
