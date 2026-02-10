@@ -484,6 +484,7 @@ var gameDraw = {
 
             // Client / other
             case "nest":
+                return config.graphical.coloredNest ? gameDraw.color.lavender : gameDraw.color.white;
             case "lavender":
                 return gameDraw.color.lavender;
             case "border":
