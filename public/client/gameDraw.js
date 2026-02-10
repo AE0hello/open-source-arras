@@ -483,10 +483,10 @@ var gameDraw = {
                 return gameDraw.animatedColor.magenta;
 
             // Client / other
-            case "nest":
-                return config.graphical.coloredNest ? gameDraw.color.lavender : gameDraw.color.white;
             case "lavender":
                 return gameDraw.color.lavender;
+            case "nest":
+                return config.graphical.coloredNest ? gameDraw.color.lavender : gameDraw.color.white;
             case "border":
                 return gameDraw.mixColors(gameDraw.color.white, gameDraw.color.guiblack, 1 / 3);
         }

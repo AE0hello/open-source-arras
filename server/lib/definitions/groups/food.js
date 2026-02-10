@@ -255,7 +255,7 @@ Class.octagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true
 }
-if (old_octagon_color) {Class.octagon.COLOR = "nest"}
+if (old_octagon_color) {Class.octagon.COLOR = "lavender"}
 if (old_octagon_name) {Class.octagon.LABEL = "Octogon"}
 makeRarities("octagon")
 
