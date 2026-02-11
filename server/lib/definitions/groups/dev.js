@@ -244,7 +244,7 @@ if (Config.siege) {
 }
 
 // airblast testing
-Class.airblastBullet = {PARENT: "bullet", ALPHA: 0.5, BODY: { KNOCKBACK: 30 }}
+Class.airblastBullet = {PARENT: "bullet", ALPHA: 0.5, BODY: {KNOCKBACK: 30}}
 Class.airblast = {
     PARENT: "genericTank",
     LABEL: "Airblast",

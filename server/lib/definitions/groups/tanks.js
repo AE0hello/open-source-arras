@@ -4570,7 +4570,7 @@ Class.septaTrapper = {
     },
     STAT_NAMES: statnames.trap,
     HAS_NO_RECOIL: true,
-    GUNS: weaponMirror([
+    GUNS: [
         {
             POSITION: {
                 LENGTH: 15,
@@ -4590,76 +4590,78 @@ Class.septaTrapper = {
                 STAT_CALCULATOR: "trap"
             }
         },
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                ANGLE: 360/7,
-                DELAY: 1/3
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                ANGLE: 360/7,
-                DELAY: 1/3
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 15,
+                    WIDTH: 7,
+                    ANGLE: 360/7,
+                    DELAY: 1/3
+                }
             },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                ANGLE: 360/7 * 2,
-                DELAY: 2/3
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                ANGLE: 360/7 * 2,
-                DELAY: 2/3
+            {
+                POSITION: {
+                    LENGTH: 3,
+                    WIDTH: 7,
+                    ASPECT: 1.7,
+                    X: 15,
+                    ANGLE: 360/7,
+                    DELAY: 1/3
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                    TYPE: "trap",
+                    STAT_CALCULATOR: "trap"
+                }
             },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7,
-                ANGLE: 360/7 * 3,
-                DELAY: 1
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15,
-                ANGLE: 360/7 * 3,
-                DELAY: 1
+            {
+                POSITION: {
+                    LENGTH: 15,
+                    WIDTH: 7,
+                    ANGLE: 360/7 * 2,
+                    DELAY: 2/3
+                }
             },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
+            {
+                POSITION: {
+                    LENGTH: 3,
+                    WIDTH: 7,
+                    ASPECT: 1.7,
+                    X: 15,
+                    ANGLE: 360/7 * 2,
+                    DELAY: 2/3
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                    TYPE: "trap",
+                    STAT_CALCULATOR: "trap"
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 15,
+                    WIDTH: 7,
+                    ANGLE: 360/7 * 3,
+                    DELAY: 1
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 3,
+                    WIDTH: 7,
+                    ASPECT: 1.7,
+                    X: 15,
+                    ANGLE: 360/7 * 3,
+                    DELAY: 1
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                    TYPE: "trap",
+                    STAT_CALCULATOR: "trap"
+                }
             }
-        }
-    ], {delayOverflow: true})
+        ], {delayOverflow: true})
+    ]
 }
 Class.septaTrapper_old = {
     PARENT: "genericTank",
