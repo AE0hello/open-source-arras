@@ -115,8 +115,10 @@ class gameServer {
         this.gameSpeedCheckHandler = new speedcheckloop(this);
 
         // Modify the console log with an instance index on it.
-        console._log = console.log;
-        console.log = (...args) => this.showConsoleLoggings && console._log(`[I${workerData.index}]`, ...args);
+        if (!global.launchedOnMainServer) {
+            console._log = console.log;
+            console.log = (...args) => this.showConsoleLoggings && console._log(`[I${workerData.index}]`, ...args);
+        }
 
         // Make it public
         global.gameManager = this;
