@@ -2008,19 +2008,19 @@ Class.bulwark_old = {
         },
         {
             POSITION: {
-                LENGTH: 13,
-                WIDTH: 7,
-                Y: 6.25,
+                LENGTH: 14,
+                WIDTH: 6,
+                Y: 6,
                 ANGLE: 180
             }
         },
         {
             POSITION: {
                 LENGTH: 4,
-                WIDTH: 7,
-                ASPECT: 1.7,
+                WIDTH: 6,
+                ASPECT: 1.5,
                 X: 13,
-                Y: 6.25,
+                Y: 6,
                 ANGLE: 180
             },
             PROPERTIES: {
