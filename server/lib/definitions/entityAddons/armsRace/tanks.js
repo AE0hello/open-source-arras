@@ -4737,7 +4737,6 @@ Class.guru_AR = {
         }
     ]
 }
-Class.harbinger_AR = makeOver("rimfire_AR", "Harbinger")
 Class.healer3_AR = {
     PARENT: "genericHealer",
     LABEL: "Healer-3",
@@ -7115,6 +7114,11 @@ const quickMake = (type, options = {}) => {
         let hybridClassLabel = hybridLabel.charAt(0).toLowerCase() + hybridLabel.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[hybridClassLabel + "_AR"] = makeOver(type, hybridLabel, preset.hybrid)
     }
+    if (options.hybrid2) {
+        let hybridLabel = options.hybrid2 ??= `Hybrid ${label}`
+        let hybridClassLabel = hybridLabel.charAt(0).toLowerCase() + hybridLabel.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[hybridClassLabel + "_AR"] = makeOver(type, hybridLabel, {...preset.hybrid, renderBehind: true})
+    }
     if (options.over) {
         let overLabel = options.over ??= `Over${label.charAt(0).toLowerCase() + label.slice(1)}`
         let overClassLabel = overLabel.replaceAll(' ', '').replaceAll('-', '')
@@ -7138,12 +7142,17 @@ quickMake("assassin", {hybrid: "Hitman", over: "Overassassin"})
 quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
 quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster"})
+quickMake("booster", {hybrid2: "Hightailer"})
 quickMake("builder", {hybrid: "Fashioner", over: "Overbuilder"})
+quickMake("buttbuttin", {hybrid: "Mercenary"})
 quickMake("cog_AR", {hybrid: "Contriver"})
+quickMake("courser_AR", {hybrid: "Immolator"})
 quickMake("destroyer", {bird: "Harrier", over: "Overdestroyer"})
 quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel"})
 quickMake("dual", {hybrid: "Ravisher"})
+quickMake("enforcer_AR", {hybrid: "Slayer"})
 quickMake("expeller_AR", {hybrid: "Throttler"})
+quickMake("fighter", {hybrid2: "Pug"})
 quickMake("flamethrower", {hybrid: "Imitation"})
 quickMake("gatlingGun", {hybrid: "Gator", over: "Overgatling"})
 quickMake("helix", {hybrid: "Hybrix"})
@@ -7154,22 +7163,26 @@ quickMake("machineTrapper_AR", {hybrid: "Deviation", over: "Overmach"})
 quickMake("marksman", {hybrid: "Hybrid Marksman", over: "Overmarksman"})
 quickMake("minigun", {over: "Overminigun"})
 quickMake("mech_AR", {hybrid: "Cobbler", over: "Overmech"})
-quickMake("megaTrapper_AR", {bird: "Shoebill"})
+quickMake("megaTrapper_AR", {hybrid: "Catcher", bird: "Shoebill"})
 quickMake("musket", {hybrid: "Matchlock"})
 quickMake("nailgun", {over: "Overnailer"})
 quickMake("nimrod", {hybrid: "Nacho"})
 quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen"})
 quickMake("pentaShot", {bird: "Deficiency", hybrid: "Flexed Hybrid"})
 quickMake("railgun_AR", {bird: "Raven"})
+quickMake("ranger", {hybrid: "Doorman"})
 quickMake("rifle", {over: "Overrifle"})
+quickMake("rimfire_AR", {over: "Harbinger"})
 quickMake("rotaryGun_AR", {hybrid: "Rotator"})
 quickMake("single", {bird: "Avian", hybrid: "Assistant"})
 quickMake("splitShot_AR", {bird: "Dork", hybrid: "Split Hybrid"})
 quickMake("splasher", {hybrid: "Bargain"})
 quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer"})
 quickMake("spreadshot", {bird: "Bozo", hybrid: "Smearer"})
+quickMake("stalker", {hybrid: "Trailer"})
 quickMake("subverter", {hybrid: "Deposer"})
-quickMake("triAngle", {hybrid: "Integrator"})
+quickMake("surfer", {hybrid2: "Skater"})
+quickMake("triAngle", {hybrid2: "Integrator"})
 quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
 quickMake("tripleShot", {bird: "Defect", over: "Overshot"})
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
@@ -7451,7 +7464,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
                 //Class.tricker.UPGRADES_TIER_5 = ["custodian"].map(x => x + "_AR")
             Class.deadeye.UPGRADES_TIER_4 = ["cyclops", "autoDeadeye"].map(x => x + "_AR")
             Class.buttbuttin.UPGRADES_TIER_4 = ["orifice"].map(x => x + "_AR")
-            Class.hitman_AR.UPGRADES_TIER_4 = ["assistant"].map(x => x + "_AR")
+            Class.hitman_AR.UPGRADES_TIER_4 = ["overassassin"/*, "gunman", "formulator", "hitmandrive", "contractor"*/, "doorman", "trailer", "autoHitman", "assistant"/*, HYBRID_DEADEYE*/, "mercenary", "slayer", "immolator"].map(x => x + "_AR")
             Class.enforcer_AR.UPGRADES_TIER_4 = ["pistol"].map(x => x + "_AR")
             Class.courser_AR.UPGRADES_TIER_4 = ["subduer", "xCourser"].map(x => x + "_AR")
         Class.hunter.UPGRADES_TIER_3.push("autoHunter_AR", "megaHunter_AR", "prober_AR", "courser_AR")
