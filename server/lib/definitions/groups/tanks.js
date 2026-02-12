@@ -954,11 +954,10 @@ Class.smasher = {
     DANGER: 6,
     TURRETS: [
         {
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}],
             POSITION: {
-                SIZE: 21.5,
-                ARC: 360
-            },
-            TYPE: ["hexagonHat_spin", { COLOR: "black" }]
+                SIZE: 21.5
+            }
         }
     ]
 }
@@ -3333,19 +3332,17 @@ Class.landmine = {
     },
     TURRETS: [
         {
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}],
             POSITION: {
-                SIZE: 21.5,
-                ARC: 360
-            },
-            TYPE: ["hexagonHat_spin", { COLOR: "black" }]
+                SIZE: 21.5
+            }
         },
         {
+            TYPE: ["hexagonHat_spinFaster", {COLOR: "black"}],
             POSITION: {
                 SIZE: 21.5,
-                ANGLE: 90,
-                ARC: 360
-            },
-            TYPE: ["hexagonHat_spinFaster", { COLOR: "black" }]
+                ANGLE: 90
+            }
         }
     ]
 }
@@ -4900,8 +4897,7 @@ Class.spike = {
         {
             TYPE: ["triangleHat_spin", { COLOR: "black" }],
             POSITION: {
-                SIZE: 18,
-                ARC: 360
+                SIZE: 18
             }
         }
     ], 4)
@@ -4922,11 +4918,16 @@ Class.spike_old = {
     TURRETS: [
         {
             TYPE: ["triangleHat_spinFast", { COLOR: "black" }],
-            POSITION: [20.5, 0, 0, 0, 360, 0]
+            POSITION: {
+                SIZE: 20.5
+            }
         },
         {
-            POSITION: [20.5, 0, 0, 180, 360, 0],
-            TYPE: "triangleHat_weirdSpike"
+            TYPE: "triangleHat_weirdSpike",
+            POSITION: {
+                SIZE: 20.5,
+                ANGLE: 180
+            }
         }
     ]
 }

@@ -41,7 +41,7 @@ odin.addLayer({gun: {
     POSITION: [2.25, 3.25, -1.6, 9, 0, null, 0],
     PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, g.destroyer, {speed: 1.25, maxSpeed: 1.25}]),
-        TYPE: ["shamanDrone", {INDEPENDENT: true, DRAW_HEALTH: true, COLOR: 'hexagon'}],
+        TYPE: ["shamanDrone", {INDEPENDENT: true, DRAW_HEALTH: true, COLOR: 'teal'}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
     },
