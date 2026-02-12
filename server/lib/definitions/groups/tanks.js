@@ -3709,7 +3709,7 @@ Class.nailgun = {
                 DELAY: 0.25
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, g.nailgun]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, g.nailgun, {size: 2/3}]),
                 TYPE: "bullet"
             }
         }, {delayIncrement: 0.5}),
