@@ -1,4 +1,4 @@
-const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, makeAuto, makeAutoArray, makeBattle, makeBird, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -7102,27 +7102,29 @@ Class.custodian_AR = {
 // Quick Defining
 const quickMake = (type, options = {}) => {
     name = ensureIsClass(type)
-    label = name.LABEL
-    classLabel = label.replaceAll(' ', '').replaceAll('-', '').replaceAll("'n", 'N') // delete whitespaces and hyphens + special case for halfnhalf
     if (options.bird) {
-        let birdLabel = options.bird
-        let birdClassLabel = birdLabel.charAt(0).toLowerCase() + birdLabel.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[birdClassLabel + "_AR"] = makeBird(type, birdLabel)
+        let classLabel = options.bird.charAt(0).toLowerCase() + options.bird.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeBird(type, options.bird)
     }
     if (options.hybrid) {
-        let hybridLabel = options.hybrid ??= `Hybrid ${label}`
-        let hybridClassLabel = hybridLabel.charAt(0).toLowerCase() + hybridLabel.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[hybridClassLabel + "_AR"] = makeOver(type, hybridLabel, preset.hybrid)
+        let classLabel = options.hybrid.charAt(0).toLowerCase() + options.hybrid.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeOver(type, options.hybrid, preset.hybrid)
     }
     if (options.hybrid2) {
-        let hybridLabel = options.hybrid2 ??= `Hybrid ${label}`
-        let hybridClassLabel = hybridLabel.charAt(0).toLowerCase() + hybridLabel.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[hybridClassLabel + "_AR"] = makeOver(type, hybridLabel, {...preset.hybrid, renderBehind: true})
+        let classLabel = options.hybrid2.charAt(0).toLowerCase() + options.hybrid2.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeOver(type, options.hybrid2, {...preset.hybrid, renderBehind: true})
     }
     if (options.over) {
-        let overLabel = options.over ??= `Over${label.charAt(0).toLowerCase() + label.slice(1)}`
-        let overClassLabel = overLabel.replaceAll(' ', '').replaceAll('-', '')
-        Class[overLabel.charAt(0).toLowerCase() + overLabel.slice(1) + "_AR"] = makeOver(type, overLabel)
+        let classLabel = options.over.replaceAll(' ', '').replaceAll('-', '')
+        Class[options.over.charAt(0).toLowerCase() + options.over.slice(1) + "_AR"] = makeOver(type, options.over)
+    }
+    if (options.synthesis) {
+        let classLabel = options.synthesis.charAt(0).toLowerCase() + options.synthesis.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeBattle(type, options.synthesis, preset.hybrid)
+    }
+    if (options.battle) {
+        let classLabel = options.battle.replaceAll(' ', '').replaceAll('-', '')
+        Class[options.battle.charAt(0).toLowerCase() + options.battle.slice(1) + "_AR"] = makeBattle(type, options.over)
     }
 }
 const quickMakeAuto = (type) => {
@@ -7182,6 +7184,37 @@ quickMake("spreadshot", {bird: "Bozo", hybrid: "Smearer"})
 quickMake("stalker", {hybrid: "Trailer"})
 quickMake("subverter", {hybrid: "Deposer"})
 quickMake("surfer", {hybrid2: "Skater"})
+quickMake({
+    PARENT: "genericTank",
+    LABEL: "Trapper",
+    DANGER: 6,
+    STAT_NAMES: statnames.mixed,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: base.FOV * 1.2
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8,
+                ASPECT: 1.5,
+                X: 14
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ]
+}, {battle: "Battletrapper"})
 quickMake("triAngle", {hybrid2: "Integrator"})
 quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
 quickMake("tripleShot", {bird: "Defect", over: "Overshot"})
@@ -7590,7 +7623,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.manager.UPGRADES_TIER_4 = ["leader", "inspector", "managerdrive", "autoManager"].map(x => x + "_AR")
         Class.overseer.UPGRADES_TIER_3.push("captain_AR", "foreman_AR", "dopeseer_AR")
             Class.overseer.UPGRADES_TIER_4 = ["inspector", "overdoubleTwin", "overshot", "overassassin", "overhunter", "overminigun", "overrifle", "overmarksman", "overartillery", "oversprayer", "overdiesel", "overangle", "overdestroyer", "overlauncher"].map(x => x + "_AR")
-            Class.overtrapper.UPGRADES_TIER_4 = ["kingpin", "overmach", "autoOvertrapper", "overtrapperdrive"/*, "battletrapper", "captrapper", "foretrapper"*/, "overbuilder", "overtrapGuard", "overpen", "overmech", "overwark"].map(x => x + "_AR")
+            Class.overtrapper.UPGRADES_TIER_4 = ["kingpin", "overmach", "autoOvertrapper", "overtrapperdrive", "battletrapper"/*, "captrapper", "foretrapper"*/, "overbuilder", "overtrapGuard", "overpen", "overmech", "overwark"].map(x => x + "_AR")
             Class.autoOverseer.UPGRADES_TIER_4 = ["megaAutoOverseer", "tripleAutoOverseer"].map(x => x + "_AR")
             //Class.dopeseer_AR.UPGRADES_TIER_4 = ["briskseer", "dopelord", "autoDopeseer", "dopeseerdrive", "adjurer", "mogul", "ganger"].map(x => x + "_AR")
         Class.cruiser.UPGRADES_TIER_3.push("productionist_AR", "cruiserdrive_AR", "hangar_AR", "zipper_AR", "baltimore_AR", "mosey_AR")

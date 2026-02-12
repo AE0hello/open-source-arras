@@ -4,7 +4,7 @@ const { base, dfltskl, smshskl, statnames } = require('../constants.js')
 // Entities
 Class.genericEntity = {
     NAME: "",
-    LABEL: "",//"Unknown Entity",
+    LABEL: "Unknown Entity",
     TYPE: "unknown",
     DAMAGE_CLASS: 0,
     DANGER: 0,
