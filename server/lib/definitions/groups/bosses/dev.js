@@ -234,7 +234,8 @@ Class.tgsEggchip = {
         {
             TYPE: "circleHat",
             POSITION: {
-                SIZE: 10
+                SIZE: 10,
+                LAYER: 1
             }
         }
     ]

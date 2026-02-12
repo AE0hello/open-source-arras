@@ -36,7 +36,7 @@ kronos.addLayer({turret: {
     TYPE: ["kronosTripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}],
 }}, true, 4)
 
-let odin = new LayeredBoss(null, "Odin", "eternal", 11, "aqua", "baseTrapTurret", 4.5, 3.5) // formerly Ragnarok
+let odin = new LayeredBoss(null, "Odin", "eternal", 11, "teal", "baseTrapTurret", 4.5, 3.5) // formerly Ragnarok
 odin.addLayer({gun: {
     POSITION: [2.25, 3.25, -1.6, 9, 0, null, 0],
     PROPERTIES: {

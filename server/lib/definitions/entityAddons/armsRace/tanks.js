@@ -4214,6 +4214,35 @@ Class.doubleRedistributor_AR = {
         }
     ], 2)
 }
+Class.doubleSplasher_AR = {
+    PARENT: "genericTank",
+    LABEL: "Double Splasher",
+    DANGER: 8,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ASPECT: 1.9,
+                X: 4
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }, g.blaster, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        }
+    ], 2)
+}
 Class.doubleStormer_AR = {
     PARENT: "genericTank",
     LABEL: "Double Stormer",
@@ -4396,6 +4425,42 @@ Class.doubleTriplex_AR = {
                 ANGLE: 22.5
             }
         }], {delayIncrement: 0.5}),
+    ], 2)
+}
+Class.doubleVolley_AR = {
+    PARENT: "genericTank",
+    LABEL: "Double Volley",
+    DANGER: 8,
+    ...todo_placeholder_guns,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 5,
+                Y: 7.25
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 5,
+                Y: -7.25
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 5,
+                Y: 3.75
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 5,
+                Y: -3.75
+            }
+        }
     ], 2)
 }
 Class.downpourer_AR = makeDrive("director", {label: "Downpourer", type: "genericEntity", size: 12, hatType: "downpourerSquare_AR"}) // fix later
@@ -6293,7 +6358,7 @@ Class.triSplasher_AR = {
         ...weaponMirror([
             {
                 POSITION: {
-                    LENGTH: 20,
+                    LENGTH: 19,
                     WIDTH: 7,
                     Y: 2,
                     ANGLE: 15,
@@ -7082,13 +7147,14 @@ quickMake("artillery", {hybrid: "Force", over: "Overartillery"})
 quickMake("assassin", {hybrid: "Hitman", over: "Overassassin"})
 quickMake("bentGunner_AR", {hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
-quickMake("blaster", {over: "Overblaster"})
+quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster"})
 quickMake("builder", {hybrid: "Fashioner", over: "Overbuilder"})
 quickMake("cog_AR", {hybrid: "Contriver"})
 quickMake("destroyer", {bird: "Harrier", over: "Overdestroyer"})
 quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel"})
 quickMake("dual", {hybrid: "Ravisher"})
 quickMake("expeller_AR", {hybrid: "Throttler"})
+quickMake("flamethrower", {hybrid: "Imitation"})
 quickMake("gatlingGun", {hybrid: "Gator", over: "Overgatling"})
 quickMake("helix", {hybrid: "Hybrix"})
 quickMake("hunter", {over: "Overhunter"})
@@ -7109,166 +7175,166 @@ quickMake("rifle", {over: "Overrifle"})
 quickMake("rotaryGun_AR", {hybrid: "Rotator"})
 quickMake("single", {hybrid: "Assistant"})
 quickMake("splitShot_AR", {hybrid: "Split Hybrid"})
+quickMake("splasher", {hybrid: "Bargain"})
 quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer"})
 quickMake("spreadshot", {hybrid: "Smearer"})
 quickMake("subverter", {hybrid: "Deposer"})
 quickMake("triAngle", {hybrid: "Integrator"})
+quickMake("triBlaster", {hybrid: "Bootleg"})
 quickMake("tripleShot", {over: "Overshot"})
 quickMake("triplet", {hybrid: "Triprid"})
 quickMake("triplex", {hybrid: "Triprix"})
+quickMake("volley_AR", {hybrid: "Volley Hybrid"})
 quickMake("waarrk_AR", {hybrid: "Bent Catcher"})
 quickMake("wark_AR", {hybrid: "Coalesce", over: "Overwark"})
 quickMake("xHunter", {hybrid: "X-Poacher"})
 
-makeAutoArray(
-    [
-        "artillery",
-        "assassin",
-        "auto3",
-        "blaster",
-        "builder",
-        "cog_AR",
-        "cruiser",
-        "destroyer",
-        "diesel_AR",
-        "doper_AR",
-        "doubleMachine",
-        "gatlingGun",
-        "gunner",
-        "halfNHalf",
-        "helix",
-        "hexaTank",
-        "honcho_AR",
-        "hunter",
-        "launcher",
-        "machineTrapper_AR",
-        "marksman",
-        "mech_AR",
-        "minigun",
-        "overseer",
-        "pen_AR",
-        "repeater",
-        "rifle",
-        "spawner",
-        "spiral",
-        "sprayer",
-        "trapGuard",
-        "triAngle",
-        "tripleShot",
-        "underseer",
-        "volute",
-        "wark_AR"
-    ], {tier: 1, suffix: "_AR"}
-)
-makeAutoArray(
-    [
-        "accurator",
-        "armsman",
-        "atomizer",
-        "auto4",
-        "auto5",
-        "barricade",
-        "battery",
-        "bentDouble",
-        "bentGunner_AR",
-        "bentHybrid",
-        "bentMinigun_AR",
-        "blower",
-        "bomber",
-        "booster",
-        "bulwark",
-        "bushwhacker",
-        "buttbuttin",
-        "coalesce_AR",
-        "cockatiel_AR",
-        "coil",
-        "combo_AR",
-        "courser_AR",
-        "cropDuster",
-        "crossbow",
-        "cyclone",
-        "deadeye",
-        "deathStar",
-        "defect_AR",
-        "doubleArtillery_AR",
-        "doubleBlaster_AR",
-        "doubleDiesel_AR",
-        "doubleGatling_AR",
-        "doubleGunner_AR",
-        "doubleHelix_AR",
-        "doubleMinigun_AR",
-        "doubleSprayer_AR",
-        "dual",
-        "duplicator",
-        "eagle",
-        "enforcer_AR",
-        "equalizer_AR",
-        "expeller_AR",
-        "falcon",
-        "faucet_AR",
-        "fighter",
-        "flamethrower",
-        "foamer_AR",
-        "focal",
-        "fork",
-        "frother_AR",
-        "gunnerTrapper",
-        "hewnDouble",
-        "hitman_AR",
-        "hutch_AR",
-        "hybridMarksman_AR",
-        "integrator_AR",
-        "iterator",
-        "machineGunner",
-        "manager",
-        "megaHunter_AR",
-        "mingler_AR",
-        "mortar",
-        "musket",
-        "nailgun",
-        "nimrod",
-        "octoTank",
-        "ordnance",
-        "overlord",
-        "overgunner",
-        "overtrapper",
-        "pentaShot",
-        "phoenix",
-        "poacher",
-        "predator",
-        "prober_AR",
-        "quadAngle_AR",
-        "quadruplex",
-        "railgun_AR",
-        "ranger",
-        "redistributor",
-        "revolver",
-        "rimfire_AR",
-        "shower_AR",
-        "single",
-        "sniper3_AR",
-        "splasher",
-        "splitShot_AR",
-        "spreadshot",
-        "stalker",
-        "stormer_AR",
-        "streamliner",
-        "subverter",
-        "superSpiral",
-        "surfer",
-        "triBlaster",
-        "tripleMachine",
-        "triplet",
-        "triplex",
-        "volley_AR",
-        "vulture",
-        "waarrk_AR",
-        "warkwark_AR",
-        "widget_AR",
-        "xHunter",
-        "zipper_AR"
-    ], {suffix: "_AR"}
-)
+makeAutoArray([
+    "artillery",
+    "assassin",
+    "auto3",
+    "blaster",
+    "builder",
+    "cog_AR",
+    "cruiser",
+    "destroyer",
+    "diesel_AR",
+    "doper_AR",
+    "doubleMachine",
+    "gatlingGun",
+    "gunner",
+    "halfNHalf",
+    "helix",
+    "hexaTank",
+    "honcho_AR",
+    "hunter",
+    "launcher",
+    "machineTrapper_AR",
+    "marksman",
+    "mech_AR",
+    "minigun",
+    "overseer",
+    "pen_AR",
+    "repeater",
+    "rifle",
+    "spawner",
+    "spiral",
+    "sprayer",
+    "trapGuard",
+    "triAngle",
+    "tripleShot",
+    "underseer",
+    "volute",
+    "wark_AR"
+], {tier: 1, suffix: "_AR"})
+makeAutoArray([
+    "accurator",
+    "armsman",
+    "atomizer",
+    "auto4",
+    "auto5",
+    "barricade",
+    "battery",
+    "bentDouble",
+    "bentGunner_AR",
+    "bentHybrid",
+    "bentMinigun_AR",
+    "blower",
+    "bomber",
+    "booster",
+    "bulwark",
+    "bushwhacker",
+    "buttbuttin",
+    "coalesce_AR",
+    "cockatiel_AR",
+    "coil",
+    "combo_AR",
+    "courser_AR",
+    "cropDuster",
+    "crossbow",
+    "cyclone",
+    "deadeye",
+    "deathStar",
+    "defect_AR",
+    "doubleArtillery_AR",
+    "doubleBlaster_AR",
+    "doubleDiesel_AR",
+    "doubleGatling_AR",
+    "doubleGunner_AR",
+    "doubleHelix_AR",
+    "doubleMinigun_AR",
+    "doubleSprayer_AR",
+    "dual",
+    "duplicator",
+    "eagle",
+    "enforcer_AR",
+    "equalizer_AR",
+    "expeller_AR",
+    "falcon",
+    "faucet_AR",
+    "fighter",
+    "flamethrower",
+    "foamer_AR",
+    "focal",
+    "fork",
+    "frother_AR",
+    "gunnerTrapper",
+    "hewnDouble",
+    "hitman_AR",
+    "hutch_AR",
+    "hybridMarksman_AR",
+    "integrator_AR",
+    "iterator",
+    "machineGunner",
+    "manager",
+    "megaHunter_AR",
+    "mingler_AR",
+    "mortar",
+    "musket",
+    "nailgun",
+    "nimrod",
+    "octoTank",
+    "ordnance",
+    "overlord",
+    "overgunner",
+    "overtrapper",
+    "pentaShot",
+    "phoenix",
+    "poacher",
+    "predator",
+    "prober_AR",
+    "quadAngle_AR",
+    "quadruplex",
+    "railgun_AR",
+    "ranger",
+    "redistributor",
+    "revolver",
+    "rimfire_AR",
+    "ripoff_AR",
+    "shower_AR",
+    "single",
+    "sniper3_AR",
+    "splasher",
+    "splitShot_AR",
+    "spreadshot",
+    "stalker",
+    "stormer_AR",
+    "streamliner",
+    "subverter",
+    "superSpiral",
+    "surfer",
+    "triBlaster",
+    "tripleMachine",
+    "triplet",
+    "triplex",
+    "volley_AR",
+    "vulture",
+    "waarrk_AR",
+    "warkwark_AR",
+    "widget_AR",
+    "xHunter",
+    "zipper_AR"
+], {suffix: "_AR"})
 
 // UNSORTED
 Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
@@ -7322,7 +7388,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.autoDouble.UPGRADES_TIER_4 = ["megaAutoDouble", "tripleAutoDouble", "autoTriple", "autoHewnDouble", "autoBentDouble", "autoDoubleFlank", "autoDoubleGunner", "autoDoubleHelix", "autoWarkwark"].map(x => x + "_AR")
             Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "doubleTriplex", "cleft"/*, "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"*/].map(x => x + "_AR")
             Class.doubleFlankTwin_AR.UPGRADES_TIER_4 = ["quadTwin", "tripleFlankTwin", "hewnFlankDouble", "autoDoubleFlank"/*, "bentFlankDouble", "doubleFlankGunner*/, "doubleFlankHelix"/*, "hipwatch", "scuffler", "warkwawawark"*/].map(x => x + "_AR")
-            Class.doubleGunner_AR.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner"/*, "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire", "doubleVolley", "doubleEqualizer"*/].map(x => x + "_AR")
+            Class.doubleGunner_AR.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner"/*, "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire"*/, "doubleVolley"/*, "doubleEqualizer"*/].map(x => x + "_AR")
             Class.doubleHelix_AR.UPGRADES_TIER_4 = ["tripleHelix"/*, "hewnHelix"*/, "autoDoubleHelix", "doubleTriplex", "doubleFlankHelix"].map(x => x + "_AR")
             Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
         Class.tripleShot.UPGRADES_TIER_3.push("splitShot_AR", "autoTripleShot_AR", "bentGunner_AR", "bentMinigun_AR", "defect_AR", "waarrk_AR")
@@ -7351,7 +7417,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.buttbuttin.UPGRADES_TIER_4 = ["autoButtbuttin"].map(x => x + "_AR")
             Class.blower.UPGRADES_TIER_4 = ["autoBlower"].map(x => x + "_AR")
             Class.rimfire_AR.UPGRADES_TIER_4 = ["autoRimfire"].map(x => x + "_AR")
-            Class.volley_AR.UPGRADES_TIER_4 = ["autoVolley"].map(x => x + "_AR")
+            Class.volley_AR.UPGRADES_TIER_4 = [/*"cannonade", "volley4", "tornado", "pummeler", "barrage", */"autoVolley", "doubleVolley"/*, "machineVolley*/, "volleyHybrid"].map(x => x + "_AR")
             //Class.doubleGunner_AR.UPGRADES_TIER_4
             //Class.bentGunner_AR.UPGRADES_TIER_4
             Class.equalizer_AR.UPGRADES_TIER_4 = ["autoEqualizer"].map(x => x + "_AR")
@@ -7609,6 +7675,7 @@ if (Config.retrograde) {
     //Class.twin.UPGRADES_TIER_2
         //Class.tripleShot.UPGRADES_TIER_3
             Class.pentaShot.UPGRADES_TIER_4.push("pentaBlaster_AR")
+            Class.bentHybrid.UPGRADES_TIER_4.push("bootleg_AR")
             Class.bentDouble.UPGRADES_TIER_4.push("doubleTriBlaster_AR")
     //Class.machineGun.UPGRADES_TIER_2
         Class.artillery.UPGRADES_TIER_3.push("doubleArtillery_AR")
@@ -7624,15 +7691,17 @@ if (Config.retrograde) {
             Class.frother_AR.UPGRADES_TIER_4.push("doubleFrother_AR")
             Class.foamer_AR.UPGRADES_TIER_4.push("doubleFoamer_AR")
             Class.faucet_AR.UPGRADES_TIER_4.push("doubleFaucet_AR")
+            Class.shower_AR.UPGRADES_TIER_4.push("bargain_AR")
             Class.autoSprayer_AR.UPGRADES_TIER_4.push("autoSplasher_AR", "autoDoubleSprayer_AR")
             Class.stormer_AR.UPGRADES_TIER_4.push("doubleStormer_AR")
         Class.diesel_AR.UPGRADES_TIER_3.push("doubleDiesel_AR")
             Class.autoDiesel_AR.UPGRADES_TIER_4.push("autoDoubleDiesel_AR")
-        Class.blaster.UPGRADES_TIER_3.push("volley_AR", "doubleBlaster_AR", "autoBlaster_AR")
-            Class.triBlaster.UPGRADES_TIER_4 = ["pentaBlaster", "triSplasher", "bentSubverter", "doubleTriBlaster", "autoTriBlaster"].map(x => x + "_AR")
-            Class.splasher.UPGRADES_TIER_4 = ["triSplasher", "sprayNSpray", "autoSplasher"].map(x => x + "_AR")
+        Class.blaster.UPGRADES_TIER_3.push("volley_AR", "doubleBlaster_AR", "ripoff_AR", "autoBlaster_AR")
+            Class.triBlaster.UPGRADES_TIER_4 = ["pentaBlaster", "triSplasher", "bentSubverter", "doubleTriBlaster", "bootleg", "autoTriBlaster"].map(x => x + "_AR")
+            Class.splasher.UPGRADES_TIER_4 = ["triSplasher", "sprayNSpray", "doubleSplasher", "bargain", "autoSplasher"].map(x => x + "_AR")
             Class.flamethrower.UPGRADES_TIER_4 = ["doubleFlamethrower", "autoFlamethrower"].map(x => x + "_AR")
-            Class.autoBlaster_AR.UPGRADES_TIER_4 = ["megaAutoBlaster", "tripleAutoBlaster", "autoTriBlaster", "autoSplasher", "autoFlamethrower", "autoHalfNHalf", "autoSubverter", "autoVolley"].map(x => x + "_AR")
+            Class.ripoff_AR.UPGRADES_TIER_4 = ["overblaster", "bootleg", "bargain", "imitation", "deposer", "volleyHybrid", "autoRipoff"].map(x => x + "_AR")
+            Class.autoBlaster_AR.UPGRADES_TIER_4 = ["megaAutoBlaster", "tripleAutoBlaster", "autoTriBlaster", "autoSplasher", "autoFlamethrower", "autoHalfNHalf", "autoSubverter", "autoVolley", "autoDoubleBlaster", "autoRipoff"].map(x => x + "_AR")
         Class.gatlingGun.UPGRADES_TIER_3.push("rotaryGun_AR", "doubleGatling_AR", "gator_AR", "autoGatlingGun_AR")
             Class.accurator.UPGRADES_TIER_4 = ["accugator"].map(x => x + "_AR")
             Class.rotaryGun_AR.UPGRADES_TIER_4 = ["concentrator", "rotator"].map(x => x + "_AR")
@@ -7644,9 +7713,9 @@ if (Config.retrograde) {
             Class.halfNHalf.UPGRADES_TIER_4 = ["quarterNQuarter", "slabNSlab", "sprayNSpray", "autoHalfNHalf"].map(x => x + "_AR")
             Class.doubleArtillery_AR.UPGRADES_TIER_4 = ["tripleArtillery", "autoDoubleArtillery"].map(x => x + "_AR")
             Class.doubleMinigun_AR.UPGRADES_TIER_4 = ["tripleMinigun", "doubleSubverter", "autoDoubleMinigun"].map(x => x + "_AR")
-            Class.doubleSprayer_AR.UPGRADES_TIER_4 = ["tripleSprayer", "sprayNSpray", "doubleRedistributor", "doubleAtomizer", "doubleFocal", "doubleFrother", "doubleFoamer", "doubleFaucet", "autoDoubleSprayer", "doubleStormer"].map(x => x + "_AR")
+            Class.doubleSprayer_AR.UPGRADES_TIER_4 = ["tripleSprayer", "sprayNSpray", "doubleRedistributor", "doubleAtomizer", "doubleFocal", "doubleSplasher", "doubleFrother", "doubleFoamer", "doubleFaucet", "autoDoubleSprayer", "doubleStormer"].map(x => x + "_AR")
             Class.doubleDiesel_AR.UPGRADES_TIER_4 = ["tripleDiesel", "autoDoubleDiesel"].map(x => x + "_AR")
-            Class.doubleBlaster_AR.UPGRADES_TIER_4 = ["tripleBlaster", "doubleTriBlaster", "doubleFlamethrower", "slabNSlab", "doubleSubverter", "autoDoubleBlaster"].map(x => x + "_AR")
+            Class.doubleBlaster_AR.UPGRADES_TIER_4 = ["tripleBlaster", "doubleTriBlaster", "doubleSplasher", "doubleFlamethrower", "slabNSlab", "doubleSubverter", "doubleVolley", "autoDoubleBlaster"].map(x => x + "_AR")
             Class.doubleGatling_AR.UPGRADES_TIER_4 = ["tripleGatling", "doubleFocal", "quarterNQuarter", "slabNSlab", "autoDoubleGatling"].map(x => x + "_AR")
             Class.autoDoubleMachine_AR.UPGRADES_TIER_4 = ["megaAutoDoubleMachine", "tripleAutoDoubleMachine", "autoTripleMachine", "autoHalfNHalf", "autoDoubleArtillery", "autoDoubleMinigun", "autoDoubleGunner", "autoDoubleSprayer", "autoDoubleDiesel", "autoDoubleBlaster", "autoDoubleGatling"].map(x => x + "_AR")
     //Class.director.UPGRADES_TIER_2
