@@ -1967,8 +1967,6 @@ Class.bulwark = {
             POSITION: {
                 LENGTH: 15,
                 WIDTH: 8,
-                ASPECT: 1,
-                X: 0,
                 Y: 5.5,
                 ANGLE: 185
             }
@@ -3781,8 +3779,7 @@ Class.nimrod = {
             POSITION: {
                 LENGTH: 13,
                 WIDTH: 6.5,
-                ASPECT: 2.2,
-                X: 0
+                ASPECT: 2.2
             }
         },
         {
@@ -5371,7 +5368,6 @@ Class.surgeon = {
             POSITION: {
                 LENGTH: 5,
                 WIDTH: 10,
-                ASPECT: 1,
                 X: 9.5
             }
         },
