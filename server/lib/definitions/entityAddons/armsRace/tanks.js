@@ -716,7 +716,6 @@ Class.cog_AR = {
         }
     ], {delayIncrement: 0.5})
 }
-Class.cockatiel_AR = makeBird("pen_AR", "Cockatiel")
 Class.combo_AR = {
     PARENT: "genericTank",
     LABEL: "Combo",
@@ -836,7 +835,6 @@ Class.crowbar_AR = {
     ]
 }
 Class.cruiserdrive_AR = makeDrive("cruiser", preset.driveSwarm)
-Class.defect_AR = makeBird("tripleShot", "Defect")
 Class.dieselTrapper_AR = {
     PARENT: "genericTank",
     LABEL: "Diesel Trapper",
@@ -3438,7 +3436,6 @@ Class.autoUnderdrive_AR = makeAuto("underdrive_AR", "Auto-Underdrive", driveAuto
 Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", whirlAuto_options), {label: "Auto-Vortex"})
 Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", whirlAuto_options), {label: "Auto-Whirl-3"})
 Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", whirlAuto_options), {label: "Auto-Whirl Guard"})
-Class.avian_AR = makeBird("single", "Avian")
 Class.bansheedrive_AR = makeDrive("banshee")
 Class.battledrive_AR = makeDrive("battleship", {...preset.driveSwarm, label: "Battledrive"})
 Class.bentSubverter_AR = {
@@ -3505,7 +3502,6 @@ Class.bentTriple_AR = {
         }
     ], 3)
 }
-Class.bozo_AR = makeBird("spreadshot", "Bozo")
 Class.bruiser_AR = {
     PARENT: "genericTank",
     LABEL: "Bruiser",
@@ -3769,7 +3765,6 @@ Class.cyclops_AR = {
         }
     ]
 }
-Class.deficiency_AR = makeBird("pentaShot", "Deficiency")
 Class.doctor_AR = {
     PARENT: "genericHealer",
     LABEL: "Doctor",
@@ -3786,10 +3781,8 @@ Class.doctor_AR = {
         }
     ]
 }
-Class.donkey_AR = makeBird("bentGunner_AR", "Donkey")
 Class.dopedrive_AR = makeDrive("dopeseer_AR", {label: "Dopedrive"})
 Class.doperstorm_AR = makeDrive("doper_AR", storm_options)
-Class.dork_AR = makeBird("splitShot_AR", "Dork")
 Class.doubleAtomizer_AR = {
     PARENT: "genericTank",
     LABEL: "Double Atomizer",
@@ -4557,7 +4550,6 @@ Class.executor_AR = {
         ...preset.trapGuard
     ]
 }
-Class.fault_AR = makeBird("waarrk_AR", "Fault")
 Class.flexedDouble_AR = {
     PARENT: "genericTank",
     LABEL: "Flexed Double",
@@ -5394,8 +5386,6 @@ Class.mono_AR = {
     ]
 }
 Class.necrodrive_AR = makeDrive("necromancer", {label: "Necrodrive"})
-Class.nitwit_AR = makeBird("triplet", "Nitwit")
-Class.nitwix_AR = makeBird("triplex", "Nitwix")
 Class.octoWhirl_AR = makeWhirlwind("octoTank", {label: "Octo Whirl"})
 Class.ointment_AR = {
     PARENT: "genericHealer",
@@ -7145,7 +7135,7 @@ const quickMakeAuto = (type) => {
 quickMake("accurator", {hybrid: "Accugator"})
 quickMake("artillery", {hybrid: "Force", over: "Overartillery"})
 quickMake("assassin", {hybrid: "Hitman", over: "Overassassin"})
-quickMake("bentGunner_AR", {hybrid: "Spambrid"})
+quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
 quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster"})
 quickMake("builder", {hybrid: "Fashioner", over: "Overbuilder"})
@@ -7168,24 +7158,24 @@ quickMake("megaTrapper_AR", {bird: "Shoebill"})
 quickMake("musket", {hybrid: "Matchlock"})
 quickMake("nailgun", {over: "Overnailer"})
 quickMake("nimrod", {hybrid: "Nacho"})
-quickMake("pen_AR", {hybrid: "Interner", over: "Overpen"})
-quickMake("pentaShot", {hybrid: "Flexed Hybrid"})
+quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen"})
+quickMake("pentaShot", {bird: "Deficiency", hybrid: "Flexed Hybrid"})
 quickMake("railgun_AR", {bird: "Raven"})
 quickMake("rifle", {over: "Overrifle"})
 quickMake("rotaryGun_AR", {hybrid: "Rotator"})
-quickMake("single", {hybrid: "Assistant"})
-quickMake("splitShot_AR", {hybrid: "Split Hybrid"})
+quickMake("single", {bird: "Avian", hybrid: "Assistant"})
+quickMake("splitShot_AR", {bird: "Dork", hybrid: "Split Hybrid"})
 quickMake("splasher", {hybrid: "Bargain"})
 quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer"})
-quickMake("spreadshot", {hybrid: "Smearer"})
+quickMake("spreadshot", {bird: "Bozo", hybrid: "Smearer"})
 quickMake("subverter", {hybrid: "Deposer"})
 quickMake("triAngle", {hybrid: "Integrator"})
-quickMake("triBlaster", {hybrid: "Bootleg"})
-quickMake("tripleShot", {over: "Overshot"})
-quickMake("triplet", {hybrid: "Triprid"})
-quickMake("triplex", {hybrid: "Triprix"})
+quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
+quickMake("tripleShot", {bird: "Defect", over: "Overshot"})
+quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
+quickMake("triplex", {bird: "Nitwix", hybrid: "Triprix"})
 quickMake("volley_AR", {hybrid: "Volley Hybrid"})
-quickMake("waarrk_AR", {hybrid: "Bent Catcher"})
+quickMake("waarrk_AR", {bird: "Fault", hybrid: "Bent Catcher"})
 quickMake("wark_AR", {hybrid: "Coalesce", over: "Overwark"})
 quickMake("xHunter", {hybrid: "X-Poacher"})
 
@@ -7677,6 +7667,7 @@ if (Config.retrograde) {
             Class.pentaShot.UPGRADES_TIER_4.push("pentaBlaster_AR")
             Class.bentHybrid.UPGRADES_TIER_4.push("bootleg_AR")
             Class.bentDouble.UPGRADES_TIER_4.push("doubleTriBlaster_AR")
+            Class.defect_AR.UPGRADES_TIER_4.push("leak_AR")
     //Class.machineGun.UPGRADES_TIER_2
         Class.artillery.UPGRADES_TIER_3.push("doubleArtillery_AR")
             Class.munition.UPGRADES_TIER_4.push("doubleMunition_AR")
@@ -7697,7 +7688,7 @@ if (Config.retrograde) {
         Class.diesel_AR.UPGRADES_TIER_3.push("doubleDiesel_AR")
             Class.autoDiesel_AR.UPGRADES_TIER_4.push("autoDoubleDiesel_AR")
         Class.blaster.UPGRADES_TIER_3.push("volley_AR", "doubleBlaster_AR", "ripoff_AR", "autoBlaster_AR")
-            Class.triBlaster.UPGRADES_TIER_4 = ["pentaBlaster", "triSplasher", "bentSubverter", "doubleTriBlaster", "bootleg", "autoTriBlaster"].map(x => x + "_AR")
+            Class.triBlaster.UPGRADES_TIER_4 = ["pentaBlaster", "triSplasher", "bentSubverter", "doubleTriBlaster", "bootleg", "autoTriBlaster", "leak"].map(x => x + "_AR")
             Class.splasher.UPGRADES_TIER_4 = ["triSplasher", "sprayNSpray", "doubleSplasher", "bargain", "autoSplasher"].map(x => x + "_AR")
             Class.flamethrower.UPGRADES_TIER_4 = ["doubleFlamethrower", "autoFlamethrower"].map(x => x + "_AR")
             Class.ripoff_AR.UPGRADES_TIER_4 = ["overblaster", "bootleg", "bargain", "imitation", "deposer", "volleyHybrid", "autoRipoff"].map(x => x + "_AR")
