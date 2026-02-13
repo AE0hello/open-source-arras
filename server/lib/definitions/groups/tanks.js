@@ -1217,7 +1217,6 @@ Class.underseer = {
         FOV: base.FOV * 1.1,
     },
     SHAPE: 4,
-    MAX_CHILDREN: 14,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,
@@ -1234,6 +1233,7 @@ Class.underseer = {
             STAT_CALCULATOR: "necro",
             WAIT_TO_CYCLE: true,
             DELAY_SPAWN: false,
+            MAX_CHILDREN: 7
         }
     }, 2)
 }
@@ -3450,12 +3450,7 @@ Class.maleficitor = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.maleficitor]),
-                TYPE: [
-                    "sunchip",
-                    {
-                        INVISIBLE: [0.06, 0.03],
-                    },
-                ],
+                TYPE: ["sunchip", {INVISIBLE: [0.06, 0.03]}],
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "necro",

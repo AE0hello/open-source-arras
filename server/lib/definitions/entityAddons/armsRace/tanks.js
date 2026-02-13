@@ -150,7 +150,7 @@ Class.betaSunchip_AR = {
             POSITION: {
                 SIZE: 20 * Math.cos(Math.PI / 4),
                 ANGLE: 45,
-                LAYER: 1
+                LAYER: 0.1
             }
         }
     ]
@@ -163,14 +163,14 @@ Class.alphaSunchip_AR = {
             POSITION: {
                 SIZE: 20 * Math.cos(Math.PI / 4),
                 ANGLE: 45,
-                LAYER: 1
+                LAYER: 0.1
             }
         },
         {
             TYPE: "squareHat",
             POSITION: {
                 SIZE: 20 * Math.cos(Math.PI / 4) ** 2,
-                LAYER: 1
+                LAYER: 0.1
             }
         }
     ]
@@ -268,7 +268,6 @@ Class.diesel_AR = {
         }
     ]
 }
-Class.directordrive_AR = makeDrive("director")
 Class.doper_AR = {
     PARENT: "genericTank",
     LABEL: "Doper",
@@ -474,7 +473,6 @@ Class.analyzer_AR = {
         }
     ]
 }
-Class.autoDirectordrive_AR = makeAuto("directordrive_AR", "Auto-Directordrive", driveAuto_options)
 Class.baltimore_AR = {
     PARENT: "genericTank",
     LABEL: "Baltimore",
@@ -867,7 +865,7 @@ Class.crowbar_AR = {
         }
     ]
 }
-Class.cruiserdrive_AR = makeDrive("cruiser", preset.driveSwarm)
+Class.cruiserdrive_AR = makeDrive("cruiser", preset.swarmDrive)
 Class.dieselTrapper_AR = {
     PARENT: "genericTank",
     LABEL: "Diesel Trapper",
@@ -925,7 +923,6 @@ Class.discharger_AR = {
         }
     ]
 }
-Class.doperdrive_AR = makeDrive("doper_AR")
 Class.dopeseer_AR = {
     PARENT: "genericTank",
     LABEL: "Dopeseer",
@@ -1680,7 +1677,6 @@ Class.helicopter_AR = {
         return output
     })()
 }
-Class.honchodrive_AR = makeDrive("honcho_AR")
 Class.hurler_AR = {
     PARENT: "genericTank",
     LABEL: "Hurler",
@@ -2211,16 +2207,7 @@ Class.mummifier_AR = {
             DELAY_SPAWN: false,
         }
     }, 2),
-    PROPS: [
-        {
-            TYPE: "squareHat",
-            POSITION: {
-                SIZE: 20 * Math.cos(Math.PI / 4),
-                ANGLE: 45,
-                LAYER: 1
-            }
-        }
-    ]
+    PROPS: Class.betaSunchip_AR.PROPS
 }
 Class.nurse_AR = {
     PARENT: "genericHealer",
@@ -2318,14 +2305,14 @@ Class.pentaseer_AR = {
     PARENT: "genericTank",
     LABEL: "Pentaseer",
     DANGER: 7,
-    NECRO: [4],
+    NECRO: [5],
     STAT_NAMES: statnames.drone,
     BODY: {
         SPEED: base.SPEED * 0.9,
         FOV: base.FOV * 1.1,
     },
     SHAPE: 5,
-    ...todo_placeholder_guns,
+    //...todo_placeholder_guns,
     GUNS: weaponMirror({
         POSITION: {
             LENGTH: 6,
@@ -2333,8 +2320,18 @@ Class.pentaseer_AR = {
             ASPECT: 1.2,
             X: 7.4,
             ANGLE: 36
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8, size: 1.5}]),
+            TYPE: "pentaseerSunchip_AR",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "necro",
+            WAIT_TO_CYCLE: true,
+            DELAY_SPAWN: false,
+            MAX_CHILDREN: 5
         }
-    })
+    }, {delayIncrement: 0.5})
 }
 Class.piercer_AR = {
     PARENT: "genericTank",
@@ -2806,7 +2803,6 @@ Class.soother_AR = {
         }
     ]
 }
-Class.spawnerdrive_AR = makeDrive("spawner")
 Class.splitShot_AR = {
     PARENT: "genericTank",
     LABEL: "Split Shot",
@@ -3045,7 +3041,6 @@ Class.triTrapGuard_AR = {
         ...preset.trapGuard
     ]
 }
-Class.underdrive_AR = makeDrive("underseer", {label: "Underdrive"})
 Class.volley_AR = {
     PARENT: "genericTank",
     LABEL: "Volley",
@@ -3541,12 +3536,10 @@ Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", whirlAuto_option
 Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", driveAuto_options)
 Class.autoProphet_AR = makeWhirlwind(makeAuto("underseer", "", whirlAuto_options), {label: "Auto-Prophet"})
 Class.autoTriple_AR = makeAuto("tripleTwin", "Auto-Triple")
-Class.autoUnderdrive_AR = makeAuto("underdrive_AR", "Auto-Underdrive", driveAuto_options)
 Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", whirlAuto_options), {label: "Auto-Vortex"})
 Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", whirlAuto_options), {label: "Auto-Whirl-3"})
 Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", whirlAuto_options), {label: "Auto-Whirl Guard"})
-Class.bansheedrive_AR = makeDrive("banshee")
-Class.battledrive_AR = makeDrive("battleship", {...preset.driveSwarm, label: "Battledrive"})
+Class.battledrive_AR = makeDrive("battleship", {...preset.swarmDrive, label: "Battledrive"})
 Class.bentSubverter_AR = {
     PARENT: "genericTank",
     LABEL: "Bent Subverter",
@@ -3642,23 +3635,7 @@ Class.bigChip_AR = {
             MAX_CHILDREN: 1
         }
     }, 2),
-    PROPS: [
-        {
-            TYPE: "squareHat",
-            POSITION: {
-                SIZE: 20 * Math.SQRT1_2,
-                ANGLE: 45,
-                LAYER: 1
-            }
-        },
-        {
-            TYPE: "squareHat",
-            POSITION: {
-                SIZE: 20 * Math.cos(Math.PI / 4) ** 2,
-                LAYER: 1
-            }
-        }
-    ]
+    PROPS: Class.alphaSunchip_AR.PROPS
 }
 Class.bruiser_AR = {
     PARENT: "genericTank",
@@ -3718,8 +3695,7 @@ Class.butcher_AR = {
         ...preset.trapGuard
     ]
 }
-Class.carrierdrive_AR = makeDrive("carrier", preset.driveSwarm)
-Class.captaindrive_AR = makeDrive("captain_AR")
+Class.carrierdrive_AR = makeDrive("carrier", preset.swarmDrive)
 Class.chemist_AR = {
     PARENT: "genericHealer",
     LABEL: "Chemist",
@@ -3998,7 +3974,6 @@ Class.doctor_AR = {
         }
     ]
 }
-Class.dopedrive_AR = makeDrive("dopeseer_AR", {label: "Dopedrive"})
 Class.doperstorm_AR = makeDrive("doper_AR", storm_options)
 Class.doubleAtomizer_AR = {
     PARENT: "genericTank",
@@ -4813,8 +4788,7 @@ Class.flexedDouble_AR = {
         }
     ], 2)
 }
-Class.foredrive_AR = makeDrive("foreman_AR", {label: "Foredrive"})
-Class.fortdrive_AR = makeDrive("fortress", {...preset.driveSwarm, label: "Fortdrive"})
+Class.fortdrive_AR = makeDrive("fortress", {...preset.swarmDrive, label: "Fortdrive"})
 Class.gadgetGun_AR = {
     PARENT: "genericTank",
     LABEL: "Gadget Gun",
@@ -5232,7 +5206,6 @@ Class.hextuplex_AR = {
     ]
 }
 Class.honchostorm_AR = makeDrive("honcho_AR", storm_options)
-Class.infestordrive_AR = makeDrive("infestor")
 Class.injection_AR = {
     PARENT: "genericHealer",
     LABEL: "Injection",
@@ -5343,7 +5316,7 @@ Class.prescriber_AR = makeDrive({
             STAT_CALCULATOR: "swarm"
         }
     }, 3, 1/3)
-}, {...preset.driveSwarm, label: "Prescriber"})
+}, {...preset.swarmDrive, label: "Prescriber"})
 Class.prescriber_AR.GUNS.push(...weaponArray({
     POSITION: {
         LENGTH: 6,
@@ -5435,7 +5408,6 @@ Class.leader_AR = {
         }
     ]
 }
-Class.managerdrive_AR = makeDrive("manager")
 Class.medicare_AR = {
     PARENT: "genericHealer",
     LABEL: "Medicare",
@@ -5600,7 +5572,6 @@ Class.mono_AR = {
         }
     ]
 }
-Class.necrodrive_AR = makeDrive("necromancer", {label: "Necrodrive"})
 Class.octoTrapper_AR = makeAuto({
     PARENT: "genericTank",
     DANGER: 7,
@@ -5722,9 +5693,7 @@ Class.orifice_AR = {
 Class.overangle_AR = makeOver("triAngle", "Overangle", preset.sideOver)
 Class.overdoubleMachine_AR = makeOver("doubleMachine", "Overdouble Machine", preset.sideOver)
 Class.overdoubleTwin_AR = makeOver("doubleTwin", "Overdouble Twin", preset.sideOver)
-Class.overgunnerdrive_AR = makeDrive("overgunner")
 Class.overstorm_AR = makeDrive("overseer", {...storm_options, label: "Overstorm"})
-Class.overtrapperdrive_AR = makeDrive("overtrapper")
 Class.overtrapGuard_AR = makeOver("trapGuard", "Overtrap Guard", preset.sideOver)
 Class.peaceMoon_AR = makeWhirlwind("deathStar", {label: "Peace Moon"})
 Class.pentaBlaster_AR = {
@@ -5776,7 +5745,6 @@ Class.pentaBlaster_AR = {
         }
     ]
 }
-Class.pentadrive_AR = makeDrive("pentaseer_AR", {label: "Pentadrive"})
 Class.physician_AR = {
     PARENT: "genericSmasher",
     LABEL: "Physician",
@@ -5833,7 +5801,7 @@ Class.pistol_AR = {
         }
     ]
 }
-Class.productiondrive_AR = makeDrive("productionist_AR", {...preset.driveSwarm, label: "Productiondrive"})
+Class.productiondrive_AR = makeDrive("productionist_AR", {...preset.swarmDrive, label: "Productiondrive"})
 Class.professor_AR = {
     PARENT: "genericHealer",
     LABEL: "Professor",
@@ -6966,7 +6934,6 @@ Class.tripleSprayer_AR = {
         }
     ], 3)
 }
-Class.tyrant_AR = makeDrive("overlord", {label: "Tyrant"})
 Class.understorm_AR = makeDrive("underseer", {...storm_options, label: "Understorm"})
 Class.ultraTornado_AR = {
     PARENT: "genericTank",
@@ -7172,9 +7139,77 @@ Class.warkwawarkrk_AR = {
         ], {delayIncrement: 0.5}), 2)
     ]
 }
+Class.warlock_AR = {
+    PARENT: "genericTank",
+    LABEL: "Warlock",
+    DANGER: 8,
+    NECRO: [5],
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        FOV: base.FOV * 1.1,
+    },
+    SHAPE: 5,
+    GUNS: [
+        ...Class.pentaseer_AR.GUNS,
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}]),
+                TYPE: "sunchip",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false,
+                MAX_CHILDREN: 5
+            }
+        }
+    ]
+}
 Class.whirl4_AR = makeWhirlwind("auto4", {label: "Whirl-4"})
 Class.whirl5_AR = makeWhirlwind("auto5", {label: "Whirl-5"})
 Class.whirlbar_AR = makeWhirlwind("crowbar_AR", {label: "Whirlbar"})
+Class.witch_AR = {
+    PARENT: "genericTank",
+    LABEL: "Witch",
+    DANGER: 8,
+    NECRO: [5],
+    TOOLTIP: "Press R and wait to turn your drones invisible.",
+    STAT_NAMES: statnames.necro,
+    BODY: {
+        SPEED: base.SPEED * 0.85,
+        FOV: base.FOV * 1.1
+    },
+    SHAPE: 5,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.maleficitor, {size: 1.5}]),
+                TYPE: ["pentaseerSunchip_AR", {INVISIBLE: [0.06, 0.03]}],
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false,
+                MAX_CHILDREN: 10
+            }
+        }
+    ]
+}
 Class.xCourser_AR = {
     PARENT: "genericTank",
     LABEL: "X-Courser",
@@ -7402,6 +7437,10 @@ const quickMake = (type, options = {}) => {
         let classLabel = options.bird.charAt(0).toLowerCase() + options.bird.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeBird(type, options.bird)
     }
+    if (options.drive) {
+        let classLabel = options.drive.charAt(0).toLowerCase() + options.drive.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeDrive(type, {label: options.drive})
+    }
     if (options.hybrid) {
         let classLabel = options.hybrid.charAt(0).toLowerCase() + options.hybrid.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeOver(type, options.hybrid, preset.hybrid)
@@ -7439,6 +7478,7 @@ quickMake("accurator", {hybrid: "Accugator"})
 quickMake("annihilator", {hybrid: "Compound"})
 quickMake("artillery", {hybrid: "Force", over: "Overartillery", synth: "Mixer"})
 quickMake("assassin", {hybrid: "Hitman", over: "Overassassin"})
+quickMake("banshee", {drive: "Bansheedrive"})
 quickMake("barricade", {hybrid: "Rampart"})
 quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
@@ -7447,12 +7487,16 @@ quickMake("blower", {hybrid: "Puffer"})
 quickMake("booster", {hybrid2: "Hightailer"})
 quickMake("builder", {hybrid: "Fashioner", over: "Overbuilder"})
 quickMake("buttbuttin", {hybrid: "Mercenary"})
+quickMake("captain_AR", {drive: "Captaindrive"})
 quickMake("cog_AR", {hybrid: "Contriver"})
 quickMake("construct", {hybrid: "Meld"})
 quickMake("courser_AR", {hybrid: "Immolator"})
 quickMake("destroyer", {bird: "Harrier", over: "Overdestroyer", synth: "Synthesis", enact: "Enactor"})
 quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel"})
 quickMake("dieselTrapper_AR", {hybrid: "Blight"})
+quickMake("director", {drive: "Directordrive"})
+quickMake("dopeseer_AR", {drive: "Dopedrive"})
+quickMake("doper_AR", {drive: "Doperdrive"})
 quickMake("dual", {hybrid: "Ravisher"})
 quickMake("encircler_AR", {hybrid: "Environ"})
 quickMake("enforcer_AR", {hybrid: "Slayer"})
@@ -7460,6 +7504,7 @@ quickMake("engineer", {hybrid: "Machinist"})
 quickMake("expeller_AR", {hybrid: "Throttler"})
 quickMake("fighter", {hybrid2: "Pug"})
 quickMake("flamethrower", {hybrid: "Imitation"})
+quickMake("foreman_AR", {drive: "Foredrive"})
 quickMake("gatlingGun", {hybrid: "Gator", over: "Overgatling"})
 quickMake({
     PARENT: "genericTank",
@@ -7486,22 +7531,30 @@ quickMake({
     ]
 }, {cross: "Despot", battle: "Battlegunner", cap: "Capgunner"})
 quickMake("helix", {hybrid: "Hybrix"})
+quickMake("honcho_AR", {drive: "Honchodrive"})
 quickMake("hunter", {over: "Overhunter", synth: "Plunderer"})
 quickMake("hurler_AR", {hybrid: "Mongrel"})
 quickMake("hutch_AR", {hybrid: "Retainer"})
+quickMake("infestor", {drive: "Infestordrive"})
 quickMake("launcher", {hybrid: "Heaver", over: "Overlauncher"})
 quickMake("machineMech_AR", {hybrid: "Repairman"})
 quickMake("machineTrapper_AR", {hybrid: "Deviation", over: "Overmach", synth: "Anomaly", enact: "Sire"})
+quickMake("manager", {drive: "Managerdrive"})
 quickMake("marksman", {hybrid: "Hybrid Marksman", over: "Overmarksman"})
 quickMake("minigun", {over: "Overminigun"})
 quickMake("mech_AR", {hybrid: "Cobbler", over: "Overmech", synth: "Fuser", enact: "Automaton"})
 quickMake("megaTrapper_AR", {hybrid: "Catcher", bird: "Shoebill"})
 quickMake("musket", {hybrid: "Matchlock"})
 quickMake("nailgun", {over: "Overnailer"})
+quickMake("necromancer", {drive: "Necrodrive"})
 quickMake("nimrod", {hybrid: "Nacho"})
 quickMake("operator_AR", {hybrid: "Utilizer"})
+quickMake("overgunner", {drive: "Overgunnerdrive"})
+quickMake("overlord", {drive: "Tyrant"})
+quickMake("overtrapper", {drive: "Overtrapperdrive"})
 quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen"})
 quickMake("pentaShot", {bird: "Deficiency", hybrid: "Flexed Hybrid"})
+quickMake("pentaseer_AR", {drive: "Pentadrive"})
 quickMake("queller_AR", {hybrid: "Cross"})
 quickMake("railgun_AR", {bird: "Raven"})
 quickMake("ranger", {hybrid: "Doorman"})
@@ -7510,6 +7563,7 @@ quickMake("rimfire_AR", {over: "Harbinger"})
 quickMake("rotaryGun_AR", {hybrid: "Rotator"})
 quickMake("single", {bird: "Avian", hybrid: "Assistant"})
 quickMake("slinker_AR", {hybrid: "Amalgam"})
+quickMake("spawner", {drive: "Spawnerdrive"})
 quickMake("splitShot_AR", {bird: "Dork", hybrid: "Split Hybrid"})
 quickMake("splasher", {hybrid: "Bargain"})
 quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer"})
@@ -7553,6 +7607,7 @@ quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
 quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis", enact: "Hatcher"})
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
 quickMake("triplex", {bird: "Nitwix", hybrid: "Triprix"})
+quickMake("underseer", {drive: "Underdrive"})
 quickMake("volley_AR", {hybrid: "Volley Hybrid"})
 quickMake("waarrk_AR", {bird: "Fault", hybrid: "Bent Catcher"})
 quickMake("wark_AR", {hybrid: "Coalesce", over: "Overwark"})
@@ -7655,13 +7710,16 @@ makeAutoArray([
     "hutch_AR",
     "hybrid",
     "hybridMarksman_AR",
+    "infestor",
     "integrator_AR",
     "iterator",
     "machineGunner",
+    "maleficitor",
     "manager",
     "megaHunter_AR",
     "mingler_AR",
     "mortar",
+    "mummifier_AR",
     "musket",
     "nailgun",
     "necromancer",
@@ -7672,6 +7730,7 @@ makeAutoArray([
     "overgunner",
     "overtrapper",
     "pentaShot",
+    "pentaseer_AR",
     "phoenix",
     "poacher",
     "predator",
@@ -7709,6 +7768,10 @@ makeAutoArray([
     "xHunter",
     "zipper_AR"
 ], {suffix: "_AR"})
+
+// autodrives
+Class.autoDirectordrive_AR = makeAuto("directordrive_AR", "Auto-Directordrive", driveAuto_options)
+Class.autoUnderdrive_AR = makeAuto("underdrive_AR", "Auto-Underdrive", driveAuto_options)
 
 // UNSORTED
 Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
@@ -8010,9 +8073,9 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.maleficitor.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.infestor.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             //Class.prodigy.UPGRADES_TIER_4
-            Class.autoUnderseer_AR.UPGRADES_TIER_4 = ["megaAutoUnderseer", "tripleAutoUnderseer", "autoProdigy"].map(x => x + "_AR")
+            Class.autoUnderseer_AR.UPGRADES_TIER_4 = ["megaAutoUnderseer", "tripleAutoUnderseer", "autoNecromancer", "autoMaleficitor", "autoInfestor", "autoProdigy", "autoUnderdrive", "autoPentaseer", "autoMummifier"].map(x => x + "_AR")
             Class.underdrive_AR.UPGRADES_TIER_4 = ["understorm", "necrodrive", "hexer", "infestordrive", "autoUnderdrive", "pentadrive"].map(x => x + "_AR")
-            Class.pentaseer_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            Class.pentaseer_AR.UPGRADES_TIER_4 = [/*"pentamancer", */"witch_AR", "autoPentaseer", "pentadrive", "warlock"].map(x => x + "_AR")
             Class.mummifier_AR.UPGRADES_TIER_4 = ["bigChip"].map(x => x + "_AR")
         Class.spawner.UPGRADES_TIER_3.push("megaSpawner_AR", "productionist_AR", "spawnerdrive_AR", "captain_AR", "hangar_AR", "laborer_AR", "foundry_AR", "issuer_AR")
             Class.factory.UPGRADES_TIER_4 = [].map(x => x + "_AR")
@@ -8026,6 +8089,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.foundry_AR.UPGRADES_TIER_4 = [/*"endeavor", "stocker", "foundrydrive", "megaFoundry", "fabrication", "shopper", "autoFoundry", "barn", "topBanana", "plant"*/].map(x => x + "_AR")
             Class.issuer_AR.UPGRADES_TIER_4 = [/*"circulator", "facility", "autoIssuer", "megaIssuer", "inducer", "issuerdrive", "mogul", "reposit", "slogger", "plant"*/].map(x => x + "_AR")
         Class.directordrive_AR.UPGRADES_TIER_3 = ["directorstorm_AR", "overdrive", "cruiserdrive_AR", "underdrive_AR", "spawnerdrive_AR", "autoDirectordrive_AR", "honchodrive_AR", "doperdrive_AR"]
+            Class.directordrive_AR.UPGRADES_TIER_4 = ["managerdrive"].map(x => x + "_AR")
             Class.directorstorm_AR.UPGRADES_TIER_4 = ["vortex", "downpourer", "overstorm", "cruiserstorm", "understorm", "spawnerstorm", "autoDirectorstorm", "honchostorm", "doperstorm"].map(x => x + "_AR")
             //Class.overdrive.UPGRADES_TIER_4
             //Class.cruiserdrive_AR.UPGRADES_TIER_4
