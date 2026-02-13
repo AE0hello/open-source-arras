@@ -7439,6 +7439,7 @@ quickMake("accurator", {hybrid: "Accugator"})
 quickMake("annihilator", {hybrid: "Compound"})
 quickMake("artillery", {hybrid: "Force", over: "Overartillery", synth: "Mixer"})
 quickMake("assassin", {hybrid: "Hitman", over: "Overassassin"})
+quickMake("barricade", {hybrid: "Rampart"})
 quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
 quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster"})
@@ -7451,8 +7452,11 @@ quickMake("construct", {hybrid: "Meld"})
 quickMake("courser_AR", {hybrid: "Immolator"})
 quickMake("destroyer", {bird: "Harrier", over: "Overdestroyer", synth: "Synthesis", enact: "Enactor"})
 quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel"})
+quickMake("dieselTrapper_AR", {hybrid: "Blight"})
 quickMake("dual", {hybrid: "Ravisher"})
+quickMake("encircler_AR", {hybrid: "Environ"})
 quickMake("enforcer_AR", {hybrid: "Slayer"})
+quickMake("engineer", {hybrid: "Machinist"})
 quickMake("expeller_AR", {hybrid: "Throttler"})
 quickMake("fighter", {hybrid2: "Pug"})
 quickMake("flamethrower", {hybrid: "Imitation"})
@@ -7486,14 +7490,16 @@ quickMake("hunter", {over: "Overhunter", synth: "Plunderer"})
 quickMake("hurler_AR", {hybrid: "Mongrel"})
 quickMake("hutch_AR", {hybrid: "Retainer"})
 quickMake("launcher", {hybrid: "Heaver", over: "Overlauncher"})
-quickMake("machineTrapper_AR", {hybrid: "Deviation", over: "Overmach"})
+quickMake("machineMech_AR", {hybrid: "Repairman"})
+quickMake("machineTrapper_AR", {hybrid: "Deviation", over: "Overmach", synth: "Anomaly", enact: "Sire"})
 quickMake("marksman", {hybrid: "Hybrid Marksman", over: "Overmarksman"})
 quickMake("minigun", {over: "Overminigun"})
-quickMake("mech_AR", {hybrid: "Cobbler", over: "Overmech"})
+quickMake("mech_AR", {hybrid: "Cobbler", over: "Overmech", synth: "Fuser", enact: "Automaton"})
 quickMake("megaTrapper_AR", {hybrid: "Catcher", bird: "Shoebill"})
 quickMake("musket", {hybrid: "Matchlock"})
 quickMake("nailgun", {over: "Overnailer"})
 quickMake("nimrod", {hybrid: "Nacho"})
+quickMake("operator_AR", {hybrid: "Utilizer"})
 quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen"})
 quickMake("pentaShot", {bird: "Deficiency", hybrid: "Flexed Hybrid"})
 quickMake("queller_AR", {hybrid: "Cross"})
@@ -7544,7 +7550,7 @@ quickMake({
 }, {cross: "Kingpin", battle: "Battletrapper", cap: "Captrapper"})
 quickMake("triAngle", {hybrid2: "Integrator"})
 quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
-quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis"})
+quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis", enact: "Hatcher"})
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
 quickMake("triplex", {bird: "Nitwix", hybrid: "Triprix"})
 quickMake("volley_AR", {hybrid: "Volley Hybrid"})
@@ -7609,6 +7615,7 @@ makeAutoArray([
     "bushwhacker",
     "buttbuttin",
     "coalesce_AR",
+    "cobbler_AR",
     "cockatiel_AR",
     "coil",
     "combo_AR",
@@ -7619,6 +7626,7 @@ makeAutoArray([
     "deadeye",
     "deathStar",
     "defect_AR",
+    "deviation_AR",
     "doubleArtillery_AR",
     "doubleBlaster_AR",
     "doubleDiesel_AR",
@@ -7761,7 +7769,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.tripleShot.UPGRADES_TIER_4 = [/*"threefold", "flintlock"*/].map(x => x + "_AR")
             Class.pentaShot.UPGRADES_TIER_4 = [/*"heptaShot", */"flexedDouble", "flexedHybrid", "quintuplet", "quintuplex"/*, "crackshot"*/, "autoPentaShot"/*, "flexedGunner", "flexedMinigun"*/, "deficiency"/*, "waarararrk"*/].map(x => x + "_AR")
             Class.spreadshot.UPGRADES_TIER_4 = [/*"doubleSpreadshot", "*/"smearer", "autoSpreadshot"/*, "dauber", "ballista"*/, "bozo"/*, "fungus"*/].map(x => x + "_AR")
-            Class.bentHybrid.UPGRADES_TIER_4 = ["overshot", "bentSynthesis"/*, "hatcher", "bentHybriddrive", "bentCrossbreed"*/, "flexedHybrid", "smearer", "splitHybrid", "autoBentHybrid", "spambrid", "junker", "triprid", "triprix", "bentCatcher"].map(x => x + "_AR")
+            Class.bentHybrid.UPGRADES_TIER_4 = ["overshot", "bentSynthesis", "hatcher"/*, "bentHybriddrive", "bentCrossbreed"*/, "flexedHybrid", "smearer", "splitHybrid", "autoBentHybrid", "spambrid", "junker", "triprid", "triprix", "bentCatcher"].map(x => x + "_AR")
             //Class.bentDouble.UPGRADES_TIER_4
             Class.triplet.UPGRADES_TIER_4 = ["quintuplet", "triprid", "doubleTriplet", "autoTriplet"/*, "lasher", "minilet"*/, "nitwit"/*, "warklet"*/].map(x => x + "_AR")
             Class.triplex.UPGRADES_TIER_4 = ["quintuplex", "triprix", "doubleTriplex", "autoTriplex", "nitwix"].map(x => x + "_AR")
@@ -7914,7 +7922,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.triMachine_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             //Class.expeller_AR.UPGRADES_TIER_4
             Class.autoMachineTrapper_AR.UPGRADES_TIER_4 = ["megaAutoMachineTrapper", "tripleAutoMachineTrapper"].map(x => x + "_AR")
-            Class.deviation_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            Class.deviation_AR.UPGRADES_TIER_4 = ["autoDeviation", "anomaly", "sire"/*, "deviationdrive"*/, "overmach"/*, "contradictor"*/, "blight", "rampart", "environ", "repairman", "throttler"].map(x => x + "_AR")
 
     //Class.flankGuard.UPGRADES_TIER_2
         //Class.flankGuard.UPGRADES_TIER_3
@@ -8069,6 +8077,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
         Class.pen_AR.UPGRADES_TIER_3 = ["stall", "triPen", "encircler", "incarcerator", "operator", "cockatiel", "hutch", "interner", "autoPen"].map(x => x + "_AR")
             Class.autoPen_AR.UPGRADES_TIER_4 = ["megaAutoPen", "tripleAutoPen"].map(x => x + "_AR")
         Class.mech_AR.UPGRADES_TIER_3 = ["engineer", "triMech_AR", "machineMech_AR", "mechGuard_AR", "operator_AR", "cog_AR", "cobbler_AR", "autoMech_AR"]
+            Class.cobbler_AR.UPGRADES_TIER_4 = ["overmech", "fuser", "repairman", "automaton"/*, "cobblerdrive", "restorer"*/, "machinist", "contriver", "utilizer", "autoCobbler"].map(x => x + "_AR")
             Class.autoMech_AR.UPGRADES_TIER_4 = ["megaAutoMech", "tripleAutoMech"].map(x => x + "_AR")
         //Class.machineTrapper_AR.UPGRADES_TIER_3
         //Class.wark_AR.UPGRADES_TIER_3
