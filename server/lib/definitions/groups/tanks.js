@@ -976,7 +976,7 @@ Class.spawner = {
                 LENGTH: 4.5,
                 WIDTH: 10,
                 X: 10.5
-            },
+            }
         },
         {
             POSITION: {

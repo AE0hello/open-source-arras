@@ -169,8 +169,6 @@ exports.makeBattle = (type, name = -1, options = {}) => {
     let angle = 180 - (options.angle ?? 125)
     let count = options.count ?? 2
     let independent = options.independent ?? false
-    let cycle = options.cycle ?? true
-    let maxChildren = options.maxDrones ?? 3
     let stats = options.extraStats ?? []
 
     options.renderBehind ??= false
@@ -228,6 +226,94 @@ exports.makeBattle = (type, name = -1, options = {}) => {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
     }
     output.LABEL = name == -1 ? "Battle" + type.LABEL.toLowerCase() : name
+    return output
+}
+exports.makeCap = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = exports.dereference(type);
+
+    let angle = 180 - (options.angle ?? 125)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 3
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: exports.combineStats([g.factory, g.babyfactory]),
+        TYPE: ["minion", {INDEPENDENT: independent}],
+        STAT_CALCULATOR: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        WAIT_TO_CYCLE: cycle,
+        MAX_CHILDREN: maxChildren,
+    }
+    if (count % 2 == 1) {
+        spawners.push(
+            {
+                POSITION: {
+                    LENGTH: 4.5,
+                    WIDTH: 10,
+                    X: 10.5,
+                    ANGLE: 180
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 1,
+                    WIDTH: 12,
+                    X: 15,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties
+            },
+            {
+                POSITION: {
+                    LENGTH: 11.5,
+                    WIDTH: 12,
+                    ANGLE: 180
+                }
+            }
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(
+            ...exports.weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 4.5,
+                    WIDTH: 10,
+                    X: 10.5,
+                    ANGLE: 180 - angle * i / 2
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 1,
+                    WIDTH: 12,
+                    X: 15,
+                    ANGLE: 180 - angle * i / 2
+                },
+                PROPERTIES: spawnerProperties
+            },
+            {
+                POSITION: {
+                    LENGTH: 11.5,
+                    WIDTH: 12,
+                    ANGLE: 180 - angle * i / 2
+                }
+            }])
+        )
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Cap" + type.LABEL.toLowerCase() : name
     return output
 }
 
