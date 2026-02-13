@@ -237,7 +237,7 @@ Class.menu_bosses = makeMenu("Bosses", {upgrades: ["sentries", "elites", "mystic
     Class.menu_devBosses = makeMenu("Developers", {upgrades: ["AEMKShipBoss", "dogeiscutBoss", "helenaBoss", "toothlessBoss", "tgsBoss", "menu_retiredDevBosses"], color: "lightGreen", boxColor: "rainbow", shape: 4})
         Class.menu_retiredDevBosses = makeMenu("Developers (Retired)", {upgrades: ["frostBoss", "taureonBoss", "trplnrBoss"], color: "pureBlack", boxColor: "pureBlack", shape: 4, boxLabel: "Retired"})
 Class.menu_addons = makeMenu("Addons", {tooltip: "Content that is (usually) not part of Open Source Arras but was added by someone else."})
-Class.menu_testing = makeMenu("Testing", {upgrades: ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "ghoster", "gunBenchmark", "switcheroo", "armyOfOne", "vanquisher", "mummifier", "syncWithTankTest", "airblast", "angleseer", "backwardsExports"], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+Class.menu_testing = makeMenu("Testing", {upgrades: ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "ghoster", "gunBenchmark", "switcheroo", "armyOfOne", "vanquisher", "syncWithTankTest", "airblast", "angleseer", "backwardsExports"], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
 
 if (Config.siege) {
     Class.menu_tanks.UPGRADES_TIER_0 = [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "smasher", "undercoverCop", "arenaCloser", "underseer"]
@@ -307,53 +307,6 @@ Class.diamondShape = {
     PARENT: "basic",
     LABEL: "Rotated Body",
     SHAPE: 4.5
-}
-Class.mummyHat = {
-    SHAPE: 4.5,
-    COLOR: -1
-}
-Class.mummy = {
-    PARENT: "drone",
-    SHAPE: 4,
-    NECRO: [4],
-    TURRETS: [{
-        POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
-        TYPE: ["mummyHat"]
-    }]
-}
-Class.mummifier = {
-    PARENT: "genericTank",
-    LABEL: "Mummifier",
-    DANGER: 6,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        SPEED: 0.8 * base.SPEED,
-    },
-    SHAPE: 4,
-    MAX_CHILDREN: 10,
-    GUNS: [{
-        POSITION: [5.5, 13, 1.1, 8, 0, 90, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip]),
-            TYPE: "mummy",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "necro"
-        }
-    },{
-        POSITION: [5.5, 13, 1.1, 8, 0, 270, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip]),
-            TYPE: "mummy",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "necro"
-        }
-    }],
-    TURRETS: [{
-        POSITION: [20 * Math.SQRT1_2, 0, 0, 180, 360, 1],
-        TYPE: ["mummyHat"]
-    }]
 }
 Class.miscTestHelper2 = {
     PARENT: "genericTank",
