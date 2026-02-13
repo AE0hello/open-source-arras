@@ -3195,7 +3195,7 @@ Class.hewnDouble = {
 }
 Class.hexaTrapper = makeAuto({
     PARENT: "genericTank",
-    DANGER: 7,
+    DANGER: 6,
     BODY: {
         SPEED: 0.8 * base.SPEED
     },

@@ -3506,6 +3506,36 @@ Class.antidote_AR = {
 }
 Class.autoDirectorstorm_AR = makeAuto("directorstorm_AR", "Auto-Directorstorm", stormAuto_options)
 Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
+Class.autoHexaTrapper_AR = makeAuto({
+    PARENT: "genericTank",
+    DANGER: 7,
+    BODY: {
+        SPEED: 0.8 * base.SPEED
+    },
+    STAT_NAMES: statnames.trap,
+    HAS_NO_RECOIL: true,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ], 6, 0.5),
+}, "Auto-Hexa-Trapper", preset.tripleAuto)
 Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", whirlAuto_options), {label: "Auto-Hexa Whirl"})
 Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", whirlAuto_options), {label: "Auto-Munition"})
 Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", driveAuto_options)
@@ -3892,6 +3922,65 @@ Class.cyclops_AR = {
             }
         }
     ]
+}
+Class.decaTank_AR = {
+    PARENT: "genericTank",
+    LABEL: "Deca Tank",
+    DANGER: 8,
+    GUNS: weaponArray([
+        // Must be kept like this to preserve visual layering
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ANGLE: 36,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet"
+            }
+        }
+    ], 5)
+}
+Class.demise_AR = {
+    PARENT: "genericTank",
+    LABEL: "Demise",
+    DANGER: 8,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 20.5,
+                WIDTH: 12,
+                ANGLE: 45,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.flankGuard, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.5,
+                WIDTH: 12,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.flankGuard, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        }
+    ], 4)
 }
 Class.doctor_AR = {
     PARENT: "genericHealer",
@@ -5449,6 +5538,36 @@ Class.megaCocci_AR = {
         }
     ]
 }
+Class.megaHexaTrapper_AR = makeAuto({
+    PARENT: "genericTank",
+    DANGER: 7,
+    BODY: {
+        SPEED: 0.8 * base.SPEED
+    },
+    STAT_NAMES: statnames.trap,
+    HAS_NO_RECOIL: true,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ], 6, 0.5),
+}, "Mega Hexa-Trapper", preset.megaAuto)
 Class.megaWhirl3_AR = makeWhirlwind("mega3", {label: "Mega-Whirl-3"})
 Class.mono_AR = {
     PARENT: "genericTank",
@@ -5482,6 +5601,36 @@ Class.mono_AR = {
     ]
 }
 Class.necrodrive_AR = makeDrive("necromancer", {label: "Necrodrive"})
+Class.octoTrapper_AR = makeAuto({
+    PARENT: "genericTank",
+    DANGER: 7,
+    BODY: {
+        SPEED: 0.8 * base.SPEED
+    },
+    STAT_NAMES: statnames.trap,
+    HAS_NO_RECOIL: true,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ], 8, 0.5),
+}, "Octo-Trapper")
 Class.octoWhirl_AR = makeWhirlwind("octoTank", {label: "Octo Whirl"})
 Class.ointment_AR = {
     PARENT: "genericHealer",
@@ -7278,17 +7427,6 @@ const quickMake = (type, options = {}) => {
         Class[options.battle.charAt(0).toLowerCase() + options.battle.slice(1) + "_AR"] = makeBattle(type, options.over)
     }
 }
-const quickMakeAuto = (type) => {
-    for (const types of type) {
-        name = ensureIsClass(types)
-        label = name.LABEL
-        classLabel = label.replaceAll(' ', '').replaceAll('-', '').replaceAll("'n", 'N') // delete whitespaces and hyphens + special case for halfnhalf
-
-        Class["auto" + classLabel + "_AR"] = makeAuto(types)
-        Class["megaAuto" + classLabel + "_AR"] = makeAuto(types, `Mega Auto-${label}`, preset.megaAuto)
-        Class["tripleAuto" + classLabel + "_AR"] = makeAuto(types, `Triple Auto-${label}`, preset.tripleAuto)
-    }
-}
 quickMake("accurator", {hybrid: "Accugator"})
 quickMake("annihilator", {hybrid: "Compound"})
 quickMake("artillery", {hybrid: "Force", over: "Overartillery"})
@@ -7643,13 +7781,13 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.equalizer_AR.UPGRADES_TIER_4 = ["autoEqualizer"].map(x => x + "_AR")
         Class.hexaTank.UPGRADES_TIER_3.push("autoHexaTank_AR", "mingler_AR", "combo_AR")
             Class.hexaTank.UPGRADES_TIER_4 = ["tripleFlankTwin", "hextuplex"].map(x => x + "_AR")
-            Class.octoTank.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            Class.octoTank.UPGRADES_TIER_4 = ["decaTank", "octoTrapper", "demise", "autoOctoTank"].map(x => x + "_AR")
             //Class.cyclone.UPGRADES_TIER_4
-            Class.hexaTrapper.UPGRADES_TIER_4 = [].map(x => x + "_AR")
-            Class.deathStar.UPGRADES_TIER_4 = [].map(x => x + "_AR")
-            Class.autoHexaTank_AR.UPGRADES_TIER_4 = ["megaAutoHexaTank", "tripleAutoHexaTank"].map(x => x + "_AR")
-            Class.mingler_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
-            Class.combo_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            Class.hexaTrapper.UPGRADES_TIER_4 = ["megaHexaTrapper", "autoHexaTrapper", "octoTrapper"].map(x => x + "_AR")
+            Class.deathStar.UPGRADES_TIER_4 = ["demise", "autoDeathStar"].map(x => x + "_AR")
+            Class.autoHexaTank_AR.UPGRADES_TIER_4 = ["megaAutoHexaTank", "tripleAutoHexaTank", "autoOctoTank", "autoCyclone", "autoDeathStar", "autoMingler", "autoCombo"].map(x => x + "_AR")
+            Class.mingler_AR.UPGRADES_TIER_4 = ["autoMingler"].map(x => x + "_AR")
+            Class.combo_AR.UPGRADES_TIER_4 = ["autoCombo"].map(x => x + "_AR")
         Class.helix.UPGRADES_TIER_3.push("doubleHelix_AR", "hybrix_AR", "autoHelix_AR")
             //Class.triplex.UPGRADES_TIER_4
             Class.quadruplex.UPGRADES_TIER_4 = ["hextuplex", "autoQuadruplex"].map(x => x + "_AR")
