@@ -2867,7 +2867,7 @@ const hexDreadNames = {
 		Eroder: 'Stipulator',
 		Gripper: 'Adjudicator',
 		Retardant: 'Extinguisher',
-		Tyrant: 'Shogun',
+		Tyrant: 'Shogunate',
 		Anesthesiologist: 'Brute',
 		Helix: 'Referee',
 		Bombardment: 'Jury',

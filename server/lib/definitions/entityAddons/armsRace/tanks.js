@@ -1,4 +1,4 @@
-const {combineStats, makeAuto, makeAutoArray, makeBattle, makeBird, makeCap, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, makeAuto, makeAutoArray, makeBattle, makeBird, makeCap, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeUnder, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -2188,7 +2188,7 @@ Class.mummifier_AR = {
     },
     SHAPE: 4,
     MAX_CHILDREN: 6,
-    ...todo_placeholder_guns,
+    //...todo_placeholder_guns,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 12,
@@ -5395,8 +5395,10 @@ Class.leader_AR = {
         SPEED: 0.85 * base.SPEED,
         FOV: 1.1 * base.FOV,
     },
-    ...todo_placeholder_guns,
-    MAX_CHILDREN: 8,
+    TOOLTIP: "You are always invisible.",
+    IGNORED_BY_AI: true,
+    INVISIBLE: [0, 0],
+    ALPHA: 0.3,
     GUNS: [
         {
             POSITION: {
@@ -5404,6 +5406,15 @@ Class.leader_AR = {
                 WIDTH: 13,
                 ASPECT: 1.3,
                 X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 8
             }
         }
     ]
@@ -6935,6 +6946,10 @@ Class.tripleSprayer_AR = {
     ], 3)
 }
 Class.understorm_AR = makeDrive("underseer", {...storm_options, label: "Understorm"})
+Class.underangle_AR = makeUnder("triAngle", "Underangle", {angle: 72})
+Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", {...preset.sideOver, shape: 4})
+Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {...preset.sideOver, shape: 4})
+Class.undertrapGuard_AR = makeUnder("trapGuard", "Undertrap Guard", {...preset.sideOver, shape: 4})
 Class.ultraTornado_AR = {
     PARENT: "genericTank",
     LABEL: "Ultra-Tornado",
@@ -7450,7 +7465,6 @@ const quickMake = (type, options = {}) => {
         Class[classLabel + "_AR"] = makeOver(type, options.hybrid2, {...preset.hybrid, renderBehind: true})
     }
     if (options.over) {
-        let classLabel = options.over.replaceAll(' ', '').replaceAll('-', '')
         Class[options.over.charAt(0).toLowerCase() + options.over.slice(1) + "_AR"] = makeOver(type, options.over)
     }
     if (options.cross) {
@@ -7462,37 +7476,45 @@ const quickMake = (type, options = {}) => {
         Class[classLabel + "_AR"] = makeBattle(type, options.synth, preset.hybrid)
     }
     if (options.battle) {
-        let classLabel = options.battle.replaceAll(' ', '').replaceAll('-', '')
-        Class[options.battle.charAt(0).toLowerCase() + options.battle.slice(1) + "_AR"] = makeBattle(type, options.over)
+        Class[options.battle.charAt(0).toLowerCase() + options.battle.slice(1) + "_AR"] = makeBattle(type, options.battle)
+    }
+    if (options.underbridplaceholder) {
+        let classLabel = options.underbridplaceholder.charAt(0).toLowerCase() + options.underbridplaceholder.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeUnder(type, options.underbridplaceholder, {...preset.hybrid, shape: 4})
+    }
+    if (options.under) {
+        Class[options.under.charAt(0).toLowerCase() + options.under.slice(1) + "_AR"] = makeUnder(type, options.under)
+    }
+    if (options.necro) {
+        Class[options.necro.charAt(0).toLowerCase() + options.necro.slice(1) + "_AR"] = makeUnder(type, options.necro, {count: 3, angle: 90, shape: 4})
     }
     if (options.enact) {
         let classLabel = options.enact.charAt(0).toLowerCase() + options.enact.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeCap(type, options.enact, preset.hybrid)
     }
     if (options.cap) {
-        let classLabel = options.cap.replaceAll(' ', '').replaceAll('-', '')
-        Class[options.cap.charAt(0).toLowerCase() + options.cap.slice(1) + "_AR"] = makeCap(type, options.over)
+        Class[options.cap.charAt(0).toLowerCase() + options.cap.slice(1) + "_AR"] = makeCap(type, options.cap)
     }
 }
 quickMake("accurator", {hybrid: "Accugator"})
 quickMake("annihilator", {hybrid: "Compound"})
-quickMake("artillery", {hybrid: "Force", over: "Overartillery", synth: "Mixer"})
-quickMake("assassin", {hybrid: "Hitman", over: "Overassassin"})
+quickMake("artillery", {hybrid: "Force", over: "Overartillery", synth: "Mixer", under: "Underartillery"})
+quickMake("assassin", {hybrid: "Hitman", over: "Overassassin", under: "Underassassin"})
 quickMake("banshee", {drive: "Bansheedrive"})
 quickMake("barricade", {hybrid: "Rampart"})
 quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
-quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster"})
+quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster", under: "Underblaster"})
 quickMake("blower", {hybrid: "Puffer"})
 quickMake("booster", {hybrid2: "Hightailer"})
-quickMake("builder", {hybrid: "Fashioner", over: "Overbuilder"})
+quickMake("builder", {hybrid: "Fashioner", over: "Overbuilder", under: "Underbuilder"})
 quickMake("buttbuttin", {hybrid: "Mercenary"})
 quickMake("captain_AR", {drive: "Captaindrive"})
 quickMake("cog_AR", {hybrid: "Contriver"})
 quickMake("construct", {hybrid: "Meld"})
 quickMake("courser_AR", {hybrid: "Immolator"})
-quickMake("destroyer", {bird: "Harrier", over: "Overdestroyer", synth: "Synthesis", enact: "Enactor"})
-quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel"})
+quickMake("destroyer", {bird: "Harrier", over: "Overdestroyer", synth: "Synthesis", under: "Underdestroyer", enact: "Enactor"})
+quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel", under: "Underdiesel"})
 quickMake("dieselTrapper_AR", {hybrid: "Blight"})
 quickMake("director", {drive: "Directordrive"})
 quickMake("dopeseer_AR", {drive: "Dopedrive"})
@@ -7505,7 +7527,7 @@ quickMake("expeller_AR", {hybrid: "Throttler"})
 quickMake("fighter", {hybrid2: "Pug"})
 quickMake("flamethrower", {hybrid: "Imitation"})
 quickMake("foreman_AR", {drive: "Foredrive"})
-quickMake("gatlingGun", {hybrid: "Gator", over: "Overgatling"})
+quickMake("gatlingGun", {hybrid: "Gator", over: "Overgatling", under: "Undergatling"})
 quickMake({
     PARENT: "genericTank",
     LABEL: "Gunner",
@@ -7529,44 +7551,44 @@ quickMake({
             }
         }
     ]
-}, {cross: "Despot", battle: "Battlegunner", cap: "Capgunner"})
+}, {cross: "Despot", battle: "Battlegunner", under: "Undergunner", necro: "Necrogunner", cap: "Capgunner"})
 quickMake("helix", {hybrid: "Hybrix"})
 quickMake("honcho_AR", {drive: "Honchodrive"})
-quickMake("hunter", {over: "Overhunter", synth: "Plunderer"})
+quickMake("hunter", {over: "Overhunter", synth: "Plunderer", under: "Underhunter"})
 quickMake("hurler_AR", {hybrid: "Mongrel"})
 quickMake("hutch_AR", {hybrid: "Retainer"})
 quickMake("infestor", {drive: "Infestordrive"})
-quickMake("launcher", {hybrid: "Heaver", over: "Overlauncher"})
+quickMake("launcher", {hybrid: "Heaver", over: "Overlauncher", under: "Underlauncher"})
 quickMake("machineMech_AR", {hybrid: "Repairman"})
-quickMake("machineTrapper_AR", {hybrid: "Deviation", over: "Overmach", synth: "Anomaly", enact: "Sire"})
+quickMake("machineTrapper_AR", {hybrid: "Deviation", over: "Overmach", synth: "Anomaly", under: "Undermach", enact: "Sire"})
 quickMake("manager", {drive: "Managerdrive"})
-quickMake("marksman", {hybrid: "Hybrid Marksman", over: "Overmarksman"})
-quickMake("minigun", {over: "Overminigun"})
-quickMake("mech_AR", {hybrid: "Cobbler", over: "Overmech", synth: "Fuser", enact: "Automaton"})
+quickMake("marksman", {hybrid: "Hybrid Marksman", over: "Overmarksman", under: "Undermarksman"})
+quickMake("minigun", {over: "Overminigun", synth: "Trimmer", under: "Underminigun", enact: "Shearer"})
+quickMake("mech_AR", {hybrid: "Cobbler", over: "Overmech", synth: "Fuser", under: "Undermech", enact: "Automaton"})
 quickMake("megaTrapper_AR", {hybrid: "Catcher", bird: "Shoebill"})
 quickMake("musket", {hybrid: "Matchlock"})
-quickMake("nailgun", {over: "Overnailer"})
+quickMake("nailgun", {over: "Overnailer", under: "Undernailer"})
 quickMake("necromancer", {drive: "Necrodrive"})
 quickMake("nimrod", {hybrid: "Nacho"})
 quickMake("operator_AR", {hybrid: "Utilizer"})
 quickMake("overgunner", {drive: "Overgunnerdrive"})
 quickMake("overlord", {drive: "Tyrant"})
 quickMake("overtrapper", {drive: "Overtrapperdrive"})
-quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen"})
+quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen", under: "Underpen"})
 quickMake("pentaShot", {bird: "Deficiency", hybrid: "Flexed Hybrid"})
 quickMake("pentaseer_AR", {drive: "Pentadrive"})
 quickMake("queller_AR", {hybrid: "Cross"})
 quickMake("railgun_AR", {bird: "Raven"})
 quickMake("ranger", {hybrid: "Doorman"})
-quickMake("rifle", {over: "Overrifle"})
-quickMake("rimfire_AR", {over: "Harbinger"})
+quickMake("rifle", {over: "Overrifle", under: "Underrifle"})
+quickMake("rimfire_AR", {over: "Harbinger", under: "Bellwether"})
 quickMake("rotaryGun_AR", {hybrid: "Rotator"})
 quickMake("single", {bird: "Avian", hybrid: "Assistant"})
 quickMake("slinker_AR", {hybrid: "Amalgam"})
 quickMake("spawner", {drive: "Spawnerdrive"})
 quickMake("splitShot_AR", {bird: "Dork", hybrid: "Split Hybrid"})
 quickMake("splasher", {hybrid: "Bargain"})
-quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer"})
+quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer", under: "Undersprayer"})
 quickMake("spreadshot", {bird: "Bozo", hybrid: "Smearer"})
 quickMake("stalker", {hybrid: "Trailer"})
 quickMake("subverter", {hybrid: "Deposer"})
@@ -7601,16 +7623,16 @@ quickMake({
             }
         }
     ]
-}, {cross: "Kingpin", battle: "Battletrapper", cap: "Captrapper"})
+}, {cross: "Kingpin", battle: "Battletrapper", under: "Undertrapper", necro: "Necrotrapper", cap: "Captrapper"})
 quickMake("triAngle", {hybrid2: "Integrator"})
 quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
-quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis", enact: "Hatcher"})
+quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis", under: "Undershot", enact: "Hatcher"})
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
 quickMake("triplex", {bird: "Nitwix", hybrid: "Triprix"})
 quickMake("underseer", {drive: "Underdrive"})
 quickMake("volley_AR", {hybrid: "Volley Hybrid"})
 quickMake("waarrk_AR", {bird: "Fault", hybrid: "Bent Catcher"})
-quickMake("wark_AR", {hybrid: "Coalesce", over: "Overwark"})
+quickMake("wark_AR", {hybrid: "Coalesce", over: "Overwark", under: "Underwark"})
 quickMake("xHunter", {hybrid: "X-Poacher"})
 
 makeAutoArray([
@@ -7760,6 +7782,8 @@ makeAutoArray([
     "tripleMachine",
     "triplet",
     "triplex",
+    "undergunner_AR",
+    "undertrapper_AR",
     "volley_AR",
     "vulture",
     "waarrk_AR",
@@ -7819,7 +7843,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.dual.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.musket.UPGRADES_TIER_4 = [].map(x => x + "_AR")
         Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin_AR", "doubleGunner_AR", "doubleHelix_AR", "warkwark_AR")
-            Class.doubleTwin.UPGRADES_TIER_4 = ["doubleDual", "doubleMusket", "overdoubleTwin"].map(x => x + "_AR")
+            Class.doubleTwin.UPGRADES_TIER_4 = ["doubleDual", "doubleMusket", "overdoubleTwin", "underdoubleTwin"].map(x => x + "_AR")
             Class.tripleTwin.UPGRADES_TIER_4 = ["quadTwin", "hewnTriple", "autoTriple", "bentTriple", "tripleFlankTwin", "tripleGunner", "tripleHelix", "warkwarkwark"].map(x => x + "_AR")
             Class.hewnDouble.UPGRADES_TIER_4 = ["hewnTriple", "skewnDouble", "autoHewnDouble", "cleft", "hewnFlankDouble", "hewnGunner"/*, "hewnHelix"*/, "warkwawarkrk"].map(x => x + "_AR")
             Class.autoDouble.UPGRADES_TIER_4 = ["megaAutoDouble", "tripleAutoDouble", "autoTriple", "autoHewnDouble", "autoBentDouble", "autoDoubleFlank", "autoDoubleGunner", "autoDoubleHelix", "autoWarkwark"].map(x => x + "_AR")
@@ -7853,7 +7877,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.battery.UPGRADES_TIER_4 = ["autoBattery"].map(x => x + "_AR")
             Class.buttbuttin.UPGRADES_TIER_4 = ["autoButtbuttin"].map(x => x + "_AR")
             Class.blower.UPGRADES_TIER_4 = ["autoBlower"].map(x => x + "_AR")
-            Class.rimfire_AR.UPGRADES_TIER_4 = ["autoRimfire"].map(x => x + "_AR")
+            Class.rimfire_AR.UPGRADES_TIER_4 = ["harbinger", "bellwether", "autoRimfire"].map(x => x + "_AR")
             Class.volley_AR.UPGRADES_TIER_4 = [/*"cannonade", "volley4", "tornado", "pummeler", "barrage", */"autoVolley", "doubleVolley"/*, "machineVolley*/, "volleyHybrid"].map(x => x + "_AR")
             //Class.doubleGunner_AR.UPGRADES_TIER_4
             //Class.bentGunner_AR.UPGRADES_TIER_4
@@ -8067,15 +8091,16 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             //Class.zipper_AR.UPGRADES_TIER_4
             Class.baltimore_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.mosey_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
-        Class.underseer.UPGRADES_TIER_3.push("prodigy", "autoUnderseer_AR", "underdrive_AR", "pentaseer_AR", "mummifier_AR"/*, DOPER UNDERSEER*/)
-            Class.underseer.UPGRADES_TIER_4 = [/*"conductor"*/].map(x => x + "_AR")
-            Class.necromancer.UPGRADES_TIER_4 = [/*"diviner", "charmer", */"omen", "autoNecromancer"/*, "necrodrive", "plaguer", "pentamancer"*/].map(x => x + "_AR")
-            Class.maleficitor.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+        Class.underseer.UPGRADES_TIER_3.push("prodigy", "autoUnderseer_AR", "underdrive_AR", "pentaseer_AR", "undertrapper_AR", "undergunner_AR", "mummifier_AR"/*, DOPER UNDERSEER*/)
+            Class.underseer.UPGRADES_TIER_4 = [/*"conductor", */"underdoubleTwin", "undershot", "underassassin", "underhunter", "underminigun", "underrifle", "undermarksman", "underartillery", "undersprayer", "underdiesel", "underangle", "underdestroyer", "underlauncher"].map(x => x + "_AR")
+            Class.necromancer.UPGRADES_TIER_4 = [/*"diviner", "charmer", */"omen", "autoNecromancer"/*, "necrodrive", "plaguer", "pentamancer"*/, "necrotrapper", "necrogunner"].map(x => x + "_AR")
+            Class.maleficitor.UPGRADES_TIER_4 = [/*"bewitcher", "charmer", */"autoMaleficitor", "hexer"/*, "femaleficitor"*/, "witch"].map(x => x + "_AR")
             Class.infestor.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             //Class.prodigy.UPGRADES_TIER_4
             Class.autoUnderseer_AR.UPGRADES_TIER_4 = ["megaAutoUnderseer", "tripleAutoUnderseer", "autoNecromancer", "autoMaleficitor", "autoInfestor", "autoProdigy", "autoUnderdrive", "autoPentaseer", "autoMummifier"].map(x => x + "_AR")
             Class.underdrive_AR.UPGRADES_TIER_4 = ["understorm", "necrodrive", "hexer", "infestordrive", "autoUnderdrive", "pentadrive"].map(x => x + "_AR")
-            Class.pentaseer_AR.UPGRADES_TIER_4 = [/*"pentamancer", */"witch_AR", "autoPentaseer", "pentadrive", "warlock"].map(x => x + "_AR")
+            Class.pentaseer_AR.UPGRADES_TIER_4 = [/*"pentamancer", */"witch", "autoPentaseer", "pentadrive", "warlock"].map(x => x + "_AR")
+            Class.undertrapper_AR.UPGRADES_TIER_4 = ["necrotrapper", "undermach", "autoUndertrapper"/*, "undertrapperdrive"*/, "underbuilder", "undertrapGuard", "underpen", "undermech", "underwark"].map(x => x + "_AR")
             Class.mummifier_AR.UPGRADES_TIER_4 = ["bigChip"].map(x => x + "_AR")
         Class.spawner.UPGRADES_TIER_3.push("megaSpawner_AR", "productionist_AR", "spawnerdrive_AR", "captain_AR", "hangar_AR", "laborer_AR", "foundry_AR", "issuer_AR")
             Class.factory.UPGRADES_TIER_4 = [].map(x => x + "_AR")
@@ -8132,7 +8157,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
 
     Class.trapper.UPGRADES_TIER_2.push("pen_AR", "mech_AR", "machineTrapper_AR", "wark_AR")
         Class.trapper.UPGRADES_TIER_3.splice(0, 1) //remove barricade
-        Class.trapper.UPGRADES_TIER_3.push("megaTrapper_AR")
+        Class.trapper.UPGRADES_TIER_3.push("undertrapper_AR", "megaTrapper_AR")
             Class.trapper.UPGRADES_TIER_4 = [/*"sawedOff", */"tricker"].map(x => x + "_AR")
             Class.megaTrapper_AR.UPGRADES_TIER_4 = ["shoebill"].map(x => x + "_AR")
         //Class.builder.UPGRADES_TIER_3
@@ -8141,7 +8166,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
         Class.pen_AR.UPGRADES_TIER_3 = ["stall", "triPen", "encircler", "incarcerator", "operator", "cockatiel", "hutch", "interner", "autoPen"].map(x => x + "_AR")
             Class.autoPen_AR.UPGRADES_TIER_4 = ["megaAutoPen", "tripleAutoPen"].map(x => x + "_AR")
         Class.mech_AR.UPGRADES_TIER_3 = ["engineer", "triMech_AR", "machineMech_AR", "mechGuard_AR", "operator_AR", "cog_AR", "cobbler_AR", "autoMech_AR"]
-            Class.cobbler_AR.UPGRADES_TIER_4 = ["overmech", "fuser", "repairman", "automaton"/*, "cobblerdrive", "restorer"*/, "machinist", "contriver", "utilizer", "autoCobbler"].map(x => x + "_AR")
+            Class.cobbler_AR.UPGRADES_TIER_4 = ["overmech", "fuser", "undermech", "repairman", "automaton"/*, "cobblerdrive", "restorer"*/, "machinist", "contriver", "utilizer", "autoCobbler"].map(x => x + "_AR")
             Class.autoMech_AR.UPGRADES_TIER_4 = ["megaAutoMech", "tripleAutoMech"].map(x => x + "_AR")
         //Class.machineTrapper_AR.UPGRADES_TIER_3
         //Class.wark_AR.UPGRADES_TIER_3

@@ -228,6 +228,64 @@ exports.makeBattle = (type, name = -1, options = {}) => {
     output.LABEL = name == -1 ? "Battle" + type.LABEL.toLowerCase() : name
     return output
 }
+exports.makeUnder = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = exports.dereference(type);
+
+    let angle = 180 - (options.angle ?? 144)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 4
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: exports.combineStats([g.drone, g.sunchip, {reload: 0.8}]),
+        TYPE: ["sunchip", {INDEPENDENT: independent}],
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "necro",
+        DELAY_SPAWN: false,
+        WAIT_TO_CYCLE: cycle,
+        MAX_CHILDREN: maxChildren
+    }
+    if (count % 2 == 1) {
+        spawners.push({
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 7.4,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties
+            }
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(...exports.weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 11,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 180 - angle * i / 2
+            },
+            PROPERTIES: spawnerProperties
+        }))
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Under" + type.LABEL.toLowerCase() : name
+    output.SHAPE = options.shape ?? 5.5
+    return output
+}
 exports.makeCap = (type, name = -1, options = {}) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type);

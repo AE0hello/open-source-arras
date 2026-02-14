@@ -3407,7 +3407,6 @@ Class.manager = {
     },
     INVISIBLE: [0.08, 0.03],
     TOOLTIP: "Stay still to turn invisible.",
-    MAX_CHILDREN: 8,
     GUNS: [
         {
             POSITION: {
@@ -3422,7 +3421,8 @@ Class.manager = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 8
             }
         }
     ]
