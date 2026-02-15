@@ -26,6 +26,7 @@ Class.squareHat_spinFast = makeHat(4, spinFast)
 Class.squareHatCurved = makeHat(-4)
 
 // Pentagon Hats
+Class.pentagonHat = makeHat(5)
 Class.pentagonHat_spin = makeHat(5, spin)
 Class.pentagonHat_spinReverse = makeHat(5, spinReverse)
 

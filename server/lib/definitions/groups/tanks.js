@@ -1105,7 +1105,7 @@ Class.triAngle = {
     BODY: {
         HEALTH: 0.8 * base.HEALTH,
         SHIELD: 0.8 * base.SHIELD,
-        DENSITY: 0.6 * base.DENSITY,
+        DENSITY: 0.6 * base.DENSITY
     },
     GUNS: [
         {
@@ -2430,7 +2430,7 @@ Class.cyclone = {
                 LENGTH: 15,
                 WIDTH: 3.5,
                 ANGLE: 30,
-                DELAY: 0.5
+                DELAY: 0.25
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
@@ -2442,7 +2442,7 @@ Class.cyclone = {
                 LENGTH: 15,
                 WIDTH: 3.5,
                 ANGLE: 60,
-                DELAY: 0.25
+                DELAY: 0.5
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),

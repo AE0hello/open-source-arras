@@ -301,6 +301,91 @@ Class.angleseer = {
         }
     }, 3)
 }
+Class.necrobasic = {
+    PARENT: "genericTank",
+    LABEL: "Basic",
+    DANGER: 4,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: ["bullet", {NECRO: [0]}],
+            }
+        }
+    ]
+}
+Class.necrotrapper = {
+    PARENT: "genericTank",
+    LABEL: "Necrotrapper",
+    SHAPE: -3.5,
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 11
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 11,
+                ASPECT: 1.7,
+                X: 13
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, { speed: 1.2 }, { recoil: 0.5 }]),
+                TYPE: ["trap", {NECRO: [3]}],
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ]
+}
+Class.cycloneM1 = {
+    PARENT: "genericTank",
+    LABEL: "",
+    DANGER: 6,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5,
+                ANGLE: 40,
+                DELAY: 1/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5,
+                ANGLE: 80,
+                DELAY: 2/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        }
+    ], 3)
+}
 
 // Testing tanks
 Class.diamondShape = {

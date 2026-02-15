@@ -1,4 +1,4 @@
-const {combineStats, makeAuto, makeAutoArray, makeBattle, makeBird, makeCap, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeUnder, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -9,6 +9,347 @@ const use_original_tree = false // Set to true to enable the original arras.io A
 const todo_placeholder_guns = {
     UPGRADE_COLOR: "pureBlack",
     UPGRADE_TOOLTIP: "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot."
+}
+
+// Functions
+const makeBattle = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = dereference(type);
+
+    let angle = 180 - (options.angle ?? 125)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: combineStats([g.swarm, ...stats]),
+        TYPE: independent ? "autoswarm" : "swarm",
+        STAT_CALCULATOR: "swarm",
+    }
+    if (count % 2 == 1) {
+        spawners.push(
+            ...weaponMirror({
+                POSITION: {
+                    LENGTH: 9,
+                    WIDTH: 8.2,
+                    ASPECT: 0.6,
+                    X: 5,
+                    Y: 4,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties,
+            }, {delayIncrement: 0.5})
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(
+            ...weaponMirror([{
+                POSITION: {
+                    LENGTH: 9,
+                    WIDTH: 8.2,
+                    ASPECT: 0.6,
+                    X: 5,
+                    Y: 4,
+                    ANGLE: 180 - angle * i / 2
+                },
+                PROPERTIES: spawnerProperties,
+            },
+            {
+                POSITION: {
+                    LENGTH: 9,
+                    WIDTH: 8.2,
+                    ASPECT: 0.6,
+                    X: 5,
+                    Y: 4,
+                    ANGLE: 180 + angle * i / 2
+                },
+                PROPERTIES: spawnerProperties,
+            }], {delayIncrement: 0.5})
+        )
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Battle" + type.LABEL.toLowerCase() : name
+    return output
+}
+const makeUnder = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = dereference(type);
+
+    let angle = 180 - (options.angle ?? 135)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 4
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}]),
+        TYPE: ["sunchip", {INDEPENDENT: independent}],
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "necro",
+        DELAY_SPAWN: false,
+        WAIT_TO_CYCLE: cycle,
+        MAX_CHILDREN: maxChildren
+    }
+    if (count % 2 == 1) {
+        spawners.push({
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 7.4,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties
+            }
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(...weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 11,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 180 - angle * i / 2
+            },
+            PROPERTIES: spawnerProperties
+        }))
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Under" + type.LABEL.toLowerCase() : name
+    output.SHAPE = options.shape ?? 4.5
+    return output
+}
+const makeMummy = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = dereference(type);
+
+    let angle = 180 - (options.angle ?? 135)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 2
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8, size: Math.SQRT2}]),
+        TYPE: ["betaSunchip_AR", {INDEPENDENT: independent}],
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "necro",
+        DELAY_SPAWN: false,
+        WAIT_TO_CYCLE: cycle,
+        MAX_CHILDREN: maxChildren
+    }
+    if (count % 2 == 1) {
+        spawners.push({
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 13,
+                ASPECT: 1.3,
+                X: 1.4,
+                ANGLE: 180
+            },
+            PROPERTIES: spawnerProperties
+        })
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(...weaponMirror({
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 13,
+                ASPECT: 1.3,
+                X: 1.4,
+                ANGLE: 180 - angle * i / 2
+            },
+            PROPERTIES: spawnerProperties
+        }))
+    }
+    let hat = [
+        {
+            TYPE: "squareHat",
+            POSITION: {
+                SIZE: 20 * Math.cos(Math.PI / Math.floor(4)),
+                //ANGLE: 0,
+                LAYER: 0.1
+            },
+            MIRROR_MASTER_ANGLE: true
+        }
+    ]
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.SHAPE = 4.5
+    output.PROPS =  type.PROPS == null ? hat : type.PROPS.concat(hat)
+    output.LABEL = name == -1 ? "Mummy" + type.LABEL.toLowerCase() : name
+    return output
+}
+const makePenta = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = dereference(type);
+
+    let angle = 180 - (options.angle ?? 144)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 4
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8, size: 1.5}]),
+        TYPE: ["pentaseerSunchip_AR", {INDEPENDENT: independent}],
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "necro",
+        DELAY_SPAWN: false,
+        WAIT_TO_CYCLE: cycle,
+        MAX_CHILDREN: maxChildren
+    }
+    if (count % 2 == 1) {
+        spawners.push({
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 11,
+                    ASPECT: 1.2,
+                    X: 7.4,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties
+            }
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(...weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 11,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 180 - angle * i / 2
+            },
+            PROPERTIES: spawnerProperties
+        }))
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Penta" + type.LABEL.toLowerCase() : name
+    output.SHAPE = 5.5
+    return output
+}
+const makeCap = (type, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+    let output = dereference(type);
+
+    let angle = 180 - (options.angle ?? 125)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 3
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+        SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+        TYPE: ["minion", {INDEPENDENT: independent}],
+        STAT_CALCULATOR: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        WAIT_TO_CYCLE: cycle,
+        MAX_CHILDREN: maxChildren,
+    }
+    if (count % 2 == 1) {
+        spawners.push(
+            {
+                POSITION: {
+                    LENGTH: 4.5,
+                    WIDTH: 10,
+                    X: 10.5,
+                    ANGLE: 180
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 1,
+                    WIDTH: 12,
+                    X: 15,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties
+            },
+            {
+                POSITION: {
+                    LENGTH: 11.5,
+                    WIDTH: 12,
+                    ANGLE: 180
+                }
+            }
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(
+            ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 4.5,
+                    WIDTH: 10,
+                    X: 10.5,
+                    ANGLE: 180 - angle * i / 2
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 1,
+                    WIDTH: 12,
+                    X: 15,
+                    ANGLE: 180 - angle * i / 2
+                },
+                PROPERTIES: spawnerProperties
+            },
+            {
+                POSITION: {
+                    LENGTH: 11.5,
+                    WIDTH: 12,
+                    ANGLE: 180 - angle * i / 2
+                }
+            }])
+        )
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Cap" + type.LABEL.toLowerCase() : name
+    return output
 }
 
 // Function Presets (makeAuto)
@@ -826,44 +1167,15 @@ Class.crowbar_AR = {
             }
         }
     ],
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 6,
-                X: 19.5,
-                ARC: 180,
-                LAYER: 1
-            },
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ]
-        },
-        {
-            POSITION: {
-                SIZE: 6,
-                X: 29.75,
-                ARC: 180,
-                LAYER: 1
-            },
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ]
-        },
-        {
-            POSITION: {
-                SIZE: 6,
-                X: 40,
-                ARC: 180,
-                LAYER: 1
-            },
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ]
+    TURRETS: weaponStack({
+        TYPE: ["crowbarTurretTank", {INDEPENDENT: true}],
+        POSITION: {
+            SIZE: 6,
+            X: 40,
+            ARC: 180,
+            LAYER: 1
         }
-    ]
+    }, 3, {xPosOffset: 10.25})
 }
 Class.cruiserdrive_AR = makeDrive("cruiser", preset.swarmDrive)
 Class.dieselTrapper_AR = {
@@ -3801,6 +4113,43 @@ Class.clinician_AR = {
     ], {delayIncrement: 0.5}), 2)
 }
 Class.comboWhirl_AR = makeWhirlwind("combo_AR", {label: "Combo Whirl"})
+Class.combustor_AR = {
+    PARENT: "genericTank",
+    LABEL: "Combustor",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 7,
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 20,
+                ASPECT: 0.95,
+                X: 13
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, g.flamethrower]),
+                TYPE: "growBullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 12,
+                ASPECT: 2,
+                X: 4
+            }
+        }
+    ]
+}
 Class.concentrator_AR = {
     PARENT: "genericTank",
     LABEL: "Concentrator",
@@ -5355,6 +5704,23 @@ Class.intern_AR = {
         }
     ]
 }
+Class.jimmy_AR = {
+    PARENT: "genericTank",
+    LABEL: "Jimmy",
+    DANGER: 8,
+    BODY: {
+        HEALTH: 0.8 * base.HEALTH,
+        SHIELD: 0.8 * base.SHIELD,
+        DENSITY: 0.6 * base.DENSITY,
+        //SPEED: 0.85 * base.SPEED,
+        FOV: 1.1 * base.FOV,
+    },
+    GUNS: [
+        ...Class.crowbar_AR.GUNS,
+        ...preset.triAngle
+    ],
+    TURRETS: Class.crowbar_AR.TURRETS
+}
 Class.kraw_AR = {
     PARENT: "genericHealer",
     LABEL: "Kraw",
@@ -6583,7 +6949,7 @@ Class.tornado_AR = {
                 LENGTH: 16,
                 WIDTH: 5.5,
                 ANGLE: 30,
-                DELAY: 0.5
+                DELAY: 0.25
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
@@ -6595,7 +6961,7 @@ Class.tornado_AR = {
                 LENGTH: 16,
                 WIDTH: 5.5,
                 ANGLE: 60,
-                DELAY: 0.25
+                DELAY: 0.5
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
@@ -6946,7 +7312,6 @@ Class.tripleSprayer_AR = {
     ], 3)
 }
 Class.understorm_AR = makeDrive("underseer", {...storm_options, label: "Understorm"})
-Class.underangle_AR = makeUnder("triAngle", "Underangle", {angle: 72})
 Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", {...preset.sideOver, shape: 4})
 Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {...preset.sideOver, shape: 4})
 Class.undertrapGuard_AR = makeUnder("trapGuard", "Undertrap Guard", {...preset.sideOver, shape: 4})
@@ -7488,6 +7853,12 @@ const quickMake = (type, options = {}) => {
     if (options.necro) {
         Class[options.necro.charAt(0).toLowerCase() + options.necro.slice(1) + "_AR"] = makeUnder(type, options.necro, {count: 3, angle: 90, shape: 4})
     }
+    if (options.mummy) {
+        Class[options.mummy.charAt(0).toLowerCase() + options.mummy.slice(1) + "_AR"] = makeMummy(type, options.mummy)
+    }
+    if (options.penta) {
+        Class[options.penta.charAt(0).toLowerCase() + options.penta.slice(1) + "_AR"] = makePenta(type, options.penta)
+    }
     if (options.enact) {
         let classLabel = options.enact.charAt(0).toLowerCase() + options.enact.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeCap(type, options.enact, preset.hybrid)
@@ -7551,7 +7922,7 @@ quickMake({
             }
         }
     ]
-}, {cross: "Despot", battle: "Battlegunner", under: "Undergunner", necro: "Necrogunner", cap: "Capgunner"})
+}, {cross: "Despot", battle: "Battlegunner", under: "Undergunner", necro: "Necrogunner", mummy: "Mummygunner", penta: "Pentagunner", cap: "Capgunner"})
 quickMake("helix", {hybrid: "Hybrix"})
 quickMake("honcho_AR", {drive: "Honchodrive"})
 quickMake("hunter", {over: "Overhunter", synth: "Plunderer", under: "Underhunter"})
@@ -7623,8 +7994,8 @@ quickMake({
             }
         }
     ]
-}, {cross: "Kingpin", battle: "Battletrapper", under: "Undertrapper", necro: "Necrotrapper", cap: "Captrapper"})
-quickMake("triAngle", {hybrid2: "Integrator"})
+}, {cross: "Kingpin", battle: "Battletrapper", under: "Undertrapper", necro: "Necrotrapper", mummy: "Mummytrapper", penta: "Pentatrapper", cap: "Captrapper"})
+quickMake("triAngle", {hybrid2: "Integrator", under: "Underangle"})
 quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
 quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis", under: "Undershot", enact: "Hatcher"})
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
@@ -7812,8 +8183,9 @@ Config.level_cap_cheat = 60
     }
 }*/
 
-Class.menu_unused.UPGRADES_TIER_0.push("menu_unused_AR")
-Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "duster_AR"], boxLabel: "Tier 4 (Lv.45+)"})
+Class.menu_unused.UPGRADES_TIER_0.push("menu_unused_AR", "menu_unused2_AR")
+Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["duster_AR", "jimmy_AR", "jumpSmasher"], boxLabel: "Tier 4 (Lv.60)"})
+Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"], boxLabel: "Tier 5 (Lv.75)"})
 
 //Class.basic.UPGRADES_TIER_1
     //Class.basic.UPGRADES_TIER_2
@@ -7872,7 +8244,7 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.auto4.UPGRADES_TIER_4 = ["autoAuto4"].map(x => x + "_AR")
             Class.machineGunner.UPGRADES_TIER_4 = ["autoMachineGunner"].map(x => x + "_AR")
             Class.gunnerTrapper.UPGRADES_TIER_4 = ["autoGunnerTrapper"].map(x => x + "_AR")
-            Class.cyclone.UPGRADES_TIER_4 = ["autoCyclone"].map(x => x + "_AR")
+            Class.cyclone.UPGRADES_TIER_4 = ["tornado"/*, "dustStorm"*/, "autoCyclone"/*, "tempest", "gale", "whirlwind", "trove"*/].map(x => x + "_AR")
             Class.overgunner.UPGRADES_TIER_4 = ["harbinger", "overnailer", "oracle", "autoOvergunner", "despot", "battlegunner", "capgunner"/*, "foregunner", "overdoubleGunner", "overequalizer"*/].map(x => x + "_AR")
             Class.battery.UPGRADES_TIER_4 = ["autoBattery"].map(x => x + "_AR")
             Class.buttbuttin.UPGRADES_TIER_4 = ["autoButtbuttin"].map(x => x + "_AR")
@@ -8029,14 +8401,14 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             Class.cockatiel_AR.UPGRADES_TIER_4 = ["autoCockatiel"].map(x => x + "_AR")
             Class.integrator_AR.UPGRADES_TIER_4 = ["autoIntegrator"].map(x => x + "_AR")
             //Class.defect_AR.UPGRADES_TIER_4
-            Class.quadAngle_AR.UPGRADES_TIER_4 = ["autoQuadAngle"].map(x => x + "_AR")
+            Class.quadAngle_AR.UPGRADES_TIER_4 = [/*"jimmy", */"autoQuadAngle"].map(x => x + "_AR")
         Class.auto3.UPGRADES_TIER_3.push("sniper3_AR", "crowbar_AR", "autoAuto3_AR", "combo_AR")
             Class.auto5.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.mega3.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             //Class.auto4.UPGRADES_TIER_4
             Class.banshee.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.sniper3_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
-            Class.crowbar_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
+            Class.crowbar_AR.UPGRADES_TIER_4 = [/*"jimmy"*/].map(x => x + "_AR")
             Class.autoAuto3_AR.UPGRADES_TIER_4 = ["megaAutoAuto3", "tripleAutoAuto3"].map(x => x + "_AR")
             //Class.combo_AR.UPGRADES_TIER_4
         Class.trapGuard.UPGRADES_TIER_3.push("peashooter_AR", "incarcerator_AR", "mechGuard_AR", "autoTrapGuard_AR", "machineGuard_AR", "triTrapGuard_AR")
@@ -8099,9 +8471,9 @@ Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["custodian_AR", "
             //Class.prodigy.UPGRADES_TIER_4
             Class.autoUnderseer_AR.UPGRADES_TIER_4 = ["megaAutoUnderseer", "tripleAutoUnderseer", "autoNecromancer", "autoMaleficitor", "autoInfestor", "autoProdigy", "autoUnderdrive", "autoPentaseer", "autoMummifier"].map(x => x + "_AR")
             Class.underdrive_AR.UPGRADES_TIER_4 = ["understorm", "necrodrive", "hexer", "infestordrive", "autoUnderdrive", "pentadrive"].map(x => x + "_AR")
-            Class.pentaseer_AR.UPGRADES_TIER_4 = [/*"pentamancer", */"witch", "autoPentaseer", "pentadrive", "warlock"].map(x => x + "_AR")
-            Class.undertrapper_AR.UPGRADES_TIER_4 = ["necrotrapper", "undermach", "autoUndertrapper"/*, "undertrapperdrive"*/, "underbuilder", "undertrapGuard", "underpen", "undermech", "underwark"].map(x => x + "_AR")
-            Class.mummifier_AR.UPGRADES_TIER_4 = ["bigChip"].map(x => x + "_AR")
+            Class.pentaseer_AR.UPGRADES_TIER_4 = [/*"pentamancer", */"witch", "autoPentaseer", "pentadrive", "warlock", "pentatrapper", "pentagunner"].map(x => x + "_AR")
+            Class.undertrapper_AR.UPGRADES_TIER_4 = ["necrotrapper", "mummytrapper", "pentatrapper", "undermach", "autoUndertrapper"/*, "undertrapperdrive"*/, "underbuilder", "undertrapGuard", "underpen", "undermech", "underwark"].map(x => x + "_AR")
+            Class.mummifier_AR.UPGRADES_TIER_4 = ["bigChip", "mummytrapper", "mummygunner"].map(x => x + "_AR")
         Class.spawner.UPGRADES_TIER_3.push("megaSpawner_AR", "productionist_AR", "spawnerdrive_AR", "captain_AR", "hangar_AR", "laborer_AR", "foundry_AR", "issuer_AR")
             Class.factory.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.autoSpawner.UPGRADES_TIER_4 = ["megaAutoSpawner", "tripleAutoSpawner"].map(x => x + "_AR")
@@ -8224,17 +8596,17 @@ if (Config.retrograde) {
             Class.autoDiesel_AR.UPGRADES_TIER_4.push("autoDoubleDiesel_AR")
         Class.blaster.UPGRADES_TIER_3.push("volley_AR", "doubleBlaster_AR", "ripoff_AR", "autoBlaster_AR")
             Class.triBlaster.UPGRADES_TIER_4 = ["pentaBlaster", "triSplasher", "bentSubverter", "doubleTriBlaster", "bootleg", "autoTriBlaster", "leak"].map(x => x + "_AR")
-            Class.splasher.UPGRADES_TIER_4 = ["triSplasher", "sprayNSpray", "doubleSplasher", "bargain", "autoSplasher"].map(x => x + "_AR")
-            Class.flamethrower.UPGRADES_TIER_4 = ["doubleFlamethrower", "autoFlamethrower"].map(x => x + "_AR")
-            Class.ripoff_AR.UPGRADES_TIER_4 = ["overblaster", "bootleg", "bargain", "imitation", "deposer", "volleyHybrid", "autoRipoff"].map(x => x + "_AR")
+            Class.splasher.UPGRADES_TIER_4 = ["triSplasher", "combustor", "sprayNSpray", "doubleSplasher", "bargain", "autoSplasher"].map(x => x + "_AR")
+            Class.flamethrower.UPGRADES_TIER_4 = ["combustor", "doubleFlamethrower", "imitation", "autoFlamethrower"].map(x => x + "_AR")
+            Class.ripoff_AR.UPGRADES_TIER_4 = ["overblaster", "underblaster", "bootleg", "bargain", "imitation", "deposer", "volleyHybrid", "autoRipoff"].map(x => x + "_AR")
             Class.autoBlaster_AR.UPGRADES_TIER_4 = ["megaAutoBlaster", "tripleAutoBlaster", "autoTriBlaster", "autoSplasher", "autoFlamethrower", "autoHalfNHalf", "autoSubverter", "autoVolley", "autoDoubleBlaster", "autoRipoff"].map(x => x + "_AR")
         Class.gatlingGun.UPGRADES_TIER_3.push("rotaryGun_AR", "doubleGatling_AR", "gator_AR", "autoGatlingGun_AR")
             Class.accurator.UPGRADES_TIER_4 = ["accugator"].map(x => x + "_AR")
             Class.rotaryGun_AR.UPGRADES_TIER_4 = ["concentrator", "rotator"].map(x => x + "_AR")
-            Class.gator_AR.UPGRADES_TIER_4 = ["overgatling", "accugator", "rotator"].map(x => x + "_AR")
+            Class.gator_AR.UPGRADES_TIER_4 = ["overgatling", "undergatling", "accugator", "rotator"].map(x => x + "_AR")
             Class.autoGatlingGun_AR.UPGRADES_TIER_4 = ["megaAutoGatlingGun", "tripleAutoGatlingGun", "autoFocal", "autoAccurator", "autoHalfNHalf"].map(x => x + "_AR")
         Class.doubleMachine.UPGRADES_TIER_3.push("doubleArtillery_AR", "doubleMinigun_AR", "doubleGunner_AR", "doubleSprayer_AR", "doubleDiesel_AR", "doubleBlaster_AR", "doubleGatling_AR", "autoDoubleMachine_AR")
-            Class.doubleMachine.UPGRADES_TIER_4 = ["overdoubleMachine"].map(x => x + "_AR")
+            Class.doubleMachine.UPGRADES_TIER_4 = ["overdoubleMachine", "underdoubleMachine"].map(x => x + "_AR")
             Class.tripleMachine.UPGRADES_TIER_4 = ["quadMachine", "tripleArtillery", "tripleMinigun", "tripleGunner", "tripleSprayer", "tripleDiesel", "tripleBlaster", "tripleGatling", "autoTripleMachine"].map(x => x + "_AR")
             Class.halfNHalf.UPGRADES_TIER_4 = ["quarterNQuarter", "slabNSlab", "sprayNSpray", "autoHalfNHalf"].map(x => x + "_AR")
             Class.doubleArtillery_AR.UPGRADES_TIER_4 = ["tripleArtillery", "autoDoubleArtillery"].map(x => x + "_AR")
