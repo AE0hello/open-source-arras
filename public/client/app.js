@@ -198,7 +198,8 @@ import * as socketStuff from "./socketinit.js";
             document.getElementById("optMobile").value = "mobile";
         }
         // If we are loaded for the first time then load the default options settings.
-        if (!localStorage.getItem("loadedForFirstTime") === "true") {
+        console.log(localStorage.getItem("loadedForFirstTime"))
+        if (!localStorage.getItem("loadedForFirstTime")) {
             document.getElementById("optRenderGui").checked = true;
             document.getElementById("optRenderLeaderboard").checked = true;
             document.getElementById("optRenderUpgrades").checked = true;
@@ -208,6 +209,9 @@ import * as socketStuff from "./socketinit.js";
             document.getElementById("optRenderScores").checked = true;
             document.getElementById("optRenderPlayerBars").checked = true;
             document.getElementById("optFancy").checked = true;
+            document.getElementById("optInterpolation").checked = true;
+            document.getElementById("optFancy").checked = true;
+            document.getElementById("autoLevelUp").checked = true;
             if (global.mobile) document.getElementById("showCrosshair").checked = true, document.getElementById("showJoystick").checked = true;
             // Dont forget to save it.
             util.submitToLocalStorage("optRenderGui");
@@ -220,6 +224,9 @@ import * as socketStuff from "./socketinit.js";
             util.submitToLocalStorage("optRenderPlayerBars");
             util.submitToLocalStorage("showCrosshair");
             util.submitToLocalStorage("showJoystick");
+            util.submitToLocalStorage("optInterpolation");
+            util.submitToLocalStorage("optFancy");
+            util.submitToLocalStorage("autoLevelUp");
             localStorage.setItem("loadedForFirstTime", "true");
         }
         loadSettings();
@@ -1390,7 +1397,7 @@ import * as socketStuff from "./socketinit.js";
         context.lineTo(x2, y);
         context.lineWidth = width;
         if (color) context.strokeStyle = color;
-        if (!config.graphical.sharpEdges) context.closePath();
+        context.closePath();
         context.stroke();
     }
 
@@ -4058,6 +4065,7 @@ import * as socketStuff from "./socketinit.js";
     const drawGUI = (tick, scaleRatio) => {
         scaleScreenRatio(scaleRatio, true);
         let ratio = util.getScreenRatio();
+        console.log(global.screenSize)
         //draw hud
         let spacing = 20;
         let alcoveSize = 200 / ratio; // drawRatio * global.screenWidth;

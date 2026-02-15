@@ -40,7 +40,7 @@ const util = (function() {
             });
         },
         getRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9) / global.player.renderv,
-        getScreenRatio: () => Math.max(global.screenWidth, 11 * global.screenHeight / 9) / global.screenSize,
+        getScreenRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9) / 1920,
         isNumeric: (string) => /^[+-]?\d+(\.\d+)?$/.test(string), // Check if a string is a numeric string
         lerp: (a, b, x, syncWithFps = false) => {
             if (syncWithFps) {
