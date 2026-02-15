@@ -12,8 +12,9 @@ import * as socketStuff from "./socketinit.js";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
-        for (let c of response.split("\n")) 0 !== c.length && (response = c.charAt(0), "#" === response ? (initalizeChangelog(a, !0), a = [c.slice(1).trim()]) : "-" === response ? a.push(c.slice(1).trim()) : a[a.length - 1] += " " + c.trim());
-        initalizeChangelog(a, !1);
+        for (let c of response.split("\n")) {
+            0 !== c.length && (response = c.charAt(0), "#" === response ? (initalizeChangelog(a, !0), a = [c.slice(1).trim()]) : "-" === response ? a.push(c.slice(1).trim()) : a[a.length - 1] += " " + c.trim());
+        }
     });
 
     let controls = document.getElementById("controlSettings"),
@@ -58,7 +59,10 @@ import * as socketStuff from "./socketinit.js";
     // Window setup <3
     global.mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
     global.mobile && document.body.classList.add("mobile");
-    !global.mobile && document.getElementById("tabAppearance").classList.remove("shadowScroll");
+    if (!global.mobile) {
+        document.getElementById("tabAppearance").classList.remove("shadowScroll");
+        document.getElementById("tabOptions").classList.remove("shadowScroll");
+    };
 
     function getKeybinds() {
         let kb = localStorage.getItem("keybinds");
@@ -4065,7 +4069,6 @@ import * as socketStuff from "./socketinit.js";
     const drawGUI = (tick, scaleRatio) => {
         scaleScreenRatio(scaleRatio, true);
         let ratio = util.getScreenRatio();
-        console.log(global.screenSize)
         //draw hud
         let spacing = 20;
         let alcoveSize = 200 / ratio; // drawRatio * global.screenWidth;
