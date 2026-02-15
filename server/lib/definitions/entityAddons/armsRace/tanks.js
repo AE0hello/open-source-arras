@@ -1,4 +1,4 @@
-const {combineStats, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -4007,6 +4007,62 @@ Class.butcher_AR = {
         ...preset.trapGuard
     ]
 }
+Class.carnivore_AR = {
+    PARENT: "genericTank",
+    LABEL: "Carnivore",
+    DANGER: 8,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        FOV: base.FOV * 1.25
+    },
+    CONTROLLERS: ["zoom"],
+    TOOLTIP: "Hold right click to zoom.",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.hunterSecondary, g.predator]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 11,
+                DELAY: 0.1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.predator]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 14,
+                DELAY: 0.2
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.predator]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 17,
+                DELAY: 0.3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.predator]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 Class.carrierdrive_AR = makeDrive("carrier", preset.swarmDrive)
 Class.chemist_AR = {
     PARENT: "genericHealer",
@@ -4306,6 +4362,24 @@ Class.demise_AR = {
             }
         }
     ], 4)
+}
+Class.destabilizer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Destabilizer",
+    DANGER: 8,
+    BODY: {
+        FOV: base.FOV * 1.3
+    },
+    GUNS: weaponStack({
+        POSITION: {
+            LENGTH: 25,
+            WIDTH: 14
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.minigun, g.streamliner]),
+            TYPE: "bullet"
+        }
+    }, 5, {lengthOffset: 2, delayIncrement: 0.2})
 }
 Class.doctor_AR = {
     PARENT: "genericHealer",
@@ -6458,6 +6532,24 @@ Class.ransacker_AR = {
         ...preset.trapGuard
     ]
 }
+Class.rationalizer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Rationalizer",
+    DANGER: 8,
+    BODY: {
+        FOV: base.FOV * 1.4
+    },
+    GUNS: weaponStack({
+        POSITION: {
+            LENGTH: 29,
+            WIDTH: 8
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.streamliner, g.streamliner]),
+            TYPE: "bullet"
+        }
+    }, 7, {lengthOffset: 2, delayIncrement: 1/7})
+}
 Class.renovator_AR = {
     PARENT: "genericHealer",
     LABEL: "Renovator",
@@ -6813,7 +6905,7 @@ Class.subduer_AR = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 19,
+                LENGTH: 21,
                 WIDTH: 8
             },
             PROPERTIES: {
@@ -6823,7 +6915,7 @@ Class.subduer_AR = {
         },
         {
             POSITION: {
-                LENGTH: 16,
+                LENGTH: 18,
                 WIDTH: 11,
                 DELAY: 0.25
             },
@@ -6926,6 +7018,24 @@ Class.tommy_AR = {
         }, 3, { lengthOffset: 2, delayIncrement: 1/3 }),
         ...preset.trapGuard
     ]
+}
+Class.toppler_AR = {
+    PARENT: "genericTank",
+    LABEL: "Toppler",
+    DANGER: 8,
+    BODY: {
+        FOV: base.FOV * 1.2
+    },
+    GUNS: weaponStack({
+        POSITION: {
+            LENGTH: 21,
+            WIDTH: 16
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.minigun]),
+            TYPE: "bullet"
+        }
+    }, 3, {lengthOffset: 2, delayIncrement: 1/3})
 }
 Class.tornado_AR = {
     PARENT: "genericTank",
@@ -8046,6 +8156,7 @@ makeAutoArray([
 ], {tier: 1, suffix: "_AR"})
 makeAutoArray([
     "accurator",
+    "annihilator",
     "armsman",
     "atomizer",
     "auto4",
@@ -8176,12 +8287,6 @@ if (!Config.arms_race == true) {return}
 if (!use_original_tree) {
 Config.level_cap = 60
 Config.level_cap_cheat = 60
-/*for (let i = 0; i < Class.assassin.UPGRADES_TIER_3.length; i++) {
-    let string = Class.assassin.UPGRADES_TIER_3[i];
-    if (string === "single") {
-        Class.assassin.UPGRADES_TIER_3.splice(i, 1)
-    }
-}*/
 
 Class.menu_unused.UPGRADES_TIER_0.push("menu_unused_AR", "menu_unused2_AR")
 Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["duster_AR", "jimmy_AR", "jumpSmasher"], boxLabel: "Tier 4 (Lv.60)"})
@@ -8210,7 +8315,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             Class.recalibrator_AR.UPGRADES_TIER_4 = ["geneticist"].map(x => x + "_AR")
 
     Class.twin.UPGRADES_TIER_2.push("wark_AR")
-        Class.twin.UPGRADES_TIER_3.splice(1, 1) //remove bulwark
+        deleteUpgrade("twin", 3, "bulwark")
             Class.twin.UPGRADES_TIER_4 = ["duo"].map(x => x + "_AR")
             Class.dual.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.musket.UPGRADES_TIER_4 = [].map(x => x + "_AR")
@@ -8299,7 +8404,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             Class.enforcer_AR.UPGRADES_TIER_4 = ["pistol"].map(x => x + "_AR")
             Class.courser_AR.UPGRADES_TIER_4 = ["subduer", "xCourser"].map(x => x + "_AR")
         Class.hunter.UPGRADES_TIER_3.push("autoHunter_AR", "megaHunter_AR", "prober_AR", "courser_AR")
-            Class.predator.UPGRADES_TIER_4 = ["xPredator"].map(x => x + "_AR")
+            Class.predator.UPGRADES_TIER_4 = ["carnivore", "xPredator", "autoPredator"].map(x => x + "_AR")
             Class.xHunter.UPGRADES_TIER_4 = ["yHunter", "xPredator", "xPoacher", "xNimrod", "autoXHunter", "xCourser"].map(x => x + "_AR")
             Class.poacher.UPGRADES_TIER_4 = ["xPoacher", "nacho"].map(x => x + "_AR")
             Class.ordnance.UPGRADES_TIER_4 = [].map(x => x + "_AR")
@@ -8310,12 +8415,12 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             Class.prober_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             //Class.courser_AR.UPGRADES_TIER_4
         Class.minigun.UPGRADES_TIER_3.push("zipper_AR", "bentMinigun_AR", "autoMinigun_AR", "widget_AR", "piercer_AR")
-            Class.streamliner.UPGRADES_TIER_4 = ["autoStreamliner"].map(x => x + "_AR")
+            Class.streamliner.UPGRADES_TIER_4 = ["rationalizer", "autoStreamliner"].map(x => x + "_AR")
             //Class.nailgun.UPGRADES_TIER_4
             Class.cropDuster.UPGRADES_TIER_4 = ["autoCropDuster"].map(x => x + "_AR")
             Class.barricade.UPGRADES_TIER_4 = ["autoBarricade"].map(x => x + "_AR")
             Class.vulture.UPGRADES_TIER_4 = ["autoVulture"].map(x => x + "_AR")
-            Class.subverter.UPGRADES_TIER_4 = ["deposer", "autoSubverter", "bentSubverter"].map(x => x + "_AR")
+            Class.subverter.UPGRADES_TIER_4 = ["destabilizer", "deposer", "toppler", "autoSubverter", "bentSubverter"].map(x => x + "_AR")
             Class.zipper_AR.UPGRADES_TIER_4 = ["autoZipper"].map(x => x + "_AR")
             //Class.bentMinigun_AR.UPGRADES_TIER_4
             Class.autoMinigun_AR.UPGRADES_TIER_4 = ["megaAutoMinigun", "tripleAutoMinigun"].map(x => x + "_AR")
@@ -8437,7 +8542,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //Class.triTrapGuard_AR.UPGRADES_TIER_4
 
     Class.director.UPGRADES_TIER_2.push("directordrive_AR", "honcho_AR", "doper_AR")
-        Class.director.UPGRADES_TIER_3.splice(1, 1) //remove bigCheese
+        deleteUpgrade("director", 3, "bigCheese")
             Class.director.UPGRADES_TIER_4 = ["coordinator"].map(x => x + "_AR")
             Class.manager.UPGRADES_TIER_4 = ["leader", "inspector", "managerdrive", "autoManager"].map(x => x + "_AR")
         Class.overseer.UPGRADES_TIER_3.push("captain_AR", "foreman_AR", "dopeseer_AR")
@@ -8518,6 +8623,8 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
         //Class.pounder.UPGRADES_TIER_3
             Class.pounder.UPGRADES_TIER_4 = ["bruiser"].map(x => x + "_AR")
         Class.destroyer.UPGRADES_TIER_3.push("megaTrapper_AR", "queller_AR", "autoDestroyer_AR", "hurler_AR", "slinker_AR")
+            Class.destroyer.UPGRADES_TIER_4 = ["harrier", "toppler"].map(x => x + "_AR")
+            Class.annihilator.UPGRADES_TIER_4 = ["autoAnnihilator"].map(x => x + "_AR")
             Class.hybrid.UPGRADES_TIER_4 = ["overdestroyer", "synthesis", "enactor"/*, "hybriddrive", "crossbreed"*/, "compound", "meld", "puffer", "catcher", "cross", "autoHybrid", "mongrel", "amalgam"].map(x => x + "_AR")
             Class.autoDestroyer_AR.UPGRADES_TIER_4 = ["megaAutoDestroyer", "tripleAutoDestroyer"].map(x => x + "_AR")
         Class.builder.UPGRADES_TIER_3.push("forger_AR", "stall_AR", "fashioner_AR", "charger_AR")
@@ -8528,7 +8635,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //UPGRADES_TIER_4 = ["shaver", "bazooka", "catapult", "myriad", "leviathan", "bulker", "bombard", "python", "claimant", "incline", "autoHurler", "mongrel", "bunger", "deliverer", "slingshot"].map(x => x + "_AR")
 
     Class.trapper.UPGRADES_TIER_2.push("pen_AR", "mech_AR", "machineTrapper_AR", "wark_AR")
-        Class.trapper.UPGRADES_TIER_3.splice(0, 1) //remove barricade
+        deleteUpgrade("trapper", 3, "barricade")
         Class.trapper.UPGRADES_TIER_3.push("undertrapper_AR", "megaTrapper_AR")
             Class.trapper.UPGRADES_TIER_4 = [/*"sawedOff", */"tricker"].map(x => x + "_AR")
             Class.megaTrapper_AR.UPGRADES_TIER_4 = ["shoebill"].map(x => x + "_AR")

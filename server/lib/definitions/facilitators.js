@@ -1352,13 +1352,22 @@ exports.makeAutoArray = (type, options = {}) => {
             Class["megaAuto" + classLabel + suffix] = exports.makeAuto(types, `Mega Auto-${label}`, {type: "megaAutoTurret", size: 12})
             Class["tripleAuto" + classLabel + suffix] = exports.makeAuto(types, `Triple Auto-${label}`, {size: 6.5, x: 5.2, angle: 0, total: 3})
             if (options.tier >= 2) {
-                //Class["ultraAuto" + classLabel + suffix] = exports.makeAuto(types, `Ultra Auto-${label}`, {type: "ultraAutoTurret", size: 14})
+                Class["ultraAuto" + classLabel + suffix] = exports.makeAuto(types, `Ultra Auto-${label}`, {type: "ultraAutoTurret", size: 14})
                 Class["tripleMegaAuto" + classLabel + suffix] = exports.makeAuto(types, `Triple Mega Auto-${label}`, {type: "megaAutoTurret", size: 7.5, x: 5.2, angle: 0, total: 3})
                 Class["pentaAuto" + classLabel + suffix] = exports.makeAuto(types, `Penta Auto-${label}`, {size: 5.2, x: 6.5, angle: 0, total: 5})
                 if (options.tier >= 3) {
                     Class["heptaAuto" + classLabel + suffix] = exports.makeAuto(types, `Hepta Auto-${label}`, {size: 4, x: 6.5, angle: 0, total: 7})
                 }
             }
+        }
+    }
+}
+exports.deleteUpgrade = (type, tier, upgrade) => {
+    typeUpgrades = Class[type]['UPGRADES_TIER_' + tier]
+    for (let i = 0; i < typeUpgrades.length; i++) {
+        let string = typeUpgrades[i];
+        if (string === upgrade) {
+            typeUpgrades.splice(i, 1)
         }
     }
 }
