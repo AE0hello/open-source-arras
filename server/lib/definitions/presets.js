@@ -1,51 +1,6 @@
 const {combineStats, weaponMirror} = require('./facilitators.js')
 const g = require('./gunvals.js')
 module.exports = {
-	// GUNS
-	guns: {
-		triAngle: weaponMirror({
-			POSITION: {
-				LENGTH: 16,
-				WIDTH: 8,
-				ANGLE: 150,
-				DELAY: 0.1
-			},
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-				TYPE: "bullet",
-				LABEL: "thruster"
-			}
-		}),
-		booster: weaponMirror([
-			{
-				POSITION: {
-					LENGTH: 14,
-					WIDTH: 8,
-					ANGLE: 135,
-					DELAY: 0.6
-				},
-				PROPERTIES: {
-					SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-					TYPE: "bullet",
-					LABEL: "thruster"
-				}
-			},
-			{
-				POSITION: {
-					LENGTH: 16,
-					WIDTH: 8,
-					ANGLE: 150,
-					DELAY: 0.1
-				},
-				PROPERTIES: {
-					SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-					TYPE: "bullet",
-					LABEL: "thruster"
-				}
-			}
-		])
-	},
-
 	// ON
 	on: {
 		retrograde_self_destruct: {

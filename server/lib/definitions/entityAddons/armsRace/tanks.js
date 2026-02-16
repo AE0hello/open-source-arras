@@ -5762,7 +5762,19 @@ Class.jimmy_AR = {
     },
     GUNS: [
         ...Class.crowbar_AR.GUNS,
-        ...preset.guns.triAngle
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 150,
+                DELAY: 0.1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        })
     ],
     TURRETS: Class.crowbar_AR.TURRETS
 }
