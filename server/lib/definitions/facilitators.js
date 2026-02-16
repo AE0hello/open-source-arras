@@ -823,8 +823,9 @@ exports.weaponMirror = (weapons, options = {}) => {
     if (!Array.isArray(weapons)) {
         weapons = [weapons]
     }
-    let yKey = 4;
-    let angleKey = 5;
+    let isTurret = weapons[0].TYPE != undefined;
+    let yKey = isTurret ? 2 : 4;
+    let angleKey = isTurret ? 3 : 5;
     let delayKey = 6;
 
     options.delayIncrement ??= 0
