@@ -109,10 +109,14 @@ Class.flail = {
     PARENT: "genericFlail",
     LABEL: "Flail",
     TURRETS: [{
-        POSITION: [6, 10, 0, 0, 190, 0],
         TYPE: ["flailBolt3", {
             INDEPENDENT: true
-        }]
+        }],
+        POSITION: {
+            SIZE: 6,
+            X: 10,
+            ARC: 190
+        }
     }]
 }
 Class.flankGuard = {

@@ -365,7 +365,7 @@ const makeCap = (type, name = -1, options = {}) => {
 }
 
 // Gun Presets
-preset.guns.birdSuper = [
+preset.birdSuper = [
     ...weaponMirror([{
         POSITION: {
             LENGTH: 14,
