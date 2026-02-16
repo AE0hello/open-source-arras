@@ -5,7 +5,7 @@
 		"TGS",
 		"Stark109"
 	],
-	"version": "v0.1.0-dev",
+	"addon-version": "v0.1.0-dev",
 	"osa-version": {
 		"minimum": "v2.0.11",
 		"target": "v2.0.11"
