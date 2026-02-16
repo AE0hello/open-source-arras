@@ -352,17 +352,8 @@ const makeCap = (type, name = -1, options = {}) => {
     return output
 }
 
-// Function Presets (makeAuto)
-driveAuto_options = {type: "driveAutoTurret_AR", size: 9, clearTurrets: true}
-stormAuto_options = {type: "stormAutoTurret_AR", size: 9, clearTurrets: true}
-whirlAuto_options = {type: "blankAutoTurret_AR", size: 8}
-
-// Function Presets (makeDrive)
-storm_options = {suffix: "storm", type: "swarmAutoTurret_AR", hatType: "stormSquare_AR", size: 12}
-cruiserstorm_options = {suffix: "storm", type: "swarmAutoTurret_AR", hatType: "stormTriangle_AR", hatSize: 8, hatAngle: 180}
-
 // Gun Presets
-birdSuper_rear = [
+preset.guns.birdSuper = [
     ...weaponMirror([{
         POSITION: {
             LENGTH: 14,
@@ -404,8 +395,18 @@ birdSuper_rear = [
     }
 ]
 
+// Function Presets (makeAuto)
+preset.makeAuto.drive = {type: "driveAutoTurret_AR", size: 9, clearTurrets: true}
+preset.makeAuto.storm = {type: "stormAutoTurret_AR", size: 9, clearTurrets: true}
+preset.makeAuto.blank = {type: "blankAutoTurret_AR", size: 8}
+
+// Function Presets (makeDrive)
+preset.makeDrive.storm = {suffix: "storm", type: "swarmAutoTurret_AR", hatType: "stormSquare_AR", size: 12}
+preset.makeDrive.stormSwarm = {suffix: "storm", type: "swarmAutoTurret_AR", hatType: "stormTriangle_AR", hatSize: 8, hatAngle: 180}
+
 // Credits
 // - u/SkyShredder89: Default Tier 3/4 Sprayer upgrades
+// - Taureon: Original Mummifier concept
 
 // Hats
 Class.healerHat_spin = makeHat(Class.healerHat.SHAPE, {color: "red", rotationSpeed: 0.16})
@@ -1202,7 +1203,7 @@ Class.dieselTrapper_AR = {
         }
     ]
 }
-Class.directorstorm_AR = makeDrive("director", storm_options)
+Class.directorstorm_AR = makeDrive("director", preset.makeDrive.storm)
 Class.discharger_AR = {
     PARENT: "genericTank",
     LABEL: "Discharger",
@@ -3683,7 +3684,7 @@ Class.PLACEHOLDER_whirlHexaTrapper_AR = makeWhirlwind(makeAuto({
             }
         }
     ], 6, 0.5),
-}, "", whirlAuto_options), {label: ""})
+}, "", preset.makeAuto.blank), {label: ""})
 Class.PLACEHOLDER_whirlInfestor_AR = makeWhirlwind("infestor", {label: ""})
 Class.PLACEHOLDER_whirlMaleficitor_AR = makeWhirlwind("maleficitor", {label: "", satelliteType: "squareSatellite"})
 Class.PLACEHOLDER_whirlMingler_AR = makeWhirlwind("mingler_AR", {label: ""})
@@ -3827,7 +3828,7 @@ Class.antidote_AR = {
         }
     ], {delayIncrement: 0.5})
 }
-Class.autoDirectorstorm_AR = makeAuto("directorstorm_AR", "Auto-Directorstorm", stormAuto_options)
+Class.autoDirectorstorm_AR = makeAuto("directorstorm_AR", "Auto-Directorstorm", preset.makeAuto.storm)
 Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
 Class.autoHexaTrapper_AR = makeAuto({
     PARENT: "genericTank",
@@ -3859,14 +3860,14 @@ Class.autoHexaTrapper_AR = makeAuto({
         }
     ], 6, 0.5),
 }, "Auto-Hexa-Trapper", preset.makeAuto.triple)
-Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", whirlAuto_options), {label: "Auto-Hexa Whirl"})
-Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", whirlAuto_options), {label: "Auto-Munition"})
-Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", driveAuto_options)
-Class.autoProphet_AR = makeWhirlwind(makeAuto("underseer", "", whirlAuto_options), {label: "Auto-Prophet"})
+Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", preset.makeAuto.blank), {label: "Auto-Hexa Whirl"})
+Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", preset.makeAuto.blank), {label: "Auto-Munition"})
+Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", preset.makeAuto.drive)
+Class.autoProphet_AR = makeWhirlwind(makeAuto("underseer", "", preset.makeAuto.blank), {label: "Auto-Prophet"})
 Class.autoTriple_AR = makeAuto("tripleTwin", "Auto-Triple")
-Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", whirlAuto_options), {label: "Auto-Vortex"})
-Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", whirlAuto_options), {label: "Auto-Whirl-3"})
-Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", whirlAuto_options), {label: "Auto-Whirl Guard"})
+Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", preset.makeAuto.blank), {label: "Auto-Vortex"})
+Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", preset.makeAuto.blank), {label: "Auto-Whirl-3"})
+Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", preset.makeAuto.blank), {label: "Auto-Whirl Guard"})
 Class.battledrive_AR = makeDrive("battleship", {...preset.makeDrive.swarm, label: "Battledrive"})
 Class.bentSubverter_AR = {
     PARENT: "genericTank",
@@ -4253,7 +4254,7 @@ Class.coordinator_AR = {
         }
     ]
 }
-Class.cruiserstorm_AR = makeDrive("cruiser", cruiserstorm_options)
+Class.cruiserstorm_AR = makeDrive("cruiser", preset.makeDrive.stormSwarm)
 Class.cyclops_AR = {
     PARENT: "genericTank",
     LABEL: "Cyclops",
@@ -4380,7 +4381,7 @@ Class.doctor_AR = {
         }
     ]
 }
-Class.doperstorm_AR = makeDrive("doper_AR", storm_options)
+Class.doperstorm_AR = makeDrive("doper_AR", preset.makeDrive.storm)
 Class.doubleAtomizer_AR = {
     PARENT: "genericTank",
     LABEL: "Double Atomizer",
@@ -5583,7 +5584,7 @@ Class.hextuplex_AR = {
         }), 3)
     ]
 }
-Class.honchostorm_AR = makeDrive("honcho_AR", storm_options)
+Class.honchostorm_AR = makeDrive("honcho_AR", preset.makeDrive.storm)
 Class.injection_AR = {
     PARENT: "genericHealer",
     LABEL: "Injection",
@@ -6099,7 +6100,7 @@ Class.orifice_AR = {
 Class.overangle_AR = makeOver("triAngle", "Overangle", {angle: 90})
 Class.overdoubleMachine_AR = makeOver("doubleMachine", "Overdouble Machine", {angle: 90})
 Class.overdoubleTwin_AR = makeOver("doubleTwin", "Overdouble Twin", {angle: 90})
-Class.overstorm_AR = makeDrive("overseer", {...storm_options, label: "Overstorm"})
+Class.overstorm_AR = makeDrive("overseer", {...preset.makeDrive.storm, label: "Overstorm"})
 Class.overtrapGuard_AR = makeOver("trapGuard", "Overtrap Guard", {angle: 90})
 Class.peaceMoon_AR = makeWhirlwind("deathStar", {label: "Peace Moon"})
 Class.pentaBlaster_AR = {
@@ -6718,7 +6719,7 @@ Class.sootherdrive_AR = {
         }
     ]
 }
-Class.spawnerstorm_AR = makeDrive("spawner", storm_options)
+Class.spawnerstorm_AR = makeDrive("spawner", preset.makeDrive.storm)
 Class.spiker_AR = {
     PARENT: "genericHealer",
     LABEL: "Spiker",
@@ -7330,7 +7331,7 @@ Class.tripleSprayer_AR = {
         }
     ], 3)
 }
-Class.understorm_AR = makeDrive("underseer", {...storm_options, label: "Understorm"})
+Class.understorm_AR = makeDrive("underseer", {...preset.makeDrive.storm, label: "Understorm"})
 Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", {angle: 90, shape: 4})
 Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {angle: 90, shape: 4})
 Class.undertrapGuard_AR = makeUnder("trapGuard", "Undertrap Guard", {angle: 90, shape: 4})
@@ -8159,8 +8160,8 @@ makeAutoArray([
 ], {suffix: "_AR"})
 
 // autodrives
-Class.autoDirectordrive_AR = makeAuto("directordrive_AR", "Auto-Directordrive", driveAuto_options)
-Class.autoUnderdrive_AR = makeAuto("underdrive_AR", "Auto-Underdrive", driveAuto_options)
+Class.autoDirectordrive_AR = makeAuto("directordrive_AR", "Auto-Directordrive", preset.makeAuto.drive)
+Class.autoUnderdrive_AR = makeAuto("underdrive_AR", "Auto-Underdrive", preset.makeAuto.drive)
 
 // UNSORTED
 Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
