@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -76,6 +76,9 @@ const makeBattle = (type, name = -1, options = {}) => {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
     }
     output.LABEL = name == -1 ? "Battle" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     return output
 }
 const makeUnder = (type, name = -1, options = {}) => {
@@ -133,6 +136,9 @@ const makeUnder = (type, name = -1, options = {}) => {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
     }
     output.LABEL = name == -1 ? "Under" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     output.SHAPE = options.shape ?? 4.5
     return output
 }
@@ -203,6 +209,9 @@ const makeMummy = (type, name = -1, options = {}) => {
     output.SHAPE = 4.5
     output.PROPS =  type.PROPS == null ? hat : type.PROPS.concat(hat)
     output.LABEL = name == -1 ? "Mummy" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     return output
 }
 const makePenta = (type, name = -1, options = {}) => {
@@ -349,6 +358,9 @@ const makeCap = (type, name = -1, options = {}) => {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
     }
     output.LABEL = name == -1 ? "Cap" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     return output
 }
 
@@ -3828,6 +3840,7 @@ Class.antidote_AR = {
         }
     ], {delayIncrement: 0.5})
 }
+Class.armament_AR = makeGunner('enforcer_AR', "Armament", {rear: true})
 Class.autoDirectorstorm_AR = makeAuto("directorstorm_AR", "Auto-Directorstorm", preset.makeAuto.storm)
 Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
 Class.autoHexaTrapper_AR = makeAuto({
@@ -3966,6 +3979,7 @@ Class.bigChip_AR = {
     }, 2),
     PROPS: Class.alphaSunchip_AR.PROPS
 }
+Class.blusterer_AR = makeGunner('conqueror', "Blusterer", {length: 16.75, noDeco: true})
 Class.bruiser_AR = {
     PARENT: "genericTank",
     LABEL: "Bruiser",
@@ -3990,6 +4004,7 @@ Class.bruiser_AR = {
         }
     ]
 }
+Class.buster_AR = makeGunner('construct', "Buster", {rear: true})
 Class.butcher_AR = makeGuard('hunter', "Butcher")
 Class.carnivore_AR = {
     PARENT: "genericTank",
@@ -5815,6 +5830,7 @@ Class.leader_AR = {
         }
     ]
 }
+Class.marine_AR = makeGunner('ranger', "Marine", {rear: true})
 Class.medicare_AR = {
     PARENT: "genericHealer",
     LABEL: "Medicare",
@@ -6088,15 +6104,7 @@ Class.omen_AR = {
     ],
 }
 Class.oracle_AR = makeOver("gunnerTrapper", "Oracle", {angle: 90})
-Class.orifice_AR = {
-    PARENT: "genericTank",
-    LABEL: "Orifice",
-    DANGER: 8,
-    GUNS: [
-        ...Class.single.GUNS,
-        ...preset.guns.rearPelleter
-    ]
-}
+Class.orifice_AR = makeGunner('single', "Orifice", {rear: true})
 Class.overangle_AR = makeOver("triAngle", "Overangle", {angle: 90})
 Class.overdoubleMachine_AR = makeOver("doubleMachine", "Overdouble Machine", {angle: 90})
 Class.overdoubleTwin_AR = makeOver("doubleTwin", "Overdouble Twin", {angle: 90})
@@ -6604,6 +6612,7 @@ Class.sharpshooter_AR = {
         }
     ]
 }
+Class.sifter_AR = makeGunner('courser_AR', "Sifter", {rear: true})
 Class.skewnDouble_AR = {
     PARENT: "genericTank",
     LABEL: "Skewn Double",
@@ -6822,6 +6831,7 @@ Class.spy_AR = {
         }
     ]
 }
+Class.storm_AR = makeGunner('queller_AR', "Storm", {rear: true})
 Class.subduer_AR = {
     PARENT: "genericTank",
     LABEL: "Subduer",
@@ -6864,6 +6874,7 @@ Class.subduer_AR = {
         }
     ]
 }
+Class.tailer_AR = makeGunner('stalker', "Tailer", {rear: true})
 Class.ternion_AR = {
     PARENT: "genericTank",
     LABEL: "Ternion",
@@ -7576,6 +7587,7 @@ Class.warlock_AR = {
 Class.whirl4_AR = makeWhirlwind("auto4", {label: "Whirl-4"})
 Class.whirl5_AR = makeWhirlwind("auto5", {label: "Whirl-5"})
 Class.whirlbar_AR = makeWhirlwind("crowbar_AR", {label: "Whirlbar"})
+Class.wiper_AR = makeGunner('annihilator', "Wiper", {rear: true})
 Class.witch_AR = {
     PARENT: "genericTank",
     LABEL: "Witch",
@@ -7610,6 +7622,7 @@ Class.witch_AR = {
         }
     ]
 }
+Class.harpy_AR = makeGunner('falcon', "Harpy", {rear: true, length: 20, renderBehind: true})
 Class.xCourser_AR = {
     PARENT: "genericTank",
     LABEL: "X-Courser",
@@ -7800,6 +7813,7 @@ Class.yHunter_AR = {
         }
     ]
 }
+Class.zephyr_AR = makeGunner('slinker_AR', "Zephyr", {rear: true})
 
 // Tier 5 (are we deadass)
 Class.custodian_AR = makeGuard('single', "Custodian")
@@ -8283,7 +8297,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
                 //Class.ternion.UPGRADES_TIER_5 = ["custodian"].map(x => x + "_AR")
                 //Class.tricker.UPGRADES_TIER_5 = ["custodian"].map(x => x + "_AR")
             Class.deadeye.UPGRADES_TIER_4 = ["cyclops", "autoDeadeye"].map(x => x + "_AR")
-            Class.buttbuttin.UPGRADES_TIER_4 = ["orifice"].map(x => x + "_AR")
+            Class.buttbuttin.UPGRADES_TIER_4 = [/*"baton", */"marine", "harpy", "tailer", "orifice"/*, "fang", "barber"*/, "mercenary", "autoButtbuttin", "armament", "sifter"].map(x => x + "_AR")
             Class.hitman_AR.UPGRADES_TIER_4 = ["overassassin"/*, "gunman", "formulator", "hitmandrive", "contractor"*/, "doorman", "trailer", "autoHitman", "assistant"/*, HYBRID_DEADEYE*/, "mercenary", "slayer", "immolator"].map(x => x + "_AR")
             Class.enforcer_AR.UPGRADES_TIER_4 = ["pistol"].map(x => x + "_AR")
             Class.courser_AR.UPGRADES_TIER_4 = ["subduer", "xCourser"].map(x => x + "_AR")

@@ -160,6 +160,9 @@ exports.makeOver = (type, name = -1, options = {}) => {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
     }
     output.LABEL = name == -1 ? "Over" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     return output
 }
 
@@ -220,6 +223,9 @@ exports.makeBird = (type, name = -1, options = {}) => {
     if (output.FACING_TYPE == "locksFacing") output.FACING_TYPE = "toTarget";
     output.GUNS = type.GUNS == null ? [...shootyBois] : [...output.GUNS, ...shootyBois];
     output.LABEL = name == -1 ? "Bird " + type.LABEL : name;
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     return output;
 }
 exports.makeGuard = (type, name = -1, options  = {}) => {
@@ -245,8 +251,8 @@ exports.makeGuard = (type, name = -1, options  = {}) => {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: exports.combineStats([g.trap]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
+                TYPE: 'trap',
+                STAT_CALCULATOR: 'trap'
             }
         }
     ]
@@ -264,7 +270,52 @@ exports.makeGuard = (type, name = -1, options  = {}) => {
     output.GUNS = type.GUNS == null ? trapper : [...output.GUNS, ...trapper]
     output.DANGER = type.DANGER + 2
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     output.STAT_NAMES = statnames.mixed
+    return output
+}
+exports.makeGunner = (type, name = -1, options  = {}) => {
+    type = ensureIsClass(type)
+    let output = exports.dereference(type)
+
+    // Rear Gunner
+    let gunner = [
+        ...exports.weaponMirror({
+            POSITION: {
+                LENGTH: options.length ?? 19,
+                WIDTH: 2,
+                Y: -2.5,
+                ANGLE: options.rear ? 180 : 0
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: exports.combineStats([g.basic, g.pelleter, g.power, g.twin, {recoil: 4}, {recoil: 1.8}]),
+                TYPE: 'bullet',
+            },
+        }, {delayIncrement: 0.5})
+    ]
+    if (!options.noDeco) {
+        gunner.push({
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 11,
+                ANGLE: options.rear ? 180 : 0
+            }
+        }
+    )}
+
+    // Assign misc settings
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? gunner : gunner.concat(output.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? gunner : output.GUNS.concat(gunner)
+    }
+    output.DANGER = type.DANGER + 1
+    output.LABEL = name == -1 ? "Gunner " + type.LABEL : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     return output
 }
 

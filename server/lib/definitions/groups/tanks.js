@@ -1,4 +1,4 @@
-const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeOver, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
@@ -226,7 +226,7 @@ Class.twin = {
         }
     }, {delayIncrement: 0.5})
 }
-Class.whirlwind = makeWhirlwind("genericTank", {hat: "hexagonHat_spin", satellites: 6, label: "Whirlwind", danger: 5})
+Class.whirlwind = makeWhirlwind('genericTank', {label: "Whirlwind", satellites: 6, hat: 'hexagonHat_spin', danger: 5})
 Class.whirlwind_bent = {
     PARENT: "genericTank",
     LABEL: "Whirlwind",
@@ -325,7 +325,7 @@ Class.assassin = {
         }
     ]
 }
-Class.auto3 = makeRadialAuto("autoTankGun", {isTurret: true, danger: 6, label: "Auto-3"})
+Class.auto3 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 6, label: "Auto-3"})
 Class.blaster = {
     PARENT: "genericTank",
     LABEL: "Blaster",
@@ -1735,24 +1735,7 @@ Class.bigMama = {
     }]
 }
 Class.blizzard = makeWhirlwind("genericTank", {dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinReverse", satellites: 5, label: "Blizzard", danger: 7})
-Class.blower = {
-    PARENT: "genericTank",
-    LABEL: "Blower",
-    DANGER: 7,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.5,
-                WIDTH: 14
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
-                TYPE: "bullet"
-            }
-        },
-        ...preset.guns.rearPelleter
-    ]
-}
+Class.blower = makeGunner('destroyer', "Blower", {rear: true})
 Class.blunderbuss = {
     PARENT: "genericTank",
     LABEL: "Blunderbuss",
@@ -2054,35 +2037,7 @@ Class.bulwark_old = {
     ], {delayIncrement: 0.5})
 }
 Class.bushwhacker = makeGuard('sniper', "Bushwhacker")
-Class.buttbuttin = {
-    PARENT: "genericTank",
-    LABEL: "Buttbuttin",
-    DANGER: 7,
-    BODY: {
-        SPEED: 0.85 * base.SPEED,
-        FOV: 1.4 * base.FOV
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 27,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13,
-                WIDTH: 8,
-                ASPECT: -2.2
-            }
-        },
-        ...preset.guns.rearPelleter
-    ]
-}
+Class.buttbuttin = makeGunner('assassin', "Buttbuttin", {rear: true})
 Class.carrier = {
     PARENT: "genericTank",
     LABEL: "Carrier",
@@ -3086,32 +3041,15 @@ Class.fortress = {
         ], 3)
     ],
 }
-Class.gunnerTrapper = {
+Class.gunnerTrapper = makeGunner({
     PARENT: "genericTank",
-    LABEL: "Gunner Trapper",
-    DANGER: 7,
+    LABEL: "Trapper",
+    DANGER: 6,
     STAT_NAMES: statnames.mixed,
     BODY: {
         FOV: 1.25 * base.FOV
     },
     GUNS: [
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 2,
-                Y: -2.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { recoil: 4 }, { recoil: 1.8 }]),
-                TYPE: "bullet"
-            }
-        }, {delayIncrement: 0.5}),
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 11
-            }
-        },
         {
             POSITION: {
                 LENGTH: 13,
@@ -3134,7 +3072,7 @@ Class.gunnerTrapper = {
             }
         }
     ]
-}
+})
 Class.halfNHalf = {
     PARENT: "genericTank",
     LABEL: "Half 'n Half",

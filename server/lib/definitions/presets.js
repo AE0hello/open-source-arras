@@ -3,55 +3,6 @@ const g = require('./gunvals.js')
 module.exports = {
 	// GUNS
 	guns: {
-		bird: [
-			...weaponMirror({
-				POSITION: {
-					LENGTH: 16,
-					WIDTH: 9,
-					ANGLE: 153,
-					DELAY: 0.1
-				},
-				PROPERTIES: {
-					SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster, { recoil: 0.5 }]),
-					TYPE: "bullet",
-					LABEL: "Thruster"
-				}
-			}),
-			{
-				POSITION: {
-					LENGTH: 18,
-					WIDTH: 9,
-					ANGLE: 180,
-					DELAY: 0.6
-				},
-				PROPERTIES: {
-					SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster, { recoil: 0.5 }]),
-					TYPE: "bullet",
-					LABEL: "Thruster"
-				}
-			}
-		],
-		rearPelleter: [
-			...weaponMirror({
-				POSITION: {
-					LENGTH: 19,
-					WIDTH: 2,
-					Y: -2.5,
-					ANGLE: 180
-				},
-				PROPERTIES: {
-					SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { recoil: 4 }, { recoil: 1.8 }]),
-					TYPE: "bullet",
-				},
-			}, {delayIncrement: 0.5}),
-			{
-				POSITION: {
-					LENGTH: 12,
-					WIDTH: 11,
-					ANGLE: 180
-				}
-			}
-		],
 		triAngle: weaponMirror({
 			POSITION: {
 				LENGTH: 16,
