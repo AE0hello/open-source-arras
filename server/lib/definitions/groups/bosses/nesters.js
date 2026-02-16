@@ -18,6 +18,7 @@ Class.nester = {
     },
     VALUE: 3e5,
 }
+
 Class.nestKeeper = {
     PARENT: "nester",
     LABEL: "Nest Keeper",

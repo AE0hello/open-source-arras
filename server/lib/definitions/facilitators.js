@@ -222,6 +222,51 @@ exports.makeBird = (type, name = -1, options = {}) => {
     output.LABEL = name == -1 ? "Bird " + type.LABEL : name;
     return output;
 }
+exports.makeGuard = (type, name = -1, options  = {}) => {
+    type = ensureIsClass(type)
+    let output = exports.dereference(type)
+
+    // Rear Trap Launcher
+    let trapper = [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ANGLE: 180
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 13,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: exports.combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ]
+
+    // Nerf existing barrels
+    for (let gun of output.GUNS) {
+        if (gun.PROPERTIES) {
+            if (gun.PROPERTIES.SHOOT_SETTINGS) {
+                gun.PROPERTIES.SHOOT_SETTINGS = exports.combineStats([gun.PROPERTIES.SHOOT_SETTINGS, g.flankGuard, g.flankGuard])
+            }
+        }
+    }
+
+    // Assign misc settings
+    output.GUNS = type.GUNS == null ? trapper : [...output.GUNS, ...trapper]
+    output.DANGER = type.DANGER + 2
+    output.LABEL = name == -1 ? type.LABEL + " Guard" : name
+    output.STAT_NAMES = statnames.mixed
+    return output
+}
 
 // turret functions
 exports.makeAuto = (type, name = -1, options = {}) => {

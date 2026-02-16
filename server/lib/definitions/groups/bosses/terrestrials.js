@@ -19,7 +19,7 @@ Class.terrestrial = {
         SPEED: base.SPEED * 0.7,
         DAMAGE: 9,
     },
-    ON: [preset.retrograde_self_destruct]
+    ON: [preset.on.retrograde_self_destruct]
 }
 
 let ares = new LayeredBoss(null, "Ares", "terrestrial", 7, "purple", "terrestrialTrapTurret", 7, 5.5)

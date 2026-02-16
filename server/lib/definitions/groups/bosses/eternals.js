@@ -19,7 +19,7 @@ Class.eternal = {
         SPEED: base.SPEED * 0.15,
         DAMAGE: 18,
     },
-    ON: [preset.retrograde_self_destruct]
+    ON: [preset.on.retrograde_self_destruct]
 }
 
 let kronos = new LayeredBoss(null, "Kronos", "eternal", 11, "veryLightGrey", "baseTrapTurret", 6, 5.5)

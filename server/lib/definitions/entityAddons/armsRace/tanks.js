@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -1177,7 +1177,7 @@ Class.crowbar_AR = {
         }
     }, 3, {xPosOffset: 10.25})
 }
-Class.cruiserdrive_AR = makeDrive("cruiser", preset.swarmDrive)
+Class.cruiserdrive_AR = makeDrive("cruiser", preset.makeDrive.swarm)
 Class.dieselTrapper_AR = {
     PARENT: "genericTank",
     LABEL: "Diesel Trapper",
@@ -2581,11 +2581,8 @@ Class.operator_AR = {
         }
     ]
 }
-Class.peashooter_AR = {
+Class.peashooter_AR = makeGuard({
     PARENT: "genericTank",
-    LABEL: "Peashooter",
-    DANGER: 7,
-    STAT_NAMES: statnames.mixed,
     GUNS: [
         {
             POSITION: {
@@ -2609,10 +2606,9 @@ Class.peashooter_AR = {
                 TYPE: "swarm",
                 STAT_CALCULATOR: "swarm"
             }
-        },
-        ...preset.trapGuard
+        }
     ]
-}
+}, "Peashooter")
 Class.pentaseer_AR = {
     PARENT: "genericTank",
     LABEL: "Pentaseer",
@@ -3350,7 +3346,27 @@ Class.triTrapGuard_AR = {
                 STAT_CALCULATOR: "trap",
             }
         }]),
-        ...preset.trapGuard
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ANGLE: 180
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 13,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
     ]
 }
 Class.volley_AR = {
@@ -3669,10 +3685,10 @@ Class.PLACEHOLDER_whirlHexaTrapper_AR = makeWhirlwind(makeAuto({
     ], 6, 0.5),
 }, "", whirlAuto_options), {label: ""})
 Class.PLACEHOLDER_whirlInfestor_AR = makeWhirlwind("infestor", {label: ""})
-Class.PLACEHOLDER_whirlMaleficitor_AR = makeWhirlwind("maleficitor", {...preset.prophet, label: ""})
+Class.PLACEHOLDER_whirlMaleficitor_AR = makeWhirlwind("maleficitor", {label: "", satelliteType: "squareSatellite"})
 Class.PLACEHOLDER_whirlMingler_AR = makeWhirlwind("mingler_AR", {label: ""})
 Class.PLACEHOLDER_whirlMortar_AR = makeWhirlwind("mortar", {label: ""})
-Class.PLACEHOLDER_whirlNecromancer_AR = makeWhirlwind("necromancer", {...preset.prophet, label: ""})
+Class.PLACEHOLDER_whirlNecromancer_AR = makeWhirlwind("necromancer", {label: "", satelliteType: "squareSatellite"})
 Class.PLACEHOLDER_whirlOrdnance_AR = makeWhirlwind("ordnance", {label: ""})
 Class.PLACEHOLDER_whirlQueller_AR = makeWhirlwind("queller_AR", {label: ""})
 Class.PLACEHOLDER_whirlSniper3_AR = makeWhirlwind("sniper3_AR", {label: ""})
@@ -3842,7 +3858,7 @@ Class.autoHexaTrapper_AR = makeAuto({
             }
         }
     ], 6, 0.5),
-}, "Auto-Hexa-Trapper", preset.tripleAuto)
+}, "Auto-Hexa-Trapper", preset.makeAuto.triple)
 Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", whirlAuto_options), {label: "Auto-Hexa Whirl"})
 Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", whirlAuto_options), {label: "Auto-Munition"})
 Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", driveAuto_options)
@@ -3851,7 +3867,7 @@ Class.autoTriple_AR = makeAuto("tripleTwin", "Auto-Triple")
 Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", whirlAuto_options), {label: "Auto-Vortex"})
 Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", whirlAuto_options), {label: "Auto-Whirl-3"})
 Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", whirlAuto_options), {label: "Auto-Whirl Guard"})
-Class.battledrive_AR = makeDrive("battleship", {...preset.swarmDrive, label: "Battledrive"})
+Class.battledrive_AR = makeDrive("battleship", {...preset.makeDrive.swarm, label: "Battledrive"})
 Class.bentSubverter_AR = {
     PARENT: "genericTank",
     LABEL: "Bent Subverter",
@@ -3973,40 +3989,7 @@ Class.bruiser_AR = {
         }
     ]
 }
-Class.butcher_AR = {
-    LABEL: "Butcher",
-    DANGER: 8,
-    BODY: {
-        SPEED: base.SPEED * 0.9,
-        FOV: base.FOV * 1.25
-    },
-    CONTROLLERS: ["zoom"],
-    TOOLTIP: "Hold right click to zoom.",
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 21,
-                WIDTH: 11,
-                DELAY: 0.25
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter]),
-                TYPE: "bullet"
-            }
-        },
-        ...preset.trapGuard
-    ]
-}
+Class.butcher_AR = makeGuard('hunter', "Butcher")
 Class.carnivore_AR = {
     PARENT: "genericTank",
     LABEL: "Carnivore",
@@ -4063,7 +4046,7 @@ Class.carnivore_AR = {
         }
     ]
 }
-Class.carrierdrive_AR = makeDrive("carrier", preset.swarmDrive)
+Class.carrierdrive_AR = makeDrive("carrier", preset.makeDrive.swarm)
 Class.chemist_AR = {
     PARENT: "genericHealer",
     LABEL: "Chemist",
@@ -5136,35 +5119,7 @@ Class.duster_AR = {
         }
     ]
 }
-Class.executor_AR = {
-    PARENT: "genericTank",
-    LABEL: "Executor",
-    DANGER: 8,
-    BODY: {
-        SPEED: 0.85 * base.SPEED,
-        FOV: 1.4 * base.FOV
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 27,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13,
-                WIDTH: 8,
-                ASPECT: -2.2
-            }
-        },
-        ...preset.trapGuard
-    ]
-}
+Class.executor_AR = makeGuard('assassin', "Executor")
 Class.flexedDouble_AR = {
     PARENT: "genericTank",
     LABEL: "Flexed Double",
@@ -5211,7 +5166,7 @@ Class.flexedDouble_AR = {
         }
     ], 2)
 }
-Class.fortdrive_AR = makeDrive("fortress", {...preset.swarmDrive, label: "Fortdrive"})
+Class.fortdrive_AR = makeDrive("fortress", {...preset.makeDrive.swarm, label: "Fortdrive"})
 Class.gadgetGun_AR = {
     PARENT: "genericTank",
     LABEL: "Gadget Gun",
@@ -5739,7 +5694,7 @@ Class.prescriber_AR = makeDrive({
             STAT_CALCULATOR: "swarm"
         }
     }, 3, 1/3)
-}, {...preset.swarmDrive, label: "Prescriber"})
+}, {...preset.makeDrive.swarm, label: "Prescriber"})
 Class.prescriber_AR.GUNS.push(...weaponArray({
     POSITION: {
         LENGTH: 6,
@@ -5791,7 +5746,7 @@ Class.jimmy_AR = {
     },
     GUNS: [
         ...Class.crowbar_AR.GUNS,
-        ...preset.triAngle
+        ...preset.guns.triAngle
     ],
     TURRETS: Class.crowbar_AR.TURRETS
 }
@@ -5888,7 +5843,7 @@ Class.medicare_AR = {
         }
     ]
 }
-Class.megaAutoDouble_AR = makeAuto("doubleTwin", "Mega Auto-Double", preset.megaAuto)
+Class.megaAutoDouble_AR = makeAuto("doubleTwin", "Mega Auto-Double", preset.makeAuto.mega)
 Class.megaCocciSegment_AR = {
     PARENT: "genericSmasher",
     COLOR: "mirror",
@@ -5990,7 +5945,7 @@ Class.megaHexaTrapper_AR = makeAuto({
             }
         }
     ], 6, 0.5),
-}, "Mega Hexa-Trapper", preset.megaAuto)
+}, "Mega Hexa-Trapper", preset.makeAuto.mega)
 Class.megaWhirl3_AR = makeWhirlwind("mega3", {label: "Mega-Whirl-3"})
 Class.mono_AR = {
     PARENT: "genericTank",
@@ -6131,21 +6086,21 @@ Class.omen_AR = {
         }], 4)
     ],
 }
-Class.oracle_AR = makeOver("gunnerTrapper", "Oracle", preset.sideOver)
+Class.oracle_AR = makeOver("gunnerTrapper", "Oracle", {angle: 90})
 Class.orifice_AR = {
     PARENT: "genericTank",
     LABEL: "Orifice",
     DANGER: 8,
     GUNS: [
         ...Class.single.GUNS,
-        ...preset.rearPelleter
+        ...preset.guns.rearPelleter
     ]
 }
-Class.overangle_AR = makeOver("triAngle", "Overangle", preset.sideOver)
-Class.overdoubleMachine_AR = makeOver("doubleMachine", "Overdouble Machine", preset.sideOver)
-Class.overdoubleTwin_AR = makeOver("doubleTwin", "Overdouble Twin", preset.sideOver)
+Class.overangle_AR = makeOver("triAngle", "Overangle", {angle: 90})
+Class.overdoubleMachine_AR = makeOver("doubleMachine", "Overdouble Machine", {angle: 90})
+Class.overdoubleTwin_AR = makeOver("doubleTwin", "Overdouble Twin", {angle: 90})
 Class.overstorm_AR = makeDrive("overseer", {...storm_options, label: "Overstorm"})
-Class.overtrapGuard_AR = makeOver("trapGuard", "Overtrap Guard", preset.sideOver)
+Class.overtrapGuard_AR = makeOver("trapGuard", "Overtrap Guard", {angle: 90})
 Class.peaceMoon_AR = makeWhirlwind("deathStar", {label: "Peace Moon"})
 Class.pentaBlaster_AR = {
     PARENT: "genericTank",
@@ -6252,7 +6207,7 @@ Class.pistol_AR = {
         }
     ]
 }
-Class.productiondrive_AR = makeDrive("productionist_AR", {...preset.swarmDrive, label: "Productiondrive"})
+Class.productiondrive_AR = makeDrive("productionist_AR", {...preset.makeDrive.swarm, label: "Productiondrive"})
 Class.professor_AR = {
     PARENT: "genericHealer",
     LABEL: "Professor",
@@ -6505,33 +6460,7 @@ Class.quintuplex_AR = {
         }], {delayIncrement: 0.5}),
     ]
 }
-Class.ransacker_AR = {
-    PARENT: "genericTank",
-    LABEL: "Ransacker",
-    DANGER: 8,
-    BODY: {
-        FOV: base.FOV * 1.225
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 12
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24,
-                WIDTH: 7
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle]),
-                TYPE: "bullet"
-            }
-        },
-        ...preset.trapGuard
-    ]
-}
+Class.ransacker_AR = makeGuard('rifle', "Ransacker")
 Class.rationalizer_AR = {
     PARENT: "genericTank",
     LABEL: "Rationalizer",
@@ -6998,27 +6927,7 @@ Class.therapist_AR = {
         }
     ], {delayIncrement: 0.5})
 }
-Class.tommy_AR = {
-    PARENT: "genericTank",
-    LABEL: "Tommy",
-    DANGER: 8,
-    BODY: {
-        FOV: base.FOV * 1.2
-    },
-    GUNS: [
-        ...weaponStack({
-            POSITION: {
-                LENGTH: 21,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
-                TYPE: "bullet"
-            }
-        }, 3, { lengthOffset: 2, delayIncrement: 1/3 }),
-        ...preset.trapGuard
-    ]
-}
+Class.tommy_AR = makeGuard('minigun', "Tommy")
 Class.toppler_AR = {
     PARENT: "genericTank",
     LABEL: "Toppler",
@@ -7217,7 +7126,7 @@ Class.tripleArtillery_AR = {
         }
     ], 3)
 }
-Class.tripleAutoDouble_AR = makeAuto("doubleTwin", "Triple Auto-Double", preset.tripleAuto)
+Class.tripleAutoDouble_AR = makeAuto("doubleTwin", "Triple Auto-Double", preset.makeAuto.triple)
 Class.tripleBlaster_AR = {
     PARENT: "genericTank",
     LABEL: "Triple Blaster",
@@ -7422,9 +7331,9 @@ Class.tripleSprayer_AR = {
     ], 3)
 }
 Class.understorm_AR = makeDrive("underseer", {...storm_options, label: "Understorm"})
-Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", {...preset.sideOver, shape: 4})
-Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {...preset.sideOver, shape: 4})
-Class.undertrapGuard_AR = makeUnder("trapGuard", "Undertrap Guard", {...preset.sideOver, shape: 4})
+Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", {angle: 90, shape: 4})
+Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {angle: 90, shape: 4})
+Class.undertrapGuard_AR = makeUnder("trapGuard", "Undertrap Guard", {angle: 90, shape: 4})
 Class.ultraTornado_AR = {
     PARENT: "genericTank",
     LABEL: "Ultra-Tornado",
@@ -7892,33 +7801,7 @@ Class.yHunter_AR = {
 }
 
 // Tier 5 (are we deadass)
-Class.custodian_AR = {
-    PARENT: "genericTank",
-    LABEL: "Custodian",
-    DANGER: 8,
-    STAT_NAMES: statnames.mixed,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.single]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5,
-                WIDTH: 8,
-                ASPECT: -1.8,
-                X: 6.5
-            }
-        },
-        ...preset.trapGuard
-    ]
-}
+Class.custodian_AR = makeGuard('single', "Custodian")
 
 // Quick Defining
 const quickMake = (type, options = {}) => {
@@ -7933,29 +7816,29 @@ const quickMake = (type, options = {}) => {
     }
     if (options.hybrid) {
         let classLabel = options.hybrid.charAt(0).toLowerCase() + options.hybrid.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[classLabel + "_AR"] = makeOver(type, options.hybrid, preset.hybrid)
+        Class[classLabel + "_AR"] = makeOver(type, options.hybrid, preset.makeOver.hybrid)
     }
     if (options.hybrid2) {
         let classLabel = options.hybrid2.charAt(0).toLowerCase() + options.hybrid2.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[classLabel + "_AR"] = makeOver(type, options.hybrid2, {...preset.hybrid, renderBehind: true})
+        Class[classLabel + "_AR"] = makeOver(type, options.hybrid2, {...preset.makeOver.hybrid, renderBehind: true})
     }
     if (options.over) {
         Class[options.over.charAt(0).toLowerCase() + options.over.slice(1) + "_AR"] = makeOver(type, options.over)
     }
     if (options.cross) {
         let classLabel = options.cross.charAt(0).toLowerCase() + options.cross.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[classLabel + "_AR"] = makeOver(type, options.cross, preset.cross)
+        Class[classLabel + "_AR"] = makeOver(type, options.cross, {count: 3, angle: 90})
     }
     if (options.synth) {
         let classLabel = options.synth.charAt(0).toLowerCase() + options.synth.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[classLabel + "_AR"] = makeBattle(type, options.synth, preset.hybrid)
+        Class[classLabel + "_AR"] = makeBattle(type, options.synth, preset.makeOver.hybrid)
     }
     if (options.battle) {
         Class[options.battle.charAt(0).toLowerCase() + options.battle.slice(1) + "_AR"] = makeBattle(type, options.battle)
     }
     if (options.underbridplaceholder) {
         let classLabel = options.underbridplaceholder.charAt(0).toLowerCase() + options.underbridplaceholder.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[classLabel + "_AR"] = makeUnder(type, options.underbridplaceholder, {...preset.hybrid, shape: 4})
+        Class[classLabel + "_AR"] = makeUnder(type, options.underbridplaceholder, {...preset.makeOver.hybrid, shape: 4})
     }
     if (options.under) {
         Class[options.under.charAt(0).toLowerCase() + options.under.slice(1) + "_AR"] = makeUnder(type, options.under)
@@ -7971,7 +7854,7 @@ const quickMake = (type, options = {}) => {
     }
     if (options.enact) {
         let classLabel = options.enact.charAt(0).toLowerCase() + options.enact.slice(1).replaceAll(' ', '').replaceAll('-', '')
-        Class[classLabel + "_AR"] = makeCap(type, options.enact, preset.hybrid)
+        Class[classLabel + "_AR"] = makeCap(type, options.enact, preset.makeOver.hybrid)
     }
     if (options.cap) {
         Class[options.cap.charAt(0).toLowerCase() + options.cap.slice(1) + "_AR"] = makeCap(type, options.cap)

@@ -1,11 +1,11 @@
-const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeOver, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeOver, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
 
 // Basic Tank
 Class.basic = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Basic", // Tank Label
     DANGER: 4, // AI priority target level
     BODY: {
@@ -34,8 +34,8 @@ Class.basic = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]), // Gun/projectile stats
-                TYPE: "bullet", // What the gun shoots
-                COLOR: "grey", // Gun colour
+                TYPE: 'bullet', // What the gun shoots
+                COLOR: 'grey', // Gun colour
                 LABEL: "", // Gun label (shows up in death messages)
                 STAT_CALCULATOR: 0,
                 WAIT_TO_CYCLE: false,
@@ -465,7 +465,7 @@ Class.flangle = {
     LABEL: "Flangle",
     DANGER: 6,
     STAT_NAMES: statnames.mixed,
-    GUNS: preset.triAngle,
+    GUNS: preset.guns.triAngle,
     TURRETS: [{
         POSITION: [6, 10, 0, 0, 190, 0],
         TYPE: ["flailBolt3", {
@@ -1079,11 +1079,9 @@ Class.tempest_bent = {
     ]
 }
 Class.tornado = makeWhirlwind("genericTank", {hat: "squareHat_spin", hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado"})
-Class.trapGuard = {
+Class.trapGuard = makeGuard({
     PARENT: "genericTank",
-    LABEL: "Trap Guard",
-    DANGER: 6,
-    STAT_NAMES: statnames.mixed,
+    DANGER: 4,
     GUNS: [
         {
             POSITION: {
@@ -1091,13 +1089,12 @@ Class.trapGuard = {
                 WIDTH: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard]),
+                SHOOT_SETTINGS: combineStats([g.basic]),
                 TYPE: "bullet"
             }
-        },
-        ...preset.trapGuard
+        }
     ]
-}
+}, "Trap Guard")
 Class.triAngle = {
     PARENT: "genericTank",
     LABEL: "Tri-Angle",
@@ -1119,7 +1116,7 @@ Class.triAngle = {
                 LABEL: "Front"
             }
         },
-        ...preset.triAngle
+        ...preset.guns.triAngle
     ]
 }
 Class.triTrapper = {
@@ -1276,6 +1273,7 @@ Class.whirlwind_old = makeWhirlwind("genericTank", {hat: "circleHat", hatSize: 2
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind"
 Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]
 makeAutoArray(["trapper"], {tier: 1})
+Class.autoTrapper = makeAuto("trapper")
 
 // Tier 3
 Class.accurator = {
@@ -1336,7 +1334,7 @@ Class.ambulance = {
                 LABEL: "Front"
             }
         },
-        ...preset.triAngle
+        ...preset.guns.triAngle
     ]
 }
 Class.annihilator = {
@@ -1356,7 +1354,7 @@ Class.annihilator = {
         }
     ]
 }
-Class.armsman = makeOver("rifle", "Armsman", preset.hybrid)
+Class.armsman = makeOver("rifle", "Armsman", preset.makeOver.hybrid)
 Class.architect = makeRadialAuto("architectGun", {isTurret: true, danger: 7, size: 12, label: "Architect", body: {SPEED: 1.1 * base.SPEED}}) // todo: fix this
 Class.assembler = {
     PARENT: "genericTank",
@@ -1435,7 +1433,12 @@ Class.atomizer = {
 Class.auto4 = makeRadialAuto("auto4gun", {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4})
 Class.auto4_old = makeRadialAuto("auto4gun", {isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3})
 Class.auto5 = makeRadialAuto("autoTankGun", {isTurret: true, danger: 7, label: "Auto-5", count: 5})
+Class.autoAssassin = makeAuto("assassin")
+Class.autoBuilder = makeAuto("builder")
+Class.autoCruiser = makeAuto("cruiser")
 Class.autoDouble = makeAuto("doubleTwin", "Auto-Double")
+Class.autoGunner = makeAuto("gunner")
+Class.autoOverseer = makeAuto("overseer")
 Class.autoSmasher = makeAuto({
     PARENT: "genericSmasher",
     DANGER: 6,
@@ -1458,6 +1461,8 @@ Class.autoSmasher = makeAuto({
         MOVEMENT_SPEED: smshskl
     },
 }, "Auto-Smasher", {type: "autoSmasherTurret", size: 11})
+Class.autoSpawner = makeAuto("spawner")
+Class.autoTriAngle = makeAuto("triAngle")
 Class.banshee = makeRadialAuto("bansheegun", {isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: {SPEED: 0.8 * base.SPEED, FOV: 1.1 * base.FOV}})
 Class.banshee.GUNS = weaponArray({
     POSITION: {
@@ -1689,7 +1694,7 @@ Class.bentDouble = {
         }
     ], 2)
 }
-Class.bentHybrid = makeOver("tripleShot", "Bent Hybrid", preset.hybrid)
+Class.bentHybrid = makeOver("tripleShot", "Bent Hybrid", preset.makeOver.hybrid)
 Class.bigCheese = {
     PARENT: "genericTank",
     LABEL: "Big Cheese",
@@ -1745,7 +1750,7 @@ Class.blower = {
                 TYPE: "bullet"
             }
         },
-        ...preset.rearPelleter
+        ...preset.guns.rearPelleter
     ]
 }
 Class.blunderbuss = {
@@ -1845,7 +1850,27 @@ Class.bomber = {
                 LABEL: "Wing"
             }
         }),
-        ...preset.trapGuard
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 8,
+                ANGLE: 180
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 13,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }
     ]
 }
 Class.bonker = {
@@ -1942,7 +1967,7 @@ Class.booster = {
                 LABEL: "Front"
             }
         },
-        ...preset.booster
+        ...preset.guns.booster
     ]
 }
 Class.bulwark = {
@@ -2028,27 +2053,7 @@ Class.bulwark_old = {
         }
     ], {delayIncrement: 0.5})
 }
-Class.bushwhacker = {
-    PARENT: "genericTank",
-    LABEL: "Bushwhacker",
-    DANGER: 7,
-    BODY: {
-        FOV: 1.2 * base.FOV
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.sniper]),
-                TYPE: "bullet"
-            }
-        },
-        ...preset.trapGuard
-    ]
-}
+Class.bushwhacker = makeGuard('sniper', "Bushwhacker")
 Class.buttbuttin = {
     PARENT: "genericTank",
     LABEL: "Buttbuttin",
@@ -2075,7 +2080,7 @@ Class.buttbuttin = {
                 ASPECT: -2.2
             }
         },
-        ...preset.rearPelleter
+        ...preset.guns.rearPelleter
     ]
 }
 Class.carrier = {
@@ -2351,7 +2356,7 @@ Class.construct = { // it's "construct" and not "constructor" because "construct
         }
     ]
 }
-Class.cropDuster = makeOver("minigun", "Crop Duster", preset.hybrid)
+Class.cropDuster = makeOver("minigun", "Crop Duster", preset.makeOver.hybrid)
 Class.crossbow = {
     PARENT: "genericTank",
     LABEL: "Crossbow",
@@ -2918,7 +2923,7 @@ Class.fighter = {
                 LABEL: "Side"
             }
         }]),
-        ...preset.triAngle
+        ...preset.guns.triAngle
     ]
 }
 Class.flace = {
@@ -2926,7 +2931,7 @@ Class.flace = {
     LABEL: "Flace",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
-    GUNS: preset.triAngle,
+    GUNS: preset.guns.triAngle,
     TURRETS: [{
         POSITION: [6, 10, 0, 0, 190, 0],
         TYPE: ["maceBolt3", {
@@ -2967,7 +2972,7 @@ Class.flooster = {
     LABEL: "Flooster",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
-    GUNS: preset.booster,
+    GUNS: preset.guns.booster,
     TURRETS: [{
         POSITION: [6, 10, 0, 0, 190, 0],
         TYPE: ["flailBolt3", {
@@ -3224,7 +3229,7 @@ Class.hexaTrapper = makeAuto({
     ], 6, 0.5),
 }, "Hexa-Trapper")
 Class.hexaWhirl = makeWhirlwind("hexaTank", {label: "Hexa Whirl"})
-Class.hybrid = makeOver("destroyer", "Hybrid", preset.hybrid)
+Class.hybrid = makeOver("destroyer", "Hybrid", preset.makeOver.hybrid)
 Class.infestor = {
     PARENT: "genericTank",
     LABEL: "Infestor",
@@ -3487,7 +3492,7 @@ Class.master = {
                 LABEL: "thruster"
             }
         }]),
-        ...preset.triAngle
+        ...preset.guns.triAngle
     ]
 }
 Class.medic = {
@@ -3518,6 +3523,7 @@ Class.medic = {
     ]
 }
 Class.mega3 = makeRadialAuto("megaAutoTankGun", {isTurret: true, danger: 7, size: 14, label: "Mega-3", body: {SPEED: 0.95 * base.SPEED}})
+Class.megaAutoTrapper = makeAuto("trapper", "Mega Auto-Trapper", preset.makeAuto.mega)
 Class.megaSmasher = {
     PARENT: "genericSmasher",
     LABEL: "Mega-Smasher",
@@ -4070,7 +4076,7 @@ Class.pentaShot = {
     ]
 }
 Class.phoenix = makeBird("sprayer", "Phoenix")
-Class.poacher = makeOver("hunter", "Poacher", preset.hybrid)
+Class.poacher = makeOver("hunter", "Poacher", preset.makeOver.hybrid)
 Class.predator = {
     PARENT: "genericTank",
     LABEL: "Predator",
@@ -4166,7 +4172,7 @@ Class.prodigy = {
         }], 3)
     ],
 }
-Class.prophet = makeWhirlwind("underseer", {...preset.prophet, label: "Prophet"})
+Class.prophet = makeWhirlwind("underseer", {label: "Prophet", satelliteType: "squareSatellite"})
 Class.quadBuilder = {
     PARENT: "genericTank",
     LABEL: "Quad Builder",
@@ -5348,7 +5354,7 @@ Class.surfer = {
                 STAT_CALCULATOR: "swarm"
             }
         }]),
-        ...preset.triAngle
+        ...preset.guns.triAngle
     ]
 }
 Class.surgeon = {
@@ -5461,6 +5467,7 @@ Class.triBlaster = {
         }
     ]
 }
+Class.tripleAutoTrapper = makeAuto("trapper", "Triple Auto-Trapper", preset.makeAuto.triple)
 Class.tripleFlail = {
     PARENT: "genericFlail",
     LABEL: "Triple Flail",
@@ -5635,9 +5642,8 @@ Class.typhoon = makeWhirlwind("genericTank", {hat: "decagonHat_spin", satellites
 Class.typhoon_old = makeWhirlwind("genericTank", {dualLayer: true, hat: "circleHat", hatSize: 28, hatLayer: 0, hat2: "circleHat", hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon"})
 Class.vortex = makeWhirlwind("launcher", {label: "Vortex"})
 Class.vortex_old = makeWhirlwind("genericTank", {enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex"})
-Class.vulture = {
-    PARENT: "genericTank",
-    LABEL: "Vulture",
+Class.vulture = makeBird({
+    PARENT: 'genericTank',
     DANGER: 7,
     BODY: {
         FOV: base.FOV * 1.2
@@ -5651,8 +5657,7 @@ Class.vulture = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
-                TYPE: "bullet",
-                ALT_FIRE: true
+                TYPE: 'bullet'
             }
         },
         {
@@ -5664,8 +5669,7 @@ Class.vulture = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, {size: 7/7.5}]),
-                TYPE: "bullet",
-                ALT_FIRE: true
+                TYPE: 'bullet'
             }
         },
         {
@@ -5677,13 +5681,11 @@ Class.vulture = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, {size: 7/8}]),
-                TYPE: "bullet",
-                ALT_FIRE: true
+                TYPE: 'bullet'
             }
-        },
-        ...preset.bird
+        }
     ]
-}
+}, "Vulture")
 Class.whirlGuard = makeWhirlwind("trapGuard", {label: "Whirl Guard"})
 Class.whirl3 = makeWhirlwind("auto3", {label: "Whirl-3"})
 Class.wrangler = { // old bender, fires train minions with 3 bodies (though only one of them has a gun)
@@ -5760,37 +5762,10 @@ Class.xHunter = {
         }
     ]
 }
-makeAutoArray(["assassin", "builder", "cruiser", "gunner", "overseer", "spawner", "triAngle"])
 
 // Tier 4
-Class.heptaAutoBasic = makeAuto("basic", "Hepta Auto-Basic", preset.heptaAuto)
-Class.ransacker_old = {
-    PARENT: "genericTank",
-    LABEL: "Rifle Guard",
-    DANGER: 8,
-    BODY: {
-        FOV: base.FOV * 1.225
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 25,
-                WIDTH: 7
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.flankGuard, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 14,
-                WIDTH: 9.5
-            }
-        },
-        ...preset.trapGuard
-    ]
-}
+Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta)
+Class.ransacker_old = makeGuard('rifle_old')
 
 // Tierless / Fun
 Class.alas = {
