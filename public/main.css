@@ -1273,8 +1273,7 @@ i.flag.down::before {
 
 #tabAddons ul3 {
 	font: bold 13px/1 Ubuntu;
-    color: yellow;
-	text-shadow: #000000 0 0 6px;
+    color: red;
 }
 
 #tabAddons div::after {

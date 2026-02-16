@@ -38,7 +38,7 @@ Class.basic = {
                 COLOR: 'grey', // Gun colour
                 LABEL: "", // Gun label (shows up in death messages)
                 STAT_CALCULATOR: 0,
-                WAIT_TO_CYCLE: false,
+                WAIT_TO_CYCLE: false, // Whether the gun waits a full reload cycle before firing
                 AUTOFIRE: false, // Whether the gun fires on its own
                 SYNCS_SKILLS: false,
                 MAX_CHILDREN: 0, // Number of projectiles from this gun that can be alive at once

@@ -269,6 +269,9 @@ const makePenta = (type, name = -1, options = {}) => {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
     }
     output.LABEL = name == -1 ? "Penta" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
     output.SHAPE = 5.5
     return output
 }

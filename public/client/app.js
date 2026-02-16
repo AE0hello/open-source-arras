@@ -290,7 +290,7 @@ import * as socketStuff from "./socketinit.js";
                 global.version = ve.ver;
                 if (ve.devBuild) {
                     global.devBuild = true;
-                    global.createTabMenu(`Unstable branch (build: ${global.version})`, "warning");
+                    global.createTabMenu(`This server is running a development build of Open Source Arras. (${global.version})`, "warning");
                 }
                 // Addon info handler
                 let keyValue = localStorage.getItem('playerKeyInputValue');
@@ -392,11 +392,7 @@ import * as socketStuff from "./socketinit.js";
         let ul = document.createElement("ul");
         let ul2 = document.createElement("ul");
         i_div.classList.add("optionsHeader");
-        i_div.textContent = "OSA Info";
-        ul.textContent = `OSA Version: ${global.version}`;
-        ul2.textContent = `Developer build: ${global.devBuild === "false" ? "no" : "yes"}`;
-        i_div.appendChild(ul);
-        i_div.appendChild(ul2);
+        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild === "false" ? "" : " (dev build)"}`;
         mainDoc.appendChild(i_div);
 
         // Addon stuff
@@ -404,37 +400,35 @@ import * as socketStuff from "./socketinit.js";
             let warnDoc = null;
             if (e["osa-version"].target !== global.version) {
                 warnDoc = document.createElement("ul3");
-                warnDoc.textContent = "This addon may be incompatible with the current OSA version.";
+                warnDoc.textContent = "This addon may be incompatible with your version";
             }
             let divDoc = document.createElement("div");
             divDoc.classList.add("optionsHeader");
             let name = document.createElement("ul");
-            let version = document.createElement("ul");
+            let addonVer = document.createElement("ul");
             let versionValue = document.createElement("ul2");
             let author = document.createElement("ul");
             let authorValue = document.createElement("ul2");
             let targetVer = document.createElement("ul");
             let targetVerValue = document.createElement("ul2");
 
-            name.textContent = e.name.includes("Addon") ? e.name : `${e.name} Addon`;
-            version.textContent = 'Version: ';
+            name.textContent = e.name;
+            addonVer.textContent = 'Version: ';
             versionValue.textContent = `${e["addon-version"]}`;
-            version.appendChild(versionValue);
-            author.textContent = "Author/s: ";
+            addonVer.appendChild(versionValue);
+            author.textContent = "Author(s): ";
             authorValue.textContent = "";
             for (let i = 0; i < e.authors.length; i++) {
                 let auth = e.authors[i];
                 authorValue.textContent += `${i !== 0 ? ", " : ""}${auth}`;
             }
             author.appendChild(authorValue);
-            targetVer.textContent = "Made for OSA version: ";
-            targetVerValue.textContent = e["osa-version"].target;
-            targetVer.appendChild(targetVerValue);
+            targetVer.textContent = `Made for OSA version ${e["osa-version"].target}`;
 
             divDoc.appendChild(name);
-            if (warnDoc) divDoc.appendChild(warnDoc);
-            divDoc.appendChild(version);
             divDoc.appendChild(author);
+            divDoc.appendChild(addonVer);
+            if (warnDoc) divDoc.appendChild(warnDoc);
             divDoc.appendChild(targetVer);
 
             mainDoc.appendChild(divDoc);

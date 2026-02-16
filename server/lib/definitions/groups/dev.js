@@ -243,6 +243,299 @@ if (Config.siege) {
     Class.menu_tanks.UPGRADES_TIER_0 = [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "smasher", "undercoverCop", "arenaCloser", "underseer"]
 }
 
+// flail?
+ntf_tailConnector = [{
+    POSITION: {
+        LENGTH: 38,
+        WIDTH: 7
+    },
+    PROPERTIES: {
+        COLOR: "darkGrey"
+    }
+}]
+Class.ntf_spike = {
+    COLOR: "darkGrey",
+    SHAPE: [[-1,-0.5],[1,0],[-1,0.5]]
+}
+Class.ntf_tailBolt0 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+    INDEPENDENT: true,
+    HITS_OWN_TYPE: 'hard',
+    GUNS: [
+        { 
+            POSITION: {WIDTH: 10, LENGTH: 10},
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {
+                    range: 0.1,
+                    speed: 0,
+                    maxSpeed: 0,
+                    recoil: 0,
+                    reload: 0.1,
+                    damage: 4,
+                    size: 2,
+                    health: 1,
+                }]),
+                TYPE: ["bullet", {
+                    ALPHA: 0,
+                    COLOR: 'teal',
+                    ON: [{
+                        event: 'tick',
+                        handler: ({body}) => {
+                            body.DAMAGE -= 1;
+                            body.SIZE -= 0.6;
+                            if (body.SIZE < 1) body.kill();
+                        }
+                    }],
+                }], 
+                AUTOFIRE: true,
+                BORDERLESS: true,
+                DRAW_FILL: false,
+            }
+        }
+    ],
+    PROPS: [
+        {
+            TYPE: "ntf_spike",
+            POSITION: {
+                SIZE: 16,
+                X: 16
+            }
+        }
+    ]
+}
+Class.ntf_tailBolt1 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+    INDEPENDENT: true,
+    GUNS: ntf_tailConnector,
+    TURRETS: [
+        {
+            TYPE: "ntf_tailBolt0",
+            POSITION: {
+                SIZE: 20,
+                X: 36,
+                ANGLE: 360,
+                ARC: 360,
+                LAYER: 1
+            }
+        }
+    ]
+}
+Class.ntf_tailBolt2 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+    INDEPENDENT: true,
+    GUNS: ntf_tailConnector,
+    TURRETS: [
+        {
+            TYPE: "ntf_tailBolt1",
+            POSITION: {
+                SIZE: 20,
+                X: 36,
+                ANGLE: 360,
+                ARC: 360,
+                LAYER: 1
+            }
+        }
+    ],
+}
+Class.ntf_tailBolt3 = {
+    PARENT: "genericTank",
+    COLOR: "grey",
+    SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+    GUNS: ntf_tailConnector,
+    TURRETS: [
+        {
+            TYPE: "ntf_tailBolt2",
+            POSITION: {
+                SIZE: 20,
+                X: 36,
+                ANGLE: 360,
+                ARC: 360,
+                LAYER: 1
+            }
+        }
+    ]
+}
+Class.ntf_ear = {
+    PARENT: "triangleHat",
+    COLOR: "mirror"
+}
+Class.ntf_tailWhite = {
+    COLOR: "pureWhite",
+    SHAPE: [[0,-0.5],[-0.25,-0],[0,0.5],[-1,0]],
+}
+Class.ntf_tail = {
+    COLOR: "mirror",
+    SHAPE: [[0,-0.5],[1,0],[0,0.5],[-1,0]],
+    PROPS: [
+        {
+            TYPE: "ntf_tailWhite",
+            POSITION: {
+                SIZE: 20,
+                ANGLE: 180,
+                LAYER: 1
+            }
+        }
+    ]
+}
+Class.ntf = {
+    PARENT: "genericTank",
+    LABEL: "???",
+    NAME: "Nine",
+    UPGRADE_LABEL: "???",
+    UPGRADE_TOOLTIP: "You've been hacked by-",
+    COLOR: "#f9bd4e", //"#fbbf4f", //"#d69f45",
+    UPGRADE_COLOR: "#f9bd4e",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: ['bullet', {COLOR: 'teal'}],
+                COLOR: '#c7c7cf'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 8,
+                ASPECT: -1.75
+            }
+        }
+    ],
+    TURRETS: [
+        ...weaponMirror([
+            {
+                TYPE: ["ntf_tailBolt3", {INDEPENDENT: true}],
+                POSITION: {
+                    SIZE: 7.5,
+                    X: 6.5,
+                    ANGLE: 167.5,
+                    ARC: 190
+                }
+            },
+            {
+                TYPE: ["ntf_tailBolt3", {INDEPENDENT: true}],
+                POSITION: {
+                    SIZE: 7.5,
+                    X: 9.5,
+                    ANGLE: 171.25,
+                    ARC: 190
+                }
+            },
+            {
+                TYPE: ["ntf_tailBolt3", {INDEPENDENT: true}],
+                POSITION: {
+                    SIZE: 7.5,
+                    X: 11,
+                    ANGLE: 175,
+                    ARC: 190
+                }
+            }
+        ]),
+        {
+            TYPE: ["ntf_tailBolt3", {INDEPENDENT: true}],
+            POSITION: {
+                SIZE: 7.5,
+                X: 12,
+                ANGLE: 180,
+                ARC: 190
+            }
+        },
+        ...weaponMirror({
+            TYPE: "ntf_tail",
+            POSITION: {
+                SIZE: 18,
+                X: 16,
+                ANGLE: 195,
+                ARC: 190
+            }
+        })
+    ],
+    PROPS: weaponMirror([
+        {
+            TYPE: ["circleHat", {COLOR: "lightGrey"}],
+            POSITION: {
+                SIZE: 4,
+                X: 12,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["circleHat", {COLOR: "lightGreen"}],
+            POSITION: {
+                SIZE: 3,
+                X: 12,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["circleHat", {COLOR: "mirror"}],
+            POSITION: {
+                SIZE: 20,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: "ntf_ear",
+            POSITION: {
+                SIZE: 6,
+                X: 12.5,
+                ANGLE: 135,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["triangleHat", {COLOR: "brown"}],
+            POSITION: {
+                SIZE: 3,
+                X: 15,
+                ANGLE: 135,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["triangleHat", {COLOR: "pureWhite"}],
+            POSITION: {
+                SIZE: 3,
+                X: 34/3,
+                ANGLE: 135,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["circleHat", {COLOR: "black"}],
+            POSITION: {
+                SIZE: 12,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["circleHat", {COLOR: "teal"}],
+            POSITION: {
+                SIZE: 9,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["circleHat", {COLOR: "black"}],
+            POSITION: {
+                SIZE: 7,
+                LAYER: 1
+            }
+        }
+    ])
+}
+Class.menu_testing.UPGRADES_TIER_0.push("ntf")
+
 // airblast testing
 Class.airblastBullet = {PARENT: "bullet", ALPHA: 0.5, BODY: {KNOCKBACK: 30}}
 Class.airblast = {
