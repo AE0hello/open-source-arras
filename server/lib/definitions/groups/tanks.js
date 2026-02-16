@@ -6165,6 +6165,20 @@ Class.tetraGunner = {
         },
     ], 4)
 }
+Class.tracker3 = {
+    PARENT: 'genericTank',
+    LABEL: "Tracker-3",
+    FACING_TYPE: ['spin', {speed: 0.02}],
+    SKILL_CAP: [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
+    TURRETS: weaponArray({
+        TYPE: ['tracker3gun', {INDEPENDENT: true}],
+        POSITION: {
+            SIZE: 11,
+            X: 8,
+            ARC: 190
+        }
+    }, 3)
+}
 Class.undercoverCop = {
     PARENT: "booster",
     LABEL: "Undercover Cop",

@@ -1,237 +1,38 @@
-const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror} = require('../facilitators.js')
-const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require('../constants.js')
-const g = require('../gunvals.js')
+const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require('../../constants.js')
+const g = require('../../gunvals.js')
 
-// Main Developer Tank
-Class.developer = {
-    PARENT: "genericTank",
-    LABEL: "Developer",
-    BODY: {
-        SHIELD: 1000,
-        REGEN: 10,
-        HEALTH: 100,
-        DAMAGE: 10,
-        DENSITY: 20,
-        FOV: 2,
-    },
-    //COLOR: "mirror", // todo: make sure mirror colour doesnt grey out your leaderboard
-    SKILL_CAP: Array(10).fill(dfltskl),
-    IGNORED_BY_AI: true,
-    RESET_CHILDREN: true,
-    ACCEPTS_SCORE: true,
-    CAN_BE_ON_LEADERBOARD: true,
-    CAN_GO_OUTSIDE_ROOM: false,
-    IS_IMMUNE_TO_TILES: false,
-    DRAW_HEALTH: true,
-    ARENA_CLOSER: true,
-    INVISIBLE: [0, 0],
-    ALPHA: [0, 1],
-    HITS_OWN_TYPE: "hardOnlyTanks",
-    NECRO: false,
-    SHAPE: [
-        [-1, -0.8],
-        [-0.8, -1],
-        [0.8, -1],
-        [1, -0.8],
-        [0.2, 0],
-        [1, 0.8],
-        [0.8, 1],
-        [-0.8, 1],
-        [-1, 0.8],
-    ],
-    GUNS: [
-        {
-            POSITION: [18, 10, -1.4, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.op]),
-                TYPE: "developerBullet"
-            }
-        }
-    ],
-    UPGRADES_TIER_0: [
-        "menu_tanks",
-        "menu_bosses",
-        "spectator",
-        "menu_addons",
-        "menu_testing",
-        "eggGen",
-    ]
-}
-
-// Spectator
-Class.spectator = {
-    PARENT: "genericTank",
-    LABEL: "Spectator",
-    ALPHA: 0,
-    CAN_BE_ON_LEADERBOARD: false,
-    ACCEPTS_SCORE: false,
-    DRAW_HEALTH: false,
-    HITS_OWN_TYPE: "never",
-    IGNORED_BY_AI: true,
-    ARENA_CLOSER: true,
-    IS_IMMUNE_TO_TILES: true,
-    CAN_SEE_INVISIBLE_ENTITIES: true,
-    TOOLTIP: "Left click to teleport, Right click above or below the screen to change FOV",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
-    BODY: {
-        PUSHABILITY: 0,
-        SPEED: 5,
-        FOV: 2.5,
-        DAMAGE: 0,
-        HEALTH: 1e100,
-        SHIELD: 1e100,
-        REGEN: 1e100,
-    },
-    GUNS: [{
-        POSITION: [0,0,0,0,0,0,0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
-            TYPE: "bullet",
-            ALPHA: 0
-        }
-    }, {
-        POSITION: [0, 0, 0, 0, 0, 0, 0],
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, { reload: 0.25 }, g.fake]),
-            TYPE: "bullet",
-            ALPHA: 0,
-            ALT_FIRE: true,
-        }
-    }],
-    ON: [{
-        event: "fire",
-        handler: ({ body }) => {
-            body.x = body.x + body.control.target.x
-            body.y = body.y + body.control.target.y
-        }
-    }, {
-        event: "altFire",
-        handler: ({ body }) => body.FOV = body.y + body.control.target.y < body.y ? body.FOV + 0.5 : Math.max(body.FOV - 0.5, 0.2)
-    }]
-}
-
-// Guillotine + Ban Hammer
-Class.guillotine = {
-    PARENT: "spectator",
-    LABEL: "Guillotine",
-    CAN_GO_OUTSIDE_ROOM: true,
-    TOOLTIP: "Use left click to inspect and right click to teleport. Press F to kill the selected entity.",
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 12,
-                X: 31
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 10,
-                ASPECT: 1.6,
-                X: -5,
-                Y: -8,
-                ANGLE: 90
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 40,
-                WIDTH: 2,
-                Y: 7
-            }
-        })
-    ],
-    TURRETS: [
-        {
-            POSITION: {
-                SIZE: 2,
-                X: 35,
-                LAYER: 1
-            },
-            TYPE: ["circleHat", {COLOR: "grey"}]
-        }
-    ]
-}
-Class.banHammer = {
-    PARENT: "genericTank",
-    LABEL: "Ban Hammer",
-    ALPHA: 0,
-    CAN_BE_ON_LEADERBOARD: false,
-    CAN_GO_OUTSIDE_ROOM: true,
-    ACCEPTS_SCORE: false,
-    DRAW_HEALTH: false,
-    HITS_OWN_TYPE: "never",
-    IGNORED_BY_AI: true,
-    ARENA_CLOSER: true,
-    IS_IMMUNE_TO_TILES: true,
-    CAN_SEE_INVISIBLE_ENTITIES: true,
-    TOOLTIP: "Use left click to inspect and right click to teleport. Press F to ban the selected player.",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
-    BODY: {
-        PUSHABILITY: 0,
-        SPEED: 5,
-        FOV: 2.5,
-        DAMAGE: 0,
-        HEALTH: 1e100,
-        SHIELD: 1e100,
-        REGEN: 1e100,
-    },
-    GUNS: [
-        {POSITION: [30, 7, 1.3, 0, 0, 0, 0]},
-        {POSITION: [3, 11, 0.75, 7.5, -36, 90, 0]},
-        {POSITION: [3, 11, 0.75, 7.5, 36, -90, 0]},
-        {POSITION: [11, 14, 1, 30.5, 0, 0, 0]},
-        {POSITION: [13, 10.5, -1.2, 0, 0, 0, 0]},
-        /*{
-            POSITION: [0,0,0,0,0,0,0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.25}, g.fake]),
-                TYPE: "bullet",
-                ALPHA: 0
-            }
-        },*/
-        {
-            POSITION: [0, 0, 0, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
-                TYPE: "bullet",
-                ALPHA: 0,
-                ALT_FIRE: true
-            }
-        }
-    ],
-    ON: [{
-        event: "altFire",
-        handler: ({ body }) => {
-            body.x = body.x + body.control.target.x
-            body.y = body.y + body.control.target.y
-        }
-    }]
-}
-
-// Tank Menu(s)
-Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "healer", "undercoverCop", "arenaCloser"]})
-    Class.menu_unused = makeMenu("Unused", {upgrades: ["1", "2", "3"].map(x => "menu_unused_T" + x), tooltip: "Tanks that were fully created and likely intended to be added, but never were."})
-        Class.menu_unused_T1 = makeMenu("Unused (Tier 1)", {upgrades: ["flail", "whirlwind_bent"], boxLabel: "Tier 1 (Lv.15)"})
-        Class.menu_unused_T2 = makeMenu("Unused (Tier 2)", {upgrades: ["autoTrapper", "volute", "whirlwind_old"], boxLabel: "Tier 2 (Lv.30)"})
-        Class.menu_unused_T3 = makeMenu("Unused (Tier 3)", {upgrades: ["blunderbuss", "cocci", "dreadnought_old", "mender", "oroboros", "prodigy", "quadBuilder", "rimfire_old", "rocket", "wrangler"], boxLabel: "Tier 3 (Lv.45)"})
-    Class.menu_removed = makeMenu("Removed", {upgrades: ["menu_dailyTanks", "menu_legacy"], tooltip: "Tanks that were previously accessible in-game in some form before being removed."})
-        Class.menu_dailyTanks = makeMenu("Daily Tanks", {upgrades: ["whirlwind", "master", "undertow", "literallyAMachineGun", "literallyATank", "rocketeer", "jumpSmasher", "rapture"], boxColor: "rainbow", tooltip: "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available.\n" + "The Daily Tank for a server can be added or changed in config."})
-        Class.menu_legacy = makeMenu("Legacy Tanks", {upgrades: ["boomer_old", "bulwark_old", "auto4_old", "rifle_old", "septaTrapper_old", "spike_old", "sprayer_old", "spreadshot_old"], tooltip: "The original versions of certain tanks."})
-    Class.menu_mapEntities = makeMenu("Map Entities", {upgrades: ["menu_dominators", "baseProtector", "antiTankMachineGun", "menu_sanctuaries"], props: [{TYPE: "dominationBody", POSITION: { SIZE: 22 }}], tooltip: "Tanks that spawn as part of the map layout."})
-        Class.menu_dominators = makeMenu("Dominators", {upgrades: ["destroyer", "gunner", "trapper"].map(x => x + "Dominator"), props: [{TYPE: "dominationBody", POSITION: { SIZE: 22 }}]})
-        Class.menu_sanctuaries = makeMenu("Sanctuaries", {upgrades: ["1", "2", "3", "4", "5", "6"].map(x => "sanctuaryTier" + x), props: [{TYPE: "dominationBody", POSITION: { SIZE: 22 }}, {TYPE: "healerHat", POSITION:  { SIZE: 13, LAYER: 1 }}]})
-    Class.menu_motherships = makeMenu("Motherships", {upgrades: ["mothership", "flagship", "turkey"], shape: 16, tooltip: "Giant Enemy Tanks that you attack the weak points of for massive damage."})
-    Class.menu_fun = makeMenu("Fun", {upgrades: ["alas"/*, "average4tdmScore", "averageL39Hunt", "beeman"*/, "bigBalls", "cxATMG", "damoclone", "fat456", "heptaAutoBasic", "machineShot", "meDoingYourMom", "meOnMyWayToDoYourMom", "protector"/*, "quadCyclone"*/, "rapture", "riptide"/*, "schoolShooter", "smasher3"*/, "tetraGunner"/*, "theAmalgamation", "theConglomerate"*/, "tracker3", "undercoverCop", "wifeBeater", "worstTank"], tooltip: "Tanks that, let's be honest, aren't used for a good reason.\n" + "DISCLAIMER: Some of the content in here may be in poor taste. Blame the arras.io devs, not us."})
-Class.menu_bosses = makeMenu("Bosses", {upgrades: ["sentries", "elites", "mysticals", "nesters", "rogues", "rammers", "terrestrials", "celestials", "eternals", "devBosses"].map(x => "menu_" + x), rerootTree: "menu_bosses"})
-    Class.menu_sentries = makeMenu("Sentries", {upgrades: ["sentrySwarm", "sentryGun", "sentryTrap", "sentinelSwarm", "sentinelGun", "sentinelTrap", "shinySentrySwarm", "shinySentryGun", "shinySentryTrap", "sentinelMinigun", "sentinelLauncher", "sentinelCrossbow"], color: "pink", boxColor: "pink", shape: 3.5, props: [{POSITION: [12, 0, 0, 0, 360, 1], TYPE: ["circleHat", {COLOR: "grey"}]}]})
-Class.menu_addons = makeMenu("Addons", {tooltip: "Content that is (usually) not part of Open Source Arras but was added by someone else."})
-Class.menu_testing = makeMenu("Testing", {upgrades: ["diamondShape", "miscTest", "mmaTest", "vulnturrettest", "onTest", "alphaGunTest", "strokeWidthTest", "testLayeredBoss", "tooltipTank", "turretLayerTesting", "bulletSpawnTest", "propTest", "weaponArrayTest", "radialAutoTest", "imageShapeTest", "screenShakeTest", "turretStatScaleTest", "auraBasic", "auraHealer", "ghoster", "gunBenchmark", "switcheroo", "armyOfOne", "vanquisher", "syncWithTankTest", "airblast", "angleseer", "backwardsExports"], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
-
-if (Config.siege) {
-    Class.menu_tanks.UPGRADES_TIER_0 = [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "smasher", "undercoverCop", "arenaCloser", "underseer"]
-}
+Class.menu_testing = makeMenu("Testing", {upgrades: [
+    "diamondShape",
+    "miscTest",
+    "mmaTest",
+    "vulnturrettest",
+    "onTest",
+    "alphaGunTest",
+    "strokeWidthTest",
+    "testLayeredBoss",
+    "tooltipTank",
+    "turretLayerTesting",
+    "bulletSpawnTest",
+    "propTest",
+    "weaponArrayTest",
+    "radialAutoTest",
+    "imageShapeTest",
+    "screenShakeTest",
+    "turretStatScaleTest",
+    "auraBasic",
+    "auraHealer",
+    "ghoster",
+    "gunBenchmark",
+    "switcheroo",
+    "armyOfOne",
+    "vanquisher",
+    "syncWithTankTest",
+    "airblast",
+    "anglemancer",
+    "backwardsExports",
+    "ntf",
+], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
 
 // flail?
 ntf_tailConnector = [{
@@ -524,7 +325,273 @@ Class.ntf = {
         }
     ])
 }
-Class.menu_testing.UPGRADES_TIER_0.push("ntf")
+
+// to be sorted later
+Class.bacteria = {
+    PARENT: "genericTank",
+    LABEL: 'Bacteria',
+    MAX_BULLETS: 32,
+    CONNECT_CHILDREN_ON_CAMERA: true,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 32
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 2, recoil: 0.25, shudder: 0.1, size: 0.62, speed: 2}]),
+                TYPE: "bacteriaClone",
+                NO_LIMITATIONS: true,
+                WAIT_TO_CYCLE: true,
+            }
+        }
+    ]
+}
+Class.bacteriaClone = {
+    PARENT: "genericTank",
+    LABEL: 'Bacteria',
+    FACING_TYPE: 'smoothToTarget',
+    CONTROLLERS: ['mapTargetToGoal'],
+    BODY: {
+        SPEED: base.SPEED * 0.5
+    },
+    CONNECT_CHILDREN_ON_CAMERA: true,
+    CLEAR_ON_MASTER_UPGRADE: false,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 32
+            }
+        }
+    ],
+    //GUNS: Class.bacteria.GUNS // server stress test mode
+}
+class io_turretWithMotion extends IO {
+    constructor(b, opts = {}) {
+        super(b)
+    }
+    think(input) {
+        return {
+            target: this.body.master.velocity,
+            main: true,
+        };
+    }
+}
+ioTypes.turretWithMotion = io_turretWithMotion
+Class.latDeco1 = {
+    PARENT: "genericTank",
+    LABEL: "Tank Deco",
+    FACING_TYPE: ["turnWithSpeed"],
+    COLOR: "#5C533F",
+    SHAPE: "M -1 -2 C -1 -2 -1 -3 0 -3 C 1 -3 1 -2 1 -2 V 2 C 1 2 1 3 0 3 C -1 3 -1 2 -1 2 V -2",
+    MIRROR_MASTER_ANGLE: true,
+}
+Class.latDeco2 = {
+    PARENT: "genericTank",
+    LABEL: "Tank Deco",
+    FACING_TYPE: ["turnWithSpeed"],
+    COLOR: "#5C533F",
+    SHAPE: "M -2 0 H 2 L 0 1 L -2 0",
+    MIRROR_MASTER_ANGLE: true,
+}
+Class.latDeco3 = {
+    PARENT: "genericTank",
+    LABEL: "Tank Deco",
+    FACING_TYPE: ["turnWithSpeed"],
+    COLOR: "#3F3B2D",
+    SHAPE: "M -10 -1 L 10 -1 L 10 1 L -10 1 L -10 -1",
+    MIRROR_MASTER_ANGLE: true,
+}
+Class.latRight = {
+    PARENT: "genericTank",
+    LABEL: "Tank Side",
+    FACING_TYPE: ["turnWithSpeed"],
+    COLOR: "#96794E",
+    SHAPE: "M -6 0 H 5 V 1 C 5 2 4 2 4 2 H -5 C -6 2 -6 1 -6 1 V 0",
+    MIRROR_MASTER_ANGLE: true,
+    TURRETS: [
+        {
+            POSITION: [4.8, 31, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, 24, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, 17, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, -42, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, -35, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, -28, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [18, -5, 0, 0, 0, 1],
+            TYPE: "latDeco2",
+        },
+    ]
+}
+Class.latLeft = {
+    PARENT: "genericTank",
+    LABEL: "Tank Side",
+    FACING_TYPE: ["turnWithSpeed"],
+    COLOR: "#96794E",
+    SHAPE: "M -5 0 H 6 V 1 C 6 2 5 2 5 2 H -4 C -5 2 -5 1 -5 1 V 0",
+    MIRROR_MASTER_ANGLE: true,
+    TURRETS: [
+        {
+            POSITION: [4.8, -31, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, -24, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, -17, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, 42, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, 35, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [4.8, 28, 10, 0, 0, 1],
+            TYPE: "latDeco1",
+        },
+        {
+            POSITION: [18, 5, 0, 0, 0, 1],
+            TYPE: "latDeco2",
+        },
+    ]
+}
+Class.latBase = {
+    PARENT: "genericTank",
+    LABEL: "Tank Base",
+    CONTROLLERS: ["turretWithMotion"],
+    COLOR: "#96794E",
+    SHAPE: [
+        [1.1, 1],
+        [1.4, 0],
+        [1.1, -1],
+        [-1.1, -1],
+        [-0.8, 0],
+        [-1.1, 1]
+    ],
+    GUNS: [
+        {
+            POSITION: [16, 5.5, 1, 1, 6.5, 0, 0]
+        },
+        {
+            POSITION: [14.5, 5.5, 1, 1, 6.5, 0, 0]
+        },
+        {
+            POSITION: [13, 5.5, 1, 1, 6.5, 0, 0]
+        },
+        {
+            POSITION: [16, 5.5, 1, 1, -6.5, 0, 0]
+        },
+        {
+            POSITION: [14.5, 5.5, 1, 1, -6.5, 0, 0]
+        },
+        {
+            POSITION: [13, 5.5, 1, 1, -6.5, 0, 0]
+        },
+        {
+            POSITION: [13, 5.5, 1, 1, 6.5, 180, 0]
+        },
+        {
+            POSITION: [11.5, 5.5, 1, 1, 6.5, 180, 0]
+        },
+        {
+            POSITION: [10, 5.5, 1, 1, 6.5, 180, 0]
+        },
+        {
+            POSITION: [8.5, 5.5, 1, 1, 6.5, 180, 0]
+        },
+        {
+            POSITION: [13, 5.5, 1, 1, -6.5, 180, 0]
+        },
+        {
+            POSITION: [11.5, 5.5, 1, 1, -6.5, 180, 0]
+        },
+        {
+            POSITION: [10, 5.5, 1, 1, -6.5, 180, 0]
+        },
+        {
+            POSITION: [8.5, 5.5, 1, 1, -6.5, 180, 0]
+        },
+    ],
+    TURRETS: [
+        {
+            POSITION: [5.3, 0, -10, 0, 0, 1],
+            TYPE: "latLeft",
+        },
+        {
+            POSITION: [5.3, 0, -10, 180, 0, 1],
+            TYPE: "latRight",
+        },
+        {
+            POSITION: [2, 0, -1.4, 90, 0, 1],
+            TYPE: "latDeco3",
+        },
+    ]
+}
+Class.literallyATank = {
+    PARENT: "genericTank",
+    DANGER: 6,
+    BODY: {
+        HEALTH: base.HEALTH * 1.2,
+    },
+    LABEL: "Literally A Tank",
+    SHAPE: "M -1 -1 H 0 C 1 -1 1 0 1 0 C 1 0 1 1 0 1 H -1 V -1",
+    GUNS: [
+        {
+            POSITION: [30, 8, 1, 0, 0, 0, 0]
+        },
+        {
+            POSITION: [4, 8, -1.4, 8, 0, 0, 0]
+        },
+        {
+            POSITION: [12, 8, 1.3, 30, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { reload: 3, damage: 1.2, shudder: 0.5 }]),
+                TYPE: "developerBullet"
+            }
+        },
+        {
+            POSITION: [2, 11, 1, 34, 0, 0, 0]
+        }
+    ],
+    TURRETS: [
+        {
+            POSITION: [15, 0, 0, 0, 360, 1],
+            TYPE: [ "circleHat", { COLOR: "#5C533F" } ],
+        },
+        {
+            POSITION: [10, 0, 0, 0, 360, 1],
+            TYPE: [ "circleHat", { COLOR: "#736245" } ],
+        },
+        {
+            POSITION: [35, 0, 0, 0, 360, 0],
+            TYPE: [ "latBase", { COLOR: "#96794E" } ],
+        },
+    ]
+}
 
 // airblast testing
 Class.airblastBullet = {PARENT: "bullet", ALPHA: 0.5, BODY: {KNOCKBACK: 30}}
@@ -559,9 +626,9 @@ Class.trichip = {
     NECRO: [3],
     SHAPE: 3
 }
-Class.angleseer = {
+Class.anglemancer = {
     PARENT: "genericTank",
-    LABEL: "Angleseer",
+    LABEL: "Anglemancer",
     DANGER: 7,
     NECRO: true,
     STAT_NAMES: statnames.drone,
@@ -569,10 +636,10 @@ Class.angleseer = {
         SPEED: base.SPEED * 0.9,
         FOV: base.FOV * 1.1,
     },
-    SHAPE: 3.5,
+    SHAPE: 3,
     MAX_CHILDREN: 12,
     GUNS: weaponArray({
-        POSITION: [5, 11, 1.3, 7, 0, 0, 0],
+        POSITION: [5, 11, 1.3, 7, 0, 180, 0],
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, { reload: 0.8 }]),
             TYPE: "trichip",

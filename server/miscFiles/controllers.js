@@ -958,7 +958,7 @@ class io_wanderAroundMap extends IO {
     constructor(body, opts = {}) {
         super(body);
         this.lookAtGoal = opts.lookAtGoal;
-        this.immitatePlayerMovement = opts.immitatePlayerMovement;
+        this.replicatePlayerMovement = opts.replicatePlayerMovement;
         this.spot = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
 
         this.bossWander = opts.diepBossWander;
@@ -1038,7 +1038,7 @@ class io_wanderAroundMap extends IO {
             }
             if (input.goal == null && !this.body.autoOverride) {
                 let goal = this.spot;
-                if (this.immitatePlayerMovement) {
+                if (this.replicatePlayerMovement) {
                     goal = compressMovement(this.body, goal);
                 }
                 return {

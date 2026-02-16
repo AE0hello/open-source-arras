@@ -930,6 +930,24 @@ Class.medkitTurret = {
     }, 2)
 }
 
+// RCS (for space)
+Class.rcs = {
+    PARENT: 'genericTank',
+    LABEL: "RCS Thruster",
+    INDEPENDENT: true,
+    CONTROLLERS: ['rcs'],
+    GUNS: [
+        {
+            POSITION: [18, 10, 1.3, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5, speed: 1, range: 0.1}]),
+                TYPE: 'bullet',
+                STAT_CALCULATOR: 'bullet',
+            }
+        }
+    ]
+}
+
 // Miscellaneous
 Class.baseSwarmTurret = makeTurret({
     GUNS: [

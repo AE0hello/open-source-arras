@@ -1,12 +1,6 @@
 const {makeCrasher, makeLaby, makePolychoron, makePolyhedron, makePresent, makeRarities, makeRelic} = require('../facilitators.js')
 const {basePolygonDamage, basePolygonHealth} = require('../constants.js')
 
-// Set the below variable to true to make Octagons use the nest tile color.
-const old_octagon_color = true
-
-// Set the below variable to true to make Octagons use their original (misspelled) name.
-const old_octagon_name = false
-
 // Set the below variable to true to enable the flat 3D shapes from Old Dreadnoughts.
 const classic_3D_shapes = false
 
@@ -191,6 +185,38 @@ Class.hexagon = {
     },
     DRAW_HEALTH: true
 }
+makeRarities("hexagon")
+
+// Crashers
+Class.crasher = {
+    TYPE: "crasher",
+    LABEL: "Crasher",
+    COLOR: "pink",
+    SHAPE: 3,
+    SIZE: 5,
+    VARIES_IN_SIZE: true,
+    CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"],
+    AI: {
+        NO_LEAD: true,
+    },
+    BODY: {
+        SPEED: 5,
+        ACCELERATION: 1.4,
+        HEALTH: 0.5,
+        DAMAGE: 5,
+        PENETRATION: 2,
+        PUSHABILITY: 0.5,
+        DENSITY: 10,
+        RESIST: 2,
+    },
+    MOTION_TYPE: "motor",
+    FACING_TYPE: "smoothWithMotion",
+    HITS_OWN_TYPE: "hard",
+    HAS_NO_MASTER: true,
+    DRAW_HEALTH: true,
+}
+
+// Old Dreadnoughts Polygons
 Class.hexagon_old = {
     PARENT: "food",
     LABEL: "Hexagon",
@@ -210,10 +236,6 @@ Class.hexagon_old = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true
 }
-makeRarities("hexagon")
-makeRarities("hexagon_old")
-
-// Septagon
 Class.septagon = {
     PARENT: "food",
     LABEL: "Septagon",
@@ -233,16 +255,13 @@ Class.septagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true
 }
-makeRarities("septagon")
-
-// Octagon
 Class.octagon = {
     PARENT: "food",
     LABEL: "Octagon",
     VALUE: 35000,
     SHAPE: 8,
     SIZE: 90,
-    COLOR: "hexagon",
+    COLOR: "lavender",
     BODY: {
         DAMAGE: 2 * basePolygonDamage,
         DENSITY: 80,
@@ -255,11 +274,6 @@ Class.octagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true
 }
-if (old_octagon_color) {Class.octagon.COLOR = "lavender"}
-if (old_octagon_name) {Class.octagon.LABEL = "Octogon"}
-makeRarities("octagon")
-
-// Nonagon
 Class.nonagon = {
     PARENT: "food",
     LABEL: "Nonagon",
@@ -279,6 +293,9 @@ Class.nonagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true,
 }
+makeRarities("hexagon_old")
+makeRarities("septagon")
+makeRarities("octagon")
 makeRarities("nonagon")
 
 // 3D

@@ -465,7 +465,7 @@ class gameHandler {
             if (CC && CC.HEALING_TANK) {
                 o.controllers = [];
                 o.define({
-                    CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
+                    CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { replicatePlayerMovement: true, lookAtGoal: true }]],
                     FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
                     AI: Class.bot.AI,
                 }, false, true, false);
@@ -478,7 +478,7 @@ class gameHandler {
                 if (CC && CC.HEALING_TANK) {
                     o.controllers = [];
                     o.define({ 
-                        CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
+                        CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { replicatePlayerMovement: true, lookAtGoal: true }]],
                         FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
                         AI: Class.bot.AI,
                     }, false, true, false);
