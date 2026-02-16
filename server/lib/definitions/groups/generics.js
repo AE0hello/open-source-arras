@@ -97,6 +97,7 @@ Class.genericTank = {
     DAMAGE_CLASS: 2,
     DANGER: 5,
     SHAPE: 0,
+    COLOR: -1,
     MOTION_TYPE: "motor",
     FACING_TYPE: "toTarget",
     SIZE: 12,
