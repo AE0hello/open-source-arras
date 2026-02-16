@@ -1,22 +1,12 @@
 const {combineStats, weaponMirror} = require('./facilitators.js')
 const g = require('./gunvals.js')
 module.exports = {
-	// ON
-	on: {
-		retrograde_self_destruct: {
-			event: 'define',
-			handler: ({ body }) => {
-				if (Config.retrograde && body.socket && !body.socket.permissions) {
-					body.sendMessage("WARNING: This tank will self-destruct in 10 seconds!");
-					setTimeout(() => {
-						body.destroy();
-					}, 10_000)
-				}
-			}
-		}
+	// Tooltips
+	tooltip: {
+		menu_lag: "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"
 	},
 
-	// Functions
+	// Regular Functions
 	makeAuto: {
 		mega: {
 			type: "megaAutoTurret", size: 12
@@ -42,6 +32,21 @@ module.exports = {
 	makeOver: {
 		hybrid: {
 			count: 1, independent: true, cycle: false
+		}
+	},
+
+	// On Functions
+	on: {
+		retrograde_self_destruct: {
+			event: 'define',
+			handler: ({ body }) => {
+				if (Config.retrograde && body.socket && !body.socket.permissions) {
+					body.sendMessage("WARNING: This tank will self-destruct in 10 seconds!");
+					setTimeout(() => {
+						body.destroy();
+					}, 10_000)
+				}
+			}
 		}
 	}
 }

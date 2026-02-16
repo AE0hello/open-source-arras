@@ -1,4 +1,4 @@
-const {combineStats, LayeredBoss, setTurretProjectileRecoil} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require('../../facilitators.js')
 const {base} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -21,6 +21,14 @@ Class.terrestrial = {
     },
     ON: [preset.on.retrograde_self_destruct]
 }
+
+Class.menu_terrestrials = makeMenu("Terrestrials", {upgrades: [
+    "ares",
+    "gersemi",
+    "ezekiel",
+    "eris",
+    "selene",
+], color: "orange", boxColor: "orange", shape: 7.5})
 
 let ares = new LayeredBoss(null, "Ares", "terrestrial", 7, "purple", "terrestrialTrapTurret", 7, 5.5)
 ares.addLayer({gun: {

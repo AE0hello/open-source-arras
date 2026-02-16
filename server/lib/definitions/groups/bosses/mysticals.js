@@ -1,4 +1,4 @@
-const {combineStats, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {combineStats, makeMenu, weaponArray, weaponMirror} = require('../../facilitators.js')
 const {base} = require('../../constants.js')
 const g = require('../../gunvals.js')
 
@@ -8,6 +8,18 @@ const mystical_gun_position = {
     ASPECT: 1.2,
     X: 8
 }
+
+Class.menu_mysticals = makeMenu("Mysticals", {upgrades: [
+    "sorcerer",
+    "summoner",
+    "enchantress",
+    "exorcistor",
+    "shaman",
+    "sangoma",
+    "preacher",
+    "herbalist",
+    "witch",
+], color: "gold", boxColor: "gold", shape: 4})
 
 Class.sorcerer = {
     PARENT: "miniboss",

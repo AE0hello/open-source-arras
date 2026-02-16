@@ -1,4 +1,4 @@
-const {combineStats, weaponArray} = require('../../facilitators.js')
+const {combineStats, makeMenu, weaponArray} = require('../../facilitators.js')
 const {base} = require('../../constants.js')
 const g = require('../../gunvals.js')
 
@@ -18,6 +18,15 @@ Class.nester = {
     },
     VALUE: 3e5,
 }
+
+Class.menu_nesters = makeMenu("Nesters", {upgrades: [
+    "nestKeeper",
+    "nestWarden",
+    "nestGuardian",
+    "nestCurator",
+    "nestDeacon",
+    "nestChampion",
+], color: "purple", boxColor: "purple", shape: 5.5})
 
 Class.nestKeeper = {
     PARENT: "nester",

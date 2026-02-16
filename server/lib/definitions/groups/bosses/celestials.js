@@ -1,4 +1,4 @@
-const {combineStats, LayeredBoss, setTurretProjectileRecoil} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require('../../facilitators.js')
 const {base} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -33,6 +33,43 @@ Class.rogueCelestial = {
     LABEL: "Rogue Celestial",
     COLOR: "darkGrey",
 }
+
+Class.menu_celestials = makeMenu("Celestials", {upgrades: [
+    "paladin",
+    "freyja",
+    "zaphkiel",
+    "nyx",
+    "theia",
+    "atlas",
+    "hera",
+    "horus",
+    "anubis",
+    "isis",
+    "tethys",
+    "ullr",
+    "dellingr",
+    "osiris",
+    "alcis",
+    "khonsu",
+    "baldr",
+    "nephthys",
+    "tyr",
+    "vor",
+    "aether",
+    "iapetus",
+    "apollo",
+    "eros",
+    "hjordis",
+    "sif",
+    "freyr",
+    "styx",
+    "hyperion",
+    "ptah",
+    "rhea",
+    "julius",
+    "genghis",
+    "napoleon",
+], color: "lightGreen", boxColor: "lightGreen", shape: 9.5, tooltip: preset.tooltip.menu_lag})
 
 let paladin = new LayeredBoss(null, "Paladin", "celestial", 9, "purple", "baseTrapTurret", 6.5, 5.5);
 paladin.addLayer({gun: {

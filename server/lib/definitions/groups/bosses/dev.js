@@ -1,6 +1,22 @@
-const {combineStats, makeAura, makeHat, skillSet, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {combineStats, makeAura, makeHat, makeMenu, skillSet, weaponArray, weaponMirror} = require('../../facilitators.js')
 const {base, smshskl} = require('../../constants.js')
 const g = require('../../gunvals.js')
+
+// Dev Menus
+Class.menu_devBosses = makeMenu("Developers", {upgrades: [
+    "AEMKShipBoss",
+    "dogeiscutBoss",
+    "helenaBoss",
+    "tgsBoss",
+    "toothlessBoss",
+    "menu_retiredDevBosses"
+], color: "lightGreen", boxColor: "rainbow", shape: 4})
+
+Class.menu_retiredDevBosses = makeMenu("Developers (Retired)", {upgrades: [
+    "frostBoss",
+    "taureonBoss",
+    "trplnrBoss",
+], color: "pureBlack", boxColor: "pureBlack", shape: 4, boxLabel: "Retired"})
 
 // Taureon
 Class.taureonCoreBase = {

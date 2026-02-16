@@ -1,6 +1,14 @@
-const {combineStats, weaponArray} = require('../../facilitators.js')
+const {combineStats, makeMenu, weaponArray} = require('../../facilitators.js')
 const {base} = require('../../constants.js')
 const g = require('../../gunvals.js')
+
+Class.menu_rogues = makeMenu("Rogues", {upgrades: [
+    "roguePalisade",
+    "rogueArmada",
+    "julius",
+    "genghis",
+    "napoleon",
+], color: "darkGrey", boxColor: "darkGrey", shape: 6})
 
 Class.roguePalisade = {
     PARENT: 'miniboss',
@@ -45,7 +53,7 @@ Class.rogueArmada = {
     UPGRADE_COLOR: 'darkGrey',
     SHAPE: 7,
     SIZE: 28,
-    VALUE: 500000,
+    VALUE: 5e5,
     SKILL: [2, 6, 6, 6, 2, 0, 0, 9, 0, 0],
     BODY: {
         FOV: 1.3,

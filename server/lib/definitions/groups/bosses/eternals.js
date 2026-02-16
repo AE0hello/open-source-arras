@@ -1,4 +1,4 @@
-const {combineStats, LayeredBoss, setTurretProjectileRecoil} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require('../../facilitators.js')
 const {base} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -21,6 +21,12 @@ Class.eternal = {
     },
     ON: [preset.on.retrograde_self_destruct]
 }
+
+Class.menu_eternals = makeMenu("Eternals", {upgrades: [
+    "odin",
+    "kronos",
+    "amun",
+], color: "veryLightGrey", boxColor: "veryLightGrey", shape: 11.5})
 
 let kronos = new LayeredBoss(null, "Kronos", "eternal", 11, "veryLightGrey", "baseTrapTurret", 6, 5.5)
 kronos.addLayer({turret: {
