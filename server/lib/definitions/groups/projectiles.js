@@ -1,4 +1,4 @@
-const { combineStats, weaponArray, weaponMirror } = require('../facilitators.js')
+const {combineStats, weaponArray, weaponMirror} = require('../facilitators.js')
 const g = require('../gunvals.js')
 
 // Bullets
@@ -515,7 +515,7 @@ Class.healerSanctuaryBullet = {
 }
 
 // Drones
-Class.bigBall = { PARENT: "drone", SHAPE: 8 }
+Class.bigBall = {PARENT: "drone", SHAPE: 8}
 Class.sunchip = {
     PARENT: "drone",
     SHAPE: 4,
@@ -530,16 +530,7 @@ Class.sunchip = {
     },
     DRAW_HEALTH: false,
 }
-Class.autosunchip = {
-    PARENT: "sunchip",
-    AI: {
-        BLIND: true,
-        FARMER: true,
-    },
-    INDEPENDENT: true,
-}
-Class.eggchip = { PARENT: "sunchip", NECRO: [0], SHAPE: 0 }
-Class.autoeggchip = { PARENT: "autosunchip", NECRO: [0], SHAPE: 0 }
+Class.eggchip = {PARENT: "sunchip", NECRO: [0], SHAPE: 0}
 
 // Mystical Drones
 Class.summonerDrone = {PARENT: "sunchip", NECRO: false}
@@ -612,7 +603,7 @@ Class.tinyMinion = {
         PUSHABILITY: 0.5,
         FOV: 1.5,
     },
-    AI: { BLIND: true },
+    AI: {BLIND: true},
     GUNS: [
         {
             POSITION: [17, 9, 1, 0, 0, 0, 0],
