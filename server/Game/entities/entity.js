@@ -820,7 +820,7 @@ class Entity extends EventEmitter {
     upgrade(number, branchId) {
         // Account for upgrades that are too high level for the player to access
         let upgraded = false;
-        if (number.isDailyUpgrade) {
+        if (number.isDailyUpgrade && Config.daily_tank && Config.daily_tank.tank) {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
             if (!Config.daily_tank.ads) hasWatchedAd = true;
             let requestedIndex = parseInt(number.tank);

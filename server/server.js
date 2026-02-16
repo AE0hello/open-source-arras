@@ -4,6 +4,8 @@ console.log("Importing modules...\n");
 
 const path = require("path");
 const fs = require("fs");
+const http = require("http");
+const url = require("url");
 
 const { Worker } = require("worker_threads");
 
@@ -65,7 +67,14 @@ if (Config.allow_ACAO && Config.startup_logs) {
 }
 
 // Create an HTTP server to handle both API and static file requests
-server = require("http").createServer((req, res) => {
+server = http.createServer((req, res) => {
+    let query = {};
+    let pathname = req.url.split("?")[0];
+    if (req.url.includes("?")) req.url.split("?")[1].split("&").map(i => {
+        let key = i.split("=")[0];
+        let value = i.split("=")[1];
+        query[key] = value;
+    });
     let readString = ""; // Response content for API endpoints
     let ok = true; // Flag to indicate whether we use default API response
     let serversIP = [];
@@ -88,19 +97,18 @@ server = require("http").createServer((req, res) => {
         }
     }
     // Handle specific API endpoints based on the request URL
-    switch (req.url) {
+    switch (pathname) {
         case "/getServers.json": {
             // Serve a list of active servers (excluding hidden ones)
             readString = JSON.stringify(servers.filter((s) => s && !s.hidden).map((server) => ({
-                    ip: server.ip,
-                    players: server.players,
-                    maxPlayers: server.maxPlayers,
-                    id: server.id,
-                    featured: server.featured,
-                    region: server.region,
-                    gameMode: server.gameMode,
-                }))
-            );
+                ip: server.ip,
+                players: server.players,
+                maxPlayers: server.maxPlayers,
+                id: server.id,
+                featured: server.featured,
+                region: server.region,
+                gameMode: server.gameMode,
+            })));
         } break;
         case "/getTotalPlayers": {
             let countPlayers = 0;
@@ -109,6 +117,19 @@ server = require("http").createServer((req, res) => {
             });
             readString = JSON.stringify(countPlayers);
         } break;
+        case "/version": {
+            readString = JSON.stringify({ver: Config.version, devBuild: Config.devBuild});
+        } break;
+        
+        case "/api/getAddonAuthors": {
+            if (!query.token || query.token !== process.env.DEVELOPER) {
+                res.writeHead(403);
+                res.end("Forbidden");
+                return;
+            }
+            readString = JSON.stringify(global.addonAuthorInfos);
+        } break;
+
         case "/api/sendPlayer": {
             ok = false;
             let body = "";
@@ -175,7 +196,7 @@ server = require("http").createServer((req, res) => {
         default: {
             // For all other routes, serve static files from the public directory
             ok = false;
-            let fileToGet = path.join(publicRoot, req.url);
+            let fileToGet = path.join(publicRoot, pathname);
 
             // If the requested file doesn't exist or isn't a file, default to the main_menu file
             if (!fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {

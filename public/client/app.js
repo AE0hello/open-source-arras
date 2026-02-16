@@ -8,7 +8,6 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.11";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
@@ -202,7 +201,6 @@ import * as socketStuff from "./socketinit.js";
             document.getElementById("optMobile").value = "mobile";
         }
         // If we are loaded for the first time then load the default options settings.
-        console.log(localStorage.getItem("loadedForFirstTime"))
         if (!localStorage.getItem("loadedForFirstTime")) {
             document.getElementById("optRenderGui").checked = true;
             document.getElementById("optRenderLeaderboard").checked = true;
@@ -287,7 +285,23 @@ import * as socketStuff from "./socketinit.js";
                 return d;
             } else throw new Error("Invalid menu tab type.");
         };
-        global.createTabMenu(`Unstable branch (build: ${buildNumber})`, "warning");
+        try {
+            fetch("/version").then(json => json.json()).then(ve => {
+                global.version = ve.ver;
+                if (ve.devBuild) {
+                    global.devBuild = true;
+                    global.createTabMenu(`Unstable branch (build: ${global.version})`, "warning");
+                }
+                // Addon info handler
+                let keyValue = localStorage.getItem('playerKeyInputValue');
+                (async function() {
+                    let A_response = await fetch(`/api/getAddonAuthors?token=${keyValue}`);
+                    let A_data = await A_response.json().catch(() => false);
+                    if (A_data && Array.isArray(A_data)) initalizeAddonAuthors(A_data);
+                })();
+            });
+        } catch { };
+
         // Warn the users to turn their phones into landscape.
         if (global.mobile && window.innerHeight > 1.1 * window.innerWidth) {
             let tabMenu = global.createTabMenu("Please turn your device to landscape mode.", "warning", true);
@@ -367,9 +381,68 @@ import * as socketStuff from "./socketinit.js";
                         (e = g))
             });
     }
+    function initalizeAddonAuthors(data) {
+        let mainDoc = document.getElementById("tabAddons");
+        mainDoc.innerHTML = "";
+        for (let doc of document.getElementById("optionMenuTabs").children) {
+            if (doc.textContent.toLowerCase() === "addons") doc.style.display = "";
+        }
+        // OSA info
+        let i_div = document.createElement("div");
+        let ul = document.createElement("ul");
+        let ul2 = document.createElement("ul");
+        i_div.classList.add("optionsHeader");
+        i_div.textContent = "OSA Info";
+        ul.textContent = `OSA Version: ${global.version}`;
+        ul2.textContent = `Developer build: ${global.devBuild === "false" ? "no" : "yes"}`;
+        i_div.appendChild(ul);
+        i_div.appendChild(ul2);
+        mainDoc.appendChild(i_div);
 
+        // Addon stuff
+        for (let e of data) {
+            let warnDoc = null;
+            if (e["osa-version"].target !== global.version) {
+                warnDoc = document.createElement("ul3");
+                warnDoc.textContent = "This addon may be incompatible with the current OSA version.";
+            }
+            let divDoc = document.createElement("div");
+            divDoc.classList.add("optionsHeader");
+            let name = document.createElement("ul");
+            let version = document.createElement("ul");
+            let versionValue = document.createElement("ul2");
+            let author = document.createElement("ul");
+            let authorValue = document.createElement("ul2");
+            let targetVer = document.createElement("ul");
+            let targetVerValue = document.createElement("ul2");
+
+            name.textContent = e.name.includes("Addon") ? e.name : `${e.name} Addon`;
+            version.textContent = 'Version: ';
+            versionValue.textContent = `${e["addon-version"]}`;
+            version.appendChild(versionValue);
+            author.textContent = "Author/s: ";
+            authorValue.textContent = "";
+            for (let i = 0; i < e.authors.length; i++) {
+                let auth = e.authors[i];
+                authorValue.textContent += `${i !== 0 ? ", " : ""}${auth}`;
+            }
+            author.appendChild(authorValue);
+            targetVer.textContent = "Made for OSA version: ";
+            targetVerValue.textContent = e["osa-version"].target;
+            targetVer.appendChild(targetVerValue);
+
+            divDoc.appendChild(name);
+            if (warnDoc) divDoc.appendChild(warnDoc);
+            divDoc.appendChild(version);
+            divDoc.appendChild(author);
+            divDoc.appendChild(targetVer);
+
+            mainDoc.appendChild(divDoc);
+        }
+    }
     // Custom theme display handler
     function customThemeDisplayHandler() {
+        // Custom theme handler
         util.retrieveFromLocalStorage("optCustom");
         let themeValue = document.getElementById("optCustom");
         let customPlate;
@@ -377,10 +450,10 @@ import * as socketStuff from "./socketinit.js";
             if (e.value === "custom") customPlate = e;
         }
         let {name, author} = getThemeDisplayName(themeValue);
-        if (name !== 'null') customPlate.textContent = `Custom - ${name} ${author}`;
+        if (name !== null && author !== null) customPlate.textContent = `Custom - ${name} ${author}`;
         themeValue.addEventListener("input", () => {
             let {name, author} = getThemeDisplayName(themeValue);
-            customPlate.textContent = `Custom - ${name} ${author}`;
+            if (name !== null && author !== null) customPlate.textContent = `Custom - ${name} ${author}`; else customPlate.textContent = "Custom - Unable to pull name or author.";
         });
     }
 
@@ -794,7 +867,7 @@ import * as socketStuff from "./socketinit.js";
     function getThemeDisplayName(doc) {
         if (doc.value !== "") {
             let {name, author, content} = parseTheme(doc.value);
-            if (content !== "null") {
+            if (content !== null) {
                 let displayName = name;
                 let displayAuthor = author === "" ? "" : author === "fan-made" || author === "Fan-made" || author === "Fan-Made" ? "(Fan-Made)" : `(by ${author})`;
                 return {
@@ -1971,7 +2044,7 @@ import * as socketStuff from "./socketinit.js";
                 if (!t.layer) {
                     const ang = t.direction + t.angle + rot;
                     const len = t.offset * drawSize;
-                    const facing = t.setAngle === null || t.setAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.setAngle;
+                    const facing = t.forceAngle === null || t.forceAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.angle;
                     const cosAng = Math.cos(ang);
                     const sinAng = Math.sin(ang);
                     
@@ -2120,7 +2193,7 @@ import * as socketStuff from "./socketinit.js";
                 if (t.layer) {
                     const ang = t.direction + t.angle + rot;
                     const len = t.offset * drawSize;
-                    const facing = t.setAngle === null || t.setAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.setAngle;
+                    const facing = t.forceAngle === null || t.forceAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.angle;
                     const cosAng = Math.cos(ang);
                     const sinAng = Math.sin(ang);
                     
@@ -3335,8 +3408,9 @@ import * as socketStuff from "./socketinit.js";
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
-            drawText(watermarkText, x + len, y - 50 - 4 * 14 - 2, 15, watermarkColor, "right");
-            drawText(`Build: ${buildNumber}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
+            let wtmrkY = global.devBuild ? 4 : 3;
+            drawText(watermarkText, x + len, y - 50 - wtmrkY * 14 - 2, 15, watermarkColor, "right");
+            if (global.devBuild) drawText(`Build: ${global.version}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
@@ -3423,7 +3497,7 @@ import * as socketStuff from "./socketinit.js";
                 drawBar(entryX, entryX + len, entryY + height / 2 - .7, height - 3 + config.graphical.barChunk, color.black);
                 drawBar(entryX, entryX + len, entryY + height / 2 - .7, height - 3, color.grey);
                 let shift = Math.min(1, entry.score / max);
-                drawBar(entryX, entryX + len * shift, entryY + height / 2 - .7, height - 3.5, gameDraw.modifyColor(entry.barColor));
+                drawBar(entryX, entryX + len * shift, entryY + height / 2 - .7, height - 3.5, gameDraw.modifyColor(entry.barColor, "mirror 0 1 0 false"));
 
                 // Leadboard name + score
                 let nameColor = entry.nameColor || "#FFFFFF";
@@ -4099,8 +4173,77 @@ import * as socketStuff from "./socketinit.js";
         global.metrics.lastrender = getNow();
     }
 
+    function optionsMenu_drawRoundedRect(x, y, w, h, r) {
+        ctx[2].beginPath();
+        ctx[2].moveTo(x+r, y);
+        ctx[2].lineTo(x+w-r, y);
+        ctx[2].quadraticCurveTo(x+w, y, x+w, y+r);
+        ctx[2].lineTo(x+w, y+h-r);
+        ctx[2].quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+        ctx[2].lineTo(x+r, y+h);
+        ctx[2].quadraticCurveTo(x, y+h, x, y+h-r);
+        ctx[2].lineTo(x, y+r);
+        ctx[2].quadraticCurveTo(x, y, x+r, y);
+        ctx[2].closePath();
+    }
+
+    function drawToolip(cb) {
+        // Draw tooltip
+
+        // Set fade animation
+        cb.tooltipService.alpha.set(cb.tooltipService.targetAlpha);
+
+        // And get it
+        const anim = cb.tooltipService.alpha.get();
+
+        // And dont forget the ratio
+        const clickableRatio = global.canvas.height / global.screenHeight / global.ratio;
+        // invisible → skip
+        if (anim > 0.001) {
+            ctx[2].save();
+            ctx[2].globalAlpha = anim;
+
+            const paddingX = 9;
+            const paddingY = 6;
+
+            const splitTooltip = cb.tooltipService.text.split("\n");
+
+            let textW = cb.tooltipService.text.length;
+            for (let line of splitTooltip) textW = Math.max(textW, measureText(line, 13.5));
+            const textH = 16; // font size
+            const boxW = textW + paddingX * 2;
+            let boxH = 0;
+            if (splitTooltip.length === 1) boxH = textH + paddingY * 2.5;
+            if (splitTooltip.length !== 1) for (let line of splitTooltip) boxH += textH;
+            // convert from screen → canvas
+            const tipX = cb.tooltipService.x / clickableRatio;
+            const tipY = cb.tooltipService.y / clickableRatio;
+
+            // tooltip sits BELOW checkbox
+            const bx = tipX;
+            const by = tipY;
+            let textY = by;
+            // background
+            ctx[2].fillStyle = "rgba(30, 30, 30, 0.45)";
+            optionsMenu_drawRoundedRect(bx, by, boxW, splitTooltip.length === 1 ? boxH : boxH + 15, 8);
+            ctx[2].fill();
+            ctx[2].globalAlpha = anim;
+
+            // Text
+            for (let i = 0; i < splitTooltip.length; i++) {
+                let text = splitTooltip[i];
+                let increaseLength = splitTooltip.length === 1 ? 22 : 17.6;
+                textY += increaseLength;
+                drawText(text, bx + paddingX, splitTooltip.length === 1 ? textY : textY + 3, 13.5, color.guiwhite);
+            }
+
+            ctx[2].restore();
+        }
+    }
+
+
     function drawOptionsMenu() {
-        // Initialize tab offset for sliding animation
+        // Initialize tab offset for sliding animation and menu height animation
         if (!global.optionsMenu_Anim.tabOffset) {
             global.optionsMenu_Anim.tabOffset = Smoothbar(global.optionsMenu_Anim.activeTab || 0, 2, 3, 0.08, 0.025, true);
         }
@@ -4208,7 +4351,7 @@ import * as socketStuff from "./socketinit.js";
         const mainMenuAnim = global.optionsMenu_Anim.mainMenu.get();
         if (mainMenuAnim < -470) return; // fully hidden
         const PANEL_WIDTH = 460;
-        const PANEL_HEIGHT = 730;
+        const PANEL_HEIGHT = global.optionsMenu_Anim.mainMenuHeight.get();
         const PANEL_Y = 75;
 
         // slide from off-screen left → visible
@@ -4230,7 +4373,7 @@ import * as socketStuff from "./socketinit.js";
         const TAB_WIDTH = PANEL_WIDTH / 3.73; // 5.035
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
-        const TAB_NAMES = ["Options", "Theme", "Keybinds"];
+        const TAB_NAMES = global.optionsMenu_Anim.tabs;
 
         drawText("ingame options is not finished, expect missing features and bugs lol", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
 
@@ -4296,7 +4439,7 @@ import * as socketStuff from "./socketinit.js";
             // Tab label
             const cx = x + TAB_WIDTH - 11;
             const cy = TAB_Y + TAB_HEIGHT - 18;
-            drawText(TAB_NAMES[tabIndex], cx, cy, 16, color.guiwhite, "center");
+            drawText(TAB_NAMES[tabIndex][0], cx, cy, 16, color.guiwhite, "center");
         }
 
         // Draw tab content with fade animation
@@ -4306,6 +4449,9 @@ import * as socketStuff from "./socketinit.js";
 
         ctx[2].save();
         ctx[2].globalAlpha *= fadeOptions;
+        ctx[2].beginPath();
+        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 10);
+        ctx[2].clip();
         if (fadeOptions > 0.01) {
 
             // OPTIONS TAB
@@ -4329,7 +4475,7 @@ import * as socketStuff from "./socketinit.js";
                     { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Show health bars." },
                     { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
                     { id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
-                    { id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
+                    { id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "May slightly lower the frame rate." },
                     { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 1, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
 
                     // UI Elements
@@ -4389,8 +4535,13 @@ import * as socketStuff from "./socketinit.js";
 
                 cb.tooltipService.x = hitX;
                 cb.tooltipService.y = hitY + hitSize + 10;
-                global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitY, hitSize, hitSize);
-                global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitY, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+                if (fadeOptions > 0.2) {
+                    global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitY, hitSize, hitSize);
+                    global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitY, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+                } else {
+                    global.clickables.optionsMenu.toggleBoxes.hide();
+                    global.clickables.optionsMenu.HoverBoxes.hide();
+                }
                 let clickHover = global.clickables.optionsMenu.toggleBoxes.check(mpos);
                 let hovered = global.clickables.optionsMenu.HoverBoxes.check(mpos);
 
@@ -4430,58 +4581,10 @@ import * as socketStuff from "./socketinit.js";
                 drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left");
             }
 
-        for (const cb of global.optionsCheckboxes) {
-            // Draw tooltip
-
-            // Set fade animation
-            cb.tooltipService.alpha.set(cb.tooltipService.targetAlpha);
-            // And get it
-            const anim = cb.tooltipService.alpha.get();
-            // invisible → skip
-            if (anim > 0.001) {
-                ctx[2].save();
-                ctx[2].globalAlpha = anim * fadeOptions;
-
-                const paddingX = 9;
-                const paddingY = 6;
-
-                const splitTooltip = cb.tooltipService.text.split("\n");
-
-                let textW = cb.tooltipService.text.length;
-                for (let line of splitTooltip) textW = Math.max(textW, measureText(line, 13.5));
-                const textH = 16; // font size
-                const boxW = textW + paddingX * 2;
-                let boxH = 0;
-                if (splitTooltip.length === 1) boxH = textH + paddingY * 2.5;
-                if (splitTooltip.length !== 1) for (let line of splitTooltip) boxH += textH;
-                // convert from screen → canvas
-                const tipX = cb.tooltipService.x / clickableRatio;
-                const tipY = cb.tooltipService.y / clickableRatio;
-
-                // tooltip sits BELOW checkbox
-                const bx = tipX;
-                const by = tipY;
-                let textY = by;
-                // background
-                ctx[2].fillStyle = "rgba(30, 30, 30, 0.45)";
-                drawRoundedRect(bx, by, boxW, splitTooltip.length === 1 ? boxH : boxH + 15, 8);
-                ctx[2].fill();
-                ctx[2].globalAlpha = anim * fadeOptions;
-
-                // Text
-                for (let i = 0; i < splitTooltip.length; i++) {
-                    let text = splitTooltip[i];
-                    let increaseLength = splitTooltip.length === 1 ? 22 : 17.6;
-                    textY += increaseLength;
-                    drawText(text, bx + paddingX, splitTooltip.length === 1 ? textY : textY + 3, 13.5, color.guiwhite);
-                }
-
-                ctx[2].restore();
-            }
-        }
-
         }
         ctx[2].restore();
+
+        for (const cb of global.optionsCheckboxes) drawToolip(cb);
 
         ctx[2].save();
         ctx[2].globalAlpha *= fadeTheme;
@@ -4558,20 +4661,6 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].stroke();
 
         ctx[2].restore();
-
-        function drawRoundedRect(x, y, w, h, r) {
-            ctx[2].beginPath();
-            ctx[2].moveTo(x+r, y);
-            ctx[2].lineTo(x+w-r, y);
-            ctx[2].quadraticCurveTo(x+w, y, x+w, y+r);
-            ctx[2].lineTo(x+w, y+h-r);
-            ctx[2].quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-            ctx[2].lineTo(x+r, y+h);
-            ctx[2].quadraticCurveTo(x, y+h, x, y+h-r);
-            ctx[2].lineTo(x, y+r);
-            ctx[2].quadraticCurveTo(x, y, x+r, y);
-            ctx[2].closePath();
-        }
 
         ctx[2].restore();
     }

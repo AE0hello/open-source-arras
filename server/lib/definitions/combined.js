@@ -35,9 +35,9 @@ class definitionCombiner {
         let gameaddonsLoadEnd = performance.now();
         if (Config.startup_logs && log) console.log("Loaded game addons in " + util.rounder(gameaddonsLoadEnd - addonsLoadEnd, 3) + " milliseconds. \n");
 
-        if (Config.startup_logs && log && convertedExportsCount !== 0) console.log(`Converted ${convertedExportsCount} Exports class${convertedExportsCount == 1 ? "" : "es"} into Class! \n`);
+        if (Config.startup_logs && log && convertedExportsCount !== 0) console.log(`Converted ${convertedExportsCount} "exports" definitio${convertedExportsCount == 1 ? "n" : "ns"} into "Class" definitio${convertedExportsCount == 1 ? "n" : "ns"}! \n`);
 
-        if (Config.startup_logs && log) console.log(`Combined ${this.groupLoc.length} definition groups and ${loadedAddons.length} addons into ${definitionCount} definitions!\n`);
+        if (Config.startup_logs && log) console.log(`Combined ${this.calculateGroupsLength(this.groupLoc)} definition groups and ${loadedAddons.length} addons into ${definitionCount} definitions!\n`);
 
         // Get each class a unique index
         let i = 0;
@@ -96,6 +96,10 @@ class definitionCombiner {
             if (isDirectory) {
                 this.loadAddons(filepath, logs, overrideLoadTextLog);
             }
+            // If we found a addon folder with an info, push it. (Can be better descripted)
+            if (filename.startsWith("addon") && filename.endsWith(".json")) {
+                global.addonAuthorInfos.push(require(filepath));
+            };
             // Now we don't want any html files in!
             if (!filename.endsWith('.js')) continue;
             if (Config.startup_logs && logs) console.log(`Loading ${overrideLoadTextLog ? overrideLoadTextLog : "group addon"}: ${filename}`);

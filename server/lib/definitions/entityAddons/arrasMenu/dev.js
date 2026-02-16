@@ -93,9 +93,10 @@ Class.arrasMenu_youtuber = {
             TYPE: ["triangleHat", {COLOR: "pureWhite"}],
             POSITION: {
                 SIZE: 6,
-                LAYER: 1
+                LAYER: 1,
+                ANGLE: 0,
             },
-            ANGLE: 0
+            FORCE_ANGLE: true
         }
     ],
     GUNS: [

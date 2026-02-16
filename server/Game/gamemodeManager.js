@@ -8,6 +8,7 @@ const { Train } = require("./gamemodes/scripts/trainwars.js");
 const { Maze } = require("./gamemodes/scripts/maze.js");
 const { Outbreak } = require("./gamemodes/scripts/outbreak.js");
 const { ClanWars } = require("./gamemodes/scripts/clan_wars.js");
+const { GroupHandler } = require("./gamemodes/scripts/groups.js");
 
 class gamemodeManager {
     constructor() {
@@ -21,6 +22,7 @@ class gamemodeManager {
         this.gameTrain = new Train();
         this.gameOutbreak = new Outbreak(global.gameManager);
         this.gameClanwars = new ClanWars(global.gameManager);
+        this.gameGroups = new GroupHandler(global.gameManager);
     }
 
     request(type) {
@@ -67,6 +69,7 @@ class gamemodeManager {
         this.gameSandbox.redefine(theshit);
         this.gameMaze.redefine(Config.maze_type);
         this.gameClanwars.redefine(theshit);
+        this.gameGroups.redefine(theshit);
     }
 }
 

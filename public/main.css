@@ -1260,3 +1260,27 @@ i.flag::before {
 i.flag.down::before {
 	margin-bottom: 2px;
 }
+
+#tabAddons ul {
+	padding-left: 0px;
+    margin-left: 0px;
+	font: bold 13px/1 Ubuntu;
+}
+
+#tabAddons ul2 {
+	font: normal 15px/1 Ubuntu;
+}
+
+#tabAddons ul3 {
+	font: bold 13px/1 Ubuntu;
+    color: yellow;
+	text-shadow: #000000 0 0 6px;
+}
+
+#tabAddons div::after {
+	content: '';
+	display: block;
+	border: 0.5px solid rgba(0, 0, 0, 0.15);
+	margin: 18px 0;
+	transition: margin 500ms;
+}

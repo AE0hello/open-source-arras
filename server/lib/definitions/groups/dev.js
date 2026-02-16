@@ -1039,4 +1039,4 @@ Class.digDigFrown_kirk = {
     PROPS: []
 }
 
-global.convertExportsToClass(exports)
+global.convertExportsToClass(exports);

@@ -66,7 +66,7 @@ function getMockup(e, positionInfo) {
             out.direction = util.rounder(p.bound.direction);
             out.layer = util.rounder(p.bound.layer);
             out.angle = util.rounder(p.bound.angle);
-            out.setAngle = p.setAngle;
+            out.forceAngle = p.forceAngle;
             out.isProp = true;
             return out;
         })

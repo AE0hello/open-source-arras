@@ -22,6 +22,7 @@ global.travellingPlayers = [];
 global.fps = "Unknown";
 
 global.loadedAddons = [];
+global.addonAuthorInfos = [];
 global.TEAM_BLUE = -1;
 global.TEAM_GREEN = -2;
 global.TEAM_RED = -3;
@@ -610,7 +611,8 @@ global.convertExportsToClass = (exp) => {
             Class[key].Converted = true;
         }
     }
-}
+};
+
 global.makeHitbox = wall => {
     const _size = wall.size - 4;
     //calculate the relative corners

@@ -244,7 +244,7 @@ class socketManager {
                     socket.kick("Ill-sized spawn request.");
                     return 1;
                 }
-                let name = m[0].replace(Config.BANNED_CHARACTERS_REGEX, '');
+                let name = m[0];
                 let needsRoom = m[1];
                 let autoLVLup = m[2];
                 let transferbodyID = m[3];
@@ -266,6 +266,9 @@ class socketManager {
                 if (transferbodyID && typeof transferbodyID != "string") { socket.kick("Bad body transfer. (transferbodyID)"); return 1; }
                 if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
                 
+                // Get rid of the banned characters
+                name = name.replace(Config.banned_characters, '');
+
                 // Give it the room state and move the camera.
                 if (needsRoom) {
                     if (Config.hidden) return socket.close(); // If the server is hidden then just kick the client.
@@ -517,8 +520,11 @@ class socketManager {
                     player.body.define({RESET_UPGRADES: true, BATCH_UPGRADES: false});
                     player.body.define(socket.permissions.class);
                     let msg = Config.token_message.split("\n");
-                    for (let i = 0; i < msg.length; i++) {
-                        player.body.sendMessage(msg[i]); // todo: make this only fire once
+                    if (!socket.status.specialTankWarned) {
+                        socket.status.specialTankWarned = true;
+                        for (let i = 0; i < msg.length; i++) {
+                            player.body.sendMessage(msg[i]);
+                        }
                     }
                 }
             } break;
@@ -533,6 +539,7 @@ class socketManager {
                             instance.kill();
                         }
                     }
+                    player.body.sendMessage("You have self-destructed.");
                     player.body.destroy();
                 }
             } break;
@@ -667,6 +674,7 @@ class socketManager {
                 socket.talk("T");
             } break;
             case "DTA": {
+                if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
                 if (player.body && player.body.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && Config.daily_tank.ads && !socket.status.daily_tank_watched_ad) {
                     let chosenAd = ran.choose(Config.daily_tank.ad_sources);
                     let isImage = chosenAd.file.endsWith(".png") || chosenAd.file.endsWith(".jpg") || chosenAd.file.endsWith(".jpeg")
@@ -681,12 +689,14 @@ class socketManager {
                 }
             } break;
             case "DTAD": {
+                if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
                 if (socket.status.daily_tank_watched_ad_client) {
                     socket.status.daily_tank_watched_ad = true;
                     socket.talk("DTAD");
                 }
             } break;
             case "DTAST": {
+                if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
                 let time = String(m[0]).split(".")[0];
                 socket.talk("DTAST");
                 setTimeout(() => {

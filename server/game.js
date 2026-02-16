@@ -343,6 +343,7 @@ class gameServer {
         this.room = {
             lastCycle: undefined,
             cycleSpeed: 1000 / this.roomSpeed / 30,
+            partyHash: Number(((Math.random() * 1000000 | 0) + 1000000).toString().replace("0.", "")),
             setup: this.importedRoom,
             roomxgrid: this.importedRoom[0].length,
             roomygrid: this.importedRoom.length,

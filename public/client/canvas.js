@@ -440,6 +440,7 @@ class Canvas {
                 if (optionsMenu_tabClick !== -1) {
                     global.optionsMenu_Anim.activeTab = optionsMenu_tabClick;
                     global.optionsMenu_Anim.tabOffset.set(optionsMenu_tabClick);
+                    global.optionsMenu_Anim.mainMenuHeight.set(global.optionsMenu_Anim.tabs[optionsMenu_tabClick][1]);
                     break;
                 }
                 if (optionsMenu_toggleBox !== -1) {

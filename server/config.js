@@ -3,6 +3,8 @@ module.exports = {
     main_menu: "index.html", // Where the main menu is located (in the /public folder).
     host: "localhost:3000", // Game server domain. If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
     port: 3000, // Which port to run the web server on.
+    version: "v2.0.11", // The current OSA version (Please do not change it as it will result to confusing with the addons, etc)
+    devBuild: true, // Here you can check that if this build is an developer build, if it says `true` then the gameplay may results with compability issues.
 
     // Server
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
@@ -20,7 +22,7 @@ module.exports = {
             id: "lx", // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ["arms_race", "retrograde", "nexus"], // The selected gamemode.
+            gamemode: ["tdm"], // The selected gamemode.
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.

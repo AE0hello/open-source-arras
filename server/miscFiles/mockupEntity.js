@@ -113,7 +113,7 @@ class MockupEntityProp {
             layer: position.LAYER,
         };
         // Initalize.
-        this.setAngle = def.ANGLE ?? null;
+        this.forceAngle = def.FORCE_ANGLE ?? null;
         this.facing = 0;
         this.x = 0;
         this.y = 0;

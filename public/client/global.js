@@ -334,10 +334,12 @@ const global = {
             switchMenu_button: util.Smoothbar(0, 2, 3, 0.08, 0.025, true),
             optionsButtonProgress: util.Smoothbar(0, 2, 0.1, 0.08, 0.025, true),
             mainMenu: util.Smoothbar(-500, 2, 3, 0.08, 0.025, true),
+            mainMenuHeight: util.Smoothbar(730, 2, 3, 0.08, 0.025, true),
             isOpened: false,
             tabClickables: Region(10),  // Pre-initialize for up to 10 tabs
             themeClickables: Region(100),
             activeTab: 0, // 0=Options, 1=Theme, 2=Keybinds, 3=Secret
+            tabs: [["Options", 730], ["Theme", 610], ["Keybinds", 730]],
             tabSlideAnim: util.Smoothbar(0, 0.3, 1.5, 0.03, 0.025, true),
         };
         let list = {

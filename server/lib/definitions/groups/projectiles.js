@@ -547,7 +547,6 @@ Class.minion = {
     PARENT: "genericTank",
     LABEL: "Minion",
     TYPE: "minion",
-    DAMAGE_CLASS: 0,
     HITS_OWN_TYPE: "hardWithBuffer",
     FACING_TYPE: "smoothToTarget",
     BODY: {
