@@ -94,7 +94,12 @@ class gameServer {
         this.name = "Unknown";
         this.featured = isfeatured;
         this.parentPort = parentPort;
-        this.definitionsCombiner = new definitionCombiner({ groups: path.join(__dirname, './lib/definitions/groups'), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') });
+        this.definitionsCombiner = new definitionCombiner(
+            {
+                groups: path.join(__dirname, './lib/definitions/groups'),
+                addonsFolder: path.join(__dirname, './lib/definitions/entityAddons')
+            }
+        );
         this.loaderGlobal = loaderGlobal;
         // Initalize.
         this.roomSpeed = Config.game_speed;

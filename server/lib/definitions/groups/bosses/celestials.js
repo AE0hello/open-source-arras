@@ -5,7 +5,7 @@ const preset = require('../../presets.js')
 
 // Since this is the first file loaded from groups, we'll also load the important stuff we need for every other file before this so nothing breaks
 require('../generics.js')
-require('../tanks.js')
+require('../tanks/main.js')
 require('../turrets.js')
 require('../hats.js')
 require('../food.js')

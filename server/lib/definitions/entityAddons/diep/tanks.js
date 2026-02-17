@@ -17,7 +17,7 @@ const havre_tanks = false // Adds tanks from havre.io to the class tree.
 // Menu/Generics
 Class.arrasMenu_diep.UPGRADES_TIER_0.push("tank_diep")
 Class.menu_addons.UPGRADES_TIER_0.push("menu_diep")
-Class.menu_diep = makeMenu("Diep", {upgrades: ["tank_diep", "guardian_diep", "defender_diep"]})
+Class.menu_diep = makeMenu("Diep", {upgrades: ["tank_diep", "id53_diep", "guardian_diep", "defender_diep"]})
 Class.diep = {PARENT: "genericTank", REROOT_UPGRADE_TREE: "tank_diep"}
 Class.diepSmasher = {PARENT: "genericSmasher", REROOT_UPGRADE_TREE: "tank_diep"}
 if (Config.diep) {Config.spawn_class = "tank_diep"}
@@ -1896,57 +1896,12 @@ Class.twinGuard_havre = {
         }, {delayIncrement: 0.5})
     ], 2)
 }
-Class.xHunter_diep = {
+
+// Special
+Class.id53_diep = {
     PARENT: "diep",
-    LABEL: "X Hunter",
-    DANGER: 7,
-    BODY: {
-        FOV: 1.15 * base.FOV
-    },
-    GUNS: [
-        {
-            POSITION: diep2arras({
-                angle: 0,
-                offset: 0,
-                size: 110,
-                width: 42,
-                delay: 0,
-                isTrapezoid: false
-            }),
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.predator]),
-                TYPE: "bullet",
-            }
-        },
-        {
-            POSITION: diep2arras({
-                angle: 0,
-                offset: 0,
-                size: 95,
-                width: 56.7,
-                delay: 0.2,
-                isTrapezoid: false
-            }),
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.predator]),
-                TYPE: "bullet",
-            }
-        },
-        {
-            POSITION: diep2arras({
-                angle: 0,
-                offset: 0,
-                size: 80,
-                width: 71.4,
-                delay: 0.4,
-                isTrapezoid: false
-            }),
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.predator]),
-                TYPE: "bullet",
-            }
-        }
-    ]
+    LABEL: "",
+    DANGER: 4
 }
 
 // Class Tree
@@ -1977,11 +1932,11 @@ Class.tank_diep.UPGRADES_TIER_1 = ["twin", "sniper", "machineGun", "flankGuard"]
         //Class.twinFlank_diep.UPGRADES_TIER_3
         Class.auto3_diep.UPGRADES_TIER_3 = ["auto5", "autoGunner"].map(x => x + "_diep")
 
-for (let i = 0; i < Class.hunter_diep.UPGRADES_TIER_3.length; i++) {
-    let string = Class.hunter_diep.UPGRADES_TIER_3[i];
-    if (split_predator && string === "predator_diep") {
-        Class.hunter_diep.UPGRADES_TIER_3.splice(i, 1, "xHunter_diep", "predator_old_diep")
-    }
+if (split_predator) {
+    Class.predator_diep.LABEL = "X Hunter"
+    Class.predator_diep.CONTROLLERS.pop()
+    Class.predator_diep.TOOLTIP = ""
+    Class.hunter_diep.UPGRADES_TIER_3.splice(1, 0, "predator_old_diep")
 }
 
 if (havre_tanks) {

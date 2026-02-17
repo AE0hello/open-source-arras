@@ -1,7 +1,7 @@
-const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
-const {base, dfltskl, smshskl, statnames} = require('../constants.js')
-const g = require('../gunvals.js')
-const preset = require('../presets.js')
+const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {base, dfltskl, smshskl, statnames} = require('../../constants.js')
+const g = require('../../gunvals.js')
+const preset = require('../../presets.js')
 
 // Basic Tank
 Class.basic = {
@@ -6369,6 +6369,9 @@ if (Config.retrograde) {
 
 if (Config.siege) {
     Class.basic.UPGRADES_TIER_2 = ["healer"]
+
     Class.director.UPGRADES_TIER_2 = ["overseer", "cruiser", "spawner"]
-    Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "vortex"]
+    
+    //Class.whirlwind.UPGRADES_TIER_2
+        Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "vortex"]
 }
