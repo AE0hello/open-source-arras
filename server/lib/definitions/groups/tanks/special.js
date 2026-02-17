@@ -304,7 +304,7 @@ Class.mothership = {
                 WAIT_TO_CYCLE: true,
             }
         }
-    ], 8, 1/16)
+    ], 8, {delayIncrement: 1/16})
 }
 Class.flagship = {
     PARENT: 'mothership',

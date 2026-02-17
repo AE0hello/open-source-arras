@@ -173,11 +173,14 @@ exports.makeBird = (type, name = -1, options = {}) => {
     let frontRecoilFactor = options.frontRecoil ?? 1;
     let backRecoilFactor = options.frontRecoil ?? 1;
     let color = options.frontRecoil;
-    let superBird = options.super ?? false;
 
     // Thrusters
     let backRecoil = 0.5 * backRecoilFactor;
-    let thrusterProperties = { SHOOT_SETTINGS: exports.combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster, { recoil: backRecoil }]), TYPE: "bullet", LABEL: "thruster" };
+    let thrusterProperties = {
+        SHOOT_SETTINGS: exports.combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster, { recoil: backRecoil }]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+    };
     let shootyBois = [
         ...exports.weaponMirror({
             POSITION: {
@@ -198,9 +201,14 @@ exports.makeBird = (type, name = -1, options = {}) => {
             PROPERTIES: thrusterProperties
         }
     ];
-    if (superBird) {
+    if (options.super) {
         shootyBois.splice(0, 0, ...exports.weaponMirror({
-            POSITION: [14, 8, 1, 0, 0, 130, 0.6],
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 8,
+                ANGLE: 130,
+                DELAY: 0.6
+            },
             PROPERTIES: thrusterProperties
         }))
     }
@@ -228,34 +236,55 @@ exports.makeBird = (type, name = -1, options = {}) => {
     }
     return output;
 }
-exports.makeGuard = (type, name = -1, options  = {}) => {
+exports.makeGuard = (type, name = -1, options = {}) => {
     type = ensureIsClass(type)
     let output = exports.dereference(type)
 
     // Rear Trap Launcher
-    let trapper = [
-        {
-            POSITION: {
-                LENGTH: 13,
-                WIDTH: 8,
-                ANGLE: 180
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4,
-                WIDTH: 8,
-                ASPECT: 1.7,
-                X: 13,
-                ANGLE: 180
+    let trapper = {
+        GUNS: [
+            {
+                POSITION: {
+                    LENGTH: 13,
+                    WIDTH: 8
+                }
             },
-            PROPERTIES: {
-                SHOOT_SETTINGS: exports.combineStats([g.trap]),
-                TYPE: 'trap',
-                STAT_CALCULATOR: 'trap'
+            {
+                POSITION: {
+                    LENGTH: 4,
+                    WIDTH: 8,
+                    ASPECT: 1.7,
+                    X: 13
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: exports.combineStats([g.trap]),
+                    TYPE: 'trap',
+                    STAT_CALCULATOR: 'trap'
+                }
+            }
+        ]
+    }
+    if (options.type) {
+        trapper = exports.dereference(options.type)
+    }
+
+    // Rotate 180 degrees
+    for (let gun of trapper.GUNS) {
+        if (gun.POSITION) {
+            if (gun.POSITION.ANGLE) {
+                gun.POSITION.ANGLE = gun.POSITION.ANGLE + 180
+            } else {
+                gun.POSITION.ANGLE = 180
             }
         }
-    ]
+    }
+
+    // Add two more if we're making a Tri-Guard
+    if (options.triple) {
+        trapper.GUNS.push(
+            ...exports.weaponArray(trapper.GUNS, 2, {startAngle: 90})
+        )
+    }
 
     // Nerf existing barrels
     for (let gun of output.GUNS) {
@@ -267,8 +296,8 @@ exports.makeGuard = (type, name = -1, options  = {}) => {
     }
 
     // Assign misc settings
-    output.GUNS = type.GUNS == null ? trapper : [...output.GUNS, ...trapper]
-    output.DANGER = type.DANGER + 2
+    output.GUNS = type.GUNS == null ? trapper.GUNS : [...output.GUNS, ...trapper.GUNS]
+    output.DANGER = type.DANGER + options.danger ?? 2
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name
     if (type.UPGRADE_LABEL !== undefined) {
         output.UPGRADE_LABEL = output.LABEL;
@@ -776,7 +805,7 @@ exports.makeMenu = (name = -1, options = {}) => {
         UPGRADES_TIER_0: options.upgrades ??= []
     };
 }
-exports.weaponArray = (weapons, count, delayIncrement = 0, delayOverflow = false) => {
+exports.weaponArray = (weapons, count, options = {}) => {
     // delayIncrement: how much each side's delay increases by
     // delayOverflow: false to constrain the delay value between [0, 1)
     if (!Array.isArray(weapons)) {
@@ -785,11 +814,13 @@ exports.weaponArray = (weapons, count, delayIncrement = 0, delayOverflow = false
     let isTurret = weapons[0].TYPE != undefined;
     let angleKey = isTurret ? 3 : 5;
     let delayKey = 6;
+    let angleIncrement = options.startAngle ?? 0
+    let delayIncrement = options.delayIncrement ?? 0
 
     let output = [];
     for (let weapon of weapons) {
         for (let i = 0; i < count; i++) {
-            let angle = 360 / count * i;
+            let angle = 360 / count * i + angleIncrement;
             let delay = delayIncrement * i;
             let newWeapon = exports.dereference(weapon);
 
@@ -801,7 +832,7 @@ exports.weaponArray = (weapons, count, delayIncrement = 0, delayOverflow = false
             newWeapon.POSITION[angleKey] = (newWeapon.POSITION[angleKey] ?? 0) + angle;
             if (!isTurret) {
                 newWeapon.POSITION[delayKey] = (newWeapon.POSITION[delayKey] ?? 0) + delay;
-                if (!delayOverflow) {
+                if (!options.delayOverflow) {
                     newWeapon.POSITION[delayKey] %= 1;
                 }
             }

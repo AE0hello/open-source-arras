@@ -568,15 +568,13 @@ Class.scenexeArc = {
 Class.scenexeQuad = {
     PARENT: "scenexeNode",
     LABEL: "Quad",
-    GUNS: weaponArray(
-        {
-            POSITION: { LENGTH: 21, WIDTH: 10, ASPECT: 1 },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-                TYPE: "bullet",
-            }
-        }, 4
-    )
+    GUNS: weaponArray({
+        POSITION: { LENGTH: 21, WIDTH: 10, ASPECT: 1 },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
+            TYPE: "bullet",
+        }
+    }, 4)
 }
 Class.scenexeWake = {
     PARENT: "scenexeNode",
@@ -887,8 +885,8 @@ Class.scenexeRubble = {
                 TYPE: "scenexeTrap",
                 STAT_CALCULATOR: "trap"
             }
-        }], 4
-    )
+        }
+    ], 4)
 }
 Class.scenexeScrap = {
     PARENT: "scenexeNode",
@@ -905,8 +903,8 @@ Class.scenexeScrap = {
                 TYPE: "scenexeTrap",
                 STAT_CALCULATOR: "trap"
             }
-        }], 6
-    )
+        }
+    ], 6)
 }
 Class.scenexeEngineer = {
     PARENT: "scenexeNode",
@@ -954,7 +952,7 @@ Class.scenexeStockade = {
     PARENT: "scenexeNode",
     LABEL: "Stockade",
     STAT_NAMES: statnames.trap,
-    GUNS: weaponArray(
+    GUNS: weaponArray([
         {
             POSITION: { LENGTH: 15, WIDTH: 7 }
         },
@@ -965,8 +963,8 @@ Class.scenexeStockade = {
                 TYPE: "scenexeTrap",
                 STAT_CALCULATOR: "trap"
             }
-        }, 3
-    )
+        }
+    ], 3)
 }
 Class.scenexeBarricade = {
     PARENT: "scenexeNode",
@@ -1129,19 +1127,17 @@ Class.scenexeOverlord = {
     LABEL: "Overlord",
     STAT_NAMES: statnames.drone,
     MAX_CHILDREN: 8,
-    GUNS: weaponArray(
-        {
-            POSITION: [9, 7, 1.3, 7, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone]),
-                TYPE: "drone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true
-            }
-        }, 3
-    )
+    GUNS: weaponArray({
+        POSITION: [9, 7, 1.3, 7, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone]),
+            TYPE: "drone",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "drone",
+            WAIT_TO_CYCLE: true
+        }
+    }, 3)
 }
 
 //BASE
@@ -1529,12 +1525,10 @@ Class.scenexeBattleship = {
 Class.scenexeMothership = {
     PARENT: "scenexeBase",
     LABEL: "Mothership",
-    TURRETS: weaponArray(
-        {
-            POSITION: [8.5, 0, 8, 0, 0, 1],
-            TYPE: "scenexeBattleshipTurret",
-        }, 4
-    )
+    TURRETS: weaponArray({
+        POSITION: [8.5, 0, 8, 0, 0, 1],
+        TYPE: "scenexeBattleshipTurret",
+    }, 4)
 }
 
 Class.scenexeNode.UPGRADES_TIER_0 = ["scenexeMono", "scenexeTrapper", "scenexeCommander"]

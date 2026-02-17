@@ -135,7 +135,7 @@ Class.exorcistor = {
             STAT_CALCULATOR: "drone",
             WAIT_TO_CYCLE: true,
         },
-    }, 5, 1/5)
+    }, 5, {delayIncrement: 1/5})
 }
 Class.shaman = {
     PARENT: "miniboss",
@@ -164,7 +164,7 @@ Class.shaman = {
             STAT_CALCULATOR: "drone",
             WAIT_TO_CYCLE: true,
         },
-    }, 6, 1/6)
+    }, 6, {delayIncrement: 1/6})
 }
 Class.sangoma = {
     PARENT: "miniboss",
@@ -196,7 +196,7 @@ Class.sangoma = {
             STAT_CALCULATOR: "drone",
             WAIT_TO_CYCLE: true,
         },
-    }, 7, 1/7)
+    }, 7, {delayIncrement: 1/7})
 }
 Class.preacher = {
     PARENT: "miniboss",
@@ -228,7 +228,7 @@ Class.preacher = {
             STAT_CALCULATOR: "drone",
             WAIT_TO_CYCLE: true,
         },
-    }, 8, 0.125)
+    }, 8, {delayIncrement: 0.125})
 }
 Class.herbalist = {
     PARENT: "miniboss",
@@ -260,7 +260,7 @@ Class.herbalist = {
             STAT_CALCULATOR: "drone",
             WAIT_TO_CYCLE: true,
         },
-    }, 9, 1/9)
+    }, 9, {delayIncrement: 1/9})
 }
 Class.witch = {
     PARENT: "miniboss",

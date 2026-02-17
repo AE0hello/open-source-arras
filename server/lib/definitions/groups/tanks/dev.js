@@ -1,4 +1,4 @@
-const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponMirror} = require('../../facilitators.js')
 const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 

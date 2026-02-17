@@ -628,7 +628,7 @@ Class.hexaTank = {
             SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard]),
             TYPE: "bullet"
         }
-    }, 6, 0.5)
+    }, 6, {delayIncrement: 0.5})
 }
 Class.hunter = {
     PARENT: "genericTank",
@@ -2277,7 +2277,7 @@ Class.commander = {
                 TYPE: "swarm",
                 STAT_CALCULATOR: "swarm"
             }
-        }, 3, 1/3),
+        }, 3, {delayIncrement: 1/3})
     ]
 }
 Class.commander_old = {
@@ -2293,7 +2293,7 @@ Class.commander_old = {
     TURRETS: [
         {
             POSITION: [16, 1, 0, 0, 0, 0],
-                TYPE: "oldCommanderGun",
+            TYPE: "oldCommanderGun",
         },
         {
             POSITION: [16, 1, 0, 120, 0, 0],
@@ -3135,7 +3135,7 @@ Class.fortress = {
                 TYPE: "swarm",
                 STAT_CALCULATOR: "swarm"
             }
-        }, 3, 1/3),
+        }, 3, {delayIncrement: 1/3}),
         ...weaponArray([
             {
                 POSITION: {
@@ -3282,7 +3282,7 @@ Class.hexaTrapper = makeAuto({
                 STAT_CALCULATOR: "trap"
             }
         }
-    ], 6, 0.5),
+    ], 6, {delayIncrement: 0.5})
 }, "Hexa-Trapper")
 Class.hexaWhirl = makeWhirlwind("hexaTank", {label: "Hexa Whirl"})
 Class.hybrid = makeOver("destroyer", "Hybrid", preset.makeOver.hybrid)
@@ -3838,7 +3838,7 @@ Class.necromancer = {
             WAIT_TO_CYCLE: true,
             DELAY_SPAWN: false
         }
-    }, 4, 0.75)
+    }, 4, {delayIncrement: 0.75})
 }
 Class.nimrod = {
     PARENT: "genericTank",
@@ -4228,7 +4228,7 @@ Class.prodigy = {
                 DELAY_SPAWN: false,
                 MAX_CHILDREN: 2
             },
-        }, 3, 1/3),
+        }, 3, {delayIncrement: 1/3}),
         ...weaponArray([{
             POSITION: {
                 LENGTH: 14,
@@ -4766,7 +4766,7 @@ Class.septaTrapper_old = {
                 STAT_CALCULATOR: "trap"
             }
         }
-    ], 7, 4/7)
+    ], 7, {delayIncrement: 4/7})
 }
 Class.shotgun = {
     PARENT: "genericTank",
@@ -5819,7 +5819,7 @@ Class.xHunter = {
         SPEED: base.SPEED * 0.9,
         FOV: base.FOV * 1.25
     },
-    CONTROLLERS: [["zoom", { distance: 550 }]],
+    CONTROLLERS: [["zoom", {distance: 550}]],
     TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         {
@@ -5935,7 +5935,7 @@ Class.damoclone = {
             SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone, g.spam]),
             TYPE: "bullet"
         }
-    }, 24, 1/24)
+    }, 24, {delayIncrement: 1/24})
 }
 Class.literallyAMachineGun = {
     PARENT: "genericTank",

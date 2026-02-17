@@ -305,7 +305,7 @@ Class.hive = {
             STAT_CALCULATOR: "swarm",
             AUTOFIRE: true
         },
-    }, 5, 0.2)
+    }, 5, {delayIncrement: 0.2})
 }
 Class.protoHive = {
     PARENT: "bullet",
@@ -326,7 +326,7 @@ Class.protoHive = {
             STAT_CALCULATOR: "swarm",
             AUTOFIRE: true
         },
-    }, 3, 1/3)
+    }, 3, {delayIncrement: 1/3})
 }
 Class.hyperHive = {
     PARENT: "bullet",
@@ -347,7 +347,7 @@ Class.hyperHive = {
             STAT_CALCULATOR: "swarm",
             AUTOFIRE: true
         },
-    }, 7, 1/7)
+    }, 7, {delayIncrement: 1/7})
 }
 Class.snake = {
     PARENT: "missile",

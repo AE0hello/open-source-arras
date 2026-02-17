@@ -784,6 +784,47 @@ Class.cycloneM1 = {
         }
     ], 3)
 }
+Class.gunnerCruiser = {
+    PARENT: "genericTank",
+    LABEL: "Gunner Cruiser",
+    DANGER: 7,
+    GUNS: [
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 9,
+                    WIDTH: 8.2,
+                    ASPECT: 0.6,
+                    X: 3,
+                    Y: 1.5,
+                    ANGLE: 22.5
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.swarm]),
+                    TYPE: "swarm",
+                    STAT_CALCULATOR: "swarm",
+                },
+            },
+            {
+                POSITION: {
+                    LENGTH: 19,
+                    WIDTH: 2,
+                    Y: -2.5
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard, { recoil: 1.8 }]),
+                    TYPE: "bullet"
+                }
+            }
+        ], {delayIncrement: 0.5}),
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 11
+            }
+        }
+    ]
+}
 
 // Testing tanks
 Class.diamondShape = {
@@ -1359,7 +1400,7 @@ Class.weaponArrayTest = {
                 TYPE: 'bullet'
             }
         }
-    ], 5, 0.4, false),
+    ], 5, {delayIncrement: 0.4, delayOverflow: true}),
     TURRETS: weaponArray(
         {
             POSITION: [7, 10, 0, -11, 180, 0],
