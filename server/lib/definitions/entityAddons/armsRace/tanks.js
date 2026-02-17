@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -3772,36 +3772,7 @@ Class.antidote_AR = {
 Class.armament_AR = makeGunner('enforcer_AR', "Armament", {rear: true})
 Class.autoDirectorstorm_AR = makeAuto("directorstorm_AR", "Auto-Directorstorm", preset.makeAuto.storm)
 Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
-Class.autoHexaTrapper_AR = makeAuto({
-    PARENT: "genericTank",
-    DANGER: 7,
-    BODY: {
-        SPEED: 0.8 * base.SPEED
-    },
-    STAT_NAMES: statnames.trap,
-    HAS_NO_RECOIL: true,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 6, {delayIncrement: 0.5})
-}, "Auto-Hexa-Trapper", preset.makeAuto.triple)
+Class.autoHexaTrapper_AR = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Auto-Hexa-Trapper", preset.makeAuto.triple)
 Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", preset.makeAuto.blank), {label: "Auto-Hexa Whirl"})
 Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", preset.makeAuto.blank), {label: "Auto-Munition"})
 Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", preset.makeAuto.drive)
@@ -5874,36 +5845,7 @@ Class.megaCocci_AR = {
         }
     ]
 }
-Class.megaHexaTrapper_AR = makeAuto({
-    PARENT: "genericTank",
-    DANGER: 7,
-    BODY: {
-        SPEED: 0.8 * base.SPEED
-    },
-    STAT_NAMES: statnames.trap,
-    HAS_NO_RECOIL: true,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 6, {delayIncrement: 0.5})
-}, "Mega Hexa-Trapper", preset.makeAuto.mega)
+Class.megaHexaTrapper_AR = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Mega Hexa-Trapper", preset.makeAuto.mega)
 Class.megaWhirl3_AR = makeWhirlwind("mega3", {label: "Mega-Whirl-3"})
 Class.mono_AR = {
     PARENT: "genericTank",
@@ -5936,36 +5878,7 @@ Class.mono_AR = {
         }
     ]
 }
-Class.octoTrapper_AR = makeAuto({
-    PARENT: "genericTank",
-    DANGER: 7,
-    BODY: {
-        SPEED: 0.8 * base.SPEED
-    },
-    STAT_NAMES: statnames.trap,
-    HAS_NO_RECOIL: true,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 8, {delayIncrement: 0.5})
-}, "Octo-Trapper")
+Class.octoTrapper_AR = makeAuto(makeFlank('trapper', 8, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Octo-Trapper")
 Class.octoWhirl_AR = makeWhirlwind("octoTank", {label: "Octo Whirl"})
 Class.ointment_AR = {
     PARENT: "genericHealer",

@@ -1,4 +1,4 @@
-const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -119,23 +119,8 @@ Class.flail = {
         }
     }]
 }
-Class.flankGuard = {
-    PARENT: "genericTank",
-    LABEL: "Flank Guard",
-    BODY: {
-        SPEED: 1.1 * base.SPEED
-    },
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 18,
-            WIDTH: 8
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 3)
-}
+Class.flankGuard = makeFlank('basic', 3, "Flank Guard", {extraStats: [g.flankGuard]})
+Class.flankGuard.BODY = {SPEED: 1.1 * base.SPEED}
 Class.machineGun = {
     PARENT: "genericTank",
     LABEL: "Machine Gun",
@@ -432,38 +417,8 @@ Class.doubleFlail = {
         }]
     }, 2)
 }
-Class.doubleMachine = {
-    PARENT: "genericTank",
-    LABEL: "Double Machine",
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 12,
-            WIDTH: 10,
-            ASPECT: 1.4,
-            X: 8
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, {size: 0.92}, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 2)
-}
-Class.doubleTwin = {
-    PARENT: "genericTank",
-    LABEL: "Double Twin",
-    DANGER: 6,
-    GUNS: weaponArray(weaponMirror({
-        POSITION: {
-            LENGTH: 20,
-            WIDTH: 8,
-            Y: 5.5
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
-            TYPE: "bullet"
-        }
-    }, {delayIncrement: 0.5}), 2)
-}
+Class.doubleMachine = makeFlank('machineGun', 2, "Double Machine", {extraStats: [g.flankGuard]})
+Class.doubleTwin = makeFlank('twin', 2, "Double Twin", {extraStats: [g.doubleTwin]})
 Class.flangle = {
     PARENT: "genericFlail",
     LABEL: "Flangle",
@@ -615,21 +570,7 @@ Class.helix = {
         })
     ]
 }
-Class.hexaTank = {
-    PARENT: "genericTank",
-    LABEL: "Hexa Tank",
-    DANGER: 6,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 18,
-            WIDTH: 8,
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 6, {delayIncrement: 0.5})
-}
+Class.hexaTank = makeFlank('basic', 6, "Hexa Tank", {extraStats: [g.flankGuard, g.flankGuard], delayIncrement: 0.5, danger: 6})
 Class.hunter = {
     PARENT: "genericTank",
     LABEL: "Hunter",
@@ -1147,33 +1088,7 @@ Class.triAngle = {
         })
     ]
 }
-Class.triTrapper = {
-    PARENT: "genericTank",
-    LABEL: "Tri-Trapper",
-    DANGER: 6,
-    STAT_NAMES: statnames.trap,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.flankGuard]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 3)
-}
+Class.triTrapper = makeFlank('trapper', 3, "Tri-Trapper", {extraStats: [g.flankGuard]})
 Class.tripleShot = {
     PARENT: "genericTank",
     LABEL: "Triple Shot",
@@ -1704,36 +1619,7 @@ Class.bender = {
         })
     ]
 }
-Class.bentDouble = {
-    PARENT: "genericTank",
-    LABEL: "Bent Double",
-    DANGER: 7,
-    GUNS: weaponArray([
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8,
-                Y: 2,
-                ANGLE: 18,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.doubleTwin]),
-                TYPE: "bullet"
-            }
-        }),
-        {
-            POSITION: {
-                LENGTH: 22,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.doubleTwin]),
-                TYPE: "bullet"
-            }
-        }
-    ], 2)
-}
+Class.bentDouble = makeFlank('tripleShot', 2, "Bent Double", {extraStats: [g.doubleTwin]})
 Class.bentHybrid = makeOver("tripleShot", "Bent Hybrid", preset.makeOver.hybrid)
 Class.bigCheese = {
     PARENT: "genericTank",
@@ -3254,36 +3140,7 @@ Class.hewnDouble = {
         }, {delayIncrement: 0.5}), 2)
     ]
 }
-Class.hexaTrapper = makeAuto({
-    PARENT: "genericTank",
-    DANGER: 6,
-    BODY: {
-        SPEED: 0.8 * base.SPEED
-    },
-    STAT_NAMES: statnames.trap,
-    HAS_NO_RECOIL: true,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 6, {delayIncrement: 0.5})
-}, "Hexa-Trapper")
+Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6}), "Hexa-Trapper")
 Class.hexaWhirl = makeWhirlwind("hexaTank", {label: "Hexa Whirl"})
 Class.hybrid = makeOver("destroyer", "Hybrid", preset.makeOver.hybrid)
 Class.infestor = {
@@ -4736,38 +4593,7 @@ Class.septaTrapper = {
         ], {delayOverflow: true})
     ]
 }
-Class.septaTrapper_old = {
-    PARENT: "genericTank",
-    LABEL: "Septa-Trapper",
-    UPGRADE_LABEL: "Old Septa-Trapper",
-    DANGER: 7,
-    BODY: {
-        SPEED: base.SPEED * 0.8
-    },
-    STAT_NAMES: statnames.trap,
-    HAS_NO_RECOIL: true,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 7
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 7,
-                ASPECT: 1.7,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ], 7, {delayIncrement: 4/7})
-}
+Class.septaTrapper_old = makeFlank('trapper', 7, "Septa Trapper", {extraStats: [g.hexaTrapper], delayIncrement: 4/7, danger: 7})
 Class.shotgun = {
     PARENT: "genericTank",
     LABEL: "Shotgun",
@@ -5569,39 +5395,8 @@ Class.tripleFlail = {
         }]
     }, 3)
 }
-Class.tripleMachine = {
-    PARENT: "genericTank",
-    LABEL: "Triple Machine",
-    DANGER: 7,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 12,
-            WIDTH: 10,
-            ASPECT: 1.4,
-            X: 8
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }, g.flankGuard, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 3)
-}
-Class.tripleTwin = {
-    PARENT: "genericTank",
-    LABEL: "Triple Twin",
-    DANGER: 7,
-    GUNS: weaponArray(weaponMirror({
-        POSITION: {
-            LENGTH: 20,
-            WIDTH: 8,
-            Y: 5.5
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin]),
-            TYPE: "bullet"
-        }
-    }, {delayIncrement: 0.5}), 3)
-}
+Class.tripleMachine = makeFlank('machineGun', 3, "Triple Machine", {extraStats: [g.flankGuard, g.flankGuard], danger: 7})
+Class.tripleTwin = makeFlank('twin', 3, "Triple Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7})
 Class.triplet = {
     PARENT: "genericTank",
     LABEL: "Triplet",

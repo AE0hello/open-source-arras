@@ -236,9 +236,26 @@ exports.makeBird = (type, name = -1, options = {}) => {
     }
     return output;
 }
+exports.makeFlank = (type, count, name = -1, options = {}) => {
+    type = ensureIsClass(type)
+    let output = exports.dereference(type)
+    let extraStats = options.extraStats ??= []
+    for (let gun of output.GUNS) {
+        if (gun.PROPERTIES) {
+            if (gun.PROPERTIES.SHOOT_SETTINGS) {
+                gun.PROPERTIES.SHOOT_SETTINGS = exports.combineStats([gun.PROPERTIES.SHOOT_SETTINGS, ...extraStats])
+            }
+        }
+    }
+    output.GUNS = exports.weaponArray(output.GUNS, count ?? 3, {delayIncrement: options.delayIncrement ?? 0, delayOverflow: options.delayOverflow ?? false, startAngle: options.startAngle ?? 0})
+    output.LABEL = name == -1 ? type.LABEL : name
+    output.DANGER = options.danger ?? type.DANGER + 1
+    return output
+}
 exports.makeGuard = (type, name = -1, options = {}) => {
     type = ensureIsClass(type)
     let output = exports.dereference(type)
+    let dangerIncrement = options.danger ?? 2
 
     // Rear Trap Launcher
     let trapper = {
@@ -297,7 +314,7 @@ exports.makeGuard = (type, name = -1, options = {}) => {
 
     // Assign misc settings
     output.GUNS = type.GUNS == null ? trapper.GUNS : [...output.GUNS, ...trapper.GUNS]
-    output.DANGER = type.DANGER + options.danger ?? 2
+    output.DANGER = type.DANGER + dangerIncrement
     output.LABEL = name == -1 ? type.LABEL + " Guard" : name
     if (type.UPGRADE_LABEL !== undefined) {
         output.UPGRADE_LABEL = output.LABEL;
