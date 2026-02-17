@@ -592,6 +592,54 @@ Class.literallyATank = {
         },
     ]
 }
+Class.fat456 = {
+    PARENT: "genericTank",
+    SIZE: 30,
+    LABEL: "Fat456",
+    COLOR: "pureBlack", // should be pureblack but just the outline
+    DRAW_FILL: false,
+    FACING_TYPE: "spin",
+    BODY: {
+        SPEED: base.SPEED * 4
+    },
+    TURRETS: [
+        {
+            POSITION: [12, 8, 0, 0, 190, 0],
+            TYPE: "architectGun",
+        },
+        {
+            POSITION: [12, 8, 0, 120, 190, 0],
+            TYPE: "architectGun",
+        },
+        {
+            POSITION: [12, 8, 0, 240, 190, 0],
+            TYPE: "architectGun",
+        },
+    ],
+}
+Class.wifeBeater = {
+    PARENT: "overlord",
+    LABEL: 'Wife Beater',
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        ACCELERATION: base.ACCEL * 0.75,
+        SPEED: base.SPEED * 0.8,
+        FOV: base.FOV * 1.1,
+    },
+    MAX_CHILDREN: 16,
+    GUNS: weaponArray({
+        POSITION: [6, 12, 1.2, 8, 0, 0, 0],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.op]),
+            TYPE: "drone",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "drone",
+            WAIT_TO_CYCLE: true
+        }
+    }, 4)
+}
 
 // airblast testing
 Class.airblastBullet = {PARENT: "bullet", ALPHA: 0.5, BODY: {KNOCKBACK: 30}}
