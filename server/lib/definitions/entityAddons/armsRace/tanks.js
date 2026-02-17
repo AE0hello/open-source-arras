@@ -5403,39 +5403,8 @@ Class.professor_AR = {
         }
     ]
 }
-Class.quadMachine_AR = {
-    PARENT: "genericTank",
-    LABEL: "Quad Machine",
-    DANGER: 7,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 12,
-            WIDTH: 10,
-            ASPECT: 1.4,
-            X: 8
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { size: 0.92 }, g.flankGuard, g.flankGuard, g.spam]),
-            TYPE: "bullet"
-        }
-    }, 4)
-}
-Class.quadTwin_AR = {
-    PARENT: "genericTank",
-    LABEL: "Quad Twin",
-    DANGER: 8,
-    GUNS: weaponArray(weaponMirror({
-        POSITION: {
-            LENGTH: 20,
-            WIDTH: 8,
-            Y: 5.5
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin]),
-            TYPE: "bullet"
-        }
-    }, {delayIncrement: 0.5}), 4)
-}
+Class.quadMachine_AR = makeFlank('machineGun', 4, "Quad Machine", {extraStats: [g.flankGuard, g.flankGuard, g.spam], danger: 8})
+Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
 Class.quarterNQuarter_AR = {
     PARENT: "genericTank",
     LABEL: "Quarter 'n Quarter",
@@ -6247,70 +6216,10 @@ Class.tricker_AR = {
         }
     ]
 }
-Class.tripleArtillery_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Artillery",
-    DANGER: 8,
-    GUNS: weaponArray([
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 17,
-                WIDTH: 5,
-                Y: -5,
-                ANGLE: -7,
-                DELAY: 0.25
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.flankGuard]),
-                TYPE: "bullet",
-                LABEL: "Secondary"
-            }
-        }, {delayIncrement: 0.5}),
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 12
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.flankGuard]),
-                TYPE: "bullet",
-                LABEL: "Heavy"
-            }
-        }
-    ], 3)
-}
+Class.tripleArtillery_AR = makeFlank('artillery', 3, "Triple Artillery", {extraStats: [g.flankGuard, g.flankGuard], danger: 8})
 Class.tripleAutoDouble_AR = makeAuto("doubleTwin", "Triple Auto-Double", preset.makeAuto.triple)
-Class.tripleBlaster_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Blaster",
-    DANGER: 7,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 13,
-            WIDTH: 8,
-            ASPECT: 1.9,
-            X: 4
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, g.flankGuard, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 3)
-}
-Class.tripleDiesel_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Diesel",
-    DANGER: 8,
-    ...todo_placeholder_guns,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 14,
-            WIDTH: 12,
-            ASPECT: 1.6,
-            X: 8
-        }
-    }, 3)
-}
+Class.tripleBlaster_AR = makeFlank('blaster', 3, "Triple Blaster", {extraStats: [g.flankGuard, g.flankGuard], danger: 8})
+Class.tripleDiesel_AR = makeFlank('diesel_AR', 3, "Triple Diesel", {extraStats: [g.flankGuard, g.flankGuard], danger: 8})
 Class.tripleFlankTwin_AR = {
     PARENT: "genericTank",
     LABEL: "Triple Flank Twin",
@@ -6341,148 +6250,11 @@ Class.tripleFlankTwin_AR = {
         }, {delayIncrement: 0.5})
     ], 3)
 }
-Class.tripleGatling_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Gatling",
-    DANGER: 7,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 24,
-            WIDTH: 8,
-            ASPECT: 1.5
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.flankGuard, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 3)
-}
-Class.tripleGunner_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Gunner",
-    DANGER: 8,
-    GUNS: weaponArray(weaponMirror([
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 3.5,
-                Y: 7.25,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.gunner, { speed: 1.2 }]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 3.5,
-                Y: 3.75
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.gunner, { speed: 1.2 }]),
-                TYPE: "bullet"
-            }
-        }
-    ], { delayIncrement: 0.25 }), 3)
-}
-Class.tripleHelix_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Helix",
-    DANGER: 8,
-    STAT_NAMES: statnames.desmos,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 6,
-                ASPECT: -1.5,
-                Y: -5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.desmos]),
-                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 6,
-                ASPECT: -1.5,
-                Y: 5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin, g.desmos]),
-                TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true}]]}]
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 16.5,
-                WIDTH: 2,
-                ASPECT: -9.25
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 4,
-                WIDTH: 5,
-                ASPECT: -4,
-                X: -9.5,
-                Y: -7,
-                ANGLE: 90
-            }
-        }, {delayIncrement: 0.5})
-    ], 3)
-}
-Class.tripleMinigun_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Minigun",
-    DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.2
-    },
-    GUNS: weaponArray(weaponStack({
-        POSITION: {
-            LENGTH: 21,
-            WIDTH: 8
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.flankGuard, g.flankGuard]),
-            TYPE: "bullet"
-        }
-    }, 3, {lengthOffset: 2, delayIncrement: 1/3}), 3)
-}
-Class.tripleSprayer_AR = {
-    PARENT: "genericTank",
-    LABEL: "Triple Sprayer",
-    DANGER: 8,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 23,
-                WIDTH: 7
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }, g.flankGuard, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 10,
-                ASPECT: 1.4,
-                X: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.flankGuard, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }
-    ], 3)
-}
+Class.tripleGatling_AR = makeFlank('gatlingGun', 3, "Triple Gatling", {extraStats: [g.flankGuard, g.flankGuard], danger: 8})
+Class.tripleGunner_AR = makeFlank('gunner', 3, "Triple Gunner", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
+Class.tripleHelix_AR = makeFlank('helix', 3, "Triple Helix", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
+Class.tripleMinigun_AR = makeFlank('minigun', 3, "Triple Minigun", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
+Class.tripleSprayer_AR = makeFlank('sprayer', 3, "Triple Sprayer", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
 Class.understorm_AR = makeDrive("underseer", {...preset.makeDrive.storm, label: "Understorm"})
 Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", {angle: 90, shape: 4})
 Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {angle: 90, shape: 4})
