@@ -534,6 +534,7 @@ exports.makeDrive = (type, options = {}) => {
 
     options.label ??= -1
     options.suffix ??= "drive"
+    options.projectileType ??= 'drone'
 
     let hat = [
         {
@@ -551,23 +552,24 @@ exports.makeDrive = (type, options = {}) => {
         if (!gun.PROPERTIES) continue;
         if (!gun.PROPERTIES.TYPE) continue;
         projectile = exports.dereference(gun.PROPERTIES.TYPE)
-
-        const name = (Array.isArray(gun.PROPERTIES.TYPE) ? gun.PROPERTIES.TYPE[0][0] : gun.PROPERTIES.TYPE) + options.label + options.suffix
-        Class[name] = exports.makeAuto(
-            gun.PROPERTIES.TYPE,
-            "Auto-" + projectile.LABEL,
-            {
-                type: options.type ??= "droneAutoTurret",
-                independent: options.independent ??= true,
-                color: options.color ??= "grey",
-                total: options.total ??= 1,
-                size: options.size ??= 10,
-                x: options.x ??= 0,
-                y: options.y ??= 0,
-                angle: options.angle ??= 180
-            }
-        )
-        gun.PROPERTIES.TYPE = name
+        if (gun.PROPERTIES.TYPE == options.projectileType) {
+            const name = (Array.isArray(gun.PROPERTIES.TYPE) ? gun.PROPERTIES.TYPE[0][0] : gun.PROPERTIES.TYPE) + options.label + options.suffix
+            Class[name] = exports.makeAuto(
+                gun.PROPERTIES.TYPE,
+                "Auto-" + projectile.LABEL,
+                {
+                    type: options.type ??= "droneAutoTurret",
+                    independent: options.independent ??= true,
+                    color: options.color ??= "grey",
+                    total: options.total ??= 1,
+                    size: options.size ??= 10,
+                    x: options.x ??= 0,
+                    y: options.y ??= 0,
+                    angle: options.angle ??= 180
+                }
+            )
+            gun.PROPERTIES.TYPE = name
+        }
     }
 
     if (type.GUNS != null) {

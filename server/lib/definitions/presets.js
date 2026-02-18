@@ -25,8 +25,14 @@ module.exports = {
 		}
 	},
 	makeDrive: {
+		minion: {
+			projectileType: 'minion'
+		},
+		sunchip: {
+			projectileType: 'sunchip'
+		},
 		swarm: {
-			hatType: "triangleHat", hatSize: 8, hatAngle: 180
+			projectileType: 'swarm', hatType: 'triangleHat', hatSize: 8, hatAngle: 180
 		}
 	},
 	makeOver: {
