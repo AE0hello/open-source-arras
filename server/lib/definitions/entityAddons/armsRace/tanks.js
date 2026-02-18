@@ -3629,6 +3629,7 @@ Class.autoTriple_AR = makeAuto("tripleTwin", "Auto-Triple")
 Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", preset.makeAuto.blank), {label: "Auto-Vortex"})
 Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", preset.makeAuto.blank), {label: "Auto-Whirl-3"})
 Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", preset.makeAuto.blank), {label: "Auto-Whirl Guard"})
+Class.battledrive_AR = makeDrive('battleship', {...preset.makeDrive.swarm, doNotDiscriminate: true, label: "Battledrive"})
 Class.bentSubverter_AR = {
     PARENT: "genericTank",
     LABEL: "Bent Subverter",
@@ -6745,7 +6746,6 @@ quickMake("artillery", {hybrid: "Force", over: "Overartillery", synth: "Mixer", 
 quickMake("assassin", {hybrid: "Hitman", over: "Overassassin", under: "Underassassin"})
 quickMake("banshee", {drive: "Bansheedrive"})
 quickMake("barricade", {hybrid: "Rampart"})
-quickMake("battleship", {driveSwarm: "Battledrive"}) // TODO: FIX
 quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
 quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster", under: "Underblaster"})

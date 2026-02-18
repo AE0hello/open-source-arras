@@ -552,7 +552,7 @@ exports.makeDrive = (type, options = {}) => {
         if (!gun.PROPERTIES) continue;
         if (!gun.PROPERTIES.TYPE) continue;
         projectile = exports.dereference(gun.PROPERTIES.TYPE)
-        if (gun.PROPERTIES.TYPE == options.projectileType) {
+        if (gun.PROPERTIES.TYPE == options.projectileType || options.doNotDiscriminate) {
             const name = (Array.isArray(gun.PROPERTIES.TYPE) ? gun.PROPERTIES.TYPE[0][0] : gun.PROPERTIES.TYPE) + options.label + options.suffix
             Class[name] = exports.makeAuto(
                 gun.PROPERTIES.TYPE,
