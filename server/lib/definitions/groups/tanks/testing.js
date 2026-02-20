@@ -699,50 +699,6 @@ Class.anglemancer = {
         }
     }, 3)
 }
-Class.necrobasic = {
-    PARENT: "genericTank",
-    LABEL: "Basic",
-    DANGER: 4,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18,
-                WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ["bullet", {NECRO: [0]}],
-            }
-        }
-    ]
-}
-Class.necrotrapper = {
-    PARENT: "genericTank",
-    LABEL: "Necrotrapper",
-    SHAPE: -3.5,
-    STAT_NAMES: statnames.trap,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 13,
-                WIDTH: 11
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4,
-                WIDTH: 11,
-                ASPECT: 1.7,
-                X: 13
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, { speed: 1.2 }, { recoil: 0.5 }]),
-                TYPE: ["trap", {NECRO: [3]}],
-                STAT_CALCULATOR: "trap"
-            }
-        }
-    ]
-}
 Class.cycloneM1 = {
     PARENT: "genericTank",
     LABEL: "",

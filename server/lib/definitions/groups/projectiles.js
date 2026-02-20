@@ -900,18 +900,11 @@ Class.baseSwarmTurret_swarm = {
     },
 }
 Class.homingBullet = {
-    PARENT: "swarm",
-    SHAPE: 0,
-    BODY: {
-        PENETRATION: 1,
-        SPEED: 3.75,
-        RANGE: 90,
-        DENSITY: 1.25,
-        HEALTH: 0.165,
-        DAMAGE: 6,
-        PUSHABILITY: 0.3,
-    },
-    CAN_GO_OUTSIDE_ROOM: true
+    PARENT: 'bullet',
+    LABEL: "Homing Bullet",
+    MOTION_TYPE: 'swarm',
+    FACING_TYPE: 'smoothWithMotion',
+    CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal'],
 }
 Class.splitterBullet = {
     PARENT: "bullet",
