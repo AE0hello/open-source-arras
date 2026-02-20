@@ -127,7 +127,8 @@ Class.genericTank = {
     TURRETS: [],
     PROPS: [],
     ON: [],
-    ARENA_CLOSER: false, // don't remove this, it stops dev basics going through walls
+    ARENA_CLOSER: false,
+    HAS_NO_RECOIL: false,
     GIVE_KILL_MESSAGE: true,
     DRAW_HEALTH: true,
     RESET_EVENTS: true,
