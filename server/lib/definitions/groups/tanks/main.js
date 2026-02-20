@@ -1201,14 +1201,25 @@ Class.volute = {
     STAT_NAMES: statnames.desmos,
     GUNS: [
         {
-            POSITION: [20, 13, 0.8, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 11,
+                ASPECT: -1.2
+            },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.desmos, g.pounder]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.desmos]),
                 TYPE: ["bullet", {CONTROLLERS: ['snake']}]
             }
         },
         ...weaponMirror({
-            POSITION: [5, 10, 2.125, 1, -6.375, 90, 0],
+            POSITION: {
+                LENGTH: 6.25,
+                WIDTH: 5,
+                ASPECT: -4,
+                X: -6.5,
+                Y: -7,
+                ANGLE: 90
+            }
         })
     ]
 }
