@@ -4779,6 +4779,21 @@ Class.hextuplex_AR = {
         }), 3)
     ]
 }
+Class.hipwatch_AR = {
+    PARENT: 'genericTank',
+    LABEL: "Hipwatch",
+    DANGER: 8,
+    GUNS: Class.doubleTwin.GUNS,
+    TURRETS: weaponArray({
+        TYPE: 'autoTankGun',
+        POSITION: {
+            SIZE: 11,
+            X: 8,
+            ANGLE: 90,
+            ARC: 170
+        }
+    }, 2)
+}
 Class.injection_AR = {
     PARENT: "genericHealer",
     LABEL: "Injection",
@@ -7056,17 +7071,14 @@ Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
 // Class Tree
 if (!Config.arms_race == true) {return}
 if (!use_original_tree) {
-const increased_level_cap = true
 
+const increased_level_cap = true
 if (increased_level_cap) {
     Config.level_cap = 60
     Config.level_cap_cheat = 60
-    max_tier_AR = 4
-} else {
-    max_tier_AR = 3
 }
 
-const upgradesT4AR = (type, upgrades = [], options = {}) => {
+const upgradesAR = (type, tier, upgrades = [], options = {}) => {
     name = ensureIsClass(type)
 
     if (options.noSuffix) {
@@ -7075,10 +7087,15 @@ const upgradesT4AR = (type, upgrades = [], options = {}) => {
         upgradeList = upgrades.map(x => x + "_AR")
     }
 
+    let max_tier_AR = 3
+    if (Config.level_cap > 45) {
+        max_tier_AR = tier
+    }
+
     if (name[`UPGRADES_TIER_${max_tier_AR}`] == undefined) {
         name[`UPGRADES_TIER_${max_tier_AR}`] = upgradeList
     } else {
-        name[`UPGRADES_TIER_${max_tier_AR}`].push(upgradeList)
+        name[`UPGRADES_TIER_${max_tier_AR}`].push(...upgradeList)
     }
 }
 
@@ -7110,7 +7127,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
     Class.twin.UPGRADES_TIER_2.push("wark_AR")
         deleteUpgrade("twin", 3, "bulwark")
-            upgradesT4AR('twin', ['duo'])
+            upgradesAR('twin', 4, ['duo'])
             Class.dual.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.musket.UPGRADES_TIER_4 = [].map(x => x + "_AR")
 
@@ -7120,7 +7137,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             Class.hewnDouble.UPGRADES_TIER_4 = ["hewnTriple", "skewnDouble", "autoHewnDouble", "cleft", "hewnFlankDouble", "hewnGunner"/*, "hewnHelix"*/, "warkwawarkrk"].map(x => x + "_AR")
             Class.autoDouble.UPGRADES_TIER_4 = ["megaAutoDouble", "tripleAutoDouble", "autoTriple", "autoHewnDouble", "autoBentDouble", "autoDoubleFlank", "autoDoubleGunner", "autoDoubleHelix", "autoWarkwark"].map(x => x + "_AR")
             Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "doubleTriplex", "cleft"/*, "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"*/].map(x => x + "_AR")
-            Class.doubleFlankTwin_AR.UPGRADES_TIER_4 = ["quadTwin", "tripleFlankTwin", "hewnFlankDouble", "autoDoubleFlank"/*, "bentFlankDouble", "doubleFlankGunner*/, "doubleFlankHelix"/*, "hipwatch", "scuffler", "warkwawawark"*/].map(x => x + "_AR")
+            Class.doubleFlankTwin_AR.UPGRADES_TIER_4 = ["quadTwin", "tripleFlankTwin", "hewnFlankDouble", "autoDoubleFlank"/*, "bentFlankDouble", "doubleFlankGunner*/, "doubleFlankHelix", "hipwatch"/*, "scuffler", "warkwawawark"*/].map(x => x + "_AR")
             Class.doubleGunner_AR.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner"/*, "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire"*/, "doubleVolley"/*, "doubleEqualizer"*/].map(x => x + "_AR")
             Class.doubleHelix_AR.UPGRADES_TIER_4 = ["tripleHelix"/*, "hewnHelix"*/, "autoDoubleHelix", "doubleTriplex", "doubleFlankHelix"].map(x => x + "_AR")
             Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
