@@ -6194,17 +6194,6 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.undertow.UPGRADES_TIER_3 = [/*'riptide'*/]
         Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
 
-const whirlwind = false
-if (whirlwind) {
-    Class.basic.UPGRADES_TIER_1.push('whirlwind')
-    Class.hexaTank.UPGRADES_TIER_3.push('hexaWhirl')
-    Class.artillery.UPGRADES_TIER_3.push('munition')
-    Class.auto3.UPGRADES_TIER_3.push('whirl3')
-    Class.trapGuard.UPGRADES_TIER_3.push('whirlGuard')
-    Class.underseer.UPGRADES_TIER_3.push('prophet')
-    Class.launcher.UPGRADES_TIER_3.push('vortex')
-}
-
 if (Config.arms_race || Config.retrograde) {
     //Class.basic.UPGRADES_TIER_2
         Class.smasher.UPGRADES_TIER_3.push('bonker')
