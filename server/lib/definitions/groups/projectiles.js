@@ -101,6 +101,90 @@ Class.speedBullet = {
     PARENT: "bullet",
     MOTION_TYPE: ["glide", {damp:-50}]
 }
+Class.spiralBullet = {
+    PARENT: 'bullet',
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 2;
+                const segmentClass = 'bullet';
+
+                body.store.snakeSegments ??= [];
+
+                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
+                    let seg = new Entity(body, body);
+                    //seg.health = body.health;
+                    //seg.shield = body.shield;
+                    seg.master = body;
+                    seg.source = body;
+                    seg.SIZE = body.SIZE;
+                    seg.define(segmentClass);
+                    body.store.snakeSegments.push(seg);
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+                let previous = body;
+                const children = body.store.snakeSegments;
+            
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
+}
+Class.pythonBullet = {
+    PARENT: 'bullet',
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 4;
+                const segmentClass = 'bullet';
+
+                body.store.snakeSegments ??= [];
+
+                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
+                    let seg = new Entity(body, body);
+                    //seg.health = body.health;
+                    //seg.shield = body.shield;
+                    seg.master = body;
+                    seg.source = body;
+                    seg.SIZE = body.SIZE;
+                    seg.define(segmentClass);
+                    body.store.snakeSegments.push(seg);
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+                let previous = body;
+                const children = body.store.snakeSegments;
+            
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
+}
 Class.undertowBullet = {
     PARENT: 'bullet',
     ON: [

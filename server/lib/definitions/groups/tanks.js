@@ -977,7 +977,6 @@ Class.spiral = {
     LABEL: "Spiral",
     DANGER: 6,
     STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
             POSITION: {
@@ -993,7 +992,7 @@ Class.spiral = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
+                TYPE: ['spiralBullet', {CONTROLLERS: ['snake']}]
             }
         },
         ...weaponMirror({
@@ -2078,26 +2077,17 @@ Class.cocciSegment = {
     COLOR: "mirror",
     CAN_BE_ON_LEADERBOARD: false,
     DISPLAY_NAME: false,
-    TURRETS: [
-        {
-            POSITION: [21.5, 0, 0, 0, 360, 0],
-            TYPE: ['hexagonHat_spin', {COLOR: 'black'}]
-        }
-    ]
+    TURRETS: Class.smasher.TURRETS,
+    CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.cocci = {
     PARENT: 'genericSmasher',
     LABEL: "Cocci",
-    TURRETS: [
-        {
-            POSITION: [21.5, 0, 0, 0, 360, 0],
-            TYPE: ['hexagonHat_spin', {COLOR: 'black'}]
-        }
-    ],
+    TURRETS: Class.smasher.TURRETS,
     ON: [
         {
-            event: "tick",
-            handler: ({ body }) => {
+            event: 'tick',
+            handler: ({body}) => {
                 const numOfSegments = 5;
                 const segmentClass = 'cocciSegment';
 
@@ -2105,15 +2095,15 @@ Class.cocci = {
 
                 for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
                     let seg = new Entity(body, body);
-                    seg.health = body.health;
-                    seg.shield = body.shield;
+                    //seg.health = body.health;
+                    //seg.shield = body.shield;
                     seg.master = body;
                     seg.source = body;
                     seg.skill.score = body.skill.score;
                     seg.define(segmentClass);
                     body.store.snakeSegments.push(seg);
                 }
-
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
                 let previous = body;
                 const children = body.store.snakeSegments;
             
@@ -2139,7 +2129,6 @@ Class.coil = {
     LABEL: "Coil",
     DANGER: 7,
     STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
             POSITION: {
@@ -2150,7 +2139,7 @@ Class.coil = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
-                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
+                TYPE: ['spiralBullet', {CONTROLLERS: ['snake']}]
             },
         },
         {
@@ -2162,7 +2151,7 @@ Class.coil = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
-                TYPE: ['bullet', {CONTROLLERS: [['snake', {invert: true}]]}]
+                TYPE: ['spiralBullet', {CONTROLLERS: [['snake', {invert: true}]]}]
             },
         },
         ...weaponMirror({
@@ -4170,7 +4159,6 @@ Class.python = {
     LABEL: "Python", //"Super Spiral",
     DANGER: 7,
     STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
             POSITION: {
@@ -4186,7 +4174,7 @@ Class.python = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
+                TYPE: ['pythonBullet', {CONTROLLERS: ['snake']}]
             }
         },
         ...weaponMirror({
@@ -4464,15 +4452,16 @@ Class.rocketSegment = {
     },
     CAN_BE_ON_LEADERBOARD: false,
     DISPLAY_NAME: false,
+    CLEAR_ON_MASTER_UPGRADE: true,
     GUNS: [
-        {
+        /*{
             POSITION: [18, 8, 1, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }]),
                 TYPE: 'bullet',
                 LABEL: "Front"
             }
-        },
+        },*/
         ...weaponMirror({
             POSITION: [14, 8, 1, 0, -1, 140, 0.1],
             PROPERTIES: {
@@ -4518,7 +4507,7 @@ Class.rocket = {
     ON: [
         {
             event: "tick",
-            handler: ({ body }) => {
+            handler: ({body}) => {
                 const numOfSegments = 2;
                 const segmentClass = 'rocketSegment';
 
@@ -4526,15 +4515,15 @@ Class.rocket = {
 
                 for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
                     let seg = new Entity(body, body);
-                    seg.health = body.health;
-                    seg.shield = body.shield;
+                    //seg.health = body.health;
+                    //seg.shield = body.shield;
                     seg.master = body;
                     seg.source = body;
                     seg.skill.score = body.skill.score;
                     seg.define(segmentClass);
                     body.store.snakeSegments.push(seg);
                 }
-
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
                 let previous = body;
                 const children = body.store.snakeSegments;
             
@@ -6186,10 +6175,10 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.mace.UPGRADES_TIER_3 = ['bigMama', 'itHurtsDontTouchIt', 'flace']
         Class.flangle.UPGRADES_TIER_3 = ['flooster', 'flace']
 
-    Class.desmos.UPGRADES_TIER_2 = [/*'volute', */'helix'/*, 'spiral', 'undertow', 'repeater'*/]
+    Class.desmos.UPGRADES_TIER_2 = [/*'volute', */'helix', 'spiral'/*, 'undertow'*/, 'repeater']
         Class.desmos.UPGRADES_TIER_3 = [/*'bender'*/]
         Class.volute.UPGRADES_TIER_3 = ['sidewinder']
-        Class.helix.UPGRADES_TIER_3 = ['triplex', 'quadruplex'/*, 'coil', 'duplicator'*/]
+        Class.helix.UPGRADES_TIER_3 = ['triplex', 'quadruplex', 'coil', 'duplicator']
         Class.spiral.UPGRADES_TIER_3 = ['coil', 'python'/*, 'wrangler', 'oroboros', 'cocci', 'rocket'*/]
         Class.undertow.UPGRADES_TIER_3 = [/*'riptide'*/]
         Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
