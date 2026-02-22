@@ -133,7 +133,6 @@ module.exports = {
     food_group_cap: 6, // Number of foods that random food groups spawn with
 
     // Tiered Food
-    disable_crashers: true, // Disables crasher variants of foods
     food_types: Array(3).fill().map((_, i, a) => [ // Possible food types outside the nest
         // Chance of spawning in exponents of 4
         4 ** (a.length - i),
@@ -148,9 +147,9 @@ module.exports = {
                 
                 // 2-wide dimension of the 2 shape "ranks" - normal, crasher
                 // laby_${poly}_${tier}_${shiny}_${rank}
-                exports.disable_crashers ? `laby_${i}_${j}_${k}_0` : [
+                [
                     [24, `laby_${i}_${j}_${k}_0`],
-                    [1, `laby_${j}_${i}_${k}_1`]
+                    //[1, `laby_${i}_${j}_${k}_1`] // uncomment to enable crashers outside nest
                 ]
             ])
         ])
@@ -169,9 +168,9 @@ module.exports = {
 
                 // 2-wide dimension of the 2 shape "ranks" - normal, crasher
                 // laby_${poly}_${tier}_${shiny}_${rank}
-                exports.disable_crashers ? `laby_${i + 3}_${j}_${k}_0` : [
+                [
                     [24, `laby_${i + 3}_${j}_${k}_0`],
-                    [1, `laby_${i + 3}_${j}_${k}_1`]
+                    //[1, `laby_${i + 3}_${j}_${k}_1`] // uncomment to enable crashers in nest
                 ]
             ])
         ])
