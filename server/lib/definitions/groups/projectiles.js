@@ -904,7 +904,14 @@ Class.homingBullet = {
     LABEL: "Homing Bullet",
     MOTION_TYPE: 'swarm',
     FACING_TYPE: 'smoothWithMotion',
-    CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal'],
+    CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal']
+}
+Class.autoHomingBullet = {
+    PARENT: 'homingBullet',
+    AI: {
+        FARMER: true
+    },
+    INDEPENDENT: true
 }
 Class.splitterBullet = {
     PARENT: "bullet",

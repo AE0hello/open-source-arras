@@ -1039,8 +1039,10 @@ Class.onTest = {
         }
     }, {
         event: "collide",
-        handler: ({ instance, other }) => {
+        handler: ({ body, instance, other }) => {
             instance.sendMessage(`I collided with ${other.label}.`)
+            body.destroy()
+            other.SIZE = other.SIZE * Math.SQRT2
         }
     }, {
         event: "damage",
