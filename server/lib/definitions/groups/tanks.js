@@ -827,18 +827,38 @@ Class.repeater = {
     DANGER: 6,
     GUNS: [
         {
-            POSITION: [20, 8, -4/3, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
                 TYPE: ['splitterBullet', {CONTROLLERS: ['snake']}]
             }
         },
-        ...weaponMirror([{
-            POSITION: [4.625, 9.5, 2, 0.375, -8, 91.5, 0]
-        },
-        {
-            POSITION: [3.75, 10, 2.125, 0, -4.75, 50, 0]
-        }])
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 5,
+                    WIDTH: 5,
+                    ASPECT: -3,
+                    X: -5.5,
+                    Y: -10,
+                    ANGLE: 90
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 5,
+                    WIDTH: 5,
+                    ASPECT: -4,
+                    X: -5.25,
+                    Y: -5,
+                    ANGLE: 82.5
+                }
+            }
+        ])
     ]
 }
 Class.rifle = {
@@ -960,19 +980,33 @@ Class.spiral = {
     UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
-            POSITION: [17, 12, 1, 0, 0, 0, 0]
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 12
+            }
         },
         {
-            POSITION: [20, 8, -1.5, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
                 TYPE: ['bullet', {CONTROLLERS: ['snake']}]
             }
         },
         ...weaponMirror({
-            POSITION: [4.25, 11, 2, 2.25, -4.25, 92.5, 0]
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 5,
+                ASPECT: -4,
+                X: -6.5,
+                Y: -5,
+                ANGLE: 87.5
+            }
         })
-    ],
+    ]
 }
 Class.sprayer = {
     PARENT: 'genericTank',
@@ -2108,28 +2142,54 @@ Class.coil = {
     UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
     GUNS: [
         {
-            POSITION: [20, 8, 0.75, 0, -5, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 6,
+                ASPECT: -1.5,
+                Y: -5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
-                TYPE: ['bullet', {CONTROLLERS: [['snake', {invert: false}]]}]
+                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
             },
         },
         {
-            POSITION: [20, 8, 0.75, 0, 5, 0, 0],
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 6,
+                ASPECT: -1.5,
+                Y: 5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
                 TYPE: ['bullet', {CONTROLLERS: [['snake', {invert: true}]]}]
             },
         },
-        ...weaponMirror([{
-            POSITION: [21, 4, 0.75, 0, 5, 0, 0]
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 3,
+                ASPECT: -1.5,
+                Y: 5
+            }
+        }),
+        {
+            POSITION: {
+                LENGTH: 16.5,
+                WIDTH: 2,
+                ASPECT: -9.25
+            }
         },
-        {
-            POSITION: [3.625, 7.5, 2.75, 5.75, 6.75, -90, 0],
-        }]),
-        {
-            POSITION: [6, 8, 0.25, 10.5, 0, 0, 0],
-        }
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 5,
+                ASPECT: -4,
+                X: -9.5,
+                Y: -7,
+                ANGLE: 90
+            }
+        })
     ]
 }
 Class.commander = {
@@ -4105,6 +4165,42 @@ Class.prodigy = {
     ],
 }
 Class.prophet = makeWhirlwind('underseer', {label: "Prophet", satelliteType: 'squareSatellite'})
+Class.python = {
+    PARENT: 'genericTank',
+    LABEL: "Python", //"Super Spiral",
+    DANGER: 7,
+    STAT_NAMES: statnames.desmos,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 6,
+                ASPECT: -4,
+                X: -6.75,
+                Y: -5.75,
+                ANGLE: 87.5
+            }
+        })
+    ]
+}
 Class.quadBuilder = {
     PARENT: 'genericTank',
     LABEL: "Quad Builder",
@@ -5195,28 +5291,6 @@ Class.subverter = {
         }
     }, 3, {lengthOffset: 2, delayIncrement: 1/3})
 }
-Class.superSpiral = {
-    PARENT: 'genericTank',
-    LABEL: "Super Spiral", //"Python",
-    DANGER: 7,
-    STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank does not function as intended yet!",
-    GUNS: [
-        {
-            POSITION: [21, 12, 1, 0, 0, 0, 0]
-        },
-        {
-            POSITION: [24, 8, -4/3, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
-            }
-        },
-        ...weaponMirror({
-            POSITION: [4.25, 9.5, 2.5, 2.25, -6.25, 92.5, 0]
-        })
-    ],
-}
 Class.surfer = {
     PARENT: 'genericTank',
     LABEL: "Surfer",
@@ -6116,9 +6190,20 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.desmos.UPGRADES_TIER_3 = [/*'bender'*/]
         Class.volute.UPGRADES_TIER_3 = ['sidewinder']
         Class.helix.UPGRADES_TIER_3 = ['triplex', 'quadruplex'/*, 'coil', 'duplicator'*/]
-        Class.spiral.UPGRADES_TIER_3 = ['coil', 'superSpiral'/*, 'wrangler', 'oroboros', 'cocci', 'rocket'*/]
+        Class.spiral.UPGRADES_TIER_3 = ['coil', 'python'/*, 'wrangler', 'oroboros', 'cocci', 'rocket'*/]
         Class.undertow.UPGRADES_TIER_3 = [/*'riptide'*/]
         Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
+
+const whirlwind = false
+if (whirlwind) {
+    Class.basic.UPGRADES_TIER_1.push('whirlwind')
+    Class.hexaTank.UPGRADES_TIER_3.push('hexaWhirl')
+    Class.artillery.UPGRADES_TIER_3.push('munition')
+    Class.auto3.UPGRADES_TIER_3.push('whirl3')
+    Class.trapGuard.UPGRADES_TIER_3.push('whirlGuard')
+    Class.underseer.UPGRADES_TIER_3.push('prophet')
+    Class.launcher.UPGRADES_TIER_3.push('vortex')
+}
 
 if (Config.arms_race || Config.retrograde) {
     //Class.basic.UPGRADES_TIER_2
