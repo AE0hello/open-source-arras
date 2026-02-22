@@ -812,7 +812,7 @@ Class.wranglerMinion = {
             event: 'tick',
             handler: ({body}) => {
                 const numOfSegments = 2;
-                const segmentClass = 'spiralBulletSegment';
+                const segmentClass = 'genericEntity';
 
                 body.store.snakeSegments ??= [];
 
