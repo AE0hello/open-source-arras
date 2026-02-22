@@ -270,9 +270,6 @@ class gameServer {
 
             this.showConsoleLoggings = false; // We do not like duplicate messages that uses console.log();
 
-            // Activate tiered food if enabled
-            if (!Config.classic_food) global.activateTieredFood();
-
             // Get the definitions before we can initalize the rest.
             this.definitionsCombiner.loadDefinitions(false);
 

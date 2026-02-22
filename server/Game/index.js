@@ -326,7 +326,7 @@ class gameHandler {
         // Nest food/enemy spawn
         if (Math.random() < 1 / 3 && global.gameManager.room.spawnable[TEAM_ENEMIES]) {
             // Enemy spawn
-            if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
+            if (Config.classic_food && Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 const o = spawnFoodEntity(tile, Config.classic_enemy_types_nest);
                 this.enemyFoods.push(o);
@@ -336,18 +336,30 @@ class gameHandler {
             if (this.nestFoods.length < Config.food_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 for (let i = 0; i < totalFoods; i++) {
-                    const o = spawnFoodEntity(tile, Config.classic_food_types_nest);
-                    this.nestFoods.push(o);
-                    setupCleanup(this.nestFoods, o);
+                    if (Config.classic_food) {
+                        const o = spawnFoodEntity(tile, Config.classic_food_types_nest);
+                        this.nestFoods.push(o);
+                        setupCleanup(this.nestFoods, o);
+                    } else {
+                        const o = spawnFoodEntity(tile, Config.food_types_nest);
+                        this.nestFoods.push(o);
+                        setupCleanup(this.nestFoods, o);
+                    }
                 }
             }
         } else if (this.foods.length < Config.food_cap) {
             // Regular food spawn
             const tile = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
             for (let i = 0; i < totalFoods; i++) {
-                const o = spawnFoodEntity(tile, Config.classic_food_types);
-                this.foods.push(o);
-                setupCleanup(this.foods, o);
+                if (Config.classic_food) {
+                    const o = spawnFoodEntity(tile, Config.classic_food_types);
+                    this.foods.push(o);
+                    setupCleanup(this.foods, o);
+                } else {
+                    const o = spawnFoodEntity(tile, Config.food_types);
+                    this.foods.push(o);
+                    setupCleanup(this.foods, o);
+                }
             }
         }
     }
