@@ -101,6 +101,11 @@ Class.speedBullet = {
     PARENT: "bullet",
     MOTION_TYPE: ["glide", {damp:-50}]
 }
+Class.spiralBulletSegment = {
+    PARENT: 'bullet',
+    COLOR: 'mirror',
+    CLEAR_ON_MASTER_UPGRADE: true
+}
 Class.spiralBullet = {
     PARENT: 'bullet',
     ON: [
@@ -108,7 +113,7 @@ Class.spiralBullet = {
             event: 'tick',
             handler: ({body}) => {
                 const numOfSegments = 2;
-                const segmentClass = 'bullet';
+                const segmentClass = 'spiralBulletSegment';
 
                 body.store.snakeSegments ??= [];
 
@@ -150,7 +155,7 @@ Class.pythonBullet = {
             event: 'tick',
             handler: ({body}) => {
                 const numOfSegments = 4;
-                const segmentClass = 'bullet';
+                const segmentClass = 'spiralBulletSegment';
 
                 body.store.snakeSegments ??= [];
 
@@ -637,7 +642,7 @@ Class.preacherDrone = {...Class.summonerDrone, SHAPE: 8}
 Class.herbalistDrone = {...Class.summonerDrone, SHAPE: 9}
 
 // Minions
-Class.minion = {
+Class.genericMinion = {
     PARENT: "genericTank",
     LABEL: "Minion",
     TYPE: "minion",
@@ -666,17 +671,23 @@ Class.minion = {
         "minion",
         "canRepel",
         "hangOutNearMaster",
-    ],
+    ]
+}
+Class.minion = {
+    PARENT: 'genericMinion',
     GUNS: [
         {
-            POSITION: [17, 9, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 9,
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minionGun]),
                 WAIT_TO_CYCLE: true,
-                TYPE: "bullet",
-            },
-        },
-    ],
+                TYPE: "bullet"
+            }
+        }
+    ]
 }
 Class.tinyMinion = {
     PARENT: "minion",
@@ -793,6 +804,48 @@ Class.sentryTrapMinion = {
         POSITION: [12, 0, 0, 0, 360, 1],
         TYPE: 'trapTurret'
     }]
+}
+Class.wranglerMinion = {
+    PARENT: 'minion',
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 2;
+                const segmentClass = 'spiralBulletSegment';
+
+                body.store.snakeSegments ??= [];
+
+                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
+                    let seg = new Entity(body, body);
+                    //seg.health = body.health;
+                    //seg.shield = body.shield;
+                    seg.master = body;
+                    seg.source = body;
+                    seg.SIZE = body.SIZE;
+                    seg.define(segmentClass);
+                    body.store.snakeSegments.push(seg);
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+                let previous = body;
+                const children = body.store.snakeSegments;
+            
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
 }
 
 // Satellites

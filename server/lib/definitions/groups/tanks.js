@@ -5643,7 +5643,7 @@ Class.wrangler = { // old bender, fires train minions with 3 bodies (though only
             PROPERTIES: {
                 MAX_CHILDREN: 3,
                 SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
-                TYPE: 'minion',
+                TYPE: 'wranglerMinion',
                 STAT_CALCULATOR: 'drone',
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true
