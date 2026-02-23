@@ -2237,17 +2237,20 @@ Class.commander_old = {
     FACING_TYPE: "spin",
     TURRETS: [
         {
-            POSITION: [16, 1, 0, 0, 0, 0],
             TYPE: 'oldCommanderGun',
+            POSITION: {
+                SIZE: 16,
+                X: 1
+            }
         },
-        {
-            POSITION: [16, 1, 0, 120, 0, 0],
-            TYPE: ['oldCommanderGun', { INDEPENDENT: true }], // me when i can't use weaponarray :skull:
-        },
-        {
-            POSITION: [16, 1, 0, 240, 0, 0],
-            TYPE: ['oldCommanderGun', { INDEPENDENT: true }],
-        }
+        ...weaponMirror({
+            TYPE: ['oldCommanderGun', {INDEPENDENT: true}],
+            POSITION: {
+                SIZE: 16,
+                X: 1,
+                ANGLE: 120
+            }
+        })
     ]
 }
 Class.conqueror = {
