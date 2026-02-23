@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrade, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, deleteUpgrades, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
@@ -3875,7 +3875,35 @@ Class.oroboros = {
     LABEL: "Oroboros",
     DANGER: 7,
     STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!"
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20.5,
+                WIDTH: 14
+            },
+            PROPERTIES: { // guessing since there's no footage of this tank in action
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.desmos]),
+                TYPE: ['spiralBullet', {CONTROLLERS: ['snake']}]
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.5,
+                WIDTH: 14
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 6,
+                ASPECT: -4,
+                X: -7.5,
+                Y: -7,
+                ANGLE: 90
+            }
+        })
+    ]
 }
 Class.overdrive = makeDrive('overseer', {label: "Overdrive"})
 Class.overgunner = makeOver({
@@ -4162,7 +4190,7 @@ Class.python = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 21,
+                LENGTH: 22,
                 WIDTH: 12
             }
         },
@@ -4183,7 +4211,7 @@ Class.python = {
                 WIDTH: 6,
                 ASPECT: -4,
                 X: -6.75,
-                Y: -5.75,
+                Y: -6,
                 ANGLE: 87.5
             }
         })
@@ -6175,10 +6203,10 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.mace.UPGRADES_TIER_3 = ['bigMama', 'itHurtsDontTouchIt', 'flace']
         Class.flangle.UPGRADES_TIER_3 = ['flooster', 'flace']
 
-    Class.desmos.UPGRADES_TIER_2 = [/*'volute', */'helix', 'spiral'/*, 'undertow'*/, 'repeater']
+    Class.desmos.UPGRADES_TIER_2 = [/*'volute', */'helix'/*, 'spiral', 'undertow', 'repeater'*/]
         Class.desmos.UPGRADES_TIER_3 = [/*'bender'*/]
         Class.volute.UPGRADES_TIER_3 = ['sidewinder']
-        Class.helix.UPGRADES_TIER_3 = ['triplex', 'quadruplex', 'coil', 'duplicator']
+        Class.helix.UPGRADES_TIER_3 = ['triplex', 'quadruplex'/*, 'coil', 'duplicator'*/]
         Class.spiral.UPGRADES_TIER_3 = ['coil', 'python'/*, 'wrangler', 'oroboros', 'cocci', 'rocket'*/]
         Class.undertow.UPGRADES_TIER_3 = [/*'riptide'*/]
         Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
@@ -6215,6 +6243,6 @@ if (Config.retrograde) {
 
 if (Config.siege) {
     Class.basic.UPGRADES_TIER_2 = ['healer']
-    deleteUpgrade('director', 2, 'underseer')
-    deleteUpgrade('whirlwind', 3, 'prophet')
+    deleteUpgrades('director', 2, ['underseer'])
+    deleteUpgrades('whirlwind', 3, ['prophet'])
 }

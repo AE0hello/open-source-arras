@@ -1509,11 +1509,11 @@ exports.makeAutoArray = (type, options = {}) => {
         }
     }
 }
-exports.deleteUpgrade = (type, tier, upgrade) => {
+exports.deleteUpgrades = (type, tier, upgrades = []) => {
     typeUpgrades = Class[type]['UPGRADES_TIER_' + tier]
     for (let i = 0; i < typeUpgrades.length; i++) {
         let string = typeUpgrades[i];
-        if (string === upgrade) {
+        for (const upgrade of upgrades) if (string === upgrade) {
             typeUpgrades.splice(i, 1)
         }
     }

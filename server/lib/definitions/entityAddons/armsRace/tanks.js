@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrade, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, deleteUpgrades, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -7080,6 +7080,7 @@ if (increased_level_cap) {
 
 const upgradesAR = (type, tier, upgrades = [], options = {}) => {
     name = ensureIsClass(type)
+    suffix = options.suffix ??= ''
 
     if (options.noSuffix) {
         upgradeList = upgrades
@@ -7103,9 +7104,39 @@ Class.menu_unused.UPGRADES_TIER_0.push("menu_unused_AR", "menu_unused2_AR")
 Class.menu_unused_AR = makeMenu("Unused (Tier 4)", {upgrades: ["duster_AR", "jimmy_AR", "jumpSmasher"], boxLabel: "Tier 4 (Lv.60)"})
 Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"], boxLabel: "Tier 5 (Lv.75)"})
 
-//Class.basic.UPGRADES_TIER_1
-    //Class.basic.UPGRADES_TIER_2
-        Class.smasher.UPGRADES_TIER_3.push(/*"cocci", */"banger_AR", "drifter_AR")
+//upgradesAR('basic', 1, [])
+    //upgradesAR('basic', 2, [])
+        //upgradesAR('basic', 3, [])
+
+        upgradesAR('smasher', 3, ['banger_AR', 'drifter_AR', 'cocci'], {noSuffix: true})
+
+        deleteUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic'])
+        upgradesAR('healer', 3, ['scientist', 'nurse', 'triHealer', 'analyzer', 'psychiatrist', 'soother', 'recalibrator'])
+
+    upgradesAR('twin', 2, ['wark'])
+        deleteUpgrades('twin', 3, ['bulwark'])
+
+        upgradesAR('helix', 3, ['coil', 'duplicator', 'autoHelix_AR'], {noSuffix: true})
+
+    upgradesAR('machineGun', 2, ['diesel', 'machineTrapper'])
+
+    upgradesAR('director', 2, ['directordrive', 'honcho', 'doper'])
+
+    upgradesAR('pounder', 2, ['volute'], {noSuffix: true})
+
+        upgradesAR('volute', 3, ['oroboros', 'autoVolute_AR'], {noSuffix: true})
+
+    upgradesAR('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark'])
+
+    Class.desmos.UPGRADES_TIER_2.splice(0, 0, 'volute')
+    upgradesAR('desmos', 2, ['spiral', 'undertow', 'repeater'], {noSuffix: true})
+
+        //upgradesAR('helix', 3, [])
+        upgradesAR('spiral', 3, ['oroboros', 'cocci', 'autoSpiral_AR'], {noSuffix: true})
+        upgradesAR('repeater', 3, ['autoRepeater_AR'], {noSuffix: true})
+
+return
+
             Class.megaSmasher.UPGRADES_TIER_4 = [/*"megaCocci"*/].map(x => x + "_AR")
             Class.spike.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.autoSmasher.UPGRADES_TIER_4 = [].map(x => x + "_AR")
@@ -7114,7 +7145,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //Class.cocci.UPGRADES_TIER_4 = ["megaCocci"].map(x => x + "_AR")
             //Class.banger_AR.UPGRADES_TIER_4 = ["megaBanger", "prick", "autoBanger", "tripwire", "thwacker", "sharper"].map(x => x + "_AR")
             //Class.drifter_AR.UPGRADES_TIER_4 = ["buncher", "megaDrifter", "autoDrifter", "vessel", "cauldron", "sharper", "bundler"].map(x => x + "_AR")
-        Class.healer.UPGRADES_TIER_3 = ["medic", "scientist_AR", "nurse_AR", "triHealer_AR", "analyzer_AR", "psychiatrist_AR", "soother_AR", "recalibrator_AR"]
+        
             Class.healer.UPGRADES_TIER_4 = ["physician", "renovator"].map(x => x + "_AR")
             Class.medic.UPGRADES_TIER_4 = ["intern", "ointment", "injection", "actuary"].map(x => x + "_AR")
             Class.scientist_AR.UPGRADES_TIER_4 = ["surgeon", "professor_AR", "chemist_AR", "scribble_AR"/*, [MECH HEALER], [MACHTRAP HEALER]*/, "kraw_AR"]
@@ -7125,8 +7156,6 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             Class.soother_AR.UPGRADES_TIER_4 = ["doctor", "antidote", "medicare", "PLACEHOLDER_healerOverseer", "PLACEHOLDER_healerUnderseer", "sootherdrive", "spiker"].map(x => x + "_AR")
             Class.recalibrator_AR.UPGRADES_TIER_4 = ["geneticist"].map(x => x + "_AR")
 
-    Class.twin.UPGRADES_TIER_2.push("wark_AR")
-        deleteUpgrade("twin", 3, "bulwark")
             upgradesAR('twin', 4, ['duo'])
             Class.dual.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.musket.UPGRADES_TIER_4 = [].map(x => x + "_AR")
@@ -7359,7 +7388,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //Class.triTrapGuard_AR.UPGRADES_TIER_4
 
     Class.director.UPGRADES_TIER_2.push("directordrive_AR", "honcho_AR", "doper_AR")
-        deleteUpgrade("director", 3, "bigCheese")
+        deleteUpgrades("director", 3, "bigCheese")
             Class.director.UPGRADES_TIER_4 = ["coordinator"].map(x => x + "_AR")
             Class.manager.UPGRADES_TIER_4 = ["leader", "inspector", "managerdrive", "autoManager"].map(x => x + "_AR")
         Class.overseer.UPGRADES_TIER_3.push("captain_AR", "foreman_AR", "dopeseer_AR")
@@ -7452,7 +7481,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //UPGRADES_TIER_4 = ["shaver", "bazooka", "catapult", "myriad", "leviathan", "bulker", "bombard", "python", "claimant", "incline", "autoHurler", "mongrel", "bunger", "deliverer", "slingshot"].map(x => x + "_AR")
 
     Class.trapper.UPGRADES_TIER_2.push("pen_AR", "mech_AR", "machineTrapper_AR", "wark_AR")
-        deleteUpgrade("trapper", 3, "barricade")
+        deleteUpgrades("trapper", 3, "barricade")
         Class.trapper.UPGRADES_TIER_3.push("undertrapper_AR", "megaTrapper_AR")
             Class.trapper.UPGRADES_TIER_4 = [/*"sawedOff", */"tricker"].map(x => x + "_AR")
             Class.megaTrapper_AR.UPGRADES_TIER_4 = ["shoebill"].map(x => x + "_AR")
