@@ -7088,9 +7088,9 @@ const upgradesAR = (type, tier, upgrades = [], options = {}) => {
         upgradeList = upgrades.map(x => x + "_AR")
     }
 
-    let max_tier_AR = 3
-    if (Config.level_cap > 45) {
-        max_tier_AR = tier
+    let max_tier_AR = tier
+    if (tier > 3 && Config.level_cap < 45) {
+        max_tier_AR = 3
     }
 
     if (name[`UPGRADES_TIER_${max_tier_AR}`] == undefined) {
