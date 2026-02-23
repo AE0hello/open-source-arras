@@ -1316,55 +1316,7 @@ Class.doubleFlankTwin_AR = {
 }
 Class.doubleGatling_AR = makeFlank('gatlingGun', 2, "Double Gatling", {extraStats: [g.flankGuard]})
 Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.doubleTwin]})
-Class.doubleHelix_AR = {
-    PARENT: "genericTank",
-    LABEL: "Double Helix",
-    DANGER: 7,
-    STAT_NAMES: statnames.desmos,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 6,
-                ASPECT: -1.5,
-                Y: -5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin, g.desmos]),
-                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 6,
-                ASPECT: -1.5,
-                Y: 5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin, g.desmos]),
-                TYPE: ["bullet", {CONTROLLERS: [['snake', {invert: true}]]}]
-            },
-        },
-        {
-            POSITION: {
-                LENGTH: 16.5,
-                WIDTH: 2,
-                ASPECT: -9.25
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 4,
-                WIDTH: 5,
-                ASPECT: -4,
-                X: -9.5,
-                Y: -7,
-                ANGLE: 90
-            }
-        }, {delayIncrement: 0.5})
-    ], 2)
-}
+Class.doubleHelix_AR = makeFlank('helix', 2, "Double Helix", {extraStats: [g.doubleTwin]})
 Class.doubleMinigun_AR = makeFlank('minigun', 2, "Double Minigun", {extraStats: [g.flankGuard]})
 Class.doubleSprayer_AR = makeFlank('sprayer', 2, "Double Sprayer", {extraStats: [g.flankGuard]})
 Class.drifter_AR = {
@@ -7116,7 +7068,31 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
     upgradesAR('twin', 2, ['wark'])
         deleteUpgrades('twin', 3, ['bulwark'])
 
-        upgradesAR('helix', 3, ['coil', 'duplicator', 'autoHelix_AR'], {noSuffix: true})
+        upgradesAR('doubleTwin', 3, ['doubleFlankTwin', 'doubleGunner', 'doubleHelix', 'warkwark'])
+
+        upgradesAR('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'])
+
+        upgradesAR('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer'])
+
+        upgradesAR('hexaTank', 3, ['autoHexaTank', 'mingler', 'combo'])
+
+        upgradesAR('helix', 3, ['coil', 'duplicator', 'doubleHelix_AR', 'hybrix_AR', 'autoHelix_AR'], {noSuffix: true})
+
+        upgradesAR('wark_AR', 3, ['warkwark_AR', 'waarrk_AR', 'equalizer_AR', 'hexaTrapper', 'bulwark', 'hutch_AR', 'cog_AR', 'expeller_AR', 'coalesce_AR', 'autoWark_AR'], {noSuffix: true})
+
+    //upgradesAR('sniper', 2, [])
+        upgradesAR('sniper', 3, ['railgun'])
+
+        upgradesAR('assassin', 3, ['hitman', 'sniper3', 'enforcer', 'courser'])
+
+        upgradesAR('hunter', 3, ['autoHunter', 'megaHunter', 'prober', 'courser'])
+
+        upgradesAR('minigun', 3, ['zipper', 'bentMinigun', 'autoMinigun', 'widget', 'piercer'])
+
+        upgradesAR('rifle', 3, ['autoRifle', 'enforcer', 'prober'])
+
+        Class.marksman.UPGRADES_TIER_3.splice(2, 0, 'piercer_AR')
+        upgradesAR('marksman', 3, ['piercer', 'hybridMarksman', 'autoMarksman'])
 
     upgradesAR('machineGun', 2, ['diesel', 'machineTrapper'])
 
@@ -7160,7 +7136,6 @@ return
             Class.dual.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.musket.UPGRADES_TIER_4 = [].map(x => x + "_AR")
 
-        Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin_AR", "doubleGunner_AR", "doubleHelix_AR", "warkwark_AR")
             Class.doubleTwin.UPGRADES_TIER_4 = ["doubleDual", "doubleMusket", "overdoubleTwin", "underdoubleTwin"].map(x => x + "_AR")
             Class.tripleTwin.UPGRADES_TIER_4 = ["quadTwin", "hewnTriple", "autoTriple", "bentTriple", "tripleFlankTwin", "tripleGunner", "tripleHelix", "warkwarkwark"].map(x => x + "_AR")
             Class.hewnDouble.UPGRADES_TIER_4 = ["hewnTriple", "skewnDouble", "autoHewnDouble", "cleft", "hewnFlankDouble", "hewnGunner"/*, "hewnHelix"*/, "warkwawarkrk"].map(x => x + "_AR")
@@ -7171,7 +7146,6 @@ return
             Class.doubleHelix_AR.UPGRADES_TIER_4 = ["tripleHelix"/*, "hewnHelix"*/, "autoDoubleHelix", "doubleTriplex", "doubleFlankHelix"].map(x => x + "_AR")
             Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
 
-        Class.tripleShot.UPGRADES_TIER_3.push("splitShot_AR", "autoTripleShot_AR", "bentGunner_AR", "bentMinigun_AR", "defect_AR", "waarrk_AR")
             Class.tripleShot.UPGRADES_TIER_4 = [/*"threefold", "flintlock"*/].map(x => x + "_AR")
             Class.pentaShot.UPGRADES_TIER_4 = [/*"heptaShot", */"flexedDouble", "flexedHybrid", "quintuplet", "quintuplex"/*, "crackshot"*/, "autoPentaShot"/*, "flexedGunner", "flexedMinigun"*/, "deficiency"/*, "waarararrk"*/].map(x => x + "_AR")
             Class.spreadshot.UPGRADES_TIER_4 = [/*"doubleSpreadshot", "*/"smearer", "autoSpreadshot"/*, "dauber", "ballista"*/, "bozo"/*, "fungus"*/].map(x => x + "_AR")
@@ -7186,7 +7160,6 @@ return
             Class.defect_AR.UPGRADES_TIER_4 = ["deficiency", "bozo", "nitwit", "nitwix", "dork", "donkey"/*, "mangle", "loon", "klutz", "jerker"*/, "fault", "autoDefect"].map(x => x + "_AR")
             Class.waarrk_AR.UPGRADES_TIER_4 = [/*"waarararrk", "fungus", */"bentCatcher"/*, "waarrkwaarrk", "warklet", "splinterShot"*/, "autoWaarrk"/*, "dagger", "bentBarricade"*/, "fault"/*, "bentBulwark", "brig", "yard", "spitter"*/].map(x => x + "_AR")
 
-        Class.gunner.UPGRADES_TIER_3.push("rimfire_AR", "volley_AR", "doubleGunner_AR", "bentGunner_AR", "equalizer_AR")
             Class.autoGunner.UPGRADES_TIER_4 = ["megaAutoGunner", "tripleAutoGunner"].map(x => x + "_AR")
             Class.nailgun.UPGRADES_TIER_4 = ["autoNailgun"].map(x => x + "_AR")
             Class.auto4.UPGRADES_TIER_4 = ["autoAuto4"].map(x => x + "_AR")
@@ -7203,7 +7176,6 @@ return
             //Class.bentGunner_AR.UPGRADES_TIER_4
             Class.equalizer_AR.UPGRADES_TIER_4 = ["autoEqualizer"].map(x => x + "_AR")
 
-        Class.hexaTank.UPGRADES_TIER_3.push("autoHexaTank_AR", "mingler_AR", "combo_AR")
             Class.hexaTank.UPGRADES_TIER_4 = ["tripleFlankTwin", "hextuplex"].map(x => x + "_AR")
             Class.octoTank.UPGRADES_TIER_4 = ["decaTank", "octoTrapper", "demise", "autoOctoTank"].map(x => x + "_AR")
             //Class.cyclone.UPGRADES_TIER_4
@@ -7213,13 +7185,11 @@ return
             Class.mingler_AR.UPGRADES_TIER_4 = ["autoMingler"].map(x => x + "_AR")
             Class.combo_AR.UPGRADES_TIER_4 = ["autoCombo"].map(x => x + "_AR")
 
-        Class.helix.UPGRADES_TIER_3.push("doubleHelix_AR", "hybrix_AR", "autoHelix_AR")
             //Class.triplex.UPGRADES_TIER_4
             Class.quadruplex.UPGRADES_TIER_4 = ["hextuplex", "autoQuadruplex"].map(x => x + "_AR")
             Class.hybrix_AR.UPGRADES_TIER_4 = ["triprix"].map(x => x + "_AR")
             Class.autoHelix_AR.UPGRADES_TIER_4 = ["megaAutoHelix", "tripleAutoHelix", "autoTriplex", "autoQuadruplex"].map(x => x + "_AR")
 
-        Class.wark_AR.UPGRADES_TIER_3 = ["warkwark_AR", "waarrk_AR", "equalizer_AR", "hexaTrapper", "hutch_AR", "cog_AR", "expeller_AR", "bulwark", "coalesce_AR", "autoWark_AR"]
             //Class.warkwark_AR.UPGRADES_TIER_4
             //Class.waarrk_AR.UPGRADES_TIER_4
             //Class.equalizer_AR.UPGRADES_TIER_4
@@ -7232,11 +7202,11 @@ return
             Class.autoWark_AR.UPGRADES_TIER_4 = ["megaAutoWark", "tripleAutoWark"].map(x => x + "_AR")
 
     //Class.sniper.UPGRADES_TIER_2
-        Class.sniper.UPGRADES_TIER_3.push("railgun_AR")
+
             Class.sniper.UPGRADES_TIER_4 = ["sharpshooter"].map(x => x + "_AR")
             Class.bushwhacker.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             Class.railgun_AR.UPGRADES_TIER_4 = ["raven"].map(x => x + "_AR")
-        Class.assassin.UPGRADES_TIER_3.push("hitman_AR", "sniper3_AR", "enforcer_AR", "courser_AR")
+
             Class.ranger.UPGRADES_TIER_4 = [/*"vindicator", */"peregrine", "autoRanger", "mono", "marine"/*, "hawker"*/, "doorman"/*, "maverick", "acquirer"*/].map(x => x + "_AR")
             Class.stalker.UPGRADES_TIER_4 = ["spy"].map(x => x + "_AR")
             Class.falcon.UPGRADES_TIER_4 = [/*"merlin", */"peregrine", "owl", "autoFalcon", "avian", "harpy"/*, "sparrow", "caracara"*/, "merganser", "cassowary"].map(x => x + "_AR")
