@@ -2092,21 +2092,24 @@ Class.cocci = {
                 const segmentClass = 'cocciSegment';
 
                 body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
 
-                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
-                    let seg = new Entity(body, body);
-                    //seg.health = body.health;
-                    //seg.shield = body.shield;
-                    seg.master = body;
-                    seg.source = body;
-                    seg.skill.score = body.skill.score;
-                    seg.define(segmentClass);
-                    body.store.snakeSegments.push(seg);
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
                 }
                 body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
                 let previous = body;
                 const children = body.store.snakeSegments;
-            
+
                 for (const child of children) {
                     const dx = child.x - previous.x;
                     const dy = child.y - previous.y;
@@ -4534,27 +4537,30 @@ Class.rocket = {
     ],
     ON: [
         {
-            event: "tick",
+            event: 'tick',
             handler: ({body}) => {
                 const numOfSegments = 2;
                 const segmentClass = 'rocketSegment';
 
                 body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
 
-                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
-                    let seg = new Entity(body, body);
-                    //seg.health = body.health;
-                    //seg.shield = body.shield;
-                    seg.master = body;
-                    seg.source = body;
-                    seg.skill.score = body.skill.score;
-                    seg.define(segmentClass);
-                    body.store.snakeSegments.push(seg);
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
                 }
                 body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
                 let previous = body;
                 const children = body.store.snakeSegments;
-            
+
                 for (const child of children) {
                     const dx = child.x - previous.x;
                     const dy = child.y - previous.y;
