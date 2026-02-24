@@ -3571,6 +3571,66 @@ Class.antidote_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.armament_AR = makeGunner('enforcer_AR', "Armament", {rear: true})
+Class.autoCocciSegment_AR = {
+    PARENT: 'genericSmasher',
+    COLOR: "mirror",
+    CAN_BE_ON_LEADERBOARD: false,
+    DISPLAY_NAME: false,
+    SKILL_CAP: Class.autoSmasher.SKILL_CAP,
+    BODY: Class.autoSmasher.BODY,
+    TURRETS: Class.autoSmasher.TURRETS,
+    CLEAR_ON_MASTER_UPGRADE: true
+}
+Class.autoCocci_AR = {
+    PARENT: 'genericSmasher',
+    LABEL: "Auto-Cocci",
+    DANGER: 8,
+    SKILL_CAP: Class.autoSmasher.SKILL_CAP,
+    BODY: Class.autoSmasher.BODY,
+    TURRETS: Class.autoSmasher.TURRETS,
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 5;
+                const segmentClass = 'autoCocciSegment_AR';
+
+                body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
+
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
+}
 Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
 Class.autoHexaTrapper_AR = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Auto-Hexa-Trapper", preset.makeAuto.triple)
 Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", preset.makeAuto.blank), {label: "Auto-Hexa Whirl"})
@@ -4342,6 +4402,64 @@ Class.gadgetGun_AR = {
         }
     ]
 }
+Class.garterSegment_AR = {
+    PARENT: 'genericSmasher',
+    COLOR: "mirror",
+    CAN_BE_ON_LEADERBOARD: false,
+    DISPLAY_NAME: false,
+    SIZE: Class.bonker.SIZE,
+    TURRETS: Class.bonker.TURRETS,
+    CLEAR_ON_MASTER_UPGRADE: true
+}
+Class.garter_AR = {
+    PARENT: 'genericSmasher',
+    LABEL: "Garter",
+    DANGER: 8,
+    SIZE: Class.bonker.SIZE,
+    TURRETS: Class.bonker.TURRETS,
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 5;
+                const segmentClass = 'garterSegment_AR';
+
+                body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
+
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
+}
 Class.geneticist_AR = {
     PARENT: "genericHealer",
     LABEL: "Geneticist",
@@ -4947,60 +5065,45 @@ Class.medicare_AR = {
 }
 Class.megaAutoDouble_AR = makeAuto("doubleTwin", "Mega Auto-Double", preset.makeAuto.mega)
 Class.megaCocciSegment_AR = {
-    PARENT: "genericSmasher",
+    PARENT: 'genericSmasher',
     COLOR: "mirror",
     CAN_BE_ON_LEADERBOARD: false,
     DISPLAY_NAME: false,
-    BODY: {
-        SPEED: 1.05 * base.SPEED,
-        FOV: 1.1 * base.FOV,
-        DENSITY: 4 * base.DENSITY
-    },
-    TURRETS: [
-        {
-            TYPE: ["hexagonHat_spin", { COLOR: "black" }],
-            POSITION: { SIZE: 25 }
-        }
-    ]
+    BODY: Class.megaSmasher.BODY,
+    TURRETS: Class.megaSmasher.TURRETS,
+    CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.megaCocci_AR = {
-    PARENT: "genericSmasher",
+    PARENT: 'genericSmasher',
     LABEL: "Mega-Cocci",
     DANGER: 8,
-    BODY: {
-        SPEED: 1.05 * base.SPEED,
-        FOV: 1.1 * base.FOV,
-        DENSITY: 4 * base.DENSITY
-    },
-    TURRETS: [
-        {
-            TYPE: ["hexagonHat_spin", { COLOR: "black" }],
-            POSITION: { SIZE: 25 }
-        }
-    ],
+    BODY: Class.megaSmasher.BODY,
+    TURRETS: Class.megaSmasher.TURRETS,
     ON: [
         {
-            event: "tick",
-            handler: ({ body }) => {
+            event: 'tick',
+            handler: ({body}) => {
                 const numOfSegments = 5;
-                const segmentClass = "megaCocciSegment_AR";
+                const segmentClass = 'megaCocciSegment_AR';
 
                 body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
 
-                for (let i = body.store.snakeSegments.length; i < numOfSegments; i++) {
-                    let seg = new Entity(body, body);
-                    seg.health = body.health;
-                    seg.shield = body.shield;
-                    seg.master = body;
-                    seg.source = body;
-                    seg.skill.score = body.skill.score;
-                    seg.define(segmentClass);
-                    body.store.snakeSegments.push(seg);
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
                 }
 
                 let previous = body;
                 const children = body.store.snakeSegments;
-            
+
                 for (const child of children) {
                     const dx = child.x - previous.x;
                     const dy = child.y - previous.y;
@@ -5047,6 +5150,54 @@ Class.mono_AR = {
                 WIDTH: 8,
                 ASPECT: -1.5,
                 X: 13.5
+            }
+        }
+    ]
+}
+Class.noodle_AR = {
+    PARENT: 'genericSmasher',
+    LABEL: "Noodle",
+    DANGER: 8,
+    TURRETS: Class.smasher.TURRETS,
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 10;
+                const segmentClass = 'cocciSegment';
+
+                body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
+
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
             }
         }
     ]
@@ -5932,6 +6083,64 @@ Class.therapist_AR = {
             }
         }
     ], {delayIncrement: 0.5})
+}
+Class.titanoboaSegment_AR = {
+    PARENT: 'genericSmasher',
+    COLOR: "mirror",
+    CAN_BE_ON_LEADERBOARD: false,
+    DISPLAY_NAME: false,
+    SIZE: Class.banger_AR.SIZE,
+    TURRETS: Class.banger_AR.TURRETS,
+    CLEAR_ON_MASTER_UPGRADE: true
+}
+Class.titanoboa_AR = {
+    PARENT: 'genericSmasher',
+    LABEL: "Titanoboa",
+    DANGER: 8,
+    SIZE: Class.banger_AR.SIZE,
+    TURRETS: Class.banger_AR.TURRETS,
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = 5;
+                const segmentClass = 'titanoboaSegment_AR';
+
+                body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
+
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ]
 }
 Class.tommy_AR = makeGuard('minigun', "Tommy")
 Class.toppler_AR = {
@@ -7061,6 +7270,11 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
         //upgradesAR('basic', 3, [])
 
         upgradesAR('smasher', 3, ['banger_AR', 'drifter_AR', 'cocci'], {noSuffix: true})
+            upgradesAR('megaSmasher', 4, ['megaCocci'])
+            upgradesAR('autoSmasher', 4, ['autoCocci'])
+            upgradesAR('bonker', 4, ['garter'])
+            upgradesAR('banger_AR', 4, ['titanoboa'])
+            upgradesAR('cocci', 4, ['noodle', 'megaCocci', 'autoCocci', 'garter', 'titanoboa'])
 
         deleteUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic'])
         upgradesAR('healer', 3, ['scientist', 'nurse', 'triHealer', 'analyzer', 'psychiatrist', 'soother', 'recalibrator'])
@@ -7072,7 +7286,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         upgradesAR('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'])
 
-        upgradesAR('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer'])
+        upgradesAR('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer', 'undergunner'])
 
         upgradesAR('hexaTank', 3, ['autoHexaTank', 'mingler', 'combo'])
 
@@ -7096,19 +7310,89 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
     upgradesAR('machineGun', 2, ['diesel', 'machineTrapper'])
 
+        upgradesAR('artillery', 3, ['queller', 'forger', 'force', 'autoArtillery', 'foctillery', 'discharger'])
+
+        //upgradesAR('minigun', 3, [])
+
+        //upgradesAR('gunner', 3, [])
+
+        upgradesAR('sprayer', 3, ['frother', 'foamer', 'faucet', 'shower', 'autoSprayer', 'stormer'])
+
+        upgradesAR('diesel_AR', 3, ['jalopy_AR', 'machineGunner', 'dieselTrapper_AR', 'polluter_AR', 'autoDiesel_AR'], {noSuffix: true})
+
+        upgradesAR('machineTrapper_AR', 3, ['dieselTrapper_AR', 'barricade', 'equalizer_AR', 'frother_AR', 'machineGuard_AR', 'encircler_AR', 'machineMech_AR', 'triMachine_AR', 'expeller_AR', 'autoMachineTrapper_AR', 'deviation_AR'], {noSuffix: true})
+
+    //upgradesAR('flankGuard', 2, [])
+
+        //upgradesAR('hexaTank', 3, [])
+
+        upgradesAR('triAngle', 3, ['cockatiel', 'integrator', 'defect', 'quadAngle'])
+
+        upgradesAR('auto3', 3, ['sniper3', 'crowbar', 'autoAuto3', 'combo'])
+
+        upgradesAR('trapGuard', 3, ['peashooter', 'incarcerator', 'mechGuard', 'autoTrapGuard', 'machineGuard', 'triTrapGuard'])
+
+        upgradesAR('triTrapper', 3, ['prodigy', 'triPen_AR', 'triMech_AR', 'triMachine_AR', 'triTrapGuard_AR'], {noSuffix: true})
+
     upgradesAR('director', 2, ['directordrive', 'honcho', 'doper'])
+        deleteUpgrades('director', 3, ['bigCheese'])
+
+        upgradesAR('overseer', 3, ['captain', 'foreman', 'dopeseer'])
+
+        upgradesAR('cruiser', 3, ['productionist', 'cruiserdrive', 'hangar', 'zipper', 'baltimore', 'mosey'])
+
+        upgradesAR('underseer', 3, ['prodigy', 'autoUnderseer_AR', 'underdrive_AR', 'pentaseer_AR', 'undertrapper_AR', 'undergunner_AR', 'mummifier_AR'], {noSuffix: true})
+
+        upgradesAR('spawner', 3, ['megaSpawner', 'productionist', 'spawnerdrive', 'captain', 'hangar', 'laborer', 'foundry', 'issuer'])
+
+        upgradesAR('directordrive_AR', 3, ['directorstorm_AR', 'overdrive', 'cruiserdrive_AR', 'underdrive_AR', 'spawnerdrive_AR', 'autoDirectordrive_AR', 'honchodrive_AR', 'doperdrive_AR'], {noSuffix: true})
+
+        upgradesAR('honcho_AR', 3, ['foreman_AR', 'baltimore_AR', 'foundry_AR', 'bigCheese', 'autoHoncho_AR', 'honchodrive_AR', 'junkie_AR'], {noSuffix: true})
+
+        upgradesAR('doper_AR', 3, ['brisker', 'dopeseer', 'mosey', 'issuer', 'junkie', 'doperdrive', 'autoDoper'])
 
     upgradesAR('pounder', 2, ['volute'], {noSuffix: true})
+
+        upgradesAR('destroyer', 3, [])
+
+        upgradesAR('builder', 3, [])
+
+        //upgradesAR('artillery', 3, [])
+
+        upgradesAR('launcher', 3, [])
 
         upgradesAR('volute', 3, ['oroboros', 'autoVolute_AR'], {noSuffix: true})
 
     upgradesAR('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark'])
+        deleteUpgrades('trapper', 3, ['barricade'])
+        upgradesAR('trapper', 3, ['undertrapper'])
+
+        //upgradesAR('builder', 3, [])
+
+        //upgradesAR('triTrapper', 3, [])
+
+        //upgradesAR('trapGuard', 3, [])
+
+        upgradesAR('pen_AR', 3, ['stall', 'triPen', 'encircler', 'incarcerator', 'operator', 'cockatiel', 'hutch', 'interner', 'autoPen'])
+
+        upgradesAR('mech_AR', 3, ['engineer', 'triMech_AR', 'machineMech_AR', 'mechGuard_AR', 'operator_AR', 'cog_AR', 'cobbler_AR', 'autoMech_AR'], {noSuffix: true})
+
+        //upgradesAR('machineTrapper_AR', 3, [])
+
+        //upgradesAR('wark_AR', 3, [])
 
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, 'volute')
     upgradesAR('desmos', 2, ['spiral', 'undertow', 'repeater'], {noSuffix: true})
 
+        //upgradesAR('volute', 3, [])
+
         //upgradesAR('helix', 3, [])
+
         upgradesAR('spiral', 3, ['oroboros', 'cocci', 'autoSpiral_AR'], {noSuffix: true})
+            upgradesAR('python', 4, ['noodle'])
+
+        upgradesAR('undertow', 3, [])
+
         upgradesAR('repeater', 3, ['autoRepeater_AR'], {noSuffix: true})
 
 return

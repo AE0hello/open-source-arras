@@ -247,9 +247,10 @@ exports.makeFlank = (type, count, name = -1, options = {}) => {
             }
         }
     }
-    output.GUNS = exports.weaponArray(output.GUNS, count ?? 3, {delayIncrement: options.delayIncrement ?? 0, delayOverflow: options.delayOverflow ?? false, startAngle: options.startAngle ?? 0})
+    output.GUNS = exports.weaponArray(output.GUNS, count ??= 3, {delayIncrement: options.delayIncrement ?? 0, delayOverflow: options.delayOverflow ?? false, startAngle: options.startAngle ?? 0})
     output.LABEL = name == -1 ? type.LABEL : name
-    output.DANGER = options.danger ?? type.DANGER + 1
+    output.DANGER = options.danger ??= type.DANGER + 1
+    output.HAS_NO_RECOIL = options.noRecoil ??= false
     return output
 }
 exports.makeGuard = (type, name = -1, options = {}) => {

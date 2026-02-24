@@ -1142,33 +1142,6 @@ Class.tracker3gun = makeTurret({
         }
     ]
 }, {canRepel: true, limitFov: true, fov: 3, color: "#1AFF00"})
-Class.oldCommanderGun = {
-        PARENT: "genericTank",
-        LABEL: "",
-        BODY: {
-            FOV: 3,
-        },
-        CONTROLLERS: ["nearestDifferentMaster"],
-        COLOR: 16,
-        MAX_CHILDREN: 6,
-        AI: {
-            NO_LEAD: true,
-            SKYNET: true,
-            FULL_VIEW: true,
-        },
-        GUNS: [
-            {
-                POSITION: [8, 14, 1.3, 8, 0, 0, 0],
-                PROPERTIES: {
-                    SHOOT_SETTINGS: combineStats([g.drone, g.commander]),
-                    TYPE: "drone",
-                    AUTOFIRE: true,
-                    SYNCS_SKILLS: true,
-                    STAT_CALCULATOR: "drone",
-                },
-            },
-        ],
-}
 
 // FLAIL!!!
 Class.flailBallSpike = {

@@ -2083,6 +2083,7 @@ Class.cocciSegment = {
 Class.cocci = {
     PARENT: 'genericSmasher',
     LABEL: "Cocci",
+    DANGER: 7,
     TURRETS: Class.smasher.TURRETS,
     ON: [
         {
@@ -2234,22 +2235,40 @@ Class.commander_old = {
     BODY: {
         FOV: 1.15 * base.FOV,
     },
-    FACING_TYPE: "spin",
-    TURRETS: [
+    FACING_TYPE: 'spin',
+    GUNS: [
         {
-            TYPE: 'oldCommanderGun',
             POSITION: {
-                SIZE: 16,
-                X: 1
-            }
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.commander]),
+                TYPE: 'drone',
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                MAX_CHILDREN: 6
+            },
         },
         ...weaponMirror({
-            TYPE: ['oldCommanderGun', {INDEPENDENT: true}],
             POSITION: {
-                SIZE: 16,
-                X: 1,
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8,
                 ANGLE: 120
-            }
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.commander]),
+                TYPE: ['drone', {INDEPENDENT: true}],
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                MAX_CHILDREN: 6
+            },
         })
     ]
 }
@@ -4712,7 +4731,8 @@ Class.septaTrapper = {
         ], {delayOverflow: true})
     ]
 }
-Class.septaTrapper_old = makeFlank('trapper', 7, "Septa Trapper", {extraStats: [g.hexaTrapper], delayIncrement: 4/7, danger: 7})
+Class.septaTrapper_old = makeFlank('trapper', 7, "Septa Trapper", {extraStats: [g.hexaTrapper], delayIncrement: 4/7, danger: 7, noRecoil: true})
+Class.septaTrapper_old.UPGRADE_LABEL = "Old Septa Trapper"
 Class.shotgun = {
     PARENT: 'genericTank',
     LABEL: "Shotgun",
