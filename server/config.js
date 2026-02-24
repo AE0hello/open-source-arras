@@ -1,7 +1,7 @@
 module.exports = {
     // Open Source Arras
     version: 'v2.0.11', // The current OSA version. Changing this will likely confuse addons.
-    devBuild: false, // Whether this is marked as a development build.
+    devBuild: true, // Whether this is marked as a development build.
 
     // Main Menu
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
