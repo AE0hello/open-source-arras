@@ -7234,7 +7234,7 @@ Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
 if (!Config.arms_race == true) {return}
 if (!use_original_tree) {
 
-const increased_level_cap = true
+const increased_level_cap = false
 if (increased_level_cap) {
     Config.level_cap = 60
     Config.level_cap_cheat = 60
@@ -7251,7 +7251,7 @@ const upgradesAR = (type, tier, upgrades = [], options = {}) => {
     }
 
     let max_tier_AR = tier
-    if (tier > 3 && Config.level_cap < 45) {
+    if (tier > 3 && Config.level_cap <= (tier * 15)) {
         max_tier_AR = 3
     }
 
