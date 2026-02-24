@@ -5100,6 +5100,7 @@ Class.megaCocci_AR = {
                         body.store.snakeSegments.push(seg);
                     }
                 }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
 
                 let previous = body;
                 const children = body.store.snakeSegments;
