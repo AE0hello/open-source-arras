@@ -3,6 +3,12 @@ const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
 
+Class.PLACEHOLDER = {
+    PARENT: 'genericTank',
+    UPGRADE_COLOR: 'black',
+    SHAPE: 1
+}
+
 // Settings
 const integrate_healers = false
 const use_original_tree = false // Set to true to enable the original arras.io Arms Race tree and level cap, with some minor bugfixes.
@@ -3050,83 +3056,9 @@ Class.triHealer_AR = {
         }
     ], 3)
 }
-Class.triMachine_AR = {
-    PARENT: "genericTank",
-    LABEL: "Tri-Machine",
-    DANGER: 7,
-    STAT_NAMES: statnames.trap,
-    ...todo_placeholder_guns,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 9,
-                ASPECT: 1.4
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 13,
-                ASPECT: 1.3,
-                X: 15,
-                ANGLE: 0
-            }
-        }
-    ], 3)
-}
-Class.triMech_AR = {
-    PARENT: "genericTank",
-    LABEL: "Tri-Mech",
-    DANGER: 7,
-    STAT_NAMES: statnames.trap,
-    ...todo_placeholder_guns,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 8
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 11
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3,
-                WIDTH: 8,
-                ASPECT: 1.7,
-                X: 15
-            }
-        }
-    ], 3)
-}
-Class.triPen_AR = {
-    PARENT: "genericTank",
-    LABEL: "Tri-Pen",
-    DANGER: 7,
-    STAT_NAMES: statnames.trap,
-    ...todo_placeholder_guns,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4,
-                WIDTH: 8,
-                ASPECT: 1.7,
-                X: 13
-            }
-        }
-    ], 3)
-}
+Class.triMachine_AR = makeFlank('machineTrapper_AR', 3, "Tri-Machine", {extraStats: [g.flankGuard]})
+Class.triMech_AR = makeFlank('mech_AR', 3, "Tri-Mech", {extraStats: [g.flankGuard]})
+Class.triPen_AR = makeFlank('pen_AR', 3, "Tri-Pen", {extraStats: [g.flankGuard]})
 Class.triTrapGuard_AR = makeGuard({
     PARENT: "genericTank",
     DANGER: 4,
@@ -4696,6 +4628,7 @@ Class.hewnGunner_AR = {
         ], {delayIncrement: 0.25}), 2)
     ]
 }
+Class.hewnHelix_AR = {PARENT: 'PLACEHOLDER', LABEL: "Hewn Helix"}
 Class.hewnTriple_AR = {
     PARENT: "genericTank",
     LABEL: "Hewn Triple",
@@ -5978,6 +5911,42 @@ Class.spy_AR = {
     ]
 }
 Class.storm_AR = makeGunner('queller_AR', "Storm", {rear: true})
+Class.strand_AR = {
+    PARENT: 'genericTank',
+    LABEL: "Strand",
+    DANGER: 8,
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.single, g.desmos]),
+                TYPE: ['bullet', {CONTROLLERS: ['snake']}]
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 5,
+                ASPECT: -4,
+                X: -5.25,
+                Y: -8,
+                ANGLE: 90
+            }
+        }),
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 10.75,
+                ASPECT: -1.6
+            }
+        }
+    ]
+}
 Class.subduer_AR = {
     PARENT: "genericTank",
     LABEL: "Subduer",
@@ -7097,6 +7066,7 @@ makeAutoArray([
     "triAngle",
     "tripleShot",
     "underseer",
+    'undertow',
     "volute",
     "wark_AR"
 ], {tier: 1, suffix: "_AR"})
@@ -7270,20 +7240,37 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
     //upgradesAR('basic', 2, [])
         //upgradesAR('basic', 3, [])
 
-        upgradesAR('smasher', 3, ['banger_AR', 'drifter_AR', 'cocci'], {noSuffix: true})
-            upgradesAR('megaSmasher', 4, ['megaCocci'])
-            upgradesAR('autoSmasher', 4, ['autoCocci'])
-            upgradesAR('bonker', 4, ['garter'])
-            upgradesAR('banger_AR', 4, ['titanoboa'])
-            upgradesAR('cocci', 4, ['noodle', 'megaCocci', 'autoCocci', 'garter', 'titanoboa'])
+        upgradesAR('smasher', 3, ['banger_AR', 'drifter_AR'/*, 'cocci'*/], {noSuffix: true})
+            //upgradesAR('megaSmasher', 4, ['megaCocci'])
+            //upgradesAR('autoSmasher', 4, ['autoCocci'])
+            //upgradesAR('bonker', 4, ['garter'])
+            //upgradesAR('banger_AR', 4, ['titanoboa'])
+            //upgradesAR('cocci', 4, ['noodle', 'megaCocci', 'autoCocci', 'garter', 'titanoboa'])
 
         deleteUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic'])
         upgradesAR('healer', 3, ['scientist', 'nurse', 'triHealer', 'analyzer', 'psychiatrist', 'soother', 'recalibrator'])
 
     upgradesAR('twin', 2, ['wark'])
         deleteUpgrades('twin', 3, ['bulwark'])
+            upgradesAR('twin', 4, ['duo'])
+            upgradesAR('dual', 4, [])
+            upgradesAR('musket', 4, [])
 
         upgradesAR('doubleTwin', 3, ['doubleFlankTwin', 'doubleGunner', 'doubleHelix', 'warkwark'])
+            upgradesAR('doubleTwin', 4, ['doubleDual', 'doubleMusket', 'overdoubleTwin', 'underdoubleTwin'])
+            upgradesAR('tripleTwin', 4, ['quadTwin', 'hewnTriple', 'autoTriple', 'bentTriple', 'tripleFlankTwin', 'tripleGunner', 'tripleHelix', 'warkwarkwark'])
+            upgradesAR('hewnDouble', 4, ['hewnTriple', 'skewnDouble', 'autoHewnDouble', 'cleft', 'hewnFlankDouble', 'hewnGunner', 'hewnHelix', 'warkwawarkrk'])
+            upgradesAR('autoDouble', 4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoDoubleHelix', 'autoWarkwark'])
+            upgradesAR('bentDouble', 4, ['bentTriple', 'cleft', 'autoBentDouble', 'flexedDouble'/*, 'bentFlankDouble'*/])
+            upgradesAR('doubleFlankTwin_AR', 4, ['tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank'/*, 'bentFlankDouble'*/, 'quadTwin'/*, 'doubleFlankGunner'*/, 'doubleFlankHelix'/*, 'warkwawawark'*/, 'hipwatch'])
+            upgradesAR('doubleGunner_AR', 4, [])
+            upgradesAR('doubleHelix_AR', 4, [])
+            upgradesAR('warkwark_AR', 4, [])
+
+            //Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "doubleTriplex", "cleft"/*, "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"*/].map(x => x + "_AR")
+            //Class.doubleGunner_AR.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner"/*, "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire"*/, "doubleVolley"/*, "doubleEqualizer"*/].map(x => x + "_AR")
+            //Class.doubleHelix_AR.UPGRADES_TIER_4 = ["tripleHelix"/*, "hewnHelix"*/, "autoDoubleHelix", "doubleTriplex", "doubleFlankHelix"].map(x => x + "_AR")
+            //Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
 
         upgradesAR('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'])
 
@@ -7297,6 +7284,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
     //upgradesAR('sniper', 2, [])
         upgradesAR('sniper', 3, ['railgun'])
+            upgradesAR('sniper', 4, ['sharpshooter'])
 
         upgradesAR('assassin', 3, ['hitman', 'sniper3', 'enforcer', 'courser'])
 
@@ -7310,6 +7298,8 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
         upgradesAR('marksman', 3, ['piercer', 'hybridMarksman', 'autoMarksman'])
 
     upgradesAR('machineGun', 2, ['diesel', 'machineTrapper'])
+        //upgradesAR('machineGun', 3, [])
+            upgradesAR('machineGun', 4, ['gadgetGun'])
 
         upgradesAR('artillery', 3, ['queller', 'forger', 'force', 'autoArtillery', 'foctillery', 'discharger'])
 
@@ -7319,11 +7309,13 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         upgradesAR('sprayer', 3, ['frother', 'foamer', 'faucet', 'shower', 'autoSprayer', 'stormer'])
 
-        upgradesAR('diesel_AR', 3, ['jalopy_AR', 'machineGunner', 'dieselTrapper_AR', 'polluter_AR', 'autoDiesel_AR'], {noSuffix: true})
+        upgradesAR('diesel_AR', 3, ['jalopy_AR', 'machineGunner', 'foamer_AR', 'dieselTrapper_AR', 'polluter_AR', 'autoDiesel_AR'], {noSuffix: true})
 
-        upgradesAR('machineTrapper_AR', 3, ['dieselTrapper_AR', 'barricade', 'equalizer_AR', 'frother_AR', 'machineGuard_AR', 'encircler_AR', 'machineMech_AR', 'triMachine_AR', 'expeller_AR', 'autoMachineTrapper_AR', 'deviation_AR'], {noSuffix: true})
+        upgradesAR('machineTrapper_AR', 3, ['dieselTrapper_AR', 'barricade', 'equalizer_AR', 'frother_AR', 'triMachine_AR', 'machineGuard_AR', 'encircler_AR', 'machineMech_AR', 'expeller_AR', 'deviation_AR', 'autoMachineTrapper_AR'], {noSuffix: true})
 
     //upgradesAR('flankGuard', 2, [])
+        //upgradesAR('flankGuard', 3, [])
+            upgradesAR('flankGuard', 4, ['ternion'])
 
         //upgradesAR('hexaTank', 3, [])
 
@@ -7331,18 +7323,20 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         upgradesAR('auto3', 3, ['sniper3', 'crowbar', 'autoAuto3', 'combo'])
 
-        upgradesAR('trapGuard', 3, ['peashooter', 'incarcerator', 'mechGuard', 'autoTrapGuard', 'machineGuard', 'triTrapGuard'])
+        upgradesAR('trapGuard', 3, ['peashooter', 'triTrapGuard', 'incarcerator', 'mechGuard', 'machineGuard', 'autoTrapGuard'])
 
-        upgradesAR('triTrapper', 3, ['prodigy', 'triPen_AR', 'triMech_AR', 'triMachine_AR', 'triTrapGuard_AR'], {noSuffix: true})
+        upgradesAR('triTrapper', 3, [/*'prodigy', */'triTrapGuard_AR', 'triPen_AR', 'triMech_AR', 'triMachine_AR'], {noSuffix: true})
 
     upgradesAR('director', 2, ['directordrive', 'honcho', 'doper'])
         deleteUpgrades('director', 3, ['bigCheese'])
+            upgradesAR('director', 4, ['coordinator'])
+            upgradesAR('manager', 4, [])
 
         upgradesAR('overseer', 3, ['captain', 'foreman', 'dopeseer'])
 
-        upgradesAR('cruiser', 3, ['productionist', 'cruiserdrive', 'hangar', 'zipper', 'baltimore', 'mosey'])
+        upgradesAR('cruiser', 3, ['productionist', 'cruiserdrive', 'hangar', 'zipper', 'faucet', 'baltimore', 'mosey'])
 
-        upgradesAR('underseer', 3, ['prodigy', 'autoUnderseer_AR', 'underdrive_AR', 'pentaseer_AR', 'undertrapper_AR', 'undergunner_AR', 'mummifier_AR'], {noSuffix: true})
+        upgradesAR('underseer', 3, [/*'prodigy', */'autoUnderseer_AR', 'underdrive_AR', 'pentaseer_AR', 'undertrapper_AR', 'undergunner_AR', 'mummifier_AR'], {noSuffix: true})
 
         upgradesAR('spawner', 3, ['megaSpawner', 'productionist', 'spawnerdrive', 'captain', 'hangar', 'laborer', 'foundry', 'issuer'])
 
@@ -7353,20 +7347,26 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
         upgradesAR('doper_AR', 3, ['brisker', 'dopeseer', 'mosey', 'issuer', 'junkie', 'doperdrive', 'autoDoper'])
 
     upgradesAR('pounder', 2, ['volute'], {noSuffix: true})
+        //upgradesAR('pounder', 3, [])
+            upgradesAR('pounder', 4, ['bruiser'])
+            upgradesAR('shotgun', 4, [])
+            upgradesAR('eagle', 4, [])
+            upgradesAR('subverter', 4, [])
 
-        upgradesAR('destroyer', 3, [])
+        upgradesAR('destroyer', 3, ['megaTrapper', 'queller', 'autoDestroyer', 'hurler', 'slinker'])
 
-        upgradesAR('builder', 3, [])
+        upgradesAR('builder', 3, ['forger', 'stall', 'fashioner', 'charger'])
 
         //upgradesAR('artillery', 3, [])
 
-        upgradesAR('launcher', 3, [])
+        upgradesAR('launcher', 3, ['rocketeer', 'pitcher_AR', 'cluster_AR', 'projector_AR', 'heaver_AR', 'autoLauncher_AR', 'hurler_AR', 'inception_AR'], {noSuffix: true})
 
         upgradesAR('volute', 3, ['oroboros', 'autoVolute_AR'], {noSuffix: true})
 
     upgradesAR('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark'])
         deleteUpgrades('trapper', 3, ['barricade'])
         upgradesAR('trapper', 3, ['undertrapper'])
+            upgradesAR('trapper', 4, ['tricker'])
 
         //upgradesAR('builder', 3, [])
 
@@ -7374,9 +7374,9 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         //upgradesAR('trapGuard', 3, [])
 
-        upgradesAR('pen_AR', 3, ['stall', 'triPen', 'encircler', 'incarcerator', 'operator', 'cockatiel', 'hutch', 'interner', 'autoPen'])
+        upgradesAR('pen_AR', 3, ['stall', 'triPen', 'incarcerator', 'operator', 'encircler', 'hutch', 'cockatiel', 'interner', 'autoPen'])
 
-        upgradesAR('mech_AR', 3, ['engineer', 'triMech_AR', 'machineMech_AR', 'mechGuard_AR', 'operator_AR', 'cog_AR', 'cobbler_AR', 'autoMech_AR'], {noSuffix: true})
+        upgradesAR('mech_AR', 3, ['engineer', 'triMech_AR', 'mechGuard_AR', 'operator_AR', 'machineMech_AR', 'cog_AR', 'cobbler_AR', 'autoMech_AR'], {noSuffix: true})
 
         //upgradesAR('machineTrapper_AR', 3, [])
 
@@ -7384,17 +7384,19 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
     Class.desmos.UPGRADES_TIER_2.splice(0, 0, 'volute')
     upgradesAR('desmos', 2, ['spiral', 'undertow', 'repeater'], {noSuffix: true})
+        upgradesAR('desmos', 3, [])
+            upgradesAR('desmos', 4, ['strand'])
 
         //upgradesAR('volute', 3, [])
 
         //upgradesAR('helix', 3, [])
 
         upgradesAR('spiral', 3, ['oroboros', 'cocci', 'autoSpiral_AR'], {noSuffix: true})
-            upgradesAR('python', 4, ['noodle'])
+            //upgradesAR('python', 4, ['noodle'])
 
-        upgradesAR('undertow', 3, [])
+        upgradesAR('undertow', 3, ['autoUndertow'])
 
-        upgradesAR('repeater', 3, ['autoRepeater_AR'], {noSuffix: true})
+        upgradesAR('repeater', 3, ['autoRepeater'])
 
 return
 
@@ -7416,10 +7418,6 @@ return
             Class.psychiatrist_AR.UPGRADES_TIER_4 = ["therapist", "guru", "actuary", "PLACEHOLDER_healerSprayer"/*, [DIESEL HEALER], [MACHTRAP HEALER]*/].map(x => x + "_AR")
             Class.soother_AR.UPGRADES_TIER_4 = ["doctor", "antidote", "medicare", "PLACEHOLDER_healerOverseer", "PLACEHOLDER_healerUnderseer", "sootherdrive", "spiker"].map(x => x + "_AR")
             Class.recalibrator_AR.UPGRADES_TIER_4 = ["geneticist"].map(x => x + "_AR")
-
-            upgradesAR('twin', 4, ['duo'])
-            Class.dual.UPGRADES_TIER_4 = [].map(x => x + "_AR")
-            Class.musket.UPGRADES_TIER_4 = [].map(x => x + "_AR")
 
             Class.doubleTwin.UPGRADES_TIER_4 = ["doubleDual", "doubleMusket", "overdoubleTwin", "underdoubleTwin"].map(x => x + "_AR")
             Class.tripleTwin.UPGRADES_TIER_4 = ["quadTwin", "hewnTriple", "autoTriple", "bentTriple", "tripleFlankTwin", "tripleGunner", "tripleHelix", "warkwarkwark"].map(x => x + "_AR")
