@@ -99,7 +99,7 @@ Class.satelliteBullet = {
 }
 Class.speedBullet = {
     PARENT: "bullet",
-    MOTION_TYPE: ["glide", {damp:-50}]
+    MOTION_TYPE: ['glide', {damp: -0.0125}]
 }
 Class.spiralBulletSegment = {
     PARENT: 'bullet',
