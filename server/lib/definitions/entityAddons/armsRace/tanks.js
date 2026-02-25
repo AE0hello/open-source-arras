@@ -896,13 +896,13 @@ Class.bentMinigun_AR = {
                 X: -2,
                 Y: 2,
                 ANGLE: 16,
-                DELAY: 0.5
+                DELAY: 0.25
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun, g.tripleShot]),
                 TYPE: "bullet"
             }
-        }, 2, {lengthOffset: 2, delayIncrement: 0.25})),
+        }, 2, {lengthOffset: 2, delayIncrement: 0.5})),
         ...weaponStack({
             POSITION: {
                 LENGTH: 21,
@@ -2736,38 +2736,31 @@ Class.rimfire_AR = {
     PARENT: "genericTank",
     LABEL: "Rimfire",
     DANGER: 7,
-    ...todo_placeholder_guns,
     GUNS: [
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 7,
+                Y: 5,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2, size: 2/3}]),
+                TYPE: 'bullet'
+            }
+        },
         {
             POSITION: {
                 LENGTH: 18,
                 WIDTH: 2,
                 X: 2,
                 Y: -2.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard, { recoil: 1.8 }]),
+                TYPE: 'bullet'
             }
-        },
-        {
-            POSITION: {
-                LENGTH: 18,
-                WIDTH: 2,
-                X: 2,
-                Y: 2.5
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 7,
-                Y: 5
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 7,
-                Y: -5
-            }
-        },
+        }], {delayIncrement: 0.5}),
         {
             POSITION: {
                 LENGTH: 12,
@@ -3005,20 +2998,17 @@ Class.volley_AR = {
     PARENT: "genericTank",
     LABEL: "Volley",
     DANGER: 7,
-    ...todo_placeholder_guns,
-    GUNS: [
+    GUNS: weaponMirror([
         {
             POSITION: {
                 LENGTH: 12,
                 WIDTH: 5,
-                Y: 7.25
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 5,
-                Y: -7.25
+                Y: 7.25,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.twin, g.gunner, {speed: 1.2}]),
+                TYPE: 'bullet'
             }
         },
         {
@@ -3026,16 +3016,13 @@ Class.volley_AR = {
                 LENGTH: 16,
                 WIDTH: 5,
                 Y: 3.75
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 5,
-                Y: -3.75
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.twin, g.gunner, {speed: 1.2}]),
+                TYPE: 'bullet'
             }
         }
-    ]
+    ], {delayIncrement: 0.25})
 }
 Class.waarrk_AR = {
     PARENT: "genericTank",
@@ -3509,6 +3496,7 @@ Class.autoTriple_AR = makeAuto("tripleTwin", "Auto-Triple")
 Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", preset.makeAuto.blank), {label: "Auto-Vortex"})
 Class.autoWhirl3_AR = makeWhirlwind(makeAuto("auto3", "", preset.makeAuto.blank), {label: "Auto-Whirl-3"})
 Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", preset.makeAuto.blank), {label: "Auto-Whirl Guard"})
+Class.ballista_AR = {PARENT: 'PLACEHOLDER', LABEL: "Ballista"}
 Class.battledrive_AR = makeDrive('battleship', {...preset.makeDrive.swarm, doNotDiscriminate: true, label: "Battledrive"})
 Class.bentDoubleGunner_AR = makeFlank({
     PARENT: 'genericTank',
@@ -3575,13 +3563,13 @@ Class.bentSubverter_AR = {
                 X: -2,
                 Y: 2,
                 ANGLE: 16,
-                DELAY: 0.5
+                DELAY: 0.25
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.minigun, g.tripleShot]),
                 TYPE: "bullet"
             }
-        }, 2, {lengthOffset: 2, delayIncrement: 0.25})),
+        }, 2, {lengthOffset: 2, delayIncrement: 0.5})),
         ...weaponStack({
             POSITION: {
                 LENGTH: 21,
@@ -3946,6 +3934,7 @@ Class.coordinator_AR = {
         }
     ]
 }
+Class.crackshot_AR = {PARENT: 'PLACEHOLDER', LABEL: "Crackshot"}
 Class.cyclops_AR = {
     PARENT: "genericTank",
     LABEL: "Cyclops",
@@ -3979,6 +3968,7 @@ Class.cyclops_AR = {
         }
     ]
 }
+Class.dauber_AR = {PARENT: 'PLACEHOLDER', LABEL: "Dauber"}
 Class.decaTank_AR = {
     PARENT: "genericTank",
     LABEL: "Deca Tank",
@@ -4113,150 +4103,28 @@ Class.doubleFlankGunner_AR = {
     PARENT: 'genericTank',
     LABEL: "Double Flank Gunner",
     DANGER: 8,
-    ...todo_placeholder_guns,
     GUNS: [
+        ...weaponArray([...weaponMirror({
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 2,
+                Y: -2.5,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard, { recoil: 1.8 }]),
+                TYPE: 'bullet'
+            }
+        }, {delayIncrement: 0.5}),
         {
             POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847515773687e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 90.00000250447816,
+                LENGTH: 12,
+                WIDTH: 11,
+                ANGLE: 90
             }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847485157517e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847485157517e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117543e-07,
-                Y: 7.250000238418571,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758837904447e-07,
-                Y: -7.250000238418572,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736275e-07,
-                Y: 3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660538e-07,
-                Y: -3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
+        }], 2),
+        ...Class.doubleGunner_AR.GUNS
+    ]
 }
 Class.doubleFlankHelix_AR = {
     PARENT: "genericTank",
@@ -4520,6 +4388,9 @@ Class.flexedDouble_AR = {
         }
     ], 2)
 }
+Class.flexedGunner_AR = {PARENT: 'PLACEHOLDER', LABEL: "Flexed Gunner"}
+Class.flexedMinigun_AR = {PARENT: 'PLACEHOLDER', LABEL: "Flexed Minigun"}
+Class.fungus_AR = {PARENT: 'PLACEHOLDER', LABEL: "Fungus"}
 Class.gadgetGun_AR = {
     PARENT: "genericTank",
     LABEL: "Gadget Gun",
@@ -4740,6 +4611,7 @@ Class.healer3_AR = {
         }
     ]
 }
+Class.heptaShot_AR = {PARENT: 'PLACEHOLDER', LABEL: "Hepta Shot"}
 Class.hewnFlankDouble_AR = {
     PARENT: "genericTank",
     LABEL: "Hewn Flank Double",
@@ -6700,6 +6572,7 @@ Class.vulcan_AR = {
         }
     ]
 }
+Class.waarararrk_AR = {PARENT: 'PLACEHOLDER', LABEL: "Waarararrk"}
 Class.waarrkwaarrk_AR = makeFlank('waarrk_AR', 2, "Waarrkwaarrk", {extraStats: [g.doubleTwin]})
 Class.warkwarkwark_AR = {
     PARENT: "genericTank",
@@ -7654,6 +7527,17 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
 
         upgradesAR('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'])
+            upgradesAR('tripleShot', 4, [])
+            upgradesAR('pentaShot', 4, ['heptaShot', 'flexedDouble', 'flexedHybrid', 'quintuplet', 'crackshot', 'autoPentaShot', 'flexedGunner', 'flexedMinigun', 'deficiency', 'waarararrk'])
+            upgradesAR('spreadshot', 4, ['doubleSpreadshot', 'smearer', 'autoSpreadshot', 'dauber', 'ballista', 'bozo', 'fungus'])
+            upgradesAR('bentHybrid', 4, [])
+            //upgradesAR('bentDouble', 4, [])
+            upgradesAR('triplet', 4, [])
+            upgradesAR('splitShot_AR', 4, [])
+            upgradesAR('autoTripleShot_AR', 4, [])
+            upgradesAR('bentGunner_AR', 4, [])
+            upgradesAR('bentMinigun_AR', 4, [])
+            upgradesAR('defect_AR', 4, ['deficiency', 'bozo', 'nitwit', 'nitwix', 'dork', 'donkey'/*, 'mangle', 'loon', 'klutz', 'jerker'*/, 'fault', 'autoDefect'])
             upgradesAR('waarrk_AR', 4, ['waarrkwaarrk'])
 
         upgradesAR('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer', 'undergunner'])
