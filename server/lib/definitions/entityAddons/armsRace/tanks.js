@@ -6044,6 +6044,7 @@ Class.sprayNSpray_AR = {
                 ANGLE: 180
             },
             PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.flankGuard]),
                 TYPE: "bullet"
             }
         }
