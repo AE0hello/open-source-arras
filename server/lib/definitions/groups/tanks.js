@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrades, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, deleteUpgrades, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
@@ -2080,54 +2080,7 @@ Class.cocciSegment = {
     TURRETS: Class.smasher.TURRETS,
     CLEAR_ON_MASTER_UPGRADE: true
 }
-Class.cocci = {
-    PARENT: 'genericSmasher',
-    LABEL: "Cocci",
-    DANGER: 7,
-    TURRETS: Class.smasher.TURRETS,
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 5;
-                const segmentClass = 'cocciSegment';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
-    ]
-}
+Class.cocci = makeSnake('smasher', 5, "Cocci")
 Class.coil = {
     PARENT: 'genericTank',
     LABEL: "Coil",
@@ -4495,40 +4448,9 @@ Class.riptide = {
         })
     ]
 }
-Class.rocketSegment = {
+Class.rocket = makeSnake({
     PARENT: 'genericTank',
-    COLOR: "mirror",
-    BODY: {
-        HEALTH: base.HEALTH * 0.4,
-        SHIELD: base.SHIELD * 0.4,
-        DENSITY: base.DENSITY * 0.3
-    },
-    CAN_BE_ON_LEADERBOARD: false,
-    DISPLAY_NAME: false,
-    CLEAR_ON_MASTER_UPGRADE: true,
-    GUNS: [
-        /*{
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }]),
-                TYPE: 'bullet',
-                LABEL: "Front"
-            }
-        },*/
-        ...weaponMirror({
-            POSITION: [14, 8, 1, 0, -1, 140, 0.1],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: 'bullet',
-                LABEL: "Thruster"
-            }
-        })
-    ]
-}
-Class.rocket = {
-    PARENT: 'genericTank',
-    LABEL: "Rocket",
-    DANGER: 7,
+    DANGER: 6,
     BODY: {
         HEALTH: base.HEALTH * 0.4,
         SHIELD: base.SHIELD * 0.4,
@@ -4536,7 +4458,10 @@ Class.rocket = {
     },
     GUNS: [
         {
-            POSITION: [18, 8, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront, { recoil: 4 }]),
                 TYPE: 'bullet',
@@ -4556,50 +4481,20 @@ Class.rocket = {
                 LABEL: "Thruster"
             }
         })
-    ],
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 2;
-                const segmentClass = 'rocketSegment';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
     ]
-}
+}, 2, "Rocket", {segmentGuns: weaponMirror({
+    POSITION: {
+        LENGTH: 14,
+        WIDTH: 8,
+        ANGLE: 135,
+        DELAY: 0.1
+    },
+    PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: 'bullet',
+        LABEL: "Thruster"
+    }
+})})
 Class.rocketeer = {
     PARENT: 'genericTank',
     LABEL: "Rocketeer",

@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrades, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, deleteUpgrades, dereference, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeSnake, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 const preset = require('../../presets.js')
@@ -3451,66 +3451,7 @@ Class.antidote_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.armament_AR = makeGunner('enforcer_AR', "Armament", {rear: true})
-Class.autoCocciSegment_AR = {
-    PARENT: 'genericSmasher',
-    COLOR: "mirror",
-    CAN_BE_ON_LEADERBOARD: false,
-    DISPLAY_NAME: false,
-    SKILL_CAP: Class.autoSmasher.SKILL_CAP,
-    BODY: Class.autoSmasher.BODY,
-    TURRETS: Class.autoSmasher.TURRETS,
-    CLEAR_ON_MASTER_UPGRADE: true
-}
-Class.autoCocci_AR = {
-    PARENT: 'genericSmasher',
-    LABEL: "Auto-Cocci",
-    DANGER: 8,
-    SKILL_CAP: Class.autoSmasher.SKILL_CAP,
-    BODY: Class.autoSmasher.BODY,
-    TURRETS: Class.autoSmasher.TURRETS,
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 5;
-                const segmentClass = 'autoCocciSegment_AR';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
-    ]
-}
+Class.autoCocci_AR = makeSnake('autoSmasher', 5, "Auto-Cocci")
 Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
 Class.autoHexaTrapper_AR = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Auto-Hexa-Trapper", preset.makeAuto.triple)
 Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", preset.makeAuto.blank), {label: "Auto-Hexa Whirl"})
@@ -4442,64 +4383,7 @@ Class.gadgetGun_AR = {
         }
     ]
 }
-Class.garterSegment_AR = {
-    PARENT: 'genericSmasher',
-    COLOR: "mirror",
-    CAN_BE_ON_LEADERBOARD: false,
-    DISPLAY_NAME: false,
-    SIZE: Class.bonker.SIZE,
-    TURRETS: Class.bonker.TURRETS,
-    CLEAR_ON_MASTER_UPGRADE: true
-}
-Class.garter_AR = {
-    PARENT: 'genericSmasher',
-    LABEL: "Garter",
-    DANGER: 8,
-    SIZE: Class.bonker.SIZE,
-    TURRETS: Class.bonker.TURRETS,
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 5;
-                const segmentClass = 'garterSegment_AR';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
-    ]
-}
+Class.garter_AR = makeSnake('bonker', 5, "Garter")
 Class.geneticist_AR = {
     PARENT: "genericHealer",
     LABEL: "Geneticist",
@@ -5107,64 +4991,7 @@ Class.medicare_AR = {
     ]
 }
 Class.megaAutoDouble_AR = makeAuto("doubleTwin", "Mega Auto-Double", preset.makeAuto.mega)
-Class.megaCocciSegment_AR = {
-    PARENT: 'genericSmasher',
-    COLOR: "mirror",
-    CAN_BE_ON_LEADERBOARD: false,
-    DISPLAY_NAME: false,
-    BODY: Class.megaSmasher.BODY,
-    TURRETS: Class.megaSmasher.TURRETS,
-    CLEAR_ON_MASTER_UPGRADE: true
-}
-Class.megaCocci_AR = {
-    PARENT: 'genericSmasher',
-    LABEL: "Mega-Cocci",
-    DANGER: 8,
-    BODY: Class.megaSmasher.BODY,
-    TURRETS: Class.megaSmasher.TURRETS,
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 5;
-                const segmentClass = 'megaCocciSegment_AR';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
-    ]
-}
+Class.megaCocci_AR = makeSnake('megaSmasher', 5, "Mega-Cocci")
 Class.megaHexaTrapper_AR = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Mega Hexa-Trapper", preset.makeAuto.mega)
 Class.megaWhirl3_AR = makeWhirlwind("mega3", {label: "Mega-Whirl-3"})
 Class.mono_AR = {
@@ -5198,54 +5025,7 @@ Class.mono_AR = {
         }
     ]
 }
-Class.noodle_AR = {
-    PARENT: 'genericSmasher',
-    LABEL: "Noodle",
-    DANGER: 8,
-    TURRETS: Class.smasher.TURRETS,
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 10;
-                const segmentClass = 'cocciSegment';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
-    ]
-}
+Class.noodle_AR = makeSnake('smasher', 10, "Noodle")
 Class.octoTrapper_AR = makeAuto(makeFlank('trapper', 8, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Octo-Trapper")
 Class.octoWhirl_AR = makeWhirlwind("octoTank", {label: "Octo Whirl"})
 Class.ointment_AR = {
@@ -6215,64 +5995,7 @@ Class.therapist_AR = {
         }
     ], {delayIncrement: 0.5})
 }
-Class.titanoboaSegment_AR = {
-    PARENT: 'genericSmasher',
-    COLOR: "mirror",
-    CAN_BE_ON_LEADERBOARD: false,
-    DISPLAY_NAME: false,
-    SIZE: Class.banger_AR.SIZE,
-    TURRETS: Class.banger_AR.TURRETS,
-    CLEAR_ON_MASTER_UPGRADE: true
-}
-Class.titanoboa_AR = {
-    PARENT: 'genericSmasher',
-    LABEL: "Titanoboa",
-    DANGER: 8,
-    SIZE: Class.banger_AR.SIZE,
-    TURRETS: Class.banger_AR.TURRETS,
-    ON: [
-        {
-            event: 'tick',
-            handler: ({body}) => {
-                const numOfSegments = 5;
-                const segmentClass = 'titanoboaSegment_AR';
-
-                body.store.snakeSegments ??= [];
-                body.tick ??= 0;
-                body.tick++
-
-                if (body.store.snakeSegments.length < numOfSegments) {
-                    if (body.tick % 30 == 0) {
-                        let seg = new Entity(body, body);
-                        seg.master = body;
-                        seg.source = body;
-                        seg.skill.score = body.skill.score;
-                        seg.define(segmentClass);
-                        body.store.snakeSegments.push(seg);
-                    }
-                }
-                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
-
-                let previous = body;
-                const children = body.store.snakeSegments;
-
-                for (const child of children) {
-                    const dx = child.x - previous.x;
-                    const dy = child.y - previous.y;
-                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
-                    const factor = (child.size + previous.size) * 1 / distance;
-        
-                    child.x = previous.x + dx * factor;
-                    child.y = previous.y + dy * factor;
-                    child.velocity.x = 0; // No natural move!
-                    child.velocity.y = 0; // No natural move!
-                    child.life();
-                    previous = child;
-                }
-            }
-        }
-    ]
-}
+Class.titanoboa_AR = makeSnake('banger_AR', 5, "Titanoboa")
 Class.tommy_AR = makeGuard('minigun', "Tommy")
 Class.toppler_AR = {
     PARENT: "genericTank",

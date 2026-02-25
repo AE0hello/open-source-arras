@@ -15,7 +15,7 @@ Class.flare = {
 }
 Class.growBullet = {
     PARENT: "bullet",
-    MOTION_TYPE: ["grow", {speed: 0.75}]
+    MOTION_TYPE: ['grow', {speed: 0.75}]
 }
 Class.masterBullet = {
     PARENT: "missile",

@@ -1519,3 +1519,62 @@ exports.deleteUpgrades = (type, tier, upgrades = []) => {
         }
     }
 }
+exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
+    type = ensureIsClass(type);
+
+    let segment = exports.dereference(type);
+    segment.CAN_BE_ON_LEADERBOARD = false;
+    segment.CLEAR_ON_MASTER_UPGRADE = true;
+    segment.DISPLAY_NAME = false;
+    segment.COLOR = 'mirror';
+    segment.GUNS = options.segmentGuns ??= segment.GUNS
+    segment.PROPS = options.segmentProps ??= segment.PROPS
+    segment.TURRETS = options.segmentTurrets ??= segment.TURRETS
+
+    let output = exports.dereference(type);
+    output.LABEL = name == -1 ? "Snake " + type.LABEL : name;
+    output.DANGER = options.danger ??= output.DANGER + 1
+    output.ON = [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                const numOfSegments = count;
+                const segmentClass = segment;
+
+                body.store.snakeSegments ??= [];
+                body.tick ??= 0;
+                body.tick++
+
+                if (body.store.snakeSegments.length < numOfSegments) {
+                    if (body.tick % 30 == 0) {
+                        let seg = new Entity(body, body);
+                        seg.master = body;
+                        seg.source = body;
+                        seg.skill.score = body.skill.score;
+                        seg.define(segmentClass);
+                        body.store.snakeSegments.push(seg);
+                    }
+                }
+                body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+
+                let previous = body;
+                const children = body.store.snakeSegments;
+
+                for (const child of children) {
+                    const dx = child.x - previous.x;
+                    const dy = child.y - previous.y;
+                    const distance = Math.hypot(dx, dy) || 1; // /0 possible ig
+                    const factor = (child.size + previous.size) * 1 / distance;
+        
+                    child.x = previous.x + dx * factor;
+                    child.y = previous.y + dy * factor;
+                    child.velocity.x = 0; // No natural move!
+                    child.velocity.y = 0; // No natural move!
+                    child.life();
+                    previous = child;
+                }
+            }
+        }
+    ];
+    return output;
+}
