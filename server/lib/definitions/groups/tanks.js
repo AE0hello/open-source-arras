@@ -451,7 +451,7 @@ Class.gatlingGun = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
                 TYPE: 'bullet'
             }
         }
@@ -1283,7 +1283,7 @@ Class.accurator = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
                 TYPE: 'speedBullet'
             }
         }
@@ -3034,7 +3034,7 @@ Class.focal = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
                 TYPE: 'bullet'
             }
         }
@@ -3175,7 +3175,7 @@ Class.halfNHalf = {
                 ANGLE: 180
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.flankGuard]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.flankGuard]),
                 TYPE: 'bullet'
             }
         }
@@ -5029,7 +5029,7 @@ Class.sprayer_old = {
                 X: -1
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
                 TYPE: 'bullet'
             }
         }

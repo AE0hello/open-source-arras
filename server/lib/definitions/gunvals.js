@@ -84,15 +84,67 @@ module.exports = {
     tripleTwin: {
         health: 1.1
     },
-    hewnDouble: { reload: 1.25, recoil: 1.5, health: 0.9, damage: 0.85, maxSpeed: 0.9 },
-    tripleShot: { reload: 1.1, shudder: 0.8, health: 0.9, pen: 0.8, density: 0.8, spray: 0.5 },
-    spreadshotMain: { reload: 0.781, recoil: 0.25, shudder: 0.5, health: 0.5, speed: 1.923, maxSpeed: 2.436 },
-    spreadshot: { reload: 1.5, shudder: 0.25, speed: 0.7, maxSpeed: 0.7, spray: 0.25 },
-    triplet: { reload: 1.2, recoil: 2/3, shudder: 0.9, health: 0.85, damage: 0.85, pen: 0.9, density: 1.1, spray: 0.9, resist: 0.95 },
-    turret: { reload: 2, health: 0.8, damage: 0.6, pen: 0.7, density: 0.1 },
-    autoTurret: { reload: 0.9, recoil: 0.75, shudder: 0.5, size: 0.8, health: 0.9, damage: 0.6, pen: 1.2, speed: 1.1, range: 0.8, density: 1.3, resist: 1.25 },
-    quint: { reload: 1.5, recoil: 2/3, shudder: 0.9, pen: 0.9, density: 1.1, spray: 0.9, resist: 0.95 },
-    machineShot: { reload: 0.3, recoil: 0.8, shudder: 0.4, health: 0.7, damage: 0.7, speed: 4.5, maxSpeed: 5.9, spray: 19 },
+    hewnDouble: {
+        reload: 1.25,
+        recoil: 1.5,
+        health: 0.9,
+        damage: 0.85,
+        maxSpeed: 0.9
+    },
+    tripleShot: {
+        reload: 1.1,
+        shudder: 0.8,
+        health: 0.9,
+        pen: 0.8,
+        density: 0.8,
+        spray: 0.5
+    },
+    spreadshotMain: {
+        reload: 0.781,
+        recoil: 0.25,
+        shudder: 0.5,
+        health: 0.5,
+        speed: 1.923,
+        maxSpeed: 2.436
+    },
+    spreadshot: {
+        reload: 1.5,
+        shudder: 0.25,
+        speed: 0.7,
+        maxSpeed: 0.7,
+        spray: 0.25
+    },
+    triplet: {
+        reload: 1.2,
+        recoil: 2/3,
+        shudder: 0.9,
+        health: 0.85,
+        damage: 0.85,
+        pen: 0.9,
+        density: 1.1,
+        spray: 0.9,
+        resist: 0.95
+    },
+    turret: {
+        reload: 2,
+        health: 0.8,
+        damage: 0.6,
+        pen: 0.7,
+        density: 0.1
+    },
+    autoTurret: {
+        reload: 0.9,
+        recoil: 0.75,
+        shudder: 0.5,
+        size: 0.8,
+        health: 0.9,
+        damage: 0.6,
+        pen: 1.2,
+        speed: 1.1,
+        range: 0.8,
+        density: 1.3,
+        resist: 1.25
+    },
 
     // Snipers
     sniper: { reload: 1.35, shudder: 0.25, damage: 0.8, pen: 1.1, speed: 1.5, maxSpeed: 1.5, density: 1.5, spray: 0.2, resist: 1.15 },
@@ -117,7 +169,7 @@ module.exports = {
     machineGunner: { reload: 2/3, recoil: 0.8, shudder: 2, damage: 0.75, speed: 1.2, maxSpeed: 0.8, spray: 2.5 },
     blaster: { recoil: 1.2, shudder: 1.25, size: 1.1, health: 1.5, pen: 0.6, speed: 0.8, maxSpeed: 0.33, range: 0.6, density: 0.5, spray: 1.5, resist: 0.8 },
     flamethrower: { reload: 1.75, recoil: 4/3, shudder: 2, size: 0.25, health: 10, damage: 0.2, pen: 4, speed: 2, maxSpeed: 0, range: 3, density: 0.25 },
-    focal: { reload: 1.25, recoil: 4/3, shudder: 0.8, health: 0.8, pen: 1.1, speed: 1.25, maxSpeed: 1.25, range: 1.1, density: 1.25, spray: 0.5, resist: 1.1 },
+    gatlingGun: { reload: 1.25, recoil: 4/3, shudder: 0.8, health: 0.8, pen: 1.1, speed: 1.25, maxSpeed: 1.25, range: 1.1, density: 1.25, spray: 0.5, resist: 1.1 },
     atomizer: { reload: 0.3, recoil: 0.8, size: 0.5, damage: 0.75, speed: 1.2, maxSpeed: 0.8, spray: 2.25 },
     spam: { reload: 1.1, size: 1.05, damage: 1.1, speed: 0.9, maxSpeed: 0.7, resist: 1.05 },
     gunnerDominator: { reload: 1.1, recoil: 0, shudder: 1.1, size: 0.5, health: 0.5, damage: 0.5, speed: 1.1, density: 0.9, spray: 1.2, resist: 0.8 },
@@ -143,7 +195,11 @@ module.exports = {
     minionGun: { recoil: 0, shudder: 2, health: 0.4, damage: 0.4, pen: 1.2, range: 0.75, spray: 2 },
     bigCheese: { reload: 1.5, size: 1.8, health: 2.5, speed: 1.25 },
     mothership: { reload: 1.25, pen: 1.1, speed: 0.775, maxSpeed: 0.8, range: 15, resist: 1.15 },
-    satellite: { size: 0.8, reload: 3, damage: 1.875 },
+    satellite: {
+        size: 0.8,
+        reload: 3,
+        damage: 1.875
+    },
 
     // Minions
     spawner: {
@@ -176,25 +232,75 @@ module.exports = {
     construct: { reload: 1.3, size: 0.9, maxSpeed: 1.1 },
     boomerang: { reload: 0.8, health: 0.5, damage: 0.5, speed: 0.75, maxSpeed: 0.75, range: 4/3 },
     nestKeeper: { reload: 3, size: 0.75, health: 1.05, damage: 1.05, pen: 1.1, speed: 0.5, maxSpeed: 0.5, range: 0.5, density: 1.1 },
-    hexaTrapper: { reload: 1.3, shudder: 1.25, speed: 0.8, range: 0.5 },
+    hexaTrapper: {
+        reload: 1.3,
+        shudder: 1.25,
+        speed: 0.8,
+        range: 0.5
+    },
     trapperDominator: { reload: 1.46, recoil: 0, shudder: 0.25, health: 1.25, damage: 1.45, pen: 1.6, speed: 0.5, maxSpeed: 2, range: 1.1, spray: 0.5 },
-    megaTrapper: { reload: 2, damage: 2, recoil: 2, size: 1.2 },
-    barricade: { reload: 0.75, damage: 0.79, range: 0.5 },
+    barricade: {
+        reload: 0.75,
+        damage: 0.79,
+        range: 0.5
+    },
 
     // Misc
     weak: { reload: 2, health: 0.6, damage: 0.6, pen: 0.8, speed: 0.5, maxSpeed: 0.7, range: 0.25, density: 0.3 },
     power: { shudder: 0.6, size: 1.2, pen: 1.25, speed: 2, maxSpeed: 1.7, density: 2, spray: 0.5, resist: 1.5 },
     fake: { size: 0.00001, health: 0.0001, speed: 0, maxSpeed: 0, shudder: 0, spray: 0, recoil: 0, range: 0 },
     op: { reload: 0.5, recoil: 1.3, health: 4, damage: 4, pen: 4, speed: 3, maxSpeed: 2, density: 5, spray: 2 },
-    healer: { damage: -1, speed: 0.5, maxSpeed: 0.5, recoil: 0.5 },
-    lowPower: { shudder: 2, health: 0.5, damage: 0.5, pen: 0.7, spray: 0.5, resist: 0.7 },
-    aura: { reload: 0.001, recoil: 0.001, shudder: 0.001, size: 6, speed: 0.001, maxSpeed: 0.001, spray: 0.001 },
+    healer: {
+        damage: -1,
+        speed: 0.5,
+        maxSpeed: 0.5,
+        recoil: 0.5
+    },
+    lowPower: {
+        shudder: 2,
+        health: 0.5,
+        damage: 0.5,
+        pen: 0.7,
+        spray: 0.5,
+        resist: 0.7
+    },
+    aura: {
+        reload: 0.001,
+        recoil: 0.001,
+        shudder: 0.001,
+        size: 6,
+        speed: 0.001,
+        maxSpeed: 0.001,
+        spray: 0.001
+    },
     noSpread: {
         shudder: 0,
         spray: 0
     },
 
     // Shiny menu
-    worstTank: { reload: 15, damage: 0.01, health: 0.01, pen: 0.01 },
-    bigBalls: { reload: 4, damage: 4, health: 2, speed: 0.85, maxSpeed: 0.85, size: 2.5 },
+    worstTank: {
+        reload: 15,
+        damage: 0.01,
+        health: 0.01,
+        pen: 0.01
+    },
+    bigBalls: {
+        reload: 4,
+        damage: 4,
+        health: 2,
+        speed: 0.85,
+        maxSpeed: 0.85,
+        size: 2.5
+    },
+    machineShot: {
+        reload: 0.3,
+        recoil: 0.8,
+        shudder: 0.4,
+        health: 0.7,
+        damage: 0.7,
+        speed: 4.5,
+        maxSpeed: 5.9,
+        spray: 19
+    },
 }

@@ -11,6 +11,12 @@ Class.PLACEHOLDER = {
 }
 
 // Gun Values
+g.megaTrapper = {
+    reload: 2,
+    damage: 2,
+    recoil: 2,
+    size: 1.2
+}
 g.productionist = {
     reload: 7/6,
     recoil: 0.25,
@@ -18,6 +24,15 @@ g.productionist = {
     speed: 4/3,
     range: 1.5,
     spray: 50
+}
+g.quint = {
+    reload: 1.5,
+    recoil: 2/3,
+    shudder: 0.9,
+    pen: 0.9,
+    density: 1.1,
+    spray: 0.9,
+    resist: 0.95
 }
 
 // Settings
@@ -27,7 +42,6 @@ const todo_placeholder_guns = {
     UPGRADE_COLOR: "pureBlack",
     UPGRADE_TOOLTIP: "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot."
 }
-const slop_race = false // Set to true to add garbage
 
 // Functions
 const makeBattle = (type, name = -1, options = {}) => {
@@ -308,7 +322,6 @@ const makeCap = (type, name = -1, options = {}) => {
 
     let spawners = [];
     let spawnerProperties = {
-        SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
         SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
         TYPE: ["minion", {INDEPENDENT: independent}],
         STAT_CALCULATOR: "drone",
@@ -2795,7 +2808,7 @@ Class.rotaryGun_AR = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.focal]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.gatlingGun]),
                 TYPE: "bullet"
             }
         }
@@ -3905,7 +3918,7 @@ Class.concentrator_AR = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.focal]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.gatlingGun]),
                 TYPE: "bullet"
             }
         }
@@ -5524,7 +5537,7 @@ Class.quarterNQuarter_AR = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.flankGuard, g.flankGuard]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.flankGuard, g.flankGuard]),
                 TYPE: "bullet"
             }
         }
@@ -5896,7 +5909,7 @@ Class.slabNSlab_AR = {
                 ASPECT: 1.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.spam, g.flankGuard, g.flankGuard]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.spam, g.flankGuard, g.flankGuard]),
                 TYPE: "bullet"
             }
         },
@@ -6031,7 +6044,6 @@ Class.sprayNSpray_AR = {
                 ANGLE: 180
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.focal, g.flankGuard]),
                 TYPE: "bullet"
             }
         }
@@ -8202,4 +8214,12 @@ Class.vulture.LABEL = "Taser"
 //Class.genericEntity.LABEL = "Deadeye"
 //Class.genericEntity.LABEL = "Nimrod"
 //Class.genericEntity.LABEL = "Spiral"
+}
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+}
 }
