@@ -635,7 +635,7 @@ Class.genghisLowerTurret = makeTurret({
         }, {
             POSITION: [2, 12, 1, 13, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.swarm, g.babyfactory, { reload: 1.5, health: 2, damage: 2, range: 2 }]),
+                SHOOT_SETTINGS: combineStats([g.swarm, g.spawner, { reload: 1.5, health: 2, damage: 2, range: 2 }]),
                 TYPE: ["tinyMinion", {INDEPENDENT: true}],
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1065,7 +1065,7 @@ Class.flagshipTurret = {
             POSITION: [1, 7, 1, 13, 0, 45, 0.5],
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1083,7 +1083,7 @@ Class.flagshipTurret = {
             POSITION: [1, 7, 1, 13, 0, -45, 0.5],
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1101,7 +1101,7 @@ Class.flagshipTurret = {
             POSITION: [1, 7, 1, 13, 0, 135, 0.5],
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1119,7 +1119,7 @@ Class.flagshipTurret = {
             POSITION: [1, 7, 1, 13, 0, -135, 0.5],
             PROPERTIES: {          
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1585,7 +1585,7 @@ Class.ullrLowerTurret = makeTurret({
             POSITION: [1, 8, 1, 15, -5.5, 0, 0],
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.swarm, g.babyfactory, { size: 1.2, reload: 1.5 }]),
+                SHOOT_SETTINGS: combineStats([g.swarm, g.spawner, { size: 1.2, reload: 1.5 }]),
                 TYPE: "minion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,

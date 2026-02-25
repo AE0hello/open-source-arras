@@ -808,7 +808,7 @@ Class.assailant_dreadsV2 = {
 			},
 			PROPERTIES: {
 				MAX_CHILDREN: 4,
-				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.95, health: 1.3, damage: 0.65, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.5}]),
+				SHOOT_SETTINGS: combineStats([g.minion, {size: 0.9, reload: 1.95, health: 1.3, damage: 0.65, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.5}]),
 				TYPE: "assailantMinion_dreadsV2",
 				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,
@@ -1218,7 +1218,7 @@ Class.aggressor_dreadsV2 = {
 				X: 15
 			},
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 1.8, health: 1.72, damage: 0.67, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.6}]),
+				SHOOT_SETTINGS: combineStats([g.minion, {size: 0.9, reload: 1.8, health: 1.72, damage: 0.67, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.6}]),
 				TYPE: "aggressorMinion_dreadsV2",
 				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,
@@ -2032,7 +2032,7 @@ Class.gladiator_dreadsV2 = {
 				X: 15
 			},
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.factory, {size: 0.9, reload: 2.1, health: 1.16, damage: 0.62, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.6}]),
+				SHOOT_SETTINGS: combineStats([g.minion, {size: 0.9, reload: 2.1, health: 1.16, damage: 0.62, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.6}]),
 				TYPE: "minion",
 				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,

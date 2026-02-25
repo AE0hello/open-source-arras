@@ -1499,7 +1499,7 @@ Class.MKTurretFactory = {
         {
             POSITION: [2, 14, 1, 15.5, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory]),
+                SHOOT_SETTINGS: combineStats([g.minion]),
                 TYPE: "MKMinion",
                 MAX_CHILDREN: 6,
                 AUTOFIRE: true,

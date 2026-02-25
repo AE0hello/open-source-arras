@@ -31,7 +31,7 @@ Class.roguePalisade = {
     GUNS: weaponArray({
         POSITION: [4, 6, -1.6, 8, 0, 0, 0], 
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([ g.factory, g.pounder, { reload: 2, damage: 0.7, density: 0.6 }]),
+            SHOOT_SETTINGS: combineStats([ g.minion, g.pounder, { reload: 2, damage: 0.7, density: 0.6 }]),
             TYPE: ['minion', {INDEPENDENT: true}],
             STAT_CALCULATOR: 'drone',
             AUTOFIRE: true,

@@ -117,7 +117,7 @@ let nyx = new LayeredBoss(null, "Nyx", "celestial", 9, "pink", "baseTrapTurret",
 nyx.addLayer({gun: {
     POSITION: [3.8, 7, -1.4, 8, 0, null, 0],
     PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.factory, { size: 0.7, maxSpeed: 0.85, damage: 0.8 }]),
+        SHOOT_SETTINGS: combineStats([g.minion, { size: 0.7, maxSpeed: 0.85, damage: 0.8 }]),
         TYPE: ["minion", {INDEPENDENT: true,}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,

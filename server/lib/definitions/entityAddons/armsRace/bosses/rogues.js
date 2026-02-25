@@ -25,7 +25,7 @@ Class.rogueAlcazar_AR = {
     GUNS: weaponArray({
         POSITION: [4, 6, -1.6, 8, 0, 0, 0],
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([ g.factory, g.pounder, { reload: 2, density: 0.8 }]),
+            SHOOT_SETTINGS: combineStats([ g.minion, g.pounder, { reload: 2, density: 0.8 }]),
             TYPE: ["rogueAlcazar_minion_AR", {INDEPENDENT: true}],
             STAT_CALCULATOR: "drone",
             AUTOFIRE: true,

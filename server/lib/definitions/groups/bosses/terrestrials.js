@@ -78,7 +78,7 @@ let eris = new LayeredBoss(null, "Eris", "terrestrial", 7, "pink", "terrestrialT
 eris.addLayer({gun: {
     POSITION: [3.75, 7, 1.2, 8, 0, null, 0],
     PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.factory, { size: 0.7, maxSpeed: 0.85, damage: 0.8 }]),
+        SHOOT_SETTINGS: combineStats([g.minion, { size: 0.7, maxSpeed: 0.85, damage: 0.8 }]),
         TYPE: ["minion", { INDEPENDENT: true, COLOR: "pink" }],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,

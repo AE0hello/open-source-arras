@@ -957,7 +957,7 @@ Class.spawner = {
             },
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: 'minion',
                 STAT_CALCULATOR: 'drone',
                 AUTOFIRE: true,
@@ -1644,7 +1644,7 @@ Class.bender = {
             POSITION: [1, 12, 1, 15, 0, 0, 0],
             PROPERTIES: {
                 MAX_CHILDREN: 4, // todo: check if this is still 3
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: 'desmosMinion',
                 STAT_CALCULATOR: 'drone',
                 AUTOFIRE: true,
@@ -1889,7 +1889,7 @@ Class.boomer_old = {
         {
             POSITION: [2, 10, 1.3, 16, -2, -35, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.fast, g.twin]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, {speed: 1.2}]),
                 TYPE: 'boomerang'
             }
         }
@@ -2821,7 +2821,7 @@ Class.factory = {
                 X: 15.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory]),
+                SHOOT_SETTINGS: combineStats([g.minion]),
                 TYPE: 'minion',
                 MAX_CHILDREN: 6,
                 STAT_CALCULATOR: 'drone',
@@ -4458,7 +4458,7 @@ Class.rimfire_old = {
                 DELAY: 0.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: 'bullet'
             }
         },
@@ -4469,7 +4469,7 @@ Class.rimfire_old = {
                 Y: 3.75
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: 'bullet'
             }
         }
@@ -5699,7 +5699,7 @@ Class.wrangler = { // old bender, fires train minions with 3 bodies (though only
             POSITION: [1, 12, 1, 15, 0, 0, 0],
             PROPERTIES: {
                 MAX_CHILDREN: 3,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: 'wranglerMinion',
                 STAT_CALCULATOR: 'drone',
                 AUTOFIRE: true,

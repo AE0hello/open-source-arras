@@ -480,7 +480,7 @@ Class.assailant_dreadsV1 = {
 		}, {
 			POSITION: [1.5, 10, 1, 14.25, 0, 0, 0],
 			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.factory, g.overseer, g.dreadv1Drone, {damage: 0.45}]),
+				SHOOT_SETTINGS: combineStats([g.minion, g.overseer, g.dreadv1Drone, {damage: 0.45}]),
 				TYPE: ["minion", {GUN_STAT_SCALE: {reload: 1.5, health: 0.75, speed: 0.8, maxSpeed: 0.8}}],
 				STAT_CALCULATOR: "drone",
 				AUTOFIRE: true,

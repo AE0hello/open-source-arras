@@ -1395,7 +1395,7 @@ let testLayeredBoss = new LayeredBoss("testLayeredBoss", "Test Layered Boss", "t
 testLayeredBoss.addLayer({gun: {
     POSITION: [3.6, 7, -1.4, 8, 0, null, 0],
     PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.factory, { size: 0.5 }]),
+        SHOOT_SETTINGS: combineStats([g.minion, { size: 0.5 }]),
         TYPE: ["minion", {INDEPENDENT: true}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,

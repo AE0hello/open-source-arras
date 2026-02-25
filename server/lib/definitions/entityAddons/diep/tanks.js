@@ -847,7 +847,7 @@ Class.factory_diep = {
                 isTrapezoid: true
             }),
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory, {size: 1.75}]),
+                SHOOT_SETTINGS: combineStats([g.minion, {size: 1.75}]),
                 TYPE: "minion",
                 MAX_CHILDREN: 6,
                 STAT_CALCULATOR: "drone",

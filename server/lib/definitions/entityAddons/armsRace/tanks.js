@@ -10,6 +10,16 @@ Class.PLACEHOLDER = {
     SHAPE: 1
 }
 
+// Gun Values
+g.productionist = {
+    reload: 7/6,
+    recoil: 0.25,
+    shudder: 0.5,
+    speed: 4/3,
+    range: 1.5,
+    spray: 50
+}
+
 // Settings
 const integrate_healers = false
 const use_original_tree = false // Set to true to enable the original arras.io Arms Race tree and level cap, with some minor bugfixes.
@@ -17,6 +27,7 @@ const todo_placeholder_guns = {
     UPGRADE_COLOR: "pureBlack",
     UPGRADE_TOOLTIP: "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot."
 }
+const slop_race = false // Set to true to add garbage
 
 // Functions
 const makeBattle = (type, name = -1, options = {}) => {
@@ -298,6 +309,7 @@ const makeCap = (type, name = -1, options = {}) => {
     let spawners = [];
     let spawnerProperties = {
         SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+        SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
         TYPE: ["minion", {INDEPENDENT: independent}],
         STAT_CALCULATOR: "drone",
         AUTOFIRE: true,
@@ -977,7 +989,7 @@ Class.captain_AR = {
                 ANGLE: 90
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
                 TYPE: "minion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
@@ -2146,7 +2158,7 @@ Class.megaSpawner_AR = {
             },
             PROPERTIES: {
                 MAX_CHILDREN: 4,
-                SHOOT_SETTINGS: combineStats([g.factory, g.babyfactory, {size: 0.8 }]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner, {size: 0.8 }]),
                 TYPE: "megaMinion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
@@ -2516,7 +2528,7 @@ Class.productionist_AR = {
                 Y: 5.2
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.productionist]),
+                SHOOT_SETTINGS: combineStats([g.minion, g.productionist]),
                 TYPE: "tinyMinion",
                 STAT_CALCULATOR: "drone",
                 SYNCS_SKILLS: true
@@ -6506,7 +6518,7 @@ Class.vulcan_AR = {
                 Y: -4.45
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: "bullet",
             }
         },
@@ -6518,7 +6530,7 @@ Class.vulcan_AR = {
                 DELAY: 0.8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: "bullet",
             },
         },
@@ -6530,7 +6542,7 @@ Class.vulcan_AR = {
                 DELAY: 0.2
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: "bullet",
             },
         },
@@ -6542,7 +6554,7 @@ Class.vulcan_AR = {
                 DELAY: 0.6
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: "bullet",
             },
         },
@@ -6553,7 +6565,7 @@ Class.vulcan_AR = {
                 DELAY: 0.4
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.fast]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
                 TYPE: "bullet",
             },
         },
