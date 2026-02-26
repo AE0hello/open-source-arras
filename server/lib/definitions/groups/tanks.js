@@ -5873,18 +5873,20 @@ Class.protector = {
     PARENT: 'genericTank',
     LABEL: "Protector",
     DANGER: 8,
+    BODY: {
+        FOV: 1.25
+    },
     GUNS: [
-        ...weaponMirror({
+        {
             POSITION: {
                 LENGTH: 18,
-                WIDTH: 5.5,
-                Y: 3.25
+                WIDTH: 12
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.pounder]),
                 TYPE: 'bullet'
             }
-        }, {delayIncrement: 0.5}),
+        },
         {
             POSITION: {
                 LENGTH: 17,
@@ -5898,9 +5900,10 @@ Class.protector = {
         },
         {
             POSITION: {
-                LENGTH: 13,
+                LENGTH: 7,
                 WIDTH: 13,
-                ASPECT: -1.3
+                ASPECT: -1.3,
+                X: 6
             }
         }
     ]
