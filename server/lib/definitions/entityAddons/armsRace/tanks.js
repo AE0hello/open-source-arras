@@ -5059,7 +5059,10 @@ Class.omen_AR = {
     PARENT: "genericTank",
     LABEL: "Omen",
     DANGER: 8,
-    STAT_NAMES: statnames.necroMixed,
+    STAT_NAMES: {
+        ...statnames.necro,
+        RELOAD: "Reload / Max Drone Count"
+    },
     SHAPE: 8,
     BODY: {
         SPEED: 0.8 * base.SPEED,

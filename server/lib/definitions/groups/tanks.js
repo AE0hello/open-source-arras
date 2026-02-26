@@ -4113,7 +4113,10 @@ Class.prodigy = {
     PARENT: 'genericTank',
     LABEL: "Prodigy",
     DANGER: 7,
-    STAT_NAMES: statnames.necroMixed,
+    STAT_NAMES: {
+        ...statnames.necro,
+        RELOAD: "Reload / Max Drone Count"
+    },
     SHAPE: 6,
     BODY: {
         SPEED: 0.8 * base.SPEED,
