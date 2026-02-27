@@ -7942,11 +7942,3 @@ Class.vulture.LABEL = "Taser"
 //Class.genericEntity.LABEL = "Nimrod"
 //Class.genericEntity.LABEL = "Spiral"
 }
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: "bullet"
-            }
-        }
-    ]
-}
-}
