@@ -1222,7 +1222,7 @@ Class.flailBolt3 = {
         POSITION: [30, 5, 1, 8, 0, 0, 0]
     }],
     TURRETS: [{
-        POSITION: [18, 36, 0, 0, 360, 1],
+        POSITION: [20, 36, 0, 0, 360, 1],
         TYPE: "flailBolt2"
     }],
 }
@@ -1306,10 +1306,11 @@ Class.maceBolt3 = {
         POSITION: [24, 5, 1, 8, 0, 0, 0]
     }],
     TURRETS: [{
-        POSITION: [18, 28, 0, 0, 190, 1],
+        POSITION: [20, 28, 0, 0, 190, 1],
         TYPE: "maceBolt2",
     }],
 }
+
 Class.mamaBolt1 = {
     PARENT: "genericTank",
     COLOR: "grey",
@@ -1344,11 +1345,12 @@ Class.mamaBolt3 = {
         POSITION: [18, 5, 1, 8, 0, 0, 0]
     }],
     TURRETS: [{
-        POSITION: [18, 20, 0, 0, 190, 1],
+        POSITION: [20, 20, 0, 0, 190, 1],
         TYPE: "mamaBolt2"
         },
     ],
 }
+
 Class.ihdtiBall = {
     PARENT: "genericTank",
     COLOR: "grey",
@@ -1426,7 +1428,7 @@ Class.ihdtiBolt3 = {
         POSITION: [24, 5, 1, 8, 0, 0, 0]
     }],
     TURRETS: [{
-        POSITION: [18, 28, 0, 0, 190, 1],
+        POSITION: [20, 28, 0, 0, 190, 1],
         TYPE: "ihdtiBolt2"
         }
     ]

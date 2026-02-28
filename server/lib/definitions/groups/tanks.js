@@ -1180,12 +1180,13 @@ Class.underseer = {
     LABEL: "Underseer",
     DANGER: 6,
     NECRO: [4],
-    STAT_NAMES: statnames.drone,
+    STAT_NAMES: statnames.necro,
     BODY: {
         SPEED: base.SPEED * 0.9,
         FOV: base.FOV * 1.1,
     },
     SHAPE: 4,
+    MAX_CHILDREN: 15,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,
@@ -1201,8 +1202,7 @@ Class.underseer = {
             SYNCS_SKILLS: true,
             STAT_CALCULATOR: 'necro',
             WAIT_TO_CYCLE: true,
-            DELAY_SPAWN: false,
-            MAX_CHILDREN: 7
+            DELAY_SPAWN: false
         }
     }, 2)
 }
@@ -4114,7 +4114,7 @@ Class.prodigy = {
     LABEL: "Prodigy",
     DANGER: 7,
     STAT_NAMES: {
-        ...statnames.necro,
+        ...statnames.mixed,
         RELOAD: "Reload / Max Drone Count"
     },
     SHAPE: 6,
