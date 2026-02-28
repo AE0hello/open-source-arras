@@ -5940,6 +5940,7 @@ Class.rapture = {
         }
     ]
 }
+Class.smasher3 = makeRadialAuto('flailBall', {isTurret: true, danger: 8, label: "Smasher-3"})
 Class.tetraGunner = {
     PARENT: 'genericTank',
     LABEL: "Tetra Gunner",
@@ -5969,20 +5970,8 @@ Class.tetraGunner = {
         },
     ], 4)
 }
-Class.tracker3 = {
-    PARENT: 'genericTank',
-    LABEL: "Tracker-3",
-    FACING_TYPE: ['spin', {speed: 0.02}],
-    SKILL_CAP: [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
-    TURRETS: weaponArray({
-        TYPE: ['tracker3gun', {INDEPENDENT: true}],
-        POSITION: {
-            SIZE: 11,
-            X: 8,
-            ARC: 190
-        }
-    }, 3)
-}
+Class.tracker3 = makeRadialAuto('tracker3gun', {isTurret: true, danger: 7, label: "Tracker-3"})
+Class.tracker3.SKILL_CAP = [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl]
 Class.undercoverCop = {
     PARENT: "booster",
     LABEL: "Undercover Cop",

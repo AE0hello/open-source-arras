@@ -1141,7 +1141,7 @@ Class.tracker3gun = makeTurret({
             POSITION: [12, 10, -2, 20, 0, 0, 0]
         }
     ]
-}, {canRepel: true, limitFov: true, fov: 3, color: "#1AFF00"})
+}, {canRepel: true, limitFov: true, fov: 3, independent: true, color: "#1AFF00"})
 
 // FLAIL!!!
 Class.flailBallSpike = {
