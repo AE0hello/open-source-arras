@@ -305,7 +305,7 @@ exports.makeGuard = (type, name = -1, options = {}) => {
     }
 
     // Nerf existing barrels
-    for (let gun of output.GUNS) {
+    if (output.GUNS) for (let gun of output.GUNS) {
         if (gun.PROPERTIES) {
             if (gun.PROPERTIES.SHOOT_SETTINGS) {
                 gun.PROPERTIES.SHOOT_SETTINGS = exports.combineStats([gun.PROPERTIES.SHOOT_SETTINGS, g.flankGuard, g.flankGuard])
