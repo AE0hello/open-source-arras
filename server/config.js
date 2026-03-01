@@ -3,7 +3,7 @@ module.exports = {
     version: 'v2.0.11', // The current OSA version. Changing this will likely confuse addons.
     devBuild: true, // Whether this is marked as a development build.
 
-    // Main Menu
+    // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
     host: 'localhost:3000', // Game server domain. If the host is 'localhost:NUMBER', the NUMBER must be the port setting.
     port: 3000, // Which port to run the web server on.
@@ -57,6 +57,19 @@ module.exports = {
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 //teams: 4,
                 //bot_cap: 0,
+                server_travel_properties: {
+                    loop_interval: 30_000, // how often the portal loop executes in seconds
+                    portals: 1, // amount of portals to spawn
+                },
+                server_travel: [
+                    {
+                        ip: 'localhost:3001', // destination server host, don't add "https://" or any slashes to it
+                        portal_properties: {
+                            spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = more chances)
+                            color: 'red', // portal color
+                        }
+                    }
+                ]
             }
         },
     ],
@@ -244,7 +257,8 @@ module.exports = {
     random_body_colors: false,
 
     // These are the default values for gamemode related things.
-    // If you want to change them, copy the values you want to change to the server's properties. DO NOT change them here unless you know what you are doing!
+    // If you want to change them, copy the values you want to change to the server's properties.
+    // DO NOT change them here unless you know what you are doing!
     gamemode_name_prefixes: [],
     arena_shape: 'rect',
     arms_race: false,

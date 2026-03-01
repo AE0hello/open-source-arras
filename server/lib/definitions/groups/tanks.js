@@ -2852,32 +2852,34 @@ Class.fighter = {
                 LABEL: "Front"
             }
         },
-        ...weaponMirror([{
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 8,
-                Y: -1,
-                ANGLE: 90
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 16,
+                    WIDTH: 8,
+                    Y: -1,
+                    ANGLE: 90
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront]),
+                    TYPE: 'bullet',
+                    LABEL: "Side"
+                }
             },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront]),
-                TYPE: 'bullet',
-                LABEL: "Side"
+            {
+                POSITION: {
+                    LENGTH: 16,
+                    WIDTH: 8,
+                    ANGLE: 150,
+                    DELAY: 0.1
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                    TYPE: 'bullet',
+                    LABEL: "Thruster"
+                }
             }
-        }]),
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 8,
-                ANGLE: 150,
-                DELAY: 0.1
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-                TYPE: 'bullet',
-                LABEL: "Thruster"
-            }
-        })
+        ]),
     ]
 }
 Class.flace = {

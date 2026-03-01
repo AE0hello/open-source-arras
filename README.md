@@ -36,10 +36,10 @@ server_travel_properties: {
 },
 server_travel: [
     {
-        ip: "<YourIP>", // destination server host, don't add "https://" or any slashes to it
+        ip: '<YourIP>', // destination server host, don't add "https://" or any slashes to it
         portal_properties: {
             spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = more chances)
-            color: "red", // portal color
+            color: 'red', // portal color
         }
     }
 ]

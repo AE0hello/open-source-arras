@@ -78,13 +78,13 @@ if (loadedAddons.includes("chatCommands")) {
                 return;
             }
             let server = Config.servers.find(
-                s => s.SERVER_ID === args[0]
+                s => s.id === args[0]
             );
             if (!server) {
                 socket.talk("m", 5_000, "Server not found.");
                 return;
             }
-            global.gameManager.socketManager.sendToServer(socket, `http://${server.HOST}`);
+            global.gameManager.socketManager.sendToServer(socket, `http://${server.host}`);
         }
     })
 }
