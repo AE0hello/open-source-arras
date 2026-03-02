@@ -476,7 +476,7 @@ Class.serverPortal = {
         DENSITY: 0,
     },
     FACING_TYPE: "spin",
-    ITS_OWN_TYPE: "never",
+    HITS_OWN_TYPE: "never",
     ARENA_CLOSER: true,
     IGNORED_BY_AI: true,
     CAN_BE_ON_LEADERBOARD: false,
