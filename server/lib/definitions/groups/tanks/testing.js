@@ -261,7 +261,7 @@ Class.ntf = {
             }
         },
         {
-            TYPE: ["circleHat", {COLOR: "lightGreen"}],
+            TYPE: ["circleHat", {COLOR: "lime"}],
             POSITION: {
                 SIZE: 3,
                 X: 12,

@@ -69,7 +69,7 @@ Class.menu_celestials = makeMenu("Celestials", {upgrades: [
     "julius",
     "genghis",
     "napoleon",
-], color: "lightGreen", boxColor: "lightGreen", shape: 9.5, tooltip: preset.tooltip.menu_lag})
+], color: "lime", boxColor: "lime", shape: 9.5, tooltip: preset.tooltip.menu_lag})
 
 let paladin = new LayeredBoss(null, "Paladin", "celestial", 9, "purple", "baseTrapTurret", 6.5, 5.5);
 paladin.addLayer({gun: {
@@ -88,7 +88,7 @@ paladin.addLayer({turret: {
     TYPE: ["swarmerTurret", {GUN_STAT_SCALE: {speed: 1.45, maxSpeed: 0.5, health: 1.3, range: 1.3}}],
 }}, true, 6);
 
-let freyja = new LayeredBoss(null, "Freyja", "celestial", 9, "lightGreen", "baseTrapTurret", 6.5, 5.5);
+let freyja = new LayeredBoss(null, "Freyja", "celestial", 9, "lime", "baseTrapTurret", 6.5, 5.5);
 freyja.addLayer({turret: {
     POSITION: [8.5, 9, 0, null, 180, 0],
     TYPE: ["cruiserTurret", {GUN_STAT_SCALE: {health: 1.2, damage: 1.3, speed: 1.1, maxSpeed: 1.1, resist: 1.05}}],

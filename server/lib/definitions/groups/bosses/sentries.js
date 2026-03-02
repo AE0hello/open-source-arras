@@ -89,8 +89,8 @@ Class.sentryTrap.UPGRADE_LABEL = "Trap Sentry"
 // Shiny Sentries
 Class.shinySentry = {
     PARENT: "sentry",
-    COLOR: "lightGreen",
-    UPGRADE_COLOR: "lightGreen",
+    COLOR: "lime",
+    UPGRADE_COLOR: "lime",
     DANGER: 4,
     SIZE: 12,
     VALUE: 50000,
@@ -102,7 +102,7 @@ Class.shinySentry = {
 Class.shinySentrySwarm = {
     PARENT: "shinySentry",
     UPGRADE_LABEL: "Shiny Swarm Sentry",
-    UPGRADE_COLOR: "lightGreen",
+    UPGRADE_COLOR: "lime",
     GUNS: [
         {
             POSITION: [6, 11, 1.3, 7, 0, 180, 0],

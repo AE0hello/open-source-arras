@@ -10,7 +10,7 @@ Class.menu_devBosses = makeMenu("Developers", {upgrades: [
     "tgsBoss",
     "toothlessBoss",
     "menu_retiredDevBosses"
-], color: "lightGreen", boxColor: "rainbow", shape: 4})
+], color: "lime", boxColor: "rainbow", shape: 4})
 
 Class.menu_retiredDevBosses = makeMenu("Developers (Retired)", {upgrades: [
     "frostBoss",
@@ -262,8 +262,8 @@ Class.tgsBoss = {
     NAME: "TGS",
     DANGER: 10,
     SHAPE: 4,
-    COLOR: "lightGreen",
-    UPGRADE_COLOR: "lightGreen",
+    COLOR: "lime",
+    UPGRADE_COLOR: "lime",
     SIZE: 50,
     VALUE: 5e6,
     SKILL: skillSet({
