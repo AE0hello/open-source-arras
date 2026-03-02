@@ -190,6 +190,7 @@ class turretEntity extends EventEmitter {
                 this.guns.set(guns.id, guns);
             }
         }
+        if (set.SIZE != null) this.SIZE = set.SIZE;
         if (set.TURRETS != null) {
             for (let turret of this.turrets.values()) turret.destroy();
             this.turrets.clear();
