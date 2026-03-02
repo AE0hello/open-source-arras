@@ -1039,7 +1039,7 @@ class Entity extends EventEmitter {
             killers = killers.filter((elem, index, self) => index == self.indexOf(elem));
             killers.forEach((e) => e.emit('kill', { body: e, entity: this }));
             // If there's no valid killers (you were killed by food), change the message to be more passive
-            let killText = "You have been killed by ",
+            let killText = notJustFood ? "" : "You have been killed by ",
                 doISendAText = this.settings.givesKillMessage;
 
             for (let i = 0; i < killers.length; i++) {
