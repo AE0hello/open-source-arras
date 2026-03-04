@@ -4,21 +4,21 @@ const requires = [
     // Debug / other
     "../miscFiles/collisionFunctions.js", // The actual collision functions that make the game work.
     "../miscFiles/color.js", // Color manager that manages the entities's color.
-    "../Game/debug/lagLogger.js", // Lag Logger.
-    "../Game/debug/logs.js", // Logs.
-    "../Game/entities/subFunctions.js", // This helps keeping the entities work.
+    "../game/debug/lagLogger.js", // Lag Logger.
+    "../game/debug/logs.js", // Logs.
+    "../game/entities/subFunctions.js", // This helps keeping the entities work.
     // Controllers
     "../miscFiles/controllers.js", // The AI of the game.
     // Entities
-    "../Game/entities/vector.js", // Define a vector. Required By Entity.js.
-    "../Game/entities/skills.js", // Define skills. Required By Entity.js.
-    "../Game/entities/gun.js", // Define gun to make guns to work. Required By Entity.js.
-    "../Game/entities/healthType.js", // Define health to make healths work when a entity got hit, or regenerated. Required By Entity.js.
-    "../Game/entities/antiNaN.js", // This file prevents NaN to entities.
-    "../Game/entities/turretEntity.js", // The Entity constructer for turrets. Required By Entity.js.
-    "../Game/entities/propEntity.js", // This file create prop entities, Its actually a turret entity but its decorative only. Required By Entity.js.
-    "../Game/entities/bulletEntity.js", // The Entity constructor but with heavy limitations.
-    "../Game/entities/entity.js", // The actual Entity constructor.
+    "../game/entities/vector.js", // Define a vector. Required By Entity.js.
+    "../game/entities/skills.js", // Define skills. Required By Entity.js.
+    "../game/entities/gun.js", // Define gun to make guns to work. Required By Entity.js.
+    "../game/entities/healthType.js", // Define health to make healths work when a entity got hit, or regenerated. Required By Entity.js.
+    "../game/entities/antiNaN.js", // This file prevents NaN to entities.
+    "../game/entities/turretEntity.js", // The Entity constructer for turrets. Required By Entity.js.
+    "../game/entities/propEntity.js", // This file create prop entities, Its actually a turret entity but its decorative only. Required By Entity.js.
+    "../game/entities/bulletEntity.js", // The Entity constructor but with heavy limitations.
+    "../game/entities/entity.js", // The actual Entity constructor.
     // Definitions
     "../lib/definitions/combined.js", // Get the definitions loader.
     // Room setup
@@ -35,13 +35,13 @@ for (let file of requires) {
 // Define room loader
 let fs = require('fs'),
 	path = require('path'),
-	groups = fs.readdirSync(path.resolve(__dirname, '../Game/room_setup/tiles/')),
+	groups = fs.readdirSync(path.resolve(__dirname, '../game/roomSetup/tiles/')),
     loadRooms = (log = false) => {
         // Now we need to define every tile.
         if (Config.startup_logs && log) console.log(`Importing tile definitions...`);
         for (let filename of groups) {
             if (Config.startup_logs && log) console.log(`Loading tile file: ${filename}`);
-            require('../Game/room_setup/tiles/' + filename);
+            require('../game/roomSetup/tiles/' + filename);
         }
 
         if (log) console.log("Successfully imported tile definitions.\n");

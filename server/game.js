@@ -5,11 +5,11 @@ const ws = require("ws");
 const fs = require("fs");
 const path = require("path");
 
-let { socketManager } = require("./Game/network/sockets.js");
-let { LagLogger } = require("./Game/debug/lagLogger.js");
-let { speedcheckloop } = require("./Game/debug/speedLoop.js");
-let { gameHandler } = require("./Game/index.js");
-let { gamemodeManager } = require("./Game/gamemodeManager.js");
+let { socketManager } = require("./game/network/sockets.js");
+let { LagLogger } = require("./game/debug/lagLogger.js");
+let { speedcheckloop } = require("./game/debug/speedLoop.js");
+let { gameHandler } = require("./game/index.js");
+let { gamemodeManager } = require("./game/gamemodeManager.js");
 
 // Gamemode names
 const getName = (name, gamemodeData) => {
@@ -254,7 +254,7 @@ class gameServer {
             let overrideRoom = true;
             // Get gamemode
             for (let gamemode of this.gamemode) {
-                let mode = require(`./Game/gamemodes/config/${gamemode}.js`);
+                let mode = require(`./game/gamemodes/config/${gamemode}.js`);
                 for (let key in mode) {
                     if (key == "do_not_override_room") {
                         overrideRoom = mode[key];
@@ -301,7 +301,7 @@ class gameServer {
                 this.serverTravelHandler = [];
                 for (let i = 0; i < Config.server_travel.length; i++) {
                     let instance = Config.server_travel[i];
-                    this.serverTravelHandler[i] = new (require("./Game/addons/serverTravel.js").serverTravelHandler)(instance, instance.portal_properties.spawn_chance, instance.portal_properties.color);
+                    this.serverTravelHandler[i] = new (require("./game/addons/serverTravel.js").serverTravelHandler)(instance, instance.portal_properties.spawn_chance, instance.portal_properties.color);
                     setInterval(() => {
                         let y = 1;
                         if (Config.server_travel_properties.portals) y = Config.server_travel_properties.portals;
@@ -452,7 +452,7 @@ class gameServer {
         // Get the room setup(s)
         for (let filename of Config.room_setup) {
             // ... get the current setup
-            this.currentRoom = require(`./Game/room_setup/rooms/${filename}.js`);
+            this.currentRoom = require(`./game/roomSetup/rooms/${filename}.js`);
             Config.roomHeight = this.currentRoom.length;
             Config.roomWidth = this.currentRoom[0].length;
 

@@ -30,7 +30,7 @@ class definitionCombiner {
 
         // Also include the other addons if needed!
         if (Config.startup_logs && log) console.log(`Loading game addons...`);
-        if (includeGameAddons) this.loadAddons(path.join(__dirname, '../../Game/addons'), log, "game addon");
+        if (includeGameAddons) this.loadAddons(path.join(__dirname, '../../game/addons'), log, "game addon");
 
         let gameaddonsLoadEnd = performance.now();
         if (Config.startup_logs && log) console.log("Loaded game addons in " + util.rounder(gameaddonsLoadEnd - addonsLoadEnd, 3) + " milliseconds. \n");
