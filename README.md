@@ -47,7 +47,7 @@
 
 - Added the "Ciper Probe's Stuff" menu as an upgrade from the Developer tank
 
-- Implemented bot auto-balance system for TDM mode that ensures equal bot distribution across teams, kills strongest bots from overpowered teams, and spawns replacements for underpowered teams.
+- Implemented bot auto-balance system for TDM mode that ensures equal bot distribution across teams.
 
 - Fixed upgrade points at level 45 to be 42 instead of 44 by updating defineLevelSkillPoints in server/config.js.
 
