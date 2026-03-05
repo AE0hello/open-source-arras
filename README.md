@@ -1,54 +1,82 @@
-# Open Source Arras
+# Open Source Arras (Ciper Probe Version)
 
-<img alt="Logo" src="public/img/round.png" width="100"/>
+- I made some stuff here.
 
-![GitHub Release](https://img.shields.io/github/v/release/AE0Hello/open-source-arras)
-![Discord](https://img.shields.io/discord/1004907608018264094)
-![GitHub repo size](https://img.shields.io/github/repo-size/AE0Hello/open-source-arras)
+- This repository is forked. The original repository is this [link](https://github.com/AE0hello/open-source-arras).
 
-> [!WARNING]
-> **Open Source Arras is beta software.** This build is **not** representative of the final product. Expect bugs and missing features.
+---
 
-## Setup Guide (Localhost)
+# Credits
 
-This guide covers setting up your server on your own hardware and only supports devices running up-to-date versions of Windows/macOS/Linux.
+- Modified by `Ciper Probe`
+- Original forked repository by [`AE0hello`](github.com/AE0hello)
 
-You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if you pick the LTS or Latest version, they'll both work fine.
+# Old/Other Credits
 
-Once `Node.js` is installed, open your terminal application (Command Prompt for Windows users) and run the command `npm i ws`. This will install the WebSocket library that Open Source Arras uses.
+`funny0_0` = Maze generation codes, Manhunt, Shiny tanks, SVG paths, Kill bar system\
+`LA3T` = Custom wall collisions\
+`PR2000` = `worker_threads`\
+`Excel` = Clan Wars, Manhunt\
+`DenisC!!!` = Accurate growth curve
 
-After installing `ws`, [download the source code of the latest release of Open Source Arras](https://github.com/AE0hello/open-source-arras/releases). Extract it once it's downloaded and open either `run.bat` (if you're on Windows) or `run.sh` (if you're not). If there aren't any errors, your server will start up. Go to `localhost:3000` in your favourite web browser (keep the terminal window open, closing it will shut down the server) to play.
+---
 
-> [!NOTE]
-> If you want to stay up to date, create a fork, download a git client (such as GitHub Desktop), and sync the fork whenever there's a major update.
-> 
-> **Major updates may introduce breaking changes that alter how certain things work. It is *your responsibility* to keep your private server up-to-date and functioning.**
+# Changes
 
-## Server setup
-You can set up in-game servers in config.js file, in `SERVERS`. For further explanation, see the setting itself. It's an array of objects where each object is a server.
+- Added "2TDM One Dominator" gamemode with a single dominator at center that switches teams when captured, cycles through random variants (destroyer/gunner/trapper), there is no win condition.
 
-### Travelling between servers (Nexus)
-Copy this code into your server's `PROPERTIES`:
-```
-SERVER_TRAVEL_PROPERTIES: {
-    LOOP_INTERVAL: 10000, // how often the portal loop executes
-    AMOUNT: 1, // amount of portals to spawn
-},
-SERVER_TRAVEL: [
-    {
-        IP: "<YourIP>", // destination server IP, don't add "https://" or any slashes to it
-        PORTAL_PROPERTIES: {
-            SPAWN_CHANCE: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = more chances)
-            COLOR: "red", // portal color
-        }
-    }
-]
-```
+- Added "AI Chaos 2TDM" gamemode with 80 bots for chaotic team deathmatch gameplay.
 
-> [!NOTE]
-> Make sure to set `ALLOW_SERVER_TRAVEL` to true in your destination server's `PROPERTIES`.
+- Added "AI Chaos FFA" gamemode with 80 bots for chaotic free-for-all gameplay.
 
-## Other Links
-- [Our Discord server](https://discord.gg/arras)
+- Added "Nostalgia": Iykyk. ;)
 
-*p.s. if something goes terribly wrong it's not our fault*
+- Added "Boss Battle": OPEN TDM with 1 team, 32 bots, and a large Kronos boss. Win condition: defeat the boss.
+
+- Added "Survive the Arena Closer": OPEN TDM with 1 team, bots enabled, and a nerfed Arena Closer in the center. No win condition - endless survival.
+
+- Updated server IDs: 2TDM server ID changed to "2tdm", FFA server ID changed to "ffa".
+
+- Fixed FOV zoom functionality for backtick + - and backtick + = commands by updating key code mappings to support multiple keyboard layouts (For "-" it has: 45, 189, 109, 173; for "=" it has: 61, 187, 107, 171).
+
+- Modified the game watermark ("Arras Ciper Probe Version") to display in white text with black outline instead of the previous green-blue gradient from the original "Open Source Arras".
+
+- Removed the "Build: 2.0.10" display from the game UI. (Since its useless)
+
+- Commented out (incase if someone wants them enabled) the "menu_testing" entry in the developer's UPGRADES_TIER_0 array in server/lib/definitions/groups/dev.js to disable access to the testing menu.
+
+- Added the "Ciper Probe's Stuff" menu as an upgrade from the Developer tank
+
+- Implemented bot auto-balance system for TDM mode that ensures equal bot distribution across teams, kills strongest bots from overpowered teams, and spawns replacements for underpowered teams.
+
+- Fixed upgrade points at level 45 to be 42 instead of 44 by updating defineLevelSkillPoints in server/config.js.
+
+- Commented out guillotine and banHammer classes (because they do not work.)
+
+- server selector categories now only show "local" instead of multiple region and game mode filters.
+
+- Disabled ads requirement for daily tanks (set ads.enabled to false in config.js) so players can access them without watching advertisements.
+
+- Commented out retired developer tanks (Diamond Marauder and Lavender) to prevent mockup loading errors
+
+- Commented out Tank Changes Menu from the beta tester upgrade list in arrasDevMenu.js.
+
+- Added custom networking system with binary protocol, packet validation, compression, and performance monitoring. Includes custom packet types (MOVEMENT, ACTION, MESSAGE, etc.), seamless integration with existing socket manager, enhanced security features, and real-time network statistics. Fully backward compatible with legacy packets while providing significant performance improvements.
+
+# Original Issues/Pull Request Changes
+
+## These Fixes are Unofficially tested and are just thrown there for the sake of it. Expect some to not work!
+
+- Fixed guns being treated as arrays instead of Maps in AI controllers by updating loops to use Map.values().
+
+- Corrected gun delay calculation bug by fixing maxCycleTimer formula.
+
+- Removed unnecessary damage multiplication and fixed master reassignment in destroy method.
+
+- Made eggs tangible by setting INTANGIBLE to false in Class.egg definition to prevent immortal stacking.
+
+- Fixed typo in Class.serverPortal: changed ITS_OWN_TYPE to HITS_OWN_TYPE.
+
+- Renamed "Shogun" to "Shogunate" in hexDreadNames.
+
+- Resolved syntax error in io_healTeamMasters controller by fixing malformed if statement.
