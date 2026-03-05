@@ -21,6 +21,20 @@
 
 ---
 
+# Instructions
+
+- Prerequisites: Node.js version 18.0.0 or higher (download from [nodejs.org](https://nodejs.org/))
+
+- Installation: Clone or download this repository to your local machine. Navigate to the project directory in your terminal. Run `npm install` to install all required dependencies.
+
+- Configuration: Edit the `server/.env` file and set a unique `API_KEY` (this is already configured in the provided version).
+
+- Running the Server: Execute `npm start` to launch the game server. The server will start on port 3000.
+
+- Accessing the Game: Open a web browser and navigate to `http://localhost:3000` to join the multiplayer tank game.
+
+---
+
 # Changes
 
 - Added "2TDM One Dominator" gamemode with a single dominator at center that switches teams when captured, cycles through random variants (destroyer/gunner/trapper), there is no win condition.
@@ -33,7 +47,7 @@
 
 - Added "Boss Battle": OPEN TDM with 1 team, 32 bots, and a large Kronos boss. Win condition: defeat the boss.
 
-- Added "Survive the Arena Closer": OPEN TDM with 1 team, bots enabled, and a nerfed Arena Closer in the center. No win condition - endless survival.
+- Added "Survive the Arena Closer": OPEN TDM with 1 team, bots enabled, and an Arena Closer in the center. No win condition
 
 - Updated server IDs: 2TDM server ID changed to "2tdm", FFA server ID changed to "ffa".
 
@@ -47,9 +61,9 @@
 
 - Added the "Ciper Probe's Stuff" menu as an upgrade from the Developer tank
 
-- Implemented bot auto-balance system for TDM mode that ensures equal bot distribution across teams.
+- Implemented bot auto-balance system for TDM mode that ensures equal bot distribution across teams
 
-- Fixed upgrade points at level 45 to be 42 instead of 44 by updating defineLevelSkillPoints in server/config.js.
+- Fixed upgrade points at level 45 to be 42 instead of 44
 
 - Commented out guillotine and banHammer classes (because they do not work.)
 
@@ -59,9 +73,17 @@
 
 - Commented out retired developer tanks (Diamond Marauder and Lavender) to prevent mockup loading errors
 
-- Commented out Tank Changes Menu from the beta tester upgrade list in arrasDevMenu.js.
+- Commented out Tank Changes Menu from the beta tester upgrade list.
 
 - Added custom networking system with binary protocol, packet validation, compression, and performance monitoring. Includes custom packet types (MOVEMENT, ACTION, MESSAGE, etc.), seamless integration with existing socket manager, enhanced security features, and real-time network statistics. Fully backward compatible with legacy packets while providing significant performance improvements.
+
+# Improvements
+
+- Configured ESLint with custom rules and globals, reducing code quality issues from 3248 to 272.
+
+- Added JSDoc documentation to key functions like loadGameServer for better code maintainability.
+
+- Fixed various code quality issues including unused variables and empty blocks. (I guess.)
 
 # Original Issues/Pull Request Changes
 
