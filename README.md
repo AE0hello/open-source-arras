@@ -77,14 +77,6 @@
 
 - Added custom networking system with binary protocol, packet validation, compression, and performance monitoring. Includes custom packet types (MOVEMENT, ACTION, MESSAGE, etc.), seamless integration with existing socket manager, enhanced security features, and real-time network statistics. Fully backward compatible with legacy packets while providing significant performance improvements.
 
-# Improvements
-
-- Configured ESLint with custom rules and globals, reducing code quality issues from 3248 to 272.
-
-- Added JSDoc documentation to key functions like loadGameServer for better code maintainability.
-
-- Fixed various code quality issues including unused variables and empty blocks. (I guess.)
-
 # Original Issues/Pull Request Changes
 
 ## These Fixes are Unofficially tested and are just thrown there for the sake of it. Expect some to not work!
