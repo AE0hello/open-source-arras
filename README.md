@@ -27,7 +27,7 @@
 
 - Installation: Clone or download this repository to your local machine. Navigate to the project directory in your terminal. Run `npm install` to install all required dependencies.
 
-- Configuration: Edit the `server/.env` file and set a unique `API_KEY` (this is already configured in the provided version).
+- Configuration: Edit the `server/.env` file and set a unique `API_KEY`.
 
 - Running the Server: Execute `npm start` to launch the game server. The server will start on port 3000.
 
