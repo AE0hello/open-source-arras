@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <script src="https://pixijs.download/release/pixi.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta name="description" content="Survive and shoot at others while keeping your own tank alive!">
+    <meta name="robots" content="index, follow">
+    <meta property="og:image" content="/img/round.png">
+    <meta property="og:image:width" content="54">
+    <meta property="og:image:height" content="54">
+    <title>Arras Ciper Probe Version</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,700">
+    <link rel="stylesheet" href="/main.css" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/img/round.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/img/round.png">
+    <meta name="msapplication-TileColor" content="#1B3353">
+    <meta name="theme-color" content="#1B3353">
+</head>
+<body oncontextmenu="return false" id="mainBody">
+    <div id="gameAreaWrapper" style="display: none;">
+        <canvas id="gameCanvas" tabindex="1"></canvas>
+        <canvas id="gameCanvas-background" tabindex="2"></canvas>
+        <canvas id="gameCanvas-gameplay" tabindex="3"></canvas>
+        <canvas id="gameCanvas-gui" tabindex="4"></canvas>
+    </div>
+    <div class="mainWrapper">
+        <div id="startMenuWrapper">
+        <div id="menuTabs" class="menuTabs" style="text-align: right;">
+        </div>
+        <div class="startMenu">
+            <div class="startMenuHolder linkHolder">
+                <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; height: 100%; text-align: center; padding: 20px; box-sizing: border-box;">
+                    <p style="margin: 0 0 20px 0; font-size: 14px; color: #666;">I dont have anything to really add here.</p>
+                    <p style="margin: 0 0 5px 0; font-size: 12px; color: #888;">If you want the original social media buttons, go to the original repository</p>
+                    <p style="margin: 0; font-size: 12px; color: #888;">github.com/AE0hello/open-source-arras</p>
+                </div>
+                <div class="linkButtonHolder">
+                    <!-- Social media buttons removed -->
+                </div>
+            </div>
+            <div class="startMenuHolder mainHolder">
+            <div class="sliderHolder">
+                <div class="slider startMenuSlidingContent">
+                    <div class="header">
+                        <a class="icon" tabindex="-1"><img src="/img/round.png" alt="OSA icon"></a>
+                        <h1>arras.io</h1>
+                    </div>
+                    <div>
+                        <div class="horizontalSelector" id="serverFilterRegion" style="display: none;"></div>
+                        <div class="horizontalSelector" id="serverFilterMode" style="display: none;"></div>
+                    </div>
+                    <div class="serverSelector shadowScroll"><table><tbody id="serverSelector"></tbody></table></div>
+                    <input type="text" autofocus tabindex="1" spellcheck="false" placeholder="This is the tale of" id="playerNameInput" maxlength="24">
+                    <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64" />
+                </div>
+                <div class="slider" id="startMenuSlidingTrigger">
+                <h3>
+                    <span id="viewOptionText">view options</span>&nbsp;&nbsp;<i class="arrow" id="optionArrow" style="transform: rotate(-45deg);"></i>
+                </h3>
+                </div>
+                <div class="slider startMenuSlidingContent">
+                    <div class="horizontalSelector" id="optionMenuTabs">
+                        <span class="active">Appearance</span>
+                        <span>Options</span>
+                        <span class="desktopControlTab">Controls</span>
+                        <span>Links</span>
+                    </div>
+                    <div id="tabAppearance" class="shadowScroll" style="height: 190px;">
+                        <div class="optionsHeader">Themes</div>
+                        <select id="optColors" tabindex="-1" onchange="document.getElementById('optCustom').style.display = this.value === 'custom' ? 'block' : 'none'" onfocus="document.getElementById('optCustom').style.display = this.value === 'custom' ? 'block' : 'none'">
+                            <option value="normal">Light (by Neph/CX)</option>
+                            <option value="dark">Dark (by Neph/CX)</option>
+                            <option value="classic">Classic (by Neph/CX)</option>
+                            <option value="classicDark">Classic Dark (by Neph)</option>
+                            <option value="natural">Natural (by Neph)</option>
+                            <option value="discord">Discord (by Damocles)</option>
+                            <option value="midnight">Midnight (by uoiea)</option>
+                            <option value="solarizedDark">Solarized Dark (by Road)</option>
+                            <option value="retro">Retro (by Damocles)</option>
+                            <option value="snow">Snow (by Deolveopoler)</option>
+                            <option value="navigator">Navigator (by Unknown)</option>
+                            <option value="coralReef">Coral Reef (by Celestea)</option>
+                            <option value="gruvbox">Gruvbox (by Road)</option>
+                            <option value="eggplant">Eggplant (by Road)</option>
+                            <option value="wrSheetTheme">World Record Sheet (by alettera)</option>
+                            <option value="lyric">Lyric (by evil isopod)</option>
+                            <option value="bleach">Bleach (by definitelynot.)</option>
+                            <option value="nebula">Nebula (by Unknown)</option>
+                            <option value="forest">Forest (by Sterlon)</option>
+                            <option value="pastel">Pastel (by Damocles)</option>
+                            <option value="descent">Descent (by Rog456)</option>
+                            <option value="badlands">Badlands (by Incognious)</option>
+                            <option value="pumpkinSkeleton">Pumpkin Skeleton (by Road)</option>
+                            <option value="blindness">Blindness (by Damocles)</option>
+                            <option value="custom">Custom</option>
+                        </select>
+                        <select id="optMobile" tabindex="-1">
+                            <option value="mobile">Mobile</option>
+                            <option value="mobileWithBigJoysticks">Mobile + Big joysticks</option>
+                            <option value="desktop">Desktop</option>
+                        </select>
+                        <select id="optBorders" tabindex="-1">
+                            <option value="normal">Soft Borders</option>
+                            <option value="dark">Dark Borders</option>
+                            <option value="neon">Neon Mode</option>
+                            <option value="glass">Glass Mode</option>
+                        </select>
+                        <input style="display: none;" placeholder="Insert Custom Theme" id="optCustom" />
+                        <table>
+                            <tr>
+                                <td><div><label class="container"><input id="optSharpEdges" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Sharp Edges</label></div></td>
+                                <td><div><label class="container"><input id="optPointy" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Sharp Traps</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optNoGrid" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Hide Grid</label></div></td>
+                                <td><div><label class="container"><input id="optPredictive" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Disable Hyperactivity</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="separatedHealthbars" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Separated Health Bars</label></div></td>
+                                <td><div><label class="container"><input id="coloredHealthbars" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Colored Health Bars</label></div></td>
+                            </tr>
+                        </table>
+                        <div class="optionsHeader">UI Elements</div>
+                        <table>
+                            <tr>
+                                <td><div><label class="container"><input id="optRenderGui" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>GUI</label></div></td>
+                                <td><div><label class="container"><input id="optRenderLeaderboard" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Leaderboard</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optRenderNames" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Player Names</label></div></td>
+                                <td><div><label class="container"><input id="optRenderHealth" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Health Bars</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optRenderScores" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Player Scores</label></div></td>
+                                <td><div><label class="container"><input id="optRenderKillbar" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Kill bar</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optReducedInfo" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Reduced Info Bar</label></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="tabOptions">
+                        <div class="optionsHeader">Performance</div>
+                        <table>
+                            <tr>
+                                <td><div><label class="container"><input id="optFancy" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Fancy Animations</label></div></td>
+                                <td><div><label class="container"><input id="optLowResolution" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Resolution</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optPredictAnim" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Predict Animations</label></div></td>
+                                <td><div><label class="container"><input id="optLerpAnim" tabindex="-1" title="Smoothing animation" class="checkbox" type="checkbox"><span class="checkmark"></span>Lerp Animations</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optOptimizeMode" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Optimize mode</label></div></td>
+                            </tr>
+                        </table>
+                        <div class="optionsHeader">Miscellaneous</div>
+                        <table>
+                            <tr>
+                                <td><div><label class="container"><input id="autoLevelUp" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Auto-Level Up</label></div></td>
+                                <td><div><label class="container"><input id="smoothCamera" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Camera</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optSlowerFOV" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Slower FOV animation</label></div></td>
+                                <td><div><label class="container"><input id="optFullHD" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Full HD</label></div></td>
+                            </tr>
+                            <tr>
+                                <td><div><label class="container"><input id="optCenterMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Centered Minimap</label></div></td>
+                            </tr>
+                        </table>
+                        <table>
+                            <div class="mobileOptionsHeader">Mobile Miscellaneous</div>
+                            <tr>
+                                <td><div><label class="container mobileOptions"><input id="showCrosshair" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Show Crosshair</label></div></td>
+                                <td><div><label class="container mobileOptions"><input id="showJoystick" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Show Joystick</label></div></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div id="tabControls">
+                        <div class="controlTable optionsHeader"> All Controls <i id="resetControls" class="reset resetControls" title="Reset controls"></i>
+                            <table style="width: 100%"><td class="greyText"><e>*</e> = Needs token</td></table>
+                        </div>
+                        <div class="shadowScroll" style="height: 200px;">
+                            <table class="controlTable" id="controlSettings">
+                                <tbody>
+                                    <tr>
+                                        <td><div><b data-key="KEY_AUTO_FIRE">E</b><span> - </span>auto-fire</div></td>
+                                        <td><div><b data-key="KEY_AUTO_SPIN">C</b><span> - </span>auto-spin</div></td>
+                                        <td><div><b data-key="KEY_OVER_RIDE">R</b><span> - </span>disable AI</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_LEVEL_UP">N</b><span> - </span>level up</div></td>
+                                        <td><div><b data-key="KEY_REVERSE_TANK">V</b><span> - </span>reverse tank</div></td>
+                                        <td><div><b data-key="KEY_REVERSE_MOUSE">B</b><span> - </span>reverse mouse</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_AUTO_ALT">G</b><span> - </span>auto-alt</div></td>
+                                        <td><div><b data-key="KEY_SUICIDE">O</b><span> - </span>self-destruct</div></td>
+                                        <td><div><b data-key="KEY_CLASS_TREE">T</b><span> - </span>show class tree</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_BECOME">F</b><span> - </span>use action</div></td>
+                                        <td><div><b data-key="KEY_MAX_STAT">M</b><span> - </span>maximize stat</div></td>
+                                        <td><div><b data-key="KEY_SPIN_LOCK">X</b><span> - </span>spin lock</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_TOKEN">P</b><span> - </span>token tank*</div></td>
+                                        <td><div><b data-key="KEY_RECORD">Z</b><span> - </span>record video</div></td>
+                                        <td><div><b data-key="KEY_SCREENSHOT">Q</b><span> - </span>screenshot</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div></div></td>
+                                        <td><div><b data-key="KEY_UP">W</b><span> - </span>move up</div></td>
+                                        <td><div></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_LEFT">A</b><span> - </span>move left</div></td>
+                                        <td><div><b data-key="KEY_DOWN">S</b><span> - </span>move down</div></td>
+                                        <td><div><b data-key="KEY_RIGHT">D</b><span> - </span>move right</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_CHOOSE_1">Y</b><span> - </span>upgrade 1</div></td>
+                                        <td><div><b data-key="KEY_CHOOSE_2">U</b><span> - </span>upgrade 2</div></td>
+                                        <td><div><b data-key="KEY_CHOOSE_3">I</b><span> - </span>upgrade 3</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_CHOOSE_4">H</b><span> - </span>upgrade 4</div></td>
+                                        <td><div><b data-key="KEY_CHOOSE_5">J</b><span> - </span>upgrade 5</div></td>
+                                        <td><div><b data-key="KEY_CHOOSE_6">K</b><span> - </span>upgrade 6</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_UPGRADE_ATK">1</b><span> - </span>skill ATK 1</div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_HTL">2</b><span> - </span>skill HTL 2</div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_SPD">3</b><span> - </span>skill SPD 3</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_UPGRADE_STR">4</b><span> - </span>skill STR 4</div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_PEN">5</b><span> - </span>skill PEN 5</div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_DAM">6</b><span> - </span>skill DAM 6</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><b data-key="KEY_UPGRADE_RLD">7</b><span> - </span>skill RLD 7</div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_MOB">8</b><span> - </span>skill MOB 8</div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_RGN">9</b><span> - </span>skill RGN 9</div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div></div></td>
+                                        <td><div><b data-key="KEY_UPGRADE_SHI">0</b><span> - </span>skill SHI 0</div></td>
+                                        <td><div></div></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="tabLinks">
+                        <div class="optionsHeader">Original Game</div>
+                        <div class="moreLinks">
+                            <a href="https://github.com/nepphhh/arrasio">arras.io</a>
+                        </div>
+                        <div class="optionsHeader">Resources</div>
+                        <div class="moreLinks">
+                            <span data-ccpa-link="1"></span>
+                            <a href="https://codepen.io/road-to-100k/full/GRpvMzb">Road's Custom Theme Maker</a><br/>
+                            <a tabindex="-1" href="/ext/custom-shape/index.html">Custom Shape Builder</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="startButtonHolder">
+                <button id="startButton" tabindex="2"><b>Play</b></button>
+            </div>
+            </div>
+            <div class="startMenuHolder changelogHolder">
+                <span class="titleSpan">Changelog</span>
+                <div id="patchNotes" class="shadowScroll"></div>
+            </div>
+        </div>
+        </div>
+    </div>
+    <script src="//code.jquery.com/jquery-2.2.0.min.js"></script>
+    <script type="module" src="./client/app.js"></script>
+    <script type="module" src="./client/config.js"></script>
+    <script type="module" src="./client/gameDraw.js"></script>
+    <script type="module" src="./client/protocol.js"></script>
+    <script type="module" src="./client/global.js"></script>
+    <script type="module" src="./client/socketinit.js"></script>
+    <script type="module" src="./client/color.js"></script>
+    <script type="module" src="./client/serverSelectorHandler.js"></script>
+</body>
+</html>

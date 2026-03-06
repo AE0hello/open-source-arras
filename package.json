@@ -1,0 +1,20 @@
+{
+  "name": "open-source-arras",
+  "version": "1.0.0",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node --max-old-space-size=4096 --no-lazy index"
+  },
+  "dependencies": {
+    "ws": "^8.19.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "Unlicense",
+  "devDependencies": {
+    "@eslint/js": "^9.0.0",
+    "@stylistic/eslint-plugin": "^5.9.0",
+    "eslint": "^9.39.3"
+  }
+}

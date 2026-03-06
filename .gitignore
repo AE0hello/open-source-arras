@@ -1,0 +1,10 @@
+# Dependencies
+node_modules/
+package-lock.json
+
+# ESLint cache
+.eslintcache
+
+# OS files
+.DS_Store
+Thumbs.db
