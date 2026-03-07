@@ -290,8 +290,8 @@ class turretEntity extends EventEmitter {
             mirrorMasterAngle: this.settings.mirrorMasterAngle ?? false,
             layer: this.bound.layer,
             color: this.color.compiled,
-            guns: Array.from(this.guns).map(gun => gun[1].getPhotoInfo()),
-            turrets: Array.from(this.turrets).map(turret => turret[1].camera()),
+            guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
+            turrets: Array.from(this.turrets.values()).map(turret => turret.camera()),
         };
     };
 

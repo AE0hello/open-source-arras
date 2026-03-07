@@ -1056,19 +1056,7 @@ class socketManager {
             if (bodyInfo) {
                 spawn = false;
                 socket.player = socket.spawn(name);
-                socket.player.body.upgrades = []
-                for (let def of bodyInfo.definition) {
-                    if (def in Class) socket.player.body.define(Class[def]);
-                    else if (typeof def === "object") socket.player.body.define(def);
-                }
-                socket.player.body.skill.score = bodyInfo.score;
-                socket.player.body.skill.deduction = bodyInfo.score;
-                for (let i = 0; i < Config.level_cap_cheat; i++) socket.player.body.skill.maintain();
-                socket.player.body.killCount = bodyInfo.killCount;
-                socket.player.body.skill.setCaps(bodyInfo.skillcap);
-                socket.player.body.skill.set(bodyInfo.skill);
-                socket.player.body.skill.points = bodyInfo.points;
-                socket.player.body.color.base = socket.player.teamColor;
+                socket.player.body.importBody(bodyInfo);
                 util.remove(global.travellingPlayers, global.travellingPlayers.indexOf(bodyInfo));
             }
         }

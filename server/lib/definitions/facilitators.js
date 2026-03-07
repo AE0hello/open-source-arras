@@ -1313,8 +1313,8 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
             PENETRATION: type.BODY.PENETRATION,
             PUSHABILITY: type.BODY.PUSHABILITY / (level + 1) || 0,
             ACCELERATION: type.BODY.ACCELERATION,
-            SHIELD: 1e-9,
-            REGEN: 1e-18
+            SHIELD: 0,
+            REGEN: 0
         },
         INTANGIBLE: type.INTANGIBLE,
         VARIES_IN_SIZE: false,

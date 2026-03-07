@@ -3048,22 +3048,22 @@ import * as socketStuff from "./socketinit.js";
                 y += global.screenHeight / 2;
 
                 if (health < 0.99 || shield < 0.99 && global.GUIStatus.renderhealth) {
-                    let col = config.graphical.coloredHealthbars ? gameDraw.mixColors(gameDraw.modifyColor(instance.color), color.guiwhite, 0.5) : color.lgreen;
-                    let yy = y + 1 + realSize + 15 * ratio;
-                    let barWidth = 3 * ratio;
+                    let col = config.graphical.coloredHealthbars ? gameDraw.mixColors(gameDraw.modifyColor(instance.color), color.guiwhite, 0.5) : color.lgreen
+                    let yy = y + realSize + 14.3 * ratio
+                    let barWidth = 1 * ratio
+                    let barChunk = (config.graphical.barChunk || 0) * ratio
+                    let seperated = config.graphical.separatedHealthbars;
+
                     ctx[1].globalAlpha = alpha * alpha * fade;
 
-                    //background bar
-                    drawBar(x - size, x + size, yy + barWidth * config.graphical.separatedHealthbars / 2, barWidth * (1 + config.graphical.separatedHealthbars) + config.graphical.barChunk, color.black, ctx[1]);
+                    drawBar(x - size, x + size, yy, seperated ? barWidth + barChunk * 1.6 : barWidth + barChunk, color.black, ctx[1])
 
-                    //hp bar
-                    drawBar(x - size, x - size + 2 * size * health, yy + barWidth * config.graphical.separatedHealthbars, barWidth, col, ctx[1]);
+                    drawBar(x - size, x - size + 2 * size * health, seperated ? yy + 2 : yy, barWidth + barChunk * 0.35, col, ctx[1])
 
-                    //shield bar
-                    if (shield || config.graphical.separatedHealthbars) {
-                        if (!config.graphical.separatedHealthbars) ctx[1].globalAlpha *= 0.7;
-                        ctx[1].globalAlpha *= 0.3 + 0.3 * shield,
-                            drawBar(x - size, x - size + 2 * size * shield, yy, barWidth, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1]);
+                    if (shield || seperated) {
+                        if (!seperated) ctx[1].globalAlpha *= 0.7;
+                        ctx[1].globalAlpha *= 0.3 + 0.3 * shield;
+                        drawBar(x - size, x - size + 2 * size * shield, seperated ? yy - 2 : yy, barWidth + barChunk * 0.35, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1])
                     }
                     if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.separatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center");
                     ctx[1].globalAlpha = alpha;
@@ -3371,9 +3371,11 @@ import * as socketStuff from "./socketinit.js";
         let xloc = global.player.renderx / 30;
         let yloc = global.player.rendery / 30;
         let watermarkText = "Open Source Arras";
-        let watermarkColor = color.guiwhite
-        let length = Math.max(measureText(watermarkText, 32)) / 12;
-        let watermarkTextPos1 = Math.round(x + len / 2) + 0.5;
+        let versionLength = (measureText(global.version ?? "v?", 32)) / 2;
+        let length = Math.max(measureText(watermarkText, 32)) / 16;
+        let gradientTransition = global.showDebug ? 4.1 : 2;
+        let watermarkTextPos1 = Math.round(x + len / gradientTransition) + 0.5;
+        let watermarkColor = gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.085, watermarkTextPos1 + length, 0);
         if (global.showDebug) {
             let getRenderingInfo = (data, isTurret) => {
                 isTurret ? global.renderingInfo.turretEntities += data.length : global.renderingInfo.entities += data.length;
@@ -3390,7 +3392,8 @@ import * as socketStuff from "./socketinit.js";
             global.tankSpeedHistory.push(rawSpeed);
             if (global.tankSpeedHistory.length > HISTORY_LENGTH) global.tankSpeedHistory.shift();
             let tankSpeed = global.tankSpeedHistory.reduce((sum, val) => sum + val, 0) / global.tankSpeedHistory.length;
-            drawText(`${watermarkText} ${global.version}`, x + len, y - 50 - 10 * 14 - 2, 15, watermarkColor, "right");
+            drawText(watermarkText, x + len - versionLength - 4, y - 50 - 10 * 14 - 2, 15, watermarkColor, "right");
+            drawText(global.version ?? "v?", x + len, y - 50 - 10 * 14 - 2, 15, color.guiwhite, "right");
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
             drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
             drawText("Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
@@ -3503,7 +3506,7 @@ import * as socketStuff from "./socketinit.js";
                     let xx = entryX - 1.5 * height - scale * entry.position.middle.x * Math.SQRT1_2,
                         yy = entryY + 0.5 * height - scale * entry.position.middle.y * Math.SQRT1_2,
                         baseColor = entry.color;
-                    drawEntity(baseColor, xx, yy, entry.image, 1 / scale, 1, (scale * scale) / entry.image.size, 2, -Math.PI / 4, true, ctx[2], false, entry.image.render, false, true);
+                    drawEntity(baseColor, xx, yy, entry.image, 1 / scale, 1, (scale * scale) / entry.image.size, (scale * scale) / entry.image.size / 8.5, -Math.PI / 4, true, ctx[2], false, entry.image.render, false, true);
                 }
             }
         }

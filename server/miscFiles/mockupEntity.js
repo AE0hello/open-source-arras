@@ -437,9 +437,6 @@ class MockupEntity {
             layer: position.LAYER
         };
     }
-    clear() {
-        delete this;
-    }
 }
 
 module.exports = { MockupEntity };

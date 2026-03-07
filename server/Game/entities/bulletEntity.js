@@ -376,7 +376,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
             vfacing: this.vfacing,
             layer: this.layerID ? this.layerID : this.type === "wall" ? 11 : this.type === "food" ? 10 : this.type === "tank" ? 5 : this.type === "crasher" ? 1 : 0,
             color: this.color.compiled,
-            guns: Array.from(this.guns).map(gun => gun[1].getPhotoInfo()),
+            guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
             turrets: [],
         };
     };

@@ -26,6 +26,7 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "gunBenchmark",
     "switcheroo",
     "armyOfOne",
+    ["developer", "developer"],
     "vanquisher",
     "syncWithTankTest",
     "airblast",

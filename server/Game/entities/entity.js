@@ -102,6 +102,7 @@ class Entity extends EventEmitter {
         this.collidingBond = false;
         // Optimized AABB calculation and update
         this.updateAABB = (active) => {
+            this.antiNaN.update();
             if (!active || (!this.collidingBond && this.bond != null)) {
                 this.isInGrid = false;
             } else {
@@ -711,8 +712,8 @@ class Entity extends EventEmitter {
 
     camera() {
         // Get bound data
-        const turretsAndProps = Array.from(this.turrets).concat(Array.from(this.props));
-        turretsAndProps.sort((a, b) => a[1].bound.layer - b[1].bound.layer);
+        const turretsAndProps = Array.from(this.turrets.values()).concat(Array.from(this.props.values()));
+        turretsAndProps.sort((a, b) => a.bound.layer - b.bound.layer);
         
         // Calculate type value more efficiently
         const typeValue = (this.settings.drawHealth ? 0x02 : 0) + 
@@ -757,8 +758,8 @@ class Entity extends EventEmitter {
             drawFill: this.drawFill,
             name: (this.nameColor || "#ffffff") + this.name,
             score: this.settings.scoreLabel || score,
-            guns: Array.from(this.guns).map(gun => gun[1].getPhotoInfo()),
-            turrets: turretsAndProps.map(turret => turret[1].camera()),
+            guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
+            turrets: turretsAndProps.map(turret => turret.camera()),
         };
         
         // Process child camera connections if needed
@@ -865,6 +866,25 @@ class Entity extends EventEmitter {
         this.skill.update();
         this.syncTurrets();
         this.refreshBodyAttributes();
+    }
+
+    importBody(info) {
+        this.upgrades = [];
+        if (info.definition && Array.isArray(info.definition)) {
+            if (info.definition.length === 1) this.define(info.definition[0]);
+            else this.define(info.definition);
+        }
+        this.killCount = info.killCount;
+        this.skill.score = info.score;
+        this.skill.deduction = info.score;
+        for (let i = 0; i < Config.level_cap_cheat; i++) this.skill.maintain(); // Skip the growth animation
+        this.skill.points = info.points;
+        this.skill.deduction = info.score;
+        this.skill.setCaps(info.skillcap);
+        this.skill.set(info.skill);
+        this.color.base = this.socket.player.teamColor;
+        this.refreshBodyAttributes();
+        this.sendMessage("You have traveled through a portal!");
     }
 
     damageMultiplier() {
