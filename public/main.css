@@ -605,6 +605,10 @@ body.mobile .desktopControlTab {
 	display: none;
 }
 
+#optUiScale {
+  width: 183px;
+}
+
 body.mobile #optColors {
 	width: 336px;
 	margin-bottom: 4px;

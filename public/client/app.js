@@ -187,6 +187,7 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("showCrosshair");
         util.retrieveFromLocalStorage("showJoystick");
         util.retrieveFromLocalStorage("optFullHD");
+        util.retrieveFromLocalStorage("optUiScale");
         // Game
         util.retrieveFromLocalStorage("optIncognitoMode");
         // Set default theme
@@ -230,6 +231,12 @@ import * as socketStuff from "./socketinit.js";
             util.submitToLocalStorage("optFancy");
             util.submitToLocalStorage("autoLevelUp");
             localStorage.setItem("loadedForFirstTime", "true");
+            localStorage.setItem("uiScaleSettings", null);
+        }
+        if (!localStorage.getItem("uiScaleSettings") || document.getElementById("optUiScale").value === "") {
+            document.getElementById("optUiScale").value = global.mobile ? "mobile" : "normal";
+            util.submitToLocalStorage("optUiScale");
+            localStorage.setItem("uiScaleSettings", "true");
         }
         loadSettings();
         // Keybinds stuff
@@ -389,8 +396,6 @@ import * as socketStuff from "./socketinit.js";
         }
         // OSA info
         let i_div = document.createElement("div");
-        let ul = document.createElement("ul");
-        let ul2 = document.createElement("ul");
         i_div.classList.add("optionsHeader");
         i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild === "false" ? "" : " (dev build)"}`;
         mainDoc.appendChild(i_div);
@@ -1016,6 +1021,24 @@ import * as socketStuff from "./socketinit.js";
                 global.mobileStatus.useBigJoysticks = true;
                 break;
         }
+        global.autoScale = false;
+        switch (document.getElementById("optUiScale").value) {
+            case "auto":
+                global.autoScale = true;
+                break;
+            case "small":
+                global.UIscale = 2560;
+                break;
+            case "normal":
+                global.UIscale = 1920;
+                break;
+            case "large":
+                global.UIscale = 1536;
+                break;
+            case "mobile":
+                global.UIscale = 1280;
+                break;
+        }
         util.submitToLocalStorage("optColors");
         let a = document.getElementById("optColors").value;
         color = colors[a === "" ? "normal" : a];
@@ -1075,6 +1098,7 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("showCrosshair");
         util.submitToLocalStorage("showJoystick");
         util.submitToLocalStorage("optFullHD");
+        util.submitToLocalStorage("optUiScale");
         // Game
         util.submitToLocalStorage("optIncognitoMode");
         loadSettings();

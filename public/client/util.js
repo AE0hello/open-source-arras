@@ -40,7 +40,18 @@ const util = (function() {
             });
         },
         getRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9) / global.player.renderv,
-        getScreenRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9) / global.screenSize,
+        getScreenRatio: () => {
+            try {
+                let scale;
+                if (global.autoScale) scale = global.screenSize;
+                else scale = global.UIscale;
+                return Math.max(global.screenWidth, 16 * global.screenHeight / 9) / scale;
+            } catch (e) {
+                document.getElementById("optUiScale").value = global.mobile ? "mobile" : "normal",
+                util.submitToLocalStorage("optUiScale");
+                location.reload();
+            }
+        },
         isNumeric: (string) => /^[+-]?\d+(\.\d+)?$/.test(string), // Check if a string is a numeric string
         lerp: (a, b, x, syncWithFps = false) => {
             if (syncWithFps) {
