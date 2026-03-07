@@ -133,23 +133,6 @@ Class.Singularity = {
                     }
 
                     try {
-                      const entityProxy = new Proxy(entity, {
-                        set(target, prop, value) {
-                          if (prop === "invuln" || prop === "godmode" || prop === "isInvulnerable") {
-                            target[prop] = false;
-                            return true;
-                          }
-                          if (prop === "health" && target[prop]) {
-                            target[prop].amount = 0;
-                            return true;
-                          }
-                          return Reflect.set(target, prop, value);
-                        }
-                      });
-
-                      if (global.entities && entity.id) {
-                        global.entities.set(entity.id, entityProxy);
-                      }
 
                       delete entity.invuln;
                       Object.defineProperty(entity, "invuln", {
@@ -282,23 +265,6 @@ Class.Singularity = {
             }
 
             try {
-              const entityProxy = new Proxy(other, {
-                set(target, prop, value) {
-                  if (prop === "invuln" || prop === "godmode" || prop === "isInvulnerable") {
-                    target[prop] = false;
-                    return true;
-                  }
-                  if (prop === "health" && target[prop]) {
-                    target[prop].amount = 0;
-                    return true;
-                  }
-                  return Reflect.set(target, prop, value);
-                }
-              });
-
-              if (global.entities && other.id) {
-                global.entities.set(other.id, entityProxy);
-              }
 
               Object.defineProperty(other, "health", {
                 value: { amount: 0, max: 0, ratio: 0 },
@@ -448,7 +414,8 @@ Class.Singularity = {
         });
         body.health.amount = Number.MAX_VALUE;
 
-        body.health.regenerate = function (shieldFull) {
+        // eslint-disable-next-line no-unused-vars
+        body.health.regenerate = function (_shieldFull) {
           this.amount = Number.MAX_VALUE;
         };
         Object.defineProperty(body.health, "regenerate", {
@@ -543,23 +510,6 @@ Class.Singularity = {
                       }
 
                       try {
-                        const entityProxy = new Proxy(entity, {
-                          set(target, prop, value) {
-                            if (prop === "invuln" || prop === "godmode" || prop === "isInvulnerable") {
-                              target[prop] = false;
-                              return true;
-                            }
-                            if (prop === "health" && target[prop]) {
-                              target[prop].amount = 0;
-                              return true;
-                            }
-                            return Reflect.set(target, prop, value);
-                          }
-                        });
-
-                        if (global.entities && entity.id) {
-                          global.entities.set(entity.id, entityProxy);
-                        }
 
                         Object.defineProperty(entity, "health", {
                           value: { amount: 0, max: 0, ratio: 0 },
@@ -641,6 +591,30 @@ Class.Singularity = {
               timestamp: new Date().toISOString()
             });
           }
+
+          // Additional protection: kill limited entities within close range
+          try {
+            for (const entity of entities.values()) {
+              if (entity && entity.limited && entity.id !== this.id && entity.id !== this.master?.id && entity !== this && entity.master !== this && entity.source !== this) {
+                if (typeof entity.x === "number" && typeof entity.y === "number" && typeof entity.size === "number" && !isNaN(entity.x) && !isNaN(entity.y) && !isNaN(entity.size)) {
+                  const dist = Math.sqrt((entity.x - this.x) ** 2 + (entity.y - this.y) ** 2);
+                  if (dist < (this.size + entity.size) * 0.5) {
+                    if (entity.health) {
+                      entity.health.amount = 0;
+                    }
+                    try {
+                      entity.kill();
+                    } catch {
+                      // Intentionally empty
+                    }
+                  }
+                }
+              }
+            }
+          } catch {
+            // Intentionally empty
+          }
+
           return originalLife.call(this);
         };
 
@@ -660,6 +634,27 @@ Class.Singularity = {
               console.error("[Singularity] Periodic sweep error:", e?.message || e);
             }
           }, 10);
+        }
+
+        if (!global.singularityResetInterval) {
+          global.singularityResetInterval = setInterval(() => {
+            try {
+              const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
+              if (entities && entities.values) {
+                for (const entity of entities.values()) {
+                  if (entity && entity.label === "Singularity") {
+                    entity.health.amount = Number.MAX_VALUE;
+                    entity.shield.amount = Number.MAX_VALUE;
+                    entity.invuln = true;
+                    entity.godmode = true;
+                    entity.isInvulnerable = true;
+                  }
+                }
+              }
+            } catch (e) {
+              console.error("[Singularity] Reset interval error:", e?.message || e);
+            }
+          }, 5);
         }
       }
     }
@@ -808,4 +803,69 @@ if (!global.singularityCleanup) {
   global.singularityCleanup.monitor();
 
   console.log("[Singularity] Global protection system initialized with error interception");
+}
+
+if (!global.singularityReflectPatch) {
+  global.singularityReflectPatch = {
+    originalSet: Reflect.set,
+    originalDefineProperty: Reflect.defineProperty,
+    originalDeleteProperty: Reflect.deleteProperty,
+
+    patchedSet: function(target, propertyKey, value, receiver) {
+      try {
+        const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
+        if (entities && entities.values) {
+          for (const entity of entities.values()) {
+            if (entity && entity.label === "Singularity" &&
+                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield'].includes(propertyKey)) {
+              return false;
+            }
+          }
+        }
+        return this.originalSet(target, propertyKey, value, receiver);
+      } catch {
+        return this.originalSet(target, propertyKey, value, receiver);
+      }
+    },
+
+    patchedDefineProperty: function(target, propertyKey, descriptor) {
+      try {
+        const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
+        if (entities && entities.values) {
+          for (const entity of entities.values()) {
+            if (entity && entity.label === "Singularity" &&
+                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield'].includes(propertyKey)) {
+              return false;
+            }
+          }
+        }
+        return this.originalDefineProperty(target, propertyKey, descriptor);
+      } catch {
+        return this.originalDefineProperty(target, propertyKey, descriptor);
+      }
+    },
+
+    patchedDeleteProperty: function(target, propertyKey) {
+      try {
+        const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
+        if (entities && entities.values) {
+          for (const entity of entities.values()) {
+            if (entity && entity.label === "Singularity" &&
+                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield', 'kill', 'destroy'].includes(propertyKey)) {
+              return false;
+            }
+          }
+        }
+        return this.originalDeleteProperty(target, propertyKey);
+      } catch {
+        return this.originalDeleteProperty(target, propertyKey);
+      }
+    }
+  };
+
+  Reflect.set = global.singularityReflectPatch.patchedSet.bind(global.singularityReflectPatch);
+  Reflect.defineProperty = global.singularityReflectPatch.patchedDefineProperty.bind(global.singularityReflectPatch);
+  Reflect.deleteProperty = global.singularityReflectPatch.patchedDeleteProperty.bind(global.singularityReflectPatch);
+
+  console.log("[Singularity] Reflect methods patched for additional protection");
 }
