@@ -17,6 +17,14 @@ class BinaryCodec {
     this.batchProcessingEnabled = true;
     this.memoryOptimizationEnabled = true;
 
+    this.reverseEngineeringMode = true;
+    this.detailedBinaryAnalysis = true;
+    this.hexDumpEnabled = true;
+    this.bitLevelAnalysis = true;
+    this.packetStructureAnalysis = true;
+    this.fieldMetadataExposure = true;
+    this.analysisExportEnabled = true;
+
     this.metrics = {
       packetsDecoded: 0,
       packetsEncoded: 0,
@@ -40,12 +48,19 @@ class BinaryCodec {
     this.validationRules = new Map();
     this.performanceProfile = new Map();
 
+    this.binaryAnalysisLog = [];
+    this.packetStructureLog = [];
+    this.fieldAnalysisLog = [];
+    this.hexDumpLog = [];
+    this.bitAnalysisLog = [];
+    this.patternAnalysisLog = [];
+
     this.initializePerformanceOptimizations();
     this.initializeValidationRules();
+    this.initializeReverseEngineeringTools();
   }
 
   initializePerformanceOptimizations() {
-
     this.compiledPatterns = new Map();
     this.bufferPool = [];
     this.maxBufferPoolSize = 100;
@@ -68,21 +83,56 @@ class BinaryCodec {
     }, 30000);
   }
 
+  initializeReverseEngineeringTools() {
+    this.hexDumpGenerator = {
+      generate: (buffer, offset = 0, length = buffer.length) => this.generateHexDump(buffer, offset, length),
+      generateDetailed: (buffer, offset = 0, length = buffer.length) => this.generateDetailedHexDump(buffer, offset, length)
+    };
+
+    this.bitAnalyzer = {
+      analyzeBits: (byte) => this.analyzeBits(byte),
+      analyzeBitField: (buffer, offset, bitCount) => this.analyzeBitField(buffer, offset, bitCount),
+      extractBits: (value, startBit, bitCount) => this.extractBits(value, startBit, bitCount)
+    };
+
+    this.patternDetector = {
+      findPatterns: (buffer) => this.findBinaryPatterns(buffer),
+      analyzeStructure: (buffer) => this.analyzeBinaryStructure(buffer),
+      detectEncoding: (buffer) => this.detectDataEncoding(buffer)
+    };
+
+    this.metadataExtractor = {
+      extractPacketMetadata: (packet) => this.extractPacketMetadata(packet),
+      extractFieldMetadata: (field, value) => this.extractFieldMetadata(field, value),
+      generateStructureMap: (packet) => this.generateStructureMap(packet)
+    };
+
+    this.analysisExporter = {
+      exportAnalysis: (format = 'json') => this.exportAnalysisData(format),
+      exportHexDumps: () => this.exportHexDumpData(),
+      exportStructureAnalysis: () => this.exportStructureAnalysisData()
+    };
+  }
+
   decodePacket(rawData, context = {}) {
     const startTime = performance.now();
     const decodeId = this.generateDecodeId();
 
     const initialMemory = this.getCurrentMemoryUsage();
 
+    if (this.reverseEngineeringMode && this.detailedBinaryAnalysis) {
+      this.performInitialBinaryAnalysis(rawData, decodeId);
+    }
+
     this.logDebug(`[DECODE:${decodeId}] Starting packet decode`, {
       dataSize: rawData?.length,
       context: this.sanitizeContext(context),
       timestamp: new Date().toISOString(),
-      memoryUsage: initialMemory
+      memoryUsage: initialMemory,
+      binaryAnalysis: this.reverseEngineeringMode ? 'enabled' : 'disabled'
     });
 
     try {
-
       this.validateRawPacketData(rawData, decodeId);
 
       const header = this.extractHeader(rawData);
@@ -90,12 +140,18 @@ class BinaryCodec {
         throw new Error(`[DECODE:${decodeId}] Invalid packet header - magic bytes mismatch or insufficient data`);
       }
 
+      if (this.reverseEngineeringMode) {
+        this.analyzeHeaderStructure(header, rawData, decodeId);
+      }
+
       this.logDebug(`[DECODE:${decodeId}] Header extracted successfully`, {
         type: header.type,
         typeId: header.typeId,
         sequence: header.sequence,
         flags: this.parseFlags(header.flags),
-        payloadLength: header.payloadLength
+        payloadLength: header.payloadLength,
+        headerBytes: this.hexDumpGenerator.generate(rawData.slice(0, header.length)),
+        flagAnalysis: this.bitLevelAnalysis ? this.analyzeHeaderFlags(header.flags) : undefined
       });
 
       this.validatePacketStructure(header, rawData, decodeId);
@@ -119,7 +175,8 @@ class BinaryCodec {
         this.logDebug(`[DECODE:${decodeId}] Payload decompressed`, {
           originalSize: rawData.length - header.length,
           decompressedSize: payload.length,
-          ratio: ((payload.length / (rawData.length - header.length)) * 100).toFixed(1) + '%'
+          ratio: ((payload.length / (rawData.length - header.length)) * 100).toFixed(1) + '%',
+          compressionAnalysis: this.reverseEngineeringMode ? this.analyzeCompressionPattern(payload) : undefined
         });
       }
 
@@ -128,7 +185,9 @@ class BinaryCodec {
         payload = this.decryptData(payload, context);
         const decryptTime = performance.now() - decryptStart;
         processingSteps.push(`decrypt(${decryptTime.toFixed(2)}ms)`);
-        this.logDebug(`[DECODE:${decodeId}] Payload decrypted`);
+        this.logDebug(`[DECODE:${decodeId}] Payload decrypted`, {
+          encryptionAnalysis: this.reverseEngineeringMode ? this.analyzeEncryptionPattern(payload) : undefined
+        });
       }
 
       const payloadDecodeStart = performance.now();
@@ -156,6 +215,17 @@ class BinaryCodec {
         memoryFootprint: this.getCurrentMemoryUsage() - initialMemory
       };
 
+      if (this.reverseEngineeringMode && this.fieldMetadataExposure) {
+        packet.reverseEngineering = {
+          binaryAnalysis: this.extractPacketBinaryAnalysis(rawData, header, payload, decodeId),
+          structureMap: this.metadataExtractor.generateStructureMap(packet),
+          hexDump: this.hexDumpEnabled ? this.hexDumpGenerator.generateDetailed(rawData) : undefined,
+          fieldAnalysis: this.extractFieldLevelAnalysis(packetData, header.type, decodeId),
+          patternAnalysis: this.patternDetector.findPatterns(rawData),
+          bitLevelAnalysis: this.bitLevelAnalysis ? this.performBitLevelAnalysis(rawData, header) : undefined
+        };
+      }
+
       this.manageCacheSize();
       this.packetCache.set(cacheKey, packet);
 
@@ -167,7 +237,13 @@ class BinaryCodec {
         totalDecodeTime: packet.decodeTime.toFixed(2) + 'ms',
         processingSteps: processingSteps.join(', '),
         cacheKey: cacheKey,
-        memoryFootprint: packet.memoryFootprint
+        memoryFootprint: packet.memoryFootprint,
+        reFeatures: this.reverseEngineeringMode ? {
+          binaryAnalysisComplete: true,
+          structureMapGenerated: true,
+          hexDumpAvailable: !!packet.reverseEngineering?.hexDump,
+          fieldAnalysisComplete: true
+        } : undefined
       });
 
       return packet;
@@ -178,7 +254,11 @@ class BinaryCodec {
         error: error.message,
         stack: error.stack,
         dataSize: rawData?.length,
-        context: this.sanitizeContext(context)
+        context: this.sanitizeContext(context),
+        binaryContext: this.reverseEngineeringMode ? {
+          hexDump: this.hexDumpGenerator.generate(rawData.slice(0, Math.min(32, rawData.length))),
+          patternAnalysis: this.patternDetector.findPatterns(rawData.slice(0, Math.min(32, rawData.length)))
+        } : undefined
       });
       throw error;
     }
@@ -2860,6 +2940,922 @@ class BinaryCodec {
 
   clearCache() {
     this.packetCache.clear();
+  }
+
+  performInitialBinaryAnalysis(rawData, decodeId) {
+    const analysis = {
+      timestamp: Date.now(),
+      decodeId: decodeId,
+      dataSize: rawData.length,
+      hexPreview: this.hexDumpGenerator.generate(rawData.slice(0, Math.min(64, rawData.length))),
+      entropy: this.calculateEntropy(rawData),
+      patterns: this.patternDetector.findPatterns(rawData),
+      structure: this.patternDetector.analyzeStructure(rawData),
+      encoding: this.patternDetector.detectEncoding(rawData)
+    };
+
+    this.binaryAnalysisLog.push(analysis);
+    return analysis;
+  }
+
+  generateHexDump(buffer, offset = 0, length = buffer.length) {
+    const lines = [];
+    const end = Math.min(offset + length, buffer.length);
+    
+    for (let i = offset; i < end; i += 16) {
+      const chunk = buffer.slice(i, Math.min(i + 16, end));
+      const hex = Array.from(chunk).map(b => b.toString(16).padStart(2, '0')).join(' ');
+      const ascii = Array.from(chunk).map(b => (b >= 32 && b <= 126) ? String.fromCharCode(b) : '.').join('');
+      const address = i.toString(16).padStart(8, '0').toUpperCase();
+      
+      lines.push(`${address}  ${hex.padEnd(47)}  |${ascii}|`);
+    }
+    
+    return lines.join('\n');
+  }
+
+  generateDetailedHexDump(buffer, offset = 0, length = buffer.length) {
+    const lines = [];
+    const end = Math.min(offset + length, buffer.length);
+    
+    for (let i = offset; i < end; i += 16) {
+      const chunk = buffer.slice(i, Math.min(i + 16, end));
+      const hex = Array.from(chunk).map(b => b.toString(16).padStart(2, '0')).join(' ');
+      const ascii = Array.from(chunk).map(b => (b >= 32 && b <= 126) ? String.fromCharCode(b) : '.').join('');
+      const address = i.toString(16).padStart(8, '0').toUpperCase();
+      
+      // Add bit-level analysis for each byte
+      const bits = Array.from(chunk).map(b => b.toString(2).padStart(8, '0')).join(' ');
+      const decimal = Array.from(chunk).map(b => b.toString().padStart(3, ' ')).join(' ');
+      
+      lines.push(`${address}  ${hex.padEnd(47)}  |${ascii}|`);
+      lines.push(`        BITS: ${bits}`);
+      lines.push(`        DEC:  ${decimal}`);
+      lines.push('');
+    }
+    
+    return lines.join('\n');
+  }
+
+  analyzeBits(byte) {
+    const bits = byte.toString(2).padStart(8, '0');
+    return {
+      decimal: byte,
+      hexadecimal: '0x' + byte.toString(16).padStart(2, '0').toUpperCase(),
+      binary: bits,
+      octal: '0' + byte.toString(8),
+      bits: {
+        b7: parseInt(bits[0]), b6: parseInt(bits[1]), b5: parseInt(bits[2]), b4: parseInt(bits[3]),
+        b3: parseInt(bits[4]), b2: parseInt(bits[5]), b1: parseInt(bits[6]), b0: parseInt(bits[7])
+      },
+      ascii: (byte >= 32 && byte <= 126) ? String.fromCharCode(byte) : '.',
+      isPrintable: byte >= 32 && byte <= 126,
+      isControl: byte < 32 || byte === 127,
+      description: this.getByteDescription(byte)
+    };
+  }
+
+  analyzeBitField(buffer, offset, bitCount) {
+    const byteIndex = Math.floor(offset / 8);
+    const bitOffset = offset % 8;
+    const bytesNeeded = Math.ceil((bitOffset + bitCount) / 8);
+    
+    if (byteIndex + bytesNeeded > buffer.length) {
+      throw new Error(`Bit field exceeds buffer: need ${bytesNeeded} bytes from offset ${byteIndex}`);
+    }
+    
+    let value = 0;
+    for (let i = 0; i < bytesNeeded; i++) {
+      value = (value << 8) | buffer[byteIndex + i];
+    }
+    
+    value = (value >> (8 - bitOffset - bitCount)) & ((1 << bitCount) - 1);
+    
+    return {
+      value: value,
+      offset: offset,
+      bitCount: bitCount,
+      byteIndex: byteIndex,
+      bitOffset: bitOffset,
+      bytesUsed: bytesNeeded,
+      binary: value.toString(2).padStart(bitCount, '0'),
+      hexadecimal: '0x' + value.toString(16).padStart(Math.ceil(bitCount / 4), '0').toUpperCase(),
+      decimal: value
+    };
+  }
+
+  extractBits(value, startBit, bitCount) {
+    const mask = (1 << bitCount) - 1;
+    return (value >> startBit) & mask;
+  }
+
+  findBinaryPatterns(buffer) {
+    const patterns = {
+      repeated: this.findRepeatedPatterns(buffer),
+      sequences: this.findSequentialPatterns(buffer),
+      structures: this.findStructuralPatterns(buffer),
+      encodings: this.findEncodingPatterns(buffer),
+      signatures: this.findSignaturePatterns(buffer)
+    };
+    
+    return patterns;
+  }
+
+  findRepeatedPatterns(buffer) {
+    const patterns = [];
+    const minLength = 2;
+    const maxLength = Math.min(16, Math.floor(buffer.length / 4));
+    
+    for (let len = minLength; len <= maxLength; len++) {
+      const frequency = new Map();
+      
+      for (let i = 0; i <= buffer.length - len; i++) {
+        const pattern = buffer.slice(i, i + len).toString('hex');
+        frequency.set(pattern, (frequency.get(pattern) || 0) + 1);
+      }
+      
+      for (const [pattern, count] of frequency) {
+        if (count > 1) {
+          patterns.push({
+            pattern: pattern,
+            length: len,
+            frequency: count,
+            hex: pattern.match(/.{2}/g)?.join(' ') || pattern
+          });
+        }
+      }
+    }
+    
+    return patterns.sort((a, b) => b.frequency - a.frequency);
+  }
+
+  findSequentialPatterns(buffer) {
+    const patterns = [];
+    
+    // Look for increasing sequences
+    let incStart = 0;
+    for (let i = 1; i < buffer.length; i++) {
+      if (buffer[i] === buffer[i-1] + 1) {
+        continue;
+      }
+      if (i - incStart >= 3) {
+        patterns.push({
+          type: 'increasing',
+          start: incStart,
+          length: i - incStart,
+          sequence: Array.from(buffer.slice(incStart, i)).join(', ')
+        });
+      }
+      incStart = i;
+    }
+    
+    // Look for decreasing sequences
+    let decStart = 0;
+    for (let i = 1; i < buffer.length; i++) {
+      if (buffer[i] === buffer[i-1] - 1) {
+        continue;
+      }
+      if (i - decStart >= 3) {
+        patterns.push({
+          type: 'decreasing',
+          start: decStart,
+          length: i - decStart,
+          sequence: Array.from(buffer.slice(decStart, i)).join(', ')
+        });
+      }
+      decStart = i;
+    }
+    
+    return patterns;
+  }
+
+  findStructuralPatterns(buffer) {
+    const patterns = [];
+    
+    const signatures = [
+      { name: 'PNG', pattern: Buffer.from([0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A]) },
+      { name: 'JPEG', pattern: Buffer.from([0xFF, 0xD8, 0xFF]) },
+      { name: 'GZIP', pattern: Buffer.from([0x1F, 0x8B]) },
+      { name: 'ZIP', pattern: Buffer.from([0x50, 0x4B, 0x03, 0x04]) },
+      { name: 'JSON', pattern: Buffer.from([0x7B]) },
+      { name: 'ASCII Text', pattern: Buffer.from([0x20, 0x21, 0x22, 0x23, 0x24, 0x25, 0x26, 0x27]) }
+    ];
+    
+    for (const sig of signatures) {
+      if (buffer.length >= sig.pattern.length && buffer.slice(0, sig.pattern.length).equals(sig.pattern)) {
+        patterns.push({
+          type: 'signature',
+          name: sig.name,
+          offset: 0,
+          pattern: Array.from(sig.pattern).map(b => '0x' + b.toString(16).padStart(2, '0')).join(' ')
+        });
+      }
+    }
+    
+    return patterns;
+  }
+
+  findEncodingPatterns(buffer) {
+    const patterns = [];
+    
+    if (buffer.length >= 3 && buffer[0] === 0xEF && buffer[1] === 0xBB && buffer[2] === 0xBF) {
+      patterns.push({ type: 'UTF-8 BOM', offset: 0 });
+    }
+    
+    if (buffer.length >= 2) {
+      if (buffer[0] === 0xFF && buffer[1] === 0xFE) {
+        patterns.push({ type: 'UTF-16 LE BOM', offset: 0 });
+      } else if (buffer[0] === 0xFE && buffer[1] === 0xFF) {
+        patterns.push({ type: 'UTF-16 BE BOM', offset: 0 });
+      }
+    }
+    
+    const distribution = new Array(256).fill(0);
+    for (const byte of buffer) {
+      distribution[byte]++;
+    }
+    
+    const asciiCount = distribution.slice(32, 127).reduce((a, b) => a + b, 0);
+    const asciiRatio = asciiCount / buffer.length;
+    
+    if (asciiRatio > 0.9) {
+      patterns.push({ type: 'Mostly ASCII', ratio: asciiRatio });
+    } else if (asciiRatio < 0.1) {
+      patterns.push({ type: 'Mostly Binary', ratio: asciiRatio });
+    }
+    
+    return patterns;
+  }
+
+  findSignaturePatterns(buffer) {
+    const patterns = [];
+    
+    for (let i = 0; i < buffer.length - 4; i++) {
+      if (buffer[i] >= 32 && buffer[i] <= 126) {
+        let j = i;
+        while (j < buffer.length && buffer[j] >= 32 && buffer[j] <= 126) {
+          j++;
+        }
+        if (j < buffer.length && buffer[j] === 0 && j - i >= 4) {
+          patterns.push({
+            type: 'null-terminated string',
+            offset: i,
+            length: j - i,
+            value: buffer.slice(i, j).toString('ascii')
+          });
+          i = j;
+        }
+      }
+    }
+    
+    return patterns;
+  }
+
+  analyzeBinaryStructure(buffer) {
+    const structure = {
+      size: buffer.length,
+      entropy: this.calculateEntropy(buffer),
+      byteDistribution: this.getByteDistribution(buffer),
+      runLengths: this.getRunLengthEncoding(buffer),
+      chunks: this.identifyChunks(buffer)
+    };
+    
+    return structure;
+  }
+
+  detectDataEncoding(buffer) {
+    const encodings = [];
+    
+    // Try UTF-8
+    try {
+      const utf8Str = buffer.toString('utf8');
+      const isValidUtf8 = Buffer.from(utf8Str, 'utf8').equals(buffer);
+      if (isValidUtf8) {
+        encodings.push({ type: 'UTF-8', confidence: 0.9, sample: utf8Str.slice(0, 50) });
+      }
+    } catch (e) {
+      // Not valid UTF-8
+    }
+    
+    // Try ASCII
+    let asciiValid = true;
+    let asciiStr = '';
+    for (let i = 0; i < Math.min(100, buffer.length); i++) {
+      if (buffer[i] < 32 || buffer[i] > 126) {
+        asciiValid = false;
+        break;
+      }
+      asciiStr += String.fromCharCode(buffer[i]);
+    }
+    if (asciiValid) {
+      encodings.push({ type: 'ASCII', confidence: 0.8, sample: asciiStr });
+    }
+    
+    return encodings;
+  }
+
+  analyzeHeaderStructure(header, rawData, decodeId) {
+    const analysis = {
+      decodeId: decodeId,
+      headerBytes: rawData.slice(0, header.length),
+      magicBytes: rawData.slice(0, 2),
+      typeId: rawData[2],
+      flags: rawData[3],
+      sequence: rawData.readUInt32BE(4),
+      timestamp: rawData.readUInt32BE(8),
+      payloadLength: rawData.readUInt16BE(12),
+      flagAnalysis: this.analyzeHeaderFlags(header.flags),
+      bitAnalysis: this.performBitLevelAnalysis(rawData.slice(0, header.length), header)
+    };
+    
+    this.packetStructureLog.push(analysis);
+    return analysis;
+  }
+
+  analyzeHeaderFlags(flags) {
+    return {
+      raw: flags,
+      binary: flags.toString(2).padStart(8, '0'),
+      hex: '0x' + flags.toString(16).padStart(2, '0').toUpperCase(),
+      bits: {
+        b0: { value: (flags >> 0) & 1, meaning: 'compressed' },
+        b1: { value: (flags >> 1) & 1, meaning: 'encrypted' },
+        b2: { value: (flags >> 2) & 1, meaning: 'reserved' },
+        b3: { value: (flags >> 3) & 1, meaning: 'reserved' },
+        b4: { value: (flags >> 4) & 1, meaning: 'priority_0' },
+        b5: { value: (flags >> 5) & 1, meaning: 'priority_1' },
+        b6: { value: (flags >> 6) & 1, meaning: 'priority_2' },
+        b7: { value: (flags >> 7) & 1, meaning: 'priority_3' }
+      },
+      interpreted: {
+        compressed: !!(flags & 0x01),
+        encrypted: !!(flags & 0x02),
+        priority: (flags >> 4) & 0x0F,
+        reserved: flags & 0xC0
+      }
+    };
+  }
+
+  performBitLevelAnalysis(buffer, header) {
+    const analysis = {
+      totalBits: buffer.length * 8,
+      byteAnalysis: Array.from(buffer).map((byte, index) => this.analyzeBits(byte)),
+      bitDistribution: this.getBitDistribution(buffer),
+      patterns: this.findBitPatterns(buffer)
+    };
+    
+    if (header) {
+      analysis.headerBitAnalysis = {
+        magicBits: this.analyzeBitField(buffer, 0, 16),
+        typeBits: this.analyzeBitField(buffer, 16, 8),
+        flagBits: this.analyzeBitField(buffer, 24, 8),
+        sequenceBits: this.analyzeBitField(buffer, 32, 32),
+        timestampBits: this.analyzeBitField(buffer, 64, 32),
+        payloadLengthBits: this.analyzeBitField(buffer, 96, 16)
+      };
+    }
+    
+    return analysis;
+  }
+
+  extractFieldLevelAnalysis(packetData, packetType, decodeId) {
+    const analysis = {
+      decodeId: decodeId,
+      packetType: packetType,
+      fieldCount: packetData.length,
+      fields: packetData.map((value, index) => this.extractFieldMetadata(index, value)),
+      totalSize: this.calculateTotalFieldSize(packetData, packetType),
+      fieldDistribution: this.getFieldDistribution(packetData)
+    };
+    
+    this.fieldAnalysisLog.push(analysis);
+    return analysis;
+  }
+
+  extractFieldMetadata(fieldIndex, value) {
+    const metadata = {
+      index: fieldIndex,
+      value: value,
+      type: typeof value,
+      size: this.calculateFieldSize(value),
+      isNull: value === null,
+      isUndefined: value === undefined,
+      hexRepresentation: this.valueToHex(value),
+      binaryRepresentation: this.valueToBinary(value),
+      analysis: this.analyzeFieldValue(value)
+    };
+    
+    if (Buffer.isBuffer(value)) {
+      metadata.bufferAnalysis = {
+        size: value.length,
+        hex: this.hexDumpGenerator.generate(value.slice(0, 32)),
+        entropy: this.calculateEntropy(value),
+        isPrintable: this.isPrintableBuffer(value),
+        patterns: this.findBinaryPatterns(value)
+      };
+    }
+    
+    if (typeof value === 'string') {
+      metadata.stringAnalysis = {
+        length: value.length,
+        byteLength: Buffer.byteLength(value, 'utf8'),
+        encoding: 'utf8',
+        hasNullBytes: value.includes('\0'),
+        hasControlChars: /[\x00-\x1F\x7F]/.test(value),
+        characterAnalysis: this.analyzeStringCharacters(value)
+      };
+    }
+    
+    if (Array.isArray(value)) {
+      metadata.arrayAnalysis = {
+        length: value.length,
+        elementType: this.getArrayElementType(value),
+        elementTypes: [...new Set(value.map(v => typeof v))],
+        nestedArrays: value.some(v => Array.isArray(v)),
+        maxDepth: this.calculateArrayDepth(value)
+      };
+    }
+    
+    return metadata;
+  }
+
+  calculateEntropy(buffer) {
+    if (buffer.length === 0) return 0;
+    
+    const frequency = new Array(256).fill(0);
+    for (const byte of buffer) {
+      frequency[byte]++;
+    }
+    
+    let entropy = 0;
+    for (let i = 0; i < 256; i++) {
+      if (frequency[i] > 0) {
+        const probability = frequency[i] / buffer.length;
+        entropy -= probability * Math.log2(probability);
+      }
+    }
+    
+    return entropy;
+  }
+
+  getByteDistribution(buffer) {
+    const distribution = new Array(256).fill(0);
+    for (const byte of buffer) {
+      distribution[byte]++;
+    }
+    
+    return {
+      distribution: distribution,
+      unique: distribution.filter(count => count > 0).length,
+      mostCommon: distribution.indexOf(Math.max(...distribution)),
+      leastCommon: distribution.indexOf(Math.min(...distribution.filter(count => count > 0))),
+      histogram: distribution.map((count, byte) => ({
+        byte: byte,
+        hex: '0x' + byte.toString(16).padStart(2, '0').toUpperCase(),
+        count: count,
+        percentage: ((count / buffer.length) * 100).toFixed(2) + '%'
+      }))
+    };
+  }
+
+  getBitDistribution(buffer) {
+    const bitCounts = new Array(8).fill(0);
+    const totalBits = buffer.length * 8;
+    
+    for (const byte of buffer) {
+      for (let bit = 0; bit < 8; bit++) {
+        if ((byte >> bit) & 1) {
+          bitCounts[bit]++;
+        }
+      }
+    }
+    
+    return bitCounts.map((count, bit) => ({
+      bitPosition: bit,
+      setBits: count,
+      clearBits: buffer.length - count,
+      percentage: ((count / buffer.length) * 100).toFixed(2) + '%'
+    }));
+  }
+
+  getByteDescription(byte) {
+    if (byte === 0) return 'Null byte';
+    if (byte >= 32 && byte <= 126) return `ASCII '${String.fromCharCode(byte)}'`;
+    if (byte === 9) return 'Tab';
+    if (byte === 10) return 'Line feed';
+    if (byte === 13) return 'Carriage return';
+    if (byte === 255) return 'High byte (0xFF)';
+    return 'Non-printable';
+  }
+
+  valueToHex(value) {
+    if (Buffer.isBuffer(value)) {
+      return Array.from(value.slice(0, 16)).map(b => b.toString(16).padStart(2, '0')).join(' ');
+    }
+    if (typeof value === 'number') {
+      return '0x' + value.toString(16);
+    }
+    if (typeof value === 'string') {
+      return Buffer.from(value, 'utf8').slice(0, 16).toString('hex').match(/.{2}/g)?.join(' ') || '';
+    }
+    return '';
+  }
+
+  valueToBinary(value) {
+    if (typeof value === 'number') {
+      return value.toString(2);
+    }
+    return '';
+  }
+
+  analyzeFieldValue(value) {
+    const analysis = {
+      category: 'unknown',
+      characteristics: []
+    };
+    
+    if (typeof value === 'number') {
+      analysis.category = 'numeric';
+      if (Number.isInteger(value)) {
+        analysis.characteristics.push('integer');
+      } else {
+        analysis.characteristics.push('float');
+      }
+      if (value < 0) analysis.characteristics.push('negative');
+      if (value === 0) analysis.characteristics.push('zero');
+      if (value > 0 && value <= 255) analysis.characteristics.push('byte-range');
+    }
+    
+    if (typeof value === 'string') {
+      analysis.category = 'text';
+      if (value.length === 0) analysis.characteristics.push('empty');
+      if (value.length > 100) analysis.characteristics.push('long');
+      if (/^\d+$/.test(value)) analysis.characteristics.push('numeric-string');
+      if (/^[a-zA-Z]+$/.test(value)) analysis.characteristics.push('alphabetic');
+    }
+    
+    if (Buffer.isBuffer(value)) {
+      analysis.category = 'binary';
+      if (value.length === 0) analysis.characteristics.push('empty');
+      if (this.isPrintableBuffer(value)) analysis.characteristics.push('printable');
+      if (this.calculateEntropy(value) > 7) analysis.characteristics.push('high-entropy');
+    }
+    
+    return analysis;
+  }
+
+  exportAnalysisData(format = 'json') {
+    const data = {
+      timestamp: Date.now(),
+      binaryAnalysisLog: this.binaryAnalysisLog,
+      packetStructureLog: this.packetStructureLog,
+      fieldAnalysisLog: this.fieldAnalysisLog,
+      hexDumpLog: this.hexDumpLog,
+      bitAnalysisLog: this.bitAnalysisLog,
+      patternAnalysisLog: this.patternAnalysisLog,
+      metrics: this.metrics
+    };
+    
+    if (format === 'json') {
+      return JSON.stringify(data, null, 2);
+    }
+    
+    return data;
+  }
+
+  exportHexDumpData() {
+    return {
+      timestamp: Date.now(),
+      hexDumps: this.hexDumpLog,
+      totalDumps: this.hexDumpLog.length
+    };
+  }
+
+  exportStructureAnalysisData() {
+    return {
+      timestamp: Date.now(),
+      packetStructures: this.packetStructureLog,
+      fieldAnalyses: this.fieldAnalysisLog,
+      totalPackets: this.packetStructureLog.length
+    };
+  }
+
+  extractPacketBinaryAnalysis(rawData, header, payload, decodeId) {
+    return {
+      decodeId: decodeId,
+      totalSize: rawData.length,
+      headerSize: header.length,
+      payloadSize: payload.length,
+      headerHex: this.hexDumpGenerator.generate(rawData.slice(0, header.length)),
+      payloadHex: this.hexDumpGenerator.generate(payload.slice(0, Math.min(64, payload.length))),
+      fullHex: this.hexDumpGenerator.generate(rawData.slice(0, Math.min(64, rawData.length))),
+      entropy: {
+        total: this.calculateEntropy(rawData),
+        header: this.calculateEntropy(rawData.slice(0, header.length)),
+        payload: this.calculateEntropy(payload)
+      },
+      patterns: this.findBinaryPatterns(rawData),
+      structure: this.analyzeBinaryStructure(rawData)
+    };
+  }
+
+  generateStructureMap(packet) {
+    const map = {
+      packetType: packet.type,
+      totalSize: packet.size,
+      header: {
+        size: packet.header.length,
+        fields: [
+          { name: 'magic', offset: 0, size: 2, value: '0xABCD' },
+          { name: 'typeId', offset: 2, size: 1, value: packet.header.typeId },
+          { name: 'flags', offset: 3, size: 1, value: packet.header.flags },
+          { name: 'sequence', offset: 4, size: 4, value: packet.header.sequence },
+          { name: 'timestamp', offset: 8, size: 4, value: packet.header.timestamp },
+          { name: 'payloadLength', offset: 12, size: 2, value: packet.header.payloadLength }
+        ]
+      },
+      payload: {
+        size: packet.size - packet.header.length,
+        fieldCount: packet.data.length,
+        fields: packet.data.map((value, index) => ({
+          index: index,
+          type: typeof value,
+          size: this.calculateFieldSize(value),
+          value: this.sanitizeFieldValue(value)
+        }))
+      }
+    };
+    
+    return map;
+  }
+
+  setReverseEngineeringMode(enabled) {
+    this.reverseEngineeringMode = enabled;
+    this.logDebug(`Reverse engineering mode ${enabled ? 'enabled' : 'disabled'}`);
+  }
+
+  setDetailedBinaryAnalysis(enabled) {
+    this.detailedBinaryAnalysis = enabled;
+    this.logDebug(`Detailed binary analysis ${enabled ? 'enabled' : 'disabled'}`);
+  }
+
+  setHexDumpEnabled(enabled) {
+    this.hexDumpEnabled = enabled;
+    this.logDebug(`Hex dump generation ${enabled ? 'enabled' : 'disabled'}`);
+  }
+
+  setBitLevelAnalysis(enabled) {
+    this.bitLevelAnalysis = enabled;
+    this.logDebug(`Bit-level analysis ${enabled ? 'enabled' : 'disabled'}`);
+  }
+
+  getReverseEngineeringStats() {
+    return {
+      binaryAnalysisEntries: this.binaryAnalysisLog.length,
+      packetStructureEntries: this.packetStructureLog.length,
+      fieldAnalysisEntries: this.fieldAnalysisLog.length,
+      hexDumpEntries: this.hexDumpLog.length,
+      patternAnalysisEntries: this.patternAnalysisLog.length,
+      totalAnalysisData: this.binaryAnalysisLog.length + this.packetStructureLog.length + this.fieldAnalysisLog.length
+    };
+  }
+
+  clearReverseEngineeringData() {
+    this.binaryAnalysisLog = [];
+    this.packetStructureLog = [];
+    this.fieldAnalysisLog = [];
+    this.hexDumpLog = [];
+    this.bitAnalysisLog = [];
+    this.patternAnalysisLog = [];
+    this.logDebug('Reverse engineering data cleared');
+  }
+
+  getRunLengthEncoding(buffer) {
+    const rle = [];
+    let currentByte = buffer[0];
+    let count = 1;
+    
+    for (let i = 1; i < buffer.length; i++) {
+      if (buffer[i] === currentByte) {
+        count++;
+      } else {
+        rle.push({ byte: currentByte, count: count });
+        currentByte = buffer[i];
+        count = 1;
+      }
+    }
+    
+    if (buffer.length > 0) {
+      rle.push({ byte: currentByte, count: count });
+    }
+    
+    return rle;
+  }
+
+  identifyChunks(buffer) {
+    const chunks = [];
+    const chunkSize = 16;
+    
+    for (let i = 0; i < buffer.length; i += chunkSize) {
+      const chunk = buffer.slice(i, i + chunkSize);
+      chunks.push({
+        offset: i,
+        size: chunk.length,
+        hex: this.hexDumpGenerator.generate(chunk),
+        entropy: this.calculateEntropy(chunk)
+      });
+    }
+    
+    return chunks;
+  }
+
+  findBitPatterns(buffer) {
+    const patterns = [];
+    
+    // Look for alternating bit patterns
+    for (let i = 0; i < buffer.length - 1; i++) {
+      const current = buffer[i];
+      const next = buffer[i + 1];
+      
+      // Check for alternating bits (0x55 = 01010101, 0xAA = 10101010)
+      if (current === 0x55 && next === 0x55) {
+        patterns.push({ type: 'alternating_01', offset: i, pattern: '0x55 0x55' });
+      }
+      if (current === 0xAA && next === 0xAA) {
+        patterns.push({ type: 'alternating_10', offset: i, pattern: '0xAA 0xAA' });
+      }
+    }
+    
+    return patterns;
+  }
+
+  calculateFieldSize(value) {
+    if (Buffer.isBuffer(value)) {
+      return value.length;
+    }
+    if (typeof value === 'string') {
+      return Buffer.byteLength(value, 'utf8');
+    }
+    if (typeof value === 'number') {
+      return 4; // Assume 32-bit numbers
+    }
+    if (typeof value === 'boolean') {
+      return 1;
+    }
+    if (Array.isArray(value)) {
+      return value.reduce((total, item) => total + this.calculateFieldSize(item), 0);
+    }
+    if (typeof value === 'object' && value !== null) {
+      return Buffer.byteLength(JSON.stringify(value), 'utf8');
+    }
+    return 0;
+  }
+
+  calculateTotalFieldSize(packetData, packetType) {
+    return packetData.reduce((total, field) => total + this.calculateFieldSize(field), 0);
+  }
+
+  getFieldDistribution(packetData) {
+    const distribution = {
+      types: {},
+      sizes: [],
+      totalFields: packetData.length
+    };
+    
+    for (const field of packetData) {
+      const type = typeof field;
+      distribution.types[type] = (distribution.types[type] || 0) + 1;
+      distribution.sizes.push(this.calculateFieldSize(field));
+    }
+    
+    return distribution;
+  }
+
+  getArrayElementType(array) {
+    if (array.length === 0) return 'unknown';
+    const types = [...new Set(array.map(item => typeof item))];
+    return types.length === 1 ? types[0] : 'mixed';
+  }
+
+  calculateArrayDepth(array) {
+    let maxDepth = 1;
+    
+    const checkDepth = (arr, depth = 1) => {
+      maxDepth = Math.max(maxDepth, depth);
+      for (const item of arr) {
+        if (Array.isArray(item)) {
+          checkDepth(item, depth + 1);
+        }
+      }
+    };
+    
+    checkDepth(array);
+    return maxDepth;
+  }
+
+  analyzeCompressionPattern(payload) {
+    return {
+      size: payload.length,
+      entropy: this.calculateEntropy(payload),
+      patterns: this.findBinaryPatterns(payload),
+      compressionRatio: 'N/A',
+      algorithm: 'unknown'
+    };
+  }
+
+  analyzeEncryptionPattern(payload) {
+    return {
+      size: payload.length,
+      entropy: this.calculateEntropy(payload),
+      randomness: this.assessRandomness(payload),
+      possibleAlgorithm: 'unknown'
+    };
+  }
+
+  assessRandomness(buffer) {
+    const entropy = this.calculateEntropy(buffer);
+    const maxEntropy = 8; // Maximum entropy for random data
+    const randomness = entropy / maxEntropy;
+    
+    return {
+      score: randomness,
+      entropy: entropy,
+      isRandom: randomness > 0.9,
+      isStructured: randomness < 0.5
+    };
+  }
+
+  analyzeStringCharacters(str) {
+    const analysis = {
+      total: str.length,
+      printable: 0,
+      control: 0,
+      numeric: 0,
+      alphabetic: 0,
+      whitespace: 0,
+      other: 0
+    };
+    
+    for (const char of str) {
+      const code = char.charCodeAt(0);
+      if (code >= 32 && code <= 126) {
+        analysis.printable++;
+        if (code >= 48 && code <= 57) analysis.numeric++;
+        else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) analysis.alphabetic++;
+        else if (code === 32 || code === 9 || code === 10 || code === 13) analysis.whitespace++;
+        else analysis.other++;
+      } else {
+        analysis.control++;
+      }
+    }
+    
+    return analysis;
+  }
+
+  isPrintableBuffer(buffer) {
+    for (const byte of buffer) {
+      if (byte < 32 || byte > 126) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  sanitizeFieldValue(value) {
+    if (value === null || value === undefined) {
+      return value;
+    }
+    
+    if (Buffer.isBuffer(value)) {
+      if (value.length > 64) {
+        return `Buffer(${value.length} bytes): ${this.hexDumpGenerator.generate(value.slice(0, 32))}...`;
+      }
+      return `Buffer(${value.length} bytes): ${this.hexDumpGenerator.generate(value)}`;
+    }
+    
+    if (typeof value === 'string') {
+      if (value.length > 100) {
+        return value.substring(0, 97) + '...';
+      }
+      return value;
+    }
+    
+    if (Array.isArray(value)) {
+      if (value.length > 10) {
+        return `Array(${value.length} items): [${value.slice(0, 5).map(v => this.sanitizeFieldValue(v)).join(', ')}, ...]`;
+      }
+      return `Array(${value.length} items): [${value.map(v => this.sanitizeFieldValue(v)).join(', ')}]`;
+    }
+    
+    if (typeof value === 'object' && value !== null) {
+      const keys = Object.keys(value);
+      if (keys.length > 5) {
+        return `Object(${keys.length} keys): {${keys.slice(0, 3).join(', ')}, ...}`;
+      }
+      return `Object(${keys.length} keys): {${keys.join(', ')}}`;
+    }
+    
+    return value;
   }
 }
 

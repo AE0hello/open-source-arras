@@ -66,7 +66,16 @@ class SocketBridge {
 
     connection.send = (data) => {
       if (socket.readyState === socket.OPEN) {
-        socket.send(data);
+        try {
+          socket.send(data);
+        } catch (error) {
+          if (error.message.includes("WebSocket is already in CLOSING or CLOSED state")) {
+            // Silently ignore this error as it's expected during disconnection
+            return;
+          }
+          // Log other unexpected errors
+          console.error("WebSocket send error in SocketAdapter:", error);
+        }
       }
     };
 

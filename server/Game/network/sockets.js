@@ -2188,14 +2188,32 @@ class socketManager {
     };
     socket.talk = (...message) => {
       if (socket.readyState === socket.OPEN) {
-        socket.send(protocol.encode(message), { binary: true });
+        try {
+          socket.send(protocol.encode(message), { binary: true });
+        } catch (error) {
+          if (error.message.includes("WebSocket is already in CLOSING or CLOSED state")) {
+            // Silently ignore this error as it's expected during disconnection
+            return;
+          }
+          // Log other unexpected errors
+          console.error("WebSocket send error in talk():", error);
+        }
       }
     };
     socket.ban = (reason) => this.ban(socket, reason);
     socket.permaban = (reason) => this.permaban(socket, reason);
     socket.lastWords = (...message) => {
       if (socket.readyState === socket.OPEN) {
-        socket.send(protocol.encode(message), { binary: true });
+        try {
+          socket.send(protocol.encode(message), { binary: true });
+        } catch (error) {
+          if (error.message.includes("WebSocket is already in CLOSING or CLOSED state")) {
+            // Silently ignore this error as it's expected during disconnection
+            return;
+          }
+          // Log other unexpected errors
+          console.error("WebSocket send error in lastWords():", error);
+        }
         socket.terminate();
       }
     };
