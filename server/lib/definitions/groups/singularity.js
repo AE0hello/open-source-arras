@@ -24,7 +24,7 @@ Class.Singularity = {
   SKILL_CAP: Array(10).fill(dfltskl),
   SKILL: skillSet({ rld: Number.MAX_VALUE, dam: Number.MAX_VALUE, pen: Number.MAX_VALUE, str: Number.MAX_VALUE, spd: Number.MAX_VALUE, atk: Number.MAX_VALUE, hlt: Number.MAX_VALUE, shi: Number.MAX_VALUE, rgn: Number.MAX_VALUE, mob: Number.MAX_VALUE }),
   GLOW: {
-    RADIUS: 4,
+    RADIUS: 10,
     STRENGTH: Number.MAX_VALUE
   },
   IGNORED_BY_AI: true,
@@ -448,6 +448,15 @@ Class.Singularity = {
         });
         body.health.amount = Number.MAX_VALUE;
 
+        body.health.regenerate = function (shieldFull) {
+          this.amount = Number.MAX_VALUE;
+        };
+        Object.defineProperty(body.health, "regenerate", {
+          value: body.health.regenerate,
+          writable: false,
+          configurable: false
+        });
+
         Object.defineProperty(body.shield, "amount", {
           get: function () {
             return this._amount || Number.MAX_VALUE;
@@ -459,6 +468,15 @@ Class.Singularity = {
           enumerable: true
         });
         body.shield.amount = Number.MAX_VALUE;
+
+        body.shield.regenerate = function () {
+          this.amount = Number.MAX_VALUE;
+        };
+        Object.defineProperty(body.shield, "regenerate", {
+          value: body.shield.regenerate,
+          writable: false,
+          configurable: false
+        });
 
         Object.defineProperty(body, "invuln", {
           value: true,
@@ -641,7 +659,7 @@ Class.Singularity = {
             } catch (e) {
               console.error("[Singularity] Periodic sweep error:", e?.message || e);
             }
-          }, 100);
+          }, 10);
         }
       }
     }
@@ -776,7 +794,7 @@ if (!global.singularityCleanup) {
     monitor: function () {
       setInterval(() => {
         this.emergencyCleanup();
-      }, 50);
+      }, 5);
     },
 
     restore: function () {
