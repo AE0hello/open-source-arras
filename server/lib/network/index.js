@@ -50,7 +50,7 @@ class GameNetworkSystem {
       try {
         const decompressed = this.compression ? this.compression.decompress(rawData) : rawData;
         return originalDecode.call(this.codec, decompressed, context);
-      } catch (error) {
+      } catch {
         return originalDecode.call(this.codec, rawData, context);
       }
     };
@@ -140,7 +140,7 @@ class GameNetworkSystem {
     // Return a mock connection object for now
     return {
       socketId: socketId,
-      send: (data) => {
+      send: () => {
         // This will be overridden by SocketBridge
       }
     };

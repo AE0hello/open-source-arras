@@ -134,7 +134,7 @@ exports.deepClone = (obj, hash = new WeakMap()) => {
   } // Cyclic reference
   try { // Try to run constructor (without arguments, as we don't know them)
     result = new obj.constructor();
-  } catch (e) { // Constructor failed, create object without running the constructor
+  } catch { // Constructor failed, create object without running the constructor
     result = Object.create(Object.getPrototypeOf(obj));
   }
   // Optional: support for some standard constructors (extend as desired)
@@ -231,7 +231,7 @@ exports.flattenDefinition = (output, definition) => {
 exports.isStringified = (str) => {
   try {
     return JSON.parse(str);
-  } catch (e) {
-    return str;
+  } catch { // If the object has circular references, JSON.stringify will fail
+    return false;
   }
 };

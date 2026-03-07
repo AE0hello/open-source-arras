@@ -143,7 +143,7 @@ class SocketBridge {
   }
 
   handlePlayerEntered(data) {
-    const { socketId, alias, vehicle, faction, connection } = data;
+    const { socketId, alias } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket) {
@@ -163,7 +163,7 @@ class SocketBridge {
   }
 
   handlePlayerMovement(data) {
-    const { socketId, posX, posY, heading, moment, connection } = data;
+    const { socketId, posX, posY, heading } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket || !socket.player) {
@@ -177,7 +177,7 @@ class SocketBridge {
   }
 
   handlePlayerAction(data) {
-    const { socketId, actions, moment, connection } = data;
+    const { socketId, actions } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket || !socket.player) {
@@ -196,7 +196,7 @@ class SocketBridge {
   }
 
   handlePlayerMessage(data) {
-    const { socketId, text, recipient, moment, playerAlias, connection } = data;
+    const { socketId, text } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket) {
@@ -221,7 +221,7 @@ class SocketBridge {
   }
 
   handleEvolutionRequest(data) {
-    const { socketId, path, branch, connection } = data;
+    const { socketId, path, branch } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket || !socket.player) {
@@ -234,7 +234,7 @@ class SocketBridge {
   }
 
   handleEnhancementRequest(data) {
-    const { socketId, attribute, magnitude, connection } = data;
+    const { socketId, attribute, magnitude } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket || !socket.player) {
@@ -249,7 +249,7 @@ class SocketBridge {
   }
 
   handleConnectionClosed(data) {
-    const { socketId, connection } = data;
+    const { socketId } = data;
 
     const socket = this.findSocketById(socketId);
     if (!socket) {

@@ -25,7 +25,7 @@ class PacketCompression {
     try {
       this.zlib = require("zlib");
       this.lz4 = require("lz4");
-    } catch (error) {
+    } catch {
       console.warn("Compression libraries not available, using fallback");
       this.zlib = null;
       this.lz4 = null;

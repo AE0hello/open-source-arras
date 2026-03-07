@@ -41,6 +41,7 @@ class PacketValidators {
       
       // Data quality patterns
       suspiciousPatterns: [
+        // eslint-disable-next-line no-control-regex
         /\x00/,           // Null bytes
         /[\r\n]{3,}/,     // Excessive line breaks
         /(.)\1{50,}/,      // Repeated characters (50+ times)
@@ -678,7 +679,7 @@ class PacketValidators {
       maxDepth: 0
     };
     
-    for (const [key, value] of Object.entries(obj)) {
+    for (const [, value] of Object.entries(obj)) {
       if (value === null) patterns.nullProperties++;
       if (value === undefined) patterns.undefinedProperties++;
       if (Array.isArray(value)) patterns.arrays++;
@@ -827,8 +828,9 @@ class PacketValidators {
   }
 
   sanitizeName(name) {
+    // eslint-disable-next-line no-control-regex, no-useless-escape
     return name
-      .replace(/[<>\"'&\x00-\x1f\x7f-\x9f]/g, "")
+      .replace(/[<>"'&\x00-\x1f\x7f-\x9f]/g, "")
       .replace(/\s+/g, " ")
       .trim();
   }

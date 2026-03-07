@@ -182,7 +182,7 @@ class BinaryCodec {
 
       if (this.encryptionEnabled && header.encrypted) {
         const decryptStart = performance.now();
-        payload = this.decryptData(payload, context);
+        payload = this.decryptData(payload);
         const decryptTime = performance.now() - decryptStart;
         processingSteps.push(`decrypt(${decryptTime.toFixed(2)}ms)`);
         this.logDebug(`[DECODE:${decodeId}] Payload decrypted`, {
@@ -264,7 +264,7 @@ class BinaryCodec {
     }
   }
 
-  encodePacket(type, data, options = {}) {
+  encodePacket(type, data) {
     const startTime = performance.now();
 
     try {
@@ -297,7 +297,7 @@ class BinaryCodec {
       }
 
       if (header.encrypted) {
-        payload = this.encryptData(payload, options.context);
+        payload = this.encryptData(payload);
       }
 
       const packet = this.combineHeaderPayload(header, payload);
@@ -713,6 +713,7 @@ class BinaryCodec {
       actualByteLength: Buffer.byteLength(str, 'utf8'),
       characterLength: str.length,
       hasNullBytes: str.includes('\0'),
+      // eslint-disable-next-line no-control-regex
       hasControlChars: /[\x00-\x1F\x7F]/.test(str),
       isValidUtf8: true,
       encodingIssues: [],
@@ -741,7 +742,8 @@ class BinaryCodec {
       /vbscript:/i,
       /on\w+\s*=/i,
       /\${.*}/,
-      /\x00-\x1F/
+      // eslint-disable-next-line no-control-regex
+      /[\x00-\x1F]/
     ];
 
     for (const pattern of securityPatterns) {
@@ -1029,6 +1031,7 @@ class BinaryCodec {
       hasScripting: false,
       hasInjection: false,
       hasNullBytes: str.includes('\0'),
+      // eslint-disable-next-line no-control-regex
       hasControlChars: /[\x00-\x1F\x7F]/.test(str),
       hasExcessiveLength: str.length > 10000,
       suspiciousPatterns: []
@@ -1094,10 +1097,11 @@ class BinaryCodec {
     }
 
     const shellcodePatterns = [
-      /\x90\x90\x90\x90/,
-      /\x31\xc0/,
-      /\x50\x51\x52\x53/,
-      /\x6a\x02/,
+      /\u0090\u0090\u0090\u0090/,
+      /\u0031\u00c0/,
+      /\u0050\u0051\u0052\u0053/,
+      // eslint-disable-next-line no-control-regex
+      /\u006a\u0002/,
     ];
 
     for (const pattern of shellcodePatterns) {
@@ -1160,7 +1164,7 @@ class BinaryCodec {
       if (flags.hasExcessiveDepth) {
         flags.suspiciousPatterns.push(`Excessive array depth: ${maxDepth}`);
       }
-    } catch (e) {
+    } catch {
       flags.hasCircularRefs = true;
       flags.suspiciousPatterns.push('Circular reference detected');
     }
@@ -1189,11 +1193,11 @@ class BinaryCodec {
         hasCustomCheck: typeof definition.check === 'function',
         hasConstraints: !!(definition.min || definition.max || definition.maxLength)
       },
-      suggestions: this.generateErrorSuggestions(error, type, definition)
+      suggestions: this.generateErrorSuggestions(error)
     };
   }
 
-  generateErrorSuggestions(error, type, definition) {
+  generateErrorSuggestions(error) {
     const suggestions = [];
 
     if (error.message.includes('offset') || error.message.includes('buffer')) {
@@ -1266,7 +1270,7 @@ class BinaryCodec {
         const value = this.decodeFieldFastPath(payload, offset, fieldSpec.dataType, fieldSpec);
         data.push(value);
         offset += this.getCachedFieldSize(fieldSpec.dataType, value, fieldSpec);
-      } catch (error) {
+      } catch {
 
         return this.decodePayloadWithOptimizations(type, payload, packetDef, {}, decodeId);
       }
@@ -2458,20 +2462,7 @@ class BinaryCodec {
     return '0 to 255';
   }
 
-  sanitizeFieldValue(value) {
-    if (value === null || value === undefined) return value;
-    if (typeof value === 'string') {
-      return value.length > 100 ? value.substring(0, 97) + '...' : value;
-    }
-    if (Buffer.isBuffer(value)) {
-      return `<Buffer ${value.length} bytes>`;
-    }
-    if (typeof value === 'object') {
-      return `<Object ${Array.isArray(value) ? 'Array' : 'Object'}>`;
-    }
-    return value;
-  }
-
+  
   sanitizeContext(context) {
     const sanitized = { ...context };
     if (sanitized.socket) delete sanitized.socket;
@@ -2496,28 +2487,8 @@ class BinaryCodec {
     }
   }
 
-  logDebug(message, data = {}) {
-    if (this.debugMode) {
-      console.log(`[BinaryCodec] ${message}`, data);
-    }
-  }
-
-  logError(message, data = {}) {
-    const errorEntry = {
-      timestamp: Date.now(),
-      message,
-      data
-    };
-
-    this.errorLog.push(errorEntry);
-
-    if (this.errorLog.length > 100) {
-      this.errorLog = this.errorLog.slice(-100);
-    }
-
-    console.error(`[BinaryCodec] ${message}`, data);
-  }
-
+  
+  
   encodeField(value, type, definition, fieldName = '') {
     const encodeStart = performance.now();
 
@@ -2843,12 +2814,13 @@ class BinaryCodec {
       case "buffer":
         return 2 + value.length;
 
-      case "array":
+      case "array": {
         let total = 2;
         for (const elem of value) {
           total += this.getFieldSize(elem, definition.elementType, definition);
         }
         return total;
+      }
 
       default:
         return 0;
@@ -2887,11 +2859,11 @@ class BinaryCodec {
     return data;
   }
 
-  encryptData(data, context) {
+  encryptData(data) {
     return data;
   }
 
-  decryptData(data, context) {
+  decryptData(data) {
     return data;
   }
 
@@ -3233,7 +3205,7 @@ class BinaryCodec {
       if (isValidUtf8) {
         encodings.push({ type: 'UTF-8', confidence: 0.9, sample: utf8Str.slice(0, 50) });
       }
-    } catch (e) {
+    } catch {
       // Not valid UTF-8
     }
     
@@ -3299,7 +3271,7 @@ class BinaryCodec {
   performBitLevelAnalysis(buffer, header) {
     const analysis = {
       totalBits: buffer.length * 8,
-      byteAnalysis: Array.from(buffer).map((byte, index) => this.analyzeBits(byte)),
+      byteAnalysis: Array.from(buffer).map((byte) => this.analyzeBits(byte)),
       bitDistribution: this.getBitDistribution(buffer),
       patterns: this.findBitPatterns(buffer)
     };
@@ -3324,7 +3296,7 @@ class BinaryCodec {
       packetType: packetType,
       fieldCount: packetData.length,
       fields: packetData.map((value, index) => this.extractFieldMetadata(index, value)),
-      totalSize: this.calculateTotalFieldSize(packetData, packetType),
+      totalSize: this.calculateTotalFieldSize(packetData),
       fieldDistribution: this.getFieldDistribution(packetData)
     };
     
@@ -3361,6 +3333,7 @@ class BinaryCodec {
         byteLength: Buffer.byteLength(value, 'utf8'),
         encoding: 'utf8',
         hasNullBytes: value.includes('\0'),
+        // eslint-disable-next-line no-control-regex
         hasControlChars: /[\x00-\x1F\x7F]/.test(value),
         characterAnalysis: this.analyzeStringCharacters(value)
       };
@@ -3379,25 +3352,7 @@ class BinaryCodec {
     return metadata;
   }
 
-  calculateEntropy(buffer) {
-    if (buffer.length === 0) return 0;
-    
-    const frequency = new Array(256).fill(0);
-    for (const byte of buffer) {
-      frequency[byte]++;
-    }
-    
-    let entropy = 0;
-    for (let i = 0; i < 256; i++) {
-      if (frequency[i] > 0) {
-        const probability = frequency[i] / buffer.length;
-        entropy -= probability * Math.log2(probability);
-      }
-    }
-    
-    return entropy;
-  }
-
+  
   getByteDistribution(buffer) {
     const distribution = new Array(256).fill(0);
     for (const byte of buffer) {
@@ -3420,7 +3375,6 @@ class BinaryCodec {
 
   getBitDistribution(buffer) {
     const bitCounts = new Array(8).fill(0);
-    const totalBits = buffer.length * 8;
     
     for (const byte of buffer) {
       for (let bit = 0; bit < 8; bit++) {
@@ -3711,7 +3665,7 @@ class BinaryCodec {
     return 0;
   }
 
-  calculateTotalFieldSize(packetData, packetType) {
+  calculateTotalFieldSize(packetData) {
     return packetData.reduce((total, field) => total + this.calculateFieldSize(field), 0);
   }
 
@@ -3785,42 +3739,8 @@ class BinaryCodec {
     };
   }
 
-  analyzeStringCharacters(str) {
-    const analysis = {
-      total: str.length,
-      printable: 0,
-      control: 0,
-      numeric: 0,
-      alphabetic: 0,
-      whitespace: 0,
-      other: 0
-    };
-    
-    for (const char of str) {
-      const code = char.charCodeAt(0);
-      if (code >= 32 && code <= 126) {
-        analysis.printable++;
-        if (code >= 48 && code <= 57) analysis.numeric++;
-        else if ((code >= 65 && code <= 90) || (code >= 97 && code <= 122)) analysis.alphabetic++;
-        else if (code === 32 || code === 9 || code === 10 || code === 13) analysis.whitespace++;
-        else analysis.other++;
-      } else {
-        analysis.control++;
-      }
-    }
-    
-    return analysis;
-  }
-
-  isPrintableBuffer(buffer) {
-    for (const byte of buffer) {
-      if (byte < 32 || byte > 126) {
-        return false;
-      }
-    }
-    return true;
-  }
-
+  
+  
   sanitizeFieldValue(value) {
     if (value === null || value === undefined) {
       return value;

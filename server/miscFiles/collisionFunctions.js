@@ -214,8 +214,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
   }
 
   const componentNorm = component / delta.length;
-  let reductionFactor = 1,
-    deathFactor = {
+  let deathFactor = {
       _me: 1,
       _n: 1
     },
@@ -299,7 +298,6 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
       deathFactor._me = (stuff > my.health.amount) ? my.health.amount / stuff : 1;
       stuff = n.health.getDamage(damageToApply._me, false);
       deathFactor._n = (stuff > n.health.amount) ? n.health.amount / stuff : 1;
-      const _reductionFactor = Math.min(deathFactor._me, deathFactor._n);
       // Now apply it
       // my.damageReceived += damage._n * deathFactor._n;
       // n.damageReceived += damage._me * deathFactor._me;

@@ -336,7 +336,7 @@ const decode = packet => {
         {
           let string = "";
           let byte = 0;
-          while (byte = data[index++]) {
+          while ((byte = data[index++]) !== 0) {
             string += String.fromCharCode(byte);
           }
           output.push(string);
@@ -346,7 +346,7 @@ const decode = packet => {
         {
           let string = "";
           let byte = 0;
-          while (byte = data[index++] | (data[index++] << 8)) {
+          while ((byte = data[index++] | (data[index++] << 8)) !== 0) {
             string += String.fromCharCode(byte);
           }
           output.push(string);

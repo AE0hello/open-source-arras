@@ -106,12 +106,12 @@ class IO {
   }
 }
 class io_bossRushAI extends IO {
-  constructor(body, opts = {}) {
+  constructor(body) {
     super(body);
     this.enabled = true;
     this.goalDefault = gameManager.room.center;
   }
-  think(input) {
+  think() {
     const tile = global.gameManager.room.getAt(this.body);
     if (tile && tile.name == "stopAI") {
       this.enabled = false;
@@ -141,7 +141,7 @@ class io_doNothing extends IO {
   }
 }
 class io_moveInCircles extends IO {
-  constructor(body, opts = {}) {
+  constructor(body) {
     super(body);
     this.acceptsFromTop = false;
     this.timer = ran.irandom(5) + 3;
