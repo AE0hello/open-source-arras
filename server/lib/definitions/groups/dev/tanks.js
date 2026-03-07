@@ -4,7 +4,7 @@ const g = require('../../gunvals.js')
 
 // Main Developer Tank
 Class.developer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Developer",
     BODY: {
         SHIELD: 1000,
@@ -26,7 +26,7 @@ Class.developer = {
     ARENA_CLOSER: true,
     INVISIBLE: [0, 0],
     ALPHA: [0, 1],
-    HITS_OWN_TYPE: "hardOnlyTanks",
+    HITS_OWN_TYPE: 'hardOnlyTanks',
     NECRO: false,
     SHAPE: [
         [-1, -0.8],
@@ -44,17 +44,17 @@ Class.developer = {
             POSITION: [18, 10, -1.4, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.op]),
-                TYPE: "developerBullet"
+                TYPE: 'developerBullet'
             }
         }
     ],
     UPGRADES_TIER_0: [
-        "menu_tanks",
-        "menu_bosses",
-        "spectator",
-        "menu_addons",
-        "menu_testing",
-        "eggGen",
+        'menu_tanks',
+        'menu_bosses',
+        'spectator',
+        'menu_addons',
+        'menu_testing',
+        'eggGen',
     ]
 }
 
@@ -211,10 +211,12 @@ Class.banHammer = {
 }
 
 // Tank Menu(s)
-Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "healer", "undercoverCop", "arenaCloser"]})
 if (Config.siege) {
-    Class.menu_tanks.UPGRADES_TIER_0 = [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "smasher", "undercoverCop", "arenaCloser", "underseer"]
+    unavailable_tanks = ['smasher', 'underseer']
+} else {
+    unavailable_tanks = ['healer']
 }
+Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "arenaCloser", ...unavailable_tanks]})
 
 Class.menu_unused = makeMenu("Unused", {upgrades: ["1", "2", "3"].map(x => "menu_unused_T" + x), tooltip: "Tanks that were fully created and likely intended to be added, but never were."})
 Class.menu_unused_T1 = makeMenu("Unused (Tier 1)", {upgrades: [
