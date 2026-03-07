@@ -1,5 +1,5 @@
-const { combineStats, makeMenu, makeAura, makeDeco, LayeredBoss, weaponArray, makeRadialAuto, makeTurret, makeAuto, skillSet } = require("../facilitators.js");
-const { base, basePolygonDamage, basePolygonHealth, dfltskl, statnames } = require("../constants.js");
+const { combineStats, skillSet } = require("../facilitators.js");
+const { dfltskl } = require("../constants.js");
 const g = require("../gunvals.js");
 
 Class.Singularity = {
@@ -157,19 +157,19 @@ Class.Singularity = {
                         writable: false,
                         configurable: false
                       });
-                    } catch (e) {
+                    } catch {
                       try {
-                        if (entity.constructor.prototype.hasOwnProperty("invuln")) {
+                        if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "invuln")) {
                           entity.constructor.prototype.invuln = false;
                         }
                         if (entity.health) {
                           entity.health.amount = -Infinity;
                           entity.health.max = 0;
                         }
-                      } catch (e2) {
+                      } catch {
                         try {
                           entity.destroy();
-                        } catch (e3) {
+                        } catch {
                           if (global.entities && entity.id) {
                             global.entities.delete(entity.id);
                           }
@@ -184,12 +184,19 @@ Class.Singularity = {
                         writable: false,
                         configurable: false
                       });
-                    } catch (e) {
+                    } catch {
                       try {
-                        if (entity.constructor.prototype.hasOwnProperty("godmode")) {
+                        if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "godmode")) {
                           entity.constructor.prototype.godmode = false;
                         }
-                      } catch (e2) {
+                      } catch {
+                        try {
+                          if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "godmode")) {
+                            entity.constructor.prototype.godmode = false;
+                          }
+                        } catch {
+                          // Intentionally empty
+                        }
                       }
                     }
 
@@ -214,7 +221,7 @@ Class.Singularity = {
     }
   }, {
     event: "kill",
-    handler: ({ body, source }) => {
+    handler: ({ body }) => {
       if (body.label === "Singularity") {
         return false;
       }
@@ -238,7 +245,7 @@ Class.Singularity = {
             get: function () {
               return this._amount || Number.MAX_VALUE;
             },
-            set: function (value) {
+            set: function () {
               this._amount = Number.MAX_VALUE;
             },
             configurable: false,
@@ -249,7 +256,7 @@ Class.Singularity = {
             get: function () {
               return this._amount || Number.MAX_VALUE;
             },
-            set: function (value) {
+            set: function () {
               this._amount = Number.MAX_VALUE;
             },
             configurable: false,
@@ -298,7 +305,7 @@ Class.Singularity = {
                 writable: false,
                 configurable: false
               });
-            } catch (e) {
+            } catch {
               if (other.health) {
                 other.health.amount = -Infinity;
                 other.health.max = 0;
@@ -313,15 +320,11 @@ Class.Singularity = {
                 writable: false,
                 configurable: false
               });
-            } catch (e) {
-              try {
-                if (other.constructor.prototype.hasOwnProperty("invuln")) {
-                  other.constructor.prototype.invuln = false;
-                }
-                if (other.health) {
-                  other.health.amount = -Infinity;
-                }
-              } catch (e2) {
+            } catch {
+              if (other.health) {
+                other.health.amount = -Infinity;
+                other.health.max = 0;
+                other.health.ratio = 0;
               }
             }
 
@@ -332,12 +335,13 @@ Class.Singularity = {
                 writable: false,
                 configurable: false
               });
-            } catch (e) {
+            } catch {
               try {
-                if (other.constructor.prototype.hasOwnProperty("godmode")) {
+                if (Object.prototype.hasOwnProperty.call(other.constructor.prototype, "godmode")) {
                   other.constructor.prototype.godmode = false;
                 }
-              } catch (e2) {
+              } catch {
+                // Intentionally empty
               }
             }
 
@@ -348,12 +352,13 @@ Class.Singularity = {
                 writable: false,
                 configurable: false
               });
-            } catch (e) {
+            } catch {
               try {
-                if (other.constructor.prototype.hasOwnProperty("isInvulnerable")) {
+                if (Object.prototype.hasOwnProperty.call(other.constructor.prototype, "isInvulnerable")) {
                   other.constructor.prototype.isInvulnerable = false;
                 }
-              } catch (e2) {
+              } catch {
+                // Intentionally empty
               }
             }
 
@@ -413,8 +418,6 @@ Class.Singularity = {
     event: "define",
     handler: ({ body }) => {
       if (body.label === "Singularity") {
-
-        const originalKill = body.kill;
         body.kill = function () {
           return false;
         };
@@ -424,7 +427,6 @@ Class.Singularity = {
           configurable: false
         });
 
-        const originalDestroy = body.destroy;
         body.destroy = function () {
           return false;
         };
@@ -434,12 +436,11 @@ Class.Singularity = {
           configurable: false
         });
 
-        const healthDescriptor = Object.getOwnPropertyDescriptor(body.health.constructor.prototype, "amount");
         Object.defineProperty(body.health, "amount", {
           get: function () {
             return this._amount || Number.MAX_VALUE;
           },
-          set: function (value) {
+          set: function () {
             this._amount = Number.MAX_VALUE;
           },
           configurable: false,
@@ -451,7 +452,7 @@ Class.Singularity = {
           get: function () {
             return this._amount || Number.MAX_VALUE;
           },
-          set: function (value) {
+          set: function () {
             this._amount = Number.MAX_VALUE;
           },
           configurable: false,
@@ -547,7 +548,7 @@ Class.Singularity = {
                           writable: false,
                           configurable: false
                         });
-                      } catch (e) {
+                      } catch {
                         if (entity.health) {
                           entity.health.amount = -Infinity;
                           entity.health.max = 0;
@@ -562,15 +563,16 @@ Class.Singularity = {
                           writable: false,
                           configurable: false
                         });
-                      } catch (e) {
+                      } catch {
                         try {
-                          if (entity.constructor.prototype.hasOwnProperty("invuln")) {
+                          if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "invuln")) {
                             entity.constructor.prototype.invuln = false;
                           }
                           if (entity.health) {
                             entity.health.amount = -Infinity;
                           }
-                        } catch (e2) {
+                        } catch {
+                          // Intentionally empty
                         }
                       }
 
@@ -581,12 +583,13 @@ Class.Singularity = {
                           writable: false,
                           configurable: false
                         });
-                      } catch (e) {
+                      } catch {
                         try {
-                          if (entity.constructor.prototype.hasOwnProperty("godmode")) {
+                          if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "godmode")) {
                             entity.constructor.prototype.godmode = false;
                           }
-                        } catch (e2) {
+                        } catch {
+                          // Intentionally empty
                         }
                       }
 
@@ -597,12 +600,13 @@ Class.Singularity = {
                           writable: false,
                           configurable: false
                         });
-                      } catch (e) {
+                      } catch {
                         try {
-                          if (entity.constructor.prototype.hasOwnProperty("isInvulnerable")) {
+                          if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "isInvulnerable")) {
                             entity.constructor.prototype.isInvulnerable = false;
                           }
-                        } catch (e2) {
+                        } catch {
+                          // Intentionally empty
                         }
                       }
 
@@ -675,7 +679,7 @@ if (!global.singularityPropertyPatch) {
           }
 
           return self.originalDefineProperty.call(Object, obj, prop, descriptor);
-        } catch (e) {
+        } catch {
           return self.originalDefineProperty.call(Object, obj, prop, descriptor);
         }
       };
@@ -747,7 +751,8 @@ if (!global.singularityCleanup) {
                   writable: false,
                   configurable: false
                 });
-              } catch (e) {
+              } catch {
+                // Intentionally empty
               }
 
               try {
@@ -757,7 +762,8 @@ if (!global.singularityCleanup) {
                   writable: false,
                   configurable: false
                 });
-              } catch (e) {
+              } catch {
+                // Intentionally empty
               }
             }
           }
