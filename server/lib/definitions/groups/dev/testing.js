@@ -1014,7 +1014,7 @@ Class.strokeWidthTest = {
 Class.onTest = {
     PARENT: 'genericTank',
     LABEL: "ON property test",
-    TOOLTIP: "Refer to Class.onTest in dev.js to know more.",
+    TOOLTIP: "Refer to Class.onTest in dev/tanks.js to know more.",
     ON: [{
         event: "fire",
         handler: ({ body, gun }) => {

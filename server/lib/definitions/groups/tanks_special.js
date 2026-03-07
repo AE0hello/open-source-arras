@@ -1,6 +1,6 @@
-const {combineStats, skillSet, weaponArray} = require('../../facilitators.js')
-const {base, statnames} = require('../../constants.js')
-const g = require('../../gunvals.js')
+const {combineStats, skillSet, weaponArray} = require('../facilitators.js')
+const {base, statnames} = require('../constants.js')
+const g = require('../gunvals.js')
 
 // Base Protector
 Class.baseProtector = {
