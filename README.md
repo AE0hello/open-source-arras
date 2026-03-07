@@ -31,7 +31,7 @@
 
 - Running the Server: Execute `npm start` to launch the game server. The server will start on port 3000.
 
-- Accessing the Game: Open a web browser and navigate to `http://localhost:3000` to join the multiplayer tank game.
+- Accessing the Game: Open a web browser and navigate to `http://localhost:3000` to join the game
 
 ---
 
