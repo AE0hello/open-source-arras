@@ -179,7 +179,7 @@ const MazeGenerator = class {
   isClosed() {
     const cells = [].concat(
       ...this.maze.map((r, x) =>
-        r.map((r, y) => [x, y, r])
+        r.map((_, y) => [x, y, _])
           .filter(([x, y, r]) => !r))
     ).map(([x, y]) => [x, y, x === 0 || x === this.width - 1 || y === 0 || y === this.height - 1]);
 
@@ -230,26 +230,20 @@ const MazeGenerator = class {
       }
       // check corner
       if (corner !== null) {
-        const left = this.maze
-          [direction === 2 || direction === 3 ? x - 1 : x + 1]
-          [direction === 0 || direction === 3 ? y - 1 : y + 1];
-        const right = this.maze
-          [direction === 1 || direction === 2 ? x - 1 : x + 1]
-          [direction === 2 || direction === 3 ? y - 1 : y + 1];
+        const left = this.maze[direction === 2 || direction === 3 ? x - 1 : x + 1][direction === 0 || direction === 3 ? y - 1 : y + 1];
+        const right = this.maze[direction === 1 || direction === 2 ? x - 1 : x + 1][direction === 2 || direction === 3 ? y - 1 : y + 1];
         if ((corner === true && (left || right)) || (corner === +left + +right)) {
+          // Valid corner
         } else {
           continue;
         }
       }
       // check side
       if (side !== null) {
-        const left = this.maze
-          [direction === 3 ? x + 1 : direction === 1 ? x - 1 : x]
-          [direction === 0 ? y + 1 : direction === 2 ? y - 1 : y];
-        const right = this.maze
-          [direction === 1 ? x + 1 : direction === 3 ? x - 1 : x]
-          [direction === 2 ? y + 1 : direction === 0 ? y - 1 : y];
+        const left = this.maze[direction === 3 ? x + 1 : direction === 1 ? x - 1 : x][direction === 0 ? y + 1 : direction === 2 ? y - 1 : y];
+        const right = this.maze[direction === 1 ? x + 1 : direction === 3 ? x - 1 : x][direction === 2 ? y + 1 : direction === 0 ? y - 1 : y];
         if ((side === true && (left || right)) || (side === +left + +right)) {
+          // Valid side
         } else {
           continue;
         }
@@ -1304,9 +1298,8 @@ const MazeGenerator = class {
         default:
           console.log("Invalid maze type! Generating aborded.");
           return null;
-          break;
       }
-    } catch (e) {
+    } catch (_e) {
       return null;
     }
     if (this.isClosed()) {

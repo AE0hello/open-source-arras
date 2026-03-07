@@ -43,9 +43,9 @@ global.getSpawnableArea = (team, gameManager) => {
 };
 global.teamNames = ["BLUE", "GREEN", "RED", "PURPLE", "YELLOW", "ORANGE", "BROWN", "CYAN"],
 global.teamColors = [10, 11, 12, 15, 25, 26, 27, 28];
-global.getTeamName = team => ["BLUE", "GREEN", "RED", "PURPLE", "YELLOW", "ORANGE", "BROWN", "CYAN", , "DREADNOUGHTS"][-team - 1] ?? "An unknown team";
+global.getTeamName = team => ["BLUE", "GREEN", "RED", "PURPLE", "YELLOW", "ORANGE", "BROWN", "CYAN", "DREADNOUGHTS"][-team - 1] ?? "An unknown team";
 global.getTeamColor = (team, fixMode = false) => {
-  let color = ([10, 11, 12, 15, 25, 26, 27, 28, , 4][-team - 1] ?? 3);
+  let color = ([10, 11, 12, 15, 25, 26, 27, 28, 4][-team - 1] ?? 3);
   if (fixMode) {color = color + " 0 1 0 false";}
   return color;
 };
@@ -202,7 +202,7 @@ global.runMove = (() => {
           engine = { x: a * g.x / len, y: a * g.y / len };
         }
         break;
-      case "swarm":
+      case "swarm": {
         my.maxSpeed = my.topSpeed;
         let l = util.getDistance({ x: 0, y: 0 }, g) + 1;
         if (gactive && l > my.size) {
@@ -222,6 +222,7 @@ global.runMove = (() => {
           }
         }
         break;
+      }
       case "chase":
         if (gactive) {
           let l = util.getDistance({ x: 0, y: 0 }, g);

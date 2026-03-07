@@ -299,7 +299,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
       deathFactor._me = (stuff > my.health.amount) ? my.health.amount / stuff : 1;
       stuff = n.health.getDamage(damageToApply._me, false);
       deathFactor._n = (stuff > n.health.amount) ? n.health.amount / stuff : 1;
-      reductionFactor = Math.min(deathFactor._me, deathFactor._n);
+      const _reductionFactor = Math.min(deathFactor._me, deathFactor._n);
       // Now apply it
       // my.damageReceived += damage._n * deathFactor._n;
       // n.damageReceived += damage._me * deathFactor._me;
@@ -584,12 +584,13 @@ function mazewallcustomcollide(wall, bounce) {
           bounce.health.amount = Math.min(bounce.health.amount + bounce.health.max * 0.2, bounce.health.max);
         }
         break;
-      case 4:
+      case 4: {
         const bounceFactor = 2.5;
         for (const axis in wallPushPositions[i]) {
           bounce.velocity[axis] *= -bounceFactor;
         }
         break;
+      }
       case 5:
         if (canResize) {
           bounce.touchingSizeWall = true;
@@ -652,7 +653,7 @@ function mazewallcustomcollide(wall, bounce) {
           bounce.health.amount = Math.min(bounce.health.amount + bounce.health.max * 0.2, bounce.health.max);
         }
         break;
-      case 4:
+      case 4: {
         const bounceFactor = 2.5;
         const dx = bounce.x - cornerX;
         const dy = bounce.y - cornerY;
@@ -663,6 +664,7 @@ function mazewallcustomcollide(wall, bounce) {
         bounce.velocity.x = (bounce.velocity.x - 2 * dot * nx) * bounceFactor;
         bounce.velocity.y = (bounce.velocity.y - 2 * dot * ny) * bounceFactor;
         break;
+      }
       case 5:
         if (canResize) {
           bounce.touchingSizeWall = true;

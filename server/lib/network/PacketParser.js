@@ -1215,9 +1215,10 @@ class BinaryCodec {
       case "boolean":
         return buffer.readUInt8(offset) !== 0;
 
-      case "uint32":
+      case "uint32": {
         const view = new DataView(buffer.buffer, buffer.byteOffset + offset);
         return view.getUint32(0);
+      }
 
       case "int8":
         return buffer.readInt8(offset);
@@ -2748,9 +2749,10 @@ class BinaryCodec {
       case "boolean":
         return 1;
 
-      case "object":
+      case "object": {
         const jsonString = JSON.stringify(value);
         return 2 + Buffer.byteLength(jsonString, "utf8");
+      }
 
       case "uint32":
         return 4;

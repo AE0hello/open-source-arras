@@ -30,7 +30,7 @@ const requires = [
 for (const file of requires) {
   const module = require(file);
   for (const key in module) {
-    if (module.hasOwnProperty(key)) {
+    if (Object.prototype.hasOwnProperty.call(module, key)) {
       global[key] = module[key];
     }
   }

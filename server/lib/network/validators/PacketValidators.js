@@ -1,8 +1,3 @@
-/**
- * Enhanced Packet Validators for Arras.io
- * Comprehensive validation system with deep packet analysis
- */
-
 class PacketValidators {
   constructor() {
     this.validators = new Map();
@@ -701,7 +696,7 @@ class PacketValidators {
     // Check for common encoding patterns
     const encodingPatterns = [
       /%[0-9A-Fa-f]{2}/g,           // URL encoding
-      /\s*=[\s\r\n]*+/g,           // Base64 padding
+      /\s*=[\s\r\n]*/g,           // Base64 padding
       /^[A-Za-z0-9+/]+={0,2}$/g,      // Base64 pattern
       /\\x[0-9A-Fa-f]{2}/g,          // Hex encoding
       /\\u[0-9A-Fa-f]{4}/g,          // Unicode escape
