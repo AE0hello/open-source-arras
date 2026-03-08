@@ -3080,14 +3080,16 @@ import * as socketStuff from "./socketinit.js";
 
                     ctx[1].globalAlpha = alpha * alpha * fade;
 
+                    // Background bar
                     drawBar(x - size, x + size, yy, seperated ? barWidth + barChunk * 1.6 : barWidth + barChunk, color.black, ctx[1])
 
-                    drawBar(x - size, x - size + 2 * size * health, seperated ? yy + 2 : yy, barWidth + barChunk * 0.35, col, ctx[1])
+                    // HP bar
+                    drawBar(x - size, x - size + 2 * size * health, seperated ? yy + barWidth * 1.45 : yy, barWidth + barChunk * 0.35, col, ctx[1])
 
                     if (shield || seperated) {
                         if (!seperated) ctx[1].globalAlpha *= 0.7;
                         ctx[1].globalAlpha *= 0.3 + 0.3 * shield;
-                        drawBar(x - size, x - size + 2 * size * shield, seperated ? yy - 2 : yy, barWidth + barChunk * 0.35, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1])
+                        drawBar(x - size, x - size + 2 * size * shield, seperated ? yy - barWidth * 1.45 : yy, barWidth + barChunk * 0.35, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1])
                     }
                     if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.separatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center");
                     ctx[1].globalAlpha = alpha;
