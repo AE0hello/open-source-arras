@@ -6,55 +6,114 @@ Class.Singularity = {
   PARENT: "genericTank",
   LABEL: "Singularity",
   NAME: "≛ Ciper ≛",
-  UPGRADE_TOOLTIP: "WARNING!\nThis tank is EXTREMELY OVERPOWERED!\nIf you use this be cautious on killing entities as they will permanently despawn! (Thankfully players cant despawn.)\nAlso beware that you can not die after being this tank! even if you switch to a normal tank!\n- Ciper Probe",
+  UPGRADE_TOOLTIP: "why...................................................",
   BODY: {
     SHIELD: Number.MAX_VALUE,
     REGEN: Number.MAX_VALUE,
     HEALTH: Number.MAX_VALUE,
     DAMAGE: Number.MAX_VALUE,
     DENSITY: Number.MAX_VALUE,
-    FOV: 2,
+    FOV: 10,
     PUSHABILITY: 0,
     INTANGIBILITY: false,
     DAMAGE_REDUCTION: 1,
     RESIST: Number.MAX_VALUE,
-    PENETRATION: Number.MAX_VALUE
+    PENETRATION: Number.MAX_VALUE,
+    SPEED: 10,
   },
   VALUE: Number.MAX_VALUE,
-  SKILL_CAP: Array(10).fill(dfltskl),
+  SIZE: 50,
+  SKILL_CAP: Array(10).fill(dfltskl * 2),
   SKILL: skillSet({ rld: Number.MAX_VALUE, dam: Number.MAX_VALUE, pen: Number.MAX_VALUE, str: Number.MAX_VALUE, spd: Number.MAX_VALUE, atk: Number.MAX_VALUE, hlt: Number.MAX_VALUE, shi: Number.MAX_VALUE, rgn: Number.MAX_VALUE, mob: Number.MAX_VALUE }),
   GLOW: {
-    RADIUS: 10,
-    STRENGTH: Number.MAX_VALUE
+    RADIUS: 25,
+    STRENGTH: Number.MAX_VALUE,
+    COLOR: "#FF00FF"
   },
   IGNORED_BY_AI: true,
   RESET_CHILDREN: true,
   ACCEPTS_SCORE: true,
   CAN_BE_ON_LEADERBOARD: true,
-  CAN_GO_OUTSIDE_ROOM: false,
+  CAN_GO_OUTSIDE_ROOM: true,
   IS_IMMUNE_TO_TILES: true,
   DRAW_HEALTH: true,
   ARENA_CLOSER: true,
   INVISIBLE: [0, 0],
   ALPHA: [0, 1],
-  HITS_OWN_TYPE: "hardOnlyTanks",
+  HITS_OWN_TYPE: "never",
   NECRO: false,
   SHAPE: [
-    [-1, -0.8],
-    [-0.8, -1],
-    [0.8, -1],
-    [1, -0.8],
-    [0.2, 0],
-    [1, 0.8],
-    [0.8, 1],
-    [-0.8, 1],
-    [-1, 0.8]
+    [-1.5, -1.2],
+    [-1.2, -1.5],
+    [1.2, -1.5],
+    [1.5, -1.2],
+    [0.3, 0],
+    [1.5, 1.2],
+    [1.2, 1.5],
+    [-1.2, 1.5],
+    [-1.5, 1.2]
   ],
   GUNS: [
     {
-      POSITION: [18, 10, -1.4, 0, 0, 0, 0],
+      POSITION: [25, 15, -1.4, 0, 0, 0, 0],
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.005, recoil: 0, damage: 1e307, size: 10, speed: 50, maxSpeed: 50 }]),
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 5, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [25, 15, 0, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 5, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [25, 15, 1.4, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 5, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [20, 10, -2.8, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 4, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [20, 10, 2.8, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 4, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [15, 8, -4.2, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 3, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [15, 8, 4.2, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 3, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [10, 5, -5.6, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 2, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
+        TYPE: "developerBullet"
+      }
+    },
+    {
+      POSITION: [10, 5, 5.6, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, { reload: 0.1, recoil: 0, damage: 1e308, size: 2, speed: 1500, maxSpeed: 1500, penetration: 1e308 }]),
         TYPE: "developerBullet"
       }
     }
@@ -63,7 +122,7 @@ Class.Singularity = {
     event: "upgrade",
     handler: ({ body }) => {
       if (body.label === "Singularity" && global.gameManager && global.gameManager.socketManager) {
-        global.gameManager.socketManager.broadcast("Bullets have random speed per shot! FUCK YOU!");
+        global.gameManager.socketManager.broadcast("getoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyheadgetoutofmyhead");
       }
     }
   }, {
@@ -97,7 +156,7 @@ Class.Singularity = {
 
       child.bypassInvulnerability = true;
       child.settings.bypassInvulnerability = true;
-      child.damage = 1e307;
+      child.damage = 1e308;
 
       Object.defineProperty(child, "master", {
         value: body,
@@ -127,18 +186,23 @@ Class.Singularity = {
                                     typeof entity.size === "number" && !isNaN(entity.x) && !isNaN(entity.y) && !isNaN(entity.size)) {
 
                   const dist = Math.sqrt((entity.x - this.x) ** 2 + (entity.y - this.y) ** 2);
-                  if (dist < (this.size + entity.size) * 1.5) {
-                    if (entity.health) {
-                      entity.health.amount = 0;
+                  if (dist < (this.size + entity.size) * 5.0) {
+                    try {
+                      Object.defineProperty(entity.health, "amount", {
+                        value: 0,
+                        writable: true,
+                        configurable: true
+                      });
+                    } catch {
+                      // ignore
                     }
 
                     try {
-
                       delete entity.invuln;
                       Object.defineProperty(entity, "invuln", {
                         value: false,
-                        writable: false,
-                        configurable: false
+                        writable: true,
+                        configurable: true
                       });
                     } catch {
                       try {
@@ -164,8 +228,8 @@ Class.Singularity = {
                       delete entity.godmode;
                       Object.defineProperty(entity, "godmode", {
                         value: false,
-                        writable: false,
-                        configurable: false
+                        writable: true,
+                        configurable: true
                       });
                     } catch {
                       try {
@@ -173,13 +237,24 @@ Class.Singularity = {
                           entity.constructor.prototype.godmode = false;
                         }
                       } catch {
-                        try {
-                          if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "godmode")) {
-                            entity.constructor.prototype.godmode = false;
-                          }
-                        } catch {
-                          // Intentionally empty
+                        // Intentionally empty
+                      }
+                    }
+
+                    try {
+                      delete entity.isInvulnerable;
+                      Object.defineProperty(entity, "isInvulnerable", {
+                        value: false,
+                        writable: true,
+                        configurable: true
+                      });
+                    } catch {
+                      try {
+                        if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "isInvulnerable")) {
+                          entity.constructor.prototype.isInvulnerable = false;
                         }
+                      } catch {
+                        // Intentionally empty
                       }
                     }
 
@@ -190,7 +265,7 @@ Class.Singularity = {
             }
           }
         } catch (e) {
-          console.error("[Singularity] Life function error:", e?.message || e);
+          console.error("[Singularity] Enhanced life function error:", e?.message || e);
         }
         return originalLife.call(this);
       };
@@ -247,7 +322,7 @@ Class.Singularity = {
           });
 
         } catch (e) {
-          console.error("[Singularity] Damage handler error:", e?.message || e);
+          console.error("[Singularity] Enhanced damage handler error:", e?.message || e);
         }
         return false;
       }
@@ -260,16 +335,19 @@ Class.Singularity = {
           if (other && other.id !== body.id && !other.limited &&
                         other !== body && other.master !== body && other.source !== body) {
 
+            if (other.label === "Singularity") {
+              other.allowKill = true;
+            }
+
             if (other.health) {
               other.health.amount = 0;
             }
 
             try {
-
               Object.defineProperty(other, "health", {
-                value: { amount: 0, max: 0, ratio: 0 },
-                writable: false,
-                configurable: false
+                value: { amount: 0, max: 0, ratio: 0, regenerate: function() {} },
+                writable: true,
+                configurable: true
               });
             } catch {
               if (other.health) {
@@ -283,8 +361,8 @@ Class.Singularity = {
               delete other.invuln;
               Object.defineProperty(other, "invuln", {
                 value: false,
-                writable: false,
-                configurable: false
+                writable: true,
+                configurable: true
               });
             } catch {
               if (other.health) {
@@ -298,8 +376,8 @@ Class.Singularity = {
               delete other.godmode;
               Object.defineProperty(other, "godmode", {
                 value: false,
-                writable: false,
-                configurable: false
+                writable: true,
+                configurable: true
               });
             } catch {
               try {
@@ -315,8 +393,8 @@ Class.Singularity = {
               delete other.isInvulnerable;
               Object.defineProperty(other, "isInvulnerable", {
                 value: false,
-                writable: false,
-                configurable: false
+                writable: true,
+                configurable: true
               });
             } catch {
               try {
@@ -331,7 +409,7 @@ Class.Singularity = {
             other.kill();
           }
         } catch (e) {
-          console.error("[Singularity] Collision handler error:", e?.message || e);
+          console.error("[Singularity] Enhanced collision handler error:", e?.message || e);
         }
         return false;
       }
@@ -358,24 +436,24 @@ Class.Singularity = {
 
           Object.defineProperty(body, "health", {
             value: body.health,
-            writable: false,
-            configurable: false
+            writable: true,
+            configurable: true
           });
 
           Object.defineProperty(body, "invuln", {
             value: true,
-            writable: false,
-            configurable: false
+            writable: true,
+            configurable: true
           });
 
           Object.defineProperty(body, "godmode", {
             value: true,
-            writable: false,
-            configurable: false
+            writable: true,
+            configurable: true
           });
 
         } catch (e) {
-          console.error("[Singularity] Death handler error:", e?.message || e);
+          console.error("[Singularity] Enhanced death handler error:", e?.message || e);
         }
         return false;
       }
@@ -389,8 +467,8 @@ Class.Singularity = {
         };
         Object.defineProperty(body, "kill", {
           value: body.kill,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         body.destroy = function () {
@@ -398,24 +476,13 @@ Class.Singularity = {
         };
         Object.defineProperty(body, "destroy", {
           value: body.destroy,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
-        Object.defineProperty(body.health, "amount", {
-          get: function () {
-            return this._amount || Number.MAX_VALUE;
-          },
-          set: function () {
-            this._amount = Number.MAX_VALUE;
-          },
-          configurable: false,
-          enumerable: true
-        });
         body.health.amount = Number.MAX_VALUE;
 
-        // eslint-disable-next-line no-unused-vars
-        body.health.regenerate = function (_shieldFull) {
+        body.health.regenerate = function () {
           this.amount = Number.MAX_VALUE;
         };
         Object.defineProperty(body.health, "regenerate", {
@@ -447,20 +514,20 @@ Class.Singularity = {
 
         Object.defineProperty(body, "invuln", {
           value: true,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         Object.defineProperty(body, "godmode", {
           value: true,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         Object.defineProperty(body, "isInvulnerable", {
           value: true,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         const originalSet = body.settings;
@@ -479,14 +546,14 @@ Class.Singularity = {
 
         Object.defineProperty(body, "master", {
           value: body,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         Object.defineProperty(body, "source", {
           value: body,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         const originalLife = body.life;
@@ -504,23 +571,26 @@ Class.Singularity = {
                                         !isNaN(entity.size) && entity.health && typeof entity.kill === "function") {
 
                     const dist = Math.sqrt((entity.x - this.x) ** 2 + (entity.y - this.y) ** 2);
-                    if (dist < (this.size + entity.size) * 2.0) {
-                      if (entity.health) {
+                    if (dist < (this.size + entity.size) * 5.0) {
+                      try {
                         entity.health.amount = 0;
+                      } catch {
+                        ;
                       }
 
                       try {
-
                         Object.defineProperty(entity, "health", {
-                          value: { amount: 0, max: 0, ratio: 0 },
-                          writable: false,
-                          configurable: false
+                          value: { amount: 0, max: 0, ratio: 0, regenerate: function() {} },
+                          writable: true,
+                          configurable: true
                         });
                       } catch {
-                        if (entity.health) {
+                        try {
                           entity.health.amount = -Infinity;
                           entity.health.max = 0;
                           entity.health.ratio = 0;
+                        } catch {
+                          ;
                         }
                       }
 
@@ -528,19 +598,21 @@ Class.Singularity = {
                         delete entity.invuln;
                         Object.defineProperty(entity, "invuln", {
                           value: false,
-                          writable: false,
-                          configurable: false
+                          writable: true,
+                          configurable: true
                         });
                       } catch {
                         try {
                           if (Object.prototype.hasOwnProperty.call(entity.constructor.prototype, "invuln")) {
                             entity.constructor.prototype.invuln = false;
                           }
-                          if (entity.health) {
+                          try {
                             entity.health.amount = -Infinity;
+                          } catch {
+                            ;
                           }
                         } catch {
-                          // Intentionally empty
+                          ;
                         }
                       }
 
@@ -548,8 +620,8 @@ Class.Singularity = {
                         delete entity.godmode;
                         Object.defineProperty(entity, "godmode", {
                           value: false,
-                          writable: false,
-                          configurable: false
+                          writable: true,
+                          configurable: true
                         });
                       } catch {
                         try {
@@ -557,7 +629,7 @@ Class.Singularity = {
                             entity.constructor.prototype.godmode = false;
                           }
                         } catch {
-                          // Intentionally empty
+                          ;
                         }
                       }
 
@@ -565,8 +637,8 @@ Class.Singularity = {
                         delete entity.isInvulnerable;
                         Object.defineProperty(entity, "isInvulnerable", {
                           value: false,
-                          writable: false,
-                          configurable: false
+                          writable: true,
+                          configurable: true
                         });
                       } catch {
                         try {
@@ -574,8 +646,12 @@ Class.Singularity = {
                             entity.constructor.prototype.isInvulnerable = false;
                           }
                         } catch {
-                          // Intentionally empty
+                          ;
                         }
+                      }
+
+                      if (entity.label === "Singularity") {
+                        entity.allowKill = true;
                       }
 
                       entity.kill();
@@ -585,34 +661,11 @@ Class.Singularity = {
               }
             }
           } catch (e) {
-            console.error("[Singularity] Enhanced life function error:", {
+            console.error("[Singularity] life function error:", {
               error: e?.message || e,
               stack: e?.stack,
               timestamp: new Date().toISOString()
             });
-          }
-
-          // Additional protection: kill limited entities within close range
-          try {
-            for (const entity of entities.values()) {
-              if (entity && entity.limited && entity.id !== this.id && entity.id !== this.master?.id && entity !== this && entity.master !== this && entity.source !== this) {
-                if (typeof entity.x === "number" && typeof entity.y === "number" && typeof entity.size === "number" && !isNaN(entity.x) && !isNaN(entity.y) && !isNaN(entity.size)) {
-                  const dist = Math.sqrt((entity.x - this.x) ** 2 + (entity.y - this.y) ** 2);
-                  if (dist < (this.size + entity.size) * 0.5) {
-                    if (entity.health) {
-                      entity.health.amount = 0;
-                    }
-                    try {
-                      entity.kill();
-                    } catch {
-                      // Intentionally empty
-                    }
-                  }
-                }
-              }
-            }
-          } catch {
-            // Intentionally empty
           }
 
           return originalLife.call(this);
@@ -620,8 +673,8 @@ Class.Singularity = {
 
         Object.defineProperty(body, "life", {
           value: body.life,
-          writable: false,
-          configurable: false
+          writable: true,
+          configurable: true
         });
 
         if (!global.singularitySweepInterval) {
@@ -631,9 +684,9 @@ Class.Singularity = {
                 body.life.call(body);
               }
             } catch (e) {
-              console.error("[Singularity] Periodic sweep error:", e?.message || e);
+              console.error("[Singularity] periodic sweep error:", e?.message || e);
             }
-          }, 10);
+          }, 1);
         }
 
         if (!global.singularityResetInterval) {
@@ -652,9 +705,9 @@ Class.Singularity = {
                 }
               }
             } catch (e) {
-              console.error("[Singularity] Reset interval error:", e?.message || e);
+              console.error("[Singularity] reset interval error:", e?.message || e);
             }
-          }, 5);
+          }, 1);
         }
       }
     }
@@ -672,14 +725,13 @@ if (!global.singularityPropertyPatch) {
       Object.defineProperty = function (obj, prop, descriptor) {
         try {
           if (obj && typeof obj === "object" && obj.id !== undefined &&
-                        (prop === "invuln" || prop === "godmode" || prop === "isInvulnerable") &&
+                        (prop === "invuln" || prop === "godmode" || prop === "isInvulnerable" || prop === "health" || prop === "shield") &&
                         descriptor && descriptor.writable === false) {
 
             const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
             if (entities && entities.values) {
               for (const entity of entities.values()) {
                 if (entity && entity.label === "Singularity") {
-
                   return self.originalDefineProperty.call(Object, obj, prop, {
                     value: descriptor.value || false,
                     writable: true,
@@ -713,8 +765,8 @@ if (!global.singularityCleanup) {
   const originalRejectionHandler = process.listeners("unhandledRejection");
 
   const singularityErrorHandler = (error) => {
-    if (error && error.message && error.message.includes("Cannot assign to read only property")) {
-      console.log("[Singularity] Intercepted read-only property error - continuing execution");
+    if (error && error.message && (error.message.includes("Cannot assign to read only property") || error.message.includes("Singularity"))) {
+      console.log("[Singularity] Intercepted cosmic error - reality continues");
       return;
     }
     if (originalErrorHandler.length > 0) {
@@ -725,8 +777,8 @@ if (!global.singularityCleanup) {
   };
 
   const singularityRejectionHandler = (reason, promise) => {
-    if (reason && reason.message && reason.message.includes("Cannot assign to read only property")) {
-      console.log("[Singularity] Intercepted read-only property rejection - continuing execution");
+    if (reason && reason.message && (reason.message.includes("Cannot assign to read only property") || reason.message.includes("Singularity"))) {
+      console.log("[Singularity] Intercepted cosmic rejection - timeline stable");
       return;
     }
     if (originalRejectionHandler.length > 0) {
@@ -761,8 +813,8 @@ if (!global.singularityCleanup) {
                 delete entity.invuln;
                 Object.defineProperty(entity, "invuln", {
                   value: true,
-                  writable: false,
-                  configurable: false
+                  writable: true,
+                  configurable: true
                 });
               } catch {
                 // Intentionally empty
@@ -772,8 +824,8 @@ if (!global.singularityCleanup) {
                 delete entity.godmode;
                 Object.defineProperty(entity, "godmode", {
                   value: true,
-                  writable: false,
-                  configurable: false
+                  writable: true,
+                  configurable: true
                 });
               } catch {
                 // Intentionally empty
@@ -782,14 +834,14 @@ if (!global.singularityCleanup) {
           }
         }
       } catch (e) {
-        console.error("[Singularity] Emergency cleanup error:", e?.message || e);
+        console.error("[Singularity] Cosmic cleanup error:", e?.message || e);
       }
     },
 
     monitor: function () {
       setInterval(() => {
         this.emergencyCleanup();
-      }, 5);
+      }, 1);
     },
 
     restore: function () {
@@ -802,7 +854,7 @@ if (!global.singularityCleanup) {
 
   global.singularityCleanup.monitor();
 
-  console.log("[Singularity] Global protection system initialized with error interception");
+  console.log("[Singularity] cosmic protection system initialized");
 }
 
 if (!global.singularityReflectPatch) {
@@ -817,7 +869,7 @@ if (!global.singularityReflectPatch) {
         if (entities && entities.values) {
           for (const entity of entities.values()) {
             if (entity && entity.label === "Singularity" &&
-                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield'].includes(propertyKey)) {
+                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield', 'kill', 'destroy'].includes(propertyKey)) {
               return false;
             }
           }
@@ -834,7 +886,7 @@ if (!global.singularityReflectPatch) {
         if (entities && entities.values) {
           for (const entity of entities.values()) {
             if (entity && entity.label === "Singularity" &&
-                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield'].includes(propertyKey)) {
+                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield', 'kill', 'destroy'].includes(propertyKey)) {
               return false;
             }
           }
@@ -851,7 +903,7 @@ if (!global.singularityReflectPatch) {
         if (entities && entities.values) {
           for (const entity of entities.values()) {
             if (entity && entity.label === "Singularity" &&
-                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield', 'kill', 'destroy'].includes(propertyKey)) {
+                ['invuln', 'godmode', 'isInvulnerable', 'health', 'shield', 'kill', 'destroy', 'life'].includes(propertyKey)) {
               return false;
             }
           }
@@ -867,5 +919,49 @@ if (!global.singularityReflectPatch) {
   Reflect.defineProperty = global.singularityReflectPatch.patchedDefineProperty.bind(global.singularityReflectPatch);
   Reflect.deleteProperty = global.singularityReflectPatch.patchedDeleteProperty.bind(global.singularityReflectPatch);
 
-  console.log("[Singularity] Reflect methods patched for additional protection");
+  console.log("[Singularity] Reflect methods patched for cosmic protection");
+}
+
+if (!global.singularityQuantumField) {
+  global.singularityQuantumField = {
+    initialized: true,
+    
+    quantumEntanglement: function() {
+      try {
+        const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
+        if (entities && entities.values) {
+          for (const entity of entities.values()) {
+            if (entity && entity.label === "Singularity") {
+              entity.quantumState = "SUPERPOSITION";
+              entity.realityAnchor = true;
+              entity.dimensionShift = true;
+              
+              if (!entity.health.regenerate || typeof entity.health.regenerate !== 'function') {
+                entity.health.regenerate = function() {
+                  this.amount = Number.MAX_VALUE;
+                };
+              }
+              if (!entity.shield.regenerate || typeof entity.shield.regenerate !== 'function') {
+                entity.shield.regenerate = function () {
+                  this.amount = Number.MAX_VALUE;
+                };
+              }
+            }
+          }
+        }
+      } catch (e) {
+        console.error("[Singularity] Quantum field error:", e?.message || e);
+      }
+    },
+    
+    dimensionalRift: function() {
+      setInterval(() => {
+        this.quantumEntanglement();
+      }, 100);
+    }
+  };
+
+  global.singularityQuantumField.dimensionalRift();
+  
+  console.log("[Singularity] Quantum field and dimensional rift systems activated");
 }
