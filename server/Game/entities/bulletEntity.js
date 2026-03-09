@@ -485,6 +485,9 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
     if (this.settings.reloadToAcceleration) {
       this.topSpeed /= Math.sqrt(this.skill.acl);
     }
+    if (typeof this.health.set !== "function") {
+      this.health = new HealthType(1, "static", 0);
+    }
     this.health.set(((this.settings.healthWithLevel ? 2 * this.level : 0) + this.HEALTH) * this.skill.hlt * 1);
     this.health.resist = 1 - 1 / Math.max(1, this.RESIST + this.skill.brst);
     this.shield.set(((this.settings.healthWithLevel ? 0.6 * this.level : 0) + this.SHIELD) * this.skill.shi, Math.max(0, ((this.settings.healthWithLevel ? 0.006 * this.level : 0) + 1) * this.REGEN * this.skill.rgn * 1));
@@ -620,7 +623,9 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
       }
     }
     if (this.settings.diesAtLowSpeed && !this.collisionArray.length && this.velocity.length < this.topSpeed / 2) {
-      this.health.amount -= this.health.getDamage(1 / global.gameManager.roomSpeed);
+      if (typeof this.health.getDamage === "function") {
+        this.health.amount -= this.health.getDamage(1 / global.gameManager.roomSpeed);
+      }
     }
     // Shield regen and damage
     if (this.shield.max) {
@@ -632,8 +637,10 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
     }
     // Health damage
     if (this.damageReceived) {
-      const healthDamage = this.health.getDamage(this.damageReceived);
-      this.health.amount -= healthDamage;
+      if (typeof this.health.getDamage === "function") {
+        const healthDamage = this.health.getDamage(this.damageReceived);
+        this.health.amount -= healthDamage;
+      }
     }
     this.damageReceived = 0;
     // Check for death

@@ -1230,7 +1230,9 @@ class Entity extends EventEmitter {
       }
     }
     if (this.settings.diesAtLowSpeed && !this.collisionArray.length && this.velocity.length < this.topSpeed / 2) {
-      this.health.amount -= this.health.getDamage(1 / global.gameManager.roomSpeed);
+      if (typeof this.health.getDamage === "function") {
+        this.health.amount -= this.health.getDamage(1 / global.gameManager.roomSpeed);
+      }
     }
     // Shield regen and damage
     if (this.shield.max) {
@@ -1242,9 +1244,11 @@ class Entity extends EventEmitter {
     }
     // Health damage
     if (this.damageReceived) {
-      const healthDamage = this.health.getDamage(this.damageReceived);
-      this.blend.amount = 1;
-      this.health.amount -= healthDamage;
+      if (typeof this.health.getDamage === "function") {
+        const healthDamage = this.health.getDamage(this.damageReceived);
+        this.blend.amount = 1;
+        this.health.amount -= healthDamage;
+      }
     }
     this.damageReceived = 0;
 
