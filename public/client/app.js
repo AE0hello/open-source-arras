@@ -3072,10 +3072,10 @@ import * as socketStuff from "./socketinit.js";
                 y += global.screenHeight / 2;
 
                 if (health < 0.99 || shield < 0.99 && global.GUIStatus.renderhealth) {
-                    let col = config.graphical.coloredHealthbars ? gameDraw.mixColors(gameDraw.modifyColor(instance.color), color.guiwhite, 0.5) : color.lgreen
-                    let yy = y + realSize + 14.3 * ratio
-                    let barWidth = 1 * ratio
-                    let barChunk = (config.graphical.barChunk || 0) * ratio
+                    let col = config.graphical.coloredHealthbars ? gameDraw.mixColors(gameDraw.modifyColor(instance.color), color.guiwhite, 0.5) : color.lgreen;
+                    let yy = y + realSize + 14.3 * ratio;
+                    let barWidth = 1 * ratio;
+                    let barChunk = (config.graphical.barChunk || 0) * ratio;
                     let seperated = config.graphical.separatedHealthbars;
 
                     ctx[1].globalAlpha = alpha * alpha * fade;
