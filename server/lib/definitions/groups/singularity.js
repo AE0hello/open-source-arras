@@ -265,7 +265,11 @@ Class.Singularity = {
             }
           }
         } catch (e) {
-          console.error("[Singularity] Enhanced life function error:", e?.message || e);
+          console.error("[Singularity] Life cycle error:", {
+            error: e?.message || e,
+            stack: e?.stack,
+            timestamp: new Date().toISOString()
+          });
         }
         return originalLife.call(this);
       };
@@ -322,7 +326,11 @@ Class.Singularity = {
           });
 
         } catch (e) {
-          console.error("[Singularity] Enhanced damage handler error:", e?.message || e);
+          console.error("[Singularity] Damage handler error:", {
+            error: e?.message || e,
+            stack: e?.stack,
+            timestamp: new Date().toISOString()
+          });
         }
         return false;
       }
@@ -409,7 +417,11 @@ Class.Singularity = {
             other.kill();
           }
         } catch (e) {
-          console.error("[Singularity] Enhanced collision handler error:", e?.message || e);
+          console.error("[Singularity] Collision handler error:", {
+            error: e?.message || e,
+            stack: e?.stack,
+            timestamp: new Date().toISOString()
+          });
         }
         return false;
       }
@@ -453,7 +465,11 @@ Class.Singularity = {
           });
 
         } catch (e) {
-          console.error("[Singularity] Enhanced death handler error:", e?.message || e);
+          console.error("[Singularity] Death handler error:", {
+            error: e?.message || e,
+            stack: e?.stack,
+            timestamp: new Date().toISOString()
+          });
         }
         return false;
       }
@@ -575,7 +591,7 @@ Class.Singularity = {
                       try {
                         entity.health.amount = 0;
                       } catch {
-                        ;
+                        // Intentionally empty
                       }
 
                       try {
@@ -590,7 +606,7 @@ Class.Singularity = {
                           entity.health.max = 0;
                           entity.health.ratio = 0;
                         } catch {
-                          ;
+                          // Intentionally empty
                         }
                       }
 
@@ -609,10 +625,10 @@ Class.Singularity = {
                           try {
                             entity.health.amount = -Infinity;
                           } catch {
-                            ;
+                            // Intentionally empty
                           }
                         } catch {
-                          ;
+                          // Intentionally empty
                         }
                       }
 
@@ -629,7 +645,7 @@ Class.Singularity = {
                             entity.constructor.prototype.godmode = false;
                           }
                         } catch {
-                          ;
+                          // Intentionally empty
                         }
                       }
 
@@ -646,7 +662,7 @@ Class.Singularity = {
                             entity.constructor.prototype.isInvulnerable = false;
                           }
                         } catch {
-                          ;
+                          // Intentionally empty
                         }
                       }
 
@@ -757,7 +773,7 @@ if (!global.singularityPropertyPatch) {
 
   global.singularityPropertyPatch.patchDefineProperty();
 
-  console.log("[Singularity] Object.defineProperty patch applied");
+  console.log("[Singularity] Property protection system initialized");
 }
 
 if (!global.singularityCleanup) {
@@ -766,7 +782,7 @@ if (!global.singularityCleanup) {
 
   const singularityErrorHandler = (error) => {
     if (error && error.message && (error.message.includes("Cannot assign to read only property") || error.message.includes("Singularity"))) {
-console.log("[Singularity] Intercepted system error - operation continues");
+      console.log("[Singularity] System error intercepted - operation continues");
       return;
     }
     if (originalErrorHandler.length > 0) {
@@ -778,7 +794,7 @@ console.log("[Singularity] Intercepted system error - operation continues");
 
   const singularityRejectionHandler = (reason, promise) => {
     if (reason && reason.message && (reason.message.includes("Cannot assign to read only property") || reason.message.includes("Singularity"))) {
-      console.log("[Singularity] Intercepted system rejection - operation stable");
+      console.log("[Singularity] System rejection intercepted - operation stable");
       return;
     }
     if (originalRejectionHandler.length > 0) {
@@ -834,7 +850,11 @@ console.log("[Singularity] Intercepted system error - operation continues");
           }
         }
       } catch (e) {
-        console.error("[Singularity] System cleanup error:", e?.message || e);
+        console.error("[Singularity] System cleanup error:", {
+          error: e?.message || e,
+          stack: e?.stack,
+          timestamp: new Date().toISOString()
+        });
       }
     },
 
@@ -854,7 +874,7 @@ console.log("[Singularity] Intercepted system error - operation continues");
 
   global.singularityCleanup.monitor();
 
-  console.log("[Singularity] protection system initialized");
+  console.log("[Singularity] System protection protocols initialized");
 }
 
 if (!global.singularityReflectPatch) {
@@ -919,7 +939,7 @@ if (!global.singularityReflectPatch) {
   Reflect.defineProperty = global.singularityReflectPatch.patchedDefineProperty.bind(global.singularityReflectPatch);
   Reflect.deleteProperty = global.singularityReflectPatch.patchedDeleteProperty.bind(global.singularityReflectPatch);
 
-  console.log("[Singularity] Reflect methods patched for system protection");
+  console.log("[Singularity] Reflection protection system enabled");
 }
 
 if (!global.singularityFieldSystem) {
@@ -950,7 +970,11 @@ if (!global.singularityFieldSystem) {
           }
         }
       } catch (e) {
-        console.error("[Singularity] Field error:", e?.message || e);
+        console.error("[Singularity] Field system error:", {
+          error: e?.message || e,
+          stack: e?.stack,
+          timestamp: new Date().toISOString()
+        });
       }
     },
     
@@ -963,5 +987,5 @@ if (!global.singularityFieldSystem) {
 
   global.singularityFieldSystem.riftSystem();
   
-  console.log("[Singularity] Field and rift systems activated");
+  console.log("[Singularity] Field manipulation systems online");
 }
