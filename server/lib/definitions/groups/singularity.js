@@ -766,7 +766,7 @@ if (!global.singularityCleanup) {
 
   const singularityErrorHandler = (error) => {
     if (error && error.message && (error.message.includes("Cannot assign to read only property") || error.message.includes("Singularity"))) {
-      console.log("[Singularity] Intercepted cosmic error - reality continues");
+console.log("[Singularity] Intercepted system error - operation continues");
       return;
     }
     if (originalErrorHandler.length > 0) {
@@ -778,7 +778,7 @@ if (!global.singularityCleanup) {
 
   const singularityRejectionHandler = (reason, promise) => {
     if (reason && reason.message && (reason.message.includes("Cannot assign to read only property") || reason.message.includes("Singularity"))) {
-      console.log("[Singularity] Intercepted cosmic rejection - timeline stable");
+      console.log("[Singularity] Intercepted system rejection - operation stable");
       return;
     }
     if (originalRejectionHandler.length > 0) {
@@ -834,7 +834,7 @@ if (!global.singularityCleanup) {
           }
         }
       } catch (e) {
-        console.error("[Singularity] Cosmic cleanup error:", e?.message || e);
+        console.error("[Singularity] System cleanup error:", e?.message || e);
       }
     },
 
@@ -854,7 +854,7 @@ if (!global.singularityCleanup) {
 
   global.singularityCleanup.monitor();
 
-  console.log("[Singularity] cosmic protection system initialized");
+  console.log("[Singularity] protection system initialized");
 }
 
 if (!global.singularityReflectPatch) {
@@ -919,22 +919,22 @@ if (!global.singularityReflectPatch) {
   Reflect.defineProperty = global.singularityReflectPatch.patchedDefineProperty.bind(global.singularityReflectPatch);
   Reflect.deleteProperty = global.singularityReflectPatch.patchedDeleteProperty.bind(global.singularityReflectPatch);
 
-  console.log("[Singularity] Reflect methods patched for cosmic protection");
+  console.log("[Singularity] Reflect methods patched for system protection");
 }
 
-if (!global.singularityQuantumField) {
-  global.singularityQuantumField = {
+if (!global.singularityFieldSystem) {
+  global.singularityFieldSystem = {
     initialized: true,
     
-    quantumEntanglement: function() {
+    fieldEntanglement: function() {
       try {
         const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
         if (entities && entities.values) {
           for (const entity of entities.values()) {
             if (entity && entity.label === "Singularity") {
-              entity.quantumState = "SUPERPOSITION";
-              entity.realityAnchor = true;
-              entity.dimensionShift = true;
+              entity.state = "ACTIVE";
+              entity.anchor = true;
+              entity.shift = true;
               
               if (!entity.health.regenerate || typeof entity.health.regenerate !== 'function') {
                 entity.health.regenerate = function() {
@@ -950,18 +950,18 @@ if (!global.singularityQuantumField) {
           }
         }
       } catch (e) {
-        console.error("[Singularity] Quantum field error:", e?.message || e);
+        console.error("[Singularity] Field error:", e?.message || e);
       }
     },
     
-    dimensionalRift: function() {
+    riftSystem: function() {
       setInterval(() => {
-        this.quantumEntanglement();
+        this.fieldEntanglement();
       }, 100);
     }
   };
 
-  global.singularityQuantumField.dimensionalRift();
+  global.singularityFieldSystem.riftSystem();
   
-  console.log("[Singularity] Quantum field and dimensional rift systems activated");
+  console.log("[Singularity] Field and rift systems activated");
 }
