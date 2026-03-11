@@ -118,7 +118,7 @@ module.exports = {
 
       host: "localhost:3006", // Server host location.
       port: 3006, // The port on the server.
-      id: "nos", // (<HOST>/#<SERVER_ID>)
+      id: "c", // (<HOST>/#<SERVER_ID>)
       featured: false,
 
       region: "local", // The region the server is on.
