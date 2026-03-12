@@ -15,7 +15,7 @@ module.exports = {
 
     servers: [ // Make sure to change the host, port and id between servers!
         {
-            load_on_mainserver: false, // Only one server at a time can have this enabled.
+            share_client_server: false, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
 
@@ -37,7 +37,7 @@ module.exports = {
             }
         },
         {
-            load_on_mainserver: false, // Only one server at a time can have this enabled.
+            share_client_server: false, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
 
@@ -72,7 +72,7 @@ module.exports = {
             }
         },
         {
-            load_on_mainserver: false, // Only one server at a time can have this enabled.
+            share_client_server: false, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
 
@@ -95,7 +95,7 @@ module.exports = {
             }
         },
         {
-            load_on_mainserver: false, // Only one server at a time can have this enabled.
+            share_client_server: false, // Only one server at a time can have this enabled.
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
 
