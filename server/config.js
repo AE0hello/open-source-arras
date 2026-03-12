@@ -166,6 +166,24 @@ module.exports = {
         teams: 1,
         bosses_spawn: false
       }
+    },
+    {
+      share_client_server: false,
+
+      host: "localhost:3010", // Server host location.
+      port: 3010, // The port on the server.
+      id: "smaze", // (<HOST>/#<SERVER_ID>)
+      featured: false,
+
+      region: "local", // The region the server is on.
+      gamemode: ["smaze"], // The selected gamemode.
+      player_cap: 80, // Not including bots.
+
+      properties: { // This overrides settings in the config.js file, providing the selected gamemode doesn't also override it.
+        smaze: true,
+        bot_cap: 16,
+        maze_type: 1
+      }
     }
   ],
 

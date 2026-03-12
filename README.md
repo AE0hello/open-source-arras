@@ -49,6 +49,8 @@
 
 - Added "Survive the Arena Closer": OPEN TDM with 1 team, bots enabled, and an Arena Closer in the center. No win condition
 
+- Added "Shiny Maze": Maze gamemode with only rare shapes spawning (shiny, legendary, shadow, rainbow, trans) instead of common shapes. All rare shapes have equal spawn chance.
+
 - Updated server IDs: 2TDM server ID changed to "2tdm", FFA server ID changed to "ffa".
 
 - Fixed FOV zoom functionality for backtick + - and backtick + = commands by updating key code mappings to support multiple keyboard layouts (For "-" it has: 45, 189, 109, 173; for "=" it has: 61, 187, 107, 171).

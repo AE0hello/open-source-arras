@@ -100,7 +100,8 @@ Class.triangle = {
     PENETRATION: 1.5,
     ACCELERATION: 0.005
   },
-  DRAW_HEALTH: true
+  DRAW_HEALTH: true,
+  INTANGIBLE: false
 };
 makeRarities("triangle");
 
@@ -120,7 +121,8 @@ Class.pentagon = {
     PENETRATION: 1.1,
     ACCELERATION: 0.0035
   },
-  DRAW_HEALTH: true
+  DRAW_HEALTH: true,
+  INTANGIBLE: false
 };
 makeRarities("pentagon");
 
@@ -185,7 +187,8 @@ Class.hexagon = {
     PENETRATION: 1.1,
     ACCELERATION: 0.003
   },
-  DRAW_HEALTH: true
+  DRAW_HEALTH: true,
+  INTANGIBLE: false
 };
 makeRarities("hexagon");
 

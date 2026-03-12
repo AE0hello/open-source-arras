@@ -6,6 +6,7 @@ const { Mothership } = require("./gamemodes/mothership.js");
 const { Sandbox } = require("./gamemodes/sandbox.js");
 const { Train } = require("./gamemodes/trainwars.js");
 const { Maze } = require("./gamemodes/maze.js");
+const { ShinyMaze } = require("./gamemodes/smaze.js");
 const { Outbreak } = require("./gamemodes/outbreak.js");
 const { ClanWars } = require("./gamemodes/clanwars.js");
 const { TwoTDMOneDominator } = require("./gamemodes/2tdmOneDominator.js");
@@ -21,6 +22,7 @@ class gamemodeManager {
     this.gameMothership = new Mothership(global.gameManager);
     this.gameSandbox = new Sandbox(global.gameManager);
     this.gameMaze = new Maze(global.gameManager, null);
+    this.gameShinyMaze = new ShinyMaze(global.gameManager, null);
     this.gameTrain = new Train();
     this.gameOutbreak = new Outbreak(global.gameManager);
     this.gameClanwars = new ClanWars(global.gameManager);
@@ -48,6 +50,9 @@ class gamemodeManager {
       }
       if (Config.maze_type !== undefined && !Config.special_boss_spawns) {
         this.gameMaze.generate();
+      }
+      if (Config.smaze) {
+        this.gameShinyMaze.generate();
       }
       if (Config.OUTBREAK) {
         this.gameOutbreak.start();
@@ -124,6 +129,7 @@ class gamemodeManager {
     this.gameTag.redefine(theshit);
     this.gameSandbox.redefine(theshit);
     this.gameMaze.redefine(Config.maze_type);
+    this.gameShinyMaze.redefine(Config.maze_type);
     this.gameClanwars.redefine(theshit);
     this.gameTwoTDMOneDominator.redefine(theshit);
     this.gameBossBattle.redefine(theshit);

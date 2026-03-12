@@ -43,7 +43,8 @@ const getName = (name, gamemodeData) => {
     "2tdmOneDominator": "2TDM One Dominator",
     nostalgia: "Nostalgia",
     bossbattle: "Boss Battle",
-    surviveArenaCloser: "Survive the Arena Closer"
+    surviveArenaCloser: "Survive the Arena Closer",
+    smaze: "Shiny Maze"
   };
   return nameMap[name];
 };

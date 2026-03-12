@@ -479,7 +479,11 @@ class gameHandler {
     const botName = Config.bot_name_prefix + ran.chooseBotName();
     const o = new Entity(loc);
     o.define(Config.spawn_class);
-    o.define({ CONTROLLERS: ["nearestDifferentMaster"] }, false, false, false);
+    // Use lockThroughWalls if enabled in config for maze gamemodes
+    const controllerConfig = Config.ai_lock_through_walls ? 
+      ["nearestDifferentMaster", { lockThroughWalls: true }] : 
+      ["nearestDifferentMaster"];
+    o.define({ CONTROLLERS: [controllerConfig] }, false, false, false);
     o.refreshBodyAttributes();
     o.isBot = true;
     o.name = botName;
