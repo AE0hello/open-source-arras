@@ -7203,8 +7203,15 @@ Class.autoSpawnerdrive_AR = makeAuto("spawnerdrive_AR", "Auto-Spawnerdrive", pre
 // UNSORTED
 Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
 
+// Beta Warning
+Config.spawn_message = "You have spawned! Welcome to the game.\n"
+                     + "You will be invulnerable until you move or shoot.\n"
+                     + "It looks like one of your servers is using the Arms Race addon. It is currently in an alpha state with many missing features.\n"
+                     + "Please report any bugs you encounter!"
+
 // Class Tree
 if (!Config.arms_race == true) {return}
+
 if (!use_original_tree) {
 
 const increased_level_cap = false

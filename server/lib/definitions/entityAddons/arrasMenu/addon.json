@@ -1,10 +1,10 @@
 {
-	"name": "Diep.io Addon",
-	"description": "The official diep.io addon for Open Source Arras",
+	"name": "Arras.io Menus",
+	"description": "Adds the Special Menu system from arras.io",
 	"authors": [
 		"TGS"
 	],
-	"addon-version": "v0.1.0-beta.1",
+	"addon-version": "v0.1.0",
 	"osa-version": {
 		"minimum": "v2.0.11",
 		"target": "v2.0.11"
