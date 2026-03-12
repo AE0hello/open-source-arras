@@ -481,20 +481,24 @@ Class.Singularity = {
         body.kill = function () {
           return false;
         };
-        Object.defineProperty(body, "kill", {
-          value: body.kill,
-          writable: true,
-          configurable: true
-        });
+        if (!Object.prototype.hasOwnProperty.call(body, 'kill')) {
+          Object.defineProperty(body, "kill", {
+            value: body.kill,
+            writable: true,
+            configurable: true
+          });
+        }
 
         body.destroy = function () {
           return false;
         };
-        Object.defineProperty(body, "destroy", {
-          value: body.destroy,
-          writable: true,
-          configurable: true
-        });
+        if (!Object.prototype.hasOwnProperty.call(body, 'destroy')) {
+          Object.defineProperty(body, "destroy", {
+            value: body.destroy,
+            writable: true,
+            configurable: true
+          });
+        }
 
         body.health.amount = Number.MAX_VALUE;
 
@@ -507,26 +511,30 @@ Class.Singularity = {
           configurable: false
         });
 
-        Object.defineProperty(body.shield, "amount", {
-          get: function () {
-            return this._amount || Number.MAX_VALUE;
-          },
-          set: function () {
-            this._amount = Number.MAX_VALUE;
-          },
-          configurable: false,
-          enumerable: true
-        });
+        if (!Object.prototype.hasOwnProperty.call(body.shield, 'amount')) {
+          Object.defineProperty(body.shield, "amount", {
+            get: function () {
+              return this._amount || Number.MAX_VALUE;
+            },
+            set: function () {
+              this._amount = Number.MAX_VALUE;
+            },
+            configurable: false,
+            enumerable: true
+          });
+        }
         body.shield.amount = Number.MAX_VALUE;
 
         body.shield.regenerate = function () {
           this.amount = Number.MAX_VALUE;
         };
-        Object.defineProperty(body.shield, "regenerate", {
-          value: body.shield.regenerate,
-          writable: false,
-          configurable: false
-        });
+        if (!Object.prototype.hasOwnProperty.call(body.shield, 'regenerate')) {
+          Object.defineProperty(body.shield, "regenerate", {
+            value: body.shield.regenerate,
+            writable: false,
+            configurable: false
+          });
+        }
 
         Object.defineProperty(body, "invuln", {
           value: true,
@@ -547,18 +555,20 @@ Class.Singularity = {
         });
 
         const originalSet = body.settings;
-        Object.defineProperty(body, "settings", {
-          get: function () {
-            return originalSet;
-          },
-          set: function (value) {
-            if (value && typeof value === "object") {
-              value.bypassInvulnerability = false;
-            }
-            Object.assign(originalSet, value);
-          },
-          configurable: false
-        });
+        if (!Object.prototype.hasOwnProperty.call(body, 'settings')) {
+          Object.defineProperty(body, "settings", {
+            get: function () {
+              return originalSet;
+            },
+            set: function (value) {
+              if (value && typeof value === "object") {
+                value.bypassInvulnerability = false;
+              }
+              Object.assign(originalSet, value);
+            },
+            configurable: false
+          });
+        }
 
         Object.defineProperty(body, "master", {
           value: body,
