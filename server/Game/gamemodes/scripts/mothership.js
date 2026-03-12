@@ -2,8 +2,6 @@ class Mothership {
     constructor() {
         if (Config.thanksgiving) {
             this.choices = ["turkey"];
-        } else if (Config.arms_race) {
-            this.choices = ["flagship"];
         } else {
             this.choices = ["mothership"];
         }
@@ -58,8 +56,6 @@ class Mothership {
             o.team = team;
             if (Config.thanksgiving) {
                 o.name = "Turkey";
-            } else if (Config.arms_race) {
-                o.name = "Flagship";
             } else {
                 o.name = "Mothership";
             }
