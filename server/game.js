@@ -52,8 +52,10 @@ const getName = (name, gamemodeData) => {
         nexus: "Nexus",
         sandbox: "Sandbox",
     // Modifiers
+        arms_race: "Arms Race",
         blackout: "Blackout",
         classic: "Classic",
+        diep: "Diep",
         //dreadnoughts: "Dreadnoughts",
             old_dreadnoughts: "Old Dreadnoughts",
         growth: "Growth",

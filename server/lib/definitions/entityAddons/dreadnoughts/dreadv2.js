@@ -2694,7 +2694,7 @@ Class.dreadBody_dreadsV2.UPGRADES_TIER_6 = ["byte", "atmosphere", "juggernaut"].
 			Class.harpy_dreadsV2.UPGRADES_TIER_12 = ["pegasus"].map(x => x + "_dreadsV2")
 				Class.pegasus_dreadsV2.UPGRADES_TIER_16 = makeHexnoughtBodyV2("pegasus_dreadsV2")
 
-/*if (Config.arms_race) {
+if (Config.arms_race) {
 	//console.log('[dreadv2.js]: Dreadnoughts v2 Arms Race addon enabled. Credit to Frostbyte.')
 	//Class.dreadWeapon_dreadsV2
 
@@ -2711,7 +2711,7 @@ Class.dreadBody_dreadsV2.UPGRADES_TIER_6 = ["byte", "atmosphere", "juggernaut"].
 			Class.corona_dreadsV2.UPGRADES_TIER_10.push("siren_dreadsV2")
 
 			Class.thermosphere_dreadsV2.UPGRADES_TIER_10.push("harpy_dreadsV2")
-}*/
+}
 
 const hexDreadNames = {
 	Javelin: {
@@ -3307,9 +3307,9 @@ const pentanoughtWeapons = [
 	"cerberus_dreadsV2",
 	"lucifer_dreadsV2"
 ]
-/*if (Config.arms_race) {
+if (Config.arms_race) {
 	pentanoughtWeapons.splice(2, 0, "woomera_dreadsV2")
-}*/
+}
 if(buildHexnoughts) {
 	for (let i of pentanoughtWeapons) {
 		for (let j of pentanoughtWeapons) {

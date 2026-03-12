@@ -6537,28 +6537,34 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.undertow.UPGRADES_TIER_3 = [/*'riptide'*/]
         Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
 
-if (Config.retrograde) {
+if (Config.arms_race || Config.retrograde) {
     //Class.basic.UPGRADES_TIER_2
         Class.smasher.UPGRADES_TIER_3.push('bonker')
-
-    //Class.twin.UPGRADES_TIER_2
-        Class.tripleShot.UPGRADES_TIER_3.push('triBlaster')
 
     //Class.sniper.UPGRADES_TIER_2
         Class.assassin.UPGRADES_TIER_3.push('buttbuttin')
 
-    Class.machineGun.UPGRADES_TIER_2.push('blaster', 'gatlingGun', 'doubleMachine')
+    //Class.machineGun.UPGRADES_TIER_2
         Class.minigun.UPGRADES_TIER_3.push('subverter')
         Class.gunner.UPGRADES_TIER_3.push('battery', 'buttbuttin', 'blower')
-        Class.sprayer.UPGRADES_TIER_3.push('splasher')
 
     //Class.flankGuard.UPGRADES_TIER_2
-        Class.flankGuard.UPGRADES_TIER_3.push('tripleMachine')
         Class.hexaTank.UPGRADES_TIER_3.push('deathStar')
 
     //Class.pounder.UPGRADES_TIER_2
         Class.pounder.UPGRADES_TIER_3.push('subverter')
         Class.destroyer.UPGRADES_TIER_3.push('blower')
+}
+
+if (Config.retrograde) {
+    //Class.twin.UPGRADES_TIER_2
+        Class.tripleShot.UPGRADES_TIER_3.push('triBlaster')
+
+    Class.machineGun.UPGRADES_TIER_2.push('blaster', 'gatlingGun', 'doubleMachine')
+        Class.sprayer.UPGRADES_TIER_3.push('splasher')
+
+    //Class.flankGuard.UPGRADES_TIER_2
+        Class.flankGuard.UPGRADES_TIER_3.push('tripleMachine')
 }
 
 if (Config.siege) {

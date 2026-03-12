@@ -1,0 +1,13 @@
+{
+	"name": "Diep.io Addon",
+	"description": "The official diep.io addon for Open Source Arras",
+	"authors": [
+		"TGS"
+	],
+	"addon-version": "v0.1.0-dev",
+	"osa-version": {
+		"minimum": "v2.0.11",
+		"target": "v2.0.11"
+	},
+	"link": "https://example.com"
+}
