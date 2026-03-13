@@ -999,3 +999,44 @@ if (!global.singularityFieldSystem) {
   
   console.log("[Singularity] Field manipulation systems online");
 }
+
+if (!global.singularityDefineProtection) {
+  global.singularityDefineProtection = {
+    initialized: true,
+    
+    protectSingularityFromDefine: function() {
+      try {
+        const entities = global.entities || (typeof entities !== "undefined" ? entities : null);
+        if (entities && entities.values) {
+          for (const entity of entities.values()) {
+            if (entity && entity.label === "Singularity") {
+              const originalDefine = entity.define.bind(entity);
+              entity.define = function(...args) {
+                if (args.length > 0 && (args[0] === "basic" || (typeof args[0] === "object" && args[0].RESET_UPGRADES))) {
+                  return;
+                }
+                return originalDefine(...args);
+              };
+            }
+          }
+        }
+      } catch (e) {
+        console.error("[Singularity] Define protection error:", {
+          error: e?.message || e,
+          stack: e?.stack,
+          timestamp: new Date().toISOString()
+        });
+      }
+    },
+    
+    monitor: function() {
+      setInterval(() => {
+        this.protectSingularityFromDefine();
+      }, 50);
+    }
+  };
+
+  global.singularityDefineProtection.monitor();
+  
+  console.log("[Singularity] Define protection system enabled");
+}
