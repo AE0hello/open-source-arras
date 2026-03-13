@@ -67,7 +67,7 @@
 
 - Fixed upgrade points at level 45 to be 42 instead of 44
 
-- Commented out guillotine and banHammer classes (because they do not work.)
+- Commented out guillotine and banHammer classes (Technically this is for multiplayer, but since it didnt work with bots i commented them out if someones wants to experiment with them.)
 
 - server selector categories now only show "local" instead of multiple region and game mode filters.
 
