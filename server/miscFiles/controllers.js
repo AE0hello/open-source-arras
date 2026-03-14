@@ -1301,6 +1301,17 @@ class io_scaleWithMaster extends IO {
   }
 }
 
+class io_fixedDistance extends IO {
+  constructor(body) {
+    super(body);
+    this.fixedDistance = body.FIXED_DISTANCE || 300;
+  }
+  think(input) {
+    // Maintain fixed distance regardless of master size
+    this.body.SIZE = this.fixedDistance / 10;
+  }
+}
+
 const ioTypes = {
   // misc
   zoom: io_zoom,
@@ -1312,6 +1323,7 @@ const ioTypes = {
   whirlwind: io_whirlwind,
   disableOnOverride: io_disableOnOverride,
   scaleWithMaster: io_scaleWithMaster,
+  fixedDistance: io_fixedDistance,
 
   // aiming related
   stackGuns: io_stackGuns,

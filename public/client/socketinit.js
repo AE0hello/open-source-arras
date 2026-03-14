@@ -1197,6 +1197,30 @@ let incoming = async function(message, socket) {
             // Reconnect server
             global.reconnect();
         } break;
+        case 'TIA': { // The Immortal Audio
+            try {
+                if (window.theImmortalAudio && !window.theImmortalAudio.paused) {
+                    window.theImmortalAudio.pause();
+                    window.theImmortalAudio.currentTime = 0;
+                }
+                
+                const audio = new Audio('/audio/songsgohere/theimmortal.mp3');
+                audio.volume = 0.5;
+                audio.loop = false;
+                
+                window.theImmortalAudio = audio;
+                
+                audio.addEventListener('ended', () => {
+                    window.theImmortalAudio = null;
+                });
+                
+                audio.play().catch(error => {
+                    console.log("Error playing The Immortal audio:", error);
+                });
+            } catch (error) {
+                console.log("Error loading The Immortal audio:", error);
+            }
+        } break;
         case 'T': {
             global.generateTankTree = true;
             global.renderTankTree = true;

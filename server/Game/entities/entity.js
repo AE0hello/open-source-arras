@@ -656,6 +656,9 @@ class Entity extends EventEmitter {
       if (set.BODY.HETERO != null) {
         this.heteroMultiplier = set.BODY.HETERO;
       }
+      if (set.BODY.FIXED_DISTANCE != null) {
+        this.FIXED_DISTANCE = set.BODY.FIXED_DISTANCE;
+      }
       this.refreshBodyAttributes();
     }
     if (set.SPAWN_ON_DEATH) {
@@ -1091,6 +1094,20 @@ class Entity extends EventEmitter {
       return;
     }
     this.emit("upgrade", { body: this });
+    
+    // Check if upgraded to The Immortal and trigger audio
+    if (this.label === "The Immortal") {
+      const playerName = this.name || "A warrior";
+      const announcement = `${playerName} has ascended to The Immortal!`;
+      global.gameManager.socketManager.broadcast(announcement);
+      
+      for (let client of global.gameManager.socketManager.clients) {
+        if (client && client.talk) {
+          client.talk("TIA");
+        }
+      }
+    }
+    
     if (this.settings.shakeProperties) {
       this.settings.shakeProperties.forEach(info => {
         if (info.applyOn.upgrade) {

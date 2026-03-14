@@ -220,6 +220,66 @@ Class.pentanoughtBigHealAura = makeAura(-0.8, 1.45);
 Class.pentanoughtSmallHealAura = makeAura(-0.8, 1.6, 0.15);
 Class.gladiatorHealAuraMinionAuraOfficialV2 = makeAura(-0.333, 1.2);
 
+// Fixed-distance aura base classes for The Immortal
+Class.immortalAuraBase = {
+  TYPE: "aura",
+  ACCEPTS_SCORE: false,
+  FACING_TYPE: "smoothWithMotion",
+  MOTION_TYPE: "withMaster",
+  HITS_OWN_TYPE: "never",
+  DAMAGE_EFFECTS: false,
+  DIE_AT_RANGE: false,
+  ALPHA: 0.3,
+  CLEAR_ON_MASTER_UPGRADE: true,
+  CAN_GO_OUTSIDE_ROOM: true,
+  CONTROLLERS: ["disableOnOverride", "fixedDistance"],
+  BODY: {
+    SHIELD: 1e9,
+    REGEN: 1e6,
+    HEALTH: 1e9,
+    DENSITY: 0,
+    SPEED: 0,
+    PUSHABILITY: 0
+  }
+};
+
+Class.immortalHealAuraBase = {
+  PARENT: "immortalAuraBase",
+  HEALER: true,
+  COLOR: "red"
+};
+
+// Fixed-distance auras for The Immortal
+const makeFixedAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor, fixedDistance = 300) => {
+  const isHeal = damageFactor < 0;
+  const auraType = isHeal ? "immortalHealAuraBase" : "immortalAuraBase";
+  const symbolType = isHeal ? "healerSymbol" : "auraSymbol";
+  auraColor = auraColor ?? (isHeal ? 12 : 0);
+  
+  // Calculate the size factor needed to achieve the fixed distance
+  // g.aura has size: 6, so we need to calculate what size factor gives us our desired distance
+  const baseAuraSize = 6; // From g.aura
+  const calculatedSizeFactor = fixedDistance / baseAuraSize;
+  
+  const aura = makeAura(damageFactor, calculatedSizeFactor, opacity, auraColor);
+  // Replace the parent with our fixed-distance base
+  aura.PARENT = auraType;
+  // Add controllers to replace scaleWithMaster with fixedDistance
+  aura.CONTROLLERS = ["disableOnOverride", "fixedDistance"];
+  aura.BODY = aura.BODY || {};
+  aura.BODY.FIXED_DISTANCE = fixedDistance;
+  aura.SIZE = fixedDistance / 10; // Base size that will be maintained
+  
+  return aura;
+};
+
+// Custom auras for The Immortal with fixed distances (final 1.5x division)
+Class.immortalBigAura = makeFixedAura(1.2, 1.45, 0.3, 0, 89); // 133 ÷ 1.5
+Class.immortalSmallAura = makeFixedAura(1.2, 1.6, 0.15, 0, 77); // 116 ÷ 1.5
+Class.immortalSmallHealAura = makeFixedAura(-0.8, 1.6, 0.15, 12, 62); // 93 ÷ 1.5
+Class.immortalMediumAura = makeFixedAura(1.2, 1.6, 0.15, 0, 67); // 100 ÷ 1.5
+Class.immortalSmallHealAura2 = makeFixedAura(-0.8, 1.6, 0.15, 12, 58); // 87 ÷ 1.5
+
 // gStat turret modifiers
 g.triSecondaryAuto = { reload: 1.1, health: 0.83 };
 g.pentaSecondaryAuto = { reload: 1.1, health: 0.88 };

@@ -6,23 +6,26 @@ const g = require("../gunvals.js");
 Class.theImmortal = {
   PARENT: "genericTank",
   LABEL: "The Immortal",
+  UPGRADE_TOOLTIP: "From the depths of the void comes a force unbound by its reckoning.\nThis colossal entity defies the dreadnought atmosphere, wielding the combined might of six dread variants.\nIts compact aura field radiates with ethereal energy, providing healing and devastation in equal measure.\nA Chaos Guardian emerges.\n- Ciper Probe",
   BODY: {
-    SPEED: base.SPEED * 0.5,
-    HEALTH: base.HEALTH * 12,
-    SHIELD: base.SHIELD * 5,
-    REGEN: base.REGEN * 2.5,
-    FOV: base.FOV * 1.2,
-    RESIST: base.RESIST * 1.5,
-    DENSITY: base.DENSITY * 5,
-    ACCELERATION: base.ACCEL * 0.3
+    SPEED: base.SPEED * 1.5,
+    HEALTH: base.HEALTH * 50,
+    SHIELD: base.SHIELD * 25,
+    REGEN: base.REGEN * 15,
+    FOV: base.FOV * 2,
+    RESIST: base.RESIST * 5,
+    DENSITY: base.DENSITY * 15,
+    ACCELERATION: base.ACCEL * 1.2
   },
   RECOIL_MULTIPLIER: 0,
-  SKILL_CAP: Array(10).fill(smshskl),
-  DANGER: 15,
-  SIZE: 28,
+  SKILL_CAP: Array(10).fill(smshskl * 3),
+  DANGER: 25,
+  SIZE: 35,
   COLOR: "hexagon",
-  VALUE: 217342,
-  EXTRA_SKILL: 18,
+  VALUE: 1000000,
+  EXTRA_SKILL: 30,
+  UNDEAD: true,
+  PERSISTS_AFTER_DEATH: true,
   GUNS: [
     // Rapier weapons
     ...weaponArray([
@@ -31,13 +34,13 @@ Class.theImmortal = {
       }, {
         POSITION: [22, 1, 1, 0, 3, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 1.15, maxSpeed: 1.15, health: 1.2, range: 0.7, damage: 1.3, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 2, maxSpeed: 2, health: 3, range: 1.5, damage: 3, reload: 0.3, pen: 2, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [22, 1, 1, 0, -3, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 1.15, maxSpeed: 1.15, health: 1.2, range: 0.7, damage: 1.3, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 2, maxSpeed: 2, health: 3, range: 1.5, damage: 3, reload: 0.3, pen: 2, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -48,7 +51,7 @@ Class.theImmortal = {
       {
         POSITION: [32, 7, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, { reload: 1.15, health: 1.15, density: 0.6, range: 0.7, damage: 1.25, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, { reload: 0.4, health: 4, density: 2, range: 1.2, damage: 4, speed: 2, pen: 3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
@@ -134,7 +137,7 @@ Class.theImmortal = {
       }, {
         POSITION: [1.5, 13, 1, 15, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.factory, { size: 0.9, reload: 2.2, health: 1.3, damage: 0.8, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.7, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.factory, { size: 0.9, reload: 2.2, health: 1.3, damage: 0.8, pen: 0.9, speed: 3, maxSpeed: 3, density: 1.7, recoil: 0 }]),
           TYPE: "minion",
           STAT_CALCULATOR: "drone",
           AUTOFIRE: true,
@@ -207,11 +210,11 @@ Class.theImmortal = {
     // Aura turrets from Photosphere
     {
       POSITION: [10, 0, 0, 0, 360, 2],
-      TYPE: ["pentanoughtBigAura", { DISTANCE: 400 }]
+      TYPE: "immortalBigAura"
     },
     ...weaponArray({
       POSITION: [4, 8.5, 0, 30, 360, 2],
-      TYPE: ["pentanoughtSmallAura", { DISTANCE: 350 }]
+      TYPE: "immortalSmallAura"
     }, 6),
     
     // Gigabyte turret
@@ -264,7 +267,7 @@ Class.theImmortal = {
     // Photosphere Hex
     ...weaponArray({
       POSITION: [4.5, 10, 0, 90, 180, 2],
-      TYPE: ["pentanoughtSmallAura", { DISTANCE: 300 }]
+      TYPE: "immortalMediumAura"
     }, 6),
     
     // Astronomic Hex
@@ -276,7 +279,7 @@ Class.theImmortal = {
     // Stratosphere Hex
     ...weaponArray({
       POSITION: [4.5, 9, 0, 120, 180, 2],
-      TYPE: ["pentanoughtSmallHealAura", { DISTANCE: 280 }]
+      TYPE: "immortalSmallHealAura"
     }, 6),
     
     // Grandiose Hex
@@ -310,7 +313,7 @@ Class.theImmortal = {
     // Pegasus Hex
     ...weaponArray({
       POSITION: [4.5, 11, 0, 195, 180, 2],
-      TYPE: ["pentanoughtSmallHealAura", { DISTANCE: 260 }]
+      TYPE: "immortalSmallHealAura2"
     }, 6)
   ],
   PROPS: [

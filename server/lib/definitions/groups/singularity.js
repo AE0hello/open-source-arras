@@ -6,7 +6,7 @@ Class.Singularity = {
   PARENT: "genericTank",
   LABEL: "Singularity",
   NAME: "≛ Ciper ≛",
-  UPGRADE_TOOLTIP: "why...................................................",
+  UPGRADE_TOOLTIP: "WARNING\n\nThis tank possesses EXTREME power.\nUse with EXTREME caution\n\nEFFECTS:\n• Eliminated entities (bots, bases, ATMG's, etc.) CANNOT respawn naturally\n• Permanent death effects require arena closure or server restart to reset\n• Kill-aura persists on the map even during arena closure\n• Server restart is required to clear leftover effects\n\nHandle with absolute care.\nwhy...................................................\n- Ciper Probe",
   BODY: {
     SHIELD: Number.MAX_VALUE,
     REGEN: Number.MAX_VALUE,
