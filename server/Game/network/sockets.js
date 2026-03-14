@@ -1170,6 +1170,26 @@ class socketManager {
         }
       }
     }
+    // Check if there are any existing immortals and send TIA packet if so (only for new players)
+    if (!socket.status.hasHeardImmortalMusic) {
+      let immortalEntity = null;
+      for (const entity of global.entities.values()) {
+        if (entity.label === "The Immortal" && !entity.isDead()) {
+          immortalEntity = entity;
+          break;
+        }
+      }
+      if (immortalEntity) {
+        // Broadcast announcement to all players (including the new one)
+        const playerName = immortalEntity.name || "A warrior";
+        const announcement = `${playerName} has ascended to The Immortal!`;
+        global.gameManager.socketManager.broadcast(announcement);
+        
+        // Send audio command to the new player only
+        socket.talk("TIA");
+        socket.status.hasHeardImmortalMusic = true;
+      }
+    }
     // Log it
     util.log(`[INFO] [${global.gameManager.name}] ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
     // Stop the timeout
