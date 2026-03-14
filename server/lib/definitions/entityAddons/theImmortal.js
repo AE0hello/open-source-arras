@@ -8,7 +8,7 @@ Class.theImmortal = {
   LABEL: "The Immortal",
   BODY: {
     SPEED: base.SPEED * 0.5,
-    HEALTH: base.HEALTH * 8,
+    HEALTH: base.HEALTH * 12,
     SHIELD: base.SHIELD * 5,
     REGEN: base.REGEN * 2.5,
     FOV: base.FOV * 1.2,
@@ -31,13 +31,13 @@ Class.theImmortal = {
       }, {
         POSITION: [22, 1, 1, 0, 3, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 1.15, maxSpeed: 1.15, health: 1.2, range: 0.7 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 1.15, maxSpeed: 1.15, health: 1.2, range: 0.7, damage: 1.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [22, 1, 1, 0, -3, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 1.15, maxSpeed: 1.15, health: 1.2, range: 0.7 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 1.15, maxSpeed: 1.15, health: 1.2, range: 0.7, damage: 1.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -48,7 +48,7 @@ Class.theImmortal = {
       {
         POSITION: [32, 7, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, { reload: 1.15, health: 1.15, density: 0.6, range: 0.7 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, { reload: 1.15, health: 1.15, density: 0.6, range: 0.7, damage: 1.25, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
@@ -61,19 +61,19 @@ Class.theImmortal = {
       {
         POSITION: [15, 7, 1, 0, 3.25, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 1.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [15, 7, 1, 0, -3.25, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 1.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [17, 7, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 1.2, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -84,19 +84,19 @@ Class.theImmortal = {
       {
         POSITION: [18, 10.75, 1.33, 5.5, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 1 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 1, damage: 1.15, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [18, 9.5, 1.33, 7.5, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.65, health: 1.05, range: 0.8, reload: 1.05 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.65, health: 1.05, range: 0.8, reload: 1.05, damage: 1.15, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [18, 7.25, 1.25, 9.5, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 1.1 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 1.1, damage: 1.15, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -107,7 +107,7 @@ Class.theImmortal = {
       {
         POSITION: [20, 12, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, { reload: 1.1, health: 1.26 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, { reload: 1.1, health: 1.26, damage: 1.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -120,7 +120,7 @@ Class.theImmortal = {
       }, {
         POSITION: [17, 12, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, { reload: 1.2, health: 1.5, speed: 0.7, maxSpeed: 0.7, range: 0.4 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, { reload: 1.2, health: 1.5, speed: 0.7, maxSpeed: 0.7, range: 0.4, damage: 1.4, recoil: 0 }]),
           TYPE: "supermissile",
           STAT_CALCULATOR: "sustained"
         }
@@ -134,7 +134,7 @@ Class.theImmortal = {
       }, {
         POSITION: [1.5, 13, 1, 15, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.factory, { size: 0.9, reload: 2.2, health: 1.3, damage: 0.6, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.7 }]),
+          SHOOT_SETTINGS: combineStats([g.factory, { size: 0.9, reload: 2.2, health: 1.3, damage: 0.8, pen: 0.9, speed: 0.8, maxSpeed: 0.8, density: 1.7, recoil: 0 }]),
           TYPE: "minion",
           STAT_CALCULATOR: "drone",
           AUTOFIRE: true,
@@ -154,7 +154,7 @@ Class.theImmortal = {
       }, {
         POSITION: [1.5, 4, 1.6, 12, 2.5, 10, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, { shudder: 0.6, health: 0.6, reload: 1.3, range: 0.67 }]),
+          SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, { shudder: 0.6, health: 0.6, reload: 1.3, range: 0.67, damage: 1.2, recoil: 0 }]),
           TYPE: "trap",
           STAT_CALCULATOR: "trap"
         }
@@ -163,7 +163,7 @@ Class.theImmortal = {
       }, {
         POSITION: [1.5, 4, 1.6, 12, -2.5, -10, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, { shudder: 0.6, health: 0.6, reload: 1.3, range: 0.67 }]),
+          SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, { shudder: 0.6, health: 0.6, reload: 1.3, range: 0.67, damage: 1.2, recoil: 0 }]),
           TYPE: "trap",
           STAT_CALCULATOR: "trap"
         }
@@ -172,7 +172,7 @@ Class.theImmortal = {
       }, {
         POSITION: [2, 5.5, 1.7, 14, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, g.pounder, { reload: 1.2, health: 0.9, speed: 0.75, maxSpeed: 0.75, range: 0.5 }]),
+          SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, g.pounder, { reload: 1.2, health: 0.9, speed: 0.75, maxSpeed: 0.75, range: 0.5, damage: 1.15, recoil: 0 }]),
           TYPE: "unsetTrap",
           STAT_CALCULATOR: "block"
         }
@@ -186,7 +186,7 @@ Class.theImmortal = {
       }, {
         POSITION: [3.5, 10, 1.6, 13, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, { reload: 1.3, speed: 1.2, maxSpeed: 1.2, size: 1.3, health: 1.2, range: 0.37 }]),
+          SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, { reload: 1.3, speed: 1.2, maxSpeed: 1.2, size: 1.3, health: 1.2, range: 0.37, damage: 1.25, recoil: 0 }]),
           TYPE: "unsetTrap",
           STAT_CALCULATOR: "block"
         }
@@ -197,11 +197,11 @@ Class.theImmortal = {
     // Auto turrets from Skynet
     ...weaponArray({
       POSITION: [3.5, 4.5, 0, 0, 180, 2],
-      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.2, health: 0.9, damage: 0.7 } }]
+      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.2, health: 1.1, damage: 0.9, recoil: 0 } }]
     }, 6),
     ...weaponArray({
       POSITION: [3.5, 8, 0, 30, 180, 2],
-      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.2, health: 0.9, damage: 0.7 } }]
+      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.2, health: 1.1, damage: 0.9, recoil: 0 } }]
     }, 6),
     
     // Aura turrets from Photosphere
@@ -228,37 +228,37 @@ Class.theImmortal = {
     }, 6),
     ...weaponArray({
       POSITION: [6, 12, 0, 30, 180, 2],
-      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.1, health: 1.1 } }]
+      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.1, health: 1.3, recoil: 0 } }]
     }, 6),
     
     // Supernova Hex
     ...weaponArray({
       POSITION: [5, 11, 0, 0, 180, 2],
-      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 0.9, health: 1.2 } }]
+      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 0.9, health: 1.4, recoil: 0 } }]
     }, 6),
     
     // Cipher Hex
     ...weaponArray({
       POSITION: [4.5, 9, 0, 15, 180, 2],
-      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.15, health: 0.85 } }]
+      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.15, health: 1.05, recoil: 0 } }]
     }, 6),
     
     // Interstellar Hex
     ...weaponArray({
       POSITION: [5.5, 10.5, 0, 45, 180, 2],
-      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 1.05, health: 1.05 } }]
+      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 1.05, health: 1.25, recoil: 0 } }]
     }, 6),
     
     // Malware Hex
     ...weaponArray({
       POSITION: [4, 11, 0, 60, 180, 2],
-      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.1, health: 0.95 } }]
+      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.1, health: 1.15, recoil: 0 } }]
     }, 6),
     
     // Software Hex
     ...weaponArray({
       POSITION: [6, 9.5, 0, 75, 180, 2],
-      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 0.95, health: 1.15 } }]
+      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 0.95, health: 1.35, recoil: 0 } }]
     }, 6),
     
     // Photosphere Hex
@@ -270,7 +270,7 @@ Class.theImmortal = {
     // Astronomic Hex
     ...weaponArray({
       POSITION: [5, 11, 0, 105, 180, 2],
-      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 1.0, health: 1.0 } }]
+      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 1.0, health: 1.2, recoil: 0 } }]
     }, 6),
     
     // Stratosphere Hex
@@ -282,13 +282,13 @@ Class.theImmortal = {
     // Grandiose Hex
     ...weaponArray({
       POSITION: [5.5, 10, 0, 135, 180, 2],
-      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 0.9, health: 1.1 } }]
+      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 0.9, health: 1.3, recoil: 0 } }]
     }, 6),
     
     // Behemoth Hex
     ...weaponArray({
       POSITION: [4, 12, 0, 150, 180, 2],
-      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.2, health: 0.8 } }]
+      TYPE: ["spamAutoTurret", { GUN_STAT_SCALE: { reload: 1.2, health: 1.0, recoil: 0 } }]
     }, 6),
     
     // Leviathan Hex
@@ -304,7 +304,7 @@ Class.theImmortal = {
     // Valrayvn Hex
     ...weaponArray({
       POSITION: [5, 9, 0, 180, 180, 2],
-      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 1.05, health: 1.05 } }]
+      TYPE: ["autoTurret", { GUN_STAT_SCALE: { reload: 1.05, health: 1.25, recoil: 0 } }]
     }, 6),
     
     // Pegasus Hex
