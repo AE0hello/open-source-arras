@@ -115,7 +115,8 @@ Class.ciperProbesStuff.UPGRADES_TIER_0 = [
 Class.opTanks = makeMenu("OP Tanks");
 Class.opTanks.UPGRADES_TIER_0 = [
   "Singularity",
-  "greaterArenaCloser"
+  "greaterArenaCloser",
+  "theImmortal"
 ];
 
 // Gamemode Arena Closer for survival gamemode
