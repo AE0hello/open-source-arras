@@ -22,6 +22,7 @@ function getMockup(e, positionInfo) {
         realSize: util.rounder(e.realSize),
         mirrorMasterAngle: e.settings.mirrorMasterAngle,
         layer: e.layer,
+        displayScore: e.displayScore,
         statnames: e.settings.skillNames,
         sendAllMockups: e.sendAllMockups,
         position: positionInfo,
@@ -65,7 +66,7 @@ function getMockup(e, positionInfo) {
             out.direction = util.rounder(p.bound.direction);
             out.layer = util.rounder(p.bound.layer);
             out.angle = util.rounder(p.bound.angle);
-            out.setAngle = p.setAngle;
+            out.forceAngle = p.forceAngle;
             out.isProp = true;
             return out;
         })
@@ -235,9 +236,8 @@ function buildMockup(className, Manager) {
         };
         // Add the new data to the thing.
         mockupData.push(getMockup(mockup, type.mockup.position));
-        mockup.clear();
     } catch (error) {
-        util.error('[WARNING] An error has occured during mockup loading:');
+        util.error('[WARNING]: An error has occured during mockup loading:');
         util.error('When attempting to generate mockup "' + className + '":');
         for (let i in Class[className]) util.error("\t" + i + ": " + Class[className][i]);
         throw error;

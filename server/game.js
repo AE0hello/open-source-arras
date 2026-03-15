@@ -1,44 +1,80 @@
+const { workerData } = require('worker_threads');
+
 const http = require("http");
 const ws = require("ws");
 const fs = require("fs");
 const path = require("path");
 
-let { socketManager } = require("./Game/network/sockets.js");
-let { LagLogger } = require("./Game/debug/lagLogger.js");
-let { speedcheckloop } = require("./Game/debug/speedLoop.js");
-let { gameHandler } = require("./Game/index.js");
-let { gamemodeManager } = require("./Game/gamemodeManager.js");
+let { socketManager } = require("./game/network/sockets.js");
+let { LagLogger } = require("./game/debug/lagLogger.js");
+let { speedcheckloop } = require("./game/debug/speedLoop.js");
+let { gameHandler } = require("./game/index.js");
+let { gamemodeManager } = require("./game/gamemodeManager.js");
 
 // Gamemode names
 const getName = (name, gamemodeData) => {
-    const nameMap = {
-        tdm: `${gamemodeData.teams}TDM`,
+    const nameMap = { // commented-out gamemodes haven't been implemented yet
+    // Deathmatch
+        clan_wars: "Clan Wars",
+        //duos: "Duos",
         ffa: "FFA",
-        tag: "Tag",
-        opentdm: `Open ${gamemodeData.teams}TDM`,
-        clanwars: "Clan Wars",
-        trainwars: "Train Wars",
-        old_dreadnoughts: `Old Dreadnoughts ${gamemodeData.teams}TDM`,
-        nexus: "Nexus",
-        blackout: "Blackout",
-        outbreak: "Outbreak",
-        space: "Space",
-        classic: "Classic",
-        armsRace: "Arms Race",
+        //halloween: "Halloween",
+        //squads: "Squads",
+        tdm: `${gamemodeData.teams}TDM`,
+            open_tdm: `Open ${gamemodeData.teams}TDM`,
+        //tetromino: `${gamemodeData.teams} Team Tetromino`,
+        train_wars: "Train Wars",
+    // Minigames
+        assault_acropolis: "Assault Acropolis",
+        assault_booster: "Assault Booster",
+        assault_bunker: "Assault Bunker",
+        assault_eye: "Assault Eye",
+        assault_line: "Assault Line",
+        assault_trenches: "Assault Trenches",
+        assault_yinyang: "Assault Yin Yang",
+        //ctf: "Capture The Flag",
+        domination: `${gamemodeData.teams} Team Domination`,
+        //elimination: "Elimination",
+        //grudge_ball: "Grudge Ball",
+        mothership: `${gamemodeData.teams} Team Mothership`,
+        old_siege: "Old Siege",
+        //pandemic: "Pandemic",
         siege_blitz: "Siege Blitz",
         siege_citadel: "Siege Citadel",
+        siege_classic: "Siege Classic",
         siege_fortress: "Siege Fortress",
-        siege_og: "OG Siege",
-        siege_legacy: "Siege Legacy",
-        assault_bunker: "Assault Bunker",
-        assault_booster: "Assault Booster",
-        assault_trenches: "Assault Trenches",
-        assault_line: "Assault Line",
-        assault_eye: "Assault Eye",
-        assault_yinyang: "Assault Yin Yang",
-        assault_acropolis: "Assault Acropolis",
+        //soccer: "Soccer",
+        tag: `${gamemodeData.teams} Team Tag`,
+    // Miscellaneous
+        //forge: "Forge",
+            //old_forge: "Old Forge",
+        //limbo: "Limbo",
+        nexus: "Nexus",
+        sandbox: "Sandbox",
+    // Modifiers
+        arms_race: "Arms Race",
+        blackout: "Blackout",
+        classic: "Classic",
+        diep: "Diep",
+        //dreadnoughts: "Dreadnoughts",
+            old_dreadnoughts: "Old Dreadnoughts",
+        growth: "Growth",
+        //half: "Half",
+        //manhunt: "Manhunt",
+        march_madness: "March Madness",
+        maze: "Maze",
+            //labyrinth: "Labyrinth",
+                //old_labyrinth: "Old Labyrinth",
+            //magic_maze: "Magic Maze",
+            //rock_maze: "Rock Maze",
+                //pumpkin_patch: "Pumpkin Patch",
+        outbreak: "Outbreak",
+        retrograde: "Retrograde",
+        //skinwalkers: "Skinwalkers",
+        space: "Space",
+        //tartarus: "Tartarus",
     };
-    return nameMap[name]; 
+    return nameMap[name];
 }
 
 // Here is our actual game server
@@ -58,7 +94,12 @@ class gameServer {
         this.name = "Unknown";
         this.featured = isfeatured;
         this.parentPort = parentPort;
-        this.definitionsCombiner = new definitionCombiner({ groups: fs.readdirSync(path.join(__dirname, './lib/definitions/groups')), addonsFolder: path.join(__dirname, './lib/definitions/entityAddons') });
+        this.definitionsCombiner = new definitionCombiner(
+            {
+                groups: path.join(__dirname, './lib/definitions/groups'),
+                addonsFolder: path.join(__dirname, './lib/definitions/entityAddons')
+            }
+        );
         this.loaderGlobal = loaderGlobal;
         // Initalize.
         this.roomSpeed = Config.game_speed;
@@ -72,10 +113,17 @@ class gameServer {
         this.importedRoom = [];
         this.importRoom = [];
         this.currentRoom = null;
+        this.showConsoleLoggings = true;
         this.lagLogger = new LagLogger();
         this.socketManager = new socketManager(this);
         this.gameHandler = new gameHandler(this);
         this.gameSpeedCheckHandler = new speedcheckloop(this);
+
+        // Modify the console log with an instance index on it.
+        if (!global.launchedOnMainServer) {
+            console._log = console.log;
+            console.log = (...args) => this.showConsoleLoggings && console._log(`[I${workerData.index}]`, ...args);
+        }
 
         // Make it public
         global.gameManager = this;
@@ -138,7 +186,7 @@ class gameServer {
                     });
                 } break;
                 case "/portalPermission": {
-                    if (Config.ALLOW_SERVER_TRAVEL) {
+                    if (Config.allow_server_travel) {
                         res.writeHead(200);
                         res.end(JSON.stringify([{
                             ip: this.host,
@@ -178,7 +226,7 @@ class gameServer {
                 let server = global.servers[i];
                 if (server.loadedViaMainServer) global.servers[i] = this.getInfo(true);
             }
-            console.log(global.servers.length == 1 ? "Your game server has successfully booted." : "Game server " + this.name + " successfully booted up via main server.");
+            console.log(global.servers.length == 1 ? "Your game server has successfully started." : "Game server " + this.name + " successfully booted up via main server (port " + this.port + ")");
             onServerLoaded();
             return;
         };
@@ -186,20 +234,11 @@ class gameServer {
         // Start the WS Server
         this.startWebServer(this.socketManager);
 
-        // Get the definitions before we can initalize the server.
-        this.definitionsCombiner.loadDefinitions(false);
-
-        // Get the tile definitions
-        this.loaderGlobal.loadRooms(false);
-
-        // Also load all mockups if needed.
-        if (Config.load_all_mockups) global.loadAllMockups(false);
-
-        // Now start the server and send data!
+        // Start the server and send data!
         this.start();
 
         // If no errors has accoured then annouce that the game server has succssfully booted up.
-        console.log("Game server " + this.name + " successfully booted up. Listening on port", this.port);
+        console.log("Game server " + this.name + " successfully started. Listening on port", this.port);
 
         // Send the info to the main server so the client can get the info.
         this.parentPort.postMessage([false, this.getInfo()]);
@@ -215,7 +254,7 @@ class gameServer {
             let overrideRoom = true;
             // Get gamemode
             for (let gamemode of this.gamemode) {
-                let mode = require(`./Game/gamemodeconfigs/${gamemode}.js`);
+                let mode = require(`./game/gamemodes/config/${gamemode}.js`);
                 for (let key in mode) {
                     if (key == "do_not_override_room") {
                         overrideRoom = mode[key];
@@ -228,10 +267,24 @@ class gameServer {
             };
             // Update the server gamemode name
             this.name = this.gamemode.map(x => getName(x, Config) || (x[0].toUpperCase() + x.slice(1))).join(' ');
-            // Activate laby food if enabled
-            if (Config.tiered_food) global.activateTieredFood();
+
+            this.showConsoleLoggings = false; // We do not like duplicate messages that uses console.log();
+
+            // Get the definitions before we can initalize the rest.
+            this.definitionsCombiner.loadDefinitions(false);
+
+            // Get the tile definitions
+            if (this.parentPort) this.loaderGlobal.loadRooms(false);
+
+            // Also load all mockups if needed.
+            if (Config.load_all_mockups) global.loadAllMockups(false);
+
+            // Now we can show everything whatever it shows.
+            this.showConsoleLoggings = true;
+
             // Initalize the room
             this.setRoom();
+
             setTimeout(() => {
                 // Set the gamemode manager
                 this.gamemodeManager.redefine(this);
@@ -240,20 +293,20 @@ class gameServer {
             }, 200);
 
             // Check if we have a server travel properties.
-            if (Config.SERVER_TRAVEL) {
-                if (!Config.SERVER_TRAVEL_PROPERTIES) {
-                    console.warn(this.name + " Config.SERVER_TRAVEL_PROPERTIES is not set up! Please set the properties for the server travel system to work.\nProcess terminated.");
+            if (Config.server_travel) {
+                if (!Config.server_travel_properties) {
+                    console.warn(this.name + " Config.server_travel_properties is not set up! Please set the properties for the server travel system to work.\nProcess terminated.");
                     process.exit(1);
                 }
                 this.serverTravelHandler = [];
-                for (let i = 0; i < Config.SERVER_TRAVEL.length; i++) {
-                    let instance = Config.SERVER_TRAVEL[i];
-                    this.serverTravelHandler[i] = new (require("./Game/addons/serverTravel.js").serverTravelHandler)(instance, instance.PORTAL_PROPERTIES.SPAWN_CHANCE, instance.PORTAL_PROPERTIES.COLOR);
+                for (let i = 0; i < Config.server_travel.length; i++) {
+                    let instance = Config.server_travel[i];
+                    this.serverTravelHandler[i] = new (require("./game/addons/serverTravel.js").serverTravelHandler)(instance, instance.portal_properties.spawn_chance, instance.portal_properties.color);
                     setInterval(() => {
                         let y = 1;
-                        if (Config.SERVER_TRAVEL_PROPERTIES.AMOUNT) y = Config.SERVER_TRAVEL_PROPERTIES.AMOUNT;
+                        if (Config.server_travel_properties.portals) y = Config.server_travel_properties.portals;
                         for (let o = 0; o < y; o++) this.serverTravelHandler[i].spawnRandom();
-                    }, Config.SERVER_TRAVEL_PROPERTIES.LOOP_INTERVAL);
+                    }, Config.server_travel_properties.loop_interval);
                 }
             }
         }
@@ -265,7 +318,7 @@ class gameServer {
             // Redefine the room
             this.defineRoom();
             // Log that we are running again
-            util.log(`[${this.name}] New game instance is now running`);
+            util.log(`New game instance is now running`);
 
             // Init every tile
             for (let y = 0; y < this.room.setup.length; y++) {
@@ -292,6 +345,7 @@ class gameServer {
         this.room = {
             lastCycle: undefined,
             cycleSpeed: 1000 / this.roomSpeed / 30,
+            partyHash: Number(((Math.random() * 1000000 | 0) + 1000000).toString().replace("0.", "")),
             setup: this.importedRoom,
             roomxgrid: this.importedRoom[0].length,
             roomygrid: this.importedRoom.length,
@@ -398,7 +452,7 @@ class gameServer {
         // Get the room setup(s)
         for (let filename of Config.room_setup) {
             // ... get the current setup
-            this.currentRoom = require(`./Game/room_setup/rooms/${filename}.js`);
+            this.currentRoom = require(`./game/roomSetup/rooms/${filename}.js`);
             Config.roomHeight = this.currentRoom.length;
             Config.roomWidth = this.currentRoom[0].length;
 
@@ -458,12 +512,11 @@ class gameServer {
         if (this.arenaClosed) return;
         // Log this
         util.saveToLog("Game Instance Ending", "Game running " + this.gamemode + " at `" + this.gamemode + "` is now closing.", 0xEE4132);
-        util.log(`[${this.name}] Arena Closing initiated`);
+        util.log(`Arena Closing initiated`);
         // And broadcast it
         this.socketManager.broadcast("Arena closed: No players may join!");
         this.arenaClosed = true;
-        // Now we actually spawn arena closers
-        // But only in 5 seconds...
+        // Wait 5 seconds first, then we actually spawn arena closers
         let spawnTimeout = setTimeout(() => {
             for (let i = 0; i < 15; i++) {
                 // Decide where we are facing
@@ -477,20 +530,19 @@ class gameServer {
                 // Define it as arena closer
                 o.define('arenaCloser');
                 o.define({
-                    COLOR: 3,
+                    COLOR: "yellow",
+                    SIZE: 68,
+                    ACCEPTS_SCORE: false,
                     AI: {
                         FULL_VIEW: true,
                         SKYNET: true,
                         BLIND: true,
                         CHASE: true,
                     },
+                    CAN_BE_ON_LEADERBOARD: false,
+                    CAN_GO_OUTSIDE_ROOM: true,
                     CONTROLLERS: [["nearestDifferentMaster", { lockThroughWalls: true }], "mapTargetToGoal"],
                     SKILL: Array(10).fill(9),
-                    ACCEPTS_SCORE: false,
-                    CAN_BE_ON_LEADERBOARD: false,
-                    VALUE: 100000,
-                    LEVEL: 45,
-                    CAN_GO_OUTSIDE_ROOM: true,
                 });
                 // Set it's team, name and minimap color
                 o.team = TEAM_ENEMIES;
@@ -536,7 +588,7 @@ class gameServer {
 
     close(spawnTimeout) {
         // Log that we are closing
-        util.log(`[${this.name}] Ending Game instance`);
+        util.log(`Ending Game instance`);
         // Clear the timeout if the arena closers did not spawn yet
         if (spawnTimeout) clearTimeout(spawnTimeout);
         // Now broadcast it
@@ -571,7 +623,7 @@ class gameServer {
 
     onEnd() {
         // Log that we are restarting
-        util.log(`[${this.name}] Game instance is now over. Soft restarting the server.`);
+        util.log(`Game instance is now over. Soft restarting the server.`);
         // Set this to true to run the softstart code
         this.start(true);
     }

@@ -13,8 +13,6 @@ class turretEntity extends EventEmitter {
         this.color = new Color(16);
         this.borderless = false;
         this.drawFill = true;
-        this.children = [];
-        this.bulletchildren = [];
         this.invisible = [0, 0];
         this.alphaRange = [0, 1];
         this.id = entitiesIdLog++;
@@ -88,7 +86,8 @@ class turretEntity extends EventEmitter {
     }
     fixFacing() {
         this.facing = this.bond.facing + this.bound.angle;
-        if (this.facingType.includes('Target') || this.facingType.includes('Speed')) this.facingType = "bound", this.facingTypeArgs = {}; 
+        if (this.facingType.includes('Target') || this.facingType.includes('Speed')) this.facingType = "bound", this.facingTypeArgs = {}, 
+        this.facingTypeArgs = {smoothness: this.settings.smoothness ?? 4}; 
     }
     life() { bringToLife(this); }
 
@@ -133,6 +132,7 @@ class turretEntity extends EventEmitter {
         if (set.WALL_TYPE != null) this.walltype = set.WALL_TYPE;
         if (set.MIRROR_MASTER_ANGLE != null) this.settings.mirrorMasterAngle = set.MIRROR_MASTER_ANGLE;
         if (set.INDEPENDENT != null) this.settings.independent = set.INDEPENDENT;
+        if (set.SMOOTHNESS != null) this.settings.smoothness = set.SMOOTHNESS;
         if (set.SHAPE != null) {
             this.shape = typeof set.SHAPE === "number" ? set.SHAPE : (set.SHAPE_NUM ?? 0);
             this.shapeData = set.SHAPE;
@@ -152,7 +152,7 @@ class turretEntity extends EventEmitter {
                 }
                 this.addController(toAdd);
             } catch (e) {
-                console.error(addedSuccess ? `Controller ${set.CONTROLLERS} ran into an error!` : `Controller ${set.CONTROLLERS} is attempted to be gotten but does not exist!`);
+                console.error(addedSuccess ? `Controller ${set.CONTROLLERS} ran into an error!` : `Controller "${set.CONTROLLERS}" was attempted to be gotten but does not exist!`);
                 throw new Error(e);
             }
         }
@@ -190,6 +190,7 @@ class turretEntity extends EventEmitter {
                 this.guns.set(guns.id, guns);
             }
         }
+        if (set.SIZE != null) this.SIZE = set.SIZE;
         if (set.TURRETS != null) {
             for (let turret of this.turrets.values()) turret.destroy();
             this.turrets.clear();
@@ -289,14 +290,19 @@ class turretEntity extends EventEmitter {
             mirrorMasterAngle: this.settings.mirrorMasterAngle ?? false,
             layer: this.bound.layer,
             color: this.color.compiled,
-            guns: Array.from(this.guns).map(gun => gun[1].getPhotoInfo()),
-            turrets: Array.from(this.turrets).map(turret => turret[1].camera()),
+            guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
+            turrets: Array.from(this.turrets.values()).map(turret => turret.camera()),
         };
     };
 
     destroy() {
-        // Remove bullet from bullet list if needed and the only reason it exists is for bacteria.
-        if (this.bulletparent != null) util.remove(this.bulletparent.bulletchildren, this.bulletparent.bulletchildren.indexOf(this))
+        // Remove from bullet lists if needed
+        if (this.bulletparent != null) {
+            util.remove(this.bulletparent.bulletchildren, this.bulletparent.bulletchildren.indexOf(this)); // the only reason this exists is for bacteria.
+            for (let gun of this.bulletparent.guns.values()) {
+                util.remove(gun.bulletchildren, gun.bulletchildren.indexOf(this));
+            }
+        }
         // Remove from parent lists if needed
         if (this.parent != null) util.remove(this.parent.children, this.parent.children.indexOf(this));
         // Kill all of its children

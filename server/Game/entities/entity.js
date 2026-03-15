@@ -102,6 +102,7 @@ class Entity extends EventEmitter {
         this.collidingBond = false;
         // Optimized AABB calculation and update
         this.updateAABB = (active) => {
+            this.antiNaN.update();
             if (!active || (!this.collidingBond && this.bond != null)) {
                 this.isInGrid = false;
             } else {
@@ -221,7 +222,7 @@ class Entity extends EventEmitter {
                 }
                 this.addController(toAdd);
             } catch (e) {
-                console.error(addedSuccess ? `Controller ${set.CONTROLLERS} ran into an error!` : `Controller ${set.CONTROLLERS} is attempted to be gotten but does not exist!`);
+                console.error(addedSuccess ? `Controller ${set.CONTROLLERS} ran into an error!` : `Controller "${set.CONTROLLERS}" was attempted to be gotten but does not exist!`);
                 throw new Error(e);
             }
         }
@@ -261,6 +262,7 @@ class Entity extends EventEmitter {
         if (set.CLEAR_ON_MASTER_UPGRADE != null) this.settings.clearOnMasterUpgrade = set.CLEAR_ON_MASTER_UPGRADE;
         if (set.HEALTH_WITH_LEVEL != null) this.settings.healthWithLevel = set.HEALTH_WITH_LEVEL;
         if (set.OBSTACLE != null) this.settings.obstacle = set.OBSTACLE;
+        if (set.FULL_INVISIBLE != null) this.settings.fullyInvisible = set.FULL_INVISIBLE;
         if (set.CAN_SEE_INVISIBLE_ENTITIES != null) this.settings.canSeeInvisible = set.CAN_SEE_INVISIBLE_ENTITIES;
         if (set.NECRO != null) {
             this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
@@ -394,8 +396,8 @@ class Entity extends EventEmitter {
             }
             this.refreshBodyAttributes();
         }
-        if (set.level_cap != null) {
-            this.levelCap = set.level_cap;
+        if (set.LEVEL_CAP != null) {
+            this.levelCap = set.LEVEL_CAP;
         }
         const SKILL_ORDER = [
             "RELOAD",
@@ -444,7 +446,7 @@ class Entity extends EventEmitter {
             }
             this.gunsArrayed = newGuns;
         }
-        if (set.CONNECT_CHILDREN_ON_CAMERA) this.settings.connectChildrenOnCamera = true;
+        if (set.CONNECT_CHILDREN_ON_CAMERA) this.settings.connectChildrenOnCamera = set.CONNECT_CHILDREN_ON_CAMERA;
         if (set.GUN_STAT_SCALE) this.gunStatScale = set.GUN_STAT_SCALE;
         if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
         if (set.MAX_BULLETS != null) this.maxBullets = set.MAX_BULLETS; 
@@ -553,12 +555,15 @@ class Entity extends EventEmitter {
         if (set.mockup != null) {
             this.mockup = set.mockup;
         }
-        if (emitEvent) {
-            this.emit('define', { body: this, set });
-        }
         if (overrideDefs) {
             this.defs = [];
             for (let def of defs) this.defs.push(def);
+        }
+        if (emitEvent) {
+            this.emit('define', { body: this, set });
+            // We dont want a broken camera
+            this.cameraOverrideX = null;
+            this.cameraOverrideY = null;
         }
 
         for (let branch = 1; branch < defs.length; branch++) defineSplit(defs, branch, set, this, emitEvent); // Define additional stats for other split upgrades
@@ -668,7 +673,7 @@ class Entity extends EventEmitter {
         return Math.min(this.levelCap ?? Config.level_cap, this.skill.level);
     }
     // How this works: in 2025 growth a 3.00m player has the same size as a wall (tile)
-    get size() {
+    get size() { // todo: make this dynamic compared to the level cap and not fixed at 45
         let level = this.level;
         if (!Config.growth) level = Math.min(45, level);
         let levelMultiplier = 1;
@@ -708,8 +713,8 @@ class Entity extends EventEmitter {
 
     camera() {
         // Get bound data
-        const turretsAndProps = Array.from(this.turrets).concat(Array.from(this.props));
-        turretsAndProps.sort((a, b) => a[1].bound.layer - b[1].bound.layer);
+        const turretsAndProps = Array.from(this.turrets.values()).concat(Array.from(this.props.values()));
+        turretsAndProps.sort((a, b) => a.bound.layer - b.bound.layer);
         
         // Calculate type value more efficiently
         const typeValue = (this.settings.drawHealth ? 0x02 : 0) + 
@@ -721,7 +726,13 @@ class Entity extends EventEmitter {
                            this.type === "food" ? 10 : 
                            this.type === "tank" ? 5 : 
                            this.type === "crasher" ? 1 : 0));
-        
+
+        // Split the score in half if we are in incognito mode
+        let score = this.skill.score;
+        if (this.incognito) {
+            if (this.skill.level < 56) score = 26263;
+            if (this.skill.level > 56) score = score / 2;
+        }
         // Create camera info object
         const cameraInfo = {
             type: typeValue,
@@ -747,9 +758,9 @@ class Entity extends EventEmitter {
             borderless: this.borderless,
             drawFill: this.drawFill,
             name: (this.nameColor || "#ffffff") + this.name,
-            score: this.settings.scoreLabel || this.skill.score,
-            guns: Array.from(this.guns).map(gun => gun[1].getPhotoInfo()),
-            turrets: turretsAndProps.map(turret => turret[1].camera()),
+            score: this.settings.scoreLabel || score,
+            guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
+            turrets: turretsAndProps.map(turret => turret.camera()),
         };
         
         // Process child camera connections if needed
@@ -811,9 +822,9 @@ class Entity extends EventEmitter {
     upgrade(number, branchId) {
         // Account for upgrades that are too high level for the player to access
         let upgraded = false;
-        if (number.isDailyUpgrade) {
+        if (number.isDailyUpgrade && Config.daily_tank && Config.daily_tank.tank) {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
-            if (!Config.daily_tank.ads.enabled) hasWatchedAd = true;
+            if (!Config.daily_tank.ads) hasWatchedAd = true;
             let requestedIndex = parseInt(number.tank);
             if (requestedIndex === ensureIsClass(Config.daily_tank.tank).index && this.skill.level >= Config.tier_multiplier * Config.daily_tank.tier) {
                 if (hasWatchedAd) {
@@ -856,6 +867,25 @@ class Entity extends EventEmitter {
         this.skill.update();
         this.syncTurrets();
         this.refreshBodyAttributes();
+    }
+
+    importBody(info) {
+        this.upgrades = [];
+        if (info.definition && Array.isArray(info.definition)) {
+            if (info.definition.length === 1) this.define(info.definition[0]);
+            else this.define(info.definition);
+        }
+        this.killCount = info.killCount;
+        this.skill.score = info.score;
+        this.skill.deduction = info.score;
+        for (let i = 0; i < Config.level_cap_cheat; i++) this.skill.maintain(); // Skip the growth animation
+        this.skill.points = info.points;
+        this.skill.deduction = info.score;
+        this.skill.setCaps(info.skillcap);
+        this.skill.set(info.skill);
+        this.color.base = this.socket.player.teamColor;
+        this.refreshBodyAttributes();
+        this.sendMessage("You have traveled through a portal!");
     }
 
     damageMultiplier() {
@@ -991,6 +1021,12 @@ class Entity extends EventEmitter {
 
             // Legacy death function
             if (this.onDeath) this.onDeath();
+
+            // MEMORY LEAKS ARE BAD!!!!
+            for (let i = 0; i < this.turrets.length; i++) {
+                this.turrets[i].kill();
+            }
+
             // Initalize message arrays
             let killers = [],
                 killTools = [],
@@ -1024,7 +1060,7 @@ class Entity extends EventEmitter {
             killers = killers.filter((elem, index, self) => index == self.indexOf(elem));
             killers.forEach((e) => e.emit('kill', { body: e, entity: this }));
             // If there's no valid killers (you were killed by food), change the message to be more passive
-            let killText = "You have been killed by ",
+            let killText = notJustFood ? "" : "You have been killed by ",
                 doISendAText = this.settings.givesKillMessage;
 
             for (let i = 0; i < killers.length; i++) {
@@ -1136,11 +1172,12 @@ class Entity extends EventEmitter {
         entitiesToAvoid.push(this); this.isProtected = true;
     }
     
-    say(message, duration = Config.chat_message_duration) {
+    say(message, duration = Config.CHAT_MESSAGE_DURATION) {
         if (!chats[this.id]) {
             chats[this.id] = [];
+            chats[this.id].messages = [];
         }
-        chats[this.id].unshift({ message, expires: Date.now() + duration });
+        chats[this.id].messages.unshift({ message, expires: Date.now() + duration, id: global.chatID++ });
     }
 
     sendMessage(message) { } // Dummy
@@ -1160,8 +1197,13 @@ class Entity extends EventEmitter {
         if (i != -1) util.remove(global.gameManager.minimap, i);
         // Remove this from views
         global.gameManager.views.forEach(v => v.remove(this));
-        // Remove bullet from bullet list if needed and the only reason it exists is for bacteria.
-        if (this.bulletparent != null) util.remove(this.bulletparent.bulletchildren, this.bulletparent.bulletchildren.indexOf(this))
+        // Remove from bullet lists if needed
+        if (this.bulletparent != null) {
+            util.remove(this.bulletparent.bulletchildren, this.bulletparent.bulletchildren.indexOf(this)); // the only reason this exists is for bacteria.
+            for (let gun of this.bulletparent.guns.values()) {
+                util.remove(gun.bulletchildren, gun.bulletchildren.indexOf(this));
+            }
+        }
         // Remove from parent lists if needed
         if (this.parent != null) util.remove(this.parent.children, this.parent.children.indexOf(this));
         // Kill all of its children

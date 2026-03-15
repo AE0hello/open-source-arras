@@ -8,12 +8,12 @@ import * as socketStuff from "./socketinit.js";
 
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
-    let buildNumber = "v2.0.10";
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
         let a = [];
-        for (let c of response.split("\n")) 0 !== c.length && (response = c.charAt(0), "#" === response ? (initalizeChangelog(a, !0), a = [c.slice(1).trim()]) : "-" === response ? a.push(c.slice(1).trim()) : a[a.length - 1] += " " + c.trim());
-        initalizeChangelog(a, !1);
+        for (let c of response.split("\n")) {
+            0 !== c.length && (response = c.charAt(0), "#" === response ? (initalizeChangelog(a, !0), a = [c.slice(1).trim()]) : "-" === response ? a.push(c.slice(1).trim()) : a[a.length - 1] += " " + c.trim());
+        }
     });
 
     let controls = document.getElementById("controlSettings"),
@@ -58,7 +58,10 @@ import * as socketStuff from "./socketinit.js";
     // Window setup <3
     global.mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
     global.mobile && document.body.classList.add("mobile");
-    !global.mobile && document.getElementById("tabAppearance").classList.remove("shadowScroll");
+    if (!global.mobile) {
+        document.getElementById("tabAppearance").classList.remove("shadowScroll");
+        document.getElementById("tabOptions").classList.remove("shadowScroll");
+    };
 
     function getKeybinds() {
         let kb = localStorage.getItem("keybinds");
@@ -159,12 +162,14 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("smoothCamera");
         util.retrieveFromLocalStorage("optColors");
         util.retrieveFromLocalStorage("optPointy");
-        util.retrieveFromLocalStorage("optPredictAnim");
+        util.retrieveFromLocalStorage("optCurvyTraps");
+        util.retrieveFromLocalStorage("optInterpolation");
         util.retrieveFromLocalStorage("optLerpAnim");
         util.retrieveFromLocalStorage("optOptimizeMode");
         util.retrieveFromLocalStorage("optCenterMinimap");
         util.retrieveFromLocalStorage("optBorders");
         util.retrieveFromLocalStorage("optNoGrid");
+        util.retrieveFromLocalStorage("optColoredNest");
         util.retrieveFromLocalStorage("optRenderKillbar");
         util.retrieveFromLocalStorage("separatedHealthbars");
         util.retrieveFromLocalStorage("autoLevelUp");
@@ -172,24 +177,22 @@ import * as socketStuff from "./socketinit.js";
         // GUI
         util.retrieveFromLocalStorage("optRenderGui");
         util.retrieveFromLocalStorage("optRenderLeaderboard");
+        util.retrieveFromLocalStorage("optRenderUpgrades");
+        util.retrieveFromLocalStorage("optRenderMinimap");
         util.retrieveFromLocalStorage("optRenderNames");
         util.retrieveFromLocalStorage("optRenderHealth");
         util.retrieveFromLocalStorage("optRenderScores");
+        util.retrieveFromLocalStorage("optRenderPlayerBars");
         util.retrieveFromLocalStorage("optReducedInfo");
         util.retrieveFromLocalStorage("showCrosshair");
         util.retrieveFromLocalStorage("showJoystick");
         util.retrieveFromLocalStorage("optFullHD");
+        util.retrieveFromLocalStorage("optUiScale");
+        // Game
+        util.retrieveFromLocalStorage("optIncognitoMode");
         // Set default theme
         if (document.getElementById("optColors").value === "") {
             document.getElementById("optColors").value = "normal";
-            // Also do auto check for GUI stuff.
-            document.getElementById("optRenderGui").checked = true;
-            document.getElementById("optRenderLeaderboard").checked = true;
-            document.getElementById("optRenderNames").checked = true;
-            document.getElementById("optRenderHealth").checked = true;
-            document.getElementById("optRenderScores").checked = true;
-            document.getElementById("optFancy").checked = true;
-            if (global.mobile) document.getElementById("showCrosshair").checked = true, document.getElementById("showJoystick").checked = true;
         }
         if (document.getElementById("optBorders").value === "") {
             document.getElementById("optBorders").value = "normal";
@@ -197,6 +200,43 @@ import * as socketStuff from "./socketinit.js";
         // Mobile Selection stuff
         if (document.getElementById("optMobile").value === "") {
             document.getElementById("optMobile").value = "mobile";
+        }
+        // If we are loaded for the first time then load the default options settings.
+        if (!localStorage.getItem("loadedForFirstTime")) {
+            document.getElementById("optRenderGui").checked = true;
+            document.getElementById("optRenderLeaderboard").checked = true;
+            document.getElementById("optRenderUpgrades").checked = true;
+            document.getElementById("optRenderMinimap").checked = true;
+            document.getElementById("optRenderNames").checked = true;
+            document.getElementById("optRenderHealth").checked = true;
+            document.getElementById("optRenderScores").checked = true;
+            document.getElementById("optRenderPlayerBars").checked = true;
+            document.getElementById("optFancy").checked = true;
+            document.getElementById("optInterpolation").checked = true;
+            document.getElementById("optFancy").checked = true;
+            document.getElementById("autoLevelUp").checked = true;
+            if (global.mobile) document.getElementById("showCrosshair").checked = true, document.getElementById("showJoystick").checked = true;
+            // Dont forget to save it.
+            util.submitToLocalStorage("optRenderGui");
+            util.submitToLocalStorage("optRenderLeaderboard");
+            util.submitToLocalStorage("optRenderUpgrades");
+            util.submitToLocalStorage("optRenderMinimap");
+            util.submitToLocalStorage("optRenderNames");
+            util.submitToLocalStorage("optRenderHealth");
+            util.submitToLocalStorage("optRenderScores");
+            util.submitToLocalStorage("optRenderPlayerBars");
+            util.submitToLocalStorage("showCrosshair");
+            util.submitToLocalStorage("showJoystick");
+            util.submitToLocalStorage("optInterpolation");
+            util.submitToLocalStorage("optFancy");
+            util.submitToLocalStorage("autoLevelUp");
+            localStorage.setItem("loadedForFirstTime", "true");
+            localStorage.setItem("uiScaleSettings", null);
+        }
+        if (!localStorage.getItem("uiScaleSettings") || document.getElementById("optUiScale").value === "") {
+            document.getElementById("optUiScale").value = global.mobile ? "mobile" : "normal";
+            util.submitToLocalStorage("optUiScale");
+            localStorage.setItem("uiScaleSettings", "true");
         }
         loadSettings();
         // Keybinds stuff
@@ -252,7 +292,22 @@ import * as socketStuff from "./socketinit.js";
                 return d;
             } else throw new Error("Invalid menu tab type.");
         };
-        //global.createTabMenu(`Unstable branch (build: ${buildNumber})`, "warning");
+        try {
+            fetch("/version").then(json => json.json()).then(ve => {
+                global.version = ve.ver;
+                if (ve.devBuild) {
+                    global.devBuild = true;
+                    global.createTabMenu(`This server is running a development build of Open Source Arras. (${global.version})`, "warning");
+                }
+                // Addon info handler
+                let keyValue = localStorage.getItem('playerKeyInputValue');
+                (async function() {
+                    let A_response = await fetch(`/api/getAddonAuthors?token=${keyValue}`);
+                    let A_data = await A_response.json().catch(() => false);
+                    if (A_data && Array.isArray(A_data)) initalizeAddonAuthors(A_data);
+                })();
+            });
+        } catch { };
         // Warn the users to turn their phones into landscape.
         if (global.mobile && window.innerHeight > 1.1 * window.innerWidth) {
             let tabMenu = global.createTabMenu("Please turn your device to landscape mode.", "warning", true);
@@ -318,6 +373,7 @@ import * as socketStuff from "./socketinit.js";
                 document.getElementById("tabOptions"),
                 document.getElementById("tabControls"),
                 document.getElementById("tabLinks"),
+                document.getElementById("tabAddons"),
             ];
         for (let g = 1; g < tabOptions.length; g++) tabOptions[g].style.display = "none";
         let e = 0;
@@ -331,9 +387,60 @@ import * as socketStuff from "./socketinit.js";
                         (e = g))
             });
     }
+    function initalizeAddonAuthors(data) {
+        let mainDoc = document.getElementById("tabAddons");
+        mainDoc.innerHTML = "";
+        for (let doc of document.getElementById("optionMenuTabs").children) {
+            if (doc.textContent.toLowerCase() === "addons") doc.style.display = "";
+        }
+        // OSA info
+        let i_div = document.createElement("div");
+        i_div.classList.add("optionsHeader");
+        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild === "false" ? "" : " (dev build)"}`;
+        mainDoc.appendChild(i_div);
 
+        // Addon stuff
+        for (let e of data) {
+            let warnDoc = null;
+            if (e["osa-version"].target !== global.version) {
+                warnDoc = document.createElement("ul3");
+                warnDoc.textContent = "This addon may be incompatible with your version";
+            }
+            let divDoc = document.createElement("div");
+            divDoc.classList.add("optionsHeader");
+            let name = document.createElement("ul");
+            let addonVer = document.createElement("ul");
+            let versionValue = document.createElement("ul2");
+            let author = document.createElement("ul");
+            let authorValue = document.createElement("ul2");
+            let targetVer = document.createElement("ul");
+            let targetVerValue = document.createElement("ul2");
+
+            name.textContent = e.name;
+            addonVer.textContent = 'Version: ';
+            versionValue.textContent = `${e["addon-version"]}`;
+            addonVer.appendChild(versionValue);
+            author.textContent = "Author(s): ";
+            authorValue.textContent = "";
+            for (let i = 0; i < e.authors.length; i++) {
+                let auth = e.authors[i];
+                authorValue.textContent += `${i !== 0 ? ", " : ""}${auth}`;
+            }
+            author.appendChild(authorValue);
+            targetVer.textContent = `Made for OSA version ${e["osa-version"].target}`;
+
+            divDoc.appendChild(name);
+            divDoc.appendChild(author);
+            divDoc.appendChild(addonVer);
+            if (warnDoc) divDoc.appendChild(warnDoc);
+            divDoc.appendChild(targetVer);
+
+            mainDoc.appendChild(divDoc);
+        }
+    }
     // Custom theme display handler
     function customThemeDisplayHandler() {
+        // Custom theme handler
         util.retrieveFromLocalStorage("optCustom");
         let themeValue = document.getElementById("optCustom");
         let customPlate;
@@ -341,10 +448,10 @@ import * as socketStuff from "./socketinit.js";
             if (e.value === "custom") customPlate = e;
         }
         let {name, author} = getThemeDisplayName(themeValue);
-        if (name !== 'null') customPlate.textContent = `Custom - ${name} ${author}`;
+        if (name !== null && author !== null) customPlate.textContent = `Custom - ${name} ${author}`;
         themeValue.addEventListener("input", () => {
             let {name, author} = getThemeDisplayName(themeValue);
-            customPlate.textContent = `Custom - ${name} ${author}`;
+            if (name !== null && author !== null) customPlate.textContent = `Custom - ${name} ${author}`; else customPlate.textContent = "Custom - Unable to pull name or author.";
         });
     }
 
@@ -396,6 +503,106 @@ import * as socketStuff from "./socketinit.js";
                 snows = snows.filter((g) => !g.vanished);
             }, 2e3);
             updateSnow();
+        }
+        // Firework event for new year
+            let Gd = "en-US" === navigator.language && -7 <= global.timezoneLocation && -4 >= global.timezoneLocation,
+            Hd = 6 === currentDate.getMonth() && 4 === currentDate.getDate(),
+            Id =
+            (11 === currentDate.getMonth() && 31 === currentDate.getDate()) ||
+            (0 === currentDate.getMonth() && 3 >= currentDate.getDate());
+        if (!global.mobile && ((Hd && Gd) || Id)) {
+            let fireworkCanvas = document.createElement("canvas");
+            fireworkCanvas.style.position = "absolute";
+            fireworkCanvas.style.top = "0";
+            document.body.insertBefore(fireworkCanvas, document.body.firstChild);
+            let b = fireworkCanvas.getContext("2d"),
+            d = () => {
+                let k =
+                "164,14,14 230,80,0 230,119,0 47,127,51 23,78,166 123,31,163".split(
+                    " "
+                );
+                return k[Math.floor(Math.random() * k.length)];
+            },
+            fireworks = [],
+            updateFireworks = () => {
+                if (fireworkCanvas.width !== window.innerWidth || fireworkCanvas.height !== window.innerHeight)
+                (fireworkCanvas.width = window.innerWidth),
+                    (fireworkCanvas.height = window.innerHeight),
+                    (fireworks = []),
+                    b.clearRect(0, 0, fireworkCanvas.width, fireworkCanvas.height),
+                    (b.fillStyle = "rgba(255,255,255,0.01)"),
+                    b.fillRect(0, 0, fireworkCanvas.width, fireworkCanvas.height),
+                    (b.lineWidth = 2.5),
+                    (b.lineCap = "round");
+                b.globalCompositeOperation = "destination-out";
+                b.fillStyle = "rgba(0,0,0,0.15)";
+                b.fillRect(0, 0, fireworkCanvas.width, fireworkCanvas.height);
+                b.globalCompositeOperation = "lighter";
+                for (var firework of fireworks) {
+                    var l = firework.x,
+                        t = firework.y;
+                    firework.H += 0.2;
+                    firework.x += firework.M;
+                    firework.y += firework.H;
+                    firework.H *= 0.99;
+                    firework.M *= 0.99;
+                    firework.time--;
+                    var f = 0 < firework.time ? (firework.Oa ? 1 : 10 <= firework.time ? 1 : firework.time / 10) : 0;
+                    if (0 < f) {
+                        b.strokeStyle = `rgba(${firework.color},${f})`;
+                        b.beginPath();
+                        b.moveTo(l, t);
+                        b.lineTo(firework.x, firework.y);
+                        b.stroke();
+                    } else {
+                        if (firework.Oa && !firework.vanished) {
+                            l = Math.floor(5 * Math.random()) + 30;
+                            t = 0.5 * Math.random() + 3;
+                            f = 25 + 5 * Math.random();
+                            for (var h = 0; 2 > h; h++) {
+                                let p = d();
+                                for (let r = 0; r < l; r++) {
+                                let v = ((r + Math.random()) / l) * Math.PI * 2,
+                                    P = t + 0.5 * Math.random();
+                                fireworks.push({
+                                    color: p,
+                                    x: firework.x,
+                                    y: firework.y,
+                                    M: Math.cos(v) * P,
+                                    H: -0.8 + Math.sin(v) * P,
+                                    time: f + 2 * Math.random(),
+                                    Oa: !1,
+                                    vanished: !1,
+                                });
+                                }
+                            }
+                        }
+                        firework.vanished = !0;
+                    }
+                }
+                3e-5 * fireworkCanvas.width > Math.random() &&
+                ((firework = fireworkCanvas.width * Math.random()),
+                (l = fireworkCanvas.height - 10),
+                (t = 4 * Math.random() - 2),
+                (f = 5 * Math.random() - 15),
+                (h = 30 + 10 * Math.random()),
+                fireworks.push({
+                    color: d(),
+                    x: firework,
+                    y: l,
+                    M: t,
+                    H: f,
+                    time: h,
+                    Oa: !0,
+                    vanished: !1,
+                }));
+                if (global.gameStart) a.remove();
+                else requestAnimationFrame(updateFireworks);
+            };
+            setInterval(() => {
+                fireworks = fireworks.filter((k) => !k.vanished);
+            }, 2e3);
+            updateFireworks();
         }
     }
 
@@ -658,7 +865,7 @@ import * as socketStuff from "./socketinit.js";
     function getThemeDisplayName(doc) {
         if (doc.value !== "") {
             let {name, author, content} = parseTheme(doc.value);
-            if (content !== "null") {
+            if (content !== null) {
                 let displayName = name;
                 let displayAuthor = author === "" ? "" : author === "fan-made" || author === "Fan-made" || author === "Fan-Made" ? "(Fan-Made)" : `(by ${author})`;
                 return {
@@ -672,19 +879,46 @@ import * as socketStuff from "./socketinit.js";
         }
     }
     function initalizeChangelog(b, a) { // From CX Client (Modified) + decoded;
+        let triggerChangelog = ( () => {
+            let a = document.getElementById("changelogTabs")
+            , b = a.firstElementChild
+            , d = document.getElementById("patchNotes")
+            , e = {};
+            for (let g = 0; g < a.children.length; g++) {
+                let k = a.children[g]
+                , l = k.dataset.type;
+                e[l] = () => {
+                    if (k !== b) {
+                        var u = b.dataset.type;
+                        b.classList.remove("active");
+                        k.classList.add("active");
+                        d.classList.remove(u);
+                        d.classList.add(l);
+                        b = k
+                    }
+                }
+                ;
+                k.addEventListener("click", e[l])
+            }
+            return e
+        }
+        )()
         var sa = document.getElementById("patchNotes");
         var c = b.shift();
         if (c) {
             c = c.match(/^([A-Za-z ]+[A-Za-z])\s*\[([0-9\-]+)\]\s*(.+)?$/) || [c, c, null];
             var h = c[1] ? {
-                    Update: "update",
-                    Feature: "update",
-                    Event: "event",
-                    Gamemode: "event",
+                    "Announcement": "announcement",
+                    "Balance": "balance",
                     "Balance Update": "balance-update",
                     "Balance Update Details": "balance",
-                    Balance: "balance",
-                    Patch: "patch"
+                    "Event": "event",
+                    "Event Poll": "poll",
+                    "Gamemode": "event",
+                    "Gamemode Poll": "poll",
+                    "Patch": "patch",
+                    "Poll": "poll",
+                    "Update": "update",
                 } [c[1]] : null,
                 d = document.createElement("div");
             h && d.classList.add(h);
@@ -707,17 +941,20 @@ import * as socketStuff from "./socketinit.js";
             let l;
             for (let n of b) l = document.createElement("li"), l.innerHTML = n, g.appendChild(l);
             l = g.getElementsByTagName("a");
-            for (b = 0; b < l.length; b++) {
-                let n = l[b];
-                if (!n.href) continue;
-                let a = n.href.lastIndexOf("#"); - 1 !== a && (a = n.href.slice(a + 1), "options-menu" === a ? l[b].onclick = function(b) {
-                    b.preventDefault();
-                    bb()
-                } : Ja[a] &&
-                (l[b].onclick = function(b) {
-                    b.preventDefault();
-                    Ja[a]()
-                }))
+            for (a = 0; a < l.length; a++) {
+                let u = l[a];
+                if (!u.href) continue;
+                let p = u.href.lastIndexOf("#");
+                -1 !== p && (p = u.href.slice(p + 1),
+                "options-menu" === p ? h[a].addEventListener("click", r => {
+                    r.preventDefault();
+                    tc()
+                }
+                ) : triggerChangelog[p] && h[a].addEventListener("click", r => {
+                    r.preventDefault();
+                    triggerChangelog[p]()
+                }
+                ))
             }
             d.appendChild(g)
             a && d.appendChild(document.createElement("hr"));
@@ -727,10 +964,11 @@ import * as socketStuff from "./socketinit.js";
 
     function loadSettings() {
         config.graphical.fancyAnimations = document.getElementById("optFancy").checked;
-        config.graphical.predictAnimations = document.getElementById("optPredictAnim").checked;
+        config.graphical.interpolation = document.getElementById("optInterpolation").checked;
         config.graphical.lerpAnimations = document.getElementById("optLerpAnim").checked;
         config.graphical.smoothcamera = document.getElementById("smoothCamera").checked;
         config.graphical.pointy = document.getElementById("optPointy").checked;
+        config.graphical.curvyTraps = document.getElementById("optCurvyTraps").checked;
         config.game.autoLevelUp = document.getElementById("autoLevelUp").checked;
         config.game.centeredMinimap = document.getElementById("optCenterMinimap").checked;
         config.lag.unresponsive = document.getElementById("optPredictive").checked;
@@ -739,19 +977,25 @@ import * as socketStuff from "./socketinit.js";
         config.graphical.separatedHealthbars = document.getElementById("separatedHealthbars").checked;
         config.graphical.lowResolution = document.getElementById("optLowResolution").checked;
         config.graphical.showGrid = !document.getElementById("optNoGrid").checked;
+        config.graphical.coloredNest = document.getElementById("optColoredNest").checked;
         config.graphical.slowerFOV = document.getElementById("optSlowerFOV").checked;
         config.graphical.optimizeMode = document.getElementById("optOptimizeMode").checked;
         // GUI
         global.GUIStatus.renderGUI = document.getElementById("optRenderGui").checked;
         global.GUIStatus.renderLeaderboard = document.getElementById("optRenderLeaderboard").checked;
+        global.GUIStatus.renderUpgrades = document.getElementById("optRenderUpgrades").checked;
+        global.GUIStatus.renderMinimap = document.getElementById("optRenderMinimap").checked;
         global.GUIStatus.renderPlayerNames = document.getElementById("optRenderNames").checked;
         global.GUIStatus.renderPlayerScores = document.getElementById("optRenderScores").checked;
+        global.GUIStatus.renderPlayerBars = document.getElementById("optRenderPlayerBars").checked;
         global.GUIStatus.renderPlayerKillbar = document.getElementById("optRenderKillbar").checked;
         global.GUIStatus.renderhealth = document.getElementById("optRenderHealth").checked;
         global.GUIStatus.minimapReducedInfo = document.getElementById("optReducedInfo").checked;
         global.GUIStatus.fullHDMode = document.getElementById("optFullHD").checked;
         global.mobileStatus.enableCrosshair = document.getElementById("showCrosshair").checked;
         global.mobileStatus.showJoysticks = document.getElementById("showJoystick").checked;
+        // Game
+        config.game.incognitoMode = document.getElementById("optIncognitoMode").checked;
         switch (document.getElementById("optBorders").value) {
             case "normal":
                 config.graphical.darkBorders = config.graphical.neon = false;
@@ -774,6 +1018,24 @@ import * as socketStuff from "./socketinit.js";
                 break;
             case "mobileWithBigJoysticks":
                 global.mobileStatus.useBigJoysticks = true;
+                break;
+        }
+        global.autoScale = false;
+        switch (document.getElementById("optUiScale").value) {
+            case "auto":
+                global.autoScale = true;
+                break;
+            case "small":
+                global.UIscale = 2560;
+                break;
+            case "normal":
+                global.UIscale = 1920;
+                break;
+            case "large":
+                global.UIscale = 1536;
+                break;
+            case "mobile":
+                global.UIscale = 1280;
                 break;
         }
         util.submitToLocalStorage("optColors");
@@ -807,7 +1069,8 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("smoothCamera");
         util.submitToLocalStorage("optBorders");
         util.submitToLocalStorage("optPointy");
-        util.submitToLocalStorage("optPredictAnim");
+        util.submitToLocalStorage("optCurvyTraps");
+        util.submitToLocalStorage("optInterpolation");
         util.submitToLocalStorage("optLerpAnim");
         util.submitToLocalStorage("optOptimizeMode");
         util.submitToLocalStorage("optCenterMinimap");
@@ -819,17 +1082,24 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("optRenderKillbar");
         util.submitToLocalStorage("coloredHealthbars");
         util.submitToLocalStorage("separatedHealthbars");
+        util.submitToLocalStorage("optColoredNest");
         util.submitToLocalStorage("optNoGrid");
         // GUI
         util.submitToLocalStorage("optRenderGui");
         util.submitToLocalStorage("optRenderLeaderboard");
+        util.submitToLocalStorage("optRenderUpgrades");
+        util.submitToLocalStorage("optRenderMinimap");
         util.submitToLocalStorage("optRenderNames");
         util.submitToLocalStorage("optRenderHealth");
         util.submitToLocalStorage("optRenderScores");
+        util.submitToLocalStorage("optRenderPlayerBars");
         util.submitToLocalStorage("optReducedInfo");
         util.submitToLocalStorage("showCrosshair");
         util.submitToLocalStorage("showJoystick");
         util.submitToLocalStorage("optFullHD");
+        util.submitToLocalStorage("optUiScale");
+        // Game
+        util.submitToLocalStorage("optIncognitoMode");
         loadSettings();
         global.optionsCheckboxes = undefined;
         // Other more important stuff
@@ -878,7 +1148,7 @@ import * as socketStuff from "./socketinit.js";
     const upgradeMenu = Smoothbar(0, 2, 3, 0.08, 0.025, true);
     const mobileUpgradeGlide = Smoothbar(0, 2, 3, 0.08, 0.025, true);
     const lbGlide = AdvancedSmoothBar(0, 0.3, 1.5);
-    const chatInput = AdvancedSmoothBar(0, 0.3, 1.3);
+    const chatInput = Smoothbar(0, 2, 0.1, 0.07, 0.025, true);
 
     // Define the graph constructor
     function graph() {
@@ -1172,7 +1442,7 @@ import * as socketStuff from "./socketinit.js";
                 // the last letter of last text and the first letter of current text,
                 // making it align perfectly with what we drew with strokeText earlier
                 if (i) {
-                    Xoffset += ctx[2].measureText(textArray[i - 2] + str).width - ctx[2].measureText(str).width;
+                    Xoffset += context.measureText(textArray[i - 2] + str).width - context.measureText(str).width;
                 }
                 context.fillText(str, Xoffset, Yoffset);
             }
@@ -1221,7 +1491,7 @@ import * as socketStuff from "./socketinit.js";
         context.lineTo(x2, y);
         context.lineWidth = width;
         if (color) context.strokeStyle = color;
-        if (!config.graphical.sharpEdges) context.closePath();
+        context.closePath();
         context.stroke();
     }
 
@@ -1299,6 +1569,126 @@ import * as socketStuff from "./socketinit.js";
     // Entity drawing (this is a function that makes a function)
     const drawEntity = (() => {
         let drawPolyImgs = [],
+        drawPoly3D = new Map(),
+        drawPoly4D = new Map(),
+        cameraFor3dProjection = { x: 0, y: 0, z: -1 },
+        cameraFor4dProjection = { x: 0, y: 0, z: 0, w: -1 },
+        projectPoint3d = p => {
+            if (p.z == 0) return p;
+            p.x /= p.z - cameraFor3dProjection.z;
+            p.y /= p.z - cameraFor3dProjection.z;
+            p.z = 0;
+            return p;
+        },
+        projectPoint4d = p => {
+            if (p.w == 0) return projectPoint3d(p);
+            p.x /= p.w - cameraFor4dProjection.w;
+            p.y /= p.w - cameraFor4dProjection.w;
+            p.z /= p.w - cameraFor4dProjection.w;
+            p.w = 0;
+            return projectPoint3d(p);
+        },
+        rotatePointXY = (p, angle) => {
+            let q = {
+                x: 0,
+                y: 0,
+                z: 0
+            };
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            q.x = p.x * cos + p.z * sin;
+            q.z = -p.x * sin + p.z * cos;
+            q.y = p.y * cos - q.z * sin;
+            q.z = p.y * sin + q.z * cos;
+            return q;
+        },
+        rotatePointXYZ = (p, angle) => {
+            let q = {
+                x: 0,
+                y: 0,
+                z: 0,
+                w: 0
+            };
+            const cos = Math.cos(angle);
+            const sin = Math.sin(angle);
+            q.x = p.x * cos + p.z * sin;
+            q.z = -p.x * sin + p.z * cos;
+            q.y = p.y * cos - q.z * sin;
+            q.z = p.y * sin + q.z * cos;
+            let y = q.y;
+            q.y = y * cos - p.w * sin;
+            q.w = y * sin + p.w * cos;
+            let z = q.z;
+            q.z = z * cos - p.w * sin;
+            q.w = z * sin + p.w * cos;
+            return q;
+        },
+        distanceBetweenPointsSquared3d = (a, b) => {
+            let dx = b.x - a.x,
+                dy = b.y - a.y,
+                dz = b.z - a.z;
+            return dx * dx + dy * dy + dz * dz;
+        },
+        distanceBetweenPointsSquared4d = (a, b) => {
+            let dx = b.x - a.x,
+                dy = b.y - a.y,
+                dz = b.z - a.z,
+                dw = b.w - a.w;
+            return dx * dx + dy * dy + dz * dz + dw * dw;
+        },
+        sortSides3d = (arr, a, b) => {
+            let aAvgZ = 0,
+                bAvgZ = 0,
+                aDist = 0,
+                bDist = 0;
+            for (let i = 0; i < a.length; ++i) {
+                aAvgZ += arr[a[i]].z;
+                aDist += distanceBetweenPointsSquared3d(
+                    cameraFor3dProjection,
+                    arr[a[i]]
+                );
+            }
+            for (let i = 0; i < b.length; ++i) {
+                bAvgZ += arr[b[i]].z;
+                bDist += distanceBetweenPointsSquared3d(
+                    cameraFor3dProjection,
+                    arr[b[i]]
+                );
+            }
+            aAvgZ /= a.length;
+            bAvgZ /= b.length;
+            aDist /= a.length * a.length;
+            bDist /= b.length * b.length;
+            return (bAvgZ - aAvgZ) * 1e3 + (bDist - aDist);
+        },
+        sortSides4d = (arr, a, b) => {
+            let aAvgW = 0,
+                bAvgW = 0,
+                aDist = 0,
+                bDist = 0;
+            for (let i = 0; i < a.length; ++i) {
+                aAvgW += arr[a[i]].w;
+                aDist += distanceBetweenPointsSquared4d(
+                    cameraFor4dProjection,
+                    arr[a[i]]
+                );
+            }
+            for (let i = 0; i < b.length; ++i) {
+                bAvgW += arr[b[i]].w;
+                bDist += distanceBetweenPointsSquared4d(
+                    cameraFor4dProjection,
+                    arr[b[i]]
+                );
+            }
+            aAvgW /= a.length;
+            bAvgW /= b.length;
+            aDist /= a.length * a.length;
+            bDist /= b.length * b.length;
+            return (
+                ((bAvgW - aAvgW) * 1e3 + (bDist - aDist)) * 1e3 +
+                sortSides3d(arr, a, b)
+            );
+        },
         DEAIC = (assignedContext, Alpha, shape, glow, gunLength, turretsLength) => { // AKA: Draw entity as image check
             if (global.gameUpdate && config.graphical.fancyAnimations && Alpha < 1 && assignedContext != ctx2) {
                 if (config.graphical.optimizeMode) {
@@ -1349,6 +1739,125 @@ import * as socketStuff from "./socketinit.js";
                             context.imageSmoothingEnabled = true;
                             context.rotate(-angle);
                             context.translate(-centerX, -centerY);
+                            return;
+                        }
+                        if (sides.startsWith('3d=')) {
+                            let polygon3d = drawPoly3D.get(sides);
+                            if (!polygon3d) {
+                                let dividedParts = sides.slice(3).split('/');
+                                let vertexesRaw = dividedParts[0].split(',').map(Number);
+                                if (vertexesRaw.length % 3 != 0) {
+                                    throw new Error(
+                                        '3D Shape cannot be rendered. Vertexes count: ' +
+                                            vertexesRaw.length / 3
+                                    );
+                                }
+                                let vertexes = Array(vertexesRaw.length / 3);
+                                for (let i = 0; i < vertexesRaw.length; i += 3) {
+                                    vertexes[i / 3] = {
+                                        x: vertexesRaw[i],
+                                        y: vertexesRaw[i + 1],
+                                        z: vertexesRaw[i + 2]
+                                    };
+                                }
+                                let indicesRaw = dividedParts[1].split(';');
+                                let indices = [];
+                                for (let i = 0; i < indicesRaw.length; ++i) {
+                                    indices.push(indicesRaw[i].split(',').map(Number));
+                                }
+                                polygon3d = {
+                                    vertexes,
+                                    indices,
+                                    multiplier: Number(dividedParts[2])
+                                };
+                                drawPoly3D.set(sides, polygon3d);
+                            }
+                            const rotated = polygon3d.vertexes
+                                .slice()
+                                .map(p => rotatePointXY(p, angle));
+                            const sortedSides = polygon3d.indices
+                                .slice()
+                                .sort((a, b) => sortSides3d(rotated, a, b));
+                            context.lineWidth /= 2;
+                            const size = radius * polygon3d.multiplier;
+                            for (const sides of sortedSides) {
+                                context.beginPath();
+                                for (let i = 0; i < sides.length; ++i) {
+                                    const a = projectPoint3d(rotated[sides[i]]);
+                                    const b = projectPoint3d(
+                                        rotated[sides[(i + 1) % sides.length]]
+                                    );
+                                    context.lineTo(
+                                        centerX + a.x * size,
+                                        centerY + a.y * size,
+                                        centerX + b.x * size,
+                                        centerY + b.y * size
+                                    );
+                                }
+                                context.closePath();
+                                context.fill();
+                                context.stroke();
+                            }
+                            return;
+                        }
+                        if (sides.startsWith('4d=')) {
+                            let polygon4d = drawPoly4D.get(sides);
+                            if (!polygon4d) {
+                                let dividedParts = sides.slice(3).split('/');
+                                let vertexesRaw = dividedParts[0].split(',').map(Number);
+                                if (vertexesRaw.length % 4 != 0) {
+                                    throw new Error(
+                                        '4D Shape cannot be rendered. Vertexes count: ' +
+                                            vertexesRaw.length / 4
+                                    );
+                                }
+                                let vertexes = Array(vertexesRaw.length / 4);
+                                for (let i = 0; i < vertexesRaw.length; i += 4) {
+                                    vertexes[i / 4] = {
+                                        x: vertexesRaw[i],
+                                        y: vertexesRaw[i + 1],
+                                        z: vertexesRaw[i + 2],
+                                        w: vertexesRaw[i + 3]
+                                    };
+                                }
+                                let indicesRaw = dividedParts[1].split(';');
+                                let indices = [];
+                                for (let i = 0; i < indicesRaw.length; ++i) {
+                                    indices.push(indicesRaw[i].split(',').map(Number));
+                                }
+                                polygon4d = {
+                                    vertexes,
+                                    indices,
+                                    multiplier: Number(dividedParts[2])
+                                };
+                                drawPoly4D.set(sides, polygon4d);
+                            }
+                            const rotated = polygon4d.vertexes
+                                .slice()
+                                .map(p => rotatePointXYZ(p, angle));
+                            const sortedSides = polygon4d.indices
+                                .slice()
+                                .sort((a, b) => sortSides4d(rotated, a, b));
+                            context.lineWidth /= 2;
+                            const size = radius * polygon4d.multiplier;
+                            for (const sides of sortedSides) {
+                                context.beginPath();
+                                for (let i = 0; i < sides.length; ++i) {
+                                    const a = projectPoint4d(rotated[sides[i]]);
+                                    const b = projectPoint4d(
+                                        rotated[sides[(i + 1) % sides.length]]
+                                    );
+                                    context.lineTo(
+                                        centerX + a.x * size,
+                                        centerY + a.y * size,
+                                        centerX + b.x * size,
+                                        centerY + b.y * size
+                                    );
+                                }
+                                context.closePath();
+                                context.fill();
+                                context.stroke();
+                            }
                             return;
                         }
                         let path = new Path2D(sides);
@@ -1552,7 +2061,7 @@ import * as socketStuff from "./socketinit.js";
                 if (!t.layer) {
                     const ang = t.direction + t.angle + rot;
                     const len = t.offset * drawSize;
-                    const facing = t.setAngle === null || t.setAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.setAngle;
+                    const facing = t.forceAngle === null || t.forceAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.angle;
                     const cosAng = Math.cos(ang);
                     const sinAng = Math.sin(ang);
                     
@@ -1701,7 +2210,7 @@ import * as socketStuff from "./socketinit.js";
                 if (t.layer) {
                     const ang = t.direction + t.angle + rot;
                     const len = t.offset * drawSize;
-                    const facing = t.setAngle === null || t.setAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.setAngle;
+                    const facing = t.forceAngle === null || t.forceAngle === undefined ? (t.mirrorMasterAngle || turretsObeyRot) ? rot + t.angle : t.lerpedFacing : t.angle;
                     const cosAng = Math.cos(ang);
                     const sinAng = Math.sin(ang);
                     
@@ -1914,19 +2423,19 @@ import * as socketStuff from "./socketinit.js";
                 motion.set(instance.render.lastRender, instance.render.interval);
             }
             let isize = instance.render.size.get(tick, 1 !== rst);
-            instance.render.x = config.graphical.predictAnimations ?
+            instance.render.x = !config.graphical.interpolation ?
                 motion.predict(instance.render.lastx, instance.x, instance.render.lastvx, instance.vx) :
                 config.graphical.lerpAnimations ?
                 util.lerp(instance.render.x, Math.round(instance.x + instance.vx), 0.1, true) :
                 instance.render.xAnim.get(tick, 1 !== rst);
 
-            instance.render.y = config.graphical.predictAnimations ?
+            instance.render.y = !config.graphical.interpolation ?
                 motion.predict(instance.render.lasty, instance.y, instance.render.lastvy, instance.vy) :
                 config.graphical.lerpAnimations ?
                 util.lerp(instance.render.y, Math.round(instance.y + instance.vy), 0.1, true) :
                 instance.render.yAnim.get(tick, 1 !== rst);
 
-            instance.render.f = config.graphical.predictAnimations ?
+            instance.render.f = !config.graphical.interpolation ?
                 motion.predictFacing(instance.render.lastf, instance.facing) :
                 instance.render.faceAnim.get(tick, 1 !== rst);
 
@@ -2476,12 +2985,11 @@ import * as socketStuff from "./socketinit.js";
 
     function drawChatMessages(x, y, py, instance, ratio, alpha, isize) {
         if (!(instance.id === gui.playerid) && instance.alpha < 0.25) return;
-        let now = Date.now(),
-            size = isize * ratio,
+        let size = isize * ratio,
             g = Math.max(20, size);
     
         if (!y) y = instance.id === gui.playerid
-            ? global.player.screeny - 1 * (global.showChatGlide) * (global.lerp(0, 1, global.showChatGlide)) * g
+            ? global.player.screeny - 1 * global.showChatGlide * g
             : ratio * instance.render.y - py;
         //put chat msg above name
         let fade = instance.render.status.getFade();
@@ -2491,13 +2999,8 @@ import * as socketStuff from "./socketinit.js";
         x += global.screenWidth / 2;
         y += global.screenHeight / 2;
         if (instance.id !== gui.playerid && instance.nameplate) y -= 8 * ratio;
-    
         let messages = global.chats[instance.id];
         if (!messages) return;
-        
-        // Remove expired messages (accounting for full fade-out duration)
-        messages = messages.filter(msg => msg.expires > now - 200);
-        global.chats[instance.id] = messages;
         
         const messageSpacing = 25 * 0.04 * g;
         
@@ -2509,31 +3012,26 @@ import * as socketStuff from "./socketinit.js";
                 msgLengthHalf = measureText(text, 0.5 * g) / 2,
                 barScale = global.GUIStatus.renderPlayerScores ? 2.66 : 2.26,
                 textScale = global.GUIStatus.renderPlayerScores ? 2.45 : 2.05,
-                timeSinceCreated = now - chat.createdAt,
-                fadeInDuration = 300,
-                fadeInAlpha = chat.fadedIn ? 1 : Math.min(1, timeSinceCreated / fadeInDuration),
-                timeUntilExpiry = chat.expires - now,
-                expiryAlpha = timeUntilExpiry > 1000 ? 1 : Math.max(0, Math.min(1, timeUntilExpiry / 200)),
-                valpha = fadeInAlpha * expiryAlpha;
+                valpha = chat.alpha.get();
             
+            if (chat.erased && valpha === 0) {
+                util.remove(global.chats[instance.id], chatIndex); // Remove the chat object
+                messages.sort((a, b) => a.id - b.id); // Sort the messages or else the order will get messed up
+            }
             if (chat.targetY === undefined) {
                 chat.targetY = i * messageSpacing;
                 chat.currentY = i === 0 ? 0 : (i-1) * messageSpacing;
             }
             chat.targetY = i * messageSpacing;
-            const animationSpeed = 0.15;
-            chat.currentY += (chat.targetY - chat.currentY) * animationSpeed;
+            const animationSpeed = 10;
+            chat.currentY += (chat.targetY - chat.currentY) * animationSpeed / global.metrics.rendertime;
             let slideOffset = chat.currentY;
-            
-            if (fadeInAlpha >= 1 && !chat.fadedIn) {
-                chat.fadedIn = true;
-            }
             
             // Skip rendering if completely faded out
             if (valpha <= 0) continue;
             
             ctx[1].globalAlpha = 0.5 * valpha * alpha * alpha * fade;
-            drawBar(x - msgLengthHalf, x + msgLengthHalf, y - g * (instance.id === gui.playerid ? 2.26 : barScale) - slideOffset, 0.75 * g, gameDraw.modifyColor(instance.color), ctx[1]);
+            drawBar(x - msgLengthHalf, x + msgLengthHalf, y - g * (instance.id === gui.playerid ? 2.26 : barScale) - slideOffset, 0.75 * g, gameDraw.getColorDark(gameDraw.getColor(instance.color.split(" ")[0])), ctx[1]);
             ctx[1].globalAlpha = valpha * alpha * fade;
             config.graphical.fontStrokeRatio *= 1.2;
             drawText(text, x, y - g * (instance.id === gui.playerid ? 2.05 : textScale) - slideOffset, 0.50 * g, color.guiwhite, "center", false, 1, true, ctx[1]);
@@ -2563,21 +3061,23 @@ import * as socketStuff from "./socketinit.js";
 
                 if (health < 0.99 || shield < 0.99 && global.GUIStatus.renderhealth) {
                     let col = config.graphical.coloredHealthbars ? gameDraw.mixColors(gameDraw.modifyColor(instance.color), color.guiwhite, 0.5) : color.lgreen;
-                    let yy = y + 1 + realSize + 15 * ratio;
-                    let barWidth = 3 * ratio;
+                    let yy = y + realSize + 14.3 * ratio;
+                    let barWidth = 1 * ratio;
+                    let barChunk = (config.graphical.barChunk || 0) * ratio;
+                    let seperated = config.graphical.separatedHealthbars;
+
                     ctx[1].globalAlpha = alpha * alpha * fade;
 
-                    //background bar
-                    drawBar(x - size, x + size, yy + barWidth * config.graphical.separatedHealthbars / 2, barWidth * (1 + config.graphical.separatedHealthbars) + config.graphical.barChunk, color.black, ctx[1]);
+                    // Background bar
+                    drawBar(x - size, x + size, yy, seperated ? barWidth + barChunk * 1.6 : barWidth + barChunk, color.black, ctx[1])
 
-                    //hp bar
-                    drawBar(x - size, x - size + 2 * size * health, yy + barWidth * config.graphical.separatedHealthbars, barWidth, col, ctx[1]);
+                    // HP bar
+                    drawBar(x - size, x - size + 2 * size * health, seperated ? yy + barWidth * 1.45 : yy, barWidth + barChunk * 0.35, col, ctx[1])
 
-                    //shield bar
-                    if (shield || config.graphical.separatedHealthbars) {
-                        if (!config.graphical.separatedHealthbars) ctx[1].globalAlpha *= 0.7;
-                        ctx[1].globalAlpha *= 0.3 + 0.3 * shield,
-                            drawBar(x - size, x - size + 2 * size * shield, yy, barWidth, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1]);
+                    if (shield || seperated) {
+                        if (!seperated) ctx[1].globalAlpha *= 0.7;
+                        ctx[1].globalAlpha *= 0.3 + 0.3 * shield;
+                        drawBar(x - size, x - size + 2 * size * shield, seperated ? yy - barWidth * 1.45 : yy, barWidth + barChunk * 0.35, config.graphical.coloredHealthbars ? gameDraw.mixColors(col, color.guiblack, 0.25) : color.teal, ctx[1])
                     }
                     if (gui.showhealthtext) drawText(Math.round(instance.healthN) + "/" + Math.round(instance.maxHealthN), x, yy + barWidth * 2 + barWidth * config.graphical.separatedHealthbars * 2 + 10, 12 * ratio, color.guiwhite, "center");
                     ctx[1].globalAlpha = alpha;
@@ -2686,7 +3186,7 @@ import * as socketStuff from "./socketinit.js";
 
             // Skill value
             if (level) {
-                drawText(textcolor === col ? "MAX" : "+" + level, Math.round(x + len + 4) - 5.5, y + height / 2, height - 5, col, "left", true);
+                drawText("+" + level, Math.round(x + len + 4) - 5.5, y + height / 2, height - 5, col, "left", true);
             }
 
             // Move on
@@ -2731,7 +3231,7 @@ import * as socketStuff from "./socketinit.js";
         drawText("Score: " + util.formatLargeNumber(Math.round(gui.__s.getScore())), x + width / 2 + 0.5 - scorelength, y + height / 2 + 6, 13, color.guiwhite, "center");
         ctx[2].lineWidth = 4;
         var name = global.player.name.substring(7, global.player.name.length + 1);
-        drawText(name, Math.round(x + width / 2) + 1.5, Math.round(y - 10 - 4) - 1, 31, global.nameColor = "#ffffff" ? color.guiwhite : global.nameColor, "center");
+        drawText(name, Math.round(x + width / 2) + 1.5, Math.round(y - 10 - 4) - 1, 31, global.nameColor == "#ffffff" ? color.guiwhite : global.nameColor, "center");
     }
 
     function handleSpeedMonitor() {
@@ -2752,117 +3252,119 @@ import * as socketStuff from "./socketinit.js";
         let upgradeColumns = Math.ceil(gui.upgrades.length / 9);
         let x = global.mobile ? spacing : global.screenWidth - spacing - len - 5;
         let y = global.mobile ? spacing : global.screenHeight - height - spacing - 5;
-        if (global.mobile) {
-            y += global.canUpgrade ? (alcoveSize / 1.5) * mobileUpgradeGlide.get() * upgradeColumns / 1.5 + spacing * (upgradeColumns + 1.55) + 9 : 0;
-            y += global.canSkill || global.showSkill ? statMenu.get() * alcoveSize / 2.6 + spacing / 0.75 : 0;
-        }
+        if (global.GUIStatus.renderMinimap) {
+            if (global.mobile) {
+                y += global.canUpgrade ? (alcoveSize / 1.5) * mobileUpgradeGlide.get() * upgradeColumns / 1.5 + spacing * (upgradeColumns + 1.55) + 9 : 0;
+                y += global.canSkill || global.showSkill ? statMenu.get() * alcoveSize / 2.6 + spacing / 0.75 : 0;
+            }
 
-        // Calculate minimap center if needed
-        let centerX = x + len / 2;
-        let centerY = y + height / 2;
-    
-        ctx[2].globalAlpha = 0.4;
-        ctx[2].save();
-        ctx[2].fillStyle = color.white;
-        global.advanced.roundMap ? drawGuiCircle(x + len / 2, y + height / 2, len / 2) : drawGuiRect(x, y, len, height);
-        ctx[2].beginPath(); // We will not allow to draw outside of the minimap so we are only allowing minimap entities to draw INSIDE the minimap only
-        global.advanced.roundMap ? ctx[2].arc(x + len / 2, y + height / 2, len / 2, 0, 2 * Math.PI) : ctx[2].rect(x, y, len, height); // Draw everything inside the minimap
-        ctx[2].clip();
+            // Calculate minimap center if needed
+            let centerX = x + len / 2;
+            let centerY = y + height / 2;
+        
+            ctx[2].globalAlpha = 0.4;
+            ctx[2].save();
+            ctx[2].fillStyle = color.white;
+            global.advanced.roundMap ? drawGuiCircle(x + len / 2, y + height / 2, len / 2) : drawGuiRect(x, y, len, height);
+            ctx[2].beginPath(); // We will not allow to draw outside of the minimap so we are only allowing minimap entities to draw INSIDE the minimap only
+            global.advanced.roundMap ? ctx[2].arc(x + len / 2, y + height / 2, len / 2, 0, 2 * Math.PI) : ctx[2].rect(x, y, len, height); // Draw everything inside the minimap
+            ctx[2].clip();
 
-        if (global.roomSetup.length) {
-            let W = global.roomSetup[0].length,
-                H = global.roomSetup.length,
-                i = 0;
+            if (global.roomSetup.length) {
+                let W = global.roomSetup[0].length,
+                    H = global.roomSetup.length,
+                    i = 0;
 
-            // Calculate player's position in game world
-            let playerWorldX = global.player.cx.animX;
-            let playerWorldY = global.player.cy.animY;
+                // Calculate player's position in game world
+                let playerWorldX = global.player.cx.animX;
+                let playerWorldY = global.player.cy.animY;
 
-            for (let ycell = 0; ycell < H; ycell++) {
-                let j = 0;
-                for (let xcell = 0; xcell < W; xcell++) {
-                    let cell = global.roomSetup[ycell][xcell];
-                    // Calculate cell world position
-                    let cellWorldX = (xcell / W - 0.5) * global.gameWidth;
-                    let cellWorldY = (ycell / H - 0.5) * global.gameHeight;
-                    
-                    // Calculate relative position to player
-                    let relX = cellWorldX - playerWorldX;
-                    let relY = cellWorldY - playerWorldY;
-                    
-                    // Convert to minimap coordinates
-                    let minimapX = config.game.centeredMinimap ? centerX + (relX / global.gameWidth) * len : x + (j * len) / W;
-                    let minimapY = config.game.centeredMinimap ? centerY + (relY / global.gameHeight) * height : y + (i * height) / H;
-                    let cellWidth = len / W;
-                    let cellHeight = height / H;
-                    if (!cell) {
-                        ctx[2].fillStyle = gameDraw.getColor("border", true);
-                        drawGuiRect(minimapX, minimapY, cellWidth, cellHeight);
-                    } else {
-                        let color = cell.color;
-                        if (color == 'none') cell.color = 'pureBlack';
-                        if (cell.renderImage) {
-                            ctx[2].globalAlpha = 1;
-                            ctx[2].drawImage(cell.renderImage, minimapX, minimapY, cellWidth, cellHeight);
-                        }
-                        ctx[2].globalAlpha = 0.4;
-                        ctx[2].fillStyle = gameDraw.getColor(color);
-                        if (gameDraw.getColor(color) !== color.white) {
+                for (let ycell = 0; ycell < H; ycell++) {
+                    let j = 0;
+                    for (let xcell = 0; xcell < W; xcell++) {
+                        let cell = global.roomSetup[ycell][xcell];
+                        // Calculate cell world position
+                        let cellWorldX = (xcell / W - 0.5) * global.gameWidth;
+                        let cellWorldY = (ycell / H - 0.5) * global.gameHeight;
+                        
+                        // Calculate relative position to player
+                        let relX = cellWorldX - playerWorldX;
+                        let relY = cellWorldY - playerWorldY;
+                        
+                        // Convert to minimap coordinates
+                        let minimapX = config.game.centeredMinimap ? centerX + (relX / global.gameWidth) * len : x + (j * len) / W;
+                        let minimapY = config.game.centeredMinimap ? centerY + (relY / global.gameHeight) * height : y + (i * height) / H;
+                        let cellWidth = len / W;
+                        let cellHeight = height / H;
+                        if (!cell) {
+                            ctx[2].fillStyle = gameDraw.getColor("border", true);
                             drawGuiRect(minimapX, minimapY, cellWidth, cellHeight);
-                        }
-                    };
-                    j++;
-                }
-                i++;
-            }
-        }
-        ctx[2].globalAlpha = 1;
-        for (let entity of minimap.get()) {
-            ctx[2].fillStyle = gameDraw.mixColors(gameDraw.modifyColor(entity.color), color.black, 0.3);
-            ctx[2].globalAlpha = entity.alpha;
-            
-            // Calculate entity position relative to player
-            let relX = entity.x - global.player.cx.animX;
-            let relY = entity.y - global.player.cy.animY;
-            
-            // Convert to minimap coordinates
-            let minimapX = config.game.centeredMinimap ? centerX + (relX / global.gameWidth) * len : x + (entity.x / global.gameWidth + 0.5) * len;
-            let minimapY = config.game.centeredMinimap ? centerY + (relY / global.gameHeight) * height : y + (entity.y / global.gameHeight + 0.5) * height;
-            
-            switch (entity.type) {
-                case 2:
-                    // Draw wall entities
-                    let trueSize = (entity.size + 2) / 1.1283791671;
-                    let sizeOnMap = (trueSize / global.gameWidth) * len;
-                    drawGuiRect(minimapX - sizeOnMap, minimapY - sizeOnMap, sizeOnMap * 2, sizeOnMap * 2);
-                    break;
-                case 1:
-                    // Draw rock/other entities
-                    let entitySize = (entity.size / global.gameWidth) * len;
-                    drawGuiCircle(minimapX, minimapY, entitySize);
-                    break;
-                case 0:
-                    // Draw other players
-                    if (entity.id !== gui.playerid) {
-                        drawGuiCircle(minimapX, minimapY, !global.mobile ? 2 : 3.5);
+                        } else {
+                            let color = cell.color;
+                            if (color == 'none') cell.color = 'pureBlack';
+                            if (cell.renderImage) {
+                                ctx[2].globalAlpha = 1;
+                                ctx[2].drawImage(cell.renderImage, minimapX, minimapY, cellWidth, cellHeight);
+                            }
+                            ctx[2].globalAlpha = 0.4;
+                            ctx[2].fillStyle = gameDraw.getColor(color);
+                            if (gameDraw.getColor(color) !== color.white) {
+                                drawGuiRect(minimapX, minimapY, cellWidth, cellHeight);
+                            }
+                        };
+                        j++;
                     }
-                    break;
+                    i++;
+                }
             }
-        }
+            ctx[2].globalAlpha = 1;
+            for (let entity of minimap.get()) {
+                ctx[2].fillStyle = gameDraw.mixColors(gameDraw.modifyColor(entity.color), color.black, 0.3);
+                ctx[2].globalAlpha = entity.alpha;
+                
+                // Calculate entity position relative to player
+                let relX = entity.x - global.player.cx.animX;
+                let relY = entity.y - global.player.cy.animY;
+                
+                // Convert to minimap coordinates
+                let minimapX = config.game.centeredMinimap ? centerX + (relX / global.gameWidth) * len : x + (entity.x / global.gameWidth + 0.5) * len;
+                let minimapY = config.game.centeredMinimap ? centerY + (relY / global.gameHeight) * height : y + (entity.y / global.gameHeight + 0.5) * height;
+                
+                switch (entity.type) {
+                    case 2:
+                        // Draw wall entities
+                        let trueSize = (entity.size + 2) / 1.1283791671;
+                        let sizeOnMap = (trueSize / global.gameWidth) * len;
+                        drawGuiRect(minimapX - sizeOnMap, minimapY - sizeOnMap, sizeOnMap * 2, sizeOnMap * 2);
+                        break;
+                    case 1:
+                        // Draw rock/other entities
+                        let entitySize = (entity.size / global.gameWidth) * len;
+                        drawGuiCircle(minimapX, minimapY, entitySize);
+                        break;
+                    case 0:
+                        // Draw other players
+                        if (entity.id !== gui.playerid) {
+                            drawGuiCircle(minimapX, minimapY, !global.mobile ? 2 : 3.5);
+                        }
+                        break;
+                }
+            }
 
-        ctx[2].globalAlpha = 1;
-        ctx[2].lineWidth = 1;
-        ctx[2].strokeStyle = color.guiblack;
-        ctx[2].fillStyle = color.guiblack;
-        // Draw yourself in the minimap
-        drawGuiCircle(config.game.centeredMinimap ? centerX : x + (global.player.cx.animX / global.gameWidth + 0.5) * len, config.game.centeredMinimap ? centerY : y + (global.player.cy.animY / global.gameHeight + 0.5) * height, !global.mobile ? 2 : 3.5, false);
-        ctx[2].restore();
-        ctx[2].globalAlpha = 1;
-        ctx[2].fillStyle = color.black;
-        // Draw border of the minimap
-        ctx[2].lineWidth = 3;
-        global.advanced.roundMap ? drawGuiCircle(x + len / 2, y + height / 2, len / 2, true) : drawGuiRect(x, y, len, height, true); // Border
-        if (global.mobile) {
+            ctx[2].globalAlpha = 1;
+            ctx[2].lineWidth = 1;
+            ctx[2].strokeStyle = color.guiblack;
+            ctx[2].fillStyle = color.guiblack;
+            // Draw yourself in the minimap
+            drawGuiCircle(config.game.centeredMinimap ? centerX : x + (global.player.cx.animX / global.gameWidth + 0.5) * len, config.game.centeredMinimap ? centerY : y + (global.player.cy.animY / global.gameHeight + 0.5) * height, !global.mobile ? 2 : 3.5, false);
+            ctx[2].restore();
+            ctx[2].globalAlpha = 1;
+            ctx[2].fillStyle = color.black;
+            // Draw border of the minimap
+            ctx[2].lineWidth = 3;
+            global.advanced.roundMap ? drawGuiCircle(x + len / 2, y + height / 2, len / 2, true) : drawGuiRect(x, y, len, height, true); // Border
+        }
+        if (global.mobile || !global.GUIStatus.renderMinimap) {
             x = global.screenWidth - spacing - len;
             y = global.screenHeight - spacing;
         }
@@ -2883,9 +3385,11 @@ import * as socketStuff from "./socketinit.js";
         let xloc = global.player.renderx / 30;
         let yloc = global.player.rendery / 30;
         let watermarkText = "Open Source Arras";
-        let length = Math.max(measureText(watermarkText, 32)) / 12;
-        let watermarkTextPos1 = Math.round(x + len / 2) + 0.5;
-        let watermarkColor = gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.07, watermarkTextPos1 + length, 0);
+        let versionLength = (measureText(global.version ?? "v?", 32)) / 2;
+        let length = Math.max(measureText(watermarkText, 32)) / 16;
+        let gradientTransition = global.showDebug ? 4.1 : 2;
+        let watermarkTextPos1 = Math.round(x + len / gradientTransition) + 0.5;
+        let watermarkColor = gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.085, watermarkTextPos1 + length, 0);
         if (global.showDebug) {
             let getRenderingInfo = (data, isTurret) => {
                 isTurret ? global.renderingInfo.turretEntities += data.length : global.renderingInfo.entities += data.length;
@@ -2902,21 +3406,21 @@ import * as socketStuff from "./socketinit.js";
             global.tankSpeedHistory.push(rawSpeed);
             if (global.tankSpeedHistory.length > HISTORY_LENGTH) global.tankSpeedHistory.shift();
             let tankSpeed = global.tankSpeedHistory.reduce((sum, val) => sum + val, 0) / global.tankSpeedHistory.length;
-            drawText(watermarkText, x + len, y - 50 - 10 * 14 - 2, 15, watermarkColor, "right");
-            drawText("Tank Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
+            drawText(watermarkText, x + len - versionLength - 4, y - 50 - 10 * 14 - 2, 15, watermarkColor, "right");
+            drawText(global.version ?? "v?", x + len, y - 50 - 10 * 14 - 2, 15, color.guiwhite, "right");
+            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
             drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
-            drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
-            drawText(`Bandwidth: tx ${global.bandwidth.finalHa} rx ${global.bandwidth.finalFa}`, x + len, y - 50 - 6 * 14, 10, color.guiwhite, "right");
-            drawText("Memory: " + global.metrics.rendergap.toFixed(1) + " Mib / " + "Class: " + global.mockups[parseInt(gui.type.split("-"))].name, x + len, y - 50 - 5 * 14, 10, color.guiwhite, "right");
-            drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
-            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
+            drawText("Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
+            drawText("Memory: " + global.metrics.rendergap.toFixed(1) + " Mib", x + len, y - 50 - 6 * 14, 10, color.guiwhite, "right");
+            drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 5 * 14, 10, color.guiwhite, "right");
+            drawText(`Bandwidth: tx ${global.bandwidth.finalHa} rx ${global.bandwidth.finalFa}`, x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
+            drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText("Prediction: " + Math.round(GRAPHDATA) + "ms", x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
-            drawText(watermarkText, x + len, y - 50 - 4 * 14 - 2, 15, watermarkColor, "right");
-            drawText(`Build: ${buildNumber}`, x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
-            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` Player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
+            drawText(watermarkText, x + len, y - 50 - 3 * 14 - 2, 15, watermarkColor, "right");
+            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else drawText(watermarkText, x + len, y - 22 - 2 * 14 - 2, 15, watermarkColor, "right");
@@ -3002,7 +3506,7 @@ import * as socketStuff from "./socketinit.js";
                 drawBar(entryX, entryX + len, entryY + height / 2 - .7, height - 3 + config.graphical.barChunk, color.black);
                 drawBar(entryX, entryX + len, entryY + height / 2 - .7, height - 3, color.grey);
                 let shift = Math.min(1, entry.score / max);
-                drawBar(entryX, entryX + len * shift, entryY + height / 2 - .7, height - 3.5, gameDraw.modifyColor(entry.barColor));
+                drawBar(entryX, entryX + len * shift, entryY + height / 2 - .7, height - 3.5, gameDraw.modifyColor(entry.barColor, "mirror 0 1 0 false"));
 
                 // Leadboard name + score
                 let nameColor = entry.nameColor || "#FFFFFF";
@@ -3016,7 +3520,7 @@ import * as socketStuff from "./socketinit.js";
                     let xx = entryX - 1.5 * height - scale * entry.position.middle.x * Math.SQRT1_2,
                         yy = entryY + 0.5 * height - scale * entry.position.middle.y * Math.SQRT1_2,
                         baseColor = entry.color;
-                    drawEntity(baseColor, xx, yy, entry.image, 1 / scale, 1, (scale * scale) / entry.image.size, 2, -Math.PI / 4, true, ctx[2], false, entry.image.render, false, true);
+                    drawEntity(baseColor, xx, yy, entry.image, 1 / scale, 1, (scale * scale) / entry.image.size, (scale * scale) / entry.image.size / 8.5, -Math.PI / 4, true, ctx[2], false, entry.image.render, false, true);
                 }
             }
         }
@@ -3355,7 +3859,7 @@ import * as socketStuff from "./socketinit.js";
                 }
 
                 if (amount > 0) {
-                    drawText(amount < softcap ? `+${amount}` : "MAX", x + t / 2, spacing + q * 1.3, q / 4, skillColor, "center");
+                    drawText(x + t / 2, spacing + q * 1.3, q / 4, skillColor, "center");
                 }
 
                 ctx[2].strokeStyle = color.black;
@@ -3406,20 +3910,20 @@ import * as socketStuff from "./socketinit.js";
             global.canvas.chatBox.style.backgroundColor = color.guiwhite;
             global.canvas.chatBox.style.borderColor = color.black;
             global.canvas.chatBox.style.borderWidth = 0.1 * g + 'px';
-            global.canvas.chatBox.style.opacity = global.showChatGlide * 1 * global.lerp(0, 1, global.showChatGlide);
+            global.canvas.chatBox.style.opacity = global.showChatGlide;
             global.canvas.chatBox.style.width = (boxLengthHalf * 2 + 0.75 * g) / global.screenWidth * 100 + `%`;
             global.canvas.chatBox.style.height = 0.95 * g + `px`;
             global.canvas.chatBox.style.left = (x - boxLengthHalf - 0.75 * g / 2) / global.screenWidth * 100 + `%`;
             global.canvas.chatBox.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
             // Input 
-            global.canvas.chatInput.style.opacity = global.showChatGlide * 1 * global.lerp(0, 1, global.showChatGlide);
+            global.canvas.chatInput.style.opacity = global.showChatGlide;
             global.canvas.chatInput.style["font-size"] = 0.5 * g + 'px';
             global.canvas.chatInput.style.color = color.black;
             global.canvas.chatInput.style.width = (boxLengthHalf * 2 + 0.35 * g) / global.screenWidth * 100 + `%`;
             global.canvas.chatInput.style.height = 0.95 * g + `px`;
             global.canvas.chatInput.style.left = (x - boxLengthHalf - 0.35 * g / 2) / global.screenWidth * 100 + `%`;
             global.canvas.chatInput.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
-            if (global.canvas.chatBox && global.canvas.chatBox.style.opacity == 0 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
+            if (global.canvas.chatBox && global.showChatGlide < 0.005 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
         }
     }
     let drawAdScreen = () => {
@@ -3623,7 +4127,7 @@ import * as socketStuff from "./socketinit.js";
             let n = null == tickMotion ? 0 : 0.99 ** tickMotion;
             global.player.renderx = global.player.renderx * n + playerx * (1 - n);
             global.player.rendery = global.player.rendery * n + playery * (1 - n);
-        } else if (config.graphical.predictAnimations) {
+        } else if (!config.graphical.interpolation) {
             global.player.renderx = motion.predict(global.player.lastx, global.player.cx.x, global.player.lastvx, global.player.vx),
             global.player.rendery = motion.predict(global.player.lasty, global.player.cy.y, global.player.lastvy, global.player.vy);
         } else {
@@ -3665,12 +4169,12 @@ import * as socketStuff from "./socketinit.js";
         if (global.gamepadMode) drawCrosshair();
         if (global.GUIStatus.renderGUI) {
             drawMessages(spacing, alcoveSize);
-            drawSkillBars(spacing, alcoveSize);
-            drawSelfInfo(max);
+            if (global.GUIStatus.renderUpgrades) drawSkillBars(spacing, alcoveSize);
+            if (global.GUIStatus.renderPlayerBars) drawSelfInfo(max);
             drawMinimapAndDebug(spacing, alcoveSize, global.GRAPHDATA, tick);
             if (global.GUIStatus.renderLeaderboard) drawLeaderboard(spacing, alcoveSize, max);
-            drawAvailableUpgrades(spacing, alcoveSize);
-        } else drawAvailableUpgrades(spacing, alcoveSize);
+            if (global.GUIStatus.renderUpgrades) drawAvailableUpgrades(spacing, alcoveSize);
+        } else if (global.GUIStatus.renderUpgrades) drawAvailableUpgrades(spacing, alcoveSize);
         if (global.showTree) {
             drawUpgradeTree(spacing, alcoveSize);
         }
@@ -3678,16 +4182,81 @@ import * as socketStuff from "./socketinit.js";
         global.metrics.lastrender = getNow();
     }
 
-    function drawOptionsMenu() {
-        // Set up the animation
-        if (!global.optionsMenu_Anim.switchMenu_button) {
-            global.optionsMenu_Anim = {
-                switchMenu_button: Smoothbar(0, 2, 3, 0.08, 0.025, true),
-                optionsButtonProgress: Smoothbar(0, 2, 0.1, 0.08, 0.025, true),
-                mainMenu: Smoothbar(-500, 2, 3, 0.08, 0.025, true),
-                isOpened: false,
+    function optionsMenu_drawRoundedRect(x, y, w, h, r) {
+        ctx[2].beginPath();
+        ctx[2].moveTo(x+r, y);
+        ctx[2].lineTo(x+w-r, y);
+        ctx[2].quadraticCurveTo(x+w, y, x+w, y+r);
+        ctx[2].lineTo(x+w, y+h-r);
+        ctx[2].quadraticCurveTo(x+w, y+h, x+w-r, y+h);
+        ctx[2].lineTo(x+r, y+h);
+        ctx[2].quadraticCurveTo(x, y+h, x, y+h-r);
+        ctx[2].lineTo(x, y+r);
+        ctx[2].quadraticCurveTo(x, y, x+r, y);
+        ctx[2].closePath();
+    }
+
+    function drawToolip(cb) {
+        // Draw tooltip
+
+        // Set fade animation
+        cb.tooltipService.alpha.set(cb.tooltipService.targetAlpha);
+
+        // And get it
+        const anim = cb.tooltipService.alpha.get();
+
+        // And dont forget the ratio
+        const clickableRatio = global.canvas.height / global.screenHeight / global.ratio;
+        // invisible → skip
+        if (anim > 0.001) {
+            ctx[2].save();
+            ctx[2].globalAlpha = anim;
+
+            const paddingX = 9;
+            const paddingY = 6;
+
+            const splitTooltip = cb.tooltipService.text.split("\n");
+
+            let textW = cb.tooltipService.text.length;
+            for (let line of splitTooltip) textW = Math.max(textW, measureText(line, 13.5));
+            const textH = 16; // font size
+            const boxW = textW + paddingX * 2;
+            let boxH = 0;
+            if (splitTooltip.length === 1) boxH = textH + paddingY * 2.5;
+            if (splitTooltip.length !== 1) for (let line of splitTooltip) boxH += textH;
+            // convert from screen → canvas
+            const tipX = cb.tooltipService.x / clickableRatio;
+            const tipY = cb.tooltipService.y / clickableRatio;
+
+            // tooltip sits BELOW checkbox
+            const bx = tipX;
+            const by = tipY;
+            let textY = by;
+            // background
+            ctx[2].fillStyle = "rgba(30, 30, 30, 0.45)";
+            optionsMenu_drawRoundedRect(bx, by, boxW, splitTooltip.length === 1 ? boxH : boxH + 15, 8);
+            ctx[2].fill();
+            ctx[2].globalAlpha = anim;
+
+            // Text
+            for (let i = 0; i < splitTooltip.length; i++) {
+                let text = splitTooltip[i];
+                let increaseLength = splitTooltip.length === 1 ? 22 : 17.6;
+                textY += increaseLength;
+                drawText(text, bx + paddingX, splitTooltip.length === 1 ? textY : textY + 3, 13.5, color.guiwhite);
             }
+
+            ctx[2].restore();
         }
+    }
+
+
+    function drawOptionsMenu() {
+        // Initialize tab offset for sliding animation and menu height animation
+        if (!global.optionsMenu_Anim.tabOffset) {
+            global.optionsMenu_Anim.tabOffset = Smoothbar(global.optionsMenu_Anim.activeTab || 0, 2, 3, 0.08, 0.025, true);
+        }
+
         const RENDERX = global.optionsMenu_Anim.switchMenu_button.get();
         const BTN_SIZE = 30;
         const BTN_WIDTH_COLLAPSED = BTN_SIZE / 1.57; // Half width when not hovering
@@ -3725,7 +4294,7 @@ import * as socketStuff from "./socketinit.js";
         
         // Draw button background
         ctx[2].lineWidth = 3;
-        gameDraw.setColor(ctx[2], color.blue);
+        gameDraw.setColor(ctx[2], color.green);
         drawGuiRect(BTN_X, BTN_Y, animatedWidth, BTN_SIZE);
         if (hover) {
             gameDraw.setColor(ctx[2], global.clickables.clicked ? "#000" : "#fff");
@@ -3765,11 +4334,11 @@ import * as socketStuff from "./socketinit.js";
         const arrowCenterX = arrowBaseX + animatedWidth - 19;
         const arrowCenterY = BTN_Y + BTN_SIZE / 2;
         
+
         const leftX = arrowCenterX - arrowW / 3; 
-        const tipX = arrowCenterX + arrowW / 2;  
-        const topY = arrowCenterY - arrowH / 2; 
-        const botY = arrowCenterY + arrowH / 2; 
-        
+        const tipX = arrowCenterX + arrowW / 2; 
+        const topY = arrowCenterY - arrowH / 2;
+        const botY = arrowCenterY + arrowH / 2;
 
         ctx[2].fillStyle = "#ffffff";
         ctx[2].lineJoin = "round";
@@ -3782,26 +4351,22 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].lineTo(leftX, botY);
         ctx[2].closePath();
         ctx[2].fill();
-        
         ctx[2].strokeStyle = "#ffffff";
         ctx[2].stroke();
         
         ctx[2].restore();
         ctx[2].translate(-RENDERX, -0);
 
-        // Draw options menu
-        
-        //if (menuEase <= 0.001) return; // fully hidden
         const mainMenuAnim = global.optionsMenu_Anim.mainMenu.get();
+        if (mainMenuAnim < -470) return; // fully hidden
         const PANEL_WIDTH = 460;
-        const PANEL_HEIGHT = 730;
+        const PANEL_HEIGHT = global.optionsMenu_Anim.mainMenuHeight.get();
         const PANEL_Y = 75;
 
         // slide from off-screen left → visible
         const PANEL_VISIBLE_X = mainMenuAnim;
         const PANEL_HIDDEN_X = PANEL_VISIBLE_X - PANEL_WIDTH - 30;
         const panelX = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X);
-
 
         ctx[2].save();
         ctx[2].globalAlpha = 1;
@@ -3813,227 +4378,264 @@ import * as socketStuff from "./socketinit.js";
         gameDraw.setColor(ctx[2], color.black);
         drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, true);
 
-        // top tabs (Options / Theme / Keybinds) – visuals only here
-        const TAB_WIDTH = PANEL_WIDTH / 3.73; /* 5.035*/
+        // Top tabs with interactive functionality
+        const TAB_WIDTH = PANEL_WIDTH / 3.73; // 5.035
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
-
-        function drawTab(index, label, active) {
-            const x = panelX + index * TAB_WIDTH * 1.162;
-            const cx = x + TAB_WIDTH - 11;
-            const cy = TAB_Y + TAB_HEIGHT - 18;
-            ctx[2].lineWidth = 3;
-            gameDraw.setColor(ctx[2], gameDraw.mixColors(color.grey, gameDraw.getColor(color.black), 0.3));
-            drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
-            gameDraw.setColor(ctx[2], color.black);
-            drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
-            if (active) {
-                ctx[2].lineWidth = 3;
-                gameDraw.setColor(ctx[2], color.grey);
-                drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT + 5);
-                gameDraw.setColor(ctx[2], color.black);
-                drawGuiRect(x + 50, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
-                gameDraw.setColor(ctx[2], color.grey);
-                drawGuiRect(x + 51.6, TAB_Y + 48, TAB_WIDTH - 3, TAB_HEIGHT - 46);
-            }
-            drawText(label, cx, cy, 16, color.guiwhite, "center");
-        }
-        drawTab(0, "Options", true);
-        drawTab(1, "Theme", false);
-        drawTab(2, "Keybinds", false);
-        //drawTab(3, "Secrets", false);
+        const TAB_NAMES = global.optionsMenu_Anim.tabs;
 
         drawText("ingame options is not finished, expect missing features and bugs lol", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
 
-        drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
-        drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 310, 15.5, color.guiwhite, "center");
-        drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 470, 15.5, color.guiwhite, "center");
-        drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 670, 15.5, color.guiwhite, "center");
+        // Initialize tab clickables
 
-        // -------------- Checkboxes + tooltips --------------
-        if (!global.optionsCheckboxes) {
-            // very simple logical layout: column (0 = left, 1 = right) + row index
-            global.optionsCheckboxes = [
-                // Game Appearance
-                { id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player names." },
-                { id: "optRenderScores",        label: "Player Scores",         column: 0, row: 1, section: "appearance", tooltip: "Show player scores." },
-                { id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
-                { id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
-                { id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
-              //{ id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
+        // Draw tabs backgrounds and place clickables
+        for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
+            const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            const tabX = x + 50;
+            const tabClickableX = tabX * clickableRatio;
+            const tabClickableY = TAB_Y * clickableRatio;
+            const tabClickableW = TAB_WIDTH * clickableRatio;
+            const tabClickableH = TAB_HEIGHT * clickableRatio;
 
-              //{ id: "optChatMessages",        label: "Chat Messages",         column: 1, row: 0, section: "appearance", tooltip: "Show chat messages." },
-                { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Show health bars." },
-                { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
-              //{ id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
-              //{ id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
-                { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 1, row: 5, section: "appearance", tooltip: "Changes the health and shield color with their body color." },
+            global.optionsMenu_Anim.tabClickables.place(tabIndex, tabClickableX, tabClickableY, tabClickableW, tabClickableH);
 
-                // UI Elements
-              //{ id: "optUpgrades",            label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
-                { id: "optRenderGui",           label: "Player Bars",            column: 0, row: 1, section: "ui", tooltip: "Toggle the visibility of the score and level bars." },
-                { id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 2, section: "ui", tooltip: "Show recent kills in a bar." },
-
-                { id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Toggle the visibility of the leaderboard." },
-              //{ id: "optMinimap",             label: "Minimap",               column: 1, row: 1, section: "ui", tooltip: "Toggle the visibility of the minimap." },
-                { id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 2, section: "ui", tooltip: "Show various extra information in the bottom right corner.", reverseCheck: true },
-
-                // Extra
-                { id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 0, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
-                { id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 1, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
-              //{ id: "optUnscaledPanel",    label: "Unscaled Old Spawn Panel", column: 0, row: 2, section: "extra", tooltip: "Scale the original spawn panel to look the same regardless of display size." },
-
-                { id: "optFancy",               label: "Fading Animation",      column: 1, row: 0, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
-              //{ id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 1, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
-
-                // Performance
-                { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
-            ];
-
-            // default values; hook these into your actual settings as needed
-            for (const cb of global.optionsCheckboxes) {
-                let doc = document.getElementById(cb.id);
-                if (doc) cb.value = doc.checked, cb.lastValue = cb.value;
-            }
-        }
-        if (!global.optionsSlidingBars) {
-            global.optionsSlidingBars = [
-                { maxLowValue: 1, maxValue: config.graphical.borderChunk, affect: config.graphical.borderChunk, column: 0, row: 4, label: "Low Resolution", section: "appearance", tooltip: "Lower the game's resolution. May help to improve the frame rate.", }
-            ]
-        }
-
-        const BOX_SIZE = 25;
-        const LINE_HEIGHT = 40;
-
-        for (let i = 0; i < global.optionsCheckboxes.length; i++) {
-            const cb = global.optionsCheckboxes[i];
-            // section offset
-            let baseY = PANEL_Y + 45;     // Game Appearance
-            if (cb.section === "ui")    baseY = PANEL_Y + 325;
-            if (cb.section === "extra") baseY = PANEL_Y + 525;
-            if (cb.section === "perf")  baseY = PANEL_Y + 685;
-
-            const baseXLeft  = panelX + 20;
-            const baseXRight = panelX + PANEL_WIDTH / 2 + 7.5;
-
-            const x = (cb.column === 0 ? baseXLeft : baseXRight);
-            const y = baseY + cb.row * LINE_HEIGHT;
-            // hitbox in screen coords
-            const hitX = x * clickableRatio;
-            const hitY = y * clickableRatio;
-            const hitSize = BOX_SIZE * clickableRatio;
-            // Initalize the tooltip if we didnt.
-            if (!cb.tooltipService) {
-                global.optionsCheckboxes[i].tooltipService = {
-                    text: cb.tooltip,
-                    targetAlpha: 0,
-                    alpha: Smoothbar(0, 2, 3, 0.06, 0.025, true),
-                    x: 0,
-                    y: 0
-                }
-            }
-            // Also update the positions due to animation movement.
-            cb.tooltipService.x = hitX;
-            cb.tooltipService.y = hitY + hitSize + 10;
-            global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitY, hitSize, hitSize);
-            global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitY, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
-            let clickHover = global.clickables.optionsMenu.toggleBoxes.check(mpos);
-            let hovered = global.clickables.optionsMenu.HoverBoxes.check(mpos);
-            if (hovered !== -1) {
-                global.optionsCheckboxes[hovered].tooltipService.targetAlpha = 1;
-            } else global.optionsCheckboxes[i].tooltipService.targetAlpha = 0;
-            // If the box got changed the reload the settings
-            if (cb.lastValue !== cb.value) {
-                cb.lastValue = cb.value;
-                loadSettings();
-                if (cb.id === "optLowResolution") resizeEvent();
-            }
-            // draw checkbox
-            const isOn = (cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value);
+            const tabHover = global.optionsMenu_Anim.tabClickables.check(mpos) === tabIndex;
+            
+            // Draw tab background
             ctx[2].lineWidth = 3;
-            gameDraw.setColor(ctx[2], isOn ? color.blue : color.guiwhite);
-            drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
-            if (clickHover !== -1 && clickHover === i) {
-                gameDraw.setColor(ctx[2], !isOn ? global.clickables.clicked ? color.guiblack : color.black : global.clickables.clicked ? color.black : color.guiwhite);
-                ctx[2].globalAlpha = global.clickables.clicked ? 0.25 : 0.2;
-                drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+            gameDraw.setColor(ctx[2], gameDraw.mixColors(color.grey, color.black, 0.3));
+            drawGuiRect(tabX, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
+            if (tabHover) {
+                gameDraw.setColor(ctx[2], global.clickables.clicked ? color.guiblack : color.lgrey);
+                ctx[2].globalAlpha = global.clickables.clicked ? 0.10 : 1;
+                drawGuiRect(tabX, TAB_Y, TAB_WIDTH, TAB_HEIGHT);
                 ctx[2].globalAlpha = 1;
             }
+        }
+
+        // Draw tabs borders
+        for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
+            const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            const tabX = x + 50;
+            
+            // Draw tab border
+            ctx[2].lineWidth = 3;
             gameDraw.setColor(ctx[2], color.black);
-            drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
-            // checkmark
-            if (isOn) {
-                ctx[2].strokeStyle = "#ffffff";
+            drawGuiRect(tabX, TAB_Y, TAB_WIDTH, TAB_HEIGHT, true);
+        }
+
+        // Sliding tab background and border (above borders, below text)
+        const currentTab = global.optionsMenu_Anim.tabOffset.get();
+        const bgX = panelX + currentTab * TAB_WIDTH * 1.162 + 50;
+        gameDraw.setColor(ctx[2], color.grey);
+        drawGuiRect(bgX, TAB_Y, TAB_WIDTH, TAB_HEIGHT + 3); // Extend height to cover bottom border
+        // Draw border without bottom
+        ctx[2].strokeStyle = color.black;
+        ctx[2].lineWidth = 3;
+        ctx[2].beginPath();
+        ctx[2].moveTo(bgX, TAB_Y);
+        ctx[2].lineTo(bgX + TAB_WIDTH, TAB_Y); // top
+        ctx[2].moveTo(bgX, TAB_Y);
+        ctx[2].lineTo(bgX, TAB_Y + TAB_HEIGHT); // left
+        ctx[2].moveTo(bgX + TAB_WIDTH, TAB_Y);
+        ctx[2].lineTo(bgX + TAB_WIDTH, TAB_Y + TAB_HEIGHT); // right
+        ctx[2].stroke();
+
+        // Draw tabs labels
+        for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
+            const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            
+            // Tab label
+            const cx = x + TAB_WIDTH - 11;
+            const cy = TAB_Y + TAB_HEIGHT - 18;
+            drawText(TAB_NAMES[tabIndex][0], cx, cy, 16, color.guiwhite, "center");
+        }
+
+        // Draw tab content with fade animation
+        const fadeOptions = Math.max(0, 1 - Math.abs(0 - currentTab));
+        const fadeTheme = Math.max(0, 1 - Math.abs(1 - currentTab));
+        const fadeKeybinds = Math.max(0, 1 - Math.abs(2 - currentTab));
+
+        ctx[2].save();
+        ctx[2].globalAlpha *= fadeOptions;
+        ctx[2].beginPath();
+        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 10);
+        ctx[2].clip();
+        if (fadeOptions > 0.01) {
+
+            // OPTIONS TAB
+
+            drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
+            drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 310, 15.5, color.guiwhite, "center");
+            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 470, 15.5, color.guiwhite, "center");
+            drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 670, 15.5, color.guiwhite, "center");
+
+            if (!global.optionsCheckboxes) {
+                global.optionsCheckboxes = [
+                    // Game Appearance
+                    { id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player names." },
+                    { id: "optRenderScores",        label: "Player Scores",         column: 0, row: 1, section: "appearance", tooltip: "Show player scores." },
+                    { id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
+                    { id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
+                    { id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
+                    { id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
+
+                    { id: "optChatMessages",        label: "Chat Messages",         column: 1, row: 0, section: "appearance", tooltip: "Show chat messages." },
+                    { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Show health bars." },
+                    { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
+                    { id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
+                    { id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "May slightly lower the frame rate." },
+                    { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 1, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
+
+                    // UI Elements
+                    { id: "optRenderUpgrades",      label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
+                    { id: "optRenderPlayerBars",    label: "Player Bars",           column: 0, row: 1, section: "ui", tooltip: "Toggle the visibility of the score and level bars." },
+                    { id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 2, section: "ui", tooltip: "Toggle the visibility of the kill bar, which shows the number of kills, assists and boss kills." },
+
+                    { id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Toggle the visibility of the leaderboard." },
+                    { id: "optRenderMinimap",       label: "Minimap",               column: 1, row: 1, section: "ui", tooltip: "Toggle the visibility of the minimap." },
+                    { id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 2, section: "ui", tooltip: "Show various extra information in the bottom right corner.", reverseCheck: true },
+
+                    // Extra
+                    { id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 0, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
+                    { id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 1, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
+
+                    { id: "optFancy",               label: "Fading Animation",      column: 1, row: 0, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
+                    { id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 1, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
+
+                    // Performance
+                    { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
+                ];
+
+                for (const cb of global.optionsCheckboxes) {
+                    let doc = document.getElementById(cb.id);
+                    if (doc) cb.value = doc.checked, cb.lastValue = cb.value;
+                }
+            }
+
+            const BOX_SIZE = 25;
+            const LINE_HEIGHT = 40;
+
+            for (let i = 0; i < global.optionsCheckboxes.length; i++) {
+                const cb = global.optionsCheckboxes[i];
+                let baseY = PANEL_Y + 45;
+                if (cb.section === "ui")    baseY = PANEL_Y + 325;
+                if (cb.section === "extra") baseY = PANEL_Y + 525;
+                if (cb.section === "perf")  baseY = PANEL_Y + 685;
+
+                const baseXLeft  = panelX + 20;
+                const baseXRight = panelX + PANEL_WIDTH / 2 + 7.5;
+
+                const x = (cb.column === 0 ? baseXLeft : baseXRight);
+                const y = baseY + cb.row * LINE_HEIGHT;
+                const hitX = x * clickableRatio;
+                const hitY = y * clickableRatio;
+                const hitSize = BOX_SIZE * clickableRatio;
+
+                if (!cb.tooltipService) {
+                    global.optionsCheckboxes[i].tooltipService = {
+                        text: cb.tooltip,
+                        targetAlpha: 0,
+                        alpha: Smoothbar(0, 2, 3, 0.06, 0.025, true),
+                        x: 0,
+                        y: 0
+                    }
+                }
+
+                cb.tooltipService.x = hitX;
+                cb.tooltipService.y = hitY + hitSize + 10;
+                if (fadeOptions > 0.2) {
+                    global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitY, hitSize, hitSize);
+                    global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitY, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+                } else {
+                    global.clickables.optionsMenu.toggleBoxes.hide();
+                    global.clickables.optionsMenu.HoverBoxes.hide();
+                }
+                let clickHover = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                let hovered = global.clickables.optionsMenu.HoverBoxes.check(mpos);
+
+                if (hovered !== -1) {
+                    global.optionsCheckboxes[hovered].tooltipService.targetAlpha = 1;
+                } else global.optionsCheckboxes[i].tooltipService.targetAlpha = 0;
+
+                if (cb.lastValue !== cb.value) {
+                    cb.lastValue = cb.value;
+                    loadSettings();
+                    if (cb.id === "optLowResolution") resizeEvent();
+                }
+
+                const isOn = (cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value);
                 ctx[2].lineWidth = 3;
-                ctx[2].beginPath();
-                ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
-                ctx[2].lineTo(x + BOX_SIZE / 2 - 3, y + BOX_SIZE - 7);
-                ctx[2].lineTo(x + BOX_SIZE - 6, y + 8);
-                ctx[2].stroke();
+                gameDraw.setColor(ctx[2], isOn ? color.green : color.guiwhite);
+                drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+                if (clickHover !== -1 && clickHover === i) {
+                    gameDraw.setColor(ctx[2], !isOn ? global.clickables.clicked ? color.guiblack : color.black : global.clickables.clicked ? color.black : color.guiwhite);
+                    ctx[2].globalAlpha = global.clickables.clicked ? 0.25 : 0.2;
+                    drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+                    ctx[2].globalAlpha = 1 * fadeOptions;
+                }
+                gameDraw.setColor(ctx[2], color.black);
+                drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
+
+                if (isOn) {
+                    ctx[2].strokeStyle = "#ffffff";
+                    ctx[2].lineWidth = 3;
+                    ctx[2].beginPath();
+                    ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
+                    ctx[2].lineTo(x + BOX_SIZE / 2 - 3, y + BOX_SIZE - 7);
+                    ctx[2].lineTo(x + BOX_SIZE - 6, y + 8);
+                    ctx[2].stroke();
+                }
+
+                drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left");
             }
 
-            // label
-            drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left");
         }
-        for (const cb of global.optionsCheckboxes) {
-            // Draw tooltip
+        ctx[2].restore();
 
-            // Set fade animation
-            cb.tooltipService.alpha.set(cb.tooltipService.targetAlpha);
-            // And get it
-            const anim = cb.tooltipService.alpha.get();
-            // invisible → skip
-            if (anim > 0.01) {
-                ctx[2].save();
-                ctx[2].globalAlpha = anim;
+        for (const cb of global.optionsCheckboxes) drawToolip(cb);
 
-                // FONT (matches the screenshot exactly)
-                ctx[2].font = "bold 16px Ubuntu";  // bold + larger
-                ctx[2].textAlign = "left";
-                ctx[2].textBaseline = "middle";
+        ctx[2].save();
+        ctx[2].globalAlpha *= fadeTheme;
+        if (fadeTheme > 0.01) {
+            // THEME TAB
+        
+            const CONTENT_Y = PANEL_Y + 50;
+            const CONTENT_X = panelX + 30;
 
-                const paddingX = 5;
-                const paddingY = 6;
+            ctx[2].fillStyle = color.guiwhite;
+            ctx[2].font = "bold 20px Ubuntu";
+            ctx[2].textAlign = "left";
+            ctx[2].textBaseline = "middle";
 
-                const textW = ctx[2].measureText(cb.tooltipService.text).width;
-                const textH = 16; // font size
-                const boxW = textW + paddingX * 2;
-                const boxH = textH + paddingY * 2.5;
-
-                // convert from screen → canvas
-                const tipX = cb.tooltipService.x / clickableRatio;
-                const tipY = cb.tooltipService.y / clickableRatio;
-
-                // tooltip sits BELOW checkbox
-                const bx = tipX;
-                const by = tipY;
-
-                // background
-                ctx[2].fillStyle = "rgba(30, 30, 30, 0.5)";
-                drawRoundedRect(bx, by, boxW, boxH, 8);
-                ctx[2].fill();
-
-                // TEXT BORDER (4-way stroke)
-                ctx[2].fillStyle = "#000000";
-                ctx[2].globalAlpha = cb.tooltipService.alpha * 0.7;
-                ctx[2].fillText(cb.tooltipService.text, bx + paddingX + 1, by + boxH / 2 + 1);
-                ctx[2].fillText(cb.tooltipService.text, bx + paddingX - 1, by + boxH / 2 - 1);
-                ctx[2].fillText(cb.tooltipService.text, bx + paddingX + 1, by + boxH / 2 - 1);
-                ctx[2].fillText(cb.tooltipService.text, bx + paddingX - 1, by + boxH / 2 + 1);
-
-                // MAIN WHITE TEXT
-                ctx[2].globalAlpha = cb.tooltipService.alpha;
-                ctx[2].fillStyle = "#ffffff";
-                ctx[2].fillText(cb.tooltipService.text, bx + paddingX, by + boxH / 2);
-
-                ctx[2].restore();
-            }
+            drawText("Theme", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
+            drawText("Coming soon™", CONTENT_X, CONTENT_Y, 20, color.guiwhite, "left");
         }
+        ctx[2].restore();
+
+        ctx[2].save();
+        ctx[2].globalAlpha *= fadeKeybinds;
+        if (fadeKeybinds > 0.01) {
+            // KEYBINDS TAB
+        
+            const CONTENT_Y = PANEL_Y + 50;
+            const CONTENT_X = panelX + 30;
+
+            ctx[2].fillStyle = color.guiwhite;
+            ctx[2].font = "bold 20px Ubuntu";
+            ctx[2].textAlign = "left";
+            ctx[2].textBaseline = "middle";
+
+            drawText("Keybinds", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
+            drawText("Coming soon™", CONTENT_X, CONTENT_Y, 20, color.guiwhite, "left");
+        }
+        ctx[2].restore();
+
+        // Close button
         const CLOSE_SIZE = 30;
         const closeX = panelX;
         const closeY = PANEL_Y - CLOSE_SIZE - 20;
 
-        // place clickable
         global.clickables.optionsMenu.switchButton.place(
             1,
             closeX * clickableRatio,
@@ -4043,7 +4645,6 @@ import * as socketStuff from "./socketinit.js";
         );
 
         const cstate = global.clickables.optionsMenu.switchButton.check(mpos);
-        // draw red button
         ctx[2].save();
         ctx[2].globalAlpha = 1;
 
@@ -4058,7 +4659,7 @@ import * as socketStuff from "./socketinit.js";
         }
         gameDraw.setColor(ctx[2], color.black);
         drawGuiRect(closeX, closeY, CLOSE_SIZE, CLOSE_SIZE, true);
-        // draw X
+
         ctx[2].strokeStyle = "#ffffff";
         ctx[2].lineWidth = 4;
         ctx[2].beginPath();
@@ -4069,20 +4670,6 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].stroke();
 
         ctx[2].restore();
-        function drawRoundedRect(x, y, w, h, r) {
-            ctx[2].beginPath();
-            ctx[2].moveTo(x+r, y);
-            ctx[2].lineTo(x+w-r, y);
-            ctx[2].quadraticCurveTo(x+w, y, x+w, y+r);
-            ctx[2].lineTo(x+w, y+h-r);
-            ctx[2].quadraticCurveTo(x+w, y+h, x+w-r, y+h);
-            ctx[2].lineTo(x+r, y+h);
-            ctx[2].quadraticCurveTo(x, y+h, x, y+h-r);
-            ctx[2].lineTo(x, y+r);
-            ctx[2].quadraticCurveTo(x, y, x+r, y);
-            ctx[2].closePath();
-        }
-
 
         ctx[2].restore();
     }
@@ -4131,9 +4718,9 @@ import * as socketStuff from "./socketinit.js";
         let ratio = util.getScreenRatio();
         scaleScreenRatio(ratio, true);
         clearScreen(gameDraw.mixColors(color.black, color.guiblack, 0.3), 0.25, ctx[2]);
-        drawText("Error!", global.screenWidth / 2, global.screenHeight / 2, 30, color.red, "center");
-        drawText("The client ran into an error, try to move away from the glitched entity.", global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.guiwhite, "center");
-        drawText("Press F12 if you're on PC, check the console logs, and report it to the developers.", global.screenWidth / 2, global.screenHeight / 2 + 60, 15, color.guiwhite, "center");
+        drawText("Client error detected!", global.screenWidth / 2, global.screenHeight / 2, 30, color.red, "center");
+        drawText("If this is because of an entity, try to move away from it.", global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.guiwhite, "center");
+        drawText("Check your browser's console logs and report whatever you see to the developers.", global.screenWidth / 2, global.screenHeight / 2 + 60, 15, color.guiwhite, "center");
     }
     let animationFrame =
     (!/Chrome\/8[4-6]\.0\.41([4-7][0-9]|8[0-3])\./.test(navigator.userAgent) &&

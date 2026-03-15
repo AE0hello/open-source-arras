@@ -46,7 +46,11 @@ global.loadServerSelector = (serverData, text) => {
             td2.classList.add("tdCenter");
             td2.textContent = `${server.gameMode}`;
             const td3 = document.createElement("td");
-            td3.textContent = `${server.players}/${server.maxPlayers}`;
+            if (server.maxPlayers < 1) {
+                td3.textContent = `${server.players}`;
+            } else {
+                td3.textContent = `${server.players}/${server.maxPlayers}`;
+            }
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
@@ -109,6 +113,7 @@ let initializeFilter = () => {
             america: [],
             europe: [],
             asia: [],
+            oceania: [],
             other: [],
         },
         gamemodeFilters: {
@@ -131,11 +136,22 @@ let initializeFilter = () => {
     tbody.appendChild(noServerMatches);
 
     for (let s of servers) {
-        global.filters.gamemodeFilters.all.push(s);
+        // Regions
         global.filters.regions.all.push(s);
-        if (s.region == "US West" || s.region == "US Central" || s.region == "US East") global.filters.regions.america.push(s);
-        if (s.region == "Europe") global.filters.regions.europe.push(s);
-        if (s.region == "Asia" || s.region == "Oceania") global.filters.regions.asia.push(s);
+
+        // USA
+        if (s.region.toLowerCase() == "usa" || s.region.toLowerCase() == "us west" || s.region.toLowerCase() == "us central" || s.region.toLowerCase() == "us east") global.filters.regions.america.push(s);
+
+        // Europe
+        if (s.region.toLowerCase() == "europe") global.filters.regions.europe.push(s);
+
+        // Asia
+        if (s.region.toLowerCase() == "asia") global.filters.regions.asia.push(s);
+
+        // Oceania
+        if (s.region.toLowerCase() == "oceania") global.filters.regions.oceania.push(s);
+
+        // Other
         if (
             !global.filters.regions.america.includes(s) &&
             !global.filters.regions.europe.includes(s) &&
@@ -143,21 +159,31 @@ let initializeFilter = () => {
         ) {
             global.filters.regions.other.push(s);
         }
+
+        // Gamemodes
+        global.filters.gamemodeFilters.all.push(s);
+
+        // FFA
+        if (s.gameMode.includes("FFA")) global.filters.gamemodeFilters.ffa.push(s);
+
+        // Squads
+        if (s.gameMode.includes("Duos") || s.gameMode.includes("Squads") || s.gameMode.includes("Wars")) global.filters.gamemodeFilters.squads.push(s);
+
+        // TDM
+        if (s.gameMode.includes("TDM")) global.filters.gamemodeFilters.tdm.push(s);
+
+        // Sandbox
+        if (s.gameMode.includes("Sandbox")) global.filters.gamemodeFilters.sandbox.push(s);
+
+        // Minigames
         if (
-            s.gameMode.includes("FFA") || 
-            s.gameMode.includes("Maze") || 
-            s.gameMode.includes("Manhunt")
-        ) global.filters.gamemodeFilters.ffa.push(s);
-        if (
-            s.gameMode.includes("TDM") 
-        ) global.filters.gamemodeFilters.tdm.push(s);
-        if (
-            s.gameMode.includes("Domination") ||
-            s.gameMode.includes("Mothership")
-        ) global.filters.gamemodeFilters.minigames.push(s);
-        if (
-            s.gameMode.includes("Sandbox")
-        ) global.filters.gamemodeFilters.sandbox.push(s);
+            !global.filters.gamemodeFilters.ffa.includes(s) &&
+            !global.filters.gamemodeFilters.squads.includes(s) &&
+            !global.filters.gamemodeFilters.tdm.includes(s) &&
+            !global.filters.gamemodeFilters.sandbox.includes(s)
+        ) {
+            global.filters.gamemodeFilters.minigames.push(s);
+        }
     };
     let l = [];
     let createFilter = (type, data) => {
@@ -208,8 +234,12 @@ let initializeFilter = () => {
             let e = checkFilter(h, global.filters.regions.europe);
             return e;
         } },
-        { name: "Asia/Oceania", filter: (h) => { 
+        { name: "Asia", filter: (h) => { 
             let e = checkFilter(h, global.filters.regions.asia);
+            return e;
+        } },
+        { name: "Oceania", filter: (h) => { 
+            let e = checkFilter(h, global.filters.regions.oceania);
             return e;
         } },
         { name: "Other", filter: (h) => {

@@ -4,6 +4,7 @@ let crypto = require("crypto"),
     PERMABAN_FILE = "./permabans.json";
 let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
+global.chatID = 0;
 
 class socketManager {
     constructor(parent) {
@@ -98,29 +99,27 @@ class socketManager {
         // clean up expired messages
         let now = Date.now();
         for (let i in chats) {
-            chats[i] = chats[i].filter((chat) => chat.expires > now);
-            if (!chats[i].length) {
-                delete chats[i];
-            }
+            chats[i].messages = chats[i].messages.filter((chat) => chat.expires > now);
         }
 
-        // send chat messages to everyone
+        // Send chat messages to everyone
         for (let view of global.gameManager.views) {
             let nearby = view.getNearby(),
-            spammersAdded = 0,
             array = [];
 
             for (let entity of nearby.values()) {
                 let id = entity.id;
                 if (chats[id]) {
-                        spammersAdded++;
-                        array.push(id, chats[id].length);
-                        for (let chat of chats[id]) {
-                        array.push(chat.message, chat.expires.toString());
+                    array.push({ id: id, messages: [] });
+                    let index = array.length - 1;
+                    for (let chat of chats[id].messages) {
+                        array[index].messages.push({ text: chat.message, id: chat.id });
                     }
                 }
             }
-            if (!view.socket.status.disablechat) view.socket.talk("CHAT_MESSAGE_ENTITY", spammersAdded, ...array);
+            if (view.socket.status.disablechat) {
+                view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array.map(o => {return {id: o.id, messages: []}})));
+            } else view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array));
         }
     }
 
@@ -164,10 +163,10 @@ class socketManager {
                 }
             }
             // Disconnect everything
-            util.log("[INFO] " + (player.body ? `User ${player.body.name == "" ? "A unnamed player" : player.body.name}` : "A user without an entity") + " disconnected!");
+            util.log("[INFO]: " + (player.body ? `User ${player.body.name == "" ? "A unnamed player" : player.body.name}` : "A user without an entity") + " disconnected!");
             util.remove(this.players, index);
         } else {
-            util.log("[INFO] A player disconnected before entering the game.");
+            util.log("[INFO]: A player disconnected before entering the game.");
         }
         // Free the view
         util.remove(global.gameManager.views, global.gameManager.views.indexOf(socket.view));
@@ -181,7 +180,7 @@ class socketManager {
         } else {
             global.gameManager.parentPort.postMessage([true, this.clients.length]);
         }
-        util.log("[INFO] The connection has closed. Views: " + global.gameManager.views.length + ". Clients: " + this.clients.length + ".");
+        util.log("[INFO]: The connection has closed. Views: " + global.gameManager.views.length + ". Clients: " + this.clients.length + ".");
     }
     incoming(message, socket) {
         // Decode it
@@ -189,7 +188,7 @@ class socketManager {
         // Remember who we are
         let player = socket.player;
         // Make sure it looks legit
-        if (m === -1) {
+        if (m === null) {
             socket.kick("Malformed packet.");
             return 1;
         }
@@ -206,25 +205,29 @@ class socketManager {
                     let key = m[0].toString().trim();
                     socket.permissions = this.permissionsDict[key];
                     if (socket.permissions) {
-                        util.log(`[INFO] A socket was verified with the token: ${key}`);
+                        util.log(`[INFO]: A socket was verified with the token: ${key}`);
                     } else {
-                        util.log(`[WARNING] A socket failed to verify with the token: ${key}`);
+                        util.log(`[WARNING]: A socket failed to verify with the token: ${key}`);
                     }
                     socket.key = key;
                 }
                 socket.status.verified = true;
-                util.log('Clients: ' + this.clients.length);
+                if (this.clients.length == 1) {
+                    util.log('[INFO]: ' + this.clients.length + ' client connected');
+                } else {
+                    util.log('[INFO]: ' + this.clients.length + ' clients connected');
+                }
             } break;
             case 's': { // spawn request
                 if (!socket.status.deceased) { socket.kick('Trying to spawn while already alive.'); return 1; }
-                if (this.clients.length > global.gameManager.webProperties.maxPlayers) return (
+                if (!global.gameManager.webProperties.maxPlayers < 1 && this.clients.length > global.gameManager.webProperties.maxPlayers) return (
                     socket.talk("message", "This server is full, please rejoin later."),
                     socket.kick("Server full.")
                 )
                 let b = bans.find((ban) => ban.ip === socket.ip);
                 if (b) {
-                    socket.talk("bansussy"); // Important, kick the user after calling bansussy in order to see the ban message.
-                    socket.kick("temp-Banned player detected!");
+                    socket.talk("temporaryban"); // Important, kick the user after calling temporaryban in order to see the ban message.
+                    socket.kick("Temporarily banned player detected!");
                     return 1;
                   }
                 let permB = permBans.find(
@@ -232,19 +235,20 @@ class socketManager {
                 );
                 if (permB) {
                     socket.talk("permanentban");
-                    socket.permaban("Permanent Banned player found!");
+                    socket.permaban("Permanently banned player found!");
                   return 1;
                 }
                 // Get data
-                if (m.length < 3) {
+                if (m.length < 4) {
                     socket.kick("Ill-sized spawn request.");
                     return 1;
                 }
-                let name = m[0].replace(Config.BANNED_CHARACTERS_REGEX, '');
+                let name = m[0];
                 let needsRoom = m[1];
                 let autoLVLup = m[2];
                 let transferbodyID = m[3];
-                if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
+                let incognitoMode = m[4];
+                if (incognitoMode) socket.status.incognito = true;
                 if (global.gameManager.arenaClosed) {
                     if (needsRoom) {
                       socket.talk("message", "Arena closed. Try again in a few seconds.");
@@ -253,10 +257,17 @@ class socketManager {
                     return;
                 };
                 // Verify it
-                if (typeof name != "string") { socket.kick("Bad spawn request name."); return 1; }
-                if (encodeURI(name).split(/%..|./).length > 48) { socket.kick("Overly-long name."); return 1; }
-                if (typeof m[1] !== "number") { socket.kick("Bad spawn request needsRoom."); return 1; }
-                if (typeof autoLVLup !== "number") { socket.kick("Bad spawn request autoLVLup."); return 1; }
+                if (typeof name != "string") { socket.kick("Bad spawn request. (name)"); return 1; }
+                if (encodeURI(name).split(/%..|./).length > 48) { socket.kick("Shorten your name!"); return 1; }
+                if (typeof m[1] !== "number") { socket.kick("Bad spawn request. (needsRoom)"); return 1; }
+                if (typeof autoLVLup !== "number") { socket.kick("Bad spawn request. (autoLVLup)"); return 1; }
+                if (typeof incognitoMode !== "number") { socket.kick("Bad spawn request. (incognito)"); return 1; }
+                if (transferbodyID && typeof transferbodyID != "string") { socket.kick("Bad body transfer. (transferbodyID)"); return 1; }
+                if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
+                
+                // Get rid of the banned characters
+                name = name.replace(Config.banned_characters, '');
+
                 // Give it the room state and move the camera.
                 if (needsRoom) {
                     if (Config.hidden) return socket.close(); // If the server is hidden then just kick the client.
@@ -292,9 +303,9 @@ class socketManager {
                         epackage.transferbodyID = transferbodyID;
                         // Easter eggs
                         epackage.braindamagemode = false;
-                        /*if (name.includes("Brain Damage") || name.includes("brain Damage") || name.includes("Brain damage") || name.includes("brain damage")) {
+                        if (Config.brain_damage && name.toLowerCase().includes("brain damage")) {
                             epackage.braindamagemode = true;
-                        }*/ // disabled because of epilepsy concerns, reenable at your own risk
+                        }
                         this.initalizePlayer(epackage, socket);
                     }
                 }, 20)
@@ -505,8 +516,15 @@ class socketManager {
                     socket.permissions &&
                     socket.permissions.class
                 ) {
-                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                    player.body.define({RESET_UPGRADES: true, BATCH_UPGRADES: false});
                     player.body.define(socket.permissions.class);
+                    let msg = Config.token_message.split("\n");
+                    if (!socket.status.specialTankWarned) {
+                        socket.status.specialTankWarned = true;
+                        for (let i = 0; i < msg.length; i++) {
+                            player.body.sendMessage(msg[i]);
+                        }
+                    }
                 }
             } break;
             case "1": {
@@ -520,6 +538,7 @@ class socketManager {
                             instance.kill();
                         }
                     }
+                    player.body.sendMessage("You have self-destructed.");
                     player.body.destroy();
                 }
             } break;
@@ -624,10 +643,11 @@ class socketManager {
     
                 let id = player.body.id;
                 if (!chats[id]) {
-                    chats[id] = [];
+                    chats[id] = {};
+                    chats[id].messages = [];
                 }
 
-                chats[id].unshift({ message, expires: Date.now() + Config.chat_message_duration });
+                chats[id].messages.unshift({ message, expires: Date.now() + Config.chat_message_duration, id: global.chatID++ });
     
                 // do one tick of the chat loop so they don't need to wait 100ms to receive it.
                 this.chatLoop();
@@ -654,8 +674,9 @@ class socketManager {
                 socket.talk("T");
             } break;
             case "DTA": {
-                if (player.body && player.body.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && Config.daily_tank.ads.enabled && !socket.status.daily_tank_watched_ad) {
-                    let chosenAd = ran.choose(Config.daily_tank.ads.source);
+                if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
+                if (player.body && player.body.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && Config.daily_tank.ads && !socket.status.daily_tank_watched_ad) {
+                    let chosenAd = ran.choose(Config.daily_tank.ad_sources);
                     let isImage = chosenAd.file.endsWith(".png") || chosenAd.file.endsWith(".jpg") || chosenAd.file.endsWith(".jpeg")
                     socket.talk("DTA", JSON.stringify({src: chosenAd.file, normalAdSize: chosenAd.use_regular_ad_size ?? true, waitTime: isImage ? chosenAd.image_wait_time : "isVideo"}));
                     if (isImage) {
@@ -668,12 +689,14 @@ class socketManager {
                 }
             } break;
             case "DTAD": {
+                if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
                 if (socket.status.daily_tank_watched_ad_client) {
                     socket.status.daily_tank_watched_ad = true;
                     socket.talk("DTAD");
                 }
             } break;
             case "DTAST": {
+                if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
                 let time = String(m[0]).split(".")[0];
                 socket.talk("DTAST");
                 setTimeout(() => {
@@ -894,8 +917,8 @@ class socketManager {
             if (b.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && b.defs.includes(Config.spawn_class)) {
                 dailyTank = Config.daily_tank_INDEX;
             }
-            gui.dailyTank.update(JSON.stringify([dailyTank, Config.daily_tank.ads.enabled && !b.socket.status.daily_tank_watched_ad ? true : false]));
-        }
+            gui.dailyTank.update(JSON.stringify([dailyTank, Config.daily_tank.ads && !b.socket.status.daily_tank_watched_ad ? true : false]));
+        } else gui.dailyTank.update(JSON.stringify([false]));
         // Update the stats and skills
         gui.stats.update();
         gui.skills.update(this.getstuff(b.skill));
@@ -1033,19 +1056,7 @@ class socketManager {
             if (bodyInfo) {
                 spawn = false;
                 socket.player = socket.spawn(name);
-                socket.player.body.upgrades = []
-                for (let def of bodyInfo.definition) {
-                    if (def in Class) socket.player.body.define(Class[def]);
-                    else if (typeof def === "object") socket.player.body.define(def);
-                }
-                socket.player.body.skill.score = bodyInfo.score;
-                socket.player.body.skill.deduction = bodyInfo.score;
-                for (let i = 0; i < Config.level_cap_cheat; i++) socket.player.body.skill.maintain();
-                socket.player.body.killCount = bodyInfo.killCount;
-                socket.player.body.skill.setCaps(bodyInfo.skillcap);
-                socket.player.body.skill.set(bodyInfo.skill);
-                socket.player.body.skill.points = bodyInfo.points;
-                socket.player.body.color.base = socket.player.teamColor;
+                socket.player.body.importBody(bodyInfo);
                 util.remove(global.travellingPlayers, global.travellingPlayers.indexOf(bodyInfo));
             }
         }
@@ -1075,7 +1086,7 @@ class socketManager {
             }
         }
         // Log it 
-        util.log(`[INFO] [${global.gameManager.name}] ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
+        util.log(`[INFO]: ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
         // Stop the timeout
         socket.timeout.stop();
     }
@@ -1137,6 +1148,7 @@ class socketManager {
                 }
             }
             body.name = name;
+            body.incognito = socket.status.incognito ?? false;
             if (socket.permissions && socket.permissions.nameColor) {
                 body.nameColor = socket.permissions.nameColor;
                 socket.talk("z", body.nameColor);
@@ -1331,16 +1343,34 @@ class socketManager {
         // Return it
         return output;
     }
-    getInvisEntityAlpha(player, other) {
+
+    getInvisEntityAlpha(player, other, canSeeInvisible = false) {
         let alpha;
         if (player.body.id === other.master.id) {
             alpha = other.alpha ? other.alpha * 0.75 + 0.25 : 0.25;
-        } else alpha = other.alpha ? other.alpha * 0.55 + 0.45 : 0.45;
-
+        } else {
+            if (canSeeInvisible) {
+                alpha = other.alpha ? other.alpha * 0.55 + 0.45 : 0.45;
+            } else if (!other.settings.fullyInvisible) {
+                let range = 300;
+                if (!other.alpha) alpha = 1;
+                let dist = Math.sqrt((player.body.x - other.x) ** 2 + (player.body.y - other.y) ** 2);
+                if (dist >= range) {
+                    alpha = other.alpha;
+                } else {
+                    const rangeAlpha = 1 - (dist / range);
+                    alpha = other.alpha ? other.alpha + rangeAlpha * 0.45 : rangeAlpha * 0.45;
+                }
+            } else alpha = other.alpha;
+        }
         return alpha;
     }
+
     perspective(e, player, data) {
         if (player.body != null) {
+            if (e.alpha < 1 && !e.limited && !player.body.settings.canSeeInvisible) {
+                data[18] = Math.round(255 * this.getInvisEntityAlpha(player, e));
+            }
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
                 // Set the proper color if it's on our team and decide what to do about colors when sending updates and stuff
@@ -1349,9 +1379,6 @@ class socketManager {
                 if (player.command.autospin) {
                     data[10] = 1;
                 }
-                // Also let us see for our body.
-                let alpha = this.getInvisEntityAlpha(player, e);
-                if (!e.limited && !player.body.settings.canSeeInvisible) data[18] = Math.round(255 * alpha);
             }
             if (player.body.settings.canSeeInvisible) {
                 data = data.slice();
@@ -1852,6 +1879,7 @@ class socketManager {
             for (let instance of entities.values()) {
                 if (instance.settings.leaderboardable &&
                     instance.settings.drawShape &&
+                    !instance.incognito &&
                     (instance.type === "tank" ||
                      instance.killCount.solo ||
                      instance.killCount.assists
@@ -1865,6 +1893,7 @@ class socketManager {
             for (const instance of entities.values()) {
                 if (instance.settings.leaderboardable &&
                     instance.settings.drawShape &&
+                    !instance.incognito &&
                     instance.type !== "food" &&
                     (instance.type === "tank" ||
                      instance.killCount.solo ||
@@ -1879,6 +1908,7 @@ class socketManager {
             for (const instance of entities.values()) {
                 if (
                     instance.isPlayer &&
+                    !instance.incognito &&
                     instance.settings.leaderboardable &&
                     instance.settings.drawShape
                 ) list.push(instance);
@@ -2002,7 +2032,7 @@ class socketManager {
     };
 
     connect(socket, req) {
-        util.log(`[INFO]: [${this.gamemode}] A client wants to connect...`);
+        util.log(`[INFO]: A client wants to connect...`);
         socket.player = { camera: {} };
         socket.nearby = [];
         socket.spectateEntity = null;
@@ -2158,7 +2188,7 @@ class socketManager {
             console.error("Error checking permabans:", e);
         }
         // Log it
-        util.log("[INFO] New socket opened with ip " + socket.ip);
+        util.log("[INFO]: New socket opened with ip " + socket.ip);
 
         this.clients.push(socket);
 
@@ -2170,7 +2200,7 @@ class socketManager {
         } else {
             global.gameManager.parentPort.postMessage([true, this.clients.length]);
         }
-        util.log(`[INFO]: [${this.gamemode}] Client has been welcomed!`);
+        util.log(`[INFO]: Client has been welcomed!`);
 
         if (Config.load_all_mockups) {
             for (let i = 0; i < mockupData.length; i++) {
@@ -2194,7 +2224,7 @@ class socketManager {
         let check = this.clients.find(o => o.id === socket.id);
         if (check) {
             check.loops.terminate();
-            util.log(`[INFO]: [${this.gamemode}] ${check.player.body ? check.player.body.name : "A Client"} has disconnected!`);
+            util.log(`[INFO]: ${check.player.body ? check.player.body.name : "A Client"} has disconnected!`);
             // Free the view
             util.remove(global.gameManager.views, global.gameManager.views.indexOf(socket.view));
             // Remove the client from the server.

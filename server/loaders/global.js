@@ -22,6 +22,7 @@ global.travellingPlayers = [];
 global.fps = "Unknown";
 
 global.loadedAddons = [];
+global.addonAuthorInfos = [];
 global.TEAM_BLUE = -1;
 global.TEAM_GREEN = -2;
 global.TEAM_RED = -3;
@@ -37,37 +38,73 @@ global.getSpawnableArea = (team, gameManager) => {
     gameManager = ensureIsManager(gameManager);
     let room = gameManager.room;
     return ran.choose((team in room.spawnable && room.spawnable[team].length) ? room.spawnable[team] : room.spawnableDefault).randomInside();
-
 }
-global.teamNames = ["BLUE", "GREEN", "RED", "PURPLE", "YELLOW", "ORANGE", "BROWN", "CYAN"],
-global.teamColors = [10, 11, 12, 15, 25, 26, 27, 28];
-global.getTeamName = team => ["BLUE", "GREEN", "RED", "PURPLE", "YELLOW", "ORANGE", "BROWN", "CYAN", , "DREADNOUGHTS"][-team - 1] ?? "An unknown team";
+global.teamNames = [
+    "BLUE",
+    "GREEN",
+    "RED",
+    "PURPLE",
+    "YELLOW",
+    "ORANGE",
+    "BROWN",
+    "CYAN"
+]
+global.teamColors = [
+    "blue",
+    "green",
+    "red",
+    "magenta",
+    "mustard",
+    "tangerine",
+    "brown",
+    "cyan"
+]
+global.getTeamName = team => [...global.teamNames, , "DREADNOUGHT"][-team - 1] ?? "NEUTRAL";
 global.getTeamColor = (team, fixMode = false) => {
-    let color = ([10, 11, 12, 15, 25, 26, 27, 28, , 4][-team - 1] ?? 3);
+    let color = ([...global.teamColors, , "aqua"][-team - 1] ?? 3);
     if (fixMode) color = color + " 0 1 0 false";
     return color;
 }
-global.isPlayerTeam = team => /*team < 0 && */team > -11;
+global.isPlayerTeam = team => team < 0 || team > -11;
 global.getWeakestTeam = () => {
-    let teamcounts = {};
+    let teamCounts = {};
     for (let i = -Config.teams; i < 0; i++) {
         if (global.defeatedTeams.includes(i)) continue;
-        teamcounts[i] = 0;
+        teamCounts[i] = 0;
     }
-    for (let o of global.entities) {
-        if ((o.isBot || o.isPlayer) && o.team in teamcounts && o.team < 0 && isPlayerTeam(o.team)) {
-            if (!(o.team in teamcounts)) {
-                teamcounts[o.team] = 0;
+
+    // Tell us how many players and bots there are.
+    for (let o of global.entities.values()) {
+        if ((o.isBot || o.isPlayer) && o.team in teamCounts && o.team < 0 && isPlayerTeam(o.team)) {
+            if (!(o.team in teamCounts)) {
+                teamCounts[o.team] = 0;
             }
-            teamcounts[o.team]++;
+            teamCounts[o.team]++;
         }
     }
-    teamcounts = Object.entries(teamcounts).map(([teamId, amount]) => {
+
+    // Convert the `teamCounts` into an array and at the same time calculate with the team_weights.
+    teamCounts = Object.entries(teamCounts).map(([teamId, amount]) => {
         let weight = teamId in Config.team_weights ? Config.team_weights[teamId] : 1;
         return [teamId, amount / weight];
     });
-    let lowestTeamCount = Math.min(...teamcounts.map(x => x[1])),
-        entries = teamcounts.filter(a => a[1] == lowestTeamCount);
+
+    // Filter the strongest team out and leave the weakest team or teams that has the same player/bots amount in the array.
+    let lowestTeamCount = Math.min(...teamCounts.map(x => x[1])),
+        entries = teamCounts.filter(a => a[1] == lowestTeamCount);
+
+        // If there are no entites that are in teams list, spawn on the blue team first.
+        let checkIfEmpty = 0;
+        for (let team of entries) {
+            if (team[1] === 0) checkIfEmpty++;
+            if (checkIfEmpty === teamCounts.length) {
+                for (let team of entries) {
+                    if (team[0] == "-1") {
+                        entries = [team];
+                    }
+                }
+            };
+        }
     return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.teams) : ran.choose(entries)[0]);
 };
 global.getRandomTeam = () => -Math.floor(Math.random() * 3000) + 1;
@@ -84,7 +121,7 @@ global.ensureIsClass = str => {
         return Class[str];
     };
 
-    throw Error(`Definition ${str} is attempted to be gotten but does not exist!`);
+    throw Error(`Definition "${str}" was attempted to be gotten but does not exist!`);
 }
 
 global.ensureIsManager = str => {
@@ -183,12 +220,12 @@ global.runMove = (() => {
             engine = { x: 0, y: 0, },
             a = my.acceleration / global.gameManager.roomSpeed;
         switch (my.motionType) {
-            case "grow":
-                my.SIZE += my.motionTypeArgs.growSpeed ?? 1;
+            case 'grow':
+                my.SIZE += my.motionTypeArgs.speed ?? 1;
                 break;
             case 'glide':
                 my.maxSpeed = my.topSpeed;
-                my.damp = 0.05;
+                my.damp = my.motionTypeArgs.damp ?? 0.05;
                 break;
             case 'motor':
                 my.maxSpeed = 0;
@@ -272,7 +309,9 @@ global.runFace = (() => {
             if (my.control.main) {
                 if (my.master.master.isPlayer) {
                     let reverse = my.master.master.reverseTargetWithTank ? 1 : my.master.master.reverseTank;
-                    givenangle = Math.atan2(t.y * reverse, t.x * reverse);
+                    let angleValue = Math.atan2(t.y * reverse, t.x * reverse);
+                    if (isNaN(angleValue)) givenangle = Math.atan2(0, 0);
+                    else givenangle = angleValue;
                 } else {
                     givenangle = Math.atan2(t.y, t.x);
                 }
@@ -572,7 +611,8 @@ global.convertExportsToClass = (exp) => {
             Class[key].Converted = true;
         }
     }
-}
+};
+
 global.makeHitbox = wall => {
     const _size = wall.size - 4;
     //calculate the relative corners
@@ -609,10 +649,10 @@ global.wallTypes = [
     { color: 5,  label: 'breaker', alpha: 1, class: 'wall' },
     { color: 0,  label: 'chunks',  alpha: 1, class: 'wall' },
     { color: 13, label: 'optical', alpha: 1, class: 'eyewall' },
-    { color: 17, label: '!up',     alpha: 1, class: 'uparrow' },
-    { color: 17, label: '!down',   alpha: 1, class: 'downarrow' },
-    { color: 17, label: '!left',   alpha: 1, class: 'leftarrow' },
-    { color: 17, label: '!right',  alpha: 1, class: 'rightarrow' },
+    { color: 17, label: '!up',     alpha: 1, class: 'oneWayUpWall' },
+    { color: 17, label: '!down',   alpha: 1, class: 'oneWayDownWall' },
+    { color: 17, label: '!left',   alpha: 1, class: 'oneWayLeftWall' },
+    { color: 17, label: '!right',  alpha: 1, class: 'oneWayRightWall' },
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {
@@ -658,71 +698,4 @@ global.loadAllMockups = (logText = true) => {
     let mockupsLoadEndTime = performance.now();
     if (logText) console.log("Finished created " + mockupData.length + " MockupEntities.");
     if (logText) console.log("Mockups generated in " + util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3) + " milliseconds.\n");
-}
-
-global.activateTieredFood = () => {
-	const disableCrashers = true;
-
-	// there is no `ENEMY_CAP`, so we are "reconstructing them"
-	Config.enemy_cap_nest = 0;
-
-	// Constructs a four-dimensional array of shape types
-
-	// 3-wide dimension of the 3 base shape types - egg, square, triangle
-	Config.food_types = Array(3).fill().map((_, i, a) => [
-		// Chance of spawning in exponents of 4
-		4 ** (a.length - i),
-		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega
-		Array(3)
-			.fill()
-			.map((_, j, b) => [
-				// Chance of spawning in exponents of 5
-				5 ** (b.length - j),
-				// 6-wide dimension of the 6 shiny modifiers
-				Array(6)
-					.fill()
-					.map((_, k, c) => [
-						// Chance of spawning, set to 200mil for regular polygons and exponents of 10 otherwise
-						k ? 10 ** (c.length - k - 1) : 200_000_000,
-
-						disableCrashers // no crashers
-							? `laby_${i}_${j}_${k}_0`
-							: // 2-wide dimension of the 2 shape "ranks" - normal, crasher
-							  [
-									[24, `laby_${i}_${j}_${k}_0`],
-									[1, `laby_${j}_${i}_${k}_1`]
-							  ]
-					])
-			])
-	]);
-
-	//laby_${poly}_${tier}_${shiny}_${rank}
-
-	// 2-wide dimension of the 2 base shape types - pentagon, hexagon
-	Config.food_types_nest = Array(2).fill().map((_, i, a) => [
-		// Chance of spawning in exponents of 4
-		4 ** (a.length - i),
-		// 4-wide dimension of the 4 shape tiers - regular, beta, alpha, omega
-		Array(3)
-			.fill()
-			.map((_, j, b) => [
-				// Chance of spawning in exponents of 5
-				5 ** (b.length - j),
-				// 6-wide dimension of the 6 shiny modifiers
-				Array(6)
-					.fill()
-					.map((_, k, c) => [
-						// Chance of spawning, set to 200mil for regular polygons and exponents of 10 otherwise
-						k ? 10 ** (c.length - k - 1) : 200_000_000,
-
-						disableCrashers // no crashers
-							? `laby_${i + 3}_${j}_${k}_0`
-							: // 2-wide dimension of the 2 shape "ranks" - normal, crasher
-							  [
-									[24, `laby_${i + 3}_${j}_${k}_0`],
-									[1, `laby_${i + 3}_${j}_${k}_1`]
-							  ]
-					])
-			])
-	]);
 }

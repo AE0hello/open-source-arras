@@ -24,6 +24,6 @@ function init() {
 
     Class.auraBase.GLOW = {};
 }
-// uncomment line below to enable (these drop your FPS a FUCK TON)
 
+// uncomment line below to enable (beefy computer required)
 //init();

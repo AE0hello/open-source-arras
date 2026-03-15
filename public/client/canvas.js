@@ -112,6 +112,14 @@ class Canvas {
         this.chatInput.focus();
         global.showChat = true;
     }
+
+    respawn() {
+        if (global.died && !global.cannotRespawn) {
+            this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, false, 1 * config.game.incognitoMode);
+            global.died = false;
+        }
+    }
+
     keyDown(event) {
         if (global.dailyTankAd.renderUI) return;
         if (global.specialPressed) {
@@ -148,13 +156,14 @@ class Canvas {
 
         switch (event.keyCode) {
             case global.KEY_SHIFT:
-                this.treeScrollSpeedMultiplier = 5;
+                if (global.showTree) this.treeScrollSpeedMultiplier = 5;
+                else this.socket.cmd.set(6, true);
                 break;
 
             case global.KEY_ENTER:
                 // Enter to respawn
                 if (global.died && !global.cannotRespawn) {
-                    this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
+                    this.respawn();
                     global.died = false;
                     break;
                 }
@@ -302,7 +311,8 @@ class Canvas {
                 global.specialKeysPressed = [];
                 break;
             case global.KEY_SHIFT:
-                this.treeScrollSpeedMultiplier = 1;
+                if (global.showTree) this.treeScrollSpeedMultiplier = 1;
+                else this.socket.cmd.set(6, false);
                 break;
             case global.KEY_UP_ARROW:
                 global.classTreeDrag.momentum.y = 0;
@@ -378,7 +388,8 @@ class Canvas {
                 } else if (
                     !global.dailyTankAd.renderUI &&
                     global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && 
-                    global.clickables.optionsMenu.switchButton.check(mpos) == -1 && 
+                    global.clickables.optionsMenu.switchButton.check(mpos) == -1 &&
+                    global.optionsMenu_Anim.tabClickables.check(mpos) == -1 &&
                     global.clickables.skipUpgrades.check(mpos) == -1 && 
                     global.clickables.dailyTankUpgrade.check(mpos) == false &&
                     global.clickables.dailyTankAd.check(mpos) === false &&
@@ -414,6 +425,7 @@ class Canvas {
                 let reconnectCheck = global.clickables.reconnect.check(mpos);
                 let optionsMenu_Switch = global.clickables.optionsMenu.switchButton.check(mpos);
                 let optionsMenu_toggleBox = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                let optionsMenu_tabClick = global.optionsMenu_Anim.tabClickables ? global.optionsMenu_Anim.tabClickables.check(mpos) : -1;
                 // Options menu clickables
                 if (optionsMenu_Switch === 0) {
                     global.optionsMenu_Anim.switchMenu_button.set(-40);
@@ -425,6 +437,12 @@ class Canvas {
                     global.optionsMenu_Anim.switchMenu_button.set(0);
                     global.optionsMenu_Anim.mainMenu.set(-500);
                     global.optionsMenu_Anim.isOpened = false;
+                    break;
+                }
+                if (optionsMenu_tabClick !== -1) {
+                    global.optionsMenu_Anim.activeTab = optionsMenu_tabClick;
+                    global.optionsMenu_Anim.tabOffset.set(optionsMenu_tabClick);
+                    global.optionsMenu_Anim.mainMenuHeight.set(global.optionsMenu_Anim.tabs[optionsMenu_tabClick][1]);
                     break;
                 }
                 if (optionsMenu_toggleBox !== -1) {
@@ -470,10 +488,7 @@ class Canvas {
                     global.searchBarActive = false;
                 }
                 if (respawnCheck !== -1 && !global.disconnected) {
-                    if (!global.cannotRespawn && global.died) {
-                        this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
-                        global.died = false;
-                    }
+                    this.respawn();
                 } else
                 if (reconnectCheck !== -1) {
                     if (global.disconnected) global.reconnect();
@@ -649,9 +664,7 @@ class Canvas {
     touchStart(e) {
         e.preventDefault();
         if (global.died && !global.cannotRespawn) {
-            this.socket.talk("s", global.playerName, 0, 1 * config.game.autoLevelUp);
-            global.died = false;
-            global.diedSlide = false;
+            this.respawn();
             global.resetTarget();
         } else {
             for (let touch of e.changedTouches) {

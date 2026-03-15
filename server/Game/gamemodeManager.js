@@ -1,17 +1,18 @@
-const { bossRush } = require("./gamemodes/bossRush.js");
-const { Assault } = require("./gamemodes/assault.js");
-const { Tag } = require("./gamemodes/tag.js");
-const { Domination } = require("./gamemodes/dominator.js");
-const { Mothership } = require("./gamemodes/mothership.js");
-const { Sandbox } = require("./gamemodes/sandbox.js");
-const { Train } = require("./gamemodes/trainwars.js");
-const { Maze } = require("./gamemodes/maze.js");
-const { Outbreak } = require("./gamemodes/outbreak.js");
-const { ClanWars } = require("./gamemodes/clanwars.js");
+const { Siege } = require("./gamemodes/scripts/siege.js");
+const { Assault } = require("./gamemodes/scripts/assault.js");
+const { Tag } = require("./gamemodes/scripts/tag.js");
+const { Domination } = require("./gamemodes/scripts/dominator.js");
+const { Mothership } = require("./gamemodes/scripts/mothership.js");
+const { Sandbox } = require("./gamemodes/scripts/sandbox.js");
+const { Train } = require("./gamemodes/scripts/trainwars.js");
+const { Maze } = require("./gamemodes/scripts/maze.js");
+const { Outbreak } = require("./gamemodes/scripts/outbreak.js");
+const { ClanWars } = require("./gamemodes/scripts/clan_wars.js");
+const { GroupHandler } = require("./gamemodes/scripts/groups.js");
 
 class gamemodeManager {
     constructor() {
-        this.gameSiege = new bossRush(global.gameManager);
+        this.gameSiege = new Siege(global.gameManager);
         this.gameAssault = new Assault(global.gameManager);
         this.gameTag = new Tag(global.gameManager);
         this.gameDomination = new Domination(global.gameManager);
@@ -21,21 +22,22 @@ class gamemodeManager {
         this.gameTrain = new Train();
         this.gameOutbreak = new Outbreak(global.gameManager);
         this.gameClanwars = new ClanWars(global.gameManager);
+        this.gameGroups = new GroupHandler(global.gameManager);
     }
 
     request(type) {
         if (type == "start") {
-            if (Config.special_boss_spawns) this.gameSiege.start(Config.maze_type ?? false);
-            if (Config.ASSAULT) this.gameAssault.start();
+            if (Config.siege) this.gameSiege.start(Config.maze_type ?? false);
+            if (Config.assault) this.gameAssault.start();
             if (Config.tag) Config.tag_data.initAndStart();
             if (Config.domination) this.gameDomination.start();
             if (Config.mothership) this.gameMothership.start();
-            if (Config.maze_type !== undefined && !Config.special_boss_spawns) this.gameMaze.generate();
-            if (Config.OUTBREAK) this.gameOutbreak.start();
+            if (Config.maze_type !== undefined && !Config.siege) this.gameMaze.generate();
+            if (Config.outbreak) this.gameOutbreak.start();
         }
         if (type == "loop") {
             global.gameManager.lagLogger.set();
-            if (Config.special_boss_spawns) this.gameSiege.loop();
+            if (Config.siege) this.gameSiege.loop();
             if (Config.mothership) this.gameMothership.loop();
             global.gameManager.lagLogger.mark();
             if (global.gameManager.lagLogger.totalTime > 100) {
@@ -52,8 +54,8 @@ class gamemodeManager {
     }
 
     terminate() {
-        if (Config.special_boss_spawns) this.gameSiege.reset();
-        if (Config.ASSAULT) this.gameAssault.reset();
+        if (Config.siege) this.gameSiege.reset();
+        if (Config.assault) this.gameAssault.reset();
         if (Config.tag) Config.tag_data.resetAndStop();
         if (Config.domination) this.gameDomination.reset();
         if (Config.mothership) this.gameMothership.reset();
@@ -67,6 +69,7 @@ class gamemodeManager {
         this.gameSandbox.redefine(theshit);
         this.gameMaze.redefine(Config.maze_type);
         this.gameClanwars.redefine(theshit);
+        this.gameGroups.redefine(theshit);
     }
 }
 

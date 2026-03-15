@@ -1,9 +1,11 @@
-const { skillSet } = require('../facilitators.js');
-const { base, statnames, dfltskl, smshskl } = require('../constants.js');
+const {combineStats, skillSet} = require('../facilitators.js')
+const {base, dfltskl, smshskl, statnames} = require('../constants.js')
+const g = require('../gunvals.js')
 
+// Entities
 Class.genericEntity = {
     NAME: "",
-    LABEL: "",//"Unknown Entity",
+    LABEL: "Unknown Entity",
     TYPE: "unknown",
     DAMAGE_CLASS: 0,
     DANGER: 0,
@@ -28,10 +30,11 @@ Class.genericEntity = {
     RATEFFECTS: true,
     MOTION_EFFECTS: true,
     INTANGIBLE: false,
+    CAN_GO_OUTSIDE_ROOM: false,
     CAN_SEE_INVISIBLE_ENTITIES: false,
+    CONNECT_CHILDREN_ON_CAMERA: false,
     ACCEPTS_SCORE: true,
     GIVE_KILL_MESSAGE: false,
-    CAN_GO_OUTSIDE_ROOM: false,
     HITS_OWN_TYPE: "normal",
     DIE_AT_LOW_SPEED: false,
     DIE_AT_RANGE: false,
@@ -88,24 +91,34 @@ Class.genericEntity = {
         LEVEL: -1
     }
 }
+
+// Tanks
 Class.genericTank = {
     LABEL: "Unknown Class",
     TYPE: "tank",
     DAMAGE_CLASS: 2,
     DANGER: 5,
     SHAPE: 0,
+    SIZE: 12,
     MOTION_TYPE: "motor",
     FACING_TYPE: "toTarget",
-    SIZE: 12,
-    NO_SIZE_ANIMATION: false,
-    MAX_CHILDREN: 0,
-    DAMAGE_EFFECTS: false,
-    IGNORED_BY_AI: false,
+    ARENA_CLOSER: false,
+    FULL_INVISIBLE: false,
     CAN_SEE_INVISIBLE_ENTITIES: false,
-    SYNC_WITH_TANK: false,
+    CONNECT_CHILDREN_ON_CAMERA: false,
+    DAMAGE_EFFECTS: false,
+    DRAW_HEALTH: true,
+    GIVE_KILL_MESSAGE: true,
+    HAS_NO_RECOIL: false,
+    HITS_OWN_TYPE: "hardOnlyTanks",
+    IGNORED_BY_AI: false,
     IS_IMMUNE_TO_TILES: false,
+    MAX_CHILDREN: 0,
+    NO_SIZE_ANIMATION: false,
     RENDER_ON_LEADERBOARD: true,
     REROOT_UPGRADE_TREE: Config.spawn_class,
+    RESET_EVENTS: true,
+    SYNC_WITH_TANK: false,
     BODY: {
         ACCELERATION: base.ACCEL,
         SPEED: base.SPEED,
@@ -123,17 +136,37 @@ Class.genericTank = {
     TURRETS: [],
     PROPS: [],
     ON: [],
-    ARENA_CLOSER: false, // don't remove this, it stops dev basics going through walls
-    GIVE_KILL_MESSAGE: true,
-    DRAW_HEALTH: true,
-    RESET_EVENTS: true,
-    HITS_OWN_TYPE: "hardOnlyTanks"
 }
 Class.genericFlail = {
     PARENT: "genericTank",
     STAT_NAMES: statnames.flail,
     SYNC_WITH_TANK: true,
-    SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, 0, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+    SKILL_CAP: {
+        BODY_DAMAGE: dfltskl,
+        MAX_HEALTH: dfltskl,
+        BULLET_SPEED: 0,
+        BULLET_HEALTH: 0,
+        PENETRATION: dfltskl,
+        BULLET_DAMAGE: dfltskl,
+        RELOAD: dfltskl,
+        MOVEMENT_SPEED: dfltskl,
+        SHIELD_REGENERATION: dfltskl,
+        SHIELD_CAPACITY: dfltskl
+    },
+}
+Class.genericHealer = {
+    PARENT: "genericTank",
+    HEALING_TANK: true, // Mainly for bots to recognize the tank
+    STAT_NAMES: statnames.healer,
+    TURRETS: [
+        {
+            TYPE: "healerHat",
+            POSITION: {
+                SIZE: 13,
+                LAYER: 1
+            }
+        }
+    ]
 }
 Class.genericSmasher = {
     PARENT: "genericTank",
@@ -157,30 +190,8 @@ Class.genericSmasher = {
         DENSITY: 2 * base.DENSITY
     }
 }
-Class.genericBoss = {
-    PARENT: "genericTank",
-    TYPE: "miniboss",
-    DANGER: 6,
-    SKILL: skillSet({
-        rld: 0.7,
-        dam: 0.5,
-        pen: 0.8,
-        str: 0.8,
-        spd: 0.2,
-        atk: 0.3,
-        hlt: 1,
-        shi: 0.7,
-        rgn: 0.7,
-        mob: 0,
-    }),
-    LEVEL: 45,
-    CONTROLLERS: [["nearestDifferentMaster", { lockThroughWalls: true }], "canRepel"],
-    FACING_TYPE: ['spin', {speed: 0.02}],
-    HITS_OWN_TYPE: "hardOnlyBosses",
-    BROADCAST_MESSAGE: "A visitor has left!",
-    BODY: { PUSHABILITY: 0.05 }
-}
 
+// Map Objects
 Class.food = {
     TYPE: "food",
     DAMAGE_CLASS: 1,
@@ -189,7 +200,7 @@ Class.food = {
     MOTION_TYPE: "drift",
     FACING_TYPE: "turnWithSpeed",
     IS_IMMUNE_TO_TILES: false,
-    level_cap: 1,
+    LEVEL_CAP: 1,
     BODY: {
         STEALTH: 30,
         PUSHABILITY: 1,
@@ -198,8 +209,28 @@ Class.food = {
     DAMAGE_EFFECTS: false,
     RATEFFECTS: false,
     HEALTH_WITH_LEVEL: false,
-};
+}
+Class.genericObstacle = {
+    TYPE: "wall",
+    DAMAGE_CLASS: 1,
+    FACING_TYPE: "turnWithSpeed",
+    CAN_GO_OUTSIDE_ROOM: true,
+    BODY: {
+        PUSHABILITY: 0,
+        HEALTH: 10000,
+        SHIELD: 10000,
+        REGEN: 1000,
+        DAMAGE: 1,
+        RESIST: 100,
+        STEALTH: 1,
+    },
+    VALUE: 0,
+    COLOR: "lightGray",
+    ACCEPTS_SCORE: false,
+    VARIES_IN_SIZE: true
+}
 
+// Projectiles
 Class.bullet = {
     LABEL: "Bullet",
     TYPE: "bullet",
@@ -217,8 +248,7 @@ Class.bullet = {
     CAN_GO_OUTSIDE_ROOM: true,
     HITS_OWN_TYPE: "never",
     DIE_AT_RANGE: true,
-};
-
+}
 Class.drone = {
     LABEL: "Drone",
     TYPE: "drone",
@@ -253,70 +283,7 @@ Class.drone = {
     DRAW_HEALTH: false,
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
-};
-
-Class.swarm = {
-    LABEL: "Swarm Drone",
-    TYPE: "swarm",
-    ACCEPTS_SCORE: false,
-    SHAPE: 3,
-    MOTION_TYPE: "swarm",
-    FACING_TYPE: "smoothWithMotion",
-    CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"],
-    CRAVES_ATTENTION: true,
-    BODY: {
-        ACCELERATION: 3,
-        PENETRATION: 1.5,
-        HEALTH: 0.175,
-        DAMAGE: 2.25,
-        SPEED: 4.5,
-        RESIST: 1.6,
-        RANGE: 225,
-        DENSITY: 12,
-        PUSHABILITY: 0.6,
-        FOV: 1.5,
-    },
-    DIE_AT_RANGE: true,
-    BUFF_VS_FOOD: true,
-};
-Class.baseSwarmTurret_swarm = {
-    PARENT: "swarm",
-    MOTION_TYPE: ["swarm", { turnVelocity: 10 }],
-    AI: { IGNORE_SHAPES: true },
-    BODY: {
-        ACCELERATION: Class.swarm.BODY.ACCELERATION,
-        PENETRATION: Class.swarm.BODY.PENETRATION,
-        HEALTH: Class.swarm.BODY.HEALTH,
-        DAMAGE: Class.swarm.BODY.DAMAGE,
-        SPEED: Class.swarm.BODY.SPEED,
-        RESIST: Class.swarm.BODY.RESIST,
-        RANGE: 345,
-        DENSITY: Class.swarm.BODY.DENSITY,
-        PUSHABILITY: Class.swarm.BODY.PUSHABILITY,
-        FOV: 1.7,
-        KNOCKBACK: 15,
-    },
 }
-Class.airblastBullet = { PARENT: "bullet", ALPHA: 0.5, BODY: { KNOCKBACK: 30 } }
-Class.trap = {
-    LABEL: "Thrown Trap",
-    TYPE: "trap",
-    ACCEPTS_SCORE: false,
-    SHAPE: -3,
-    MOTION_TYPE: "glide",
-    FACING_TYPE: "turnWithSpeed",
-    HITS_OWN_TYPE: "push",
-    DIE_AT_RANGE: true,
-    BODY: {
-        HEALTH: 0.5,
-        DAMAGE: 3,
-        RANGE: 450,
-        DENSITY: 2.5,
-        RESIST: 2.5,
-        SPEED: 0,
-    },
-};
-
 Class.satellite = { 
     LABEL: "Satellite",
     TYPE: "satellite",
@@ -343,20 +310,81 @@ Class.satellite = {
     BUFF_VS_FOOD: true,
     MOTION_TYPE: 'motor'
 }
-Class.satellite_old = {
-    PARENT: "satellite",
-    TURRETS: [
-        {
-            POSITION: [28, 0, 0, 0, 360, 0],
-            TYPE: "genericEntity"
-        }
-    ],
+Class.swarm = {
+    LABEL: "Swarm Drone",
+    TYPE: "swarm",
+    ACCEPTS_SCORE: false,
+    SHAPE: 3,
+    MOTION_TYPE: "swarm",
+    FACING_TYPE: "smoothWithMotion",
+    CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"],
+    CRAVES_ATTENTION: true,
+    BODY: {
+        ACCELERATION: 3,
+        PENETRATION: 1.5,
+        HEALTH: 0.175,
+        DAMAGE: 2.25,
+        SPEED: 4.5,
+        RESIST: 1.6,
+        RANGE: 225,
+        DENSITY: 12,
+        PUSHABILITY: 0.6,
+        FOV: 1.5,
+    },
+    DIE_AT_RANGE: true,
+    BUFF_VS_FOOD: true,
 }
-Class.squareSatellite = {
-    PARENT: "satellite",
-    SHAPE: 4
+Class.trap = {
+    LABEL: "Thrown Trap",
+    TYPE: "trap",
+    ACCEPTS_SCORE: false,
+    SHAPE: -3,
+    MOTION_TYPE: "glide",
+    FACING_TYPE: "turnWithSpeed",
+    HITS_OWN_TYPE: "push",
+    DIE_AT_RANGE: true,
+    BODY: {
+        HEALTH: 0.5,
+        DAMAGE: 3,
+        RANGE: 450,
+        DENSITY: 2.5,
+        RESIST: 2.5,
+        SPEED: 0,
+    },
 }
 
+// Bosses
+Class.genericBoss = {
+    PARENT: "genericTank",
+    TYPE: "miniboss",
+    DANGER: 6,
+    SKILL: skillSet({
+        rld: 0.7,
+        dam: 0.5,
+        pen: 0.8,
+        str: 0.8,
+        spd: 0.2,
+        atk: 0.3,
+        hlt: 1,
+        shi: 0.7,
+        rgn: 0.7,
+        mob: 0,
+    }),
+    LEVEL: 45,
+    CONTROLLERS: [["nearestDifferentMaster", { lockThroughWalls: true }], "canRepel"],
+    FACING_TYPE: ['spin', {speed: 0.02}],
+    HITS_OWN_TYPE: "hardOnlyBosses",
+    BROADCAST_MESSAGE: "A visitor has left!",
+    BODY: { PUSHABILITY: 0.05 }
+}
+Class.miniboss = {
+    PARENT: "genericBoss",
+    RENDER_ON_LEADERBOARD: true,
+    CONTROLLERS: ["nearestDifferentMaster", ["minion", {turnwiserange: 360}], "canRepel"],
+    AI: { NO_LEAD: true },
+}
+
+// Aura Components
 Class.auraBase = {
     TYPE: "aura",
     ACCEPTS_SCORE: false,
@@ -377,7 +405,7 @@ Class.auraBase = {
         SPEED: 0,
         PUSHABILITY: 0,
     }
-};
+}
 Class.aura = {
     PARENT: "auraBase",
     LABEL: "Aura",
@@ -385,7 +413,7 @@ Class.aura = {
     BODY: {
         DAMAGE: 0.4,
     },
-};
+}
 Class.healAura = {
     PARENT: "auraBase",
     LABEL: "Heal Aura",
@@ -394,11 +422,185 @@ Class.healAura = {
     BODY: {
         DAMAGE: 0.4 / 3,
     },
-};
+}
 Class.auraSymbol = {
     PARENT: "genericTank",
     CONTROLLERS: [["spin", {speed: -0.04}]],
     INDEPENDENT: true,
     COLOR: "teal",
     SHAPE: [[-0.598,-0.7796],[-0.3817,-0.9053],[0.9688,-0.1275],[0.97,0.125],[-0.3732,0.9116],[-0.593,0.785]]
-};
+}
+
+// Server Travel Portal
+Class.portalAura = {
+    PARENT: "bullet",
+    MOTION_TYPE: "withMaster",
+    CLEAR_ON_MASTER_UPGRADE: true,
+    ALPHA: 0.4,
+    NO_COLLISIONS: true,
+    BODY: {
+        HEALTH: base.HEALTH * 1000,
+        DAMAGE: 0,
+        DENSITY: 0,
+        SPEED: 0,
+        PUSHABILITY: 0,
+    },
+    DIE_AT_RANGE: false,
+    ON: [
+        {
+            event: 'tick',
+            handler: ({ body }) => {
+                if (body.growing) {
+                    body.SIZE += 1.2;
+                    if (body.SIZE > 45) body.growing = false;
+                } else {
+                    body.SIZE -= 1.2;
+                    if (body.SIZE < 32) body.growing = true;
+                }
+            }
+        },
+    ],
+}
+Class.serverPortal = {
+    PARENT: "genericTank",
+    LABEL: "Travel Portal",
+    UPGRADE_LABEL: "Portal",
+    NAME: "Portal",
+    COLOR: "#000000",
+    BODY: {
+        FOV: 2.5,
+        DAMAGE: 0,
+        HEALTH: 1e100,
+        SHIELD: 1e100,
+        REGEN: 1e100,
+        PUSHABILITY: 0,
+        DENSITY: 0,
+    },
+    FACING_TYPE: "spin",
+    HITS_OWN_TYPE: "never",
+    ARENA_CLOSER: true,
+    IGNORED_BY_AI: true,
+    CAN_BE_ON_LEADERBOARD: false,
+    GIVE_KILL_MESSAGE: false,
+    ACCEPTS_SCORE: false,
+    DISPLAY_NAME: true,
+    FULL_INVISIBLE: true,
+    SIZE: 25,
+    GUNS: [],
+    ALPHA: 1,
+    TURRETS: [
+        {
+            TYPE: ["circleHat", {COLOR: "#000000"}],
+            POSITION: {
+                SIZE: 20.1,
+                LAYER: 1
+            }
+        }
+    ],
+    ON: [
+        {
+            event: "tick",
+            handler: ({ body }) => {
+                for (let instance of entities.values()) {
+                    let diffX = instance.x - body.x,
+                        diffY = instance.y - body.y,
+                        dist2 = diffX ** 2 + diffY ** 2;
+                    if (dist2 <= ((body.size / 12)*250) ** 1.9) {
+                        let forceMulti = (0.2 / instance.size);
+                        if (instance.isPlayer && instance.socket) {
+                            if (dist2 < body.size ** 2.5 + instance.size ** 2.5) forceMulti = (3 / instance.size);
+                            instance.velocity.x += util.clamp(body.x - instance.x, -90, 90) * instance.damp * forceMulti;//0.05
+                            instance.velocity.y += util.clamp(body.y - instance.y, -90, 90) * instance.damp * forceMulti;//0.05
+                        } else if (
+                            !instance.isDominator && 
+                            !instance.isArenaCloser && 
+                            !instance.godmode && 
+                            !instance.invuln && 
+                            instance.id != body.id && 
+                            instance.type !== "wall" &&
+                            instance.team != body.team && 
+                            instance.type === "bullet" ||
+                            instance.type === "drone" ||
+                            instance.type === "trap" ||
+                            instance.type === "minion")
+                        {
+                            forceMulti = (3 / instance.size);
+                            instance.velocity.x -= util.clamp(body.x - instance.x, -90, 90) * instance.damp * forceMulti;//0.05
+                            instance.velocity.y -= util.clamp(body.y - instance.y, -90, 90) * instance.damp * forceMulti;//0.05
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}
+for (let i = 0; i < 60; i++) {
+    let spawnDelay = Math.random() * 252;
+    if (spawnDelay < 20) spawnDelay = Math.random() * 4;
+    Class.serverPortal.GUNS.push({
+        POSITION: [2, 8, 1, -150, 0, 360 / 60 * i, spawnDelay],
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([
+                g.basic,
+                { shudder: 0, speed: 2.7, spray: 0, reload: 0.8, recoil: 0, range: 0.15 },
+            ]),
+            SYNCS_SKILLS: true,
+            AUTOFIRE: true,
+            DRAW_FILL: false,
+            BORDERLESS: true,
+            NO_LIMITATIONS: true,
+            TYPE: [
+                Class.bullet,
+                {
+                    NO_COLLISIONS: true,
+                    ALPHA: 0,
+                    FULL_INVISIBLE: true,
+                    ON: [
+                        {
+                            event: "tick",
+                            handler: ({ body }) => {
+                                if (body.alpha < 0.9) body.alpha += 0.06; else body.alpha = 0;
+                            }
+                        }
+                    ]
+                },
+            ],
+        },
+    });
+}
+for (let i = 0; i < 2; i++) {
+    if (i & 1) i++;
+    Class.serverPortal.GUNS.push({
+        POSITION: [2, 14, 1, 2.5, 0, 0, i],
+        PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic,{damage: 0, speed: 0, maxSpeed: 0, reload: 0.4, recoil: 0, size: 3}]),
+            TYPE: "portalAura",
+            SYNCS_SKILLS: true,
+            AUTOFIRE: true,
+            NO_LIMITATIONS: true,
+            MAX_CHILDREN: 1,
+        },
+    });
+}
+
+// Technical
+Class.bot = {
+    FACING_TYPE: 'looseToTarget',
+    CONTROLLERS: [
+        "nearestDifferentMaster",
+        "mapAltToFire",
+        "minion",
+        "fleeAtLowHealth",
+        ["mapFireToAlt", {onlyIfHasAltFireGun: true}],
+        ["wanderAroundMap", {replicatePlayerMovement: true, lookAtGoal: true}]
+    ],
+    AI: {IGNORE_SHAPES: true}
+}
+Class.hp = { // HP for mothership or your custom gamemodes
+    SHAPE: [],
+    LABEL: "##% HP"
+}
+Class.tagMode = {
+    SHAPE: "",
+    LABEL: "Players"
+}

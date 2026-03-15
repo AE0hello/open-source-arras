@@ -113,7 +113,7 @@ class MockupEntityProp {
             layer: position.LAYER,
         };
         // Initalize.
-        this.setAngle = def.ANGLE ?? null;
+        this.forceAngle = def.FORCE_ANGLE ?? null;
         this.facing = 0;
         this.x = 0;
         this.y = 0;
@@ -254,6 +254,7 @@ class MockupEntity {
         this.settings.ratioEffects = set.RATIO_EFFECTS ?? true;
         this.settings.motionEffects = set.MOTION_EFFECTS ?? true;
         this.sendAllMockups = set.SEND_ALL_MOCKUPS ?? false;
+        this.displayScore = set.DISPLAY_SCORE ?? true;
         if (set.VISIBLE_ON_BLACKOUT) this.visibleOnBlackout = set.VISIBLE_ON_BLACKOUT;
         if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(this.rerootUpgradeTree)) {
@@ -291,7 +292,7 @@ class MockupEntity {
             }
         }
         else if (set.LEVEL != null) level = set.LEVEL;
-        this.size = (set.SIZE ?? 1) * (set.VARIES_IN_SIZE ? ran.randomRange(0.8, 1.2) : 1) * (1 + Math.min(set.level_cap ?? Config.level_cap, level) / 45);
+        this.size = (set.SIZE ?? 1) * (set.VARIES_IN_SIZE ? ran.randomRange(0.8, 1.2) : 1) * (1 + Math.min(set.LEVEL_CAP ?? Config.level_cap, level) / 45);
         this.realSize = util.rounder(this.size * lazyRealSizes[Math.floor(Math.abs(this.shape))]);
         this.size = util.rounder(this.size);
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
@@ -435,9 +436,6 @@ class MockupEntity {
             arc: position.ARC * Math.PI / 180,
             layer: position.LAYER
         };
-    }
-    clear() {
-        delete this;
     }
 }
 

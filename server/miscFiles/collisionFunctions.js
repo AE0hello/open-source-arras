@@ -242,9 +242,9 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         };
         /********** DO DAMAGE *********/
         let bail = false;
-        if (n.type === 'food' && my.settings.necroTypes.includes(n.shape)) {
+        if (n.type === my.settings.necroTarget && my.settings.necroTypes.includes(n.shape)) {
             bail = my.necro(n);
-        } else if (my.type === 'food' && n.settings.necroTypes.includes(my.shape)) {
+        } else if (my.type === my.settings.necroTypes && n.settings.necroTypes.includes(my.shape)) {
             bail = n.necro(my);
         }
         if (!bail && !my.invuln && !n.invuln) {
@@ -296,10 +296,10 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
             const __n = damage._me * deathFactor._me;
             my.damageReceived += __my * Number(__my > 0
                 ? my.team != n.team
-                : n.healer && n.team == my.team && my.type == "tank" && n.master.id != my.id);
+                : !!n.healer && n.team == my.team && my.type == "tank" && n.master.id != my.id);
             n.damageReceived += __n * Number(__n > 0
                 ? my.team != n.team
-                : my.healer && n.team == my.team && n.type == "tank" && my.master.id != n.id);
+                : !!my.healer && n.team == my.team && n.type == "tank" && my.master.id != n.id);
         }
     }
     // Exit if healer (healers don't push on collide)
@@ -479,36 +479,11 @@ function mazewallcustomcollide(wall, bounce) {
         bounce.y - bounce.size > wall.y + trueWallSize
     );
     
+
     if (!isColliding) {
-        if (canResize) {
-            bounce.touchingSizeWall = false;
-            bounce.touchingFovWall = false;
-            if (!bounce.touchingSizeWall && bounce.originalSize && bounce.SIZE !== bounce.originalSize) {
-                const restoreSpeed = 0.05;
-                if (Math.abs(bounce.SIZE - bounce.originalSize) < restoreSpeed) {
-                    bounce.SIZE = bounce.originalSize;
-                } else if (bounce.SIZE < bounce.originalSize) {
-                    bounce.SIZE = Math.min(bounce.SIZE + restoreSpeed, bounce.originalSize);
-                } else {
-                    bounce.SIZE = Math.max(bounce.SIZE - restoreSpeed, bounce.originalSize);
-                }
-            }
-            if (!bounce.touchingFovWall && bounce.originalFov && bounce.FOV !== bounce.originalFov) {
-                const restoreSpeed = 0.1;
-                if (Math.abs(bounce.FOV - bounce.originalFov) < restoreSpeed) {
-                    bounce.FOV = bounce.originalFov;
-                } else if (bounce.FOV < bounce.originalFov) {
-                    bounce.FOV = Math.min(bounce.FOV + restoreSpeed, bounce.originalFov);
-                } else {
-                    bounce.FOV = Math.max(bounce.FOV - restoreSpeed, bounce.originalFov);
-                }
-            }
-        }
-        return;
-    }
-    if (canResize) {
         bounce.touchingSizeWall = false;
         bounce.touchingFovWall = false;
+        return;
     }
     
     const collisionFaces = [
@@ -536,6 +511,9 @@ function mazewallcustomcollide(wall, bounce) {
             case 2:
                 if (bounce.health && !bounce.godmode && !bounce.passive && !bounce.isInvulnerable && !bounce.invuln) {
                     bounce.health.amount -= bounce.health.max * 0.2;
+                    for (let axis in wallPushPositions[i]) {
+                        bounce.velocity[axis] *= -1;
+                    }
                 }
                 break;
             case 3:
@@ -544,17 +522,17 @@ function mazewallcustomcollide(wall, bounce) {
                 }
                 break;
             case 4:
-                const bounceFactor = 2.5;
+                const bounceFactor = 18.5;
                 for (let axis in wallPushPositions[i]) {
-                    bounce.velocity[axis] *= -bounceFactor;
+                    if (i === 0 || i === 1) {
+                        bounce.accel[axis] -= bounceFactor;
+                    } else bounce.accel[axis] += bounceFactor;
                 }
                 break;
             case 5:
                 if (canResize) {
                     bounce.touchingSizeWall = true;
-                    if (bounce.SIZE < 25) {
-                        bounce.SIZE = Math.min(bounce.SIZE * 1.05, 25);
-                    }
+                    bounce.SIZE = bounce.originalSize * 2;
                 }
                 break;
             case 6:
@@ -571,11 +549,15 @@ function mazewallcustomcollide(wall, bounce) {
                     bounce.FOV = bounce.originalFov * 2.5;
                 }
                 break;
+            case 8:
+                for (let axis in wallPushPositions[i]) {
+                }
+                break;
         }
         
         for (let axis in wallPushPositions[i]) {
             bounce[axis] = wallPushPositions[i][axis];
-            if (wall.walltype !== 4) {
+            if (wall.walltype !== 2 && wall.walltype !== 4 && wall.walltype !== 8) {
                 bounce.velocity[axis] = 0;
             }
             return true;
@@ -608,22 +590,20 @@ function mazewallcustomcollide(wall, bounce) {
                 }
                 break;
             case 4:
-                const bounceFactor = 2.5;
+                const bounceFactor = 18.5;
                 const dx = bounce.x - cornerX;
                 const dy = bounce.y - cornerY;
                 const dist = Math.hypot(dx, dy);
                 const nx = dx / dist;
                 const ny = dy / dist;
-                const dot = bounce.velocity.x * nx + bounce.velocity.y * ny;
-                bounce.velocity.x = (bounce.velocity.x - 2 * dot * nx) * bounceFactor;
-                bounce.velocity.y = (bounce.velocity.y - 2 * dot * ny) * bounceFactor;
+                const dot = bounce.accel.x * nx + bounce.accel.y * ny;
+                bounce.accel.x += (bounce.accel.x - 2 * dot * nx) * bounceFactor;
+                bounce.accel.y += (bounce.accel.y - 2 * dot * ny) * bounceFactor;
                 break;
             case 5:
                 if (canResize) {
                     bounce.touchingSizeWall = true;
-                    if (bounce.SIZE < 25) {
-                        bounce.SIZE = Math.min(bounce.SIZE * 1.05, 25);
-                    }
+                    bounce.SIZE = bounce.originalSize * 2;
                 }
                 break;
             case 6:
@@ -637,15 +617,21 @@ function mazewallcustomcollide(wall, bounce) {
             case 7:
                 if (canResize) {
                     bounce.touchingFovWall = true;
-                    if (bounce.FOV < bounce.originalFov * 3) {
-                        bounce.FOV = Math.min(bounce.FOV * 1.1, bounce.originalFov * 3);
+                    bounce.FOV = bounce.originalFov * 2.5;
+                }
+                break;
+            case 8: 
+                for (let axis in cornerPositions[i]) {
+                    if (i == 2) {
+                        bounce.velocity[axis] *= 2.5;
                     }
                 }
                 break;
         }
-        
-        bounce.x = cornerX + bounce.size * Math.cos(angleFromCornerToBounce);
-        bounce.y = cornerY + bounce.size * Math.sin(angleFromCornerToBounce);
+        if (wall.walltype !== 8) {
+            bounce.x = cornerX + bounce.size * Math.cos(angleFromCornerToBounce);
+            bounce.y = cornerY + bounce.size * Math.sin(angleFromCornerToBounce);
+        }
         return true;
     }
 }

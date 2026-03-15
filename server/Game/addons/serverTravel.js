@@ -1,9 +1,14 @@
 async function getServer(server) {
     try {
-        let data = await fetch(`${server.IP.startsWith("localhost") ? "http" : "https"}://${server.IP}/portalPermission`).then(r => r.json()).catch(() => false);
+        let data = await fetch(`${server.ip.startsWith("localhost") ? "http" : "https"}://${server.ip}/portalPermission`).then(r => r.json()).catch(() => false);
         if (!data) return false;
         data = data[0];
-        return { name: data.gameMode.trim(), players: data.players, ip: server.IP, destination: `${server.IP.startsWith("localhost") ? "http://" : "https://"}${data.ip}` };
+        return {
+            name: data.gameMode.trim(),
+            players: data.players,
+            ip: server.ip,
+            destination: `${server.ip.startsWith("localhost") ? "http://" : "https://"}${data.ip}`
+        };
     } catch (e) {
         console.log(e);
     }
@@ -34,7 +39,7 @@ let Portal = class {
         this.body.alwaysShowOnMinimap = true;
         this.body.minimapColor = 19;
         let updateInterval = setInterval(async () => {
-            let data = await getServer({IP: this.ip});
+            let data = await getServer({ip: this.ip});
             if (data) {
                 this.body.settings.scoreLabel = `${data.players} player${data.players === 1 ? "" : "s"}`;
                 this.body.name = data.name;
@@ -78,13 +83,13 @@ if (loadedAddons.includes("chatCommands")) {
                 return;
             }
             let server = Config.servers.find(
-                s => s.SERVER_ID === args[0]
+                s => s.id === args[0]
             );
             if (!server) {
                 socket.talk("m", 5_000, "Server not found.");
                 return;
             }
-            global.gameManager.socketManager.sendToServer(socket, `http://${server.HOST}`);
+            global.gameManager.socketManager.sendToServer(socket, `http://${server.host}`);
         }
     })
 }

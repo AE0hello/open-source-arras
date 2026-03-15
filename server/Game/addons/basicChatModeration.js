@@ -15,7 +15,7 @@ Events.on('chatMessage', ({ message, socket, preventDefault, setMessage }) => {
 	setMessage(message.replaceAll('someverybadandbannedword', '************************'));
 
 	// They are allowed to spam ANYTHING they want INFINITELY.
-	if (perms && perms.allowSpam) return;
+	if (message.startsWith("$") || (perms && perms.allowSpam)) return;
 
 	// If they're talking too much, they can take a break.
 	// Fortunately, this returns false if 'recent[id] is 'undefined'.

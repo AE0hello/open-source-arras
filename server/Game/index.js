@@ -212,7 +212,7 @@ class gameHandler {
         grid.clear();
         for (const instance of entities.values()) {
             if (instance.contemplationOfMortality() === 1) {
-                if (Config.OUTBREAK && !instance.zombified && (instance.isPlayer || instance.isBot)) {
+                if (Config.outbreak && !instance.zombified && (instance.isPlayer || instance.isBot)) {
                     instance.zombified = true;
                     instance.settings.no_collisions = true;
                     instance.alpha = 0;
@@ -257,11 +257,11 @@ class gameHandler {
             }
             if (instance.isInGrid) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
             logs.collide.mark();
-            if (instance.touchingSizeWall === false && instance.originalSize) {
+            if ((instance.touchingSizeWall === false || instance.collisionArray.length === 0) && instance.originalSize) {
                 instance.SIZE = instance.originalSize;
                 instance.originalSize = undefined;
             }
-            if (instance.touchingFovWall === false && instance.originalFov) {
+            if ((instance.touchingFovWall === false || instance.collisionArray.length === 0) && instance.originalFov) {
                 instance.FOV = instance.originalFov;
                 instance.originalFov = undefined;
             }
@@ -326,9 +326,9 @@ class gameHandler {
         // Nest food/enemy spawn
         if (Math.random() < 1 / 3 && global.gameManager.room.spawnable[TEAM_ENEMIES]) {
             // Enemy spawn
-            if (Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
+            if (Config.classic_food && Math.random() < 1 / 3 && this.enemyFoods.length < Config.enemy_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
-                const o = spawnFoodEntity(tile, Config.enemy_types_nest);
+                const o = spawnFoodEntity(tile, Config.classic_enemy_types_nest);
                 this.enemyFoods.push(o);
                 setupCleanup(this.enemyFoods, o);
             }
@@ -336,18 +336,30 @@ class gameHandler {
             if (this.nestFoods.length < Config.food_cap_nest) {
                 const tile = ran.choose(global.gameManager.room.spawnable[TEAM_ENEMIES]).randomInside();
                 for (let i = 0; i < totalFoods; i++) {
-                    const o = spawnFoodEntity(tile, Config.food_types_nest);
-                    this.nestFoods.push(o);
-                    setupCleanup(this.nestFoods, o);
+                    if (Config.classic_food) {
+                        const o = spawnFoodEntity(tile, Config.classic_food_types_nest);
+                        this.nestFoods.push(o);
+                        setupCleanup(this.nestFoods, o);
+                    } else {
+                        const o = spawnFoodEntity(tile, Config.food_types_nest);
+                        this.nestFoods.push(o);
+                        setupCleanup(this.nestFoods, o);
+                    }
                 }
             }
         } else if (this.foods.length < Config.food_cap) {
             // Regular food spawn
             const tile = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
             for (let i = 0; i < totalFoods; i++) {
-                const o = spawnFoodEntity(tile, Config.food_types);
-                this.foods.push(o);
-                setupCleanup(this.foods, o);
+                if (Config.classic_food) {
+                    const o = spawnFoodEntity(tile, Config.classic_food_types);
+                    this.foods.push(o);
+                    setupCleanup(this.foods, o);
+                } else {
+                    const o = spawnFoodEntity(tile, Config.food_types);
+                    this.foods.push(o);
+                    setupCleanup(this.foods, o);
+                }
             }
         }
     }
@@ -372,7 +384,7 @@ class gameHandler {
             }
         }
         // Spawn bosses
-        if (this.checkUsers() && Config.bosses_spawn && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.boss_spawn_cooldown) {
+        if (this.checkUsers() && Config.enable_bosses && !this.naturallySpawnedBosses.length && this.bossTimer++ > Config.boss_spawn_cooldown) {
             this.bossTimer = -Config.boss_spawn_delay - 2;
             let selection = Config.boss_types[ran.chooseChance(...Config.boss_types.map((selection) => selection.chance))],
                 amount = ran.chooseChance(...selection.amount) + 1;
@@ -465,7 +477,7 @@ class gameHandler {
             if (CC && CC.HEALING_TANK) {
                 o.controllers = [];
                 o.define({
-                    CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
+                    CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { replicatePlayerMovement: true, lookAtGoal: true }]],
                     FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
                     AI: Class.bot.AI,
                 }, false, true, false);
@@ -478,7 +490,7 @@ class gameHandler {
                 if (CC && CC.HEALING_TANK) {
                     o.controllers = [];
                     o.define({ 
-                        CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { immitatePlayerMovement: true, lookAtGoal: true }]],
+                        CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { replicatePlayerMovement: true, lookAtGoal: true }]],
                         FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
                         AI: Class.bot.AI,
                     }, false, true, false);
@@ -517,13 +529,13 @@ class gameHandler {
         let maintainloop = setInterval(() => {
             if (!this.active) return clearInterval(maintainloop);
             global.gameManager.gameSpeedCheckHandler.update();
-            global.gameManager.socketManager.chatLoop();
             global.gameManager.gamemodeManager.request("loop");
             this.maintainloop();
         }, 1000);
         let otherloop = setInterval(() => {
             if (!this.active) return clearInterval(otherloop);
             this.quickMaintainLoop();
+            global.gameManager.socketManager.chatLoop();
         }, 200)
         let healingLoop = setInterval(() => {
             if (!this.active) return clearInterval(healingLoop);

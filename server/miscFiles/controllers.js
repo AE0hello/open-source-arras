@@ -99,7 +99,7 @@ class IO {
         }
     }
 }
-class io_bossRushAI extends IO {
+class io_siegeAI extends IO {
     constructor(body, opts = {}) {
         super(body);
         this.enabled = true;
@@ -370,7 +370,7 @@ class io_mapFireToAlt extends IO {
         this.onlyIfHasAltFireGun = opts.onlyIfHasAltFireGun;
     }
     think(input) {
-        if (input.fire) for (let i = 0; i < this.body.guns.length; i++) if (!this.onlyIfHasAltFireGun || this.body.guns[i].altFire) return { alt: true }
+        if (input.fire) for (let i = 0; i < this.body.gunsArrayed.length; i++) if (!this.onlyIfHasAltFireGun || this.body.gunsArrayed[i].altFire) return { alt: true }
     }
 }
 class io_onlyAcceptInArc extends IO {
@@ -958,7 +958,7 @@ class io_wanderAroundMap extends IO {
     constructor(body, opts = {}) {
         super(body);
         this.lookAtGoal = opts.lookAtGoal;
-        this.immitatePlayerMovement = opts.immitatePlayerMovement;
+        this.replicatePlayerMovement = opts.replicatePlayerMovement;
         this.spot = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
 
         this.bossWander = opts.diepBossWander;
@@ -1038,7 +1038,7 @@ class io_wanderAroundMap extends IO {
             }
             if (input.goal == null && !this.body.autoOverride) {
                 let goal = this.spot;
-                if (this.immitatePlayerMovement) {
+                if (this.replicatePlayerMovement) {
                     goal = compressMovement(this.body, goal);
                 }
                 return {
@@ -1241,7 +1241,7 @@ let ioTypes = {
     //movement related
     canRepel: io_canRepel,
     mapTargetToGoal: io_mapTargetToGoal,
-    bossRushAI: io_bossRushAI,
+    siegeAI: io_siegeAI,
     moveInCircles: io_moveInCircles,
     boomerang: io_boomerang,
     formulaTarget: io_formulaTarget,

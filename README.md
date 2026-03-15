@@ -25,28 +25,28 @@ After installing `ws`, [download the source code of the latest release of Open S
 > **Major updates may introduce breaking changes that alter how certain things work. It is *your responsibility* to keep your private server up-to-date and functioning.**
 
 ## Server setup
-You can set up in-game servers in config.js file, in `SERVERS`. For further explanation, see the setting itself. It's an array of objects where each object is a server.
+You can set up in-game servers in config.js file, in `servers`. For further explanation, see the setting itself. It's an array of objects where each object is a server.
 
 ### Travelling between servers (Nexus)
-Copy this code into your server's `PROPERTIES`:
+Copy this code into your server's `properties`:
 ```
-SERVER_TRAVEL_PROPERTIES: {
-    LOOP_INTERVAL: 10000, // how often the portal loop executes
-    AMOUNT: 1, // amount of portals to spawn
+server_travel_properties: {
+    loop_interval: 10000, // how often the portal loop executes in seconds
+    portals: 1, // amount of portals to spawn
 },
-SERVER_TRAVEL: [
+server_travel: [
     {
-        IP: "<YourIP>", // destination server IP, don't add "https://" or any slashes to it
-        PORTAL_PROPERTIES: {
-            SPAWN_CHANCE: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = more chances)
-            COLOR: "red", // portal color
+        ip: '<YourIP>', // destination server host, don't add "https://" or any slashes to it
+        portal_properties: {
+            spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = lower chances, lower = higher chance)
+            color: 'red', // portal color
         }
     }
 ]
 ```
 
 > [!NOTE]
-> Make sure to set `ALLOW_SERVER_TRAVEL` to true in your destination server's `PROPERTIES`.
+> Make sure to set `allow_server_travel` to true in your destination server's `properties`.
 
 ## Other Links
 - [Our Discord server](https://discord.gg/arras)

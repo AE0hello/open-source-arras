@@ -40,7 +40,18 @@ const util = (function() {
             });
         },
         getRatio: () => Math.max(global.screenWidth, 16 * global.screenHeight / 9) / global.player.renderv,
-        getScreenRatio: () => Math.max(global.screenWidth, 11 * global.screenHeight / 9) / global.screenSize,
+        getScreenRatio: () => {
+            try {
+                let scale;
+                if (global.autoScale) scale = global.screenSize;
+                else scale = global.UIscale;
+                return Math.max(global.screenWidth, 16 * global.screenHeight / 9) / scale;
+            } catch (e) {
+                document.getElementById("optUiScale").value = global.mobile ? "mobile" : "normal",
+                util.submitToLocalStorage("optUiScale");
+                location.reload();
+            }
+        },
         isNumeric: (string) => /^[+-]?\d+(\.\d+)?$/.test(string), // Check if a string is a numeric string
         lerp: (a, b, x, syncWithFps = false) => {
             if (syncWithFps) {
@@ -478,7 +489,7 @@ const util = (function() {
             if (data.isProp) {
                 return {
                     index: image.index,
-                    color: image.color,
+                    color: data.color,
                     borderless: data.borderless,
                     drawFill: data.drawFill,
                     layer: data.layer,
@@ -486,7 +497,7 @@ const util = (function() {
                     size: image.size * data.sizeFactor,
                     sizeFactor: data.sizeFactor,
                     angle: data.angle,
-                    setAngle: data.setAngle,
+                    forceAngle: data.forceAngle,
                     offset: data.offset,
                     direction: data.direction,
                     facing: data.direction + data.angle,
