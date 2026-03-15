@@ -396,7 +396,7 @@ import * as socketStuff from "./socketinit.js";
         // OSA info
         let i_div = document.createElement("div");
         i_div.classList.add("optionsHeader");
-        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild ? " (Dev build)" : ""}`;
+        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild === "false" ? "" : " (dev build)"}`;
         mainDoc.appendChild(i_div);
 
         // Addon stuff
