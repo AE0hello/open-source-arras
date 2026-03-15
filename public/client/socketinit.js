@@ -1238,9 +1238,8 @@ let incoming = async function(message, socket) {
         } break;
         case 'CHAT_MESSAGE_ENTITY': {
             if (!global.chats) global.chats = {};
-            const needsToBeErased = {};
             for (let data of JSON.parse(m[0])) {
-                if (!global.chats[data.id]) global.chats[data.id] = [], needsToBeErased[data.id] = {messages: []};
+                if (!global.chats[data.id]) global.chats[data.id] = [];
                 for (let e of data.messages) {
                     const alreadyExists = global.chats[data.id].find(msg => msg.id === e.id);
                     if (!alreadyExists) {
