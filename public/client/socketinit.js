@@ -1197,25 +1197,99 @@ let incoming = async function(message, socket) {
             // Reconnect server
             global.reconnect();
         } break;
-        case 'TIA': { // The Immortal Audio
+        case 'TIA': { // The Immortal Audio (both songs for actual upgrade)
             try {
-                if (window.theImmortalAudio && !window.theImmortalAudio.paused) {
-                    window.theImmortalAudio.pause();
-                    window.theImmortalAudio.currentTime = 0;
+                // Stop existing audio to prevent stacking
+                if (window.theImmortalAudio) {
+                    if (Array.isArray(window.theImmortalAudio)) {
+                        // Handle array of audio objects (from previous TIA)
+                        window.theImmortalAudio.forEach(audio => {
+                            if (audio && !audio.paused) {
+                                audio.pause();
+                                audio.currentTime = 0;
+                            }
+                        });
+                    } else if (window.theImmortalAudio.paused !== undefined) {
+                        // Handle single audio object (from previous TIM)
+                        if (!window.theImmortalAudio.paused) {
+                            window.theImmortalAudio.pause();
+                            window.theImmortalAudio.currentTime = 0;
+                        }
+                    }
                 }
                 
-                const audio = new Audio('/audio/songsgohere/theimmortal.mp3');
-                audio.volume = 0.5;
-                audio.loop = false;
+                // Play both songs simultaneously
+                const spawnAudio = new Audio('/audio/songsgohere/spawnfortheimmortal.mp3');
+                const mainAudio = new Audio('/audio/songsgohere/theimmortal.mp3');
                 
-                window.theImmortalAudio = audio;
+                spawnAudio.volume = 0.5;
+                spawnAudio.loop = false;
                 
-                audio.addEventListener('ended', () => {
+                mainAudio.volume = 0.5;
+                mainAudio.loop = false;
+                
+                // Store both audio elements globally for management
+                window.theImmortalAudio = [spawnAudio, mainAudio];
+                
+                // Clean up when both songs end
+                let songsEnded = 0;
+                const onSongEnd = () => {
+                    songsEnded++;
+                    if (songsEnded === 2) {
+                        window.theImmortalAudio = null;
+                    }
+                };
+                
+                spawnAudio.addEventListener('ended', onSongEnd);
+                mainAudio.addEventListener('ended', onSongEnd);
+                
+                // Play both songs simultaneously
+                spawnAudio.play().catch(error => {
+                    console.log("Error playing The Immortal spawn audio:", error);
+                });
+                
+                mainAudio.play().catch(error => {
+                    console.log("Error playing The Immortal main audio:", error);
+                });
+            } catch (error) {
+                console.log("Error loading The Immortal audio:", error);
+            }
+        } break;
+        case 'TIM': { // The Immortal Music (main song only for new players)
+            try {
+                // Stop existing audio to prevent stacking
+                if (window.theImmortalAudio) {
+                    if (Array.isArray(window.theImmortalAudio)) {
+                        // Handle array of audio objects (from previous TIA)
+                        window.theImmortalAudio.forEach(audio => {
+                            if (audio && !audio.paused) {
+                                audio.pause();
+                                audio.currentTime = 0;
+                            }
+                        });
+                    } else if (window.theImmortalAudio.paused !== undefined) {
+                        // Handle single audio object (from previous TIM)
+                        if (!window.theImmortalAudio.paused) {
+                            window.theImmortalAudio.pause();
+                            window.theImmortalAudio.currentTime = 0;
+                        }
+                    }
+                }
+                
+                // Play only the main song
+                const mainAudio = new Audio('/audio/songsgohere/theimmortal.mp3');
+                mainAudio.volume = 0.5;
+                mainAudio.loop = false;
+                
+                // Store globally for management
+                window.theImmortalAudio = mainAudio;
+                
+                mainAudio.addEventListener('ended', () => {
                     window.theImmortalAudio = null;
                 });
                 
-                audio.play().catch(error => {
-                    console.log("Error playing The Immortal audio:", error);
+                mainAudio.play().catch(error => {
+                    console.log("Error playing The Immortal main audio:", error);
                 });
             } catch (error) {
                 console.log("Error loading The Immortal audio:", error);

@@ -1101,6 +1101,13 @@ class Entity extends EventEmitter {
       const announcement = `${playerName} has ascended to The Immortal!`;
       global.gameManager.socketManager.broadcast(announcement);
       
+      // Reset the hasHeardImmortalMusic flag for all clients
+      for (let client of global.gameManager.socketManager.clients) {
+        if (client) {
+          client.status.hasHeardImmortalMusic = false;
+        }
+      }
+      
       for (let client of global.gameManager.socketManager.clients) {
         if (client && client.talk) {
           client.talk("TIA");

@@ -1185,8 +1185,8 @@ class socketManager {
         const announcement = `${playerName} has ascended to The Immortal!`;
         global.gameManager.socketManager.broadcast(announcement);
         
-        // Send audio command to the new player only
-        socket.talk("TIA");
+        // Send audio command to the new player only (main music only, no spawn sound)
+        socket.talk("TIM");
         socket.status.hasHeardImmortalMusic = true;
       }
     }
