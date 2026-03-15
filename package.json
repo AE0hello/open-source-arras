@@ -11,5 +11,5 @@
   "engines": {
     "node": ">=20.0.0"
   },
-  "license": "PolyForm Noncommercial License 1.0.0"
+  "license": "MIT License"
 }
