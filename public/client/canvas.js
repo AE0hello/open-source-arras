@@ -156,7 +156,8 @@ class Canvas {
 
         switch (event.keyCode) {
             case global.KEY_SHIFT:
-                this.treeScrollSpeedMultiplier = 5;
+                if (global.showTree) this.treeScrollSpeedMultiplier = 5;
+                else this.socket.cmd.set(6, true);
                 break;
 
             case global.KEY_ENTER:
@@ -310,7 +311,8 @@ class Canvas {
                 global.specialKeysPressed = [];
                 break;
             case global.KEY_SHIFT:
-                this.treeScrollSpeedMultiplier = 1;
+                if (global.showTree) this.treeScrollSpeedMultiplier = 1;
+                else this.socket.cmd.set(6, false);
                 break;
             case global.KEY_UP_ARROW:
                 global.classTreeDrag.momentum.y = 0;

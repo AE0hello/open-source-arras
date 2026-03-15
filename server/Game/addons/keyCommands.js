@@ -881,7 +881,7 @@ function init() {
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
-                player.body.FOV = 1;
+                player.body.FOV = 1.02;
             }
         },
         {

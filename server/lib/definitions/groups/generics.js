@@ -103,6 +103,7 @@ Class.genericTank = {
     MOTION_TYPE: "motor",
     FACING_TYPE: "toTarget",
     ARENA_CLOSER: false,
+    FULL_INVISIBLE: false,
     CAN_SEE_INVISIBLE_ENTITIES: false,
     CONNECT_CHILDREN_ON_CAMERA: false,
     DAMAGE_EFFECTS: false,
@@ -483,6 +484,7 @@ Class.serverPortal = {
     GIVE_KILL_MESSAGE: false,
     ACCEPTS_SCORE: false,
     DISPLAY_NAME: true,
+    FULL_INVISIBLE: true,
     SIZE: 25,
     GUNS: [],
     ALPHA: 1,
@@ -552,6 +554,7 @@ for (let i = 0; i < 60; i++) {
                 {
                     NO_COLLISIONS: true,
                     ALPHA: 0,
+                    FULL_INVISIBLE: true,
                     ON: [
                         {
                             event: "tick",

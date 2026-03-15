@@ -1149,7 +1149,7 @@ import * as socketStuff from "./socketinit.js";
     const upgradeMenu = Smoothbar(0, 2, 3, 0.08, 0.025, true);
     const mobileUpgradeGlide = Smoothbar(0, 2, 3, 0.08, 0.025, true);
     const lbGlide = AdvancedSmoothBar(0, 0.3, 1.5);
-    const chatInput = AdvancedSmoothBar(0, 0.3, 1.3);
+    const chatInput = Smoothbar(0, 2, 0.1, 0.07, 0.025, true);
 
     // Define the graph constructor
     function graph() {
@@ -2986,12 +2986,11 @@ import * as socketStuff from "./socketinit.js";
 
     function drawChatMessages(x, y, py, instance, ratio, alpha, isize) {
         if (!(instance.id === gui.playerid) && instance.alpha < 0.25) return;
-        let now = Date.now(),
-            size = isize * ratio,
+        let size = isize * ratio,
             g = Math.max(20, size);
     
         if (!y) y = instance.id === gui.playerid
-            ? global.player.screeny - 1 * (global.showChatGlide) * (global.lerp(0, 1, global.showChatGlide)) * g
+            ? global.player.screeny - 1 * global.showChatGlide * g
             : ratio * instance.render.y - py;
         //put chat msg above name
         let fade = instance.render.status.getFade();
@@ -3001,13 +3000,8 @@ import * as socketStuff from "./socketinit.js";
         x += global.screenWidth / 2;
         y += global.screenHeight / 2;
         if (instance.id !== gui.playerid && instance.nameplate) y -= 8 * ratio;
-    
         let messages = global.chats[instance.id];
         if (!messages) return;
-        
-        // Remove expired messages (accounting for full fade-out duration)
-        messages = messages.filter(msg => msg.expires > now - 200);
-        global.chats[instance.id] = messages;
         
         const messageSpacing = 25 * 0.04 * g;
         
@@ -3019,31 +3013,26 @@ import * as socketStuff from "./socketinit.js";
                 msgLengthHalf = measureText(text, 0.5 * g) / 2,
                 barScale = global.GUIStatus.renderPlayerScores ? 2.66 : 2.26,
                 textScale = global.GUIStatus.renderPlayerScores ? 2.45 : 2.05,
-                timeSinceCreated = now - chat.createdAt,
-                fadeInDuration = 300,
-                fadeInAlpha = chat.fadedIn ? 1 : Math.min(1, timeSinceCreated / fadeInDuration),
-                timeUntilExpiry = chat.expires - now,
-                expiryAlpha = timeUntilExpiry > 1000 ? 1 : Math.max(0, Math.min(1, timeUntilExpiry / 200)),
-                valpha = fadeInAlpha * expiryAlpha;
+                valpha = chat.alpha.get();
             
+            if (chat.erased && valpha === 0) {
+                util.remove(global.chats[instance.id], chatIndex); // Remove the chat object
+                messages.sort((a, b) => a.id - b.id); // Sort the messages or else the order will get messed up
+            }
             if (chat.targetY === undefined) {
                 chat.targetY = i * messageSpacing;
                 chat.currentY = i === 0 ? 0 : (i-1) * messageSpacing;
             }
             chat.targetY = i * messageSpacing;
-            const animationSpeed = 0.15;
-            chat.currentY += (chat.targetY - chat.currentY) * animationSpeed;
+            const animationSpeed = 10;
+            chat.currentY += (chat.targetY - chat.currentY) * animationSpeed / global.metrics.rendertime;
             let slideOffset = chat.currentY;
-            
-            if (fadeInAlpha >= 1 && !chat.fadedIn) {
-                chat.fadedIn = true;
-            }
             
             // Skip rendering if completely faded out
             if (valpha <= 0) continue;
             
             ctx[1].globalAlpha = 0.5 * valpha * alpha * alpha * fade;
-            drawBar(x - msgLengthHalf, x + msgLengthHalf, y - g * (instance.id === gui.playerid ? 2.26 : barScale) - slideOffset, 0.75 * g, gameDraw.modifyColor(instance.color), ctx[1]);
+            drawBar(x - msgLengthHalf, x + msgLengthHalf, y - g * (instance.id === gui.playerid ? 2.26 : barScale) - slideOffset, 0.75 * g, gameDraw.getColorDark(gameDraw.getColor(instance.color.split(" ")[0])), ctx[1]);
             ctx[1].globalAlpha = valpha * alpha * fade;
             config.graphical.fontStrokeRatio *= 1.2;
             drawText(text, x, y - g * (instance.id === gui.playerid ? 2.05 : textScale) - slideOffset, 0.50 * g, color.guiwhite, "center", false, 1, true, ctx[1]);
@@ -3922,20 +3911,20 @@ import * as socketStuff from "./socketinit.js";
             global.canvas.chatBox.style.backgroundColor = color.guiwhite;
             global.canvas.chatBox.style.borderColor = color.black;
             global.canvas.chatBox.style.borderWidth = 0.1 * g + 'px';
-            global.canvas.chatBox.style.opacity = global.showChatGlide * 1 * global.lerp(0, 1, global.showChatGlide);
+            global.canvas.chatBox.style.opacity = global.showChatGlide;
             global.canvas.chatBox.style.width = (boxLengthHalf * 2 + 0.75 * g) / global.screenWidth * 100 + `%`;
             global.canvas.chatBox.style.height = 0.95 * g + `px`;
             global.canvas.chatBox.style.left = (x - boxLengthHalf - 0.75 * g / 2) / global.screenWidth * 100 + `%`;
             global.canvas.chatBox.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
             // Input 
-            global.canvas.chatInput.style.opacity = global.showChatGlide * 1 * global.lerp(0, 1, global.showChatGlide);
+            global.canvas.chatInput.style.opacity = global.showChatGlide;
             global.canvas.chatInput.style["font-size"] = 0.5 * g + 'px';
             global.canvas.chatInput.style.color = color.black;
             global.canvas.chatInput.style.width = (boxLengthHalf * 2 + 0.35 * g) / global.screenWidth * 100 + `%`;
             global.canvas.chatInput.style.height = 0.95 * g + `px`;
             global.canvas.chatInput.style.left = (x - boxLengthHalf - 0.35 * g / 2) / global.screenWidth * 100 + `%`;
             global.canvas.chatInput.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
-            if (global.canvas.chatBox && global.canvas.chatBox.style.opacity == 0 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
+            if (global.canvas.chatBox && global.showChatGlide < 0.005 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
         }
     }
     let drawAdScreen = () => {

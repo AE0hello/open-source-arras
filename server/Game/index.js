@@ -529,13 +529,13 @@ class gameHandler {
         let maintainloop = setInterval(() => {
             if (!this.active) return clearInterval(maintainloop);
             global.gameManager.gameSpeedCheckHandler.update();
-            global.gameManager.socketManager.chatLoop();
             global.gameManager.gamemodeManager.request("loop");
             this.maintainloop();
         }, 1000);
         let otherloop = setInterval(() => {
             if (!this.active) return clearInterval(otherloop);
             this.quickMaintainLoop();
+            global.gameManager.socketManager.chatLoop();
         }, 200)
         let healingLoop = setInterval(() => {
             if (!this.active) return clearInterval(healingLoop);

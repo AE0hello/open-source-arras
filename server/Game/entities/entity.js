@@ -262,6 +262,7 @@ class Entity extends EventEmitter {
         if (set.CLEAR_ON_MASTER_UPGRADE != null) this.settings.clearOnMasterUpgrade = set.CLEAR_ON_MASTER_UPGRADE;
         if (set.HEALTH_WITH_LEVEL != null) this.settings.healthWithLevel = set.HEALTH_WITH_LEVEL;
         if (set.OBSTACLE != null) this.settings.obstacle = set.OBSTACLE;
+        if (set.FULL_INVISIBLE != null) this.settings.fullyInvisible = set.FULL_INVISIBLE;
         if (set.CAN_SEE_INVISIBLE_ENTITIES != null) this.settings.canSeeInvisible = set.CAN_SEE_INVISIBLE_ENTITIES;
         if (set.NECRO != null) {
             this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
@@ -1171,11 +1172,12 @@ class Entity extends EventEmitter {
         entitiesToAvoid.push(this); this.isProtected = true;
     }
     
-    say(message, duration = Config.chat_message_duration) {
+    say(message, duration = Config.CHAT_MESSAGE_DURATION) {
         if (!chats[this.id]) {
             chats[this.id] = [];
+            chats[this.id].messages = [];
         }
-        chats[this.id].unshift({ message, expires: Date.now() + duration });
+        chats[this.id].messages.unshift({ message, expires: Date.now() + duration, id: global.chatID++ });
     }
 
     sendMessage(message) { } // Dummy

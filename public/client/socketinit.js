@@ -641,6 +641,12 @@ const convert = {
             if (e.render.status.getFade() !== 0 && util.isInView(e.render.x - global.player.renderx, e.render.y - global.player.rendery, e.size, true)) {
                 output.push(e);
             } else {
+                if (global.chats[e.id]) {
+                    for (let o of global.chats[e.id]) {
+                        util.remove(global.chats[e.id], global.chats[e.id].indexOf(o)); // Remove it properly
+                    };
+                    delete global.chats[e.id]; // Now we can delete it entirely
+                };
                 if (e.render.textobjs != null) {
                     for (let o of e.render.textobjs) {
                         o.remove();
@@ -737,8 +743,11 @@ const convert = {
         }
         if (indices.dailyTank) {
             let dailyTank = JSON.parse(get.next());
-            gui.dailyTank.tank = dailyTank[0];
-            gui.dailyTank.ads = dailyTank[1];
+            if (!dailyTank[0]) gui.dailyTank = {tank: null, ads: false};
+            else {
+                gui.dailyTank.tank = dailyTank[0];
+                gui.dailyTank.ads = dailyTank[1];
+            }
         }
     },
     broadcast: () => {
@@ -1228,28 +1237,30 @@ let incoming = async function(message, socket) {
             delete config.graphical.smoothcamera2;
         } break;
         case 'CHAT_MESSAGE_ENTITY': {
-            get.set(m);
             if (!global.chats) global.chats = {};
-            for (let i = get.next(); i; i--) {
-                const id = get.next();
-                const count = get.next();
-                if (!global.chats[id]) global.chats[id] = [];
-                const existing = global.chats[id];
-                const newMessages = [];
-                for (let j = 0; j < count; j++) {
-                    const text = get.next();
-                    const expires = parseFloat(get.next());
-                    const alreadyExists = existing.some(msg => msg.text === text && msg.expires === expires);
+            const needsToBeErased = {};
+            for (let data of JSON.parse(m[0])) {
+                if (!global.chats[data.id]) global.chats[data.id] = [], needsToBeErased[data.id] = {messages: []};
+                for (let e of data.messages) {
+                    const alreadyExists = global.chats[data.id].find(msg => msg.id === e.id);
                     if (!alreadyExists) {
-                        newMessages.push({
-                            text,
-                            expires,
-                            createdAt: Date.now(),
-                            fadedIn: false
-                        });
+                        let alpha = util.AdvancedSmoothBar(0, 0.3, 1.5);
+                        global.chats[data.id].push({
+                            text: e.text,
+                            id: e.id,
+                            alpha: alpha
+                        })
+                        alpha.set(1);
                     }
                 }
-                global.chats[id].push(...newMessages);
+                for (let i = 0; i < global.chats[data.id].length; i++) {
+                    let e = global.chats[data.id][i];
+                    const existing = data.messages.find(o => o.id === e.id);
+                    if (!existing && !e.erased) {
+                        e.erased = true;
+                        e.alpha.set(0);
+                    };
+                }
             }
         } break;
     };

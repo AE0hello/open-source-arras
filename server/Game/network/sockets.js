@@ -4,6 +4,7 @@ let crypto = require("crypto"),
     PERMABAN_FILE = "./permabans.json";
 let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
+global.chatID = 0;
 
 class socketManager {
     constructor(parent) {
@@ -98,29 +99,27 @@ class socketManager {
         // clean up expired messages
         let now = Date.now();
         for (let i in chats) {
-            chats[i] = chats[i].filter((chat) => chat.expires > now);
-            if (!chats[i].length) {
-                delete chats[i];
-            }
+            chats[i].messages = chats[i].messages.filter((chat) => chat.expires > now);
         }
 
-        // send chat messages to everyone
+        // Send chat messages to everyone
         for (let view of global.gameManager.views) {
             let nearby = view.getNearby(),
-            spammersAdded = 0,
             array = [];
 
             for (let entity of nearby.values()) {
                 let id = entity.id;
                 if (chats[id]) {
-                        spammersAdded++;
-                        array.push(id, chats[id].length);
-                        for (let chat of chats[id]) {
-                        array.push(chat.message, chat.expires.toString());
+                    array.push({ id: id, messages: [] });
+                    let index = array.length - 1;
+                    for (let chat of chats[id].messages) {
+                        array[index].messages.push({ text: chat.message, id: chat.id });
                     }
                 }
             }
-            if (!view.socket.status.disablechat) view.socket.talk("CHAT_MESSAGE_ENTITY", spammersAdded, ...array);
+            if (view.socket.status.disablechat) {
+                view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array.map(o => {return {id: o.id, messages: []}})));
+            } else view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array));
         }
     }
 
@@ -644,10 +643,11 @@ class socketManager {
     
                 let id = player.body.id;
                 if (!chats[id]) {
-                    chats[id] = [];
+                    chats[id] = {};
+                    chats[id].messages = [];
                 }
 
-                chats[id].unshift({ message, expires: Date.now() + Config.chat_message_duration });
+                chats[id].messages.unshift({ message, expires: Date.now() + Config.chat_message_duration, id: global.chatID++ });
     
                 // do one tick of the chat loop so they don't need to wait 100ms to receive it.
                 this.chatLoop();
@@ -918,7 +918,7 @@ class socketManager {
                 dailyTank = Config.daily_tank_INDEX;
             }
             gui.dailyTank.update(JSON.stringify([dailyTank, Config.daily_tank.ads && !b.socket.status.daily_tank_watched_ad ? true : false]));
-        }
+        } else gui.dailyTank.update(JSON.stringify([false]));
         // Update the stats and skills
         gui.stats.update();
         gui.skills.update(this.getstuff(b.skill));
@@ -1343,16 +1343,34 @@ class socketManager {
         // Return it
         return output;
     }
-    getInvisEntityAlpha(player, other) {
+
+    getInvisEntityAlpha(player, other, canSeeInvisible = false) {
         let alpha;
         if (player.body.id === other.master.id) {
             alpha = other.alpha ? other.alpha * 0.75 + 0.25 : 0.25;
-        } else alpha = other.alpha ? other.alpha * 0.55 + 0.45 : 0.45;
-
+        } else {
+            if (canSeeInvisible) {
+                alpha = other.alpha ? other.alpha * 0.55 + 0.45 : 0.45;
+            } else if (!other.settings.fullyInvisible) {
+                let range = 300;
+                if (!other.alpha) alpha = 1;
+                let dist = Math.sqrt((player.body.x - other.x) ** 2 + (player.body.y - other.y) ** 2);
+                if (dist >= range) {
+                    alpha = other.alpha;
+                } else {
+                    const rangeAlpha = 1 - (dist / range);
+                    alpha = other.alpha ? other.alpha + rangeAlpha * 0.45 : rangeAlpha * 0.45;
+                }
+            } else alpha = other.alpha;
+        }
         return alpha;
     }
+
     perspective(e, player, data) {
         if (player.body != null) {
+            if (e.alpha < 1 && !e.limited && !player.body.settings.canSeeInvisible) {
+                data[18] = Math.round(255 * this.getInvisEntityAlpha(player, e));
+            }
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
                 // Set the proper color if it's on our team and decide what to do about colors when sending updates and stuff
@@ -1361,9 +1379,6 @@ class socketManager {
                 if (player.command.autospin) {
                     data[10] = 1;
                 }
-                // Also let us see for our body.
-                let alpha = this.getInvisEntityAlpha(player, e);
-                if (!e.limited && !player.body.settings.canSeeInvisible) data[18] = Math.round(255 * alpha);
             }
             if (player.body.settings.canSeeInvisible) {
                 data = data.slice();
