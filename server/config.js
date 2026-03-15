@@ -60,6 +60,21 @@ module.exports = {
                     loop_interval: 30_000, // how often the portal loop executes in seconds
                     portals: 3, // amount of portals to spawn
                 },
+                daily_tank: {
+                    tank: 'whirlwind',
+                    tier: 3,
+                    ads: false,
+                    ad_sources: [
+                        {
+                            file: 'testadvideo.mp4',
+                            use_regular_ad_size: true
+                        },
+                        {
+                            file: 'testadimage.png',
+                            use_regular_ad_size: true
+                        }
+                    ]
+                },
                 server_travel: [
                     {
                         ip: 'localhost:3003', // destination server host, don't add "https://" or any slashes to it
