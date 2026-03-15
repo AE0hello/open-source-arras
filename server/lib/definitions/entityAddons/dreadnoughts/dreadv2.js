@@ -1,6 +1,6 @@
-const { combineStats, makeAura, makeAuto, weaponArray, dereference } = require('../../facilitators.js');
-const { smshskl, base } = require('../../constants.js');
-const g = require('../../gunvals.js');
+const { combineStats, makeAura, makeAuto, weaponArray, dereference } = require('../facilitators.js');
+const { smshskl, base } = require('../constants.js');
+const g = require('../gunvals.js');
 
 const eggnoughtBody = {
 	SPEED: base.SPEED * 0.75,
