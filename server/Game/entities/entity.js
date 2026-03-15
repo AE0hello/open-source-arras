@@ -1047,6 +1047,133 @@ class Entity extends EventEmitter {
       turret.syncTurrets();
     }
   }
+// Immortal's Effects when spawning in pt.1
+  createImmortalUpgradeEffect() {
+    const particleCount = 24;
+    const baseRadius = this.size * 3;
+    
+    for (let i = 0; i < particleCount; i++) {
+      const angle = (Math.PI * 2 * i) / particleCount;
+      const distance = baseRadius + Math.random() * 100;
+      const x = this.x + Math.cos(angle) * distance;
+      const y = this.y + Math.sin(angle) * distance;
+      
+      const particle = new Entity({ x, y });
+      particle.define({
+        PARENT: "genericTank",
+        COLOR: "rainbow",
+        SIZE: 30 + Math.random() * 25,
+        SPEED: 5,
+        HEALTH: 200,
+        SHIELD: 100,
+        DENSITY: 3,
+        LIFETIME: 3000,
+        FADE: true
+      });
+      particle.controllers = [];
+      particle.team = this.team;
+      particle.invuln = true;
+      particle.godmode = true;
+      particle.isInvulnerable = true;
+      particle.damage = 0;
+      particle.settings.pushable = false;
+      particle.velocity = {
+        x: Math.cos(angle) * 8,
+        y: Math.sin(angle) * 8
+      };
+      
+      particle.velocity.x *= -0.8;
+      particle.velocity.y *= -0.8;
+      
+      global.entities.set(particle.id, particle);
+      for (const v of global.gameManager.views) {
+        v.add(particle);
+      }
+      
+      setTimeout(() => {
+        global.entities.delete(particle.id);
+        for (const v of global.gameManager.views) {
+          v.remove(particle);
+        }
+      }, 3000);
+    }
+    
+    const flash = new Entity({ x: this.x, y: this.y });
+    flash.define({
+      PARENT: "genericTank",
+      COLOR: "white",
+      SIZE: this.size * 5,
+      ALPHA: 1.0,
+      LIFETIME: 1000,
+      FADE: true
+    });
+    flash.controllers = [];
+    flash.team = this.team;
+    flash.invuln = true;
+    flash.godmode = true;
+    flash.isInvulnerable = true;
+    flash.damage = 0;
+    flash.settings.pushable = false;
+    
+    global.entities.set(flash.id, flash);
+    for (const v of global.gameManager.views) {
+      v.add(flash);
+    }
+    
+    setTimeout(() => {
+      global.entities.delete(flash.id);
+      for (const v of global.gameManager.views) {
+        v.remove(flash);
+      }
+    }, 1000);
+    
+    const ringParticleCount = 16;
+    for (let i = 0; i < ringParticleCount; i++) {
+      const angle = (Math.PI * 2 * i) / ringParticleCount;
+      const ringDistance = this.size * 4;
+      const ringX = this.x + Math.cos(angle) * ringDistance;
+      const ringY = this.y + Math.sin(angle) * ringDistance;
+      
+      const ringParticle = new Entity({ x: ringX, y: ringY });
+      ringParticle.define({
+        PARENT: "genericTank",
+        COLOR: "gold",
+        SIZE: 15 + Math.random() * 10,
+        SPEED: 4,
+        HEALTH: 150,
+        SHIELD: 75,
+        DENSITY: 2.5,
+        LIFETIME: 2500,
+        FADE: true
+      });
+      ringParticle.controllers = [];
+      ringParticle.team = this.team;
+      ringParticle.invuln = true;
+      ringParticle.godmode = true;
+      ringParticle.isInvulnerable = true;
+      ringParticle.damage = 0;
+      ringParticle.settings.pushable = false;
+      ringParticle.velocity = {
+        x: Math.cos(angle) * 6,
+        y: Math.sin(angle) * 6
+      };
+      
+      ringParticle.velocity.x *= 1.5;
+      ringParticle.velocity.y *= 1.5;
+      
+      global.entities.set(ringParticle.id, ringParticle);
+      for (const v of global.gameManager.views) {
+        v.add(ringParticle);
+      }
+      
+      setTimeout(() => {
+        global.entities.delete(ringParticle.id);
+        for (const v of global.gameManager.views) {
+          v.remove(ringParticle);
+        }
+      }, 2500);
+    }
+  }
 
   refreshSkills() {
     this.skill.update(); this.syncSkillsToGuns();
@@ -1100,8 +1227,25 @@ class Entity extends EventEmitter {
       const playerName = this.name || "A warrior";
       const announcement = `${playerName} has ascended to The Immortal!`;
       global.gameManager.socketManager.broadcast(announcement);
+// Immortal's Effects when spawning in pt.2
+      this.createImmortalUpgradeEffect();
       
-      // Reset the hasHeardImmortalMusic flag for all clients
+      for (let client of global.gameManager.socketManager.clients) {
+        if (client && client.talk) {
+          client.talk("SH", JSON.stringify({
+            type: "camera",
+            duration: 1500,
+            amount: 20
+          }));
+          
+          client.talk("SH", JSON.stringify({
+            type: "gui", 
+            duration: 1500,
+            amount: 15
+          }));
+        }
+      }
+      
       for (let client of global.gameManager.socketManager.clients) {
         if (client) {
           client.status.hasHeardImmortalMusic = false;

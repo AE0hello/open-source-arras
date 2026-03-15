@@ -9,8 +9,8 @@ Class.theImmortal = {
   UPGRADE_TOOLTIP: "From the depths of the void comes a force unbound by its reckoning.\nThis colossal entity defies the dreadnought atmosphere, wielding the combined might of six dread variants.\nIts compact aura field radiates with ethereal energy, providing healing and devastation in equal measure.\nA Chaos Guardian emerges.\n- Ciper Probe",
   BODY: {
     SPEED: base.SPEED * 1.5,
-    HEALTH: base.HEALTH * 50,
-    SHIELD: base.SHIELD * 25,
+    HEALTH: base.HEALTH * 75,
+    SHIELD: base.SHIELD * 35,
     REGEN: base.REGEN * 15,
     FOV: base.FOV * 2,
     RESIST: base.RESIST * 5,
@@ -34,13 +34,13 @@ Class.theImmortal = {
       }, {
         POSITION: [22, 1, 1, 0, 3, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 2, maxSpeed: 2, health: 3, range: 1.5, damage: 3, reload: 0.3, pen: 2, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 2, maxSpeed: 2, health: 3, range: 1.5, damage: 6, reload: 3, pen: 2, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [22, 1, 1, 0, -3, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 2, maxSpeed: 2, health: 3, range: 1.5, damage: 3, reload: 0.3, pen: 2, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, { speed: 2, maxSpeed: 2, health: 3, range: 1.5, damage: 6, reload: 3, pen: 2, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -51,7 +51,7 @@ Class.theImmortal = {
       {
         POSITION: [32, 7, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, { reload: 0.4, health: 4, density: 2, range: 1.2, damage: 4, speed: 2, pen: 3, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, { reload: 3, health: 4, density: 2, range: 1.2, damage: 8, speed: 2, pen: 3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
@@ -64,19 +64,19 @@ Class.theImmortal = {
       {
         POSITION: [15, 7, 1, 0, 3.25, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 1.3, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 2.6, reload: 2.5, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [15, 7, 1, 0, -3.25, 0, 0.5],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 1.3, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 2.6, reload: 2.5, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [17, 7, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 1.2, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, { health: 1.15, damage: 2.4, reload: 2.5, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -87,19 +87,19 @@ Class.theImmortal = {
       {
         POSITION: [18, 10.75, 1.33, 5.5, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 1, damage: 1.15, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 4, damage: 2.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [18, 9.5, 1.33, 7.5, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.65, health: 1.05, range: 0.8, reload: 1.05, damage: 1.15, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.65, health: 1.05, range: 0.8, reload: 4.2, damage: 2.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }, {
         POSITION: [18, 7.25, 1.25, 9.5, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 1.1, damage: 1.15, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, { size: 0.7, health: 1.05, range: 0.8, reload: 4.4, damage: 2.3, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -110,7 +110,7 @@ Class.theImmortal = {
       {
         POSITION: [20, 12, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, { reload: 1.1, health: 1.26, damage: 1.3, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, { reload: 4, health: 1.26, damage: 2.6, recoil: 0 }]),
           TYPE: "bullet"
         }
       }
@@ -123,7 +123,7 @@ Class.theImmortal = {
       }, {
         POSITION: [17, 12, 1, 0, 0, 0, 0],
         PROPERTIES: {
-          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, { reload: 1.2, health: 1.5, speed: 0.7, maxSpeed: 0.7, range: 0.4, damage: 1.4, recoil: 0 }]),
+          SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, { reload: 5, health: 1.5, speed: 0.7, maxSpeed: 0.7, range: 0.4, damage: 2.8, recoil: 0 }]),
           TYPE: "supermissile",
           STAT_CALCULATOR: "sustained"
         }
