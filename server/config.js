@@ -1,6 +1,6 @@
 module.exports = {
     // Open Source Arras
-    version: 'v2.0.11', // The current OSA version. Changing this will likely confuse addons.
+    version: 'v2.0.11.1', // The current OSA version. Changing this will likely confuse addons.
     devBuild: false, // Whether this is marked as a development build.
 
     // Client
