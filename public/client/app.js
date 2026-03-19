@@ -4360,8 +4360,9 @@ import * as socketStuff from "./socketinit.js";
         const mainMenuAnim = global.optionsMenu_Anim.mainMenu.get();
         if (mainMenuAnim < -470) return; // fully hidden
         const PANEL_WIDTH = 460;
-        const PANEL_HEIGHT = global.optionsMenu_Anim.mainMenuHeight.get();
         const PANEL_Y = 75;
+        const MAX_PANEL_HEIGHT = global.screenHeight - PANEL_Y - 25; // 10px bottom margin
+        const PANEL_HEIGHT = Math.min(global.optionsMenu_Anim.mainMenuHeight.get(), MAX_PANEL_HEIGHT);
 
         // slide from off-screen left → visible
         const PANEL_VISIBLE_X = mainMenuAnim;
@@ -4459,7 +4460,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].save();
         ctx[2].globalAlpha *= fadeOptions;
         ctx[2].beginPath();
-        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 10);
+        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 15);
         ctx[2].clip();
         if (fadeOptions > 0.01) {
 
