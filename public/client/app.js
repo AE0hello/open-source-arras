@@ -3860,7 +3860,7 @@ import * as socketStuff from "./socketinit.js";
                 }
 
                 if (amount > 0) {
-                    drawText(x + t / 2, spacing + q * 1.3, q / 4, skillColor, "center");
+                    drawText(`+${amount}`, x + t / 2, spacing + q * 1.3, q / 4, skillColor, "center");
                 }
 
                 ctx[2].strokeStyle = color.black;
