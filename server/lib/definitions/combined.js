@@ -43,7 +43,8 @@ class definitionCombiner {
         let i = 0;
         for (let key in Class) {
             if (!Class.hasOwnProperty(key)) continue;
-            Class[key].index = i++;
+            Class[key].index = i;
+            classMap.set(i++, key);
         }
     }
 

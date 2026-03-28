@@ -73,73 +73,37 @@ function getMockup(e, positionInfo) {
     };
 }
 
-let endPoints;
-function getFurthestFrom(x, y) {
-    let furthestDistance = 0,
-        furthestPoint = [x, y],
-        furthestIndex = 0;
-    for (let i = 0; i < endPoints.length; i++) {
-        let point = endPoints[i];
-        let distance = (point[0] - x) ** 2 + (point[1] - y) ** 2;
-        if (distance > furthestDistance) {
-            furthestDistance = distance;
-            furthestPoint = point;
-            furthestIndex = i;
+// Minimum enclosing circle via Welzl's algorithm
+function welzlMEC(P, R) {
+    if (P.length === 0 || R.length === 3) {
+        if (R.length === 0) return { x: 0, y: 0, r: 0 };
+        if (R.length === 1) return { x: R[0][0], y: R[0][1], r: 0 };
+        if (R.length === 2) {
+            let cx = (R[0][0] + R[1][0]) / 2, cy = (R[0][1] + R[1][1]) / 2;
+            return { x: cx, y: cy, r: Math.hypot(R[0][0] - R[1][0], R[0][1] - R[1][1]) / 2 };
         }
+        return constructCircumcirle(R[0], R[1], R[2]);
     }
-    endPoints.splice(furthestIndex, 1);
-    return [util.rounder(furthestPoint[0]), util.rounder(furthestPoint[1])];
-}
-
-function checkIfSamePoint(p1, p2) {
-    return p1[0] == p2[0] && p1[1] == p2[1];
-}
-
-function checkIfOnLine(endpoint1, endpoint2, checkPoint) {
-    let xDiff = endpoint2[0] - endpoint1[0],
-        yDiff = endpoint2[1] - endpoint1[1];
-    
-    // Endpoints on the same vertical line
-    if (xDiff == 0) {
-        return (checkPoint[0] == endpoint1[0]);
-    }
-
-    let slope = yDiff / xDiff,
-        xLengthToCheck = checkPoint[0] - endpoint1[0],
-        predictedY = endpoint1[1] + xLengthToCheck * slope;
-    // Check point is on the line with a small margin
-    return Math.abs(checkPoint[1] - predictedY) <= 1e-5;
+    let p = P[P.length - 1];
+    let d = welzlMEC(P.slice(0, -1), R);
+    if (Math.hypot(p[0] - d.x, p[1] - d.y) <= d.r + 1e-10) return d;
+    return welzlMEC(P.slice(0, -1), [...R, p]);
 }
 
 function getDimensions(entity) {
-    // Begin processing from the main body
     endPoints = [];
     sizeEntity(entity);
 
-    // Convert to useful info
-    endPoints.sort((a, b) => (b[0] ** 2 + b[1] ** 2 - a[0] ** 2 - a[1] ** 2));
-    let point1 = getFurthestFrom(0, 0),
-        point2 = getFurthestFrom(...point1);
-    
-    // Repeat selecting the second point until at least one of the first two points is off the centerline
-    while ((point1[0] == 0 && point2[0] == 0 || point1[1] == 0 && point2[1] == 0) && entity.shape != 4) {
-        point2 = getFurthestFrom(...point1);
+    // Shuffle for expected O(n) performance
+    for (let i = endPoints.length - 1; i > 0; i--) {
+        let j = Math.floor(Math.random() * (i + 1));
+        [endPoints[i], endPoints[j]] = [endPoints[j], endPoints[i]];
     }
 
-    let avgX = (point1[0] + point2[0]) / 2,
-        avgY = (point1[1] + point2[1]) / 2,
-        point3 = getFurthestFrom(avgX, avgY);
-    
-    // Repeat selecting the third point until it's actually different from the other points and it's not collinear with them
-    while (checkIfSamePoint(point3, point1) || checkIfSamePoint(point3, point2) || checkIfOnLine(point1, point2, point3)) {
-        point3 = getFurthestFrom(avgX, avgY);
-    }
-    
-    let {x, y, r} = constructCircumcirle(point1, point2, point3);
-
+    let { x, y, r } = welzlMEC(endPoints, []);
     return {
         axis: r * 2,
-        middle: {x, y},
+        middle: { x, y },
     };
 }
 
@@ -235,6 +199,7 @@ function buildMockup(className, Manager) {
             position: getDimensions(mockup),
         };
         // Add the new data to the thing.
+        mockupMap[mockup.index] = mockupData.length;
         mockupData.push(getMockup(mockup, type.mockup.position));
     } catch (error) {
         util.error('[WARNING]: An error has occured during mockup loading:');

@@ -232,6 +232,7 @@ let commands = [
 
                 // Now we can purge Class
                 Class = {};
+                classMap.clear();
 
                 // Log it.
                 util.warn(`[IMPORTANT] Definitions are going to be reloaded on server ${gameManager.gamemode} (${gameManager.webProperties.id})!`);
@@ -286,6 +287,8 @@ let commands = [
 
                 // Erase mockups so it can rebuild.
                 mockupData = [];
+                mockupMap = {};
+                
                 // Load all mockups if enabled in configuration
                 if (Config.load_all_mockups) global.loadAllMockups(false);
 
