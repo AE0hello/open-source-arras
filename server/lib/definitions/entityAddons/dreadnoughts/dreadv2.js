@@ -3244,13 +3244,13 @@ function makeHexnoughtBodyV2(body) {
 		// Turret adding
 		for (let t = 0; t < body.TURRETS.length; t++) {
 			let turret = body.TURRETS[t];
-			if (turret.POSITION.X) { // Do whole turret loop at once
+			if (turret.POSITION[1]) { // Do whole turret loop at once
 				for (let i = 0; i < turretRingLoopLength; i++) {
 					for (let j = 0; j < 6; j++) {
 						turret = body.TURRETS[t + i * 5 + 1];
 						TURRETS.push(
 							{
-								POSITION: [turret.POSITION.SIZE * hexnoughtScaleFactor, turret.POSITION.X * hexnoughtScaleFactor ** 0.5, turret.POSITION.Y, turret.POSITION.ANGLE / 6 * 5 + 60 * j, turret.POSITION.ARC, turret.POSITION.LAYER],
+								POSITION: [turret.POSITION[0] * hexnoughtScaleFactor, turret.POSITION[1] * hexnoughtScaleFactor ** 0.5, turret.POSITION[2], turret.POSITION[3] / 6 * 5 + 60 * j, turret.POSITION[4], turret.POSITION[5]],
 								TYPE: turret.TYPE,
 							}
 						)
@@ -3260,7 +3260,7 @@ function makeHexnoughtBodyV2(body) {
 			} else { // Centered turrets
 				TURRETS.push(
 					{
-						POSITION: [turret.POSITION.SIZE * hexnoughtScaleFactor ** 0.5, 0, 0, turret.POSITION.ANGLE, turret.POSITION.ARC, turret.POSITION.LAYER],
+						POSITION: [turret.POSITION[0] * hexnoughtScaleFactor ** 0.5, 0, 0, turret.POSITION[3], turret.POSITION[4], turret.POSITION[5]],
 						TYPE: turret.TYPE,
 					}
 				) 
@@ -3277,7 +3277,7 @@ function makeHexnoughtBodyV2(body) {
 			type[0] = type[0].replace("pentagon", "hexagon");
 			PROPS.push(
 				{
-					POSITION: [prop.POSITION.SIZE, 0, 0, prop.POSITION.ANGLE, prop.POSITION.LAYER],
+					POSITION: [prop.POSITION[0], 0, 0, prop.POSITION[3], prop.POSITION[4]],
 					TYPE: type
 				}
 			);

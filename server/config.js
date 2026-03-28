@@ -1,7 +1,7 @@
 module.exports = {
     // Open Source Arras
-    version: 'v2.0.11', // The current OSA version. Changing this will likely confuse addons.
-    devBuild: true, // Whether this is marked as a development build.
+    version: 'v2.0.11.3', // The current OSA version. Changing this will likely confuse addons.
+    devBuild: false, // Whether this is marked as a development build.
 
     // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
@@ -10,7 +10,7 @@ module.exports = {
 
     // Server
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
-    startup_logs: true, // Enable startup logs and log speed loop warnings in terminal
+    startup_logs: true, // Enable startup logs and log speed loop warnings in the terminal
     load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
 
     servers: [ // Make sure to change the host, port and id between servers!
@@ -172,7 +172,7 @@ module.exports = {
     defineLevelSkillPoints: level => {
         if (level < 2) return 0;
         if (level <= 40) return 1;
-        if (level <= 45 && level & 1 === 1) return 1;
+        if (level <= 45 && level && 1 === 1) return 1;
         return 0;
     },
 

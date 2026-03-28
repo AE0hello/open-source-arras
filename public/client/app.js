@@ -308,7 +308,6 @@ import * as socketStuff from "./socketinit.js";
                 })();
             });
         } catch { };
-
         // Warn the users to turn their phones into landscape.
         if (global.mobile && window.innerHeight > 1.1 * window.innerWidth) {
             let tabMenu = global.createTabMenu("Please turn your device to landscape mode.", "warning", true);
@@ -397,7 +396,7 @@ import * as socketStuff from "./socketinit.js";
         // OSA info
         let i_div = document.createElement("div");
         i_div.classList.add("optionsHeader");
-        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild === "false" ? "" : " (dev build)"}`;
+        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild ? " (Dev build)" : ""}`;
         mainDoc.appendChild(i_div);
 
         // Addon stuff
@@ -1407,7 +1406,8 @@ import * as socketStuff from "./socketinit.js";
         }
 
         // Draw it
-        context.lineWidth = (size + 1) / config.graphical.fontStrokeRatio;
+        let strokeRatio = typeof stroke === "number" ? stroke : config.graphical.fontStrokeRatio;
+        context.lineWidth = (size + 1) / strokeRatio;
         context.textAlign = "left";
         context.textBaseline = "middle";
         context.strokeStyle = color.black;
@@ -2956,28 +2956,28 @@ import * as socketStuff from "./socketinit.js";
                 let len = 0;
                 // Give it a textobj if it doesn't have one
                 msg.textJSON.forEach((txt) => {
-                    if (len < measureText(txt, height - 4, false)) len = measureText(txt, height - 4, false)
+                    if (len < measureText(txt, height - 4.25, false)) len = measureText(txt, height - 4.25, false)
                 })
                 ctx[2].globalAlpha = 0.5 * K;
                 // Draw the background
-                drawBarAdvanced(x - len / 2, x + len / 2, y + yy / 2, height, color.black, 18 * (msg.textJSON.length) - 18);
+                drawBarAdvanced(x - len / 2, x + len / 2, y + yy / 2, height, color.black, 17.5 * (msg.textJSON.length) - 17.5 + 1);
                 ctx[2].globalAlpha = K;
                 // Draw the text
                 msg.textobjs = [];
                 msg.textJSON.forEach((txt) => {
                     msg.textobjs[msg.textobjs.length] = function () { }; // For some reason this fixes the text's location i guess.
-                    drawText(txt, x - len / 2, y + 15 + 18 * (msg.textobjs.length - 1), height - 4, color.guiwhite, "left");
+                    drawText(txt, x - len / 2 + 2, y + 16 + 17.5 * (msg.textobjs.length - 1), height - 4.3, color.guiwhite, "left", false, 1, 5.5);
                 })
-                y += 23 * K + 18 * (3 - 2 * K) * (msg.textJSON.length - 1) * K * K;
+                y += 23 * K + 17.5 * (3 - 2 * K) * (msg.textJSON.length - 1) * K * K;
             } else {
                 // Give it a textobj if it doesn't have one
-                if (msg.len == null) msg.len = measureText(text, height - 4);
+                if (msg.len == null) msg.len = measureText(text, height - 4.3);
                 // Draw the background
                 ctx[2].globalAlpha = 0.5 * K;
                 drawBar(x - msg.len / 2, x + msg.len / 2, y + yy / 2, height + 2, color.black);
                 // Draw the text
                 ctx[2].globalAlpha = K;
-                drawText(text, x, y + yy / 2, height - 4, color.guiwhite, "center", true);
+                drawText(text, x, y + yy / 1.3, height - 4.3, color.guiwhite, "center", false, 1, 5.5);
                 y += 23 * (3 - 2 * K) * K * K;
             }
         }
@@ -3447,7 +3447,7 @@ import * as socketStuff from "./socketinit.js";
             }
             y += global.canSkill || global.showSkill ? (alcoveSize / 2.2 /*+ spacing * 2*/) * statMenu.get() : 0;
         }
-        drawText("Leaderboard", Math.round(x + len / 2) + 0.5, Math.round(y - 6) + 0.5, height + 3.5, color.guiwhite, "center");
+        drawText("Leaderboard", Math.round(x + len / 2) + 0.5, Math.round(y - 6) + 0.5, height + 3.5, color.guiwhite, "center", false, 1, 5.5);
         y += 7;
 
         for (let i = 0; i < lb.data.length; i++) {
@@ -3860,7 +3860,7 @@ import * as socketStuff from "./socketinit.js";
                 }
 
                 if (amount > 0) {
-                    drawText(x + t / 2, spacing + q * 1.3, q / 4, skillColor, "center");
+                    drawText(`+${amount}`, x + t / 2, spacing + q * 1.3, q / 4, skillColor, "center");
                 }
 
                 ctx[2].strokeStyle = color.black;
@@ -4361,8 +4361,9 @@ import * as socketStuff from "./socketinit.js";
         const mainMenuAnim = global.optionsMenu_Anim.mainMenu.get();
         if (mainMenuAnim < -470) return; // fully hidden
         const PANEL_WIDTH = 460;
-        const PANEL_HEIGHT = global.optionsMenu_Anim.mainMenuHeight.get();
         const PANEL_Y = 75;
+        const MAX_PANEL_HEIGHT = global.screenHeight - PANEL_Y - 25; // 10px bottom margin
+        const PANEL_HEIGHT = Math.min(global.optionsMenu_Anim.mainMenuHeight.get(), MAX_PANEL_HEIGHT);
 
         // slide from off-screen left → visible
         const PANEL_VISIBLE_X = mainMenuAnim;
@@ -4460,7 +4461,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].save();
         ctx[2].globalAlpha *= fadeOptions;
         ctx[2].beginPath();
-        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 10);
+        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 15);
         ctx[2].clip();
         if (fadeOptions > 0.01) {
 
