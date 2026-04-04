@@ -11,6 +11,7 @@ global.mazeGenerator = require("../miscFiles/mazeGenerator.js");
 global.grid = new HashGrid(7);
 global.cannotRespawn = false;
 global.mockupData = [];
+global.mockupMap = {};
 global.entities = new Map();
 global.targetableEntities = new Map();
 global.unspawnableTeam = [];
@@ -111,6 +112,7 @@ global.getRandomTeam = () => -Math.floor(Math.random() * 3000) + 1;
 
 global.Class = {};
 global.tileClass = {};
+global.classMap = new Map();
 global.definitionsWaiter = false;
 
 global.ensureIsClass = str => {

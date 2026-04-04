@@ -21,3 +21,4 @@ People who have submitted code to the project but are not official developers.
 - `LA3T`: Custom Wall Collisions\
 - `pr2000`: Fireworks, Multiple GameServer Instances via `worker_threads`\
 - `Wait What!?`: Snake code for Cocci/Rocket and Spiral branch bullets
+- `Greninja9257`: Fixing the mockup sizes

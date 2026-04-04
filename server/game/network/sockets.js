@@ -1402,12 +1402,13 @@ class socketManager {
     generateMockup(index) {
         index = parseInt(index);
         let mock;
-        let find = Object.keys(Class).find(o => Class[o] && Class[o].index === index);
+        // let find = Object.keys(Class).find(o => Class[o] && Class[o].index === index); // Class(index)
+        let find = classMap.has(index) ? classMap.get(index) : null;
         if (find) {
             // This function generates the mockup.
             buildMockup(find, global.gameManager);
             // Okay now we are able to find it without any problems.
-            mock = mockupData.find(o => o.index === `${index}`);
+            mock = mockupData[mockupMap[index]];
         } else mock = null;
 
         return mock;
@@ -1419,10 +1420,9 @@ class socketManager {
 
             let index = parseInt(splittedIndex); // Parse it, without this wont work for some reason.
             // Now we need to find the mockup.
-            let mockup = mockupData.find(o => o.index === `${index}`);
+            let mockup = mockupData[mockupMap[index]];
             if (!mockup) { // If not, then make one.
-                let e = this.generateMockup(index);
-                mockup = mockupData.find(o => o.index === `${e.index}`);
+                mockup = this.generateMockup(index);
             }
             // Send the mockup to the client.
             socket.talk("M", index, JSON.stringify(mockup));
