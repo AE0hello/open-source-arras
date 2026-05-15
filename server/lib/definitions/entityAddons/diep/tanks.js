@@ -1,4 +1,4 @@
-const {combineStats, dereference, makeMenu, makeTurret, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {combineStats, dereference, makeFlank, makeMenu, makeTurret, weaponArray, weaponMirror} = require('../../facilitators.js')
 const {base, smshskl, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 g.droneSizeOffset = {size: 2}
@@ -13,6 +13,7 @@ g.swarmSizeOffset = {size: 1.5}
 // Settings
 const split_predator = false // Splits Predator into X Hunter (predator with no zoom) and OG Predator (hunter with zoom).
 const havre_tanks = false // Adds tanks from havre.io to the class tree.
+const tenth_birthday = true // Adds extra tanks from the 10th Birthday event.
 
 // Menu/Generics
 Class.arrasMenu_diep.UPGRADES_TIER_0.push("tank_diep")
@@ -672,25 +673,7 @@ Class.tripleShot_diep = {
         }
     ]
 }
-Class.twinFlank_diep = {
-    PARENT: "diep",
-    LABEL: "Twin Flank",
-    DANGER: 6,
-    GUNS: weaponArray(weaponMirror({
-        POSITION: diep2arras({
-            angle: 0,
-            offset: -26,
-            size: 95,
-            width: 42,
-            delay: 0,
-            isTrapezoid: false
-        }),
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.doubleTwin]),
-            TYPE: "bullet"
-        }
-    }, {delayIncrement: 0.5}), 2)
-}
+Class.twinFlank_diep = makeFlank('twin_diep', 2, "Twin Flank", {extraStats: [g.doubleTwin]})
 
 // Tier 3
 Class.annihilator_diep = {
@@ -1807,25 +1790,7 @@ Class.triTapper_diep = {
         }
     ], 3)
 }
-Class.tripleTwin_diep = {
-    PARENT: "diep",
-    LABEL: "Triple Twin",
-    DANGER: 7,
-    GUNS: weaponArray(weaponMirror({
-        POSITION: diep2arras({
-            angle: 0,
-            offset: -26,
-            size: 95,
-            width: 42,
-            delay: 0,
-            isTrapezoid: false
-        }),
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.spam, g.doubleTwin, g.tripleTwin]),
-            TYPE: "bullet"
-        }
-    }, {delayIncrement: 0.5}), 3)
-}
+Class.tripleTwin_diep = makeFlank('twin_diep', 3, "Triple Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin]})
 Class.triplet_diep = {
     PARENT: "diep",
     LABEL: "Triplet",
@@ -1897,6 +1862,10 @@ Class.twinGuard_havre = {
     ], 2)
 }
 
+// Tier 4
+Class.auto6_diep = makeAuto('auto5_diep', "Auto-6")
+Class.auto7_diep = makeRadialAuto("autoGun_diep", {isTurret: true, danger: 8, label: "Auto 7", count: 7})
+
 // Special
 Class.id53_diep = {
     PARENT: "diep",
@@ -1936,10 +1905,14 @@ if (split_predator) {
     Class.predator_diep.LABEL = "X Hunter"
     Class.predator_diep.CONTROLLERS.pop()
     Class.predator_diep.TOOLTIP = ""
-    Class.hunter_diep.UPGRADES_TIER_3.splice(1, 0, "predator_old_diep")
+    Class.hunter_diep.UPGRADES_TIER_3.splice(1, 0, 'predator_old_diep')
 }
 
 if (havre_tanks) {
-    Class.quadTank_diep.UPGRADES_TIER_3.splice(1, 0, "twinGuard_havre")
-    Class.twinFlank_diep.UPGRADES_TIER_3.push("twinGuard_havre")
+    Class.quadTank_diep.UPGRADES_TIER_3.splice(1, 0, 'twinGuard_havre')
+    Class.twinFlank_diep.UPGRADES_TIER_3.push('twinGuard_havre')
+}
+
+if (tenth_birthday) {
+    Class.auto5_diep.UPGRADES_TIER_4 = ['auto6', 'auto7'].map(x => x + '_diep')
 }
