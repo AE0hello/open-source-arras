@@ -7337,13 +7337,6 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             upgradesAR('doubleHelix_AR', 4, ['tripleHelix', 'hewnHelix', 'autoDoubleHelix', 'doubleTriplex', 'doubleFlankHelix', 'doubleCoil', 'quadruplicator'])
             upgradesAR('warkwark_AR', 4, ['warkwarkwark', 'warkwawarkrk', 'autoWarkwark', 'waarrkwaarrk', 'warkwawawark', 'doubleEqualizer', 'guardrail', 'sealer', 'setup'])
 
-//overdoubleGunner
-
-            //Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "doubleTriplex", "cleft"/*, "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"*/].map(x => x + "_AR")
-            //Class.doubleGunner_AR.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner"/*, "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire"*/, "doubleVolley"/*, "doubleEqualizer"*/].map(x => x + "_AR")
-            //Class.doubleHelix_AR.UPGRADES_TIER_4 = ["tripleHelix"/*, "hewnHelix"*/, "autoDoubleHelix", "doubleTriplex", "doubleFlankHelix"].map(x => x + "_AR")
-            //Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
-
         upgradesAR('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'])
             upgradesAR('tripleShot', 4, [])
             upgradesAR('pentaShot', 4, ['heptaShot', 'flexedDouble', 'flexedHybrid', 'quintuplet', 'crackshot', 'autoPentaShot', 'flexedGunner', 'flexedMinigun', 'deficiency', 'waarararrk'])
@@ -7378,7 +7371,6 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         upgradesAR('rifle', 3, ['autoRifle', 'enforcer', 'prober'])
 
-        Class.marksman.UPGRADES_TIER_3.splice(2, 0, 'piercer_AR')
         upgradesAR('marksman', 3, ['piercer', 'hybridMarksman', 'autoMarksman'])
 
     upgradesAR('machineGun', 2, ['diesel', 'machineTrapper'])
