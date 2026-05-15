@@ -7,7 +7,7 @@
 	"addon-version": "v0.1.0-beta.1",
 	"osa-version": {
 		"minimum": "v2.0.11",
-		"target": "v2.0.11.5"
+		"target": "v2.0.11.6"
 	},
 	"link": "https://example.com"
 }
