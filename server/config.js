@@ -1,7 +1,6 @@
 module.exports = {
     // Open Source Arras
-    version: 'v2.0.11.3', // The current OSA version. Changing this will likely confuse addons.
-    devBuild: false, // Whether this is marked as a development build.
+    devBuild: false, // Dev build marker.
 
     // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
@@ -172,7 +171,7 @@ module.exports = {
     defineLevelSkillPoints: level => {
         if (level < 2) return 0;
         if (level <= 40) return 1;
-        if (level <= 45 && level && 1 === 1) return 1;
+        if (level <= 45 && level & 1 === 1) return 1;
         return 0;
     },
 

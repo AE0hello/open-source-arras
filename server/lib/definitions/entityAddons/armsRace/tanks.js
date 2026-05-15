@@ -113,6 +113,62 @@ const makeBattle = (type, name = -1, options = {}) => {
     }
     return output
 }
+const makeFore = (type, name = -1, options = {}) => { // PLACEHOLDER FUNCTION!!!
+    type = ensureIsClass(type);
+    let output = dereference(type);
+
+    let angle = 180 - (options.angle ?? 135)
+    let count = options.count ?? 2
+    let independent = options.independent ?? false
+    let cycle = options.cycle ?? true
+    let maxChildren = options.maxDrones ?? 4
+    let stats = options.extraStats ?? []
+
+    options.renderBehind ??= false
+
+    let spawners = [];
+    let spawnerProperties = {
+
+    }
+    if (count % 2 == 1) {
+        spawners.push({
+                POSITION: {
+                    LENGTH: 11,
+                    WIDTH: 14,
+                    ASPECT: 1.3,
+                    X: 2,
+                    ANGLE: 180
+                },
+                PROPERTIES: spawnerProperties
+            }
+        )
+    }
+    for (let i = 2; i <= (count - count % 2); i += 2) {
+        spawners.push(...weaponMirror({
+            POSITION: {
+                LENGTH: 11,
+                WIDTH: 14,
+                ASPECT: 1.3,
+                X: 2,
+                ANGLE: 180 - angle * i / 2
+            },
+            PROPERTIES: spawnerProperties
+        }))
+    }
+    if (options.renderBehind) {
+        output.GUNS = type.GUNS == null ? spawners : spawners.concat(type.GUNS)
+    } else {
+        output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners)
+    }
+    output.LABEL = name == -1 ? "Fore" + type.LABEL.toLowerCase() : name
+    if (type.UPGRADE_LABEL !== undefined) {
+        output.UPGRADE_LABEL = output.LABEL;
+    }
+
+    output.UPGRADE_COLOR = "pureBlack";
+    output.UPGRADE_TOOLTIP = "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot.";
+    return output
+}
 const makeUnder = (type, name = -1, options = {}) => {
     type = ensureIsClass(type);
     let output = dereference(type);
@@ -6803,6 +6859,10 @@ const quickMake = (type, options = {}) => {
         let classLabel = options.bird.charAt(0).toLowerCase() + options.bird.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeBird(type, options.bird)
     }
+    if (options.crossbreed) {
+        let classLabel = options.crossbreed.charAt(0).toLowerCase() + options.crossbreed.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeFore(type, options.crossbreed, preset.makeOver.hybrid)
+    }
     if (options.drive) {
         let classLabel = options.drive.charAt(0).toLowerCase() + options.drive.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeDrive(type, {label: options.drive})
@@ -6896,6 +6956,7 @@ quickMake("assassin", {hybrid: "Hitman", over: "Overassassin", under: "Underassa
 quickMake("banshee", {drive: "Bansheedrive"})
 quickMake("barricade", {hybrid: "Rampart"})
 quickMake("bentGunner_AR", {bird: "Donkey", hybrid: "Spambrid"})
+quickMake("bentHybrid", {hybrid: "Bent Hybriddrive"})
 quickMake("bentMinigun_AR", {hybrid: "Junker"})
 quickMake("blaster", {hybrid: "Ripoff", over: "Overblaster", under: "Underblaster"})
 quickMake("blower", {hybrid: "Puffer"})
@@ -7025,7 +7086,7 @@ quickMake({
 }, {cross: "Kingpin", battle: "Battletrapper", under: "Undertrapper", necro: "Necrotrapper", mummy: "Mummytrapper", penta: "Pentatrapper", cap: "Captrapper"})
 quickMake("triAngle", {hybrid2: "Integrator", under: "Underangle"})
 quickMake("triBlaster", {bird: "Leak", hybrid: "Bootleg"})
-quickMake("tripleShot", {bird: "Defect", over: "Overshot", synth: "Bent Synthesis", under: "Undershot", enact: "Hatcher"})
+quickMake("tripleShot", {bird: "Defect", crossbreed: "Bent Crossbreed", over: "Overshot", synth: "Bent Synthesis", under: "Undershot", enact: "Hatcher"})
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
 quickMake("triplex", {bird: "Nitwix", hybrid: "Triprix"})
 quickMake("underseer", {driveSunchip: "Underdrive", stormSunchip: "Understorm"})
@@ -7270,24 +7331,17 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             upgradesAR('tripleTwin', 4, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'tripleHelix', 'warkwarkwark'])
             upgradesAR('hewnDouble', 4, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'hewnHelix', 'warkwawarkrk'])
             upgradesAR('autoDouble', 4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoDoubleHelix', 'autoWarkwark'])
-            upgradesAR('bentDouble', 4, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'doubleTriplex', 'cleft', 'doubleSpreadshot', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk'])
+            upgradesAR('bentDouble', 4, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'cleft', 'doubleSpreadshot', 'doubleTriplex', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk'])
             upgradesAR('doubleFlankTwin_AR', 4, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'doubleFlankHelix', 'hipwatch', 'scuffler', 'warkwawawark'])
             upgradesAR('doubleGunner_AR', 4, ['tripleGunner', 'hewnGunner', 'autoDoubleGunner', 'bentDoubleGunner', 'doubleFlankGunner', 'doubleNailgun', 'doubleMachineGunner', 'overdoubleGunner', 'doubleBattery', 'doubleRimfire', 'doubleVolley', 'doubleEqualizer'])
             upgradesAR('doubleHelix_AR', 4, ['tripleHelix', 'hewnHelix', 'autoDoubleHelix', 'doubleTriplex', 'doubleFlankHelix', 'doubleCoil', 'quadruplicator'])
             upgradesAR('warkwark_AR', 4, ['warkwarkwark', 'warkwawarkrk', 'autoWarkwark', 'waarrkwaarrk', 'warkwawawark', 'doubleEqualizer', 'guardrail', 'sealer', 'setup'])
 
-//overdoubleGunner
-
-            //Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "doubleTriplex", "cleft"/*, "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"*/].map(x => x + "_AR")
-            //Class.doubleGunner_AR.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner"/*, "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire"*/, "doubleVolley"/*, "doubleEqualizer"*/].map(x => x + "_AR")
-            //Class.doubleHelix_AR.UPGRADES_TIER_4 = ["tripleHelix"/*, "hewnHelix"*/, "autoDoubleHelix", "doubleTriplex", "doubleFlankHelix"].map(x => x + "_AR")
-            //Class.warkwark_AR.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"/*, "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"*/].map(x => x + "_AR")
-
         upgradesAR('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'])
             upgradesAR('tripleShot', 4, [])
             upgradesAR('pentaShot', 4, ['heptaShot', 'flexedDouble', 'flexedHybrid', 'quintuplet', 'crackshot', 'autoPentaShot', 'flexedGunner', 'flexedMinigun', 'deficiency', 'waarararrk'])
             upgradesAR('spreadshot', 4, ['doubleSpreadshot', 'smearer', 'autoSpreadshot', 'dauber', 'ballista', 'bozo', 'fungus'])
-            upgradesAR('bentHybrid', 4, [])
+            upgradesAR('bentHybrid', 4, ['overshot', 'bentSynthesis', 'undershot', 'hatcher', 'bentHybriddrive', 'bentCrossbreed', 'flexedHybrid', 'smearer', 'triprix', 'splitHybrid', 'autoBentHybrid', 'spambrid', 'junker', 'triprid', 'bentCatcher'])
             //upgradesAR('bentDouble', 4, [])
             upgradesAR('triplet', 4, [])
             upgradesAR('splitShot_AR', 4, [])
@@ -7317,7 +7371,6 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         upgradesAR('rifle', 3, ['autoRifle', 'enforcer', 'prober'])
 
-        Class.marksman.UPGRADES_TIER_3.splice(2, 0, 'piercer_AR')
         upgradesAR('marksman', 3, ['piercer', 'hybridMarksman', 'autoMarksman'])
 
     upgradesAR('machineGun', 2, ['diesel', 'machineTrapper'])
