@@ -1,6 +1,6 @@
 module.exports = {
     // Open Source Arras
-    devBuild: false, // Dev build marker.
+    devBuild: true, // Dev build marker.
 
     // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
@@ -118,7 +118,7 @@ module.exports = {
             id: 'lz', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['sandbox'], // The selected gamemode.
+            gamemode: ['arms_race', 'sandbox'], // The selected gamemode.
             player_cap: 16, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
