@@ -7,39 +7,31 @@
 module.exports = [
     {
         key: process.env.BETA_TESTER,
-        discordID: "0",
-        nameColor: "#ffffff",
-        class: "arrasMenu_betaTester",
         level: 1,
-        name: "unnamed#0000",
+        class: "arrasMenu_betaTester",
+        nameColor: "#ffffff",
         note: "note here"
     },
     {
         key: process.env.SHINY,
-        discordID: "0",
-        nameColor: "#ffffff",
-        class: "arrasMenu_shinyMember",
         level: 2,
-        name: "unnamed#0000",
+        class: "arrasMenu_shinyMember",
+        nameColor: "#ffffff",
         note: "note here"
     },
     {
         key: process.env.YOUTUBER,
-        discordID: "0",
-        nameColor: "#ffffff",
-        class: "arrasMenu_youtuber",
         level: 2,
-        name: "unnamed#0000",
+        class: "arrasMenu_youtuber",
+        nameColor: "#ffffff",
         note: "note here"
     },
     {
         key: process.env.DEVELOPER,
-        discordID: "0",
-        nameColor: "#ffffff",
-        class: "developer",
         administrator: true,
         level: 3,
-        name: "unnamed#0000",
+        class: "developer",
+        nameColor: "#ffffff",
         note: "note here"
     },
 ]
