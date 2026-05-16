@@ -4067,7 +4067,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].globalAlpha = global.lerp(3, 3.25, glide);
         if (global.cannotRespawn || global.mobile || global.gamepadMode) drawText(global.cannotRespawn ?
             global.respawnTimeout ?
-            "(you may respawn in " + global.respawnTimeout + " secon" + `${global.respawnTimeout <= 1 ? 'd' : 'ds'}` + ")"
+            "(you may respawn in " + global.respawnTimeout + " second" + `${global.respawnTimeout <= 1 ? '' : 's'}` + ")"
             : "(you cannot respawn)"
             : global.mobile ? 
             "(tap to respawn)"
