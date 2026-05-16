@@ -287,7 +287,6 @@ Class.menu_fun = makeMenu("Fun", {upgrades: [
     "meOnMyWayToDoYourMom",
     "protector",
     //"quadCyclone",
-    "rapture",
     "riptide",
     //"schoolShooter",
     "smasher3",
