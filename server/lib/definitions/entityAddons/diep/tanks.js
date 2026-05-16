@@ -13,7 +13,7 @@ g.swarmSizeOffset = {size: 1.5}
 // Settings
 const split_predator = false // Splits Predator into X Hunter (predator with no zoom) and OG Predator (hunter with zoom).
 const havre_tanks = false // Adds tanks from havre.io to the class tree.
-const tenth_birthday = true // Adds extra tanks from the 10th Birthday event.
+const tenth_birthday = false // Adds extra tanks from the 10th Birthday event.
 
 // Menu/Generics
 Class.arrasMenu_diep.UPGRADES_TIER_0.push("tank_diep")
@@ -47,7 +47,7 @@ const makeAuto = (type, name = -1, options = {}) => {
     let output = dereference(type);
     let autogun = weaponArray({
         POSITION: {
-            SIZE: options.size ??= 10,
+            SIZE: options.size ??= 9,
             ANGLE: options.angle ??= 180,
             X: options.x ??= 0,
             Y: options.y ??= 0,
@@ -220,6 +220,21 @@ Class.spinmissile_diep = {
             COLOR: "mirror"
         }
     }, 2)
+}
+Class.cycloneMissile_diep = {
+    PARENT: "missile",
+    FACING_TYPE: ["spin", {speed: 0.2}],
+    GUNS: weaponArray({
+        POSITION: [14, 6, 1, 0, 0, 0, 0.5],
+        PROPERTIES: {
+            AUTOFIRE: !0,
+            SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 0.6, size: 1.1, shudder: 0.3}]),
+            TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
+            STAT_CALCULATOR: "thruster",
+            WAIT_TO_CYCLE: true,
+            COLOR: "mirror"
+        }
+    }, 4)
 }
 Class.rocket_diep = {
     PARENT: "missile",
@@ -1362,7 +1377,7 @@ Class.predator_old_diep = {
                 isTrapezoid: false
             }),
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.predator]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.predator]),
                 TYPE: "bullet",
             }
         },
@@ -1376,7 +1391,7 @@ Class.predator_old_diep = {
                 isTrapezoid: false
             }),
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.predator]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.predator]),
                 TYPE: "bullet",
             }
         },
@@ -1863,8 +1878,528 @@ Class.twinGuard_havre = {
 }
 
 // Tier 4
+Class.ambusher_diep = {
+    PARENT: "diep",
+    LABEL: "Ambusher",
+    DANGER: 8,
+    INVISIBLE: [0.08, 0.03],
+    PROPS: [
+        {
+            TYPE: ["squareHat", {COLOR: 'grey'}],
+            POSITION: {
+                SIZE: 5.5,
+                LAYER: 1
+            }
+        }
+    ],
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 95,
+                width: 96.6,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
+                TYPE: "bullet",
+            }
+        }
+    ]
+}
+Class.apexPredator_diep = {
+    PARENT: "diep",
+    LABEL: "Apex Predator",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.15 * base.FOV
+    },
+    CONTROLLERS: [["zoom", {distance: 360, dynamic: false}]],
+    TOOLTIP: "Use your right mouse button to look further in the direction you're facing",
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 110,
+                width: 42,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.hunterSecondary, g.predator]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 95,
+                width: 56.7,
+                delay: 0.2,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.predator]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 80,
+                width: 71.4,
+                delay: 0.4,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.predator]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 65,
+                width: 86.1,
+                delay: 0.6,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.predator]),
+                TYPE: "bullet",
+            }
+        }
+    ]
+}
+Class.apexPredator_old_diep = {
+    PARENT: "diep",
+    LABEL: "Apex Predator",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.15 * base.FOV
+    },
+    CONTROLLERS: [["zoom", {distance: 360, dynamic: false}]],
+    TOOLTIP: "Use your right mouse button to look further in the direction you're facing",
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 110,
+                width: 42,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.hunterSecondary, g.predator]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 95,
+                width: 56.7,
+                delay: 0.2,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary, g.predator]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 80,
+                width: 71.4,
+                delay: 0.4,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.predator]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                distance: 15,
+                offset: 0,
+                size: 50,
+                width: 71.4,
+                delay: 0,
+                isTrapezoid: true,
+                invertAspect: true
+            })
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                distance: -35,
+                offset: 0,
+                size: 50,
+                width: 71.4,
+                delay: 0,
+                isTrapezoid: true,
+                invertAspect: false
+            })
+        }
+    ]
+}
 Class.auto6_diep = makeAuto('auto5_diep', "Auto-6")
 Class.auto7_diep = makeRadialAuto("autoGun_diep", {isTurret: true, danger: 8, label: "Auto 7", count: 7})
+Class.automator_diep = {
+    PARENT: "diep",
+    LABEL: "Automator",
+    DANGER: 8,
+    BODY: {
+        FOV: base.FOV * 1.1
+    },
+    SHAPE: 8,
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 70,
+                width: 42,
+                delay: 0,
+                isTrapezoid: true
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.minion, {size: 1.75}]),
+                TYPE: "minion",
+                MAX_CHILDREN: 6,
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true
+            }
+        }
+    ]
+}
+//Class.battalion_diep
+Class.blender_diep = {
+    PARENT: "diepSmasher",
+    LABEL: "Blender",
+    DANGER: 8,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        DAMAGE: base.DAMAGE * 1.1
+    },
+    SKILL_CAP: {
+        RELOAD: smshskl + 3,
+        PENETRATION: 0,
+        BULLET_HEALTH: 0,
+        BULLET_DAMAGE: 0,
+        BULLET_SPEED: 0,
+        SHIELD_CAPACITY: smshskl + 3,
+        BODY_DAMAGE: smshskl + 3,
+        MAX_HEALTH: smshskl + 3,
+        SHIELD_REGENERATION: smshskl + 3,
+        MOVEMENT_SPEED: smshskl + 3
+    },
+    TURRETS: weaponArray([
+        {
+            TYPE: ["squareHat_spin", {COLOR: "black"}],
+            POSITION: {SIZE: 19}
+        }
+    ], 3)
+}
+Class.cyclone_diep = {
+    PARENT: "diep",
+    LABEL: "Cyclone",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.1 * base.FOV,
+    },
+    PROPS: [
+        {
+            TYPE: ["squareHat", {COLOR: 'grey'}],
+            POSITION: {
+                SIZE: 5.5,
+                LAYER: 1
+            }
+        }
+    ],
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 65.5 * Math.SQRT2,
+                width: 36,
+                delay: 0,
+                isTrapezoid: true
+            })
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 80,
+                width: 71.4,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {speed: 0.6, reload: 4/3, shudder: 0.1, size: 1.75}]),
+                TYPE: 'cycloneMissile_diep',
+                STAT_CALCULATOR: 'sustained'
+            }
+        }
+    ]
+}
+Class.decaTank_diep = {
+    PARENT: "diep",
+    LABEL: "Deca Tank",
+    DANGER: 8,
+    GUNS: weaponArray([
+        // Must be kept like this to preserve visual layering
+        {
+            POSITION: diep2arras({
+                angle: Math.PI / 5,
+                offset: 0,
+                size: 80,
+                width: 27.3+(14.7/3*2),
+                delay: 0.5,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 80,
+                width: 27.3+(14.7/3*2),
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: "bullet",
+            }
+        }
+    ], 5)
+}
+Class.defendersSon_diep = makeAuto('triTapper_diep', "Defender's Son")
+Class.hitman_diep = {
+    PARENT: "diep",
+    LABEL: "Hitman",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.3 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 130,
+                width: 42,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, {damage: 1.1}]),
+                TYPE: "bullet",
+            }
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                distance: 15,
+                offset: 0,
+                size: 50,
+                width: 42,
+                delay: 0,
+                isTrapezoid: true,
+                invertAspect: true
+            })
+        }
+    ]
+}
+Class.overovertrapper_diep = {
+    PARENT: "diep",
+    LABEL: "Overovertrapper",
+    DANGER: 8,
+    BODY: {
+        FOV: 1.1 * base.FOV
+    },
+    STAT_NAMES: statnames.trap,
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 60,
+                width: 42,
+                delay: 0,
+                isTrapezoid: false
+            }),
+        },
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                distance: 60,
+                offset: 0,
+                size: 20,
+                width: 42,
+                delay: 0,
+                isTrapezoid: true
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.trapSizeOffset]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        ...weaponMirror({
+            POSITION: diep2arras({
+                angle: (3.141592653589793)/2,
+                offset: 0,
+                size: 70,
+                width: 42,
+                delay: 0,
+                isTrapezoid: true
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.droneSizeOffset]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 2
+            }
+        }),
+        {
+            POSITION: diep2arras({
+                angle: 3.141592653589793,
+                offset: 0,
+                size: 70,
+                width: 42,
+                delay: 0,
+                isTrapezoid: true
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.droneSizeOffset]),
+                TYPE: ["drone", {INDEPENDENT: true}],
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 2
+            }
+        }
+    ]
+}
+Class.resurrector_diep = {
+    PARENT: "diep",
+    LABEL: "Resurrector",
+    DANGER: 8,
+    NECRO: [4],
+    STAT_NAMES: statnames.necro,
+    BODY: {
+        FOV: base.FOV * 1.1
+    },
+    SHAPE: 8,
+    MAX_CHILDREN: 14,
+    GUNS: weaponMirror({
+        POSITION: diep2arras({
+            angle: 1.5707963267948966,
+            offset: 0,
+            size: 70,
+            width: 42,
+            delay: 0,
+            isTrapezoid: true
+        }),
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {size: 1.75}]),
+            TYPE: "sunchip",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "necro",
+            WAIT_TO_CYCLE: true,
+            DELAY_SPAWN: false
+        }
+    })
+}
+Class.striker_diep = {
+    PARENT: "diep",
+    LABEL: "Striker",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: diep2arras({
+                angle: 0,
+                offset: 0,
+                size: 95,
+                width: 71.4,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
+                TYPE: "bullet",
+                ALT_FIRE: true
+            }
+        },
+        ...weaponMirror({
+            POSITION: diep2arras({
+                angle: 2.6179938779914944,
+                offset: 0,
+                size: 80,
+                width: 42,
+                delay: 0,
+                isTrapezoid: false
+            }),
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: "bullet",
+                LABEL: "thruster"
+            }
+        })
+    ]
+}
+Class.tenk_diep = {
+    PARENT: "diep",
+    LABEL: "Tenk",
+    DANGER: 8,
+    PROPS: [
+        {
+            TYPE: ["squareHat", {COLOR: 'grey'}],
+            POSITION: {
+                SIZE: 5.5,
+                LAYER: 1
+            }
+        }
+    ],
+    GUNS: Class.tank_diep.GUNS,
+    SKILL_CAP: {
+        RELOAD: smshskl,
+        PENETRATION: smshskl,
+        BULLET_HEALTH: smshskl,
+        BULLET_DAMAGE: smshskl,
+        BULLET_SPEED: smshskl,
+        SHIELD_CAPACITY: smshskl,
+        BODY_DAMAGE: smshskl,
+        MAX_HEALTH: smshskl,
+        SHIELD_REGENERATION: smshskl,
+        MOVEMENT_SPEED: smshskl
+    }
+}
+Class.tripleFlank_diep = makeFlank('triplet_diep', 2, "Triple Flank", {extraStats: [g.doubleTwin]})
 
 // Special
 Class.id53_diep = {
@@ -1914,5 +2449,29 @@ if (havre_tanks) {
 }
 
 if (tenth_birthday) {
+    Config.level_cap = 60
+    Config.level_cap_cheat = 60
+
+    Class.annihilator_diep.UPGRADES_TIER_4 = ['ambusher'].map(x => x + '_diep')
     Class.auto5_diep.UPGRADES_TIER_4 = ['auto6', 'auto7'].map(x => x + '_diep')
+    Class.factory_diep.UPGRADES_TIER_4 = ['automator'].map(x => x + '_diep')
+    Class.necromancer_diep.UPGRADES_TIER_4 = ['resurrector'].map(x => x + '_diep')
+    Class.octoTank_diep.UPGRADES_TIER_4 = ['decaTank'].map(x => x + '_diep')
+    Class.overtrapper_diep.UPGRADES_TIER_4 = ['overovertrapper'].map(x => x + '_diep')
+    Class.ranger_diep.UPGRADES_TIER_4 = ['hitman'].map(x => x + '_diep')
+    Class.skimmer_diep.UPGRADES_TIER_4 = ['cyclone'].map(x => x + '_diep')
+    Class.spike_diep.UPGRADES_TIER_4 = ['blender'].map(x => x + '_diep')
+    Class.tank_diep.UPGRADES_TIER_4 = ['tenk'].map(x => x + '_diep')
+    Class.triAngle_diep.UPGRADES_TIER_4 = ['striker'].map(x => x + '_diep')
+    Class.triTapper_diep.UPGRADES_TIER_4 = ['defendersSon'].map(x => x + '_diep')
+    Class.triplet_diep.UPGRADES_TIER_4 = ['tripleFlank'].map(x => x + '_diep')
+    Class.twinFlank_diep.UPGRADES_TIER_4 = ['tripleFlank'].map(x => x + '_diep')
+
+    if (split_predator) {
+        Class.apexPredator_diep.LABEL = "Y Hunter"
+        Class.apexPredator_diep.CONTROLLERS.pop()
+        Class.apexPredator_diep.TOOLTIP = ""
+        Class.predator_diep.UPGRADES_TIER_4.push('apexPredator_old_diep')
+        Class.predator_old_diep.UPGRADES_TIER_4 = ['apexPredator_old'].map(x => x + '_diep')
+    }
 }
