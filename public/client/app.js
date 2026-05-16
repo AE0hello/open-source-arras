@@ -3390,7 +3390,7 @@ import * as socketStuff from "./socketinit.js";
         let length = Math.max(measureText(watermarkText, 32)) / 16;
         let gradientTransition = global.showDebug ? 4.1 : 2;
         let watermarkTextPos1 = Math.round(x + len / gradientTransition) + 0.5;
-        let watermarkColor = color.guiwhite; //gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.085, watermarkTextPos1 + length, 0);
+        let watermarkColor = gameDraw.getColor({gradient: true, asset: [{color: `${color.blue}`}, {color: `${color.green}`}]}, ctx[2], watermarkTextPos1 - length, length * 0.085, watermarkTextPos1 + length, 0);
         if (global.showDebug) {
             let getRenderingInfo = (data, isTurret) => {
                 isTurret ? global.renderingInfo.turretEntities += data.length : global.renderingInfo.entities += data.length;
