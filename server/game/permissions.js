@@ -3,7 +3,8 @@
 // - level: 2 // level 1 + advanced stuff
 // - level: 3 // level 2 + everything else
 
-// If your Discord username doesn't have a 4-digit tag after it, leave it as #0000.
+// todo: be more specific here
+
 module.exports = [
     {
         key: process.env.BETA_TESTER,
