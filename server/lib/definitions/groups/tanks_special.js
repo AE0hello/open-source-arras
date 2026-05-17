@@ -681,7 +681,7 @@ Class.arenaCloser = {
 // ARRAS POLICE
 Class.arrasPolice = {
     PARENT: "booster",
-    LABEL: "Undercover Cop",
+    LABEL: "ARRAS POLICE",
     UPGRADE_COLOR: 20,
     UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
     PROPS: [

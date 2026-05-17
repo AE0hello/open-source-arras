@@ -1434,28 +1434,28 @@ Class.ihdtiBolt3 = {
     ]
 }
 
-// Undercover Cop Headlights
-Class.cop_genericHeadlight = {
+// Headlights
+Class.genericHeadlight = {
     LABEL: '',
     SHAPE: 6,
     INDEPENDENT: true,
     MIRROR_MASTER_ANGLE: true
 }
 Class.hexagonBlue = {
-    PARENT: "cop_genericHeadlight",
+    PARENT: "genericHeadlight",
     COLOR: 21
 }
 Class.squareBlue = {
-    PARENT: "cop_genericHeadlight",
+    PARENT: "genericHeadlight",
     COLOR: 22,
     SHAPE: 4
 }
 Class.hexagonRed = {
-    PARENT: "cop_genericHeadlight",
+    PARENT: "genericHeadlight",
     COLOR: 24
 }
 Class.squareRed = {
-    PARENT: "cop_genericHeadlight",
+    PARENT: "genericHeadlight",
     COLOR: 23,
     SHAPE: 4
 }
