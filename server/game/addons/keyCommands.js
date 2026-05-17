@@ -105,7 +105,8 @@ function init() {
                         }
                     }
                 } else {
-                    socket.talk("m", 3_000, "Your token does not have an assigned tank!");
+                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                    player.body.define("healer");
                 }
             },
         },
