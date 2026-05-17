@@ -665,8 +665,8 @@ function init() {
             level: 1,
             run: ({ player, gameManager }) => {
                 player.body.define({RESET_UPGRADES: true});
-                player.body.define("undercoverCop");
-                player.body.name = "TEAM POLICE";
+                player.body.define("arrasPolice");
+                player.body.name = "ARRAS POLICE";
                 let skills = Array(10).fill(15);
                 player.body.skill.setCaps(skills);
                 player.body.skill.set(skills);

@@ -677,3 +677,45 @@ Class.arenaCloser = {
         }
     ]
 }
+
+// ARRAS POLICE
+Class.arrasPolice = {
+    PARENT: "booster",
+    LABEL: "Undercover Cop",
+    UPGRADE_COLOR: 20,
+    UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
+    PROPS: [
+        {
+            TYPE: 'hexagonBlue',
+            POSITION: {
+                SIZE: 6,
+                Y: 8,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: 'hexagonRed',
+            POSITION: {
+                SIZE: 6,
+                Y: -8,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: 'squareBlue',
+            POSITION: {
+                SIZE: 6,
+                Y: 3,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: 'squareRed',
+            POSITION: {
+                SIZE: 6,
+                Y: -3,
+                LAYER: 1
+            }
+        }
+    ]
+}

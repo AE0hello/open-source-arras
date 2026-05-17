@@ -274,6 +274,7 @@ Class.menu_sanctuaries = makeMenu("Sanctuaries", {upgrades: ["1", "2", "3", "4",
 Class.menu_motherships = makeMenu("Motherships", {upgrades: ["mothership", "flagship", "turkey"], shape: 16, tooltip: "Giant Enemy Tanks that you attack the weak points of for massive damage."})
 Class.menu_fun = makeMenu("Fun", {upgrades: [
     "alas",
+    "arrasPolice",
     //"average4tdmScore",
     //"averageL39Hunt",
     //"beeman",
@@ -294,7 +295,6 @@ Class.menu_fun = makeMenu("Fun", {upgrades: [
     //"theAmalgamation",
     //"theConglomerate",
     "tracker3",
-    "undercoverCop",
     "wifeBeater",
     "worstTank",
 ], tooltip: "Tanks that, let's be honest, aren't used for a good reason.\n" + "DISCLAIMER: Some of the content in here may be in poor taste. Blame the arras.io devs, not us."})

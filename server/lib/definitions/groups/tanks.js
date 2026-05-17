@@ -5974,46 +5974,6 @@ Class.tetraGunner = {
 }
 Class.tracker3 = makeRadialAuto('tracker3gun', {isTurret: true, danger: 7, label: "Tracker-3"})
 Class.tracker3.SKILL_CAP = [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl]
-Class.undercoverCop = {
-    PARENT: "booster",
-    LABEL: "Undercover Cop",
-    UPGRADE_COLOR: 20,
-    UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
-    PROPS: [
-        {
-            TYPE: 'hexagonBlue',
-            POSITION: {
-                SIZE: 6,
-                Y: 8,
-                LAYER: 1
-            }
-        },
-        {
-            TYPE: 'hexagonRed',
-            POSITION: {
-                SIZE: 6,
-                Y: -8,
-                LAYER: 1
-            }
-        },
-        {
-            TYPE: 'squareBlue',
-            POSITION: {
-                SIZE: 6,
-                Y: 3,
-                LAYER: 1
-            }
-        },
-        {
-            TYPE: 'squareRed',
-            POSITION: {
-                SIZE: 6,
-                Y: -3,
-                LAYER: 1
-            }
-        }
-    ]
-}
 Class.worstTank = {
     PARENT: 'genericTank',
     LABEL: "Worst Tank",
