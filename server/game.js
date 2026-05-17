@@ -72,7 +72,7 @@ const getName = (name, gamemodeData) => {
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
-        //tartarus: "Tartarus",
+        tartarus: "Tartarus",
     };
     return nameMap[name];
 }
