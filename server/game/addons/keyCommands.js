@@ -87,19 +87,9 @@ function init() {
             },
         },
         {
-            name: "Preset tank #1",
-            keys: [[[49, "1"]]],
-            level: 1,
-            operatorAccess: true,
-            run: ({ player }) => {
-                player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                player.body.define("spectator");
-            }
-        },
-        {
             name: "Special Tank",
             description: "Defines you to your token's tank.",
-            keys: [[[50, "2"]]],
+            keys: [[[48, "0"]]],
             level: 1,
             operatorAccess: true,
             hidden: true,
@@ -121,9 +111,19 @@ function init() {
             },
         },
         {
+            name: "Preset tank #1",
+            keys: [[[49, "1"]]],
+            level: 1,
+            operatorAccess: true,
+            run: ({ player }) => {
+                player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                player.body.define("spectator");
+            }
+        },
+        {
             name: "Preset Tank #2",
             description: "Defines you as healer",
-            keys: [[[51, "3"]]],
+            keys: [[[50, "2"]]],
             level: 1,
             hidden: true,
             run: ({ socket, player }) => {
