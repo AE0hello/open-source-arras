@@ -51,6 +51,7 @@ const getName = (name, gamemodeData) => {
         //limbo: "Limbo",
         nexus: "Nexus",
         sandbox: "Sandbox",
+        tartarus: "Tartarus",
     // Modifiers
         arms_race: "Arms Race",
         blackout: "Blackout",
@@ -72,7 +73,6 @@ const getName = (name, gamemodeData) => {
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
-        tartarus: "Tartarus",
     };
     return nameMap[name];
 }
