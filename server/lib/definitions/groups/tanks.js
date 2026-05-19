@@ -3271,9 +3271,6 @@ Class.landmine = {
     LABEL: "Landmine",
     INVISIBLE: [0.06, 0.01],
     TOOLTIP: "Stay still to turn invisible.",
-    BODY: {
-        SPEED: 1.1 * base.SPEED
-    },
     TURRETS: [
         {
             TYPE: ['hexagonHat_spin', {COLOR: 'black'}],
@@ -4834,8 +4831,8 @@ Class.spike = {
     LABEL: "Spike",
     DANGER: 7,
     BODY: {
-        SPEED: base.SPEED * 0.9,
-        DAMAGE: base.DAMAGE * 1.1
+        DAMAGE: base.DAMAGE * 1.1,
+        SPEED: base.SPEED
     },
     TURRETS: weaponArray([{
         TYPE: ['triangleHat_spin', {COLOR: 'black'}],

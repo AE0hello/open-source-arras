@@ -187,6 +187,7 @@ Class.genericSmasher = {
     STAT_NAMES: statnames.smasher,
     BODY: {
         FOV: 1.05 * base.FOV,
+        SPEED: 1.125 * base.SPEED,
         DENSITY: 2 * base.DENSITY
     }
 }
