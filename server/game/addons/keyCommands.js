@@ -140,7 +140,7 @@ function init() {
             operatorAccess: true,
             run: ({ player }) => {
                 player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                player.body.define("basic");
+                player.body.define(Config.spawn_class);
             }
         },
         {
