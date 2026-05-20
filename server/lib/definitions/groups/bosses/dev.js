@@ -6,7 +6,6 @@ const g = require('../../gunvals.js')
 Class.menu_devBosses = makeMenu("Developers", {upgrades: [
     "AEMKShipBoss",
     "dogeiscutBoss",
-    "helenaBoss",
     "tgsBoss",
     "toothlessBoss",
     "menu_retiredDevBosses"
@@ -14,6 +13,7 @@ Class.menu_devBosses = makeMenu("Developers", {upgrades: [
 
 Class.menu_retiredDevBosses = makeMenu("Developers (Retired)", {upgrades: [
     "frostBoss",
+    "helenaBoss",
     "taureonBoss",
     "trplnrBoss",
 ], color: "pureBlack", boxColor: "pureBlack", shape: 4, boxLabel: "Retired"})
