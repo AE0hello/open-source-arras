@@ -39,7 +39,7 @@ g.quint = {
 const integrate_healers = false
 const use_original_tree = false // Set to true to enable the original arras.io Arms Race tree and level cap, with some minor bugfixes.
 const todo_placeholder_guns = {
-    UPGRADE_COLOR: "pureBlack",
+    UPGRADE_COLOR: "black",
     UPGRADE_TOOLTIP: "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot."
 }
 
@@ -165,7 +165,7 @@ const makeFore = (type, name = -1, options = {}) => { // PLACEHOLDER FUNCTION!!!
         output.UPGRADE_LABEL = output.LABEL;
     }
 
-    output.UPGRADE_COLOR = "pureBlack";
+    output.UPGRADE_COLOR = "black";
     output.UPGRADE_TOOLTIP = "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot.";
     return output
 }
@@ -554,10 +554,20 @@ Class.vortexSquare_AR = {
 
 // Projectiles
 Class.mechTrap_AR = makeAuto("trap", {type: "droneAutoTurret"})
+Class.angleseerSunchip_AR = {
+    PARENT: "sunchip",
+    NECRO: [3],
+    SHAPE: 3
+}
 Class.pentaseerSunchip_AR = {
     PARENT: "sunchip",
     NECRO: [5],
     SHAPE: 5
+}
+Class.hexaseerSunchip_AR = {
+    PARENT: "sunchip",
+    NECRO: [6],
+    SHAPE: 6
 }
 Class.betaSunchip_AR = {
     PARENT: "sunchip",
@@ -889,6 +899,38 @@ Class.analyzer_AR = {
             }
         }
     ]
+}
+Class.angleseer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Angleseer",
+    DANGER: 7,
+    NECRO: [3],
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        FOV: base.FOV * 1.1,
+    },
+    SHAPE: 3,
+    //...todo_placeholder_guns,
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 6,
+            WIDTH: 11,
+            ASPECT: 1.2,
+            X: 7.4,
+            ANGLE: 60
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8, size: 0.875}]),
+            TYPE: "angleseerSunchip_AR",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "necro",
+            WAIT_TO_CYCLE: true,
+            DELAY_SPAWN: false,
+            MAX_CHILDREN: 6
+        }
+    }, {delayIncrement: 0.5})
 }
 Class.baltimore_AR = {
     PARENT: "genericTank",
@@ -1257,6 +1299,48 @@ Class.crowbar_AR = {
             LAYER: 1
         }
     }, 3, {xPosOffset: 10.25})
+}
+Class.dealer_AR = {
+    PARENT: 'genericTank',
+    LABEL: "Dealer",
+    DANGER: 7,
+    NECRO: [4],
+    STAT_NAMES: statnames.necro,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        FOV: base.FOV * 1.1,
+    },
+    SHAPE: 4,
+    MAX_CHILDREN: 15,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8, speed: 2}]),
+                TYPE: 'sunchip',
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'necro',
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false
+            },
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 9,
+                ANGLE: 90
+            }
+        }
+    ], 2)
 }
 Class.dieselTrapper_AR = {
     PARENT: "genericTank",
@@ -1830,6 +1914,38 @@ Class.helicopter_AR = {
         }
         return output
     })()
+}
+Class.hexaseer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Hexaseer",
+    DANGER: 7,
+    NECRO: [6],
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.9,
+        FOV: base.FOV * 1.1,
+    },
+    SHAPE: 6.5,
+    //...todo_placeholder_guns,
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 6,
+            WIDTH: 11,
+            ASPECT: 1.2,
+            X: 7.4,
+            ANGLE: 90
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8, size: 2.125}]),
+            TYPE: "hexaseerSunchip_AR",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "necro",
+            WAIT_TO_CYCLE: true,
+            DELAY_SPAWN: false,
+            MAX_CHILDREN: 4
+        }
+    }, {delayIncrement: 0.5})
 }
 Class.hurler_AR = {
     PARENT: "genericTank",
@@ -3512,7 +3628,6 @@ Class.autoDoubleFlank_AR = makeAuto("doubleFlankTwin_AR", "Auto-Double Flank")
 Class.autoHexaTrapper_AR = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Auto-Hexa-Trapper", preset.makeAuto.triple)
 Class.autoHexaWhirl_AR = makeWhirlwind(makeAuto("hexaTank", "", preset.makeAuto.blank), {label: "Auto-Hexa Whirl"})
 Class.autoMunition_AR = makeWhirlwind(makeAuto("artillery", "", preset.makeAuto.blank), {label: "Auto-Munition"})
-Class.autoOverdrive_AR = makeAuto("overdrive", "Auto-Overdrive", preset.makeAuto.drive)
 Class.autoProphet_AR = makeWhirlwind(makeAuto("underseer", "", preset.makeAuto.blank), {label: "Auto-Prophet"})
 Class.autoTriple_AR = makeAuto("tripleTwin", "Auto-Triple")
 Class.autoVortex_AR = makeWhirlwind(makeAuto("launcher", "", preset.makeAuto.blank), {label: "Auto-Vortex"})
@@ -6855,6 +6970,10 @@ Class.custodian_AR = makeGuard('single', "Custodian")
 // Quick Defining
 const quickMake = (type, options = {}) => {
     name = ensureIsClass(type)
+    if (options.autoDrive) {
+        let classLabel = options.autoDrive.charAt(0).toLowerCase() + options.autoDrive.slice(1).replaceAll(' ', '').replaceAll('-', '')
+        Class[classLabel + "_AR"] = makeAuto(type, options.autoDrive, preset.makeAuto.drive)
+    }
     if (options.bird) {
         let classLabel = options.bird.charAt(0).toLowerCase() + options.bird.slice(1).replaceAll(' ', '').replaceAll('-', '')
         Class[classLabel + "_AR"] = makeBird(type, options.bird)
@@ -7030,6 +7149,7 @@ quickMake("nailgun", {over: "Overnailer", under: "Undernailer"})
 quickMake("necromancer", {driveSunchip: "Necrodrive"})
 quickMake("nimrod", {hybrid: "Nacho"})
 quickMake("operator_AR", {hybrid: "Utilizer"})
+quickMake("overdrive", {autoDrive: "Auto-Overdrive"})
 quickMake("overgunner", {drive: "Overgunnerdrive"})
 quickMake("overlord", {drive: "Tyrant"})
 quickMake("overseer", {storm: "Overstorm"})
@@ -7037,6 +7157,7 @@ quickMake("overtrapper", {drive: "Overtrapperdrive"})
 quickMake("pen_AR", {bird: "Cockatiel", hybrid: "Interner", over: "Overpen", under: "Underpen"})
 quickMake("pentaShot", {bird: "Deficiency", hybrid: "Flexed Hybrid"})
 quickMake("pentaseer_AR", {drivePenta: "Pentadrive"})
+quickMake("prodigy", {driveSunchip: "Prodigydrive"})
 quickMake("queller_AR", {hybrid: "Cross"})
 quickMake("railgun_AR", {bird: "Raven"})
 quickMake("ranger", {bird: "Peregrine", hybrid: "Doorman"})
@@ -7046,6 +7167,7 @@ quickMake("rotaryGun_AR", {hybrid: "Rotator"})
 quickMake("single", {bird: "Avian", hybrid: "Assistant"})
 quickMake("slinker_AR", {hybrid: "Amalgam"})
 quickMake("spawner", {driveMinion: "Spawnerdrive", stormMinion: "Spawnerstorm"})
+quickMake("spawnerdrive_AR", {autoDrive: "Auto-Spawnerdrive"})
 quickMake("splitShot_AR", {bird: "Dork", hybrid: "Split Hybrid"})
 quickMake("splasher", {hybrid: "Bargain"})
 quickMake("sprayer", {hybrid: "Shower", over: "Oversprayer", under: "Undersprayer"})
@@ -7090,6 +7212,9 @@ quickMake("tripleShot", {bird: "Defect", crossbreed: "Bent Crossbreed", over: "O
 quickMake("triplet", {bird: "Nitwit", hybrid: "Triprid"})
 quickMake("triplex", {bird: "Nitwix", hybrid: "Triprix"})
 quickMake("underseer", {driveSunchip: "Underdrive", stormSunchip: "Understorm"})
+quickMake("underdrive_AR", {autoDrive: "Auto-Underdrive"})
+quickMake("undergunner_AR", {driveSunchip: "Undergunnerdrive"})
+quickMake("undertrapper_AR", {driveSunchip: "Undertrapperdrive"})
 quickMake("volley_AR", {hybrid: "Volley Hybrid"})
 quickMake("waarrk_AR", {bird: "Fault", hybrid: "Bent Catcher"})
 quickMake("wark_AR", {hybrid: "Coalesce", over: "Overwark", under: "Underwark"})
@@ -7136,6 +7261,7 @@ makeAutoArray([
 ], {tier: 1, suffix: "_AR"})
 makeAutoArray([
     "accurator",
+    'angleseer_AR',
     "annihilator",
     "armsman",
     "atomizer",
@@ -7163,6 +7289,7 @@ makeAutoArray([
     "crossbow",
     "cyclone",
     "deadeye",
+    'dealer_AR',
     "deathStar",
     "defect_AR",
     "deviation_AR",
@@ -7190,6 +7317,7 @@ makeAutoArray([
     "frother_AR",
     "gunnerTrapper",
     "hewnDouble",
+    'hexaseer_AR',
     "hitman_AR",
     "hutch_AR",
     "hybrid",
@@ -7258,8 +7386,6 @@ makeAutoArray([
 // autodrives
 Class.autoDirectordrive_AR = makeAuto("directordrive_AR", "Auto-Directordrive", preset.makeAuto.drive)
 Class.autoDirectorstorm_AR = makeAuto("directorstorm_AR", "Auto-Directorstorm", preset.makeAuto.storm)
-Class.autoUnderdrive_AR = makeAuto("underdrive_AR", "Auto-Underdrive", preset.makeAuto.drive)
-Class.autoSpawnerdrive_AR = makeAuto("spawnerdrive_AR", "Auto-Spawnerdrive", preset.makeAuto.drive)
 
 // UNSORTED
 Class.schwartz_AR = makeWhirlwind("force_AR", {label: "Schwartz"})
@@ -7412,15 +7538,28 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         upgradesAR('cruiser', 3, ['productionist', 'cruiserdrive', 'hangar', 'zipper', 'faucet', 'baltimore', 'mosey'])
 
-        upgradesAR('underseer', 3, [/*'prodigy', */'autoUnderseer_AR', 'underdrive_AR', 'pentaseer_AR', 'undertrapper_AR', 'undergunner_AR', 'mummifier_AR'], {noSuffix: true})
+        upgradesAR('underseer', 3, ['angleseer_AR', 'pentaseer_AR', 'hexaseer_AR', 'undertrapper_AR', 'undergunner_AR', 'mummifier_AR', 'prodigy', 'autoUnderseer_AR', 'underdrive_AR', 'dealer_AR'], {noSuffix: true})
+            upgradesAR('necromancer', 4, ['autoNecromancer'])
+            upgradesAR('maleficitor', 4, ['autoMaleficitor'])
+            upgradesAR('infestor', 4, ['autoInfestor'])
+            upgradesAR('angleseer_AR', 4, ['autoAngleseer'])
+            upgradesAR('pentaseer_AR', 4, ['autoPentaseer'])
+            upgradesAR('hexaseer_AR', 4, ['autoHexaseer'])
+            upgradesAR('undertrapper_AR', 4, ['autoUndertrapper', 'undertrapperdrive'])
+            upgradesAR('undergunner_AR', 4, ['autoUndergunner', 'undergunnerdrive'])
+            upgradesAR('mummifier_AR', 4, ['autoMummifier'])
+            upgradesAR('prodigy', 4, ['autoProdigy', 'prodigydrive'])
+            upgradesAR('autoUnderseer_AR', 4, ['megaAutoUnderseer', 'tripleAutoUnderseer', 'autoNecromancer', 'autoMaleficitor', 'autoInfestor', 'autoAngleseer', 'autoPentaseer', 'autoHexaseer', 'autoUndertrapper', 'autoUndergunner', 'autoMummifier', 'autoProdigy', 'autoUnderdrive', 'autoDealer'])
+            upgradesAR('underdrive_AR', 4, ['autoUnderdrive'])
+            upgradesAR('dealer_AR', 4, ['autoDealer'])
 
         upgradesAR('spawner', 3, ['megaSpawner', 'productionist', 'spawnerdrive', 'captain', 'hangar', 'laborer', 'foundry', 'issuer'])
 
         upgradesAR('directordrive_AR', 3, ['directorstorm_AR', 'overdrive', 'cruiserdrive_AR', 'underdrive_AR', 'spawnerdrive_AR', 'autoDirectordrive_AR', 'honchodrive_AR', 'doperdrive_AR'], {noSuffix: true})
 
-        upgradesAR('honcho_AR', 3, ['foreman_AR', 'baltimore_AR', 'foundry_AR', 'bigCheese', 'autoHoncho_AR', 'honchodrive_AR', 'junkie_AR'], {noSuffix: true})
+        upgradesAR('honcho_AR', 3, ['foreman_AR', 'baltimore_AR', 'mummifier_AR', 'foundry_AR', 'bigCheese', 'autoHoncho_AR', 'honchodrive_AR', 'junkie_AR'], {noSuffix: true})
 
-        upgradesAR('doper_AR', 3, ['brisker', 'dopeseer', 'mosey', 'issuer', 'junkie', 'doperdrive', 'autoDoper'])
+        upgradesAR('doper_AR', 3, ['brisker', 'dopeseer', 'mosey', 'dealer', 'issuer', 'junkie', 'doperdrive', 'autoDoper'])
 
     upgradesAR('pounder', 2, ['volute'], {noSuffix: true})
         //upgradesAR('pounder', 3, [])
@@ -7993,8 +8132,6 @@ if (integrate_healers) {
 Class.autoDoubleFlank_AR.LABEL = "Auto-Double Flank Twin"
 Class.autoTriple_AR.LABEL = "Auto-Triple Twin"
 Class.dopedrive_AR.LABEL = "Dopeseerdrive"
-Class.infestor.SHAPE = 4
-Class.infestordrive_AR.SHAPE = 4
 Class.renovator_AR.LABEL = "Renovater"
 Class.vulture.LABEL = "Taser"
 //Class.genericEntity.LABEL = "Deadeye"
