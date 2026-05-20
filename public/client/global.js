@@ -411,9 +411,11 @@ const global = {
     },
     exit: () => { // When exiting and going back to the menu, reset things.
         document.getElementById("gameAreaWrapper").style.display = "none";
-        global.socket && global.socket.close();
         document.getElementById("startMenuWrapper").style.display = "block";
-        global.player = global.initPlayer();
+        clearInterval(global.socket.commandCycle);
+        clearInterval(global.socketMotionCycle);
+        global.socket.open = false;
+        global.socket && global.socket.close();
         global.gameLoading = false;
         global.gameStart = false;
         global.gameUpdate = false;
@@ -434,10 +436,10 @@ const global = {
         global.canvas.mouseMoved = false;
         global.mockups = [];
         global.mobile && document.exitFullscreen();
-        clearInterval(global.socketMotionCycle);
         global.resetTarget();
-        global.clearUpgrades();
         global.resetSocket();
+        global.clearUpgrades(true);
+        global.player = global.initPlayer();
         setTimeout(() => {
             document.getElementById("startMenuWrapper").style.top = "0px";
         }, 10);
