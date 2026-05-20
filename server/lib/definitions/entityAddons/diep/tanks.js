@@ -326,7 +326,7 @@ Class.flankGuard_diep = {
         },
         {
             POSITION: diep2arras({
-                angle: 3.141592653589793,
+                angle: Math.PI,
                 offset: 0,
                 size: 80,
                 width: 42,
@@ -970,7 +970,7 @@ Class.gunnerTrapper_diep = {
         }, {delayIncrement: 1/3}),
         {
             POSITION: diep2arras({
-                angle: 3.141592653589793,
+                angle: Math.PI,
                 offset: 0,
                 size: 60,
                 width: 54.6,
@@ -980,7 +980,7 @@ Class.gunnerTrapper_diep = {
         },
         {
             POSITION: diep2arras({
-                angle: 3.141592653589793,
+                angle: Math.PI,
                 distance: 60,
                 offset: 0,
                 size: 20,
@@ -1004,7 +1004,7 @@ Class.hybrid_diep = {
         ...Class.destroyer_diep.GUNS,
         {
             POSITION: diep2arras({
-                angle: 3.141592653589793,
+                angle: Math.PI,
                 offset: 0,
                 size: 70,
                 width: 42,
@@ -2268,7 +2268,7 @@ Class.overovertrapper_diep = {
         },
         ...weaponMirror({
             POSITION: diep2arras({
-                angle: (3.141592653589793)/2,
+                angle: Math.PI/2,
                 offset: 0,
                 size: 70,
                 width: 42,
@@ -2286,7 +2286,7 @@ Class.overovertrapper_diep = {
         }),
         {
             POSITION: diep2arras({
-                angle: 3.141592653589793,
+                angle: Math.PI,
                 offset: 0,
                 size: 70,
                 width: 42,
