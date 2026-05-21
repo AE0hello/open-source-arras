@@ -1490,11 +1490,11 @@ exports.makePolychoron = function (info) {
 
 // tgs
 exports.makeAutoArray = (type, options = {}) => {
-    suffix = options.suffix ?? ""
+    suffix = options.suffix ?? ''
     for (const types of type) {
         name = ensureIsClass(types)
         label = name.LABEL
-        classLabel = label.replaceAll(' ', '').replaceAll('-', '').replaceAll("'n", 'N') // delete whitespaces and hyphens + special case for halfnhalf
+        classLabel = types.charAt(0).toUpperCase() + types.slice(1)
 
         Class["auto" + classLabel + suffix] = exports.makeAuto(types)
         if (options.tier >= 1) {
