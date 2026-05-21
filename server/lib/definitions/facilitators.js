@@ -123,10 +123,10 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let spawners = [];
     let spawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.drone, g.overseer, ...stats]),
-        TYPE: ["drone", {INDEPENDENT: independent}],
+        TYPE: ['drone', {INDEPENDENT: independent}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
+        STAT_CALCULATOR: 'drone',
         WAIT_TO_CYCLE: cycle,
         MAX_CHILDREN: maxChildren,
     }
@@ -539,7 +539,7 @@ exports.makeDrive = (type, options = {}) => {
 
     let hat = [
         {
-            TYPE: [options.hatType ??= "squareHat", {COLOR: options.hatColor ??= "grey"}],
+            TYPE: [options.hatType ??= 'squareHat', {COLOR: options.hatColor ??= 'grey'}],
             POSITION: {
                 SIZE: options.hatSize ??= 9,
                 ANGLE: options.hatAngle ??= 0,
