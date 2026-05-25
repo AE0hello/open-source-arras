@@ -1,5 +1,3 @@
-//This module parses .env file data
-
 if (typeof Object.fromEntries !== 'function') {
     console.log("\nUpdate your Node.js, it's hella outdated.\n");
     Object.fromEntries = entries => {
@@ -10,6 +8,7 @@ if (typeof Object.fromEntries !== 'function') {
 }
 
 module.exports = data => Object.fromEntries(data.split(/\r?\n/g).map(line => {
+    // We skip everything that isn't a variable
     if (!line.includes('=') || line.trim().startsWith('#')) return null;
     const key = line.slice(0, line.indexOf('='));
     const value = line.slice(line.indexOf('=') + 1);

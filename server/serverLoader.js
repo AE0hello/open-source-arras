@@ -1,9 +1,8 @@
 const { workerData, parentPort } = require("worker_threads");
+const { gameServer } = require("./game.js");
 
-// Load required game components
 let GLOBAL = require("./loaders/loader.js");
-// Create the game server
-new (require("./game.js").gameServer)(
+new gameServer(
     workerData.host,
     workerData.port,
     workerData.gamemode,

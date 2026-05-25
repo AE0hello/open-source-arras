@@ -1,4 +1,3 @@
-// Log startup messages
 console.log("Starting up...");
 console.log("Importing modules...\n");
 
@@ -18,12 +17,10 @@ const dotenv = require("./lib/dotenv.js");
 const envContent = fs.readFileSync(path.join(__dirname, "./.env")).toString();
 const environment = dotenv(envContent);
 
-// Set each environment variable in process.env
 for (const key in environment) {
     process.env[key] = environment[key];
 }
 
-// Load all necessary modules and files via the loader
 const GLOBAL = require("./loaders/loader.js");
 
 // Load definitions and tile definitions
@@ -35,10 +32,8 @@ new definitionCombiner(
 ).loadDefinitions();
 GLOBAL.loadRooms(true);
 
-// Optionally load all mockups if enabled in configuration
 if (Config.load_all_mockups) global.loadAllMockups();
 
-// Log loader information including creation date and time
 console.log(`Successfully loaded all files.`);
 console.log(`Created on date ${GLOBAL.creationDate} at timestamp ${GLOBAL.creationTime}`);
 
@@ -54,17 +49,14 @@ mimeSet = {
     svg: "image/svg+xml",
 };
 
-let wsServer; // WebSocket server instance
-let server; // HTTP server instance
+let wsServer;
+let server;
 
-// Attempt to create a WebSocket server instance using the 'ws' package
 try {
     const WebSocketServer = require("ws").WebSocketServer;
     wsServer = new WebSocketServer({ noServer: true });
 } catch (err) {
-    throw new Error(
-        "Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal."
-    );
+    throw new Error("Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal.");
 }
 
 // Log a warning if Access-Control-Allow-Origin is enabled
@@ -72,26 +64,26 @@ if (Config.allow_ACAO && Config.startup_logs) {
     util.warn("Access-Control-Allow-Origin is enabled, which allows any server/client to access data from the WebServer.");
 }
 
-// Create an HTTP server to handle both API and static file requests
 server = http.createServer((req, res) => {
     let query = {};
-    let pathname = req.url.split("?")[0];
     if (req.url.includes("?")) req.url.split("?")[1].split("&").map(i => {
         let key = i.split("=")[0];
         let value = i.split("=")[1];
         query[key] = value;
     });
-    let readString = ""; // Response content for API endpoints
-    let ok = true; // Flag to indicate whether we use default API response
+
+    let pathname = req.url.split("?")[0];
+    let readString = "";
+    let ok = true;
     let serversIP = [];
     let clientHeaders = ["/ext/custom-shape"];
     let selectedHeader = null;
 
-    // Set CORS headers if enabled in the configuration or allow only the children servers.
-    for (let server of global.servers) if (server.ip !== Config.host && server.ip) {
-        let http = server.ip.startsWith("localhost") ? `http://${server.ip}` : `https://${server.ip}`;
-        serversIP.push(http);
-    };
+    for (let server of global.servers) {
+        if (server.ip !== Config.host && server.ip) {
+            serversIP.push(server.ip.startsWith("localhost") ? `http://${server.ip}` : `https://${server.ip}`);
+        }
+    }
     if (Config.allow_ACAO || serversIP.includes(req.headers.origin)) {
         res.setHeader("Access-Control-Allow-Origin", "*");
         res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
@@ -102,10 +94,8 @@ server = http.createServer((req, res) => {
             selectedHeader = clientHeaders[i];
         }
     }
-    // Handle specific API endpoints based on the request URL
     switch (pathname) {
-        case "/getServers.json": {
-            // Serve a list of active servers (excluding hidden ones)
+        case "/getServers.json":
             readString = JSON.stringify(servers.filter((s) => s && !s.hidden).map((server) => ({
                 ip: server.ip,
                 players: server.players,
@@ -115,60 +105,65 @@ server = http.createServer((req, res) => {
                 region: server.region,
                 gameMode: server.gameMode,
             })));
-        } break;
-        case "/getTotalPlayers": {
+            break;
+        case "/getTotalPlayers":
             let countPlayers = 0;
             servers.forEach((s) => {
                 countPlayers += s.players;
             });
             readString = JSON.stringify(countPlayers);
-        } break;
-        case "/version": {
+            break;
+        case "/version":
             readString = JSON.stringify({ver: 'v' + pjson.version, devBuild: Config.devBuild});
-        } break;
-        
-        case "/api/getAddonAuthors": {
+            break;
+        case "/api/getAddonAuthors":
             if (!query.token || query.token !== process.env.DEVELOPER) {
                 res.writeHead(403);
                 res.end("Forbidden");
                 return;
             }
             readString = JSON.stringify(global.addonAuthorInfos);
-        } break;
-
-        case "/api/sendPlayer": {
+            break;
+        case "/api/sendPlayer":
             ok = false;
+
             let body = "";
             req.on("data", c => body += c);
             req.on("end", () => {
                 let json = null;
                 try {
                     json = JSON.parse(body);
-              } catch { }
-                  if (json) {
-                      if (json.key === process.env.API_KEY) {
-                            let { id, name, definition, score, level, skillcap, skill, points, killCount } = json;
-                            global.travellingPlayers.push({ id, name, definition, score, level, skillcap, skill, points, killCount });
-                            res.writeHead(200);
-                            res.end("OK");
-                        } else {
-                            res.writeHead(403);
-                            res.end("Access Denied");
-                        }
+                } catch {}
+
+                if (json) {
+                    if (json.key === process.env.API_KEY) {
+                        let { id, name, definition, score, level, skillcap, skill, points, killCount } = json;
+                        global.travellingPlayers.push({
+                            id, name, definition, score, level, skillcap, skill, points, killCount
+                        });
+
+                        res.writeHead(200);
+                        res.end("OK");
                     } else {
-                        res.writeHead(400);
-                        res.end("Invalid JSON body");
+                        res.writeHead(403);
+                        res.end("Access Denied");
                     }
+                } else {
+                    res.writeHead(400);
+                    res.end("Invalid JSON body");
+                }
             });
-        } break;
-        case "/portalPermission": {
+            break;
+        case "/portalPermission":
             ok = false;
+
             let sserver = [];
             if (Config.allow_server_travel && global.launchedOnMainServer) {
                 for (let i = 0; i < global.servers.length; i++) {
                     let server = global.servers[i];
                     if (server.gameManager) sserver.push(server);
                 }
+
                 res.writeHead(200);
                 res.end(JSON.stringify(sserver.map((server) => ({
                     ip: server.ip,
@@ -179,62 +174,52 @@ server = http.createServer((req, res) => {
                 res.writeHead(404);
                 res.end("Denied.");
             }
-        } break;
-        case "/isOnline": {
+            break;
+        case "/isOnline":
             readString = "true";
-        } break;
-        case selectedHeader: {
-            // For all other routes, serve static files from the public directory
+            break;
+        case selectedHeader:
             ok = false;
-            let fileToGet = path.join(publicRoot, req.url);
 
-            // If the requested file doesn't exist or isn't a file, default to the INDEX_HTML file
+            let fileToGet = path.join(publicRoot, req.url);
             if (!fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {
                 fileToGet = path.join(publicRoot, `${selectedHeader}/index.html`);
             }
 
-            // Determine the file's MIME type based on its extension and serve the file stream
             const extension = fileToGet.split(".").pop();
             res.writeHead(200, { "Content-Type": mimeSet[extension] || "text/html" });
             fs.createReadStream(fileToGet).pipe(res);
-        } break;
-
-        default: {
-            // For all other routes, serve static files from the public directory
+            break;
+        default:
             ok = false;
-            let fileToGet = path.join(publicRoot, pathname);
 
-            // If the requested file doesn't exist or isn't a file, default to the main_menu file
+            let fileToGet = path.join(publicRoot, pathname);
             if (!fs.existsSync(fileToGet) || !fs.lstatSync(fileToGet).isFile()) {
                 fileToGet = path.join(publicRoot, Config.main_menu);
             }
 
-            // Determine the file's MIME type based on its extension and serve the file stream
             const extension = fileToGet.split(".").pop();
             res.writeHead(200, { "Content-Type": mimeSet[extension] || "text/html" });
             fs.createReadStream(fileToGet).pipe(res);
-        } break;
+            break;
     }
 
-    // If an API endpoint was handled, send the JSON response
+    // If everything went "ok", we send the reply.
     if (ok) {
         res.writeHead(200);
         res.end(readString);
     }
 });
 
-// Loads a game server
 function loadGameServer(loadViaMain = false, host, port, gamemode, region, webProperties, properties, isFeatured) {
-    // Determine the new server index and initialize an empty object in the global servers array
     if (!loadViaMain) {
         let index = global.servers.length;
         global.servers.push({});
 
-        // Create a new worker thread to load the game server asynchronously
         let worker = new Worker("./server/serverLoader.js", {
             workerData: {
                 host,
-                port: port, // Increment port for each server
+                port,
                 gamemode,
                 region,
                 webProperties,
