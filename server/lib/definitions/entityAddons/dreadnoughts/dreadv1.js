@@ -58,6 +58,9 @@ const enable_medicare_branch = true
 // Set the below variable to true to make Dreadnoughts use the Rogues color instead of the Hexagon color.
 const old_dreadnought_color = true
 
+// Set the below variable to true to 
+const no_lower_level_cap = true
+
 // Map elements
 function portalRings(color = '#1c3766') {
 	return [
@@ -638,7 +641,7 @@ Class.medicaid_dreadsV1 = {
 // Account for lower level cap
 let tier1 = 10;
 let tier2 = 12;
-if (Config.tier_cap < 10) {
+if (no_lower_level_cap) {
 	tier1 = 0;
 	tier2 = 0;
 }

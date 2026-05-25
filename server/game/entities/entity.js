@@ -358,29 +358,30 @@ class Entity extends EventEmitter {
         if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER, this.ac = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.tier_cap; i++) {
-            let tierProp = 'UPGRADES_TIER_' + i;
-            if (set[tierProp] != null && emitEvent) {
-                for (let j = 0; j < set[tierProp].length; j++) {
-                    let upgrades = set[tierProp][j];
-                    let index = "";
-                    if (!Array.isArray(upgrades)) upgrades = [upgrades];
-                    let redefineAll = upgrades.includes(true);
-                    let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
-                    for (let k of trueUpgrades) {
-                        let e = ensureIsClass(k);
-                        index += e.index + "-";
-                    }
-                    this.upgrades.push({
-                        class: trueUpgrades,
-                        level: Config.tier_multiplier * i,
-                        index: index.substring(0, index.length - 1),
-                        tier: i,
-                        branch: 0,
-                        branchLabel: this.branchLabel,
-                        redefineAll,
-                    });
+        for (const prop in set) {
+            if (!prop.startsWith('UPGRADES_TIER_')) {
+                continue;
+            }
+            for (let j = 0; j < set[prop].length; j++) {
+                let upgrades = set[prop][j];
+                let index = "";
+                if (!Array.isArray(upgrades)) upgrades = [upgrades];
+                let redefineAll = upgrades.includes(true);
+                let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
+                for (let k of trueUpgrades) {
+                    let e = ensureIsClass(k);
+                    index += e.index + "-";
                 }
+                let i = parseInt(prop.split('_')[2])
+                this.upgrades.push({
+                    class: trueUpgrades,
+                    level: Config.tier_multiplier * i,
+                    index: index.substring(0, index.length - 1),
+                    tier: i,
+                    branch: 0,
+                    branchLabel: this.branchLabel,
+                    redefineAll,
+                });
             }
         }
         if (set.SIZE != null) {
