@@ -209,7 +209,7 @@ class gameHandler {
 
         // Do entities life
         logs.entities.set();
-        Grid.clear();
+        grid.clear();
         for (const instance of entities.values()) {
             if (instance.contemplationOfMortality() === 1) {
                 if (Config.outbreak && !instance.zombified && (instance.isPlayer || instance.isBot)) {
@@ -252,10 +252,10 @@ class gameHandler {
             instance.updateAABB(instance.activation.active);
             // Check collisions.
             logs.collide.set();
-            for (const other of Grid.query(instance.minX, instance.minY, instance.maxX, instance.maxY).values()) {
+            for (const other of grid.query(instance.minX, instance.minY, instance.maxX, instance.maxY).values()) {
                 this.collide(instance, other);
             }
-            if (instance.isInGrid) Grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
+            if (instance.isInGrid) grid.insert(instance, instance.minX, instance.minY, instance.maxX, instance.maxY);
             logs.collide.mark();
             if ((instance.touchingSizeWall === false || instance.collisionArray.length === 0) && instance.originalSize) {
                 instance.SIZE = instance.originalSize;

@@ -1,15 +1,14 @@
 // Global Variables (These must come before we import from the modules folder.)
-const EventEmitter = require('events');
+let EventEmitter = require('events');
 const HashGrid = require('../lib/hashgrid.js');
 global.Events = new EventEmitter();
-Grid = new HashGrid(7);
-
 global.Config = require("../config.js");
+
 global.ran = require("../lib/random.js");
 global.util = require("../lib/util.js");
 global.protocol = require("../lib/fasttalk.js");
 global.mazeGenerator = require("../miscFiles/mazeGenerator.js");
-
+global.grid = new HashGrid(7);
 global.cannotRespawn = false;
 global.mockupData = [];
 global.mockupMap = {};
@@ -22,9 +21,9 @@ global.servers = [];
 global.chats = {};
 global.travellingPlayers = [];
 global.fps = "Unknown";
+
 global.loadedAddons = [];
 global.addonAuthorInfos = [];
-
 global.TEAM_BLUE = -1;
 global.TEAM_GREEN = -2;
 global.TEAM_RED = -3;
@@ -39,10 +38,7 @@ global.TEAM_ENEMIES = -101;
 global.getSpawnableArea = (team, gameManager) => {
     gameManager = ensureIsManager(gameManager);
     let room = gameManager.room;
-    return ran.choose((team in room.spawnable && room.spawnable[team].length)
-        ? room.spawnable[team]
-        : room.spawnableDefault
-    ).randomInside();
+    return ran.choose((team in room.spawnable && room.spawnable[team].length) ? room.spawnable[team] : room.spawnableDefault).randomInside();
 }
 global.teamNames = [
     "BLUE",
@@ -98,18 +94,18 @@ global.getWeakestTeam = () => {
     let lowestTeamCount = Math.min(...teamCounts.map(x => x[1])),
         entries = teamCounts.filter(a => a[1] == lowestTeamCount);
 
-    // If there are no entites that are in teams list, spawn on the blue team first.
-    let checkIfEmpty = 0;
-    for (let team of entries) {
-        if (team[1] === 0) checkIfEmpty++;
-        if (checkIfEmpty === teamCounts.length) {
-            for (let team of entries) {
-                if (team[0] == "-1") {
-                    entries = [team];
+        // If there are no entites that are in teams list, spawn on the blue team first.
+        let checkIfEmpty = 0;
+        for (let team of entries) {
+            if (team[1] === 0) checkIfEmpty++;
+            if (checkIfEmpty === teamCounts.length) {
+                for (let team of entries) {
+                    if (team[0] == "-1") {
+                        entries = [team];
+                    }
                 }
-            }
-        };
-    }
+            };
+        }
     return parseInt(!entries.length ? -Math.ceil(Math.random() * Config.teams) : ran.choose(entries)[0]);
 };
 global.getRandomTeam = () => -Math.floor(Math.random() * 3000) + 1;
@@ -120,8 +116,13 @@ global.classMap = new Map();
 global.definitionsWaiter = false;
 
 global.ensureIsClass = str => {
-    if ("object" == typeof str) return str;
-    if (str in Class) return Class[str];
+    if ("object" == typeof str) {
+        return str;
+    }
+    if (str in Class) {
+        return Class[str];
+    };
+
     throw Error(`Definition "${str}" was attempted to be gotten but does not exist!`);
 }
 
@@ -217,10 +218,9 @@ global.bringToLife = (() => {
 global.runMove = (() => {
     return my => {
         let g = { x: my.control.goal.x - my.x, y: my.control.goal.y - my.y },
-            gactive = g.x !== 0 || g.y !== 0,
-            engine = { x: 0, y: 0 },
+            gactive = (g.x !== 0 || g.y !== 0),
+            engine = { x: 0, y: 0, },
             a = my.acceleration / global.gameManager.roomSpeed;
-
         switch (my.motionType) {
             case 'grow':
                 my.SIZE += my.motionTypeArgs.speed ?? 1;
@@ -236,20 +236,16 @@ global.runMove = (() => {
                 }
                 if (gactive) {
                     let len = Math.sqrt(g.x * g.x + g.y * g.y);
-                    engine = { x: a * g.x / len, y: a * g.y / len };
+                    engine = { x: a * g.x / len, y: a * g.y / len, };
                 }
                 break;
             case 'swarm':
                 my.maxSpeed = my.topSpeed;
                 let l = util.getDistance({ x: 0, y: 0, }, g) + 1;
-
                 if (gactive && l > my.size) {
                     let desiredxspeed = my.topSpeed * g.x / l,
                         desiredyspeed = my.topSpeed * g.y / l,
-                        turning = Math.sqrt((
-                            my.topSpeed * Math.max(1, my.motionTypeArgs.turnVelocity ?? my.range) + 1
-                        ) / a);
-
+                        turning = Math.sqrt((my.topSpeed * Math.max(1, my.motionTypeArgs.turnVelocity ?? my.range) + 1) / a);
                     engine = {
                         x: (desiredxspeed - my.velocity.x) / Math.max(5, turning),
                         y: (desiredyspeed - my.velocity.y) / Math.max(5, turning),
@@ -266,12 +262,10 @@ global.runMove = (() => {
             case 'chase':
                 if (gactive) {
                     let l = util.getDistance({ x: 0, y: 0, }, g);
-
                     if (l > my.size * 2) {
                         my.maxSpeed = my.topSpeed;
                         let desiredxspeed = my.topSpeed * g.x / l,
                             desiredyspeed = my.topSpeed * g.y / l;
-
                         engine = {
                             x: (desiredxspeed - my.velocity.x) * a,
                             y: (desiredyspeed - my.velocity.y) * a,
@@ -283,9 +277,7 @@ global.runMove = (() => {
                                 y: my.velocity.y * a / 20,
                             };
                         }
-                    } else {
-                        my.maxSpeed = 0;
-                    }
+                    } else my.maxSpeed = 0;
                 } else if (my.motionTypeArgs.keepSpeed) {
                     if (my.velocity.length < my.topSpeed) {
                         engine = {
@@ -293,13 +285,11 @@ global.runMove = (() => {
                             y: my.velocity.y * a / 20,
                         };
                     }
-                } else {
-                    my.maxSpeed = 0;
-                }
+                } else my.maxSpeed = 0;
                 break;
             case 'drift':
                 my.maxSpeed = 0;
-                engine = { x: g.x * a, y: g.y * a };
+                engine = { x: g.x * a, y: g.y * a, };
                 break;
             case "withMaster":
                 my.x = my.source.x;
@@ -308,7 +298,6 @@ global.runMove = (() => {
                 my.velocity.y = my.source.velocity.y;
                 break;
         }
-
         my.accel.x += engine.x * my.control.power;
         my.accel.y += engine.y * my.control.power;
     }
@@ -316,61 +305,43 @@ global.runMove = (() => {
 global.runFace = (() => {
     return (my) => {
         let t = my.control.target,
-            oldFacing = my.facing,
-            defaultBound = () => {
-                let givenangle;
-
-                if (my.control.main) {
-                    if (my.master.master.isPlayer) {
-                        let reverse = my.master.master.reverseTargetWithTank ? 1 : my.master.master.reverseTank;
-                        let angleValue = Math.atan2(t.y * reverse, t.x * reverse);
-
-                        if (isNaN(angleValue)) givenangle = Math.atan2(0, 0);
-                        else givenangle = angleValue;
-                    } else {
-                        givenangle = Math.atan2(t.y, t.x);
-                    }
-
-                    let diff = util.angleDifference(givenangle, my.firingArc[0]);
-                    if (Math.abs(diff) >= my.firingArc[1]) {
-                        givenangle = my.firingArc[0];
-                    }
+            oldFacing = my.facing;
+        let defaultBound = () => {
+            let givenangle;
+            if (my.control.main) {
+                if (my.master.master.isPlayer) {
+                    let reverse = my.master.master.reverseTargetWithTank ? 1 : my.master.master.reverseTank;
+                    let angleValue = Math.atan2(t.y * reverse, t.x * reverse);
+                    if (isNaN(angleValue)) givenangle = Math.atan2(0, 0);
+                    else givenangle = angleValue;
                 } else {
+                    givenangle = Math.atan2(t.y, t.x);
+                }
+                let diff = util.angleDifference(givenangle, my.firingArc[0]);
+                if (Math.abs(diff) >= my.firingArc[1]) {
                     givenangle = my.firingArc[0];
                 }
-
-                my.facing += util.loopSmooth(
-                    my.facing,
-                    givenangle,
-                    (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed
-                );
-            };
-
+            } else {
+                givenangle = my.firingArc[0];
+            }
+            my.facing += util.loopSmooth(my.facing, givenangle, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed);
+        }
         switch (my.facingType) {
             case "spin":
                 my.facing += (my.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
                 break;
             case "spinWhenIdle":
-                if (t && my.control.fire) {
-                    my.facing = Math.atan2(t.y, t.x);
-                } else {
-                    my.facing += (my.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
-                }
+                if (t && my.control.fire) my.facing = Math.atan2(t.y, t.x); else my.facing += (my.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
                 break;
             case 'turnWithSpeed':
-                my.facing += my.velocity.length / global.gameManager.roomSpeed * (my.facingTypeArgs.multiplier ?? 1);
-                my.facing /= 90 * Math.PI;
+                my.facing += my.velocity.length / 90 * Math.PI / global.gameManager.roomSpeed * (my.facingTypeArgs.multiplier ?? 1);
                 break;
             case 'withMotion':
                 my.facing = my.velocity.direction;
                 break;
             case 'smoothWithMotion':
             case 'looseWithMotion':
-                my.facing += util.loopSmooth(
-                    my.facing,
-                    my.velocity.direction,
-                    (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed
-                );
+                my.facing += util.loopSmooth(my.facing, my.velocity.direction, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
                 break;
             case 'withTarget':
             case 'toTarget':
@@ -388,11 +359,7 @@ global.runFace = (() => {
             case 'looseWithTarget':
             case 'looseToTarget':
             case 'smoothToTarget':
-                my.facing += util.loopSmooth(
-                    my.facing,
-                    Math.atan2(t.y, t.x),
-                    (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed
-                );
+                my.facing += util.loopSmooth(my.facing, Math.atan2(t.y, t.x), (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
                 break;
             case "noFacing":
                 if (my.lastSavedFacing !== my.facing) my.facing = my.facingTypeArgs.angle ?? 0;
@@ -402,15 +369,7 @@ global.runFace = (() => {
                 defaultBound();
                 break;
             case "spinOnFire":
-                if (t && my.control.fire) {
-                    my.facing += util.loopSmooth(
-                        my.facing,
-                        my.facing += 1,
-                        (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed
-                    );
-                } else {
-                    defaultBound();
-                }
+                if (t && my.control.fire) my.facing += util.loopSmooth(my.facing, my.facing += 1, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed); else defaultBound();
                 break;
             case "manual":
                 if ((my.facingTypeArgs.angle ?? 0) !== my.facing) {
@@ -418,7 +377,6 @@ global.runFace = (() => {
                 }
                 break;
         }
-
         // Loop
         const TAU = 2 * Math.PI
         my.facing = (my.facing % TAU + TAU) % TAU;
@@ -440,15 +398,8 @@ global.defineSplit = (() => {
             }
         }
         if (set.LABEL != null && set.LABEL.length > 0) my.label = my.label + "-" + set.LABEL;
-
-        if (set.MAX_CHILDREN != null) {
-            my.maxChildren += set.MAX_CHILDREN;
-        }
-        else {
-            // For bullet and drone combos so all parts remain functional
-            my.maxChildren = null;
-        }
-
+        if (set.MAX_CHILDREN != null) my.maxChildren += set.MAX_CHILDREN;
+        else my.maxChildren = null; // For bullet and drone combos so all parts remain functional
         if (set.BODY != null) {
             if (set.BODY.ACCELERATION != null) my.ACCELERATION *= set.BODY.ACCELERATION;
             if (set.BODY.SPEED != null) my.SPEED *= set.BODY.SPEED;
@@ -484,12 +435,10 @@ global.defineSplit = (() => {
                     o = new turretEntity(def.POSITION, my, my.master),
                     turretDanger = false,
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE];
-
                 for (let j = 0; j < type.length; j++) {
-                    if (type.TURRET_DANGER) turretDanger = true;
                     o.define(type[j]);
+                    if (type.TURRET_DANGER) turretDanger = true;
                 }
-
                 if (!turretDanger) o.define({ DANGER: 0 });
                 o.fixFacing();
             }
@@ -499,7 +448,6 @@ global.defineSplit = (() => {
                 let def = set.PROPS[i],
                     o = new Prop(def.POSITION, my.master, true),
                     type = Array.isArray(def.TYPE) ? def.TYPE : [def.TYPE];
-
                 for (let j = 0; j < type.length; j++) {
                     o.define(type[j]);
                 }
@@ -518,25 +466,20 @@ global.defineSplit = (() => {
             }
             my.addController(toAdd);
         }
-
         if (set.BATCH_UPGRADES != null) my.batchUpgrades = set.BATCH_UPGRADES;
         for (let i = 0; i < Config.tier_cap; i++) {
             let tierProp = 'UPGRADES_TIER_' + i;
-
             if (set[tierProp] != null && emitEvent) {
                 for (let j = 0; j < set[tierProp].length; j++) {
                     let upgrades = set[tierProp][j];
+                    let index = "";
                     if (!Array.isArray(upgrades)) upgrades = [upgrades];
-
-                    let index = "",
-                        redefineAll = upgrades.includes(true),
-                        trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
-
+                    let redefineAll = upgrades.includes(true);
+                    let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
                     for (let k of trueUpgrades) {
                         let e = ensureIsClass(k);
                         index += e.index + "-";
                     }
-
                     my.upgrades.push({
                         class: trueUpgrades,
                         level: Config.tier_multiplier * i,
@@ -549,7 +492,6 @@ global.defineSplit = (() => {
                 }
             }
         }
-
         if (set.REROOT_UPGRADE_TREE) my.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(my.rerootUpgradeTree)) {
             let finalRoot = "";
@@ -561,28 +503,23 @@ global.defineSplit = (() => {
 
 global.handleBatchUpgradeSplit = (() => {
     function chooseUpgradeFromBranch(remaining, my) {
-        if (remaining > 0) {
-            // If there's more to select
+        if (remaining > 0) { // If there's more to select
             let branchUgrades = my.tempUpgrades[my.defs.length - remaining];
-            // Pick all possible options and continue selecting
-            for (let i = 0; i < branchUgrades.length; i++) {
+            for (let i = 0; i < branchUgrades.length; i++) { // Pick all possible options and continue selecting
                 my.selection[my.defs.length - remaining] = branchUgrades[i];
                 chooseUpgradeFromBranch(remaining - 1, my);
             }
-            // When the branch has no upgrades
-            if (branchUgrades.length == 0) chooseUpgradeFromBranch(remaining - 1, my);
-        } else {
-            // If there's nothing more to select
+            if (branchUgrades.length == 0) // For when the branch has no upgrades
+                chooseUpgradeFromBranch(remaining - 1, my);
+        } else { // If there's nothing more to select
             let upgradeClass = [],
                 upgradeTier = 0,
                 upgradeIndex = "";
-
             for (let u of my.selection) {
                 upgradeClass.push(u.class);
                 upgradeIndex += u.index + '-';
                 upgradeTier = Math.max(upgradeTier, u.tier);
             }
-
             my.upgrades.push({
                 class: upgradeClass,
                 level: Config.tier_multiplier * upgradeTier,
@@ -597,8 +534,7 @@ global.handleBatchUpgradeSplit = (() => {
     return (my) => {
         my.tempUpgrades = [];
         let numBranches = my.defs.length;
-        // Create a 2d array for the upgrades (1st index is branch index)
-        for (let i = 0; i < numBranches; i++) {
+        for (let i = 0; i < numBranches; i++) { // Create a 2d array for the upgrades (1st index is branch index)
             my.tempUpgrades.push([]);
         }
         for (let upgrade of my.upgrades) {
@@ -608,7 +544,6 @@ global.handleBatchUpgradeSplit = (() => {
 
         my.upgrades = [];
         my.selection = JSON.parse(JSON.stringify(my.defs));
-
         chooseUpgradeFromBranch(numBranches, my); // Recursively build upgrade options
     }
 })();
@@ -617,12 +552,10 @@ global.checkIfInView = (() => {
     return (boolean, addToNearby, clients, my) => {
         for (let socket of clients) {
             boolean = my.gameManager.views.some(v => v.check(my));
-
+        
             if (boolean) {
                 if (!socket.nearby.includes(my) && addToNearby) my.onRender = true, socket.nearby.push(my);
-            } else {
-                my.onRender = false;
-            }
+            } else my.onRender = false;
         }
         return boolean;
     }
@@ -631,15 +564,13 @@ global.checkIfInView = (() => {
 global.Tile = class Tile {
     constructor(args) {
         this.args = args;
+        this.name = args.NAME;
+        this.image = args.IMAGE;
         if ("object" !== typeof this.args) {
             throw new Error("First argument has to be an object!");
         }
-
-        this.name = args.NAME;
-        this.image = args.IMAGE;
         this.visibleOnBlackout = args.VISIBLE_FROM_BLACKOUT ?? false;
         this.color = args.COLOR;
-
         this.data = args.DATA || {};
         if ("object" !== typeof this.data) {
             throw new Error("'data' property must be an object!");
@@ -686,7 +617,7 @@ global.convertExportsToClass = (exp) => {
 
 global.makeHitbox = wall => {
     const _size = wall.size - 4;
-    // Calculate the relative corners
+    //calculate the relative corners
     let relativeCorners = [
             Math.atan2(    _size,     _size) + wall.angle,
             Math.atan2(0 - _size,     _size) + wall.angle,
@@ -695,7 +626,7 @@ global.makeHitbox = wall => {
         ],
         distance = Math.sqrt(_size ** 2 + _size ** 2);
 
-    // Convert 4 corners into 4 lines
+    //convert 4 corners into 4 lines
     for (let i = 0; i < 4; i++) {
         relativeCorners[i] = {
             x: distance * Math.sin(relativeCorners[i]),
@@ -727,7 +658,7 @@ global.wallTypes = [
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {
-    let a = player.body.bulletchildren[player.body.bulletchildren.length - 1];
+    let a = player.body.bulletchildren[player.body.bulletchildren.length - 1]
     if (a !== undefined && a !== null) {
         a.parent = a;
         a.source = a;
@@ -753,25 +684,20 @@ global.becomeBulletChildren = (socket, player, exit, newgui) => {
 
         let become = a;
         become.controllers = [];
-
         player.body = become;
         player.body.become(socket.player);
         player.body.isPlayer = true;
         player.body.socket = socket;
         player.gui = newgui(player);
         player.body.refreshBodyAttributes();
-    } else {
-        exit();
-    }
+    } else exit();
 }
 
 global.loadAllMockups = (logText = true) => {
-    if (logText) console.log("Started Loading All Mockups...");
-
     let mockupsLoadStartTime = performance.now();
+    if (logText) console.log("Started Loading All Mockups...");
     for (let k in Class) buildMockup(k, false);
     let mockupsLoadEndTime = performance.now();
-
     if (logText) console.log("Finished created " + mockupData.length + " MockupEntities.");
     if (logText) console.log("Mockups generated in " + util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3) + " milliseconds.\n");
 }
