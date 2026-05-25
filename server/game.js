@@ -14,6 +14,7 @@ let { gamemodeManager } = require("./game/gamemodeManager.js");
 // Gamemode names
 const getName = (name, gamemodeData) => {
     const nameMap = { // commented-out gamemodes haven't been implemented yet
+
     // Deathmatch
         clan_wars: "Clan Wars",
         //duos: "Duos",
@@ -24,6 +25,7 @@ const getName = (name, gamemodeData) => {
             open_tdm: `Open ${gamemodeData.teams}TDM`,
         //tetromino: `${gamemodeData.teams} Team Tetromino`,
         train_wars: "Train Wars",
+
     // Minigames
         assault_acropolis: "Assault Acropolis",
         assault_booster: "Assault Booster",
@@ -45,6 +47,7 @@ const getName = (name, gamemodeData) => {
         siege_fortress: "Siege Fortress",
         //soccer: "Soccer",
         tag: `${gamemodeData.teams} Team Tag`,
+
     // Miscellaneous
         //forge: "Forge",
             //old_forge: "Old Forge",
@@ -52,6 +55,7 @@ const getName = (name, gamemodeData) => {
         nexus: "Nexus",
         sandbox: "Sandbox",
         tartarus: "Tartarus",
+
     // Modifiers
         arms_race: "Arms Race",
         blackout: "Blackout",
@@ -73,6 +77,7 @@ const getName = (name, gamemodeData) => {
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
+
     };
     return nameMap[name];
 }
