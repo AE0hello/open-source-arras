@@ -12,8 +12,10 @@ g.swarmSizeOffset = {size: 1.5}
 
 // Settings
 const split_predator = false // Splits Predator into X Hunter (predator with no zoom) and OG Predator (hunter with zoom).
-const havre_tanks = false // Adds tanks from havre.io to the class tree.
 const tenth_birthday = false // Adds extra tanks from the 10th Birthday event.
+
+// Settings (Extra Tanks)
+const havre_tanks = false // Adds tanks from havre.io to the class tree.
 
 // Menu/Generics
 Class.arrasMenu_diep.UPGRADES_TIER_0.push("tank_diep")
@@ -286,7 +288,7 @@ Class.autoGun_diep = makeTurret({
 
 // Basic Tank
 Class.tank_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Tank",
     DANGER: 4,
     GUNS: [
@@ -309,7 +311,7 @@ Class.tank_diep = {
 
 // Tier 1
 Class.flankGuard_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Flank Guard",
     GUNS: [
         {
@@ -343,7 +345,7 @@ Class.flankGuard_diep = {
     ]
 }
 Class.machineGun_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Machine Gun",
     GUNS: [
         {
@@ -363,7 +365,7 @@ Class.machineGun_diep = {
     ]
 }
 Class.sniper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Sniper",
     BODY: {
         FOV: 1.1 * base.FOV
@@ -386,7 +388,7 @@ Class.sniper_diep = {
     ]
 }
 Class.twin_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Twin",
     GUNS: weaponMirror({
         POSITION: diep2arras({
@@ -406,7 +408,7 @@ Class.twin_diep = {
 
 // Tier 2
 Class.assassin_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Assassin",
     DANGER: 6,
     BODY: {
@@ -431,7 +433,7 @@ Class.assassin_diep = {
 }
 Class.auto3_diep = makeRadialAuto("autoGun_diep", {isTurret: true, danger: 6, label: "Auto 3"})
 Class.destroyer_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Destroyer",
     DANGER: 6,
     GUNS: [
@@ -452,7 +454,7 @@ Class.destroyer_diep = {
     ]
 }
 Class.gunner_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Gunner",
     DANGER: 6,
     GUNS: weaponMirror([
@@ -487,7 +489,7 @@ Class.gunner_diep = {
     ], { delayIncrement: 0.25 })
 }
 Class.hunter_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Hunter",
     DANGER: 6,
     BODY: {
@@ -525,7 +527,7 @@ Class.hunter_diep = {
     ]
 }
 Class.overseer_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Overseer",
     DANGER: 6,
     BODY: {
@@ -552,7 +554,7 @@ Class.overseer_diep = {
     })
 }
 Class.quadTank_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Quad Tank",
     DANGER: 6,
     GUNS: weaponArray({
@@ -582,7 +584,7 @@ Class.smasher_diep = {
     ]
 }
 Class.trapper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Trapper",
     DANGER: 6,
     BODY: {
@@ -619,7 +621,7 @@ Class.trapper_diep = {
     ]
 }
 Class.triAngle_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Tri-Angle",
     DANGER: 6,
     GUNS: [
@@ -656,7 +658,7 @@ Class.triAngle_diep = {
     ]
 }
 Class.tripleShot_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Triple Shot",
     DANGER: 6,
     GUNS: [
@@ -694,7 +696,7 @@ Class.twinFlank_diep = makeFlank('twin_diep', 2, "Twin Flank", {extraStats: [g.d
 
 // Tier 3
 Class.annihilator_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Annihilator",
     DANGER: 7,
     GUNS: [
@@ -731,7 +733,7 @@ Class.autoSmasher_diep = makeAuto({
 Class.autoTank_diep = makeAuto("tank_diep")
 Class.autoTrapper_diep = makeAuto("trapper_diep")
 Class.battleship_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Battleship",
     DANGER: 7,
     BODY: {
@@ -775,7 +777,7 @@ Class.battleship_diep = {
     ], 2)
 }
 Class.booster_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Booster",
     DANGER: 7,
     GUNS: [
@@ -829,7 +831,7 @@ Class.booster_diep = {
     ]
 }
 Class.factory_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Factory",
     DANGER: 7,
     BODY: {
@@ -858,7 +860,7 @@ Class.factory_diep = {
     ]
 }
 Class.fighter_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Fighter",
     DANGER: 7,
     GUNS: [
@@ -912,7 +914,7 @@ Class.fighter_diep = {
     ]
 }
 Class.glider_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Glider",
     DANGER: 7,
     BODY: {
@@ -949,7 +951,7 @@ Class.glider_diep = {
     ]
 }
 Class.gunnerTrapper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Gunner Trapper",
     DANGER: 7,
     BODY: {
@@ -999,7 +1001,7 @@ Class.gunnerTrapper_diep = {
     ]
 }
 Class.hybrid_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Hybrid",
     DANGER: 7,
     GUNS: [
@@ -1046,7 +1048,7 @@ Class.landmine_diep = {
     ]
 }
 Class.manager_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Manager",
     DANGER: 7,
     INVISIBLE: [0.08, 0.03],
@@ -1072,7 +1074,7 @@ Class.manager_diep = {
     ]
 }
 Class.megaTrapper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Mega Trapper",
     DANGER: 7,
     BODY: {
@@ -1109,7 +1111,7 @@ Class.megaTrapper_diep = {
     ]
 }
 Class.necromancer_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Necromancer",
     DANGER: 7,
     NECRO: [4],
@@ -1140,7 +1142,7 @@ Class.necromancer_diep = {
     })
 }
 Class.octoTank_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Octo Tank",
     DANGER: 7,
     GUNS: weaponArray([
@@ -1176,7 +1178,7 @@ Class.octoTank_diep = {
     ], 4)
 }
 Class.overlord_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Overlord",
     DANGER: 7,
     BODY: {
@@ -1202,7 +1204,7 @@ Class.overlord_diep = {
     }, 4)
 }
 Class.overtrapper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Overtrapper",
     DANGER: 7,
     BODY: {
@@ -1257,7 +1259,7 @@ Class.overtrapper_diep = {
     ]
 }
 Class.pentaShot_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Penta Shot",
     DANGER: 7,
     GUNS: [
@@ -1306,7 +1308,7 @@ Class.pentaShot_diep = {
     ]
 }
 Class.predator_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Predator",
     DANGER: 7,
     BODY: {
@@ -1360,7 +1362,7 @@ Class.predator_diep = {
     ]
 }
 Class.predator_old_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Predator",
     DANGER: 7,
     BODY: {
@@ -1412,7 +1414,7 @@ Class.predator_old_diep = {
     ]
 }
 Class.ranger_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Ranger",
     DANGER: 7,
     BODY: {
@@ -1448,7 +1450,7 @@ Class.ranger_diep = {
     ]
 }
 Class.rocketeer_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Rocketeer",
     DANGER: 7,
     BODY: {
@@ -1484,7 +1486,7 @@ Class.rocketeer_diep = {
     ]
 }
 Class.skimmer_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Skimmer",
     DANGER: 7,
     BODY: {
@@ -1534,7 +1536,7 @@ Class.spike_diep = {
     ], 4)
 }
 Class.sprayer_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Sprayer",
     DANGER: 7,
     GUNS: [
@@ -1569,7 +1571,7 @@ Class.sprayer_diep = {
     ]
 }
 Class.spreadShot_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Spread Shot",
     DANGER: 7,
     GUNS: [
@@ -1665,7 +1667,7 @@ Class.spreadShot_diep = {
     ]
 }
 Class.stalker_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Stalker",
     DANGER: 7,
     BODY: {
@@ -1691,7 +1693,7 @@ Class.stalker_diep = {
     ]
 }
 Class.streamliner_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Streamliner",
     DANGER: 7,
     BODY: {
@@ -1771,7 +1773,7 @@ Class.streamliner_diep = {
     ]
 }
 Class.triTapper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Tri-Tapper",
     DANGER: 7,
     BODY: {
@@ -1809,7 +1811,7 @@ Class.triTapper_diep = {
 }
 Class.tripleTwin_diep = makeFlank('twin_diep', 3, "Triple Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin]})
 Class.triplet_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Triplet",
     DANGER: 7,
     GUNS: [
@@ -1844,7 +1846,7 @@ Class.triplet_diep = {
     ]
 }
 Class.twinGuard_havre = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Twin Guard",
     DANGER: 7,
     GUNS: weaponArray([
@@ -1881,7 +1883,7 @@ Class.twinGuard_havre = {
 
 // Tier 4
 Class.ambusher_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Ambusher",
     DANGER: 8,
     INVISIBLE: [0.08, 0.03],
@@ -1912,7 +1914,7 @@ Class.ambusher_diep = {
     ]
 }
 Class.apexPredator_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Apex Predator",
     DANGER: 8,
     BODY: {
@@ -1980,7 +1982,7 @@ Class.apexPredator_diep = {
     ]
 }
 Class.apexPredator_old_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Apex Predator",
     DANGER: 8,
     BODY: {
@@ -2060,7 +2062,7 @@ Class.apexPredator_old_diep = {
 Class.auto6_diep = makeAuto('auto5_diep', "Auto-6")
 Class.auto7_diep = makeRadialAuto("autoGun_diep", {isTurret: true, danger: 8, label: "Auto 7", count: 7})
 Class.automator_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Automator",
     DANGER: 8,
     BODY: {
@@ -2117,7 +2119,7 @@ Class.blender_diep = {
     ], 3)
 }
 Class.cyclone_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Cyclone",
     DANGER: 8,
     BODY: {
@@ -2161,7 +2163,7 @@ Class.cyclone_diep = {
     ]
 }
 Class.decaTank_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Deca Tank",
     DANGER: 8,
     GUNS: weaponArray([
@@ -2198,7 +2200,7 @@ Class.decaTank_diep = {
 }
 Class.defendersSon_diep = makeAuto('triTapper_diep', "Defender's Son")
 Class.hitman_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Hitman",
     DANGER: 8,
     BODY: {
@@ -2234,7 +2236,7 @@ Class.hitman_diep = {
     ]
 }
 Class.overovertrapper_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Overovertrapper",
     DANGER: 8,
     BODY: {
@@ -2307,7 +2309,7 @@ Class.overovertrapper_diep = {
     ]
 }
 Class.resurrector_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Resurrector",
     DANGER: 8,
     NECRO: [4],
@@ -2338,7 +2340,7 @@ Class.resurrector_diep = {
     })
 }
 Class.striker_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Striker",
     DANGER: 8,
     GUNS: [
@@ -2375,7 +2377,7 @@ Class.striker_diep = {
     ]
 }
 Class.tenk_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "Tenk",
     DANGER: 8,
     PROPS: [
@@ -2405,7 +2407,7 @@ Class.tripleFlank_diep = makeFlank('triplet_diep', 2, "Triple Flank", {extraStat
 
 // Special
 Class.id53_diep = {
-    PARENT: "diep",
+    PARENT: 'diep',
     LABEL: "",
     DANGER: 4
 }
@@ -2445,11 +2447,6 @@ if (split_predator) {
     Class.hunter_diep.UPGRADES_TIER_3.splice(1, 0, 'predator_old_diep')
 }
 
-if (havre_tanks) {
-    Class.quadTank_diep.UPGRADES_TIER_3.splice(1, 0, 'twinGuard_havre')
-    Class.twinFlank_diep.UPGRADES_TIER_3.push('twinGuard_havre')
-}
-
 if (tenth_birthday) {
     Config.level_cap = 60
     Config.level_cap_cheat = 60
@@ -2476,4 +2473,9 @@ if (tenth_birthday) {
         Class.predator_diep.UPGRADES_TIER_4.push('apexPredator_old_diep')
         Class.predator_old_diep.UPGRADES_TIER_4 = ['apexPredator_old'].map(x => x + '_diep')
     }
+}
+
+if (havre_tanks) {
+    Class.quadTank_diep.UPGRADES_TIER_3.splice(1, 0, 'twinGuard_havre')
+    Class.twinFlank_diep.UPGRADES_TIER_3.push('twinGuard_havre')
 }
