@@ -172,7 +172,9 @@ const diep2arras = (pos) => { // stolen from woomy
     let tau = 2 * Math.PI
     let isTrapezoid = pos.isTrapezoid ?? false
 
-    if (isTrapezoid && !pos.invertAspect) {
+    if (pos.aspect) {
+        aspect = pos.aspect
+    } else if (isTrapezoid && !pos.invertAspect) {
         aspect = 1.75
     } else if (isTrapezoid && pos.invertAspect) {
         aspect = -1.75
