@@ -32,7 +32,8 @@ module.exports = {
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 //teams: 4,
-                bot_cap: 40
+                //bot_cap: 40
+                enable_boss_control: true
             }
         },
         {
@@ -276,9 +277,10 @@ module.exports = {
     // Bosses
     enable_bosses: true,
     boss_spawn_cooldown: 260, // The delay (in seconds) between boss spawns.
+    enable_boss_control: false, // Allows players to control bosses like dominators and motherships.
     boss_spawn_delay: 6, // The delay (in seconds) between the boss spawn being announced and the boss(es) actually spawning.
     boss_types: [
-            {
+        {
             bosses: ['eliteDestroyer', 'eliteGunner', 'eliteSprayer', 'eliteBattleship', 'eliteSpawner'],
             amount: [5, 5, 4, 2, 1], chance: 2, nameType: 'a',
         },

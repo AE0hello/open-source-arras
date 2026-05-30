@@ -547,35 +547,29 @@ class socketManager {
                 let ent = [];
                 let body = player.body;
                 for (let e of entities.values()) {
-                    if (e.isDominator || e.isMothership) ent.push(e);
+                    if (e.isDominator || e.isMothership || e.isBoss) ent.push(e);
                 }
                 body.emit("control", { body });
                 if (body.underControl) {
                     let relinquishedControlMessage = 
-                    Config.domination ? "dominator" : 
-                    Config.mothership ? "mothership" :
+                    Config.domination && !Config.enable_boss_control ? "dominator" : 
+                    Config.mothership && !Config.enable_boss_control ? "mothership" :
+                    Config.enable_boss_control && !Config.domination && !Config.mothership ? "visitor" :
                     "special tank"
-                    if (Config.domination || Config.mothership) {
+                    if (Config.domination || Config.mothership || Config.enable_boss_control) {
                         player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
                         body.giveUp(player, body.isDominator ? "" : undefined);
                         return 1;
                     }
                 }
                 if (Config.mothership) {
-                    let motherships = ent
-                        .map((entry) => {
-                            if (
-                                entry.isMothership &&
-                                entry.team === player.body.team &&
-                                !entry.underControl
-                            )
-                                return entry;
-                        })
-                        .filter((instance) => instance);
+                    let motherships = ent.map((entry) => {
+                        if (entry.isMothership && entry.team === player.body.team && !entry.underControl)return entry;
+                    }).filter((instance) => instance);
                     if (!motherships.length) {
-                        player.body.sendMessage("There are no motherships available that are on your team or already controlled by an player.");
+                        player.body.sendMessage("There are no motherships available that are on your team or not already controlled by a player.");
                         return 1;
-                    }
+                    };
                     let mothership = motherships.shift();
                     mothership.controllers = [];
                     mothership.underControl = true;
@@ -594,9 +588,9 @@ class socketManager {
                         if (entry.isDominator && entry.team === player.body.team && !entry.underControl) return entry;
                     }).filter(x=>x);
                     if (!dominators.length) {
-                        player.body.sendMessage("There are no dominators available that are on your team or already controlled by an player.");
+                        player.body.sendMessage("There are no dominators available that are on your team or not already controlled by a player.");
                         return 1;
-                    }
+                    };
                     let dominator = dominators.shift();
                     dominator.controllers = [];
                     dominator.underControl = true;
@@ -611,6 +605,27 @@ class socketManager {
                     player.body.name = body.name;
                     player.body.sendMessage("You are now controlling the dominator.");
                     player.body.sendMessage("Press F to relinquish control of the dominator.");
+                } else if (Config.enable_boss_control) {
+                    let bosses = ent.map((entry) => {
+                        if (entry.isBoss && !entry.underControl) return entry;
+                    }).filter((instance) => instance);
+                    if (!bosses.length) {
+                        player.body.sendMessage("There are no visitors available that are not already controlled by a player.");
+                        return 1;
+                    };
+                    let boss = bosses.shift();
+                    boss.controllers = [];
+                    boss.underControl = true;
+                    player.body = boss;
+                    player.body.become(player);
+                    body.kill();
+                    if (!player.body.dontIncreaseFov) player.body.FOV += 0.5;
+                    player.body.dontIncreaseFov = true;
+                    player.body.skill.points = 0;
+                    player.body.refreshBodyAttributes();
+                    player.body.name = body.name;
+                    player.body.sendMessage("You are now controlling the visitor.");
+                    player.body.sendMessage("Press F to relinquish control of the visitor.");
                 } else {
                     player.body.sendMessage("There are no special tanks in this mode that you can control.");
                 }

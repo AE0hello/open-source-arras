@@ -402,6 +402,7 @@ class gameHandler {
                     let boss = new Entity(spot);
                     boss.define(selection.bosses.sort(() => 0.5 - Math.random())[i % selection.bosses.length]);
                     boss.team = TEAM_ENEMIES;
+                    boss.isBoss = true;
                     if (name) {
                         boss.name = name;
                     }
