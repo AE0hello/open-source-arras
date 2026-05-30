@@ -554,7 +554,7 @@ class socketManager {
                     let relinquishedControlMessage = 
                     body.isDominator ? "dominator" : 
                     body.isMothership ? "mothership" :
-                    body.isVisitor ? "visitor" :
+                    body.isBoss ? "visitor" :
                     "special tank"
                     if (Config.domination || Config.mothership || Config.enable_boss_control) {
                         player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
