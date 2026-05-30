@@ -552,8 +552,8 @@ class socketManager {
                 body.emit("control", { body });
                 if (body.underControl) {
                     let relinquishedControlMessage = 
-                    Config.domination && !Config.enable_boss_control ? "dominator" : 
-                    Config.mothership && !Config.enable_boss_control ? "mothership" :
+                    Config.domination && (Config.enable_bosses && !Config.enable_boss_control) ? "dominator" : 
+                    Config.mothership && (Config.enable_bosses && !Config.enable_boss_control) ? "mothership" :
                     Config.enable_boss_control && !Config.domination && !Config.mothership ? "visitor" :
                     "special tank"
                     if (Config.domination || Config.mothership || Config.enable_boss_control) {
