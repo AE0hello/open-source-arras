@@ -10,10 +10,18 @@ import * as socketStuff from "./socketinit.js";
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
-        let a = [];
-        for (let c of response.split("\n")) {
-            0 !== c.length && (response = c.charAt(0), "#" === response ? (initalizeChangelog(a, !0), a = [c.slice(1).trim()]) : "-" === response ? a.push(c.slice(1).trim()) : a[a.length - 1] += " " + c.trim());
-        }
+      let b = [];
+      var c = [];
+      for (let d of response.split("\n"))
+        0 !== d.length &&
+          ((response = d.charAt(0)),
+          "#" === response
+            ? (b.push(c), (c = [d.slice(1).trim()]))
+            : "-" === response
+            ? c.push(d.slice(1).trim())
+            : (c[c.length - 1] += " " + d.trim()));
+        b.push(c);
+        for (let g of b) initalizeChangelog(g);
     });
 
     let controls = document.getElementById("controlSettings"),
