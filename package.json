@@ -1,6 +1,6 @@
 {
   "name": "open-source-arras",
-  "version": "2.0.11.7",
+  "version": "2.0.12",
   "main": "server/index.js",
   "scripts": {
     "start": "node --no-lazy index"
@@ -9,7 +9,7 @@
     "ws": "^8.18.3"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=22.0.0"
   },
   "license": "MIT License"
 }
