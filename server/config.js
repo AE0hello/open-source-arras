@@ -23,7 +23,7 @@ module.exports = {
             id: 'la', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['tdm'], // The selected gamemode.
+            gamemode: ['mothership'], // The selected gamemode.
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
@@ -32,8 +32,8 @@ module.exports = {
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 //teams: 4,
-                //bot_cap: 40
-                enable_boss_control: true
+                mothership_time_limit: 30_000,
+                bot_cap: 40
             }
         },
         {
@@ -167,6 +167,8 @@ module.exports = {
     glass_health_factor: 2, // TODO: Figure out how the math behind this works.
     room_bound_force: 0.01,// How strong the force is that confines entities to the map and portals apply to entities.
     soft_max_skill: 0.59, // TODO: Find out what the intention behind the implementation of this configuration is.
+
+    mothership_time_limit: 0, // How long (in milliseconds) a player can have in control of their team's mothership. Set to 0 to disable.
 
     // When an entity reaches a level, this function is called and returns how many skill points that entity gets for reaching that level.
     defineLevelSkillPoints: level => {

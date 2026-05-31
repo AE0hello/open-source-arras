@@ -552,15 +552,13 @@ class socketManager {
                 body.emit("control", { body });
                 if (body.underControl) {
                     let relinquishedControlMessage = 
-                    body.isDominator ? "dominator" : 
-                    body.isMothership ? "mothership" :
-                    body.isBoss ? "visitor" :
-                    "special tank"
-                    if (Config.domination || Config.mothership || Config.enable_boss_control) {
-                        player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
-                        body.giveUp(player, body.isDominator ? "" : undefined);
-                        return 1;
-                    }
+                        body.isDominator ? "dominator" : 
+                        body.isMothership ? "mothership" :
+                        body.isBoss ? "visitor" :
+                        "special tank"
+                    player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
+                    body.giveUp(player, body.isDominator ? "" : undefined);
+                    return 1;
                 }
                 if (Config.mothership) {
                     let motherships = ent.map((entry) => {
@@ -583,6 +581,27 @@ class socketManager {
                     player.body.name = body.name;
                     player.body.sendMessage("You are now controlling the mothership.");
                     player.body.sendMessage("Press F to relinquish control of the mothership.");
+                    if (Config.mothership_time_limit != 0) {
+                        if (Config.mothership_time_limit <= 10_000) {
+                            if (player.body == null) return;
+                            player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? '' : 's') + ` in control of the mothership!`);
+                            setTimeout(function (){
+                                if (player.body == null) return;
+                                player.body.sendMessage("You have lost control of the mothership.");
+                                body.giveUp(player, body.isDominator ? "" : undefined);
+                            }, Config.mothership_time_limit)
+                        } else {
+                            setTimeout(function (){
+                                if (player.body == null) return;
+                                player.body.sendMessage("You only have 10 seconds left in control of the mothership!");
+                                setTimeout(function (){
+                                    if (player.body == null) return;
+                                    player.body.sendMessage("You have lost control of the mothership.");
+                                    body.giveUp(player, body.isDominator ? "" : undefined);
+                                }, 10_000)
+                            }, Config.mothership_time_limit - 10_000)
+                        }
+                    }
                 } else if (Config.domination) {
                     let dominators = ent.map((entry) => {
                         if (entry.isDominator && entry.team === player.body.team && !entry.underControl) return entry;
