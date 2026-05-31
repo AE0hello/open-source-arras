@@ -77,6 +77,7 @@ class Entity extends EventEmitter {
         this.range = 0;
         this.damageReceived = 0;
         this.stepRemaining = 1;
+        this.reverseTank = 1;
         this.x = position.x;
         this.y = position.y;
         this.cameraOverrideX = null;
@@ -331,7 +332,7 @@ class Entity extends EventEmitter {
         if (set.IS_IMMUNE_TO_TILES) this.immuneToTiles = set.IS_IMMUNE_TO_TILES;
         if (set.TEAM != null) {
             this.team = set.TEAM;
-            if (!global.gameManager.socketManager.players.length) {
+            if (global.gameManager.socketManager.players.length) {
                 const _entity = this;
                 for (let i = 0; i < global.gameManager.socketManager.players.length; i++) {
                     if (global.gameManager.socketManager.players[i].body.id == _entity.id) {
@@ -872,9 +873,17 @@ class Entity extends EventEmitter {
 
     importBody(info) {
         this.upgrades = [];
-        if (info.definition && Array.isArray(info.definition)) {
+        this.color.base = this.socket.player.teamColor;
+        if (info.definition && Array.isArray(info.definition)) { 
             if (info.definition.length === 1) this.define(info.definition[0]);
-            else this.define(info.definition);
+            else {
+                for (let e of info.definition) {
+                    if (e.includes("_dreadsV2")) {
+                        this.batchUpgrades = true;
+                    }
+                }
+                this.define(info.definition);
+            }
         }
         this.killCount = info.killCount;
         this.skill.score = info.score;
@@ -884,7 +893,6 @@ class Entity extends EventEmitter {
         this.skill.deduction = info.score;
         this.skill.setCaps(info.skillcap);
         this.skill.set(info.skill);
-        this.color.base = this.socket.player.teamColor;
         this.refreshBodyAttributes();
         this.sendMessage("You have traveled through a portal!");
     }
@@ -1022,11 +1030,6 @@ class Entity extends EventEmitter {
 
             // Legacy death function
             if (this.onDeath) this.onDeath();
-
-            // MEMORY LEAKS ARE BAD!!!!
-            for (let i = 0; i < this.turrets.length; i++) {
-                this.turrets[i].kill();
-            }
 
             // Initalize message arrays
             let killers = [],

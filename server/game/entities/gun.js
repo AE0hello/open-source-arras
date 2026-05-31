@@ -422,6 +422,10 @@ class Gun extends EventEmitter {
     bulletInit(o) {
         // Define it by its natural properties
         o.color.base = undefined;
+        o.color.hueShift = undefined;
+        o.color.saturationShift = undefined;
+        o.color.brightnessShift = undefined;
+        o.color.allowBrightnessInvert = undefined;
         o.define(this.bulletType);
         // Pass the gun attributes
         o.define({
@@ -429,6 +433,10 @@ class Gun extends EventEmitter {
             SKILL: this.getSkillRaw(),
         }, false);
         o.color.base = o.color.base ?? this.body.master.color.base;
+        o.color.hueShift = o.color.hueShift ?? this.body.master.color.hueShift;
+        o.color.saturationShift = o.color.saturationShift ?? this.body.master.color.saturationShift;
+        o.color.brightnessShift = o.color.brightnessShift ?? this.body.master.color.brightnessShift;
+        o.color.allowBrightnessInvert = o.color.allowBrightnessInvert ?? this.body.master.color.allowBrightnessInvert;
         o.SIZE = (this.body.size * this.width * this.settings.size) / 2;
         // Keep track of it and give it the function it needs to deutil.log itself upon death
         if (this.countsOwnKids) {
