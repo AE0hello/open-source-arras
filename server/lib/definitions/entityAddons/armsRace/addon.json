@@ -7,8 +7,8 @@
 	],
 	"addon-version": "v0.1.0-alpha.1",
 	"osa-version": {
-		"minimum": "v2.0.11",
-		"target": "v2.0.11.7"
+		"minimum": "v2.0.12",
+		"target": "v2.0.12"
 	},
 	"link": "https://example.com"
 }
