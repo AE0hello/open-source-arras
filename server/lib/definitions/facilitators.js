@@ -978,6 +978,7 @@ for (let i = 3; i < 17; i++) {
     let circum = (2 * Math.PI) / i;
     pslazyRealSizes.push(Math.sqrt(circum * (1 / Math.sin(circum))));
 }
+
 exports.makePolygon = (options = {}) => {
     let svgPoints = [];
     let svgPoints2 = [];
