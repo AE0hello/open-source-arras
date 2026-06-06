@@ -686,7 +686,7 @@ Class.arrasPolice = {
     UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
     PROPS: [
         {
-            TYPE: 'hexagonBlue',
+            TYPE: ['hexagonHat', {COLOR: 21}],
             POSITION: {
                 SIZE: 6,
                 Y: 8,
@@ -694,7 +694,7 @@ Class.arrasPolice = {
             }
         },
         {
-            TYPE: 'hexagonRed',
+            TYPE: ['hexagonHat', {COLOR: 24}],
             POSITION: {
                 SIZE: 6,
                 Y: -8,
@@ -702,7 +702,7 @@ Class.arrasPolice = {
             }
         },
         {
-            TYPE: 'squareBlue',
+            TYPE: ['squareHat', {COLOR: 22}],
             POSITION: {
                 SIZE: 6,
                 Y: 3,
@@ -710,7 +710,7 @@ Class.arrasPolice = {
             }
         },
         {
-            TYPE: 'squareRed',
+            TYPE: ['squareHat', {COLOR: 23}],
             POSITION: {
                 SIZE: 6,
                 Y: -3,

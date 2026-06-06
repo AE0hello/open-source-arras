@@ -1434,32 +1434,6 @@ Class.ihdtiBolt3 = {
     ]
 }
 
-// Headlights
-Class.genericHeadlight = {
-    LABEL: '',
-    SHAPE: 6,
-    INDEPENDENT: true,
-    MIRROR_MASTER_ANGLE: true
-}
-Class.hexagonBlue = {
-    PARENT: "genericHeadlight",
-    COLOR: 21
-}
-Class.squareBlue = {
-    PARENT: "genericHeadlight",
-    COLOR: 22,
-    SHAPE: 4
-}
-Class.hexagonRed = {
-    PARENT: "genericHeadlight",
-    COLOR: 24
-}
-Class.squareRed = {
-    PARENT: "genericHeadlight",
-    COLOR: 23,
-    SHAPE: 4
-}
-
 // thing for later
 Class.crowbarTurretTank = {
     PARENT: "genericTank",

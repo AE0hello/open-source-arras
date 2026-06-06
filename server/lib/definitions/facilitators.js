@@ -434,10 +434,9 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     return output;
 }
 exports.makeHat = (shape = 0, options = {}) => {
-    options.color ??= "mirror"
     options.rotationSpeed ??= 0
     if (!options.rotationSpeed == 0) {
-        spinProperties = ["spin", { speed: options.rotationSpeed }]
+        spinProperties = ["spin", {speed: options.rotationSpeed}]
     } else (
         spinProperties = ["toTarget"]
     )
@@ -445,8 +444,8 @@ exports.makeHat = (shape = 0, options = {}) => {
         LABEL: "",
         FACING_TYPE: spinProperties,
         SHAPE: shape,
-        COLOR: options.color,
-        INDEPENDENT: true
+        COLOR: options.color ??= "mirror",
+        INDEPENDENT: true,
     }
 }
 exports.makeWhirlwind = (type, options = {}) => {

@@ -31,6 +31,7 @@ Class.pentagonHat_spin = makeHat(5, spin)
 Class.pentagonHat_spinReverse = makeHat(5, spinReverse)
 
 // Hexagon Hats
+Class.hexagonHat = makeHat(6)
 Class.hexagonHat_spin = makeHat(6, spin)
 Class.hexagonHat_spinFaster = makeHat(6, spinFaster)
 Class.dominationBody = makeHat(6.5, {color: "black"})
