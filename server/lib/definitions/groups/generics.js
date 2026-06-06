@@ -112,6 +112,7 @@ Class.genericTank = {
     HAS_NO_RECOIL: false,
     HITS_OWN_TYPE: "hardOnlyTanks",
     IGNORED_BY_AI: false,
+    INVISIBLE: [0, 0],
     IS_IMMUNE_TO_TILES: false,
     MAX_CHILDREN: 0,
     NO_SIZE_ANIMATION: false,
