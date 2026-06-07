@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrades, makeAuto, makeAutoArray, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, deleteUpgrades, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
@@ -1255,7 +1255,6 @@ Class.volute = {
 Class.whirlwind_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind"})
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind"
 Class.whirlwind_old.UPGRADES_TIER_3 = ['monsoon', 'maelstrom', 'tornado_old', 'typhoon_old', 'vortex_old']
-makeAutoArray(['trapper'], {tier: 1})
 Class.autoTrapper = makeAuto('trapper')
 
 // Tier 3
@@ -6069,7 +6068,7 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.builder.UPGRADES_TIER_3 = ['construct', 'autoBuilder', 'engineer', 'boomer', 'assembler', 'architect', 'conqueror']
         Class.triTrapper.UPGRADES_TIER_3 = ['fortress', 'hexaTrapper', 'septaTrapper', 'architect']
         Class.trapGuard.UPGRADES_TIER_3 = ['bushwhacker', 'gunnerTrapper', 'bomber', 'conqueror', 'bulwark'/*, 'whirlGuard'*/]
-        Class.autoTrapper.UPGRADES_TIER_3 = ['megaAutoTrapper', 'tripleAutoTrapper', 'autoBuilder', 'hexaTrapper']
+        Class.autoTrapper.UPGRADES_TIER_3 = ['autoBuilder', 'hexaTrapper']
 
     Class.whirlwind.UPGRADES_TIER_2 = ['tornado', 'hurricane']
         Class.whirlwind.UPGRADES_TIER_3 = ['hexaWhirl', 'munition', 'whirl3', 'whirlGuard', 'prophet', 'vortex']
