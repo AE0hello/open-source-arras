@@ -3,6 +3,7 @@ const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    "gunLayerTest",
     "diamondShape",
     "miscTest",
     "mmaTest",
@@ -34,6 +35,47 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "backwardsExports",
     "ntf",
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+
+Class.gunLayerTest = {
+    PARENT: 'genericTank',
+    LABEL: "Gun Layer Test",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                Y: -3,
+                LAYER: -1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                Y: 3,
+                LAYER: -3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
+            }
+        }
+    ]
+}
 
 // flail?
 ntf_tailConnector = [{

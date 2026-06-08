@@ -86,17 +86,20 @@ class Gun extends EventEmitter {
                 X: position[3],
                 Y: position[4],
                 ANGLE: position[5],
-                DELAY: position[6]
+                DELAY: position[6],
+                LAYER: position[7]
             }
-        }
-        position = {
-            LENGTH: position.LENGTH ?? 18,
-            WIDTH: position.WIDTH ?? 8,
-            ASPECT: position.ASPECT ?? 1,
-            X: position.X ?? 0,
-            Y: position.Y ?? 0,
-            ANGLE: position.ANGLE ?? 0,
-            DELAY: position.DELAY ?? 0
+        } else {
+            position = {
+                LENGTH: position.LENGTH ?? 18,
+                WIDTH: position.WIDTH ?? 8,
+                ASPECT: position.ASPECT ?? 1,
+                X: position.X ?? 0,
+                Y: position.Y ?? 0,
+                ANGLE: position.ANGLE ?? 0,
+                DELAY: position.DELAY ?? 0,
+                LAYER: position.LAYER ?? 0
+            }
         };
         this.length = position.LENGTH / 10;
         this.width = position.WIDTH / 10;
@@ -106,6 +109,7 @@ class Gun extends EventEmitter {
         this.direction = _off.direction;
         this.offset = _off.length / 10;
         this.maxCycleTimer = !this.delaySpawn - position.DELAY;
+        this.layer = position.LAYER;
         this.position = 0;
         this.motion = 0;
         if (this.canShoot) {
@@ -614,6 +618,7 @@ class Gun extends EventEmitter {
             angle: this.angle,
             direction: this.direction,
             offset: this.offset,
+            layer: this.layer,
         };
     }
 
