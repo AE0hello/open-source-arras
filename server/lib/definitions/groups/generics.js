@@ -119,6 +119,7 @@ Class.genericTank = {
     RENDER_ON_LEADERBOARD: true,
     REROOT_UPGRADE_TREE: Config.spawn_class,
     RESET_EVENTS: true,
+    SKILL_CAP: Array(10).fill(dfltskl),
     SYNC_WITH_TANK: false,
     BODY: {
         ACCELERATION: base.ACCEL,
