@@ -618,7 +618,7 @@ class Gun extends EventEmitter {
             angle: this.angle,
             direction: this.direction,
             offset: this.offset,
-            layer: this.layer,
+            //layer: this.layer,
         };
     }
 
