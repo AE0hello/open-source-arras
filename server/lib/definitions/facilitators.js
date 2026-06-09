@@ -133,8 +133,8 @@ exports.makeOver = (type, name = -1, options = {}) => {
     if (count % 2 == 1) {
         spawners.push({
             POSITION: {
-                LENGTH: 6,
-                WIDTH: 11,
+                LENGTH: options.length ?? 6,
+                WIDTH: options.width ?? 11,
                 ASPECT: 1.2,
                 X: 8,
                 ANGLE: 180
@@ -145,8 +145,8 @@ exports.makeOver = (type, name = -1, options = {}) => {
     for (let i = 2; i <= (count - count % 2); i += 2) {
         spawners.push(...exports.weaponMirror({
             POSITION: {
-                LENGTH: 6,
-                WIDTH: 11,
+                LENGTH: options.length ?? 6,
+                WIDTH: options.width ?? 11,
                 ASPECT: 1.2,
                 X: 8,
                 ANGLE: 180 - angle * i / 2
