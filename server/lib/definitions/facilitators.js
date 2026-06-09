@@ -1505,7 +1505,6 @@ exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
     segment.CAN_BE_ON_LEADERBOARD = false;
     segment.CLEAR_ON_MASTER_UPGRADE = true;
     segment.DISPLAY_NAME = false;
-    segment.COLOR = 'mirror';
     segment.GUNS = options.segmentGuns ??= segment.GUNS
     segment.PROPS = options.segmentProps ??= segment.PROPS
     segment.TURRETS = options.segmentTurrets ??= segment.TURRETS
@@ -1529,6 +1528,7 @@ exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
                         let seg = new Entity(body, body);
                         seg.master = body;
                         seg.source = body;
+                        seg.color = body.color;
                         seg.skill.score = body.skill.score;
                         seg.define(segmentClass);
                         body.store.snakeSegments.push(seg);

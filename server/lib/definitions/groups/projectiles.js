@@ -103,7 +103,6 @@ Class.speedBullet = {
 }
 Class.spiralBulletSegment = {
     PARENT: 'bullet',
-    COLOR: 'mirror',
     CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.spiralBullet = {
@@ -123,6 +122,7 @@ Class.spiralBullet = {
                     //seg.shield = body.shield;
                     seg.master = body;
                     seg.source = body;
+                    seg.color = body.color;
                     seg.SIZE = body.SIZE;
                     seg.define(segmentClass);
                     body.store.snakeSegments.push(seg);
