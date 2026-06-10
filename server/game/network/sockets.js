@@ -249,6 +249,7 @@ class socketManager {
                 let transferbodyID = m[3];
                 let incognitoMode = m[4];
                 if (incognitoMode) socket.status.incognito = true;
+                else socket.status.incognito = false;
                 if (global.gameManager.arenaClosed) {
                     if (needsRoom) {
                       socket.talk("message", "Arena closed. Try again in a few seconds.");
@@ -415,8 +416,7 @@ class socketManager {
                     "autospin",
                     "autofire",
                     "override",
-                    "autoalt",
-                    "spinlock" //spinlock does something both in client and server side
+                    "autoalt"
                 ][tog];
     
                 // Kick if it sent us shit.
@@ -443,7 +443,7 @@ class socketManager {
                 let upgrade = m[0];
                 let branchId = m[1];
                 // Verify the request
-                if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || branchId < 0) {
+                if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || !isFinite(branchId) || branchId < 0) {
                     if (!upgrade.isDailyUpgrade) { // Atleast allow the daily upgrade request, else get out.
                         socket.kick("Bad upgrade request.");
                         return 1;
@@ -717,7 +717,7 @@ class socketManager {
                         setTimeout(() => {
                             setTimeout(() => {
                                 socket.status.daily_tank_watched_ad_client = true;
-                            }, `${chosenAd.WAIT_TIME}000`)
+                            }, `${chosenAd.image_wait_time ?? "3"}000`)
                         }, socket.camera.ping) // make the counter accurate sycned as possible with the client.
                     }
                 }

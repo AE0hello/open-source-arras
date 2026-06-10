@@ -411,8 +411,22 @@ import * as socketStuff from "./socketinit.js";
         for (let e of data) {
             let warnDoc = null;
             if (e["osa-version"].target !== global.version) {
-                warnDoc = document.createElement("ul3");
-                warnDoc.textContent = "This addon may be incompatible with your version";
+                if (global.version.startsWith("v") && e["osa-version"].minimum.startsWith("v")) {
+                    let targetVersion = global.version.split("v")[1];
+                    let target = "";
+                    targetVersion.split(".").forEach(e => {
+                        target += e;
+                    })
+                    let minimumVersion = e["osa-version"].minimum.split("v")[1];
+                    let minimum = "";
+                    minimumVersion.split(".").forEach(e => {
+                        minimum += e;
+                    })
+                    if (parseInt(minimum) > parseInt(target)) {
+                        warnDoc = document.createElement("ul3");
+                        warnDoc.textContent = "This addon may be incompatible with your version";
+                    }
+                }
             }
             let divDoc = document.createElement("div");
             divDoc.classList.add("optionsHeader");
@@ -422,7 +436,6 @@ import * as socketStuff from "./socketinit.js";
             let author = document.createElement("ul");
             let authorValue = document.createElement("ul2");
             let targetVer = document.createElement("ul");
-            let targetVerValue = document.createElement("ul2");
 
             name.textContent = e.name;
             addonVer.textContent = 'Version: ';

@@ -246,7 +246,6 @@ class Canvas {
                 case global.KEY_SPIN_LOCK:
                     this.spinLock = !this.spinLock;
                     global.createMessage(this.spinLock ? "Spinlock enabled." : "Spinlock disabled.");
-                    this.socket.talk("t", 4, false);
                     break;
                 case global.KEY_REVERSE_MOUSE:
                     this.inverseMouse = !this.inverseMouse;
