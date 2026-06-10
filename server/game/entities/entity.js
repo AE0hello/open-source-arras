@@ -264,6 +264,35 @@ class Entity extends EventEmitter {
         if (set.OBSTACLE != null) this.settings.obstacle = set.OBSTACLE;
         if (set.FULL_INVISIBLE != null) this.settings.fullyInvisible = set.FULL_INVISIBLE;
         if (set.CAN_SEE_INVISIBLE_ENTITIES != null) this.settings.canSeeInvisible = set.CAN_SEE_INVISIBLE_ENTITIES;
+        if (set.NECRO != null) {
+            this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
+
+            // Necro function for tanks
+            this.settings.necroDefineGuns = {};
+            for (let shape of this.settings.necroTypes) {
+                // Pick the first gun with the right necroType to use for stats and use its defineBullet function
+                this.settings.necroDefineGuns[shape] = Array.from(this.guns).filter((gun) => gun[1].bulletType.NECRO && (gun[1].bulletType.NECRO === shape || (gun[1].bulletType.NECRO === true && gun[1].bulletType.SHAPE === this.shape) || gun[1].bulletType.NECRO.includes(shape)))[0];
+            }
+
+            this.necro = (host) => {
+                let gun = this.settings.necroDefineGuns[host.shape];
+                if (!gun || !gun.checkShootPermission()) return false;
+
+                let savedFacing = host.facing;
+                let savedSize = host.SIZE;
+                
+                host.controllers = [];
+                host.define("genericEntity");
+                gun.bulletInit(host);
+                host.team = this.master.master.team;
+                host.master = this.master;
+                host.color.base = this.color.base;
+                host.facing = savedFacing;
+                host.SIZE = savedSize;
+                host.health.amount = host.health.max;
+                return true;
+            }
+        }
         if (set.HAS_NO_RECOIL != null) this.settings.hasNoRecoil = set.HAS_NO_RECOIL;
         if (set.CRAVES_ATTENTION != null) this.settings.attentionCraver = set.CRAVES_ATTENTION;
         if (set.KILL_MESSAGE != null) this.settings.killMessage = set.KILL_MESSAGE === "" ? "Killed" : set.KILL_MESSAGE;
@@ -521,34 +550,6 @@ class Entity extends EventEmitter {
                 });
             })
             this.settings.shakeProperties = info;
-        }
-        if (set.NECRO != null) {
-            this.settings.necroTypes = Array.isArray(set.NECRO) ? set.NECRO : set.NECRO ? [this.shape] : [];
-
-            // Necro function for tanks
-            this.settings.necroDefineGuns = {};
-            for (let shape of this.settings.necroTypes) {
-                // Pick the first gun with the right necroType to use for stats and use its defineBullet function
-                this.settings.necroDefineGuns[shape] = this.gunsArrayed.filter((gun) => gun.bulletType.NECRO && (gun.bulletType.NECRO === shape || (gun.bulletType.NECRO === true && gun.bulletType.SHAPE === this.shape) || gun.bulletType.NECRO.includes(shape)))[0];
-            }
-            this.necro = (host) => {
-                let gun = this.settings.necroDefineGuns[host.shape];
-                if (!gun || !gun.checkShootPermission()) return false;
-
-                let savedFacing = host.facing;
-                let savedSize = host.SIZE;
-                
-                host.controllers = [];
-                host.define("genericEntity");
-                gun.bulletInit(host);
-                host.team = this.master.master.team;
-                host.master = this.master;
-                host.color.base = this.color.base;
-                host.facing = savedFacing;
-                host.SIZE = savedSize;
-                host.health.amount = host.health.max;
-                return true;
-            }
         }
         this.syncWithTank = set.SYNC_WITH_TANK ?? false
         if (set.mockup != null) {
