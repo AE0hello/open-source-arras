@@ -1,8 +1,9 @@
-const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'roaringLancer',
     "gunLayerTest",
     "diamondShape",
     "miscTest",
@@ -35,6 +36,162 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "backwardsExports",
     "ntf",
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+
+// Lancer
+Class.roaringParent = {
+    HITS_OWN_TYPE: 'never',
+    DISPLAY_NAME: false,
+    IGNORED_BY_AI: true,
+    ACCEPTS_SCORE: false,
+    CAN_BE_ON_LEADERBOARD: false,
+    IS_IMMUNE_TO_TILES: false,
+    DRAW_HEALTH: false,
+    ARENA_CLOSER: true,
+    CAN_GO_OUTSIDE_ROOM: true,
+    INTANGIBLE: true,
+    BORDERLESS: true,
+    LAYER: -1,
+    BODY: {
+        SHIELD: 1e9,
+        REGEN: 1e6,
+        HEALTH: 1e9,
+        DENSITY: 0,
+        SPEED: 0,
+        PUSHABILITY: 0,
+        DAMAGE: 0
+    },
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                body.ticking ??= 0
+                body.ticking++
+
+                let k = body.master.facing
+                Object.defineProperty(body, 'facing', {
+                    get:()=>{return k}, set:()=>{}
+                })
+
+                body.alpha -= 0.1
+                if (body.alpha <= 0) {
+                    body.kill()
+                }
+            }
+        }
+    ]
+}
+Class.roaringHat = {
+    PARENT: 'circleHat',
+    COLOR: '#000000',
+    BORDERLESS: true
+}
+Class.roaringHat2 = {
+    PARENT: 'circleHat',
+    COLOR: '#ffffff',
+    BORDERLESS: true
+}
+Class.roaringLancer = {
+    PARENT: 'genericTank',
+    LABEL: "Roaring Lancer",
+    COLOR: '#000000',
+    BORDERLESS: true,
+    STAT_NAMES: statnames.lancer,
+    TOOLTIP: "Click to charge in the direction you're facing.",
+    ON: [
+        {
+            event: 'fire',
+            handler: ({body, gun}) => {
+                switch (gun.identifier) {
+                    case 'charge':
+                        function afterImage(){
+                            o = new Entity({x: body.x, y: body.y})
+                            o.master = body
+
+                            o.define(body.defs[0])
+                            o.define('roaringParent')
+
+                            o.team = body.team
+                            o.SIZE = body.size
+                            o.color.base = body.color.base
+                            o.master = body
+                        }
+
+                        let interval = setInterval(afterImage, 100)
+                        setTimeout(() => clearInterval(interval), 1_000)
+                    break;
+                };
+            }
+        }
+    ],
+    TURRETS: [
+        {
+            TYPE: 'roaringHat2',
+            POSITION: {
+                SIZE: 23.5,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: 'roaringHat',
+            POSITION: {
+                SIZE: 20,
+                LAYER: 1
+            }
+        }
+    ],
+    GUNS: [
+        ...weaponStack({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 4,
+                ASPECT: 1.4,
+                X: 8.5
+            },
+            PROPERTIES: {
+                AUTOFIRE: true,
+                SHOOT_SETTINGS: combineStats([{reload: 6, recoil: 0, health: 0.5, damage: 2, pen: 1.6, speed: 2/3, range: 0.08, spray: 180}]),
+                TYPE: ['bullet', {
+                    ALPHA: 0,
+                    LABEL: 'Lance'
+                }]
+            }
+        }, 2, {xPosOffset: 1.5}),
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 0.377,
+                ASPECT: -55
+            },
+            PROPERTIES: {
+                COLOR: '#ffffff',
+                BORDERLESS: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25,
+                WIDTH: 0.3,
+                ASPECT: -55
+            },
+            PROPERTIES: {
+                COLOR: '#000000',
+                BORDERLESS: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 2,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { reload: 11, recoil: 9.75 * 2 }]),
+                TYPE: ['bullet', {ALPHA: 0}],
+                IDENTIFIER: 'charge'
+            }
+        }
+    ]
+}
 
 Class.gunLayerTest = {
     PARENT: 'genericTank',
