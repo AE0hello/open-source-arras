@@ -446,6 +446,7 @@ exports.makeHat = (shape = 0, options = {}) => {
         SHAPE: shape,
         COLOR: options.color ??= "mirror",
         INDEPENDENT: true,
+        MIRROR_MASTER_ANGLE: options.mirror_angle ??= false
     }
 }
 exports.makeWhirlwind = (type, options = {}) => {
