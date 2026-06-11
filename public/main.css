@@ -420,10 +420,6 @@ body.mobile .startMenuHolder.changelogHolder {
 	text-align: center;
 }
 
-.referral-fallback {
-	display: none;
-}
-
 .respawn-banner {
 	position: absolute;
 	max-width: 970px;
@@ -501,10 +497,6 @@ body.mobile .startMenuHolder.changelogHolder {
 
 body.mobile .sliderHolder {
 	height: 245px;
-}
-
-table {
-	width: 100%;
 }
 
 body.mobile .desktopControlTab {
@@ -813,6 +805,8 @@ body.mobile .startMenuSlidingContent {
 
 #discordButton {
 	margin: 0;
+	margin-left: -3px;
+	margin-right: 3px;
 	width: 40px;
 	height: 40px;
 	box-sizing: border-box;
@@ -845,6 +839,7 @@ body.mobile .startMenuSlidingContent {
 
 #redditButton {
 	margin: 0;
+	margin-right: 3px;
 	width: 40px;
 	height: 40px;
 	box-sizing: border-box;
@@ -877,6 +872,7 @@ body.mobile .startMenuSlidingContent {
 
 #youtubeButton {
 	margin: 0;
+	margin-right: 3px;
 	width: 40px;
 	height: 40px;
 	box-sizing: border-box;
@@ -909,7 +905,7 @@ body.mobile .startMenuSlidingContent {
 
 #githubButton {
 	margin: 0;
-	width: 200px;
+	width: 209px;
 	height: 40px;
 	box-sizing: border-box;
 	color: white;
