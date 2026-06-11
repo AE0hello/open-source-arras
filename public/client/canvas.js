@@ -223,6 +223,7 @@ class Canvas {
         if (!event.repeat) {
             switch (event.keyCode) {
                 case global.KEY_SPECIAL:
+                case global.KEY_SPECIAL_ALT:
                     this.socket.talk("#");
                     global.specialPressed = true;
                     global.specialKeysPressed = [];
@@ -312,6 +313,7 @@ class Canvas {
         if (global.dailyTankAd.renderUI) return;
         switch (event.keyCode) {
             case global.KEY_SPECIAL:
+            case global.KEY_SPECIAL_ALT:
                 global.specialPressed = false;
                 global.specialKeysPressed = [];
                 break;
