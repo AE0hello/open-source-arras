@@ -295,6 +295,15 @@ class Canvas {
                     case global.KEY_CHOOSE_6:
                         this.socket.talk("U", 5, parseInt(gui.upgrades[5][0]));
                         break;
+                    case global.KEY_CHOOSE_7:
+                        this.socket.talk("U", 6, parseInt(gui.upgrades[6][0]));
+                        break;
+                    case global.KEY_CHOOSE_8:
+                        this.socket.talk("U", 7, parseInt(gui.upgrades[7][0]));
+                        break;
+                    case global.KEY_CHOOSE_9:
+                        this.socket.talk("U", 8, parseInt(gui.upgrades[8][0]));
+                        break;
                 }
             }
         }
