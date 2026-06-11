@@ -51,7 +51,7 @@ const getName = (name, gamemodeData) => {
     // Miscellaneous
         //forge: "Forge",
             //old_forge: "Old Forge",
-        //limbo: "Limbo",
+        limbo: "Limbo",
         nexus: "Nexus",
         sandbox: "Sandbox",
         tartarus: "Tartarus",
