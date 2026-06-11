@@ -71,7 +71,7 @@ class Gun extends EventEmitter {
             this.drawAbove = (info.PROPERTIES.DRAW_ABOVE == null) ? false : info.PROPERTIES.DRAW_ABOVE;
             this.stack = (info.PROPERTIES.STACK_GUN == null) ? true : info.PROPERTIES.STACK_GUN;
             this.identifier = info.PROPERTIES.IDENTIFIER ?? null;
-            if (info.PROPERTIES.TYPE != null) {
+            if (info.PROPERTIES.TYPE != null && !Config.disable_guns) {
                 this.canShoot = true;
                 this.label = info.PROPERTIES.LABEL ?? "";
                 this.setBulletType(info.PROPERTIES.TYPE);
