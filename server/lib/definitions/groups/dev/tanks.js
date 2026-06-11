@@ -72,8 +72,6 @@ Class.spectator = {
     IS_IMMUNE_TO_TILES: true,
     FULL_INVISIBLE: true,
     CAN_SEE_INVISIBLE_ENTITIES: true,
-    TOOLTIP: "Left click to teleport, Right click above or below the screen to change FOV",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
     BODY: {
         PUSHABILITY: 0,
         SPEED: 5,
@@ -100,14 +98,11 @@ Class.spectator = {
         }
     }],
     ON: [{
-        event: "fire",
+        event: "altFire",
         handler: ({ body }) => {
             body.x = body.x + body.control.target.x
             body.y = body.y + body.control.target.y
         }
-    }, {
-        event: "altFire",
-        handler: ({ body }) => body.FOV = body.y + body.control.target.y < body.y ? body.FOV + 0.5 : Math.max(body.FOV - 0.5, 0.2)
     }]
 }
 
@@ -168,7 +163,6 @@ Class.banHammer = {
     IS_IMMUNE_TO_TILES: true,
     CAN_SEE_INVISIBLE_ENTITIES: true,
     TOOLTIP: "Use left click to inspect and right click to teleport. Press F to ban the selected player.",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
     BODY: {
         PUSHABILITY: 0,
         SPEED: 5,
