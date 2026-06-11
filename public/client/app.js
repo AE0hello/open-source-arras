@@ -1270,23 +1270,9 @@ import * as socketStuff from "./socketinit.js";
         skas.push((i - 2) * 0.01 + Math.log(4 * (i / 9) + 1) / 1.513);
     }
     const ska = (x) => skas[x];
-    var getClassUpgradeKey = function (number) {
-        switch (number) {
-            case 0:
-                return "Y";
-            case 1:
-                return "U";
-            case 2:
-                return "I";
-            case 3:
-                return "H";
-            case 4:
-                return "J";
-            case 5:
-                return "K";
-            default:
-                return null;
-        }
+    const getClassUpgradeKey = (number) => {
+        const key = global[`KEY_CHOOSE_${number + 1}`];
+        return key !== undefined ? String.fromCharCode(key) : null; // TODO: actually display the keycode (i.e. commas)
     };
 
     let tiles,

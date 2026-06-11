@@ -133,8 +133,8 @@ const global = {
     KEY_CLASS_TREE: 84,// T
     KEY_MAX_STAT: 77,// M
     KEY_SUICIDE: 79,// O
-    KEY_ZOOM_OUT: 45,// ??
-    KEY_ZOOM_IN: 61,// ??
+    KEY_ZOOM_OUT: 45,// -
+    KEY_ZOOM_IN: 61,// =
     KEY_DEBUG: 76,// L
 
     KEY_SCREENSHOT: 81,//Q
@@ -150,9 +150,11 @@ const global = {
     KEY_UPGRADE_MOB: 56,// 8
     KEY_UPGRADE_RGN: 57,// 9
     KEY_UPGRADE_SHI: 48,// 0
-    KEY_MOUSE_0: 32,// 32
+
+    KEY_MOUSE_0: 32,// Space
     KEY_MOUSE_1: 86,// V
     KEY_MOUSE_2: 16,// ShiftLeft
+
     KEY_CHOOSE_1: 89,// Y
     KEY_CHOOSE_2: 85,// U
     KEY_CHOOSE_3: 73,// I
