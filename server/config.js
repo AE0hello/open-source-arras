@@ -31,9 +31,9 @@ module.exports = {
             private: true, // Whether the server requires a privileged token to join (except through server travel).
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
-                teams: 4,
-                mothership_time_limit: 300_000,
-                bot_cap: 40
+                //teams: 4,
+                mothership_time_limit: 30_000,
+                //bot_cap: 40
             }
         },
         {
@@ -55,7 +55,7 @@ module.exports = {
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 //teams: 4,
-                bot_cap: 20,
+                bot_cap: 16,
                 server_travel_properties: {
                     loop_interval: 30_000, // how often the portal loop executes in seconds
                     portals: 3, // amount of portals to spawn
@@ -93,6 +93,10 @@ module.exports = {
 
             host: 'localhost:3003', // Server host location.
             port: 3003, // The port on the server.
+            id: 'lm', // (<host>/#<id>)
+
+
+            host: 'localhost:3004', // Server host location.
             id: 'lx', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
@@ -106,7 +110,6 @@ module.exports = {
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 teams: 4,
                 bot_cap: 0
-                //allow_server_travel: true
             }
         },
         {
