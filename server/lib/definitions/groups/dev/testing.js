@@ -3,6 +3,7 @@ const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'tagger',
     'roaringLancer',
     "gunLayerTest",
     "diamondShape",
@@ -34,8 +35,36 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "airblast",
     "anglemancer",
     "backwardsExports",
-    "ntf",
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+
+// Tagger
+Class.tagBullet = {
+    PARENT: "bullet",
+    ON: [
+        {
+            event: "collide",
+            handler: ({ instance, other }) => {
+                if (other.team != instance.team) {
+                    other.team = instance.team;
+                    other.color = instance.color;
+                }
+            }
+        }
+    ]
+}
+Class.tagger = {
+    PARENT: 'genericTank',
+    LABEL: "Tagger",
+    GUNS: [
+        {
+            POSITION: {},
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'tagBullet'
+            }
+        }
+    ]
+}
 
 // Lancer
 Class.roaringParent = {

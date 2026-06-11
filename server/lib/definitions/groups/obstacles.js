@@ -144,3 +144,28 @@ Class.oneWayRightWall = {
 		}
 	]
 }
+Class.teamWall = {
+    PARENT: "wall",
+    LABEL: "Team Wall",
+    PROPS: [
+        {
+            TYPE: "squareHat",
+            POSITION: {
+                SIZE: 15,
+                LAYER: 1
+            },
+            ANGLE: Math.PI / 2
+        }
+    ],
+    ON: [
+        {
+            event: "collide",
+            handler: ({ instance, other }) => {
+                if (other.team != instance.team) {
+                    other.team = instance.team;
+                    other.color = instance.color;
+                }
+            }
+        }
+    ]
+}
