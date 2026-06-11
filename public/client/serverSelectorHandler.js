@@ -190,7 +190,8 @@ let initializeFilter = () => {
         let r = l.length;
         l.push(data[0].filter);
         let e = document.getElementsByClassName("serverSelector");
-        e[0].style.height = "70px";
+        global.fixedServerSelectorHeight = "103px"
+        if (!global.uncappedMenu) e[0].style.height = global.fixedServerSelectorHeight;
         let v = null;
         for (let { name: textContent, filter: y } of data) {
             let Q = document.createElement("span");
