@@ -56,10 +56,6 @@ module.exports = {
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 //teams: 4,
                 bot_cap: 16,
-                server_travel_properties: {
-                    loop_interval: 30_000, // how often the portal loop executes in seconds
-                    portals: 3, // amount of portals to spawn
-                },
                 daily_tank: {
                     tank: 'whirlwind',
                     tier: 3,
@@ -74,6 +70,10 @@ module.exports = {
                             use_regular_ad_size: true
                         }
                     ]
+                },
+                server_travel_properties: {
+                    loop_interval: 10_000, // how often the portal loop executes in seconds
+                    portals: 1, // amount of portals to spawn
                 },
                 server_travel: [
                     {
