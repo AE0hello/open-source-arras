@@ -68,7 +68,7 @@ import * as socketStuff from "./socketinit.js";
     global.mobile && document.body.classList.add("mobile");
     if (!global.mobile) {
         document.getElementById("tabAppearance").classList.remove("shadowScroll");
-        document.getElementById("tabOptions").classList.remove("shadowScroll");
+        document.getElementById("tabOptions").style.height = "242px";
     };
 
     function getKeybinds() {
@@ -360,12 +360,13 @@ import * as socketStuff from "./socketinit.js";
                     ? "translate(2px, -2px) rotate(45deg)"
                     : "rotate(-45deg)";
                 h.innerText = clicked ? "close options" : "view options"; // Change the text.
-                clicked ? u.classList.add("slided") : u.classList.remove("slided"); // Slide it up.
+                clicked ? u.classList.add(global.uncappedMenu ? "slided2" : "slided") : u.classList.remove(global.uncappedMenu ? "slided2" : "slided"); // Slide it up.
                 y[0].style.opacity = clicked ? 0 : 1; // Fade it away.
                 y[2].style.opacity = clicked ? 1 : 0; // same for this.
             };
         a.onclick = () => { // When the button is triggered, This code runs.
             clicked = !clicked;
+            global.optionsMenuToggle = clicked;
             toggle();
         };
         return () => {
@@ -458,6 +459,145 @@ import * as socketStuff from "./socketinit.js";
 
             mainDoc.appendChild(divDoc);
         }
+    }
+    function menuSettingsHandler() {
+        let menu_mainWrapperHeight = window.getComputedStyle(document.getElementsByClassName("mainWrapper")[0]).getPropertyValue("height").toString();
+        let menu_mainWrapperHeight_padding = window.getComputedStyle(document.getElementsByClassName("mainWrapper")[0]).getPropertyValue("padding").toString();
+        let menu_menuHeight = window.getComputedStyle(document.getElementsByClassName("startMenu")[0]).getPropertyValue("height").toString();
+        let menu_addonScrollHeight = window.getComputedStyle(document.getElementById("tabAddons")).getPropertyValue("height").toString();
+
+        // Uncap menu height
+        util.retrieveFromLocalStorage("unlimitedMenuHeight");
+        let menu_uncapbutton = document.getElementById("unlimitedMenuHeight");
+        let menu_uncap_lessHeight = false;
+        let menu_uncap_lessHeightReach = 750;
+        
+        let menu_uncapClick = () => {
+            let setHeight = (doc, x) => doc.style.maxHeight = doc.style.height = x;
+            if (menu_uncapbutton.checked) {
+                document.getElementById("startMenuSlidingTrigger").style.display = "none";
+                // Thanks to Taureon's "Arras.io - Start Menu Modifier" Greasyfork script. (Modified by AE)
+                if (menu_uncap_lessHeight) {
+                    document.getElementById("startMenuSlidingTrigger").style.display = "block";
+                    document.getElementById("tabOptions").classList.remove("shadowScroll");
+                    document.getElementById("controlSettingsScollbar").classList.remove("shadowScroll");
+                    document.getElementById("tabAddons").style.height = "";
+                    document.getElementById("tabAddons").style.maxHeight = "300px";
+                    if (global.optionsMenuToggle) {
+                        document.getElementsByClassName("sliderHolder")[0].classList.remove("slided");
+                        document.getElementsByClassName("sliderHolder")[0].classList.add("slided2");
+                    } else document.getElementsByClassName("slider")[2].style.opacity = 0;
+                } else {
+                    document.getElementById("tabOptions").classList.add("shadowScroll");
+                    document.getElementById("controlSettingsScollbar").classList.add("shadowScroll");
+                    document.getElementById("tabAddons").style.height = menu_addonScrollHeight;
+                    document.getElementById("tabAddons").style.maxHeight = "";
+                    document.getElementsByClassName("sliderHolder")[0].classList.remove("slided");
+                    document.getElementsByClassName("sliderHolder")[0].classList.remove("slided2");
+                    document.getElementsByClassName("slider")[2].style.opacity = 1;
+                    document.getElementsByClassName("slider")[0].style.opacity = 1;
+                }
+                for (let docs of [".serverSelector", ".slider", ".sliderHolder", ".startMenuHolder", ".startMenuHolder.changelogHolder", ".startMenu", ".mainWrapper", "#startMenuWrapper", "#patchNotes"]) {
+                    let doc;
+                    if (docs.startsWith('#')) doc = document.getElementById(docs.substring(docs.length, 1));
+                    if (docs.startsWith('.')) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
+                    switch (docs) {
+                        case ".mainWrapper":
+                            doc.style.padding = "0px";
+                            setHeight(doc, "calc(100% - 55px)");
+                            break;
+                        case "#startMenuWrapper":
+                            setHeight(doc, "calc(100% - 20px)");
+                            break;
+                        case ".startMenuHolder":
+                            doc = document.getElementsByClassName("startMenuHolder")[1];
+                            setHeight(doc, "calc(100% - 20px)");
+                            break;
+                        case ".startMenu":
+                            setHeight(doc, "calc(100%)");
+                            break;
+                        case ".slider":
+                            doc = document.getElementsByClassName("slider")[0];
+                            if (menu_uncap_lessHeight) {
+                                setHeight(doc, "calc(100% - 30px)");
+                            } else setHeight(doc, "calc(100% - 280px)");
+                            break;
+                        case ".sliderHolder":
+                            setHeight(doc, "calc(100% - 50px)");
+                            break;
+                        case ".serverSelector":
+                            if (menu_uncap_lessHeight) {
+                                setHeight(doc, "calc(100% - 170px)");
+                            } else setHeight(doc, "calc(100% - 180px)");
+                            break;
+                        case ".startMenuHolder.changelogHolder":
+                            doc = document.getElementsByClassName("changelogHolder")[0];
+                            setHeight(doc, "calc(100% - 20px)");
+                            break;
+                        case "#patchNotes":
+                            setHeight(doc, "calc(100% - 39px)");
+                            break;
+                    }
+                }
+            } else {
+                document.getElementById("startMenuSlidingTrigger").style.display = "block";
+                if (menu_uncap_lessHeight) {
+                    document.getElementById("tabOptions").classList.add("shadowScroll");
+                    document.getElementById("controlSettingsScollbar").classList.add("shadowScroll");
+                    document.getElementById("tabAddons").style.height = menu_addonScrollHeight;
+                    document.getElementById("tabAddons").style.maxHeight = "";
+                }
+                for (let docs of [".serverSelector", ".slider", ".sliderHolder", ".startMenuHolder.changelogHolder", ".startMenu", ".mainWrapper", "#startMenuWrapper", "#patchNotes"]) {
+                    let doc;
+                    if (docs.startsWith('#')) doc = document.getElementById(docs.substring(docs.length, 1));
+                    if (docs.startsWith('.')) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
+                    switch (docs) {
+                        case ".mainWrapper":
+                            doc.style.padding = menu_mainWrapperHeight_padding;
+                            doc.style.height = menu_mainWrapperHeight;
+                            break;
+                        case ".startMenu":
+                            setHeight(doc, menu_menuHeight);
+                            break;
+                        case ".slider":
+                            doc = document.getElementsByClassName("slider")[0];
+                            doc.style = "";
+                            break;
+                        case ".sliderHolder":
+                            doc.style = "";
+                            doc.classList.remove("slided2");
+                            if (global.optionsMenuToggle) {
+                                doc.classList.add("slided");
+                            }
+                            break;
+                        case ".serverSelector":
+                            doc.style = "";
+                            if (global.fixedServerSelectorHeight) doc.style.height = global.fixedServerSelectorHeight;
+                            break;
+                        case "#patchNotes":
+                            doc.style = "";
+                            break;
+                    }
+                }
+            }
+            util.submitToLocalStorage("unlimitedMenuHeight");
+            global.uncappedMenu = menu_uncapbutton.checked;
+        }
+
+        menu_uncapbutton.onclick = () => menu_uncapClick();
+        
+        if (menu_uncapbutton.checked) menu_uncapClick();
+        setInterval(() => {
+            if (menu_uncapbutton.checked) {
+                if (window.innerHeight < menu_uncap_lessHeightReach && !menu_uncap_lessHeight) {
+                    menu_uncap_lessHeight = true;
+                    menu_uncapClick();
+                } else if (window.innerHeight > menu_uncap_lessHeightReach && menu_uncap_lessHeight) {
+                    menu_uncap_lessHeight = false;
+                    menu_uncapClick();
+                }
+            }
+        }, 25);
     }
     // Custom theme display handler
     function customThemeDisplayHandler() {
@@ -632,6 +772,7 @@ import * as socketStuff from "./socketinit.js";
     tabOptionsMenuSwitcher();
     customThemeDisplayHandler();
     snowAndFireworkEffects();
+    menuSettingsHandler();
 
     // Prepare canvas
     function resizeEvent() {
@@ -1495,11 +1636,11 @@ import * as socketStuff from "./socketinit.js";
 
     function drawBar(x1, x2, y, width, color, context = ctx[2]) {
         context.beginPath();
-        context.lineTo(x1, y);
-        context.lineTo(x2, y);
+        context.lineCap = 'round';
         context.lineWidth = width;
         if (color) context.strokeStyle = color;
-        context.closePath();
+        context.moveTo(x1, y);
+        context.lineTo(x2, y);
         context.stroke();
     }
 

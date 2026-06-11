@@ -59,7 +59,6 @@
                             </div>
                             <div class="serverSelector shadowScroll"><table><tbody id="serverSelector"></tbody></table></div>
                             <input type="text" autofocus tabindex="1" spellcheck="false" placeholder="This is the tale of" id="playerNameInput" maxlength="24">
-                            <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64" />
                         </div>
                         <div class="slider" id="startMenuSlidingTrigger">
                         <h3>
@@ -181,6 +180,7 @@
                                     <option value="large">UI Scale (Large)</option>
                                     <option value="mobile">UI Scale (Mobile)</option>
                                 </select>
+                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64" />
                                 <table>
                                     <tr>
                                         <td><div><label class="container"><input id="autoLevelUp" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Auto-Level Up</label></div></td>
@@ -192,6 +192,16 @@
                                     </tr>
                                     <tr>
                                         <td><div><label class="container"><input id="smoothCamera" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Camera</label></div></td>
+                                        <td><div><label class="container"><input id="optAllowIngameOptions" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Show ingame-options</label></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><label class="container"><input id="optOldUiStyle" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Old-UI Style</label></div></td>
+                                    </tr>
+                                </table>
+                                <div class="optionsHeader">Menu Settings</div>
+                                <table>
+                                    <tr>
+                                        <td><div><label class="container"><input id="unlimitedMenuHeight" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Uncapped Menu Height</label></div></td>
                                     </tr>
                                 </table>
                                 <table>
@@ -205,7 +215,7 @@
                             <div id="tabControls">
                                 <div class="controlTable optionsHeader"> All Controls <i id="resetControls" class="reset resetControls" title="Reset controls"></i>
                                 </div>
-                                <div class="shadowScroll" style="height: 200px;">
+                                <div id="controlSettingsScollbar" class="shadowScroll" style="height: 200px;">
                                     <table class="controlTable" id="controlSettings">
                                         <tbody>
                                             <tr>

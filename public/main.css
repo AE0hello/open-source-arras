@@ -154,7 +154,7 @@ h3 {
 }
 
 .serverSelector {
-	height: 120px;
+	height: 153px;
 	text-align: center;
 	font-size: 13px;
 	font-weight: bold;
@@ -264,7 +264,8 @@ input:disabled {
 }
 
 #playerKeyInput {
-	padding: 3px;
+	padding: 1.6px;
+	width: 150px;
 	color: black;
 }
 
@@ -361,6 +362,7 @@ body.mobile #startMenuWrapper {
 }
 
 .mainWrapper {
+	transition: all 0.5s;
 	padding: 75px 20px 0;
 }
 
@@ -369,6 +371,7 @@ body.mobile .mainWrapper {
 }
 
 .startMenu {
+	transition: all 0.5s;
 	display: flex;
 	max-height: 390px;
 	padding: 10px;
@@ -490,6 +493,7 @@ body.mobile .startMenuHolder.changelogHolder {
 }
 
 .sliderHolder {
+	transition: all 0.5s;
 	width: 350px;
 	height: 295px;
 	overflow: hidden;
@@ -642,11 +646,14 @@ body.mobile .mobileOptionsHeader {
 	top: 0px;
 	opacity: 1;
 	width: 100%;
-	transition: top 500ms, opacity 500ms;
+	transition: all 500ms, opacity 500ms;
 }
 
 .slided .slider {
 	top: -280px;
+}
+.slided2 .slider {
+	top: calc(-100% + 20px);
 }
 
 body.mobile .slided .slider {
