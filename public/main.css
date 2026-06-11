@@ -499,6 +499,10 @@ body.mobile .sliderHolder {
 	height: 245px;
 }
 
+table {
+	width: 100%;
+}
+
 body.mobile .desktopControlTab {
 	display: none;
 }
