@@ -56,7 +56,8 @@ class MockupEntityGun {
             Y: position.Y ?? 0,
             ANGLE: position.ANGLE ?? 0,
             DELAY: position.DELAY ?? 0,
-            DRAW_ABOVE: position.DRAW_ABOVE ?? this.drawAbove
+            DRAW_ABOVE: position.DRAW_ABOVE ?? this.drawAbove,
+            LAYER: position.LAYER ?? 0
         };
         this.length = position.LENGTH / 10;
         this.width = position.WIDTH / 10;
@@ -66,6 +67,7 @@ class MockupEntityGun {
         this.direction = _off.direction;
         this.offset = _off.length / 10;
         this.drawAbove = position.DRAW_ABOVE;
+        this.layer = position.LAYER ?? 0;
     }
 }
 

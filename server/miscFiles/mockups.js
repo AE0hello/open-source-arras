@@ -46,6 +46,7 @@ function getMockup(e, positionInfo) {
                 borderless: gun.borderless,
                 drawFill: gun.drawFill,
                 drawAbove: gun.drawAbove,
+                layer: gun.layer,
             };
         }),
         turrets: turretsAndProps.map(function(t) {
