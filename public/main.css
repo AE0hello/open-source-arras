@@ -813,11 +813,11 @@ body.mobile .startMenuSlidingContent {
 	color: white;
 	text-align: center;
 	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-	background: #7289da;
+	background: #5865f2;
 	border: 0;
-	border-bottom: 2px solid #5b6dae;
+	border-bottom: 2px solid #4b56ce;
 	cursor: pointer;
-	box-shadow: inset 0 -2px #5b6dae;
+	box-shadow: inset 0 -2px #4b56ce;
 	border-radius: 5px;
 	font: 16px Ubuntu;
 }
@@ -825,13 +825,13 @@ body.mobile .startMenuSlidingContent {
 #discordButton:hover {
 	margin-top: 2px;
 	height: 38px;
-	border-bottom: 0px solid #5b6dae;
+	border-bottom: 0px solid #4b56ce;
 }
 
 #discordButton:active {
 	margin-top: 2px;
 	height: 38px;
-	background: #5b6dae;
+	background: #4b56ce;
 	border-bottom: 0px;
 	outline: none;
 	box-shadow: none;
