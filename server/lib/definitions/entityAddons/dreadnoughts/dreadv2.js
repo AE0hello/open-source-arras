@@ -455,12 +455,12 @@ Class.titanTop_dreadsV2 = {
 }
 
 // Auras
-Class.atmosphereAura_dreadsV2 = makeAura(1, 1, 0.15)
-Class.coronaAura_dreadsV2 = makeAura(1.15, 0.8, 0.15)
+Class.atmosphereAura_dreadsV2 = makeAura(1, 1, 0.25)
+Class.coronaAura_dreadsV2 = makeAura(1.15, 0.8, 0.25)
 Class.trinoughtBigAura = makeAura(0.7, 1.5)
-Class.trinoughtSmallAura = makeAura(0.7, 2.1, 0.15)
+Class.trinoughtSmallAura = makeAura(0.7, 2.1, 0.25)
 Class.pentanoughtBigAura = makeAura(1.2, 1.45)
-Class.pentanoughtSmallAura = makeAura(1.2, 1.6, 0.15)
+Class.pentanoughtSmallAura = makeAura(1.2, 1.6, 0.25)
 if (useOldPhotosphere) {
 	Class.photosphereSmallAura_dreadsV2 = makeAura(1.25, 1.85, 0.15)
 	Class.photosphereBigAura_dreadsV2 = makeAura(0.25, 4)

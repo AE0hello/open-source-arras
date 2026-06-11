@@ -482,13 +482,13 @@ global.defineSplit = (() => {
                     index += e.index + "-";
                 }
                 let i = parseInt(prop.split('_')[2])
-                this.upgrades.push({
+                my.upgrades.push({
                     class: trueUpgrades,
                     level: Config.tier_multiplier * i,
                     index: index.substring(0, index.length - 1),
                     tier: i,
                     branch: 0,
-                    branchLabel: this.branchLabel,
+                    branchLabel: my.branchLabel,
                     redefineAll,
                 });
             }
