@@ -207,9 +207,6 @@ class Canvas {
             case global.KEY_LEVEL_UP:
                 this.socket.talk('L');
                 break;
-            case global.KEY_TOKEN:
-                this.socket.talk('0');
-                break;
             case global.KEY_BECOME:
                 this.socket.talk('H');
                 break;

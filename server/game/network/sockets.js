@@ -504,29 +504,6 @@ class socketManager {
                     player.body.refreshBodyAttributes();
                 }
             } break;
-            case "0": {
-                // testbed cheat
-                if (m.length !== 0) {
-                    socket.kick("Ill-sized testbed request.");
-                    return 1;
-                }
-                // cheatingbois
-                if (
-                    player.body != null &&
-                    socket.permissions &&
-                    socket.permissions.class
-                ) {
-                    player.body.define({RESET_UPGRADES: true, BATCH_UPGRADES: false});
-                    player.body.define(socket.permissions.class);
-                    let msg = Config.token_message.split("\n");
-                    if (!socket.status.specialTankWarned) {
-                        socket.status.specialTankWarned = true;
-                        for (let i = 0; i < msg.length; i++) {
-                            player.body.sendMessage(msg[i]);
-                        }
-                    }
-                }
-            } break;
             case "1": {
                 //suicide squad
                 if (player.body != null && !player.body.underControl && player.body.invuln) {
