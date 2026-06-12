@@ -647,13 +647,13 @@ if (no_lower_level_cap) {
 }
 
 Class.dreadnought_dreadsV1[`UPGRADES_TIER_${tier1}`] = ["sword", "pacifier", "invader", "centaur"].map(x => x + "_dreadsV1")
-	Class.sword_dreadsV1.UPGRADES_TIER_M1 = ["sabre", "gladius"].map(x => x + "_dreadsV1")
-	Class.pacifier_dreadsV1.UPGRADES_TIER_M1 = ["appeaser", "peacekeeper", "diplomat"].map(x => x + "_dreadsV1")
-	Class.invader_dreadsV1.UPGRADES_TIER_M1 = ["inquisitor", "assailant", "infiltrator"].map(x => x + "_dreadsV1")
-	Class.centaur_dreadsV1.UPGRADES_TIER_M1 = ["cerberus", "minotaur", "siren"].map(x => x + "_dreadsV1")
-	Class.automation_dreadsV1.UPGRADES_TIER_M1 = ["mechanism"].map(x => x + "_dreadsV1")
-	Class.juggernaut_dreadsV1.UPGRADES_TIER_M1 = ["behemoth"].map(x => x + "_dreadsV1")
-	Class.medicare_dreadsV1.UPGRADES_TIER_M1 = ["medicaid"].map(x => x + "_dreadsV1")
+	Class.sword_dreadsV1.UPGRADE_M1 = ["sabre", "gladius"].map(x => x + "_dreadsV1")
+	Class.pacifier_dreadsV1.UPGRADE_M1 = ["appeaser", "peacekeeper", "diplomat"].map(x => x + "_dreadsV1")
+	Class.invader_dreadsV1.UPGRADE_M1 = ["inquisitor", "assailant", "infiltrator"].map(x => x + "_dreadsV1")
+	Class.centaur_dreadsV1.UPGRADE_M1 = ["cerberus", "minotaur", "siren"].map(x => x + "_dreadsV1")
+	Class.automation_dreadsV1.UPGRADE_M1 = ["mechanism"].map(x => x + "_dreadsV1")
+	Class.juggernaut_dreadsV1.UPGRADE_M1 = ["behemoth"].map(x => x + "_dreadsV1")
+	Class.medicare_dreadsV1.UPGRADE_M1 = ["medicaid"].map(x => x + "_dreadsV1")
 
 const t1Bodies = ["sword", "pacifier", "invader", "centaur", "medicare", "automation", "juggernaut"].map(x => x + "_dreadsV1")
 if (!enable_medicare_branch) {
@@ -716,10 +716,10 @@ function mergeDreads(dread1, dread2, sourceDread, tier) {
 	util.forcePush(Class[sourceDread], upgradeLevel, definitionName);
 	
 	// Generate new dreads recursively
-	if (!dread1.UPGRADES_TIER_M1 || !dread2.UPGRADES_TIER_M1) return;
+	if (!dread1.UPGRADE_M1 || !dread2.UPGRADE_M1) return;
 
-	for (let upgrade1 of dread1.UPGRADES_TIER_M1) {
-		for (let upgrade2 of dread2.UPGRADES_TIER_M1) {
+	for (let upgrade1 of dread1.UPGRADE_M1) {
+		for (let upgrade2 of dread2.UPGRADE_M1) {
 			mergeDreads(upgrade1, upgrade2, definitionName, tier + 1);
 		}
 	}
