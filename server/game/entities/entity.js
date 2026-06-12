@@ -1065,6 +1065,7 @@ class Entity extends EventEmitter {
             killers.forEach((e) => e.emit('kill', { body: e, entity: this }));
             // If there's no valid killers (you were killed by food), change the message to be more passive
             let killText = notJustFood ? "" : "You have been killed by ",
+                killSuffix = ".",
                 doISendAText = this.settings.givesKillMessage;
 
             for (let i = 0; i < killers.length; i++) {
@@ -1145,8 +1146,12 @@ class Entity extends EventEmitter {
             if (killText === "You have been kille") {
                 killText = "You have died a stupid death";
             }
+            if (Config.outbreak && !this.zombified) {
+                killText = `You died and became a zombified ${this.label}`
+                killSuffix = "!"
+            }
             if (!this.dontSendDeathMessage) {
-                this.sendMessage(killText + ".");
+                this.sendMessage(killText + killSuffix);
             }
             // If I'm the leader, broadcast it:
             if (this.id === global.gameManager.room.topPlayerID) {
