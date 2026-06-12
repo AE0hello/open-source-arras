@@ -1240,7 +1240,7 @@ const MazeGenerator = class {
                 this.hasToBeClosed = true;
                 break
             default:
-                console.log("Invalid maze type! Generating aborded.")
+                console.log("Invalid maze type! Generating aborted.")
                 return null
                 break
         }
