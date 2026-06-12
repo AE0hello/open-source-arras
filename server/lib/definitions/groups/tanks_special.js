@@ -33,7 +33,7 @@ Class.baseProtector = {
         RESIST: 10000,
         HETERO: 0,
     },
-    FACING_TYPE: ["spin", {speed: 0.04}],
+    FACING_TYPE: ['spin', {speed: 0.04}],
     TURRETS: [
         {
             POSITION: [25, 0, 0, 0, 360, 0],
