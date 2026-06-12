@@ -4,7 +4,7 @@ const {
     base1: bas1,
 } = tileClass;
 
-let nexus_room = [
+let room_limbo = [
     [ ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____ ],
     [ ____, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, WALL, ____ ],
     [ ____, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, bas1, WALL, ____ ],
@@ -40,4 +40,4 @@ let nexus_room = [
     [ ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____, ____ ],
 ]
 
-module.exports = nexus_room;
+module.exports = room_limbo;
