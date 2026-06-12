@@ -52,14 +52,14 @@ g.dreadv1Trap = {
 	size: 1.25,
 }
 
+// Set the below variable to true to disable the level requirements for upgrading.
+const free_upgrades = true
+
 // Set the below variable to true to enable the Medicare/Medicaid healing bodies.
 const enable_medicare_branch = true
 
 // Set the below variable to true to make Dreadnoughts use the Rogues color instead of the Hexagon color.
 const old_dreadnought_color = true
-
-// Set the below variable to true to 
-const no_lower_level_cap = true
 
 // Map elements
 function portalRings(color = '#1c3766') {
@@ -641,7 +641,7 @@ Class.medicaid_dreadsV1 = {
 // Account for lower level cap
 let tier1 = 10;
 let tier2 = 12;
-if (no_lower_level_cap) {
+if (free_upgrades) {
 	tier1 = 0;
 	tier2 = 0;
 }

@@ -117,7 +117,7 @@ module.exports = {
             id: 'lx', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['nexus'], // The selected gamemode.
+            gamemode: ['maze', 'tdm'], // The selected gamemode.
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
@@ -125,7 +125,7 @@ module.exports = {
             private: true, // Whether the server requires a privileged token to join (except through server travel).
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
-                teams: 4,
+                //teams: 4,
                 bot_cap: 0
             }
         },
