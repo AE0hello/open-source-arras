@@ -19,7 +19,7 @@ const getName = (name, gamemodeData) => {
         clan_wars: "Clan Wars",
         //duos: "Duos",
         ffa: "FFA",
-        //halloween: "Halloween",
+        halloween: "Halloween",
         //squads: "Squads",
         tdm: `${gamemodeData.teams}TDM`,
             open_tdm: `Open ${gamemodeData.teams}TDM`,
