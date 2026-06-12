@@ -1520,7 +1520,7 @@ class socketManager {
                             // Start the timeout
                             socket.timeout.start();
                         }
-                        if (player.body.master.label == "Bacteria") { // Why not trigger bacteria's abilities :)
+                        if (player.body.master.label == "Bacteria") { // Why not trigger bacteria's abilities :) // (WHY IS THIS A LABEL CHECK)
                             let exit = () => die();
                             let newgui = (player) => this.newgui(player);
                             becomeBulletChildren(socket, player, exit, newgui);
