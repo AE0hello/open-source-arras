@@ -3699,7 +3699,7 @@ import * as socketStuff from "./socketinit.js";
             upgradeSpin = upgradeSpin - (Math.floor(upgradeSpin / Math.PI / 2) * Math.PI * 2);
 
             let x = glide * 2 * spacing + spacing + 5;
-            let y = spacing - height - internalSpacing + 5;
+            let y = spacing - height - 2.8 * internalSpacing + 5;
             let xStart = x;
             let initialX = x;
             let rowWidth = 0;
@@ -3726,6 +3726,7 @@ import * as socketStuff from "./socketinit.js";
                             drawText(" " + upgradeBranchLabel, xStart, y + internalSpacing * 2, internalSpacing * 2.3, color.guiwhite, "left", false);
                             y += 3 * internalSpacing;
                         }
+                        y += 1.8 * internalSpacing;
                         colorIndex = 0;
                     }
                     lastBranch = upgradeBranch;
