@@ -66,13 +66,18 @@ Class.pumpkin = {
 
 // Walls
 Class.wall = {
-    PARENT: "genericObstacle",
+    PARENT: 'genericObstacle',
     LABEL: "Wall",
     SIZE: 25,
     SHAPE: 4,
     ANGLE: 0,
     WALL_TYPE: 1,
     VARIES_IN_SIZE: false
+}
+Class.labyrinthWall = {
+    PARENT: 'wall',
+    COLOR: 'black',
+    ALPHA: 0.5
 }
 Class.eyewall = {
     PARENT: "wall",
