@@ -1,6 +1,6 @@
-const {combineStats, makeMenu, weaponArray, weaponMirror} = require('../../../facilitators.js')
-const {base} = require('../../../constants.js')
-const g = require('../../../gunvals.js')
+const {combineStats, makeMenu, weaponArray, weaponMirror} = require('../../../../facilitators.js')
+const {base} = require('../../../../constants.js')
+const g = require('../../../../gunvals.js')
 
 Class.thaumaturge_AR = {
     PARENT: "miniboss",
