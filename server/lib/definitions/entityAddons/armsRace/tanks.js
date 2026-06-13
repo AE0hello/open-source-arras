@@ -50,6 +50,9 @@ const addUpgrades = (type, tier, upgrades = [], options = {}) => {
     }
 }
 
+// Projectiles
+Class.mechTrap_AR = makeAuto("trap", {type: "droneAutoTurret"})
+
 // Tier 2
 Class.diesel_AR = {
     PARENT: "genericTank",
@@ -1365,7 +1368,6 @@ Class.vortexSquare_AR = {
 }
 
 // Projectiles
-Class.mechTrap_AR = makeAuto("trap", {type: "droneAutoTurret"})
 Class.angleseerSunchip_AR = {
     PARENT: "sunchip",
     NECRO: [3],
