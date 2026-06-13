@@ -1491,8 +1491,8 @@ exports.makePolychoron = function (info) {
 
 // tgs
 exports.deleteUpgrades = (type, tier, upgrades = []) => {
-    typeUpgrades = Class[type]['UPGRADES_TIER_' + tier]
-    for (let i = 0; i < typeUpgrades.length; i++) {
+    typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
+    for (let i = typeUpgrades.length - 1; i >= 0; i--) {
         let string = typeUpgrades[i];
         for (const upgrade of upgrades) if (string === upgrade) {
             typeUpgrades.splice(i, 1)
