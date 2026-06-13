@@ -6118,7 +6118,7 @@ if (Config.retrograde) {
         Class.flankGuard.UPGRADES_TIER_3.push('tripleMachine')
 }
 
-if (Config.siege) {
+if (Config.teams == 1) {
     Class.basic.UPGRADES_TIER_2 = ['healer']
     deleteUpgrades('director', 2, ['underseer'])
     deleteUpgrades('whirlwind', 3, ['prophet'])
