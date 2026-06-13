@@ -1,7 +1,7 @@
 let crypto = require("crypto"),
     net = require('net'),
     fs = require("fs");
-    PERMABAN_FILE = "./permabans.json";
+    PERMABAN_FILE = "./permanentBans.json";
 let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
 global.chatID = 0;
@@ -2196,7 +2196,7 @@ class socketManager {
                 }
             }
         } catch (e) {
-            console.error("Error checking permabans:", e);
+            console.error("Error checking permanent bans:", e);
         }
         // Log it
         util.log("[INFO]: New socket opened with ip " + socket.ip);
