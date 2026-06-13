@@ -71,7 +71,7 @@ const getName = (name, gamemodeData) => {
             //labyrinth: "Labyrinth",
                 //old_labyrinth: "Old Labyrinth",
             //magic_maze: "Magic Maze",
-            //rock_maze: "Rock Maze",
+            rock: "Rock",
                 //pumpkin_patch: "Pumpkin Patch",
         outbreak: "Outbreak",
         retrograde: "Retrograde",
