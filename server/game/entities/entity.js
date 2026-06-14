@@ -1147,7 +1147,7 @@ class Entity extends EventEmitter {
                 killText = "You have died a stupid death";
             }
             if (Config.outbreak && !this.zombified) {
-                killText = `You died and became a zombified ${this.label}`
+                killText = `You died and became a Zombified ${this.label}`
                 killSuffix = "!"
             }
             if (!this.dontSendDeathMessage) {
