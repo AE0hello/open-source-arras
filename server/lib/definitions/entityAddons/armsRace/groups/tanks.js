@@ -2623,8 +2623,6 @@ Class.vulcan_AR = {
 
 // Tier 5 (are we deadass)
 Class.custodian_AR = makeGuard('single', "Custodian")
-Class.duplex_AR = makeFlank('duo_AR', 2, "Duplex", {extraStats: [g.doubleTwin]})
-Class.senion_AR = makeFlank('single', 6, "Senion", {extraStats: [g.flankGuard, g.flankGuard], delayIncrement: 0.5, danger: 9})
 
 // Class Tree
 if (!Config.arms_race == true) {return}
