@@ -1,7 +1,6 @@
 const {skill_cap} = require('../../config.js')
-const {statnames} = require('./constants.js')
+const {statnames, basePolygonDamage, basePolygonHealth, dfltskl, smshskl} = require('./constants.js')
 const g = require('./gunvals.js')
-const {basePolygonDamage, basePolygonHealth, dfltskl} = require("./constants")
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -96,6 +95,11 @@ exports.dereference = type => {
     if (type.TURRETS) {
         for (let i = 0; i < type.TURRETS.length; i++) {
             output.TURRETS[i].TYPE = type.TURRETS[i].TYPE;
+        }
+    }
+    if (type.PROPS) {
+        for (let i = 0; i < type.PROPS.length; i++) {
+            output.PROPS[i].TYPE = type.PROPS[i].TYPE;
         }
     }
     for (let key in output) {
@@ -406,18 +410,18 @@ exports.makeAuto = (type, name = -1, options = {}) => {
             }
         ]
     }, options.total ??= 1);
-    if (type.GUNS != null) {
+    if (type.GUNS) {
         output.GUNS = type.GUNS;
     }
-    if (type.PROPS == null || options.clearProps == true) {
-        output.PROPS = [];
-    } else {
-        output.PROPS = [...type.PROPS];
-    }
-    if (type.TURRETS == null || options.clearTurrets == true) {
+    if (!type.TURRETS || options.clearTurrets == true) {
         output.TURRETS = [...autogun];
     } else {
         output.TURRETS = [...type.TURRETS, ...autogun];
+    }
+    if (!type.PROPS || options.clearProps == true) {
+        output.PROPS = [];
+    } else {
+        output.PROPS = [...type.PROPS];
     }
     if (name == -1) {
         output.LABEL = "Auto-" + type.LABEL;
@@ -1499,6 +1503,7 @@ exports.deleteUpgrades = (type, tier, upgrades = []) => {
         }
     }
 }
+
 exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
     type = ensureIsClass(type);
 
