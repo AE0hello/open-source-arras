@@ -1494,6 +1494,16 @@ exports.makePolychoron = function (info) {
 };
 
 // tgs
+exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
+    name = ensureIsClass(type)
+    upgradeList = upgrades.map(x => x + (options.suffix ??= ''))
+
+    if (name[`UPGRADES_TIER_${tier}`] == undefined) {
+        name[`UPGRADES_TIER_${tier}`] = upgradeList
+    } else {
+        name[`UPGRADES_TIER_${tier}`].push(...upgradeList)
+    }
+}
 exports.deleteUpgrades = (type, tier, upgrades = []) => {
     typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
     for (let i = typeUpgrades.length - 1; i >= 0; i--) {

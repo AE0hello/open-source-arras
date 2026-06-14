@@ -32,3 +32,25 @@ Class.healerAutoTankGun_AR = makeTurret({
         }
     ],
 }, {canRepel: true, limitFov: true, fov: 3})
+Class.singleAutoTankGun_AR = makeTurret({
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.single, g.flankGuard]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5,
+                WIDTH: 8,
+                ASPECT: -1.8,
+                X: 6.5
+            }
+        }
+    ]
+}, {canRepel: true, limitFov: true, fov: 3})
