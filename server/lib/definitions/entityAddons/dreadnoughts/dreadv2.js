@@ -87,7 +87,7 @@ function combineBodyStats(...bodies) {
 }
 
 // Set the below variable to true to disable the level requirements for upgrading.
-const free_upgrades = false
+const free_upgrades = true
 
 // Set the below variable to true to enable hex dreadnought building.
 const buildHexnoughts = true
