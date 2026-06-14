@@ -1,4 +1,3 @@
-const {skill_cap} = require('../../config.js')
 const {statnames, basePolygonDamage, basePolygonHealth, dfltskl, smshskl} = require('./constants.js')
 const g = require('./gunvals.js')
 let skcnv = {
@@ -75,7 +74,7 @@ exports.skillSet = (args) => {
     let skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let s in args) {
         if (!args.hasOwnProperty(s)) continue;
-        skills[skcnv[s]] = Math.round(skill_cap * args[s]);
+        skills[skcnv[s]] = Math.round(Config.skill_cap * args[s]);
     }
     return skills;
 }
