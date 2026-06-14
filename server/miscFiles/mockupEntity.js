@@ -361,7 +361,7 @@ class MockupEntity {
                         level: Config.tier_multiplier * i,
                         index: index.substring(0, index.length - 1),
                         tier: i,
-                        branch: 0,
+                        branch,
                         branchLabel: this.branchLabel,
                         redefineAll,
                     });
