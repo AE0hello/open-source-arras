@@ -133,6 +133,13 @@
                                     </tr>
                                 </table>
                                 <div class="optionsHeader">UI Elements</div>
+                                <select id="optUiScale" tabindex="-1">
+                                    <option value="auto">UI Scale (Auto)</option>
+                                    <option value="small">UI Scale (Small)</option>
+                                    <option value="normal">UI Scale (Normal)</option>
+                                    <option value="large">UI Scale (Large)</option>
+                                    <option value="mobile">UI Scale (Mobile)</option>
+                                </select>
                                 <table>
                                     <tr>
                                         <td><div><label class="container"><input id="optRenderGui" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>GUI</label></div></td>
@@ -151,7 +158,7 @@
                                         <td><div><label class="container"><input id="optRenderUpgrades" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Upgrades</label></div></td>
                                     </tr>
                                     <tr>
-                                        <td><div><label class="container"><input id="optRenderKillbar" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span> Player Kill Bars</label></div></td>
+                                        <td><div><label class="container"><input id="optRenderKillbar" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Kill Bar</label></div></td>
                                         <td><div><label class="container"><input id="optRenderMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Minimap</label></div></td>
                                     </tr>
                                 </table>
@@ -173,14 +180,7 @@
                                     </tr>
                                 </table>
                                 <div class="optionsHeader">Miscellaneous</div>
-                                <select id="optUiScale" tabindex="-1">
-                                    <option value="auto">UI Scale (Auto)</option>
-                                    <option value="small">UI Scale (Small)</option>
-                                    <option value="normal">UI Scale (Normal)</option>
-                                    <option value="large">UI Scale (Large)</option>
-                                    <option value="mobile">UI Scale (Mobile)</option>
-                                </select>
-                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64" />
+                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64"/>
                                 <table>
                                     <tr>
                                         <td><div><label class="container"><input id="autoLevelUp" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Auto-Level Up</label></div></td>
@@ -198,10 +198,10 @@
                                         <td><div><label class="container"><input id="optOldUiStyle" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Old-UI Style</label></div></td>
                                     </tr>
                                 </table>
-                                <div class="optionsHeader">Menu Settings</div>
+                                <div class="optionsHeader">Main Menu</div>
                                 <table>
                                     <tr>
-                                        <td><div><label class="container"><input id="unlimitedMenuHeight" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Uncapped Menu Height</label></div></td>
+                                        <td><div><label class="container"><input id="unlimitedMenuHeight" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Uncapped Height</label></div></td>
                                     </tr>
                                 </table>
                                 <table>

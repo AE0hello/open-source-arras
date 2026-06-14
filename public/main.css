@@ -265,7 +265,7 @@ input:disabled {
 
 #playerKeyInput {
 	padding: 1.6px;
-	width: 150px;
+	width: 340px;
 	color: black;
 }
 
@@ -606,7 +606,7 @@ body.mobile .desktopControlTab {
 }
 
 #optUiScale {
-  width: 183px;
+  width: 215px;
 }
 
 body.mobile #optColors {
