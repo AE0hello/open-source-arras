@@ -369,6 +369,7 @@ var gameDraw = {
                 return gameDraw.color.grey;
 
             case 17:
+            case "rogue":
             case "darkGrey":
             case "darkGray":
                 return gameDraw.color.dgrey;
