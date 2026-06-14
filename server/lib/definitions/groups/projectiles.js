@@ -776,7 +776,7 @@ Class.sentrySwarmMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     GUNS: Class.sentrySwarm.GUNS
@@ -785,7 +785,7 @@ Class.sentryGunMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -797,7 +797,7 @@ Class.sentryTrapMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{

@@ -7,11 +7,11 @@ const g = require('../../gunvals.js')
 // - This addon DOES NOT use any other code from diepcustom or diep.io.
 
 Class.guardian_diep = {
-    PARENT: "elite",
+    PARENT: 'elite',
     LABEL: "Guardian of the Pentagons",
     UPGRADE_LABEL: "Guardian",
-    UPGRADE_COLOR: "pink",
-    FACING_TYPE: "toTarget",
+    UPGRADE_COLOR: 'pink',
+    FACING_TYPE: 'toTarget',
     GUNS: [
         {
             POSITION: [4, 12, 1.4, 8, 0, 180, 0],
@@ -37,7 +37,7 @@ Class.defenderTurret_diep = {
     ]
 }
 Class.defender_diep = {
-    PARENT: "elite",
+    PARENT: 'elite',
     LABEL: "Defender",
     COLOR: "orange",
     UPGRADE_COLOR: "orange",

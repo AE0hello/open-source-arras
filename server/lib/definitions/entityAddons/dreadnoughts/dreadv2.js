@@ -269,7 +269,7 @@ Class.spamAutoTurret = {
 Class.aggressorMinion_dreadsV2 = {
 	PARENT: "minion",
 	SHAPE: 3.5,
-	COLOR: "triangle",
+	COLOR: 'triangle',
 	GUNS: weaponArray({
 		POSITION: [16, 8.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
@@ -282,7 +282,7 @@ Class.aggressorMinion_dreadsV2 = {
 Class.assailantMinion_dreadsV2 = {
 	PARENT: "minion",
 	SHAPE: 4,
-	COLOR: "square",
+	COLOR: 'square',
 	GUNS: weaponArray({
 		POSITION: [15, 7.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
