@@ -1402,6 +1402,38 @@ Class.waarrk_AR = {
     ]
 }
 Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]})
+Class.widget_AR = {
+    PARENT: "genericTank",
+    LABEL: "Widget",
+    DANGER: 7,
+    BODY: {
+        FOV: base.FOV * 1.2
+    },
+    ...preset.todo_placeholder_guns,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 8,
+                ASPECT: 1.4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                ASPECT: 1.4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 8,
+                ASPECT: 1.4
+            }
+        }
+    ]
+}
 
 // Tier 4
 Class.accountant_AR = {
@@ -4734,38 +4766,6 @@ Class.stall_AR = {
 Class.triMachine_AR = makeFlank('machineTrapper_AR', 3, "Tri-Machine", {extraStats: [g.flankGuard]})
 Class.triMech_AR = makeFlank('mech_AR', 3, "Tri-Mech", {extraStats: [g.flankGuard]})
 Class.triPen_AR = makeFlank('pen_AR', 3, "Tri-Pen", {extraStats: [g.flankGuard]})
-Class.widget_AR = {
-    PARENT: "genericTank",
-    LABEL: "Widget",
-    DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.2
-    },
-    ...preset.todo_placeholder_guns,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 21,
-                WIDTH: 8,
-                ASPECT: 1.4
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 8,
-                ASPECT: 1.4
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17,
-                WIDTH: 8,
-                ASPECT: 1.4
-            }
-        }
-    ]
-}
 Class.zipper_AR = {
     PARENT: "genericTank",
     LABEL: "Zipper",
