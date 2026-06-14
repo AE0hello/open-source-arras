@@ -1438,23 +1438,15 @@ Class.autoSmasher = makeAuto({
     DANGER: 6,
     TURRETS: [
         {
-            POSITION: [21.5, 0, 0, 0, 360, 0],
-            TYPE: ['hexagonHat_spin', {COLOR: 'black'}]
+            TYPE: ['hexagonHat_spin', {COLOR: 'black'}],
+            POSITION: {
+                SIZE: 21.5,
+                ARC: 360
+            }
         }
     ],
-    SKILL_CAP: {
-        RELOAD: smshskl,
-        PENETRATION: smshskl,
-        BULLET_HEALTH: smshskl,
-        BULLET_DAMAGE: smshskl,
-        BULLET_SPEED: smshskl,
-        SHIELD_CAPACITY: smshskl,
-        BODY_DAMAGE: smshskl,
-        MAX_HEALTH: smshskl,
-        SHIELD_REGENERATION: smshskl,
-        MOVEMENT_SPEED: smshskl
-    },
-}, "Auto-Smasher", {type: "autoSmasherTurret", size: 11})
+    SKILL_CAP: Array(10).fill(smshskl)
+}, "Auto-Smasher", {type: 'autoSmasherTurret', size: 11})
 Class.autoSpawner = makeAuto('spawner')
 Class.autoTriAngle = makeAuto('triAngle')
 Class.banshee = makeRadialAuto('bansheegun', {isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: {SPEED: 0.8 * base.SPEED, FOV: 1.1 * base.FOV}})
