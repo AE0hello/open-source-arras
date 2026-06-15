@@ -16,7 +16,7 @@ Class.menu_sentries = makeMenu("Sentries", {upgrades: [
 	"sentinelMinigun",
 	"sentinelLauncher",
 	"sentinelCrossbow",
-], COLOR: 'pink', boxCOLOR: 'pink', shape: 3.5, props: [{POSITION: [12, 0, 0, 0, 360, 1], TYPE: ["circleHat", {COLOR: "grey"}]}]})
+], color: 'pink', boxColor: 'pink', shape: 3.5, props: [{POSITION: [12, 0, 0, 0, 360, 1], TYPE: ["circleHat", {COLOR: "grey"}]}]})
 
 // Sentries
 Class.sentry = {

@@ -35,7 +35,7 @@ Class.menu_elites = makeMenu("Elites", {upgrades: [
     "eliteRocketeer",
     "menu_legions",
     "menu_deltas",
-], COLOR: 'pink', boxCOLOR: 'pink', shape: 3.5})
+], color: 'pink', boxColor: 'pink', shape: 3.5})
 
 Class.menu_legions = makeMenu("Crasher Legions", {upgrades: [
     "destroyerLegion",
@@ -44,14 +44,14 @@ Class.menu_legions = makeMenu("Crasher Legions", {upgrades: [
     "battleshipLegion",
     "spawnerLegion",
     "legionaryCrasher",
-], COLOR: 'pink', boxCOLOR: 'pink', boxLabel: "Legions", shape: 3.5})
+], color: 'pink', boxColor: 'pink', boxLabel: "Legions", shape: 3.5})
 
 Class.menu_deltas = makeMenu("Delta Crashers", {upgrades: [
     "deltaDestroyer",
     "deltaGunner",
     "deltaSprayer",
     "deltaBattleship",
-], COLOR: 'pink', boxCOLOR: 'pink', boxLabel: "Deltas", shape: 3.5})
+], color: 'pink', boxColor: 'pink', boxLabel: "Deltas", shape: 3.5})
 
 // Basic Elites
 Class.eliteLauncher = {
