@@ -1914,10 +1914,22 @@ import * as socketStuff from "./socketinit.js";
                                 for (let i = 0; i < indicesRaw.length; ++i) {
                                     indices.push(indicesRaw[i].split(',').map(Number));
                                 }
+                                // Optional 4th "/" segment: one colour per face (e.g. "pureWhite,pureBlack,...").
+                                let faceColors = null;
+                                if (dividedParts[3]) {
+                                    faceColors = dividedParts[3].split(',').map(tok => {
+                                        tok = (tok || '').trim();
+                                        if (!tok) return null;
+                                        try {
+                                            return gameDraw.modifyColor(tok.includes(' ') ? tok : tok + ' 0 1 0 false');
+                                        } catch (e) { return null; }
+                                    });
+                                }
                                 polygon3d = {
                                     vertexes,
                                     indices,
-                                    multiplier: Number(dividedParts[2])
+                                    multiplier: Number(dividedParts[2]),
+                                    faceColors
                                 };
                                 drawPoly3D.set(sides, polygon3d);
                             }
@@ -1929,7 +1941,13 @@ import * as socketStuff from "./socketinit.js";
                                 .sort((a, b) => sortSides3d(rotated, a, b));
                             context.lineWidth /= 2;
                             const size = radius * polygon3d.multiplier;
+                            const defaultFill = context.fillStyle;
                             for (const sides of sortedSides) {
+                                if (polygon3d.faceColors) {
+                                    const fi = polygon3d.indices.indexOf(sides);
+                                    const fc = fi >= 0 ? polygon3d.faceColors[fi] : null;
+                                    context.fillStyle = fc || defaultFill;
+                                }
                                 context.beginPath();
                                 for (let i = 0; i < sides.length; ++i) {
                                     const a = projectPoint3d(rotated[sides[i]]);
@@ -1947,6 +1965,7 @@ import * as socketStuff from "./socketinit.js";
                                 context.fill();
                                 context.stroke();
                             }
+                            if (polygon3d.faceColors) context.fillStyle = defaultFill;
                             return;
                         }
                         if (sides.startsWith('4d=')) {
@@ -1974,10 +1993,21 @@ import * as socketStuff from "./socketinit.js";
                                 for (let i = 0; i < indicesRaw.length; ++i) {
                                     indices.push(indicesRaw[i].split(',').map(Number));
                                 }
+                                let faceColors = null;
+                                if (dividedParts[3]) {
+                                    faceColors = dividedParts[3].split(',').map(tok => {
+                                        tok = (tok || '').trim();
+                                        if (!tok) return null;
+                                        try {
+                                            return gameDraw.modifyColor(tok.includes(' ') ? tok : tok + ' 0 1 0 false');
+                                        } catch (e) { return null; }
+                                    });
+                                }
                                 polygon4d = {
                                     vertexes,
                                     indices,
-                                    multiplier: Number(dividedParts[2])
+                                    multiplier: Number(dividedParts[2]),
+                                    faceColors
                                 };
                                 drawPoly4D.set(sides, polygon4d);
                             }
@@ -1989,7 +2019,13 @@ import * as socketStuff from "./socketinit.js";
                                 .sort((a, b) => sortSides4d(rotated, a, b));
                             context.lineWidth /= 2;
                             const size = radius * polygon4d.multiplier;
+                            const defaultFill = context.fillStyle;
                             for (const sides of sortedSides) {
+                                if (polygon4d.faceColors) {
+                                    const fi = polygon4d.indices.indexOf(sides);
+                                    const fc = fi >= 0 ? polygon4d.faceColors[fi] : null;
+                                    context.fillStyle = fc || defaultFill;
+                                }
                                 context.beginPath();
                                 for (let i = 0; i < sides.length; ++i) {
                                     const a = projectPoint4d(rotated[sides[i]]);
@@ -2007,6 +2043,7 @@ import * as socketStuff from "./socketinit.js";
                                 context.fill();
                                 context.stroke();
                             }
+                            if (polygon4d.faceColors) context.fillStyle = defaultFill;
                             return;
                         }
                         let path = new Path2D(sides);

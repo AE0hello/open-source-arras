@@ -1,8 +1,10 @@
-const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makePolyhedron, makeRadialAuto, makeTurret, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'rainbowTesseract',
+    'coloredFootball',
     'tagger',
     'roaringLancer',
     "gunLayerTest",
@@ -36,6 +38,151 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "anglemancer",
     "backwardsExports",
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+
+const tessFaceColors = Array.from({ length: 20 }, (_, i) =>
+    ["red", "orange", "yellow", "green", "blue", "purple"][i % 6]
+);
+Class.rainbowTesseract = {
+    PARENT: 'tesseract',
+    LABEL: "Rainbow Tesseract",
+    NAME: "Rainbow Tesseract",
+    SHAPE: Class.tesseract.SHAPE + "/" + tessFaceColors.join(","),
+};
+
+let TRUNCATED_ICOSAHEDRON = {
+    VERTEXES: [
+        [0.742344, 0.28355, -0.350487],
+        [0.850651, 0, -0.175244],
+        [0.742344, -0.28355, -0.350487],
+        [0.5671, -0.175244, -0.634038],
+        [0.5671, 0.175244, -0.634038],
+        [-0.5671, 0.175244, -0.634038],
+        [-0.5671, -0.175244, -0.634038],
+        [-0.742344, -0.28355, -0.350487],
+        [-0.850651, 0, -0.175244],
+        [-0.742344, 0.28355, -0.350487],
+        [0.5671, 0.175244, 0.634038],
+        [0.5671, -0.175244, 0.634038],
+        [0.742344, -0.28355, 0.350487],
+        [0.850651, 0, 0.175244],
+        [0.742344, 0.28355, 0.350487],
+        [-0.742344, 0.28355, 0.350487],
+        [-0.850651, 0, 0.175244],
+        [-0.742344, -0.28355, 0.350487],
+        [-0.5671, -0.175244, 0.634038],
+        [-0.5671, 0.175244, 0.634038],
+        [0.350487, 0.742344, -0.28355],
+        [0.175244, 0.850651, 0],
+        [0.350487, 0.742344, 0.28355],
+        [0.634038, 0.5671, 0.175244],
+        [0.634038, 0.5671, -0.175244],
+        [0.634038, -0.5671, -0.175244],
+        [0.634038, -0.5671, 0.175244],
+        [0.350487, -0.742344, 0.28355],
+        [0.175244, -0.850651, 0],
+        [0.350487, -0.742344, -0.28355],
+        [-0.634038, 0.5671, -0.175244],
+        [-0.634038, 0.5671, 0.175244],
+        [-0.350487, 0.742344, 0.28355],
+        [-0.175244, 0.850651, 0],
+        [-0.350487, 0.742344, -0.28355],
+        [-0.350487, -0.742344, -0.28355],
+        [-0.175244, -0.850651, 0],
+        [-0.350487, -0.742344, 0.28355],
+        [-0.634038, -0.5671, 0.175244],
+        [-0.634038, -0.5671, -0.175244],
+        [0.28355, 0.350487, -0.742344],
+        [0, 0.175244, -0.850651],
+        [-0.28355, 0.350487, -0.742344],
+        [-0.175244, 0.634038, -0.5671],
+        [0.175244, 0.634038, -0.5671],
+        [0.175244, 0.634038, 0.5671],
+        [-0.175244, 0.634038, 0.5671],
+        [-0.28355, 0.350487, 0.742344],
+        [0, 0.175244, 0.850651],
+        [0.28355, 0.350487, 0.742344],
+        [0.175244, -0.634038, -0.5671],
+        [-0.175244, -0.634038, -0.5671],
+        [-0.28355, -0.350487, -0.742344],
+        [0, -0.175244, -0.850651],
+        [0.28355, -0.350487, -0.742344],
+        [0.28355, -0.350487, 0.742344],
+        [0, -0.175244, 0.850651],
+        [-0.28355, -0.350487, 0.742344],
+        [-0.175244, -0.634038, 0.5671],
+        [0.175244, -0.634038, 0.5671]
+    ],
+    FACES: [
+        [41, 42, 5, 6, 52, 53],
+        [44, 20, 21, 33, 34, 43],
+        [41, 40, 44, 43, 42],
+        [42, 43, 34, 30, 9, 5],
+        [32, 31, 30, 34, 33],
+        [19, 15, 31, 32, 46, 47],
+        [47, 48, 56, 57, 18, 19],
+        [48, 49, 10, 11, 55, 56],
+        [11, 10, 14, 13, 12],
+        [2, 25, 26, 12, 13, 1],
+        [1, 0, 4, 3, 2],
+        [21, 20, 24, 23, 22],
+        [32, 33, 21, 22, 45, 46],
+        [46, 45, 49, 48, 47],
+        [10, 49, 45, 22, 23, 14],
+        [14, 23, 24, 0, 1, 13],
+        [44, 40, 4, 0, 24, 20],
+        [41, 53, 54, 3, 4, 40],
+        [39, 7, 8, 16, 17, 38],
+        [9, 30, 31, 15, 16, 8],
+        [15, 19, 18, 17, 16],
+        [50, 29, 28, 36, 35, 51],
+        [53, 52, 51, 50, 54],
+        [25, 2, 3, 54, 50, 29],
+        [26, 25, 29, 28, 27],
+        [6, 5, 9, 8, 7],
+        [52, 6, 7, 39, 35, 51],
+        [39, 38, 37, 36, 35],
+        [58, 57, 56, 55, 59],
+        [18, 57, 58, 37, 38, 17],
+        [11, 12, 26, 27, 59, 55],
+        [28, 27, 59, 58, 37, 36]
+    ],
+    SCALE: 12,
+    VERTEXES_SCALE: 0.1
+}
+Class.footballShape = {
+    PARENT: 'food',
+    LABEL: "Football",
+    NAME: "Football",
+    VALUE: 2e7,
+    SIZE: 10,
+    COLOR: "egg",
+    SHAPE: makePolyhedron(TRUNCATED_ICOSAHEDRON),
+    BODY: {
+        DAMAGE: 4.8,
+        DENSITY: 20,
+        HEALTH: 40,
+        RESIST: 1.25,
+        PENETRATION: 17.5,
+        ACCELERATION: 0.002
+    },
+    DRAW_HEALTH: true,
+    INTANGIBLE: false,
+    GIVE_KILL_MESSAGE: true
+}
+// Colour each face by its vertex count: a truncated icosahedron (football) has 12 PENTAGONS
+// (5 verts → black) and 20 HEXAGONS (6 verts → white). Reading it from the geometry means the
+// right faces are always coloured, regardless of face order — no hand-made list to get wrong.
+const footballFaceColors = (shape) =>
+    shape.split("/")[1].split(";")
+        .map(face => face.split(",").length === 5 ? "pureBlack" : "pureWhite")
+        .join(",");
+Class.coloredFootball = {
+    PARENT: 'footballShape',
+    LABEL: "Football",
+    SIZE: 120,
+    NAME: "Football",
+    SHAPE: Class.footballShape.SHAPE + "/" + footballFaceColors(Class.footballShape.SHAPE),
+}
 
 // Tagger
 Class.tagBullet = {
