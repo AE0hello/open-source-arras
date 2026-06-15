@@ -211,7 +211,7 @@ if (Config.siege) {
 } else {
     unavailable_tanks = ['healer']
 }
-Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "arenaCloser", ...unavailable_tanks]})
+Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_dailyTanks", "menu_mapEntities", "menu_motherships", "menu_fun", "arenaCloser", ...unavailable_tanks]})
 
 Class.menu_unused = makeMenu("Unused", {upgrades: ["1", "2", "3"].map(x => "menu_unused_T" + x), tooltip: "Tanks that were fully created and likely intended to be added, but never were."})
 Class.menu_unused_T1 = makeMenu("Unused (Tier 1)", {upgrades: [
@@ -238,7 +238,6 @@ Class.menu_unused_T3 = makeMenu("Unused (Tier 3)", {upgrades: [
     'wrangler',
 ], boxLabel: "Tier 3 (Lv.45)"})
 
-Class.menu_removed = makeMenu("Removed", {upgrades: ["menu_dailyTanks", "menu_legacy"], tooltip: "Tanks that were previously accessible in-game in some form before being removed."})
 Class.menu_dailyTanks = makeMenu("Daily Tanks", {upgrades: [
     'whirlwind',
     'master',
@@ -249,17 +248,6 @@ Class.menu_dailyTanks = makeMenu("Daily Tanks", {upgrades: [
     'jumpSmasher',
     'rapture',
 ], boxColor: "rainbow", tooltip: "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available.\n" + "The Daily Tank for a server can be added or changed in config."})
-Class.menu_legacy = makeMenu("Legacy Tanks", {upgrades: [
-    'boomer_old',
-    'commander_old',
-    'bulwark_old',
-    'auto4_old',
-    'rifle_old',
-    'septaTrapper_old',
-    'spike_old',
-    'sprayer_old',
-    'spreadshot_old',
-], tooltip: "The original versions of certain tanks."})
 
 Class.menu_mapEntities = makeMenu("Map Entities", {upgrades: ["menu_dominators", "baseProtector", "antiTankMachineGun", "menu_sanctuaries"], props: [{TYPE: "dominationBody", POSITION: {SIZE: 22}}], tooltip: "Tanks that spawn as part of the map layout."})
 Class.menu_dominators = makeMenu("Dominators", {upgrades: ["destroyer", "gunner", "trapper"].map(x => x + "Dominator"), props: [{TYPE: "dominationBody", POSITION: {SIZE: 22}}]})
