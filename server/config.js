@@ -91,33 +91,12 @@ module.exports = {
             // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
             // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
 
-            host: 'localhost:3003', // Server host location.
-            port: 3003, // The port on the server.
-            id: 'lm', // (<host>/#<id>)
-
-            region: "Local", // The region the server is on.
-            gamemode: ['limbo'], // The selected gamemode.
-            player_cap: 80, // Not including bots. Set to 0 to disable.
-
-            featured: false, // Whether the server is featured or not.
-            unlisted: true, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: true, // Whether the server requires a privileged token to join (except through server travel).
-
-            properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
-
-            }
-        },
-        {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
-
-            host: 'localhost:3004', // Server host location.
-            port: 3004, // The port on the server.
+            host: 'localhost:3097', // Server host location.
+            port: 3097, // The port on the server.
             id: 'lx', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['arms_race', 'rock', 'tdm'], // The selected gamemode.
+            gamemode: ['nexus'], // The selected gamemode.
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
