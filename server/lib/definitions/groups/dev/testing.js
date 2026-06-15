@@ -3,6 +3,7 @@ const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'flag',
     'ball',
     'rainbowTesseract',
     'tagger',
@@ -48,6 +49,22 @@ Class.rainbowTesseract = {
     NAME: "Rainbow Tesseract",
     SHAPE: Class.tesseract.SHAPE + "/" + tessFaceColors.join(","),
 };
+
+Class.flag = {
+    PARENT: 'genericTank',
+    LABEL: "Flag",
+    SIZE: 20,
+    COLOR: 3,
+    TURRETS: [
+        {
+            TYPE: 'flagHat',
+            POSITION: {
+                SIZE: 20,
+                LAYER: 1
+            }
+        }
+    ]
+}
 
 // Set the below variable to true to enable the flat ball from arras.io.
 const classic_football = false
