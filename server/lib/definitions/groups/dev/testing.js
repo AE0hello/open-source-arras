@@ -3,8 +3,8 @@ const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'ball',
     'rainbowTesseract',
-    'coloredFootball',
     'tagger',
     'roaringLancer',
     "gunLayerTest",
@@ -49,7 +49,13 @@ Class.rainbowTesseract = {
     SHAPE: Class.tesseract.SHAPE + "/" + tessFaceColors.join(","),
 };
 
-let TRUNCATED_ICOSAHEDRON = {
+// Set the below variable to true to enable the flat ball from arras.io.
+const classic_football = false
+
+// Colour each face by its vertex count: a truncated icosahedron (football) has 12 PENTAGONS
+// (5 verts → black) and 20 HEXAGONS (6 verts → white). Reading it from the geometry means the
+// right faces are always coloured, regardless of face order — no hand-made list to get wrong.
+let football = makePolyhedron({
     VERTEXES: [
         [0.742344, 0.28355, -0.350487],
         [0.850651, 0, -0.175244],
@@ -148,15 +154,15 @@ let TRUNCATED_ICOSAHEDRON = {
     ],
     SCALE: 12,
     VERTEXES_SCALE: 0.1
-}
-Class.footballShape = {
+})
+const footballFaceColors = (shape) => shape.split("/")[1].split(";").map(face => face.split(",").length === 5 ? "black" : "veryLightGrey").join(",");
+Class.ball = {
     PARENT: 'food',
-    LABEL: "Football",
-    NAME: "Football",
+    LABEL: "Ball",
     VALUE: 2e7,
-    SIZE: 10,
-    COLOR: "egg",
-    SHAPE: makePolyhedron(TRUNCATED_ICOSAHEDRON),
+    SIZE: 30,
+    COLOR: 'veryLightGrey',
+    SHAPE: football + '/' + footballFaceColors(football),
     BODY: {
         DAMAGE: 4.8,
         DENSITY: 20,
@@ -165,23 +171,22 @@ Class.footballShape = {
         PENETRATION: 17.5,
         ACCELERATION: 0.002
     },
-    DRAW_HEALTH: true,
+    DRAW_HEALTH: false,
     INTANGIBLE: false,
     GIVE_KILL_MESSAGE: true
 }
-// Colour each face by its vertex count: a truncated icosahedron (football) has 12 PENTAGONS
-// (5 verts → black) and 20 HEXAGONS (6 verts → white). Reading it from the geometry means the
-// right faces are always coloured, regardless of face order — no hand-made list to get wrong.
-const footballFaceColors = (shape) =>
-    shape.split("/")[1].split(";")
-        .map(face => face.split(",").length === 5 ? "pureBlack" : "pureWhite")
-        .join(",");
-Class.coloredFootball = {
-    PARENT: 'footballShape',
-    LABEL: "Football",
-    SIZE: 120,
-    NAME: "Football",
-    SHAPE: Class.footballShape.SHAPE + "/" + footballFaceColors(Class.footballShape.SHAPE),
+if (classic_football) {
+    Class.ball.SHAPE = 0
+    Class.ball.COLOR = 'black'
+    Class.ball.PROPS = [
+        {
+            TYPE: 'ballHat',
+            POSITION: {
+                SIZE: 20,
+                LAYER: 1
+            }
+        }
+    ]
 }
 
 // Tagger
