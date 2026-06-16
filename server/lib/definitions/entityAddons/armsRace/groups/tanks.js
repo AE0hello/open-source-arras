@@ -2260,6 +2260,7 @@ Class.professor_AR = {
         }
     ]
 }
+Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
 Class.quintuplet_AR = {
     PARENT: "genericTank",
     LABEL: "Quintuplet",
@@ -2500,6 +2501,59 @@ Class.therapist_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.tommy_AR = makeGuard('minigun', "Tommy")
+Class.tornado_AR = {
+    PARENT: "genericTank",
+    LABEL: "Tornado",
+    DANGER: 8,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 5.5,
+                ANGLE: 90,
+                DELAY: 0.75
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 5.5,
+                ANGLE: 30,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 5.5,
+                ANGLE: 60,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 5.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: "bullet"
+            }
+        }
+    ], 3)
+}
 Class.tricker_AR = {
     PARENT: "genericTank",
     LABEL: "Tricker",
@@ -6205,7 +6259,6 @@ Class.pentaBlaster_AR = {
 }
 Class.productiondrive_AR = makeDrive("productionist_AR", {...preset.makeDrive.swarm, projectileType: 'tinyMinion', label: "Productiondrive"})
 Class.quadMachine_AR = makeFlank('machineGun', 4, "Quad Machine", {extraStats: [g.flankGuard, g.flankGuard, g.spam], danger: 8})
-Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
 Class.quadruplicator_AR = makeFlank('duplicator', 2, "Quadruplicator", {extraStats: [g.doubleTwin]})
 Class.quarterNQuarter_AR = {
     PARENT: "genericTank",
@@ -6670,59 +6723,6 @@ Class.toppler_AR = {
             TYPE: "bullet"
         }
     }, 3, {lengthOffset: 2, delayIncrement: 1/3})
-}
-Class.tornado_AR = {
-    PARENT: "genericTank",
-    LABEL: "Tornado",
-    DANGER: 8,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 5.5,
-                ANGLE: 90,
-                DELAY: 0.75
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 5.5,
-                ANGLE: 30,
-                DELAY: 0.25
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 5.5,
-                ANGLE: 60,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 5.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        }
-    ], 3)
 }
 Class.triSplasher_AR = {
     PARENT: "genericTank",
