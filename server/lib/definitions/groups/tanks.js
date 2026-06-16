@@ -412,7 +412,7 @@ Class.doubleFlail = {
     DANGER: 6,
     TURRETS: weaponArray(Class.flail.TURRETS, 2)
 }
-Class.doubleMachine = makeFlank('machineGun', 2, "Double Machine", {extraStats: [g.flankGuard]})
+Class.doubleMachine = makeFlank('machineGun', 2, "Double Machine", {extraStats: [g.doubleTwin]})
 Class.doubleTwin = makeFlank('twin', 2, "Double Twin", {extraStats: [g.doubleTwin]})
 Class.flangle = {
     PARENT: 'genericFlail',
@@ -2965,7 +2965,7 @@ Class.halfNHalf = {
                 X: 4
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, g.flankGuard]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, g.doubleTwin]),
                 TYPE: 'bullet'
             }
         },
@@ -2978,7 +2978,7 @@ Class.halfNHalf = {
                 ANGLE: 180
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.flankGuard]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.doubleTwin]),
                 TYPE: 'bullet'
             }
         }
@@ -5001,7 +5001,7 @@ Class.tripleFlail = {
     DANGER: 7,
     TURRETS: weaponArray(Class.flail.TURRETS, 3)
 }
-Class.tripleMachine = makeFlank('machineGun', 3, "Triple Machine", {extraStats: [g.flankGuard, g.flankGuard], danger: 7})
+Class.tripleMachine = makeFlank('machineGun', 3, "Triple Machine", {extraStats: [g.doubleTwin, g.tripleTwin], danger: 7})
 Class.tripleTwin = makeFlank('twin', 3, "Triple Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7})
 Class.triplet = {
     PARENT: 'genericTank',

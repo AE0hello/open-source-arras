@@ -1496,12 +1496,15 @@ exports.makePolychoron = function (info) {
 exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
     name = ensureIsClass(type)
     upgradeList = upgrades.map(x => x + (options.suffix ??= ''))
+    startValue = options.start ?? -1
 
     if (name[`UPGRADES_TIER_${tier}`] == undefined) {
-        name[`UPGRADES_TIER_${tier}`] = upgradeList
-    } else {
-        name[`UPGRADES_TIER_${tier}`].push(...upgradeList)
+        return name[`UPGRADES_TIER_${tier}`] = upgradeList
     }
+    if (startValue !== -1) {
+        return name[`UPGRADES_TIER_${tier}`].splice(startValue, 0, ...upgradeList)
+    }
+    name[`UPGRADES_TIER_${tier}`].push(...upgradeList)
 }
 exports.deleteUpgrades = (type, tier, upgrades = []) => {
     typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
