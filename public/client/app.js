@@ -91,7 +91,7 @@ import * as socketStuff from "./socketinit.js";
     function selectElement(element) {
         selectedElement = element;
         selectedElement.element.parentNode.parentNode.classList.add("editing");
-        if (selectedElement.keyCode !== -1 && window.getSelection) {
+        if (selectedElement.code !== -1 && window.getSelection) {
             let selection = window.getSelection();
             selection.removeAllRanges();
             let range = document.createRange();
@@ -100,24 +100,24 @@ import * as socketStuff from "./socketinit.js";
         }
     }
 
-    function setKeybind(key, keyCode) {
+    function setKeybind(key, code) {
         selectedElement.element.parentNode.parentNode.classList.remove("editing");
         resetButton.classList.add("active");
-        if (keyCode !== selectedElement.keyCode) {
-            let otherElement = controlsArray.find(c => c.keyCode === keyCode);
-            if (keyCode !== -1 && otherElement) {
+        if (code !== selectedElement.code) {
+            let otherElement = controlsArray.find(c => c.code === code);
+            if (code !== -1 && otherElement) {
                 otherElement.keyName = selectedElement.keyName;
                 otherElement.element.innerText = selectedElement.keyName;
-                otherElement.keyCode = selectedElement.keyCode;
-                global[otherElement.keyId] = selectedElement.keyCode;
-                keybinds[otherElement.keyId] = [selectedElement.keyName, selectedElement.keyCode];
+                otherElement.code = selectedElement.code;
+                global[otherElement.keyId] = selectedElement.code;
+                keybinds[otherElement.keyId] = [selectedElement.keyName, selectedElement.code];
             }
         }
         selectedElement.keyName = key;
         selectedElement.element.innerText = key;
-        selectedElement.keyCode = keyCode;
-        global[selectedElement.keyId] = keyCode;
-        keybinds[selectedElement.keyId] = [key, keyCode];
+        selectedElement.code = code;
+        global[selectedElement.keyId] = code;
+        keybinds[selectedElement.keyId] = [key, code];
         setKeybinds();
     }
 
@@ -137,7 +137,7 @@ import * as socketStuff from "./socketinit.js";
                     element,
                     keyId: key,
                     keyName: element.innerText,
-                    keyCode: global[key]
+                    code: global[key]
                 };
                 controlsArray.push(obj);
             }
@@ -305,7 +305,7 @@ import * as socketStuff from "./socketinit.js";
                 global.version = ve.ver;
                 if (ve.devBuild) {
                     global.devBuild = true;
-                    global.createTabMenu(`This server is running a development build of Open Source Arras. (${global.version})`, "warning");
+                    global.createTabMenu(`This server is running a development build of Open Source Arras, please report any issues you encounter. (${global.version})`, "warning");
                 }
                 // Addon info handler
                 let keyValue = localStorage.getItem('playerKeyInputValue');
@@ -328,14 +328,14 @@ import * as socketStuff from "./socketinit.js";
         document.getElementById("startButton").onclick = () => startGame();
         document.onkeydown = (e) => {
             if (!(global.gameStart || e.shiftKey || e.ctrlKey || e.altKey)) {
-                let key = e.which || e.keyCode;
+                let key = e.code;
                 if (selectedElement) {
-                    if (1 !== e.key.length /*|| /[0-9]/.test(e.key) // this code prevents numbers */ || 3 === e.location) {
-                        if (!("Backspace" !== e.key && "Delete" !== e.key)) {
-                            setKeybind("", -1);
+                    if (1 !== e.key.length || 3 === e.location) {
+                        if (!('Backspace' !== e.key && 'Delete' !== e.key)) {
+                            setKeybind('', -1);
                         }
                     } else {
-                        setKeybind(e.key.toUpperCase(), e.keyCode);
+                        setKeybind(e.key.toUpperCase(), e.code);
                     }
                 } else if (key === global.KEY_ENTER) {
                     startGame();
@@ -1413,7 +1413,7 @@ import * as socketStuff from "./socketinit.js";
     const ska = (x) => skas[x];
     const getClassUpgradeKey = (number) => {
         const key = global[`KEY_CHOOSE_${number + 1}`];
-        return key !== undefined ? String.fromCharCode(key) : null; // TODO: actually display the keycode (i.e. commas)
+        return key !== -1 ? key : null;
     };
 
     let tiles,

@@ -99,68 +99,67 @@ let Region = (size) => {
 let gameDraw;
 
 const global = {
-    // Keys and other mathematical constants. You can find the list here: https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode
-    // Special key for cheats / commands
-    KEY_SPECIAL: 192, // `
+    // Keys and other mathematical constants.
+    KEY_SPECIAL: 'Backquote',
 
-    KEY_ESC: 27,// Escape
-    KEY_ENTER: 13,// Enter
-    KEY_SHIFT: 16,// Shift
-    KEY_BECOME: 70,// F
-    KEY_CHAT: 13,// Enter
-    KEY_FIREFOOD: 119,// F8
-    KEY_SPLIT: 32,// Space
+    KEY_ESC: 'Escape',
+    KEY_ENTER: 'Enter',
+    KEY_SHIFT: 'ShiftLeft',
+    KEY_BECOME: 'KeyF',
+    KEY_CHAT: 'Enter',
+    KEY_FIREFOOD: 'F8',
+    KEY_SPLIT: 'Space',
 
-    KEY_LEFT: 65,// A
-    KEY_UP: 87,// W
-    KEY_RIGHT: 68,// D
-    KEY_DOWN: 83,// S
-    KEY_LEFT_ARROW: 37,// ArrowLeft
-    KEY_UP_ARROW: 38,// ArrowUp
-    KEY_RIGHT_ARROW: 39,// ArrowRight
-    KEY_DOWN_ARROW: 40,// ArrowDown
+    KEY_LEFT: 'KeyA',
+    KEY_UP: 'KeyW',
+    KEY_RIGHT: 'KeyD',
+    KEY_DOWN: 'KeyS',
+    KEY_LEFT_ARROW: 'ArrowLeft',
+    KEY_UP_ARROW: 'ArrowUp',
+    KEY_RIGHT_ARROW: 'ArrowRight',
+    KEY_DOWN_ARROW: 'ArrowDown',
 
-    KEY_AUTO_SPIN: 67,// C
-    KEY_AUTO_FIRE: 69,// E
-    KEY_AUTO_ALT: 71,// G
-    KEY_OVER_RIDE: 82,// R
-    KEY_REVERSE_TANK: 86,// V
-    KEY_REVERSE_MOUSE: 66,// B
-    KEY_SPIN_LOCK: 88,// X
+    KEY_AUTO_SPIN: 'KeyC',
+    KEY_AUTO_FIRE: 'KeyE',
+    KEY_AUTO_ALT: 'KeyG',
+    KEY_OVER_RIDE: 'KeyR',
+    KEY_REVERSE_TANK: 'KeyV',
+    KEY_REVERSE_MOUSE: 'KeyB',
+    KEY_SPIN_LOCK: 'KeyX',
 
-    KEY_LEVEL_UP: 78, // N
-    KEY_TOKEN: 80,// P
-    KEY_CLASS_TREE: 84,// T
-    KEY_MAX_STAT: 77,// M
-    KEY_SUICIDE: 79,// O
-    KEY_ZOOM_OUT: 45,// -
-    KEY_ZOOM_IN: 61,// =
-    KEY_DEBUG: 76,// L
+    KEY_LEVEL_UP: 'KeyN',
+    KEY_TOKEN: 'KeyP',
+    KEY_CLASS_TREE: 'KeyT',
+    KEY_MAX_STAT: 'KeyM',
+    KEY_SUICIDE: 'KeyO',
+    KEY_ZOOM_OUT: 'Minus',
+    KEY_ZOOM_IN: 'Equal',
+    KEY_DEBUG: 'KeyL',
 
-    KEY_SCREENSHOT: 81,// Q
-    KEY_RECORD: 90,// Z
+    KEY_SCREENSHOT: 'KeyQ',
+    KEY_RECORD: 'KeyZ',
 
-    KEY_UPGRADE_ATK: 49,// 1
-    KEY_UPGRADE_HTL: 50,// 2
-    KEY_UPGRADE_SPD: 51,// 3
-    KEY_UPGRADE_STR: 52,// 4
-    KEY_UPGRADE_PEN: 53,// 5
-    KEY_UPGRADE_DAM: 54,// 6
-    KEY_UPGRADE_RLD: 55,// 7
-    KEY_UPGRADE_MOB: 56,// 8
-    KEY_UPGRADE_RGN: 57,// 9
-    KEY_UPGRADE_SHI: 48,// 0
+    KEY_UPGRADE_ATK: 'Digit1',
+    KEY_UPGRADE_HTL: 'Digit2',
+    KEY_UPGRADE_SPD: 'Digit3',
+    KEY_UPGRADE_STR: 'Digit4',
+    KEY_UPGRADE_PEN: 'Digit5',
+    KEY_UPGRADE_DAM: 'Digit6',
+    KEY_UPGRADE_RLD: 'Digit7',
+    KEY_UPGRADE_MOB: 'Digit8',
+    KEY_UPGRADE_RGN: 'Digit9',
+    KEY_UPGRADE_SHI: 'Digit0',
 
-    KEY_MOUSE_0: 32,// Space
-    KEY_MOUSE_1: 86,// V
-    KEY_MOUSE_2: 16,// ShiftLeft
+    KEY_MOUSE_0: 'Space',
+    KEY_MOUSE_1: 'KeyV',
+    KEY_MOUSE_2: 'ShiftLeft',
 
-    KEY_CHOOSE_1: 89,// Y
-    KEY_CHOOSE_2: 85,// U
-    KEY_CHOOSE_3: 73,// I
-    KEY_CHOOSE_4: 72,// H
-    KEY_CHOOSE_5: 74,// J
-    KEY_CHOOSE_6: 75,// K
+    KEY_CHOOSE_1: 'KeyY',
+    KEY_CHOOSE_2: 'KeyU',
+    KEY_CHOOSE_3: 'KeyI',
+    KEY_CHOOSE_4: 'KeyH',
+    KEY_CHOOSE_5: 'KeyJ',
+    KEY_CHOOSE_6: 'KeyK',
 
     showTree: false,
     scrollX: 0,

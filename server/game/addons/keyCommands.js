@@ -954,15 +954,15 @@ function init() {
             }
         },
     ];
-    global.runKeyCommand = (socket, keyCodes) => {
+    global.runKeyCommand = (socket, codes) => {
         if (!socket?.player?.body) return 1;
       
         let permsLevel = socket.permissions?.level;
         if (!permsLevel) permsLevel = 0;
-        if (!keyCodes.length) keyCodes = ["default"];
+        if (!codes.length) codes = ["default"];
         let command = commands.find((command) =>
           command.keys.some((keys) =>
-            keys.every((key, index) => key[0] === keyCodes[index])
+            keys.every((key, index) => key[0] === codes[index])
           )
         );
         if (command && (permsLevel >= command.level || (command.operatorAccess && socket.player.body.hasOperator))) {

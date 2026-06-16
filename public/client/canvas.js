@@ -12,7 +12,7 @@ class Canvas {
         this.socket = global.socket;
         this.directions = [];
         this.chatListener = function(id, event) {
-            if (![global.KEY_ENTER, global.KEY_ESC].includes(event.keyCode)) return;
+            if (![global.KEY_ENTER, global.KEY_ESC].includes(event.code)) return;
             this[id].blur();
             this.cv.focus();
             global.showChat = false;
@@ -20,7 +20,7 @@ class Canvas {
                 if (!this.chatBox.loadedProperly) this.chatBox.remove(), this.chatInput.remove(), this.chatBox = false;
             }, 50)
             if (!this[id].value) return;
-            if (event.keyCode === global.KEY_ENTER) this.socket.talk('M', this[id].value);
+            if (event.code === global.KEY_ENTER) this.socket.talk('M', this[id].value);
             this[id].value = "";
         }
 
@@ -87,7 +87,7 @@ class Canvas {
         }
     }
     keyPress(event) {
-        switch (event.keyCode) {
+        switch (event.code) {
             case global.KEY_ZOOM_OUT:
                 if (!global.died && global.showTree) global.targetTreeScale = Math.max(global.targetTreeScale / 1.2, 0.5);
                 break;
@@ -124,7 +124,7 @@ class Canvas {
         if (global.dailyTankAd.renderUI) return;
         if (global.specialPressed) {
             event.preventDefault();
-            if (!event.repeat) global.specialKeysPressed.push(event.keyCode);
+            if (!event.repeat) global.specialKeysPressed.push(event.code);
             this.socket.talk("#", ...global.specialKeysPressed);
             return;
         }
@@ -136,25 +136,25 @@ class Canvas {
                 this.tankTreeProps.searchQuery += event.key;
                 global.searchTankByName(this.tankTreeProps.searchQuery);
                 return;
-            } else if (event.keyCode === 8) { // Backspace
+            } else if (event.code === 8) { // Backspace
                 event.preventDefault();
                 this.tankTreeProps.searchQuery = this.tankTreeProps.searchQuery.slice(0, -1);
                 global.searchTankByName(this.tankTreeProps.searchQuery);
                 return;
-            } else if (event.keyCode === 27) { // Escape
+            } else if (event.code === 27) { // Escape
                 event.preventDefault();
                 this.tankTreeProps.searchQuery = '';
                 global.searchTankByName('');
                 global.searchBarActive = false;
                 return;
-            } else if (event.keyCode === global.KEY_ENTER) {
+            } else if (event.code === global.KEY_ENTER) {
                 event.preventDefault();
                 global.searchBarActive = false;
                 return;
             }
         }
 
-        switch (event.keyCode) {
+        switch (event.code) {
             case global.KEY_SHIFT:
                 if (global.showTree) this.treeScrollSpeedMultiplier = 5;
                 else this.socket.cmd.set(6, true);
@@ -221,7 +221,7 @@ class Canvas {
                 break;
         }
         if (!event.repeat) {
-            switch (event.keyCode) {
+            switch (event.code) {
                 case global.KEY_SPECIAL:
                     this.socket.talk("#");
                     global.specialPressed = true;
@@ -272,11 +272,11 @@ class Canvas {
                     global.KEY_UPGRADE_STR, global.KEY_UPGRADE_PEN, global.KEY_UPGRADE_DAM,
                     global.KEY_UPGRADE_RLD, global.KEY_UPGRADE_MOB, global.KEY_UPGRADE_RGN,
                     global.KEY_UPGRADE_SHI
-                ].indexOf(event.keyCode);
+                ].indexOf(event.code);
                 if (skill >= 0) this.socket.talk('x', skill, 1 * global.statMaxing);
             }
             if (global.canUpgrade) {
-                switch (event.keyCode) {
+                switch (event.code) {
                     case global.KEY_CHOOSE_1:
                         this.socket.talk("U", 0, parseInt(gui.upgrades[0][0]));
                         break;
@@ -310,7 +310,7 @@ class Canvas {
     }
     keyUp(event) {
         if (global.dailyTankAd.renderUI) return;
-        switch (event.keyCode) {
+        switch (event.code) {
             case global.KEY_SPECIAL:
                 global.specialPressed = false;
                 global.specialKeysPressed = [];
@@ -358,12 +358,12 @@ class Canvas {
         }
         if (global.specialPressed) {
             let arrayCopy = global.specialKeysPressed.slice();
-            let i = global.specialKeysPressed.indexOf(event.keyCode);
+            let i = global.specialKeysPressed.indexOf(event.code);
             if (i >= 0) {
                 global.specialKeysPressed.splice(i, 1);
-                arrayCopy[i] = -event.keyCode;
+                arrayCopy[i] = -event.code;
             }
-            else arrayCopy.push(-event.keyCode);
+            else arrayCopy.push(-event.code);
             this.socket.talk("#", ...arrayCopy);
         }
     }
