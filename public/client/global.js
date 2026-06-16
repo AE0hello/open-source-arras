@@ -137,8 +137,8 @@ const global = {
     KEY_ZOOM_IN: 61,// =
     KEY_DEBUG: 76,// L
 
-    KEY_SCREENSHOT: 81,//Q
-    KEY_RECORD: 90,//Z
+    KEY_SCREENSHOT: 81,// Q
+    KEY_RECORD: 90,// Z
 
     KEY_UPGRADE_ATK: 49,// 1
     KEY_UPGRADE_HTL: 50,// 2
