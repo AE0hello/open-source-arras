@@ -1505,6 +1505,7 @@ exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
 }
 exports.deleteUpgrades = (type, tier, upgrades = []) => {
     typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
+    if (typeUpgrades == undefined) return;
     for (let i = typeUpgrades.length - 1; i >= 0; i--) {
         let string = typeUpgrades[i];
         for (const upgrade of upgrades) if (string === upgrade) {
