@@ -1415,14 +1415,12 @@ import * as socketStuff from "./socketinit.js";
         const key = global[`KEY_CHOOSE_${number + 1}`];
 
         if (key == -1 || key == undefined) return null;
-
         if (key.startsWith('Key') && key.length === 4) {
             return key[3];
         }
         if (key.startsWith('Digit') && key.length === 6) {
             return key[5];
         }
-
         return key;
     };
 
