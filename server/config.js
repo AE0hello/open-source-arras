@@ -1,6 +1,6 @@
 module.exports = {
     // Open Source Arras
-    devBuild: true, // Dev build marker.
+    dev_build: true, // Dev build marker.
 
     // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
