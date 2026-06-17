@@ -333,7 +333,7 @@ Class.hypermissile = {
         },
     ],
 }
-Class.minimissile = {
+Class.launcherMissile = {
     PARENT: "missile",
     GUNS: [
         {

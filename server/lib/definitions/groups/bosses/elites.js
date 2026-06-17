@@ -416,7 +416,7 @@ Class.deltaDestroyer = {
             POSITION: [ 7, 10.5, -1.4, 6, 0, 60, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer, g.launcher, g.fake, {damage: 1.1, speed: 1.05}]),
-                TYPE: "minimissile",
+                TYPE: "launcherMissile",
                 LABEL: "Devastator",
                 NO_LIMITATIONS: true,
                 AUTOFIRE: true
@@ -426,7 +426,7 @@ Class.deltaDestroyer = {
             POSITION: [5, 16, 1, 6, 0, 60, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer, g.launcher, {damage: 1.1, speed: 1.05}]),
-                TYPE: "minimissile",
+                TYPE: "launcherMissile",
                 LABEL: "Devastator",
                 NO_LIMITATIONS: true,
             },

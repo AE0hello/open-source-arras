@@ -315,6 +315,7 @@ Class.assassin = {
     ]
 }
 Class.auto3 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 6, label: "Auto-3"})
+Class.autoTrapper = makeAuto('trapper')
 Class.blaster = {
     PARENT: 'genericTank',
     LABEL: "Blaster",
@@ -643,7 +644,7 @@ Class.launcher = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher]),
-                TYPE: 'minimissile',
+                TYPE: 'launcherMissile',
                 STAT_CALCULATOR: 'sustained'
             }
         }
@@ -1223,7 +1224,6 @@ Class.volute = {
 Class.whirlwind_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind"})
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind"
 Class.whirlwind_old.UPGRADES_TIER_3 = ['monsoon', 'maelstrom', 'tornado_old', 'typhoon_old', 'vortex_old']
-Class.autoTrapper = makeAuto('trapper')
 
 // Tier 3
 Class.accurator = {
@@ -2675,7 +2675,7 @@ Class.fieldGun = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery]),
-                TYPE: 'minimissile',
+                TYPE: 'launcherMissile',
                 STAT_CALCULATOR: 'sustained'
             }
         }

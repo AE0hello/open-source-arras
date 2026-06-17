@@ -4279,7 +4279,7 @@ Class.hurler_AR = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.launcher]),
-                TYPE: "minimissile",
+                TYPE: "launcherMissile",
                 STAT_CALCULATOR: "sustained"
             }
         }

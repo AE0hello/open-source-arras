@@ -199,7 +199,7 @@ Class.nestChampion = {
         POSITION: [5.5, 7, 1, 6, 0, 36, 0],
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer, g.launcher]),
-            TYPE: "minimissile",
+            TYPE: "launcherMissile",
             LABEL: "Ravager",
         },
     }, 5),

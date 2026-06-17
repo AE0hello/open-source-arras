@@ -303,8 +303,8 @@ import * as socketStuff from "./socketinit.js";
         try {
             fetch("/version").then(json => json.json()).then(ve => {
                 global.version = ve.ver;
-                if (ve.devBuild) {
-                    global.devBuild = true;
+                if (ve.dev_build) {
+                    global.dev_build = true;
                     global.createTabMenu(`This server is running a development build of Open Source Arras, please report any issues you encounter. (${global.version})`, "warning");
                 }
                 // Addon info handler
@@ -405,7 +405,7 @@ import * as socketStuff from "./socketinit.js";
         // OSA info
         let i_div = document.createElement("div");
         i_div.classList.add("optionsHeader");
-        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild ? " (dev build)" : ""}`;
+        i_div.textContent = `Open Source Arras ${global.version}` + `${global.dev_build ? " (dev build)" : ""}`;
         mainDoc.appendChild(i_div);
 
         // Addon stuff
