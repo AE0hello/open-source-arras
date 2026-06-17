@@ -456,11 +456,6 @@ body.mobile .startMenuHolder.changelogHolder {
 	background: #ff0000;
 }
 
-.menuTab.discord {
-	padding: 6px 12px 6px 36px;
-	background: #7289da url(/img/discord.png) 8px 4px/23px no-repeat;
-}
-
 .menuTab.stat {
 	background: #f00 url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAKUlEQVQoU2NkQAP/////DxJiZGRkRJZC4YAkcCpEl6C9QrgNhKweSgoBUcBf8wTAguMAAAAASUVORK5CYII=) 11px 9px no-repeat;
 	/*
