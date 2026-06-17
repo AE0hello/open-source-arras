@@ -62,11 +62,11 @@ module.exports = {
                     ads: false,
                     ad_sources: [
                         {
-                            file: 'testadvideo.mp4',
+                            file: 'example_video_ad.mp4',
                             use_regular_ad_size: true
                         },
                         {
-                            file: 'testadimage.png',
+                            file: 'example_image_ad.png',
                             use_regular_ad_size: true
                         }
                     ]
