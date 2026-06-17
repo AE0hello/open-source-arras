@@ -23,7 +23,6 @@ function getMockup(e, positionInfo) {
         realSize: util.rounder(e.realSize),
         mirrorMasterAngle: e.settings.mirrorMasterAngle,
         layer: e.layer,
-        displayScore: e.displayScore,
         statnames: e.settings.skillNames,
         sendAllMockups: e.sendAllMockups,
         position: positionInfo,
