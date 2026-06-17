@@ -12,7 +12,6 @@ const mystical_gun_position = {
 Class.sorcerer = {
     PARENT: "miniboss",
     LABEL: "Sorcerer",
-    DISPLAY_NAME: false,
     DANGER: 7,
     SHAPE: 0,
     COLOR: 'egg',
@@ -41,7 +40,6 @@ Class.sorcerer = {
 Class.summoner = {
     PARENT: "miniboss",
     LABEL: "Summoner",
-    DISPLAY_NAME: false,
     DANGER: 8,
     SHAPE: 4,
     COLOR: 'square',
@@ -70,7 +68,6 @@ Class.summoner = {
 Class.enchantress = {
     PARENT: "miniboss",
     LABEL: "Enchantress",
-    DISPLAY_NAME: false,
     DANGER: 8,
     SHAPE: 3.5,
     COLOR: 'triangle',
@@ -99,7 +96,6 @@ Class.enchantress = {
 Class.exorcistor = {
     PARENT: "miniboss",
     LABEL: "Exorcistor",
-    DISPLAY_NAME: false,
     DANGER: 8,
     SHAPE: 5.5,
     COLOR: 'pentagon',
@@ -128,7 +124,6 @@ Class.exorcistor = {
 Class.shaman = {
     PARENT: "miniboss",
     LABEL: "Shaman",
-    DISPLAY_NAME: false,
     DANGER: 8,
     SHAPE: 6,
     COLOR: 'hexagon',
@@ -157,7 +152,6 @@ Class.shaman = {
 Class.sangoma = {
     PARENT: "miniboss",
     LABEL: "Sangoma",
-    DISPLAY_NAME: false,
     DANGER: 9,
     SHAPE: 7.5,
     COLOR: "green",
@@ -189,7 +183,6 @@ Class.sangoma = {
 Class.preacher = {
     PARENT: "miniboss",
     LABEL: "Preacher",
-    DISPLAY_NAME: false,
     DANGER: 9,
     SHAPE: 8,
     COLOR: Class.octagon.COLOR,
@@ -221,7 +214,6 @@ Class.preacher = {
 Class.herbalist = {
     PARENT: "miniboss",
     LABEL: "Herbalist",
-    DISPLAY_NAME: false,
     DANGER: 9,
     SHAPE: 9.5,
     COLOR: "white",
@@ -253,7 +245,6 @@ Class.herbalist = {
 Class.witch = {
     PARENT: "miniboss",
     LABEL: "Witch",
-    DISPLAY_NAME: false,
     DANGER: 8,
     SHAPE: 3.5,
     COLOR: 'pink',
