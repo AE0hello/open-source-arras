@@ -15,6 +15,7 @@ This guide covers setting up your server on your own hardware and only supports 
 
 You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if you pick the LTS or Latest version, they'll both work fine.
 
+Once `Node.js` is installed, [download the source code of the latest release](https://github.com/AE0hello/open-source-arras/releases) and extract it. Open the extracted folder in a terminal and run the following commands in order:
 1. `npm i` (this installs necessary dependencies)
 2. `npm run start` (this actually starts the server)
 
