@@ -20,6 +20,7 @@ const getName = (name, gamemodeData) => {
         //duos: "Duos",
         ffa: "FFA",
         halloween: "Halloween",
+        sandbox: "Sandbox",
         //squads: "Squads",
         tdm: `${gamemodeData.teams}TDM`,
             open_tdm: `Open ${gamemodeData.teams}TDM`,
@@ -53,7 +54,6 @@ const getName = (name, gamemodeData) => {
             //old_forge: "Old Forge",
         limbo: "Limbo",
         nexus: "Nexus",
-        sandbox: "Sandbox",
         tartarus: "Tartarus",
 
     // Modifiers
@@ -64,6 +64,8 @@ const getName = (name, gamemodeData) => {
         //dreadnoughts: "Dreadnoughts",
             old_dreadnoughts: "Old Dreadnoughts",
         growth: "Growth",
+            //old_growth: "Old Growth",
+            //overgrowth: "Overgrowth",
         //half: "Half",
         //manhunt: "Manhunt",
         march_madness: "March Madness",
@@ -74,6 +76,7 @@ const getName = (name, gamemodeData) => {
             rock: "Rock",
                 //pumpkin_patch: "Pumpkin Patch",
         outbreak: "Outbreak",
+        portal: "Portal",
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
