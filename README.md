@@ -53,6 +53,9 @@ server_travel: [
 > Make sure to set `allow_server_travel` to true in your destination server's `properties`.
 
 ## Other Links
-- [Our Discord server](https://discord.gg/arras)
+- [Stoat](https://stt.gg/S4tqfeAK)
+- [Discord](https://discord.gg/arras)
+- [Reddit](https://old.reddit.com/r/OpenSourceArras)
+- [YouTube](https://www.youtube.com/@OpenSourceArras)
 
 *p.s. if something goes terribly wrong it's not our fault*
