@@ -839,7 +839,6 @@ Class.fat456 = {
     SIZE: 30,
     LABEL: "Fat456",
     COLOR: "pureBlack", // should be pureblack but just the outline
-    DRAW_FILL: false,
     FACING_TYPE: "spin",
     BODY: {
         SPEED: base.SPEED * 4
