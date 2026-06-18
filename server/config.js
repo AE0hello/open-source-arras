@@ -1,6 +1,6 @@
 module.exports = {
-    // Open Source Arras
-    dev_build: true, // Dev build marker.
+    // Development
+    dev_build: true, // Whether this version is unstable and should be clearly marked as such.
 
     // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
@@ -162,8 +162,7 @@ module.exports = {
 
     // The message that appears once a player spawns.
     spawn_message: "You have spawned! Welcome to the game.\n"
-                 + "You will be invulnerable until you move or shoot.\n"
-                 + "Please report any bugs you encounter!",
+                 + "You will be invulnerable until you move or shoot.",
     token_message: "Friendly reminder: Please do not repeatedly kill others with an overpowered tank.",
 
     chat_message_duration: 15_000, // How long a chat message lasts in milliseconds. Includes the fade-out period.
