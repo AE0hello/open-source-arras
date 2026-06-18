@@ -1506,7 +1506,7 @@ exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
     }
     name[`UPGRADES_TIER_${tier}`].push(...upgradeList)
 }
-exports.deleteUpgrades = (type, tier, upgrades = []) => {
+exports.removeUpgrades = (type, tier, upgrades = []) => {
     typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
     if (typeUpgrades == undefined) return;
     for (let i = typeUpgrades.length - 1; i >= 0; i--) {

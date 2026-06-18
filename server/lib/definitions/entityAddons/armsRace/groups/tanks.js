@@ -1,4 +1,4 @@
-const {combineStats, addUpgrades, deleteUpgrades, dereference, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeSnake, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../../facilitators.js')
+const {combineStats, addUpgrades, removeUpgrades, dereference, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeSnake, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../../facilitators.js')
 const {base, statnames} = require('../../../constants.js')
 const g = require('../../../gunvals.js')
 const preset = require('../../../presets.js')
@@ -4099,9 +4099,9 @@ function makeAutoBranch(type, tier, whitelist = [], blacklist = []) {
     return [...megaTripleAuto, ...cleanUpgrades.map(x => 'auto' + x.charAt(0).toUpperCase() + x.slice(1))]
 }
 
-deleteUpgrades('director', 3, ['bigCheese'])
-deleteUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic'])
-deleteUpgrades('twin', 3, ['bulwark'])
+removeUpgrades('director', 3, ['bigCheese'])
+removeUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic'])
+removeUpgrades('twin', 3, ['bulwark'])
 
 //addUpgrades('basic', 1, [])
     //addUpgrades('basic', 2, [])
@@ -4294,40 +4294,41 @@ deleteUpgrades('twin', 3, ['bulwark'])
         //addUpgrades('helix', 3, [])
 
 if (use_original_tree) {
-deleteUpgrades('basic', 1, ['desmos'])
-    deleteUpgrades('basic', 2, [])
+removeUpgrades('basic', 1, ['desmos'])
+    removeUpgrades('basic', 2, [])
         addUpgrades('basic', 3, ['single'])
-            deleteUpgrades('single', tier4, Class.single[`UPGRADES_TIER_${tier4}`])
+            removeUpgrades('single', tier4, Class.single[`UPGRADES_TIER_${tier4}`])
             addUpgrades('single', tier4, ['duo', 'sharpshooter', 'gadgetGun', 'ternion', 'coordinator', 'bruiser', 'tricker', 'mono', 'avian', 'custodian', 'assistant', 'autoSingle'], preset.ARsuffix)
-        deleteUpgrades('healer', 3, ['recalibrator_AR'])
+        removeUpgrades('healer', 3, ['recalibrator_AR'])
 
-    deleteUpgrades('twin', 2, ['helix'])
-        deleteUpgrades('doubleTwin', 3, ['doubleHelix_AR'])
-            deleteUpgrades('tripleTwin', tier4, ['tripleHelix_AR'])
-            deleteUpgrades('autoDouble', tier4, ['autoDoubleHelix_AR'])
-        deleteUpgrades('tripleShot', 3, ['triplex'])
+    removeUpgrades('twin', 2, ['helix'])
+        removeUpgrades('doubleTwin', 3, ['doubleHelix_AR'])
+            removeUpgrades('tripleTwin', tier4, ['tripleHelix_AR'])
+            removeUpgrades('autoDouble', tier4, ['autoDoubleHelix_AR'])
+        removeUpgrades('tripleShot', 3, ['triplex'])
 
-    deleteUpgrades('sniper', 2, ['marksman'])
-        deleteUpgrades('assassin', 3, ['single', 'deadeye'])
-        deleteUpgrades('hunter', 3, ['xHunter', 'nimrod'])
-        deleteUpgrades('rifle', 3, ['revolver'])
+    removeUpgrades('sniper', 2, ['marksman'])
+        removeUpgrades('assassin', 3, ['single', 'deadeye'])
+        removeUpgrades('hunter', 3, ['xHunter', 'nimrod'])
+        removeUpgrades('rifle', 3, ['revolver'])
 
-    deleteUpgrades('machineGun', 2, ['sprayer'])
+    removeUpgrades('machineGun', 2, ['sprayer'])
         addUpgrades('machineGun', 3, ['sprayer'])
             addUpgrades('sprayer', tier4, ['duster_AR', 'frother_AR', 'scatterer_AR', 'foamer_AR', 'shower_AR', 'autoSprayer_AR', 'phoenix'])
 
-        deleteUpgrades('sprayer', 3, Class.sprayer.UPGRADES_TIER_3)
+        removeUpgrades('sprayer', 3, Class.sprayer.UPGRADES_TIER_3)
 
-    //deleteUpgrades('flankGuard', 2, [])
-        deleteUpgrades('flankGuard', 3, ['quadruplex'])
-        deleteUpgrades('triAngle', 3, ['phoenix', 'vulture'])
+    //removeUpgrades('flankGuard', 2, [])
+        removeUpgrades('flankGuard', 3, ['quadruplex'])
+        removeUpgrades('triAngle', 3, ['phoenix', 'vulture'])
 
-    //deleteUpgrades('director', 2, [])
-        deleteUpgrades('overseer', 3, ['overtrapper', 'overgunner'])
-        deleteUpgrades('underseer', 3, ['infestor'])
+    //removeUpgrades('director', 2, [])
+        removeUpgrades('overseer', 3, ['overtrapper', 'overgunner'])
+        removeUpgrades('underseer', 3, ['infestor'])
 
-    //deleteUpgrades('pounder', 2, [])
-        deleteUpgrades('builder', 3, ['assembler'])
+    //removeUpgrades('pounder', 2, [])
+        removeUpgrades('pounder', 3, ['deathStar'])
+        removeUpgrades('builder', 3, ['assembler'])
 } else {
     addUpgrades('menu_unused', 0, ['4', '5'].map(x => 'menu_unused_T' + x + '_AR'))
     Class.menu_unused_T4_AR = makeMenu("Unused (Tier 4)", {upgrades: ["duster_AR"/*, "jimmy_AR", "jumpSmasher"*/], boxLabel: "Tier 4 (Lv.60)"})
@@ -8057,7 +8058,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
             //upgradesAR('cocci', 4, ['noodle', 'megaCocci', 'autoCocci', 'garter', 'titanoboa'])
 
     upgradesAR('twin', 2, ['wark'])
-        deleteUpgrades('twin', 3, ['bulwark'])
+        removeUpgrades('twin', 3, ['bulwark'])
             upgradesAR('twin', 4, ['duo'])
             upgradesAR('dual', 4, [])
             upgradesAR('musket', 4, [])
@@ -8156,7 +8157,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
         upgradesAR('triTrapper', 3, [/*'prodigy', */'triTrapGuard_AR', 'triPen_AR', 'triMech_AR', 'triMachine_AR'], {noSuffix: true})
 
     upgradesAR('director', 2, ['directordrive', 'honcho', 'doper'])
-        deleteUpgrades('director', 3, ['bigCheese'])
+        removeUpgrades('director', 3, ['bigCheese'])
             upgradesAR('director', 4, ['coordinator'])
             upgradesAR('manager', 4, [])
 
@@ -8205,7 +8206,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
         upgradesAR('volute', 3, ['oroboros', 'autoVolute_AR'], {noSuffix: true})
 
     upgradesAR('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark'])
-        deleteUpgrades('trapper', 3, ['barricade'])
+        removeUpgrades('trapper', 3, ['barricade'])
         upgradesAR('trapper', 3, ['undertrapper'])
             upgradesAR('trapper', 4, ['tricker'])
 
@@ -8482,7 +8483,7 @@ return
             //Class.triTrapGuard_AR.UPGRADES_TIER_4
 
     Class.director.UPGRADES_TIER_2.push("directordrive_AR", "honcho_AR", "doper_AR")
-        deleteUpgrades("director", 3, "bigCheese")
+        removeUpgrades("director", 3, "bigCheese")
             Class.director.UPGRADES_TIER_4 = ["coordinator"].map(x => x + "_AR")
             Class.manager.UPGRADES_TIER_4 = ["leader", "inspector", "managerdrive", "autoManager"].map(x => x + "_AR")
         Class.overseer.UPGRADES_TIER_3.push("captain_AR", "foreman_AR", "dopeseer_AR")
@@ -8575,7 +8576,7 @@ return
             //UPGRADES_TIER_4 = ["shaver", "bazooka", "catapult", "myriad", "leviathan", "bulker", "bombard", "python", "claimant", "incline", "autoHurler", "mongrel", "bunger", "deliverer", "slingshot"].map(x => x + "_AR")
 
     Class.trapper.UPGRADES_TIER_2.push("pen_AR", "mech_AR", "machineTrapper_AR", "wark_AR")
-        deleteUpgrades("trapper", 3, "barricade")
+        removeUpgrades("trapper", 3, "barricade")
         Class.trapper.UPGRADES_TIER_3.push("undertrapper_AR", "megaTrapper_AR")
             Class.trapper.UPGRADES_TIER_4 = [/*"sawedOff", */"tricker"].map(x => x + "_AR")
             Class.megaTrapper_AR.UPGRADES_TIER_4 = ["shoebill"].map(x => x + "_AR")

@@ -1,4 +1,4 @@
-const {combineStats, deleteUpgrades, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
+const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../constants.js')
 const g = require('../gunvals.js')
 const preset = require('../presets.js')
@@ -5690,37 +5690,27 @@ Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'di
         Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
 
 if (Config.arms_race || Config.retrograde) {
-    //Class.basic.UPGRADES_TIER_2
-        Class.smasher.UPGRADES_TIER_3.push('bonker')
-
-    //Class.sniper.UPGRADES_TIER_2
-        Class.assassin.UPGRADES_TIER_3.push('buttbuttin')
-
-    //Class.machineGun.UPGRADES_TIER_2
-        Class.minigun.UPGRADES_TIER_3.push('subverter')
-        Class.gunner.UPGRADES_TIER_3.push('battery', 'buttbuttin', 'blower')
-
-    //Class.flankGuard.UPGRADES_TIER_2
-        Class.hexaTank.UPGRADES_TIER_3.push('deathStar')
-
-    //Class.pounder.UPGRADES_TIER_2
-        Class.pounder.UPGRADES_TIER_3.push('subverter')
-        Class.destroyer.UPGRADES_TIER_3.push('blower')
+    addUpgrades('assassin', 3, ['buttbuttin'])
+    addUpgrades('destroyer', 3, ['blower'])
+    addUpgrades('gunner', 3, ['battery', 'buttbuttin', 'blower'])
+    addUpgrades('hexaTank', 3, ['deathStar'])
+    addUpgrades('minigun', 3, ['subverter'])
+    addUpgrades('pounder', 3, ['subverter', 'deathStar'])
+    addUpgrades('smasher', 3, ['bonker'])
 }
 
 if (Config.retrograde) {
-    //Class.twin.UPGRADES_TIER_2
-        Class.tripleShot.UPGRADES_TIER_3.push('triBlaster')
+    addUpgrades('machineGun', 2, ['blaster', 'gatlingGun', 'doubleMachine'])
 
-    Class.machineGun.UPGRADES_TIER_2.push('blaster', 'gatlingGun', 'doubleMachine')
-        Class.sprayer.UPGRADES_TIER_3.push('splasher')
-
-    //Class.flankGuard.UPGRADES_TIER_2
-        Class.flankGuard.UPGRADES_TIER_3.push('tripleMachine')
+    addUpgrades('flankGuard', 3, ['tripleMachine'])
+    addUpgrades('sprayer', 3, ['splasher'])
+    addUpgrades('tripleShot', 3, ['triBlaster'])
 }
 
 if (Config.teams == 1) {
-    Class.basic.UPGRADES_TIER_2 = ['healer']
-    deleteUpgrades('director', 2, ['underseer'])
-    deleteUpgrades('whirlwind', 3, ['prophet'])
+    addUpgrades('basic', 2, ['healer'])
+    removeUpgrades('basic', 2, ['smasher'])
+    removeUpgrades('director', 2, ['underseer'])
+
+    removeUpgrades('whirlwind', 3, ['prophet'])
 }
