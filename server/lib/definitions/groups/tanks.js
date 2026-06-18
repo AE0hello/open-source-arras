@@ -5620,74 +5620,81 @@ Class.worstTank = {
 }
 
 // Class Tree
-Class.basic.UPGRADES_TIER_1 = ['twin', 'sniper', 'machineGun', 'flankGuard', 'director', 'pounder', 'trapper', 'desmos']
-    Class.basic.UPGRADES_TIER_2 = ['smasher']
-        Class.smasher.UPGRADES_TIER_3 = ['megaSmasher', 'spike', 'autoSmasher', 'landmine']
-        Class.healer.UPGRADES_TIER_3 = ['medic', 'ambulance', 'surgeon', 'paramedic']
+addUpgrades('basic', 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director', 'pounder', 'trapper', 'desmos'])
+    addUpgrades('basic', 2, ['smasher'])
+        addUpgrades('smasher', 3, ['megaSmasher', 'spike', 'autoSmasher', 'landmine'])
+        addUpgrades('healer', 3, ['medic', 'ambulance', 'surgeon', 'paramedic'])
 
-    Class.twin.UPGRADES_TIER_2 = ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix']
-        Class.twin.UPGRADES_TIER_3 = ['dual', 'bulwark', 'musket']
-        Class.doubleTwin.UPGRADES_TIER_3 = ['tripleTwin', 'hewnDouble', 'autoDouble', 'bentDouble']
-        Class.tripleShot.UPGRADES_TIER_3 = ['pentaShot', 'spreadshot', 'bentHybrid', 'bentDouble', 'triplet', 'triplex']
-        Class.gunner.UPGRADES_TIER_3 = ['autoGunner', 'nailgun', 'auto4', 'machineGunner', 'gunnerTrapper', 'cyclone', 'overgunner']
+    addUpgrades('twin', 2, ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix'])
+        addUpgrades('twin', 3, ['dual', 'bulwark', 'musket'])
+        addUpgrades('doubleTwin', 3, ['tripleTwin', 'hewnDouble', 'autoDouble', 'bentDouble'])
+        addUpgrades('tripleShot', 3, ['pentaShot', 'spreadshot', 'bentHybrid', 'bentDouble', 'triplet', 'triplex'])
+        addUpgrades('gunner', 3, ['autoGunner', 'nailgun', 'auto4', 'machineGunner', 'gunnerTrapper', 'cyclone', 'overgunner'])
+        addUpgrades('hexaTank', 3, ['octoTank', 'cyclone', 'hexaTrapper'])
+        addUpgrades('helix', 3, ['triplex', 'quadruplex'])
 
-    Class.sniper.UPGRADES_TIER_2 = ['assassin', 'hunter', 'minigun', 'rifle', 'marksman']
-        Class.sniper.UPGRADES_TIER_3 = ['bushwhacker']
-        Class.assassin.UPGRADES_TIER_3 = ['ranger', 'falcon', 'stalker', 'autoAssassin', 'single', 'deadeye']
-        Class.hunter.UPGRADES_TIER_3 = ['predator', 'xHunter', 'poacher', 'ordnance', 'dual', 'nimrod']
-        Class.rifle.UPGRADES_TIER_3 = ['musket', 'crossbow', 'armsman', 'revolver']
-        Class.marksman.UPGRADES_TIER_3 = ['deadeye', 'nimrod', 'revolver', 'fork']
+    addUpgrades('sniper', 2, ['assassin', 'hunter', 'minigun', 'rifle', 'marksman'])
+        addUpgrades('sniper', 3, ['bushwhacker'])
+        addUpgrades('assassin', 3, ['ranger', 'falcon', 'stalker', 'autoAssassin', 'single', 'deadeye'])
+        addUpgrades('hunter', 3, ['predator', 'xHunter', 'poacher', 'ordnance', 'dual', 'nimrod'])
+        addUpgrades('minigun', 3, ['streamliner', 'nailgun', 'cropDuster', 'barricade', 'vulture'])
+        addUpgrades('rifle', 3, ['musket', 'crossbow', 'armsman', 'revolver'])
+        addUpgrades('marksman', 3, ['deadeye', 'nimrod', 'revolver', 'fork'])
 
-    Class.machineGun.UPGRADES_TIER_2 = ['artillery', 'minigun', 'gunner', 'sprayer']
-        Class.minigun.UPGRADES_TIER_3 = ['streamliner', 'nailgun', 'cropDuster', 'barricade', 'vulture']
-        Class.sprayer.UPGRADES_TIER_3 = ['redistributor', 'phoenix', 'atomizer', 'focal']
-        Class.blaster.UPGRADES_TIER_3 = ['triBlaster', 'splasher', 'flamethrower', 'halfNHalf', 'subverter']
-        Class.gatlingGun.UPGRADES_TIER_3 = ['focal', 'accurator', 'halfNHalf']
-        Class.doubleMachine.UPGRADES_TIER_3 = ['tripleMachine', 'halfNHalf']
+    addUpgrades('machineGun', 2, ['artillery', 'minigun', 'gunner', 'sprayer'])
+        addUpgrades('artillery', 3, ['mortar', 'ordnance', 'beekeeper', 'fieldGun'])
+        //addUpgrades('minigun', 3, [])
+        //addUpgrades('gunner', 3, [])
+        addUpgrades('sprayer', 3, ['redistributor', 'phoenix', 'atomizer', 'focal'])
+        addUpgrades('blaster', 3, ['triBlaster', 'splasher', 'flamethrower', 'halfNHalf', 'subverter'])
+        addUpgrades('gatlingGun', 3, ['focal', 'accurator', 'halfNHalf'])
+        addUpgrades('doubleMachine', 3, ['tripleMachine', 'halfNHalf'])
 
-    Class.flankGuard.UPGRADES_TIER_2 = ['hexaTank', 'triAngle', 'auto3', 'trapGuard', 'triTrapper']
-        Class.flankGuard.UPGRADES_TIER_3 = ['tripleTwin', 'quadruplex']
-        Class.hexaTank.UPGRADES_TIER_3 = ['octoTank', 'cyclone', 'hexaTrapper'/*, 'hexaWhirl'*/]
-        Class.triAngle.UPGRADES_TIER_3 = ['fighter', 'booster', 'falcon', 'bomber', 'autoTriAngle', 'surfer', 'eagle', 'phoenix', 'vulture']
-        Class.auto3.UPGRADES_TIER_3 = ['auto5', 'mega3', 'auto4', 'banshee'/*, 'whirl3'*/]
+    addUpgrades('flankGuard', 2, ['hexaTank', 'triAngle', 'auto3', 'trapGuard', 'triTrapper'])
+        addUpgrades('flankGuard', 3, ['tripleTwin', 'quadruplex'])
+        //addUpgrades('hexaTank', 3, [])
+        addUpgrades('triAngle', 3, ['fighter', 'booster', 'falcon', 'bomber', 'autoTriAngle', 'surfer', 'eagle', 'phoenix', 'vulture'])
+        addUpgrades('auto3', 3, ['auto5', 'mega3', 'auto4', 'banshee'])
+        addUpgrades('trapGuard', 3, ['bushwhacker', 'gunnerTrapper', 'bomber', 'conqueror', 'bulwark'])
+        addUpgrades('triTrapper', 3, ['fortress', 'hexaTrapper', 'septaTrapper', 'architect'])
 
-    Class.director.UPGRADES_TIER_2 = ['overseer', 'cruiser', 'underseer', 'spawner']
-        Class.director.UPGRADES_TIER_3 = ['manager', 'bigCheese']
-        Class.overseer.UPGRADES_TIER_3 = ['overlord', 'overtrapper', 'overgunner', 'banshee', 'autoOverseer', 'overdrive', 'commander']
-        Class.cruiser.UPGRADES_TIER_3 = ['carrier', 'battleship', 'fortress', 'autoCruiser', 'commander']
-        Class.underseer.UPGRADES_TIER_3 = ['necromancer', 'maleficitor', 'infestor'/*, 'prophet'*/]
-        Class.spawner.UPGRADES_TIER_3 = ['factory', 'autoSpawner'/*, 'bender'*/]
+    addUpgrades('director', 2, ['overseer', 'cruiser', 'underseer', 'spawner'])
+        addUpgrades('director', 3, ['manager', 'bigCheese'])
+        addUpgrades('overseer', 3, ['overlord', 'overtrapper', 'overgunner', 'banshee', 'autoOverseer', 'overdrive', 'commander'])
+        addUpgrades('cruiser', 3, ['carrier', 'battleship', 'fortress', 'autoCruiser', 'commander'])
+        addUpgrades('underseer', 3, ['necromancer', 'maleficitor', 'infestor'])
+        addUpgrades('spawner', 3, ['factory', 'autoSpawner'])
 
-    Class.pounder.UPGRADES_TIER_2 = ['destroyer', 'builder', 'artillery', 'launcher'/*, 'volute'*/]
-        Class.pounder.UPGRADES_TIER_3 = ['shotgun', 'eagle']
-        Class.destroyer.UPGRADES_TIER_3 = ['conqueror', 'annihilator', 'hybrid', 'construct']
-        Class.artillery.UPGRADES_TIER_3 = ['mortar', 'ordnance', 'beekeeper', 'fieldGun'/*, 'munition'*/]
-        Class.launcher.UPGRADES_TIER_3 = ['skimmer', 'twister', 'swarmer', 'sidewinder'/*, 'rocketeer'*/, 'fieldGun'/*, 'vortex'*/]
+    addUpgrades('pounder', 2, ['destroyer', 'builder', 'artillery', 'launcher'])
+        addUpgrades('pounder', 3, ['shotgun', 'eagle'])
+        addUpgrades('destroyer', 3, ['conqueror', 'annihilator', 'hybrid', 'construct'])
+        addUpgrades('builder', 3, ['construct', 'autoBuilder', 'engineer', 'boomer', 'assembler', 'architect', 'conqueror'])
+        //addUpgrades('artillery', 3, [])
+        addUpgrades('launcher', 3, ['skimmer', 'twister', 'swarmer', 'sidewinder', 'fieldGun'])
 
-    Class.trapper.UPGRADES_TIER_2 = ['builder', 'triTrapper', 'trapGuard']
-        Class.trapper.UPGRADES_TIER_3 = ['barricade', 'overtrapper']
-        Class.builder.UPGRADES_TIER_3 = ['construct', 'autoBuilder', 'engineer', 'boomer', 'assembler', 'architect', 'conqueror']
-        Class.triTrapper.UPGRADES_TIER_3 = ['fortress', 'hexaTrapper', 'septaTrapper', 'architect']
-        Class.trapGuard.UPGRADES_TIER_3 = ['bushwhacker', 'gunnerTrapper', 'bomber', 'conqueror', 'bulwark'/*, 'whirlGuard'*/]
-        Class.autoTrapper.UPGRADES_TIER_3 = ['autoBuilder', 'hexaTrapper']
+    addUpgrades('trapper', 2, ['builder', 'triTrapper', 'trapGuard'])
+        addUpgrades('trapper', 3, ['barricade', 'overtrapper'])
+        //addUpgrades('builder', 3, [])
+        //addUpgrades('triTrapper', 3, [])
+        //addUpgrades('trapGuard', 3, [])
+        addUpgrades('autoTrapper', 3, ['autoBuilder', 'hexaTrapper'])
 
-    Class.whirlwind.UPGRADES_TIER_2 = ['tornado', 'hurricane']
-        Class.whirlwind.UPGRADES_TIER_3 = ['hexaWhirl', 'munition', 'whirl3', 'whirlGuard', 'prophet', 'vortex']
-        Class.tornado.UPGRADES_TIER_3 = ['megaTornado', 'tempest', 'thunderbolt']
-        Class.hurricane.UPGRADES_TIER_3 = ['typhoon', 'blizzard']
+    addUpgrades('desmos', 2, ['helix'])
+        addUpgrades('volute', 3, ['sidewinder'])
+        //addUpgrades('helix', 3, [])
+        addUpgrades('spiral', 3, ['coil', 'python'])
+        addUpgrades('undertow', 3, [])
+        addUpgrades('repeater', 3, ['iterator', 'duplicator'])
 
-    Class.flail.UPGRADES_TIER_2 = ['doubleFlail', 'mace', 'flangle']
-        Class.doubleFlail.UPGRADES_TIER_3 = ['tripleFlail']
-        Class.mace.UPGRADES_TIER_3 = ['bigMama', 'itHurtsDontTouchIt', 'flace']
-        Class.flangle.UPGRADES_TIER_3 = ['flooster', 'flace']
+    addUpgrades('flail', 2, ['doubleFlail', 'mace', 'flangle'])
+        addUpgrades('doubleFlail', 3, ['tripleFlail'])
+        addUpgrades('mace', 3, ['bigMama', 'itHurtsDontTouchIt', 'flace'])
+        addUpgrades('flangle', 3, ['flooster', 'flace'])
 
-    Class.desmos.UPGRADES_TIER_2 = [/*'volute', */'helix'/*, 'spiral', 'undertow', 'repeater'*/]
-        Class.desmos.UPGRADES_TIER_3 = [/*'bender'*/]
-        Class.volute.UPGRADES_TIER_3 = ['sidewinder']
-        Class.helix.UPGRADES_TIER_3 = ['triplex', 'quadruplex'/*, 'coil', 'duplicator'*/]
-        Class.spiral.UPGRADES_TIER_3 = ['coil', 'python'/*, 'wrangler', 'oroboros', 'cocci', 'rocket'*/]
-        Class.undertow.UPGRADES_TIER_3 = [/*'riptide'*/]
-        Class.repeater.UPGRADES_TIER_3 = ['iterator', 'duplicator']
+    addUpgrades('whirlwind', 2, ['tornado', 'hurricane'])
+        addUpgrades('whirlwind', 3, ['hexaWhirl', 'munition', 'whirl3', 'whirlGuard', 'prophet', 'vortex'])
+        addUpgrades('tornado', 3, ['megaTornado', 'tempest', 'thunderbolt'])
+        addUpgrades('hurricane', 3, ['typhoon', 'blizzard'])
 
 if (Config.arms_race || Config.retrograde) {
     addUpgrades('assassin', 3, ['buttbuttin'])
