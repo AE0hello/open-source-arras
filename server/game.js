@@ -49,13 +49,6 @@ const getName = (name, gamemodeData) => {
         //soccer: "Soccer",
         tag: `${gamemodeData.teams} Team Tag`,
 
-    // Miscellaneous
-        //forge: "Forge",
-            //old_forge: "Old Forge",
-        limbo: "Limbo",
-        nexus: "Nexus",
-        tartarus: "Tartarus",
-
     // Modifiers
         arms_race: "Arms Race",
         blackout: "Blackout",
@@ -63,6 +56,7 @@ const getName = (name, gamemodeData) => {
         diep: "Diep",
         //dreadnoughts: "Dreadnoughts",
             old_dreadnoughts: "Old Dreadnoughts",
+        fast: "Fast",
         growth: "Growth",
             //old_growth: "Old Growth",
             //overgrowth: "Overgrowth",
@@ -80,6 +74,15 @@ const getName = (name, gamemodeData) => {
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
+
+    // Lobbies
+        //forge: "Forge",
+            //old_forge: "Old Forge",
+        limbo: "Limbo",
+        nexus: "Nexus",
+
+    // Miscellaneous
+        tartarus: "Tartarus",
 
     };
     return nameMap[name];
