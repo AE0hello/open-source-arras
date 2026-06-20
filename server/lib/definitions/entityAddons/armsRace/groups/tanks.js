@@ -1671,9 +1671,9 @@ Class.splitShot_AR = {
         }
     ]
 }
-Class.stormer_AR = {
+Class.springer_AR = {
     PARENT: "genericTank",
-    LABEL: "Stormer",
+    LABEL: "Springer",
     DANGER: 7,
     GUNS: [
         ...weaponMirror({
@@ -2022,7 +2022,7 @@ Class.autoSniper3_AR = makeAuto('sniper3_AR')
 Class.autoSplasher_AR = makeAuto('splasher')
 Class.autoSplitShot_AR = makeAuto('splitShot_AR')
 Class.autoSpreadshot_AR = makeAuto('spreadshot')
-Class.autoStormer_AR = makeAuto('stormer_AR')
+Class.autoSpringer_AR = makeAuto('springer_AR')
 Class.autoTriBlaster_AR = makeAuto('triBlaster')
 Class.autoTriple_AR = makeAuto('tripleTwin', "Auto-Triple")
 Class.autoTripleMachine_AR = makeAuto('tripleMachine')
@@ -4244,7 +4244,7 @@ removeUpgrades('twin', 3, ['bulwark'])
 
         //addUpgrades('gunner', 3, [], preset.ARsuffix)
 
-        addUpgrades('sprayer', 3, ['frother', 'foamer', 'faucet', 'shower', 'autoSprayer', 'stormer'], preset.ARsuffix)
+        addUpgrades('sprayer', 3, ['frother', 'foamer', 'faucet', 'shower', 'autoSprayer', 'springer'], preset.ARsuffix)
 //            addUpgrades('autoSprayer_AR', tier4, makeAutoBranch('sprayer', 3), preset.ARsuffix)
 
         addUpgrades('diesel_AR', 3, ['jalopy_AR', 'machineGunner', 'dieselTrapper_AR', 'polluter_AR', 'autoDiesel_AR'])
@@ -6464,7 +6464,7 @@ Class.doubleFrother_AR = makeFlank('frother_AR', 2, "Double Frother", {extraStat
 Class.doubleMunition_AR = makeWhirlwind("doubleArtillery_AR", {label: "Double Munition"})
 Class.doubleRedistributor_AR = makeFlank('redistributor', 2, "Double Redistributor", {extraStats: [g.flankGuard]})
 Class.doubleSplasher_AR = makeFlank('splasher', 2, "Double Splasher", {extraStats: [g.flankGuard]})
-Class.doubleStormer_AR = makeFlank('stormer_AR', 2, "Double Stormer", {extraStats: [g.flankGuard]})
+Class.doubleSpringer_AR = makeFlank('springer_AR', 2, "Double Springer", {extraStats: [g.flankGuard]})
 Class.doubleSubverter_AR = makeFlank('subverter', 2, "Double Subverter", {extraStats: [g.flankGuard]})
 Class.downpourer_AR = makeDrive("director", {label: "Downpourer", type: "genericEntity", size: 12, hatType: "downpourerSquare_AR"}) // fix later
 Class.flexedGunner_AR = {PARENT: 'PLACEHOLDER', LABEL: "Flexed Gunner"}
@@ -8136,7 +8136,7 @@ Class.menu_unused2_AR = makeMenu("Unused (Tier 5)", {upgrades: ["custodian_AR"],
 
         //upgradesAR('gunner', 3, [])
 
-        upgradesAR('sprayer', 3, ['frother', 'foamer', 'faucet', 'shower', 'autoSprayer', 'stormer'])
+        upgradesAR('sprayer', 3, ['frother', 'foamer', 'faucet', 'shower', 'autoSprayer', 'springer'])
 
         upgradesAR('diesel_AR', 3, ['jalopy_AR', 'machineGunner', 'foamer_AR', 'dieselTrapper_AR', 'polluter_AR', 'autoDiesel_AR'], {noSuffix: true})
 
@@ -8398,7 +8398,7 @@ return
             Class.discharger_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
         //Class.minigun.UPGRADES_TIER_3
         //Class.gunner.UPGRADES_TIER_3
-        Class.sprayer.UPGRADES_TIER_3.push("frother_AR", "foamer_AR", "faucet_AR", "shower_AR", "autoSprayer_AR", "stormer_AR")
+        Class.sprayer.UPGRADES_TIER_3.push("frother_AR", "foamer_AR", "faucet_AR", "shower_AR", "autoSprayer_AR", "springer_AR")
             Class.redistributor.UPGRADES_TIER_4 = ["autoRedistributor"].map(x => x + "_AR")
             Class.phoenix.UPGRADES_TIER_4 = ["autoPhoenix"].map(x => x + "_AR")
             Class.atomizer.UPGRADES_TIER_4 = ["scatterer", "autoAtomizer"].map(x => x + "_AR")
@@ -8407,8 +8407,8 @@ return
             Class.foamer_AR.UPGRADES_TIER_4 = ["autoFoamer"].map(x => x + "_AR")
             Class.faucet_AR.UPGRADES_TIER_4 = ["autoFaucet"].map(x => x + "_AR")
             Class.shower_AR.UPGRADES_TIER_4 = ["oversprayer", "autoShower"].map(x => x + "_AR")
-            Class.autoSprayer_AR.UPGRADES_TIER_4 = ["megaAutoSprayer", "tripleAutoSprayer", "autoRedistributor", "autoPhoenix", "autoAtomizer", "autoFocal", "autoFrother", "autoFoamer", "autoFaucet", "autoShower", "autoStormer"].map(x => x + "_AR")
-            Class.stormer_AR.UPGRADES_TIER_4 = ["autoStormer"].map(x => x + "_AR")
+            Class.autoSprayer_AR.UPGRADES_TIER_4 = ["megaAutoSprayer", "tripleAutoSprayer", "autoRedistributor", "autoPhoenix", "autoAtomizer", "autoFocal", "autoFrother", "autoFoamer", "autoFaucet", "autoShower", "autoSpringer"].map(x => x + "_AR")
+            Class.springer_AR.UPGRADES_TIER_4 = ["autoSpringer"].map(x => x + "_AR")
         Class.diesel_AR.UPGRADES_TIER_3 = ["jalopy_AR", "machineGunner", "foamer_AR", "dieselTrapper_AR", "polluter_AR", "autoDiesel_AR"]
             Class.jalopy_AR.UPGRADES_TIER_4 = [].map(x => x + "_AR")
             //Class.machineGunner.UPGRADES_TIER_4
@@ -8639,7 +8639,7 @@ if (Config.retrograde) {
             Class.faucet_AR.UPGRADES_TIER_4.push("doubleFaucet_AR")
             Class.shower_AR.UPGRADES_TIER_4.push("bargain_AR")
             Class.autoSprayer_AR.UPGRADES_TIER_4.push("autoSplasher_AR", "autoDoubleSprayer_AR")
-            Class.stormer_AR.UPGRADES_TIER_4.push("doubleStormer_AR")
+            Class.springer_AR.UPGRADES_TIER_4.push("doubleSpringer_AR")
         Class.diesel_AR.UPGRADES_TIER_3.push("doubleDiesel_AR")
             Class.autoDiesel_AR.UPGRADES_TIER_4.push("autoDoubleDiesel_AR")
         Class.blaster.UPGRADES_TIER_3.push("volley_AR", "doubleBlaster_AR", "ripoff_AR", "autoBlaster_AR")
@@ -8659,7 +8659,7 @@ if (Config.retrograde) {
             Class.halfNHalf.UPGRADES_TIER_4 = ["quarterNQuarter", "slabNSlab", "sprayNSpray", "autoHalfNHalf"].map(x => x + "_AR")
             Class.doubleArtillery_AR.UPGRADES_TIER_4 = ["tripleArtillery", "autoDoubleArtillery"].map(x => x + "_AR")
             Class.doubleMinigun_AR.UPGRADES_TIER_4 = ["tripleMinigun", "doubleSubverter", "autoDoubleMinigun"].map(x => x + "_AR")
-            Class.doubleSprayer_AR.UPGRADES_TIER_4 = ["tripleSprayer", "sprayNSpray", "doubleRedistributor", "doubleAtomizer", "doubleFocal", "doubleSplasher", "doubleFrother", "doubleFoamer", "doubleFaucet", "autoDoubleSprayer", "doubleStormer"].map(x => x + "_AR")
+            Class.doubleSprayer_AR.UPGRADES_TIER_4 = ["tripleSprayer", "sprayNSpray", "doubleRedistributor", "doubleAtomizer", "doubleFocal", "doubleSplasher", "doubleFrother", "doubleFoamer", "doubleFaucet", "autoDoubleSprayer", "doubleSpringer"].map(x => x + "_AR")
             Class.doubleDiesel_AR.UPGRADES_TIER_4 = ["tripleDiesel", "autoDoubleDiesel"].map(x => x + "_AR")
             Class.doubleBlaster_AR.UPGRADES_TIER_4 = ["tripleBlaster", "doubleTriBlaster", "doubleSplasher", "doubleFlamethrower", "slabNSlab", "doubleSubverter", "doubleVolley", "autoDoubleBlaster"].map(x => x + "_AR")
             Class.doubleGatling_AR.UPGRADES_TIER_4 = ["tripleGatling", "doubleFocal", "quarterNQuarter", "slabNSlab", "autoDoubleGatling"].map(x => x + "_AR")
