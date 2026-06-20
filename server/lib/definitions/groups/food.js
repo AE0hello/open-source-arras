@@ -64,7 +64,6 @@ Class.jewel = {
     INTANGIBLE: false,
     GIVE_KILL_MESSAGE: true
 }
-makeRarities("egg")
 
 // Squares
 Class.square = {
@@ -84,7 +83,6 @@ Class.square = {
     DRAW_HEALTH: true,
     INTANGIBLE: false
 }
-makeRarities("square")
 
 // Triangles
 Class.triangle = {
@@ -104,7 +102,6 @@ Class.triangle = {
     },
     DRAW_HEALTH: true
 }
-makeRarities("triangle")
 
 // Pentagons
 Class.pentagon = {
@@ -162,9 +159,6 @@ Class.alphaPentagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true
 }
-makeRarities("pentagon")
-makeRarities("betaPentagon")
-makeRarities("alphaPentagon")
 
 // Hexagons
 Class.hexagon = {
@@ -185,7 +179,6 @@ Class.hexagon = {
     },
     DRAW_HEALTH: true
 }
-makeRarities("hexagon")
 
 // Crashers
 Class.crasher = {
@@ -293,10 +286,21 @@ Class.nonagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true,
 }
-makeRarities("hexagon_old")
-makeRarities("septagon")
-makeRarities("octagon")
-makeRarities("nonagon")
+
+// Rarities
+makeRarities([
+    'egg',
+    'square',
+    'triangle',
+    'pentagon',
+    'betaPentagon',
+    'alphaPentagon',
+    'hexagon',
+    'hexagon_old',
+    'septagon',
+    'octagon',
+    'nonagon'
+])
 
 // 3D
 if (!classic_3D_shapes) {

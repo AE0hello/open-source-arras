@@ -1339,12 +1339,14 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
         }))
     };
 };
-exports.makeRarities = (type) => {
-    const ct = type.charAt(0).toUpperCase() + type.slice(1);
-    const rarities = ["shiny", "legendary", "shadow", "rainbow", "trans"];
-    for (let i = 0; i < rarities.length; i++) {
-        const pn = `${rarities[i]}${ct}`;
-        Class[pn] = exports.makeRare(`${type}`, [i]);
+exports.makeRarities = (types = []) => {
+    for (type of types) {
+        const ct = type.charAt(0).toUpperCase() + type.slice(1);
+        const rarities = ["shiny", "legendary", "shadow", "rainbow", "trans"];
+        for (let i = 0; i < rarities.length; i++) {
+            const pn = `${rarities[i]}${ct}`;
+            Class[pn] = exports.makeRare(`${type}`, [i]);
+        }
     }
 }
 
