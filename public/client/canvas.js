@@ -124,7 +124,40 @@ class Canvas {
         if (global.dailyTankAd.renderUI) return;
         if (global.specialPressed) {
             event.preventDefault();
-            if (!event.repeat) global.specialKeysPressed.push(event.code);
+            let pressed = false;
+            let attributed = false;
+            let attributeKey = false;
+            for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                let obj = global.KEY_ABILITIES[i];
+                if (global.specialKeysPressed.length && global.specialKeysPressed[0] === obj) {
+                    attributed = obj;
+                }
+            }
+            if (!event.repeat) {
+                for (let obj in global) {
+                    let wrongKey = false;
+                    const thing = global[obj];
+                    if (typeof thing === "string") {
+                        if (attributed) {
+                            if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_2" || obj.startsWith(attributed)) && thing === event.code) {
+                                global.specialKeysPressed.push(obj);
+                                pressed = true;
+                            }
+                        } else if (!pressed && obj.startsWith("KEY_SPECIAL_") && thing === event.code) {
+                            for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                                let obj2 = global.KEY_ABILITIES[i];
+                                if (obj.startsWith(obj2)) {
+                                    if (obj !== obj2) wrongKey = true;
+                                }
+                            }
+                            if (!wrongKey) {
+                                global.specialKeysPressed.push(obj);
+                                pressed = true; // Dont allow any other keys
+                            }
+                        }
+                    }
+                }
+            }
             this.socket.talk("#", ...global.specialKeysPressed);
             return;
         }
@@ -358,12 +391,42 @@ class Canvas {
         }
         if (global.specialPressed) {
             let arrayCopy = global.specialKeysPressed.slice();
-            let i = global.specialKeysPressed.indexOf(event.code);
+            let code = null;
+            let pressed = false;
+            let attributed = false;
+            for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                let obj = global.KEY_ABILITIES[i];
+                if (global.specialKeysPressed.length && global.specialKeysPressed[0] === obj) {
+                    attributed = obj;
+                }
+            }
+            for (let obj in global) {
+                let wrongKey = false;
+                const thing = global[obj];
+                if (typeof thing === "string") {
+                    if (attributed) {
+                        if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_2" || obj.startsWith(attributed)) && thing === event.code) {
+                            code = obj;
+                            pressed = true;
+                        }
+                    } else if (!pressed && obj.startsWith("KEY_SPECIAL_") && thing === event.code) {
+                        for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                            let obj2 = global.KEY_ABILITIES[i];
+                            if (obj.startsWith(obj2)) wrongKey = true;
+                        }
+                        if (!wrongKey) {
+                            code = obj;
+                            pressed = true;
+                        }
+                    }
+                }
+            }
+            let i = global.specialKeysPressed.indexOf(code);
             if (i >= 0) {
                 global.specialKeysPressed.splice(i, 1);
-                arrayCopy[i] = -event.code;
+                arrayCopy[i] = `-${code}`;
             }
-            else arrayCopy.push(-event.code);
+            else arrayCopy.push(`-${code}`);
             this.socket.talk("#", ...arrayCopy);
         }
     }

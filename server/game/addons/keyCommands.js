@@ -65,7 +65,7 @@ function init() {
         {
             name: "Help",
             description: "Shows this command list",
-            keys: [[[191, "?"]], [[112, "F1"]]],
+            keys: [[["KEY_SPECIAL_HELP", "?"]], [["KEY_SPECIAL_HELP_2", "F1"]]],
             level: 1,
             operatorAccess: true,
             run: ({ socket, level, operator }) => {
@@ -88,7 +88,7 @@ function init() {
         },
         {
             name: "Preset tank #1",
-            keys: [[[49, "1"]]],
+            keys: [[["KEY_SPECIAL_PRESET_1", "1"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -99,7 +99,7 @@ function init() {
         {
             name: "Special Tank",
             description: "Defines you to your token's tank.",
-            keys: [[[50, "2"]]],
+            keys: [[["KEY_SPECIAL_PRESET_2", "2"]]],
             level: 1,
             operatorAccess: true,
             hidden: true,
@@ -123,7 +123,7 @@ function init() {
         {
             name: "Preset Tank #2",
             description: "Defines you as healer",
-            keys: [[[51, "3"]]],
+            keys: [[["KEY_SPECIAL_PRESET_3", "3"]]],
             level: 1,
             hidden: true,
             run: ({ socket, player }) => {
@@ -135,7 +135,7 @@ function init() {
         },
         {
             name: "Basic",
-            keys: [[[81, "Q"]]],
+            keys: [[["KEY_SPECIAL_BASIC", "Q"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -144,9 +144,8 @@ function init() {
             }
         },
         {
-            code: "e",
             name: "Teleport",
-            keys: [[[69, "E"]]],
+            keys: [[["KEY_SPECIAL_TELEPORT", "E"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -155,9 +154,8 @@ function init() {
             }
         },
         {
-            code: "k",
             name: "Kill",
-            keys: [[[75, "K"]]],
+            keys: [[["KEY_SPECIAL_KILL", "K"]]],
             level: 1,
             operatorAccess: true,
             run: ({ socket, player }) => {
@@ -177,7 +175,7 @@ function init() {
         {
             name: "Whirlpool",
             //description: "Picks the nearest entity at you're cursor.",
-            keys: [[[87, "W"]]],
+            keys: [[["KEY_SPECIAL_WHIRLPOOL", "W"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -190,7 +188,7 @@ function init() {
         },
         {
             name: "Whirlpool",
-            keys: [[[-87, "W"]]],
+            keys: [[["-KEY_SPECIAL_WHIRLPOOL", "W"]]],
             level: 1,
             hidden: true,
             run: ({ player }) => {
@@ -199,7 +197,7 @@ function init() {
         },
         {
             name: "Drag",
-            keys: [[[68, "D"]]],
+            keys: [[["KEY_SPECIAL_DRAG", "D"]]],
             level: 1,
             operatorAccess: true,
             run({ socket, player }) {
@@ -244,7 +242,7 @@ function init() {
         },
         {
             name: "Drag",
-            keys: [[[-68, "D"]]],
+            keys: [[["-KEY_SPECIAL_DRAG", "D"]]],
             hidden: true,
             level: 1,
             operatorAccess: true,
@@ -255,7 +253,7 @@ function init() {
         },
         {
             name: "Color",
-            keys: [[[67, "C"]]],
+            keys: [[["KEY_SPECIAL_COLOR", "C"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -272,7 +270,7 @@ function init() {
         {
             name: "Wall",
             //description: "Spawns wall at your cursor",
-            keys: [[[88, "X"]]],
+            keys: [[["KEY_SPECIAL_WALL", "X"]]],
             level: 1,
             operatorAccess: true,
             run: ({ socket, player, gameManager }) => {
@@ -340,7 +338,7 @@ function init() {
         },
         {
             name: "Wall Type", 
-            keys: [[[90, "Z"]]],
+            keys: [[["KEY_SPECIAL_WALL_TYPE", "Z"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -366,7 +364,7 @@ function init() {
         },
         {
             name: "Wall",
-            keys: [[[-88, "X"]]],
+            keys: [[["-KEY_SPECIAL_WALL", "X"]]],
             level: 1,
             hidden: true,
             operatorAccess: true,
@@ -376,7 +374,7 @@ function init() {
         },
         {
             name: "Vanish",
-            keys: [[[86, "V"]]],
+            keys: [[["KEY_SPECIAL_VANISH", "V"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -403,7 +401,7 @@ function init() {
         },
         {
             name: "Invulnerable",
-            keys: [[[73, "I"]]],
+            keys: [[["KEY_SPECIAL_INVINCIBLE", "I"]]],
             level: 1,
             operatorAccess: true,
             run: ({ socket, player }) => {
@@ -414,7 +412,7 @@ function init() {
         {
             name: "Team",
             //description: "Changes team at the selected entity.",
-            keys: [[[84, "T"]]],
+            keys: [[["KEY_SPECIAL_TEAM", "T"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player, socket }) => {
@@ -461,7 +459,7 @@ function init() {
         },
         {
             name: "Invite to team",
-            keys: [[[89, "Y"]]],
+            keys: [[["KEY_SPECIAL_TEAM_INVITE", "Y"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player, socket }) => {
@@ -475,7 +473,7 @@ function init() {
         },
         {
             name: "Heal",
-            keys: [[[72, "H"]]],
+            keys: [[["KEY_SPECIAL_HEAL", "H"]]],
             level: 1,
             operatorAccess: true,
             run: ({ socket, player }) => {
@@ -513,7 +511,7 @@ function init() {
         },*/
         {
             name: "Skill",
-            keys: [[[83, "S"], [191, "/"]], [[83, "S"], [112, "F1"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP_2", "F1"]]],
             displayKey: "S+?",
             level: 1,
             operatorAccess: true,
@@ -536,7 +534,7 @@ function init() {
         },
         {
             name: "Reset skills",
-            keys: [[[83, "S"], [82, "R"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_RESET", "R"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -554,7 +552,7 @@ function init() {
         },
         {
             name: "Clear skills",
-            keys: [[[83, "S"], [67, "C"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_CLEAR", "C"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -568,7 +566,7 @@ function init() {
         },
         {
             name: "Maximize skills",
-            keys: [[[83, "S"], [77, "M"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_MAX", "M"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -580,7 +578,7 @@ function init() {
         },
         {
             name: "Remove skill point",
-            keys: [[[83, "S"], [68, "D"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_REMOVE", "D"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -592,7 +590,7 @@ function init() {
         },
         {
             name: "Add skill point",
-            keys: [[[83, "S"], [70, "F"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_ADD", "F"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -606,7 +604,7 @@ function init() {
         },
         {
             name: "Reduce skill cap",
-            keys: [[[83, "S"], [71, "G"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_CAP_REMOVE", "G"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -622,7 +620,7 @@ function init() {
         },
         {
             name: "Increase skill cap",
-            keys: [[[83, "S"], [72, "H"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_SKILL_CAP_ADD", "H"]]],
             skill: true,
             level: 1,
             operatorAccess: true,
@@ -635,7 +633,7 @@ function init() {
         },
         {
             name: "Get Data",
-            keys: [[[71, "G"]]],
+            keys: [[["KEY_SPECIAL_DATA", "G"]]],
             level: 1,
             run: ({ socket, player }) => {
                 selectedEntities(player, (o) => {
@@ -651,7 +649,7 @@ function init() {
         },
         {
             name: "Infinite level up",
-            keys: [[[78, "N"]]],
+            keys: [[["KEY_SPECIAL_LEVEL_UP", "N"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -662,7 +660,7 @@ function init() {
         },
         {
             name: "Police",
-            keys: [[[80, "P"]]],
+            keys: [[["KEY_SPECIAL_POLICE", "P"]]],
             level: 1,
             run: ({ player, gameManager }) => {
                 player.body.define({RESET_UPGRADES: true});
@@ -677,7 +675,7 @@ function init() {
         },
         {
             name: "Blast",
-            keys: [[[66, "B"]]],
+            keys: [[["KEY_SPECIAL_BLAST", "B"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -701,7 +699,7 @@ function init() {
         },
         {
             name: "Attribute",
-            keys: [[[65, "A"], [191, "/"]], [[65, "A"], [112, "F1"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_HELP_2", "F1"]]],
             displayKey: "A+?",
             level: 1,
             operatorAccess: true,
@@ -724,7 +722,7 @@ function init() {
         },
         {
             name: "All team minimap",
-            keys: [[[65, "A"], [84, "T"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_MINIMAP_TEAM", "T"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -736,7 +734,7 @@ function init() {
         },
         {
             name: "Hidden from minimap",
-            keys: [[[65, "A"], [77, "M"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_MINIMAP_HIDE", "M"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -747,7 +745,7 @@ function init() {
         },
         {
             name: "Shown on leaderboard",
-            keys: [[[65, "A"], [76, "L"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_LEADERBOARD", "L"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -758,7 +756,7 @@ function init() {
         },
         {
             name: "No reload cooldown",
-            keys: [[[65, "A"], [67, "C"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_RELOAD", "C"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -769,7 +767,7 @@ function init() {
         },
         {
             name: "No recoil",
-            keys: [[[65, "A"], [82, "R"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_RECOIL", "R"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -780,7 +778,7 @@ function init() {
         },
         {
             name: "No arena boundary force",
-            keys: [[[65, "A"], [79, "O"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_ARENA_EDGE", "O"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -791,7 +789,7 @@ function init() {
         },
         {
             name: "Pass through walls",
-            keys: [[[65, "A"], [87, "W"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_WALL", "W"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -802,7 +800,7 @@ function init() {
         },
         {
             name: "Accepts score",
-            keys: [[[65, "A"], [75, "K"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_ATTRIBUTE_SCORE", "K"]]],
             attribute: true,
             level: 1,
             operatorAccess: true,
@@ -813,7 +811,7 @@ function init() {
         },
         {
             name: "Ban",
-            keys: [[[79, "O"]]],
+            keys: [[["KEY_SPECIAL_BAN", "O"]]],
             level: 2,
             run: ({ socket, player }) => {
                 const types = 2,
@@ -859,7 +857,7 @@ function init() {
         },
         {
             name: "Zoom-out",
-            keys: [[[189, "-"]]],
+            keys: [[["KEY_SPECIAL_ZOOM_OUT", "-"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -868,7 +866,7 @@ function init() {
         },
         {
             name: "Zoom-in",
-            keys: [[[187, "+"]]],
+            keys: [[["KEY_SPECIAL_ZOOM_IN", "+"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -877,7 +875,7 @@ function init() {
         },
         {
             name: "Clear zoom",
-            keys: [[[48, "0"]]],
+            keys: [[["KEY_SPECIAL_ZOOM_CLEAR", "0"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -886,7 +884,7 @@ function init() {
         },
         {
             name: "Smaller",
-            keys: [[[188, ","]]],
+            keys: [[["KEY_SPECIAL_SMALLER", ","]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -899,7 +897,7 @@ function init() {
         },
         {
             name: "Bigger",
-            keys: [[[190, "."]]],
+            keys: [[["KEY_SPECIAL_BIGGER", "."]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {
@@ -913,8 +911,7 @@ function init() {
         {
             name: "Operator access",
             description: "Gives player operator access.",
-            keys: [[[186]], [[59]]],
-            displayKey: ";",
+            keys: [[["KEY_SPECIAL_PROMOTE", ";"]]],
             level: 1,
             operatorAccess: true,
             run: ({ player }) => {

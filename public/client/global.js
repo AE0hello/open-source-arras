@@ -161,6 +161,7 @@ const global = {
 
     KEY_SPECIAL: 'Backquote',
     KEY_SPECIAL_HELP: 'Slash',
+    KEY_SPECIAL_HELP_2: 'F1',
 
     KEY_SPECIAL_PRESET_1: 'Digit1',
     KEY_SPECIAL_PRESET_2: 'Digit2',
@@ -219,6 +220,8 @@ const global = {
 
     KEY_SPECIAL_PROMOTE: 'Semicolon',
     KEY_SPECIAL_DEMOTE: 'Quote',
+
+    KEY_ABILITIES: ["KEY_SPECIAL_ATTRIBUTE", "KEY_SPECIAL_SKILL"],
 
     showTree: false,
     scrollX: 0,
