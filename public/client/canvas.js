@@ -129,9 +129,7 @@ class Canvas {
             let attributeKey = false;
             for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
                 let obj = global.KEY_ABILITIES[i];
-                if (global.specialKeysPressed.length && global.specialKeysPressed[0] === obj) {
-                    attributed = obj;
-                }
+                if (global.specialKeysPressed.length && global.specialKeysPressed[0] === obj) attributed = obj;
             }
             if (!event.repeat) {
                 for (let obj in global) {
@@ -308,36 +306,20 @@ class Canvas {
                 ].indexOf(event.code);
                 if (skill >= 0) this.socket.talk('x', skill, 1 * global.statMaxing);
             }
+            const upgradeMap = {
+                [global.KEY_UPGRADE_1]: 0,
+                [global.KEY_UPGRADE_2]: 1,
+                [global.KEY_UPGRADE_3]: 2,
+                [global.KEY_UPGRADE_4]: 3,
+                [global.KEY_UPGRADE_5]: 4,
+                [global.KEY_UPGRADE_6]: 5,
+                [global.KEY_UPGRADE_7]: 6,
+                [global.KEY_UPGRADE_8]: 7,
+                [global.KEY_UPGRADE_9]: 8
+            }
             if (global.canUpgrade) {
-                switch (event.code) {
-                    case global.KEY_UPGRADE_1:
-                        this.socket.talk("U", 0, parseInt(gui.upgrades[0][0]));
-                        break;
-                    case global.KEY_UPGRADE_2:
-                        this.socket.talk("U", 1, parseInt(gui.upgrades[1][0]));
-                        break;
-                    case global.KEY_UPGRADE_3:
-                        this.socket.talk("U", 2, parseInt(gui.upgrades[2][0]));
-                        break;
-                    case global.KEY_UPGRADE_4:
-                        this.socket.talk("U", 3, parseInt(gui.upgrades[3][0]));
-                        break;
-                    case global.KEY_UPGRADE_5:
-                        this.socket.talk("U", 4, parseInt(gui.upgrades[4][0]));
-                        break;
-                    case global.KEY_UPGRADE_6:
-                        this.socket.talk("U", 5, parseInt(gui.upgrades[5][0]));
-                        break;
-                    case global.KEY_UPGRADE_7:
-                        this.socket.talk("U", 6, parseInt(gui.upgrades[6][0]));
-                        break;
-                    case global.KEY_UPGRADE_8:
-                        this.socket.talk("U", 7, parseInt(gui.upgrades[7][0]));
-                        break;
-                    case global.KEY_UPGRADE_9:
-                        this.socket.talk("U", 8, parseInt(gui.upgrades[8][0]));
-                        break;
-                }
+                const i = upgradeMap[event.code];
+                if (i !== undefined) this.socket.talk('U', i, parseInt(gui.upgrades[i][0]));
             }
         }
     }
@@ -728,7 +710,8 @@ class Canvas {
         w.click();
         global.createMessage("Saving screenshot...", 3_000);
     }
-    // MOBILE SUPPORT
+
+    // Touchscreen Controls
     touchStart(e) {
         e.preventDefault();
         if (global.died && !global.cannotRespawn) {
@@ -921,7 +904,8 @@ class Canvas {
             }
         }
     }
-    // CONTROLLER/GAMEPAD SUPPORT
+
+    // Controller Controls
     runGamepad() {
         let sendHelp = () => {
             let helpLines = [
