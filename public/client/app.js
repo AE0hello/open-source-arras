@@ -1305,7 +1305,7 @@ import * as socketStuff from "./socketinit.js";
     }
     const ska = (x) => skas[x];
     const getClassUpgradeKey = (number) => {
-        const key = global[`KEY_CHOOSE_${number + 1}`];
+        const key = global[`KEY_UPGRADE_${number + 1}`];
 
         if (key == -1 || key == undefined) return null;
         if (key.startsWith('Key') && key.length === 4) return key[3];

@@ -301,40 +301,40 @@ class Canvas {
             }
             if (global.canSkill) {
                 let skill = [
-                    global.KEY_UPGRADE_ATK, global.KEY_UPGRADE_HTL, global.KEY_UPGRADE_SPD,
-                    global.KEY_UPGRADE_STR, global.KEY_UPGRADE_PEN, global.KEY_UPGRADE_DAM,
-                    global.KEY_UPGRADE_RLD, global.KEY_UPGRADE_MOB, global.KEY_UPGRADE_RGN,
-                    global.KEY_UPGRADE_SHI
+                    global.KEY_SKILL_1, global.KEY_SKILL_2, global.KEY_SKILL_3,
+                    global.KEY_SKILL_4, global.KEY_SKILL_5, global.KEY_SKILL_6,
+                    global.KEY_SKILL_7, global.KEY_SKILL_8, global.KEY_SKILL_9,
+                    global.KEY_SKILL_0
                 ].indexOf(event.code);
                 if (skill >= 0) this.socket.talk('x', skill, 1 * global.statMaxing);
             }
             if (global.canUpgrade) {
                 switch (event.code) {
-                    case global.KEY_CHOOSE_1:
+                    case global.KEY_UPGRADE_1:
                         this.socket.talk("U", 0, parseInt(gui.upgrades[0][0]));
                         break;
-                    case global.KEY_CHOOSE_2:
+                    case global.KEY_UPGRADE_2:
                         this.socket.talk("U", 1, parseInt(gui.upgrades[1][0]));
                         break;
-                    case global.KEY_CHOOSE_3:
+                    case global.KEY_UPGRADE_3:
                         this.socket.talk("U", 2, parseInt(gui.upgrades[2][0]));
                         break;
-                    case global.KEY_CHOOSE_4:
+                    case global.KEY_UPGRADE_4:
                         this.socket.talk("U", 3, parseInt(gui.upgrades[3][0]));
                         break;
-                    case global.KEY_CHOOSE_5:
+                    case global.KEY_UPGRADE_5:
                         this.socket.talk("U", 4, parseInt(gui.upgrades[4][0]));
                         break;
-                    case global.KEY_CHOOSE_6:
+                    case global.KEY_UPGRADE_6:
                         this.socket.talk("U", 5, parseInt(gui.upgrades[5][0]));
                         break;
-                    case global.KEY_CHOOSE_7:
+                    case global.KEY_UPGRADE_7:
                         this.socket.talk("U", 6, parseInt(gui.upgrades[6][0]));
                         break;
-                    case global.KEY_CHOOSE_8:
+                    case global.KEY_UPGRADE_8:
                         this.socket.talk("U", 7, parseInt(gui.upgrades[7][0]));
                         break;
-                    case global.KEY_CHOOSE_9:
+                    case global.KEY_UPGRADE_9:
                         this.socket.talk("U", 8, parseInt(gui.upgrades[8][0]));
                         break;
                 }
