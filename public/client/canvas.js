@@ -829,16 +829,17 @@ class Canvas {
             let id = touch.identifier;
 
             if (this.movementTouch === id) {
+                let ratio = global.canvas.height / global.screenHeight / global.ratio;
                 let radius = Math.min(global.screenWidth * 0.6, global.screenHeight * 0.12);
-                let cx = (mpos.x - (this.cv.width * 1) / 6)  / (radius / 64);
-                let cy = (mpos.y - (this.cv.height * 2) / 3)  / (radius / 64);
-                let touchX = cx / (radius / 64);
-                let touchY = cy / (radius / 64);
+                let cx = (mpos.x - (this.cv.width * 1) / 6) / ratio / 2;
+                let cy = (mpos.y - (this.cv.height * 2) / 3) / ratio / 2;
+                let touchX = cx
+                let touchY = cy
                 let r = Math.sqrt(cx ** 2 + cy ** 2);
                 let angle = Math.atan2(cy, cx);
                 if (r > radius) {
-                    touchX = Math.cos(angle) * radius / 1.05;
-                    touchY = Math.sin(angle) * radius / 1.05;
+                    touchX = Math.cos(angle) * radius;
+                    touchY = Math.sin(angle) * radius;
                 }
                 this.movementTouchPos = { x: touchX, y: touchY };
                 let x = mpos.x - (this.cv.width * 1) / 6;
@@ -857,19 +858,20 @@ class Canvas {
                     this.socket.cmd.set(3, (this.movementRight = x > amount));
             } else if (this.controlTouch === id) {
                 global.mobileStatus.showCrosshair = true;
+                let ratio = global.canvas.height / global.screenHeight / global.ratio;
                 let radius = Math.min(
                     global.screenWidth * 0.6,
                     global.screenHeight * 0.12
                 );
-                let cx = (mpos.x - (this.cv.width * 5) / 6)  / (radius / 64);
-                let cy = (mpos.y - (this.cv.height * 2) / 3)  / (radius / 64);
-                let touchX = cx / (radius / 64);
-                let touchY = cy / (radius / 64);
+                let cx = (mpos.x - (this.cv.width * 5) / 6) / ratio / 2;
+                let cy = (mpos.y - (this.cv.height * 2) / 3) / ratio / 2;
+                let touchX = cx;
+                let touchY = cy;
                 let r = Math.sqrt(cx ** 2 + cy ** 2);
                 let angle = Math.atan2(cy, cx);
                 if (r > radius) {
-                    touchX = Math.cos(angle) * radius / 1.05;
-                    touchY = Math.sin(angle) * radius / 1.05;
+                    touchX = Math.cos(angle) * radius;
+                    touchY = Math.sin(angle) * radius;
                 }
                 this.controlTouchPos = { x: touchX, y: touchY };
                 if (!this.spinLock) {
