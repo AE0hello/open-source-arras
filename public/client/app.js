@@ -318,7 +318,7 @@ import * as socketStuff from "./socketinit.js";
                     })
                     if (parseInt(minimum) > parseInt(target)) {
                         warnDoc = document.createElement("ul3");
-                        warnDoc.textContent = "This addon may be incompatible with your version";
+                        warnDoc.textContent = "This addon may be incompatible with your version!";
                     }
                 }
             }
@@ -342,7 +342,7 @@ import * as socketStuff from "./socketinit.js";
                 authorValue.textContent += `${i !== 0 ? ", " : ""}${auth}`;
             }
             author.appendChild(authorValue);
-            targetVer.textContent = `Made for OSA version ${e["osa-version"].target}`;
+            targetVer.textContent = `Made for Open Source Arras ${e["osa-version"].target}`;
 
             divDoc.appendChild(name);
             divDoc.appendChild(author);
