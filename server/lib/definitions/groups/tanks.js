@@ -1084,39 +1084,21 @@ Class.crowbar = {
     ],
 }
 Class.cyclone = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Cyclone",
     DANGER: 7,
-    GUNS: weaponArray([
+    GUNS: weaponArray(
         {
-            POSITION: [15, 3.5, 1, 0, 0, 0, 0],
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5
+            },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
+                TYPE: 'bullet'
             }
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, 30, 0.5],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, 60, 0.25],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: [15, 3.5, 1, 0, 0, 90, 0.75],
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
-                TYPE: "bullet"
-            }
-        }
-    ], 3)
+        }, 12, {delayIncrement: 3/4}
+    )
 }
 Class.deadeye = {
     PARENT: "genericTank",
