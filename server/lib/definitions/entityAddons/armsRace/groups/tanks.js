@@ -137,6 +137,19 @@ const makeUnder = (type, name = -1, options = {}) => {
     return output
 }
 
+// Bulk Define Functions
+function bulkMakeAuto(types = []) {
+    for (type of types) {
+        //cleanType = [type].map(x => x.endsWith('_AR') ? x.slice(0, -3) : x)
+        const cleanType = type.charAt(0).toUpperCase() + type.slice(1)
+        if (cleanType.endsWith('_AR')) {
+            Class[`auto${cleanType}`] = makeAuto(type)
+        } else {
+            Class[`auto${cleanType}_AR`] = makeAuto(type)
+        }
+    }
+}
+
 // Credits
 // - u/SkyShredder89: Default Tier 3/4 Sprayer upgrades
 // - Taureon: Original Mummifier concept
@@ -2951,6 +2964,111 @@ Class.zipper_AR = {
     ]
 }
 
+// Tier 4 (bulk functions)
+bulkMakeAuto([
+    'armsman',
+    'auto4',
+    'auto5',
+    'barricade',
+    'battery',
+    'beadle_AR',
+    'bentDouble',
+    'bentGunner_AR',
+    'bentHybrid',
+    'bentMinigun_AR',
+    'blower',
+    'bulwark',
+    'bushwhacker',
+    'buttbuttin',
+    'coalesce_AR',
+    'cog_AR',
+    'coil',
+    'combo_AR',
+    'courser_AR',
+    'cropDuster',
+    'crossbow',
+    'cyclone',
+    'deadeye',
+    'deathStar',
+    'defect_AR',
+    'doubleGunner_AR',
+    'doubleHelix_AR',
+    'doubleMinigun_AR',
+    'dual',
+    'duplicator',
+    'enforcer_AR',
+    'equalizer_AR',
+    'expeller_AR',
+    'falcon',
+    'fork',
+    'gunnerTrapper',
+    'hewnDouble',
+    'hitman_AR',
+    'hutch_AR',
+    'machineGunner',
+    'megaHunter_AR',
+    'mingler_AR',
+    'musket',
+    'nailgun',
+    'nimrod',
+    'octoTank',
+    'ordnance',
+    'overgunner',
+    'pentaShot',
+    'piercer_AR',
+    'poacher',
+    'predator',
+    'prober_AR',
+    'quadruplex',
+    'railgun_AR',
+    'ranger',
+    'revolver',
+    'rimfire_AR',
+    'single',
+    'sniper3_AR',
+    'splitShot_AR',
+    'spreadshot',
+    'stalker',
+    'streamliner',
+    'subverter',
+    'triBlaster',
+    'triplet',
+    'triplex',
+    'undergunner_AR',
+    'volley_AR',
+    'vulture',
+    'waarrk_AR',
+    'warkwark_AR',
+    'widget_AR',
+    'xHunter',
+    'zipper_AR'
+])
+
+
+
+Class.autoAtomizer_AR = makeAuto('atomizer')
+Class.autoBanshee_AR = makeAuto('banshee')
+Class.autoBomber_AR = makeAuto('bomber')
+Class.autoBushwhacker_AR = makeAuto('bushwhacker')
+Class.autoConqueror_AR = makeAuto('conqueror')
+Class.autoCrowbar_AR = makeAuto('crowbar_AR')
+Class.autoDoubleSprayer_AR = makeAuto('doubleSprayer_AR')
+Class.autoFaucet_AR = makeAuto('faucet_AR')
+Class.autoFoamer_AR = makeAuto('foamer_AR')
+Class.autoFocal_AR = makeAuto('focal')
+Class.autoFrother_AR = makeAuto('frother_AR')
+Class.autoIncarcerator_AR = makeAuto('incarcerator_AR')
+Class.autoMachineGuard_AR = makeAuto('machineGuard_AR')
+Class.autoMechGuard_AR = makeAuto('mechGuard_AR')
+Class.autoMega3_AR = makeAuto('mega3')
+Class.autoPeashooter_AR = makeAuto('peashooter_AR')
+Class.autoPhoenix_AR = makeAuto('phoenix')
+Class.autoRedistributor_AR = makeAuto('redistributor')
+Class.autoShower_AR = makeAuto('shower_AR')
+Class.autoSplasher_AR = makeAuto('splasher')
+Class.autoSpringer_AR = makeAuto('springer_AR')
+Class.autoTripleMachine_AR = makeAuto('tripleMachine')
+
 // Tier 4
 Class.accountant_AR = {
     PARENT: "genericHealer",
@@ -3052,71 +3170,9 @@ Class.antidote_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.assistant_AR = makeOver('single', "Assistant", preset.makeOver.hybrid)
-Class.autoAuto4_AR = makeAuto('auto4')
-Class.autoAuto5_AR = makeAuto('auto5')
-Class.autoAtomizer_AR = makeAuto('atomizer')
-Class.autoBanshee_AR = makeAuto('banshee')
-Class.autoBattery_AR = makeAuto('battery')
-Class.autoBentDouble_AR = makeAuto('bentDouble')
-Class.autoBentGunner_AR = makeAuto('bentGunner_AR')
-Class.autoBentHybrid_AR = makeAuto('bentHybrid')
-Class.autoBentMinigun_AR = makeAuto('bentMinigun_AR')
-Class.autoBomber_AR = makeAuto('bomber')
-Class.autoBlower_AR = makeAuto('blower')
-Class.autoBulwark_AR = makeAuto('bulwark')
-Class.autoBushwhacker_AR = makeAuto('bushwhacker')
-Class.autoButtbuttin_AR = makeAuto('buttbuttin')
-Class.autoCog_AR = makeAuto('cog_AR')
-Class.autoCoil_AR = makeAuto('coil')
-Class.autoCombo_AR = makeAuto('combo_AR')
-Class.autoConqueror_AR = makeAuto('conqueror')
-Class.autoCrowbar_AR = makeAuto('crowbar_AR')
-Class.autoCyclone_AR = makeAuto('cyclone')
-Class.autoDeathStar_AR = makeAuto('deathStar')
-Class.autoDefect_AR = makeAuto('defect_AR')
 Class.autoDoubleFlank_AR = makeAuto('doubleFlankTwin_AR', "Auto-Double Flank")
-Class.autoDoubleGunner_AR = makeAuto('doubleGunner_AR')
-Class.autoDoubleHelix_AR = makeAuto('doubleHelix_AR')
-Class.autoDoubleSprayer_AR = makeAuto('doubleSprayer_AR')
-Class.autoDuplicator_AR = makeAuto('duplicator')
-Class.autoEqualizer_AR = makeAuto('equalizer_AR')
-Class.autoFaucet_AR = makeAuto('faucet_AR')
-Class.autoFoamer_AR = makeAuto('foamer_AR')
-Class.autoFocal_AR = makeAuto('focal')
-Class.autoFrother_AR = makeAuto('frother_AR')
-Class.autoGunnerTrapper_AR = makeAuto('gunnerTrapper')
-Class.autoHewnDouble_AR = makeAuto('hewnDouble')
 Class.autoHexaTrapper_AR = makeAuto('hexaTrapper', "Auto-Hexa Trapper", {...preset.makeAuto.triple, clearTurrets: true})
-Class.autoIncarcerator_AR = makeAuto('incarcerator_AR')
-Class.autoMachineGuard_AR = makeAuto('machineGuard_AR')
-Class.autoMachineGunner_AR = makeAuto('machineGunner')
-Class.autoMechGuard_AR = makeAuto('mechGuard_AR')
-Class.autoMega3_AR = makeAuto('mega3')
-Class.autoMingler_AR = makeAuto('mingler_AR')
-Class.autoNailgun_AR = makeAuto('nailgun')
-Class.autoOctoTank_AR = makeAuto('octoTank')
-Class.autoOvergunner_AR = makeAuto('overgunner')
-Class.autoPeashooter_AR = makeAuto('peashooter_AR')
-Class.autoPentaShot_AR = makeAuto('pentaShot')
-Class.autoPhoenix_AR = makeAuto('phoenix')
-Class.autoQuadruplex_AR = makeAuto('quadruplex')
-Class.autoRedistributor_AR = makeAuto('redistributor')
-Class.autoRimfire_AR = makeAuto('rimfire_AR')
-Class.autoShower_AR = makeAuto('shower_AR')
-Class.autoSingle_AR = makeAuto('single')
-Class.autoSniper3_AR = makeAuto('sniper3_AR')
-Class.autoSplasher_AR = makeAuto('splasher')
-Class.autoSplitShot_AR = makeAuto('splitShot_AR')
-Class.autoSpreadshot_AR = makeAuto('spreadshot')
-Class.autoSpringer_AR = makeAuto('springer_AR')
-Class.autoTriBlaster_AR = makeAuto('triBlaster')
 Class.autoTriple_AR = makeAuto('tripleTwin', "Auto-Triple")
-Class.autoTripleMachine_AR = makeAuto('tripleMachine')
-Class.autoTriplet_AR = makeAuto('triplet')
-Class.autoTriplex_AR = makeAuto('triplex')
-Class.autoVolley_AR = makeAuto('volley_AR')
-Class.autoWaarrk_AR = makeAuto('waarrk_AR')
-Class.autoWarkwark_AR = makeAuto('warkwark_AR')
 Class.avian_AR = makeBird('single', "Avian")
 Class.ballista_AR = {PARENT: 'PLACEHOLDER', LABEL: "Ballista"}
 Class.basic3_AR = makeRadialAuto('singleAutoTankGun_AR', {isTurret: true, danger: 8, label: "Basic-3"})
@@ -5183,7 +5239,7 @@ function makeAutoBranch(type, tier, whitelist = [], blacklist = []) {
 
     const megaTripleAuto = ['megaAuto', 'tripleAuto'].map(x => x + type.charAt(0).toUpperCase() + type.slice(1))
  
-    return [...megaTripleAuto, ...cleanUpgrades.map(x => 'auto' + x.charAt(0).toUpperCase() + x.slice(1))]
+    return [...megaTripleAuto.map(x => x.endsWith('_AR') ? x.slice(0, -3) : x), ...cleanUpgrades.map(x => 'auto' + x.charAt(0).toUpperCase() + x.slice(1))]
 }
 
 removeUpgrades('director', 3, ['bigCheese'])
@@ -5225,7 +5281,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('doubleTwin', tier4, ['doubleDual', 'doubleMusket', 'overdoubleTwin', 'underdoubleTwin'], preset.ARsuffix)
             //addUpgrades('tripleTwin', tier4, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'tripleHelix', 'warkwarkwark'], preset.ARsuffix)
             //addUpgrades('hewnDouble', tier4, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'hewnHelix', 'warkwawarkrk'], preset.ARsuffix)
-            //addUpgrades('autoDouble', tier4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoDoubleHelix', 'autoWarkwark'], preset.ARsuffix)
+            addUpgrades('autoDouble', tier4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoDoubleHelix', 'autoWarkwark'], preset.ARsuffix)
             //addUpgrades('bentDouble', tier4, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'doubleTriplex', 'cleft', 'doubleSpreadshot', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk'], preset.ARsuffix)
             //addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'doubleFlankHelix', 'hipwatch', 'scuffler', 'warkwawawark'], preset.ARsuffix)
             //addUpgrades('doubleGunner_AR', tier4, ['tripleGunner', 'hewnGunner', 'autoDoubleGunner', 'bentDoubleGunner', 'doubleFlankGunner', 'doubleNailgun', 'doubleMachineGunner', 'overdoubleGunner', 'underdoubleGunner', 'doubleBattery', 'doubleRimfire', 'doubleVolley', 'doubleEqualizer'], preset.ARsuffix)
@@ -5241,7 +5297,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('triplet', tier4, [], preset.ARsuffix)
             //addUpgrades('triplex', tier4, ['triprix', 'doubleTriplex', 'autoTriplex', 'nerd'], preset.ARsuffix)
             //addUpgrades('splitShot_AR', tier4, [], preset.ARsuffix)
-            //addUpgrades('autoTripleShot_AR', tier4, makeAutoBranch('tripleShot', 3), preset.ARsuffix)
+            addUpgrades('autoTripleShot_AR', tier4, makeAutoBranch('tripleShot', 3), preset.ARsuffix)
             //addUpgrades('bentGunner_AR', tier4, [], preset.ARsuffix)
             //addUpgrades('bentMinigun_AR', tier4, [], preset.ARsuffix)
             //addUpgrades('defect_AR', tier4, ['deficiency', 'bozo', 'nitwit', 'nerd', 'dork', 'donkey'/*, 'mangle', 'loon', 'klutz', 'jerker'*/, 'fault', 'autoDefect'], preset.ARsuffix)
@@ -5249,7 +5305,7 @@ addUpgrades('basic', 1, [])
 
         addUpgrades('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer', 'undergunner'], preset.ARsuffix)
             //addUpgrades('gunner', tier4, [/*'dam'*/], preset.ARsuffix)
-            //addUpgrades('autoGunner', tier4, makeAutoBranch('gunner', 3, ['auto4']), preset.ARsuffix)
+            addUpgrades('autoGunner', tier4, makeAutoBranch('gunner', 3, ['auto4']), preset.ARsuffix)
             //addUpgrades('nailgun', tier4, [], preset.ARsuffix)
             //addUpgrades('auto4', tier4, [], preset.ARsuffix)
             //addUpgrades('machineGunner', tier4, [], preset.ARsuffix)
@@ -5271,7 +5327,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('cyclone', tier4, [], preset.ARsuffix)
             //addUpgrades('hexaTrapper', tier4, ['autoHexaTrapper'], preset.ARsuffix)
             //addUpgrades('deathStar', tier4, ['autoDeathStar'], preset.ARsuffix)
-            //addUpgrades('autoHexaTank_AR', tier4, makeAutoBranch('hexaTank', 3, []/*, ['hexaTrapper']*/), preset.ARsuffix)
+            addUpgrades('autoHexaTank_AR', tier4, makeAutoBranch('hexaTank', 3, []/*, ['hexaTrapper']*/), preset.ARsuffix)
             //addUpgrades('mingler_AR', tier4, ['autoMingler'], preset.ARsuffix)
             //addUpgrades('combo_AR', tier4, ['autoCombo'], preset.ARsuffix)
 
@@ -5281,7 +5337,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('coil', tier4, ['doubleCoil', 'autoCoil'], preset.ARsuffix)
             //addUpgrades('duplicator', tier4, ['doubleDuplicator', 'autoDuplicator'], preset.ARsuffix)
             //addUpgrades('doubleHelix_AR', tier4, [], preset.ARsuffix)
-            //addUpgrades('autoHelix_AR', tier4, makeAutoBranch('helix', 3), preset.ARsuffix)
+            addUpgrades('autoHelix_AR', tier4, makeAutoBranch('helix', 3), preset.ARsuffix)
 
         addUpgrades('wark_AR', 3, ['warkwark_AR', 'waarrk_AR', 'equalizer_AR', 'hexaTrapper', 'hutch_AR', 'cog_AR', 'expeller_AR', 'bulwark', 'coalesce_AR', 'autoWark_AR'])
             addUpgrades('wark_AR', tier4, [/*'megaWark'*/], preset.ARsuffix)
@@ -5294,7 +5350,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('expeller_AR', tier4, [], preset.ARsuffix)
             //addUpgrades('bulwark', tier4, [/*'parapet', 'partition', 'thrasher', 'dam', 'striker', 'bentBulwark', 'autoBulwark', 'stockade', 'fencer', 'impeder', 'quadwark'*/], preset.ARsuffix)
             //addUpgrades('coalesce_AR', tier4, [], preset.ARsuffix)
-            //addUpgrades('autoWark_AR', tier4, [], preset.ARsuffix)
+            addUpgrades('autoWark_AR', tier4, makeAutoBranch('wark_AR', 3), preset.ARsuffix)
 
     addUpgrades('sniper', 2, [])
         addUpgrades('sniper', 3, ['railgun'], preset.ARsuffix)
@@ -5307,7 +5363,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('ranger', tier4, [], preset.ARsuffix)
             //addUpgrades('falcon', tier4, [], preset.ARsuffix)
             //addUpgrades('stalker', tier4, [], preset.ARsuffix)
-            //addUpgrades('autoAssassin', tier4, [], preset.ARsuffix)
+            addUpgrades('autoAssassin', tier4, makeAutoBranch('assassin', 3), preset.ARsuffix)
             //addUpgrades('single', tier4, ['duo', 'sharpshooter', 'gadgetGun', 'ternion', 'coordinator', 'bruiser', 'tricker'/*, 'vinculum'*/, 'mono', 'avian', 'spy', 'autoSingle', 'cyclops', 'orifice', 'assistant'/*, 'basic3'*/, 'pistol', 'subduer'], preset.ARsuffix)
             //addUpgrades('deadeye', tier4, [], preset.ARsuffix)
             //addUpgrades('buttbuttin', tier4, [], preset.ARsuffix)
@@ -5317,12 +5373,16 @@ addUpgrades('basic', 1, [])
             //addUpgrades('courser_AR', tier4, [], preset.ARsuffix)
 
         addUpgrades('hunter', 3, ['autoHunter', 'megaHunter', 'prober', 'courser'], preset.ARsuffix)
+            addUpgrades('autoHunter_AR', tier4, makeAutoBranch('hunter', 3), preset.ARsuffix)
 
-        addUpgrades('minigun', 3, ['zipper', 'bentMinigun', 'autoMinigun', 'widget'], preset.ARsuffix)
+        addUpgrades('minigun', 3, ['zipper', 'bentMinigun', 'autoMinigun', 'widget', 'piercer'], preset.ARsuffix)
+            addUpgrades('autoMinigun_AR', tier4, makeAutoBranch('minigun', 3), preset.ARsuffix)
 
         addUpgrades('rifle', 3, ['autoRifle', 'enforcer', 'prober'], preset.ARsuffix)
+            addUpgrades('autoRifle_AR', tier4, makeAutoBranch('rifle', 3), preset.ARsuffix)
 
         addUpgrades('marksman', 3, ['piercer', 'beadle', 'autoMarksman'], preset.ARsuffix)
+            addUpgrades('autoMarksman_AR', tier4, makeAutoBranch('marksman', 3), preset.ARsuffix)
 
     addUpgrades('machineGun', 2, ['diesel', 'machineTrapper'], preset.ARsuffix)
         addUpgrades('machineGun', 3, [])
