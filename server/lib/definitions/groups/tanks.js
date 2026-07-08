@@ -3967,7 +3967,7 @@ Class.prodigy = {
     SHAPE: 6,
     BODY: {
         SPEED: 0.8 * base.SPEED,
-        FOV: 1.2 * base.FOV
+        FOV: 1.1 * base.FOV
     },
     GUNS: [
         ...weaponArray({
