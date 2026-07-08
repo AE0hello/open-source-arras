@@ -1210,6 +1210,38 @@ Class.forger_AR = {
         }
     ]
 }
+Class.foundry_AR = {
+    PARENT: "genericTank",
+    LABEL: "Foundry",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: base.FOV * 1.1
+    },
+    ...preset.todo_placeholder_guns,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 17,
+                X: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.5,
+                WIDTH: 17
+            }
+        }
+    ]
+}
 Class.frother_AR = {
     PARENT: "genericTank",
     LABEL: "Frother",
@@ -1409,6 +1441,48 @@ Class.incarcerator_AR = makeGuard({
 }, "Incarcerator", {type: 'pen_AR', danger: 3})
 Class.integrator_AR = makeOver('triAngle', "Integrator", preset.makeOver.hybridUnder)
 Class.interner_AR = makeOver('pen_AR', "Interner", preset.makeOver.hybrid)
+Class.issuer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Issuer",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: base.FOV * 1.1
+    },
+    ...preset.todo_placeholder_guns,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 10,
+                X: 10.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 12,
+                X: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.5,
+                WIDTH: 12,
+                X: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
+    ]
+}
 Class.jalopy_AR = {
     PARENT: "genericTank",
     LABEL: "Jalopy",
@@ -1422,6 +1496,42 @@ Class.jalopy_AR = {
                 ASPECT: 1.8,
                 X: 6,
                 ANGLE: 0
+            }
+        }
+    ]
+}
+Class.laborer_AR = {
+    PARENT: "genericTank",
+    LABEL: "Laborer",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: base.SPEED * 0.8,
+        FOV: base.FOV * 1.1
+    },
+    ...preset.todo_placeholder_guns,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 10,
+                ASPECT: 1.2,
+                X: 10.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 12,
+                X: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5,
+                WIDTH: 11,
+                ASPECT: -1.3,
+                X: 6
             }
         }
     ]
@@ -4829,8 +4939,9 @@ removeUpgrades('twin', 3, ['bulwark'])
             //addUpgrades('triTrapper', tier4, ['triMegaTrapper', 'warkwarkwark'], preset.ARsuffix)
 
     addUpgrades('director', 2, ['directordrive', 'honcho', 'doper'], preset.ARsuffix)
-        //addUpgrades('director', 3, [])
+        addUpgrades('director', 3, [])
             //addUpgrades('director', tier4, ['coordinator'], preset.ARsuffix)
+            addUpgrades('manager', tier4, [], preset.ARsuffix)
 
         addUpgrades('overseer', 3, ['captain', 'foreman', 'dopeseer'], preset.ARsuffix)
 
@@ -4838,19 +4949,25 @@ removeUpgrades('twin', 3, ['bulwark'])
 
         addUpgrades('underseer', 3, ['angleseer_AR', 'pentaseer_AR', 'hexaseer_AR', 'undertrapper_AR', 'undergunner_AR', 'mummifier_AR', 'prodigy', 'autoUnderseer_AR', 'underdrive_AR', 'dealer_AR'])
 
-        addUpgrades('spawner', 3, [], preset.ARsuffix)
+        addUpgrades('spawner', 3, ['megaSpawner', 'productionist', 'spawnerdrive', 'captain', 'hangar', 'laborer', 'foundry', 'issuer'], preset.ARsuffix)
 
-    //addUpgrades('pounder', 2, [])
-        //addUpgrades('pounder', 3, [])
+        addUpgrades('directordrive_AR', 3, [], preset.ARsuffix)
+
+        addUpgrades('honcho_AR', 3, [], preset.ARsuffix)
+
+        addUpgrades('doper_AR', 3, [], preset.ARsuffix)
+
+    addUpgrades('pounder', 2, [])
+        addUpgrades('pounder', 3, [])
             //addUpgrades('pounder', tier4, ['bruiser'], preset.ARsuffix)
 
     addUpgrades('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark'], preset.ARsuffix)
         addUpgrades('trapper', 3, ['undertrapper'], preset.ARsuffix)
             //addUpgrades('trapper', tier4, ['tricker'], preset.ARsuffix)
 
-    //addUpgrades('desmos', 2, [])
-        //addUpgrades('desmos', 3, [])
-            //addUpgrades('desmos', tier4, [], preset.ARsuffix)
+    addUpgrades('desmos', 2, [])
+        addUpgrades('desmos', 3, [])
+            addUpgrades('desmos', tier4, [], preset.ARsuffix)
 
         //addUpgrades('helix', 3, [])
 
@@ -5513,38 +5630,6 @@ Class.doubleGatling_AR = makeFlank('gatlingGun', 2, "Double Gatling", {extraStat
 Class.doubleHelix_AR = makeFlank('helix', 2, "Double Helix", {extraStats: [g.doubleTwin]})
 Class.doubleMinigun_AR = makeFlank('minigun', 2, "Double Minigun", {extraStats: [g.flankGuard]})
 Class.doubleSprayer_AR = makeFlank('sprayer', 2, "Double Sprayer", {extraStats: [g.flankGuard]})
-Class.foundry_AR = {
-    PARENT: "genericTank",
-    LABEL: "Foundry",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        SPEED: base.SPEED * 0.8,
-        FOV: base.FOV * 1.1
-    },
-    ...preset.todo_placeholder_guns,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15,
-                WIDTH: 15
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1,
-                WIDTH: 17,
-                X: 15
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.5,
-                WIDTH: 17
-            }
-        }
-    ]
-}
 Class.helicopter_AR = {
     PARENT: "genericTank",
     LABEL: "Helicopter",
@@ -5649,48 +5734,6 @@ Class.inception_AR = {
         }
     ]
 }
-Class.issuer_AR = {
-    PARENT: "genericTank",
-    LABEL: "Issuer",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        SPEED: base.SPEED * 0.8,
-        FOV: base.FOV * 1.1
-    },
-    ...preset.todo_placeholder_guns,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.5,
-                WIDTH: 10,
-                X: 10.5
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1,
-                WIDTH: 12,
-                X: 15
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.5,
-                WIDTH: 12,
-                X: 8
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6,
-                WIDTH: 1,
-                ASPECT: -5,
-                X: 8
-            }
-        }
-    ]
-}
 Class.junkie_AR = {
     PARENT: "genericTank",
     LABEL: "Junkie",
@@ -5715,42 +5758,6 @@ Class.junkie_AR = {
                 WIDTH: 1,
                 ASPECT: -5,
                 X: 8
-            }
-        }
-    ]
-}
-Class.laborer_AR = {
-    PARENT: "genericTank",
-    LABEL: "Laborer",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        SPEED: base.SPEED * 0.8,
-        FOV: base.FOV * 1.1
-    },
-    ...preset.todo_placeholder_guns,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.5,
-                WIDTH: 10,
-                ASPECT: 1.2,
-                X: 10.5
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1,
-                WIDTH: 12,
-                X: 15
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5,
-                WIDTH: 11,
-                ASPECT: -1.3,
-                X: 6
             }
         }
     ]
