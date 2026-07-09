@@ -601,7 +601,7 @@ class socketManager {
                     player.body.name = body.name;
                     player.body.sendMessage("You are now controlling the dominator.");
                     player.body.sendMessage("Press F to relinquish control of the dominator.");
-                } else if (Config.enable_boss_control) {
+                } else if (Config.boss_control) {
                     let bosses = ent.map((entry) => {
                         if (entry.isBoss && !entry.underControl) return entry;
                     }).filter((instance) => instance);

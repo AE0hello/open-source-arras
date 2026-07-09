@@ -297,8 +297,8 @@ module.exports = {
 
     // Bosses
     enable_bosses: true,
+    boss_control: false, // Allows players to control bosses like dominators and motherships.
     boss_spawn_cooldown: 260, // The delay (in seconds) between boss spawns.
-    enable_boss_control: false, // Allows players to control bosses like dominators and motherships.
     boss_spawn_delay: 6, // The delay (in seconds) between the boss spawn being announced and the boss(es) actually spawning.
     boss_types: [
         {
