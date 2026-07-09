@@ -117,6 +117,8 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("showJoystick");
         util.retrieveFromLocalStorage("optFullHD");
         util.retrieveFromLocalStorage("optUiScale");
+        util.retrieveFromLocalStorage("optAllowIngameOptions");
+        util.retrieveFromLocalStorage("optOldUiStyle");
         // Game
         util.retrieveFromLocalStorage("optIncognitoMode");
         // Set default theme
