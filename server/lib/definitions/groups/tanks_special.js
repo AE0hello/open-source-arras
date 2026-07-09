@@ -644,7 +644,7 @@ Class.cxATMG = {
 Class.arenaCloser = {
     PARENT: "genericTank",
     LABEL: "Arena Closer",
-    DISPLAY_NAME: true,
+    DISPLAY_NAME: false,
     DANGER: 10,
     SIZE: 34,
     COLOR: "yellow",
@@ -656,7 +656,7 @@ Class.arenaCloser = {
         DENSITY: 30,
         DAMAGE: 1e5,
         FOV: 10,
-        SPEED: 6,
+        SPEED: 4,
     },
     SKILL: skillSet({rld: 1, dam: 1, pen: 1, str: 1, spd: 1, atk: 1, hlt: 1, shi: 1, rgn: 1, mob: 1}),
     DRAW_HEALTH: false,
@@ -671,7 +671,7 @@ Class.arenaCloser = {
                 WIDTH: 10
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.8, recoil: 0.25, health: 1e3, damage: 1e3, pen: 1e3, speed: 2.5, maxSpeed: 1.15, range: 1.8, density: 4, spray: 0.25}]),
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.8, recoil: 0.25, health: 1e3, damage: 1e3, pen: 1e3, speed: 3, maxSpeed: 1, range: 1.8, density: 4, spray: 0.25}]),
                 TYPE: ["bullet", {LAYER: 12}]
             }
         }

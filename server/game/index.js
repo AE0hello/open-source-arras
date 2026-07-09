@@ -223,7 +223,7 @@ class gameHandler {
             }
 
             // Reset collision array once at the beginning
-            instance.collisionArray = []; 
+            instance.collisionArray.length = 0; 
 
             // Handle physics only if not bonded
             if (instance.bond == null) {
@@ -238,6 +238,7 @@ class gameHandler {
                 // Think about my actions.
                 logs.life.set();
                 instance.life();
+                instance.isBeingViewed(true);
                 logs.life.mark();
                 // Take a selfie.
                 logs.selfie.set();

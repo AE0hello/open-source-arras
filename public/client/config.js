@@ -12,6 +12,7 @@ const config = {
         interpolation: false,
         lerpAnimations: false,
         lowResolution: false,
+        oldUIStyle: false,
         coloredNest: false,
         colors: 'normal',
         pointy: true,
