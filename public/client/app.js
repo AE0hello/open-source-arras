@@ -2401,7 +2401,7 @@ import * as socketStuff from "./socketinit.js";
 
         // Upgrade key
         if (upgradeKey) {
-            drawText("[" + upgradeKey + "]", x + len - 4, y + height - 6, height / 8 - (config.graphical.oldUIStyle ? 3 : 4), color.guiwhite, "right");
+            drawText("[" + upgradeKey + "]", x + len - 4, y + height - 6, height / 8 - (config.graphical.oldUIStyle ? 3 : 5), color.guiwhite, "right");
         }
         ctx[2].strokeStyle = color.black;
         ctx[2].lineWidth = 3 * lineWidthMult;
