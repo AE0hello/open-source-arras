@@ -1317,15 +1317,12 @@ import * as socketStuff from "./socketinit.js";
         if (key == -1 || key == undefined) return null;
 
         // Truncate common keycodes
-        if (key.startsWith('Key') && key.length === 4) {
-            let k = config.graphical.oldUIStyle ? key[3].toLowerCase() : key[3];
-            return k;
-        }
+        if (key.startsWith('Key') && key.length === 4) return config.graphical.oldUIStyle ? key[3].toLowerCase() : key[3]
         if (key.startsWith('Digit') && key.length === 6) return key[5];
         if (key.startsWith('Numpad') && key.length === 7) return key[6];
 
         // Return the raw keycode if it doesn't need to be truncated
-        return key;
+        return config.graphical.oldUIStyle ? key.toLowerCase() : key;
     };
 
     let tiles,
@@ -2404,7 +2401,7 @@ import * as socketStuff from "./socketinit.js";
 
         // Upgrade key
         if (upgradeKey) {
-            drawText("[" + upgradeKey + "]", x + len - 4, y + height - 6, height / 8 - 5, color.guiwhite, "right");
+            drawText("[" + upgradeKey + "]", x + len - 4, y + height - 6, height / 8 - (config.graphical.oldUIStyle ? 3 : 4), color.guiwhite, "right");
         }
         ctx[2].strokeStyle = color.black;
         ctx[2].lineWidth = 3 * lineWidthMult;
