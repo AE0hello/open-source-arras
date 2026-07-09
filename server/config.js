@@ -140,7 +140,7 @@ module.exports = {
             id: 'lz', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['arms_race', 'retrograde', 'sandbox'], // The selected gamemode.
+            gamemode: ['sandbox'], // The selected gamemode.
             player_cap: 16, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
@@ -178,7 +178,8 @@ module.exports = {
     game_speed: 1, // General game speed.
     run_speed: 1.5, // General multiplier for acceleration and max speeds.
     max_heartbeat_interval: 300_000, // How long (in milliseconds) a socket can be disconnected before their tank self-destructs.
-    respawn_delay: 0, // How long you have to wait to respawn in seconds. Set to 0 to disable.
+    respawn_delay: 0, // How long (in seconds) you have to wait to respawn. Set to 0 to disable.
+    upgrade_delay: 3_000, // How long (in milliseconds) you have to stay still to upgrade outside of a base. Set to 0 to disable.
 
     bullet_spawn_offset: 1, // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
     damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
