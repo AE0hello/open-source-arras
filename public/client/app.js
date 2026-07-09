@@ -2354,7 +2354,7 @@ import * as socketStuff from "./socketinit.js";
     })();
 
     const iconColorOrder = [10, 11, 12, 15, 13, 2, 14, 4, 5, 1, 0, 3];
-    const oldIconColorOrder = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 39, 30, 31, 32];
+    const oldIconColorOrder = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]; // Once this runs out, the colours should start getting blended together
     function getIconColor(colorIndex) {
         if (config.graphical.oldUIStyle) return oldIconColorOrder[colorIndex % oldIconColorOrder.length].toString();
         return iconColorOrder[colorIndex % iconColorOrder.length].toString();
@@ -4673,7 +4673,7 @@ import * as socketStuff from "./socketinit.js";
 
             drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
             drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 350, 15.5, color.guiwhite, "center");
-            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 510, 15.5, color.guiwhite, "center");
+            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 540, 15.5, color.guiwhite, "center");
             drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 710, 15.5, color.guiwhite, "center");
 
             if (!global.optionsCheckboxes) {
@@ -4684,7 +4684,7 @@ import * as socketStuff from "./socketinit.js";
                     { type: "checkbox",  id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
                     { type: "checkbox",  id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
                     { type: "checkbox",  id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
-                    { type: "checkbox",  id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
+                    { type: "checkbox",  id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
                     { type: "slidingBar",id: "strokeThickness",        label: "Border Thickness",      column: 0, row: 6, section: "appearance", tooltip: "Choose the thickness of the border of entities.",
                       maxValue: 6, maxLowestValue: 0.7, listTarget: "graphical", target: "borderChunk",
                       trigger: (mouse, data) => {
@@ -4708,7 +4708,7 @@ import * as socketStuff from "./socketinit.js";
                     { type: "checkbox", id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
                     { type: "checkbox", id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
                     { type: "checkbox", id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
-                    { type: "checkbox", id: "coloredHealthbars",      label: "Colored Health Bars",   column: 1, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
+                    { type: "checkbox", id: "optSecretOptions",       label: "Secret Options",        column: 1, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
 
                     // UI Elements
                     { type: "checkbox", id: "optRenderUpgrades",      label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
@@ -4739,8 +4739,6 @@ import * as socketStuff from "./socketinit.js";
                     { type: "checkbox",  id: "optFancy",               label: "Fading Animation",      column: 1, row: 1, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
                     { type: "checkbox",  id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 2, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
 
-                    { type: "checkbox",  id: "optOldUiStyle",          label: "Classic UI Style",      column: 0, row: 3, section: "extra", tooltip: "Reverts the UI to the old style." },
-
                     // Performance
                     { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
                 ];
@@ -4760,7 +4758,7 @@ import * as socketStuff from "./socketinit.js";
                 const cb = global.optionsCheckboxes[i];
                 let baseY = PANEL_Y + 45;
                 if (cb.section === "ui")    baseY = PANEL_Y + 365;
-                if (cb.section === "extra") baseY = PANEL_Y + 525;
+                if (cb.section === "extra") baseY = PANEL_Y + 555;
                 if (cb.section === "perf")  baseY = PANEL_Y + 725;
 
                 const baseXLeft  = panelX + 20;

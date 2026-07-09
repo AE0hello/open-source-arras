@@ -49,7 +49,7 @@ Class.basic = {
     ]
 }
 
-// Tier 1
+// Tier 1 (Level 15)
 Class.desmos = {
     PARENT: 'genericTank',
     LABEL: "Desmos",
@@ -253,7 +253,7 @@ Class.whirlwind_bent = {
     ].map(x => x + '_bent')
 }
 
-// Tier 2
+// Tier 2 (Level 30)
 Class.artillery = {
     PARENT: 'genericTank',
     LABEL: "Artillery",
@@ -1225,7 +1225,7 @@ Class.whirlwind_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 2
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind"
 Class.whirlwind_old.UPGRADES_TIER_3 = ['monsoon', 'maelstrom', 'tornado_old', 'typhoon_old', 'vortex_old']
 
-// Tier 3
+// Tier 3 (Level 45)
 Class.accurator = {
     PARENT: 'genericTank',
     LABEL: "Accurator",
@@ -5254,10 +5254,10 @@ Class.xHunter = {
     ]
 }
 
-// Tier 4
+// Tier 4 (Level 60)
 Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta)
 
-// Tierless / Fun
+// Tierless (Fun)
 Class.alas = {
     PARENT: 'genericTank',
     LABEL: "Alas",
