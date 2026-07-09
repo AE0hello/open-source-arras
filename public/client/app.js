@@ -1313,10 +1313,18 @@ import * as socketStuff from "./socketinit.js";
     const getClassUpgradeKey = (number) => {
         const key = global[`KEY_UPGRADE_${number + 1}`];
 
+        // Remove undefined keys
         if (key == -1 || key == undefined) return null;
-        if (key.startsWith('Key') && key.length === 4) return key[3];
+
+        // Truncate common keycodes
+        if (key.startsWith('Key') && key.length === 4) {
+            let k = config.graphical.oldUIStyle ? key[3].toLowerCase() : key[3];
+            return k;
+        }
         if (key.startsWith('Digit') && key.length === 6) return key[5];
         if (key.startsWith('Numpad') && key.length === 7) return key[6];
+
+        // Return the raw keycode if it doesn't need to be truncated
         return key;
     };
 
