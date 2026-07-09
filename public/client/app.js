@@ -2375,13 +2375,13 @@ import * as socketStuff from "./socketinit.js";
         // Shading for hover
         if (hover) {
             if (global.clickables.clicked) {
-                ctx[2].globalAlpha = 0.2;
+                ctx[2].globalAlpha = 0.3;
                 ctx[2].fillStyle = color.black;
             } else {
                 ctx[2].globalAlpha = 0.15;
                 ctx[2].fillStyle = color.guiwhite;
             }
-            drawGuiRect(x, y, len, height);
+            drawGuiRect(x, y, len, global.clickables.clicked ? height * 0.6 : height);
         }
         ctx[2].globalAlpha = 0.25 * alpha;
         ctx[2].fillStyle = color.black;
