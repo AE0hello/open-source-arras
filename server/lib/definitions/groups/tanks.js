@@ -287,7 +287,7 @@ Class.assassin = {
     ]
 };
 Class.auto3 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 6, label: "Auto-3"})
-Class.autoTrapper = makeAuto('trapper')
+Class.autoTrapper = makeAuto('trapper');
 Class.blaster = {
     PARENT: 'genericTank',
     LABEL: "Blaster",
@@ -837,9 +837,7 @@ Class.rifle = {
     PARENT: 'genericTank',
     LABEL: "Rifle",
     DANGER: 6,
-    BODY: {
-        FOV: base.FOV * 1.225
-    },
+    BODY: Class.sniper.BODY,
     GUNS: [
         {
             POSITION: {
@@ -1287,7 +1285,7 @@ Class.annihilator = {
         }
     ]
 }
-Class.armsman = makeOver('rifle', "Armsman", preset.makeOver.hybrid)
+Class.armsman = makeOver('rifle', "Armsman", preset.makeOver.hybrid);
 Class.architect = makeRadialAuto('architectGun', {isTurret: true, danger: 7, size: 12, label: "Architect", body: {SPEED: 1.1 * base.SPEED}}) // todo: fix this
 Class.assembler = {
     PARENT: 'genericTank',
@@ -1366,11 +1364,11 @@ Class.atomizer = {
 Class.auto4 = makeRadialAuto('auto4gun', {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4})
 Class.auto5 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 7, label: "Auto-5", count: 5})
 Class.autoAssassin = makeAuto('assassin');
-Class.autoBuilder = makeAuto('builder')
-Class.autoCruiser = makeAuto('cruiser')
-Class.autoDouble = makeAuto('doubleTwin', "Auto-Double")
-Class.autoGunner = makeAuto('gunner')
-Class.autoOverseer = makeAuto('overseer')
+Class.autoBuilder = makeAuto('builder');
+Class.autoCruiser = makeAuto('cruiser');
+Class.autoDouble = makeAuto('doubleTwin', "Auto-Double");
+Class.autoGunner = makeAuto('gunner');
+Class.autoOverseer = makeAuto('overseer');
 Class.autoSmasher = makeAuto({
     PARENT: 'genericSmasher',
     DANGER: 6,
@@ -1384,9 +1382,9 @@ Class.autoSmasher = makeAuto({
         }
     ],
     SKILL_CAP: Array(10).fill(smshskl)
-}, "Auto-Smasher", {type: 'autoSmasherTurret', size: 11})
-Class.autoSpawner = makeAuto('spawner')
-Class.autoTriAngle = makeAuto('triAngle')
+}, "Auto-Smasher", {type: 'autoSmasherTurret', size: 11});
+Class.autoSpawner = makeAuto('spawner');
+Class.autoTriAngle = makeAuto('triAngle');
 Class.banshee = makeRadialAuto('bansheegun', {isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: {SPEED: 0.8 * base.SPEED, FOV: 1.1 * base.FOV}})
 Class.banshee.GUNS = weaponArray({
     POSITION: {
@@ -2122,9 +2120,7 @@ Class.crossbow = {
     PARENT: 'genericTank',
     LABEL: "Crossbow",
     DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.225
-    },
+    BODY: Class.rifle.BODY,
     GUNS: [
         ...weaponMirror([{
             POSITION: {
@@ -2163,7 +2159,7 @@ Class.crossbow = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.crossbow, { speed: 0.7, maxSpeed: 0.7 }, { recoil: 0.5 }]),
                 TYPE: 'bullet'
             }
-        }], {delayIncrement: 0.5, delayOverflow: true}),
+        }], {delayOverflow: true}),
         {
             POSITION: {
                 LENGTH: 24,
@@ -2175,7 +2171,7 @@ Class.crossbow = {
             }
         }
     ]
-}
+};
 Class.cyclone = {
     PARENT: 'genericTank',
     LABEL: "Cyclone",
@@ -2814,9 +2810,7 @@ Class.fork = {
     PARENT: 'genericTank',
     LABEL: "Fork",
     DANGER: 7,
-    BODY: {
-        FOV: 1.2 * base.FOV
-    },
+    BODY: Class.marksman.BODY,
     GUNS: [
         ...weaponStack({
             POSITION: {
@@ -2837,7 +2831,7 @@ Class.fork = {
             }
         }
     ]
-}
+};
 Class.fortress = {
     PARENT: 'genericTank',
     LABEL: "Fortress",
@@ -3439,9 +3433,7 @@ Class.musket = {
     PARENT: 'genericTank',
     LABEL: "Musket",
     DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.225
-    },
+    BODY: Class.rifle.BODY,
     GUNS: weaponMirror([
         {
             POSITION: {
@@ -4177,9 +4169,7 @@ Class.revolver = {
     PARENT: 'genericTank',
     LABEL: "Revolver",
     DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.225
-    },
+    BODY: Class.rifle.BODY,
     GUNS: [
         ...weaponStack({
             POSITION: {
@@ -4206,7 +4196,7 @@ Class.revolver = {
             }
         }
     ]
-}
+};
 Class.rimfire_old = {
     PARENT: 'genericTank',
     LABEL: "Rimfire",

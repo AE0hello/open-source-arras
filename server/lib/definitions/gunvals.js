@@ -20,7 +20,7 @@ module.exports = {
         recoil: 1.4,
         shudder: 0.1,
         damage: 0.75,
-        speed: 5,
+        speed: 4,
         spray: 15
     },
     drone: {
