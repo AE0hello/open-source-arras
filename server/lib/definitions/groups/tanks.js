@@ -91,7 +91,7 @@ Class.flail = {
             ARC: 190
         }
     }]
-}
+};
 Class.flankGuard = makeFlank('basic', 3, "Flank Guard", {extraStats: [g.flankGuard]});
 Class.flankGuard.BODY = {SPEED: 1.125 * base.SPEED};
 Class.machineGun = {
@@ -111,7 +111,7 @@ Class.machineGun = {
             }
         }
     ]
-}
+};
 Class.pounder = {
     PARENT: 'genericTank',
     LABEL: "Pounder",
@@ -187,8 +187,8 @@ Class.twin = {
             TYPE: 'bullet'
         }
     }, {delayIncrement: 0.5})
-}
-Class.whirlwind = makeWhirlwind('genericTank', {label: "Whirlwind", satellites: 6, hat: 'hexagonHat_spin', danger: 5})
+};
+Class.whirlwind = makeWhirlwind('genericTank', {label: "Whirlwind", satellites: 6, hat: 'hexagonHat_spin', danger: 5});
 Class.whirlwind_bent = {
     PARENT: 'genericTank',
     LABEL: "Whirlwind",
@@ -224,7 +224,7 @@ Class.whirlwind_bent = {
         'typhoon',
         'tempest',
     ].map(x => x + '_bent')
-}
+};
 
 // Tier 2 (Level 30)
 Class.artillery = {
@@ -567,7 +567,7 @@ Class.hunter = {
         }
     ]
 };
-Class.hurricane = makeWhirlwind('genericTank', {hat: 'octagonHat_spin', satellites: 8, label: "Hurricane"})
+Class.hurricane = makeWhirlwind('genericTank', {hat: 'octagonHat_spin', satellites: 8, label: "Hurricane"});
 Class.hurricane_bent = {
     PARENT: 'genericTank',
     LABEL: "Hurricane",
@@ -1001,7 +1001,7 @@ Class.tempest_bent = {
         }
     ]
 }
-Class.tornado = makeWhirlwind('genericTank', {hat: 'squareHat_spin', hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado"})
+Class.tornado = makeWhirlwind('genericTank', {hat: 'squareHat_spin', hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado"});
 Class.trapGuard = makeGuard({
     PARENT: 'genericTank',
     DANGER: 4,
@@ -1190,9 +1190,9 @@ Class.volute = {
         })
     ]
 }
-Class.whirlwind_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind"})
-Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind"
-Class.whirlwind_old.UPGRADES_TIER_3 = ['monsoon', 'maelstrom', 'tornado_old', 'typhoon_old', 'vortex_old']
+Class.whirlwind_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind"});
+Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind";
+Class.whirlwind_old.UPGRADES_TIER_3 = ['monsoon', 'maelstrom', 'tornado_old', 'typhoon_old', 'vortex_old'];
 
 // Tier 3 (Level 45)
 Class.accurator = {
@@ -1622,7 +1622,7 @@ Class.bigMama = {
         }]
     }]
 }
-Class.blizzard = makeWhirlwind('genericTank', {dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinReverse", satellites: 5, label: "Blizzard", danger: 7})
+Class.blizzard = makeWhirlwind('genericTank', {dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinReverse", satellites: 5, label: "Blizzard", danger: 7});
 Class.blower = makeGunner('destroyer', "Blower", {rear: true})
 Class.blunderbuss = {
     PARENT: 'genericTank',
@@ -2956,7 +2956,7 @@ Class.hewnDouble = {
     ]
 }
 Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6}), "Hexa-Trapper");
-Class.hexaWhirl = makeWhirlwind('hexaTank', {label: "Hexa Whirl"})
+Class.hexaWhirl = makeWhirlwind('hexaTank', {label: "Hexa Whirl"});
 Class.hybrid = makeOver('destroyer', "Hybrid", preset.makeOver.hybrid);
 Class.infestor = {
     PARENT: 'genericTank',
@@ -3286,7 +3286,7 @@ Class.megaSmasher = {
         }
     ]
 };
-Class.megaTornado = makeWhirlwind('genericTank', {hat: "diamondHat_spin", hatSize: 16, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7})
+Class.megaTornado = makeWhirlwind('genericTank', {hat: "diamondHat_spin", hatSize: 16, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7});
 Class.mender = {
     PARENT: 'genericTank',
     LABEL: "Mender",
@@ -3408,7 +3408,7 @@ Class.mortar = {
         }
     ]
 };
-Class.munition = makeWhirlwind('artillery', {label: "Munition"})
+Class.munition = makeWhirlwind('artillery', {label: "Munition"});
 Class.musket = {
     PARENT: 'genericTank',
     LABEL: "Musket",
@@ -3844,7 +3844,7 @@ Class.pentaShot = {
         }
     ]
 }
-Class.phoenix = makeBird('sprayer', "Phoenix")
+Class.phoenix = makeBird('sprayer', "Phoenix");
 Class.poacher = makeOver('hunter', "Poacher", preset.makeOver.hybrid);
 Class.predator = {
     PARENT: 'genericTank',
@@ -3943,7 +3943,7 @@ Class.prodigy = {
         }], 3)
     ],
 }
-Class.prophet = makeWhirlwind('underseer', {label: "Prophet", satelliteType: 'squareSatellite'})
+Class.prophet = makeWhirlwind('underseer', {label: "Prophet", satelliteType: 'squareSatellite'});
 Class.python = {
     PARENT: 'genericTank',
     LABEL: "Python", //"Super Spiral",
@@ -4885,9 +4885,9 @@ Class.swarmer = {
         }
     ]
 };
-Class.tempest = makeWhirlwind('genericTank', {dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinReverse", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7})
-Class.thunderbolt = makeWhirlwind('genericTank', {hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7})
-Class.tornado_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 30, hatLayer: 0, satellites: 1, satelliteSize: 16, satelliteType: "satellite_old", extraStats: [g.pounder, g.destroyer], label: "Tornado", danger: 7})
+Class.tempest = makeWhirlwind('genericTank', {dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinReverse", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7});
+Class.thunderbolt = makeWhirlwind('genericTank', {hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7});
+Class.tornado_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 30, hatLayer: 0, satellites: 1, satelliteSize: 16, satelliteType: "satellite_old", extraStats: [g.pounder, g.destroyer], label: "Tornado", danger: 7});
 Class.triBlaster = {
     PARENT: 'genericTank',
     LABEL: "Tri-Blaster",
@@ -5055,10 +5055,10 @@ Class.twister = {
         }
     ]
 };
-Class.typhoon = makeWhirlwind('genericTank', {hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7})
-Class.typhoon_old = makeWhirlwind('genericTank', {dualLayer: true, hat: 'circleHat', hatSize: 28, hatLayer: 0, hat2: 'circleHat', hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon"})
-Class.vortex = makeWhirlwind('launcher', {label: "Vortex"})
-Class.vortex_old = makeWhirlwind('genericTank', {enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex"})
+Class.typhoon = makeWhirlwind('genericTank', {hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7});
+Class.typhoon_old = makeWhirlwind('genericTank', {dualLayer: true, hat: 'circleHat', hatSize: 28, hatLayer: 0, hat2: 'circleHat', hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon"});
+Class.vortex = makeWhirlwind('launcher', {label: "Vortex"});
+Class.vortex_old = makeWhirlwind('genericTank', {enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex"});
 Class.vulture = makeBird({
     PARENT: 'genericTank',
     DANGER: 6,
@@ -5175,7 +5175,7 @@ Class.xHunter = {
 };
 
 // Tier 4 (Level 60)
-Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta)
+Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta);
 
 // Tierless (Fun)
 Class.alas = {
@@ -5540,104 +5540,104 @@ Class.worstTank = {
 }
 
 // Class Tree
-addUpgrades('basic', 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director', 'pounder', 'trapper', 'desmos'])
-    addUpgrades('basic', 2, ['smasher'])
-        addUpgrades('smasher', 3, ['megaSmasher', 'spike', 'autoSmasher', 'landmine'])
-        addUpgrades('healer', 3, ['medic', 'ambulance', 'surgeon', 'paramedic'])
+addUpgrades('basic', 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director', 'pounder', 'trapper', 'desmos']);
+    addUpgrades('basic', 2, ['smasher']);
+        addUpgrades('smasher', 3, ['megaSmasher', 'spike', 'autoSmasher', 'landmine']);
+        addUpgrades('healer', 3, ['medic', 'ambulance', 'surgeon', 'paramedic']);
 
-    addUpgrades('twin', 2, ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix'])
-        addUpgrades('twin', 3, ['dual', 'bulwark', 'musket'])
-        addUpgrades('doubleTwin', 3, ['tripleTwin', 'hewnDouble', 'autoDouble', 'bentDouble'])
-        addUpgrades('tripleShot', 3, ['pentaShot', 'spreadshot', 'bentHybrid', 'bentDouble', 'triplet', 'triplex'])
-        addUpgrades('gunner', 3, ['autoGunner', 'nailgun', 'auto4', 'machineGunner', 'gunnerTrapper', 'cyclone', 'overgunner'])
-        addUpgrades('hexaTank', 3, ['octoTank', 'cyclone', 'hexaTrapper'])
-        addUpgrades('helix', 3, ['triplex', 'quadruplex'])
+    addUpgrades('twin', 2, ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix']);
+        addUpgrades('twin', 3, ['dual', 'bulwark', 'musket']);
+        addUpgrades('doubleTwin', 3, ['tripleTwin', 'hewnDouble', 'autoDouble', 'bentDouble']);
+        addUpgrades('tripleShot', 3, ['pentaShot', 'spreadshot', 'bentHybrid', 'bentDouble', 'triplet', 'triplex']);
+        addUpgrades('gunner', 3, ['autoGunner', 'nailgun', 'auto4', 'machineGunner', 'gunnerTrapper', 'cyclone', 'overgunner']);
+        addUpgrades('hexaTank', 3, ['octoTank', 'cyclone', 'hexaTrapper']);
+        addUpgrades('helix', 3, ['triplex', 'quadruplex']);
 
-    addUpgrades('sniper', 2, ['assassin', 'hunter', 'minigun', 'rifle', 'marksman'])
-        addUpgrades('sniper', 3, ['bushwhacker'])
-        addUpgrades('assassin', 3, ['ranger', 'falcon', 'stalker', 'autoAssassin', 'single', 'deadeye'])
-        addUpgrades('hunter', 3, ['predator', 'xHunter', 'poacher', 'ordnance', 'dual', 'nimrod'])
-        addUpgrades('minigun', 3, ['streamliner', 'nailgun', 'cropDuster', 'barricade', 'vulture'])
-        addUpgrades('rifle', 3, ['musket', 'crossbow', 'armsman', 'revolver'])
-        addUpgrades('marksman', 3, ['deadeye', 'nimrod', 'revolver', 'fork'])
+    addUpgrades('sniper', 2, ['assassin', 'hunter', 'minigun', 'rifle', 'marksman']);
+        addUpgrades('sniper', 3, ['bushwhacker']);
+        addUpgrades('assassin', 3, ['ranger', 'falcon', 'stalker', 'autoAssassin', 'single', 'deadeye']);
+        addUpgrades('hunter', 3, ['predator', 'xHunter', 'poacher', 'ordnance', 'dual', 'nimrod']);
+        addUpgrades('minigun', 3, ['streamliner', 'nailgun', 'cropDuster', 'barricade', 'vulture']);
+        addUpgrades('rifle', 3, ['musket', 'crossbow', 'armsman', 'revolver']);
+        addUpgrades('marksman', 3, ['deadeye', 'nimrod', 'revolver', 'fork']);
 
-    addUpgrades('machineGun', 2, ['artillery', 'minigun', 'gunner', 'sprayer'])
-        addUpgrades('artillery', 3, ['mortar', 'ordnance', 'beekeeper', 'fieldGun'])
-        //addUpgrades('minigun', 3, [])
-        //addUpgrades('gunner', 3, [])
-        addUpgrades('sprayer', 3, ['redistributor', 'phoenix', 'atomizer', 'focal'])
-        addUpgrades('blaster', 3, ['triBlaster', 'splasher', 'flamethrower', 'halfNHalf', 'subverter'])
-        addUpgrades('gatlingGun', 3, ['focal', 'accurator', 'halfNHalf'])
-        addUpgrades('doubleMachine', 3, ['tripleMachine', 'halfNHalf'])
+    addUpgrades('machineGun', 2, ['artillery', 'minigun', 'gunner', 'sprayer']);
+        addUpgrades('artillery', 3, ['mortar', 'ordnance', 'beekeeper', 'fieldGun']);
+        //addUpgrades('minigun', 3, []);
+        //addUpgrades('gunner', 3, []);
+        addUpgrades('sprayer', 3, ['redistributor', 'phoenix', 'atomizer', 'focal']);
+        addUpgrades('blaster', 3, ['triBlaster', 'splasher', 'flamethrower', 'halfNHalf', 'subverter']);
+        addUpgrades('gatlingGun', 3, ['focal', 'accurator', 'halfNHalf']);
+        addUpgrades('doubleMachine', 3, ['tripleMachine', 'halfNHalf']);
 
-    addUpgrades('flankGuard', 2, ['hexaTank', 'triAngle', 'auto3', 'trapGuard', 'triTrapper'])
-        addUpgrades('flankGuard', 3, ['tripleTwin', 'quadruplex'])
-        //addUpgrades('hexaTank', 3, [])
-        addUpgrades('triAngle', 3, ['fighter', 'booster', 'falcon', 'bomber', 'autoTriAngle', 'surfer', 'eagle', 'phoenix', 'vulture'])
-        addUpgrades('auto3', 3, ['auto5', 'mega3', 'auto4', 'banshee'])
-        addUpgrades('trapGuard', 3, ['bushwhacker', 'gunnerTrapper', 'bomber', 'conqueror', 'bulwark'])
-        addUpgrades('triTrapper', 3, ['fortress', 'hexaTrapper', 'septaTrapper', 'architect'])
+    addUpgrades('flankGuard', 2, ['hexaTank', 'triAngle', 'auto3', 'trapGuard', 'triTrapper']);
+        addUpgrades('flankGuard', 3, ['tripleTwin', 'quadruplex']);
+        //addUpgrades('hexaTank', 3, []);
+        addUpgrades('triAngle', 3, ['fighter', 'booster', 'falcon', 'bomber', 'autoTriAngle', 'surfer', 'eagle', 'phoenix', 'vulture']);
+        addUpgrades('auto3', 3, ['auto5', 'mega3', 'auto4', 'banshee']);
+        addUpgrades('trapGuard', 3, ['bushwhacker', 'gunnerTrapper', 'bomber', 'conqueror', 'bulwark']);
+        addUpgrades('triTrapper', 3, ['fortress', 'hexaTrapper', 'septaTrapper', 'architect']);
 
-    addUpgrades('director', 2, ['overseer', 'cruiser', 'underseer', 'spawner'])
-        addUpgrades('director', 3, ['manager', 'bigCheese'])
-        addUpgrades('overseer', 3, ['overlord', 'overtrapper', 'overgunner', 'banshee', 'autoOverseer', 'overdrive', 'commander'])
-        addUpgrades('cruiser', 3, ['carrier', 'battleship', 'fortress', 'autoCruiser', 'commander'])
-        addUpgrades('underseer', 3, ['necromancer', 'maleficitor', 'infestor'])
-        addUpgrades('spawner', 3, ['factory', 'autoSpawner'])
+    addUpgrades('director', 2, ['overseer', 'cruiser', 'underseer', 'spawner']);
+        addUpgrades('director', 3, ['manager', 'bigCheese']);
+        addUpgrades('overseer', 3, ['overlord', 'overtrapper', 'overgunner', 'banshee', 'autoOverseer', 'overdrive', 'commander']);
+        addUpgrades('cruiser', 3, ['carrier', 'battleship', 'fortress', 'autoCruiser', 'commander']);
+        addUpgrades('underseer', 3, ['necromancer', 'maleficitor', 'infestor']);
+        addUpgrades('spawner', 3, ['factory', 'autoSpawner']);
 
-    addUpgrades('pounder', 2, ['destroyer', 'builder', 'artillery', 'launcher'])
-        addUpgrades('pounder', 3, ['shotgun', 'eagle'])
-        addUpgrades('destroyer', 3, ['conqueror', 'annihilator', 'hybrid', 'construct'])
-        addUpgrades('builder', 3, ['construct', 'autoBuilder', 'engineer', 'boomer', 'assembler', 'architect', 'conqueror'])
-        //addUpgrades('artillery', 3, [])
-        addUpgrades('launcher', 3, ['skimmer', 'twister', 'swarmer', 'sidewinder', 'fieldGun'])
+    addUpgrades('pounder', 2, ['destroyer', 'builder', 'artillery', 'launcher']);
+        addUpgrades('pounder', 3, ['shotgun', 'eagle']);
+        addUpgrades('destroyer', 3, ['conqueror', 'annihilator', 'hybrid', 'construct']);
+        addUpgrades('builder', 3, ['construct', 'autoBuilder', 'engineer', 'boomer', 'assembler', 'architect', 'conqueror']);
+        //addUpgrades('artillery', 3, []);
+        addUpgrades('launcher', 3, ['skimmer', 'twister', 'swarmer', 'sidewinder', 'fieldGun']);
 
-    addUpgrades('trapper', 2, ['builder', 'triTrapper', 'trapGuard'])
-        addUpgrades('trapper', 3, ['barricade', 'overtrapper'])
-        //addUpgrades('builder', 3, [])
-        //addUpgrades('triTrapper', 3, [])
-        //addUpgrades('trapGuard', 3, [])
-        addUpgrades('autoTrapper', 3, ['autoBuilder', 'hexaTrapper'])
+    addUpgrades('trapper', 2, ['builder', 'triTrapper', 'trapGuard']);
+        addUpgrades('trapper', 3, ['barricade', 'overtrapper']);
+        //addUpgrades('builder', 3, []);
+        //addUpgrades('triTrapper', 3, []);
+        //addUpgrades('trapGuard', 3, []);
+        addUpgrades('autoTrapper', 3, ['autoBuilder', 'hexaTrapper']);
 
-    addUpgrades('desmos', 2, ['helix'])
-        addUpgrades('volute', 3, ['sidewinder'])
-        //addUpgrades('helix', 3, [])
-        addUpgrades('spiral', 3, ['coil', 'python'])
-        addUpgrades('undertow', 3, [])
-        addUpgrades('repeater', 3, ['iterator', 'duplicator'])
+    addUpgrades('desmos', 2, ['helix']);
+        addUpgrades('volute', 3, ['sidewinder']);
+        //addUpgrades('helix', 3, []);
+        addUpgrades('spiral', 3, ['coil', 'python']);
+        addUpgrades('undertow', 3, []);
+        addUpgrades('repeater', 3, ['iterator', 'duplicator']);
 
-    addUpgrades('flail', 2, ['doubleFlail', 'mace', 'flangle'])
-        addUpgrades('doubleFlail', 3, ['tripleFlail'])
-        addUpgrades('mace', 3, ['bigMama', 'itHurtsDontTouchIt', 'flace'])
-        addUpgrades('flangle', 3, ['flooster', 'flace'])
+    addUpgrades('flail', 2, ['doubleFlail', 'mace', 'flangle']);
+        addUpgrades('doubleFlail', 3, ['tripleFlail']);
+        addUpgrades('mace', 3, ['bigMama', 'itHurtsDontTouchIt', 'flace']);
+        addUpgrades('flangle', 3, ['flooster', 'flace']);
 
-    addUpgrades('whirlwind', 2, ['tornado', 'hurricane'])
-        addUpgrades('whirlwind', 3, ['hexaWhirl', 'munition', 'whirl3', 'whirlGuard', 'prophet', 'vortex'])
-        addUpgrades('tornado', 3, ['megaTornado', 'tempest', 'thunderbolt'])
-        addUpgrades('hurricane', 3, ['typhoon', 'blizzard'])
+    addUpgrades('whirlwind', 2, ['tornado', 'hurricane']);
+        addUpgrades('whirlwind', 3, ['hexaWhirl', 'munition', 'whirl3', 'whirlGuard', 'prophet', 'vortex']);
+        addUpgrades('tornado', 3, ['megaTornado', 'tempest', 'thunderbolt']);
+        addUpgrades('hurricane', 3, ['typhoon', 'blizzard']);
 
 if (Config.arms_race || Config.retrograde) {
-    addUpgrades('assassin', 3, ['buttbuttin'])
-    addUpgrades('destroyer', 3, ['blower'])
-    addUpgrades('gunner', 3, ['battery', 'buttbuttin', 'blower'])
-    addUpgrades('hexaTank', 3, ['deathStar'])
-    addUpgrades('minigun', 3, ['subverter'])
-    addUpgrades('pounder', 3, ['subverter', 'deathStar'])
-    addUpgrades('smasher', 3, ['bonker'])
-}
+    addUpgrades('assassin', 3, ['buttbuttin']);
+    addUpgrades('destroyer', 3, ['blower']);
+    addUpgrades('gunner', 3, ['battery', 'buttbuttin', 'blower']);
+    addUpgrades('hexaTank', 3, ['deathStar']);
+    addUpgrades('minigun', 3, ['subverter']);
+    addUpgrades('pounder', 3, ['subverter', 'deathStar']);
+    addUpgrades('smasher', 3, ['bonker']);
+};
 
 if (Config.retrograde) {
-    addUpgrades('machineGun', 2, ['blaster', 'gatlingGun', 'doubleMachine'])
+    addUpgrades('machineGun', 2, ['blaster', 'gatlingGun', 'doubleMachine']);
 
-    addUpgrades('flankGuard', 3, ['tripleMachine'])
-    addUpgrades('sprayer', 3, ['splasher'])
-    addUpgrades('tripleShot', 3, ['triBlaster'])
-}
+    addUpgrades('flankGuard', 3, ['tripleMachine']);
+    addUpgrades('sprayer', 3, ['splasher']);
+    addUpgrades('tripleShot', 3, ['triBlaster']);
+};
 
 if (Config.teams == 1) {
-    addUpgrades('basic', 2, ['healer'])
-    removeUpgrades('basic', 2, ['smasher'])
-    removeUpgrades('director', 2, ['underseer'])
+    addUpgrades('basic', 2, ['healer']);
+    removeUpgrades('basic', 2, ['smasher']);
+    removeUpgrades('director', 2, ['underseer']);
 
-    removeUpgrades('whirlwind', 3, ['prophet'])
-}
+    removeUpgrades('whirlwind', 3, ['prophet']);
+};
