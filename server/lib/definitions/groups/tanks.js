@@ -6,48 +6,21 @@ const preset = require('../presets.js')
 // Basic Tank
 Class.basic = {
     PARENT: 'genericTank',
-    LABEL: "Basic", // Tank Label
-    DANGER: 4, // AI priority target level
-    BODY: {
-        ACCELERATION: base.ACCEL * 1,
-        SPEED: base.SPEED * 1,
-        HEALTH: base.HEALTH * 1,
-        DAMAGE: base.DAMAGE * 1,
-        PENETRATION: base.PENETRATION * 1,
-        SHIELD: base.SHIELD * 1,
-        REGEN: base.REGEN * 1,
-        FOV: base.FOV * 1,
-        DENSITY: base.DENSITY * 1,
-        PUSHABILITY: 1,
-        HETERO: 3
-    },
+    LABEL: "Basic",
+    DANGER: 4,
     GUNS: [
         {
             POSITION: {
                 LENGTH: 18,
-                WIDTH: 8,
-                ASPECT: 1,
-                X: 0,
-                Y: 0,
-                ANGLE: 0,
-                DELAY: 0
+                WIDTH: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic]), // Gun/projectile stats
-                TYPE: 'bullet', // What the gun shoots
-                COLOR: 'grey', // Gun colour
-                LABEL: "", // Gun label (shows up in death messages)
-                STAT_CALCULATOR: 0,
-                WAIT_TO_CYCLE: false, // Whether the gun waits a full reload cycle before firing
-                AUTOFIRE: false, // Whether the gun fires on its own
-                SYNCS_SKILLS: false,
-                MAX_CHILDREN: 0, // Number of projectiles from this gun that can be alive at once
-                ALT_FIRE: false, // Whether the gun requires RMB/Shift to fire instead of LMB/Space
-                NEGATIVE_RECOIL: false // Whether the gun pulls instead of pushes when firing
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
             }
         }
     ]
-}
+};
 
 // Tier 1 (Level 15)
 Class.desmos = {
@@ -291,8 +264,7 @@ Class.assassin = {
     LABEL: "Assassin",
     DANGER: 6,
     BODY: {
-        SPEED: 0.85 * base.SPEED,
-        FOV: 1.4 * base.FOV
+        FOV: 1.375 * base.FOV
     },
     GUNS: [
         {
@@ -313,7 +285,7 @@ Class.assassin = {
             }
         }
     ]
-}
+};
 Class.auto3 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 6, label: "Auto-3"})
 Class.autoTrapper = makeAuto('trapper')
 Class.blaster = {
@@ -1393,7 +1365,7 @@ Class.atomizer = {
 }
 Class.auto4 = makeRadialAuto('auto4gun', {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4})
 Class.auto5 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 7, label: "Auto-5", count: 5})
-Class.autoAssassin = makeAuto('assassin')
+Class.autoAssassin = makeAuto('assassin');
 Class.autoBuilder = makeAuto('builder')
 Class.autoCruiser = makeAuto('cruiser')
 Class.autoDouble = makeAuto('doubleTwin', "Auto-Double")
@@ -2261,10 +2233,7 @@ Class.deadeye = {
     PARENT: 'genericTank',
     LABEL: "Deadeye",
     DANGER: 7,
-    BODY: {
-        SPEED: 0.85 * base.SPEED,
-        FOV: 1.4 * base.FOV
-    },
+    BODY: Class.assassin.BODY,
     GUNS: [
         ...weaponStack({
             POSITION: {
@@ -2292,7 +2261,7 @@ Class.deadeye = {
             }
         }
     ]
-}
+};
 Class.deathStar = {
     PARENT: 'genericTank',
     LABEL: "Death Star",
@@ -2636,7 +2605,7 @@ Class.factory = {
         }
     ]
 }
-Class.falcon = makeBird('assassin', "Falcon")
+Class.falcon = makeBird('assassin', "Falcon");
 Class.fieldGun = {
     PARENT: 'genericTank',
     LABEL: "Field Gun",
@@ -3571,8 +3540,7 @@ Class.nimrod = {
     LABEL: "Nimrod",
     DANGER: 7,
     BODY: {
-        SPEED: base.SPEED * 0.9,
-        FOV: base.FOV * 1.3
+        FOV: base.FOV * 1.35
     },
     CONTROLLERS: ['zoom'],
     GUNS: [
@@ -3613,7 +3581,7 @@ Class.nimrod = {
             }
         }
     ]
-}
+};
 Class.octoTank = {
     PARENT: 'genericTank',
     LABEL: "Octo Tank",
@@ -3905,7 +3873,7 @@ Class.pentaShot = {
     ]
 }
 Class.phoenix = makeBird('sprayer', "Phoenix")
-Class.poacher = makeOver('hunter', "Poacher", preset.makeOver.hybrid)
+Class.poacher = makeOver('hunter', "Poacher", preset.makeOver.hybrid);
 Class.predator = {
     PARENT: 'genericTank',
     LABEL: "Predator",
@@ -4142,7 +4110,6 @@ Class.ranger = {
     LABEL: "Ranger",
     DANGER: 7,
     BODY: {
-        SPEED: 0.8 * base.SPEED,
         FOV: 1.5 * base.FOV
     },
     GUNS: [
@@ -4164,7 +4131,7 @@ Class.ranger = {
             }
         }
     ]
-}
+};
 Class.redistributor = {
     PARENT: 'genericTank',
     LABEL: "Redistributor",
@@ -4773,10 +4740,7 @@ Class.stalker = {
     PARENT: 'genericTank',
     LABEL: "Stalker",
     DANGER: 7,
-    BODY: {
-        SPEED: 0.85 * base.SPEED,
-        FOV: 1.35 * base.FOV
-    },
+    BODY: Class.assassin.BODY,
     INVISIBLE: [0.08, 0.03],
     TOOLTIP: "Stay still to turn invisible.",
     GUNS: [
@@ -4792,7 +4756,7 @@ Class.stalker = {
             }
         }
     ]
-}
+};
 Class.streamliner = {
     PARENT: 'genericTank',
     LABEL: "Streamliner",
