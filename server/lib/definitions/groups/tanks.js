@@ -567,8 +567,7 @@ Class.hunter = {
     LABEL: "Hunter",
     DANGER: 6,
     BODY: {
-        SPEED: base.SPEED * 0.9,
-        FOV: base.FOV * 1.25
+        FOV: base.FOV * 1.325
     },
     CONTROLLERS: ['zoom'],
     TOOLTIP: "Hold right click to zoom.",
@@ -595,7 +594,7 @@ Class.hunter = {
             }
         }
     ]
-}
+};
 Class.hurricane = makeWhirlwind('genericTank', {hat: 'octagonHat_spin', satellites: 8, label: "Hurricane"})
 Class.hurricane_bent = {
     PARENT: 'genericTank',
@@ -2484,9 +2483,9 @@ Class.dual = {
     LABEL: "Dual",
     DANGER: 7,
     BODY: {
-        FOV: 1.1 * base.FOV
+        FOV: 1.2 * base.FOV
     },
-    CONTROLLERS: ['zoom'],
+    CONTROLLERS: [['zoom', {distance: 165}]],
     TOOLTIP: "Hold right click to zoom.",
     GUNS: weaponMirror([
         {
@@ -2514,7 +2513,7 @@ Class.dual = {
             }
         }
     ], {delayIncrement: 0.5})
-}
+};
 Class.duplicator = {
     PARENT: 'genericTank',
     LABEL: "Duplicator",
@@ -3652,8 +3651,7 @@ Class.ordnance = {
     LABEL: "Ordnance",
     DANGER: 7,
     BODY: {
-        SPEED: base.SPEED * 0.9,
-        FOV: base.FOV * 1.25
+        FOV: base.FOV * 1.3
     },
     CONTROLLERS: ['zoom'],
     TOOLTIP: "Hold right click to zoom.",
@@ -3694,7 +3692,7 @@ Class.ordnance = {
             }
         }
     ]
-}
+};
 Class.oroboros = {
     PARENT: 'genericTank',
     LABEL: "Oroboros",
@@ -3916,10 +3914,10 @@ Class.predator = {
     LABEL: "Predator",
     DANGER: 7,
     BODY: {
-        SPEED: base.SPEED * 0.9,
-        FOV: base.FOV * 1.25
+        FOV: base.FOV * 1.325,
+        SPEED: base.SPEED * 14/15
     },
-    CONTROLLERS: ['zoom'],
+    CONTROLLERS: [['zoom', {distance: 365}]],
     TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         {
@@ -3955,7 +3953,7 @@ Class.predator = {
             }
         }
     ]
-}
+};
 Class.prodigy = {
     PARENT: 'genericTank',
     LABEL: "Prodigy",
@@ -5216,10 +5214,7 @@ Class.xHunter = {
     PARENT: 'genericTank',
     LABEL: "X-Hunter",
     DANGER: 7,
-    BODY: {
-        SPEED: base.SPEED * 0.9,
-        FOV: base.FOV * 1.25
-    },
+    BODY: Class.hunter.BODY,
     CONTROLLERS: [['zoom', {distance: 550}]],
     TOOLTIP: "Hold right click to zoom.",
     GUNS: [
@@ -5252,7 +5247,7 @@ Class.xHunter = {
             }
         }
     ]
-}
+};
 
 // Tier 4 (Level 60)
 Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta)

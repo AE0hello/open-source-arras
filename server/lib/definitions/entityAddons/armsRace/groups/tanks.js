@@ -907,6 +907,7 @@ Class.courser_AR = {
     },
     CONTROLLERS: ['zoom'],
     TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
@@ -2269,6 +2270,7 @@ Class.prober_AR = {
     },
     CONTROLLERS: ['zoom'],
     TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
