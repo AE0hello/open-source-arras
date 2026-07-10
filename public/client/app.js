@@ -2408,7 +2408,7 @@ import * as socketStuff from "./socketinit.js";
             }
             drawGuiRect(x, y, len, global.clickables.clicked ? height * 0.6 : height);
         }
-        ctx[2].globalAlpha = 0.2 * alpha;
+        ctx[2].globalAlpha = (config.graphical.oldUIStyle ? 0.25 : 0.2) * alpha;
         ctx[2].fillStyle = color.black;
         drawGuiRect(x, y + height * 0.6, len, height * 0.4);
         ctx[2].globalAlpha = 1;
