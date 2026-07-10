@@ -258,7 +258,7 @@ Class.artillery = {
             }
         }
     ]
-}
+};
 Class.assassin = {
     PARENT: 'genericTank',
     LABEL: "Assassin",
@@ -598,7 +598,7 @@ Class.launcher = {
     LABEL: "Launcher",
     DANGER: 6,
     BODY: {
-        FOV: base.FOV * 1.1
+        FOV: base.FOV * 1.15
     },
     GUNS: [
         {
@@ -620,7 +620,7 @@ Class.launcher = {
             }
         }
     ]
-}
+};
 Class.mace = {
     PARENT: 'genericFlail',
     LABEL: "Mace",
@@ -1553,7 +1553,7 @@ Class.beekeeper = {
             }
         }
     ]
-}
+};
 Class.bender = {
     PARENT: 'genericTank',
     LABEL: "Bender",
@@ -2606,9 +2606,7 @@ Class.fieldGun = {
     PARENT: 'genericTank',
     LABEL: "Field Gun",
     DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.1,
-    },
+    BODY: Class.launcher.BODY,
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -2643,7 +2641,7 @@ Class.fieldGun = {
             }
         }
     ]
-}
+};
 Class.fighter = {
     PARENT: 'genericTank',
     LABEL: "Fighter",
@@ -3427,7 +3425,7 @@ Class.mortar = {
             }
         }
     ]
-}
+};
 Class.munition = makeWhirlwind('artillery', {label: "Munition"})
 Class.musket = {
     PARENT: 'genericTank',
@@ -4300,9 +4298,7 @@ Class.rocketeer = {
     PARENT: 'genericTank',
     LABEL: "Rocketeer",
     DANGER: 7,
-    BODY: {
-        FOV: 1.15 * base.FOV
-    },
+    BODY: Class.launcher.BODY,
     GUNS: [
         {
             POSITION: {
@@ -4324,7 +4320,7 @@ Class.rocketeer = {
             }
         }
     ]
-}
+};
 Class.septaTrapper = {
     PARENT: 'genericTank',
     LABEL: "Septa-Trapper",
@@ -4542,7 +4538,7 @@ Class.sidewinder = {
             }
         }
     ]
-}
+};
 Class.single = {
     PARENT: 'genericTank',
     LABEL: "Single",
@@ -4572,9 +4568,7 @@ Class.skimmer = {
     PARENT: 'genericTank',
     LABEL: "Skimmer",
     DANGER: 7,
-    BODY: {
-        FOV: 1.15 * base.FOV,
-    },
+    BODY: Class.launcher.BODY,
     GUNS: [
         {
             POSITION: {
@@ -4596,7 +4590,7 @@ Class.skimmer = {
             },
         },
     ],
-}
+};
 Class.spike = {
     PARENT: 'genericSmasher',
     LABEL: "Spike",
@@ -4883,6 +4877,7 @@ Class.swarmer = {
     PARENT: 'genericTank',
     LABEL: "Swarmer",
     DANGER: 7,
+    BODY: Class.launcher.BODY,
     GUNS: [
         {
             POSITION: {
@@ -4904,7 +4899,7 @@ Class.swarmer = {
             }
         }
     ]
-}
+};
 Class.tempest = makeWhirlwind('genericTank', {dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinReverse", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7})
 Class.thunderbolt = makeWhirlwind('genericTank', {hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7})
 Class.tornado_old = makeWhirlwind('genericTank', {hat: 'circleHat', hatSize: 30, hatLayer: 0, satellites: 1, satelliteSize: 16, satelliteType: "satellite_old", extraStats: [g.pounder, g.destroyer], label: "Tornado", danger: 7})
@@ -5050,9 +5045,7 @@ Class.twister = {
     PARENT: 'genericTank',
     LABEL: "Twister",
     DANGER: 7,
-    BODY: {
-        FOV: 1.1 * base.FOV
-    },
+    BODY: Class.launcher.BODY,
     TOOLTIP: "Hold right click to reverse missile rotation.",
     GUNS: [
         {
@@ -5076,7 +5069,7 @@ Class.twister = {
             }
         }
     ]
-}
+};
 Class.typhoon = makeWhirlwind('genericTank', {hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7})
 Class.typhoon_old = makeWhirlwind('genericTank', {dualLayer: true, hat: 'circleHat', hatSize: 28, hatLayer: 0, hat2: 'circleHat', hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon"})
 Class.vortex = makeWhirlwind('launcher', {label: "Vortex"})
