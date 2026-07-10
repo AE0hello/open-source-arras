@@ -207,7 +207,7 @@ import * as socketStuff from "./socketinit.js";
                 global.version = ve.ver;
                 if (ve.dev_build) {
                     global.dev_build = true;
-                    global.createTabMenu(`This server is running a development build of Open Source Arras, please report any issues you encounter. (${global.version})`, "warning");
+                    global.createTabMenu(`This server is running a development build of Open Source Arras. Please report any issues you encounter! (${global.version})`, "warning");
                 }
                 // Addon info handler
                 let keyValue = localStorage.getItem('playerKeyInputValue');
@@ -2408,7 +2408,7 @@ import * as socketStuff from "./socketinit.js";
             }
             drawGuiRect(x, y, len, global.clickables.clicked ? height * 0.6 : height);
         }
-        ctx[2].globalAlpha = 0.25 * alpha;
+        ctx[2].globalAlpha = 0.2 * alpha;
         ctx[2].fillStyle = color.black;
         drawGuiRect(x, y + height * 0.6, len, height * 0.4);
         ctx[2].globalAlpha = 1;
@@ -2937,7 +2937,7 @@ import * as socketStuff from "./socketinit.js";
         
         const displayText = global.searchBarActive && !global.searchQuery 
             ? "Type to search..." 
-            : global.searchQuery || "Click to search tanks...";
+            : global.searchQuery || "Search";
         const textColor = color.white;
         const showCursor = global.searchBarActive && Date.now() % 1000 < 500;
         
@@ -3554,12 +3554,12 @@ import * as socketStuff from "./socketinit.js";
             drawText(`Bandwidth: tx ${global.bandwidth.finalHa} rx ${global.bandwidth.finalFa}`, x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
             drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText("Prediction: " + Math.round(GRAPHDATA) + "ms", x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
-            drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS* §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
+            drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms  " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
             drawText(watermarkText, x + len, y - 50 - 3 * 14 - 2, 15, watermarkColor, "right");
             drawText(global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
-            drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS* §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
+            drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms  " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else drawText(watermarkText, x + len, y - 22 - 2 * 14 - 2, 15, watermarkColor, "right");
     }
@@ -3740,8 +3740,8 @@ import * as socketStuff from "./socketinit.js";
             }
 
             // Draw dont upgrade button
-            let h = 19.1,
-                textScale = h - 6,
+            let h = 20,
+                textScale = (h - 0.9) - 6,
                 msg = "Don't Upgrade",
                 m = measureText(msg, textScale),
                 buttonX = initialX + (rowWidth + len - initialX) / 2,
