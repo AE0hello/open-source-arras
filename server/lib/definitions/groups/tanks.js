@@ -50,7 +50,7 @@ Class.desmos = {
             }
         })
     ]
-}
+};
 Class.director = {
     PARENT: 'genericTank',
     LABEL: "Director",
@@ -92,8 +92,8 @@ Class.flail = {
         }
     }]
 }
-Class.flankGuard = makeFlank('basic', 3, "Flank Guard", {extraStats: [g.flankGuard]})
-Class.flankGuard.BODY = {SPEED: 1.1 * base.SPEED}
+Class.flankGuard = makeFlank('basic', 3, "Flank Guard", {extraStats: [g.flankGuard]});
+Class.flankGuard.BODY = {SPEED: 1.125 * base.SPEED};
 Class.machineGun = {
     PARENT: 'genericTank',
     LABEL: "Machine Gun",
@@ -532,7 +532,7 @@ Class.helix = {
             }
         })
     ]
-}
+};
 Class.hexaTank = makeFlank('basic', 6, "Hexa Tank", {extraStats: [g.flankGuard, g.flankGuard], delayIncrement: 0.5, danger: 6})
 Class.hunter = {
     PARENT: 'genericTank',
@@ -4076,7 +4076,7 @@ Class.quadruplex = {
             }
         }, {delayIncrement: 0.5}), 4)
     ]
-}
+};
 Class.ranger = {
     PARENT: 'genericTank',
     LABEL: "Ranger",
@@ -5025,7 +5025,7 @@ Class.triplex = {
             }
         }], {delayIncrement: 0.5}),
     ]
-}
+};
 Class.twister = {
     PARENT: 'genericTank',
     LABEL: "Twister",
