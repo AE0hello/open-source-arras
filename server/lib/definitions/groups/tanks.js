@@ -869,7 +869,7 @@ Class.smasher = {
             }
         }
     ]
-}
+};
 Class.spawner = {
     PARENT: 'genericTank',
     LABEL: "Spawner",
@@ -3075,7 +3075,7 @@ Class.landmine = {
             }
         }
     ]
-}
+};
 Class.machineGunner = {
     PARENT: 'genericTank',
     LABEL: "Machine Gunner",
@@ -3275,8 +3275,8 @@ Class.megaSmasher = {
     PARENT: 'genericSmasher',
     LABEL: "Mega-Smasher",
     BODY: {
-        SPEED: 1.05 * base.SPEED,
         FOV: 1.1 * base.FOV,
+        SPEED: 1.2 * base.SPEED,
         DENSITY: 4 * base.DENSITY
     },
     TURRETS: [
@@ -3285,7 +3285,7 @@ Class.megaSmasher = {
             POSITION: { SIZE: 25 }
         }
     ]
-}
+};
 Class.megaTornado = makeWhirlwind('genericTank', {hat: "diamondHat_spin", hatSize: 16, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7})
 Class.mender = {
     PARENT: 'genericTank',
@@ -4588,7 +4588,7 @@ Class.spike = {
         TYPE: ['triangleHat_spin', {COLOR: 'black'}],
         POSITION: {SIZE: 18}
     }], 4)
-}
+};
 Class.splasher = {
     PARENT: 'genericTank',
     LABEL: "Splasher",
