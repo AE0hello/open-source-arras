@@ -4066,6 +4066,36 @@ Class.injection_AR = {
         }
     ]
 }
+Class.inspector_AR = {
+    PARENT: "genericTank",
+    LABEL: "Inspector",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        SPEED: 0.9 * base.SPEED,
+        FOV: 1.1 * base.FOV
+    },
+    INVISIBLE: [0.08, 0.03],
+    TOOLTIP: "Stay still to turn invisible.",
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 5,
+            WIDTH: 11,
+            ASPECT: 1.3,
+            X: 8,
+            ANGLE: 90
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.overseer, {size: 1/0.85}]),
+            TYPE: 'drone',
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: 'drone',
+            WAIT_TO_CYCLE: true,
+            MAX_CHILDREN: 4
+        }
+    })
+}
 Class.intern_AR = {
     PARENT: "genericHealer",
     LABEL: "Intern",
@@ -5292,8 +5322,8 @@ addUpgrades('basic', 1, [])
             addUpgrades('recalibrator_AR', tier4, [], preset.ARsuffix)
 
     addUpgrades('twin', 2, ['wark'], preset.ARsuffix)
-        //addUpgrades('twin', 3, [])
-            //addUpgrades('twin', tier4, ['duo'], preset.ARsuffix)
+        addUpgrades('twin', 3, [])
+            addUpgrades('twin', tier4, ['duo'], preset.ARsuffix)
             //addUpgrades('dual', tier4, [/*'threefold', 'doubleDual', 'ravisher', 'vulture', 'nimrod', 'autoDual', 'bifold', 'dyadic'*/], preset.ARsuffix)
             //addUpgrades('musket', tier4, [/*'doubleMusket', 'flintlock', 'arbalest', 'matchlock', 'autoMusket', 'duelist', 'bifold'*/], preset.ARsuffix)
 
@@ -5369,8 +5399,8 @@ addUpgrades('basic', 1, [])
 
     addUpgrades('sniper', 2, [])
         addUpgrades('sniper', 3, ['railgun'], preset.ARsuffix)
-            //addUpgrades('sniper', tier4, ['sharpshooter'], preset.ARsuffix)
-            //addUpgrades('railgun_AR', tier4, [], preset.ARsuffix)
+            addUpgrades('sniper', tier4, ['sharpshooter'], preset.ARsuffix)
+            addUpgrades('railgun_AR', tier4, [], preset.ARsuffix)
             //addUpgrades('bushwhacker', tier4, ['executor'/*, 'anchor'*/, 'butcher', 'tommy', 'ransacker'/*, 'raider', 'molder', 'thrasher'*/, 'autoBushwhacker'/*, 'blowgun', 'lockup', 'watchman', 'triBushwhacker'*/], preset.ARsuffix)
 
         addUpgrades('assassin', 3, ['hitman', 'sniper3', 'enforcer', 'courser'], preset.ARsuffix)
@@ -5396,7 +5426,7 @@ addUpgrades('basic', 1, [])
 
     addUpgrades('machineGun', 2, ['diesel', 'machineTrapper'], preset.ARsuffix)
         addUpgrades('machineGun', 3, [])
-            //addUpgrades('machineGun', tier4, ['gadgetGun'], preset.ARsuffix)
+            addUpgrades('machineGun', tier4, ['gadgetGun'], preset.ARsuffix)
 
         addUpgrades('artillery', 3, ['queller', 'forger', 'force', 'autoArtillery', 'foctillery', 'discharger'], preset.ARsuffix)
 
@@ -5410,9 +5440,9 @@ addUpgrades('basic', 1, [])
 
         addUpgrades('machineTrapper_AR', 3, ['dieselTrapper_AR', 'barricade', 'equalizer_AR', 'frother_AR', 'machineGuard_AR', 'encircler_AR', 'machineMech_AR', 'triMachine_AR', 'expeller_AR', 'autoMachineTrapper_AR', 'deviation_AR'])
 
-    //addUpgrades('flankGuard', 2, [])
-        //addUpgrades('flankGuard', 3, [])
-            //addUpgrades('flankGuard', tier4, ['ternion'], preset.ARsuffix)
+    addUpgrades('flankGuard', 2, [])
+        addUpgrades('flankGuard', 3, [])
+            addUpgrades('flankGuard', tier4, ['ternion'], preset.ARsuffix)
 
         //addUpgrades('hexaTank', 3, [], preset.ARsuffix)
 
@@ -5438,10 +5468,11 @@ addUpgrades('basic', 1, [])
 
     addUpgrades('director', 2, ['directordrive', 'honcho', 'doper'], preset.ARsuffix)
         addUpgrades('director', 3, [])
-            //addUpgrades('director', tier4, ['coordinator'], preset.ARsuffix)
+            addUpgrades('director', tier4, ['coordinator'], preset.ARsuffix)
             addUpgrades('manager', tier4, [], preset.ARsuffix)
 
         addUpgrades('overseer', 3, ['captain', 'foreman', 'dopeseer'], preset.ARsuffix)
+            addUpgrades('overseer', tier4, ['inspector', 'overdoubleTwin'], preset.ARsuffix)
 
         addUpgrades('cruiser', 3, ['productionist', 'cruiserdrive', 'hangar', 'zipper', 'faucet', 'baltimore', 'mosey'], preset.ARsuffix)
 
@@ -5457,7 +5488,7 @@ addUpgrades('basic', 1, [])
 
     addUpgrades('pounder', 2, [])
         addUpgrades('pounder', 3, [])
-            //addUpgrades('pounder', tier4, ['bruiser'], preset.ARsuffix)
+            addUpgrades('pounder', tier4, ['bruiser'], preset.ARsuffix)
 
         addUpgrades('destroyer', 3, ['megaTrapper', 'queller', 'autoDestroyer', 'hurler', 'slinker'], preset.ARsuffix)
 
@@ -5468,10 +5499,10 @@ addUpgrades('basic', 1, [])
         addUpgrades('launcher', 3, ['rocketeer', 'pitcher_AR', 'cluster_AR', 'projector_AR', 'heaver_AR', 'autoLauncher_AR', 'hurler_AR', 'inception_AR'])
 
     addUpgrades('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark'], preset.ARsuffix)
-        addUpgrades('trapper', 3, ['undertrapper'], preset.ARsuffix)
-            //addUpgrades('trapper', tier4, ['tricker'], preset.ARsuffix)
+        addUpgrades('trapper', 3, ['undertrapper', 'megaTrapper'], preset.ARsuffix)
+            addUpgrades('trapper', tier4, ['tricker'], preset.ARsuffix)
 
-    addUpgrades('desmos', 2, [])
+    addUpgrades('desmos', 2, ['spiral', 'undertow', 'repeater'])
         addUpgrades('desmos', 3, [])
             addUpgrades('desmos', tier4, [], preset.ARsuffix)
 
@@ -5513,7 +5544,6 @@ if (Config.retrograde) {
         addUpgrades('diesel_AR', 3, ['doubleDiesel'], preset.ARsuffix)
 
         addUpgrades('machineTrapper_AR', 3, ['blasterTrapper', 'gatlingTrapper'], preset.ARsuffix)
-
 }
 
 // Autos
@@ -6714,26 +6744,6 @@ Class.hextuplex_AR = {
             }
         }), 3)
     ]
-}
-Class.inspector_AR = {
-    PARENT: "genericTank",
-    LABEL: "Inspector",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: {
-        SPEED: 0.9 * base.SPEED,
-        FOV: 1.1 * base.FOV
-    },
-    ...preset.todo_placeholder_guns,
-    GUNS: weaponMirror({
-        POSITION: {
-            LENGTH: 5,
-            WIDTH: 11,
-            ASPECT: 1.3,
-            X: 8,
-            ANGLE: 90
-        }
-    })
 }
 Class.jimmy_AR = {
     PARENT: "genericTank",
