@@ -6,7 +6,7 @@
 	],
 	"addon-version": "v0.1.0",
 	"osa-version": {
-		"minimum": "v2.0.12",
-		"target": "v2.0.12"
+		"minimum": "v2.0.11",
+		"target": "v2.1.0"
 	}
 }

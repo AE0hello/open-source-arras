@@ -153,6 +153,7 @@ function bulkMakeAuto(types = []) {
 // Credits
 // - u/SkyShredder89: Default Tier 3/4 Sprayer upgrades
 // - Taureon: Original Mummifier concept
+// - Phoerras.io: Extra branches
 
 // Hats
 Class.healerHat_spin = makeHat(Class.healerHat.SHAPE, {color: "red", rotationSpeed: 0.16})
@@ -1681,6 +1682,7 @@ Class.hutch_AR = {
         }
     ], {delayIncrement: 0.5})
 }
+Class.hybrix_AR = makeOver('helix', "Hybrix", preset.makeOver.hybrid)
 Class.incarcerator_AR = makeGuard({
     PARENT: "genericTank",
     DANGER: 4,
@@ -2769,6 +2771,32 @@ Class.triTrapGuard_AR = makeGuard({
         }
     ]
 }, "Tri-Trap Guard", {triple: true, danger: 3})
+Class.twindertow_AR = {
+    PARENT: 'genericTank',
+    LABEL: "Twindertow",
+    DANGER: 7,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 14.5,
+                WIDTH: 9,
+                ASPECT: 0.8,
+                Y: 4,
+                ANGLE: 5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, {size: 0.8, reload: 1.2}]),
+                TYPE: 'undertowBullet',
+            },
+        }, {delayIncrement: 0.5}),
+        ...weaponMirror({
+            POSITION: [11.25, 8, 0.15, 4.25, 4, 22.5, 0]
+        }),
+        {
+            POSITION: [15, 10, 0.4, 0, 0, 0, 0]
+        }
+    ]
+}
 Class.underdrive_AR = makeDrive('underseer', {projectileType: 'sunchip', label: "Underdrive"})
 Class.undergunner_AR = makeUnder({
     PARENT: 'genericTank',
@@ -3006,6 +3034,7 @@ bulkMakeAuto([
     'doubleMinigun_AR',
     'doubleSprayer_AR',
     'dual',
+    'twindertow_AR',
     'duplicator',
     'enforcer_AR',
     'equalizer_AR',
@@ -3028,6 +3057,7 @@ bulkMakeAuto([
     'hewnDouble',
     'hitman_AR',
     'hutch_AR',
+    'hybrix_AR',
     'machineGunner',
     'megaHunter_AR',
     'mingler_AR',
@@ -5328,15 +5358,15 @@ addUpgrades('basic', 1, [])
             //addUpgrades('musket', tier4, [/*'doubleMusket', 'flintlock', 'arbalest', 'matchlock', 'autoMusket', 'duelist', 'bifold'*/], preset.ARsuffix)
 
         addUpgrades('doubleTwin', 3, ['doubleFlankTwin', 'doubleGunner', 'doubleHelix', 'warkwark'], preset.ARsuffix)
-            //addUpgrades('doubleTwin', tier4, ['doubleDual', 'doubleMusket', 'overdoubleTwin', 'underdoubleTwin'], preset.ARsuffix)
-            //addUpgrades('tripleTwin', tier4, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'tripleHelix', 'warkwarkwark'], preset.ARsuffix)
-            //addUpgrades('hewnDouble', tier4, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'hewnHelix', 'warkwawarkrk'], preset.ARsuffix)
+            addUpgrades('doubleTwin', tier4, ['doubleDual', 'doubleMusket', 'overdoubleTwin', 'underdoubleTwin'], preset.ARsuffix)
+            addUpgrades('tripleTwin', tier4, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'tripleHelix', 'warkwarkwark'], preset.ARsuffix)
+            addUpgrades('hewnDouble', tier4, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'hewnHelix', 'warkwawarkrk'], preset.ARsuffix)
             addUpgrades('autoDouble', tier4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoDoubleHelix', 'autoWarkwark'], preset.ARsuffix)
-            //addUpgrades('bentDouble', tier4, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'doubleTriplex', 'cleft', 'doubleSpreadshot', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk'], preset.ARsuffix)
-            //addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'doubleFlankHelix', 'hipwatch', 'scuffler', 'warkwawawark'], preset.ARsuffix)
-            //addUpgrades('doubleGunner_AR', tier4, ['tripleGunner', 'hewnGunner', 'autoDoubleGunner', 'bentDoubleGunner', 'doubleFlankGunner', 'doubleNailgun', 'doubleMachineGunner', 'overdoubleGunner', 'underdoubleGunner', 'doubleBattery', 'doubleRimfire', 'doubleVolley', 'doubleEqualizer'], preset.ARsuffix)
-            //addUpgrades('doubleHelix_AR', tier4, ['tripleHelix', 'hewnHelix', 'autoDoubleHelix', 'doubleTriplex', 'doubleFlankHelix', 'doubleCoil', 'doubleDuplicator'], preset.ARsuffix)
-            //addUpgrades('warkwark_AR', tier4, ['warkwarkwark', 'warkwawarkrk', 'autoWarkwark', 'waarrkwaarrk', 'warkwawawark', 'doubleEqualizer', 'guardrail', 'sealer', 'setup'], preset.ARsuffix)
+            addUpgrades('bentDouble', tier4, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'doubleTriplex', 'cleft', 'doubleSpreadshot', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk'], preset.ARsuffix)
+            addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'doubleFlankHelix', 'hipwatch', 'scuffler', 'warkwawawark'], preset.ARsuffix)
+            addUpgrades('doubleGunner_AR', tier4, ['tripleGunner', 'hewnGunner', 'autoDoubleGunner', 'bentDoubleGunner', 'doubleFlankGunner', 'doubleNailgun', 'doubleMachineGunner', 'overdoubleGunner', 'underdoubleGunner', 'doubleBattery', 'doubleRimfire', 'doubleVolley', 'doubleEqualizer'], preset.ARsuffix)
+            addUpgrades('doubleHelix_AR', tier4, ['tripleHelix', 'hewnHelix', 'autoDoubleHelix', 'doubleTriplex', 'doubleFlankHelix', 'doubleCoil', 'doubleDuplicator'], preset.ARsuffix)
+            addUpgrades('warkwark_AR', tier4, ['warkwarkwark', 'warkwawarkrk', 'autoWarkwark', 'waarrkwaarrk', 'warkwawawark', 'doubleEqualizer', 'guardrail', 'sealer', 'setup'], preset.ARsuffix)
 
         addUpgrades('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'], preset.ARsuffix)
             //addUpgrades('tripleShot', tier4, [/*'threefold', 'flintlock'*/], preset.ARsuffix)
@@ -5378,7 +5408,7 @@ addUpgrades('basic', 1, [])
             //addUpgrades('mingler_AR', tier4, ['autoMingler'], preset.ARsuffix)
             //addUpgrades('combo_AR', tier4, ['autoCombo'], preset.ARsuffix)
 
-        addUpgrades('helix', 3, ['coil', 'duplicator', 'doubleHelix_AR', 'autoHelix_AR'])
+        addUpgrades('helix', 3, ['coil', 'twindertow_AR', 'duplicator', 'doubleHelix_AR', 'hybrix_AR', 'autoHelix_AR'])
             //addUpgrades('triplex', tier4, [], preset.ARsuffix)
             //addUpgrades('quadruplex', tier4, ['autoQuadruplex'], preset.ARsuffix)
             //addUpgrades('coil', tier4, ['doubleCoil', 'autoCoil'], preset.ARsuffix)
@@ -5502,11 +5532,14 @@ addUpgrades('basic', 1, [])
         addUpgrades('trapper', 3, ['undertrapper', 'megaTrapper'], preset.ARsuffix)
             addUpgrades('trapper', tier4, ['tricker'], preset.ARsuffix)
 
+    addUpgrades('desmos', 2, ['volute'], {start: 0})
     addUpgrades('desmos', 2, ['spiral', 'undertow', 'repeater'])
         addUpgrades('desmos', 3, [])
             addUpgrades('desmos', tier4, [], preset.ARsuffix)
 
         //addUpgrades('helix', 3, [])
+
+        addUpgrades('undertow', 3, ['twindertow'], preset.ARsuffix)
 
 if (Config.retrograde) {
     addUpgrades('twin', 2, [])
@@ -7871,7 +7904,7 @@ quickMake("diesel_AR", {hybrid: "Polluter", over: "Overdiesel", under: "Underdie
 quickMake("dieselTrapper_AR", {hybrid: "Blight"})
 quickMake("director", {drive: "Directordrive", storm: "Directorstorm"})
 quickMake("dopeseer_AR", {drive: "Dopedrive"})
-quickMake("doper_AR", {drive: "Doperdrive", storm: "Doperstorm"})
+quickMake("doper_AR", {storm: "Doperstorm"})
 quickMake("dual", {hybrid: "Ravisher"})
 quickMake("encircler_AR", {hybrid: "Environ"})
 quickMake("enforcer_AR", {bird: "Merganser", hybrid: "Slayer"})
@@ -7906,8 +7939,7 @@ quickMake({
         }
     ]
 }, {cross: "Despot", battle: "Battlegunner", under: "Undergunner", necro: "Necrogunner", mummy: "Mummygunner", penta: "Pentagunner", cap: "Capgunner"})
-quickMake("helix", {hybrid: "Hybrix"})
-quickMake("honcho_AR", {drive: "Honchodrive", storm: "Honchostorm"})
+quickMake("honcho_AR", {storm: "Honchostorm"})
 quickMake("hunter", {over: "Overhunter", synth: "Plunderer", under: "Underhunter"})
 quickMake("hurler_AR", {hybrid: "Mongrel"})
 quickMake("hutch_AR", {hybrid: "Retainer"})

@@ -3747,7 +3747,7 @@ import * as socketStuff from "./socketinit.js";
                 buttonX = initialX + (rowWidth + len - initialX) / 2,
                 buttonY = initialY + height + internalSpacing - 5;
 
-            drawButton(buttonX, buttonY, m, h, 1, "rect", msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, 0);
+            drawButton(buttonX, buttonY, m, h, 1, config.graphical.oldUIStyle ? 'bar' : 'rect', msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, 0);
 
             if (gui.dailyTank && gui.dailyTank.tank) {
                 let image = util.requestEntityImage(gui.dailyTank.tank, gui.color);

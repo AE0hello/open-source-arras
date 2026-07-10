@@ -54,7 +54,7 @@ global.loadServerSelector = (serverData, text) => {
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
-            server.featured && tr.classList.add("featured"); // make the text yellow if its featured.
+            server.featured && tr.classList.add("featured");
             tr.onclick = () => {
                 if (myServer.classList.contains("selected")) {
                     myServer.classList.remove("selected");
