@@ -3,6 +3,7 @@ const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'upgradeMenuStressTest',
     'flag',
     'ball',
     'rainbowTesseract',
@@ -39,6 +40,9 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "anglemancer",
     "backwardsExports",
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+
+const stressTestUpgrades = Array(100).fill(Config.spawn_class)
+Class.upgradeMenuStressTest = makeMenu("Upgrade Menu Stress Test", {upgrades: stressTestUpgrades, tooltip: `This menu currently has ${stressTestUpgrades.length} upgrades.`, boxLabel: "UMSS"})
 
 const tessFaceColors = Array.from({ length: 20 }, (_, i) =>
     ["red", "orange", "yellow", "green", "blue", "purple"][i % 6]

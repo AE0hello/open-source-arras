@@ -2350,11 +2350,31 @@ import * as socketStuff from "./socketinit.js";
         }
     })();
 
-    const iconColorOrder = [10, 11, 12, 15, 13, 2, 14, 4, 5, 1, 0, 3];
-    const oldIconColorOrder = [10, 11, 12, 13, 14, 15, 16, 17, 18, 19]; // Once this runs out, the colours should start getting blended together
-    function getIconColor(colorIndex) {
-        if (config.graphical.oldUIStyle) return oldIconColorOrder[colorIndex % oldIconColorOrder.length].toString();
-        return iconColorOrder[colorIndex % iconColorOrder.length].toString();
+    function getIconColor(index) {
+        const colors = [10, 11, 12, 15, 13, 2, 14, 4, 5, 1, 0, 3];
+        return colors[index % colors.length].toString();
+    }
+    function colorBlend(color1, color2, d = 0.5) {
+      if (0 >= d) return color1;
+      if (1 <= d) return color2;
+      let e = 1 - d;
+      color1 = parseInt(color1.slice(1, 7), 16);
+      color2 = parseInt(color2.slice(1, 7), 16);
+      return (
+        '#' +
+        (
+          (((color1 & 16711680) * e + (color2 & 16711680) * d) & 16711680) |
+          (((color1 & 65280) * e + (color2 & 65280) * d) & 65280) |
+          (((color1 & 255) * e + (color2 & 255) * d) & 255)
+        )
+          .toString(16)
+          .padStart(6, '0')
+      );
+    }
+    function getOldIconColor(index) {
+        let color = gameDraw.getColor((index % 9) + 10);
+        9 <= index && (color = colorBlend(color, gameDraw.getColor(((index + Math.floor(index / 9)) % 9) + 10)));
+        return color;
     }
 
     function drawEntityIcon(model, x, y, len, height, lineWidthMult, angle, alpha, colorIndex, upgradeKey, hover = false, extraScale = 1) {
@@ -2375,7 +2395,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].globalAlpha = alpha;
         ctx[2].fillStyle = picture.upgradeColor != null
             ? gameDraw.modifyColor(picture.upgradeColor)
-            : gameDraw.getColor(getIconColor(colorIndex));
+            : gameDraw.getColor(config.graphical.oldUIStyle ? getOldIconColor(colorIndex) : getIconColor(colorIndex));
         drawGuiRect(x, y, len, height);
         // Shading for hover
         if (hover) {
