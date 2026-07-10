@@ -906,7 +906,7 @@ Class.courser_AR = {
         FOV: base.FOV * 1.45
     },
     CONTROLLERS: ['zoom'],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
     ...preset.todo_placeholder_guns,
     GUNS: [
         {
@@ -1927,7 +1927,8 @@ Class.megaHunter_AR = {
         FOV: base.FOV * 1.25
     },
     CONTROLLERS: ["zoom"],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
@@ -2269,7 +2270,7 @@ Class.prober_AR = {
         FOV: base.FOV * 1.275
     },
     CONTROLLERS: ['zoom'],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
     ...preset.todo_placeholder_guns,
     GUNS: [
         {
@@ -4757,7 +4758,8 @@ Class.subduer_AR = {
         FOV: base.FOV * 1.05
     },
     CONTROLLERS: ["zoom"],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
@@ -6350,7 +6352,8 @@ Class.carnivore_AR = {
         FOV: base.FOV * 1.25
     },
     CONTROLLERS: ["zoom"],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
@@ -7619,7 +7622,8 @@ Class.xNimrod_AR = {
         FOV: base.FOV * 1.3
     },
     CONTROLLERS: [["zoom", { distance: 550 }]],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
@@ -7675,7 +7679,8 @@ Class.xPredator_AR = {
         FOV: base.FOV * 1.25
     },
     CONTROLLERS: [["zoom", { distance: 550 }]],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {
@@ -7727,7 +7732,8 @@ Class.yHunter_AR = {
         FOV: base.FOV * 1.25
     },
     CONTROLLERS: [["zoom", { distance: 775 }]],
-    TOOLTIP: "Hold right click to zoom.",
+    //TOOLTIP: "Hold right click to zoom.",
+    ...preset.todo_placeholder_guns,
     GUNS: [
         {
             POSITION: {

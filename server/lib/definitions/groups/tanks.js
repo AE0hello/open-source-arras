@@ -2486,7 +2486,6 @@ Class.dual = {
         FOV: 1.2 * base.FOV
     },
     CONTROLLERS: [['zoom', {distance: 165}]],
-    TOOLTIP: "Hold right click to zoom.",
     GUNS: weaponMirror([
         {
             POSITION: {
@@ -3576,7 +3575,6 @@ Class.nimrod = {
         FOV: base.FOV * 1.3
     },
     CONTROLLERS: ['zoom'],
-    TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         {
             POSITION: {
@@ -3654,7 +3652,6 @@ Class.ordnance = {
         FOV: base.FOV * 1.3
     },
     CONTROLLERS: ['zoom'],
-    TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -3918,7 +3915,6 @@ Class.predator = {
         SPEED: base.SPEED * 14/15
     },
     CONTROLLERS: [['zoom', {distance: 365}]],
-    TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         {
             POSITION: {
@@ -5216,7 +5212,6 @@ Class.xHunter = {
     DANGER: 7,
     BODY: Class.hunter.BODY,
     CONTROLLERS: [['zoom', {distance: 550}]],
-    TOOLTIP: "Hold right click to zoom.",
     GUNS: [
         {
             POSITION: {
