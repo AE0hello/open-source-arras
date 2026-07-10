@@ -127,7 +127,7 @@ Class.pounder = {
             }
         }
     ]
-}
+};
 Class.sniper = {
     PARENT: 'genericTank',
     LABEL: "Sniper",
@@ -146,7 +146,7 @@ Class.sniper = {
             }
         }
     ]
-}
+};
 Class.trapper = {
     PARENT: 'genericTank',
     LABEL: "Trapper",
@@ -313,8 +313,8 @@ Class.builder = {
     DANGER: 6,
     STAT_NAMES: statnames.trap,
     BODY: {
-        SPEED: 0.8 * base.SPEED,
-        FOV: 1.15 * base.FOV
+        FOV: 1.15 * base.FOV,
+        SPEED: 14/15 * base.SPEED
     },
     GUNS: [
         {
@@ -337,7 +337,7 @@ Class.builder = {
             }
         }
     ]
-}
+};
 Class.cruiser = {
     PARENT: 'genericTank',
     LABEL: "Cruiser",
@@ -378,7 +378,7 @@ Class.destroyer = {
             }
         }
     ]
-}
+};
 Class.doubleFlail = {
     PARENT: 'genericFlail',
     LABEL: "Double Flail",
@@ -1284,7 +1284,7 @@ Class.annihilator = {
             }
         }
     ]
-}
+};
 Class.armsman = makeOver('rifle', "Armsman", preset.makeOver.hybrid);
 Class.architect = makeRadialAuto('architectGun', {isTurret: true, danger: 7, size: 12, label: "Architect", body: {SPEED: 1.1 * base.SPEED}}) // todo: fix this
 Class.assembler = {
@@ -1292,10 +1292,7 @@ Class.assembler = {
     LABEL: "Assembler",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
-    BODY: {
-        SPEED: 0.8 * base.SPEED,
-        FOV: 1.15 * base.FOV,
-    },
+    BODY: Class.builder.BODY,
     GUNS: [
         {
             POSITION: {
@@ -1329,7 +1326,7 @@ Class.assembler = {
             }
         }
     ]
-}
+};
 Class.atomizer = {
     PARENT: 'genericTank',
     LABEL: "Atomizer",
@@ -1766,10 +1763,7 @@ Class.boomer = {
     DANGER: 7,
     STAT_NAMES: statnames.trap,
     FACING_TYPE: 'locksFacing',
-    BODY: {
-        SPEED: base.SPEED * 0.8,
-        FOV: base.FOV * 1.15
-    },
+    BODY: Class.builder.BODY,
     GUNS: [
         {
             POSITION: {
@@ -1798,7 +1792,7 @@ Class.boomer = {
             }
         }
     ]
-}
+};
 Class.booster = {
     PARENT: 'genericTank',
     LABEL: "Booster",
@@ -2083,16 +2077,13 @@ Class.conqueror = {
             }
         }
     ]
-}
+};
 Class.construct = { // it's "construct" and not "constructor" because "constructor" breaks things
     PARENT: 'genericTank',
     LABEL: "Constructor",
     STAT_NAMES: statnames.trap,
     DANGER: 7,
-    BODY: {
-        SPEED: 0.7 * base.SPEED,
-        FOV: 1.15 * base.FOV
-    },
+    BODY: Class.builder.BODY,
     GUNS: [
         {
             POSITION: {
@@ -2114,7 +2105,7 @@ Class.construct = { // it's "construct" and not "constructor" because "construct
             }
         }
     ]
-}
+};
 Class.cropDuster = makeOver('minigun', "Crop Duster", preset.makeOver.hybrid)
 Class.crossbow = {
     PARENT: 'genericTank',
@@ -2512,16 +2503,13 @@ Class.duplicator = {
         },
     ]
 }
-Class.eagle = makeBird('pounder', "Eagle")
+Class.eagle = makeBird('pounder', "Eagle");
 Class.engineer = {
     PARENT: 'genericTank',
     LABEL: "Engineer",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
-    BODY: {
-        SPEED: 0.75 * base.SPEED,
-        FOV: 1.15 * base.FOV,
-    },
+    BODY: Class.builder.BODY,
     GUNS: [
         {
             POSITION: {
@@ -2561,7 +2549,7 @@ Class.engineer = {
             }
         }
     ]
-}
+};
 Class.factory = {
     PARENT: 'genericTank',
     LABEL: "Factory",
@@ -2975,7 +2963,7 @@ Class.hewnDouble = {
 }
 Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6}), "Hexa-Trapper")
 Class.hexaWhirl = makeWhirlwind('hexaTank', {label: "Hexa Whirl"})
-Class.hybrid = makeOver('destroyer', "Hybrid", preset.makeOver.hybrid)
+Class.hybrid = makeOver('destroyer', "Hybrid", preset.makeOver.hybrid);
 Class.infestor = {
     PARENT: 'genericTank',
     LABEL: "Infestor",
@@ -4427,6 +4415,9 @@ Class.shotgun = {
     PARENT: 'genericTank',
     LABEL: "Shotgun",
     DANGER: 7,
+    BODY: {
+        FOV: 1.15 * base.FOV
+    },
     GUNS: [
         ...weaponMirror([{
             POSITION: {
@@ -4507,7 +4498,7 @@ Class.shotgun = {
             }
         }
     ]
-}
+};
 Class.sidewinder = {
     PARENT: 'genericTank',
     LABEL: "Sidewinder",
