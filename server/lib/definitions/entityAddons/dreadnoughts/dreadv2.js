@@ -2574,11 +2574,11 @@ Class.valrayvn_dreadsV2 = {
 }
 
 // Account for lower level cap
-let tier1 = 6;
-let tier2 = 8;
-let tier3 = 12;
-let tier4 = 14;
-let tier5 = 16;
+let tier1 = 6; // 90
+let tier2 = 8; // 120
+let tier3 = 10; // 150
+let tier4 = 12; // 180
+let tier5 = 16; // 240
 if (free_upgrades) {
 	tier1 = 0;
 	tier2 = 0;
