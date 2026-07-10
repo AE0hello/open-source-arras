@@ -176,6 +176,7 @@ exports.makeBird = (type, name = -1, options = {}) => {
     let frontRecoilFactor = options.frontRecoil ?? 1;
     let backRecoilFactor = options.frontRecoil ?? 1;
     let color = options.frontRecoil;
+    let dangerIncrement = options.danger ?? 1
 
     // Thrusters
     let backRecoil = 0.5 * backRecoilFactor;
@@ -234,6 +235,7 @@ exports.makeBird = (type, name = -1, options = {}) => {
     if (output.FACING_TYPE == "locksFacing") output.FACING_TYPE = "toTarget";
     output.GUNS = type.GUNS == null ? [...shootyBois] : [...output.GUNS, ...shootyBois];
     output.LABEL = name == -1 ? "Bird " + type.LABEL : name;
+    output.DANGER = type.DANGER + dangerIncrement ?? 7
     if (type.UPGRADE_LABEL !== undefined) {
         output.UPGRADE_LABEL = output.LABEL;
     }

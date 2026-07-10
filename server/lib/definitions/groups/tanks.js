@@ -77,7 +77,7 @@ Class.director = {
             }
         }
     ]
-}
+};
 Class.flail = {
     PARENT: 'genericFlail',
     LABEL: "Flail",
@@ -172,7 +172,7 @@ Class.trapper = {
             }
         }
     ]
-}
+};
 Class.twin = {
     PARENT: 'genericTank',
     LABEL: "Twin",
@@ -361,7 +361,7 @@ Class.cruiser = {
             STAT_CALCULATOR: 'swarm'
         }
     }, {delayIncrement: 0.5})
-}
+};
 Class.destroyer = {
     PARENT: 'genericTank',
     LABEL: "Destroyer",
@@ -723,7 +723,7 @@ Class.minigun = {
             TYPE: 'bullet'
         }
     }, 3, {lengthOffset: 2, delayIncrement: 1/3})
-}
+};
 Class.monsoon_bent = {
     PARENT: 'genericTank',
     LABEL: "Monsoon",
@@ -1406,9 +1406,7 @@ Class.barricade = {
     LABEL: "Barricade",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
-    BODY: {
-        FOV: base.FOV * 1.15
-    },
+    BODY: Class.minigun.BODY,
     GUNS: [
         {
             POSITION: {
@@ -1430,7 +1428,7 @@ Class.barricade = {
             }
         }, 3, {xPosOffset: 4, delayIncrement: 1/3})
     ]
-}
+};
 Class.battery = {
     PARENT: 'genericTank',
     LABEL: "Battery",
@@ -1479,7 +1477,7 @@ Class.battleship = {
     STAT_NAMES: statnames.swarm,
     FACING_TYPE: 'locksFacing',
     BODY: {
-        FOV: 1.2 * base.FOV
+        FOV: 1.25 * base.FOV
     },
     GUNS: [
         ...weaponMirror({
@@ -1515,7 +1513,7 @@ Class.battleship = {
             }
         }, {delayIncrement: 0.5})
     ]
-}
+};
 Class.beekeeper = {
     PARENT: 'genericTank',
     LABEL: "Beekeeper",
@@ -1745,7 +1743,7 @@ Class.bomber = {
             }
         }
     ]
-}
+};
 Class.bonker = {
     PARENT: 'genericSmasher',
     LABEL: "Bonker",
@@ -1885,8 +1883,8 @@ Class.bulwark = {
             }
         }
     ], {delayIncrement: 0.5})
-}
-Class.bushwhacker = makeGuard('sniper', "Bushwhacker")
+};
+Class.bushwhacker = makeGuard('sniper', "Bushwhacker");
 Class.buttbuttin = makeGunner('assassin', "Buttbuttin", {rear: true})
 Class.carrier = {
     PARENT: 'genericTank',
@@ -1894,9 +1892,7 @@ Class.carrier = {
     DANGER: 7,
     STAT_NAMES: statnames.swarm,
     FACING_TYPE: 'locksFacing',
-    BODY: {
-        FOV: base.FOV * 1.2
-    },
+    BODY: Class.cruiser.BODY,
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -1928,7 +1924,7 @@ Class.carrier = {
             }
         }
     ]
-}
+};
 Class.cocciSegment = {
     PARENT: 'genericSmasher',
     COLOR: "mirror",
@@ -2001,7 +1997,8 @@ Class.commander = {
     DANGER: 7,
     STAT_NAMES: statnames.drone,
     BODY: {
-        FOV: base.FOV * 1.15
+        FOV: base.FOV * 1.15,
+        SPEED: base.SPEED * 14/15
     },
     GUNS: [
         ...weaponArray({
@@ -2035,7 +2032,7 @@ Class.commander = {
             }
         }, 3, {delayIncrement: 1/3})
     ]
-}
+};
 Class.conqueror = {
     PARENT: 'genericTank',
     LABEL: "Conqueror",
@@ -2106,7 +2103,7 @@ Class.construct = { // it's "construct" and not "constructor" because "construct
         }
     ]
 };
-Class.cropDuster = makeOver('minigun', "Crop Duster", preset.makeOver.hybrid)
+Class.cropDuster = makeOver('minigun', "Crop Duster", preset.makeOver.hybrid);
 Class.crossbow = {
     PARENT: 'genericTank',
     LABEL: "Crossbow",
@@ -2823,10 +2820,7 @@ Class.fortress = {
     LABEL: "Fortress",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
-    BODY: {
-        SPEED: 0.8 * base.SPEED,
-        FOV: 1.2 * base.FOV
-    },
+    BODY: Class.cruiser.BODY,
     GUNS: [
         ...weaponArray(
         {
@@ -2865,7 +2859,7 @@ Class.fortress = {
             }
         ], 3)
     ],
-}
+};
 Class.gunnerTrapper = makeGunner({
     PARENT: 'genericTank',
     LABEL: "Trapper",
@@ -2897,7 +2891,7 @@ Class.gunnerTrapper = makeGunner({
             }
         }
     ]
-})
+});
 Class.halfNHalf = {
     PARENT: 'genericTank',
     LABEL: "Half 'n Half",
@@ -2961,7 +2955,7 @@ Class.hewnDouble = {
         }, {delayIncrement: 0.5}), 2)
     ]
 }
-Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6}), "Hexa-Trapper")
+Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6}), "Hexa-Trapper");
 Class.hexaWhirl = makeWhirlwind('hexaTank', {label: "Hexa Whirl"})
 Class.hybrid = makeOver('destroyer', "Hybrid", preset.makeOver.hybrid);
 Class.infestor = {
@@ -3447,7 +3441,7 @@ Class.nailgun = {
     DANGER: 7,
     BODY: {
         FOV: base.FOV * 1.1,
-        SPEED: base.SPEED * 0.9
+        SPEED: base.SPEED * 14/15
     },
     GUNS: [
         ...weaponMirror({
@@ -3481,7 +3475,7 @@ Class.nailgun = {
             }
         }
     ]
-}
+};
 Class.necromancer = {
     PARENT: 'genericTank',
     LABEL: "Necromancer",
@@ -3729,8 +3723,8 @@ Class.overtrapper = makeOver({
     DANGER: 6,
     STAT_NAMES: statnames.mixed,
     BODY: {
-        SPEED: base.SPEED * 0.8,
-        FOV: base.FOV * 1.2
+        FOV: base.FOV * 1.2,
+        SPEED: base.SPEED * 14/15
     },
     GUNS: [
         {
@@ -3753,7 +3747,7 @@ Class.overtrapper = makeOver({
             }
         }
     ]
-})
+});
 Class.paramedic = {
     PARENT: 'genericHealer',
     LABEL: "Paramedic",
@@ -4410,7 +4404,7 @@ Class.septaTrapper = {
             }
         ], {delayOverflow: true})
     ]
-}
+};
 Class.shotgun = {
     PARENT: 'genericTank',
     LABEL: "Shotgun",
@@ -4749,7 +4743,7 @@ Class.streamliner = {
             TYPE: 'bullet'
         }
     }, 5, {lengthOffset: 2, delayIncrement: 0.2})
-}
+};
 Class.subverter = {
     PARENT: 'genericTank',
     LABEL: "Subverter",
@@ -5067,10 +5061,8 @@ Class.vortex = makeWhirlwind('launcher', {label: "Vortex"})
 Class.vortex_old = makeWhirlwind('genericTank', {enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex"})
 Class.vulture = makeBird({
     PARENT: 'genericTank',
-    DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.2
-    },
+    DANGER: 6,
+    BODY: Class.minigun.BODY,
     GUNS: [
         {
             POSITION: {
@@ -5108,7 +5100,7 @@ Class.vulture = makeBird({
             }
         }
     ]
-}, "Vulture")
+}, "Vulture");
 Class.whirlGuard = makeWhirlwind('trapGuard', {label: "Whirl Guard"})
 Class.whirl3 = makeWhirlwind("auto3", {label: "Whirl-3"})
 Class.wrangler = { // old bender, fires train minions with 3 bodies (though only one of them has a gun)
