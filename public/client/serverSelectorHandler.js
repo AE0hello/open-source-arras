@@ -125,7 +125,7 @@ let initializeFilter = () => {
             sandbox: [],
         }
     }
-    /*let nvmText = document.createElement("td");
+    let nvmText = document.createElement("td");
     nvmText.textContent = "No Server Matches";
     nvmText.classList.add("tdCenter");
     let noServerMatches = document.createElement("tr");
@@ -133,7 +133,7 @@ let initializeFilter = () => {
     noServerMatches.appendChild(nvmText);
     noServerMatches.style.display = "none";
     noServerMatches.style.width = "325px";
-    tbody.appendChild(noServerMatches);*/
+    tbody.appendChild(noServerMatches);
 
     for (let s of servers) {
         // Regions
