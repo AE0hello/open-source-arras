@@ -161,7 +161,7 @@ const global = {
 
     KEY_SPECIAL: 'Backquote',
     KEY_SPECIAL_HELP: 'Slash',
-    KEY_SPECIAL_HELP_2: 'F1',
+    KEY_SPECIAL_HELP_ALT: 'F1',
 
     KEY_SPECIAL_PRESET_1: 'Digit1',
     KEY_SPECIAL_PRESET_2: 'Digit2',

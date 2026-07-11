@@ -137,7 +137,7 @@ class Canvas {
                     const thing = global[obj];
                     if (typeof thing === "string") {
                         if (attributed) {
-                            if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_2" || obj.startsWith(attributed)) && thing === event.code) {
+                            if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_ALT" || obj.startsWith(attributed)) && thing === event.code) {
                                 global.specialKeysPressed.push(obj);
                                 pressed = true;
                             }
@@ -387,7 +387,7 @@ class Canvas {
                 const thing = global[obj];
                 if (typeof thing === "string") {
                     if (attributed) {
-                        if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_2" || obj.startsWith(attributed)) && thing === event.code) {
+                        if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_ALT" || obj.startsWith(attributed)) && thing === event.code) {
                             code = obj;
                             pressed = true;
                         }

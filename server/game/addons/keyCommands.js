@@ -65,7 +65,7 @@ function init() {
         {
             name: "Help",
             description: "Shows this command list",
-            keys: [[["KEY_SPECIAL_HELP", "?"]], [["KEY_SPECIAL_HELP_2", "F1"]]],
+            keys: [[["KEY_SPECIAL_HELP", "?"]], [["KEY_SPECIAL_HELP_ALT", "F1"]]],
             level: 1,
             operatorAccess: true,
             run: ({ socket, level, operator }) => {
@@ -511,7 +511,7 @@ function init() {
         },*/
         {
             name: "Skill",
-            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP_2", "F1"]]],
+            keys: [[["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_SKILL", "S"], ["KEY_SPECIAL_HELP_ALT", "F1"]]],
             displayKey: "S+?",
             level: 1,
             operatorAccess: true,
@@ -699,7 +699,7 @@ function init() {
         },
         {
             name: "Attribute",
-            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_HELP_2", "F1"]]],
+            keys: [[["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_HELP", "/"]], [["KEY_SPECIAL_ATTRIBUTE", "A"], ["KEY_SPECIAL_HELP_ALT", "F1"]]],
             displayKey: "A+?",
             level: 1,
             operatorAccess: true,
