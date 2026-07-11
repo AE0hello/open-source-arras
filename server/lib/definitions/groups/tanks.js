@@ -384,9 +384,9 @@ Class.doubleFlail = {
     LABEL: "Double Flail",
     DANGER: 6,
     TURRETS: weaponArray(Class.flail.TURRETS, 2)
-}
-Class.doubleMachine = makeFlank('machineGun', 2, "Double Machine", {extraStats: [g.doubleTwin]})
-Class.doubleTwin = makeFlank('twin', 2, "Double Twin", {extraStats: [g.doubleTwin]})
+};
+Class.doubleMachine = makeFlank('machineGun', 2, "Double Machine", {extraStats: [g.doubleTwin]});
+Class.doubleTwin = makeFlank('twin', 2, "Double Twin", {extraStats: [g.doubleTwin]});
 Class.flangle = {
     PARENT: 'genericFlail',
     LABEL: "Flangle",
@@ -533,7 +533,7 @@ Class.helix = {
         })
     ]
 };
-Class.hexaTank = makeFlank('basic', 6, "Hexa Tank", {extraStats: [g.flankGuard, g.flankGuard], delayIncrement: 0.5, danger: 6})
+Class.hexaTank = makeFlank('basic', 6, "Hexa Tank", {extraStats: [g.flankGuard, g.flankGuard], delayIncrement: 0.5, danger: 6});
 Class.hunter = {
     PARENT: 'genericTank',
     LABEL: "Hunter",
@@ -1059,9 +1059,6 @@ Class.tripleShot = {
     PARENT: 'genericTank',
     LABEL: "Triple Shot",
     DANGER: 6,
-    BODY: {
-        SPEED: base.SPEED * 0.9
-    },
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -1087,7 +1084,7 @@ Class.tripleShot = {
             }
         }
     ]
-}
+};
 Class.typhoon_bent = {
     PARENT: 'genericTank',
     LABEL: "Typhoon",
@@ -1358,7 +1355,7 @@ Class.atomizer = {
         }
     ]
 }
-Class.auto4 = makeRadialAuto('auto4gun', {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4})
+Class.auto4 = makeRadialAuto('auto4gun', {isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4});
 Class.auto5 = makeRadialAuto('autoTankGun', {isTurret: true, danger: 7, label: "Auto-5", count: 5})
 Class.autoAssassin = makeAuto('assassin');
 Class.autoBuilder = makeAuto('builder');
@@ -1581,7 +1578,7 @@ Class.bender = {
         })
     ]
 }
-Class.bentDouble = makeFlank('tripleShot', 2, "Bent Double", {extraStats: [g.doubleTwin]})
+Class.bentDouble = makeFlank('tripleShot', 2, "Bent Double", {extraStats: [g.doubleTwin]});
 Class.bentHybrid = makeOver('tripleShot', "Bent Hybrid", preset.makeOver.hybrid)
 Class.bigCheese = {
     PARENT: 'genericTank',
@@ -2212,7 +2209,7 @@ Class.cyclone = {
             }
         }
     ], 3)
-}
+};
 Class.deadeye = {
     PARENT: 'genericTank',
     LABEL: "Deadeye",
@@ -2954,7 +2951,7 @@ Class.hewnDouble = {
             }
         }, {delayIncrement: 0.5}), 2)
     ]
-}
+};
 Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6}), "Hexa-Trapper");
 Class.hexaWhirl = makeWhirlwind('hexaTank', {label: "Hexa Whirl"});
 Class.hybrid = makeOver('destroyer', "Hybrid", preset.makeOver.hybrid);
@@ -3080,9 +3077,6 @@ Class.machineGunner = {
     PARENT: 'genericTank',
     LABEL: "Machine Gunner",
     DANGER: 7,
-    BODY: {
-        SPEED: 0.9 * base.SPEED
-    },
     GUNS: [
         ...weaponMirror([{
             POSITION: {
@@ -3124,7 +3118,7 @@ Class.machineGunner = {
             }
         }
     ]
-}
+};
 Class.maelstrom = makeAuto('whirlwind_old', "Maelstrom")
 Class.manager = {
     PARENT: 'genericTank',
@@ -3583,7 +3577,7 @@ Class.octoTank = {
             }
         }
     ], 4)
-}
+};
 Class.ordnance = {
     PARENT: 'genericTank',
     LABEL: "Ordnance",
@@ -3802,9 +3796,6 @@ Class.pentaShot = {
     PARENT: 'genericTank',
     LABEL: "Penta Shot",
     DANGER: 7,
-    BODY: {
-        SPEED: 0.85 * base.SPEED
-    },
     GUNS: [
         ...weaponMirror([{
             POSITION: {
@@ -3843,7 +3834,7 @@ Class.pentaShot = {
             }
         }
     ]
-}
+};
 Class.phoenix = makeBird('sprayer', "Phoenix");
 Class.poacher = makeOver('hunter', "Poacher", preset.makeOver.hybrid);
 Class.predator = {
@@ -4704,7 +4695,7 @@ Class.spreadshot = {
             }
         }
     ]
-}
+};
 Class.stalker = {
     PARENT: 'genericTank',
     LABEL: "Stalker",
@@ -4928,16 +4919,13 @@ Class.tripleFlail = {
     LABEL: "Triple Flail",
     DANGER: 7,
     TURRETS: weaponArray(Class.flail.TURRETS, 3)
-}
-Class.tripleMachine = makeFlank('machineGun', 3, "Triple Machine", {extraStats: [g.doubleTwin, g.tripleTwin], danger: 7})
-Class.tripleTwin = makeFlank('twin', 3, "Triple Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7})
+};
+Class.tripleMachine = makeFlank('machineGun', 3, "Triple Machine", {extraStats: [g.doubleTwin, g.tripleTwin], danger: 7});
+Class.tripleTwin = makeFlank('twin', 3, "Triple Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7});
 Class.triplet = {
     PARENT: 'genericTank',
     LABEL: "Triplet",
     DANGER: 7,
-    BODY: {
-        FOV: 1.05 * base.FOV
-    },
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -4962,7 +4950,7 @@ Class.triplet = {
             }
         }
     ]
-}
+};
 Class.triplex = {
     PARENT: 'genericTank',
     LABEL: "Triplex",
