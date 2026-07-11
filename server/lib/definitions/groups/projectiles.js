@@ -997,11 +997,15 @@ Class.medkit = {
     DIE_AT_RANGE: true,
     TURRETS: [
         {
-            POSITION: [10, 0, 0, 0, 360, 1],
             TYPE: "medkitTurret",
-        },
-    ],
-}
+            POSITION: {
+                SIZE: 11,
+                ARC: 360,
+                LAYER: 1
+            }
+        }
+    ]
+};
 
 // Swarms
 Class.autoswarm = {
