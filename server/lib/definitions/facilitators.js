@@ -695,7 +695,9 @@ exports.makeTurret = (type, options = {}) => {
         CONTROLLERS.push("onlyAcceptInArc");
     }
     if (options.hasAI ?? true) { // default true
-        if (options.ignoreFoods) {
+        if (options.forceOverride) {
+            CONTROLLERS.push("doNothing");
+        } else if (options.ignoreFoods) {
             CONTROLLERS.push(["nearestDifferentMaster", { ignoreFood: true }]);
         } else CONTROLLERS.push("nearestDifferentMaster");
     }
