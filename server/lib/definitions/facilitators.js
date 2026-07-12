@@ -524,16 +524,6 @@ exports.makeWhirlwind = (type, options = {}) => {
     }
     return output;
 }
-function toPascalCase(input) {
-    if (!input) {
-        return -1
-    }
-    var output = ""
-    for (var c = 0; c < input.length; c++) {
-        output += c == 0 ? input[c].toUpperCase() : input[c].toLowerCase()
-    }
-    return output
-}
 exports.makeDrive = (type, options = {}) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type)
