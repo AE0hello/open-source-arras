@@ -291,6 +291,7 @@ class Entity extends EventEmitter {
             shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? 'Shield Capacity',
         };
         if (set.AI != null) this.aiSettings = set.AI;
+        if (set.DISABLE_AI != null) this.autoOverride = set.DISABLE_AI;
         if (set.INVISIBLE != null) this.invisible = set.INVISIBLE;
         if (set.ALPHA != null) {
             this.alpha = ("number" === typeof set.ALPHA) ? set.ALPHA : set.ALPHA[1];

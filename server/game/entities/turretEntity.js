@@ -176,6 +176,7 @@ class turretEntity extends EventEmitter {
         if (set.MAX_CHILDREN != null) this.maxChildren = set.MAX_CHILDREN;
         if (set.HAS_NO_RECOIL != null) this.settings.hasNoRecoil = set.HAS_NO_RECOIL;
         if (set.AI != null) this.aiSettings = set.AI;
+        if (set.DISABLE_AI != null) this.autoOverride = set.DISABLE_AI;
         if (set.GUNS != null) {
             this.guns.clear();
             let newGuns = [];
