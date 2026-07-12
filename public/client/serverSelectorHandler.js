@@ -250,7 +250,7 @@ let initializeFilter = () => {
     ]);
     createFilter(svFilterModeDoc, [
         { name: "All", filter: () => true },
-        /*{ name: "FFA", filter: (h) => {
+        { name: "FFA", filter: (h) => {
             let e = checkFilter(h, global.filters.gamemodeFilters.ffa);
             return e;
         } },
@@ -261,12 +261,6 @@ let initializeFilter = () => {
         { name: "TDM", filter: (h) => { 
             let e = checkFilter(h, global.filters.gamemodeFilters.tdm);
             return e;
-        } },*/
-        { name: "Deathmatch", filter: (h) => {
-            let e = checkFilter(h, global.filters.gamemodeFilters.ffa);
-            let e2 = checkFilter(h, global.filters.gamemodeFilters.squads);
-            let e3 = checkFilter(h, global.filters.gamemodeFilters.tdm);
-            return e + e2 + e3;
         } },
         { name: "Minigames", filter: (h) => {
             let e = checkFilter(h, global.filters.gamemodeFilters.minigames);
