@@ -103,7 +103,6 @@ Class.speedBullet = {
 }
 Class.spiralBulletSegment = {
     PARENT: 'bullet',
-    COLOR: 'mirror',
     CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.spiralBullet = {
@@ -123,6 +122,7 @@ Class.spiralBullet = {
                     //seg.shield = body.shield;
                     seg.master = body;
                     seg.source = body;
+                    seg.color = body.color;
                     seg.SIZE = body.SIZE;
                     seg.define(segmentClass);
                     body.store.snakeSegments.push(seg);
@@ -333,7 +333,7 @@ Class.hypermissile = {
         },
     ],
 }
-Class.minimissile = {
+Class.launcherMissile = {
     PARENT: "missile",
     GUNS: [
         {
@@ -776,7 +776,7 @@ Class.sentrySwarmMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     GUNS: Class.sentrySwarm.GUNS
@@ -785,7 +785,7 @@ Class.sentryGunMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -797,7 +797,7 @@ Class.sentryTrapMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -997,11 +997,15 @@ Class.medkit = {
     DIE_AT_RANGE: true,
     TURRETS: [
         {
-            POSITION: [10, 0, 0, 0, 360, 1],
             TYPE: "medkitTurret",
-        },
-    ],
-}
+            POSITION: {
+                SIZE: 11,
+                ARC: 360,
+                LAYER: 1
+            }
+        }
+    ]
+};
 
 // Swarms
 Class.autoswarm = {

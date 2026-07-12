@@ -4,24 +4,26 @@ import { config } from "./config.js";
 import { Canvas } from "./canvas.js";
 import { color as colors } from "./color.js";
 import { gameDraw } from "./gameDraw.js";
+import { keybinderHandler } from "./keybindsHandler.js";
 import * as socketStuff from "./socketinit.js";
 
-(async function (util, global, config, Canvas, color, gameDraw, socketStuff) {
+(async function (util, global, config, Canvas, color, gameDraw, socketStuff, keybinderHandler) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
     // Get the changelog
     fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
-        let a = [];
-        for (let c of response.split("\n")) {
-            0 !== c.length && (response = c.charAt(0), "#" === response ? (initalizeChangelog(a, !0), a = [c.slice(1).trim()]) : "-" === response ? a.push(c.slice(1).trim()) : a[a.length - 1] += " " + c.trim());
-        }
+      let b = [];
+      var c = [];
+      for (let d of response.split("\n"))
+        0 !== d.length &&
+          ((response = d.charAt(0)),
+          "#" === response
+            ? (b.push(c), (c = [d.slice(1).trim()]))
+            : "-" === response
+            ? c.push(d.slice(1).trim())
+            : (c[c.length - 1] += " " + d.trim()));
+        b.push(c);
+        for (let g of b) initalizeChangelog(g);
     });
-
-    let controls = document.getElementById("controlSettings"),
-        resetButton = document.getElementById("resetControls"),
-        selectedElement = null,
-        controlsArray = [],
-        defaultKeybinds = {},
-        keybinds = {};
 
     global.clearUpgrades = (clearNow = false) => {
         if (clearNow) gui.upgrades = [];
@@ -59,82 +61,9 @@ import * as socketStuff from "./socketinit.js";
     global.mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
     global.mobile && document.body.classList.add("mobile");
     if (!global.mobile) {
-        document.getElementById("tabAppearance").classList.remove("shadowScroll");
-        document.getElementById("tabOptions").classList.remove("shadowScroll");
+        document.getElementById("tabAppearance").style.height = "242px";
+        document.getElementById("tabOptions").style.height = "242px";
     };
-
-    function getKeybinds() {
-        let kb = localStorage.getItem("keybinds");
-        keybinds = typeof kb === "string" && kb.startsWith("{") ? JSON.parse(kb) : {};
-    }
-
-    function setKeybinds() {
-        localStorage.setItem("keybinds", JSON.stringify(keybinds));
-    }
-
-    function unselectElement() {
-        if (window.getSelection) {
-            window.getSelection().removeAllRanges();
-        }
-        selectedElement.element.parentNode.parentNode.classList.remove("editing");
-        selectedElement = null;
-    }
-
-    function selectElement(element) {
-        selectedElement = element;
-        selectedElement.element.parentNode.parentNode.classList.add("editing");
-        if (selectedElement.keyCode !== -1 && window.getSelection) {
-            let selection = window.getSelection();
-            selection.removeAllRanges();
-            let range = document.createRange();
-            range.selectNodeContents(selectedElement.element);
-            selection.addRange(range);
-        }
-    }
-
-    function setKeybind(key, keyCode) {
-        selectedElement.element.parentNode.parentNode.classList.remove("editing");
-        resetButton.classList.add("active");
-        if (keyCode !== selectedElement.keyCode) {
-            let otherElement = controlsArray.find(c => c.keyCode === keyCode);
-            if (keyCode !== -1 && otherElement) {
-                otherElement.keyName = selectedElement.keyName;
-                otherElement.element.innerText = selectedElement.keyName;
-                otherElement.keyCode = selectedElement.keyCode;
-                global[otherElement.keyId] = selectedElement.keyCode;
-                keybinds[otherElement.keyId] = [selectedElement.keyName, selectedElement.keyCode];
-            }
-        }
-        selectedElement.keyName = key;
-        selectedElement.element.innerText = key;
-        selectedElement.keyCode = keyCode;
-        global[selectedElement.keyId] = keyCode;
-        keybinds[selectedElement.keyId] = [key, keyCode];
-        setKeybinds();
-    }
-
-    function getElements(kb, storeInDefault) {
-        for (let row of controls.rows) {
-            for (let cell of row.cells) {
-                let element = cell.firstChild.firstChild;
-                if (!element) continue;
-                let key = element.dataset.key;
-                if (storeInDefault) defaultKeybinds[key] = [element.innerText, global[key]];
-                if (kb[key]) {
-                    element.innerText = kb[key][0];
-                    global[key] = kb[key][1];
-                    resetButton.classList.add("active");
-                }
-                let obj = {
-                    element,
-                    keyId: key,
-                    keyName: element.innerText,
-                    keyCode: global[key]
-                };
-                controlsArray.push(obj);
-            }
-        }
-    }
 
     window.onload = async () => {
         // Prepare the server selector
@@ -188,6 +117,8 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("showJoystick");
         util.retrieveFromLocalStorage("optFullHD");
         util.retrieveFromLocalStorage("optUiScale");
+        util.retrieveFromLocalStorage("optAllowIngameOptions");
+        util.retrieveFromLocalStorage("optOldUiStyle");
         // Game
         util.retrieveFromLocalStorage("optIncognitoMode");
         // Set default theme
@@ -240,29 +171,8 @@ import * as socketStuff from "./socketinit.js";
         }
         loadSettings();
         // Keybinds stuff
-        getKeybinds();
-        getElements(keybinds, true);
-        document.addEventListener("click", event => {
-            if (!global.gameStart) {
-                if (selectedElement) {
-                    unselectElement();
-                } else {
-                    let element = controlsArray.find(({ element }) => element === event.target);
-                    if (element) selectElement(element);
-                }
-            }
-        });
-        resetButton.addEventListener("click", () => {
-            keybinds = {};
-            setKeybinds();
-            controlsArray = [];
-            getElements(defaultKeybinds);
-            resetButton.classList.add("spin");
-            setTimeout(() => {
-                resetButton.classList.remove("active");
-                resetButton.classList.remove("spin");
-            }, 400);
-        });
+        keybinderHandler.initalize("controlSettings", "resetControls", "keybinds"); // Gameplay keys
+        keybinderHandler.initalize("sandboxControlSettings", "resetSandboxControls", "sandboxkeybinds"); // Sandbox key commands keys
 
         // Tab menu creater
         global.createTabMenu = (text, type, addDismissButton = false) => {
@@ -295,9 +205,9 @@ import * as socketStuff from "./socketinit.js";
         try {
             fetch("/version").then(json => json.json()).then(ve => {
                 global.version = ve.ver;
-                if (ve.devBuild) {
-                    global.devBuild = true;
-                    global.createTabMenu(`This server is running a development build of Open Source Arras. (${global.version})`, "warning");
+                if (ve.dev_build) {
+                    global.dev_build = true;
+                    global.createTabMenu(`This server is running a development build of Open Source Arras. Please report any issues you encounter! (${global.version})`, "warning");
                 }
                 // Addon info handler
                 let keyValue = localStorage.getItem('playerKeyInputValue');
@@ -320,16 +230,9 @@ import * as socketStuff from "./socketinit.js";
         document.getElementById("startButton").onclick = () => startGame();
         document.onkeydown = (e) => {
             if (!(global.gameStart || e.shiftKey || e.ctrlKey || e.altKey)) {
-                let key = e.which || e.keyCode;
-                if (selectedElement) {
-                    if (1 !== e.key.length /*|| /[0-9]/.test(e.key) // this code prevents numbers */ || 3 === e.location) {
-                        if (!("Backspace" !== e.key && "Delete" !== e.key)) {
-                            setKeybind("", -1);
-                        }
-                    } else {
-                        setKeybind(e.key.toUpperCase(), e.keyCode);
-                    }
-                } else if (key === global.KEY_ENTER) {
+                keybinderHandler.triggerKey(e);
+                let key = e.code;
+                if (key === global.KEY_ENTER) {
                     startGame();
                 }
             }
@@ -352,12 +255,13 @@ import * as socketStuff from "./socketinit.js";
                     ? "translate(2px, -2px) rotate(45deg)"
                     : "rotate(-45deg)";
                 h.innerText = clicked ? "close options" : "view options"; // Change the text.
-                clicked ? u.classList.add("slided") : u.classList.remove("slided"); // Slide it up.
+                clicked ? u.classList.add(global.uncappedMenu ? "slided2" : "slided") : u.classList.remove(global.uncappedMenu ? "slided2" : "slided"); // Slide it up.
                 y[0].style.opacity = clicked ? 0 : 1; // Fade it away.
                 y[2].style.opacity = clicked ? 1 : 0; // same for this.
             };
         a.onclick = () => { // When the button is triggered, This code runs.
             clicked = !clicked;
+            global.optionsMenuToggle = clicked;
             toggle();
         };
         return () => {
@@ -396,15 +300,29 @@ import * as socketStuff from "./socketinit.js";
         // OSA info
         let i_div = document.createElement("div");
         i_div.classList.add("optionsHeader");
-        i_div.textContent = `Open Source Arras ${global.version}` + `${global.devBuild ? "-dev" : ""}`;
+        i_div.textContent = `Open Source Arras ${global.version}` + `${global.dev_build ? " (dev build)" : ""}`;
         mainDoc.appendChild(i_div);
 
         // Addon stuff
         for (let e of data) {
             let warnDoc = null;
             if (e["osa-version"].target !== global.version) {
-                warnDoc = document.createElement("ul3");
-                warnDoc.textContent = "This addon may be incompatible with your version";
+                if (global.version.startsWith("v") && e["osa-version"].minimum.startsWith("v")) {
+                    let targetVersion = global.version.split("v")[1];
+                    let target = "";
+                    targetVersion.split(".").forEach(e => {
+                        target += e;
+                    })
+                    let minimumVersion = e["osa-version"].minimum.split("v")[1];
+                    let minimum = "";
+                    minimumVersion.split(".").forEach(e => {
+                        minimum += e;
+                    })
+                    if (parseInt(minimum) > parseInt(target)) {
+                        warnDoc = document.createElement("ul3");
+                        warnDoc.textContent = "This addon may be incompatible with your version!";
+                    }
+                }
             }
             let divDoc = document.createElement("div");
             divDoc.classList.add("optionsHeader");
@@ -414,7 +332,6 @@ import * as socketStuff from "./socketinit.js";
             let author = document.createElement("ul");
             let authorValue = document.createElement("ul2");
             let targetVer = document.createElement("ul");
-            let targetVerValue = document.createElement("ul2");
 
             name.textContent = e.name;
             addonVer.textContent = 'Version: ';
@@ -427,7 +344,7 @@ import * as socketStuff from "./socketinit.js";
                 authorValue.textContent += `${i !== 0 ? ", " : ""}${auth}`;
             }
             author.appendChild(authorValue);
-            targetVer.textContent = `Made for OSA version ${e["osa-version"].target}`;
+            targetVer.textContent = `Made for Open Source Arras ${e["osa-version"].target}`;
 
             divDoc.appendChild(name);
             divDoc.appendChild(author);
@@ -437,6 +354,145 @@ import * as socketStuff from "./socketinit.js";
 
             mainDoc.appendChild(divDoc);
         }
+    }
+    function menuSettingsHandler() {
+        let menu_mainWrapperHeight = window.getComputedStyle(document.getElementsByClassName("mainWrapper")[0]).getPropertyValue("height").toString();
+        let menu_mainWrapperHeight_padding = window.getComputedStyle(document.getElementsByClassName("mainWrapper")[0]).getPropertyValue("padding").toString();
+        let menu_menuHeight = window.getComputedStyle(document.getElementsByClassName("startMenu")[0]).getPropertyValue("height").toString();
+        let menu_addonScrollHeight = window.getComputedStyle(document.getElementById("tabAddons")).getPropertyValue("height").toString();
+
+        // Uncap menu height
+        util.retrieveFromLocalStorage("unlimitedMenuHeight");
+        let menu_uncapbutton = document.getElementById("unlimitedMenuHeight");
+        let menu_uncap_lessHeight = false;
+        let menu_uncap_lessHeightReach = 750;
+        
+        let menu_uncapClick = () => {
+            let setHeight = (doc, x) => doc.style.maxHeight = doc.style.height = x;
+            if (menu_uncapbutton.checked) {
+                document.getElementById("startMenuSlidingTrigger").style.display = "none";
+                // Thanks to Taureon's "Arras.io - Start Menu Modifier" Greasyfork script. (Modified by AE)
+                if (menu_uncap_lessHeight) {
+                    document.getElementById("startMenuSlidingTrigger").style.display = "block";
+                    document.getElementById("tabOptions").classList.remove("shadowScroll");
+                    document.getElementById("controlSettingsScollbar").classList.remove("shadowScroll");
+                    document.getElementById("tabAddons").style.height = "";
+                    document.getElementById("tabAddons").style.maxHeight = "300px";
+                    if (global.optionsMenuToggle) {
+                        document.getElementsByClassName("sliderHolder")[0].classList.remove("slided");
+                        document.getElementsByClassName("sliderHolder")[0].classList.add("slided2");
+                    } else document.getElementsByClassName("slider")[2].style.opacity = 0;
+                } else {
+                    document.getElementById("tabOptions").classList.add("shadowScroll");
+                    document.getElementById("controlSettingsScollbar").classList.add("shadowScroll");
+                    document.getElementById("tabAddons").style.height = menu_addonScrollHeight;
+                    document.getElementById("tabAddons").style.maxHeight = "";
+                    document.getElementsByClassName("sliderHolder")[0].classList.remove("slided");
+                    document.getElementsByClassName("sliderHolder")[0].classList.remove("slided2");
+                    document.getElementsByClassName("slider")[2].style.opacity = 1;
+                    document.getElementsByClassName("slider")[0].style.opacity = 1;
+                }
+                for (let docs of [".serverSelector", ".slider", ".sliderHolder", ".startMenuHolder", ".startMenuHolder.changelogHolder", ".startMenu", ".mainWrapper", "#startMenuWrapper", "#patchNotes"]) {
+                    let doc;
+                    if (docs.startsWith('#')) doc = document.getElementById(docs.substring(docs.length, 1));
+                    if (docs.startsWith('.')) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
+                    switch (docs) {
+                        case ".mainWrapper":
+                            doc.style.padding = "0px";
+                            setHeight(doc, "calc(100% - 55px)");
+                            break;
+                        case "#startMenuWrapper":
+                            setHeight(doc, "calc(100% - 20px)");
+                            break;
+                        case ".startMenuHolder":
+                            doc = document.getElementsByClassName("startMenuHolder")[1];
+                            setHeight(doc, "calc(100% - 20px)");
+                            break;
+                        case ".startMenu":
+                            setHeight(doc, "calc(100%)");
+                            break;
+                        case ".slider":
+                            doc = document.getElementsByClassName("slider")[0];
+                            if (menu_uncap_lessHeight) {
+                                setHeight(doc, "calc(100% - 30px)");
+                            } else setHeight(doc, "calc(100% - 280px)");
+                            break;
+                        case ".sliderHolder":
+                            setHeight(doc, "calc(100% - 50px)");
+                            break;
+                        case ".serverSelector":
+                            if (menu_uncap_lessHeight) {
+                                setHeight(doc, "calc(100% - 170px)");
+                            } else setHeight(doc, "calc(100% - 180px)");
+                            break;
+                        case ".startMenuHolder.changelogHolder":
+                            doc = document.getElementsByClassName("changelogHolder")[0];
+                            setHeight(doc, "calc(100% - 20px)");
+                            break;
+                        case "#patchNotes":
+                            setHeight(doc, "calc(100% - 39px)");
+                            break;
+                    }
+                }
+            } else {
+                document.getElementById("startMenuSlidingTrigger").style.display = "block";
+                if (menu_uncap_lessHeight) {
+                    document.getElementById("tabOptions").classList.add("shadowScroll");
+                    document.getElementById("controlSettingsScollbar").classList.add("shadowScroll");
+                    document.getElementById("tabAddons").style.height = menu_addonScrollHeight;
+                    document.getElementById("tabAddons").style.maxHeight = "";
+                }
+                for (let docs of [".serverSelector", ".slider", ".sliderHolder", ".startMenuHolder.changelogHolder", ".startMenu", ".mainWrapper", "#startMenuWrapper", "#patchNotes"]) {
+                    let doc;
+                    if (docs.startsWith('#')) doc = document.getElementById(docs.substring(docs.length, 1));
+                    if (docs.startsWith('.')) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
+                    switch (docs) {
+                        case ".mainWrapper":
+                            doc.style.padding = menu_mainWrapperHeight_padding;
+                            doc.style.height = menu_mainWrapperHeight;
+                            break;
+                        case ".startMenu":
+                            setHeight(doc, menu_menuHeight);
+                            break;
+                        case ".slider":
+                            doc = document.getElementsByClassName("slider")[0];
+                            doc.style = "";
+                            break;
+                        case ".sliderHolder":
+                            doc.style = "";
+                            doc.classList.remove("slided2");
+                            if (global.optionsMenuToggle) {
+                                doc.classList.add("slided");
+                            }
+                            break;
+                        case ".serverSelector":
+                            doc.style = "";
+                            if (global.fixedServerSelectorHeight) doc.style.height = global.fixedServerSelectorHeight;
+                            break;
+                        case "#patchNotes":
+                            doc.style = "";
+                            break;
+                    }
+                }
+            }
+            util.submitToLocalStorage("unlimitedMenuHeight");
+            global.uncappedMenu = menu_uncapbutton.checked;
+        }
+
+        menu_uncapbutton.onclick = () => menu_uncapClick();
+        
+        if (menu_uncapbutton.checked) menu_uncapClick();
+        setInterval(() => {
+            if (menu_uncapbutton.checked) {
+                if (window.innerHeight < menu_uncap_lessHeightReach && !menu_uncap_lessHeight) {
+                    menu_uncap_lessHeight = true;
+                    menu_uncapClick();
+                } else if (window.innerHeight > menu_uncap_lessHeightReach && menu_uncap_lessHeight) {
+                    menu_uncap_lessHeight = false;
+                    menu_uncapClick();
+                }
+            }
+        }, 25);
     }
     // Custom theme display handler
     function customThemeDisplayHandler() {
@@ -611,6 +667,7 @@ import * as socketStuff from "./socketinit.js";
     tabOptionsMenuSwitcher();
     customThemeDisplayHandler();
     snowAndFireworkEffects();
+    menuSettingsHandler();
 
     // Prepare canvas
     function resizeEvent() {
@@ -992,8 +1049,10 @@ import * as socketStuff from "./socketinit.js";
         global.GUIStatus.renderhealth = document.getElementById("optRenderHealth").checked;
         global.GUIStatus.minimapReducedInfo = document.getElementById("optReducedInfo").checked;
         global.GUIStatus.fullHDMode = document.getElementById("optFullHD").checked;
+        global.GUIStatus.renderIngameOptions = document.getElementById("optAllowIngameOptions").checked;
         global.mobileStatus.enableCrosshair = document.getElementById("showCrosshair").checked;
         global.mobileStatus.showJoysticks = document.getElementById("showJoystick").checked;
+        config.graphical.oldUIStyle = document.getElementById("optOldUiStyle").checked;
         // Game
         config.game.incognitoMode = document.getElementById("optIncognitoMode").checked;
         switch (document.getElementById("optBorders").value) {
@@ -1098,6 +1157,8 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("showJoystick");
         util.submitToLocalStorage("optFullHD");
         util.submitToLocalStorage("optUiScale");
+        util.submitToLocalStorage("optAllowIngameOptions");
+        util.submitToLocalStorage("optOldUiStyle");
         // Game
         util.submitToLocalStorage("optIncognitoMode");
         loadSettings();
@@ -1249,23 +1310,19 @@ import * as socketStuff from "./socketinit.js";
         skas.push((i - 2) * 0.01 + Math.log(4 * (i / 9) + 1) / 1.513);
     }
     const ska = (x) => skas[x];
-    var getClassUpgradeKey = function (number) {
-        switch (number) {
-            case 0:
-                return "Y";
-            case 1:
-                return "U";
-            case 2:
-                return "I";
-            case 3:
-                return "H";
-            case 4:
-                return "J";
-            case 5:
-                return "K";
-            default:
-                return null;
-        }
+    const getClassUpgradeKey = (number) => {
+        const key = global[`KEY_UPGRADE_${number + 1}`];
+
+        // Remove undefined keys
+        if (key == -1 || key == undefined) return null;
+
+        // Truncate common keycodes
+        if (key.startsWith('Key') && key.length === 4) return config.graphical.oldUIStyle ? key[3].toLowerCase() : key[3]
+        if (key.startsWith('Digit') && key.length === 6) return key[5];
+        if (key.startsWith('Numpad') && key.length === 7) return key[6];
+
+        // Return the raw keycode if it doesn't need to be truncated
+        return config.graphical.oldUIStyle ? key.toLowerCase() : key;
     };
 
     let tiles,
@@ -1488,11 +1545,11 @@ import * as socketStuff from "./socketinit.js";
 
     function drawBar(x1, x2, y, width, color, context = ctx[2]) {
         context.beginPath();
-        context.lineTo(x1, y);
-        context.lineTo(x2, y);
+        context.lineCap = 'round';
         context.lineWidth = width;
         if (color) context.strokeStyle = color;
-        context.closePath();
+        context.moveTo(x1, y);
+        context.lineTo(x2, y);
         context.stroke();
     }
 
@@ -1766,10 +1823,22 @@ import * as socketStuff from "./socketinit.js";
                                 for (let i = 0; i < indicesRaw.length; ++i) {
                                     indices.push(indicesRaw[i].split(',').map(Number));
                                 }
+                                // Optional 4th "/" segment: one colour per face (e.g. "pureWhite,pureBlack,...").
+                                let faceColors = null;
+                                if (dividedParts[3]) {
+                                    faceColors = dividedParts[3].split(',').map(tok => {
+                                        tok = (tok || '').trim();
+                                        if (!tok) return null;
+                                        try {
+                                            return gameDraw.modifyColor(tok.includes(' ') ? tok : tok + ' 0 1 0 false');
+                                        } catch (e) { return null; }
+                                    });
+                                }
                                 polygon3d = {
                                     vertexes,
                                     indices,
-                                    multiplier: Number(dividedParts[2])
+                                    multiplier: Number(dividedParts[2]),
+                                    faceColors
                                 };
                                 drawPoly3D.set(sides, polygon3d);
                             }
@@ -1781,7 +1850,13 @@ import * as socketStuff from "./socketinit.js";
                                 .sort((a, b) => sortSides3d(rotated, a, b));
                             context.lineWidth /= 2;
                             const size = radius * polygon3d.multiplier;
+                            const defaultFill = context.fillStyle;
                             for (const sides of sortedSides) {
+                                if (polygon3d.faceColors) {
+                                    const fi = polygon3d.indices.indexOf(sides);
+                                    const fc = fi >= 0 ? polygon3d.faceColors[fi] : null;
+                                    context.fillStyle = fc || defaultFill;
+                                }
                                 context.beginPath();
                                 for (let i = 0; i < sides.length; ++i) {
                                     const a = projectPoint3d(rotated[sides[i]]);
@@ -1799,6 +1874,7 @@ import * as socketStuff from "./socketinit.js";
                                 context.fill();
                                 context.stroke();
                             }
+                            if (polygon3d.faceColors) context.fillStyle = defaultFill;
                             return;
                         }
                         if (sides.startsWith('4d=')) {
@@ -1826,10 +1902,21 @@ import * as socketStuff from "./socketinit.js";
                                 for (let i = 0; i < indicesRaw.length; ++i) {
                                     indices.push(indicesRaw[i].split(',').map(Number));
                                 }
+                                let faceColors = null;
+                                if (dividedParts[3]) {
+                                    faceColors = dividedParts[3].split(',').map(tok => {
+                                        tok = (tok || '').trim();
+                                        if (!tok) return null;
+                                        try {
+                                            return gameDraw.modifyColor(tok.includes(' ') ? tok : tok + ' 0 1 0 false');
+                                        } catch (e) { return null; }
+                                    });
+                                }
                                 polygon4d = {
                                     vertexes,
                                     indices,
-                                    multiplier: Number(dividedParts[2])
+                                    multiplier: Number(dividedParts[2]),
+                                    faceColors
                                 };
                                 drawPoly4D.set(sides, polygon4d);
                             }
@@ -1841,7 +1928,13 @@ import * as socketStuff from "./socketinit.js";
                                 .sort((a, b) => sortSides4d(rotated, a, b));
                             context.lineWidth /= 2;
                             const size = radius * polygon4d.multiplier;
+                            const defaultFill = context.fillStyle;
                             for (const sides of sortedSides) {
+                                if (polygon4d.faceColors) {
+                                    const fi = polygon4d.indices.indexOf(sides);
+                                    const fc = fi >= 0 ? polygon4d.faceColors[fi] : null;
+                                    context.fillStyle = fc || defaultFill;
+                                }
                                 context.beginPath();
                                 for (let i = 0; i < sides.length; ++i) {
                                     const a = projectPoint4d(rotated[sides[i]]);
@@ -1859,6 +1952,7 @@ import * as socketStuff from "./socketinit.js";
                                 context.fill();
                                 context.stroke();
                             }
+                            if (polygon4d.faceColors) context.fillStyle = defaultFill;
                             return;
                         }
                         let path = new Path2D(sides);
@@ -2256,9 +2350,31 @@ import * as socketStuff from "./socketinit.js";
         }
     })();
 
-    const iconColorOrder = [10, 11, 12, 15, 13, 2, 14, 4, 5, 1, 0, 3];
-    function getIconColor(colorIndex) {
-        return iconColorOrder[colorIndex % 12].toString();
+    function getIconColor(index) {
+        const colors = [10, 11, 12, 15, 13, 2, 14, 4, 5, 1, 0, 3];
+        return colors[index % colors.length].toString();
+    }
+    function colorBlend(color1, color2, d = 0.5) {
+      if (0 >= d) return color1;
+      if (1 <= d) return color2;
+      let e = 1 - d;
+      color1 = parseInt(color1.slice(1, 7), 16);
+      color2 = parseInt(color2.slice(1, 7), 16);
+      return (
+        '#' +
+        (
+          (((color1 & 16711680) * e + (color2 & 16711680) * d) & 16711680) |
+          (((color1 & 65280) * e + (color2 & 65280) * d) & 65280) |
+          (((color1 & 255) * e + (color2 & 255) * d) & 255)
+        )
+          .toString(16)
+          .padStart(6, '0')
+      );
+    }
+    function getOldIconColor(index) {
+        let color = gameDraw.getColor((index % 9) + 10);
+        9 <= index && (color = colorBlend(color, gameDraw.getColor(((index + Math.floor(index / 9)) % 9) + 10)));
+        return color;
     }
 
     function drawEntityIcon(model, x, y, len, height, lineWidthMult, angle, alpha, colorIndex, upgradeKey, hover = false, extraScale = 1) {
@@ -2279,20 +2395,20 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].globalAlpha = alpha;
         ctx[2].fillStyle = picture.upgradeColor != null
             ? gameDraw.modifyColor(picture.upgradeColor)
-            : gameDraw.getColor(getIconColor(colorIndex));
+            : gameDraw.getColor(config.graphical.oldUIStyle ? getOldIconColor(colorIndex) : getIconColor(colorIndex));
         drawGuiRect(x, y, len, height);
         // Shading for hover
         if (hover) {
             if (global.clickables.clicked) {
-                ctx[2].globalAlpha = 0.2;
+                ctx[2].globalAlpha = 0.3;
                 ctx[2].fillStyle = color.black;
             } else {
                 ctx[2].globalAlpha = 0.15;
                 ctx[2].fillStyle = color.guiwhite;
             }
-            drawGuiRect(x, y, len, height);
+            drawGuiRect(x, y, len, global.clickables.clicked ? height * 0.6 : height);
         }
-        ctx[2].globalAlpha = 0.25 * alpha;
+        ctx[2].globalAlpha = (config.graphical.oldUIStyle ? 0.25 : 0.2) * alpha;
         ctx[2].fillStyle = color.black;
         drawGuiRect(x, y + height * 0.6, len, height * 0.4);
         ctx[2].globalAlpha = 1;
@@ -2305,7 +2421,7 @@ import * as socketStuff from "./socketinit.js";
 
         // Upgrade key
         if (upgradeKey) {
-            drawText("[" + upgradeKey + "]", x + len - 4, y + height - 6, height / 8 - 5, color.guiwhite, "right");
+            drawText(`[${upgradeKey}]`, x + len - 4, y + height - 6, height / 8 - (config.graphical.oldUIStyle ? 3 : 5), color.guiwhite, "right");
         }
         ctx[2].strokeStyle = color.black;
         ctx[2].lineWidth = 3 * lineWidthMult;
@@ -2470,12 +2586,6 @@ import * as socketStuff from "./socketinit.js";
                 y = instance.id === gui.playerid ? global.player.screeny : ratio * instance.render.y - py;
             drawHealth(x, y, instance, ratio, gui.visibleEntities ? 1 : alpha, instance.size);
             drawName(x, y, instance, ratio, gui.visibleEntities ? alpha * 0.75 + 0.25 : alpha, instance.size);
-        }
-        for (let instance of global.entities) {
-            let alpha = instance.id === gui.playerid ? 1 : instance.alpha;
-            alpha = handleScreenDistance(alpha, instance);
-            let x = instance.id === gui.playerid ? global.player.screenx : ratio * instance.render.x - px,
-                y = instance.id === gui.playerid ? global.player.screeny : ratio * instance.render.y - py;
             drawChatMessages(x, false, py, instance, ratio, gui.visibleEntities ? 1 : alpha, instance.size, px, py);
             drawChatInput(x, y, instance, ratio, instance.size);
         }
@@ -2827,7 +2937,7 @@ import * as socketStuff from "./socketinit.js";
         
         const displayText = global.searchBarActive && !global.searchQuery 
             ? "Type to search..." 
-            : global.searchQuery || "Click to search tanks...";
+            : global.searchQuery || "Search";
         const textColor = color.white;
         const showCursor = global.searchBarActive && Date.now() % 1000 < 500;
         
@@ -3209,27 +3319,50 @@ import * as socketStuff from "./socketinit.js";
             height = 25.5,
             x = (global.screenWidth - width) / 2,
             y = global.screenHeight - 22 - height;
+        if (config.graphical.oldUIStyle) {
+            y += 2.5;
+            width -= 90;
+            scorewidth -= 37;
+            height = 25;
+            x = (global.screenWidth - width) / 2;
+        } 
         ctx[2].lineWidth = 10;
+        let extraHeight = config.graphical.oldUIStyle ? 5 : 3;
         drawBar(x, x + width, y + height / 2, height - 3 + config.graphical.barChunk, color.black);
         drawBar(x, x + width, y + height / 2, height - 3, color.grey);
         drawBar(x, x + width * gui.__s.getProgress(), y + height / 2, height - 3.5, color.gold);
-        drawText("Level " + gui.__s.getLevel() + " " + gui.class, x + width / 2 + 1, y + height / 2 + 9, 21, color.guiwhite, "center", false, 6);
+        drawText("Level " + gui.__s.getLevel() + " " + gui.class, x + width / 2, config.graphical.oldUIStyle ? y + height / 2 + 8 : y + height / 2 + 9, config.graphical.oldUIStyle ? 20.5 : 21, color.guiwhite, "center", false, 6);
         height = 17;
         y -= height + 5;
+        if (config.graphical.oldUIStyle) {
+            y += 2;
+            scorewidth = 35;
+        }
         if (global.GUIStatus.renderPlayerKillbar) {
             scorelength = -112.2;
             scorewidth = 160;
-            drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - 3 + config.graphical.barChunk, color.black);
-            drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - 3, color.grey);
-            drawBar(x + scorewidth - scorelength, x - scorelength + width * ((scorewidth / width) + ((width - scorewidth * 2) / width) * (1 ? Math.min(1, gui.__s.getKills()[0] / 1) : 1)), y + height / 2, height - 3.5, color.teal);
-            drawText("Kills: " + util.formatKills(...gui.__s.getKills()), x + width / 2 + 0.5 - scorelength, y + height / 2 + 6, 13, color.guiwhite, "center");
+            if (config.graphical.oldUIStyle) {
+                scorelength = -90.2;
+                scorewidth = 120;
+            }
+            drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - extraHeight + config.graphical.barChunk, color.black);
+            drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - extraHeight, color.grey);
+            drawBar(x + scorewidth - scorelength, x - scorelength + width * ((scorewidth / width) + ((width - scorewidth * 2) / width) * (1 ? Math.min(1, gui.__s.getKills()[0] / 1) : 1)), y + height / 2, height - extraHeight - 0.5, color.teal);
+            extraHeight = config.graphical.oldUIStyle ? 5 : 6;
+            drawText("Kills: " + util.formatKills(...gui.__s.getKills()), x + width / 2 - scorelength, y + height / 2 + extraHeight, config.graphical.oldUIStyle ? 12 : 13, color.guiwhite, "center");
+            extraHeight = config.graphical.oldUIStyle ? 5 : 3;
             scorelength = 72.5;
             scorewidth = 120;
+            if (config.graphical.oldUIStyle) {
+                scorelength = 65.5;
+                scorewidth = 95;
+            }
         }
-        drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - 3 + config.graphical.barChunk, color.black);
-        drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - 3, color.grey);
-        drawBar(x + scorewidth - scorelength, x - scorelength + width * ((scorewidth / width) + ((width - scorewidth * 2) / width) * (max ? Math.min(1, gui.__s.getScore() / max) : 1)), y + height / 2, height - 3.5, color.green);
-        drawText("Score: " + util.formatLargeNumber(Math.round(gui.__s.getScore())), x + width / 2 + 0.5 - scorelength, y + height / 2 + 6, 13, color.guiwhite, "center");
+        drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - extraHeight + config.graphical.barChunk, color.black);
+        drawBar(x + scorewidth - scorelength, x + width - scorewidth - scorelength, y + height / 2, height - extraHeight, color.grey);
+        drawBar(x + scorewidth - scorelength, x - scorelength + width * ((scorewidth / width) + ((width - scorewidth * 2) / width) * (max ? Math.min(1, gui.__s.getScore() / max) : 1)), y + height / 2, height - extraHeight - 0.5, color.green);
+        extraHeight = config.graphical.oldUIStyle ? 6 : 6;
+        drawText("Score: " + util.formatLargeNumber(Math.round(gui.__s.getScore())), x + width / 2 - scorelength, y + height / 2 + extraHeight, config.graphical.oldUIStyle ? 12.5 : 13, color.guiwhite, "center");
         ctx[2].lineWidth = 4;
         var name = global.player.name.substring(7, global.player.name.length + 1);
         drawText(name, Math.round(x + width / 2) + 1.5, Math.round(y - 10 - 4) - 1, 31, global.nameColor == "#ffffff" ? color.guiwhite : global.nameColor, "center");
@@ -3253,6 +3386,10 @@ import * as socketStuff from "./socketinit.js";
         let upgradeColumns = Math.ceil(gui.upgrades.length / 9);
         let x = global.mobile ? spacing : global.screenWidth - spacing - len - 5;
         let y = global.mobile ? spacing : global.screenHeight - height - spacing - 5;
+        if (config.graphical.oldUIStyle) {
+            x += 5;
+            y += 5;
+        }
         if (global.GUIStatus.renderMinimap) {
             if (global.mobile) {
                 y += global.canUpgrade ? (alcoveSize / 1.5) * mobileUpgradeGlide.get() * upgradeColumns / 1.5 + spacing * (upgradeColumns + 1.55) + 9 : 0;
@@ -3412,18 +3549,18 @@ import * as socketStuff from "./socketinit.js";
             drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
             drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
             drawText("Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
-            drawText("Memory: " + global.metrics.rendergap.toFixed(1) + " Mib", x + len, y - 50 - 6 * 14, 10, color.guiwhite, "right");
+            drawText("Memory: " + global.metrics.rendergap.toFixed(1) + " MiB", x + len, y - 50 - 6 * 14, 10, color.guiwhite, "right");
             drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 5 * 14, 10, color.guiwhite, "right");
             drawText(`Bandwidth: tx ${global.bandwidth.finalHa} rx ${global.bandwidth.finalFa}`, x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
             drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
             drawText("Prediction: " + Math.round(GRAPHDATA) + "ms", x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
-            drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
+            drawText(ping.toFixed(1) + " ms  " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
             drawText(watermarkText, x + len, y - 50 - 3 * 14 - 2, 15, watermarkColor, "right");
-            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
+            drawText(global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
-            drawText(ping.toFixed(1) + " ms / " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
+            drawText(ping.toFixed(1) + " ms  " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else drawText(watermarkText, x + len, y - 22 - 2 * 14 - 2, 15, watermarkColor, "right");
     }
 
@@ -3435,6 +3572,10 @@ import * as socketStuff from "./socketinit.js";
         let height = 14;
         let x = global.screenWidth - spacing - 10;
         let y = spacing + height + 13;
+        if (config.graphical.oldUIStyle) {
+            x += 10;
+            y -= 5;
+        }
         lbGlide.set(0 + lb.data.length > 0);
         let glide = lbGlide.get();
         x -= lb.data.length ? len * glide : len * glide;
@@ -3551,7 +3692,7 @@ import * as socketStuff from "./socketinit.js";
             upgradeSpin = upgradeSpin - (Math.floor(upgradeSpin / Math.PI / 2) * Math.PI * 2);
 
             let x = glide * 2 * spacing + spacing + 5;
-            let y = spacing - height - internalSpacing + 5;
+            let y = spacing - height - 2.8 * internalSpacing + 5;
             let xStart = x;
             let initialX = x;
             let rowWidth = 0;
@@ -3578,6 +3719,7 @@ import * as socketStuff from "./socketinit.js";
                             drawText(" " + upgradeBranchLabel, xStart, y + internalSpacing * 2, internalSpacing * 2.3, color.guiwhite, "left", false);
                             y += 3 * internalSpacing;
                         }
+                        y += 1.8 * internalSpacing;
                         colorIndex = 0;
                     }
                     lastBranch = upgradeBranch;
@@ -3598,14 +3740,14 @@ import * as socketStuff from "./socketinit.js";
             }
 
             // Draw dont upgrade button
-            let h = 19.1,
-                textScale = h - 6,
+            let h = 20,
+                textScale = (h - 0.9) - 6,
                 msg = "Don't Upgrade",
                 m = measureText(msg, textScale),
                 buttonX = initialX + (rowWidth + len - initialX) / 2,
                 buttonY = initialY + height + internalSpacing - 5;
 
-            drawButton(buttonX, buttonY, m, h, 1, "rect", msg, textScale - 3.3, false, false, false, true, "skipUpgrades", clickableRatio, 0);
+            drawButton(buttonX, buttonY, m, h, 1, config.graphical.oldUIStyle ? 'bar' : 'rect', msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, 0);
 
             if (gui.dailyTank && gui.dailyTank.tank) {
                 let image = util.requestEntityImage(gui.dailyTank.tank, gui.color);
@@ -4067,7 +4209,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].globalAlpha = global.lerp(3, 3.25, glide);
         if (global.cannotRespawn || global.mobile || global.gamepadMode) drawText(global.cannotRespawn ?
             global.respawnTimeout ?
-            "(you may respawn in " + global.respawnTimeout + " Secon" + `${global.respawnTimeout <= 1 ? 'd' : 'ds'}` + ")"
+            "(you may respawn in " + global.respawnTimeout + " second" + `${global.respawnTimeout <= 1 ? '' : 's'}` + ")"
             : "(you cannot respawn)"
             : global.mobile ? 
             "(tap to respawn)"
@@ -4080,7 +4222,7 @@ import * as socketStuff from "./socketinit.js";
                 drawButton(x - 80, y + 195, 130, 30, global.lerp(3, 3.25, glide), "rect", "Back", 15, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
                 drawButton(x + 80, y + 195, 130, 30, global.lerp(3, 3.25, glide), "rect", "Respawn", 15, false, false, false, true, "deathRespawn", global.canvas.height / global.screenHeight / global.ratio, 0);
             } else drawButton(x, y + 215, 150, 50, global.lerp(3, 3.25, glide), "rect", "Back", 25, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
-        } 
+        }
     };
 
     const applyScreenShake = (type = "camera", returnOption = false) => {
@@ -4234,7 +4376,7 @@ import * as socketStuff from "./socketinit.js";
             const by = tipY;
             let textY = by;
             // background
-            ctx[2].fillStyle = "rgba(30, 30, 30, 0.45)";
+            ctx[2].fillStyle = "rgba(30, 30, 30, 0.40)";
             optionsMenu_drawRoundedRect(bx, by, boxW, splitTooltip.length === 1 ? boxH : boxH + 15, 8);
             ctx[2].fill();
             ctx[2].globalAlpha = anim;
@@ -4251,19 +4393,54 @@ import * as socketStuff from "./socketinit.js";
         }
     }
 
+    function optionsMenu_getPointer(pointer = global.mouse) {
+        const canvasWidth = global.canvas.width || global.screenWidth;
+        const canvasHeight = global.canvas.height || global.screenHeight;
+        return {
+            x: pointer.x * (global.screenWidth || canvasWidth) / canvasWidth,
+            y: pointer.y * (global.screenHeight || canvasHeight) / canvasHeight,
+        };
+    }
+
+    function optionsMenu_getUserInterfaceOptions() {
+        let doc = document.getElementById("optUiScale");
+        if (!doc) return [];
+        return Array.from(doc.options).filter((option) => option.value).map((option) => ({
+            value: option.value,
+            label: option.textContent.replace("UI Scale", "").replace("(", "").replace(")", "").replace(" ", ""),
+        }))
+    }
+    function optionsMenu_getGraphicsOptions() {
+        let doc = document.getElementById("optGraphics");
+        if (!doc) return [];
+        console.log(Array.from(doc.options).filter((option) => option.value).map((option) => ({
+            value: option.value,
+            label: option.textContent,
+        })))
+        return Array.from(doc.options).filter((option) => option.value).map((option) => ({
+            value: option.value,
+            label: option.textContent,
+        }))
+    }
 
     function drawOptionsMenu() {
         // Initialize tab offset for sliding animation and menu height animation
         if (!global.optionsMenu_Anim.tabOffset) {
             global.optionsMenu_Anim.tabOffset = Smoothbar(global.optionsMenu_Anim.activeTab || 0, 2, 3, 0.08, 0.025, true);
+            global.optionsMenu_Anim.scrollOffsets = [
+                Smoothbar(0, 2, 3, 0.05, 0.13, true),
+                Smoothbar(0, 2, 3, 0.05, 0.13, true),
+                Smoothbar(0, 2, 3, 0.05, 0.13, true),
+            ];
+            global.optionsMenu_Anim.scrollTargets = [0, 0, 0]
         }
 
         const RENDERX = global.optionsMenu_Anim.switchMenu_button.get();
         const BTN_SIZE = 30;
         const BTN_WIDTH_COLLAPSED = BTN_SIZE / 1.57; // Half width when not hovering
         const BTN_WIDTH_EXPANDED = 119; // Increased from 100 to make it wider
-        const BTN_X = 1;
-        const BTN_Y = 25;
+        const BTN_X = config.graphical.oldUIStyle ? -4 : 1;
+        const BTN_Y = config.graphical.oldUIStyle ? 19 : 25;
         const clickableRatio = global.canvas ? global.canvas.height / global.screenHeight / global.ratio : 1;
         const animValue = global.optionsMenu_Anim.optionsButtonProgress.get();
         // Check hover state
@@ -4360,16 +4537,59 @@ import * as socketStuff from "./socketinit.js";
 
         const mainMenuAnim = global.optionsMenu_Anim.mainMenu.get();
         if (mainMenuAnim < -470) return; // fully hidden
+        const extraLeftX = config.graphical.oldUIStyle ? 5 : 0;
+        const extraTopY = config.graphical.oldUIStyle ? 6 : 0;
         const PANEL_WIDTH = 460;
-        const PANEL_Y = 75;
-        const MAX_PANEL_HEIGHT = global.screenHeight - PANEL_Y - 25; // 10px bottom margin
+        const PANEL_Y = 75 - extraTopY;
+        const MAX_PANEL_HEIGHT = global.screenHeight - PANEL_Y - 25; // 25px bottom margin
         const PANEL_HEIGHT = Math.min(global.optionsMenu_Anim.mainMenuHeight.get(), MAX_PANEL_HEIGHT);
 
         // slide from off-screen left → visible
         const PANEL_VISIBLE_X = mainMenuAnim;
-        const PANEL_HIDDEN_X = PANEL_VISIBLE_X - PANEL_WIDTH - 30;
-        const panelX = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X);
+        const PANEL_HIDDEN_X = PANEL_VISIBLE_X - PANEL_WIDTH - 20;
+        const panelX = PANEL_HIDDEN_X + (PANEL_VISIBLE_X - PANEL_HIDDEN_X) - extraLeftX;
+        const TAB_CONTENT_HEIGHTS = [
+            (PANEL_Y + 685 + 1 * 40 + 45) - PANEL_Y,  // perf section: last row baseY + 1 row + padding
+            300,
+            300
+        ];
+        const TAB_CONTENT_MAX_SCROLL = [
+            0,
+            300,
+            300
+        ];
+        global.clickables.optionsMenu.mainMenuIdle.set(panelX * clickableRatio, PANEL_Y * clickableRatio, PANEL_WIDTH * clickableRatio, PANEL_HEIGHT * clickableRatio);
+        const activeTab = global.optionsMenu_Anim.activeTab || 0;
+        const scrollOffsetAnim = global.optionsMenu_Anim.scrollOffsets[activeTab];
+        const contentH = TAB_CONTENT_HEIGHTS[activeTab];
+        const contentM = TAB_CONTENT_MAX_SCROLL[activeTab];
+        const maxScroll = Math.max(0, contentH - PANEL_HEIGHT);
 
+        if (global.optionsMenu_Anim.scrollTargets[activeTab] < 0)
+            global.optionsMenu_Anim.scrollTargets[activeTab] = 0;
+        if (global.optionsMenu_Anim.scrollTargets[activeTab] > maxScroll)
+            global.optionsMenu_Anim.scrollTargets[activeTab] = maxScroll;
+
+        scrollOffsetAnim.set(global.optionsMenu_Anim.scrollTargets[activeTab]);
+        const scrollY = scrollOffsetAnim.get();
+
+        // Store live panel bounds for the wheel handler to read each frame
+        global.optionsMenu_Anim._panelX = panelX;        // already defined above
+        global.optionsMenu_Anim._panelY = PANEL_Y;
+        global.optionsMenu_Anim._panelW = PANEL_WIDTH;
+        global.optionsMenu_Anim._panelH = PANEL_HEIGHT;
+        if (global.optionsMenu_Anim.isOpened && global.optionsMenu_Anim._wheelHandler === undefined) {
+            global.optionsMenu_Anim._wheelHandler = (e) => {
+                if (!global.clickables.optionsMenu.mainMenuIdle.check({x: global.mouse.x, y: global.mouse.y})) return;
+                const tab = global.optionsMenu_Anim.activeTab || 0;
+                global.optionsMenu_Anim.scrollTargets[tab] =
+                    (global.optionsMenu_Anim.scrollTargets[tab] || 0) + e.deltaY * 0.8;
+            };
+            window.addEventListener("wheel", global.optionsMenu_Anim._wheelHandler, { passive: true });
+        } else if (!global.optionsMenu_Anim.isOpened && global.optionsMenu_Anim._wheelHandler) {
+            window.removeEventListener("wheel", global.optionsMenu_Anim._wheelHandler);
+            global.optionsMenu_Anim._wheelHandler = undefined;
+        }
         ctx[2].save();
         ctx[2].globalAlpha = 1;
 
@@ -4461,57 +4681,91 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].save();
         ctx[2].globalAlpha *= fadeOptions;
         ctx[2].beginPath();
-        ctx[2].rect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT - 15);
+        ctx[2].rect(panelX, PANEL_Y + 15, PANEL_WIDTH, PANEL_HEIGHT - 30);
         ctx[2].clip();
+        ctx[2].translate(0, -scrollY);
         if (fadeOptions > 0.01) {
 
             // OPTIONS TAB
 
             drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
-            drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 310, 15.5, color.guiwhite, "center");
-            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 470, 15.5, color.guiwhite, "center");
-            drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 670, 15.5, color.guiwhite, "center");
+            drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 350, 15.5, color.guiwhite, "center");
+            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 540, 15.5, color.guiwhite, "center");
+            drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 710, 15.5, color.guiwhite, "center");
 
             if (!global.optionsCheckboxes) {
                 global.optionsCheckboxes = [
                     // Game Appearance
-                    { id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player names." },
-                    { id: "optRenderScores",        label: "Player Scores",         column: 0, row: 1, section: "appearance", tooltip: "Show player scores." },
-                    { id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
-                    { id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
-                    { id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
-                    { id: "optSecretOptions",       label: "Secret Options",        column: 0, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
+                    { type: "checkbox",  id: "optRenderNames",         label: "Player Names",          column: 0, row: 0, section: "appearance", tooltip: "Show player names." },
+                    { type: "checkbox",  id: "optRenderScores",        label: "Player Scores",         column: 0, row: 1, section: "appearance", tooltip: "Show player scores." },
+                    { type: "checkbox",  id: "optNoGrid",              label: "Background Grid",       column: 0, row: 2, section: "appearance", tooltip: "Show the background grid.", reverseCheck: true },
+                    { type: "checkbox",  id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
+                    { type: "checkbox",  id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
+                    { type: "checkbox",  id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
+                    { type: "slidingBar",id: "strokeThickness",        label: "Border Thickness",      column: 0, row: 6, section: "appearance", tooltip: "Choose the thickness of the border of entities.",
+                      maxValue: 6, maxLowestValue: 0.7, listTarget: "graphical", target: "borderChunk",
+                      trigger: (mouse, data) => {
+                        let pointer = optionsMenu_getPointer();
+                        if (data.bounds) {
+                            let listFolder = config[data.listTarget];
+                            const knobWidth = 12.2; 
+                            const halfKnob = knobWidth / 2;
+                            const adjustedX = data.bounds.x + halfKnob;
+                            const adjustedWidth = data.bounds.width - knobWidth;
+                            const ratio = Math.max(0, Math.min(1, (pointer.x - adjustedX) / adjustedWidth));
+                            const range = data.maxValue - data.maxLowestValue;
+                            let value = (ratio * range) + data.maxLowestValue;
+                            listFolder[data.target] = value;
+                        }
+                      }
+                    },
 
-                    { id: "optChatMessages",        label: "Chat Messages",         column: 1, row: 0, section: "appearance", tooltip: "Show chat messages." },
-                    { id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Show health bars." },
-                    { id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
-                    { id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
-                    { id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "May slightly lower the frame rate." },
-                    { id: "coloredHealthbars",      label: "Colored Health Bars",   column: 1, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
+                    { type: "checkbox", id: "optChatMessages",        label: "Chat Messages",         column: 1, row: 0, section: "appearance", tooltip: "Show chat messages." },
+                    { type: "checkbox", id: "optRenderHealth",        label: "Health Bars",           column: 1, row: 1, section: "appearance", tooltip: "Show health bars." },
+                    { type: "checkbox", id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
+                    { type: "checkbox", id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
+                    { type: "checkbox", id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
+                    { type: "checkbox", id: "optSecretOptions",       label: "Secret Options",        column: 1, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
 
                     // UI Elements
-                    { id: "optRenderUpgrades",      label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
-                    { id: "optRenderPlayerBars",    label: "Player Bars",           column: 0, row: 1, section: "ui", tooltip: "Toggle the visibility of the score and level bars." },
-                    { id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 2, section: "ui", tooltip: "Toggle the visibility of the kill bar, which shows the number of kills, assists and boss kills." },
+                    { type: "checkbox", id: "optRenderUpgrades",      label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
+                    { type: "checkbox", id: "optRenderPlayerBars",    label: "Player Bars",           column: 0, row: 1, section: "ui", tooltip: "Toggle the visibility of the score and level bars." },
+                    { type: "checkbox", id: "optRenderKillbar",       label: "Kill Bar",              column: 0, row: 2, section: "ui", tooltip: "Toggle the visibility of the kill bar, which shows the number of kills, assists, and boss kills." },
+                    { type: "checkbox", id: "optOldUiStyle",          label: "Classic UI",            column: 0, row: 3, section: "ui", tooltip: "Changes the UI to the 2023 layout." },
 
-                    { id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Toggle the visibility of the leaderboard." },
-                    { id: "optRenderMinimap",       label: "Minimap",               column: 1, row: 1, section: "ui", tooltip: "Toggle the visibility of the minimap." },
-                    { id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 2, section: "ui", tooltip: "Show various extra information in the bottom right corner.", reverseCheck: true },
+                    { type: "checkbox",  id: "optRenderLeaderboard",   label: "Leaderboard",           column: 1, row: 0, section: "ui", tooltip: "Toggle the visibility of the leaderboard." },
+                    { type: "checkbox",  id: "optRenderMinimap",       label: "Minimap",               column: 1, row: 1, section: "ui", tooltip: "Toggle the visibility of the minimap." },
+                    { type: "checkbox",  id: "optReducedInfo",         label: "Extra Info",            column: 1, row: 2, section: "ui", tooltip: "Show various extra information in the bottom right corner.", reverseCheck: true },
 
                     // Extra
-                    { id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 0, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
-                    { id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 1, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
+                    { type: "option",    id: "optUiScale",             label: "",                      column: 0, row: 0, section: "extra", tooltip: "Configure the size of the user interface.",
+                      optionData: optionsMenu_getUserInterfaceOptions(),
+                      width: 202.5,
+                      location: "auto",
+                      trigger: (data, theChosenOne) => {
+                        let doc = document.getElementById(data.id);
+                        doc.value = theChosenOne.value;
+                        util.submitToLocalStorage(data.id);
+                        data.optionService.opened = false;
+                        data.optionService.selected = data.label;
+                        loadSettings();
+                      }
+                    },
+                    { type: "checkbox",  id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 1, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
+                    { type: "checkbox",  id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 2, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
 
-                    { id: "optFancy",               label: "Fading Animation",      column: 1, row: 0, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
-                    { id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 1, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
+                    { type: "checkbox",  id: "optFancy",               label: "Fading Animation",      column: 1, row: 1, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
+                    { type: "checkbox",  id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 2, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },
 
                     // Performance
                     { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
                 ];
 
                 for (const cb of global.optionsCheckboxes) {
-                    let doc = document.getElementById(cb.id);
-                    if (doc) cb.value = doc.checked, cb.lastValue = cb.value;
+                    if (cb.type === "checkbox") {
+                        let doc = document.getElementById(cb.id);
+                        if (doc) cb.value = doc.checked, cb.lastValue = cb.value;
+                    }
                 }
             }
 
@@ -4521,9 +4775,9 @@ import * as socketStuff from "./socketinit.js";
             for (let i = 0; i < global.optionsCheckboxes.length; i++) {
                 const cb = global.optionsCheckboxes[i];
                 let baseY = PANEL_Y + 45;
-                if (cb.section === "ui")    baseY = PANEL_Y + 325;
-                if (cb.section === "extra") baseY = PANEL_Y + 525;
-                if (cb.section === "perf")  baseY = PANEL_Y + 685;
+                if (cb.section === "ui")    baseY = PANEL_Y + 365;
+                if (cb.section === "extra") baseY = PANEL_Y + 555;
+                if (cb.section === "perf")  baseY = PANEL_Y + 725;
 
                 const baseXLeft  = panelX + 20;
                 const baseXRight = panelX + PANEL_WIDTH / 2 + 7.5;
@@ -4532,8 +4786,7 @@ import * as socketStuff from "./socketinit.js";
                 const y = baseY + cb.row * LINE_HEIGHT;
                 const hitX = x * clickableRatio;
                 const hitY = y * clickableRatio;
-                const hitSize = BOX_SIZE * clickableRatio;
-
+                let hitYCalc = hitY - scrollY * clickableRatio;
                 if (!cb.tooltipService) {
                     global.optionsCheckboxes[i].tooltipService = {
                         text: cb.tooltip,
@@ -4543,62 +4796,238 @@ import * as socketStuff from "./socketinit.js";
                         y: 0
                     }
                 }
-
-                cb.tooltipService.x = hitX;
-                cb.tooltipService.y = hitY + hitSize + 10;
-                if (fadeOptions > 0.2) {
-                    global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitY, hitSize, hitSize);
-                    global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitY, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
-                } else {
-                    global.clickables.optionsMenu.toggleBoxes.hide();
-                    global.clickables.optionsMenu.HoverBoxes.hide();
-                }
-                let clickHover = global.clickables.optionsMenu.toggleBoxes.check(mpos);
-                let hovered = global.clickables.optionsMenu.HoverBoxes.check(mpos);
-
-                if (hovered !== -1) {
-                    global.optionsCheckboxes[hovered].tooltipService.targetAlpha = 1;
-                } else global.optionsCheckboxes[i].tooltipService.targetAlpha = 0;
-
-                if (cb.lastValue !== cb.value) {
-                    cb.lastValue = cb.value;
-                    loadSettings();
-                    if (cb.id === "optLowResolution") resizeEvent();
-                }
-
-                const isOn = (cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value);
-                ctx[2].lineWidth = 3;
-                gameDraw.setColor(ctx[2], isOn ? color.green : color.guiwhite);
-                drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
-                if (clickHover !== -1 && clickHover === i) {
-                    gameDraw.setColor(ctx[2], !isOn ? global.clickables.clicked ? color.guiblack : color.black : global.clickables.clicked ? color.black : color.guiwhite);
-                    ctx[2].globalAlpha = global.clickables.clicked ? 0.25 : 0.2;
-                    drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
-                    ctx[2].globalAlpha = 1 * fadeOptions;
-                }
-                gameDraw.setColor(ctx[2], color.black);
-                drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
-
-                if (isOn) {
-                    ctx[2].strokeStyle = "#ffffff";
+                if (cb.type === "option") {
+                    cb.tooltipService.x = hitX;
+                    cb.tooltipService.y = hitY + 33 - scrollY * clickableRatio;
+                    cb.tooltipService.targetAlpha = 0;
+                    if (!cb.optionService) cb.optionService = {
+                        opened: false,
+                        smoothbar: Smoothbar(0, 2, 3, 0.07, 0.025, true),
+                        selected: "",
+                        x: x,
+                        y: y,
+                        hitX: hitX,
+                        hitY: hitY,
+                        hitYCalc: hitYCalc
+                    };
+                    if (!cb.optionService.selected) {
+                        if (cb.order) {
+                            let sorted = [];
+                            for (let e of cb.order) {
+                                for (let o of cb.optionData) {
+                                    if (o.value === e) sorted.push(o);
+                                }
+                            }
+                            cb.optionData = sorted;
+                        }
+                        let doc = document.getElementById(cb.id);
+                        let fd = cb.optionData.find(o => o.value === doc.value);
+                        if (fd) {
+                            cb.optionService.selected = fd.label; 
+                        }
+                    }
+                    cb.optionService.x = x;
+                    cb.optionService.y = y - scrollY;
+                    cb.optionService.hitX = hitX;
+                    cb.optionService.hitY = hitY;
+                    cb.optionService.hitYCalc = hitYCalc;
+                    ctx[2].fillStyle = color.guiwhite;
+                    drawGuiRect(x, y, cb.width, 25);
+                    ctx[2].strokeStyle = color.black;
                     ctx[2].lineWidth = 3;
+                    drawGuiRect(x, y, cb.width, 25, true);
+                    drawText(cb.optionService.selected, x + 13, y + 17, 11.5, color.guiwhite, "left", false, 1, 6.5);
+                    ctx[2].fillStyle = color.black;
+                    const arrowW = 5;  // Arrow width (horizontal)
+                    const arrowH = 30 * 0.3; // Arrow height (vertical)
+                    const arrowBaseX = x + cb.width + 17;
+                    const arrowCenterX = arrowBaseX - 19;
+                    const arrowCenterY = y + 18.4;
+                    
+
+                    const leftX = arrowCenterX - arrowW; 
+                    const tipX = arrowCenterX + arrowW; 
+                    const topY = arrowCenterY - arrowH;
+                    const botY = arrowCenterY - 2.9;
                     ctx[2].beginPath();
-                    ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
-                    ctx[2].lineTo(x + BOX_SIZE / 2 - 3, y + BOX_SIZE - 7);
-                    ctx[2].lineTo(x + BOX_SIZE - 6, y + 8);
-                    ctx[2].stroke();
+                    ctx[2].moveTo(leftX - 14, topY);
+                    ctx[2].lineTo(tipX - 12, arrowCenterY - 9);
+                    ctx[2].lineTo(leftX - 8, botY);
+                    ctx[2].closePath();
+                    ctx[2].fill();
+                    global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitYCalc, cb.width * clickableRatio, 25 * clickableRatio);
+                    global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitYCalc, cb.width * clickableRatio, 25 * clickableRatio);
+                } else if (cb.type === "slidingBar") {
+                    cb.tooltipService.x = hitX;
+                    cb.tooltipService.y = hitY + 35 - scrollY * clickableRatio;
+                    cb.tooltipService.targetAlpha = 0;
+                    cb.bounds = {x: x, width: 150};
+                    let listFolder = config[cb.listTarget];
+                    const rawStrokeValue = listFolder[cb.target] ?? 0;
+                    const strokeValue = Math.max(cb.maxLowestValue, Math.min(cb.maxValue, rawStrokeValue));
+                    const renderRange = cb.maxValue - cb.maxLowestValue;
+                    const strokeRatio = renderRange > 0 ? (strokeValue - cb.maxLowestValue) / renderRange : 0;
+                    ctx[2].fillStyle = color.guiwhite;
+                    drawGuiRect(x, y + 2.5, 150, 20);
+                    ctx[2].fillStyle = color.green;
+                    ctx[2].globalAlpha = 0.7 * fadeOptions;
+                    drawGuiRect(x, y + 2.5, 150 * strokeRatio, 20);
+                    ctx[2].globalAlpha = fadeOptions;
+                    ctx[2].strokeStyle = color.black;
+                    ctx[2].lineWidth = 3;
+                    drawGuiRect(x, y + 2.5, 150, 20, true);
+
+                    const knob = x + 137.5 * strokeRatio;
+                    ctx[2].fillStyle = color.green;
+                    drawGuiRect(knob, y, 12.5, 17 + 8);
+                    ctx[2].strokeStyle = color.black;
+                    drawGuiRect(knob, y, 12.5, 17 + 8, true);
+
+                    drawText(cb.label, x + 160, y + 18, 13.5, color.guiwhite, "left", false, 1, 5.5);
+
+                    global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitYCalc + 2.5, 150 + measureText(cb.label, 25 * clickableRatio) * 0.65, 22 * clickableRatio);
+                    global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitYCalc + 2.5, 150 * clickableRatio, 22 * clickableRatio);
+                } else if (cb.type === "checkbox") {
+                    const hitSize = BOX_SIZE * clickableRatio;
+
+                    cb.tooltipService.x = hitX;
+                    cb.tooltipService.y = hitY + hitSize + 10 - scrollY * clickableRatio;
+                    if (fadeOptions > 0.2 && global.clickables.optionsMenu.optionBoxes.check(mpos) === -1) {
+                        global.clickables.optionsMenu.toggleBoxes.place(i, hitX, hitYCalc, hitSize, hitSize);
+                        global.clickables.optionsMenu.HoverBoxes.place(i, hitX, hitYCalc, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+                    } else {
+                        global.clickables.optionsMenu.toggleBoxes.hide();
+                        global.clickables.optionsMenu.HoverBoxes.hide();
+                    }
+                    let clickHover = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                    let hovered = global.clickables.optionsMenu.HoverBoxes.check(mpos);
+
+                    if (hovered !== -1) {
+                        global.optionsCheckboxes[hovered].tooltipService.targetAlpha = 1;
+                    } else global.optionsCheckboxes[i].tooltipService.targetAlpha = 0;
+
+                    if (cb.lastValue !== cb.value) {
+                        cb.lastValue = cb.value;
+                        loadSettings();
+                        if (cb.id === "optLowResolution") resizeEvent();
+                    }
+
+                    const isOn = (cb.reverseCheck && !cb.value) || (!cb.reverseCheck && cb.value);
+                    ctx[2].lineWidth = 3;
+                    gameDraw.setColor(ctx[2], isOn ? color.green : color.guiwhite);
+                    drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+                    if (clickHover !== -1 && clickHover === i) {
+                        gameDraw.setColor(ctx[2], !isOn ? global.clickables.clicked ? color.guiblack : color.black : global.clickables.clicked ? color.black : color.guiwhite);
+                        ctx[2].globalAlpha = global.clickables.clicked ? 0.25 : 0.2;
+                        drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+                        ctx[2].globalAlpha = 1 * fadeOptions;
+                    }
+                    gameDraw.setColor(ctx[2], color.black);
+                    drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
+
+                    if (isOn) {
+                        ctx[2].strokeStyle = "#ffffff";
+                        ctx[2].lineWidth = 3;
+                        ctx[2].beginPath();
+                        ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
+                        ctx[2].lineTo(x + BOX_SIZE / 2 - 3, y + BOX_SIZE - 7);
+                        ctx[2].lineTo(x + BOX_SIZE - 6, y + 8);
+                        ctx[2].stroke();
+                    }
+
+                    drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left", false, 1, 5.5);
                 }
-
-                drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left");
             }
-
         }
         ctx[2].restore();
 
-        for (const cb of global.optionsCheckboxes) drawToolip(cb);
+        for (const cb of global.optionsCheckboxes) {
+            if (cb.type === "option" && cb.optionService) {
+                let above = cb.location === "top";
+                let height = 0;
+                for (let box of cb.optionData) {
+                    height += 25;
+                }
+                const bottomPos = cb.optionService.y + 25 + height;
+                if (bottomPos > global.screenHeight && cb.location === 'auto') {
+                    above = true;
+                }
+                if (cb.optionService.opened) {
+                    cb.optionService.smoothbar.set(height);
+                    cb.optionService.visible = true;
+                } else if (cb.optionService.visible) {
+                    cb.optionService.smoothbar.set(0);
+                }
+                if (cb.optionService.visible) {
+                    const cbp = cb.optionService;
+                    const heightCalc = cbp.smoothbar.get();
+                    if (!cbp.opened && heightCalc < 0.5) {
+                        cbp.smoothbar.force(0);
+                        cbp.visible = false;
+                    }
+                    if (above) { // Above
+                        let yy = cbp.y - heightCalc;
+                        ctx[2].save();
+                        ctx[2].beginPath();
+                        ctx[2].rect(cbp.x - 3, cbp.y - cb.optionData.length * 25 - 3, cb.width + 6, cb.optionData.length * 25 + 3);
+                        ctx[2].clip();
+                        for (let i = 0; i < cb.optionData.length; i++) {
+                            let box = cb.optionData[i];
+                            let hover = global.clickables.optionsMenu.optionBoxes.check(mpos);
+                            ctx[2].fillStyle = color.guiwhite;
+                            drawGuiRect(cbp.x, yy, cb.width, 25);
+                            if (hover === i) {
+                                ctx[2].fillStyle = color.black;
+                                ctx[2].globalAlpha = global.clickables.clicked ? 0.9 : 0.7;
+                                drawGuiRect(cbp.x, yy, cb.width, 25);
+                                ctx[2].globalAlpha = 1;
+                            }
+                            ctx[2].strokeStyle = color.black;
+                            ctx[2].lineWidth = 3;
+                            drawGuiRect(cbp.x, yy, cb.width, 25, true);
+                            drawText(box.label, cbp.x + 13, yy + 17, 11.5, color.guiwhite, "left", false, 1, 6.5);
+                            if (cbp.opened && cbp.canClick) global.clickables.optionsMenu.optionBoxes.place(i, cbp.x * clickableRatio, yy * clickableRatio, cb.width * clickableRatio, 25 * clickableRatio); else global.clickables.optionsMenu.optionBoxes.hide();
+                            yy += 25;
+                        }
+                        ctx[2].restore();
+                        ctx[2].lineWidth = 3;
+                        drawGuiRect(cbp.x, cbp.y, cb.width, 0, true);
+                    } else { // Bottom
+                        let yy = cbp.y + 25;
+                        ctx[2].save();
+                        ctx[2].beginPath();
+                        ctx[2].rect(cbp.x, yy, cb.width, heightCalc);
+                        ctx[2].clip();
+                        for (let i = 0; i < cb.optionData.length; i++) {
+                            let box = cb.optionData[i];
+                            let hover = global.clickables.optionsMenu.optionBoxes.check(mpos);
+                            ctx[2].fillStyle = color.guiwhite;
+                            drawGuiRect(cbp.x, yy, cb.width, 25);
+                            if (hover === i) {
+                                ctx[2].fillStyle = color.black;
+                                ctx[2].globalAlpha = global.clickables.clicked ? 0.9 : 0.7;
+                                drawGuiRect(cbp.x, yy, cb.width, 25);
+                                ctx[2].globalAlpha = 1;
+                            }
+                            ctx[2].strokeStyle = color.black;
+                            ctx[2].lineWidth = 3;
+                            drawGuiRect(cbp.x, yy, cb.width, 25, true);
+                            drawText(box.label, cbp.x + 13, yy + 17, 11.5, color.guiwhite, "left", false, 1, 6.5);
+                            if (cbp.opened) global.clickables.optionsMenu.optionBoxes.place(i, cbp.x * clickableRatio, yy * clickableRatio, cb.width * clickableRatio, 25 * clickableRatio); else global.clickables.optionsMenu.optionBoxes.hide();
+                            yy += 25;
+                        }
+                        ctx[2].restore();
+                        ctx[2].lineWidth = 3;
+                        drawGuiRect(cbp.x, cbp.y + 25, cb.width, heightCalc, true);
+                    }
+                }
+            }
+            drawToolip(cb);
+        }
 
         ctx[2].save();
         ctx[2].globalAlpha *= fadeTheme;
+        ctx[2].translate(0, -scrollY);
         if (fadeTheme > 0.01) {
             // THEME TAB
         
@@ -4617,6 +5046,7 @@ import * as socketStuff from "./socketinit.js";
 
         ctx[2].save();
         ctx[2].globalAlpha *= fadeKeybinds;
+        ctx[2].translate(0, -scrollY);
         if (fadeKeybinds > 0.01) {
             // KEYBINDS TAB
         
@@ -4805,7 +5235,7 @@ import * as socketStuff from "./socketinit.js";
                 drawDisconnectedScreen();
             }
             if (global.dailyTankAd.renderUI) drawAdScreen();
-            drawOptionsMenu(tick, 20, util.getScreenRatio());
+            if (global.GUIStatus.renderIngameOptions) drawOptionsMenu(tick, 20, util.getScreenRatio());
             if (global.GUIStatus.fullHDMode) ctx[2].translate(-0.5, -0.5);
 
             //oh no we need to throw an error!
@@ -4821,4 +5251,4 @@ import * as socketStuff from "./socketinit.js";
         let t = performance.now();
         global.metrics.mspt = t - p;
     }
-})(util, global, config, Canvas, colors, gameDraw, socketStuff)
+})(util, global, config, Canvas, colors, gameDraw, socketStuff, keybinderHandler)

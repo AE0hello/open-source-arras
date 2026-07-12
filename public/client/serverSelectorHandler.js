@@ -54,7 +54,7 @@ global.loadServerSelector = (serverData, text) => {
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
-            server.featured && tr.classList.add("featured"); // make the text yellow if its featured.
+            server.featured && tr.classList.add("featured");
             tr.onclick = () => {
                 if (myServer.classList.contains("selected")) {
                     myServer.classList.remove("selected");
@@ -190,7 +190,8 @@ let initializeFilter = () => {
         let r = l.length;
         l.push(data[0].filter);
         let e = document.getElementsByClassName("serverSelector");
-        e[0].style.height = "70px";
+        global.fixedServerSelectorHeight = "103px"
+        if (!global.uncappedMenu) e[0].style.height = global.fixedServerSelectorHeight;
         let v = null;
         for (let { name: textContent, filter: y } of data) {
             let Q = document.createElement("span");

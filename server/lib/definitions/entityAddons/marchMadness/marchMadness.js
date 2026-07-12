@@ -11,7 +11,7 @@ if (Config.march_madness) {
             "unsetTrap",
             "pillbox",
             "missile",
-            "minimissile",
+            "launcherMissile",
             "spinmissile",
             "drone",
             "swarm",
@@ -51,7 +51,7 @@ if (Config.march_madness) {
 
                         if (typeof y?.PROPERTIES?.TYPE === "string") {
                             if (["drone", "minion"].includes(y.PROPERTIES.TYPE)) y.PROPERTIES.MAX_CHILDREN = 6;
-                            else if (["missile", "minimissile", "spinmissile", "hypermissile", "swarm"].includes(y.PROPERTIES.TYPE)) {
+                            else if (["missile", "launcherMissile", "spinmissile", "hypermissile", "swarm"].includes(y.PROPERTIES.TYPE)) {
                                 y.PROPERTIES.MAX_CHILDREN = 8;
                                 y.PROPERTIES.DESTROY_OLDEST_CHILD = true;
                             } else if (["setTrap", "unsetTrap", "pillbox"].includes(y.PROPERTIES.TYPE)) {

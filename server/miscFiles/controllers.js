@@ -936,7 +936,7 @@ class io_fleeAtLowHealth extends IO {
 class io_zoom extends IO {
     constructor(body, opts = {}) {
         super(body);
-        this.distance = opts.distance || 225;
+        this.distance = opts.distance || 275;
         this.dynamic = opts.dynamic;
         this.permanent = opts.permanent;
     }

@@ -1,9 +1,4 @@
 // IMAGE TESTING
-tileClass.imagetest = new Tile({
-    COLOR: "white",
-    IMAGE: "/round.png",
-    NAME: "Image Tile",
-});
 tileClass.imagetest2 = new Tile({
     COLOR: "white",
     IMAGE: "/tileGrass1.jpg",

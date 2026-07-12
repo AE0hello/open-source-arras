@@ -1,6 +1,6 @@
-const {combineStats, makeAuto, makeMenu, weaponArray} = require('../../../facilitators.js')
-const {base} = require('../../../constants.js')
-const g = require('../../../gunvals.js')
+const {combineStats, makeAuto, makeMenu, weaponArray} = require('../../../../facilitators.js')
+const {base} = require('../../../../constants.js')
+const g = require('../../../../gunvals.js')
 
 Class.rogueAlcazar_minion_AR = makeAuto("minion")
 Class.rogueAlcazar_AR = {

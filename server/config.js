@@ -1,6 +1,6 @@
 module.exports = {
-    // Open Source Arras
-    devBuild: false, // Dev build marker.
+    // Development
+    dev_build: true, // Whether this version is unstable and should be clearly marked as such.
 
     // Client
     main_menu: 'index.html', // Where the main menu is located (in the /public folder).
@@ -23,16 +23,30 @@ module.exports = {
             id: 'la', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['tdm'], // The selected gamemode.
+            gamemode: ['ffa'], // The selected gamemode.
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
-            unlisted: true, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: true, // Whether the server requires a privileged token to join (except through server travel).
+            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
+            private: false, // Whether the server requires a privileged token to join (except through server travel).
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
-                teams: 4,
-                bot_cap: 40
+                bot_cap: 20,
+                daily_tank: {
+                    tank: 'whirlwind',
+                    tier: 3,
+                    ads: false,
+                    ad_sources: [
+                        {
+                            file: 'example_video_ad.mp4',
+                            use_regular_ad_size: true
+                        },
+                        {
+                            file: 'example_image_ad.png',
+                            use_regular_ad_size: true
+                        }
+                    ]
+                }
             }
         },
         {
@@ -45,38 +59,24 @@ module.exports = {
             id: 'lb', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
-            gamemode: ['retrograde', 'ffa'], // The selected gamemode.
+            gamemode: ['tdm'], // The selected gamemode.
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
-            unlisted: true, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: true, // Whether the server requires a privileged token to join (except through server travel).
+            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
+            private: false, // Whether the server requires a privileged token to join (except through server travel).
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
+                mothership_time_limit: 30_000,
                 teams: 4,
-                bot_cap: 16,
+                bot_cap: 40,
                 server_travel_properties: {
-                    loop_interval: 30_000, // how often the portal loop executes in seconds
-                    portals: 3, // amount of portals to spawn
-                },
-                daily_tank: {
-                    tank: 'whirlwind',
-                    tier: 3,
-                    ads: false,
-                    ad_sources: [
-                        {
-                            file: 'testadvideo.mp4',
-                            use_regular_ad_size: true
-                        },
-                        {
-                            file: 'testadimage.png',
-                            use_regular_ad_size: true
-                        }
-                    ]
+                    loop_interval: 10_000, // how often the portal loop executes in seconds
+                    portals: 1, // amount of portals to spawn
                 },
                 server_travel: [
                     {
-                        ip: 'localhost:3003', // destination server host, don't add "https://" or any slashes to it
+                        ip: 'localhost:3001', // destination server host, don't add "https://" or any slashes to it
                         portal_properties: {
                             spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = lower chances, lower = higher chance)
                             color: 'red', // portal color
@@ -92,6 +92,29 @@ module.exports = {
 
             host: 'localhost:3003', // Server host location.
             port: 3003, // The port on the server.
+            id: 'lc', // (<host>/#<id>)
+
+            region: "Local", // The region the server is on.
+            gamemode: ['mothership'], // The selected gamemode.
+            player_cap: 80, // Not including bots. Set to 0 to disable.
+
+            featured: false, // Whether the server is featured or not.
+            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
+            private: false, // Whether the server requires a privileged token to join (except through server travel).
+
+            properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
+                mothership_time_limit: 30_000,
+                teams: 3,
+                bot_cap: 30
+            }
+        },
+        {
+            share_client_server: false, // Only one server at a time can have this enabled.
+            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
+            // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
+
+            host: 'localhost:3097', // Server host location.
+            port: 3097, // The port on the server.
             id: 'lx', // (<host>/#<id>)
 
             region: "Local", // The region the server is on.
@@ -99,13 +122,12 @@ module.exports = {
             player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
-            unlisted: true, // Whether the server shows up in the server list (if its id isn't in the url).
+            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
             private: true, // Whether the server requires a privileged token to join (except through server travel).
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
-                teams: 4,
+                //teams: 4,
                 bot_cap: 0
-                //allow_server_travel: true
             }
         },
         {
@@ -119,15 +141,14 @@ module.exports = {
 
             region: "Local", // The region the server is on.
             gamemode: ['sandbox'], // The selected gamemode.
-            player_cap: 16, // Not including bots. Set to 0 to disable.
+            player_cap: 80, // Not including bots. Set to 0 to disable.
 
             featured: false, // Whether the server is featured or not.
             unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
             private: false, // Whether the server requires a privileged token to join (except through server travel).
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
-                //teams: 4,
-                //bot_cap: 0
+
             }
         },
     ],
@@ -141,8 +162,7 @@ module.exports = {
 
     // The message that appears once a player spawns.
     spawn_message: "You have spawned! Welcome to the game.\n"
-                 + "You will be invulnerable until you move or shoot.\n"
-                 + "Please report any bugs you encounter!",
+                 + "You will be invulnerable until you move or shoot.",
     token_message: "Friendly reminder: Please do not repeatedly kill others with an overpowered tank.",
 
     chat_message_duration: 15_000, // How long a chat message lasts in milliseconds. Includes the fade-out period.
@@ -158,7 +178,8 @@ module.exports = {
     game_speed: 1, // General game speed.
     run_speed: 1.5, // General multiplier for acceleration and max speeds.
     max_heartbeat_interval: 300_000, // How long (in milliseconds) a socket can be disconnected before their tank self-destructs.
-    respawn_delay: 0, // How long you have to wait to respawn in seconds. Set to 0 to disable.
+    respawn_delay: 0, // How long (in seconds) you have to wait to respawn. Set to 0 to disable.
+    upgrade_delay: 3_000, // How long (in milliseconds) you have to stay still to upgrade outside of a base. Set to 0 to disable.
 
     bullet_spawn_offset: 1, // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
     damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
@@ -166,6 +187,8 @@ module.exports = {
     glass_health_factor: 2, // TODO: Figure out how the math behind this works.
     room_bound_force: 0.01,// How strong the force is that confines entities to the map and portals apply to entities.
     soft_max_skill: 0.59, // TODO: Find out what the intention behind the implementation of this configuration is.
+
+    mothership_time_limit: 0, // How long (in milliseconds) a player can have in control of their team's mothership. Set to 0 to disable.
 
     // When an entity reaches a level, this function is called and returns how many skill points that entity gets for reaching that level.
     defineLevelSkillPoints: level => {
@@ -179,8 +202,7 @@ module.exports = {
     level_cap_cheat: 45, // Maximum level via the level-up key and auto-level-up.
 
     skill_cap: 9, // Default skill caps.
-    tier_cap: 17, // Amount of tank tiers.
-    tier_multiplier: 15, // Level difference between each tier.
+    tier_multiplier: 15, // Level difference between each upgrade tier.
 
     // Bots
     bot_cap: 0, // Maximum number of bots that can be on the server. Set to 0 to disable bots.
@@ -276,10 +298,11 @@ module.exports = {
 
     // Bosses
     enable_bosses: true,
+    boss_control: false, // Allows players to control bosses like dominators and motherships.
     boss_spawn_cooldown: 260, // The delay (in seconds) between boss spawns.
     boss_spawn_delay: 6, // The delay (in seconds) between the boss spawn being announced and the boss(es) actually spawning.
     boss_types: [
-            {
+        {
             bosses: ['eliteDestroyer', 'eliteGunner', 'eliteSprayer', 'eliteBattleship', 'eliteSpawner'],
             amount: [5, 5, 4, 2, 1], chance: 2, nameType: 'a',
         },
@@ -334,7 +357,6 @@ module.exports = {
     space_physics: false,
     spawn_confinement: {},
     tag: false,
-    teams: 4,
     train: false,
     use_limited_waves: false,
 

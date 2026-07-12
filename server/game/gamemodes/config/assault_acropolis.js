@@ -7,6 +7,7 @@ module.exports = {
     map_tile_height: 440,
     do_not_override_room: false,
     room_setup: ["room_assault_acropolis"],
+    maze: true,
     maze_type: 19,
 	team_weights: {
 		[TEAM_BLUE]: 1.1

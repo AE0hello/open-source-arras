@@ -12,7 +12,7 @@ class Canvas {
         this.socket = global.socket;
         this.directions = [];
         this.chatListener = function(id, event) {
-            if (![global.KEY_ENTER, global.KEY_ESC].includes(event.keyCode)) return;
+            if (![global.KEY_ENTER, global.KEY_ESC].includes(event.code)) return;
             this[id].blur();
             this.cv.focus();
             global.showChat = false;
@@ -20,7 +20,7 @@ class Canvas {
                 if (!this.chatBox.loadedProperly) this.chatBox.remove(), this.chatInput.remove(), this.chatBox = false;
             }, 50)
             if (!this[id].value) return;
-            if (event.keyCode === global.KEY_ENTER) this.socket.talk('M', this[id].value);
+            if (event.code === global.KEY_ENTER) this.socket.talk('M', this[id].value);
             this[id].value = "";
         }
 
@@ -87,7 +87,7 @@ class Canvas {
         }
     }
     keyPress(event) {
-        switch (event.keyCode) {
+        switch (event.code) {
             case global.KEY_ZOOM_OUT:
                 if (!global.died && global.showTree) global.targetTreeScale = Math.max(global.targetTreeScale / 1.2, 0.5);
                 break;
@@ -124,7 +124,38 @@ class Canvas {
         if (global.dailyTankAd.renderUI) return;
         if (global.specialPressed) {
             event.preventDefault();
-            if (!event.repeat) global.specialKeysPressed.push(event.keyCode);
+            let pressed = false;
+            let attributed = false;
+            let attributeKey = false;
+            for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                let obj = global.KEY_ABILITIES[i];
+                if (global.specialKeysPressed.length && global.specialKeysPressed[0] === obj) attributed = obj;
+            }
+            if (!event.repeat) {
+                for (let obj in global) {
+                    let wrongKey = false;
+                    const thing = global[obj];
+                    if (typeof thing === "string") {
+                        if (attributed) {
+                            if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_ALT" || obj.startsWith(attributed)) && thing === event.code) {
+                                global.specialKeysPressed.push(obj);
+                                pressed = true;
+                            }
+                        } else if (!pressed && obj.startsWith("KEY_SPECIAL_") && thing === event.code) {
+                            for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                                let obj2 = global.KEY_ABILITIES[i];
+                                if (obj.startsWith(obj2)) {
+                                    if (obj !== obj2) wrongKey = true;
+                                }
+                            }
+                            if (!wrongKey) {
+                                global.specialKeysPressed.push(obj);
+                                pressed = true; // Dont allow any other keys
+                            }
+                        }
+                    }
+                }
+            }
             this.socket.talk("#", ...global.specialKeysPressed);
             return;
         }
@@ -136,25 +167,25 @@ class Canvas {
                 this.tankTreeProps.searchQuery += event.key;
                 global.searchTankByName(this.tankTreeProps.searchQuery);
                 return;
-            } else if (event.keyCode === 8) { // Backspace
+            } else if (event.code === 8) { // Backspace
                 event.preventDefault();
                 this.tankTreeProps.searchQuery = this.tankTreeProps.searchQuery.slice(0, -1);
                 global.searchTankByName(this.tankTreeProps.searchQuery);
                 return;
-            } else if (event.keyCode === 27) { // Escape
+            } else if (event.code === 27) { // Escape
                 event.preventDefault();
                 this.tankTreeProps.searchQuery = '';
                 global.searchTankByName('');
                 global.searchBarActive = false;
                 return;
-            } else if (event.keyCode === global.KEY_ENTER) {
+            } else if (event.code === global.KEY_ENTER) {
                 event.preventDefault();
                 global.searchBarActive = false;
                 return;
             }
         }
 
-        switch (event.keyCode) {
+        switch (event.code) {
             case global.KEY_SHIFT:
                 if (global.showTree) this.treeScrollSpeedMultiplier = 5;
                 else this.socket.cmd.set(6, true);
@@ -207,9 +238,6 @@ class Canvas {
             case global.KEY_LEVEL_UP:
                 this.socket.talk('L');
                 break;
-            case global.KEY_TOKEN:
-                this.socket.talk('0');
-                break;
             case global.KEY_BECOME:
                 this.socket.talk('H');
                 break;
@@ -224,7 +252,7 @@ class Canvas {
                 break;
         }
         if (!event.repeat) {
-            switch (event.keyCode) {
+            switch (event.code) {
                 case global.KEY_SPECIAL:
                     this.socket.talk("#");
                     global.specialPressed = true;
@@ -246,7 +274,6 @@ class Canvas {
                 case global.KEY_SPIN_LOCK:
                     this.spinLock = !this.spinLock;
                     global.createMessage(this.spinLock ? "Spinlock enabled." : "Spinlock disabled.");
-                    this.socket.talk("t", 4, false);
                     break;
                 case global.KEY_REVERSE_MOUSE:
                     this.inverseMouse = !this.inverseMouse;
@@ -272,40 +299,33 @@ class Canvas {
             }
             if (global.canSkill) {
                 let skill = [
-                    global.KEY_UPGRADE_ATK, global.KEY_UPGRADE_HTL, global.KEY_UPGRADE_SPD,
-                    global.KEY_UPGRADE_STR, global.KEY_UPGRADE_PEN, global.KEY_UPGRADE_DAM,
-                    global.KEY_UPGRADE_RLD, global.KEY_UPGRADE_MOB, global.KEY_UPGRADE_RGN,
-                    global.KEY_UPGRADE_SHI
-                ].indexOf(event.keyCode);
+                    global.KEY_SKILL_1, global.KEY_SKILL_2, global.KEY_SKILL_3,
+                    global.KEY_SKILL_4, global.KEY_SKILL_5, global.KEY_SKILL_6,
+                    global.KEY_SKILL_7, global.KEY_SKILL_8, global.KEY_SKILL_9,
+                    global.KEY_SKILL_0
+                ].indexOf(event.code);
                 if (skill >= 0) this.socket.talk('x', skill, 1 * global.statMaxing);
             }
+            const upgradeMap = {
+                [global.KEY_UPGRADE_1]: 0,
+                [global.KEY_UPGRADE_2]: 1,
+                [global.KEY_UPGRADE_3]: 2,
+                [global.KEY_UPGRADE_4]: 3,
+                [global.KEY_UPGRADE_5]: 4,
+                [global.KEY_UPGRADE_6]: 5,
+                [global.KEY_UPGRADE_7]: 6,
+                [global.KEY_UPGRADE_8]: 7,
+                [global.KEY_UPGRADE_9]: 8
+            }
             if (global.canUpgrade) {
-                switch (event.keyCode) {
-                    case global.KEY_CHOOSE_1:
-                        this.socket.talk("U", 0, parseInt(gui.upgrades[0][0]));
-                        break;
-                    case global.KEY_CHOOSE_2:
-                        this.socket.talk("U", 1, parseInt(gui.upgrades[1][0]));
-                        break;
-                    case global.KEY_CHOOSE_3:
-                        this.socket.talk("U", 2, parseInt(gui.upgrades[2][0]));
-                        break;
-                    case global.KEY_CHOOSE_4:
-                        this.socket.talk("U", 3, parseInt(gui.upgrades[3][0]));
-                        break;
-                    case global.KEY_CHOOSE_5:
-                        this.socket.talk("U", 4, parseInt(gui.upgrades[4][0]));
-                        break;
-                    case global.KEY_CHOOSE_6:
-                        this.socket.talk("U", 5, parseInt(gui.upgrades[5][0]));
-                        break;
-                }
+                const i = upgradeMap[event.code];
+                if (i !== undefined) this.socket.talk('U', i, parseInt(gui.upgrades[i][0]));
             }
         }
     }
     keyUp(event) {
         if (global.dailyTankAd.renderUI) return;
-        switch (event.keyCode) {
+        switch (event.code) {
             case global.KEY_SPECIAL:
                 global.specialPressed = false;
                 global.specialKeysPressed = [];
@@ -353,12 +373,42 @@ class Canvas {
         }
         if (global.specialPressed) {
             let arrayCopy = global.specialKeysPressed.slice();
-            let i = global.specialKeysPressed.indexOf(event.keyCode);
+            let code = null;
+            let pressed = false;
+            let attributed = false;
+            for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                let obj = global.KEY_ABILITIES[i];
+                if (global.specialKeysPressed.length && global.specialKeysPressed[0] === obj) {
+                    attributed = obj;
+                }
+            }
+            for (let obj in global) {
+                let wrongKey = false;
+                const thing = global[obj];
+                if (typeof thing === "string") {
+                    if (attributed) {
+                        if (!pressed && (obj === "KEY_SPECIAL_HELP" || obj === "KEY_SPECIAL_HELP_ALT" || obj.startsWith(attributed)) && thing === event.code) {
+                            code = obj;
+                            pressed = true;
+                        }
+                    } else if (!pressed && obj.startsWith("KEY_SPECIAL_") && thing === event.code) {
+                        for (let i = 0; i < global.KEY_ABILITIES.length; i++) {
+                            let obj2 = global.KEY_ABILITIES[i];
+                            if (obj.startsWith(obj2)) wrongKey = true;
+                        }
+                        if (!wrongKey) {
+                            code = obj;
+                            pressed = true;
+                        }
+                    }
+                }
+            }
+            let i = global.specialKeysPressed.indexOf(code);
             if (i >= 0) {
                 global.specialKeysPressed.splice(i, 1);
-                arrayCopy[i] = -event.keyCode;
+                arrayCopy[i] = `-${code}`;
             }
-            else arrayCopy.push(-event.keyCode);
+            else arrayCopy.push(`-${code}`);
             this.socket.talk("#", ...arrayCopy);
         }
     }
@@ -383,6 +433,32 @@ class Canvas {
                 }
                 let statIndex = global.clickables.stat.check(mpos);
                 let upgradeCheck = global.clickables.upgrade.check(mpos);
+                let optionsMenu_toggleBox = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                if (optionsMenu_toggleBox !== -1) {
+                    let box = global.optionsCheckboxes[optionsMenu_toggleBox];
+                    if (box.type === "slidingBar") {
+                        box.trigger?.(mpos, box);
+                        global.optionsMenu_Anim.sliderMoving = box;
+                    } else if (box.type === "option") {
+                        if (global.optionsMenu_Anim.currentOptionMenu && global.optionsMenu_Anim.currentOptionMenu !== box) {
+                            global.optionsMenu_Anim.currentOptionMenu.optionService.opened = false;
+                            global.optionsMenu_Anim.currentOptionMenu.optionService.canClick = false;
+                            global.optionsMenu_Anim.currentOptionMenu = false;
+                        }
+                        box.optionService.opened = !box.optionService.opened;
+                        if (box.optionService.opened) global.optionsMenu_Anim.currentOptionMenu = box, box.optionService.canClick = false;
+                    }
+                    break;
+                }
+                if (global.optionsCheckboxes) {
+                    for (let box of global.optionsCheckboxes) {
+                        if (box.type === "option" && box.optionService.opened && global.optionsCheckboxes[optionsMenu_toggleBox] !== box && global.clickables.optionsMenu.optionBoxes.check(mpos) === -1) {
+                            box.optionService.opened = false;
+                            global.optionsMenu_Anim.currentOptionMenu.optionService.canClick = false;
+                            global.optionsMenu_Anim.currentOptionMenu = false;
+                        }
+                    }
+                }
                 if (statIndex !== -1) {
                     this.socket.talk('x', statIndex, 0);
                 } else if (
@@ -393,6 +469,7 @@ class Canvas {
                     global.clickables.skipUpgrades.check(mpos) == -1 && 
                     global.clickables.dailyTankUpgrade.check(mpos) == false &&
                     global.clickables.dailyTankAd.check(mpos) === false &&
+                    global.clickables.optionsMenu.mainMenuIdle.check(mpos) === false &&
                     upgradeCheck == -1 && 
                     !global.died
                 ) this.socket.cmd.set(primaryFire, true);
@@ -405,13 +482,17 @@ class Canvas {
                 break;
         }
     }
-    mouseUp(mouse) {
+   mouseUp(mouse) {
         let primaryFire = 4,
             secondaryFire = 6;
         if (this.inverseMouse) [primaryFire, secondaryFire] = [secondaryFire, primaryFire];
         global.clickables.clicked = false;
         switch (mouse.button) {
             case 0:
+                global.optionsMenu_Anim.sliderMoving = false;
+                if (global.optionsMenu_Anim.currentOptionMenu) {
+                    global.optionsMenu_Anim.currentOptionMenu.optionService.canClickSwitch = true;
+                };
                 let mpos = {
                     x: mouse.clientX * global.ratio,
                     y: mouse.clientY * global.ratio,
@@ -425,6 +506,7 @@ class Canvas {
                 let reconnectCheck = global.clickables.reconnect.check(mpos);
                 let optionsMenu_Switch = global.clickables.optionsMenu.switchButton.check(mpos);
                 let optionsMenu_toggleBox = global.clickables.optionsMenu.toggleBoxes.check(mpos);
+                let optionsMenu_clickOption = global.clickables.optionsMenu.optionBoxes.check(mpos);
                 let optionsMenu_tabClick = global.optionsMenu_Anim.tabClickables ? global.optionsMenu_Anim.tabClickables.check(mpos) : -1;
                 // Options menu clickables
                 if (optionsMenu_Switch === 0) {
@@ -437,20 +519,32 @@ class Canvas {
                     global.optionsMenu_Anim.switchMenu_button.set(0);
                     global.optionsMenu_Anim.mainMenu.set(-500);
                     global.optionsMenu_Anim.isOpened = false;
+                    if (global.optionsMenu_Anim.scrollTargets) global.optionsMenu_Anim.scrollTargets = [0, 0, 0];
+                    if (global.optionsMenu_Anim._wheelHandler) {
+                        window.removeEventListener("wheel", global.optionsMenu_Anim._wheelHandler);
+                        global.optionsMenu_Anim._wheelHandler = undefined;
+                    }
                     break;
                 }
                 if (optionsMenu_tabClick !== -1) {
                     global.optionsMenu_Anim.activeTab = optionsMenu_tabClick;
                     global.optionsMenu_Anim.tabOffset.set(optionsMenu_tabClick);
                     global.optionsMenu_Anim.mainMenuHeight.set(global.optionsMenu_Anim.tabs[optionsMenu_tabClick][1]);
+                    if (global.optionsMenu_Anim.scrollTargets) global.optionsMenu_Anim.scrollTargets[optionsMenu_tabClick] = 0;
                     break;
                 }
                 if (optionsMenu_toggleBox !== -1) {
                     let box = global.optionsCheckboxes[optionsMenu_toggleBox];
-                    let doc = document.getElementById(box.id);
-                    box.value = !box.value;
-                    if (doc) doc.checked = box.value;
-                    if (doc) util.submitToLocalStorage(box.id);
+                    if (box.type === "checkbox") {
+                        let doc = document.getElementById(box.id);
+                        box.value = !box.value;
+                        if (doc) doc.checked = box.value;
+                        if (doc) util.submitToLocalStorage(box.id);
+                    }
+                    break;
+                }
+                if (optionsMenu_clickOption !== -1 && global.optionsMenu_Anim.currentOptionMenu) {
+                    global.optionsMenu_Anim.currentOptionMenu.trigger?.(global.optionsMenu_Anim.currentOptionMenu, global.optionsMenu_Anim.currentOptionMenu.optionData[optionsMenu_clickOption]);
                     break;
                 }
                 // Stop dragging class tree
@@ -537,6 +631,13 @@ class Canvas {
         if (this.spinLock) return;
         global.mouse.x = mouse.clientX * global.ratio;
         global.mouse.y = mouse.clientY * global.ratio;
+        if (global.optionsMenu_Anim.sliderMoving) {
+            global.optionsMenu_Anim.sliderMoving.trigger({}, global.optionsMenu_Anim.sliderMoving);
+        }
+        if (global.optionsMenu_Anim.currentOptionMenu && global.optionsMenu_Anim.currentOptionMenu.optionService.canClickSwitch) {
+            global.optionsMenu_Anim.currentOptionMenu.optionService.canClick = true;
+            global.optionsMenu_Anim.currentOptionMenu.optionService.canClickSwitch = false;
+        };
         if (global.gameStart) {
             this.mouseMoved = true;
             global.socket.cmd.reactNow();
@@ -660,7 +761,8 @@ class Canvas {
         w.click();
         global.createMessage("Saving screenshot...", 3_000);
     }
-    // MOBILE SUPPORT
+
+    // Touchscreen Controls
     touchStart(e) {
         e.preventDefault();
         if (global.died && !global.cannotRespawn) {
@@ -778,16 +880,20 @@ class Canvas {
             let id = touch.identifier;
 
             if (this.movementTouch === id) {
-                let radius = Math.min(global.screenWidth * 0.6, global.screenHeight * 0.12);
-                let cx = (mpos.x - (this.cv.width * 1) / 6)  / (radius / 64);
-                let cy = (mpos.y - (this.cv.height * 2) / 3)  / (radius / 64);
-                let touchX = cx / (radius / 64);
-                let touchY = cy / (radius / 64);
+                let ratio = global.canvas.height / global.screenHeight / global.ratio;
+                let radius = Math.min(
+                    global.screenWidth * 0.6,
+                    global.screenHeight * 0.12
+                );
+                let cx = (mpos.x - (this.cv.width * 1) / 6) / ratio / 2;
+                let cy = (mpos.y - (this.cv.height * 2) / 3) / ratio / 2;
+                let touchX = cx;
+                let touchY = cy;
                 let r = Math.sqrt(cx ** 2 + cy ** 2);
                 let angle = Math.atan2(cy, cx);
                 if (r > radius) {
-                    touchX = Math.cos(angle) * radius / 1.05;
-                    touchY = Math.sin(angle) * radius / 1.05;
+                    touchX = Math.cos(angle) * radius;
+                    touchY = Math.sin(angle) * radius;
                 }
                 this.movementTouchPos = { x: touchX, y: touchY };
                 let x = mpos.x - (this.cv.width * 1) / 6;
@@ -806,21 +912,26 @@ class Canvas {
                     this.socket.cmd.set(3, (this.movementRight = x > amount));
             } else if (this.controlTouch === id) {
                 global.mobileStatus.showCrosshair = true;
+                let ratio = global.canvas.height / global.screenHeight / global.ratio;
                 let radius = Math.min(
-                    global.screenWidth * 0.6,
-                    global.screenHeight * 0.12
+                    global.mobileStatus.useBigJoysticks ? global.screenWidth * 0.8 : global.screenWidth * 0.6,
+                    global.mobileStatus.useBigJoysticks ? global.screenHeight * 0.16 : global.screenHeight * 0.12
                 );
-                let cx = (mpos.x - (this.cv.width * 5) / 6)  / (radius / 64);
-                let cy = (mpos.y - (this.cv.height * 2) / 3)  / (radius / 64);
-                let touchX = cx / (radius / 64);
-                let touchY = cy / (radius / 64);
+                let cx = (mpos.x - (this.cv.width * 5) / 6) / ratio / 2;
+                let cy = (mpos.y - (this.cv.height * 2) / 3) / ratio / 2;
+                let touchX = cx;
+                let touchY = cy;
                 let r = Math.sqrt(cx ** 2 + cy ** 2);
                 let angle = Math.atan2(cy, cx);
                 if (r > radius) {
-                    touchX = Math.cos(angle) * radius / 1.05;
-                    touchY = Math.sin(angle) * radius / 1.05;
+                    touchX = Math.cos(angle) * radius;
+                    touchY = Math.sin(angle) * radius;
                 }
                 this.controlTouchPos = { x: touchX, y: touchY };
+                radius = Math.min(
+                    global.screenWidth * 0.12 / ratio,
+                    global.screenHeight * 0.24 / ratio
+                )
                 if (!this.spinLock) {
                     if (cx < -radius) cx = -radius;
                     else if (cx > radius) cx = radius;
@@ -853,7 +964,8 @@ class Canvas {
             }
         }
     }
-    // CONTROLLER/GAMEPAD SUPPORT
+
+    // Controller Controls
     runGamepad() {
         let sendHelp = () => {
             let helpLines = [

@@ -223,7 +223,7 @@ class gameHandler {
             }
 
             // Reset collision array once at the beginning
-            instance.collisionArray = []; 
+            instance.collisionArray = [];
 
             // Handle physics only if not bonded
             if (instance.bond == null) {
@@ -402,6 +402,7 @@ class gameHandler {
                     let boss = new Entity(spot);
                     boss.define(selection.bosses.sort(() => 0.5 - Math.random())[i % selection.bosses.length]);
                     boss.team = TEAM_ENEMIES;
+                    boss.isBoss = true;
                     if (name) {
                         boss.name = name;
                     }

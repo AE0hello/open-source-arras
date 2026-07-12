@@ -14,19 +14,17 @@
 }
 @font-face {
     font-family: 'Ubuntu Mono';
+    src: url('../../fonts/Ubuntu-Mono.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
-    src: url('../../fonts/Ubuntu-Mono.ttf') format('truetype');
 }
 
-/* These font files straight up don't exist because they are not used,
-   so I have removed them to save almost 2 megabytes of space.
+/* These font files straight up don't exist because they are not used.
 
    If you need "Italic", "BoldItalic", "Light", "LightItalic", "Medium"
    or "MediumItalic" versions of the Ubuntu font, then you should
    download them from Google Fonts (which we used to use) or you can
-   get them from https://design.ubuntu.com/font, which I have not used
-   but they are not google which is enough for me.
+   get them directly from https://design.ubuntu.com/font.
 
    Keep in mind that the total download from Google Fonts used to
    take up 2.4 megabytes.

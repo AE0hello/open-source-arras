@@ -72,8 +72,6 @@ Class.spectator = {
     IS_IMMUNE_TO_TILES: true,
     FULL_INVISIBLE: true,
     CAN_SEE_INVISIBLE_ENTITIES: true,
-    TOOLTIP: "Left click to teleport, Right click above or below the screen to change FOV",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
     BODY: {
         PUSHABILITY: 0,
         SPEED: 5,
@@ -100,14 +98,11 @@ Class.spectator = {
         }
     }],
     ON: [{
-        event: "fire",
+        event: "altFire",
         handler: ({ body }) => {
             body.x = body.x + body.control.target.x
             body.y = body.y + body.control.target.y
         }
-    }, {
-        event: "altFire",
-        handler: ({ body }) => body.FOV = body.y + body.control.target.y < body.y ? body.FOV + 0.5 : Math.max(body.FOV - 0.5, 0.2)
     }]
 }
 
@@ -168,7 +163,6 @@ Class.banHammer = {
     IS_IMMUNE_TO_TILES: true,
     CAN_SEE_INVISIBLE_ENTITIES: true,
     TOOLTIP: "Use left click to inspect and right click to teleport. Press F to ban the selected player.",
-    SKILL_CAP: [0, 0, 0, 0, 0, 0, 0, 0, 0, 255],
     BODY: {
         PUSHABILITY: 0,
         SPEED: 5,
@@ -217,7 +211,7 @@ if (Config.siege) {
 } else {
     unavailable_tanks = ['healer']
 }
-Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_removed", "menu_mapEntities", "menu_motherships", "menu_fun", "arenaCloser", ...unavailable_tanks]})
+Class.menu_tanks = makeMenu("Tanks", {upgrades: [Config.spawn_class, "menu_unused", "menu_dailyTanks", "menu_mapEntities", "menu_motherships", "menu_fun", "arenaCloser", ...unavailable_tanks]})
 
 Class.menu_unused = makeMenu("Unused", {upgrades: ["1", "2", "3"].map(x => "menu_unused_T" + x), tooltip: "Tanks that were fully created and likely intended to be added, but never were."})
 Class.menu_unused_T1 = makeMenu("Unused (Tier 1)", {upgrades: [
@@ -244,7 +238,6 @@ Class.menu_unused_T3 = makeMenu("Unused (Tier 3)", {upgrades: [
     'wrangler',
 ], boxLabel: "Tier 3 (Lv.45)"})
 
-Class.menu_removed = makeMenu("Removed", {upgrades: ["menu_dailyTanks", "menu_legacy"], tooltip: "Tanks that were previously accessible in-game in some form before being removed."})
 Class.menu_dailyTanks = makeMenu("Daily Tanks", {upgrades: [
     'whirlwind',
     'master',
@@ -255,17 +248,6 @@ Class.menu_dailyTanks = makeMenu("Daily Tanks", {upgrades: [
     'jumpSmasher',
     'rapture',
 ], boxColor: "rainbow", tooltip: "Tanks that were part of arras.io's December 2023 Daily Tanks event, in the order they were first made available.\n" + "The Daily Tank for a server can be added or changed in config."})
-Class.menu_legacy = makeMenu("Legacy Tanks", {upgrades: [
-    'boomer_old',
-    'commander_old',
-    'bulwark_old',
-    'auto4_old',
-    'rifle_old',
-    'septaTrapper_old',
-    'spike_old',
-    'sprayer_old',
-    'spreadshot_old',
-], tooltip: "The original versions of certain tanks."})
 
 Class.menu_mapEntities = makeMenu("Map Entities", {upgrades: ["menu_dominators", "baseProtector", "antiTankMachineGun", "menu_sanctuaries"], props: [{TYPE: "dominationBody", POSITION: {SIZE: 22}}], tooltip: "Tanks that spawn as part of the map layout."})
 Class.menu_dominators = makeMenu("Dominators", {upgrades: ["destroyer", "gunner", "trapper"].map(x => x + "Dominator"), props: [{TYPE: "dominationBody", POSITION: {SIZE: 22}}]})
@@ -274,6 +256,7 @@ Class.menu_sanctuaries = makeMenu("Sanctuaries", {upgrades: ["1", "2", "3", "4",
 Class.menu_motherships = makeMenu("Motherships", {upgrades: ["mothership", "flagship", "turkey"], shape: 16, tooltip: "Giant Enemy Tanks that you attack the weak points of for massive damage."})
 Class.menu_fun = makeMenu("Fun", {upgrades: [
     "alas",
+    "arrasPolice",
     //"average4tdmScore",
     //"averageL39Hunt",
     //"beeman",
@@ -287,7 +270,6 @@ Class.menu_fun = makeMenu("Fun", {upgrades: [
     "meOnMyWayToDoYourMom",
     "protector",
     //"quadCyclone",
-    "rapture",
     "riptide",
     //"schoolShooter",
     "smasher3",
@@ -295,7 +277,6 @@ Class.menu_fun = makeMenu("Fun", {upgrades: [
     //"theAmalgamation",
     //"theConglomerate",
     "tracker3",
-    "undercoverCop",
     "wifeBeater",
     "worstTank",
 ], tooltip: "Tanks that, let's be honest, aren't used for a good reason.\n" + "DISCLAIMER: Some of the content in here may be in poor taste. Blame the arras.io devs, not us."})

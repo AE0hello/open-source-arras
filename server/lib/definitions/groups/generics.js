@@ -22,7 +22,7 @@ Class.genericEntity = {
     CONTROLLERS: [],
     HAS_NO_MASTER: false,
     MOTION_TYPE: "glide",
-    FACING_TYPE: "toTarget",
+    FACING_TYPE: 'toTarget',
     DRAW_HEALTH: false,
     DRAW_SELF: true,
     IS_IMMUNE_TO_TILES: false,
@@ -101,7 +101,7 @@ Class.genericTank = {
     SHAPE: 0,
     SIZE: 12,
     MOTION_TYPE: "motor",
-    FACING_TYPE: "toTarget",
+    FACING_TYPE: 'toTarget',
     ARENA_CLOSER: false,
     FULL_INVISIBLE: false,
     CAN_SEE_INVISIBLE_ENTITIES: false,
@@ -112,12 +112,14 @@ Class.genericTank = {
     HAS_NO_RECOIL: false,
     HITS_OWN_TYPE: "hardOnlyTanks",
     IGNORED_BY_AI: false,
+    INVISIBLE: [0, 0],
     IS_IMMUNE_TO_TILES: false,
     MAX_CHILDREN: 0,
     NO_SIZE_ANIMATION: false,
     RENDER_ON_LEADERBOARD: true,
     REROOT_UPGRADE_TREE: Config.spawn_class,
     RESET_EVENTS: true,
+    SKILL_CAP: Array(10).fill(dfltskl),
     SYNC_WITH_TANK: false,
     BODY: {
         ACCELERATION: base.ACCEL,
@@ -187,6 +189,7 @@ Class.genericSmasher = {
     STAT_NAMES: statnames.smasher,
     BODY: {
         FOV: 1.05 * base.FOV,
+        SPEED: 1.125 * base.SPEED,
         DENSITY: 2 * base.DENSITY
     }
 }

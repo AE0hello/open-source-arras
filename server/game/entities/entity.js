@@ -77,6 +77,7 @@ class Entity extends EventEmitter {
         this.range = 0;
         this.damageReceived = 0;
         this.stepRemaining = 1;
+        this.reverseTank = 1;
         this.x = position.x;
         this.y = position.y;
         this.cameraOverrideX = null;
@@ -302,7 +303,7 @@ class Entity extends EventEmitter {
         if (set.IS_IMMUNE_TO_TILES) this.immuneToTiles = set.IS_IMMUNE_TO_TILES;
         if (set.TEAM != null) {
             this.team = set.TEAM;
-            if (!global.gameManager.socketManager.players.length) {
+            if (global.gameManager.socketManager.players.length) {
                 const _entity = this;
                 for (let i = 0; i < global.gameManager.socketManager.players.length; i++) {
                     if (global.gameManager.socketManager.players[i].body.id == _entity.id) {
@@ -329,29 +330,30 @@ class Entity extends EventEmitter {
         if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER, this.ac = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.tier_cap; i++) {
-            let tierProp = 'UPGRADES_TIER_' + i;
-            if (set[tierProp] != null && emitEvent) {
-                for (let j = 0; j < set[tierProp].length; j++) {
-                    let upgrades = set[tierProp][j];
-                    let index = "";
-                    if (!Array.isArray(upgrades)) upgrades = [upgrades];
-                    let redefineAll = upgrades.includes(true);
-                    let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
-                    for (let k of trueUpgrades) {
-                        let e = ensureIsClass(k);
-                        index += e.index + "-";
-                    }
-                    this.upgrades.push({
-                        class: trueUpgrades,
-                        level: Config.tier_multiplier * i,
-                        index: index.substring(0, index.length - 1),
-                        tier: i,
-                        branch: 0,
-                        branchLabel: this.branchLabel,
-                        redefineAll,
-                    });
+        for (const prop in set) {
+            if (!prop.startsWith('UPGRADES_TIER_')) {
+                continue;
+            }
+            for (let j = 0; j < set[prop].length; j++) {
+                let upgrades = set[prop][j];
+                let index = "";
+                if (!Array.isArray(upgrades)) upgrades = [upgrades];
+                let redefineAll = upgrades.includes(true);
+                let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
+                for (let k of trueUpgrades) {
+                    let e = ensureIsClass(k);
+                    index += e.index + "-";
                 }
+                let i = parseInt(prop.split('_')[2])
+                this.upgrades.push({
+                    class: trueUpgrades,
+                    level: Config.tier_multiplier * i,
+                    index: index.substring(0, index.length - 1),
+                    tier: i,
+                    branch: 0,
+                    branchLabel: this.branchLabel,
+                    redefineAll,
+                });
             }
         }
         if (set.SIZE != null) {
@@ -531,6 +533,7 @@ class Entity extends EventEmitter {
                 // Pick the first gun with the right necroType to use for stats and use its defineBullet function
                 this.settings.necroDefineGuns[shape] = this.gunsArrayed.filter((gun) => gun.bulletType.NECRO && (gun.bulletType.NECRO === shape || (gun.bulletType.NECRO === true && gun.bulletType.SHAPE === this.shape) || gun.bulletType.NECRO.includes(shape)))[0];
             }
+
             this.necro = (host) => {
                 let gun = this.settings.necroDefineGuns[host.shape];
                 if (!gun || !gun.checkShootPermission()) return false;
@@ -870,9 +873,17 @@ class Entity extends EventEmitter {
 
     importBody(info) {
         this.upgrades = [];
-        if (info.definition && Array.isArray(info.definition)) {
+        this.color.base = this.socket.player.teamColor;
+        if (info.definition && Array.isArray(info.definition)) { 
             if (info.definition.length === 1) this.define(info.definition[0]);
-            else this.define(info.definition);
+            else {
+                for (let e of info.definition) {
+                    if (e.includes("_dreadsV2")) {
+                        this.batchUpgrades = true;
+                    }
+                }
+                this.define(info.definition);
+            }
         }
         this.killCount = info.killCount;
         this.skill.score = info.score;
@@ -882,7 +893,6 @@ class Entity extends EventEmitter {
         this.skill.deduction = info.score;
         this.skill.setCaps(info.skillcap);
         this.skill.set(info.skill);
-        this.color.base = this.socket.player.teamColor;
         this.refreshBodyAttributes();
         this.sendMessage("You have traveled through a portal!");
     }
@@ -1021,11 +1031,6 @@ class Entity extends EventEmitter {
             // Legacy death function
             if (this.onDeath) this.onDeath();
 
-            // MEMORY LEAKS ARE BAD!!!!
-            for (let i = 0; i < this.turrets.length; i++) {
-                this.turrets[i].kill();
-            }
-
             // Initalize message arrays
             let killers = [],
                 killTools = [],
@@ -1060,6 +1065,7 @@ class Entity extends EventEmitter {
             killers.forEach((e) => e.emit('kill', { body: e, entity: this }));
             // If there's no valid killers (you were killed by food), change the message to be more passive
             let killText = notJustFood ? "" : "You have been killed by ",
+                killSuffix = ".",
                 doISendAText = this.settings.givesKillMessage;
 
             for (let i = 0; i < killers.length; i++) {
@@ -1140,8 +1146,12 @@ class Entity extends EventEmitter {
             if (killText === "You have been kille") {
                 killText = "You have died a stupid death";
             }
+            if (Config.outbreak && !this.zombified) {
+                killText = `You died and became a Zombified ${this.label}`
+                killSuffix = "!"
+            }
             if (!this.dontSendDeathMessage) {
-                this.sendMessage(killText + ".");
+                this.sendMessage(killText + killSuffix);
             }
             // If I'm the leader, broadcast it:
             if (this.id === global.gameManager.room.topPlayerID) {

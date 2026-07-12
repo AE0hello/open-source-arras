@@ -13,7 +13,6 @@ Class.menu_rogues = makeMenu("Rogues", {upgrades: [
 Class.roguePalisade = {
     PARENT: 'miniboss',
     LABEL: "Rogue Palisade",
-    DISPLAY_NAME: false,
     COLOR: 'darkGrey',
     UPGRADE_COLOR: 'darkGrey',
     SHAPE: 6,
@@ -48,7 +47,6 @@ Class.roguePalisade = {
 Class.rogueArmada = {
     PARENT: 'miniboss',
     LABEL: "Rogue Armada",
-    DISPLAY_NAME: false,
     COLOR: 'darkGrey',
     UPGRADE_COLOR: 'darkGrey',
     SHAPE: 7,

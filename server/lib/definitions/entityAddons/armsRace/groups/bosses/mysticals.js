@@ -1,6 +1,6 @@
-const {combineStats, makeMenu, weaponArray, weaponMirror} = require('../../../facilitators.js')
-const {base} = require('../../../constants.js')
-const g = require('../../../gunvals.js')
+const {combineStats, makeMenu, weaponArray, weaponMirror} = require('../../../../facilitators.js')
+const {base} = require('../../../../constants.js')
+const g = require('../../../../gunvals.js')
 
 Class.thaumaturge_AR = {
     PARENT: "miniboss",
@@ -8,8 +8,8 @@ Class.thaumaturge_AR = {
     DISPLAY_NAME: false,
     DANGER: 11,
     SHAPE: 4,
-    COLOR: "square",
-    UPGRADE_COLOR: "square",
+    COLOR: 'square',
+    UPGRADE_COLOR: 'square',
     SIZE: 35,
     VALUE: 5e5,
     BODY: {

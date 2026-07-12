@@ -274,6 +274,7 @@ const util = (function() {
                     rerootUpgradeTree.push(root);
             }
             turrets.sort((a, b) => a.layer - b.layer);
+            guns.sort((a, b) => a.layer - b.layer);
             return {
                 time: 0,
                 index: index,
@@ -339,6 +340,7 @@ const util = (function() {
                             angle: g.angle,
                             direction: g.direction,
                             offset: g.offset,
+                            layer: g.layer,
                         };
                     }),
                     update: () => {},
