@@ -126,10 +126,10 @@ Class.architectGun = makeTurret({
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.flankGuard]),
                 TYPE: "setTrap",
                 STAT_CALCULATOR: "block"
-            },
-        },
-    ],
-}, {canRepel: true, limitFov: true, fov: 3})
+            }
+        }
+    ]
+}, {canRepel: true, forceOverride: true, fov: 3})
 
 // NPC turrets
 Class.trapTurret = makeTurret({

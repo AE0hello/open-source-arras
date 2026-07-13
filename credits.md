@@ -14,6 +14,7 @@ Developers who used to be active but have either quit or stopped developing.
 
 # Notable Contributors
 People who have submitted code to the project but are not official developers.
+- `ArrasLynx`: Team Walls
 - `DenisC!!!`: Accurate Growth Curve, 3D and 4D shapes\
 - `DRGNBOY`: Segmented 3D/4D shape colours\
 - `Excel`: Clan Wars\

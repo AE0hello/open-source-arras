@@ -195,7 +195,7 @@ const util = (function() {
             }
         },
         animBar: class {
-            constructor(a = !1) {
+            constructor(a = false) {
               this.O = a;
               this.h = this.time = this.value = this.D = 0;
             }
@@ -205,7 +205,7 @@ const util = (function() {
               this.time = 0;
               this.h = 1;
             }
-            get(a, b = !1) {
+            get(a, b = false) {
               if (0 === config.animationSettings.value) return this.value;
               if (0 === this.h) return 0;
               if (1 === this.h) return (this.h = 2), (this.time = a), this.D;

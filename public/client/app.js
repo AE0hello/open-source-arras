@@ -265,7 +265,7 @@ import * as socketStuff from "./socketinit.js";
             toggle();
         };
         return () => {
-            clicked || ((clicked = !0), toggle());
+            clicked || ((clicked = true), toggle());
         };
     };
 
@@ -544,7 +544,7 @@ import * as socketStuff from "./socketinit.js";
                     b.beginPath(),
                     b.arc(snow.x, snow.y, snow.speed, 0, 2 * Math.PI),
                     b.fill())
-                    : (snow.vanished = !0);
+                    : (snow.vanished = true);
                 }
                 0.001 * snowCanvas.width * snowAmount > Math.random() &&
                 snows.push({
@@ -627,13 +627,13 @@ import * as socketStuff from "./socketinit.js";
                                     M: Math.cos(v) * P,
                                     H: -0.8 + Math.sin(v) * P,
                                     time: f + 2 * Math.random(),
-                                    Oa: !1,
-                                    vanished: !1,
+                                    Oa: false,
+                                    vanished: false,
                                 });
                                 }
                             }
                         }
-                        firework.vanished = !0;
+                        firework.vanished = true;
                     }
                 }
                 3e-5 * fireworkCanvas.width > Math.random() &&
@@ -649,8 +649,8 @@ import * as socketStuff from "./socketinit.js";
                     M: t,
                     H: f,
                     time: h,
-                    Oa: !0,
-                    vanished: !1,
+                    Oa: true,
+                    vanished: false,
                 }));
                 if (global.gameStart) a.remove();
                 else requestAnimationFrame(updateFireworks);
@@ -1191,7 +1191,7 @@ import * as socketStuff from "./socketinit.js";
         if (!global.canvas.initalized) global.canvas.init();
         document.getElementById("gameAreaWrapper").style.display = "block";
         document.getElementById("gameCanvas").focus();
-        window.onbeforeunload = () => (global.gameStart && !global.died && !global.disconnected ? !0 : null);
+        window.onbeforeunload = () => (global.gameStart && !global.died && !global.disconnected ? true : null);
         // Start client if it didnt start yet
         !global.clientStarted && startClient();
     }

@@ -216,7 +216,7 @@ Class.spinmissile_diep = {
     GUNS: weaponArray({
         POSITION: [14, 6, 1, 0, 0, 0, 0.5],
         PROPERTIES: {
-            AUTOFIRE: !0,
+            AUTOFIRE: true,
             SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 0.6, size: 1.1, shudder: 0.3}]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
@@ -231,7 +231,7 @@ Class.cycloneMissile_diep = {
     GUNS: weaponArray({
         POSITION: [14, 6, 1, 0, 0, 0, 0.5],
         PROPERTIES: {
-            AUTOFIRE: !0,
+            AUTOFIRE: true,
             SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 0.6, size: 1.1, shudder: 0.3}]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",

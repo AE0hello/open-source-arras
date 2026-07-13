@@ -205,9 +205,9 @@ let initializeFilter = () => {
                   (v = Q),
                   v.classList.add("active"));
                   l[r] = y;
-                  let X = !0;
+                  let X = true;
                   for (let C of availableServers) {
-                    let F = !0;
+                    let F = true;
                     for (let N of l) F = F && N(C);
                     C.element.style.display = F ? "" : "none";
                     X = X && !F;
@@ -226,7 +226,7 @@ let initializeFilter = () => {
         return check;
     }
     createFilter(svFilterRegionDoc, [
-        { name: "All", filter: () => !0 },
+        { name: "All", filter: () => true },
         { name: "USA", filter: (h) => {
             let e = checkFilter(h, global.filters.regions.america);
             return e;
@@ -249,7 +249,7 @@ let initializeFilter = () => {
         } },
     ]);
     createFilter(svFilterModeDoc, [
-        { name: "All", filter: () => !0 },
+        { name: "All", filter: () => true },
         { name: "FFA", filter: (h) => {
             let e = checkFilter(h, global.filters.gamemodeFilters.ffa);
             return e;
