@@ -55,7 +55,6 @@ server_travel: [
 ## Other Links
 - [Stoat](https://stt.gg/S4tqfeAK)
 - [Discord](https://discord.gg/arras)
-- [Reddit](https://old.reddit.com/r/OpenSourceArras)
 - [YouTube](https://www.youtube.com/@OpenSourceArras)
 
 *p.s. if something goes terribly wrong it's not our fault*
