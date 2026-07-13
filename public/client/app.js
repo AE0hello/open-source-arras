@@ -5183,7 +5183,7 @@ import * as socketStuff from "./socketinit.js";
         for (let context of ctx) {
             context.lineCap = "round";
             context.lineJoin = "round";
-            context.clearRect(0, 0, window.innerWidth + 1000, window.innerHeight + 1000);
+            context.clearRect(0, 0, global.screenWidth, global.screenHeight);
         }
         // Figure out where we're rendering if we don't yet know
         if (isNaN(global.player.renderx) && isNaN(global.player.rendery)) {
