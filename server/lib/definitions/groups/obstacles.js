@@ -66,13 +66,18 @@ Class.pumpkin = {
 
 // Walls
 Class.wall = {
-    PARENT: "genericObstacle",
+    PARENT: 'genericObstacle',
     LABEL: "Wall",
     SIZE: 25,
     SHAPE: 4,
     ANGLE: 0,
     WALL_TYPE: 1,
     VARIES_IN_SIZE: false
+}
+Class.labyrinthWall = {
+    PARENT: 'wall',
+    COLOR: 'black',
+    ALPHA: 0.5
 }
 Class.eyewall = {
     PARENT: "wall",
@@ -143,4 +148,29 @@ Class.oneWayRightWall = {
 			}
 		}
 	]
+}
+Class.teamWall = {
+    PARENT: "wall",
+    LABEL: "Team Wall",
+    PROPS: [
+        {
+            TYPE: "squareHat",
+            POSITION: {
+                SIZE: 15,
+                LAYER: 1
+            },
+            ANGLE: Math.PI / 2
+        }
+    ],
+    ON: [
+        {
+            event: "collide",
+            handler: ({ instance, other }) => {
+                if (other.team != instance.team) {
+                    other.team = instance.team;
+                    other.color = instance.color;
+                }
+            }
+        }
+    ]
 }

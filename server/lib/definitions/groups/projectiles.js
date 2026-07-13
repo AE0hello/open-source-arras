@@ -103,7 +103,6 @@ Class.speedBullet = {
 }
 Class.spiralBulletSegment = {
     PARENT: 'bullet',
-    COLOR: 'mirror',
     CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.spiralBullet = {
@@ -123,6 +122,7 @@ Class.spiralBullet = {
                     //seg.shield = body.shield;
                     seg.master = body;
                     seg.source = body;
+                    seg.color = body.color;
                     seg.SIZE = body.SIZE;
                     seg.define(segmentClass);
                     body.store.snakeSegments.push(seg);
@@ -333,7 +333,7 @@ Class.hypermissile = {
         },
     ],
 }
-Class.minimissile = {
+Class.launcherMissile = {
     PARENT: "missile",
     GUNS: [
         {
@@ -353,7 +353,7 @@ Class.spinmissile = {
     GUNS: weaponArray({
         POSITION: [14, 8, 1, 0, 0, 0, 0.5],
         PROPERTIES: {
-            AUTOFIRE: !0,
+            AUTOFIRE: true,
             SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 0.6, size: 1.1, shudder: 0.3}]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
@@ -366,7 +366,7 @@ Class.hyperspinmissile = {
     GUNS: weaponArray({
         POSITION: [14, 8, 1, 0, 0, 0, 0],
         PROPERTIES: {
-            AUTOFIRE: !0,
+            AUTOFIRE: true,
             SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {size: 1.1}]),
             TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
             STAT_CALCULATOR: "thruster",
@@ -776,7 +776,7 @@ Class.sentrySwarmMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     GUNS: Class.sentrySwarm.GUNS
@@ -785,7 +785,7 @@ Class.sentryGunMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -797,7 +797,7 @@ Class.sentryTrapMinion = {
     PARENT: 'drone',
     LABEL: 'sentry',
     COLOR: 'pink',
-    UPGRADE_COLOR: "pink",
+    UPGRADE_COLOR: 'pink',
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -997,11 +997,15 @@ Class.medkit = {
     DIE_AT_RANGE: true,
     TURRETS: [
         {
-            POSITION: [10, 0, 0, 0, 360, 1],
             TYPE: "medkitTurret",
-        },
-    ],
-}
+            POSITION: {
+                SIZE: 11,
+                ARC: 360,
+                LAYER: 1
+            }
+        }
+    ]
+};
 
 // Swarms
 Class.autoswarm = {

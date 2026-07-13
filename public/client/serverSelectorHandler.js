@@ -54,7 +54,7 @@ global.loadServerSelector = (serverData, text) => {
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
-            server.featured && tr.classList.add("featured"); // make the text yellow if its featured.
+            server.featured && tr.classList.add("featured");
             tr.onclick = () => {
                 if (myServer.classList.contains("selected")) {
                     myServer.classList.remove("selected");
@@ -190,7 +190,8 @@ let initializeFilter = () => {
         let r = l.length;
         l.push(data[0].filter);
         let e = document.getElementsByClassName("serverSelector");
-        e[0].style.height = "70px";
+        global.fixedServerSelectorHeight = "103px"
+        if (!global.uncappedMenu) e[0].style.height = global.fixedServerSelectorHeight;
         let v = null;
         for (let { name: textContent, filter: y } of data) {
             let Q = document.createElement("span");
@@ -204,9 +205,9 @@ let initializeFilter = () => {
                   (v = Q),
                   v.classList.add("active"));
                   l[r] = y;
-                  let X = !0;
+                  let X = true;
                   for (let C of availableServers) {
-                    let F = !0;
+                    let F = true;
                     for (let N of l) F = F && N(C);
                     C.element.style.display = F ? "" : "none";
                     X = X && !F;
@@ -225,7 +226,7 @@ let initializeFilter = () => {
         return check;
     }
     createFilter(svFilterRegionDoc, [
-        { name: "All", filter: () => !0 },
+        { name: "All", filter: () => true },
         { name: "USA", filter: (h) => {
             let e = checkFilter(h, global.filters.regions.america);
             return e;
@@ -248,7 +249,7 @@ let initializeFilter = () => {
         } },
     ]);
     createFilter(svFilterModeDoc, [
-        { name: "All", filter: () => !0 },
+        { name: "All", filter: () => true },
         { name: "FFA", filter: (h) => {
             let e = checkFilter(h, global.filters.gamemodeFilters.ffa);
             return e;

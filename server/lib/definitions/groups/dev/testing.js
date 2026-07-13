@@ -1,8 +1,15 @@
-const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makeRadialAuto, makeTurret, weaponArray, weaponMirror} = require('../../facilitators.js')
+const {combineStats, LayeredBoss, makeAura, makeAuto, makeMenu, makePolyhedron, makeRadialAuto, makeTurret, weaponArray, weaponMirror, weaponStack} = require('../../facilitators.js')
 const {base, basePolygonDamage, basePolygonHealth, dfltskl, statnames} = require('../../constants.js')
 const g = require('../../gunvals.js')
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
+    'upgradeMenuStressTest',
+    'flag',
+    'ball',
+    'rainbowTesseract',
+    'tagger',
+    'roaringLancer',
+    "gunLayerTest",
     "diamondShape",
     "miscTest",
     "mmaTest",
@@ -32,8 +39,254 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
     "airblast",
     "anglemancer",
     "backwardsExports",
-    "ntf",
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
+
+const stressTestUpgrades = Array(100).fill(Config.spawn_class)
+Class.upgradeMenuStressTest = makeMenu("Upgrade Menu Stress Test", {upgrades: stressTestUpgrades, tooltip: `This menu currently has ${stressTestUpgrades.length} upgrades.`, boxLabel: "UMSS"})
+
+const tessFaceColors = Array.from({ length: 20 }, (_, i) =>
+    ["red", "orange", "yellow", "green", "blue", "purple"][i % 6]
+);
+Class.rainbowTesseract = {
+    PARENT: 'tesseract',
+    LABEL: "Rainbow Tesseract",
+    NAME: "Rainbow Tesseract",
+    SHAPE: Class.tesseract.SHAPE + "/" + tessFaceColors.join(","),
+};
+
+// Tagger
+Class.tagBullet = {
+    PARENT: "bullet",
+    ON: [
+        {
+            event: "collide",
+            handler: ({ instance, other }) => {
+                if (other.team != instance.team) {
+                    other.team = instance.team;
+                    other.color = instance.color;
+                }
+            }
+        }
+    ]
+}
+Class.tagger = {
+    PARENT: 'genericTank',
+    LABEL: "Tagger",
+    GUNS: [
+        {
+            POSITION: {},
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'tagBullet'
+            }
+        }
+    ]
+}
+
+// Lancer
+statnames.lancer = {
+    BULLET_SPEED: "Lance Range",
+    BULLET_HEALTH: "Lance Longevity",
+    BULLET_PEN: "Lance Sharpness",
+    BULLET_DAMAGE: "Lance Damage",
+    RELOAD: "Recharge Time"
+}
+
+Class.roaringParent = {
+    HITS_OWN_TYPE: 'never',
+    DISPLAY_NAME: false,
+    IGNORED_BY_AI: true,
+    ACCEPTS_SCORE: false,
+    CAN_BE_ON_LEADERBOARD: false,
+    IS_IMMUNE_TO_TILES: false,
+    DRAW_HEALTH: false,
+    ARENA_CLOSER: true,
+    CAN_GO_OUTSIDE_ROOM: true,
+    INTANGIBLE: true,
+    BORDERLESS: true,
+    LAYER: -1,
+    BODY: {
+        SHIELD: 1e9,
+        REGEN: 1e6,
+        HEALTH: 1e9,
+        DENSITY: 0,
+        SPEED: 0,
+        PUSHABILITY: 0,
+        DAMAGE: 0
+    },
+    ON: [
+        {
+            event: 'tick',
+            handler: ({body}) => {
+                body.ticking ??= 0
+                body.ticking++
+
+                let k = body.master.facing
+                Object.defineProperty(body, 'facing', {
+                    get:()=>{return k}, set:()=>{}
+                })
+
+                body.alpha -= 0.1
+                if (body.alpha <= 0) {
+                    body.kill()
+                }
+            }
+        }
+    ]
+}
+Class.roaringHat = {
+    PARENT: 'circleHat',
+    COLOR: '#000000',
+    BORDERLESS: true
+}
+Class.roaringHat2 = {
+    PARENT: 'circleHat',
+    COLOR: '#ffffff',
+    BORDERLESS: true
+}
+Class.roaringLancer = {
+    PARENT: 'genericTank',
+    LABEL: "Roaring Lancer",
+    COLOR: '#000000',
+    BORDERLESS: true,
+    STAT_NAMES: statnames.lancer,
+    TOOLTIP: "Click to charge in the direction you're facing.",
+    ON: [
+        {
+            event: 'fire',
+            handler: ({body, gun}) => {
+                switch (gun.identifier) {
+                    case 'charge':
+                        function afterImage(){
+                            o = new Entity({x: body.x, y: body.y})
+                            o.master = body
+
+                            o.define(body.defs[0])
+                            o.define('roaringParent')
+
+                            o.team = body.team
+                            o.SIZE = body.size
+                            o.color.base = body.color.base
+                            o.master = body
+                        }
+
+                        let interval = setInterval(afterImage, 100)
+                        setTimeout(() => clearInterval(interval), 1_000)
+                    break;
+                };
+            }
+        }
+    ],
+    TURRETS: [
+        {
+            TYPE: 'roaringHat2',
+            POSITION: {
+                SIZE: 23.5,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: 'roaringHat',
+            POSITION: {
+                SIZE: 20,
+                LAYER: 1
+            }
+        }
+    ],
+    GUNS: [
+        ...weaponStack({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 4,
+                ASPECT: 1.4,
+                X: 8.5
+            },
+            PROPERTIES: {
+                AUTOFIRE: true,
+                SHOOT_SETTINGS: combineStats([{reload: 6, recoil: 0, health: 0.5, damage: 2, pen: 1.6, speed: 2/3, range: 0.08, spray: 180}]),
+                TYPE: ['bullet', {
+                    ALPHA: 0,
+                    LABEL: 'Lance'
+                }]
+            }
+        }, 2, {xPosOffset: 1.5}),
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 0.377,
+                ASPECT: -55
+            },
+            PROPERTIES: {
+                COLOR: '#ffffff',
+                BORDERLESS: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25,
+                WIDTH: 0.3,
+                ASPECT: -55
+            },
+            PROPERTIES: {
+                COLOR: '#000000',
+                BORDERLESS: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 2,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, { reload: 11, recoil: 9.75 * 2 }]),
+                TYPE: ['bullet', {ALPHA: 0}],
+                IDENTIFIER: 'charge'
+            }
+        }
+    ]
+}
+
+Class.gunLayerTest = {
+    PARENT: 'genericTank',
+    LABEL: "Gun Layer Test",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                Y: -3,
+                LAYER: -1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                Y: 3,
+                LAYER: -3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
+            }
+        }
+    ]
+}
 
 // flail?
 ntf_tailConnector = [{
@@ -553,12 +806,12 @@ Class.latBase = {
     ]
 }
 Class.literallyATank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
+    LABEL: "Literally A Tank",
     DANGER: 6,
     BODY: {
         HEALTH: base.HEALTH * 1.2,
     },
-    LABEL: "Literally A Tank",
     SHAPE: "M -1 -1 H 0 C 1 -1 1 0 1 0 C 1 0 1 1 0 1 H -1 V -1",
     GUNS: [
         {
@@ -598,7 +851,6 @@ Class.fat456 = {
     SIZE: 30,
     LABEL: "Fat456",
     COLOR: "pureBlack", // should be pureblack but just the outline
-    DRAW_FILL: false,
     FACING_TYPE: "spin",
     BODY: {
         SPEED: base.SPEED * 4
@@ -1215,7 +1467,7 @@ Class.vanquisher = {
         POSITION: [10, 9, 1, 9, 0, 90, 0],
     },{
         POSITION: [17, 13, 1, 0, 0, 90, 0],
-        PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery]), TYPE: "minimissile", STAT_CALCULATOR: "sustained" }
+        PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery]), TYPE: "launcherMissile", STAT_CALCULATOR: "sustained" }
 
     //shotgun
     },{

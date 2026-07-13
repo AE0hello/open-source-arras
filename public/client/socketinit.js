@@ -360,6 +360,7 @@ const GunContainer = n => {
             angle: 0,
             direction: 0,
             offset: 0,
+            layer: 0,
         });
     }
     return {
@@ -398,6 +399,10 @@ const GunContainer = n => {
                 g.angle = c.angle;
                 g.direction = c.direction;
                 g.offset = c.offset;
+                g.layer = c.layer;
+                
+                // Sort the gun layers by changing the array itself
+                a.sort((a, b) => a.layer - b.layer);
             }
         },
         update: () => {
@@ -559,7 +564,7 @@ const process = (z = {}) => {
                 shield: util.AdvancedSmoothBar(z.shield, 0.06, 1),
                 xAnim: new util.animBar(),
                 yAnim: new util.animBar(),
-                faceAnim: new util.animBar(!0),
+                faceAnim: new util.animBar(true),
             };
         }
         if (invuln) {
@@ -600,8 +605,9 @@ const process = (z = {}) => {
             aspect = get.next(),
             angle = get.next(),
             direction = get.next(),
-            offset = get.next();
-        z.guns.setConfig(i, {color, alpha, strokeWidth, borderless, drawFill, drawAbove, length, width, aspect, angle, direction, offset}); // Load gun config into container
+            offset = get.next(),
+            layer = get.next();
+        z.guns.setConfig(i, {color, alpha, strokeWidth, borderless, drawFill, drawAbove, length, width, aspect, angle, direction, offset, layer}); // Load gun config into container
         if (time > global.player.lastUpdate - global.metrics.rendergap) z.guns.fire(i, power); // Shoot it
     }
     // Update turrets

@@ -1,7 +1,7 @@
 let crypto = require("crypto"),
     net = require('net'),
     fs = require("fs");
-    PERMABAN_FILE = "./permabans.json";
+    PERMABAN_FILE = "./permanentBans.json";
 let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
 global.chatID = 0;
@@ -249,6 +249,7 @@ class socketManager {
                 let transferbodyID = m[3];
                 let incognitoMode = m[4];
                 if (incognitoMode) socket.status.incognito = true;
+                else socket.status.incognito = false;
                 if (global.gameManager.arenaClosed) {
                     if (needsRoom) {
                       socket.talk("message", "Arena closed. Try again in a few seconds.");
@@ -415,8 +416,7 @@ class socketManager {
                     "autospin",
                     "autofire",
                     "override",
-                    "autoalt",
-                    "spinlock" //spinlock does something both in client and server side
+                    "autoalt"
                 ][tog];
     
                 // Kick if it sent us shit.
@@ -443,7 +443,7 @@ class socketManager {
                 let upgrade = m[0];
                 let branchId = m[1];
                 // Verify the request
-                if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || branchId < 0) {
+                if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || !isFinite(branchId) || branchId < 0) {
                     if (!upgrade.isDailyUpgrade) { // Atleast allow the daily upgrade request, else get out.
                         socket.kick("Bad upgrade request.");
                         return 1;
@@ -504,29 +504,6 @@ class socketManager {
                     player.body.refreshBodyAttributes();
                 }
             } break;
-            case "0": {
-                // testbed cheat
-                if (m.length !== 0) {
-                    socket.kick("Ill-sized testbed request.");
-                    return 1;
-                }
-                // cheatingbois
-                if (
-                    player.body != null &&
-                    socket.permissions &&
-                    socket.permissions.class
-                ) {
-                    player.body.define({RESET_UPGRADES: true, BATCH_UPGRADES: false});
-                    player.body.define(socket.permissions.class);
-                    let msg = Config.token_message.split("\n");
-                    if (!socket.status.specialTankWarned) {
-                        socket.status.specialTankWarned = true;
-                        for (let i = 0; i < msg.length; i++) {
-                            player.body.sendMessage(msg[i]);
-                        }
-                    }
-                }
-            } break;
             case "1": {
                 //suicide squad
                 if (player.body != null && !player.body.underControl && player.body.invuln) {
@@ -547,35 +524,27 @@ class socketManager {
                 let ent = [];
                 let body = player.body;
                 for (let e of entities.values()) {
-                    if (e.isDominator || e.isMothership) ent.push(e);
+                    if (e.isDominator || e.isMothership || e.isBoss) ent.push(e);
                 }
                 body.emit("control", { body });
                 if (body.underControl) {
                     let relinquishedControlMessage = 
-                    Config.domination ? "dominator" : 
-                    Config.mothership ? "mothership" :
-                    "special tank"
-                    if (Config.domination || Config.mothership) {
-                        player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
-                        body.giveUp(player, body.isDominator ? "" : undefined);
-                        return 1;
-                    }
+                        body.isDominator ? "dominator" : 
+                        body.isMothership ? "mothership" :
+                        body.isBoss ? "visitor" :
+                        "special tank"
+                    player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
+                    body.giveUp(player, body.isDominator ? "" : undefined);
+                    return 1;
                 }
                 if (Config.mothership) {
-                    let motherships = ent
-                        .map((entry) => {
-                            if (
-                                entry.isMothership &&
-                                entry.team === player.body.team &&
-                                !entry.underControl
-                            )
-                                return entry;
-                        })
-                        .filter((instance) => instance);
+                    let motherships = ent.map((entry) => {
+                        if (entry.isMothership && entry.team === player.body.team && !entry.underControl)return entry;
+                    }).filter((instance) => instance);
                     if (!motherships.length) {
-                        player.body.sendMessage("There are no motherships available that are on your team or already controlled by an player.");
+                        player.body.sendMessage("There are no motherships available that are on your team or not already controlled by a player.");
                         return 1;
-                    }
+                    };
                     let mothership = motherships.shift();
                     mothership.controllers = [];
                     mothership.underControl = true;
@@ -589,14 +558,35 @@ class socketManager {
                     player.body.name = body.name;
                     player.body.sendMessage("You are now controlling the mothership.");
                     player.body.sendMessage("Press F to relinquish control of the mothership.");
+                    if (Config.mothership_time_limit != 0) {
+                        if (Config.mothership_time_limit <= 10_000) {
+                            if (player.body == null) return;
+                            player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? '' : 's') + ` in control of the mothership!`);
+                            setTimeout(function (){
+                                if (player.body == null) return;
+                                player.body.sendMessage("You have lost control of the mothership.");
+                                body.giveUp(player, body.isDominator ? "" : undefined);
+                            }, Config.mothership_time_limit)
+                        } else {
+                            setTimeout(function (){
+                                if (player.body == null) return;
+                                player.body.sendMessage("You only have 10 seconds left in control of the mothership!");
+                                setTimeout(function (){
+                                    if (player.body == null) return;
+                                    player.body.sendMessage("You have lost control of the mothership.");
+                                    body.giveUp(player, body.isDominator ? "" : undefined);
+                                }, 10_000)
+                            }, Config.mothership_time_limit - 10_000)
+                        }
+                    }
                 } else if (Config.domination) {
                     let dominators = ent.map((entry) => {
                         if (entry.isDominator && entry.team === player.body.team && !entry.underControl) return entry;
                     }).filter(x=>x);
                     if (!dominators.length) {
-                        player.body.sendMessage("There are no dominators available that are on your team or already controlled by an player.");
+                        player.body.sendMessage("There are no dominators available that are on your team or not already controlled by a player.");
                         return 1;
-                    }
+                    };
                     let dominator = dominators.shift();
                     dominator.controllers = [];
                     dominator.underControl = true;
@@ -611,6 +601,27 @@ class socketManager {
                     player.body.name = body.name;
                     player.body.sendMessage("You are now controlling the dominator.");
                     player.body.sendMessage("Press F to relinquish control of the dominator.");
+                } else if (Config.boss_control) {
+                    let bosses = ent.map((entry) => {
+                        if (entry.isBoss && !entry.underControl) return entry;
+                    }).filter((instance) => instance);
+                    if (!bosses.length) {
+                        player.body.sendMessage("There are no visitors available that are not already controlled by a player.");
+                        return 1;
+                    };
+                    let boss = bosses.shift();
+                    boss.controllers = [];
+                    boss.underControl = true;
+                    player.body = boss;
+                    player.body.become(player);
+                    body.kill();
+                    if (!player.body.dontIncreaseFov) player.body.FOV += 0.5;
+                    player.body.dontIncreaseFov = true;
+                    player.body.skill.points = 0;
+                    player.body.refreshBodyAttributes();
+                    player.body.name = body.name;
+                    player.body.sendMessage("You are now controlling the visitor.");
+                    player.body.sendMessage("Press F to relinquish control of the visitor.");
                 } else {
                     player.body.sendMessage("There are no special tanks in this mode that you can control.");
                 }
@@ -683,7 +694,7 @@ class socketManager {
                         setTimeout(() => {
                             setTimeout(() => {
                                 socket.status.daily_tank_watched_ad_client = true;
-                            }, `${chosenAd.WAIT_TIME}000`)
+                            }, `${chosenAd.image_wait_time ?? "3"}000`)
                         }, socket.camera.ping) // make the counter accurate sycned as possible with the client.
                     }
                 }
@@ -1509,7 +1520,7 @@ class socketManager {
                             // Start the timeout
                             socket.timeout.start();
                         }
-                        if (player.body.master.label == "Bacteria") { // Why not trigger bacteria's abilities :)
+                        if (player.body.master.label == "Bacteria") { // Why not trigger bacteria's abilities :) // (WHY IS THIS A LABEL CHECK)
                             let exit = () => die();
                             let newgui = (player) => this.newgui(player);
                             becomeBulletChildren(socket, player, exit, newgui);
@@ -2185,7 +2196,7 @@ class socketManager {
                 }
             }
         } catch (e) {
-            console.error("Error checking permabans:", e);
+            console.error("Error checking permanent bans:", e);
         }
         // Log it
         util.log("[INFO]: New socket opened with ip " + socket.ip);

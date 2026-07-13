@@ -71,7 +71,7 @@ class Gun extends EventEmitter {
             this.drawAbove = (info.PROPERTIES.DRAW_ABOVE == null) ? false : info.PROPERTIES.DRAW_ABOVE;
             this.stack = (info.PROPERTIES.STACK_GUN == null) ? true : info.PROPERTIES.STACK_GUN;
             this.identifier = info.PROPERTIES.IDENTIFIER ?? null;
-            if (info.PROPERTIES.TYPE != null) {
+            if (info.PROPERTIES.TYPE != null && !Config.disable_guns) {
                 this.canShoot = true;
                 this.label = info.PROPERTIES.LABEL ?? "";
                 this.setBulletType(info.PROPERTIES.TYPE);
@@ -86,17 +86,20 @@ class Gun extends EventEmitter {
                 X: position[3],
                 Y: position[4],
                 ANGLE: position[5],
-                DELAY: position[6]
+                DELAY: position[6],
+                LAYER: position[7]
             }
-        }
-        position = {
-            LENGTH: position.LENGTH ?? 18,
-            WIDTH: position.WIDTH ?? 8,
-            ASPECT: position.ASPECT ?? 1,
-            X: position.X ?? 0,
-            Y: position.Y ?? 0,
-            ANGLE: position.ANGLE ?? 0,
-            DELAY: position.DELAY ?? 0
+        } else {
+            position = {
+                LENGTH: position.LENGTH ?? 18,
+                WIDTH: position.WIDTH ?? 8,
+                ASPECT: position.ASPECT ?? 1,
+                X: position.X ?? 0,
+                Y: position.Y ?? 0,
+                ANGLE: position.ANGLE ?? 0,
+                DELAY: position.DELAY ?? 0,
+                LAYER: position.LAYER ?? 0
+            }
         };
         this.length = position.LENGTH / 10;
         this.width = position.WIDTH / 10;
@@ -106,6 +109,7 @@ class Gun extends EventEmitter {
         this.direction = _off.direction;
         this.offset = _off.length / 10;
         this.maxCycleTimer = !this.delaySpawn - position.DELAY;
+        this.layer = position.LAYER ?? 0; // Prevent undefined
         this.position = 0;
         this.motion = 0;
         if (this.canShoot) {
@@ -422,6 +426,10 @@ class Gun extends EventEmitter {
     bulletInit(o) {
         // Define it by its natural properties
         o.color.base = undefined;
+        o.color.hueShift = undefined;
+        o.color.saturationShift = undefined;
+        o.color.brightnessShift = undefined;
+        o.color.allowBrightnessInvert = undefined;
         o.define(this.bulletType);
         // Pass the gun attributes
         o.define({
@@ -429,6 +437,10 @@ class Gun extends EventEmitter {
             SKILL: this.getSkillRaw(),
         }, false);
         o.color.base = o.color.base ?? this.body.master.color.base;
+        o.color.hueShift = o.color.hueShift ?? this.body.master.color.hueShift;
+        o.color.saturationShift = o.color.saturationShift ?? this.body.master.color.saturationShift;
+        o.color.brightnessShift = o.color.brightnessShift ?? this.body.master.color.brightnessShift;
+        o.color.allowBrightnessInvert = o.color.allowBrightnessInvert ?? this.body.master.color.allowBrightnessInvert;
         o.SIZE = (this.body.size * this.width * this.settings.size) / 2;
         // Keep track of it and give it the function it needs to deutil.log itself upon death
         if (this.countsOwnKids) {
@@ -606,6 +618,7 @@ class Gun extends EventEmitter {
             angle: this.angle,
             direction: this.direction,
             offset: this.offset,
+            layer: this.layer,
         };
     }
 

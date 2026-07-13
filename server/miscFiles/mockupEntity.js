@@ -56,7 +56,8 @@ class MockupEntityGun {
             Y: position.Y ?? 0,
             ANGLE: position.ANGLE ?? 0,
             DELAY: position.DELAY ?? 0,
-            DRAW_ABOVE: position.DRAW_ABOVE ?? this.drawAbove
+            DRAW_ABOVE: position.DRAW_ABOVE ?? this.drawAbove,
+            LAYER: position.LAYER ?? 0
         };
         this.length = position.LENGTH / 10;
         this.width = position.WIDTH / 10;
@@ -66,6 +67,7 @@ class MockupEntityGun {
         this.direction = _off.direction;
         this.offset = _off.length / 10;
         this.drawAbove = position.DRAW_ABOVE;
+        this.layer = position.LAYER ?? 0;
     }
 }
 
@@ -254,7 +256,6 @@ class MockupEntity {
         this.settings.ratioEffects = set.RATIO_EFFECTS ?? true;
         this.settings.motionEffects = set.MOTION_EFFECTS ?? true;
         this.sendAllMockups = set.SEND_ALL_MOCKUPS ?? false;
-        this.displayScore = set.DISPLAY_SCORE ?? true;
         if (set.VISIBLE_ON_BLACKOUT) this.visibleOnBlackout = set.VISIBLE_ON_BLACKOUT;
         if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;
         if (Array.isArray(this.rerootUpgradeTree)) {
@@ -297,29 +298,30 @@ class MockupEntity {
         this.size = util.rounder(this.size);
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-        for (let i = 0; i < Config.tier_cap; i++) {
-            let tierProp = 'UPGRADES_TIER_' + i;
-            if (set[tierProp] != null) {
-                for (let j = 0; j < set[tierProp].length; j++) {
-                    let upgrades = set[tierProp][j];
-                    let index = "";
-                    if (!Array.isArray(upgrades)) upgrades = [upgrades];
-                    let redefineAll = upgrades.includes(true);
-                    let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
-                    for (let k of trueUpgrades) {
-                        let e = ensureIsClass(k);
-                        index += e.index + "-";
-                    }
-                    this.upgrades.push({
-                        class: trueUpgrades,
-                        level: Config.tier_multiplier * i,
-                        index: index.substring(0, index.length - 1),
-                        tier: i,
-                        branch: 0,
-                        branchLabel: this.branchLabel,
-                        redefineAll,
-                    });
+        for (const prop in set) {
+            if (!prop.startsWith('UPGRADES_TIER_')) {
+                continue;
+            }
+            for (let j = 0; j < set[prop].length; j++) {
+                let upgrades = set[prop][j];
+                let index = "";
+                if (!Array.isArray(upgrades)) upgrades = [upgrades];
+                let redefineAll = upgrades.includes(true);
+                let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
+                for (let k of trueUpgrades) {
+                    let e = ensureIsClass(k);
+                    index += e.index + "-";
                 }
+                let i = parseInt(prop.split('_')[2])
+                this.upgrades.push({
+                    class: trueUpgrades,
+                    level: Config.tier_multiplier * i,
+                    index: index.substring(0, index.length - 1),
+                    tier: i,
+                    branch: 0,
+                    branchLabel: this.branchLabel,
+                    redefineAll,
+                });
             }
         }
         // Batch Upgrades
@@ -339,29 +341,29 @@ class MockupEntity {
                 }
             }
             if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
-            for (let i = 0; i < Config.tier_cap; i++) {
-                let tierProp = 'UPGRADES_TIER_' + i;
-                if (set[tierProp] != null) {
-                    for (let j = 0; j < set[tierProp].length; j++) {
-                        let upgrades = set[tierProp][j];
-                        let index = "";
-                        if (!Array.isArray(upgrades)) upgrades = [upgrades];
-                        let redefineAll = upgrades.includes(true);
-                        let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
-                        for (let k of trueUpgrades) {
-                            let e = ensureIsClass(k);
-                            index += e.index + "-";
-                        }
-                        this.upgrades.push({
-                            class: trueUpgrades,
-                            level: Config.tier_multiplier * i,
-                            index: index.substring(0, index.length - 1),
-                            tier: i,
-                            branch: 0,
-                            branchLabel: this.branchLabel,
-                            redefineAll,
-                        });
+            for (const prop in set) {
+                if (!prop.startsWith('UPGRADES_TIER_')) {
+                    continue;
+                }
+                for (let j = 0; j < set[prop].length; j++) {
+                    let upgrades = set[prop][j];
+                    let index = "";
+                    if (!Array.isArray(upgrades)) upgrades = [upgrades];
+                    let redefineAll = upgrades.includes(true);
+                    let trueUpgrades = upgrades.slice(0, upgrades.length - redefineAll); // Ignore last element if it's true
+                    for (let k of trueUpgrades) {
+                        let e = ensureIsClass(k);
+                        index += e.index + "-";
                     }
+                    this.upgrades.push({
+                        class: trueUpgrades,
+                        level: Config.tier_multiplier * i,
+                        index: index.substring(0, index.length - 1),
+                        tier: i,
+                        branch,
+                        branchLabel: this.branchLabel,
+                        redefineAll,
+                    });
                 }
             }
             if (set.REROOT_UPGRADE_TREE) this.rerootUpgradeTree = set.REROOT_UPGRADE_TREE;

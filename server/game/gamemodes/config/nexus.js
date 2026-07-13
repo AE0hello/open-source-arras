@@ -3,8 +3,10 @@ module.exports = {
     teams: 4,
     map_tile_width: 200,
     map_tile_height: 200,
+    allow_server_travel: true,
     enable_food: false,
     enable_bosses: false,
-    allow_server_travel: true,
+    disable_base_check: true,
+    disable_guns: true,
     room_setup: ['room_nexus']
 }

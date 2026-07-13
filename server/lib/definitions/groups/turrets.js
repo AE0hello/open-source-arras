@@ -126,10 +126,10 @@ Class.architectGun = makeTurret({
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.flankGuard]),
                 TYPE: "setTrap",
                 STAT_CALCULATOR: "block"
-            },
-        },
-    ],
-}, {canRepel: true, limitFov: true, fov: 3})
+            }
+        }
+    ]
+}, {canRepel: true, forceOverride: true, fov: 3})
 
 // NPC turrets
 Class.trapTurret = makeTurret({
@@ -1432,32 +1432,6 @@ Class.ihdtiBolt3 = {
         TYPE: "ihdtiBolt2"
         }
     ]
-}
-
-// Undercover Cop Headlights
-Class.cop_genericHeadlight = {
-    LABEL: '',
-    SHAPE: 6,
-    INDEPENDENT: true,
-    MIRROR_MASTER_ANGLE: true
-}
-Class.hexagonBlue = {
-    PARENT: "cop_genericHeadlight",
-    COLOR: 21
-}
-Class.squareBlue = {
-    PARENT: "cop_genericHeadlight",
-    COLOR: 22,
-    SHAPE: 4
-}
-Class.hexagonRed = {
-    PARENT: "cop_genericHeadlight",
-    COLOR: 24
-}
-Class.squareRed = {
-    PARENT: "cop_genericHeadlight",
-    COLOR: 23,
-    SHAPE: 4
 }
 
 // thing for later

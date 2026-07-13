@@ -32,7 +32,7 @@ class gamemodeManager {
             if (Config.tag) Config.tag_data.initAndStart();
             if (Config.domination) this.gameDomination.start();
             if (Config.mothership) this.gameMothership.start();
-            if (Config.maze_type !== undefined && !Config.siege) this.gameMaze.generate();
+            if (Config.maze && Config.maze_type !== undefined && !Config.siege) this.gameMaze.generate();
             if (Config.outbreak) this.gameOutbreak.start();
         }
         if (type == "loop") {

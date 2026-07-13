@@ -15,7 +15,7 @@ This guide covers setting up your server on your own hardware and only supports 
 
 You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if you pick the LTS or Latest version, they'll both work fine.
 
-Once `Node.js` is installed, [download the source code of the latest release of Open Source Arras](https://github.com/AE0hello/open-source-arras/releases) and extract it. Open the extracted folder in a terminal and run the following commands in order:
+Once `Node.js` is installed, [download the source code of the latest release](https://github.com/AE0hello/open-source-arras/releases) and extract it. Open the extracted folder in a terminal and run the following commands in order:
 1. `npm i` (this installs necessary dependencies)
 2. `npm run start` (this actually starts the server)
 
@@ -53,6 +53,8 @@ server_travel: [
 > Make sure to set `allow_server_travel` to true in your destination server's `properties`.
 
 ## Other Links
-- [Our Discord server](https://discord.gg/arras)
+- [Stoat](https://stt.gg/S4tqfeAK)
+- [Discord](https://discord.gg/arras)
+- [YouTube](https://www.youtube.com/@OpenSourceArras)
 
 *p.s. if something goes terribly wrong it's not our fault*

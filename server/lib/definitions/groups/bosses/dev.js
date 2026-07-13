@@ -6,7 +6,6 @@ const g = require('../../gunvals.js')
 Class.menu_devBosses = makeMenu("Developers", {upgrades: [
     "AEMKShipBoss",
     "dogeiscutBoss",
-    "helenaBoss",
     "tgsBoss",
     "toothlessBoss",
     "menu_retiredDevBosses"
@@ -14,6 +13,7 @@ Class.menu_devBosses = makeMenu("Developers", {upgrades: [
 
 Class.menu_retiredDevBosses = makeMenu("Developers (Retired)", {upgrades: [
     "frostBoss",
+    "helenaBoss",
     "taureonBoss",
     "trplnrBoss",
 ], color: "pureBlack", boxColor: "pureBlack", shape: 4, boxLabel: "Retired"})
@@ -351,7 +351,7 @@ Class.dogeiscutTurret = {
         },
         {
             POSITION: [12, 0, 0, 0, 360, 1],
-            TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}],
+            TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: 'pink'}],
         },
     ]
 }
@@ -614,7 +614,7 @@ Class.dogeiscutBoss = {
         },
         {
             POSITION: [12, 0, 0, 0, 360, 1],
-            TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}],
+            TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: 'pink'}],
         },
         {
             POSITION: [5, 0, 0, 0, 360, 1],
@@ -1515,7 +1515,7 @@ Class.MKTurretFactory = {
 Class.MKTurretCarrier = {
     PARENT: "carrier",
     LABEL: "MKTurret carrier",
-    FACING_TYPE: "toTarget",
+    FACING_TYPE: 'toTarget',
     GUNS: [
         {
             POSITION: [7, 8, 0.6, 7, 0, 0, 0],
@@ -1564,7 +1564,7 @@ Class.MKTurretCarrierWithController = {
 Class.MKTurretThruster = {
     PARENT: "genericTank",
     LABEL: "MKTurret Thruster",
-    FACING_TYPE: "toTarget",
+    FACING_TYPE: 'toTarget',
     IGNORED_BY_AI: true,
     DAMAGE_EFFECTS: false,
     COLOR: 16,
@@ -1584,7 +1584,7 @@ Class.MKTurretThruster = {
 }
 Class.MKTurret = {
     PARENT: "genericTank",
-    FACING_TYPE: "toTarget",
+    FACING_TYPE: 'toTarget',
     IGNORED_BY_AI: true,
     DAMAGE_EFFECTS: false,
     LABEL: "MKTurret",

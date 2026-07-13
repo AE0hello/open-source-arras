@@ -20,7 +20,7 @@ module.exports = {
         recoil: 1.4,
         shudder: 0.1,
         damage: 0.75,
-        speed: 5,
+        speed: 4,
         spray: 15
     },
     drone: {
@@ -554,9 +554,9 @@ module.exports = {
         recoil: 1.8,
         shudder: 0.5,
         health: 2,
-        damage: 0.90,
+        damage: 0.9,
         pen: 1.2,
-        speed: 0.50,
+        speed: 0.5,
         maxSpeed: 0.6,
         density: 2,
         resist: 3

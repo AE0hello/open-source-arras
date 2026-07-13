@@ -33,7 +33,7 @@ Class.baseProtector = {
         RESIST: 10000,
         HETERO: 0,
     },
-    FACING_TYPE: ["spin", {speed: 0.04}],
+    FACING_TYPE: ['spin', {speed: 0.04}],
     TURRETS: [
         {
             POSITION: [25, 0, 0, 0, 360, 0],
@@ -644,7 +644,7 @@ Class.cxATMG = {
 Class.arenaCloser = {
     PARENT: "genericTank",
     LABEL: "Arena Closer",
-    DISPLAY_NAME: true,
+    DISPLAY_NAME: false,
     DANGER: 10,
     SIZE: 34,
     COLOR: "yellow",
@@ -656,7 +656,7 @@ Class.arenaCloser = {
         DENSITY: 30,
         DAMAGE: 1e5,
         FOV: 10,
-        SPEED: 6,
+        SPEED: 4,
     },
     SKILL: skillSet({rld: 1, dam: 1, pen: 1, str: 1, spd: 1, atk: 1, hlt: 1, shi: 1, rgn: 1, mob: 1}),
     DRAW_HEALTH: false,
@@ -671,8 +671,50 @@ Class.arenaCloser = {
                 WIDTH: 10
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.8, recoil: 0.25, health: 1e3, damage: 1e3, pen: 1e3, speed: 2.5, maxSpeed: 1.15, range: 1.8, density: 4, spray: 0.25}]),
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.8, recoil: 0.25, health: 1e3, damage: 1e3, pen: 1e3, speed: 3, maxSpeed: 1, range: 1.8, density: 4, spray: 0.25}]),
                 TYPE: ["bullet", {LAYER: 12}]
+            }
+        }
+    ]
+}
+
+// ARRAS POLICE
+Class.arrasPolice = {
+    PARENT: "booster",
+    LABEL: "ARRAS POLICE",
+    UPGRADE_COLOR: 20,
+    UPGRADE_TOOLTIP: "WOOP WOOP! That's the sound of da police!",
+    PROPS: [
+        {
+            TYPE: ['hexagonHat', {COLOR: 21}],
+            POSITION: {
+                SIZE: 6,
+                Y: 8,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ['hexagonHat', {COLOR: 24}],
+            POSITION: {
+                SIZE: 6,
+                Y: -8,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ['squareHat', {COLOR: 22}],
+            POSITION: {
+                SIZE: 6,
+                Y: 3,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ['squareHat', {COLOR: 23}],
+            POSITION: {
+                SIZE: 6,
+                Y: -3,
+                LAYER: 1
             }
         }
     ]

@@ -14,16 +14,19 @@ let { gamemodeManager } = require("./game/gamemodeManager.js");
 // Gamemode names
 const getName = (name, gamemodeData) => {
     const nameMap = { // commented-out gamemodes haven't been implemented yet
+
     // Deathmatch
         clan_wars: "Clan Wars",
         //duos: "Duos",
         ffa: "FFA",
-        //halloween: "Halloween",
+        halloween: "Halloween",
+        sandbox: "Sandbox",
         //squads: "Squads",
         tdm: `${gamemodeData.teams}TDM`,
             open_tdm: `Open ${gamemodeData.teams}TDM`,
         //tetromino: `${gamemodeData.teams} Team Tetromino`,
         train_wars: "Train Wars",
+
     // Minigames
         assault_acropolis: "Assault Acropolis",
         assault_booster: "Assault Booster",
@@ -45,12 +48,7 @@ const getName = (name, gamemodeData) => {
         siege_fortress: "Siege Fortress",
         //soccer: "Soccer",
         tag: `${gamemodeData.teams} Team Tag`,
-    // Miscellaneous
-        //forge: "Forge",
-            //old_forge: "Old Forge",
-        //limbo: "Limbo",
-        nexus: "Nexus",
-        sandbox: "Sandbox",
+
     // Modifiers
         arms_race: "Arms Race",
         blackout: "Blackout",
@@ -58,7 +56,10 @@ const getName = (name, gamemodeData) => {
         diep: "Diep",
         //dreadnoughts: "Dreadnoughts",
             old_dreadnoughts: "Old Dreadnoughts",
+        fast: "Fast",
         growth: "Growth",
+            //old_growth: "Old Growth",
+            //overgrowth: "Overgrowth",
         //half: "Half",
         //manhunt: "Manhunt",
         march_madness: "March Madness",
@@ -66,13 +67,24 @@ const getName = (name, gamemodeData) => {
             //labyrinth: "Labyrinth",
                 //old_labyrinth: "Old Labyrinth",
             //magic_maze: "Magic Maze",
-            //rock_maze: "Rock Maze",
+            rock: "Rock",
                 //pumpkin_patch: "Pumpkin Patch",
         outbreak: "Outbreak",
+        portal: "Portal",
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
-        //tartarus: "Tartarus",
+
+    // Lobbies
+        //forge: "Forge",
+            //old_forge: "Old Forge",
+        limbo: "Limbo",
+        nexus: "Nexus",
+
+    // Miscellaneous
+        private: "Private",
+        tartarus: "Tartarus",
+
     };
     return nameMap[name];
 }

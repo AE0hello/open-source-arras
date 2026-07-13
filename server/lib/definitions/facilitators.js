@@ -1,7 +1,5 @@
-const {skill_cap} = require('../../config.js')
-const {statnames} = require('./constants.js')
+const {statnames, basePolygonDamage, basePolygonHealth, dfltskl, smshskl} = require('./constants.js')
 const g = require('./gunvals.js')
-const {basePolygonDamage, basePolygonHealth, dfltskl} = require("./constants")
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -76,7 +74,7 @@ exports.skillSet = (args) => {
     let skills = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
     for (let s in args) {
         if (!args.hasOwnProperty(s)) continue;
-        skills[skcnv[s]] = Math.round(skill_cap * args[s]);
+        skills[skcnv[s]] = Math.round(Config.skill_cap * args[s]);
     }
     return skills;
 }
@@ -96,6 +94,11 @@ exports.dereference = type => {
     if (type.TURRETS) {
         for (let i = 0; i < type.TURRETS.length; i++) {
             output.TURRETS[i].TYPE = type.TURRETS[i].TYPE;
+        }
+    }
+    if (type.PROPS) {
+        for (let i = 0; i < type.PROPS.length; i++) {
+            output.PROPS[i].TYPE = type.PROPS[i].TYPE;
         }
     }
     for (let key in output) {
@@ -123,18 +126,18 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let spawners = [];
     let spawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.drone, g.overseer, ...stats]),
-        TYPE: ["drone", {INDEPENDENT: independent}],
+        TYPE: ['drone', {INDEPENDENT: independent}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
+        STAT_CALCULATOR: 'drone',
         WAIT_TO_CYCLE: cycle,
         MAX_CHILDREN: maxChildren,
     }
     if (count % 2 == 1) {
         spawners.push({
             POSITION: {
-                LENGTH: 6,
-                WIDTH: 11,
+                LENGTH: options.length ?? 6,
+                WIDTH: options.width ?? 11,
                 ASPECT: 1.2,
                 X: 8,
                 ANGLE: 180
@@ -145,8 +148,8 @@ exports.makeOver = (type, name = -1, options = {}) => {
     for (let i = 2; i <= (count - count % 2); i += 2) {
         spawners.push(...exports.weaponMirror({
             POSITION: {
-                LENGTH: 6,
-                WIDTH: 11,
+                LENGTH: options.length ?? 6,
+                WIDTH: options.width ?? 11,
                 ASPECT: 1.2,
                 X: 8,
                 ANGLE: 180 - angle * i / 2
@@ -173,6 +176,7 @@ exports.makeBird = (type, name = -1, options = {}) => {
     let frontRecoilFactor = options.frontRecoil ?? 1;
     let backRecoilFactor = options.frontRecoil ?? 1;
     let color = options.frontRecoil;
+    let dangerIncrement = options.danger ?? 1
 
     // Thrusters
     let backRecoil = 0.5 * backRecoilFactor;
@@ -231,6 +235,7 @@ exports.makeBird = (type, name = -1, options = {}) => {
     if (output.FACING_TYPE == "locksFacing") output.FACING_TYPE = "toTarget";
     output.GUNS = type.GUNS == null ? [...shootyBois] : [...output.GUNS, ...shootyBois];
     output.LABEL = name == -1 ? "Bird " + type.LABEL : name;
+    output.DANGER = type.DANGER + dangerIncrement ?? 7
     if (type.UPGRADE_LABEL !== undefined) {
         output.UPGRADE_LABEL = output.LABEL;
     }
@@ -249,7 +254,7 @@ exports.makeFlank = (type, count, name = -1, options = {}) => {
     }
     output.GUNS = exports.weaponArray(output.GUNS, count ??= 3, {delayIncrement: options.delayIncrement ?? 0, delayOverflow: options.delayOverflow ?? false, startAngle: options.startAngle ?? 0})
     output.LABEL = name == -1 ? type.LABEL : name
-    output.DANGER = options.danger ??= type.DANGER + 1
+    output.DANGER = options.danger ??= 6;
     output.HAS_NO_RECOIL = options.noRecoil ??= false
     return output
 }
@@ -406,18 +411,18 @@ exports.makeAuto = (type, name = -1, options = {}) => {
             }
         ]
     }, options.total ??= 1);
-    if (type.GUNS != null) {
+    if (type.GUNS) {
         output.GUNS = type.GUNS;
     }
-    if (type.PROPS == null || options.clearProps == true) {
-        output.PROPS = [];
-    } else {
-        output.PROPS = [...type.PROPS];
-    }
-    if (type.TURRETS == null || options.clearTurrets == true) {
+    if (!type.TURRETS || options.clearTurrets == true) {
         output.TURRETS = [...autogun];
     } else {
         output.TURRETS = [...type.TURRETS, ...autogun];
+    }
+    if (!type.PROPS || options.clearProps == true) {
+        output.PROPS = [];
+    } else {
+        output.PROPS = [...type.PROPS];
     }
     if (name == -1) {
         output.LABEL = "Auto-" + type.LABEL;
@@ -434,10 +439,9 @@ exports.makeAuto = (type, name = -1, options = {}) => {
     return output;
 }
 exports.makeHat = (shape = 0, options = {}) => {
-    options.color ??= "mirror"
     options.rotationSpeed ??= 0
     if (!options.rotationSpeed == 0) {
-        spinProperties = ["spin", { speed: options.rotationSpeed }]
+        spinProperties = ["spin", {speed: options.rotationSpeed}]
     } else (
         spinProperties = ["toTarget"]
     )
@@ -445,8 +449,9 @@ exports.makeHat = (shape = 0, options = {}) => {
         LABEL: "",
         FACING_TYPE: spinProperties,
         SHAPE: shape,
-        COLOR: options.color,
-        INDEPENDENT: true
+        COLOR: options.color ??= "mirror",
+        INDEPENDENT: true,
+        MIRROR_MASTER_ANGLE: options.mirror_angle ??= false
     }
 }
 exports.makeWhirlwind = (type, options = {}) => {
@@ -519,16 +524,6 @@ exports.makeWhirlwind = (type, options = {}) => {
     }
     return output;
 }
-function toPascalCase(input) {
-    if (!input) {
-        return -1
-    }
-    var output = ""
-    for (var c = 0; c < input.length; c++) {
-        output += c == 0 ? input[c].toUpperCase() : input[c].toLowerCase()
-    }
-    return output
-}
 exports.makeDrive = (type, options = {}) => {
     type = ensureIsClass(type);
     let output = exports.dereference(type)
@@ -539,7 +534,7 @@ exports.makeDrive = (type, options = {}) => {
 
     let hat = [
         {
-            TYPE: [options.hatType ??= "squareHat", {COLOR: options.hatColor ??= "grey"}],
+            TYPE: [options.hatType ??= 'squareHat', {COLOR: options.hatColor ??= 'grey'}],
             POSITION: {
                 SIZE: options.hatSize ??= 9,
                 ANGLE: options.hatAngle ??= 0,
@@ -700,7 +695,9 @@ exports.makeTurret = (type, options = {}) => {
         CONTROLLERS.push("onlyAcceptInArc");
     }
     if (options.hasAI ?? true) { // default true
-        if (options.ignoreFoods) {
+        if (options.forceOverride) {
+            CONTROLLERS.push("doNothing");
+        } else if (options.ignoreFoods) {
             CONTROLLERS.push(["nearestDifferentMaster", { ignoreFood: true }]);
         } else CONTROLLERS.push("nearestDifferentMaster");
     }
@@ -978,6 +975,7 @@ for (let i = 3; i < 17; i++) {
     let circum = (2 * Math.PI) / i;
     pslazyRealSizes.push(Math.sqrt(circum * (1 / Math.sin(circum))));
 }
+
 exports.makePolygon = (options = {}) => {
     let svgPoints = [];
     let svgPoints2 = [];
@@ -1335,12 +1333,14 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
         }))
     };
 };
-exports.makeRarities = (type) => {
-    const ct = type.charAt(0).toUpperCase() + type.slice(1);
-    const rarities = ["shiny", "legendary", "shadow", "rainbow", "trans"];
-    for (let i = 0; i < rarities.length; i++) {
-        const pn = `${rarities[i]}${ct}`;
-        Class[pn] = exports.makeRare(`${type}`, [i]);
+exports.makeRarities = (types = []) => {
+    for (type of types) {
+        const ct = type.charAt(0).toUpperCase() + type.slice(1);
+        const rarities = ["shiny", "legendary", "shadow", "rainbow", "trans"];
+        for (let i = 0; i < rarities.length; i++) {
+            const pn = `${rarities[i]}${ct}`;
+            Class[pn] = exports.makeRare(`${type}`, [i]);
+        }
     }
 }
 
@@ -1489,37 +1489,30 @@ exports.makePolychoron = function (info) {
 };
 
 // tgs
-exports.makeAutoArray = (type, options = {}) => {
-    suffix = options.suffix ?? ""
-    for (const types of type) {
-        name = ensureIsClass(types)
-        label = name.LABEL
-        classLabel = label.replaceAll(' ', '').replaceAll('-', '').replaceAll("'n", 'N') // delete whitespaces and hyphens + special case for halfnhalf
+exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
+    name = ensureIsClass(type)
+    upgradeList = upgrades.map(x => x + (options.suffix ??= ''))
+    startValue = options.start ?? -1
 
-        Class["auto" + classLabel + suffix] = exports.makeAuto(types)
-        if (options.tier >= 1) {
-            Class["megaAuto" + classLabel + suffix] = exports.makeAuto(types, `Mega Auto-${label}`, {type: "megaAutoTurret", size: 12})
-            Class["tripleAuto" + classLabel + suffix] = exports.makeAuto(types, `Triple Auto-${label}`, {size: 6.5, x: 5.2, angle: 0, total: 3})
-            if (options.tier >= 2) {
-                Class["ultraAuto" + classLabel + suffix] = exports.makeAuto(types, `Ultra Auto-${label}`, {type: "ultraAutoTurret", size: 14})
-                Class["tripleMegaAuto" + classLabel + suffix] = exports.makeAuto(types, `Triple Mega Auto-${label}`, {type: "megaAutoTurret", size: 7.5, x: 5.2, angle: 0, total: 3})
-                Class["pentaAuto" + classLabel + suffix] = exports.makeAuto(types, `Penta Auto-${label}`, {size: 5.2, x: 6.5, angle: 0, total: 5})
-                if (options.tier >= 3) {
-                    Class["heptaAuto" + classLabel + suffix] = exports.makeAuto(types, `Hepta Auto-${label}`, {size: 4, x: 6.5, angle: 0, total: 7})
-                }
-            }
-        }
+    if (name[`UPGRADES_TIER_${tier}`] == undefined) {
+        return name[`UPGRADES_TIER_${tier}`] = upgradeList
     }
+    if (startValue !== -1) {
+        return name[`UPGRADES_TIER_${tier}`].splice(startValue, 0, ...upgradeList)
+    }
+    name[`UPGRADES_TIER_${tier}`].push(...upgradeList)
 }
-exports.deleteUpgrades = (type, tier, upgrades = []) => {
-    typeUpgrades = Class[type]['UPGRADES_TIER_' + tier]
-    for (let i = 0; i < typeUpgrades.length; i++) {
+exports.removeUpgrades = (type, tier, upgrades = []) => {
+    typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
+    if (typeUpgrades == undefined) return;
+    for (let i = typeUpgrades.length - 1; i >= 0; i--) {
         let string = typeUpgrades[i];
         for (const upgrade of upgrades) if (string === upgrade) {
             typeUpgrades.splice(i, 1)
         }
     }
 }
+
 exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
     type = ensureIsClass(type);
 
@@ -1527,7 +1520,6 @@ exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
     segment.CAN_BE_ON_LEADERBOARD = false;
     segment.CLEAR_ON_MASTER_UPGRADE = true;
     segment.DISPLAY_NAME = false;
-    segment.COLOR = 'mirror';
     segment.GUNS = options.segmentGuns ??= segment.GUNS
     segment.PROPS = options.segmentProps ??= segment.PROPS
     segment.TURRETS = options.segmentTurrets ??= segment.TURRETS
@@ -1551,6 +1543,7 @@ exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
                         let seg = new Entity(body, body);
                         seg.master = body;
                         seg.source = body;
+                        seg.color = body.color;
                         seg.skill.score = body.skill.score;
                         seg.define(segmentClass);
                         body.store.snakeSegments.push(seg);

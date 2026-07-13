@@ -64,7 +64,6 @@ Class.jewel = {
     INTANGIBLE: false,
     GIVE_KILL_MESSAGE: true
 }
-makeRarities("egg")
 
 // Squares
 Class.square = {
@@ -84,7 +83,6 @@ Class.square = {
     DRAW_HEALTH: true,
     INTANGIBLE: false
 }
-makeRarities("square")
 
 // Triangles
 Class.triangle = {
@@ -104,7 +102,6 @@ Class.triangle = {
     },
     DRAW_HEALTH: true
 }
-makeRarities("triangle")
 
 // Pentagons
 Class.pentagon = {
@@ -162,9 +159,6 @@ Class.alphaPentagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true
 }
-makeRarities("pentagon")
-makeRarities("betaPentagon")
-makeRarities("alphaPentagon")
 
 // Hexagons
 Class.hexagon = {
@@ -173,7 +167,7 @@ Class.hexagon = {
     VALUE: 500,
     SHAPE: 6,
     SIZE: 25,
-    COLOR: "hexagon",
+    COLOR: 'hexagon',
     BODY: {
         DAMAGE: 3 * basePolygonDamage,
         DENSITY: 8,
@@ -185,13 +179,12 @@ Class.hexagon = {
     },
     DRAW_HEALTH: true
 }
-makeRarities("hexagon")
 
 // Crashers
 Class.crasher = {
     TYPE: "crasher",
     LABEL: "Crasher",
-    COLOR: "pink",
+    COLOR: 'pink',
     SHAPE: 3,
     SIZE: 5,
     VARIES_IN_SIZE: true,
@@ -293,10 +286,21 @@ Class.nonagon = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true,
 }
-makeRarities("hexagon_old")
-makeRarities("septagon")
-makeRarities("octagon")
-makeRarities("nonagon")
+
+// Rarities
+makeRarities([
+    'egg',
+    'square',
+    'triangle',
+    'pentagon',
+    'betaPentagon',
+    'alphaPentagon',
+    'hexagon',
+    'hexagon_old',
+    'septagon',
+    'octagon',
+    'nonagon'
+])
 
 // 3D
 if (!classic_3D_shapes) {
@@ -647,7 +651,7 @@ Class.cube = {
     NAME: "The Cube",
     VALUE: 2e7,
     SIZE: 10,
-    COLOR: "egg",
+    COLOR: 'egg',
     SHAPE: cube_shape,
     BODY: {
         DAMAGE: 4.8,
@@ -667,7 +671,7 @@ Class.tetrahedron = {
     NAME: "The Tetrahedron",
     VALUE: 3e7,
     SIZE: 12,
-    COLOR: "egg",
+    COLOR: 'egg',
     SHAPE: tetrahedron_shape,
     BODY: {
         DAMAGE: 6,
@@ -686,7 +690,7 @@ Class.octahedron = {
     NAME: "The Octahedron",
     VALUE: 4e7,
     SIZE: 13,
-    COLOR: "egg",
+    COLOR: 'egg',
     SHAPE: octahedron_shape,
     BODY: {
         DAMAGE: 6.5,
@@ -705,7 +709,7 @@ Class.dodecahedron = {
     NAME: "The Dodecahedron",
     VALUE: 5e7,
     SIZE: 18,
-    COLOR: "egg",
+    COLOR: 'egg',
     SHAPE: dodecahedron_shape,
     BODY: {
         DAMAGE: 7,
@@ -724,7 +728,7 @@ Class.icosahedron = {
     NAME: "The Icosahedron",
     VALUE: 1e8,
     SIZE: 20,
-    COLOR: "egg",
+    COLOR: 'egg',
     SHAPE: icosahedron_shape,
     BODY: {
         DAMAGE: 9,
@@ -745,7 +749,7 @@ Class.tesseract = {
     NAME: "The Tesseract",
     VALUE: 42e7,
     SIZE: 25,
-    COLOR: "egg",
+    COLOR: 'egg',
     SHAPE: tesseract_shape,
     BODY: {
         DAMAGE: 10,
