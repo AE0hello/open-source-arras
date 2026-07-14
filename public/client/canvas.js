@@ -829,7 +829,7 @@ class Canvas {
                             this.socket.talk("H");
                             break;
                         case 10:
-                            this.socket.talk("0");
+                            this.socket.talk("#", "KEY_SPECIAL_PRESET_2");
                             break;
                         case 11:
                             if (global.gameStart && !global.died && !global.disconnected) {
