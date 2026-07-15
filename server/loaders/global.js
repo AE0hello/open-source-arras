@@ -141,6 +141,7 @@ global.setSyncedTimeout = (callback, ticks = 0, ...args) => tickEvents.once(tick
 
 global.bringToLife = (() => {
     return my => {
+        let now = Date.now();
         // Size animation
         if (my.permanentSize) {
             my.coreSize = my.permanentSize;
@@ -199,9 +200,27 @@ global.bringToLife = (() => {
         my.control.power = b.power == null ? 1 : b.power;
 
         // React
-        my.move();
+        my.move(now);
         my.face();
         my.updateBodyInfo();
+
+        // Handle upgrade pending
+        if (my.isPlayer && my.upgradePending) {
+            let lastAction = Math.max(my.lastMovementTime, my.lastFiredTime);
+            let waitSec = Math.ceil(Config.upgrade_delay / 1000);
+            if (my.index !== my.upgradePending.lastIndex) {
+                my.upgradePending = undefined;
+                my.sendMessage('Upgrade cancelled.');
+                return;
+            }
+            if (my.inBase() || now - lastAction >= Config.upgrade_delay) {
+                my.upgrade(my.upgradePending.number, my.upgradePending.branch, true);
+                my.upgradePending = undefined;
+            } else if (!my.inBase() && now - (my.upgradePending.lastReminder ?? 0) >= 20000) {
+                my.upgradePending.lastReminder = now;
+                my.sendMessage(`You must stay still for ${waitSec} without firing to upgrade.`);
+            }
+        }
 
         // Guns and turrets
         if (my.guns) {
@@ -216,11 +235,13 @@ global.bringToLife = (() => {
     }
 })();
 global.runMove = (() => {
-    return my => {
+    return (my, now = Date.now()) => {
         let g = { x: my.control.goal.x - my.x, y: my.control.goal.y - my.y },
             gactive = (g.x !== 0 || g.y !== 0),
             engine = { x: 0, y: 0, },
             a = my.acceleration / global.gameManager.roomSpeed;
+        if (gactive && my.lastMovementTime) my.lastMovementTime = now;
+        if (my.control.fire && my.lastFiredTime) my.lastFiredTime = now;
         switch (my.motionType) {
             case 'grow':
                 my.SIZE += my.motionTypeArgs.speed ?? 1;
