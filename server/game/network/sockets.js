@@ -349,46 +349,46 @@ class socketManager {
                 socket.camera.lastDowndate = util.time();
             } break;
             case "C": {
-            // command packet
-            if (m.length !== 4) {
-                socket.kick("Ill-sized command packet.");
-                return 1;
-            }
-            // Get data
-            let target = {
-                    x: m[0],
-                    y: m[1],
-                },
-                reverseTank = m[2],
-                commands = m[3];
-            // Verify data
-            if (
-                typeof target.x !== "number" ||
-                typeof target.y !== "number" ||
-                typeof commands !== "number"
-            ) {
-                socket.kick("Weird downlink.");
-                return 1;
-            }
-            if (commands > 255) {
-                socket.kick("Malformed command packet.");
-                return 1;
-            }
-            if (player.body == null) return;
-            // Put the new target in
-            if (!socket.player.body.eastereggs.braindamage) player.target = target;
-            // Reverse the tank's facing if we want.
-            player.body.reverseTank = reverseTank;
-            // Process the commands
-            if (player.command != null) {
-                player.command.up = commands & 1;
-                player.command.down = (commands & 2) >> 1;
-                player.command.left = (commands & 4) >> 2;
-                player.command.right = (commands & 8) >> 3;
-                player.command.lmb = (commands & 16) >> 4;
-                player.command.mmb = (commands & 32) >> 5;
-                player.command.rmb = (commands & 64) >> 6;
-            }
+                // command packet
+                if (m.length !== 4) {
+                    socket.kick("Ill-sized command packet.");
+                    return 1;
+                }
+                // Get data
+                let target = {
+                        x: m[0],
+                        y: m[1],
+                    },
+                    reverseTank = m[2],
+                    commands = m[3];
+                // Verify data
+                if (
+                    typeof target.x !== "number" ||
+                    typeof target.y !== "number" ||
+                    typeof commands !== "number"
+                ) {
+                    socket.kick("Weird downlink.");
+                    return 1;
+                }
+                if (commands > 255) {
+                    socket.kick("Malformed command packet.");
+                    return 1;
+                }
+                if (player.body == null) return;
+                // Put the new target in
+                if (!socket.player.body.eastereggs.braindamage) player.target = target;
+                // Reverse the tank's facing if we want.
+                player.body.reverseTank = reverseTank;
+                // Process the commands
+                if (player.command != null) {
+                    player.command.up = commands & 1;
+                    player.command.down = (commands & 2) >> 1;
+                    player.command.left = (commands & 4) >> 2;
+                    player.command.right = (commands & 8) >> 3;
+                    player.command.lmb = (commands & 16) >> 4;
+                    player.command.mmb = (commands & 32) >> 5;
+                    player.command.rmb = (commands & 64) >> 6;
+                }
             } break;
             case "#": {
                 try {
@@ -907,22 +907,24 @@ class socketManager {
         gui.score.update(JSON.stringify([b.skill.score, b.killCount.solo, b.killCount.assists, b.killCount.bosses]));
         gui.points.update(b.skill.points);
         // Update the upgrades
-        let upgrades = [];
-        let skippedUpgrades = [0];
-        for (let i = 0; i < b.upgrades.length; i++) {
-            let upgrade = b.upgrades[i];
-            if (b.skill.level >= b.upgrades[i].level) {
-                upgrades.push(upgrade.branch.toString() + "_" + upgrade.branchLabel + "_" + upgrade.index);
-            } else {
-                if (upgrade.branch >= skippedUpgrades.length) {
-                    skippedUpgrades[upgrade.branch] = 1;
+        if (!b.upgradePending) {
+            let upgrades = [];
+            let skippedUpgrades = [0];
+            for (let i = 0; i < b.upgrades.length; i++) {
+                let upgrade = b.upgrades[i];
+                if (b.skill.level >= b.upgrades[i].level) {
+                    upgrades.push(upgrade.branch.toString() + "_" + upgrade.branchLabel + "_" + upgrade.index);
                 } else {
-                    skippedUpgrades[skippedUpgrades.length - 1]++;
+                    if (upgrade.branch >= skippedUpgrades.length) {
+                        skippedUpgrades[upgrade.branch] = 1;
+                    } else {
+                        skippedUpgrades[skippedUpgrades.length - 1]++;
+                    }
                 }
             }
-        }
-        b.skippedUpgrades = skippedUpgrades;
-        gui.upgrades.update(upgrades);
+            b.skippedUpgrades = skippedUpgrades;
+            gui.upgrades.update(upgrades);
+        } else gui.upgrades.update([]);
         // Update daily tank
         if (Config.daily_tank) {
             if (b.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && b.defs.includes(Config.spawn_class)) {

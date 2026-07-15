@@ -63,6 +63,8 @@ class Entity extends EventEmitter {
         this.confinement = { xMin: 0, xMax: global.gameManager.room.width, yMin: 0, yMax: global.gameManager.room.height };
         this.firingArc = [0, 360];
         this.necro = () => {};
+        this.lastMovementTime = Date.now();
+        this.lastFiredTime = Date.now();
         // Define it
         this.SIZE = 1;
         this.sizeMultiplier = 1;
@@ -796,7 +798,15 @@ class Entity extends EventEmitter {
         let boolean = checkIfInView(false, addToNearby, global.gameManager.clients, this);
         return boolean;
     }
-
+    inBase() {
+        let room = global.gameManager.room;
+        if (!room.spawnable) return false;
+        let teamTiles = room.spawnable[this.team];
+        if (!teamTiles || teamTiles.length === 0) return false;
+        let tile = room.getAt(this);
+        if (!tile) return false;
+        return teamTiles.includes(tile);
+    }
     syncTurrets() {
         for (let gun of this.guns.values()) gun.syncChildren();
         for (let turret of this.turrets.values()) {
@@ -821,8 +831,35 @@ class Entity extends EventEmitter {
 
     refreshSkills() { this.skill.update(); this.syncSkillsToGuns(); }
 
-    upgrade(number, branchId) {
+    upgrade(number, branchId, skipDelay = false) {
         // Account for upgrades that are too high level for the player to access
+        if (!skipDelay && this.isPlayer && this.socket && !this.socket.permissions && Config.upgrade_delay !== 0) {
+            let now = Date.now();
+            let lastAction = Math.max(this.lastMovementTime, this.lastFiredTime);
+            if (!this.inBase() && now - lastAction < Config.upgrade_delay) {
+                let tankLabel = "Unknown";
+
+                let upgrade = this.upgrades[number];
+                let list = Array.isArray(upgrade.class) ? upgrade.class : [upgrade.class]
+                for (let entry of list) {
+                    let tank = Array.isArray(entry) ? ensureIsClass(...entry) : ensureIsClass(entry);
+                    let label = tank.LABEL;
+                    if (label) { 
+                        tankLabel = label; 
+                        break;
+                     }
+                }
+                this.upgradePending = {
+                    number,
+                    branchId,
+                    tankLabel,
+                    lastReminder: now,
+                    lastIndex: this.index
+                };
+                this.sendMessage(`Upgrading to ${tankLabel}. Stay still for ${Math.ceil(Config.upgrade_delay / 1000)} seconds without firing to upgrade.`);
+                return;
+            }
+        }
         let upgraded = false;
         if (number.isDailyUpgrade && Config.daily_tank && Config.daily_tank.tank) {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
@@ -904,7 +941,7 @@ class Entity extends EventEmitter {
         }
     }
 
-    move() { global.runMove(this) };
+    move(now) { global.runMove(this, now ?? null) };
 
     face() { global.runFace(this) };
 
