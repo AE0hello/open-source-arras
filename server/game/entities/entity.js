@@ -856,7 +856,7 @@ class Entity extends EventEmitter {
                     lastReminder: now,
                     lastIndex: this.index
                 };
-                this.sendMessage(`Upgrading to ${tankLabel}. Stay still for ${Math.ceil(Config.upgrade_delay / 1000)} seconds without firing to upgrade.`);
+                this.sendMessage(`Upgrading to ${tankLabel}... Stay still for ${Math.ceil(Config.upgrade_delay / 1000)} seconds without firing to upgrade.`);
                 return;
             }
         }
