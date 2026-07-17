@@ -218,7 +218,7 @@ global.bringToLife = (() => {
                 my.upgradePending = undefined;
             } else if (!my.inBase() && now - (my.upgradePending.lastReminder ?? 0) >= 20000) {
                 my.upgradePending.lastReminder = now;
-                my.sendMessage(`You must stay still for ${waitSec} without firing to upgrade.`);
+                my.sendMessage(`You must stay still for ${waitSec} seconds without firing to upgrade.`);
             }
         }
 
