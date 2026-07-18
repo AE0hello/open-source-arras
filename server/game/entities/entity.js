@@ -52,6 +52,7 @@ class Entity extends EventEmitter {
         this.turrets = new Map();
         this.props = new Map();
         this.upgrades = [];
+        this.upgradePending = {};
         this.skippedUpgrades = [];
         this.settings = {};
         this.eastereggs = { braindamage: false };
