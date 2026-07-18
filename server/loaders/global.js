@@ -216,7 +216,7 @@ global.bringToLife = (() => {
             if (my.inBase() || now - lastAction >= Config.upgrade_delay) {
                 my.upgrade(my.upgradePending.number, my.upgradePending.branch, true);
                 my.upgradePending = undefined;
-            } else if (!my.inBase() && now - (my.upgradePending.lastReminder ?? 0) >= 20000) {
+            } else if (!my.inBase() && now - (my.upgradePending.lastReminder ?? 0) >= Config.upgrade_delay_reminder) {
                 my.upgradePending.lastReminder = now;
                 my.sendMessage(`You must stay still for ${waitSec} seconds without firing to upgrade.`);
             }
