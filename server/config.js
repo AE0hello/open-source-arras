@@ -32,6 +32,7 @@ module.exports = {
 
             properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
                 bot_cap: 20,
+                allow_server_travel: true,
                 daily_tank: {
                     tank: 'whirlwind',
                     tier: 3,
