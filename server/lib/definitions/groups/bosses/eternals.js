@@ -28,20 +28,6 @@ Class.menu_eternals = makeMenu("Eternals", {upgrades: [
     "amun",
 ], color: "veryLightGrey", boxColor: "veryLightGrey", shape: 11.5})
 
-let kronos = new LayeredBoss(null, "Kronos", "eternal", 11, "veryLightGrey", "baseTrapTurret", 6, 5.5)
-kronos.addLayer({turret: {
-    POSITION: [6.5, 9, 0, null, 160, 0],
-    TYPE: "kronosSkimmerTurret",
-}})
-kronos.addLayer({turret: {
-    POSITION: [6.5, 9, 0, null, 160, 0],
-    TYPE: ["carrierTurret", {GUN_STAT_SCALE: g.battleship}],
-}}, true, 4)
-kronos.addLayer({turret: {
-    POSITION: [8.5, 9, 0, null, 160, 0],
-    TYPE: ["kronosTripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}],
-}}, true, 4)
-
 let odin = new LayeredBoss(null, "Odin", "eternal", 11, "teal", "baseTrapTurret", 4.5, 3.5) // formerly Ragnarok
 odin.addLayer({gun: {
     POSITION: [2.25, 3.25, -1.6, 9, 0, null, 0],
@@ -60,6 +46,20 @@ odin.addLayer({turret: {
     POSITION: [8, 9, 0, null, 160, 0],
     TYPE: "gunnerCruiserTurret",
 }}, true, 4.5)
+
+let kronos = new LayeredBoss(null, "Kronos", "eternal", 11, "veryLightGrey", "baseTrapTurret", 6, 5.5)
+kronos.addLayer({turret: {
+    POSITION: [6.5, 9, 0, null, 160, 0],
+    TYPE: "kronosSkimmerTurret",
+}})
+kronos.addLayer({turret: {
+    POSITION: [6.5, 9, 0, null, 160, 0],
+    TYPE: ["carrierTurret", {GUN_STAT_SCALE: g.battleship}],
+}}, true, 4)
+kronos.addLayer({turret: {
+    POSITION: [8.5, 9, 0, null, 160, 0],
+    TYPE: ["kronosTripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}],
+}}, true, 4)
 
 let amun = new LayeredBoss(null, "Amun", "eternal", 11, "darkGrey", "baseTrapTurret", 6, 5.5)
 amun.addLayer({turret: {
