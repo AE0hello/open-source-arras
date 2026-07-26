@@ -3598,9 +3598,10 @@ Class.oroboros = {
                 LENGTH: 20.5,
                 WIDTH: 14
             },
-            PROPERTIES: { // guessing since there's no footage of this tank in action
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.desmos]),
-                TYPE: ['spiralBullet', {CONTROLLERS: ['snake']}]
+            PROPERTIES: { // Set traps circle around cursor
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
+                TYPE: 'setTrap',
+                STAT_CALCULATOR: 'block'
             }
         },
         {

@@ -517,6 +517,7 @@ class socketManager {
                     }
                     player.body.sendMessage("You have self-destructed.");
                     player.body.destroy();
+                    if (Config.tag) Config.tag_data.removeFromTeam(-player.body.team);
                 }
             } break;
             case "H": {
@@ -2000,7 +2001,7 @@ class socketManager {
             let time = performance.now();
             for (let socket of this.clients) {
                 if (socket.timeout.check(time)) socket.lastWords("K");
-                if (time - socket.statuslastHeartbeat > Config.max_heartbeat_interval) socket.kick("Lost heartbeat.");
+                if (time - socket.status.lastHeartbeat > Config.max_heartbeat_interval) socket.kick("Lost heartbeat.");
             }
         }, 250);
         const broadcast = {

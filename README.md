@@ -8,14 +8,16 @@
 
 > [!WARNING]
 > **Open Source Arras is beta software.** This build is **not** representative of the final product. Expect bugs and missing features.
+> 
+> If you want to stay up to date, create a fork, download a git client (such as GitHub Desktop), and sync the fork whenever there's a major update. **Major updates may introduce breaking changes that alter how certain things work. It is *your responsibility* to keep your private server up-to-date and functioning!**
 
 ## Setup Guide (Localhost)
 
-This guide covers setting up your server on your own hardware and only supports devices running up-to-date versions of Windows/macOS/Linux.
+This guide covers setting up your server on your own hardware and only supports devices running up-to-date versions of Windows/macOS/Linux. It may also cover operating systems that `Node.js` supports but have not yet been tested by us, such as BSD and AIX.
 
-You'll first need to install [Node.js](https://nodejs.org). It doesn't matter if you pick the LTS or Latest version, they'll both work fine.
+You'll first need to install [Node.js](https://nodejs.org). It you're not sure about what version to use, pick the latest.
 
-Once `Node.js` is installed, [download the source code of the latest release](https://github.com/AE0hello/open-source-arras/releases) and extract it. Open the extracted folder in a terminal and run the following commands in order:
+Once `Node.js` is installed, [download the source code of the latest release](https://github.com/AE0hello/open-source-arras/releases) and extract it. Open the extracted folder in a terminal window and run the following commands in order:
 1. `npm i` (this installs necessary dependencies)
 2. `npm run start` (this actually starts the server)
 
@@ -24,12 +26,10 @@ If there aren't any errors, your server will start up. Go to `localhost:3000` in
 After the first install, you may use either `run.bat` (if you're on Windows) or `run.sh` (if you're not) to quickly launch the server without opening the terminal.
 
 > [!NOTE]
-> If you want to stay up to date, create a fork, download a git client (such as GitHub Desktop), and sync the fork whenever there's a major update.
-> 
-> **Major updates may introduce breaking changes that alter how certain things work. It is *your responsibility* to keep your private server up-to-date and functioning.**
+> If you're having issues launching from `run.sh`, make sure the file is set to be able to run as an executable in its properties. This only needs to be done once.
 
 ## Server setup
-You can set up in-game servers in config.js file, in `servers`. For further explanation, see the setting itself. It's an array of objects where each object is a server.
+You can set up in-game servers in `server/config.js`. An example is present in the file.
 
 ### Travelling between servers (Nexus)
 Copy this code into your server's `properties`:
