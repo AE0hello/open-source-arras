@@ -781,14 +781,14 @@ body.mobile .startMenuSlidingContent {
 	width: 100%;
 	height: 40px;
 	box-sizing: border-box;
-	color: white;
+	color: white !important;
 	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-	background: #A9D86D;
+	text-decoration: none;
+	text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
+	background: #a9d86d;
 	border: 0;
-	border-bottom: 2px solid #8abc3f;
 	cursor: pointer;
-	box-shadow: inset 0 -2px #8abc3f;
+	box-shadow: inset 0 -4px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 	font: 16px Ubuntu;
 }
@@ -796,16 +796,14 @@ body.mobile .startMenuSlidingContent {
 #startButton:hover {
 	margin-top: 2px;
 	height: 38px;
-	border-bottom: 0px solid #8abc3f;
+	box-shadow: inset 0 -2px rgba(0, 0, 0, 0.2);
 }
 
 #startButton:active {
-	margin-top: 2px;
-	height: 38px;
-	background: #8abc3f;
-	border-bottom: 0px;
-	outline: none;
-	box-shadow: none;
+	margin-top: 4px;
+	height: 36px;
+	text-shadow: none;
+	box-shadow: inset 0 -49px rgba(0, 0, 0, 0.2);
 }
 
 .bottomHolder>a {
@@ -818,11 +816,11 @@ body.mobile .startMenuSlidingContent {
 	padding: 7px 8px 9px;
 	color: white !important;
 	text-decoration: none;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+	text-shadow: 0 2px 0 rgba(0, 0, 0, 0.2);
 	background: #b58efd;
 	border: 0;
 	cursor: pointer;
-	box-shadow: inset 0 -4px rgba(0, 0, 0, 0.15);
+	box-shadow: inset 0 -4px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 }
 
@@ -831,15 +829,16 @@ body.mobile .startMenuSlidingContent {
 }
 
 .bottomHolder>a:hover {
-	top: 1px;
-	height: 39px;
-	box-shadow: inset 0 -3px rgba(0, 0, 0, 0.15);
+	top: 2px;
+	height: 38px;
+	box-shadow: inset 0 -2px rgba(0, 0, 0, 0.2);
 }
 
 .bottomHolder>a:active {
 	top: 4px;
 	height: 36px;
-	box-shadow: inset 0 -49px rgba(0, 0, 0, 0.15);
+	text-shadow: none;
+	box-shadow: inset 0 -49px rgba(0, 0, 0, 0.2);
 }
 
 .bottomHolder>a>.extraText {
@@ -929,14 +928,14 @@ body.mobile .startMenuSlidingContent {
 
 .container:hover input:checked~.checkmark,
 .container:hover input:checked~.radio {
-	background-color: #7FA843;
-	border: 1px solid #7FA843;
+	background-color: #7fa843;
+	border: 1px solid #7fa843;
 }
 
 .container input:disabled:checked~.checkmark,
 .container input:disabled:checked~.radio {
-	background-color: #7FA843;
-	border: 1px solid #7FA843;
+	background-color: #a1c172;
+	border: 1px solid #a1c172;
 }
 
 .container .checkmark:after {
