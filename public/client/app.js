@@ -207,7 +207,7 @@ import * as socketStuff from "./socketinit.js";
                 global.version = ve.ver;
                 if (ve.dev_build) {
                     global.dev_build = true;
-                    global.createTabMenu(`This server is running a development build of Open Source Arras. Please report any issues you encounter! (${global.version})`, "warning");
+                    global.createTabMenu(`This server is running a development build of Open Source Arras. Please report any issues you encounter! (${global.version})`, "warning", true);
                 }
                 // Addon info handler
                 let keyValue = localStorage.getItem('playerKeyInputValue');
