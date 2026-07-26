@@ -417,9 +417,8 @@ body.mobile .startMenuHolder.changelogHolder {
 .bannerHolder {
 	display: block;
 	width: 336px;
-	height: 280px;
-	margin: 0 8px 7px 7px;
-	padding: 14px;
+	height: 300px;
+	margin: 0 8px 3px 7px;
 	text-align: center;
 }
 
@@ -442,7 +441,7 @@ body.mobile .startMenuHolder.changelogHolder {
 
 .menuTab {
 	font: 13px/28px Ubuntu;
-	padding: 6px 11px;
+	padding: 6px 12px;
 	border-radius: 5px 5px 0 0;
 	color: #fff !important;
 	margin: 0 6px;
@@ -809,167 +808,46 @@ body.mobile .startMenuSlidingContent {
 	box-shadow: none;
 }
 
-#discordButton {
-	margin: 0;
-	margin-left: -3px;
-	margin-right: 3px;
-	width: 40px;
-	height: 40px;
-	box-sizing: border-box;
-	color: white;
-	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-	background: #5865f2;
-	border: 0;
-	border-bottom: 2px solid #4b56ce;
-	cursor: pointer;
-	box-shadow: inset 0 -2px #4b56ce;
-	border-radius: 5px;
-	font: 16px Ubuntu;
-}
-
-#discordButton:hover {
-	margin-top: 2px;
-	height: 38px;
-	border-bottom: 0px solid #4b56ce;
-}
-
-#discordButton:active {
-	margin-top: 2px;
-	height: 38px;
-	background: #4b56ce;
-	border-bottom: 0px;
-	outline: none;
-	box-shadow: none;
-}
-
-#stoatButton {
-	margin: 0;
-	margin-right: 3px;
-	width: 40px;
-	height: 40px;
-	box-sizing: border-box;
-	color: white;
-	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-	background: #282038;
-	border: 0;
-	border-bottom: 2px solid #221b30;
-	cursor: pointer;
-	box-shadow: inset 0 -2px #221b30;
-	border-radius: 5px;
-	font: 16px Ubuntu;
-}
-
-#stoatButton:hover {
-	margin-top: 2px;
-	height: 38px;
-	border-bottom: 0px solid #221b30;
-}
-
-#stoatButton:active {
-	margin-top: 2px;
-	height: 38px;
-	background: #221b30;
-	border-bottom: 0px;
-	outline: none;
-	box-shadow: none;
-}
-
-#youtubeButton {
-	margin: 0;
-	margin-right: 3px;
-	width: 40px;
-	height: 40px;
-	box-sizing: border-box;
-	color: white;
-	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-	background: #f71701;
-	border: 0;
-	border-bottom: 2px solid #c51200;
-	cursor: pointer;
-	box-shadow: inset 0 -2px #c51200;
-	border-radius: 5px;
-	font: 16px Ubuntu;
-}
-
-#youtubeButton:hover {
-	margin-top: 2px;
-	height: 38px;
-	border-bottom: 0px solid #c51200;
-}
-
-#youtubeButton:active {
-	margin-top: 2px;
-	height: 38px;
-	background: #c51200;
-	border-bottom: 0px;
-	outline: none;
-	box-shadow: none;
-}
-
-#githubButton {
-	margin: 0;
-	width: 209px;
-	height: 40px;
-	box-sizing: border-box;
-	color: white;
-	text-align: center;
-	text-shadow: 0 0 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.2);
-	background: #00b0e0;
-	border: 0;
-	border-bottom: 2px solid #008cb3;
-	cursor: pointer;
-	box-shadow: inset 0 -2px #008cb3;
-	border-radius: 5px;
-	font: 16px Ubuntu;
-}
-
-#githubButton:hover {
-	margin-top: 2px;
-	height: 38px;
-	border-bottom: 0px solid #008cb3;
-}
-
-#githubButton:active {
-	margin-top: 2px;
-	height: 38px;
-	background: #008cb3;
-	border-bottom: 0px;
-	outline: none;
-	box-shadow: none;
-}
-
 .bottomHolder>a {
 	display: inline-block;
 	position: relative;
 	margin: 2px;
-	border: 0px;
-	padding: 6px 0;
-	width: 110px;
-	height: 16px;
-	font-size: smaller;
+	width: 40px;
+	height: 40px;
+	box-sizing: border-box;
+	padding: 7px 8px 9px;
 	color: white !important;
-	text-align: center;
-	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 	text-decoration: none;
-	cursor: pointer;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
 	background: #b58efd;
-	border-radius: 5px;
+	border: 0;
+	cursor: pointer;
 	box-shadow: inset 0 -4px rgba(0, 0, 0, 0.15);
+	border-radius: 5px;
+}
+
+.bottomHolder>a:last-child {
+	width: 204px;
 }
 
 .bottomHolder>a:hover {
 	top: 1px;
-	height: 15px;
+	height: 39px;
 	box-shadow: inset 0 -3px rgba(0, 0, 0, 0.15);
 }
 
 .bottomHolder>a:active {
 	top: 4px;
-	height: 12px;
-	box-shadow: inset 0 -25px rgba(0, 0, 0, 0.15);
+	height: 36px;
+	box-shadow: inset 0 -49px rgba(0, 0, 0, 0.15);
+}
+
+.bottomHolder>a>.extraText {
+	display: inline-block;
+	height: 24px;
+	margin-left: 8px;
+	font: bold 13px/24px Ubuntu;
+	vertical-align: top;
 }
 
 /* Customize the label (the container) */
