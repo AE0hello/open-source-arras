@@ -262,11 +262,17 @@ input:disabled {
 	font-size: larger;
 	color: black;
 }
+#playerNameInput::placeholder {
+	color: #ccc;
+}
 
 #playerKeyInput {
 	padding: 1.6px;
 	width: 340px;
 	color: black;
+}
+#playerKeyInput::placeholder {
+	color: #ccc;
 }
 
 input:focus {
