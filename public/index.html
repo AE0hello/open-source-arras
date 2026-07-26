@@ -159,18 +159,38 @@
                                         <td><div><label class="container"><input id="optRenderKillbar" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Kill Bar</label></div></td>
                                         <td><div><label class="container"><input id="optRenderMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Minimap</label></div></td>
                                     </tr>
+                                    <tr>
+                                        <td><div><label class="container mobileOptions"><input id="showCrosshair" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Crosshair</label></div></td>
+                                        <td><div><label class="container mobileOptions"><input id="showJoystick" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Joystick</label></div></td>
+                                    </tr>
+                                </table>
+                                <div class="optionsHeader">Main Menu</div>
+                                <table>
+                                    <tr>
+                                        <td><div><label class="container"><input id="unlimitedMenuHeight" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Uncapped Height</label></div></td>
+                                    </tr>
                                 </table>
                             </div>
                             <div id="tabOptions" class="shadowScroll" style="height: 190px;">
+                                <div class="optionsHeader">Token</div>
+                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64"/>
                                 <div class="optionsHeader">Performance</div>
+                                <select id="placeholderOptRenderer" tabindex="-1">
+                                    <option value="auto">Auto (Recommended)</option>
+                                    <option value="high">High (WebGL + MSAA)</option>
+                                    <option value="mid">Medium (WebGL + MSAA)</option>
+                                    <option value="low">Low (WebGL)</option>
+                                    <option value="canvas">High (Canvas2D)</option>
+                                    <option value="software">High (Software)</option>
+                                </select>
                                 <table>
                                     <tr>
                                         <td><div><label class="container"><input id="optInterpolation" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Interpolation</label></div></td>
-                                        <td><div><label class="container"><input id="optFancy" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Fancy Animations</label></div></td>
+                                        <td><div><label class="container"><input id="optLowResolution" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Resolution</label></div></td>
                                     </tr>
                                     <tr>
-                                        <td><div><label class="container"><input id="optLowResolution" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Resolution</label></div></td>
-                                        <td><div><label class="container"><input id="optLerpAnim" tabindex="-1" title="Smoothing animation" class="checkbox" type="checkbox"><span class="checkmark"></span>Lerp Animations</label></div></td>
+                                        <td><div><label class="container"><input id="optLerpAnim" tabindex="-1" title="Smoothing animation" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Animations</label></div></td>
+                                        <td><div><label class="container"><input id="optFancy" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Fancy Animations</label></div></td>
                                     </tr>
                                     <tr>
                                         <td><div><label class="container"><input id="optOptimizeMode" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Optimize Mode</label></div></td>
@@ -178,7 +198,12 @@
                                     </tr>
                                 </table>
                                 <div class="optionsHeader">Miscellaneous</div>
-                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64"/>
+                                <select id="placeholderOptFilter" tabindex="-1">
+                                    <option value="none">No Filter</option>
+                                    <option value="offense">Filter Offensive Words Only</option>
+                                    <option value="swear">Filter Swear Words</option>
+                                    <option value="brainrot">Filter "Brainrot" Words</option>
+                                </select>
                                 <table>
                                     <tr>
                                         <td><div><label class="container"><input id="autoLevelUp" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Auto-Level Up</label></div></td>
@@ -190,23 +215,10 @@
                                     </tr>
                                     <tr>
                                         <td><div><label class="container"><input id="smoothCamera" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Camera</label></div></td>
-                                        <td><div><label class="container"><input id="optAllowIngameOptions" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Show ingame-options</label></div></td>
+                                        <td><div><label class="container"><input id="optAllowIngameOptions" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Show ingame options</label></div></td>
                                     </tr>
                                     <tr>
                                         <td><div><label class="container"><input id="optOldUiStyle" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Old-UI Style</label></div></td>
-                                    </tr>
-                                </table>
-                                <div class="optionsHeader">Main Menu</div>
-                                <table>
-                                    <tr>
-                                        <td><div><label class="container"><input id="unlimitedMenuHeight" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Uncapped Height</label></div></td>
-                                    </tr>
-                                </table>
-                                <table>
-                                    <div class="mobileOptionsHeader">Mobile Miscellaneous</div>
-                                    <tr>
-                                        <td><div><label class="container mobileOptions"><input id="showCrosshair" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Show Crosshair</label></div></td>
-                                        <td><div><label class="container mobileOptions"><input id="showJoystick" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span> Show Joystick</label></div></td>
                                     </tr>
                                 </table>
                             </div>
@@ -274,7 +286,7 @@
                                             <tr>
                                                 <td><div><b data-key="KEY_UPGRADE_10"></b><span> - </span>upgrade 10</div></td>
                                                 <td><div><b data-key="KEY_UPGRADE_11"></b><span> - </span>upgrade 11</div></td>
-                                                <td><div><b data-key="KEY_UPGRADE_13"></b><span> - </span>upgrade 13</div></td>
+                                                <td><div><b data-key="KEY_UPGRADE_12"></b><span> - </span>upgrade 12</div></td>
                                             </tr>
                                             <tr>
                                                 <td><div><b data-key="KEY_SKILL_1">1</b><span> - </span>skill 1</div></td>
@@ -364,12 +376,12 @@
                             <div id="tabLinks">
                                 <div class="optionsHeader">Original Game</div>
                                 <div class="moreLinks">
-                                    <a href="https://github.com/nepphhh/arrasio">Source Code</a>
+                                    <a href="https://github.com/TheGreenSquare/arras-archive">Source Code Archive</a>
                                 </div>
                                 <div class="optionsHeader">Resources</div>
                                 <div class="moreLinks">
                                     <span data-ccpa-link="1"></span>
-                                    <a href="https://codepen.io/road-to-100k/full/GRpvMzb">Road's Custom Theme Maker</a><br/>
+                                    <a href="https://codepen.io/road-to-100k/full/GRpvMzb">Road's Custom Theme Maker</a>(outdated)<br/>
                                     <a tabindex="-1" href="/ext/custom-shape/index.html">Custom Shape Builder</a>
                                 </div>
                             </div>
