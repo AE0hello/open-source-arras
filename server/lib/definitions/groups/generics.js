@@ -603,6 +603,9 @@ Class.hp = { // HP for mothership or your custom gamemodes
     SHAPE: [],
     LABEL: "##% HP"
 }
+Class.selectionOrb = {
+    COLOR: 'white'
+};
 Class.tagMode = {
     SHAPE: "",
     LABEL: "Players"
