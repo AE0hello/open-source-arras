@@ -84,8 +84,7 @@ module.exports = {
             private: false,
 
             properties: {
-                mothership_time_limit: 30_000,
-                teams: 4,
+                teams: 2,
                 bot_cap: 40,
                 server_travel_properties: {
                     loop_interval: 10_000, // how often the portal loop executes in seconds
