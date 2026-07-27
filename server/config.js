@@ -12,25 +12,44 @@ module.exports = {
     startup_logs: true, // Enable startup logs and log speed loop warnings in the terminal
     load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
 
-    servers: [ // Make sure to change the host, port and id between servers!
+    /* SERVER PROPERTIES INFORMATION - Make sure to change the host, port and id between servers!
+
+        share_client_server - Forces your server to share the same host and port as the client. (by default, 3000)
+        - Only one server at a time can have this enabled.
+        - This is REQUIRED if your server host doesn't support multi-ports and forces everything through the main server.
+
+        host        - Server host location.
+        port        - The port on the server.
+        id          - (<host>/#<id>)
+
+        region      - The region the server is on.
+        gamemode    - The selected gamemode.
+        player_cap  - Not including bots. Set to 0 to disable.
+
+        featured    - Whether the server is featured or not.
+        unlisted    - Whether the server shows up in the server list (if its id isn't in the url).
+        private     - Whether the server requires a privileged token to join (except through server travel).
+
+        properties  - This overrides other settings in this file, assuming the selected gamemode doesn't also override it.
+    
+    */
+
+    servers: [
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
+            share_client_server: false,
+            host: 'localhost:3001',
+            port: 3001,
+            id: 'la',
 
-            host: 'localhost:3001', // Server host location.
-            port: 3001, // The port on the server.
-            id: 'la', // (<host>/#<id>)
+            region: "Local",
+            gamemode: ['ffa'],
+            player_cap: 80,
 
-            region: "Local", // The region the server is on.
-            gamemode: ['ffa'], // The selected gamemode.
-            player_cap: 80, // Not including bots. Set to 0 to disable.
+            featured: false,
+            unlisted: false,
+            private: false,
 
-            featured: false, // Whether the server is featured or not.
-            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: false, // Whether the server requires a privileged token to join (except through server travel).
-
-            properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
+            properties: {
                 bot_cap: 20,
                 allow_server_travel: true,
                 daily_tank: {
@@ -51,23 +70,20 @@ module.exports = {
             }
         },
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
+            share_client_server: false,
+            host: 'localhost:3002',
+            port: 3002,
+            id: 'lb',
 
-            host: 'localhost:3002', // Server host location.
-            port: 3002, // The port on the server.
-            id: 'lb', // (<host>/#<id>)
+            region: "Local",
+            gamemode: ['tdm'],
+            player_cap: 80,
 
-            region: "Local", // The region the server is on.
-            gamemode: ['tdm'], // The selected gamemode.
-            player_cap: 80, // Not including bots. Set to 0 to disable.
+            featured: false,
+            unlisted: false,
+            private: false,
 
-            featured: false, // Whether the server is featured or not.
-            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: false, // Whether the server requires a privileged token to join (except through server travel).
-
-            properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
+            properties: {
                 mothership_time_limit: 30_000,
                 teams: 4,
                 bot_cap: 40,
@@ -87,46 +103,40 @@ module.exports = {
             }
         },
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
+            share_client_server: false,
+            host: 'localhost:3003',
+            port: 3003,
+            id: 'lc',
 
-            host: 'localhost:3003', // Server host location.
-            port: 3003, // The port on the server.
-            id: 'lc', // (<host>/#<id>)
+            region: "Local",
+            gamemode: ['mothership'],
+            player_cap: 80,
 
-            region: "Local", // The region the server is on.
-            gamemode: ['mothership'], // The selected gamemode.
-            player_cap: 80, // Not including bots. Set to 0 to disable.
+            featured: false,
+            unlisted: false,
+            private: false,
 
-            featured: false, // Whether the server is featured or not.
-            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: false, // Whether the server requires a privileged token to join (except through server travel).
-
-            properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
+            properties: {
                 mothership_time_limit: 30_000,
                 teams: 3,
                 bot_cap: 30
             }
         },
         {
-            share_client_server: false, // Only one server at a time can have this enabled.
-            // The above is required if your VM (the machine that hosts the website stuff) doesn't support multi-ports and forces everything through the main server.
-            // This also overrides the below host and port settings to be identical to the main server's host/port (by default, 3000).
+            share_client_server: false,
+            host: 'localhost:3099',
+            port: 3099,
+            id: 'lz',
 
-            host: 'localhost:3099', // Server host location.
-            port: 3099, // The port on the server.
-            id: 'lz', // (<host>/#<id>)
+            region: "Local",
+            gamemode: ['sandbox'],
+            player_cap: 80,
 
-            region: "Local", // The region the server is on.
-            gamemode: ['sandbox'], // The selected gamemode.
-            player_cap: 80, // Not including bots. Set to 0 to disable.
+            featured: false,
+            unlisted: false,
+            private: false,
 
-            featured: false, // Whether the server is featured or not.
-            unlisted: false, // Whether the server shows up in the server list (if its id isn't in the url).
-            private: false, // Whether the server requires a privileged token to join (except through server travel).
-
-            properties: { // This overrides settings in the config.js file, assuming the selected gamemode doesn't also override it.
+            properties: {
 
             }
         },
