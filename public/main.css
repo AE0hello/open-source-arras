@@ -21,10 +21,6 @@
 	outline: 1px solid transparent;
 }
 
-.greyText {
-	opacity: 0.5;
-}
-
 html,
 body {
 	overflow: hidden;
@@ -133,7 +129,7 @@ h3 {
 }
 
 .horizontalSelector span {
-	padding: 4px 10px;
+	padding: 4px 8px;
 	color: #343434;
 	cursor: pointer;
 }
@@ -154,7 +150,7 @@ h3 {
 }
 
 .serverSelector {
-	height: 153px;
+	height: 128px;
 	text-align: center;
 	font-size: 13px;
 	font-weight: bold;
@@ -275,6 +271,13 @@ input:disabled {
 	color: #ccc;
 }
 
+#optCustom {
+	color: black;
+}
+#optCustom::placeholder {
+	color: #ccc;
+}
+
 input:focus {
 	border: solid 2px #ccc;
 }
@@ -357,6 +360,7 @@ input.error {
 #startMenuWrapper {
 	transition: top 1s;
 	position: relative;
+	left: 0px;
 	top: 0px;
 	z-index: 5;
 	max-width: 1150px;
@@ -369,7 +373,7 @@ body.mobile #startMenuWrapper {
 
 .mainWrapper {
 	transition: all 0.5s;
-	padding: 75px 20px 0;
+	padding: 48px 20px 0; /* 75px for arras.cx UI */
 }
 
 body.mobile .mainWrapper {
