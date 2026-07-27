@@ -667,16 +667,16 @@ global.makeHitbox = wall => {
 
 global.wallTypes = [
     { color: 16, label: 'Wall',    alpha: 1, class: 'wall' },
-    { color: 12, label: 'deadly',  alpha: 1, class: 'wall' },
-    { color: 11, label: 'heal',    alpha: 1, class: 'wall' },
-    { color: 19, label: 'bouncy',  alpha: 1, class: 'wall' },
-    { color: 5,  label: 'breaker', alpha: 1, class: 'wall' },
-    { color: 0,  label: 'chunks',  alpha: 1, class: 'wall' },
-    { color: 13, label: 'optical', alpha: 1, class: 'eyewall' },
-    { color: 17, label: '!up',     alpha: 1, class: 'oneWayUpWall' },
-    { color: 17, label: '!down',   alpha: 1, class: 'oneWayDownWall' },
-    { color: 17, label: '!left',   alpha: 1, class: 'oneWayLeftWall' },
-    { color: 17, label: '!right',  alpha: 1, class: 'oneWayRightWall' },
+    { color: 12, label: 'deadly',  alpha: 1, class: 'deadlyWall' },
+    { color: 11, label: 'heal',    alpha: 1, class: 'healingWall' },
+    { color: 19, label: 'bouncy',  alpha: 1, class: 'bouncyWall' },
+    { color: 5,  label: 'breaker', alpha: 1, class: 'breakerWall' },
+    { color: 0,  label: 'chunks',  alpha: 1, class: 'chunksWall' },
+    { color: 13, label: 'optical', alpha: 1, class: 'opticalWall' },
+    { color: 17, label: '!up',     alpha: 1, class: 'oneWayWallUp' },
+    { color: 17, label: '!down',   alpha: 1, class: 'oneWayWallDown' },
+    { color: 17, label: '!left',   alpha: 1, class: 'oneWayWallLeft' },
+    { color: 17, label: '!right',  alpha: 1, class: 'oneWayWallRight' },
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {
