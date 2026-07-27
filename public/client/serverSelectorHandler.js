@@ -155,7 +155,8 @@ let initializeFilter = () => {
         if (
             !global.filters.regions.america.includes(s) &&
             !global.filters.regions.europe.includes(s) &&
-            !global.filters.regions.asia.includes(s)
+            !global.filters.regions.asia.includes(s) &&
+            !global.filters.regions.oceania.includes(s)
         ) {
             global.filters.regions.other.push(s);
         }
