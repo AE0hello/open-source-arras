@@ -803,10 +803,19 @@ body.mobile .startMenuSlidingContent {
 	font: 16px Ubuntu;
 }
 
+#startButton .playText {
+	display: inline-block;
+	height: 22px;
+}
+
 #startButton:hover {
 	margin-top: 2px;
 	height: 38px;
 	box-shadow: inset 0 -2px rgba(0, 0, 0, 0.2);
+}
+
+#startButton:hover .playText {
+	height: 20px;
 }
 
 #startButton:active {
@@ -814,6 +823,10 @@ body.mobile .startMenuSlidingContent {
 	height: 36px;
 	text-shadow: none;
 	box-shadow: inset 0 -49px rgba(0, 0, 0, 0.2);
+}
+
+#startButton:active .playText {
+	height: 18px;
 }
 
 .bottomHolder>a {
