@@ -10,7 +10,7 @@ import * as socketStuff from "./socketinit.js";
 (async function (util, global, config, Canvas, color, gameDraw, socketStuff, keybinderHandler) {
     let { socketInit, resync, gui, leaderboard, minimap, moveCompensation, lag, getNow } = socketStuff;
     // Get the changelog
-    fetch("changelog.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
+    fetch("CHANGELOG.md", { cache: "no-cache" }).then(response => response.text()).then(response => {
       let b = [];
       var c = [];
       for (let d of response.split("\n"))
