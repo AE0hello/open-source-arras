@@ -168,7 +168,7 @@ let initializeFilter = () => {
         if (s.gameMode.includes("FFA")) global.filters.gamemodeFilters.ffa.push(s);
 
         // Squads
-        if (s.gameMode.includes("Duos") || s.gameMode.includes("Squads") || s.gameMode.includes("Wars")) global.filters.gamemodeFilters.squads.push(s);
+        if (s.gameMode.includes("Duos") || s.gameMode.includes("Trios") || s.gameMode.includes("Squads") || s.gameMode.includes("Wars")) global.filters.gamemodeFilters.squads.push(s);
 
         // TDM
         if (s.gameMode.includes("TDM")) global.filters.gamemodeFilters.tdm.push(s);
