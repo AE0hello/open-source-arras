@@ -15,17 +15,21 @@ let { gamemodeManager } = require("./game/gamemodeManager.js");
 const getName = (name, gamemodeData) => {
     const nameMap = { // commented-out gamemodes haven't been implemented yet
 
-    // Deathmatch
-        clan_wars: "Clan Wars",
-        //duos: "Duos",
+    // FFA
         ffa: "FFA",
         halloween: "Halloween",
-        sandbox: "Sandbox",
-        //squads: "Squads",
+
+    // Squads
+        clan_wars: "Clan Wars",
+        duos: "Duos",
+        squads: "Squads",
+        train_wars: "Train Wars",
+        trios: "Trios",
+
+    // TDM
         tdm: `${gamemodeData.teams}TDM`,
             open_tdm: `Open ${gamemodeData.teams}TDM`,
-        //tetromino: `${gamemodeData.teams} Team Tetromino`,
-        train_wars: "Train Wars",
+        tetromino: `${gamemodeData.teams} Team Tetromino`,
 
     // Minigames
         assault_acropolis: "Assault Acropolis",
@@ -48,6 +52,19 @@ const getName = (name, gamemodeData) => {
         siege_fortress: "Siege Fortress",
         //soccer: "Soccer",
         tag: `${gamemodeData.teams} Team Tag`,
+
+    // Sandbox
+        sandbox: "Sandbox",
+
+    // Lobbies
+        //forge: "Forge",
+            //old_forge: "Old Forge",
+        limbo: "Limbo",
+        nexus: "Nexus",
+
+    // Miscellaneous
+        private: "Private",
+        tartarus: "Tartarus",
 
     // Modifiers
         arms_race: "Arms Race",
@@ -74,16 +91,6 @@ const getName = (name, gamemodeData) => {
         retrograde: "Retrograde",
         //skinwalkers: "Skinwalkers",
         space: "Space",
-
-    // Lobbies
-        //forge: "Forge",
-            //old_forge: "Old Forge",
-        limbo: "Limbo",
-        nexus: "Nexus",
-
-    // Miscellaneous
-        private: "Private",
-        tartarus: "Tartarus",
 
     };
     return nameMap[name];
