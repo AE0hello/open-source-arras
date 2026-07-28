@@ -291,6 +291,24 @@ import * as socketStuff from "./socketinit.js";
                         (e = g))
             });
     }
+    function tabControlsMenuSwitcher() {
+        let buttonTabs = document.getElementById("controlsMenuTabs"),
+            tabOptions = [
+                document.getElementById("tabGameplay"),
+                document.getElementById("tabSandbox"),
+            ];
+        for (let g = 1; g < tabOptions.length; g++) tabOptions[g].style.display = "none";
+        let e = 0;
+        for (let g = 0; g < buttonTabs.children.length; g++)
+            buttonTabs.children[g].addEventListener("click", () => {
+                e !== g &&
+                    (buttonTabs.children[e].classList.remove("active"), // Remove the active class
+                        buttonTabs.children[g].classList.add("active"), // Add the clicked active class
+                        (tabOptions[e].style.display = "none"), // Dont display the old menu.
+                        (tabOptions[g].style.display = "block"), // Display the menu.
+                        (e = g))
+            });
+    }
     function initalizeAddonAuthors(data) {
         let mainDoc = document.getElementById("tabAddons");
         mainDoc.innerHTML = "";
@@ -665,6 +683,7 @@ import * as socketStuff from "./socketinit.js";
     // Important functions
     toggleOptionsMenu();
     tabOptionsMenuSwitcher();
+    tabControlsMenuSwitcher();
     customThemeDisplayHandler();
     snowAndFireworkEffects();
     menuSettingsHandler();
