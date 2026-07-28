@@ -51,7 +51,6 @@ module.exports = {
 
             properties: {
                 bot_cap: 20,
-                allow_server_travel: true,
                 daily_tank: {
                     tank: 'whirlwind',
                     tier: 3,
@@ -76,6 +75,24 @@ module.exports = {
             id: 'lb',
 
             region: "Local",
+            gamemode: ['squads'],
+            player_cap: 80,
+
+            featured: false,
+            unlisted: false,
+            private: false,
+
+            properties: {
+                allow_server_travel: true
+            }
+        },
+        {
+            share_client_server: false,
+            host: 'localhost:3003',
+            port: 3003,
+            id: 'lc',
+
+            region: "Local",
             gamemode: ['tdm'],
             player_cap: 80,
 
@@ -92,7 +109,7 @@ module.exports = {
                 },
                 server_travel: [
                     {
-                        ip: 'localhost:3001', // destination server host, don't add "https://" or any slashes to it
+                        ip: 'localhost:3002', // destination server host, don't add "https://" or any slashes to it
                         portal_properties: {
                             spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = lower chances, lower = higher chance)
                             color: 'red', // portal color
@@ -103,9 +120,9 @@ module.exports = {
         },
         {
             share_client_server: false,
-            host: 'localhost:3003',
-            port: 3003,
-            id: 'lc',
+            host: 'localhost:3004',
+            port: 3004,
+            id: 'ld',
 
             region: "Local",
             gamemode: ['mothership'],
