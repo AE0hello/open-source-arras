@@ -204,6 +204,7 @@ body.mobile .serverSelector {
 
 .shadowScroll {
 	overflow-y: scroll;
+	overflow-x: hidden;
 	background:
 	/* Shadow covers */
 	linear-gradient(#dde6eb 30%,
