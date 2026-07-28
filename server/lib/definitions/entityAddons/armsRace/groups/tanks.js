@@ -3721,7 +3721,145 @@ Class.flexedDouble_AR = makeFlank('pentaShot', 2, "Flexed Double", {extraStats: 
 Class.flexedGunner_AR = {PARENT: 'PLACEHOLDER', LABEL: "Flexed Gunner"}
 Class.flexedHybrid_AR = makeOver('pentaShot', "Flexed Hybrid", preset.makeOver.hybrid)
 Class.flexedMinigun_AR = {PARENT: 'PLACEHOLDER', LABEL: "Flexed Minigun"}
-Class.fungus_AR = {PARENT: 'PLACEHOLDER', LABEL: "Fungus"}
+Class.fungus_AR = {
+    PARENT: 'genericTank',
+    LABEL: "Fungus",
+    DANGER: 8,
+    GUNS: [
+        ...weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 2.5,
+                WIDTH: 3.5,
+                ASPECT: 1.8,
+                X: 9.6,
+                Y: 0.7,
+                ANGLE: 71.5,
+                DELAY: 5/6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.pelleter, g.artillery, g.twin, g.spreadshot, {reload: 0.4, speed: 1.6, shudder: 1.4}]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 4,
+                Y: 0.7,
+                ANGLE: 56.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 4,
+                ASPECT: 1.7,
+                X: 11.5,
+                Y: 0.7,
+                ANGLE: 56.5,
+                DELAY: 4/6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.pelleter, g.artillery, g.twin, g.spreadshot, {reload: 0.4, speed: 1.6, shudder: 1.4}]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 4,
+                Y: 1,
+                ANGLE: 41.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 4,
+                ASPECT: 1.7,
+                X: 13,
+                Y: 1,
+                ANGLE: 41.5,
+                DELAY: 3/6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.pelleter, g.artillery, g.twin, g.spreadshot, {reload: 0.4, speed: 1.6, shudder: 1.4}]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 4,
+                Y: 1,
+                ANGLE: 26.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 4,
+                ASPECT: 1.7,
+                X: 14.5,
+                Y: 1,
+                ANGLE: 26.5,
+                DELAY: 2/6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.pelleter, g.artillery, g.twin, g.spreadshot, {reload: 0.4, speed: 1.6, shudder: 1.4}]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: "trap"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 4,
+                Y: 0.85,
+                ANGLE: 15
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2,
+                WIDTH: 4,
+                ASPECT: 1.7,
+                X: 16,
+                Y: 0.85,
+                ANGLE: 15,
+                DELAY: 1/6
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.pelleter, g.artillery, g.twin, g.spreadshot, {reload: 0.4, speed: 1.6, shudder: 1.4}]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: "trap"
+            }
+        }]),
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.25,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 17
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.pelleter, g.artillery, g.twin, g.spreadshot, {reload: 0.4, speed: 1.6, shudder: 1.4}]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: "trap"
+            }
+        }
+    ]
+}
 Class.gadgetGun_AR = {
     PARENT: "genericTank",
     LABEL: "Gadget Gun",
