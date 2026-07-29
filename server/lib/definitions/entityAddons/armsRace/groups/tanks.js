@@ -64,15 +64,6 @@ g.productionist = {
     range: 1.5,
     spray: 50
 }
-g.quint = {
-    reload: 1.5,
-    recoil: 2/3,
-    shudder: 0.9,
-    pen: 0.9,
-    density: 1.1,
-    spray: 0.9,
-    resist: 0.95
-}
 
 // Functions
 const makeUnder = (type, name = -1, options = {}) => {
@@ -4471,7 +4462,7 @@ Class.quintuplet_AR = {
                 DELAY: 2/3
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
                 TYPE: "bullet"
             }
         },
@@ -4483,7 +4474,7 @@ Class.quintuplet_AR = {
                 DELAY: 1/3
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
                 TYPE: "bullet"
             }
         }]),
@@ -4493,7 +4484,7 @@ Class.quintuplet_AR = {
                 WIDTH: 10
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quint]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
                 TYPE: "bullet"
             }
         }

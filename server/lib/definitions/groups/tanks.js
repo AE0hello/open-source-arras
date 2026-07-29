@@ -2075,6 +2075,58 @@ Class.construct = { // it's "construct" and not "constructor" because "construct
     ]
 };
 Class.cropDuster = makeOver('minigun', "Crop Duster", preset.makeOver.hybrid);
+Class.crowbar = {
+    PARENT: "genericTank",
+    LABEL: "Crowbar",
+    DANGER: 7,
+    BODY: {
+        FOV: 1.25 * base.FOV
+    },
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 40,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 9,
+                ASPECT: -2
+            }
+        }
+    ],
+    TURRETS: [
+        {
+            TYPE: ["crowbarTurretTank", {INDEPENDENT: true}],
+            POSITION: {
+                SIZE: 6,
+                X: 19.5,
+                ARC: 180,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["crowbarTurretTank", {INDEPENDENT: true}],
+            POSITION: {
+                SIZE: 6,
+                X: 29.75,
+                ARC: 180,
+                LAYER: 1
+            }
+        },
+        {
+            TYPE: ["crowbarTurretTank", {INDEPENDENT: true}],
+            POSITION: {
+                SIZE: 6,
+                X: 40,
+                ARC: 180,
+                LAYER: 1
+            }
+        }
+    ]
+};
 Class.crossbow = {
     PARENT: 'genericTank',
     LABEL: "Crossbow",
@@ -2245,6 +2297,22 @@ Class.deathStar = {
             }
         }
     ], 3)
+};
+Class.doctor = {
+    PARENT: "genericHealer",
+    LABEL: "Doctor",
+    STAT_NAMES: statnames.drone,
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 14,
+                ASPECT: 1.3,
+                X: 2
+            }
+        }
+    ]
 };
 Class.dreadnought_old = {
     PARENT: 'genericTank',
@@ -3757,6 +3825,35 @@ Class.paramedic = {
         }
     ]
 };
+Class.peashooter = makeGuard({
+    PARENT: "genericTank",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 7.5,
+                WIDTH: 7.5,
+                ASPECT: 0.6,
+                X: 7,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        }
+    ]
+}, "Peashooter");
 Class.pentaShot = {
     PARENT: 'genericTank',
     LABEL: "Penta Shot",
@@ -3801,6 +3898,31 @@ Class.pentaShot = {
     ]
 };
 Class.phoenix = makeBird('sprayer', "Phoenix");
+Class.physician = {
+    PARENT: "genericSmasher",
+    LABEL: "Physician",
+    HEALING_TANK: true,
+    FACING_TYPE: ["spin", {speed: 0.05}],
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 0,
+            WIDTH: 0
+        }
+    }, 12),
+    TURRETS: [
+        ...weaponArray({
+            TYPE: ["pentagonHat_spin", {COLOR: "black"}],
+            POSITION: {SIZE: 20}
+        }, 4),
+        {
+            TYPE: "healerHat",
+            POSITION: {
+                SIZE: 13,
+                LAYER: 1
+            }
+        }
+    ]
+};
 Class.poacher = makeOver('hunter', "Poacher", preset.makeOver.hybrid);
 Class.predator = {
     PARENT: 'genericTank',
@@ -5116,6 +5238,107 @@ Class.xHunter = {
 
 // Tier 4 (Level 60)
 Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta);
+Class.quintuplet = {
+    PARENT: "genericTank",
+    LABEL: "Quintuplet",
+    DANGER: 8,
+    GUNS: [
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 10,
+                Y: 5,
+                DELAY: 2/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 10,
+                Y: 3,
+                DELAY: 1/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+                TYPE: "bullet"
+            }
+        }]),
+        {
+            POSITION: {
+                LENGTH: 22,
+                WIDTH: 10
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+};
+Class.ransacker = makeGuard('rifle', "Ransacker")
+Class.sniper3 = makeRadialAuto('sniper3gun', {isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: {SPEED: 11/15 * base.SPEED, FOV: 1.25 * base.FOV}})
+Class.vulcan = {
+    PARENT: "genericTank",
+    LABEL: "Vulcan",
+    DANGER: 8,
+    BODY: {
+        FOV: base.FOV * 1.1
+    },
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 1.5,
+                Y: -4.45
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 1.5,
+                Y: 4.45
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 1.5,
+                Y: 2.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 1.5,
+                Y: -2.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 30,
+                WIDTH: 1.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 14
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 14,
+                X: 20
+            }
+        }
+    ]
+};
 
 // Tierless (Fun)
 Class.alas = {
