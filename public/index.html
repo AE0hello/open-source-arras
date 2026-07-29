@@ -153,9 +153,16 @@
                                         <td><div><label class="container"><input id="optRenderKillbar" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Kill Bar</label></div></td>
                                         <td><div><label class="container"><input id="optRenderMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Minimap</label></div></td>
                                     </tr>
+                                    <tr class="mobileRow">
+                                        <td><div><label class="container"><input id="showCrosshair" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Crosshair</label></div></td>
+                                        <td><div><label class="container"><input id="showJoystick" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Joystick</label></div></td>
+                                    </tr>
                                     <tr>
-                                        <td><div><label class="container mobileOptions"><input id="showCrosshair" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Crosshair</label></div></td>
-                                        <td><div><label class="container mobileOptions"><input id="showJoystick" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Joystick</label></div></td>
+                                        <td><div><label class="container"><input id="optAllowIngameOptions" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Ingame Options</label></div></td>
+                                        <td><div><label class="container"><input id="optCenterMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Centered Minimap</label></div></td>
+                                    </tr>
+                                    <tr>
+                                        <td><div><label class="container"><input id="optOldUiStyle" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Classic UI Style</label></div></td>
                                     </tr>
                                 </table>
                                 <div class="optionsHeader">Main Menu</div>
@@ -181,16 +188,18 @@
                                         <td><div><label class="container"><input id="optLowResolution" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Low Resolution</label></div></td>
                                     </tr>
                                     <tr>
-                                        <td><div><label class="container"><input id="optLerpAnim" tabindex="-1" title="Smoothing animation" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Animations</label></div></td>
+                                        <td><div><label class="container"><input id="smoothCamera" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Camera</label></div></td>
                                         <td><div><label class="container"><input id="optFancy" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Fancy Animations</label></div></td>
                                     </tr>
                                     <tr>
-                                        <td><div><label class="container"><input id="optOptimizeMode" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Optimize Mode</label></div></td>
+                                        <td><div><label class="container"><input id="optLerpAnim" tabindex="-1" title="Smoothing animation" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Animations</label></div></td>
                                         <td><div><label class="container"><input id="optFullHD" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Full HD</label></div></td>
                                     </tr>
+                                    <tr>
+                                        <td><div><label class="container"><input id="optOptimizeMode" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Optimize Mode</label></div></td>
+                                        <td><div><label class="container"><input id="optSlowerFOV" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Slow FOV Animation</label></div></td>
+                                    </tr>
                                 </table>
-                                <div class="optionsHeader">Token</div>
-                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64"/>
                                 <div class="optionsHeader">Miscellaneous</div>
                                 <select id="placeholderOptFilter" tabindex="-1">
                                     <option value="none">No Filter</option>
@@ -203,18 +212,8 @@
                                         <td><div><label class="container"><input id="autoLevelUp" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Auto-Level Up</label></div></td>
                                         <td><div><label class="container"><input id="optIncognitoMode" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark" checked></span>Incognito Mode</label></div></td>
                                     </tr>
-                                    <tr>
-                                        <td><div><label class="container"><input id="optCenterMinimap" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Centered Minimap</label></div></td>
-                                        <td><div><label class="container"><input id="optSlowerFOV" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Slow FOV Animation</label></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><div><label class="container"><input id="smoothCamera" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Smooth Camera</label></div></td>
-                                        <td><div><label class="container"><input id="optAllowIngameOptions" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Show ingame options</label></div></td>
-                                    </tr>
-                                    <tr>
-                                        <td><div><label class="container"><input id="optOldUiStyle" tabindex="-1" class="checkbox" type="checkbox"><span class="checkmark"></span>Old-UI Style</label></div></td>
-                                    </tr>
                                 </table>
+                                <input type="text" class="conceal" tabindex="3" placeholder="Insert token here" id="playerKeyInput" maxlength="64"/>
                             </div>
                             <div id="tabControls">
                                 <div class="horizontalSelector" id="controlsMenuTabs">
