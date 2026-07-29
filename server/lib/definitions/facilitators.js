@@ -1490,18 +1490,18 @@ exports.makePolychoron = function (info) {
 
 // tgs
 exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
-    name = ensureIsClass(type)
-    upgradeList = upgrades.map(x => x + (options.suffix ??= ''))
-    startValue = options.start ?? -1
+    name = ensureIsClass(type);
+    upgradeList = upgrades.map(x => x + (options.suffix ??= ''));
+    startValue = options.start ?? -1;
 
     if (name[`UPGRADES_TIER_${tier}`] == undefined) {
-        return name[`UPGRADES_TIER_${tier}`] = upgradeList
-    }
+        return name[`UPGRADES_TIER_${tier}`] = upgradeList;
+    };
     if (startValue !== -1) {
-        return name[`UPGRADES_TIER_${tier}`].splice(startValue, 0, ...upgradeList)
-    }
-    name[`UPGRADES_TIER_${tier}`].push(...upgradeList)
-}
+        return name[`UPGRADES_TIER_${tier}`].splice(startValue, 0, ...upgradeList);
+    };
+    name[`UPGRADES_TIER_${tier}`].push(...upgradeList);
+};
 exports.removeUpgrades = (type, tier, upgrades = []) => {
     typeUpgrades = Class[type][`UPGRADES_TIER_${tier}`]
     if (typeUpgrades == undefined) return;
