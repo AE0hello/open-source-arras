@@ -221,7 +221,7 @@ const global = {
     KEY_SPECIAL_PROMOTE: 'Semicolon',
     KEY_SPECIAL_DEMOTE: 'Quote',
 
-    KEY_ABILITIES: ["KEY_SPECIAL_ATTRIBUTE", "KEY_SPECIAL_SKILL"],
+    KEY_ABILITIES: ['KEY_SPECIAL_ATTRIBUTE', 'KEY_SPECIAL_SKILL'],
 
     showTree: false,
     scrollX: 0,

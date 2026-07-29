@@ -626,24 +626,12 @@ body.mobile #optBorders {
 	display: inline-block;
 }
 
-.mobileOptions {
+.mobileRow {
 	display: none;
 }
 
-body.mobile .mobileOptions {
-	display: block;
-}
-
-.mobileOptionsHeader {
-	display: none;
-}
-
-body.mobile .mobileOptionsHeader {
-	display: block;
-	margin: 10px 0 4px;
-	font: bold 13px/1 Ubuntu;
-	color: #000000;
-	text-align: center;
+body.mobile .mobileRow {
+	display: true;
 }
 
 .slider {
