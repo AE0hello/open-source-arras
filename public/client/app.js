@@ -20,9 +20,25 @@ import * as socketStuff from "./socketinit.js";
             ? (b.push(c), (c = [d.slice(1).trim()]))
             : "-" === response
             ? c.push(d.slice(1).trim())
-            : (c[c.length - 1] += " " + d.trim()));
+            : (c[c.length - 1] += " " + d.trim()))
         b.push(c);
-        for (let g of b) initalizeChangelog(g);
+        for (c = 0; c < b.length; ) {
+            if (addChangelog(b[c], 157248e5)) {
+                c++;
+                continue;
+            }
+            b = b.slice(c);
+            let d = addChangelog([
+                "Older Changelogs",
+                '<a class="view-older-changelogs" href="javascript:;">Click here to load changelogs more than 6 months old.</a>',
+            ]);
+            [c] = d.getElementsByClassName("view-older-changelogs");
+            c.addEventListener("click", () => {
+                d.remove();
+                for (let g of b) addChangelog(g);
+            });
+            break;
+        }
     });
 
     global.clearUpgrades = (clearNow = false) => {
@@ -976,7 +992,7 @@ import * as socketStuff from "./socketinit.js";
             author: null,
         }
     }
-    function initalizeChangelog(b, a) { // From CX Client (Modified) + decoded;
+    function addChangelog(b, a = null) { // From CX Client (Modified) + decoded;
         let triggerChangelog = ( () => {
             let a = document.getElementById("changelogTabs")
             , b = a.firstElementChild
@@ -1002,9 +1018,14 @@ import * as socketStuff from "./socketinit.js";
         }
         )()
         var sa = document.getElementById("patchNotes");
-        var c = b.shift();
+        var c = b[0];
         if (c) {
-            c = c.match(/^([A-Za-z ]+[A-Za-z])\s*\[([0-9\-]+)\]\s*(.+)?$/) || [c, c, null];
+            let s = 0;
+            c = c.match(/^([A-Za-z ]+[A-Za-z])\s*\[([0-9\-]+)\]\s*(.+)?$/) || [
+                c,
+                c,
+                null,
+            ];
             var h = c[1] ? {
                     "Announcement": "announcement",
                     "Balance": "balance",
@@ -1023,21 +1044,23 @@ import * as socketStuff from "./socketinit.js";
             var y = document.createElement("b"),
                 f = [c[1]];
             if (c[2]) {
-                var e = new Date(c[2] + "T00:00:00Z");
-                if (e > Date.now()) return;
-                f.push(e.toLocaleDateString("default", {
+                var e = +new Date(c[2] + "T00:00:00Z") + 252e5;
+                if (e > Date.now()) return !0;
+                if (null != a && e + a < Date.now()) return !1;
+                f.push(new Date(e).toLocaleDateString("default", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
                     timeZone: "UTC"
                 }))
             }
+            if (c[1]) s = 1;
             c[3] && f.push(c[3]);
             y.innerHTML = f.join(" - ");
             d.appendChild(y);
             let g = document.createElement("ul");
             let l;
-            for (let n of b) l = document.createElement("li"), l.innerHTML = n, g.appendChild(l);
+            for (let n of b.slice(s)) l = document.createElement("li"), l.innerHTML = n, g.appendChild(l);
             l = g.getElementsByTagName("a");
             for (a = 0; a < l.length; a++) {
                 let u = l[a];
@@ -1057,7 +1080,9 @@ import * as socketStuff from "./socketinit.js";
             d.appendChild(g)
             a && d.appendChild(document.createElement("hr"));
             sa.appendChild(d)
-        }
+
+            return d;
+        } else return true
     }
 
     function loadSettings() {
