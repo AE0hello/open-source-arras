@@ -3591,23 +3591,27 @@ Class.oroboros = {
     LABEL: "Oroboros",
     DANGER: 7,
     STAT_NAMES: statnames.desmos,
-    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!",
+    BODY: Class.builder.BODY,
     GUNS: [
         {
             POSITION: {
-                LENGTH: 20.5,
-                WIDTH: 14
+                LENGTH: 16.5,
+                WIDTH: 12
             },
-            PROPERTIES: { // Set traps circle around cursor
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-                TYPE: 'setTrap',
-                STAT_CALCULATOR: 'block'
-            }
         },
         {
             POSITION: {
-                LENGTH: 15.5,
-                WIDTH: 14
+                LENGTH: 3.5,
+                WIDTH: 12,
+                ASPECT: 1.1,
+                X: 16.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
+                TYPE: ['oroborosTrap', {CONTROLLERS: [['oroboros', {range: 75, speed: Math.PI / 32}], 'snakeTillNot']}],
+                STAT_CALCULATOR: 'block',
+                DESTROY_OLDEST_CHILD: true,
+                MAX_CHILDREN: 4
             }
         },
         ...weaponMirror({

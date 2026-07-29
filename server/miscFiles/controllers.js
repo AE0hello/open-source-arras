@@ -1,3 +1,4 @@
+let lerp = (a, b, x) => a + x * (b - a);
 let compressMovementOffsets = [
     { x: 1, y: 0},
     { x: 1, y: 1},
@@ -1217,6 +1218,91 @@ class io_scaleWithMaster extends IO {
     }
 }
 
+class io_snakeTillNot extends IO {
+    constructor(body, opts = {}) {
+        super(body);
+        this.waveInvert = opts.invert ? -1 : 1;
+        this.wavePeriod = opts.period ?? 5;
+        this.waveAmplitude = opts.amplitude ?? 150;
+        this.yOffset = opts.yOffset ?? 0;
+
+        this.reverseWave = this.body.master.control.alt ? -1 : 1;
+        this.velocityMagnitude = 0;
+        this.body.damp = 0;
+        this.waveAngle = this.body.master.facing + (opts.angle ?? 0);
+        this.startX = this.body.x;
+        this.startY = this.body.y;
+        this.body.x += Math.cos(this.body.velocity.direction) * this.body.size * Config.bullet_spawn_offset + 0;
+        this.body.y += Math.sin(this.body.velocity.direction) * this.body.size * Config.bullet_spawn_offset + 0;
+        // Clamp scale to [45, 75]
+        // Attempts to get the bullets to intersect with the cursor
+        this.waveHorizontalScale = util.clamp(util.getDistance(this.body.master.master.control.target, {x: 0, y: 0}) / Math.PI, 45, 75);
+        this.body.dontEverDareToDoThatSnakeShitEverAgainYouPieceOfShit ??= false
+    }
+    think(input) {
+        if (!this.body.dontEverDareToDoThatSnakeShitEverAgainYouPieceOfShit) {
+            // Define a sin wave for the bullet to follow
+            let waveX = this.waveHorizontalScale * (this.body.RANGE - this.body.range) / this.wavePeriod;
+            let waveY = this.waveAmplitude * Math.sin(waveX / this.waveHorizontalScale) * this.waveInvert * this.reverseWave + this.yOffset;
+            // Rotate the sin wave
+            let trueWaveX = Math.cos(this.waveAngle) * waveX - Math.sin(this.waveAngle) * waveY;
+            let trueWaveY = Math.sin(this.waveAngle) * waveX + Math.cos(this.waveAngle) * waveY;
+            // Follow the sin wave
+            this.body.x = util.lerp(this.body.x, this.startX + trueWaveX, this.velocityMagnitude);
+            this.body.y = util.lerp(this.body.y, this.startY + trueWaveY, this.velocityMagnitude);
+            // Accelerate after spawning
+            this.velocityMagnitude = Math.min(0.1, this.velocityMagnitude + 0.01 / global.gameManager.runSpeed)
+        }
+    }
+}
+class io_oroboros extends IO {
+    constructor(body, opts = {}) {
+        super(body);
+        this.masterX = body.master.control.target.x // Airstrike bullshit js ignore it
+        this.masterY = body.master.control.target.y // Airstrike bullshit js ignore it
+        this.masterBodyX = body.master.x            // Airstrike bullshit js ignore it
+        this.masterBodyY = body.master.y            // Airstrike bullshit js ignore it
+        this.myGoal = {
+            x: body.master.control.target.x + body.master.x,
+            y: body.master.control.target.y + body.master.y
+        }
+        this.range = opts.range ??= 5
+        this.range = Math.max(this.range, 0)
+        this.x = 0
+        this.gonnaGoInFUCKINGCircles = false
+        this.speed = opts.speed ??= Math.PI / 8
+        this.speed *= (body.skill.raw[4] / 9) + 1
+        this.lerpTimer = 0;
+        body.dontEverDareToDoThatSnakeShitEverAgainYouPieceOfShit = false
+    };
+    think(input) {
+        this.x += this.speed
+        if (util.getDistance({x: this.masterBodyX, y: this.masterBodyY}, {x: this.body.x, y: this.body.y}) > util.getDistance({x: 0, y: 0}, {x: this.masterX, y: this.masterY}) || this.gonnaGoInFUCKINGCircles) {
+            this.lerpTimer = Math.min(1, this.lerpTimer + 0.02);
+            this.gonnaGoInFUCKINGCircles = true
+            this.body.dontEverDareToDoThatSnakeShitEverAgainYouPieceOfShit = true
+            
+            this.body.x = lerp(this.body.x, (this.range * Math.sin(-this.x)) + this.myGoal.x, this.lerpTimer);
+            this.body.y = lerp(this.body.y, (this.range * Math.cos(-this.x)) + this.myGoal.y, this.lerpTimer);
+            this.body.facing = lerp(0, -this.x, this.lerpTimer);
+            if (this.body?.store?.snakeSegments?.length > 0) {
+                for (let i = 0; i < this.body.store.snakeSegments.length; i++) {
+                    this.body.store.snakeSegments[i].x = lerp(this.body.store.snakeSegments[i].x, (this.range * Math.sin(-this.x + ((i + 1) / (1.5 * (this.range / 50))))) + this.myGoal.x, this.lerpTimer);
+                    this.body.store.snakeSegments[i].y = lerp(this.body.store.snakeSegments[i].y, (this.range * Math.cos(-this.x + ((i + 1) / (1.5 * (this.range / 50))))) + this.myGoal.y, this.lerpTimer);
+                    this.body.store.snakeSegments[i].facing = lerp(0, -this.x, this.lerpTimer);
+                }
+            }
+        } else {
+            return {
+                goal: {
+                    x: this.myGoal.x,
+                    y: this.myGoal.y
+                }
+            }
+        }
+    }
+}
+
 let ioTypes = {
     //misc
     zoom: io_zoom,
@@ -1228,6 +1314,8 @@ let ioTypes = {
     whirlwind: io_whirlwind,
     disableOnOverride: io_disableOnOverride,
     scaleWithMaster: io_scaleWithMaster,
+    snakeTillNot: io_snakeTillNot,
+    oroboros: io_oroboros,
 
     //aiming related
     stackGuns: io_stackGuns,
