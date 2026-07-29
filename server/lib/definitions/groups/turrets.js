@@ -1453,7 +1453,7 @@ Class.crowbarTurretTank = {
             COLOR: 16,
             GUNS: [
                 {
-                    POSITION: [22, 10, 1, 0, 0, 0, 0],
+                    POSITION: [24, 11, 1, 0, 0, 0, 0],
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.autoTurret, { recoil: 0, damage: 0.91 }]),
                         TYPE: "bullet",

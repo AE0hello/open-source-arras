@@ -125,6 +125,15 @@ module.exports = {
         spray: 0.9,
         resist: 0.95
     },
+    quintuplet: {
+        reload: 1.5,
+        recoil: 2/3,
+        shudder: 0.9,
+        pen: 0.9,
+        density: 1.1,
+        spray: 0.9,
+        resist: 0.95
+    },
     turret: {
         reload: 2,
         health: 0.8,
