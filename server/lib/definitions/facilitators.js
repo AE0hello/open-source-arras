@@ -375,9 +375,8 @@ exports.makeGunner = (type, name = -1, options  = {}) => {
 exports.makeAuto = (type, name = -1, options = {}) => {
 
     /*
-    - type: what turret (or regular Class) to use as the mounted turret
-
     Available options:
+    - type: what turret (or regular Class) to use as the mounted turret
     - color: turret body color
     - size: turret size
     - x: turret X position
