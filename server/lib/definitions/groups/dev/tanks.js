@@ -60,7 +60,7 @@ Class.developer = {
 
 // Spectator
 Class.spectator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Spectator",
     ALPHA: 0,
     CAN_BE_ON_LEADERBOARD: false,
@@ -150,7 +150,7 @@ Class.guillotine = {
     ]
 }
 Class.banHammer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Ban Hammer",
     ALPHA: 0,
     CAN_BE_ON_LEADERBOARD: false,

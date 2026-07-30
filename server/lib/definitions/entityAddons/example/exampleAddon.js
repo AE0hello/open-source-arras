@@ -45,7 +45,7 @@ while (next.length && limit--) {
 
 // This adds the tank to the definitions and to the fun menu
 Class.abomination = {
-	PARENT: "genericTank",
+	PARENT: 'genericTank',
 	LABEL: "The Abomination",
 	SKILL_CAP: Array(10).fill(15),
 	SIZE: 15,

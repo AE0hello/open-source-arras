@@ -380,12 +380,12 @@ Class.scenexeMinion = {
 }
 
 Class.scenexeNode = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     REROOT_UPGRADE_TREE: ["scenexeNode", "scenexeBase"],
     LABEL: "Node",
 }
 Class.scenexeBase = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     REROOT_UPGRADE_TREE: ["scenexeNode", "scenexeBase"],
     LABEL: "Base",
     BODY: {
@@ -724,7 +724,7 @@ Class.scenexeCompound = {
     ]
 }
 Class.scenexeAssassin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 6,
     LABEL: "Assassin",
     BODY: {

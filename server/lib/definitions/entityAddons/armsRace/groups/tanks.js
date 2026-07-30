@@ -1,17 +1,120 @@
-const {combineStats, addUpgrades, removeUpgrades} = require('../../../facilitators.js')
-//const {base, statnames} = require('../../../constants.js')
-//const g = require('../../../gunvals.js')
-//const preset = require('../../../presets.js')
+const {combineStats, addUpgrades, removeUpgrades, makeFlank} = require('../../../facilitators.js')
+const {base, statnames} = require('../../../constants.js')
+const g = require('../../../gunvals.js')
+const preset = require('../../../presets.js')
 
 // Set the below variable to true to enable the original arras.io Arms Race tree, with some minor bugfixes.
-const use_original_tree = false
+const use_original_tree = true
 
 // Set the below variable to true to allow tier 4 upgrades at level 45, like in arras.io.
 const free_tier_4 = true
 
+// Placeholder Marker
+const placeholder = {
+    UPGRADE_COLOR: "black",
+    UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!"
+}
+
 // Tier 2 (Level 30)
+Class.wark_AR = {
+    PARENT: 'genericTank',
+    LABEL: "Wark",
+    STAT_NAMES: statnames.trap,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                Y: 5.5,
+                ANGLE: 5,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.25,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 14,
+                Y: 5.5,
+                ANGLE: 5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 8,
+                Y: -5.5,
+                ANGLE: -5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.25,
+                WIDTH: 8,
+                ASPECT: 1.7,
+                X: 14,
+                Y: -5.5,
+                ANGLE: -5
+            }
+        }
+    ]
+};
 
 // Tier 3 (Level 45)
+Class.doubleFlankTwin_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Double Flank Twin',
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ANGLE: -90
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ANGLE: 90
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: -5.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5,
+                ANGLE: 180
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: -5.5,
+                ANGLE: 180
+            }
+        }
+    ]
+};
+Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.doubleTwin]});
+Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]});
 
 // Tier 4 (Level 60)
 
@@ -23,21 +126,28 @@ if (!free_tier_4) {
     tier4 = 4;
     Config.level_cap = 60;
     Config.level_cap_cheat = 60;
-}
+};
 
 addUpgrades('basic', 1, []);
     addUpgrades('basic', 2, []);
         addUpgrades('basic', 3, []);
             addUpgrades('basic', tier4, []);
 
-    addUpgrades('twin', 2, []);
+    addUpgrades('twin', 2, ['wark_AR']);
         addUpgrades('twin', 3, []);
             addUpgrades('twin', tier4, []);
             addUpgrades('dual', tier4, []);
             addUpgrades('musket', tier4, []);
 
-        addUpgrades('doubleTwin', 3, []);
+        addUpgrades('doubleTwin', 3, ['doubleFlankTwin_AR', 'doubleGunner_AR', 'warkwark_AR']);
             addUpgrades('doubleTwin', tier4, []);
+            addUpgrades('tripleTwin', tier4, []);
+            addUpgrades('hewnDouble', tier4, []);
+            addUpgrades('autoDouble', tier4, []);
+            addUpgrades('bentDouble', tier4, []);
+            //addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin_AR', 'tripleFlankTwin_AR', 'hewnFlankDouble_AR', 'autoDoubleFlankTwin_AR', 'bentFlankDouble_AR', 'doubleFlankGunner_AR', 'hipwatch_AR', 'scuffler_AR', 'warkwawawark_AR']);
+            //addUpgrades('doubleGunner_AR', tier4, ['tripleGunner_AR', 'hewnGunner_AR', 'autoDoubleGunner_AR', 'bentDoubleGunner_AR', 'doubleFlankGunner_AR', 'doubleNailgun_AR', 'doubleMachineGunner_AR', 'overdoubleGunner_AR', 'doubleBattery_AR', 'doubleRimfire_AR', 'doubleVolley_AR', 'doubleEqualizer_AR'])
+            //addUpgrades('warkwark_AR', tier4', ['warkwarkwark_AR', 'warkwawarkrk_AR', 'autoWarkwark_AR', 'waarrkwaarrk_AR', 'warkwawawark_AR', 'doubleEqualizer_AR', 'guardrail_AR', 'sealer_AR', 'setup_AR'])
 
         addUpgrades('tripleShot', 3, []);
             addUpgrades('tripleShot', tier4, []);
@@ -51,8 +161,8 @@ addUpgrades('basic', 1, []);
         addUpgrades('helix', 3, ['coil', 'duplicator']);
             addUpgrades('helix', tier4, []);
 
-//        addUpgrades('wark_AR', 3, []);
-//            addUpgrades('wark_AR', tier4, []);
+        addUpgrades('wark_AR', 3, [/*'warkwark_AR', 'waarrk_AR', 'equalizer_AR', */'hexaTrapper'/*, 'hutch_AR', 'cog_AR', 'expeller_AR'*/, 'bulwark'/*, 'coalesce_AR', 'autoWark_AR'*/]);
+            addUpgrades('wark_AR', tier4, [/*'megaWark_AR'*/]);
 
     addUpgrades('sniper', 2, []);
         addUpgrades('sniper', 3, []);
@@ -174,6 +284,8 @@ addUpgrades('basic', 1, []);
 
         //addUpgrades('helix_AR', 3, []);
 
+removeUpgrades('twin', 3, ['bulwark']);
+
 if (use_original_tree) {
     addUpgrades('basic', 3, ['single']);
     addUpgrades('machineGun', 3, ['sprayer']);
@@ -202,7 +314,7 @@ if (use_original_tree) {
 
 // UNSORTED GARBAGE
 Class.customUnnamed_24987 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
     STAT_NAMES: 0,
@@ -210,7 +322,7 @@ Class.customUnnamed_24987 = {
     COLOR: 9,
 }
 Class.customUnnamed_28741 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
     STAT_NAMES: 0,
@@ -218,7 +330,7 @@ Class.customUnnamed_28741 = {
     COLOR: 9,
 }
 Class.customUnknownClass_5627 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -226,7 +338,7 @@ Class.customUnknownClass_5627 = {
     COLOR: 9,
 }
 Class.customUnnamed_36502 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
     STAT_NAMES: 0,
@@ -234,7 +346,7 @@ Class.customUnnamed_36502 = {
     COLOR: 9,
 }
 Class.customUnnamed_29686 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
     STAT_NAMES: 0,
@@ -242,7 +354,7 @@ Class.customUnnamed_29686 = {
     COLOR: 9,
 }
 Class.customUnknownClass_18594 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -250,7 +362,7 @@ Class.customUnknownClass_18594 = {
     COLOR: 9,
 }
 Class.customUnknownClass_36828 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -258,7 +370,7 @@ Class.customUnknownClass_36828 = {
     COLOR: 9,
 }
 Class.customUnknownClass_59626 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -266,7 +378,7 @@ Class.customUnknownClass_59626 = {
     COLOR: 9,
 }
 Class.customUnnamed_63735 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -287,7 +399,7 @@ Class.customUnnamed_63735 = {
     ],
 }
 Class.customUnnamed_38115 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -318,7 +430,7 @@ Class.customUnnamed_38115 = {
     ],
 }
 Class.customUnnamed_50514 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -349,7 +461,7 @@ Class.customUnnamed_50514 = {
     ],
 }
 Class.customUnnamed_10007 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -370,7 +482,7 @@ Class.customUnnamed_10007 = {
     ],
 }
 Class.customUnnamed_26034 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -391,7 +503,7 @@ Class.customUnnamed_26034 = {
     ],
 }
 Class.customUnnamed_49970 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -412,7 +524,7 @@ Class.customUnnamed_49970 = {
     ],
 }
 Class.customUnnamed_56743 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -443,7 +555,7 @@ Class.customUnnamed_56743 = {
     ],
 }
 Class.customUnnamed_63056 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -484,7 +596,7 @@ Class.customUnnamed_63056 = {
     ],
 }
 Class.customUnnamed_31232 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -515,7 +627,7 @@ Class.customUnnamed_31232 = {
     ],
 }
 Class.customUnnamed_2560 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -546,7 +658,7 @@ Class.customUnnamed_2560 = {
     ],
 }
 Class.customUnnamed_65428 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -567,7 +679,7 @@ Class.customUnnamed_65428 = {
     ],
 }
 Class.customUnnamed_19040 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -598,7 +710,7 @@ Class.customUnnamed_19040 = {
     ],
 }
 Class.customUnnamed_57137 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -639,7 +751,7 @@ Class.customUnnamed_57137 = {
     ],
 }
 Class.customUnnamed_14345 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -680,7 +792,7 @@ Class.customUnnamed_14345 = {
     ],
 }
 Class.customUnnamed_28538 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -731,7 +843,7 @@ Class.customUnnamed_28538 = {
     ],
 }
 Class.customUnnamed_11140 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -752,7 +864,7 @@ Class.customUnnamed_11140 = {
     ],
 }
 Class.customUnnamed_44885 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -793,7 +905,7 @@ Class.customUnnamed_44885 = {
     ],
 }
 Class.customUnnamed_23761 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -824,7 +936,7 @@ Class.customUnnamed_23761 = {
     ],
 }
 Class.customUnnamed_18236 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -845,7 +957,7 @@ Class.customUnnamed_18236 = {
     ],
 }
 Class.customUnnamed_31022 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -866,7 +978,7 @@ Class.customUnnamed_31022 = {
     ],
 }
 Class.customUnnamed_60505 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -897,7 +1009,7 @@ Class.customUnnamed_60505 = {
     ],
 }
 Class.customUnnamed_45845 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -948,7 +1060,7 @@ Class.customUnnamed_45845 = {
     ],
 }
 Class.customUnnamed_19419 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -989,7 +1101,7 @@ Class.customUnnamed_19419 = {
     ],
 }
 Class.customUnnamed_30339 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1040,7 +1152,7 @@ Class.customUnnamed_30339 = {
     ],
 }
 Class.customUnnamed_24994 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1081,7 +1193,7 @@ Class.customUnnamed_24994 = {
     ],
 }
 Class.customUnnamed_14474 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1122,7 +1234,7 @@ Class.customUnnamed_14474 = {
     ],
 }
 Class.customAcquirer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Acquirer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1163,7 +1275,7 @@ Class.customAcquirer = {
     ],
 }
 Class.customAdderall = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Adderall',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -1194,7 +1306,7 @@ Class.customAdderall = {
     ],
 }
 Class.customAddict = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Addict',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -1225,7 +1337,7 @@ Class.customAddict = {
     ],
 }
 Class.customAdjurer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Adjurer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -1356,7 +1468,7 @@ Class.customAdjurer = {
     ],
 }
 Class.customAerodome = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Aerodome',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -1417,7 +1529,7 @@ Class.customAerodome = {
     ],
 }
 Class.customAffiliator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Affiliator',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -1488,7 +1600,7 @@ Class.customAffiliator = {
     ],
 }
 Class.customAirfield = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Airfield',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -1562,7 +1674,7 @@ Class.customAirfield = {
     ],
 }
 Class.customAlloy = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Alloy',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1696,7 +1808,7 @@ Class.customAlloy = {
     ],
 }
 Class.customAmalgam = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Amalgam',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1727,7 +1839,7 @@ Class.customAmalgam = {
     ],
 }
 Class.customAnaconda = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Anaconda',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1778,7 +1890,7 @@ Class.customAnaconda = {
     ],
 }
 Class.customAnchor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Anchor',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -1819,7 +1931,7 @@ Class.customAnchor = {
     ],
 }
 Class.customAnnexer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Annexer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -1900,7 +2012,7 @@ Class.customAnnexer = {
     ],
 }
 Class.customAnnihilator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Annihilator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -1933,7 +2045,7 @@ Class.customAnnihilator = {
     ],
 }
 Class.customAnomaly = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Anomaly',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -1984,7 +2096,7 @@ Class.customAnomaly = {
     ],
 }
 Class.customApiarist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Apiarist',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2025,7 +2137,7 @@ Class.customApiarist = {
     ],
 }
 Class.customApiculturist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Apiculturist',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2076,7 +2188,7 @@ Class.customApiculturist = {
     ],
 }
 Class.customArbalest = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Arbalest',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2167,7 +2279,7 @@ Class.customArbalest = {
     ],
 }
 Class.customArchitect = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Architect',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -2220,7 +2332,7 @@ Class.customArchitect = {
     ],
 }
 Class.customArchitectGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Architect Guard',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -2274,7 +2386,7 @@ Class.customArchitectGuard = {
     ],
 }
 Class.customArmament = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Armament',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2345,7 +2457,7 @@ Class.customArmament = {
     ],
 }
 Class.customArmsman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Armsman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2398,7 +2510,7 @@ Class.customArmsman = {
     ],
 }
 Class.customArmsmandrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Armsmandrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2452,7 +2564,7 @@ Class.customArmsmandrive = {
     ],
 }
 Class.customArsenal = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Arsenal',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2513,7 +2625,7 @@ Class.customArsenal = {
     ],
 }
 Class.customArtificer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Artificer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -2554,7 +2666,7 @@ Class.customArtificer = {
     ],
 }
 Class.customArtillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2611,7 +2723,7 @@ Class.customArtillery = {
     ],
 }
 Class.customArtist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Artist',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -2652,7 +2764,7 @@ Class.customArtist = {
     ],
 }
 Class.customAspirer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Aspirer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2726,7 +2838,7 @@ Class.customAspirer = {
     ],
 }
 Class.customAssailer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assailer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -2777,7 +2889,7 @@ Class.customAssailer = {
     ],
 }
 Class.customAssassin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2823,7 +2935,7 @@ Class.customAssassin = {
     ],
 }
 Class.customAssassin3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assassin-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -2864,7 +2976,7 @@ Class.customAssassin3 = {
     ],
 }
 Class.customAssaulter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assaulter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -2965,7 +3077,7 @@ Class.customAssaulter = {
     ],
 }
 Class.customAssembler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assembler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -2996,7 +3108,7 @@ Class.customAssembler = {
     ],
 }
 Class.customAssimilator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assimilator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3067,7 +3179,7 @@ Class.customAssimilator = {
     ],
 }
 Class.customAssistant = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Assistant',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3108,7 +3220,7 @@ Class.customAssistant = {
     ],
 }
 Class.customAuto3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3159,7 +3271,7 @@ Class.customAuto3 = {
     ],
 }
 Class.customAuto4 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-4',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3219,7 +3331,7 @@ Class.customAuto4 = {
     ],
 }
 Class.customAuto5 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-5',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3289,7 +3401,7 @@ Class.customAuto5 = {
     ],
 }
 Class.customAuto6 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-6',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3360,7 +3472,7 @@ Class.customAuto6 = {
     ],
 }
 Class.customAuto7 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-7',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3441,7 +3553,7 @@ Class.customAuto7 = {
     ],
 }
 Class.customAutoannihilator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Annihilator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3475,7 +3587,7 @@ Class.customAutoannihilator = {
     ],
 }
 Class.customAutoarmsman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Armsman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3529,7 +3641,7 @@ Class.customAutoarmsman = {
     ],
 }
 Class.customAutoartillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3596,7 +3708,7 @@ Class.customAutoartillery = {
     ],
 }
 Class.customAutoassassin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3652,7 +3764,7 @@ Class.customAutoassassin = {
     ],
 }
 Class.customAutoauto3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Auto-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3714,7 +3826,7 @@ Class.customAutoauto3 = {
     ],
 }
 Class.customAutoauto4 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Auto-4',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3775,7 +3887,7 @@ Class.customAutoauto4 = {
     ],
 }
 Class.customAutoauto5 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Auto-5',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -3846,7 +3958,7 @@ Class.customAutoauto5 = {
     ],
 }
 Class.customAutobaltimore = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Baltimore',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -3890,7 +4002,7 @@ Class.customAutobaltimore = {
     ],
 }
 Class.customAutobanger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Banger',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -3921,7 +4033,7 @@ Class.customAutobanger = {
     ],
 }
 Class.customAutobanshee = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Banshee',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -4005,7 +4117,7 @@ Class.customAutobanshee = {
     ],
 }
 Class.customAutobarricade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -4069,7 +4181,7 @@ Class.customAutobarricade = {
     ],
 }
 Class.customAutobattery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Battery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4143,7 +4255,7 @@ Class.customAutobattery = {
     ],
 }
 Class.customAutobattleship = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Battleship',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -4207,7 +4319,7 @@ Class.customAutobattleship = {
     ],
 }
 Class.customAutobeekeeper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Beekeeper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4261,7 +4373,7 @@ Class.customAutobeekeeper = {
     ],
 }
 Class.customAutobentDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bent Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4345,7 +4457,7 @@ Class.customAutobentDouble = {
     ],
 }
 Class.customAutobentGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bent Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4429,7 +4541,7 @@ Class.customAutobentGunner = {
     ],
 }
 Class.customAutobentHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bent Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4493,7 +4605,7 @@ Class.customAutobentHybrid = {
     ],
 }
 Class.customAutobentMinigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bent Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4587,7 +4699,7 @@ Class.customAutobentMinigun = {
     ],
 }
 Class.customAutobigCheese = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Big Cheese',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -4621,7 +4733,7 @@ Class.customAutobigCheese = {
     ],
 }
 Class.customAutoblower = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Blower',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4685,7 +4797,7 @@ Class.customAutoblower = {
     ],
 }
 Class.customAutobomber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bomber',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -4779,7 +4891,7 @@ Class.customAutobomber = {
     ],
 }
 Class.customAutobonker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bonker',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -4810,7 +4922,7 @@ Class.customAutobonker = {
     ],
 }
 Class.customAutoboomer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Boomer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -4864,7 +4976,7 @@ Class.customAutoboomer = {
     ],
 }
 Class.customAutobooster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Booster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -4938,7 +5050,7 @@ Class.customAutobooster = {
     ],
 }
 Class.customAutobrisker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Brisker',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -4982,7 +5094,7 @@ Class.customAutobrisker = {
     ],
 }
 Class.customAutobuilder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Builder',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -5038,7 +5150,7 @@ Class.customAutobuilder = {
     ],
 }
 Class.customAutobulwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bulwark',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -5122,7 +5234,7 @@ Class.customAutobulwark = {
     ],
 }
 Class.customAutobushwhacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Bushwhacker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -5176,7 +5288,7 @@ Class.customAutobushwhacker = {
     ],
 }
 Class.customAutobuttbuttin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Buttbuttin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -5250,7 +5362,7 @@ Class.customAutobuttbuttin = {
     ],
 }
 Class.customAutocaptain = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Captain',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -5334,7 +5446,7 @@ Class.customAutocaptain = {
     ],
 }
 Class.customAutocarrier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Carrier',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -5388,7 +5500,7 @@ Class.customAutocarrier = {
     ],
 }
 Class.customAutocharger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Charger',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -5442,7 +5554,7 @@ Class.customAutocharger = {
     ],
 }
 Class.customAutocluster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cluster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -5486,7 +5598,7 @@ Class.customAutocluster = {
     ],
 }
 Class.customAutocoalesce = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Coalesce',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -5560,7 +5672,7 @@ Class.customAutocoalesce = {
     ],
 }
 Class.customAutocobbler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cobbler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -5624,7 +5736,7 @@ Class.customAutocobbler = {
     ],
 }
 Class.customAutocockatiel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cockatiel',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -5708,7 +5820,7 @@ Class.customAutocockatiel = {
     ],
 }
 Class.customAutocog = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cog',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -5792,7 +5904,7 @@ Class.customAutocog = {
     ],
 }
 Class.customAutocombo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Combo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -5876,7 +5988,7 @@ Class.customAutocombo = {
     ],
 }
 Class.customAutocommander = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Commander',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -5960,7 +6072,7 @@ Class.customAutocommander = {
     ],
 }
 Class.customAutoconqueror = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Conqueror',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -6014,7 +6126,7 @@ Class.customAutoconqueror = {
     ],
 }
 Class.customAutoconstructor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Constructor',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -6058,7 +6170,7 @@ Class.customAutoconstructor = {
     ],
 }
 Class.customAutocourser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Courser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6112,7 +6224,7 @@ Class.customAutocourser = {
     ],
 }
 Class.customAutocropDuster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Crop Duster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6176,7 +6288,7 @@ Class.customAutocropDuster = {
     ],
 }
 Class.customAutocrossbow = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Crossbow',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6270,7 +6382,7 @@ Class.customAutocrossbow = {
     ],
 }
 Class.customAutocrowbar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Crowbar',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6344,7 +6456,7 @@ Class.customAutocrowbar = {
     ],
 }
 Class.customAutocruiser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -6399,7 +6511,7 @@ Class.customAutocruiser = {
     ],
 }
 Class.customAutocruiserdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cruiserdrive',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -6443,7 +6555,7 @@ Class.customAutocruiserdrive = {
     ],
 }
 Class.customAutocyclone = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Cyclone',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6587,7 +6699,7 @@ Class.customAutocyclone = {
     ],
 }
 Class.customAutodeathStar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Death Star',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6671,7 +6783,7 @@ Class.customAutodeathStar = {
     ],
 }
 Class.customAutodefect = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Defect',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6755,7 +6867,7 @@ Class.customAutodefect = {
     ],
 }
 Class.customAutodestroyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6802,7 +6914,7 @@ Class.customAutodestroyer = {
     ],
 }
 Class.customAutodeviation = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Deviation',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -6856,7 +6968,7 @@ Class.customAutodeviation = {
     ],
 }
 Class.customAutodiesel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -6898,7 +7010,7 @@ Class.customAutodiesel = {
     ],
 }
 Class.customAutodieselTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Diesel Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -6942,7 +7054,7 @@ Class.customAutodieselTrapper = {
     ],
 }
 Class.customAutodirectordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -6985,7 +7097,7 @@ Class.customAutodirectordrive = {
     ],
 }
 Class.customAutodirectorstorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Directorstorm',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -7019,7 +7131,7 @@ Class.customAutodirectorstorm = {
     ],
 }
 Class.customAutodischarger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Discharger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7093,7 +7205,7 @@ Class.customAutodischarger = {
     ],
 }
 Class.customAutodoper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Doper',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -7146,7 +7258,7 @@ Class.customAutodoper = {
     ],
 }
 Class.customAutodoperdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Doperdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -7190,7 +7302,7 @@ Class.customAutodoperdrive = {
     ],
 }
 Class.customAutodopeseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Dopeseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -7254,7 +7366,7 @@ Class.customAutodopeseer = {
     ],
 }
 Class.customAutodouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7328,7 +7440,7 @@ Class.customAutodouble = {
     ],
 }
 Class.customAutodoubleFlankTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Double Flank Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7412,7 +7524,7 @@ Class.customAutodoubleFlankTwin = {
     ],
 }
 Class.customAutodoubleGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Double Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7516,7 +7628,7 @@ Class.customAutodoubleGunner = {
     ],
 }
 Class.customAutodrifter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Drifter',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -7547,7 +7659,7 @@ Class.customAutodrifter = {
     ],
 }
 Class.customAutodual = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Dual',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7611,7 +7723,7 @@ Class.customAutodual = {
     ],
 }
 Class.customAutoeagle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Eagle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7675,7 +7787,7 @@ Class.customAutoeagle = {
     ],
 }
 Class.customAutoencircler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Encircler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -7729,7 +7841,7 @@ Class.customAutoencircler = {
     ],
 }
 Class.customAutoenforcer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Enforcer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -7783,7 +7895,7 @@ Class.customAutoenforcer = {
     ],
 }
 Class.customAutoengineer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Engineer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -7847,7 +7959,7 @@ Class.customAutoengineer = {
     ],
 }
 Class.customAutoequalizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Equalizer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -7951,7 +8063,7 @@ Class.customAutoequalizer = {
     ],
 }
 Class.customAutoexpeller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Expeller',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -8015,7 +8127,7 @@ Class.customAutoexpeller = {
     ],
 }
 Class.customAutofactory = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Factory',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -8069,7 +8181,7 @@ Class.customAutofactory = {
     ],
 }
 Class.customAutofalcon = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Falcon',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8143,7 +8255,7 @@ Class.customAutofalcon = {
     ],
 }
 Class.customAutofashioner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Fashioner',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -8197,7 +8309,7 @@ Class.customAutofashioner = {
     ],
 }
 Class.customAutofieldGun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Field Gun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8261,7 +8373,7 @@ Class.customAutofieldGun = {
     ],
 }
 Class.customAutofighter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Fighter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8335,7 +8447,7 @@ Class.customAutofighter = {
     ],
 }
 Class.customAutofoctillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Foctillery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8389,7 +8501,7 @@ Class.customAutofoctillery = {
     ],
 }
 Class.customAutoforce = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Force',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8453,7 +8565,7 @@ Class.customAutoforce = {
     ],
 }
 Class.customAutoforeman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Foreman',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -8497,7 +8609,7 @@ Class.customAutoforeman = {
     ],
 }
 Class.customAutoforger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Forger',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -8561,7 +8673,7 @@ Class.customAutoforger = {
     ],
 }
 Class.customAutofoundry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Foundry',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -8615,7 +8727,7 @@ Class.customAutofoundry = {
     ],
 }
 Class.customAutogunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8696,7 +8808,7 @@ Class.customAutogunner = {
     ],
 }
 Class.customAutogunnerTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Gunner Trapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -8770,7 +8882,7 @@ Class.customAutogunnerTrapper = {
     ],
 }
 Class.customAutohangar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hangar',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -8844,7 +8956,7 @@ Class.customAutohangar = {
     ],
 }
 Class.customAutoheaver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Heaver',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8898,7 +9010,7 @@ Class.customAutoheaver = {
     ],
 }
 Class.customAutohewnDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hewn Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -8982,7 +9094,7 @@ Class.customAutohewnDouble = {
     ],
 }
 Class.customAutohexaTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9075,7 +9187,7 @@ Class.customAutohexaTank = {
     ],
 }
 Class.customAutohexatrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hexa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -9239,7 +9351,7 @@ Class.customAutohexatrapper = {
     ],
 }
 Class.customAutohitman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hitman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9293,7 +9405,7 @@ Class.customAutohitman = {
     ],
 }
 Class.customAutohoncho = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -9337,7 +9449,7 @@ Class.customAutohoncho = {
     ],
 }
 Class.customAutohonchodrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Honchodrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -9371,7 +9483,7 @@ Class.customAutohonchodrive = {
     ],
 }
 Class.customAutohunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9426,7 +9538,7 @@ Class.customAutohunter = {
     ],
 }
 Class.customAutohurler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hurler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9470,7 +9582,7 @@ Class.customAutohurler = {
     ],
 }
 Class.customAutohutch = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hutch',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -9554,7 +9666,7 @@ Class.customAutohutch = {
     ],
 }
 Class.customAutohybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9598,7 +9710,7 @@ Class.customAutohybrid = {
     ],
 }
 Class.customAutoincarcerator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Incarcerator',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -9662,7 +9774,7 @@ Class.customAutoincarcerator = {
     ],
 }
 Class.customAutoinception = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Inception',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9716,7 +9828,7 @@ Class.customAutoinception = {
     ],
 }
 Class.customAutoinfestor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Infestor',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -9780,7 +9892,7 @@ Class.customAutoinfestor = {
     ],
 }
 Class.customAutointegrator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Integrator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -9844,7 +9956,7 @@ Class.customAutointegrator = {
     ],
 }
 Class.customAutointerner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Interner',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -9908,7 +10020,7 @@ Class.customAutointerner = {
     ],
 }
 Class.customAutoissuer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Issuer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -9972,7 +10084,7 @@ Class.customAutoissuer = {
     ],
 }
 Class.customAutojalopy = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Jalopy',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -10006,7 +10118,7 @@ Class.customAutojalopy = {
     ],
 }
 Class.customAutojunkie = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Junkie',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -10050,7 +10162,7 @@ Class.customAutojunkie = {
     ],
 }
 Class.customAutolaborer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Laborer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -10104,7 +10216,7 @@ Class.customAutolaborer = {
     ],
 }
 Class.customAutolandmine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Landmine',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -10145,7 +10257,7 @@ Class.customAutolandmine = {
     ],
 }
 Class.customAutolauncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -10205,7 +10317,7 @@ Class.customAutolauncher = {
     ],
 }
 Class.customAutomachineGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Machine Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -10259,7 +10371,7 @@ Class.customAutomachineGuard = {
     ],
 }
 Class.customAutomachineGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Machine Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -10333,7 +10445,7 @@ Class.customAutomachineGunner = {
     ],
 }
 Class.customAutomachineMech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Machine Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -10387,7 +10499,7 @@ Class.customAutomachineMech = {
     ],
 }
 Class.customAutomachineTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -10443,7 +10555,7 @@ Class.customAutomachineTrapper = {
     ],
 }
 Class.customAutomanager = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Manager',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -10477,7 +10589,7 @@ Class.customAutomanager = {
     ],
 }
 Class.customAutomech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -10541,7 +10653,7 @@ Class.customAutomech = {
     ],
 }
 Class.customAutomechGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mech Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -10605,7 +10717,7 @@ Class.customAutomechGuard = {
     ],
 }
 Class.customAutomegaHunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mega Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -10649,7 +10761,7 @@ Class.customAutomegaHunter = {
     ],
 }
 Class.customAutomegaSpawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mega Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -10703,7 +10815,7 @@ Class.customAutomegaSpawner = {
     ],
 }
 Class.customAutomegaTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -10747,7 +10859,7 @@ Class.customAutomegaTrapper = {
     ],
 }
 Class.customAutomega3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mega-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -10798,7 +10910,7 @@ Class.customAutomega3 = {
     ],
 }
 Class.customAutomegasmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mega-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -10829,7 +10941,7 @@ Class.customAutomegasmasher = {
     ],
 }
 Class.customAutomingler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mingler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -10973,7 +11085,7 @@ Class.customAutomingler = {
     ],
 }
 Class.customAutominigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -11040,7 +11152,7 @@ Class.customAutominigun = {
     ],
 }
 Class.customAutomortar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mortar',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -11114,7 +11226,7 @@ Class.customAutomortar = {
     ],
 }
 Class.customAutomosey = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Mosey',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -11178,7 +11290,7 @@ Class.customAutomosey = {
     ],
 }
 Class.customAutomusket = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Musket',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -11242,7 +11354,7 @@ Class.customAutomusket = {
     ],
 }
 Class.customAutonailgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Nailgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -11306,7 +11418,7 @@ Class.customAutonailgun = {
     ],
 }
 Class.customAutooctoTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Octo Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -11410,7 +11522,7 @@ Class.customAutooctoTank = {
     ],
 }
 Class.customAutooperator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Operator',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -11474,7 +11586,7 @@ Class.customAutooperator = {
     ],
 }
 Class.customAutoordnance = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Ordnance',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -11538,7 +11650,7 @@ Class.customAutoordnance = {
     ],
 }
 Class.customAutooverdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Overdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -11582,7 +11694,7 @@ Class.customAutooverdrive = {
     ],
 }
 Class.customAutoovergunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Overgunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -11656,7 +11768,7 @@ Class.customAutoovergunner = {
     ],
 }
 Class.customAutooverlord = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Overlord',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -11720,7 +11832,7 @@ Class.customAutooverlord = {
     ],
 }
 Class.customAutooverseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -11776,7 +11888,7 @@ Class.customAutooverseer = {
     ],
 }
 Class.customAutoovertrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Overtrapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -11840,7 +11952,7 @@ Class.customAutoovertrapper = {
     ],
 }
 Class.customAutopeashooter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Peashooter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -11904,7 +12016,7 @@ Class.customAutopeashooter = {
     ],
 }
 Class.customAutopen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -11969,7 +12081,7 @@ Class.customAutopen = {
     ],
 }
 Class.customAutopentaShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Penta Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12043,7 +12155,7 @@ Class.customAutopentaShot = {
     ],
 }
 Class.customAutopitcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Pitcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12107,7 +12219,7 @@ Class.customAutopitcher = {
     ],
 }
 Class.customAutopoacher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Poacher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12161,7 +12273,7 @@ Class.customAutopoacher = {
     ],
 }
 Class.customAutopolluter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Polluter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12205,7 +12317,7 @@ Class.customAutopolluter = {
     ],
 }
 Class.customAutopredator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Predator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12259,7 +12371,7 @@ Class.customAutopredator = {
     ],
 }
 Class.customAutoprober = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Prober',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12313,7 +12425,7 @@ Class.customAutoprober = {
     ],
 }
 Class.customAutoproductionist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Productionist',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -12397,7 +12509,7 @@ Class.customAutoproductionist = {
     ],
 }
 Class.customAutoprojector = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Projector',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12461,7 +12573,7 @@ Class.customAutoprojector = {
     ],
 }
 Class.customAutoquadangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Quad-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12525,7 +12637,7 @@ Class.customAutoquadangle = {
     ],
 }
 Class.customAutoqueller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Queller',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12579,7 +12691,7 @@ Class.customAutoqueller = {
     ],
 }
 Class.customAutorailgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Railgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12633,7 +12745,7 @@ Class.customAutorailgun = {
     ],
 }
 Class.customAutoranger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Ranger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12677,7 +12789,7 @@ Class.customAutoranger = {
     ],
 }
 Class.customAutorifle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12730,7 +12842,7 @@ Class.customAutorifle = {
     ],
 }
 Class.customAutorimfire = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Rimfire',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12804,7 +12916,7 @@ Class.customAutorimfire = {
     ],
 }
 Class.customAutorocketeer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Rocketeer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12848,7 +12960,7 @@ Class.customAutorocketeer = {
     ],
 }
 Class.customAutoshotgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Shotgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -12982,7 +13094,7 @@ Class.customAutoshotgun = {
     ],
 }
 Class.customAutosidewinder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Sidewinder',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13026,7 +13138,7 @@ Class.customAutosidewinder = {
     ],
 }
 Class.customAutosingle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Single',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13070,7 +13182,7 @@ Class.customAutosingle = {
     ],
 }
 Class.customAutoskimmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Skimmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13114,7 +13226,7 @@ Class.customAutoskimmer = {
     ],
 }
 Class.customAutoslinker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Slinker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13148,7 +13260,7 @@ Class.customAutoslinker = {
     ],
 }
 Class.customAutosmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -13193,7 +13305,7 @@ Class.customAutosmasher = {
     ],
 }
 Class.customAutosniper3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Sniper-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13244,7 +13356,7 @@ Class.customAutosniper3 = {
     ],
 }
 Class.customAutospawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -13311,7 +13423,7 @@ Class.customAutospawner = {
     ],
 }
 Class.customAutospawnerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Spawnerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -13365,7 +13477,7 @@ Class.customAutospawnerdrive = {
     ],
 }
 Class.customAutospike = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Spike',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -13426,7 +13538,7 @@ Class.customAutospike = {
     ],
 }
 Class.customAutosplitShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Split Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13500,7 +13612,7 @@ Class.customAutosplitShot = {
     ],
 }
 Class.customAutosprayer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Sprayer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13544,7 +13656,7 @@ Class.customAutosprayer = {
     ],
 }
 Class.customAutospreadshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Spreadshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13678,7 +13790,7 @@ Class.customAutospreadshot = {
     ],
 }
 Class.customAutostalker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Stalker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13712,7 +13824,7 @@ Class.customAutostalker = {
     ],
 }
 Class.customAutostall = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Stall',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -13766,7 +13878,7 @@ Class.customAutostall = {
     ],
 }
 Class.customAutostreamliner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Streamliner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13840,7 +13952,7 @@ Class.customAutostreamliner = {
     ],
 }
 Class.customAutosubverter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Subverter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13894,7 +14006,7 @@ Class.customAutosubverter = {
     ],
 }
 Class.customAutosurfer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Surfer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -13968,7 +14080,7 @@ Class.customAutosurfer = {
     ],
 }
 Class.customAutoswarmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Swarmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14012,7 +14124,7 @@ Class.customAutoswarmer = {
     ],
 }
 Class.customAutotaser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Taser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14096,7 +14208,7 @@ Class.customAutotaser = {
     ],
 }
 Class.customAutotrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -14163,7 +14275,7 @@ Class.customAutotrapGuard = {
     ],
 }
 Class.customAutotriangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14232,7 +14344,7 @@ Class.customAutotriangle = {
     ],
 }
 Class.customAutotripleShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14299,7 +14411,7 @@ Class.customAutotripleShot = {
     ],
 }
 Class.customAutotripleTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Triple Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14383,7 +14495,7 @@ Class.customAutotripleTwin = {
     ],
 }
 Class.customAutotriplet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Triplet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14437,7 +14549,7 @@ Class.customAutotriplet = {
     ],
 }
 Class.customAutotwister = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Twister',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14481,7 +14593,7 @@ Class.customAutotwister = {
     ],
 }
 Class.customAutovolley = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Volley',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14545,7 +14657,7 @@ Class.customAutovolley = {
     ],
 }
 Class.customAutowaarrk = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Waarrk',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -14629,7 +14741,7 @@ Class.customAutowaarrk = {
     ],
 }
 Class.customAutowark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Wark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -14705,7 +14817,7 @@ Class.customAutowark = {
     ],
 }
 Class.customAutowarkwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Warkwark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -14809,7 +14921,7 @@ Class.customAutowarkwark = {
     ],
 }
 Class.customAutowidget = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Widget',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14863,7 +14975,7 @@ Class.customAutowidget = {
     ],
 }
 Class.customAutozipper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Zipper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -14937,7 +15049,7 @@ Class.customAutozipper = {
     ],
 }
 Class.customAutomaton = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Automaton',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -15008,7 +15120,7 @@ Class.customAutomaton = {
     ],
 }
 Class.customAvian = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Avian',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -15069,7 +15181,7 @@ Class.customAvian = {
     ],
 }
 Class.customAviator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Aviator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -15120,7 +15232,7 @@ Class.customAviator = {
     ],
 }
 Class.customBallista = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ballista',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -15241,7 +15353,7 @@ Class.customBallista = {
     ],
 }
 Class.customBaltimore = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Baltimore',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -15285,7 +15397,7 @@ Class.customBaltimore = {
     ],
 }
 Class.customBaltimoredrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Baltimoredrive',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -15329,7 +15441,7 @@ Class.customBaltimoredrive = {
     ],
 }
 Class.customBand = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Band',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -15443,7 +15555,7 @@ Class.customBand = {
     ],
 }
 Class.customBanger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Banger',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -15473,7 +15585,7 @@ Class.customBanger = {
     ],
 }
 Class.customBanshee = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Banshee',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -15557,7 +15669,7 @@ Class.customBanshee = {
     ],
 }
 Class.customBansheedrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bansheedrive',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -15641,7 +15753,7 @@ Class.customBansheedrive = {
     ],
 }
 Class.customBarber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Barber',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -15722,7 +15834,7 @@ Class.customBarber = {
     ],
 }
 Class.customBarn = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Barn',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -15783,7 +15895,7 @@ Class.customBarn = {
     ],
 }
 Class.customBarrage = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Barrage',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -15844,7 +15956,7 @@ Class.customBarrage = {
     ],
 }
 Class.customBarricade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -15909,7 +16021,7 @@ Class.customBarricade = {
     ],
 }
 Class.customBarrier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Barrier',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -15980,7 +16092,7 @@ Class.customBarrier = {
     ],
 }
 Class.customBasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Basher',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -16000,44 +16112,8 @@ Class.customBasher = {
 
     ],
 }
-Class.customBasic = {
-    PARENT: "genericTank",
-    LABEL: 'Basic',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_1: [
-        'customTwin',
-        'customSniper',
-        'customMachineGun',
-        'customFlankGuard',
-        'customDirector',
-        'customPounder',
-        'customTrapper',
-    ],
-    UPGRADES_TIER_2: [
-        'customSmasher',
-    ],
-    UPGRADES_TIER_3: [
-        'customSingle',
-    ],
-}
 Class.customBastion = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bastion',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -16168,7 +16244,7 @@ Class.customBastion = {
     ],
 }
 Class.customBaton = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Baton',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16249,7 +16325,7 @@ Class.customBaton = {
     ],
 }
 Class.customBatter4 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Batter-4',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16300,7 +16376,7 @@ Class.customBatter4 = {
     ],
 }
 Class.customBattery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16374,7 +16450,7 @@ Class.customBattery = {
     ],
 }
 Class.customBatteryHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battery Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16445,7 +16521,7 @@ Class.customBatteryHybrid = {
     ],
 }
 Class.customBattledrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battledrive',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -16509,7 +16585,7 @@ Class.customBattledrive = {
     ],
 }
 Class.customBattlegunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battlegunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -16590,7 +16666,7 @@ Class.customBattlegunner = {
     ],
 }
 Class.customBattleship = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battleship',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -16654,7 +16730,7 @@ Class.customBattleship = {
     ],
 }
 Class.customBattletrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battletrapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -16725,7 +16801,7 @@ Class.customBattletrapper = {
     ],
 }
 Class.customBattlewagon = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Battlewagon',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -16776,7 +16852,7 @@ Class.customBattlewagon = {
     ],
 }
 Class.customBazooka = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bazooka',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16807,7 +16883,7 @@ Class.customBazooka = {
     ],
 }
 Class.customBeater = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Beater',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16888,7 +16964,7 @@ Class.customBeater = {
     ],
 }
 Class.customBeekeeper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Beekeeper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -16941,7 +17017,7 @@ Class.customBeekeeper = {
     ],
 }
 Class.customBeemaster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Beemaster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17002,7 +17078,7 @@ Class.customBeemaster = {
     ],
 }
 Class.customBefouler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Befouler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17033,7 +17109,7 @@ Class.customBefouler = {
     ],
 }
 Class.customBentBarricade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -17144,7 +17220,7 @@ Class.customBentBarricade = {
     ],
 }
 Class.customBentBoomer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Boomer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -17215,7 +17291,7 @@ Class.customBentBoomer = {
     ],
 }
 Class.customBentBulwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Bulwark',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -17316,7 +17392,7 @@ Class.customBentBulwark = {
     ],
 }
 Class.customBentCatcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Catcher',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -17397,7 +17473,7 @@ Class.customBentCatcher = {
     ],
 }
 Class.customBentCrossbreed = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Crossbreed',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17448,7 +17524,7 @@ Class.customBentCrossbreed = {
     ],
 }
 Class.customBentDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17532,7 +17608,7 @@ Class.customBentDouble = {
     ],
 }
 Class.customBentDoubleGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Double Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17663,7 +17739,7 @@ Class.customBentDoubleGunner = {
     ],
 }
 Class.customBentDoubleMinigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Double Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17814,7 +17890,7 @@ Class.customBentDoubleMinigun = {
     ],
 }
 Class.customBentFlankDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Flank Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17905,7 +17981,7 @@ Class.customBentFlankDouble = {
     ],
 }
 Class.customBentGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -17985,7 +18061,7 @@ Class.customBentGunner = {
     ],
 }
 Class.customBentHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18051,7 +18127,7 @@ Class.customBentHybrid = {
     ],
 }
 Class.customBentHybriddrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Hybriddrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18115,7 +18191,7 @@ Class.customBentHybriddrive = {
     ],
 }
 Class.customBentMinigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18210,7 +18286,7 @@ Class.customBentMinigun = {
     ],
 }
 Class.customBentStreamliner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Streamliner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18331,7 +18407,7 @@ Class.customBentStreamliner = {
     ],
 }
 Class.customBentSubverter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Subverter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18412,7 +18488,7 @@ Class.customBentSubverter = {
     ],
 }
 Class.customBentSynthesis = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Synthesis',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18473,7 +18549,7 @@ Class.customBentSynthesis = {
     ],
 }
 Class.customBentTriple = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Triple',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18574,7 +18650,7 @@ Class.customBentTriple = {
     ],
 }
 Class.customBentVolley = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Volley',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18645,7 +18721,7 @@ Class.customBentVolley = {
     ],
 }
 Class.customBentWidget = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bent Widget',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18726,7 +18802,7 @@ Class.customBentWidget = {
     ],
 }
 Class.customBidder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bidder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -18797,7 +18873,7 @@ Class.customBidder = {
     ],
 }
 Class.customBifold = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bifold',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18868,7 +18944,7 @@ Class.customBifold = {
     ],
 }
 Class.customBigCheese = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Big Cheese',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -18898,7 +18974,7 @@ Class.customBigCheese = {
     ],
 }
 Class.customBigCheesedrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Big Cheesedrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -18932,7 +19008,7 @@ Class.customBigCheesedrive = {
     ],
 }
 Class.customBigMac = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Big Mac',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -18963,7 +19039,7 @@ Class.customBigMac = {
     ],
 }
 Class.customBigSwiss = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Big Swiss',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -18994,7 +19070,7 @@ Class.customBigSwiss = {
     ],
 }
 Class.customBiggerCheese = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bigger Cheese',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -19015,7 +19091,7 @@ Class.customBiggerCheese = {
     ],
 }
 Class.customBinder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Binder',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -19096,7 +19172,7 @@ Class.customBinder = {
     ],
 }
 Class.customBismarck = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bismarck',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -19227,7 +19303,7 @@ Class.customBismarck = {
     ],
 }
 Class.customBlackjack = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blackjack',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -19298,7 +19374,7 @@ Class.customBlackjack = {
     ],
 }
 Class.customBlare = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blare',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -19439,7 +19515,7 @@ Class.customBlare = {
     ],
 }
 Class.customBlend = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blend',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -19500,7 +19576,7 @@ Class.customBlend = {
     ],
 }
 Class.customBlight = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blight',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -19541,7 +19617,7 @@ Class.customBlight = {
     ],
 }
 Class.customBlitz = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blitz',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -19642,7 +19718,7 @@ Class.customBlitz = {
     ],
 }
 Class.customBlockade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blockade',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -19693,7 +19769,7 @@ Class.customBlockade = {
     ],
 }
 Class.customBlockbuster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blockbuster',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -19774,7 +19850,7 @@ Class.customBlockbuster = {
     ],
 }
 Class.customBlower = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blower',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -19838,7 +19914,7 @@ Class.customBlower = {
     ],
 }
 Class.customBlowgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blowgun',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -19889,7 +19965,7 @@ Class.customBlowgun = {
     ],
 }
 Class.customBlusterer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Blusterer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -19950,7 +20026,7 @@ Class.customBlusterer = {
     ],
 }
 Class.customBolter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bolter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -20041,7 +20117,7 @@ Class.customBolter = {
     ],
 }
 Class.customBombard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bombard',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20072,7 +20148,7 @@ Class.customBombard = {
     ],
 }
 Class.customBomber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bomber',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -20167,7 +20243,7 @@ Class.customBomber = {
     ],
 }
 Class.customBonker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bonker',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -20197,7 +20273,7 @@ Class.customBonker = {
     ],
 }
 Class.customBoomer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Boomer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -20249,7 +20325,7 @@ Class.customBoomer = {
     ],
 }
 Class.customBoomslang = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Boomslang',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20300,7 +20376,7 @@ Class.customBoomslang = {
     ],
 }
 Class.customBoomstick = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Boomstick',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20421,7 +20497,7 @@ Class.customBoomstick = {
     ],
 }
 Class.customBooster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Booster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20496,7 +20572,7 @@ Class.customBooster = {
     ],
 }
 Class.customBounder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bounder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -20547,7 +20623,7 @@ Class.customBounder = {
     ],
 }
 Class.customBowler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bowler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20618,7 +20694,7 @@ Class.customBowler = {
     ],
 }
 Class.customBoxer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Boxer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20679,7 +20755,7 @@ Class.customBoxer = {
     ],
 }
 Class.customBozo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bozo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20830,7 +20906,7 @@ Class.customBozo = {
     ],
 }
 Class.customBracer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bracer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20901,7 +20977,7 @@ Class.customBracer = {
     ],
 }
 Class.customBrawler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Brawler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -20982,7 +21058,7 @@ Class.customBrawler = {
     ],
 }
 Class.customBrig = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Brig',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -21083,7 +21159,7 @@ Class.customBrig = {
     ],
 }
 Class.customBrink = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Brink',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -21164,7 +21240,7 @@ Class.customBrink = {
     ],
 }
 Class.customBrio = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Brio',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21225,7 +21301,7 @@ Class.customBrio = {
     ],
 }
 Class.customBrisker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Brisker',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -21265,7 +21341,7 @@ Class.customBrisker = {
     ],
 }
 Class.customBriskerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Briskerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -21309,7 +21385,7 @@ Class.customBriskerdrive = {
     ],
 }
 Class.customBriskseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Briskseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -21360,7 +21436,7 @@ Class.customBriskseer = {
     ],
 }
 Class.customBroadsider = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Broadsider',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21431,7 +21507,7 @@ Class.customBroadsider = {
     ],
 }
 Class.customBrowser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Browser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21512,7 +21588,7 @@ Class.customBrowser = {
     ],
 }
 Class.customBruiser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bruiser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21543,7 +21619,7 @@ Class.customBruiser = {
     ],
 }
 Class.customBuckshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Buckshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21704,7 +21780,7 @@ Class.customBuckshot = {
     ],
 }
 Class.customBuilder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Builder',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -21750,7 +21826,7 @@ Class.customBuilder = {
     ],
 }
 Class.customBulker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bulker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21801,7 +21877,7 @@ Class.customBulker = {
     ],
 }
 Class.customBulwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bulwark',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -21885,7 +21961,7 @@ Class.customBulwark = {
     ],
 }
 Class.customBumbler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bumbler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -21939,7 +22015,7 @@ Class.customBumbler = {
     ],
 }
 Class.customBuncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Buncher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -21960,7 +22036,7 @@ Class.customBuncher = {
     ],
 }
 Class.customBundler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bundler',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -21981,7 +22057,7 @@ Class.customBundler = {
     ],
 }
 Class.customBunger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bunger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -22022,7 +22098,7 @@ Class.customBunger = {
     ],
 }
 Class.customBunker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bunker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -22153,7 +22229,7 @@ Class.customBunker = {
     ],
 }
 Class.customBushwhacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bushwhacker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -22209,7 +22285,7 @@ Class.customBushwhacker = {
     ],
 }
 Class.customBuster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Buster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -22270,7 +22346,7 @@ Class.customBuster = {
     ],
 }
 Class.customButcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Butcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -22321,7 +22397,7 @@ Class.customButcher = {
     ],
 }
 Class.customButtbuttin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Buttbuttin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -22394,7 +22470,7 @@ Class.customButtbuttin = {
     ],
 }
 Class.customCacatua = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cacatua',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -22475,7 +22551,7 @@ Class.customCacatua = {
     ],
 }
 Class.customCaduceus = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Caduceus',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -22526,7 +22602,7 @@ Class.customCaduceus = {
     ],
 }
 Class.customCannonade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cannonade',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -22577,7 +22653,7 @@ Class.customCannonade = {
     ],
 }
 Class.customCapgunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Capgunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -22678,7 +22754,7 @@ Class.customCapgunner = {
     ],
 }
 Class.customCaptain = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Captain',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -22761,7 +22837,7 @@ Class.customCaptain = {
     ],
 }
 Class.customCaptaindrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Captaindrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -22845,7 +22921,7 @@ Class.customCaptaindrive = {
     ],
 }
 Class.customCaptrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Captrapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -22936,7 +23012,7 @@ Class.customCaptrapper = {
     ],
 }
 Class.customCaracara = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Caracara',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23017,7 +23093,7 @@ Class.customCaracara = {
     ],
 }
 Class.customCarbine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Carbine',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23148,7 +23224,7 @@ Class.customCarbine = {
     ],
 }
 Class.customCareerer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Careerer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23189,7 +23265,7 @@ Class.customCareerer = {
     ],
 }
 Class.customCarnage = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Carnage',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23280,7 +23356,7 @@ Class.customCarnage = {
     ],
 }
 Class.customCarnivore = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Carnivore',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23331,7 +23407,7 @@ Class.customCarnivore = {
     ],
 }
 Class.customCarrier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Carrier',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -23382,7 +23458,7 @@ Class.customCarrier = {
     ],
 }
 Class.customCarrierdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Carrierdrive',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -23436,7 +23512,7 @@ Class.customCarrierdrive = {
     ],
 }
 Class.customCarronade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Carronade',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23487,7 +23563,7 @@ Class.customCarronade = {
     ],
 }
 Class.customCartridge = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cartridge',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23528,7 +23604,7 @@ Class.customCartridge = {
     ],
 }
 Class.customCassowary = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cassowary',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23599,7 +23675,7 @@ Class.customCassowary = {
     ],
 }
 Class.customCaster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Caster',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -23670,7 +23746,7 @@ Class.customCaster = {
     ],
 }
 Class.customCastle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Castle',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -23744,7 +23820,7 @@ Class.customCastle = {
     ],
 }
 Class.customCatapult = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Catapult',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -23775,7 +23851,7 @@ Class.customCatapult = {
     ],
 }
 Class.customCatcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Catcher',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -23816,7 +23892,7 @@ Class.customCatcher = {
     ],
 }
 Class.customCauldron = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cauldron',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -23907,7 +23983,7 @@ Class.customCauldron = {
     ],
 }
 Class.customCharger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Charger',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -23959,7 +24035,7 @@ Class.customCharger = {
     ],
 }
 Class.customChisel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Chisel',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24033,7 +24109,7 @@ Class.customChisel = {
     ],
 }
 Class.customChucker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Chucker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24094,7 +24170,7 @@ Class.customChucker = {
     ],
 }
 Class.customCirculator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Circulator',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -24145,7 +24221,7 @@ Class.customCirculator = {
     ],
 }
 Class.customClaimant = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Claimant',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24196,7 +24272,7 @@ Class.customClaimant = {
     ],
 }
 Class.customClasp = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Clasp',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -24267,7 +24343,7 @@ Class.customClasp = {
     ],
 }
 Class.customClaymore = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Claymore',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -24318,7 +24394,7 @@ Class.customClaymore = {
     ],
 }
 Class.customCleaver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cleaver',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -24399,7 +24475,7 @@ Class.customCleaver = {
     ],
 }
 Class.customCleft = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cleft',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24490,7 +24566,7 @@ Class.customCleft = {
     ],
 }
 Class.customClobberer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Clobberer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24531,7 +24607,7 @@ Class.customClobberer = {
     ],
 }
 Class.customClunker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Clunker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24592,7 +24668,7 @@ Class.customClunker = {
     ],
 }
 Class.customCluster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cluster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24641,7 +24717,7 @@ Class.customCluster = {
     ],
 }
 Class.customCoalesce = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Coalesce',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -24714,7 +24790,7 @@ Class.customCoalesce = {
     ],
 }
 Class.customCobbler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cobbler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -24777,7 +24853,7 @@ Class.customCobbler = {
     ],
 }
 Class.customCockatiel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cockatiel',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -24858,7 +24934,7 @@ Class.customCockatiel = {
     ],
 }
 Class.customCockatoo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cockatoo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -24949,7 +25025,7 @@ Class.customCockatoo = {
     ],
 }
 Class.customCog = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cog',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -25031,7 +25107,7 @@ Class.customCog = {
     ],
 }
 Class.customCollision = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Collision',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25082,7 +25158,7 @@ Class.customCollision = {
     ],
 }
 Class.customColonizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Colonizer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25156,7 +25232,7 @@ Class.customColonizer = {
     ],
 }
 Class.customCombo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Combo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25238,7 +25314,7 @@ Class.customCombo = {
     ],
 }
 Class.customCommander = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Commander',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -25321,7 +25397,7 @@ Class.customCommander = {
     ],
 }
 Class.customCommix = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Commix',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -25382,7 +25458,7 @@ Class.customCommix = {
     ],
 }
 Class.customCompartment = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Compartment',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -25433,7 +25509,7 @@ Class.customCompartment = {
     ],
 }
 Class.customCompound = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Compound',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25464,7 +25540,7 @@ Class.customCompound = {
     ],
 }
 Class.customConcoctor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Concoctor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25525,7 +25601,7 @@ Class.customConcoctor = {
     ],
 }
 Class.customCondor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Condor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25596,7 +25672,7 @@ Class.customCondor = {
     ],
 }
 Class.customConfiner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Confiner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -25657,7 +25733,7 @@ Class.customConfiner = {
     ],
 }
 Class.customConformer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Conformer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25721,7 +25797,7 @@ Class.customConformer = {
     ],
 }
 Class.customConqueror = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Conqueror',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -25775,7 +25851,7 @@ Class.customConqueror = {
     ],
 }
 Class.customConsolidation = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Consolidation',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25869,7 +25945,7 @@ Class.customConsolidation = {
     ],
 }
 Class.customConsolidator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Consolidator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25920,7 +25996,7 @@ Class.customConsolidator = {
     ],
 }
 Class.customConstructor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Constructor',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -25964,7 +26040,7 @@ Class.customConstructor = {
     ],
 }
 Class.customContaminator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Contaminator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -25995,7 +26071,7 @@ Class.customContaminator = {
     ],
 }
 Class.customContractor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Contractor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -26036,7 +26112,7 @@ Class.customContractor = {
     ],
 }
 Class.customContradictor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Contradictor',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -26077,7 +26153,7 @@ Class.customContradictor = {
     ],
 }
 Class.customContrivance = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Contrivance',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -26188,7 +26264,7 @@ Class.customContrivance = {
     ],
 }
 Class.customContriver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Contriver',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -26269,7 +26345,7 @@ Class.customContriver = {
     ],
 }
 Class.customController = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Controller',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -26300,7 +26376,7 @@ Class.customController = {
     ],
 }
 Class.customConverger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Converger',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -26381,7 +26457,7 @@ Class.customConverger = {
     ],
 }
 Class.customConveyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Conveyer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -26442,7 +26518,7 @@ Class.customConveyer = {
     ],
 }
 Class.customConveyor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Conveyor',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -26503,7 +26579,7 @@ Class.customConveyor = {
     ],
 }
 Class.customCoop = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Coop',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -26677,7 +26753,7 @@ Class.customCoop = {
     ],
 }
 Class.customCoordinator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Coordinator',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -26708,7 +26784,7 @@ Class.customCoordinator = {
     ],
 }
 Class.customCopier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Copier',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -26769,7 +26845,7 @@ Class.customCopier = {
     ],
 }
 Class.customCorella = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Corella',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -26870,7 +26946,7 @@ Class.customCorella = {
     ],
 }
 Class.customCornerer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cornerer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -26921,7 +26997,7 @@ Class.customCornerer = {
     ],
 }
 Class.customCorral = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Corral',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -27052,7 +27128,7 @@ Class.customCorral = {
     ],
 }
 Class.customCourier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Courier',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -27123,7 +27199,7 @@ Class.customCourier = {
     ],
 }
 Class.customCourser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Courser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27178,7 +27254,7 @@ Class.customCourser = {
     ],
 }
 Class.customCovert = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Covert',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27219,7 +27295,7 @@ Class.customCovert = {
     ],
 }
 Class.customCozen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cozen',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -27423,7 +27499,7 @@ Class.customCozen = {
     ],
 }
 Class.customCrackshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crackshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27524,7 +27600,7 @@ Class.customCrackshot = {
     ],
 }
 Class.customCrank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27588,7 +27664,7 @@ Class.customCrank = {
     ],
 }
 Class.customCreator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Creator',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -27639,7 +27715,7 @@ Class.customCreator = {
     ],
 }
 Class.customCreeper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Creeper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27680,7 +27756,7 @@ Class.customCreeper = {
     ],
 }
 Class.customCropDuster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crop Duster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27745,7 +27821,7 @@ Class.customCropDuster = {
     ],
 }
 Class.customCropDusterdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crop Dusterdrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27809,7 +27885,7 @@ Class.customCropDusterdrive = {
     ],
 }
 Class.customCross = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cross',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27860,7 +27936,7 @@ Class.customCross = {
     ],
 }
 Class.customCrossbow = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crossbow',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27950,7 +28026,7 @@ Class.customCrossbow = {
     ],
 }
 Class.customCrossbreed = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crossbreed',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -27981,7 +28057,7 @@ Class.customCrossbreed = {
     ],
 }
 Class.customCrowbar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crowbar',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -28056,7 +28132,7 @@ Class.customCrowbar = {
     ],
 }
 Class.customCruiser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -28103,7 +28179,7 @@ Class.customCruiser = {
     ],
 }
 Class.customCruiserdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cruiserdrive',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -28158,7 +28234,7 @@ Class.customCruiserdrive = {
     ],
 }
 Class.customCrusher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Crusher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -28219,7 +28295,7 @@ Class.customCrusher = {
     ],
 }
 Class.customCubicle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cubicle',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -28280,7 +28356,7 @@ Class.customCubicle = {
     ],
 }
 Class.customCulverin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Culverin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -28401,7 +28477,7 @@ Class.customCulverin = {
     ],
 }
 Class.customCustodian = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Custodian',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -28452,7 +28528,7 @@ Class.customCustodian = {
     ],
 }
 Class.customCutlass = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cutlass',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -28563,7 +28639,7 @@ Class.customCutlass = {
     ],
 }
 Class.customCyclone = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Cyclone',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -28703,7 +28779,7 @@ Class.customCyclone = {
     ],
 }
 Class.customDagger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dagger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -28834,7 +28910,7 @@ Class.customDagger = {
     ],
 }
 Class.customDam = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dam',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -28925,7 +29001,7 @@ Class.customDam = {
     ],
 }
 Class.customDauber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dauber',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29066,7 +29142,7 @@ Class.customDauber = {
     ],
 }
 Class.customDeadeye = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deadeye',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29117,7 +29193,7 @@ Class.customDeadeye = {
     ],
 }
 Class.customDeathStar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Death Star',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29196,7 +29272,7 @@ Class.customDeathStar = {
     ],
 }
 Class.customDecaTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deca Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29307,7 +29383,7 @@ Class.customDecaTank = {
     ],
 }
 Class.customDecoy = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Decoy',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -29338,7 +29414,7 @@ Class.customDecoy = {
     ],
 }
 Class.customDefeater = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Defeater',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -29389,7 +29465,7 @@ Class.customDefeater = {
     ],
 }
 Class.customDefect = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Defect',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29473,7 +29549,7 @@ Class.customDefect = {
     ],
 }
 Class.customDeficiency = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deficiency',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29564,7 +29640,7 @@ Class.customDeficiency = {
     ],
 }
 Class.customDeflector = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deflector',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -29615,7 +29691,7 @@ Class.customDeflector = {
     ],
 }
 Class.customDegrader = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Degrader',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29676,7 +29752,7 @@ Class.customDegrader = {
     ],
 }
 Class.customDelayer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Delayer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -29727,7 +29803,7 @@ Class.customDelayer = {
     ],
 }
 Class.customDeliverer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deliverer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29758,7 +29834,7 @@ Class.customDeliverer = {
     ],
 }
 Class.customDemise = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Demise',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29849,7 +29925,7 @@ Class.customDemise = {
     ],
 }
 Class.customDeposer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deposer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29900,7 +29976,7 @@ Class.customDeposer = {
     ],
 }
 Class.customDepraver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Depraver',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -29941,7 +30017,7 @@ Class.customDepraver = {
     ],
 }
 Class.customDesigner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Designer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -30022,7 +30098,7 @@ Class.customDesigner = {
     ],
 }
 Class.customDespot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Despot',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -30093,7 +30169,7 @@ Class.customDespot = {
     ],
 }
 Class.customDestabalizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Destabalizer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30154,7 +30230,7 @@ Class.customDestabalizer = {
     ],
 }
 Class.customDestroyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30191,7 +30267,7 @@ Class.customDestroyer = {
     ],
 }
 Class.customDeviation = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deviation',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -30245,7 +30321,7 @@ Class.customDeviation = {
     ],
 }
 Class.customDeviationdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deviationdrive',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -30299,7 +30375,7 @@ Class.customDeviationdrive = {
     ],
 }
 Class.customDeviser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Deviser',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -30360,7 +30436,7 @@ Class.customDeviser = {
     ],
 }
 Class.customDiesel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30392,7 +30468,7 @@ Class.customDiesel = {
     ],
 }
 Class.customDieselTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Diesel Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -30433,7 +30509,7 @@ Class.customDieselTrapper = {
     ],
 }
 Class.customDipper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dipper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30473,44 +30549,8 @@ Class.customDipper = {
 
     ],
 }
-Class.customDirector = {
-    PARENT: "genericTank",
-    LABEL: 'Director',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customOverseer',
-        'customCruiser',
-        'customUnderseer',
-        'customSpawner',
-        'customDirectordrive',
-        'customHoncho',
-        'customDoper',
-    ],
-    UPGRADES_TIER_3: [
-        'customManager',
-    ],
-    UPGRADES_TIER_4: [
-        'customCoordinator',
-    ],
-}
 Class.customDirectordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -30557,7 +30597,7 @@ Class.customDirectordrive = {
     ],
 }
 Class.customDirectorstorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Directorstorm',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -30600,7 +30640,7 @@ Class.customDirectorstorm = {
     ],
 }
 Class.customDirigible = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dirigible',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -30691,7 +30731,7 @@ Class.customDirigible = {
     ],
 }
 Class.customDischarger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Discharger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30765,7 +30805,7 @@ Class.customDischarger = {
     ],
 }
 Class.customDispatcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dispatcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30836,7 +30876,7 @@ Class.customDispatcher = {
     ],
 }
 Class.customDisperser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Disperser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -30907,7 +30947,7 @@ Class.customDisperser = {
     ],
 }
 Class.customDonjon = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Donjon',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -31008,7 +31048,7 @@ Class.customDonjon = {
     ],
 }
 Class.customDonkey = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Donkey',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -31109,7 +31149,7 @@ Class.customDonkey = {
     ],
 }
 Class.customDoorman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Doorman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -31150,7 +31190,7 @@ Class.customDoorman = {
     ],
 }
 Class.customDopelord = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dopelord',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31241,7 +31281,7 @@ Class.customDopelord = {
     ],
 }
 Class.customDoper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Doper',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31284,7 +31324,7 @@ Class.customDoper = {
     ],
 }
 Class.customDoperdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Doperdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31337,7 +31377,7 @@ Class.customDoperdrive = {
     ],
 }
 Class.customDoperstorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Doperstorm',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31381,7 +31421,7 @@ Class.customDoperstorm = {
     ],
 }
 Class.customDopeseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dopeseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31442,7 +31482,7 @@ Class.customDopeseer = {
     ],
 }
 Class.customDopeseerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dopeseerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31506,7 +31546,7 @@ Class.customDopeseerdrive = {
     ],
 }
 Class.customDoppelganger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Doppelganger',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -31557,7 +31597,7 @@ Class.customDoppelganger = {
     ],
 }
 Class.customDork = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dork',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -31648,7 +31688,7 @@ Class.customDork = {
     ],
 }
 Class.customDotter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dotter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -31699,7 +31739,7 @@ Class.customDotter = {
     ],
 }
 Class.customDoubleAutosmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -31730,7 +31770,7 @@ Class.customDoubleAutosmasher = {
     ],
 }
 Class.customDoubleBattery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Battery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -31841,7 +31881,7 @@ Class.customDoubleBattery = {
     ],
 }
 Class.customDoubleDual = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Dual',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -31932,7 +31972,7 @@ Class.customDoubleDual = {
     ],
 }
 Class.customDoubleEqualizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Equalizer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -32253,195 +32293,8 @@ Class.customDoubleFlankGunner = {
 
     ],
 }
-Class.customDoubleFlankTwin = {
-    PARENT: "genericTank",
-    LABEL: 'Double Flank Twin',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'customQuadTwin',
-        'customTripleFlankTwin',
-        'customHewnFlankDouble',
-        'customAutodoubleFlankTwin',
-        'customBentFlankDouble',
-        'customDoubleFlankGunner',
-        'customHipwatch',
-        'customScuffler',
-        'customWarkwawawark',
-    ],
-}
-Class.customDoubleGunner = {
-    PARENT: "genericTank",
-    LABEL: 'Double Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117543e-07,
-                Y: 7.250000238418571,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758837904447e-07,
-                Y: -7.250000238418572,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736275e-07,
-                Y: 3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660538e-07,
-                Y: -3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'customTripleGunner',
-        'customHewnGunner',
-        'customAutodoubleGunner',
-        'customBentDoubleGunner',
-        'customDoubleFlankGunner',
-        'customDoubleNailgun',
-        'customDoubleMachineGunner',
-        'customOverdoubleGunner',
-        'customDoubleBattery',
-        'customDoubleRimfire',
-        'customDoubleVolley',
-        'customDoubleEqualizer',
-    ],
-}
 Class.customDoubleMachineGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Machine Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -32552,7 +32405,7 @@ Class.customDoubleMachineGunner = {
     ],
 }
 Class.customDoubleMusket = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Musket',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -32643,7 +32496,7 @@ Class.customDoubleMusket = {
     ],
 }
 Class.customDoubleNailgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Nailgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -32734,7 +32587,7 @@ Class.customDoubleNailgun = {
     ],
 }
 Class.customDoubleRimfire = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Rimfire',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -32845,7 +32698,7 @@ Class.customDoubleRimfire = {
     ],
 }
 Class.customDoubleSpreadshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Spreadshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33036,7 +32889,7 @@ Class.customDoubleSpreadshot = {
     ],
 }
 Class.customDoubleTriplet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Triplet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33107,7 +32960,7 @@ Class.customDoubleTriplet = {
     ],
 }
 Class.customDoubleTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33172,7 +33025,7 @@ Class.customDoubleTwin = {
     ],
 }
 Class.customDoubleVolley = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Double Volley',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33263,7 +33116,7 @@ Class.customDoubleVolley = {
     ],
 }
 Class.customDownpourer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Downpourer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -33297,7 +33150,7 @@ Class.customDownpourer = {
     ],
 }
 Class.customDraftsman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Draftsman',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -33338,7 +33191,7 @@ Class.customDraftsman = {
     ],
 }
 Class.customDrifter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Drifter',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -33368,7 +33221,7 @@ Class.customDrifter = {
     ],
 }
 Class.customDriver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Driver',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -33459,7 +33312,7 @@ Class.customDriver = {
     ],
 }
 Class.customDual = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dual',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33520,7 +33373,7 @@ Class.customDual = {
     ],
 }
 Class.customDualbar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dualbar',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33634,7 +33487,7 @@ Class.customDualbar = {
     ],
 }
 Class.customDuelist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Duelist',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33685,7 +33538,7 @@ Class.customDuelist = {
     ],
 }
 Class.customDuo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Duo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33726,7 +33579,7 @@ Class.customDuo = {
     ],
 }
 Class.customDuper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Duper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33787,7 +33640,7 @@ Class.customDuper = {
     ],
 }
 Class.customDustStorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dust Storm',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33938,7 +33791,7 @@ Class.customDustStorm = {
     ],
 }
 Class.customDuster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Duster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -33979,7 +33832,7 @@ Class.customDuster = {
     ],
 }
 Class.customDyadic = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Dyadic',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34040,7 +33893,7 @@ Class.customDyadic = {
     ],
 }
 Class.customEagle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Eagle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34102,7 +33955,7 @@ Class.customEagle = {
     ],
 }
 Class.customElectrocutor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Electrocutor',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -34183,7 +34036,7 @@ Class.customElectrocutor = {
     ],
 }
 Class.customEmbargo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Embargo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34254,7 +34107,7 @@ Class.customEmbargo = {
     ],
 }
 Class.customEmitter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Emitter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34295,7 +34148,7 @@ Class.customEmitter = {
     ],
 }
 Class.customEmployer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Employer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -34386,7 +34239,7 @@ Class.customEmployer = {
     ],
 }
 Class.customEnactor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Enactor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34437,7 +34290,7 @@ Class.customEnactor = {
     ],
 }
 Class.customEncircler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Encircler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -34489,7 +34342,7 @@ Class.customEncircler = {
     ],
 }
 Class.customEndeavor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Endeavor',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -34530,7 +34383,7 @@ Class.customEndeavor = {
     ],
 }
 Class.customEnergizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Energizer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34581,7 +34434,7 @@ Class.customEnergizer = {
     ],
 }
 Class.customEnforcer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Enforcer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -34634,7 +34487,7 @@ Class.customEnforcer = {
     ],
 }
 Class.customEngineer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Engineer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -34698,7 +34551,7 @@ Class.customEngineer = {
     ],
 }
 Class.customEnviron = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Environ',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -34749,7 +34602,7 @@ Class.customEnviron = {
     ],
 }
 Class.customEpoch = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Epoch',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -34790,7 +34643,7 @@ Class.customEpoch = {
     ],
 }
 Class.customEqualizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Equalizer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -34898,7 +34751,7 @@ Class.customEqualizer = {
     ],
 }
 Class.customEqualizerGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Equalizer Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -34999,7 +34852,7 @@ Class.customEqualizerGuard = {
     ],
 }
 Class.customEradicator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Eradicator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35020,7 +34873,7 @@ Class.customEradicator = {
     ],
 }
 Class.customErne = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Erne',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35091,7 +34944,7 @@ Class.customErne = {
     ],
 }
 Class.customEscort = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Escort',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35142,7 +34995,7 @@ Class.customEscort = {
     ],
 }
 Class.customExaminer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Examiner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35173,7 +35026,7 @@ Class.customExaminer = {
     ],
 }
 Class.customExecutor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Executor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35224,7 +35077,7 @@ Class.customExecutor = {
     ],
 }
 Class.customExerter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Exerter',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -35275,7 +35128,7 @@ Class.customExerter = {
     ],
 }
 Class.customExpeller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Expeller',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -35338,7 +35191,7 @@ Class.customExpeller = {
     ],
 }
 Class.customExperimenter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Experimenter',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -35399,7 +35252,7 @@ Class.customExperimenter = {
     ],
 }
 Class.customFabrication = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fabrication',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -35490,7 +35343,7 @@ Class.customFabrication = {
     ],
 }
 Class.customFacility = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Facility',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -35541,7 +35394,7 @@ Class.customFacility = {
     ],
 }
 Class.customFactory = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Factory',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -35594,7 +35447,7 @@ Class.customFactory = {
     ],
 }
 Class.customFactorydrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Factorydrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -35648,7 +35501,7 @@ Class.customFactorydrive = {
     ],
 }
 Class.customFalcon = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Falcon',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35720,7 +35573,7 @@ Class.customFalcon = {
     ],
 }
 Class.customFang = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fang',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -35791,7 +35644,7 @@ Class.customFang = {
     ],
 }
 Class.customFashioner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fashioner',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -35846,7 +35699,7 @@ Class.customFashioner = {
     ],
 }
 Class.customFashionerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fashionerdrive',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -35900,7 +35753,7 @@ Class.customFashionerdrive = {
     ],
 }
 Class.customFault = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fault',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36001,7 +35854,7 @@ Class.customFault = {
     ],
 }
 Class.customFemaleficitor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Femaleficitor',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -36032,7 +35885,7 @@ Class.customFemaleficitor = {
     ],
 }
 Class.customFencer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fencer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -36123,7 +35976,7 @@ Class.customFencer = {
     ],
 }
 Class.customFender = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fender',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -36174,7 +36027,7 @@ Class.customFender = {
     ],
 }
 Class.customFieldGun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Field Gun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36243,7 +36096,7 @@ Class.customFieldGun = {
     ],
 }
 Class.customFighter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fighter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36318,7 +36171,7 @@ Class.customFighter = {
     ],
 }
 Class.customFinger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Finger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36359,7 +36212,7 @@ Class.customFinger = {
     ],
 }
 Class.customFirepower = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Firepower',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36410,7 +36263,7 @@ Class.customFirepower = {
     ],
 }
 Class.customFirework = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Firework',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36440,62 +36293,8 @@ Class.customFirework = {
 
     ],
 }
-Class.customFlankGuard = {
-    PARENT: "genericTank",
-    LABEL: 'Flank Guard',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 4.000000059604645,
-                Y: -2.7755575615628914e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 4.000000059604645,
-                Y: -5.551115123125783e-16,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customHexaTank',
-        'customTriangle',
-        'customAuto3',
-        'customTrapGuard',
-        'customTritrapper',
-    ],
-    UPGRADES_TIER_3: [
-        'customTripleTwin',
-    ],
-    UPGRADES_TIER_4: [
-        'customTernion',
-    ],
-}
 Class.customFleeter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fleeter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -36589,7 +36388,7 @@ Class.customFleeter = {
     ],
 }
 Class.customFlexedGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flexed Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36680,7 +36479,7 @@ Class.customFlexedGunner = {
     ],
 }
 Class.customFlexedHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flexed Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36751,7 +36550,7 @@ Class.customFlexedHybrid = {
     ],
 }
 Class.customFlexedMinigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flexed Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36872,7 +36671,7 @@ Class.customFlexedMinigun = {
     ],
 }
 Class.customFlicher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flicher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36923,7 +36722,7 @@ Class.customFlicher = {
     ],
 }
 Class.customFlintlock = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flintlock',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -36984,7 +36783,7 @@ Class.customFlintlock = {
     ],
 }
 Class.customFlock = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flock',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37035,7 +36834,7 @@ Class.customFlock = {
     ],
 }
 Class.customFlocker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flocker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37076,7 +36875,7 @@ Class.customFlocker = {
     ],
 }
 Class.customFlurry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Flurry',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37147,7 +36946,7 @@ Class.customFlurry = {
     ],
 }
 Class.customFoamer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foamer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37178,7 +36977,7 @@ Class.customFoamer = {
     ],
 }
 Class.customFoctar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foctar',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37239,7 +37038,7 @@ Class.customFoctar = {
     ],
 }
 Class.customFoctillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foctillery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37290,7 +37089,7 @@ Class.customFoctillery = {
     ],
 }
 Class.customForce = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Force',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37357,7 +37156,7 @@ Class.customForce = {
     ],
 }
 Class.customForcedrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Forcedrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37421,7 +37220,7 @@ Class.customForcedrive = {
     ],
 }
 Class.customForedrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foredrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -37465,7 +37264,7 @@ Class.customForedrive = {
     ],
 }
 Class.customForegunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foregunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -37526,7 +37325,7 @@ Class.customForegunner = {
     ],
 }
 Class.customForeman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foreman',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -37568,7 +37367,7 @@ Class.customForeman = {
     ],
 }
 Class.customForetrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foretrapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -37619,7 +37418,7 @@ Class.customForetrapper = {
     ],
 }
 Class.customForger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Forger',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -37685,7 +37484,7 @@ Class.customForger = {
     ],
 }
 Class.customFormer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Former',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -37746,7 +37545,7 @@ Class.customFormer = {
     ],
 }
 Class.customFormulator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Formulator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -37807,7 +37606,7 @@ Class.customFormulator = {
     ],
 }
 Class.customFortalice = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fortalice',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -37938,7 +37737,7 @@ Class.customFortalice = {
     ],
 }
 Class.customFortdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fortdrive',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -38052,7 +37851,7 @@ Class.customFortdrive = {
     ],
 }
 Class.customFortifier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fortifier',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -38113,7 +37912,7 @@ Class.customFortifier = {
     ],
 }
 Class.customFortress = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fortress',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -38227,7 +38026,7 @@ Class.customFortress = {
     ],
 }
 Class.customFoundry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foundry',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -38280,7 +38079,7 @@ Class.customFoundry = {
     ],
 }
 Class.customFoundrydrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Foundrydrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -38334,7 +38133,7 @@ Class.customFoundrydrive = {
     ],
 }
 Class.customFrother = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Frother',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -38385,7 +38184,7 @@ Class.customFrother = {
     ],
 }
 Class.customFryer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fryer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -38476,7 +38275,7 @@ Class.customFryer = {
     ],
 }
 Class.customFungus = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fungus',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -38707,7 +38506,7 @@ Class.customFungus = {
     ],
 }
 Class.customFuser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fuser',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -38768,7 +38567,7 @@ Class.customFuser = {
     ],
 }
 Class.customFusil = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fusil',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -38819,7 +38618,7 @@ Class.customFusil = {
     ],
 }
 Class.customFusillade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Fusillade',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -38920,7 +38719,7 @@ Class.customFusillade = {
     ],
 }
 Class.customGadgetGun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gadget Gun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -38951,7 +38750,7 @@ Class.customGadgetGun = {
     ],
 }
 Class.customGaffer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gaffer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -39082,7 +38881,7 @@ Class.customGaffer = {
     ],
 }
 Class.customGalah = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Galah',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39173,7 +38972,7 @@ Class.customGalah = {
     ],
 }
 Class.customGale = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gale',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39344,7 +39143,7 @@ Class.customGale = {
     ],
 }
 Class.customGanger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ganger',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -39395,7 +39194,7 @@ Class.customGanger = {
     ],
 }
 Class.customGarrison = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Garrison',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -39436,7 +39235,7 @@ Class.customGarrison = {
     ],
 }
 Class.customGarroter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Garroter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39487,7 +39286,7 @@ Class.customGarroter = {
     ],
 }
 Class.customGeneral = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'General',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -39578,7 +39377,7 @@ Class.customGeneral = {
     ],
 }
 Class.customGenerator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Generator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39649,7 +39448,7 @@ Class.customGenerator = {
     ],
 }
 Class.customGimmicker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gimmicker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39690,7 +39489,7 @@ Class.customGimmicker = {
     ],
 }
 Class.customGizmo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gizmo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39731,7 +39530,7 @@ Class.customGizmo = {
     ],
 }
 Class.customGlider = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Glider',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39805,7 +39604,7 @@ Class.customGlider = {
     ],
 }
 Class.customGoverner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Governer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -39936,7 +39735,7 @@ Class.customGoverner = {
     ],
 }
 Class.customGrazer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Grazer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -39987,7 +39786,7 @@ Class.customGrazer = {
     ],
 }
 Class.customGrenade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Grenade',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -40018,7 +39817,7 @@ Class.customGrenade = {
     ],
 }
 Class.customGriffin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Griffin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -40089,7 +39888,7 @@ Class.customGriffin = {
     ],
 }
 Class.customGrinder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Grinder',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -40150,7 +39949,7 @@ Class.customGrinder = {
     ],
 }
 Class.customGuarder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Guarder',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -40201,7 +40000,7 @@ Class.customGuarder = {
     ],
 }
 Class.customGuardrail = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Guardrail',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -40332,7 +40131,7 @@ Class.customGuardrail = {
     ],
 }
 Class.customGunman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -40383,7 +40182,7 @@ Class.customGunman = {
     ],
 }
 Class.customGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -40454,7 +40253,7 @@ Class.customGunner = {
     ],
 }
 Class.customGunnerAutosmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -40485,7 +40284,7 @@ Class.customGunnerAutosmasher = {
     ],
 }
 Class.customGunnerBuilder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner Builder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -40546,7 +40345,7 @@ Class.customGunnerBuilder = {
     ],
 }
 Class.customGunnerMech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner Mech',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -40617,7 +40416,7 @@ Class.customGunnerMech = {
     ],
 }
 Class.customGunnerPen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner Pen',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -40688,7 +40487,7 @@ Class.customGunnerPen = {
     ],
 }
 Class.customGunnerTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner Trapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -40762,7 +40561,7 @@ Class.customGunnerTrapper = {
     ],
 }
 Class.customGunnerTritrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gunner Tri-Trapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -40863,7 +40662,7 @@ Class.customGunnerTritrapper = {
     ],
 }
 Class.customGusher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gusher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -40944,7 +40743,7 @@ Class.customGusher = {
     ],
 }
 Class.customGyro = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Gyro',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41005,7 +40804,7 @@ Class.customGyro = {
     ],
 }
 Class.customHackshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hackshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41106,7 +40905,7 @@ Class.customHackshot = {
     ],
 }
 Class.customHammer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hammer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41157,7 +40956,7 @@ Class.customHammer = {
     ],
 }
 Class.customHandler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Handler',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -41198,7 +40997,7 @@ Class.customHandler = {
     ],
 }
 Class.customHangar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hangar',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -41273,7 +41072,7 @@ Class.customHangar = {
     ],
 }
 Class.customHarbinger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Harbinger',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -41354,7 +41153,7 @@ Class.customHarbinger = {
     ],
 }
 Class.customHarbor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Harbor',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -41405,7 +41204,7 @@ Class.customHarbor = {
     ],
 }
 Class.customHardware = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hardware',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -41536,7 +41335,7 @@ Class.customHardware = {
     ],
 }
 Class.customHarpoon = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Harpoon',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41627,7 +41426,7 @@ Class.customHarpoon = {
     ],
 }
 Class.customHarpy = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Harpy',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41718,7 +41517,7 @@ Class.customHarpy = {
     ],
 }
 Class.customHarrier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Harrier',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41769,7 +41568,7 @@ Class.customHarrier = {
     ],
 }
 Class.customHatcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hatcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41840,7 +41639,7 @@ Class.customHatcher = {
     ],
 }
 Class.customHatchet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hatchet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41921,7 +41720,7 @@ Class.customHatchet = {
     ],
 }
 Class.customHawker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hawker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -41942,7 +41741,7 @@ Class.customHawker = {
     ],
 }
 Class.customHeadman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Headman',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -41993,7 +41792,7 @@ Class.customHeadman = {
     ],
 }
 Class.customHeaver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Heaver',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42053,7 +41852,7 @@ Class.customHeaver = {
     ],
 }
 Class.customHeaverdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Heaverdrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42107,7 +41906,7 @@ Class.customHeaverdrive = {
     ],
 }
 Class.customHelipad = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Helipad',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -42181,7 +41980,7 @@ Class.customHelipad = {
     ],
 }
 Class.customHelix = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Helix',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42222,7 +42021,7 @@ Class.customHelix = {
     ],
 }
 Class.customHeptaShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hepta Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42303,7 +42102,7 @@ Class.customHeptaShot = {
     ],
 }
 Class.customHewnDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hewn Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42383,7 +42182,7 @@ Class.customHewnDouble = {
     ],
 }
 Class.customHewnFlankDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hewn Flank Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42474,7 +42273,7 @@ Class.customHewnFlankDouble = {
     ],
 }
 Class.customHewnGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hewn Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42605,7 +42404,7 @@ Class.customHewnGunner = {
     ],
 }
 Class.customHewnTriple = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hewn Triple',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42696,7 +42495,7 @@ Class.customHewnTriple = {
     ],
 }
 Class.customHexaAutosmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexa Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -42727,7 +42526,7 @@ Class.customHexaAutosmasher = {
     ],
 }
 Class.customHexaTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -42810,7 +42609,7 @@ Class.customHexaTank = {
     ],
 }
 Class.customHexamachine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexa-Machine',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -42954,7 +42753,7 @@ Class.customHexamachine = {
     ],
 }
 Class.customHexamech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexa-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -43158,7 +42957,7 @@ Class.customHexamech = {
     ],
 }
 Class.customHexatrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexa-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -43312,7 +43111,7 @@ Class.customHexatrapGuard = {
     ],
 }
 Class.customHexatrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -43469,7 +43268,7 @@ Class.customHexatrapper = {
     ],
 }
 Class.customHightailer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hightailer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -43540,7 +43339,7 @@ Class.customHightailer = {
     ],
 }
 Class.customHipwatch = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hipwatch',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -43614,7 +43413,7 @@ Class.customHipwatch = {
     ],
 }
 Class.customHitman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hitman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -43668,7 +43467,7 @@ Class.customHitman = {
     ],
 }
 Class.customHitmandrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hitmandrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -43722,7 +43521,7 @@ Class.customHitmandrive = {
     ],
 }
 Class.customHognose = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hognose',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -43763,7 +43562,7 @@ Class.customHognose = {
     ],
 }
 Class.customHoncho = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -43796,7 +43595,7 @@ Class.customHoncho = {
     ],
 }
 Class.customHonchodrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Honchodrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -43839,7 +43638,7 @@ Class.customHonchodrive = {
     ],
 }
 Class.customHonchostorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Honchostorm',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -43873,7 +43672,7 @@ Class.customHonchostorm = {
     ],
 }
 Class.customHotbed = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hotbed',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -43974,7 +43773,7 @@ Class.customHotbed = {
     ],
 }
 Class.customHowitzer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Howitzer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44025,7 +43824,7 @@ Class.customHowitzer = {
     ],
 }
 Class.customHunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44070,7 +43869,7 @@ Class.customHunter = {
     ],
 }
 Class.customHunter3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hunter-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44111,7 +43910,7 @@ Class.customHunter3 = {
     ],
 }
 Class.customHuntsman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Huntsman',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44172,7 +43971,7 @@ Class.customHuntsman = {
     ],
 }
 Class.customHurdle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hurdle',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -44213,7 +44012,7 @@ Class.customHurdle = {
     ],
 }
 Class.customHurler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hurler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44261,7 +44060,7 @@ Class.customHurler = {
     ],
 }
 Class.customHurler3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hurler-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44302,7 +44101,7 @@ Class.customHurler3 = {
     ],
 }
 Class.customHutch = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hutch',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -44385,7 +44184,7 @@ Class.customHutch = {
     ],
 }
 Class.customHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44431,7 +44230,7 @@ Class.customHybrid = {
     ],
 }
 Class.customHybriddrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hybriddrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44475,7 +44274,7 @@ Class.customHybriddrive = {
     ],
 }
 Class.customHypercluster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hypercluster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44526,7 +44325,7 @@ Class.customHypercluster = {
     ],
 }
 Class.customHyperinception = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hyperinception',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44577,7 +44376,7 @@ Class.customHyperinception = {
     ],
 }
 Class.customHyperprojector = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hyperprojector',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44638,7 +44437,7 @@ Class.customHyperprojector = {
     ],
 }
 Class.customHyperskimmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hyperskimmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44689,7 +44488,7 @@ Class.customHyperskimmer = {
     ],
 }
 Class.customHyperswarmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hyperswarmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44730,7 +44529,7 @@ Class.customHyperswarmer = {
     ],
 }
 Class.customHypertwister = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hypertwister',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44781,7 +44580,7 @@ Class.customHypertwister = {
     ],
 }
 Class.customHyperwinder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hyperwinder',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44832,7 +44631,7 @@ Class.customHyperwinder = {
     ],
 }
 Class.customIcbm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'ICBM',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44873,7 +44672,7 @@ Class.customIcbm = {
     ],
 }
 Class.customImmolater = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Immolater',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -44924,7 +44723,7 @@ Class.customImmolater = {
     ],
 }
 Class.customImpeder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Impeder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -45015,7 +44814,7 @@ Class.customImpeder = {
     ],
 }
 Class.customIncarcerator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Incarcerator',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -45078,7 +44877,7 @@ Class.customIncarcerator = {
     ],
 }
 Class.customInception = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Inception',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -45134,7 +44933,7 @@ Class.customInception = {
     ],
 }
 Class.customIncline = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Incline',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -45185,7 +44984,7 @@ Class.customIncline = {
     ],
 }
 Class.customInducer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Inducer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -45276,7 +45075,7 @@ Class.customInducer = {
     ],
 }
 Class.customIndustry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Industry',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -45317,7 +45116,7 @@ Class.customIndustry = {
     ],
 }
 Class.customInfestor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Infestor',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -45375,7 +45174,7 @@ Class.customInfestor = {
     ],
 }
 Class.customInfestordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Infestordrive',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -45439,7 +45238,7 @@ Class.customInfestordrive = {
     ],
 }
 Class.customInitiator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Initiator',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -45540,7 +45339,7 @@ Class.customInitiator = {
     ],
 }
 Class.customInspector = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Inspector',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -45571,7 +45370,7 @@ Class.customInspector = {
     ],
 }
 Class.customInstructor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Instructor',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -45655,7 +45454,7 @@ Class.customInstructor = {
     ],
 }
 Class.customIntegrator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Integrator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -45716,7 +45515,7 @@ Class.customIntegrator = {
     ],
 }
 Class.customIntegratordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Integratordrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -45780,7 +45579,7 @@ Class.customIntegratordrive = {
     ],
 }
 Class.customInterner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Interner',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -45843,7 +45642,7 @@ Class.customInterner = {
     ],
 }
 Class.customInternerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Internerdrive',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -45907,7 +45706,7 @@ Class.customInternerdrive = {
     ],
 }
 Class.customInventor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Inventor',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -45988,7 +45787,7 @@ Class.customInventor = {
     ],
 }
 Class.customIssuer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Issuer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -46051,7 +45850,7 @@ Class.customIssuer = {
     ],
 }
 Class.customIssuerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Issuerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -46115,7 +45914,7 @@ Class.customIssuerdrive = {
     ],
 }
 Class.customJailer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Jailer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -46176,7 +45975,7 @@ Class.customJailer = {
     ],
 }
 Class.customJalopy = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Jalopy',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46204,7 +46003,7 @@ Class.customJalopy = {
     ],
 }
 Class.customJalopyTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Jalopy Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -46235,7 +46034,7 @@ Class.customJalopyTrapper = {
     ],
 }
 Class.customJerker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Jerker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46346,7 +46145,7 @@ Class.customJerker = {
     ],
 }
 Class.customJolter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Jolter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46427,7 +46226,7 @@ Class.customJolter = {
     ],
 }
 Class.customJunker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Junker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46518,7 +46317,7 @@ Class.customJunker = {
     ],
 }
 Class.customJunkie = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Junkie',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -46558,7 +46357,7 @@ Class.customJunkie = {
     ],
 }
 Class.customJunkiedrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Junkiedrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -46602,7 +46401,7 @@ Class.customJunkiedrive = {
     ],
 }
 Class.customJutter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Jutter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46663,7 +46462,7 @@ Class.customJutter = {
     ],
 }
 Class.customKettle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Kettle',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -46724,7 +46523,7 @@ Class.customKettle = {
     ],
 }
 Class.customKicker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Kicker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46815,7 +46614,7 @@ Class.customKicker = {
     ],
 }
 Class.customKingpin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Kingpin',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -46876,7 +46675,7 @@ Class.customKingpin = {
     ],
 }
 Class.customKitter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Kitter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -46957,7 +46756,7 @@ Class.customKitter = {
     ],
 }
 Class.customKlutz = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Klutz',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47048,7 +46847,7 @@ Class.customKlutz = {
     ],
 }
 Class.customKraal = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Kraal',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -47119,7 +46918,7 @@ Class.customKraal = {
     ],
 }
 Class.customLabordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Labordrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -47173,7 +46972,7 @@ Class.customLabordrive = {
     ],
 }
 Class.customLaborer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Laborer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -47225,7 +47024,7 @@ Class.customLaborer = {
     ],
 }
 Class.customLadle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ladle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47286,7 +47085,7 @@ Class.customLadle = {
     ],
 }
 Class.customLandau = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Landau',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -47327,7 +47126,7 @@ Class.customLandau = {
     ],
 }
 Class.customLandmine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Landmine',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -47367,7 +47166,7 @@ Class.customLandmine = {
     ],
 }
 Class.customLasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lasher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47448,7 +47247,7 @@ Class.customLasher = {
     ],
 }
 Class.customLauncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47499,7 +47298,7 @@ Class.customLauncher = {
     ],
 }
 Class.customLavisher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lavisher',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -47560,7 +47359,7 @@ Class.customLavisher = {
     ],
 }
 Class.customLeader = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Leader',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -47581,7 +47380,7 @@ Class.customLeader = {
     ],
 }
 Class.customLever = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lever',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47645,7 +47444,7 @@ Class.customLever = {
     ],
 }
 Class.customLeviathan = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Leviathan',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47676,7 +47475,7 @@ Class.customLeviathan = {
     ],
 }
 Class.customLicker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Licker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47737,7 +47536,7 @@ Class.customLicker = {
     ],
 }
 Class.customLimpet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Limpet',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -47768,7 +47567,7 @@ Class.customLimpet = {
     ],
 }
 Class.customLobber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lobber',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47819,7 +47618,7 @@ Class.customLobber = {
     ],
 }
 Class.customLockup = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lockup',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -47870,7 +47669,7 @@ Class.customLockup = {
     ],
 }
 Class.customLoon = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Loon',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47961,7 +47760,7 @@ Class.customLoon = {
     ],
 }
 Class.customLorry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lorry',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -47982,7 +47781,7 @@ Class.customLorry = {
     ],
 }
 Class.customLugger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lugger',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -48053,7 +47852,7 @@ Class.customLugger = {
     ],
 }
 Class.customLure = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lure',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -48134,7 +47933,7 @@ Class.customLure = {
     ],
 }
 Class.customLyncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Lyncher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -48195,7 +47994,7 @@ Class.customLyncher = {
     ],
 }
 Class.customMachete = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machete',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -48326,7 +48125,7 @@ Class.customMachete = {
     ],
 }
 Class.customMachgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -48387,7 +48186,7 @@ Class.customMachgun = {
     ],
 }
 Class.customMachineGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machine Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -48441,42 +48240,8 @@ Class.customMachineGuard = {
         'customScout',
     ],
 }
-Class.customMachineGun = {
-    PARENT: "genericTank",
-    LABEL: 'Machine Gun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 10,
-                ASPECT: 1.399999976158142,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customArtillery',
-        'customMinigun',
-        'customGunner',
-        'customDiesel',
-        'customMachineTrapper',
-    ],
-    UPGRADES_TIER_3: [
-        'customSprayer',
-    ],
-    UPGRADES_TIER_4: [
-        'customGadgetGun',
-    ],
-}
 Class.customMachineGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machine Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -48547,7 +48312,7 @@ Class.customMachineGunner = {
     ],
 }
 Class.customMachineMech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machine Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -48598,7 +48363,7 @@ Class.customMachineMech = {
     ],
 }
 Class.customMachineMegaTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machine Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -48629,7 +48394,7 @@ Class.customMachineMegaTrapper = {
     ],
 }
 Class.customMachineTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -48676,7 +48441,7 @@ Class.customMachineTrapper = {
     ],
 }
 Class.customMachineVolley = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machine Volley',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -48737,7 +48502,7 @@ Class.customMachineVolley = {
     ],
 }
 Class.customMachinist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Machinist',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -48798,7 +48563,7 @@ Class.customMachinist = {
     ],
 }
 Class.customMagnet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Magnet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -48869,7 +48634,7 @@ Class.customMagnet = {
     ],
 }
 Class.customMagnum = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Magnum',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -48940,7 +48705,7 @@ Class.customMagnum = {
     ],
 }
 Class.customMaker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Maker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49001,7 +48766,7 @@ Class.customMaker = {
     ],
 }
 Class.customMamba = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mamba',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49052,7 +48817,7 @@ Class.customMamba = {
     ],
 }
 Class.customManOWar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Man o' War",
     SIZE: 12,
     STAT_NAMES: 4,
@@ -49143,7 +48908,7 @@ Class.customManOWar = {
     ],
 }
 Class.customManager = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Manager',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -49175,7 +48940,7 @@ Class.customManager = {
     ],
 }
 Class.customManagerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Managerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -49209,7 +48974,7 @@ Class.customManagerdrive = {
     ],
 }
 Class.customMandarin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mandarin',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -49280,7 +49045,7 @@ Class.customMandarin = {
     ],
 }
 Class.customMandible = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mandible',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49334,7 +49099,7 @@ Class.customMandible = {
     ],
 }
 Class.customMangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mangle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49425,7 +49190,7 @@ Class.customMangle = {
     ],
 }
 Class.customManufacture = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Manufacture',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -49496,7 +49261,7 @@ Class.customManufacture = {
     ],
 }
 Class.customMarine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Marine',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49557,7 +49322,7 @@ Class.customMarine = {
     ],
 }
 Class.customMassacrer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Massacrer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -49598,7 +49363,7 @@ Class.customMassacrer = {
     ],
 }
 Class.customMastermind = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mastermind',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -49639,7 +49404,7 @@ Class.customMastermind = {
     ],
 }
 Class.customMatchlock = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Matchlock',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49700,7 +49465,7 @@ Class.customMatchlock = {
     ],
 }
 Class.customMaverick = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Maverick',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -49741,7 +49506,7 @@ Class.customMaverick = {
     ],
 }
 Class.customMaw = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Maw',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -49802,7 +49567,7 @@ Class.customMaw = {
     ],
 }
 Class.customMech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -49857,7 +49622,7 @@ Class.customMech = {
     ],
 }
 Class.customMechGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mech Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -49920,7 +49685,7 @@ Class.customMechGuard = {
     ],
 }
 Class.customMechanic = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mechanic',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -49971,7 +49736,7 @@ Class.customMechanic = {
     ],
 }
 Class.customMegaAutoartillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50025,7 +49790,7 @@ Class.customMegaAutoartillery = {
     ],
 }
 Class.customMegaAutoassassin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50069,7 +49834,7 @@ Class.customMegaAutoassassin = {
     ],
 }
 Class.customMegaAutoauto3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Auto-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50120,7 +49885,7 @@ Class.customMegaAutoauto3 = {
     ],
 }
 Class.customMegaAutobuilder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Builder',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -50164,7 +49929,7 @@ Class.customMegaAutobuilder = {
     ],
 }
 Class.customMegaAutocruiser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -50208,7 +49973,7 @@ Class.customMegaAutocruiser = {
     ],
 }
 Class.customMegaAutodestroyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50242,7 +50007,7 @@ Class.customMegaAutodestroyer = {
     ],
 }
 Class.customMegaAutodiesel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50276,7 +50041,7 @@ Class.customMegaAutodiesel = {
     ],
 }
 Class.customMegaAutodirectordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -50310,7 +50075,7 @@ Class.customMegaAutodirectordrive = {
     ],
 }
 Class.customMegaAutodoper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Doper',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -50354,7 +50119,7 @@ Class.customMegaAutodoper = {
     ],
 }
 Class.customMegaAutodoubleTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Double Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50418,7 +50183,7 @@ Class.customMegaAutodoubleTwin = {
     ],
 }
 Class.customMegaAutogunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50482,7 +50247,7 @@ Class.customMegaAutogunner = {
     ],
 }
 Class.customMegaAutohexaTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50566,7 +50331,7 @@ Class.customMegaAutohexaTank = {
     ],
 }
 Class.customMegaAutohoncho = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -50600,7 +50365,7 @@ Class.customMegaAutohoncho = {
     ],
 }
 Class.customMegaAutohunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50644,7 +50409,7 @@ Class.customMegaAutohunter = {
     ],
 }
 Class.customMegaAutolauncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50688,7 +50453,7 @@ Class.customMegaAutolauncher = {
     ],
 }
 Class.customMegaAutomachineTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -50732,7 +50497,7 @@ Class.customMegaAutomachineTrapper = {
     ],
 }
 Class.customMegaAutomech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -50786,7 +50551,7 @@ Class.customMegaAutomech = {
     ],
 }
 Class.customMegaAutominigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50840,7 +50605,7 @@ Class.customMegaAutominigun = {
     ],
 }
 Class.customMegaAutooverseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -50884,7 +50649,7 @@ Class.customMegaAutooverseer = {
     ],
 }
 Class.customMegaAutopen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -50938,7 +50703,7 @@ Class.customMegaAutopen = {
     ],
 }
 Class.customMegaAutorifle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -50982,7 +50747,7 @@ Class.customMegaAutorifle = {
     ],
 }
 Class.customMegaAutosmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -51013,7 +50778,7 @@ Class.customMegaAutosmasher = {
     ],
 }
 Class.customMegaAutospawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51067,7 +50832,7 @@ Class.customMegaAutospawner = {
     ],
 }
 Class.customMegaAutotrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -51121,7 +50886,7 @@ Class.customMegaAutotrapGuard = {
     ],
 }
 Class.customMegaAutotriangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51175,7 +50940,7 @@ Class.customMegaAutotriangle = {
     ],
 }
 Class.customMegaAutotripleShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51229,7 +50994,7 @@ Class.customMegaAutotripleShot = {
     ],
 }
 Class.customMegaAutowark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Wark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -51293,7 +51058,7 @@ Class.customMegaAutowark = {
     ],
 }
 Class.customMegaBanger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Banger',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -51314,7 +51079,7 @@ Class.customMegaBanger = {
     ],
 }
 Class.customMegaCaptain = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Captain',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51385,7 +51150,7 @@ Class.customMegaCaptain = {
     ],
 }
 Class.customMegaCourser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Courser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51426,7 +51191,7 @@ Class.customMegaCourser = {
     ],
 }
 Class.customMegaFactory = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Factory',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51467,7 +51232,7 @@ Class.customMegaFactory = {
     ],
 }
 Class.customMegaFoundry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Foundry',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51508,7 +51273,7 @@ Class.customMegaFoundry = {
     ],
 }
 Class.customMegaHangar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Hangar',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51569,7 +51334,7 @@ Class.customMegaHangar = {
     ],
 }
 Class.customMegaHexatrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Hexa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -51713,7 +51478,7 @@ Class.customMegaHexatrapper = {
     ],
 }
 Class.customMegaHunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51754,7 +51519,7 @@ Class.customMegaHunter = {
     ],
 }
 Class.customMegaIssuer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Issuer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51805,7 +51570,7 @@ Class.customMegaIssuer = {
     ],
 }
 Class.customMegaLaborer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Laborer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -51846,7 +51611,7 @@ Class.customMegaLaborer = {
     ],
 }
 Class.customMegaOrdnance = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Ordnance',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51897,7 +51662,7 @@ Class.customMegaOrdnance = {
     ],
 }
 Class.customMegaPoacher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Poacher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51938,7 +51703,7 @@ Class.customMegaPoacher = {
     ],
 }
 Class.customMegaPredator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Predator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -51979,7 +51744,7 @@ Class.customMegaPredator = {
     ],
 }
 Class.customMegaProber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Prober',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52020,7 +51785,7 @@ Class.customMegaProber = {
     ],
 }
 Class.customMegaSpawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -52072,7 +51837,7 @@ Class.customMegaSpawner = {
     ],
 }
 Class.customMegaSpawnerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Spawnerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -52126,7 +51891,7 @@ Class.customMegaSpawnerdrive = {
     ],
 }
 Class.customMegaTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -52173,7 +51938,7 @@ Class.customMegaTrapper = {
     ],
 }
 Class.customMegaWark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Wark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -52244,7 +52009,7 @@ Class.customMegaWark = {
     ],
 }
 Class.customMega3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52297,7 +52062,7 @@ Class.customMega3 = {
     ],
 }
 Class.customMega5 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-5',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52358,7 +52123,7 @@ Class.customMega5 = {
     ],
 }
 Class.customMegabonker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-Bonker',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -52379,7 +52144,7 @@ Class.customMegabonker = {
     ],
 }
 Class.customMegadrifter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-Drifter',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -52400,7 +52165,7 @@ Class.customMegadrifter = {
     ],
 }
 Class.customMegalandmine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-Landmine',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -52431,7 +52196,7 @@ Class.customMegalandmine = {
     ],
 }
 Class.customMegasmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -52461,7 +52226,7 @@ Class.customMegasmasher = {
     ],
 }
 Class.customMegaspike = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega-Spike',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -52512,7 +52277,7 @@ Class.customMegaspike = {
     ],
 }
 Class.customMeld = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Meld',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -52553,7 +52318,7 @@ Class.customMeld = {
     ],
 }
 Class.customMelder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Melder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -52624,7 +52389,7 @@ Class.customMelder = {
     ],
 }
 Class.customMercenary = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mercenary',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52695,7 +52460,7 @@ Class.customMercenary = {
     ],
 }
 Class.customMerganser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Merganser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52766,7 +52531,7 @@ Class.customMerganser = {
     ],
 }
 Class.customMerlin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Merlin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52847,7 +52612,7 @@ Class.customMerlin = {
     ],
 }
 Class.customMethodist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Methodist',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -52888,7 +52653,7 @@ Class.customMethodist = {
     ],
 }
 Class.customMine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mine',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -52939,7 +52704,7 @@ Class.customMine = {
     ],
 }
 Class.customMingler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mingler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53077,7 +52842,7 @@ Class.customMingler = {
     ],
 }
 Class.customMinigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53134,7 +52899,7 @@ Class.customMinigun = {
     ],
 }
 Class.customMinilet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Minilet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53215,7 +52980,7 @@ Class.customMinilet = {
     ],
 }
 Class.customMinister = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Minister',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -53236,7 +53001,7 @@ Class.customMinister = {
     ],
 }
 Class.customMixer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mixer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53297,7 +53062,7 @@ Class.customMixer = {
     ],
 }
 Class.customModeler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Modeler',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -53358,7 +53123,7 @@ Class.customModeler = {
     ],
 }
 Class.customMogul = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mogul',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -53449,7 +53214,7 @@ Class.customMogul = {
     ],
 }
 Class.customMolder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Molder',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -53490,7 +53255,7 @@ Class.customMolder = {
     ],
 }
 Class.customMolotov = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Molotov',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53531,7 +53296,7 @@ Class.customMolotov = {
     ],
 }
 Class.customMongrel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mongrel',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53572,7 +53337,7 @@ Class.customMongrel = {
     ],
 }
 Class.customMono = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mono',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53613,7 +53378,7 @@ Class.customMono = {
     ],
 }
 Class.customMortar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mortar',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53686,7 +53451,7 @@ Class.customMortar = {
     ],
 }
 Class.customMosey = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mosey',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -53750,7 +53515,7 @@ Class.customMosey = {
     ],
 }
 Class.customMoseydrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Moseydrive',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -53814,7 +53579,7 @@ Class.customMoseydrive = {
     ],
 }
 Class.customMotorGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Motor Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53895,7 +53660,7 @@ Class.customMotorGunner = {
     ],
 }
 Class.customMusket = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Musket',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53955,7 +53720,7 @@ Class.customMusket = {
     ],
 }
 Class.customMyriad = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Myriad',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -53986,7 +53751,7 @@ Class.customMyriad = {
     ],
 }
 Class.customNabber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nabber',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54027,7 +53792,7 @@ Class.customNabber = {
     ],
 }
 Class.customNailgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nailgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54094,7 +53859,7 @@ Class.customNailgun = {
     ],
 }
 Class.customNester = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nester',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54135,7 +53900,7 @@ Class.customNester = {
     ],
 }
 Class.customNeutron = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Neutron',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54176,7 +53941,7 @@ Class.customNeutron = {
     ],
 }
 Class.customNimrod = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nimrod',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54247,7 +54012,7 @@ Class.customNimrod = {
     ],
 }
 Class.customNitwit = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nitwit',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54318,7 +54083,7 @@ Class.customNitwit = {
     ],
 }
 Class.customNonatrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nona-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -54509,7 +54274,7 @@ Class.customNonatrapper = {
     ],
 }
 Class.customNuker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Nuker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -54600,7 +54365,7 @@ Class.customNuker = {
     ],
 }
 Class.customObliterator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Obliterator',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -54641,7 +54406,7 @@ Class.customObliterator = {
     ],
 }
 Class.customOctoTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Octo Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -54741,7 +54506,7 @@ Class.customOctoTank = {
     ],
 }
 Class.customOctotrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Octo-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -54925,7 +54690,7 @@ Class.customOctotrapper = {
     ],
 }
 Class.customOperator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Operator',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -54986,7 +54751,7 @@ Class.customOperator = {
     ],
 }
 Class.customOracle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Oracle',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55067,7 +54832,7 @@ Class.customOracle = {
     ],
 }
 Class.customOrbitalStrike = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Orbital Strike',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -55138,7 +54903,7 @@ Class.customOrbitalStrike = {
     ],
 }
 Class.customOrdnance = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ordnance',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -55202,7 +54967,7 @@ Class.customOrdnance = {
     ],
 }
 Class.customOriginator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Originator',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -55243,7 +55008,7 @@ Class.customOriginator = {
     ],
 }
 Class.customOsprey = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Osprey',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -55314,7 +55079,7 @@ Class.customOsprey = {
     ],
 }
 Class.customOutpost = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Outpost',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55415,7 +55180,7 @@ Class.customOutpost = {
     ],
 }
 Class.customOverangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overangle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -55476,7 +55241,7 @@ Class.customOverangle = {
     ],
 }
 Class.customOverartillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overartillery',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55537,7 +55302,7 @@ Class.customOverartillery = {
     ],
 }
 Class.customOverassassin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overassassin',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55588,7 +55353,7 @@ Class.customOverassassin = {
     ],
 }
 Class.customOverbuilder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overbuilder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55639,7 +55404,7 @@ Class.customOverbuilder = {
     ],
 }
 Class.customOvercheese = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overcheese',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -55670,7 +55435,7 @@ Class.customOvercheese = {
     ],
 }
 Class.customOverczar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overczar',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -55741,7 +55506,7 @@ Class.customOverczar = {
     ],
 }
 Class.customOverdestroyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overdestroyer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55782,7 +55547,7 @@ Class.customOverdestroyer = {
     ],
 }
 Class.customOverdiesel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overdiesel',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55823,7 +55588,7 @@ Class.customOverdiesel = {
     ],
 }
 Class.customOverdoubleGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overdouble Gunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -55914,7 +55679,7 @@ Class.customOverdoubleGunner = {
     ],
 }
 Class.customOverdoubleTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overdouble Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -55985,7 +55750,7 @@ Class.customOverdoubleTwin = {
     ],
 }
 Class.customOverdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -56040,7 +55805,7 @@ Class.customOverdrive = {
     ],
 }
 Class.customOverequalizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overequalizer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56121,7 +55886,7 @@ Class.customOverequalizer = {
     ],
 }
 Class.customOvergunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overgunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56195,7 +55960,7 @@ Class.customOvergunner = {
     ],
 }
 Class.customOvergunnerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overgunnerdrive',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56269,7 +56034,7 @@ Class.customOvergunnerdrive = {
     ],
 }
 Class.customOverhunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overhunter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56320,7 +56085,7 @@ Class.customOverhunter = {
     ],
 }
 Class.customOverlauncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overlauncher',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56371,7 +56136,7 @@ Class.customOverlauncher = {
     ],
 }
 Class.customOverlord = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overlord',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -56434,7 +56199,7 @@ Class.customOverlord = {
     ],
 }
 Class.customOvermach = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overmach',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56485,7 +56250,7 @@ Class.customOvermach = {
     ],
 }
 Class.customOvermech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overmech',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56546,7 +56311,7 @@ Class.customOvermech = {
     ],
 }
 Class.customOverminigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overminigun',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56607,7 +56372,7 @@ Class.customOverminigun = {
     ],
 }
 Class.customOvernailer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overnailer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56678,7 +56443,7 @@ Class.customOvernailer = {
     ],
 }
 Class.customOverpen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overpen',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56739,7 +56504,7 @@ Class.customOverpen = {
     ],
 }
 Class.customOverrifle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overrifle',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56790,7 +56555,7 @@ Class.customOverrifle = {
     ],
 }
 Class.customOverrunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overrunner',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56841,7 +56606,7 @@ Class.customOverrunner = {
     ],
 }
 Class.customOverseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -56885,7 +56650,7 @@ Class.customOverseer = {
     ],
 }
 Class.customOvershot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overshot',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -56946,7 +56711,7 @@ Class.customOvershot = {
     ],
 }
 Class.customOverstorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overstorm',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -56990,7 +56755,7 @@ Class.customOverstorm = {
     ],
 }
 Class.customOverthrower = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overthrower',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57041,7 +56806,7 @@ Class.customOverthrower = {
     ],
 }
 Class.customOvertrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overtrap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57102,7 +56867,7 @@ Class.customOvertrapGuard = {
     ],
 }
 Class.customOvertrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overtrapper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57167,7 +56932,7 @@ Class.customOvertrapper = {
     ],
 }
 Class.customOvertrapperdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overtrapperdrive',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57231,7 +56996,7 @@ Class.customOvertrapperdrive = {
     ],
 }
 Class.customOverwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overwark',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57302,7 +57067,7 @@ Class.customOverwark = {
     ],
 }
 Class.customOverwhelmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Overwhelmer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57343,7 +57108,7 @@ Class.customOverwhelmer = {
     ],
 }
 Class.customOwl = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Owl',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -57394,7 +57159,7 @@ Class.customOwl = {
     ],
 }
 Class.customPacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Packer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -57445,7 +57210,7 @@ Class.customPacker = {
     ],
 }
 Class.customPaddock = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Paddock',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57486,7 +57251,7 @@ Class.customPaddock = {
     ],
 }
 Class.customPalisade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Palisade',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57647,7 +57412,7 @@ Class.customPalisade = {
     ],
 }
 Class.customParakeet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Parakeet',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57718,7 +57483,7 @@ Class.customParakeet = {
     ],
 }
 Class.customParapet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Parapet',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -57789,7 +57554,7 @@ Class.customParapet = {
     ],
 }
 Class.customParrot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Parrot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -57880,7 +57645,7 @@ Class.customParrot = {
     ],
 }
 Class.customParryer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Parryer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -57931,7 +57696,7 @@ Class.customParryer = {
     ],
 }
 Class.customPartisan = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Partisan',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -57982,7 +57747,7 @@ Class.customPartisan = {
     ],
 }
 Class.customPartition = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Partition',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -58053,7 +57818,7 @@ Class.customPartition = {
     ],
 }
 Class.customPatrol = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Patrol',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -58114,7 +57879,7 @@ Class.customPatrol = {
     ],
 }
 Class.customPeashooter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Peashooter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -58178,7 +57943,7 @@ Class.customPeashooter = {
     ],
 }
 Class.customPeashooterdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Peashooterdrive',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -58242,7 +58007,7 @@ Class.customPeashooterdrive = {
     ],
 }
 Class.customPen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pen',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -58298,7 +58063,7 @@ Class.customPen = {
     ],
 }
 Class.customPentaDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Penta Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -58409,7 +58174,7 @@ Class.customPentaDouble = {
     ],
 }
 Class.customPentaShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Penta Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -58482,7 +58247,7 @@ Class.customPentaShot = {
     ],
 }
 Class.customPepper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pepper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -58563,7 +58328,7 @@ Class.customPepper = {
     ],
 }
 Class.customPeregrine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Peregrine',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -58624,7 +58389,7 @@ Class.customPeregrine = {
     ],
 }
 Class.customPetrifier = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Petrifier',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -58745,7 +58510,7 @@ Class.customPetrifier = {
     ],
 }
 Class.customPhantom = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Phantom',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -58879,7 +58644,7 @@ Class.customPhantom = {
     ],
 }
 Class.customPhoenix = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Phoenix',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -58940,7 +58705,7 @@ Class.customPhoenix = {
     ],
 }
 Class.customPicket = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Picket',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -58991,7 +58756,7 @@ Class.customPicket = {
     ],
 }
 Class.customPilfer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pilfer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59042,7 +58807,7 @@ Class.customPilfer = {
     ],
 }
 Class.customPincer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pincer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59093,7 +58858,7 @@ Class.customPincer = {
     ],
 }
 Class.customPinner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pinner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59164,7 +58929,7 @@ Class.customPinner = {
     ],
 }
 Class.customPipeline = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pipeline',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59225,7 +58990,7 @@ Class.customPipeline = {
     ],
 }
 Class.customPique = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pique',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59316,7 +59081,7 @@ Class.customPique = {
     ],
 }
 Class.customPitViper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pit Viper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59367,7 +59132,7 @@ Class.customPitViper = {
     ],
 }
 Class.customPitcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pitcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59433,7 +59198,7 @@ Class.customPitcher = {
     ],
 }
 Class.customPivoter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pivoter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59494,7 +59259,7 @@ Class.customPivoter = {
     ],
 }
 Class.customPlaguer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Plaguer',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -59585,7 +59350,7 @@ Class.customPlaguer = {
     ],
 }
 Class.customPlanner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Planner',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -59626,7 +59391,7 @@ Class.customPlanner = {
     ],
 }
 Class.customPlant = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Plant',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -59677,7 +59442,7 @@ Class.customPlant = {
     ],
 }
 Class.customPlaster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Plaster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59748,7 +59513,7 @@ Class.customPlaster = {
     ],
 }
 Class.customPleuron = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pleuron',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59819,7 +59584,7 @@ Class.customPleuron = {
     ],
 }
 Class.customPlunderer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Plunderer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59870,7 +59635,7 @@ Class.customPlunderer = {
     ],
 }
 Class.customPoacher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Poacher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59925,7 +59690,7 @@ Class.customPoacher = {
     ],
 }
 Class.customPoacherdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Poacherdrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -59979,7 +59744,7 @@ Class.customPoacherdrive = {
     ],
 }
 Class.customPolluter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Polluter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60021,7 +59786,7 @@ Class.customPolluter = {
     ],
 }
 Class.customPolluterdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Polluterdrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60065,7 +59830,7 @@ Class.customPolluterdrive = {
     ],
 }
 Class.customPommel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pommel',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -60135,43 +59900,8 @@ Class.customPommel = {
 
     ],
 }
-Class.customPounder = {
-    PARENT: "genericTank",
-    LABEL: 'Pounder',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.499999523162842,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customDestroyer',
-        'customBuilder',
-        'customArtillery',
-        'customLauncher',
-    ],
-    UPGRADES_TIER_3: [
-        'customShotgun',
-        'customEagle',
-        'customSubverter',
-    ],
-    UPGRADES_TIER_4: [
-        'customBruiser',
-    ],
-}
 Class.customPredator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Predator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60222,7 +59952,7 @@ Class.customPredator = {
     ],
 }
 Class.customPresage = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Presage',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60273,7 +60003,7 @@ Class.customPresage = {
     ],
 }
 Class.customPrescriber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Prescriber',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -60357,7 +60087,7 @@ Class.customPrescriber = {
     ],
 }
 Class.customPrick = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Prick',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -60378,7 +60108,7 @@ Class.customPrick = {
     ],
 }
 Class.customProbationer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Probationer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -60429,7 +60159,7 @@ Class.customProbationer = {
     ],
 }
 Class.customProber = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Prober',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60479,7 +60209,7 @@ Class.customProber = {
     ],
 }
 Class.customProducer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Producer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -60550,7 +60280,7 @@ Class.customProducer = {
     ],
 }
 Class.customProductiondrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Productiondrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -60634,7 +60364,7 @@ Class.customProductiondrive = {
     ],
 }
 Class.customProductionist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Productionist',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -60717,7 +60447,7 @@ Class.customProductionist = {
     ],
 }
 Class.customProjector = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Projector',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60783,7 +60513,7 @@ Class.customProjector = {
     ],
 }
 Class.customPropeller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Propeller',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60844,7 +60574,7 @@ Class.customPropeller = {
     ],
 }
 Class.customPropper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Propper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -60905,7 +60635,7 @@ Class.customPropper = {
     ],
 }
 Class.customPryer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pryer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -60989,7 +60719,7 @@ Class.customPryer = {
     ],
 }
 Class.customPuffer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Puffer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61050,7 +60780,7 @@ Class.customPuffer = {
     ],
 }
 Class.customPug = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pug',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61121,7 +60851,7 @@ Class.customPug = {
     ],
 }
 Class.customPulverizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pulverizer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -61172,7 +60902,7 @@ Class.customPulverizer = {
     ],
 }
 Class.customPummeler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pummeler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61233,7 +60963,7 @@ Class.customPummeler = {
     ],
 }
 Class.customPumper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pumper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61364,7 +61094,7 @@ Class.customPumper = {
     ],
 }
 Class.customPursuer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pursuer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61385,7 +61115,7 @@ Class.customPursuer = {
     ],
 }
 Class.customPyromaniac = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pyromaniac',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61436,7 +61166,7 @@ Class.customPyromaniac = {
     ],
 }
 Class.customPython = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Python',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61467,7 +61197,7 @@ Class.customPython = {
     ],
 }
 Class.customQuadTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Quad Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61558,7 +61288,7 @@ Class.customQuadTwin = {
     ],
 }
 Class.customQuadangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Quad-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61623,7 +61353,7 @@ Class.customQuadangle = {
     ],
 }
 Class.customQuadwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Quadwark',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -61734,7 +61464,7 @@ Class.customQuadwark = {
     ],
 }
 Class.customQuarrion = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Quarrion',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -61805,7 +61535,7 @@ Class.customQuarrion = {
     ],
 }
 Class.customQueller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Queller',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61860,7 +61590,7 @@ Class.customQueller = {
     ],
 }
 Class.customQueller3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Queller-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61901,7 +61631,7 @@ Class.customQueller3 = {
     ],
 }
 Class.customQuintuplet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Quintuplet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -61962,7 +61692,7 @@ Class.customQuintuplet = {
     ],
 }
 Class.customRaider = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Raider',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -62043,7 +61773,7 @@ Class.customRaider = {
     ],
 }
 Class.customRailgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Railgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62094,7 +61824,7 @@ Class.customRailgun = {
     ],
 }
 Class.customRainmaker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rainmaker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62165,7 +61895,7 @@ Class.customRainmaker = {
     ],
 }
 Class.customRallyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rallyer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -62216,7 +61946,7 @@ Class.customRallyer = {
     ],
 }
 Class.customRampart = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rampart',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -62277,7 +62007,7 @@ Class.customRampart = {
     ],
 }
 Class.customRanger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ranger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62318,7 +62048,7 @@ Class.customRanger = {
     ],
 }
 Class.customRansacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ransacker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62369,7 +62099,7 @@ Class.customRansacker = {
     ],
 }
 Class.customRaptor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Raptor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62440,7 +62170,7 @@ Class.customRaptor = {
     ],
 }
 Class.customRationalizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rationalizer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62521,7 +62251,7 @@ Class.customRationalizer = {
     ],
 }
 Class.customRattler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rattler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62572,7 +62302,7 @@ Class.customRattler = {
     ],
 }
 Class.customRaven = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Raven',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62643,7 +62373,7 @@ Class.customRaven = {
     ],
 }
 Class.customRavisher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ravisher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62704,7 +62434,7 @@ Class.customRavisher = {
     ],
 }
 Class.customReam = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ream',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62745,7 +62475,7 @@ Class.customReam = {
     ],
 }
 Class.customRebounder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rebounder',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -62806,7 +62536,7 @@ Class.customRebounder = {
     ],
 }
 Class.customRecoiler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Recoiler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -62847,7 +62577,7 @@ Class.customRecoiler = {
     ],
 }
 Class.customRecursor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Recursor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62888,7 +62618,7 @@ Class.customRecursor = {
     ],
 }
 Class.customRecurver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Recurver',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -62969,7 +62699,7 @@ Class.customRecurver = {
     ],
 }
 Class.customRefuge = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Refuge',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -63143,7 +62873,7 @@ Class.customRefuge = {
     ],
 }
 Class.customRegulator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Regulator',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -63244,7 +62974,7 @@ Class.customRegulator = {
     ],
 }
 Class.customRepairman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Repairman',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -63295,7 +63025,7 @@ Class.customRepairman = {
     ],
 }
 Class.customReposit = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Reposit',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -63366,7 +63096,7 @@ Class.customReposit = {
     ],
 }
 Class.customRepresser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Represser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -63407,7 +63137,7 @@ Class.customRepresser = {
     ],
 }
 Class.customResourcer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Resourcer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -63468,7 +63198,7 @@ Class.customResourcer = {
     ],
 }
 Class.customRestorer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Restorer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -63519,7 +63249,7 @@ Class.customRestorer = {
     ],
 }
 Class.customRestrainer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Restrainer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -63560,7 +63290,7 @@ Class.customRestrainer = {
     ],
 }
 Class.customRetainer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Retainer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -63641,7 +63371,7 @@ Class.customRetainer = {
     ],
 }
 Class.customRevenant = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Revenant',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -63745,7 +63475,7 @@ Class.customRevenant = {
     ],
 }
 Class.customReverberator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Reverberator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -63796,7 +63526,7 @@ Class.customReverberator = {
     ],
 }
 Class.customRicochet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ricochet',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -63837,7 +63567,7 @@ Class.customRicochet = {
     ],
 }
 Class.customRider = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rider',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -63938,7 +63668,7 @@ Class.customRider = {
     ],
 }
 Class.customRifle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -63981,7 +63711,7 @@ Class.customRifle = {
     ],
 }
 Class.customRifle3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rifle-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64022,7 +63752,7 @@ Class.customRifle3 = {
     ],
 }
 Class.customRigger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rigger',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -64093,7 +63823,7 @@ Class.customRigger = {
     ],
 }
 Class.customRimfire = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rimfire',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64168,7 +63898,7 @@ Class.customRimfire = {
     ],
 }
 Class.customRimflak = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rimflak',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64269,7 +63999,7 @@ Class.customRimflak = {
     ],
 }
 Class.customRinger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ringer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -64340,7 +64070,7 @@ Class.customRinger = {
     ],
 }
 Class.customRoadblock = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Roadblock',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -64391,7 +64121,7 @@ Class.customRoadblock = {
     ],
 }
 Class.customRocket = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rocket',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64472,7 +64202,7 @@ Class.customRocket = {
     ],
 }
 Class.customRocketeer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rocketeer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64516,7 +64246,7 @@ Class.customRocketeer = {
     ],
 }
 Class.customRogue = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rogue',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64537,7 +64267,7 @@ Class.customRogue = {
     ],
 }
 Class.customRoller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Roller',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64638,7 +64368,7 @@ Class.customRoller = {
     ],
 }
 Class.customRuiner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ruiner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64709,7 +64439,7 @@ Class.customRuiner = {
     ],
 }
 Class.customRustler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Rustler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64760,7 +64490,7 @@ Class.customRustler = {
     ],
 }
 Class.customSailor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sailor',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -64811,7 +64541,7 @@ Class.customSailor = {
     ],
 }
 Class.customSalvo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Salvo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64892,7 +64622,7 @@ Class.customSalvo = {
     ],
 }
 Class.customSandstorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sandstorm',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -64943,7 +64673,7 @@ Class.customSandstorm = {
     ],
 }
 Class.customSawedOff = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sawed Off',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -65074,7 +64804,7 @@ Class.customSawedOff = {
     ],
 }
 Class.customScatterer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Scatterer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -65105,7 +64835,7 @@ Class.customScatterer = {
     ],
 }
 Class.customScorcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Scorcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -65136,7 +64866,7 @@ Class.customScorcher = {
     ],
 }
 Class.customScout = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Scout',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -65177,7 +64907,7 @@ Class.customScout = {
     ],
 }
 Class.customScrimmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Scrimmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -65241,7 +64971,7 @@ Class.customScrimmer = {
     ],
 }
 Class.customScrutiner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Scrutiner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -65272,7 +65002,7 @@ Class.customScrutiner = {
     ],
 }
 Class.customScuffler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Scuffler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -65343,7 +65073,7 @@ Class.customScuffler = {
     ],
 }
 Class.customSealer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sealer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -65474,7 +65204,7 @@ Class.customSealer = {
     ],
 }
 Class.customSeizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Seizer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -65505,7 +65235,7 @@ Class.customSeizer = {
     ],
 }
 Class.customSeptamachine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Septa-Machine',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -65656,7 +65386,7 @@ Class.customSeptamachine = {
     ],
 }
 Class.customSeptamech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Septa-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -65877,7 +65607,7 @@ Class.customSeptamech = {
     ],
 }
 Class.customSeptatrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Septa-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -66038,7 +65768,7 @@ Class.customSeptatrapGuard = {
     ],
 }
 Class.customSeptatrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Septa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -66198,7 +65928,7 @@ Class.customSeptatrapper = {
     ],
 }
 Class.customSequence = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sequence',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66272,7 +66002,7 @@ Class.customSequence = {
     ],
 }
 Class.customSeriemas = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Seriemas',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66333,7 +66063,7 @@ Class.customSeriemas = {
     ],
 }
 Class.customServicer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Servicer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -66384,7 +66114,7 @@ Class.customServicer = {
     ],
 }
 Class.customSettler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Settler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -66415,7 +66145,7 @@ Class.customSettler = {
     ],
 }
 Class.customSetup = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Setup',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -66506,7 +66236,7 @@ Class.customSetup = {
     ],
 }
 Class.customShade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shade',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -66610,7 +66340,7 @@ Class.customShade = {
     ],
 }
 Class.customShaper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shaper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -66661,7 +66391,7 @@ Class.customShaper = {
     ],
 }
 Class.customSharper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sharper',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -66682,7 +66412,7 @@ Class.customSharper = {
     ],
 }
 Class.customSharpshooter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sharpshooter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66713,7 +66443,7 @@ Class.customSharpshooter = {
     ],
 }
 Class.customShaver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shaver',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66744,7 +66474,7 @@ Class.customShaver = {
     ],
 }
 Class.customShearer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shearer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66815,7 +66545,7 @@ Class.customShearer = {
     ],
 }
 Class.customShell = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shell',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66866,7 +66596,7 @@ Class.customShell = {
     ],
 }
 Class.customSheller = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sheller',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -66947,7 +66677,7 @@ Class.customSheller = {
     ],
 }
 Class.customShepherd = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shepherd',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -66998,7 +66728,7 @@ Class.customShepherd = {
     ],
 }
 Class.customShiver = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shiver',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -67079,7 +66809,7 @@ Class.customShiver = {
     ],
 }
 Class.customShoal = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shoal',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67120,7 +66850,7 @@ Class.customShoal = {
     ],
 }
 Class.customShocker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shocker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67211,7 +66941,7 @@ Class.customShocker = {
     ],
 }
 Class.customShoebill = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shoebill',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -67272,7 +67002,7 @@ Class.customShoebill = {
     ],
 }
 Class.customShopper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shopper',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -67313,7 +67043,7 @@ Class.customShopper = {
     ],
 }
 Class.customShotgun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shotgun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67445,7 +67175,7 @@ Class.customShotgun = {
     ],
 }
 Class.customShower = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Shower',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67486,7 +67216,7 @@ Class.customShower = {
     ],
 }
 Class.customSidewinder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sidewinder',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67531,7 +67261,7 @@ Class.customSidewinder = {
     ],
 }
 Class.customSifter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sifter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67602,7 +67332,7 @@ Class.customSifter = {
     ],
 }
 Class.customSingle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Single',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67647,7 +67377,7 @@ Class.customSingle = {
     ],
 }
 Class.customSire = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sire',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -67708,7 +67438,7 @@ Class.customSire = {
     ],
 }
 Class.customSizzler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sizzler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67809,7 +67539,7 @@ Class.customSizzler = {
     ],
 }
 Class.customSkater = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Skater',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67880,7 +67610,7 @@ Class.customSkater = {
     ],
 }
 Class.customSkewnDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Skewn Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -67971,7 +67701,7 @@ Class.customSkewnDouble = {
     ],
 }
 Class.customSkidder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Skidder',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68022,7 +67752,7 @@ Class.customSkidder = {
     ],
 }
 Class.customSkimmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Skimmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68068,7 +67798,7 @@ Class.customSkimmer = {
     ],
 }
 Class.customSlammer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slammer',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -68089,7 +67819,7 @@ Class.customSlammer = {
     ],
 }
 Class.customSlayer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slayer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68140,7 +67870,7 @@ Class.customSlayer = {
     ],
 }
 Class.customSlinger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slinger',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68201,7 +67931,7 @@ Class.customSlinger = {
     ],
 }
 Class.customSlingshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slingshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68242,7 +67972,7 @@ Class.customSlingshot = {
     ],
 }
 Class.customSlinker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slinker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68275,7 +68005,7 @@ Class.customSlinker = {
     ],
 }
 Class.customSlinker3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slinker-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68316,7 +68046,7 @@ Class.customSlinker3 = {
     ],
 }
 Class.customSlitShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slit Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68397,7 +68127,7 @@ Class.customSlitShot = {
     ],
 }
 Class.customSlogger = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Slogger',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -68448,7 +68178,7 @@ Class.customSlogger = {
     ],
 }
 Class.customSmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -68478,7 +68208,7 @@ Class.customSmasher = {
     ],
 }
 Class.customSmearer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Smearer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68608,42 +68338,8 @@ Class.customSmearer = {
 
     ],
 }
-Class.customSniper = {
-    PARENT: "genericTank",
-    LABEL: 'Sniper',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customAssassin',
-        'customHunter',
-        'customMinigun',
-        'customRifle',
-    ],
-    UPGRADES_TIER_3: [
-        'customBushwhacker',
-        'customRailgun',
-    ],
-    UPGRADES_TIER_4: [
-        'customSharpshooter',
-    ],
-}
 Class.customSniper3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sniper-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68695,7 +68391,7 @@ Class.customSniper3 = {
     ],
 }
 Class.customSniper5 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sniper-5',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68756,7 +68452,7 @@ Class.customSniper5 = {
     ],
 }
 Class.customSoarer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Soarer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68837,7 +68533,7 @@ Class.customSoarer = {
     ],
 }
 Class.customSpambrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spambrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68918,7 +68614,7 @@ Class.customSpambrid = {
     ],
 }
 Class.customSpanner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spanner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -68992,7 +68688,7 @@ Class.customSpanner = {
     ],
 }
 Class.customSparrow = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sparrow',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -69073,7 +68769,7 @@ Class.customSparrow = {
     ],
 }
 Class.customSpawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -69129,7 +68825,7 @@ Class.customSpawner = {
     ],
 }
 Class.customSpawnerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spawnerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -69195,7 +68891,7 @@ Class.customSpawnerdrive = {
     ],
 }
 Class.customSpawnerstorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spawnerstorm',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -69249,7 +68945,7 @@ Class.customSpawnerstorm = {
     ],
 }
 Class.customSpear = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spear',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -69300,7 +68996,7 @@ Class.customSpear = {
     ],
 }
 Class.customSpecialist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Specialist',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -69361,7 +69057,7 @@ Class.customSpecialist = {
     ],
 }
 Class.customSpectre = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spectre',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -69475,7 +69171,7 @@ Class.customSpectre = {
     ],
 }
 Class.customSpieler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spieler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -69536,7 +69232,7 @@ Class.customSpieler = {
     ],
 }
 Class.customSpike = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spike',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -69596,7 +69292,7 @@ Class.customSpike = {
     ],
 }
 Class.customSpindle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spindle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -69670,7 +69366,7 @@ Class.customSpindle = {
     ],
 }
 Class.customSpindrift = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spindrift',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -69731,7 +69427,7 @@ Class.customSpindrift = {
     ],
 }
 Class.customSpinner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spinner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -69782,7 +69478,7 @@ Class.customSpinner = {
     ],
 }
 Class.customSpiral = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spiral',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -69836,7 +69532,7 @@ Class.customSpiral = {
     ],
 }
 Class.customSpirit = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spirit',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -69910,7 +69606,7 @@ Class.customSpirit = {
     ],
 }
 Class.customSpitter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spitter',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -69981,7 +69677,7 @@ Class.customSpitter = {
     ],
 }
 Class.customSplinterShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Splinter Shot',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -70092,7 +69788,7 @@ Class.customSplinterShot = {
     ],
 }
 Class.customSplitDouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Split Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70203,7 +69899,7 @@ Class.customSplitDouble = {
     ],
 }
 Class.customSplitHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Split Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70274,7 +69970,7 @@ Class.customSplitHybrid = {
     ],
 }
 Class.customSplitShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Split Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70345,7 +70041,7 @@ Class.customSplitShot = {
     ],
 }
 Class.customSpoiler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spoiler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70399,7 +70095,7 @@ Class.customSpoiler = {
     ],
 }
 Class.customSpouter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spouter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70440,7 +70136,7 @@ Class.customSpouter = {
     ],
 }
 Class.customSprayer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sprayer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70480,7 +70176,7 @@ Class.customSprayer = {
     ],
 }
 Class.customSpreadshot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Spreadshot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70610,7 +70306,7 @@ Class.customSpreadshot = {
     ],
 }
 Class.customSprinkler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sprinkler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70681,7 +70377,7 @@ Class.customSprinkler = {
     ],
 }
 Class.customSqualler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Squaller',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70742,7 +70438,7 @@ Class.customSqualler = {
     ],
 }
 Class.customStainer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stainer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -70793,7 +70489,7 @@ Class.customStainer = {
     ],
 }
 Class.customStalker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stalker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70824,7 +70520,7 @@ Class.customStalker = {
     ],
 }
 Class.customStall = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stall',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -70876,7 +70572,7 @@ Class.customStall = {
     ],
 }
 Class.customStapler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stapler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -70947,7 +70643,7 @@ Class.customStapler = {
     ],
 }
 Class.customStifler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stifler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71008,7 +70704,7 @@ Class.customStifler = {
     ],
 }
 Class.customStockade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stockade',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -71099,7 +70795,7 @@ Class.customStockade = {
     ],
 }
 Class.customStocker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stocker',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -71170,7 +70866,7 @@ Class.customStocker = {
     ],
 }
 Class.customStomper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stomper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71211,7 +70907,7 @@ Class.customStomper = {
     ],
 }
 Class.customStoner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stoner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -71242,7 +70938,7 @@ Class.customStoner = {
     ],
 }
 Class.customStorm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Storm',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71313,7 +71009,7 @@ Class.customStorm = {
     ],
 }
 Class.customStormer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stormer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -71354,7 +71050,7 @@ Class.customStormer = {
     ],
 }
 Class.customStrafe = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Strafe',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71405,7 +71101,7 @@ Class.customStrafe = {
     ],
 }
 Class.customStrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Strapper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71476,7 +71172,7 @@ Class.customStrapper = {
     ],
 }
 Class.customStreamliner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Streamliner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71549,7 +71245,7 @@ Class.customStreamliner = {
     ],
 }
 Class.customStrider = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Strider',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71630,7 +71326,7 @@ Class.customStrider = {
     ],
 }
 Class.customStriker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Striker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -71741,7 +71437,7 @@ Class.customStriker = {
     ],
 }
 Class.customStronghold = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stronghold',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -71872,7 +71568,7 @@ Class.customStronghold = {
     ],
 }
 Class.customStunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -71963,7 +71659,7 @@ Class.customStunner = {
     ],
 }
 Class.customSty = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sty',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -72004,7 +71700,7 @@ Class.customSty = {
     ],
 }
 Class.customStylist = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Stylist',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -72065,7 +71761,7 @@ Class.customStylist = {
     ],
 }
 Class.customSubverter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Subverter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72118,7 +71814,7 @@ Class.customSubverter = {
     ],
 }
 Class.customSuperintendent = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Superintendent',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -72149,7 +71845,7 @@ Class.customSuperintendent = {
     ],
 }
 Class.customSupervisor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Supervisor',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -72280,7 +71976,7 @@ Class.customSupervisor = {
     ],
 }
 Class.customSupplant = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Supplant',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72331,7 +72027,7 @@ Class.customSupplant = {
     ],
 }
 Class.customSurfer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Surfer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72409,7 +72105,7 @@ Class.customSurfer = {
     ],
 }
 Class.customSurferdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Surferdrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72483,7 +72179,7 @@ Class.customSurferdrive = {
     ],
 }
 Class.customSwarmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Swarmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72527,7 +72223,7 @@ Class.customSwarmer = {
     ],
 }
 Class.customSwarmerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Swarmerdrive',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72571,7 +72267,7 @@ Class.customSwarmerdrive = {
     ],
 }
 Class.customSweeper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Sweeper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72622,7 +72318,7 @@ Class.customSweeper = {
     ],
 }
 Class.customSynthesis = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Synthesis',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72663,7 +72359,7 @@ Class.customSynthesis = {
     ],
 }
 Class.customSystematizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Systematizer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72724,7 +72420,7 @@ Class.customSystematizer = {
     ],
 }
 Class.customTacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tacker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -72795,7 +72491,7 @@ Class.customTacker = {
     ],
 }
 Class.customTailer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tailer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72846,7 +72542,7 @@ Class.customTailer = {
     ],
 }
 Class.customTainter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tainter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72897,7 +72593,7 @@ Class.customTainter = {
     ],
 }
 Class.customTaser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Taser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -72981,7 +72677,7 @@ Class.customTaser = {
     ],
 }
 Class.customTechnician = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Technician',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -73022,7 +72718,7 @@ Class.customTechnician = {
     ],
 }
 Class.customTempest = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tempest',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73213,7 +72909,7 @@ Class.customTempest = {
     ],
 }
 Class.customTernion = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ternion',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73284,7 +72980,7 @@ Class.customTernion = {
     ],
 }
 Class.customThorn = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Thorn',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -73375,7 +73071,7 @@ Class.customThorn = {
     ],
 }
 Class.customThrasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Thrasher',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -73446,7 +73142,7 @@ Class.customThrasher = {
     ],
 }
 Class.customThreefold = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Threefold',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73517,7 +73213,7 @@ Class.customThreefold = {
     ],
 }
 Class.customThrottler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Throttler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -73578,7 +73274,7 @@ Class.customThrottler = {
     ],
 }
 Class.customThunderclap = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Thunderclap',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73629,7 +73325,7 @@ Class.customThunderclap = {
     ],
 }
 Class.customThwacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Thwacker',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -73650,7 +73346,7 @@ Class.customThwacker = {
     ],
 }
 Class.customThwarter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Thwarter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73691,7 +73387,7 @@ Class.customThwarter = {
     ],
 }
 Class.customTicker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ticker',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73722,7 +73418,7 @@ Class.customTicker = {
     ],
 }
 Class.customToiler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Toiler',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -73793,7 +73489,7 @@ Class.customToiler = {
     ],
 }
 Class.customTommy = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tommy',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73854,7 +73550,7 @@ Class.customTommy = {
     ],
 }
 Class.customTopBanana = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Top Banana',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -73895,7 +73591,7 @@ Class.customTopBanana = {
     ],
 }
 Class.customToppler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Toppler',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -73936,7 +73632,7 @@ Class.customToppler = {
     ],
 }
 Class.customTornado = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tornado',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -74067,7 +73763,7 @@ Class.customTornado = {
     ],
 }
 Class.customTorpedo = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Torpedo',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -74118,7 +73814,7 @@ Class.customTorpedo = {
     ],
 }
 Class.customTorsion = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Torsion',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -74159,7 +73855,7 @@ Class.customTorsion = {
     ],
 }
 Class.customTosser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tosser',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -74210,7 +73906,7 @@ Class.customTosser = {
     ],
 }
 Class.customTrailer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Trailer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -74241,7 +73937,7 @@ Class.customTrailer = {
     ],
 }
 Class.customTrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -74300,57 +73996,8 @@ Class.customTrapGuard = {
         'customCustodian',
     ],
 }
-Class.customTrapper = {
-    PARENT: "genericTank",
-    LABEL: 'Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customBuilder',
-        'customTritrapper',
-        'customTrapGuard',
-        'customPen',
-        'customMech',
-        'customMachineTrapper',
-        'customWark',
-    ],
-    UPGRADES_TIER_3: [
-        'customBarricade',
-        'customOvertrapper',
-        'customMegaTrapper',
-    ],
-    UPGRADES_TIER_4: [
-        'customSawedOff',
-        'customTricker',
-    ],
-}
 Class.customTriangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -74411,7 +74058,7 @@ Class.customTriangle = {
     ],
 }
 Class.customTribarricade = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -74542,7 +74189,7 @@ Class.customTribarricade = {
     ],
 }
 Class.customTribushwhacker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Bushwhacker',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -74623,7 +74270,7 @@ Class.customTribushwhacker = {
     ],
 }
 Class.customTridieselTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Diesel Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -74694,7 +74341,7 @@ Class.customTridieselTrapper = {
     ],
 }
 Class.customTriencircler = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Encircler',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -74795,7 +74442,7 @@ Class.customTriencircler = {
     ],
 }
 Class.customTriincarcerator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Incarcerator',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -74906,7 +74553,7 @@ Class.customTriincarcerator = {
     ],
 }
 Class.customTrimachine = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Machine',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -74986,7 +74633,7 @@ Class.customTrimachine = {
     ],
 }
 Class.customTrimachineGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Machine Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -75067,7 +74714,7 @@ Class.customTrimachineGuard = {
     ],
 }
 Class.customTrimachineMech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Machine Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -75168,7 +74815,7 @@ Class.customTrimachineMech = {
     ],
 }
 Class.customTrimech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -75278,7 +74925,7 @@ Class.customTrimech = {
     ],
 }
 Class.customTrimechGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Mech Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -75389,7 +75036,7 @@ Class.customTrimechGuard = {
     ],
 }
 Class.customTrimegaTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -75460,7 +75107,7 @@ Class.customTrimegaTrapper = {
     ],
 }
 Class.customTrioperator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Operator',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -75591,7 +75238,7 @@ Class.customTrioperator = {
     ],
 }
 Class.customTripeashooter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Peashooter',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -75682,7 +75329,7 @@ Class.customTripeashooter = {
     ],
 }
 Class.customTripen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -75791,7 +75438,7 @@ Class.customTripen = {
     ],
 }
 Class.customTritrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -75884,7 +75531,7 @@ Class.customTritrapGuard = {
     ],
 }
 Class.customTritrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tri-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -75970,7 +75617,7 @@ Class.customTritrapper = {
     ],
 }
 Class.customTricker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tricker',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -76011,7 +75658,7 @@ Class.customTricker = {
     ],
 }
 Class.customTrimmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Trimmer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76072,7 +75719,7 @@ Class.customTrimmer = {
     ],
 }
 Class.customTripleAutoartillery = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76146,7 +75793,7 @@ Class.customTripleAutoartillery = {
     ],
 }
 Class.customTripleAutoassassin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76210,7 +75857,7 @@ Class.customTripleAutoassassin = {
     ],
 }
 Class.customTripleAutoauto3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Auto-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76281,7 +75928,7 @@ Class.customTripleAutoauto3 = {
     ],
 }
 Class.customTripleAutobuilder = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Builder',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -76345,7 +75992,7 @@ Class.customTripleAutobuilder = {
     ],
 }
 Class.customTripleAutocruiser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -76409,7 +76056,7 @@ Class.customTripleAutocruiser = {
     ],
 }
 Class.customTripleAutodestroyer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76463,7 +76110,7 @@ Class.customTripleAutodestroyer = {
     ],
 }
 Class.customTripleAutodiesel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76517,7 +76164,7 @@ Class.customTripleAutodiesel = {
     ],
 }
 Class.customTripleAutodirectordrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -76571,7 +76218,7 @@ Class.customTripleAutodirectordrive = {
     ],
 }
 Class.customTripleAutodoper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Doper',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -76635,7 +76282,7 @@ Class.customTripleAutodoper = {
     ],
 }
 Class.customTripleAutodouble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Double',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76719,7 +76366,7 @@ Class.customTripleAutodouble = {
     ],
 }
 Class.customTripleAutogunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76803,7 +76450,7 @@ Class.customTripleAutogunner = {
     ],
 }
 Class.customTripleAutohexaTank = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -76907,7 +76554,7 @@ Class.customTripleAutohexaTank = {
     ],
 }
 Class.customTripleAutohoncho = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -76961,7 +76608,7 @@ Class.customTripleAutohoncho = {
     ],
 }
 Class.customTripleAutohunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -77025,7 +76672,7 @@ Class.customTripleAutohunter = {
     ],
 }
 Class.customTripleAutolauncher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -77089,7 +76736,7 @@ Class.customTripleAutolauncher = {
     ],
 }
 Class.customTripleAutomachineTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -77153,7 +76800,7 @@ Class.customTripleAutomachineTrapper = {
     ],
 }
 Class.customTripleAutomech = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -77227,7 +76874,7 @@ Class.customTripleAutomech = {
     ],
 }
 Class.customTripleAutominigun = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -77301,7 +76948,7 @@ Class.customTripleAutominigun = {
     ],
 }
 Class.customTripleAutooverseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -77365,7 +77012,7 @@ Class.customTripleAutooverseer = {
     ],
 }
 Class.customTripleAutopen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -77439,7 +77086,7 @@ Class.customTripleAutopen = {
     ],
 }
 Class.customTripleAutorifle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -77503,7 +77150,7 @@ Class.customTripleAutorifle = {
     ],
 }
 Class.customTripleAutosmasher_18774 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -77554,7 +77201,7 @@ Class.customTripleAutosmasher_18774 = {
     ],
 }
 Class.customTripleAutosmasher_33130 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -77585,7 +77232,7 @@ Class.customTripleAutosmasher_33130 = {
     ],
 }
 Class.customTripleAutospawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -77659,7 +77306,7 @@ Class.customTripleAutospawner = {
     ],
 }
 Class.customTripleAutotrapGuard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -77733,7 +77380,7 @@ Class.customTripleAutotrapGuard = {
     ],
 }
 Class.customTripleAutotriangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -77807,7 +77454,7 @@ Class.customTripleAutotriangle = {
     ],
 }
 Class.customTripleAutotripleShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -77881,7 +77528,7 @@ Class.customTripleAutotripleShot = {
     ],
 }
 Class.customTripleAutowark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Wark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -77965,7 +77612,7 @@ Class.customTripleAutowark = {
     ],
 }
 Class.customTripleFlankTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Flank Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78066,7 +77713,7 @@ Class.customTripleFlankTwin = {
     ],
 }
 Class.customTripleGunner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78197,7 +77844,7 @@ Class.customTripleGunner = {
     ],
 }
 Class.customTripleShot = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78256,7 +77903,7 @@ Class.customTripleShot = {
     ],
 }
 Class.customTripleTwin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Twin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78336,7 +77983,7 @@ Class.customTripleTwin = {
     ],
 }
 Class.customTriplet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triplet',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78387,7 +78034,7 @@ Class.customTriplet = {
     ],
 }
 Class.customTriprid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triprid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78438,7 +78085,7 @@ Class.customTriprid = {
     ],
 }
 Class.customTripwire = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tripwire',
     SIZE: 12,
     STAT_NAMES: 8,
@@ -78469,7 +78116,7 @@ Class.customTripwire = {
     ],
 }
 Class.customTrove = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Trove',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78603,7 +78250,7 @@ Class.customTrove = {
     ],
 }
 Class.customTumble = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tumble',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78644,7 +78291,7 @@ Class.customTumble = {
     ],
 }
 Class.customTurret_51376 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78675,7 +78322,7 @@ Class.customTurret_51376 = {
     ],
 }
 Class.customTurret_34618 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78696,7 +78343,7 @@ Class.customTurret_34618 = {
     ],
 }
 Class.customTurret_59723 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78727,7 +78374,7 @@ Class.customTurret_59723 = {
     ],
 }
 Class.customTurret_51860 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78778,7 +78425,7 @@ Class.customTurret_51860 = {
     ],
 }
 Class.customTurret_7887 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78819,7 +78466,7 @@ Class.customTurret_7887 = {
     ],
 }
 Class.customTurret_16326 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78870,7 +78517,7 @@ Class.customTurret_16326 = {
     ],
 }
 Class.customTurret_17322 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78941,7 +78588,7 @@ Class.customTurret_17322 = {
     ],
 }
 Class.customTurret_34583 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -78961,54 +78608,8 @@ Class.customTurret_34583 = {
 
     ],
 }
-Class.customTwin = {
-    PARENT: "genericTank",
-    LABEL: 'Twin',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_2: [
-        'customDoubleTwin',
-        'customTripleShot',
-        'customGunner',
-        'customHexaTank',
-        'customWark',
-    ],
-    UPGRADES_TIER_3: [
-        'customDual',
-        'customBulwark',
-        'customMusket',
-    ],
-    UPGRADES_TIER_4: [
-        'customDuo',
-    ],
-}
 Class.customTwister = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Twister',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79054,7 +78655,7 @@ Class.customTwister = {
     ],
 }
 Class.customTyrant = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Tyrant',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -79118,7 +78719,7 @@ Class.customTyrant = {
     ],
 }
 Class.customUltraHunter = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ultra Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79149,7 +78750,7 @@ Class.customUltraHunter = {
     ],
 }
 Class.customUltraSpawner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ultra Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -79190,7 +78791,7 @@ Class.customUltraSpawner = {
     ],
 }
 Class.customUltraTrapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ultra Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -79221,7 +78822,7 @@ Class.customUltraTrapper = {
     ],
 }
 Class.customUltra3 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ultra-3',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79262,7 +78863,7 @@ Class.customUltra3 = {
     ],
 }
 Class.customUltrasmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Ultra-Smasher',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -79283,7 +78884,7 @@ Class.customUltrasmasher = {
     ],
 }
 Class.customUnity = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Unity',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79414,7 +79015,7 @@ Class.customUnity = {
     ],
 }
 Class.customUnknownEntity = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Unknown Entity',
     SIZE: 10,
     STAT_NAMES: 0,
@@ -79422,7 +79023,7 @@ Class.customUnknownEntity = {
     COLOR: 16,
 }
 Class.customUtilizer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Utilizer',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -79483,7 +79084,7 @@ Class.customUtilizer = {
     ],
 }
 Class.customVallation = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vallation',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -79544,7 +79145,7 @@ Class.customVallation = {
     ],
 }
 Class.customVanquisher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vanquisher',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -79605,7 +79206,7 @@ Class.customVanquisher = {
     ],
 }
 Class.customVeerer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Veerer',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79646,7 +79247,7 @@ Class.customVeerer = {
     ],
 }
 Class.customVendor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vendor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79687,7 +79288,7 @@ Class.customVendor = {
     ],
 }
 Class.customVenture = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Venture',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79738,7 +79339,7 @@ Class.customVenture = {
     ],
 }
 Class.customVermin = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vermin',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79809,7 +79410,7 @@ Class.customVermin = {
     ],
 }
 Class.customVessel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vessel',
     SIZE: 12,
     STAT_NAMES: 1,
@@ -79840,7 +79441,7 @@ Class.customVessel = {
     ],
 }
 Class.customVigor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vigor',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79891,7 +79492,7 @@ Class.customVigor = {
     ],
 }
 Class.customVindicator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vindicator',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -79922,7 +79523,7 @@ Class.customVindicator = {
     ],
 }
 Class.customVirago = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Virago',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80003,7 +79604,7 @@ Class.customVirago = {
     ],
 }
 Class.customVitality = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vitality',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80074,7 +79675,7 @@ Class.customVitality = {
     ],
 }
 Class.customVolley = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Volley',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80136,7 +79737,7 @@ Class.customVolley = {
     ],
 }
 Class.customVolleyHybrid = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Volley Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80197,7 +79798,7 @@ Class.customVolleyHybrid = {
     ],
 }
 Class.customVolley4 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Volley-4',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80248,7 +79849,7 @@ Class.customVolley4 = {
     ],
 }
 Class.customVortex = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vortex',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -80282,7 +79883,7 @@ Class.customVortex = {
     ],
 }
 Class.customVoyage = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Voyage',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80333,7 +79934,7 @@ Class.customVoyage = {
     ],
 }
 Class.customVulcan = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vulcan',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80464,7 +80065,7 @@ Class.customVulcan = {
     ],
 }
 Class.customVulture = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Vulture',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80535,7 +80136,7 @@ Class.customVulture = {
     ],
 }
 Class.customWaarararrk = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Waarararrk',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -80646,7 +80247,7 @@ Class.customWaarararrk = {
     ],
 }
 Class.customWaarrk = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Waarrk',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -80733,7 +80334,7 @@ Class.customWaarrk = {
     ],
 }
 Class.customWaarrkwaarrk = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Waarrkwaarrk',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -80864,7 +80465,7 @@ Class.customWaarrkwaarrk = {
     ],
 }
 Class.customWalloper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Walloper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -80934,74 +80535,8 @@ Class.customWalloper = {
 
     ],
 }
-Class.customWark = {
-    PARENT: "genericTank",
-    LABEL: 'Wark',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'customWarkwark',
-        'customWaarrk',
-        'customEqualizer',
-        'customHexatrapper',
-        'customHutch',
-        'customCog',
-        'customExpeller',
-        'customBulwark',
-        'customCoalesce',
-        'customAutowark',
-    ],
-    UPGRADES_TIER_4: [
-        'customMegaWark',
-    ],
-}
 Class.customWarkdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warkdrive',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -81075,7 +80610,7 @@ Class.customWarkdrive = {
     ],
 }
 Class.customWarklet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warklet',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -81145,110 +80680,8 @@ Class.customWarklet = {
 
     ],
 }
-Class.customWarkwark = {
-    PARENT: "genericTank",
-    LABEL: 'Warkwark',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: 5.50000000348401,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: 175.00000600818353,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'customWarkwarkwark',
-        'customWarkwawarkrk',
-        'customAutowarkwark',
-        'customWaarrkwaarrk',
-        'customWarkwawawark',
-        'customDoubleEqualizer',
-        'customGuardrail',
-        'customSealer',
-        'customSetup',
-    ],
-}
 Class.customWarkwarkwark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warkwarkwark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -81379,7 +80812,7 @@ Class.customWarkwarkwark = {
     ],
 }
 Class.customWarkwawarkrk = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warkwawarkrk',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -81510,7 +80943,7 @@ Class.customWarkwawarkrk = {
     ],
 }
 Class.customWarkwawawark = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warkwawawark',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -81641,7 +81074,7 @@ Class.customWarkwawawark = {
     ],
 }
 Class.customWarlord = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warlord',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -81732,7 +81165,7 @@ Class.customWarlord = {
     ],
 }
 Class.customWarship = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warship',
     SIZE: 12,
     STAT_NAMES: 4,
@@ -81823,7 +81256,7 @@ Class.customWarship = {
     ],
 }
 Class.customWaster = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Waster',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -81877,7 +81310,7 @@ Class.customWaster = {
     ],
 }
 Class.customWatchman = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Watchman',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -81928,7 +81361,7 @@ Class.customWatchman = {
     ],
 }
 Class.customWhirlwind = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Whirlwind',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -82179,7 +81612,7 @@ Class.customWhirlwind = {
     ],
 }
 Class.customWhizzer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Whizzer',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -82270,7 +81703,7 @@ Class.customWhizzer = {
     ],
 }
 Class.customWidget = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Widget',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82323,7 +81756,7 @@ Class.customWidget = {
     ],
 }
 Class.customWiper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Wiper',
     SIZE: 12,
     STAT_NAMES: 6,
@@ -82374,7 +81807,7 @@ Class.customWiper = {
     ],
 }
 Class.customWorker = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Worker',
     SIZE: 12,
     STAT_NAMES: 2,
@@ -82415,7 +81848,7 @@ Class.customWorker = {
     ],
 }
 Class.customWraith = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Wraith',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82509,7 +81942,7 @@ Class.customWraith = {
     ],
 }
 Class.customWrench = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Wrench',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82573,7 +82006,7 @@ Class.customWrench = {
     ],
 }
 Class.customYard = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Yard',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -82674,7 +82107,7 @@ Class.customYard = {
     ],
 }
 Class.customZapper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Zapper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82765,7 +82198,7 @@ Class.customZapper = {
     ],
 }
 Class.customZephyr = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Zephyr',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82816,7 +82249,7 @@ Class.customZephyr = {
     ],
 }
 Class.customZipper = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Zipper',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82892,7 +82325,7 @@ Class.customZipper = {
     ],
 }
 Class.customCobblerdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'cobblerdrive',
     SIZE: 12,
     STAT_NAMES: 5,
@@ -82956,7 +82389,7 @@ Class.customCobblerdrive = {
     ],
 }
 Class.customDriveTriangle = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Drive Triangle',
     SIZE: 10,
     STAT_NAMES: 0,
@@ -82964,7 +82397,7 @@ Class.customDriveTriangle = {
     COLOR: 16,
 }
 Class.customTurret_64872 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -82985,7 +82418,7 @@ Class.customTurret_64872 = {
     ],
 }
 Class.customAutomaleficitor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Maleficitor',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83019,7 +82452,7 @@ Class.customAutomaleficitor = {
     ],
 }
 Class.customAutonecromancer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Necromancer',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83083,7 +82516,7 @@ Class.customAutonecromancer = {
     ],
 }
 Class.customAutounderdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Underdrive',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83127,7 +82560,7 @@ Class.customAutounderdrive = {
     ],
 }
 Class.customAutounderseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83180,7 +82613,7 @@ Class.customAutounderseer = {
     ],
 }
 Class.customBewitcher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Bewitcher',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83201,7 +82634,7 @@ Class.customBewitcher = {
     ],
 }
 Class.customCharmer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Charmer',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83232,7 +82665,7 @@ Class.customCharmer = {
     ],
 }
 Class.customConductor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Conductor',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83263,7 +82696,7 @@ Class.customConductor = {
     ],
 }
 Class.customDriveSquare = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Drive Square',
     SIZE: 10,
     STAT_NAMES: 0,
@@ -83271,7 +82704,7 @@ Class.customDriveSquare = {
     COLOR: 16,
 }
 Class.customHexer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Hexer',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83305,7 +82738,7 @@ Class.customHexer = {
     ],
 }
 Class.customMaleficitor = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Maleficitor',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83334,7 +82767,7 @@ Class.customMaleficitor = {
     ],
 }
 Class.customMegaAutounderseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Mega Auto-Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83378,7 +82811,7 @@ Class.customMegaAutounderseer = {
     ],
 }
 Class.customNecrodrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Necrodrive',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83442,7 +82875,7 @@ Class.customNecrodrive = {
     ],
 }
 Class.customNecromancer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Necromancer',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83501,7 +82934,7 @@ Class.customNecromancer = {
     ],
 }
 Class.customPollen = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pollen',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -83572,7 +83005,7 @@ Class.customPollen = {
     ],
 }
 Class.customStormSquare_42341 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Storm Square',
     SIZE: 10,
     STAT_NAMES: 0,
@@ -83603,7 +83036,7 @@ Class.customStormSquare_42341 = {
     ],
 }
 Class.customStormSquare_38288 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Storm Square',
     SIZE: 10,
     STAT_NAMES: 0,
@@ -83654,7 +83087,7 @@ Class.customStormSquare_38288 = {
     ],
 }
 Class.customStormSquare_2164 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Storm Square',
     SIZE: 10,
     STAT_NAMES: 0,
@@ -83725,7 +83158,7 @@ Class.customStormSquare_2164 = {
     ],
 }
 Class.customTripleAutounderseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Triple Auto-Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83789,7 +83222,7 @@ Class.customTripleAutounderseer = {
     ],
 }
 Class.customTurret_17340 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -83810,7 +83243,7 @@ Class.customTurret_17340 = {
     ],
 }
 Class.customTurret_49473 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -83851,7 +83284,7 @@ Class.customTurret_49473 = {
     ],
 }
 Class.customTurret_36298 = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
@@ -83872,7 +83305,7 @@ Class.customTurret_36298 = {
     ],
 }
 Class.customUnderdrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Underdrive',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83923,7 +83356,7 @@ Class.customUnderdrive = {
     ],
 }
 Class.customUnderseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -83965,7 +83398,7 @@ Class.customUnderseer = {
     ],
 }
 Class.customAutopentaseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Auto-Pentaseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -84009,7 +83442,7 @@ Class.customAutopentaseer = {
     ],
 }
 Class.customPentadrive = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pentadrive',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -84053,7 +83486,7 @@ Class.customPentadrive = {
     ],
 }
 Class.customPentamancer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pentamancer',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -84114,7 +83547,7 @@ Class.customPentamancer = {
     ],
 }
 Class.customPentaseer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Pentaseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -84152,7 +83585,7 @@ Class.customPentaseer = {
     ],
 }
 Class.customWarlock = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Warlock',
     SIZE: 11.5,
     STAT_NAMES: 2,
@@ -84193,7 +83626,7 @@ Class.customWarlock = {
     ],
 }
 Class.customWitch = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Witch',
     SIZE: 11.5,
     STAT_NAMES: 3,
@@ -84214,7 +83647,7 @@ Class.customWitch = {
     ],
 }
 Class.customDiviner = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Diviner',
     SIZE: 11.5,
     STAT_NAMES: 3,

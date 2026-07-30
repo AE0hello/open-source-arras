@@ -2076,7 +2076,7 @@ Class.construct = { // it's "construct" and not "constructor" because "construct
 };
 Class.cropDuster = makeOver('minigun', "Crop Duster", preset.makeOver.hybrid);
 Class.crowbar = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Crowbar",
     DANGER: 7,
     BODY: {
@@ -3826,7 +3826,7 @@ Class.paramedic = {
     ]
 };
 Class.peashooter = makeGuard({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     GUNS: [
         {
             POSITION: {
@@ -5239,7 +5239,7 @@ Class.xHunter = {
 // Tier 4 (Level 60)
 Class.heptaAutoBasic = makeAuto('basic', "Hepta Auto-Basic", preset.makeAuto.hepta);
 Class.quintuplet = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Quintuplet",
     DANGER: 8,
     GUNS: [
@@ -5282,7 +5282,7 @@ Class.quintuplet = {
 Class.ransacker = makeGuard('rifle', "Ransacker")
 Class.sniper3 = makeRadialAuto('sniper3gun', {isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: {SPEED: 11/15 * base.SPEED, FOV: 1.25 * base.FOV}})
 Class.vulcan = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Vulcan",
     DANGER: 8,
     BODY: {

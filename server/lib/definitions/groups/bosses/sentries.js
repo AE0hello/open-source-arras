@@ -20,7 +20,7 @@ Class.menu_sentries = makeMenu("Sentries", {upgrades: [
 
 // Sentries
 Class.sentry = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     TYPE: "crasher",
     LABEL: "Sentry",
     DANGER: 3,
@@ -127,7 +127,7 @@ Class.shinySentryTrap.UPGRADE_LABEL = "Shiny Trap Sentry"
 
 // Sentinels
 Class.sentinel = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     TYPE: "crasher",
     LABEL: "Sentinel",
     DANGER: 7,

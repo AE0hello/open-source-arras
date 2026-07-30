@@ -734,7 +734,7 @@ exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) 
     let symbolType = isHeal ? "healerHat" : "auraSymbol";
     auraColor = auraColor ?? (isHeal ? 12 : 0);
     return {
-        PARENT: "genericTank",
+        PARENT: 'genericTank',
         INDEPENDENT: true,
         LABEL: "",
         COLOR: 17,
@@ -794,7 +794,7 @@ exports.makeMenu = (name = -1, options = {}) => {
     options.color ??= "mirror"
 
     return {
-        PARENT: "genericTank",
+        PARENT: 'genericTank',
         LABEL: name == -1 ? undefined : name,
         COLOR: options.color == "mirror" ? null : options.color,
         REROOT_UPGRADE_TREE: options.rerootTree,
@@ -1079,7 +1079,7 @@ class LayeredBoss {
         this.shape -= decreaseSides ? 2 : 0;
         this.layerSize -= layerScale ?? this.layerScale;
         let layer = {
-            PARENT: "genericTank",
+            PARENT: 'genericTank',
             LABEL: "",
             SHAPE: this.shape,
             COLOR: -1,
