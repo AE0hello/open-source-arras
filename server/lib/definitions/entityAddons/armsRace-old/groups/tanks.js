@@ -1,3 +1,5 @@
+return;
+
 const {combineStats, addUpgrades, removeUpgrades, dereference, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeHat, makeMenu, makeOver, makeRadialAuto, makeSnake, makeGunner, makeTurret, makeWhirlwind, weaponArray, weaponMirror, weaponStack} = require('../../../facilitators.js')
 const {base, statnames} = require('../../../constants.js')
 const g = require('../../../gunvals.js')
