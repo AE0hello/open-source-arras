@@ -179,7 +179,7 @@ Class.greenPortal_dreadsV1 = {
 
 // Misc
 Class.genericDreadnought1 = {
-	PARENT: "genericTank",
+	PARENT: 'genericTank',
 	BODY: dreadnoughtBody,
 	SHAPE: 6,
 	COLOR: 'hexagon',
@@ -204,7 +204,7 @@ Class.dreadv1BodyTurret = makeTurret({
 	}]
 }, {limitFov: true, fov: 0.8, independent: true, label: "Turret", extraStats: []})
 Class.medicareTurret = {
-	PARENT: "genericTank",
+	PARENT: 'genericTank',
 	LABEL: "Turret",
 	FACING_TYPE: ["spin", {speed: 0.04}],
 	INDEPENDENT: true,
@@ -227,7 +227,7 @@ Class.medicareTurret = {
 	}]
 }
 Class.medicaidTurret = {
-	PARENT: "genericTank",
+	PARENT: 'genericTank',
 	LABEL: "Turret",
 	FACING_TYPE: ["spin", {speed: 0.04}],
 	INDEPENDENT: true,

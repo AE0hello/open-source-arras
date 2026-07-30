@@ -237,7 +237,7 @@ Class.undertowBullet = {
     ],
 }
 Class.undertowEffect = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     TYPE: "undertowEffect",
     SIZE: 5,
     COLOR: 1,
@@ -643,7 +643,7 @@ Class.herbalistDrone = {...Class.summonerDrone, SHAPE: 9}
 
 // Minions
 Class.genericMinion = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Minion",
     TYPE: "minion",
     HITS_OWN_TYPE: "hardWithBuffer",

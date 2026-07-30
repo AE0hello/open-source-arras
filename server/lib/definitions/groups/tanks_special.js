@@ -4,7 +4,7 @@ const g = require('../gunvals.js')
 
 // Base Protector
 Class.baseProtector = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Base",
     UPGRADE_LABEL: "Base Protector",
     ON_MINIMAP: false,
@@ -56,7 +56,7 @@ Class.baseProtector = {
 
 // Dominators
 Class.dominator = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Dominator",
     UPGRADE_LABEL: 'Unknown',
     ON_MINIMAP: false,
@@ -254,7 +254,7 @@ for (let tier of sancTiers) {
 
 // Mothership
 Class.mothership = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mothership",
     NAME: "Mothership",
     DANGER: 10,
@@ -357,7 +357,7 @@ Class.turkeyhead = {
     ]
 }
 Class.turkey = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: 'Turkey',
     NAME: 'Turkey',
     SIZE: 50,
@@ -530,7 +530,7 @@ Class.antiTankMachineGun = {
 }
 Class.cxATMGBullet = {PARENT: "bullet", SHAPE: Class.cube.SHAPE}
 Class.cxATMGArm = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     COLOR: "white",
     SHAPE: Class.cube.SHAPE,
     SKILL_CAP: Array(10).fill(15),
@@ -642,7 +642,7 @@ Class.cxATMG = {
 
 // Arena Closer
 Class.arenaCloser = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Arena Closer",
     DISPLAY_NAME: false,
     DANGER: 10,

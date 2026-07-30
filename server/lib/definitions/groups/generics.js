@@ -140,7 +140,7 @@ Class.genericTank = {
     ON: [],
 }
 Class.genericFlail = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     STAT_NAMES: statnames.flail,
     SYNC_WITH_TANK: true,
     SKILL_CAP: {
@@ -157,7 +157,7 @@ Class.genericFlail = {
     },
 }
 Class.genericHealer = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     HEALING_TANK: true, // Mainly for bots to recognize the tank
     STAT_NAMES: statnames.healer,
     TURRETS: [
@@ -171,7 +171,7 @@ Class.genericHealer = {
     ]
 }
 Class.genericSmasher = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 7,
     IS_SMASHER: true,
     SKILL_CAP: {
@@ -358,7 +358,7 @@ Class.trap = {
 
 // Bosses
 Class.genericBoss = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     TYPE: "miniboss",
     DANGER: 6,
     SKILL: skillSet({
@@ -427,7 +427,7 @@ Class.healAura = {
     },
 }
 Class.auraSymbol = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     CONTROLLERS: [["spin", {speed: -0.04}]],
     INDEPENDENT: true,
     COLOR: "teal",
@@ -465,7 +465,7 @@ Class.portalAura = {
     ],
 }
 Class.serverPortal = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Travel Portal",
     UPGRADE_LABEL: "Portal",
     NAME: "Portal",

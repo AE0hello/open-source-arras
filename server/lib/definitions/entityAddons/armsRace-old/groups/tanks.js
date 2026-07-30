@@ -261,7 +261,7 @@ Class.vortexAutoTurret_AR = makeTurret({
 
 // Tier 2
 Class.diesel_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Diesel",
     DANGER: 6,
     ...preset.todo_placeholder_guns,
@@ -278,7 +278,7 @@ Class.diesel_AR = {
 }
 Class.directordrive_AR = makeDrive('director', {label: "Directordrive"})
 Class.doper_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Doper",
     DANGER: 6,
     STAT_NAMES: statnames.drone,
@@ -314,7 +314,7 @@ Class.doper_AR = {
     ]
 }
 Class.honcho_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Honcho",
     DANGER: 6,
     STAT_NAMES: statnames.drone,
@@ -334,7 +334,7 @@ Class.honcho_AR = {
     ]
 }
 Class.machineTrapper_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Machine Trapper",
     DANGER: 6,
     STAT_NAMES: statnames.trap,
@@ -362,7 +362,7 @@ Class.machineTrapper_AR = {
     ]
 }
 Class.mech_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mech",
     DANGER: 6,
     STAT_NAMES: statnames.trap,
@@ -395,7 +395,7 @@ Class.mech_AR = {
     ]
 }
 Class.pen_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Pen",
     DANGER: 6,
     STAT_NAMES: statnames.mixed,
@@ -426,7 +426,7 @@ Class.pen_AR = {
     ]
 }
 Class.wark_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Wark",
     DANGER: 6,
     STAT_NAMES: statnames.trap,
@@ -483,7 +483,7 @@ Class.analyzer_AR = {
     ]
 }
 Class.angleseer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Angleseer",
     DANGER: 7,
     NECRO: [3],
@@ -545,7 +545,7 @@ Class.autoUndertow_AR = makeAuto('undertow')
 Class.autoVolute_AR = makeAuto('volute')
 Class.autoWark_AR = makeAuto('wark_AR')
 Class.baltimore_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Baltimore",
     DANGER: 7,
     STAT_NAMES: statnames.swarm,
@@ -580,7 +580,7 @@ Class.bentFlankDouble_AR = {
     GUNS: [...preset.doubleFlank, ...Class.bentDouble.GUNS]
 }
 Class.bentGunner_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Bent Gunner",
     DANGER: 7,
     GUNS: weaponMirror([
@@ -624,7 +624,7 @@ Class.bentGunner_AR = {
     ], {delayIncrement: 1/6})
 }
 Class.bentMinigun_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Bent Minigun",
     DANGER: 7,
     BODY: {
@@ -658,7 +658,7 @@ Class.bentMinigun_AR = {
     ]
 }
 Class.blasterTrapper_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Blaster Trapper",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -686,7 +686,7 @@ Class.blasterTrapper_AR = {
     ]
 }
 Class.brisker_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Brisker",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -722,7 +722,7 @@ Class.brisker_AR = {
     ]
 }
 Class.captain_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Captain",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -765,7 +765,7 @@ Class.captain_AR = {
     ], 2)
 }
 Class.charger_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Charger",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -795,7 +795,7 @@ Class.charger_AR = {
     ]
 }
 Class.cluster_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Cluster",
     DANGER: 7,
     BODY: {
@@ -823,7 +823,7 @@ Class.coalesce_AR = makeOver('wark_AR', "Coalesce", preset.makeOver.hybrid)
 Class.cobbler_AR = makeOver('mech_AR', "Cobbler", preset.makeOver.hybrid)
 Class.cockatiel_AR = makeBird('pen_AR', "Cockatiel")
 Class.cog_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Cog",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -862,7 +862,7 @@ Class.cog_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.combo_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Combo",
     DANGER: 7,
     GUNS: weaponArray([
@@ -891,7 +891,7 @@ Class.combo_AR = {
     ], 3)
 }
 Class.courser_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Courser",
     DANGER: 7,
     BODY: {
@@ -933,7 +933,7 @@ Class.courser_AR = {
     ]
 }
 Class.crowbar_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Crowbar",
     DANGER: 7,
     BODY: {
@@ -1011,7 +1011,7 @@ Class.dealer_AR = {
 Class.defect_AR = makeBird('tripleShot', "Defect")
 Class.deviation_AR = makeOver('machineTrapper_AR', "Deviation", preset.makeOver.hybrid)
 Class.dieselTrapper_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Diesel Trapper",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -1036,7 +1036,7 @@ Class.dieselTrapper_AR = {
 }
 Class.directorstorm_AR = makeDrive('director', {...preset.makeDrive.storm, label: "Directorstorm"})
 Class.discharger_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Discharger",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -1069,7 +1069,7 @@ Class.discharger_AR = {
 }
 Class.doperdrive_AR = makeDrive('doper_AR', {label: "Doperdrive"})
 Class.dopeseer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Dopeseer",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1109,7 +1109,6 @@ Class.doubleFlankTwin_AR = {
     GUNS: [...preset.doubleFlank, ...Class.doubleTwin.GUNS]
 }
 Class.doubleGatling_AR = makeFlank('gatlingGun', 2, "Double Gatling", {extraStats: [g.doubleTwin]})
-Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.doubleTwin]})
 Class.doubleMinigun_AR = makeFlank('minigun', 2, "Double Minigun", {extraStats: [g.doubleTwin]})
 Class.doubleHelix_AR = makeFlank('helix', 2, "Double Helix", {extraStats: [g.doubleTwin]})
 Class.doubleSprayer_AR = makeFlank('sprayer', 2, "Double Sprayer", {extraStats: [g.doubleTwin]})
@@ -1125,7 +1124,7 @@ Class.drifter_AR = {
     ]
 }
 Class.encircler_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Encircler",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
@@ -1155,7 +1154,7 @@ Class.encircler_AR = {
     ]
 }
 Class.enforcer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Enforcer",
     DANGER: 7,
     BODY: {
@@ -1189,7 +1188,7 @@ Class.enforcer_AR = {
     ]
 }
 Class.equalizer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Equalizer",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -1240,7 +1239,7 @@ Class.equalizer_AR = {
     ], {delayIncrement: 0.25})
 }
 Class.expeller_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Expeller",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -1273,7 +1272,7 @@ Class.expeller_AR = {
 }
 Class.fashioner_AR = makeOver('builder', "Fashioner", preset.makeOver.hybrid)
 Class.faucet_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Faucet",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
@@ -1318,7 +1317,7 @@ Class.faucet_AR = {
     ]
 }
 Class.foamer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Foamer",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -1340,7 +1339,7 @@ Class.foamer_AR = {
     ]
 }
 Class.foctillery_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Foctillery",
     DANGER: 7,
     GUNS: [
@@ -1372,7 +1371,7 @@ Class.foctillery_AR = {
 }
 Class.force_AR = makeOver('artillery', "Force", preset.makeOver.hybrid)
 Class.foreman_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Foreman",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1393,7 +1392,7 @@ Class.foreman_AR = {
     }, 2)
 }
 Class.forger_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Forger",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
@@ -1435,7 +1434,7 @@ Class.forger_AR = {
     ]
 }
 Class.foundry_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Foundry",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1467,7 +1466,7 @@ Class.foundry_AR = {
     ]
 }
 Class.frother_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Frother",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -1535,7 +1534,7 @@ Class.gatlingTrapper_AR = {
 }
 Class.gator_AR = makeOver('gatlingGun', "Gator", preset.makeOver.hybrid)
 Class.hangar_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hangar",
     DANGER: 7,
     FACING_TYPE: "locksFacing",
@@ -1580,7 +1579,7 @@ Class.hangar_AR = {
 }
 Class.heaver_AR = makeOver('launcher', "Heaver", preset.makeOver.hybrid)
 Class.hexaseer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hexaseer",
     DANGER: 7,
     NECRO: [6],
@@ -1614,7 +1613,7 @@ Class.hexaseer_AR = {
 Class.honchodrive_AR = makeDrive('honcho_AR', {label: "Honchodrive"})
 Class.hitman_AR = makeOver('assassin', "Hitman", preset.makeOver.hybrid)
 Class.hurler_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hurler",
     DANGER: 7,
     BODY: {
@@ -1642,7 +1641,7 @@ Class.hurler_AR = {
     ]
 }
 Class.hutch_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hutch",
     DANGER: 7,
     STAT_NAMES: statnames.mixed,
@@ -1678,7 +1677,7 @@ Class.hutch_AR = {
 }
 Class.hybrix_AR = makeOver('helix', "Hybrix", preset.makeOver.hybrid)
 Class.incarcerator_AR = makeGuard({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 4,
     GUNS: [
         {
@@ -1694,7 +1693,7 @@ Class.incarcerator_AR = makeGuard({
     ]
 }, "Incarcerator", {type: 'pen_AR', danger: 3})
 Class.inception_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Inception",
     DANGER: 7,
     BODY: {
@@ -1727,7 +1726,7 @@ Class.inception_AR = {
 Class.integrator_AR = makeOver('triAngle', "Integrator", preset.makeOver.hybridUnder)
 Class.interner_AR = makeOver('pen_AR', "Interner", preset.makeOver.hybrid)
 Class.issuer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Issuer",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1769,7 +1768,7 @@ Class.issuer_AR = {
     ]
 }
 Class.jalopy_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Jalopy",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -1786,7 +1785,7 @@ Class.jalopy_AR = {
     ]
 }
 Class.junkie_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Junkie",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1814,7 +1813,7 @@ Class.junkie_AR = {
     ]
 }
 Class.laborer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Laborer",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1850,7 +1849,7 @@ Class.laborer_AR = {
     ]
 }
 Class.machineGuard_AR = makeGuard({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 4,
     GUNS: [
         {
@@ -1866,7 +1865,7 @@ Class.machineGuard_AR = makeGuard({
     ]
 }, "Machine Guard", {type: 'machineTrapper_AR', danger: 3})
 Class.machineMech_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Machine Mech",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -1896,7 +1895,7 @@ Class.machineMech_AR = {
     ]
 }
 Class.mechGuard_AR = makeGuard({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 4,
     GUNS: [
         {
@@ -1912,7 +1911,7 @@ Class.mechGuard_AR = makeGuard({
     ]
 }, "Mech Guard", {type: 'mech_AR', danger: 3})
 Class.megaHunter_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mega Hunter",
     DANGER: 7,
     BODY: {
@@ -1947,7 +1946,7 @@ Class.megaHunter_AR = {
     ]
 }
 Class.megaSpawner_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mega-Spawner",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
@@ -1986,7 +1985,7 @@ Class.megaSpawner_AR = {
     ]
 }
 Class.megaTrapper_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mega Trapper",
     DANGER: 7,
     STAT_NAMES: statnames.trap,
@@ -2013,7 +2012,7 @@ Class.megaTrapper_AR = {
     ]
 }
 Class.mingler_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mingler",
     DANGER: 7,
     GUNS: weaponArray([
@@ -2042,7 +2041,7 @@ Class.mingler_AR = {
     ], 6, {delayIncrement: 0.5})
 }
 Class.mosey_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mosey",
     DANGER: 7,
     STAT_NAMES: statnames.swarm,
@@ -2069,7 +2068,7 @@ Class.mosey_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.mummifier_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mummifier",
     DANGER: 7,
     NECRO: [4],
@@ -2128,7 +2127,7 @@ Class.nurse_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.peashooter_AR = makeGuard({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     GUNS: [
         {
             POSITION: {
@@ -2156,7 +2155,7 @@ Class.peashooter_AR = makeGuard({
     ]
 }, "Peashooter")
 Class.pentaseer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Pentaseer",
     DANGER: 7,
     NECRO: [5],
@@ -2188,7 +2187,7 @@ Class.pentaseer_AR = {
     }, {delayIncrement: 0.5})
 }
 Class.piercer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Piercer",
     DANGER: 7,
     BODY: {
@@ -2216,7 +2215,7 @@ Class.piercer_AR = {
     ]
 }
 Class.pitcher_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Pitcher",
     DANGER: 7,
     BODY: {
@@ -2255,7 +2254,7 @@ Class.pitcher_AR = {
 }
 Class.polluter_AR = makeOver('diesel_AR', "Polluter", preset.makeOver.hybrid)
 Class.prober_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Prober",
     DANGER: 7,
     BODY: {
@@ -2296,7 +2295,7 @@ Class.prober_AR = {
     ]
 }
 Class.productionist_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Productionist",
     DANGER: 7,
     STAT_NAMES: statnames.swarm,
@@ -2337,7 +2336,7 @@ Class.productionist_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.projector_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Projector",
     DANGER: 7,
     BODY: {
@@ -2401,7 +2400,7 @@ Class.psychiatrist_AR = {
     ]
 }
 Class.quadAngle_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Quad-Angle",
     DANGER: 7,
     BODY: {
@@ -2444,7 +2443,7 @@ Class.quadAngle_AR = {
     })
 }
 Class.queller_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Queller",
     DANGER: 7,
     GUNS: [
@@ -2476,7 +2475,7 @@ Class.queller_AR = {
     ]
 }
 Class.railgun_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Railgun",
     DANGER: 7,
     BODY: {
@@ -2545,7 +2544,7 @@ Class.recalibrator_AR = {
     ]
 }
 Class.rimfire_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Rimfire",
     DANGER: 7,
     GUNS: [
@@ -2613,7 +2612,7 @@ Class.scientist_AR = {
 }
 Class.shower_AR = makeOver('sprayer', "Shower", preset.makeOver.hybrid)
 Class.slinker_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Slinker",
     DANGER: 7,
     INVISIBLE: [0.08, 0.03],
@@ -2651,7 +2650,7 @@ Class.soother_AR = {
 }
 Class.spawnerdrive_AR = makeDrive('spawner', {projectileType: 'minion', label: "Spawnerdrive"})
 Class.splitShot_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Split Shot",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -2683,7 +2682,7 @@ Class.splitShot_AR = {
     ]
 }
 Class.springer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Springer",
     DANGER: 7,
     GUNS: [
@@ -2720,7 +2719,7 @@ Class.springer_AR = {
     ]
 }
 Class.stall_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Stall",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -2752,7 +2751,7 @@ Class.triMachine_AR = makeFlank('machineTrapper_AR', 3, "Tri-Machine", {extraSta
 Class.triMech_AR = makeFlank('mech_AR', 3, "Tri-Mech", {extraStats: [g.flankGuard]})
 Class.triPen_AR = makeFlank('pen_AR', 3, "Tri-Pen", {extraStats: [g.flankGuard]})
 Class.triTrapGuard_AR = makeGuard({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 4,
     GUNS: [
         {
@@ -2850,7 +2849,7 @@ Class.undertrapper_AR = makeUnder({
     ]
 })
 Class.volley_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Volley",
     DANGER: 7,
     GUNS: weaponMirror([
@@ -2880,7 +2879,7 @@ Class.volley_AR = {
     ], {delayIncrement: 0.25})
 }
 Class.waarrk_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Waarrk",
     DANGER: 7,
     GUNS: [
@@ -2931,7 +2930,7 @@ Class.waarrk_AR = {
 }
 Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]})
 Class.widget_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Widget",
     DANGER: 7,
     BODY: {
@@ -2963,7 +2962,7 @@ Class.widget_AR = {
     ]
 }
 Class.zipper_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Zipper",
     DANGER: 7,
     BODY: {
@@ -3268,7 +3267,7 @@ Class.bentDoubleGunner_AR = makeFlank({
 }, 2, "Bent Double Gunner", {extraStats: [g.doubleTwin]})
 Class.bentDoubleMinigun_AR = makeFlank('bentMinigun_AR', 2, "Bent Double Minigun", {extraStats: [g.doubleTwin]})
 Class.bentSubverter_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Bent Subverter",
     DANGER: 8,
     BODY: {
@@ -3305,7 +3304,7 @@ Class.bentTriple_AR = makeFlank('tripleShot', 3, "Bent Triple", {extraStats: [g.
 Class.bozo_AR = makeBird('spreadshot', "Bozo")
 Class.butcher_AR = makeGuard('hunter', "Butcher")
 Class.bruiser_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Bruiser",
     DANGER: 8,
     GUNS: [
@@ -3330,7 +3329,7 @@ Class.bruiser_AR = {
 }
 Class.chemist_AR = makeFlank('scientist_AR', 3, "Chemist", {extraStats: [g.flankGuard]})
 Class.cleft_AR = makeFlank({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 7,
     GUNS: weaponMirror([
         {
@@ -3380,7 +3379,7 @@ Class.clerk_AR = {
 }
 Class.clinician_AR = makeFlank('nurse_AR', 2, "Clinician", {extraStats: [g.doubleTwin]})
 Class.coordinator_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Coordinator",
     DANGER: 8,
     STAT_NAMES: statnames.drone,
@@ -3416,7 +3415,7 @@ Class.coordinator_AR = {
 }
 Class.crackshot_AR = {PARENT: 'PLACEHOLDER', LABEL: "Crackshot"}
 Class.cyclops_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Cyclops",
     DANGER: 8,
     GUNS: [
@@ -3501,7 +3500,7 @@ Class.doubleFlankGunner_AR = {
     ]
 }
 Class.doubleFlankHelix_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Double Flank Helix",
     DANGER: 8,
     STAT_NAMES: statnames.desmos,
@@ -3643,7 +3642,7 @@ Class.doubleTriplet_AR = makeFlank('triplet', 2, "Double Triplet", {extraStats: 
 Class.doubleTriplex_AR = makeFlank('triplex', 2, "Double Triplex", {extraStats: [g.doubleTwin]})
 Class.doubleVolley_AR = makeFlank('volley_AR', 2, "Double Volley", {extraStats: [g.doubleTwin]})
 Class.duo_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Duo",
     DANGER: 8,
     GUNS: [
@@ -3668,7 +3667,7 @@ Class.duo_AR = {
     ]
 }
 Class.duster_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Duster",
     DANGER: 8,
     GUNS: [
@@ -3716,7 +3715,7 @@ Class.flexedHybrid_AR = makeOver('pentaShot', "Flexed Hybrid", preset.makeOver.h
 Class.flexedMinigun_AR = {PARENT: 'PLACEHOLDER', LABEL: "Flexed Minigun"}
 Class.fungus_AR = {PARENT: 'PLACEHOLDER', LABEL: "Fungus"}
 Class.gadgetGun_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Gadget Gun",
     DANGER: 8,
     GUNS: [
@@ -3823,7 +3822,7 @@ Class.healer3_AR = {
 }
 Class.heptaShot_AR = {PARENT: 'PLACEHOLDER', LABEL: "Hepta Shot"}
 Class.hewnFlankDouble_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hewn Flank Double",
     DANGER: 8,
     GUNS: [
@@ -3865,7 +3864,7 @@ Class.hewnFlankDouble_AR = {
     ]
 }
 Class.hewnGunner_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hewn Gunner",
     DANGER: 8,
     GUNS: [
@@ -3925,7 +3924,7 @@ Class.hewnGunner_AR = {
 }
 Class.hewnHelix_AR = {PARENT: 'PLACEHOLDER', LABEL: "Hewn Helix"}
 Class.hewnTriple_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hewn Triple",
     DANGER: 8,
     GUNS: [
@@ -4093,7 +4092,7 @@ Class.injection_AR = {
     ]
 }
 Class.inspector_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Inspector",
     DANGER: 8,
     STAT_NAMES: statnames.drone,
@@ -4211,7 +4210,7 @@ Class.megaAutoUndertow_AR = makeAuto('undertow', "Mega Auto-Undertow", preset.ma
 Class.megaAutoVolute_AR = makeAuto('volute', "Mega Auto-Volute", preset.makeAuto.mega)
 Class.megaAutoWark_AR = makeAuto('wark_AR', "Mega Auto-Wark", preset.makeAuto.mega)
 Class.mono_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Mono",
     DANGER: 8,
     GUNS: [
@@ -4298,7 +4297,7 @@ Class.overdoubleMachine_AR = makeOver('doubleMachine', "Overdouble Machine", {an
 Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90})
 Class.overshot_AR = makeOver('tripleShot', "Overshot")
 Class.pentaBlaster_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Penta-Blaster",
     DANGER: 8,
     GUNS: [
@@ -4372,7 +4371,7 @@ Class.physician_AR = {
     ]
 }
 Class.pistol_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Pistol",
     DANGER: 8,
     GUNS: [
@@ -4449,7 +4448,7 @@ Class.professor_AR = {
 }
 Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
 Class.quintuplet_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Quintuplet",
     DANGER: 7,
     BODY: {
@@ -4589,7 +4588,7 @@ Class.rocket_AR = {
     ]
 }
 Class.scatterer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Scatterer",
     DANGER: 8,
     GUNS: [
@@ -4646,7 +4645,7 @@ Class.scuffler_AR = {
 Class.sealer_AR = makeFlank('cog_AR', 2, "Sealer", {extraStats: [g.doubleTwin]})
 Class.setup_AR = makeFlank('expeller_AR', 2, "Setup", {extraStats: [g.doubleTwin]})
 Class.sharpshooter_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Sharpshooter",
     DANGER: 8,
     BODY: {
@@ -4674,7 +4673,7 @@ Class.sharpshooter_AR = {
     ]
 }
 Class.skewnDouble_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Skewn Double",
     DANGER: 8,
     GUNS: [
@@ -4722,7 +4721,7 @@ Class.spambrid_AR = makeOver('bentGunner_AR', "Spambrid", preset.makeOver.hybrid
 Class.splitDouble_AR = makeFlank('splitShot_AR', 2, "Split Double", {extraStats: [g.doubleTwin]})
 Class.splitHybrid_AR = makeOver('splitShot_AR', "Split Hybrid", preset.makeOver.hybrid)
 Class.spy_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Spy",
     DANGER: 8,
     INVISIBLE: [0.08, 0.03],
@@ -4743,7 +4742,7 @@ Class.spy_AR = {
     ]
 }
 Class.subduer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Subduer",
     DANGER: 8,
     BODY: {
@@ -4827,7 +4826,7 @@ Class.therapist_AR = {
 }
 Class.tommy_AR = makeGuard('minigun', "Tommy")
 Class.tornado_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Tornado",
     DANGER: 8,
     GUNS: weaponArray([
@@ -4880,7 +4879,7 @@ Class.tornado_AR = {
     ], 3)
 }
 Class.tricker_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Tricker",
     DANGER: 8,
     STAT_NAMES: statnames.trap,
@@ -5038,7 +5037,7 @@ Class.underdoubleMachine_AR = makeUnder("doubleMachine", "Underdouble Machine", 
 Class.underdoubleTwin_AR = makeUnder("doubleTwin", "Underdouble Twin", {angle: 90, shape: 4})
 Class.undershot_AR = makeUnder('tripleShot', "Undershot")
 Class.vulcan_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Vulcan",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -5234,7 +5233,7 @@ Class.warkwawawark_AR = {
     ],
 }
 Class.warkwawarkrk_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Warkwawarkrk",
     DANGER: 8,
     STAT_NAMES: statnames.trap,
@@ -5998,7 +5997,7 @@ Class.doubleHelix_AR = makeFlank('helix', 2, "Double Helix", {extraStats: [g.dou
 Class.doubleMinigun_AR = makeFlank('minigun', 2, "Double Minigun", {extraStats: [g.flankGuard]})
 Class.doubleSprayer_AR = makeFlank('sprayer', 2, "Double Sprayer", {extraStats: [g.flankGuard]})
 Class.helicopter_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Helicopter",
     ANGLE: 60,
     CONTROLLERS: ["whirlwind"],
@@ -6043,7 +6042,7 @@ Class.helicopter_AR = {
     })()
 }
 Class.operator_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Operator",
     DANGER: 7,
     ...preset.todo_placeholder_guns,
@@ -6077,7 +6076,7 @@ Class.operator_AR = {
     ]
 }
 Class.rotaryGun_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Rotary Gun",
     DANGER: 7,
     GUNS: [
@@ -6185,7 +6184,7 @@ Class.PLACEHOLDER_whirlFieldGun_AR = makeWhirlwind("fieldGun", {label: ""})
 Class.PLACEHOLDER_whirlFoctillery_AR = makeWhirlwind("foctillery_AR", {label: ""})
 Class.PLACEHOLDER_whirlForger_AR = makeWhirlwind("forger_AR", {label: ""})
 Class.PLACEHOLDER_whirlHexaTrapper_AR = makeWhirlwind(makeAuto({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     DANGER: 7,
     BODY: {
         SPEED: 0.8 * base.SPEED
@@ -6223,7 +6222,7 @@ Class.PLACEHOLDER_whirlOrdnance_AR = makeWhirlwind("ordnance", {label: ""})
 Class.PLACEHOLDER_whirlQueller_AR = makeWhirlwind("queller_AR", {label: ""})
 Class.PLACEHOLDER_whirlSniper3_AR = makeWhirlwind("sniper3_AR", {label: ""})
 Class.adderall_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Adderall",
     DANGER: 8,
     STAT_NAMES: statnames.drone,
@@ -6272,7 +6271,7 @@ Class.autoWhirlGuard_AR = makeWhirlwind(makeAuto("trapGuard", "", preset.makeAut
 Class.ballista_AR = {PARENT: 'PLACEHOLDER', LABEL: "Ballista"}
 Class.battledrive_AR = makeDrive('battleship', {...preset.makeDrive.swarm, doNotDiscriminate: true, label: "Battledrive"})
 Class.bentTriple_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Bent Triple",
     DANGER: 8,
     GUNS: weaponArray([
@@ -6302,7 +6301,7 @@ Class.bentTriple_AR = {
     ], 3)
 }
 Class.bigChip_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Big Chip",
     DANGER: 8,
     NECRO: [4],
@@ -6337,7 +6336,7 @@ Class.bigChip_AR = {
 Class.blusterer_AR = makeGunner('conqueror', "Blusterer", {length: 16.75, noDeco: true})
 Class.buster_AR = makeGunner('construct', "Buster", {rear: true})
 Class.carnivore_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Carnivore",
     DANGER: 8,
     BODY: {
@@ -6395,7 +6394,7 @@ Class.carnivore_AR = {
 }
 Class.comboWhirl_AR = makeWhirlwind("combo_AR", {label: "Combo Whirl"})
 Class.combustor_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Combustor",
     DANGER: 8,
     GUNS: [
@@ -6432,7 +6431,7 @@ Class.combustor_AR = {
     ]
 }
 Class.concentrator_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Concentrator",
     DANGER: 8,
     GUNS: [
@@ -6461,7 +6460,7 @@ Class.concentrator_AR = {
     ]
 }
 Class.coordinator_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Coordinator",
     DANGER: 8,
     STAT_NAMES: statnames.drone,
@@ -6498,7 +6497,7 @@ Class.coordinator_AR = {
 Class.crackshot_AR = {PARENT: 'PLACEHOLDER', LABEL: "Crackshot"}
 Class.dauber_AR = {PARENT: 'PLACEHOLDER', LABEL: "Dauber"}
 Class.decaTank_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Deca Tank",
     DANGER: 8,
     GUNS: weaponArray([
@@ -6528,7 +6527,7 @@ Class.decaTank_AR = {
     ], 5)
 }
 Class.demise_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Demise",
     DANGER: 8,
     GUNS: weaponArray([
@@ -6557,7 +6556,7 @@ Class.demise_AR = {
     ], 4)
 }
 Class.destabilizer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Destabilizer",
     DANGER: 8,
     BODY: {
@@ -6575,7 +6574,7 @@ Class.destabilizer_AR = {
     }, 5, {lengthOffset: 2, delayIncrement: 0.2})
 }
 Class.doubleAtomizer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Double Atomizer",
     DANGER: 8,
     GUNS: weaponArray([
@@ -6678,7 +6677,7 @@ Class.geneticist_AR = {
     ]
 }
 Class.hextuplex_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Hextuplex",
     DANGER: 8,
     STAT_NAMES: statnames.desmos,
@@ -6777,7 +6776,7 @@ Class.hextuplex_AR = {
     ]
 }
 Class.jimmy_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Jimmy",
     DANGER: 8,
     BODY: {
@@ -6837,7 +6836,7 @@ Class.kraw_AR = {
     ], {delayIncrement: 0.5})
 }
 Class.leader_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Leader",
     DANGER: 8,
     STAT_NAMES: statnames.drone,
@@ -6878,7 +6877,7 @@ Class.noodle_AR = makeSnake('smasher', 10, "Noodle")
 Class.octoTrapper_AR = makeAuto(makeFlank('trapper', 8, "", {extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7}), "Octo-Trapper")
 Class.octoWhirl_AR = makeWhirlwind("octoTank", {label: "Octo Whirl"})
 Class.omen_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Omen",
     DANGER: 8,
     STAT_NAMES: {
@@ -6938,7 +6937,7 @@ Class.productiondrive_AR = makeDrive("productionist_AR", {...preset.makeDrive.sw
 Class.quadMachine_AR = makeFlank('machineGun', 4, "Quad Machine", {extraStats: [g.flankGuard, g.flankGuard, g.spam], danger: 8})
 Class.quadruplicator_AR = makeFlank('duplicator', 2, "Quadruplicator", {extraStats: [g.doubleTwin]})
 Class.quarterNQuarter_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Quarter 'n Quarter",
     DANGER: 8,
     HAS_NO_RECOIL: true,
@@ -6971,7 +6970,7 @@ Class.quarterNQuarter_AR = {
     ], 2)
 }
 Class.quintuplex_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Quintuplex",
     DANGER: 8,
     STAT_NAMES: statnames.desmos,
@@ -7068,7 +7067,7 @@ Class.quintuplex_AR = {
     ]
 }
 Class.rationalizer_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Rationalizer",
     DANGER: 8,
     BODY: {
@@ -7123,7 +7122,7 @@ Class.scribble_AR = {
 }
 Class.sifter_AR = makeGunner('courser_AR', "Sifter", {rear: true})
 Class.slabNSlab_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Slab 'n Slab",
     DANGER: 8,
     GUNS: weaponArray([
@@ -7221,7 +7220,7 @@ Class.spiker_AR = {
     ]
 }
 Class.sprayNSpray_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Spray 'n Spray",
     DANGER: 8,
     HAS_NO_RECOIL: true,
@@ -7314,7 +7313,7 @@ Class.strand_AR = {
 Class.tailer_AR = makeGunner('stalker', "Tailer", {rear: true})
 Class.titanoboa_AR = makeSnake('banger_AR', 5, "Titanoboa")
 Class.toppler_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Toppler",
     DANGER: 8,
     BODY: {
@@ -7332,7 +7331,7 @@ Class.toppler_AR = {
     }, 3, {lengthOffset: 2, delayIncrement: 1/3})
 }
 Class.triSplasher_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Tri-Splasher",
     DANGER: 8,
     GUNS: [
@@ -7396,7 +7395,7 @@ Class.tripleAutoDouble_AR = makeAuto("doubleTwin", "Triple Auto-Double", preset.
 Class.tripleBlaster_AR = makeFlank('blaster', 3, "Triple Blaster", {extraStats: [g.flankGuard, g.flankGuard], danger: 8})
 Class.tripleDiesel_AR = makeFlank('diesel_AR', 3, "Triple Diesel", {extraStats: [g.flankGuard, g.flankGuard], danger: 8})
 Class.tripleFlankTwin_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Triple Flank Twin",
     DANGER: 8,
     GUNS: weaponArray([
@@ -7432,7 +7431,7 @@ Class.tripleMinigun_AR = makeFlank('minigun', 3, "Triple Minigun", {extraStats: 
 Class.tripleSprayer_AR = makeFlank('sprayer', 3, "Triple Sprayer", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8})
 Class.undertrapGuard_AR = makeUnder("trapGuard", "Undertrap Guard", {angle: 90, shape: 4})
 Class.ultraTornado_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Ultra-Tornado",
     DANGER: 8,
     TURRETS: [
@@ -7469,7 +7468,7 @@ Class.ultraTornado_AR = {
 Class.vortex_AR = makeDrive("director", {label: "Vortex", type: "vortexAutoTurret_AR", size: 12, hatType: "vortexSquare_AR"})
 Class.waarararrk_AR = {PARENT: 'PLACEHOLDER', LABEL: "Waarararrk"}
 Class.warkwarkwark_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Warkwarkwark",
     DANGER: 8,
     STAT_NAMES: statnames.trap,
@@ -7500,7 +7499,7 @@ Class.warkwarkwark_AR = {
     ], {delayIncrement: 0.5}), 3)
 }
 Class.warlock_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Warlock",
     DANGER: 8,
     NECRO: [5],
@@ -7538,7 +7537,7 @@ Class.whirl5_AR = makeWhirlwind("auto5", {label: "Whirl-5"})
 Class.whirlbar_AR = makeWhirlwind("crowbar_AR", {label: "Whirlbar"})
 Class.wiper_AR = makeGunner('annihilator', "Wiper", {rear: true})
 Class.witch_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Witch",
     DANGER: 8,
     NECRO: [5],
@@ -7573,7 +7572,7 @@ Class.witch_AR = {
 }
 Class.harpy_AR = makeGunner('falcon', "Harpy", {rear: true, length: 20, renderBehind: true})
 Class.xCourser_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "X-Courser",
     DANGER: 8,
     ...preset.todo_placeholder_guns,
@@ -7607,7 +7606,7 @@ Class.xCourser_AR = {
     ]
 }
 Class.xNimrod_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "X-Nimrod",
     DANGER: 8,
     BODY: {
@@ -7664,7 +7663,7 @@ Class.xNimrod_AR = {
     ]
 }
 Class.xPredator_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "X-Predator",
     DANGER: 8,
     BODY: {
@@ -7717,7 +7716,7 @@ Class.xPredator_AR = {
     ]
 }
 Class.yHunter_AR = {
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Y-Hunter",
     DANGER: 8,
     BODY: {
@@ -7917,7 +7916,7 @@ quickMake("foreman_AR", {drive: "Foredrive"})
 quickMake("fortress", {driveSwarm: "Fortdrive"})
 quickMake("gatlingGun", {over: "Overgatling", under: "Undergatling"})
 quickMake({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Gunner",
     DANGER: 6,
     GUNS: [
@@ -7984,7 +7983,7 @@ quickMake("stalker", {bird: "Owl", hybrid: "Trailer"})
 quickMake("subverter", {hybrid: "Deposer"})
 quickMake("surfer", {hybrid2: "Skater"})
 quickMake({
-    PARENT: "genericTank",
+    PARENT: 'genericTank',
     LABEL: "Trapper",
     DANGER: 6,
     STAT_NAMES: statnames.mixed,

@@ -100,7 +100,7 @@ const hexnoughtScaleFactor = 0.9
 
 // Generics
 Class.genericDreadnought_dreadsV2 = {
-	PARENT: "genericTank",
+	PARENT: 'genericTank',
 	SKILL_CAP: Array(10).fill(smshskl),
 	REROOT_UPGRADE_TREE: ["dreadWeapon_dreadsV2", "dreadBody_dreadsV2"],
 }
@@ -225,7 +225,7 @@ Class.megabyteTurret_dreadsV2 = {
 	]
 }
 Class.showerTurret_dreadsV2 = {
-	PARENT: "genericTank",
+	PARENT: 'genericTank',
 	LABEL: "",
 	BODY: {
 		FOV: 1.5,
