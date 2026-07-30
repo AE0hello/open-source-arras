@@ -1,4 +1,4 @@
-const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeFlank, makeOver} = require('../../../facilitators.js')
+const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeOver} = require('../../../facilitators.js')
 const {base, statnames} = require('../../../constants.js')
 const g = require('../../../gunvals.js')
 const preset = require('../../../presets.js')
@@ -40,6 +40,325 @@ Class.unnamed_63735_AR = {
 };
 
 // Tier 2 (Level 30)
+Class.diesel_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Diesel',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1.600000023841858,
+                X: 8.00000011920929,
+                Y: -4.8985872695840505e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],/*
+    UPGRADES_TIER_3: [
+        'jalopy',
+        'machineGunner',
+        'dieselTrapper',
+        'polluter',
+        'autodiesel',
+    ],
+    UPGRADES_TIER_4: [
+        'foamer',
+        'gizmo',
+    ],*/
+};
+Class.directordrive_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Directordrive',
+    SIZE: 12,
+    STAT_NAMES: 2,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 8.00000011920929,
+                Y: -4.8985872695840505e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    TURRETS: [
+        {
+            TYPE: ['squareHat', {COLOR: 'grey'}],
+            POSITION: {
+                SIZE: 8.999999761581421,
+                LAYER: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_3: [
+        'directorstorm',
+        'overdrive',
+        'cruiserdrive',
+        'underdrive',
+        'spawnerdrive',
+        'autodirectordrive',
+        'honchodrive',
+        'doperdrive',
+    ],
+    UPGRADES_TIER_4: [
+        'managerdrive',
+    ]*/
+};
+Class.doper_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Doper',
+    SIZE: 12,
+    STAT_NAMES: 2,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 8.00000011920929,
+                Y: -4.8985872695840505e-16,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 1.0000000149011612,
+                ASPECT: -5,
+                X: 8.00000011920929,
+                Y: -4.8985872695840505e-16,
+                ANGLE: 0.0,
+            }
+        },
+    ],
+    /*UPGRADES_TIER_3: [
+        'brisker',
+        'dopeseer',
+        'mosey',
+        'issuer',
+        'junkie',
+        'doperdrive',
+        'autodoper',
+    ],
+    UPGRADES_TIER_4: [
+        'controller',
+    ]*/
+};
+Class.honcho_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Honcho',
+    SIZE: 12,
+    STAT_NAMES: 2,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 13.999999761581421,
+                ASPECT: 1.2999999523162842,
+                X: 2.0000000298023224,
+                Y: -1.2246468173960126e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_3: [
+        'foreman',
+        'baltimore',
+        'foundry',
+        'bigCheese',
+        'autohoncho',
+        'honchodrive',
+        'junkie',
+    ],
+    UPGRADES_TIER_4: [
+        'minister',
+    ]*/
+};
+Class.machineTrapper_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Machine Trapper',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.999999761581421,
+                ASPECT: 1.399999976158142,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 12.999999523162842,
+                ASPECT: 1.2999999523162842,
+                X: 15.0,
+                Y: -9.184850993605148e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],/*
+    UPGRADES_TIER_3: [
+        'dieselTrapper',
+        'barricade',
+        'equalizer',
+        'machineGuard',
+        'encircler',
+        'machineMech',
+        'trimachine',
+        'expeller',
+        'automachineTrapper',
+        'deviation',
+    ],
+    UPGRADES_TIER_4: [
+        'frother',
+        'machineMegaTrapper',
+    ],*/
+};
+Class.mech_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Mech',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.0,
+                Y: -9.184850993605148e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_3: [
+        'engineer',
+        'trimech',
+        'machineMech',
+        'mechGuard',
+        'operator',
+        'cog',
+        'cobbler',
+        'automech',
+    ],
+    UPGRADES_TIER_4: [
+        'propper',
+        'technician',
+    ]*/
+};
+Class.pen_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Pen',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4.000000059604645,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 12.999999523162842,
+                Y: -7.960203902479247e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_3: [
+        'stall',
+        'tripen',
+        'encircler',
+        'incarcerator',
+        'operator',
+        'cockatiel',
+        'hutch',
+        'interner',
+        'autopen',
+    ],
+    UPGRADES_TIER_4: [
+        'fortifier',
+        'sty',
+    ]*/
+};
 Class.wark_AR = {
     PARENT: 'genericTank',
     LABEL: "Wark",
@@ -86,6 +405,185 @@ Class.wark_AR = {
 };
 
 // Tier 3 (Level 45)
+Class.autoTripleShot_AR = makeAuto('tripleShot')
+Class.bentGunner_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Bent Gunner',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.606189619143052e-07,
+                Y: 8.249999880790703,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762909974658683e-07,
+                Y: 4.749999940395351,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.60618963302084e-07,
+                Y: -8.249999880790703,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762910030169834e-07,
+                Y: -4.749999940395351,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'flexedGunner',
+        'spambrid',
+        'bentDoubleGunner',
+        'autobentGunner',
+        'dagger',
+        'bentVolley',
+        'donkey',
+    ]*/
+};
+Class.bentMinigun_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Bent Minigun',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.0000001041368844,
+                Y: -2.0000000802871223,
+                ANGLE: -15.999999876058132,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.0000001041368844,
+                Y: -2.0000000802871223,
+                ANGLE: -15.999999876058132,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.000000104136884,
+                Y: 2.0000000802871223,
+                ANGLE: 15.999999876058132,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.000000104136884,
+                Y: 2.0000000802871223,
+                ANGLE: 15.999999876058132,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'flexedMinigun',
+        'bentDoubleMinigun',
+        'junker',
+        'hackshot',
+        'minilet',
+        'bentStreamliner',
+        'bentBarricade',
+        'bentSubverter',
+        'jerker',
+        'sizzler',
+        'autobentMinigun',
+        'bentWidget',
+    ]*/
+};
+Class.defect_AR = makeBird('tripleShot', "Defect")
 Class.doubleFlankTwin_AR = {
     PARENT: 'genericTank',
     LABEL: "Double Flank Twin",
@@ -138,6 +636,414 @@ Class.doubleFlankTwin_AR = {
     ]
 };
 Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.doubleTwin]});
+Class.equalizer_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Equalizer',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758749117554e-07,
+                Y: 7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2.0000000298023224,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1.7699999809265137,
+                X: 11.999999753454386,
+                Y: 7.249999853328825,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.169075883790445e-07,
+                Y: -7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2.0000000298023224,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1.7699999809265137,
+                X: 11.999999753454386,
+                Y: -7.249999853328827,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2.0000000298023224,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1.7699999809265137,
+                X: 16.00000029064175,
+                Y: 3.7500000749860716,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 2.0000000298023224,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1.7699999809265137,
+                X: 16.00000029064175,
+                Y: -3.7500000749860734,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'autoequalizer',
+        'whirlwind',
+        'brink',
+        'contrivance',
+        'binder',
+        'overequalizer',
+        'cleaver',
+        'cutlass',
+        'baton',
+        'blackjack',
+        'doubleEqualizer',
+        'dagger',
+        'machete',
+        'hardware',
+        'equalizerGuard',
+    ]*/
+};
+Class.rimfire_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Rimfire',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: 1.999999990170974,
+                Y: -2.5000000686897828,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: 1.9999999901709742,
+                Y: 2.5000000686897823,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -2.185569497031504e-07,
+                Y: 4.999999999999995,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -2.185569503154738e-07,
+                Y: -4.999999999999995,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: 2.0000000298023224,
+                Y: -1.2246468173960126e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'brink',
+        'pinner',
+        'salvo',
+        'lure',
+        'harbinger',
+        'beater',
+        'barber',
+        'walloper',
+        'rimflak',
+        'barrage',
+        'doubleRimfire',
+        'autorimfire',
+    ]*/
+};
+Class.splitShot_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Split Shot',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000147248668,
+                Y: -2.0000000638309294,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000147248668,
+                Y: 2.0000000638309285,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 4.00000000852121,
+                Y: 0.500000006104204,
+                ANGLE: 15.000000417413029,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 4.00000000852121,
+                Y: -0.5000000061042046,
+                ANGLE: -15.000000417413029,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'slitShot',
+        'crackshot',
+        'splitHybrid',
+        'splitDouble',
+        'autosplitShot',
+        'hackshot',
+        'dork',
+        'splinterShot',
+    ]*/
+};
+Class.volley_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Volley',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: -3.1690758749117554e-07,
+                Y: 7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: -3.169075883790445e-07,
+                Y: -7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'cannonade',
+        'volley4',
+        'tornado',
+        'pummeler',
+        'barrage',
+        'autovolley',
+        'doubleVolley',
+        'machineVolley',
+        'volleyHybrid',
+    ]*/
+};
+Class.waarrk_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Waarrk',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -8.742278123641256e-08,
+                Y: 2.0000000298023206,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 14.999999550535769,
+                Y: 1.9999999960594628,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -8.742278151396832e-08,
+                Y: -2.0000000298023206,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 14.999999550535769,
+                Y: -1.9999999960594645,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 17.000000476837158,
+                Y: -1.0409498084731052e-15,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'waarararrk',
+        'fungus',
+        'bentCatcher',
+        'waarrkwaarrk',
+        'warklet',
+        'splinterShot',
+        'autowaarrk',
+        'dagger',
+        'bentBarricade',
+        'fault',
+        'bentBulwark',
+        'brig',
+        'yard',
+        'spitter',
+    ]*/
+};
 Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]});
 
 // Tier 4 (Level 60)
@@ -147,6 +1053,138 @@ Class.autoDoubleGunner_AR = makeAuto('doubleGunner_AR');
 Class.autoHewnDouble_AR = makeAuto('hewnDouble');
 Class.autoTriple_AR = makeAuto('tripleTwin', "Auto-Triple");
 Class.autoWarkwark_AR = makeAuto('warkwark_AR');
+Class.bentDoubleGunner_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Bent Double Gunner',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.606189619143052e-07,
+                Y: 8.249999880790703,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762909974658683e-07,
+                Y: 4.749999940395351,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.60618963302084e-07,
+                Y: -8.249999880790703,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762910030169834e-07,
+                Y: -4.749999940395351,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.606189613591937e-07,
+                Y: 8.249999880790703,
+                ANGLE: 197.9999986796628,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762909946903108e-07,
+                Y: 4.749999940395351,
+                ANGLE: 197.9999986796628,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.6061896302452823e-07,
+                Y: -8.249999880790703,
+                ANGLE: -197.9999986796628,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762910030169834e-07,
+                Y: -4.749999940395351,
+                ANGLE: -197.9999986796628,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736275e-07,
+                Y: 3.7499999999999964,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660538e-07,
+                Y: -3.7499999999999964,
+                ANGLE: 180.00000500895632,
+            }
+        },
+    ]
+};
+Class.bentDoubleMinigun_AR = makeFlank('minigun', 2, "Bent Double Minigun", {extraStats: [g.doubleTwin]});
 Class.bentFlankDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Flank Double',
@@ -332,7 +1370,9 @@ Class.cleft_AR = {
 
     ],
 };
+Class.doubleBattery_AR = makeFlank('battery', 2, "Double Battery", {extraStats: [g.doubleTwin]});
 Class.doubleDual_AR = makeFlank('dual', 2, "Double Dual", {extraStats: [g.doubleTwin]});
+Class.doubleEqualizer_AR = makeFlank('equalizer_AR', 2, "Double Equalizer", {extraStats: [g.doubleTwin]});
 Class.doubleFlankGunner_AR = {
     PARENT: "genericTank",
     LABEL: 'Double Flank Gunner',
@@ -485,7 +1525,437 @@ Class.doubleFlankGunner_AR = {
 
     ],
 };
+Class.doubleMachineGunner_AR = makeFlank('machineGunner', 2, "Double Machine Gunner", {extraStats: [g.doubleTwin]});
 Class.doubleMusket_AR = makeFlank('musket', 2, "Double Musket", {extraStats: [g.doubleTwin]});
+Class.doubleNailgun_AR = makeFlank('nailgun', 2, "Double Nailgun", {extraStats: [g.doubleTwin]});
+Class.doubleRimfire_AR = makeFlank('rimfire_AR', 2, "Double Rimfire", {extraStats: [g.doubleTwin]});
+Class.doubleSpreadshot_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Double Spreadshot',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 14.500000476837158,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139068759522e-08,
+                Y: -1.0000000149011603,
+                ANGLE: -56.50000100307331,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -5.245366689610176e-08,
+                Y: -1.1999999731779087,
+                ANGLE: -41.50000058566028,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.5,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -6.119594636588843e-08,
+                Y: -1.4000000059604631,
+                ANGLE: -26.50000016824725,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139068759522e-08,
+                Y: -1.0000000149011603,
+                ANGLE: -15.000000417413029,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14.500000476837158,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139061820628e-08,
+                Y: 1.0000000149011603,
+                ANGLE: 56.50000100307331,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -5.245366675732388e-08,
+                Y: 1.1999999731779085,
+                ANGLE: 41.50000058566028,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.5,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -6.119594622711055e-08,
+                Y: 1.4000000059604631,
+                ANGLE: 26.50000016824725,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139058351181e-08,
+                Y: 1.0000000149011603,
+                ANGLE: 15.000000417413029,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14.500000476837158,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139068759522e-08,
+                Y: -1.0000000149011603,
+                ANGLE: -236.49999918184048,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -5.245366675732388e-08,
+                Y: -1.1999999731779087,
+                ANGLE: -221.50000217952203,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.5,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -6.119594643527737e-08,
+                Y: -1.4000000059604634,
+                ANGLE: -206.50000517720358,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139072228969e-08,
+                Y: -1.0000000149011603,
+                ANGLE: -195.00000201127477,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14.500000476837158,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139061820628e-08,
+                Y: 1.0000000149011603,
+                ANGLE: 236.49999918184048,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -5.245366668793494e-08,
+                Y: 1.1999999731779087,
+                ANGLE: 221.50000217952203,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.5,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -6.119594615772161e-08,
+                Y: 1.4000000059604631,
+                ANGLE: 206.50000517720358,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 4.000000059604645,
+                ASPECT: 1,
+                X: -4.371139065290075e-08,
+                Y: 1.0000000149011603,
+                ANGLE: 195.00000201127477,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+    ]
+};
+Class.doubleTriplet_AR = makeFlank('triplet', 2, "Double Triplet", {extraStats: [g.doubleTwin]});
+Class.doubleVolley_AR = makeFlank('volley_AR', 2, "Double Volley", {extraStats: [g.doubleTwin]});
+Class.duo_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Duo',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.185569497031504e-07,
+                Y: 4.999999999999995,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.185569503154738e-07,
+                Y: -4.999999999999995,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 17.999999523162842,
+                ASPECT: -1.100000023841858,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
+Class.flexedDouble_AR = makeFlank('pentaShot', 2, "Flexed Double", {extraStats: [g.doubleTwin]});
+Class.flintlock_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Flintlock',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -1.7484556288915876e-07,
+                Y: -4.000000059604641,
+                ANGLE: -12.999999792575526,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -1.7484556233404724e-07,
+                Y: 4.000000059604641,
+                ANGLE: 12.999999792575526,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -8.742278144457938e-08,
+                Y: -2.0000000298023206,
+                ANGLE: -12.999999792575526,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -8.742278116702362e-08,
+                Y: 2.0000000298023206,
+                ANGLE: 12.999999792575526,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
+Class.guardrail_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Guardrail',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20.250000953674316,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.250000953674316,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.250000953674316,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264985730226e-07,
+                Y: 5.500000119209285,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.250000953674316,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265068996953e-07,
+                Y: -5.500000119209284,
+                ANGLE: 175.00000600818353,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264985730226e-07,
+                Y: 5.500000119209285,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: 5.50000000348401,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265068996953e-07,
+                Y: -5.500000119209284,
+                ANGLE: 175.00000600818353,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: 175.00000600818353,
+            }
+        },
+    ]
+};
 Class.hewnFlankDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hewn Flank Double',
@@ -878,6 +2348,78 @@ Class.hipwatch_AR = {
     ],
 };
 Class.megaAutoDouble_AR = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
+Class.megaWark_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Mega Wark',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: -0.4999999806931039,
+                Y: 6.999999763519447,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 10,
+                ASPECT: 1.7000000476837158,
+                X: 12.999999717468045,
+                Y: 6.999999810185851,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: -0.4999999806931048,
+                Y: -6.999999763519447,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 10,
+                ASPECT: 1.7000000476837158,
+                X: 12.999999717468045,
+                Y: -6.999999810185852,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 5.0,
+                ASPECT: 2,
+                X: -5.500000440031348,
+                Y: 6.999999711075784,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 5.0,
+                ASPECT: 2,
+                X: -5.50000044003135,
+                Y: -6.999999711075784,
+                ANGLE: -4.99999985454646,
+            }
+        },
+
+    ],
+};
 Class.scuffler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scuffler',
@@ -950,9 +2492,324 @@ Class.scuffler_AR = {
 
     ],
 };
+Class.sealer_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Sealer',
+    SIZE: 12,
+    STAT_NAMES: 6,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -1.9670124945525558e-07,
+                Y: 4.499999880790706,
+                ANGLE: 9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: -1.9670124945525558e-07,
+                Y: 4.499999880790706,
+                ANGLE: 9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.000000247771727,
+                Y: 4.499999981143676,
+                ANGLE: 9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -1.967012500103671e-07,
+                Y: -4.499999880790706,
+                ANGLE: -9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: -1.967012500103671e-07,
+                Y: -4.499999880790706,
+                ANGLE: -9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.000000247771727,
+                Y: -4.499999981143679,
+                ANGLE: -9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -1.9670124945525558e-07,
+                Y: 4.499999880790705,
+                ANGLE: 190.00000301050196,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: -1.9670124945525558e-07,
+                Y: 4.499999880790705,
+                ANGLE: 190.00000301050196,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.00000024777173,
+                Y: 4.499999981143677,
+                ANGLE: 190.00000301050196,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -1.967012500103671e-07,
+                Y: -4.499999880790707,
+                ANGLE: 169.99999334703236,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: -1.967012500103671e-07,
+                Y: -4.499999880790707,
+                ANGLE: 169.99999334703236,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.00000024777173,
+                Y: -4.499999981143679,
+                ANGLE: 169.99999334703236,
+            }
+        },
+    ]
+};
+Class.setup_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Setup',
+    SIZE: 12,
+    STAT_NAMES: 6,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: -2.4041264985730226e-07,
+                Y: 5.500000119209285,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 13.999999841697319,
+                Y: 5.50000000348401,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: -2.4041265068996953e-07,
+                Y: -5.500000119209284,
+                ANGLE: 175.00000600818353,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: 175.00000600818353,
+            }
+        },
+    ]
+};
+Class.splitDouble_AR = makeFlank('splitShot_AR', 2, "Split Double", {extraStats: [g.doubleTwin]});
 Class.tripleAutoDouble_AR = makeAuto('doubleTwin', "Triple Auto-Double", preset.makeAuto.triple);
+Class.overdoubleGunner_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Overdouble Gunner',
+    SIZE: 12,
+    STAT_NAMES: 6,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 8.00000011920929,
+                Y: -4.898587410340671e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 8.000000119209288,
+                Y: -4.898587244904549e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.092784751577369e-07,
+                Y: -2.4999999999999973,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.092784748515752e-07,
+                Y: 2.4999999999999973,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847515773685e-07,
+                Y: -2.499999999999998,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847485157515e-07,
+                Y: 2.4999999999999973,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+    ]
+};
 Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90, renderBehind: true});
 Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8});
+Class.ravisher_AR = makeOver('dual', "Ravisher", preset.makeOver.hybrid)
 Class.skewnDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skewn Double',
@@ -1044,6 +2901,77 @@ Class.skewnDouble_AR = {
         },
 
     ],
+};
+Class.threefold_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Threefold',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -8.742278151396832e-08,
+                Y: -2.0000000298023206,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.500000238418579,
+                ASPECT: 1,
+                X: -8.742278151396832e-08,
+                Y: -2.0000000298023206,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: -8.742278123641256e-08,
+                Y: 2.0000000298023206,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.500000238418579,
+                ASPECT: 1,
+                X: -8.742278123641256e-08,
+                Y: 2.0000000298023206,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.500000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+    ]
 };
 Class.tripleFlankTwin_AR = {
     PARENT: 'genericTank',
@@ -1148,6 +3076,137 @@ Class.tripleFlankTwin_AR = {
     ],
 };
 Class.tripleGunner_AR = makeFlank('gunner', 3, "Triple Gunner", {extraStats: [g.doubleTwin, g.tripleTwin]});
+Class.waarrkwaarrk_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Waarrkwaarrk',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -8.742278123641256e-08,
+                Y: 2.0000000298023206,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 14.999999550535769,
+                Y: 1.9999999960594628,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -8.742278151396832e-08,
+                Y: -2.0000000298023206,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 14.999999550535769,
+                Y: -1.9999999960594645,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 17.000000476837158,
+                Y: -1.0409498084731052e-15,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -8.742278123641256e-08,
+                Y: 2.0000000298023206,
+                ANGLE: 197.9999986796628,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 14.999999550535767,
+                Y: 1.9999999960594623,
+                ANGLE: 197.9999986796628,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -8.742278144457938e-08,
+                Y: -2.0000000298023206,
+                ANGLE: 161.99999767787153,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 14.999999550535767,
+                Y: -1.9999999960594639,
+                ANGLE: 161.99999767787153,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 17.00000047683716,
+                Y: -1.0409500232207397e-15,
+                ANGLE: 180.00000500895632,
+            }
+        },
+    ]
+};
 Class.warkwarkwark_AR = makeFlank('wark_AR', 3, "Warkwarkwark", {extraStats: [g.doubleTwin, g.tripleTwin]});
 Class.warkwawarkrk_AR = {
     PARENT: 'genericTank',
@@ -1424,50 +3483,53 @@ if (!free_tier_4) {
     Config.level_cap_cheat = 60;
 };
 
+if (!Config.arms_race) return;
+
 addUpgrades('basic', 1, []);
     addUpgrades('basic', 2, []);
         addUpgrades('basic', 3, []);
             addUpgrades('basic', tier4, []);
 
-    addUpgrades('twin', 2, ['wark_AR']);
+    addUpgrades('twin', 2, ['wark'].map(x => x + '_AR'));
         addUpgrades('twin', 3, []);
-            addUpgrades('twin', tier4, []);
-            addUpgrades('dual', tier4, []);
-            addUpgrades('musket', tier4, []);
+            addUpgrades('twin', tier4, ['duo'].map(x => x + '_AR'));
+            addUpgrades('dual', tier4, ['threefold', 'doubleDual', 'ravisher'].map(x => x + '_AR'));
+            addUpgrades('musket', tier4, ['doubleMusket', 'flintlock'].map(x => x + '_AR'));
 
-        addUpgrades('doubleTwin', 3, ['doubleFlankTwin_AR', 'doubleGunner_AR', 'warkwark_AR']);
-            addUpgrades('doubleTwin', tier4, ['doubleDual_AR', 'doubleMusket_AR', 'overdoubleTwin_AR']);
+        addUpgrades('doubleTwin', 3, ['doubleFlankTwin', 'doubleGunner', 'warkwark'].map(x => x + '_AR'));
+            addUpgrades('doubleTwin', tier4, ['doubleDual', 'doubleMusket', 'overdoubleTwin'].map(x => x + '_AR'));
             addUpgrades('tripleTwin', tier4, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'warkwarkwark'].map(x => x + '_AR'));
             addUpgrades('hewnDouble', tier4, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'warkwawarkrk'].map(x => x + '_AR'));
             addUpgrades('autoDouble', tier4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoWarkwark'].map(x => x + '_AR'));
-            addUpgrades('bentDouble', tier4, [].map(x => x + '_AR'));
+            addUpgrades('bentDouble', tier4, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'cleft', 'doubleSpreadshot', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk'].map(x => x + '_AR'));
             addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'hipwatch', 'scuffler', 'warkwawawark'].map(x => x + '_AR'));
-            //addUpgrades('doubleGunner_AR', tier4, ['tripleGunner_AR', 'hewnGunner_AR', 'autoDoubleGunner_AR', 'bentDoubleGunner_AR', 'doubleFlankGunner_AR', 'doubleNailgun_AR', 'doubleMachineGunner_AR', 'overdoubleGunner_AR', 'doubleBattery_AR', 'doubleRimfire_AR', 'doubleVolley_AR', 'doubleEqualizer_AR'])
-            //addUpgrades('warkwark_AR', tier4', ['warkwarkwark_AR', 'warkwawarkrk_AR', 'autoWarkwark_AR', 'waarrkwaarrk_AR', 'warkwawawark_AR', 'doubleEqualizer_AR', 'guardrail_AR', 'sealer_AR', 'setup_AR'])
+            addUpgrades('doubleGunner_AR', tier4, ['tripleGunner_AR', 'hewnGunner_AR', 'autoDoubleGunner_AR', 'bentDoubleGunner_AR', 'doubleFlankGunner_AR', 'doubleNailgun_AR', 'doubleMachineGunner_AR', 'overdoubleGunner_AR', 'doubleBattery_AR', 'doubleRimfire_AR', 'doubleVolley_AR', 'doubleEqualizer_AR'])
+            addUpgrades('warkwark_AR', tier4, ['warkwarkwark_AR', 'warkwawarkrk_AR', 'autoWarkwark_AR', 'waarrkwaarrk_AR', 'warkwawawark_AR', 'doubleEqualizer_AR', 'guardrail_AR', 'sealer_AR', 'setup_AR'])
 
-        addUpgrades('tripleShot', 3, []);
-            addUpgrades('tripleShot', tier4, []);
+        addUpgrades('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk'].map(x => x + '_AR'));
+            addUpgrades('tripleShot', tier4, ['threefold', 'flintlock'].map(x => x + '_AR'));
 
-        addUpgrades('gunner', 3, []);
-            addUpgrades('gunner', tier4, []);
+        addUpgrades('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer'].map(x => x + '_AR'));
+            addUpgrades('gunner', tier4, [].map(x => x + '_AR'));
 
         addUpgrades('hexaTank', 3, []);
-            addUpgrades('hexaTank', tier4, []);
+            addUpgrades('hexaTank', tier4, [].map(x => x + '_AR'));
 
         addUpgrades('helix', 3, ['coil', 'duplicator']);
-            addUpgrades('helix', tier4, []);
+            addUpgrades('helix', tier4, [].map(x => x + '_AR'));
 
         addUpgrades('wark_AR', 3, [/*'warkwark_AR', 'waarrk_AR', 'equalizer_AR', */'hexaTrapper'/*, 'hutch_AR', 'cog_AR', 'expeller_AR'*/, 'bulwark'/*, 'coalesce_AR', 'autoWark_AR'*/]);
-            addUpgrades('wark_AR', tier4, [/*'megaWark_AR'*/]);
+            addUpgrades('wark_AR', tier4, ['megaWark'].map(x => x + '_AR'));
 
     addUpgrades('sniper', 2, []);
         addUpgrades('sniper', 3, []);
             addUpgrades('sniper', tier4, []);
             addUpgrades('bushwhacker', tier4, []);
-//            addUpgrades('railgun_AR', tier4, []);
+            //addUpgrades('railgun_AR', tier4, []);
 
         addUpgrades('assassin', 3, []);
             addUpgrades('assassin', tier4, []);
+            addUpgrades('single', tier4, []);
 
         addUpgrades('hunter', 3, []);
             addUpgrades('hunter', tier4, []);
@@ -1481,7 +3543,7 @@ addUpgrades('basic', 1, []);
         addUpgrades('marksman', 3, []);
             addUpgrades('marksman', tier4, []);
 
-    addUpgrades('machineGun', 2, []);
+    addUpgrades('machineGun', 2, ['diesel', 'machineTrapper'].map(x => x + '_AR'));
         addUpgrades('machineGun', 3, []);
             addUpgrades('machineGun', tier4, []);
 
@@ -1494,6 +3556,12 @@ addUpgrades('basic', 1, []);
 
         addUpgrades('sprayer', 3, []);
             addUpgrades('sprayer', tier4, []);
+
+        addUpgrades('diesel_AR', 3, []);
+            addUpgrades('diesel_AR', tier4, []);
+
+        addUpgrades('machineTrapper_AR', 3, [/*'dieselTrapper_AR', */'barricade']);
+            addUpgrades('machineTrapper_AR', tier4, []);
 
     addUpgrades('flankGuard', 2, []);
         addUpgrades('flankGuard', 3, []);
@@ -1513,7 +3581,7 @@ addUpgrades('basic', 1, []);
         addUpgrades('trapGuard', 3, []);
             addUpgrades('trapGuard', tier4, []);
 
-    addUpgrades('director', 2, []);
+    addUpgrades('director', 2, ['directordrive', 'honcho', 'doper'].map(x => x + '_AR'));
         addUpgrades('director', 3, []);
             addUpgrades('director', tier4, []);
 
@@ -1529,14 +3597,14 @@ addUpgrades('basic', 1, []);
         addUpgrades('spawner', 3, []);
             addUpgrades('spawner', tier4, []);
 
-//        addUpgrades('directordrive_AR', 3, []);
-//            addUpgrades('directordrive_AR', tier4, []);
+        addUpgrades('directordrive_AR', 3, []);
+            addUpgrades('directordrive_AR', tier4, []);
 
-//        addUpgrades('honcho_AR', 3, []);
-//            addUpgrades('honcho_AR', tier4, []);
+        addUpgrades('honcho_AR', 3, [/*'foreman_AR', 'baltimore_AR', 'foundry_AR', */'bigCheese'/*, 'autoHoncho_AR', 'honchodrive_AR', 'junkie_AR'*/]);
+            addUpgrades('honcho_AR', tier4, [/*'minister'*/].map(x => x + '_AR'));
 
-//        addUpgrades('doper_AR', 3, []);
-//            addUpgrades('doper_AR', tier4, []);
+        addUpgrades('doper_AR', 3, []);
+            addUpgrades('doper_AR', tier4, []);
 
     addUpgrades('pounder', 2, []);
         addUpgrades('pounder', 3, []);
@@ -1553,7 +3621,7 @@ addUpgrades('basic', 1, []);
         addUpgrades('launcher', 3, []);
             addUpgrades('launcher', tier4, []);
 
-    addUpgrades('trapper', 2, []);
+    addUpgrades('trapper', 2, ['pen', 'mech', 'machineTrapper'].map(x => x + '_AR'));
         addUpgrades('trapper', 3, []);
             addUpgrades('trapper', tier4, []);
 
@@ -1563,14 +3631,13 @@ addUpgrades('basic', 1, []);
 
         //addUpgrades('trapGuard', 3, []);
 
-//        addUpgrades('pen_AR', 3, []);
-//            addUpgrades('pen_AR', tier4, []);
+        addUpgrades('pen_AR', 3, []);
+            addUpgrades('pen_AR', tier4, []);
 
-//        addUpgrades('mech_AR', 3, []);
-//            addUpgrades('mech_AR', tier4, []);
+        addUpgrades('mech_AR', 3, ['engineer']);
+            addUpgrades('mech_AR', tier4, []);
 
-//        addUpgrades('machineTrapper_AR', 3, []);
-//            addUpgrades('machineTrapper_AR', tier4, []);
+        //addUpgrades('machineTrapper_AR', 3, []);
 
         //addUpgrades('wark_AR', 3, []);
 
@@ -1581,6 +3648,8 @@ addUpgrades('basic', 1, []);
         //addUpgrades('helix_AR', 3, []);
 
 removeUpgrades('twin', 3, ['bulwark']);
+removeUpgrades('director', 3, ['bigCheese']);
+removeUpgrades('trapper', 3, ['barricade']);
 
 if (use_original_tree) {
     addUpgrades('basic', 3, ['single']);
@@ -1618,7 +3687,7 @@ Class.unnamed_24987_AR = {
     STAT_NAMES: 0,
     SHAPE: 3,
     COLOR: 9,
-}
+};
 Class.unnamed_28741_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1626,7 +3695,7 @@ Class.unnamed_28741_AR = {
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 9,
-}
+};
 Class.unknownClass_5627_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
@@ -1634,7 +3703,7 @@ Class.unknownClass_5627_AR = {
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 9,
-}
+};
 Class.unnamed_36502_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1642,7 +3711,7 @@ Class.unnamed_36502_AR = {
     STAT_NAMES: 0,
     SHAPE: 5,
     COLOR: 9,
-}
+};
 Class.unnamed_29686_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1650,7 +3719,7 @@ Class.unnamed_29686_AR = {
     STAT_NAMES: 0,
     SHAPE: 6,
     COLOR: 9,
-}
+};
 Class.unknownClass_18594_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
@@ -1658,7 +3727,7 @@ Class.unknownClass_18594_AR = {
     STAT_NAMES: 0,
     SHAPE: [[-1, 0], [-0.9499300122261047, -0.04666706919670105], [-0.9144831299781799, -0.09006872773170471], [-0.8830859661102295, -0.13099342584609985], [-0.8547371625900269, -0.1700177937746048], [-0.8292582631111145, -0.2077183872461319], [-0.8066451549530029, -0.24469313025474548], [-0.786886990070343, -0.28155267238616943], [-0.7698996067047119, -0.318902850151062], [-0.7555009126663208, -0.35732531547546387], [-0.7434084415435791, -0.39736008644104004], [-0.7332532405853271, -0.4394950866699219], [-0.7246111631393433, -0.48416969180107117], [-0.7170624136924744, -0.5318097472190857], [-0.7103254199028015, -0.5829489827156067], [-0.7047005295753479, -0.6387033462524414], [-0.7071067690849304, -0.7071067690849304], [-0.6387033462524414, -0.7047005295753479], [-0.5829489827156067, -0.7103254199028015], [-0.5318097472190857, -0.7170624136924744], [-0.48416969180107117, -0.7246111631393433], [-0.4394950866699219, -0.7332532405853271], [-0.39736008644104004, -0.7434084415435791], [-0.35732531547546387, -0.7555009126663208], [-0.318902850151062, -0.7698996067047119], [-0.28155267238616943, -0.786886990070343], [-0.24469313025474548, -0.8066451549530029], [-0.2077183872461319, -0.8292582631111145], [-0.1700177937746048, -0.8547371625900269], [-0.13099342584609985, -0.8830859661102295], [-0.09006872773170471, -0.9144831299781799], [-0.04666706919670105, -0.9499300122261047], [-6.123234262925839e-17, -1.0], [0.04666706919670105, -0.9499300122261047], [0.09006872773170471, -0.9144831299781799], [0.13099342584609985, -0.8830859661102295], [0.1700177937746048, -0.8547371625900269], [0.2077183872461319, -0.8292582631111145], [0.24469313025474548, -0.8066451549530029], [0.28155267238616943, -0.786886990070343], [0.318902850151062, -0.7698996067047119], [0.35732531547546387, -0.7555009126663208], [0.39736008644104004, -0.7434084415435791], [0.4394950866699219, -0.7332532405853271], [0.48416969180107117, -0.7246111631393433], [0.5318097472190857, -0.7170624136924744], [0.5829489827156067, -0.7103254199028015], [0.6387033462524414, -0.7047005295753479], [0.7071067690849304, -0.7071067690849304], [0.7047005295753479, -0.6387033462524414], [0.7103254199028015, -0.5829489827156067], [0.7170624136924744, -0.5318097472190857], [0.7246111631393433, -0.48416969180107117], [0.7332532405853271, -0.4394950866699219], [0.7434084415435791, -0.39736008644104004], [0.7555009126663208, -0.35732531547546387], [0.7698996067047119, -0.318902850151062], [0.786886990070343, -0.28155267238616943], [0.8066451549530029, -0.24469313025474548], [0.8292582631111145, -0.2077183872461319], [0.8547371625900269, -0.1700177937746048], [0.8830859661102295, -0.13099342584609985], [0.9144831299781799, -0.09006872773170471], [0.9499300122261047, -0.04666706919670105], [1.0, -1.2246468525851679e-16], [0.9499300122261047, 0.04666706919670105], [0.9144831299781799, 0.09006872773170471], [0.8830859661102295, 0.13099342584609985], [0.8547371625900269, 0.1700177937746048], [0.8292582631111145, 0.2077183872461319], [0.8066451549530029, 0.24469313025474548], [0.786886990070343, 0.28155267238616943], [0.7698996067047119, 0.318902850151062], [0.7555009126663208, 0.35732531547546387], [0.7434084415435791, 0.39736008644104004], [0.7332532405853271, 0.4394950866699219], [0.7246111631393433, 0.48416969180107117], [0.7170624136924744, 0.5318097472190857], [0.7103254199028015, 0.5829489827156067], [0.7047005295753479, 0.6387033462524414], [0.7071067690849304, 0.7071067690849304], [0.6387033462524414, 0.7047005295753479], [0.5829489827156067, 0.7103254199028015], [0.5318097472190857, 0.7170624136924744], [0.48416969180107117, 0.7246111631393433], [0.4394950866699219, 0.7332532405853271], [0.39736008644104004, 0.7434084415435791], [0.35732531547546387, 0.7555009126663208], [0.318902850151062, 0.7698996067047119], [0.28155267238616943, 0.786886990070343], [0.24469313025474548, 0.8066451549530029], [0.2077183872461319, 0.8292582631111145], [0.1700177937746048, 0.8547371625900269], [0.13099342584609985, 0.8830859661102295], [0.09006872773170471, 0.9144831299781799], [0.04666706919670105, 0.9499300122261047], [1.8369701465288538e-16, 1.0], [-0.04666706919670105, 0.9499300122261047], [-0.09006872773170471, 0.9144831299781799], [-0.13099342584609985, 0.8830859661102295], [-0.1700177937746048, 0.8547371625900269], [-0.2077183872461319, 0.8292582631111145], [-0.24469313025474548, 0.8066451549530029], [-0.28155267238616943, 0.786886990070343], [-0.318902850151062, 0.7698996067047119], [-0.35732531547546387, 0.7555009126663208], [-0.39736008644104004, 0.7434084415435791], [-0.4394950866699219, 0.7332532405853271], [-0.48416969180107117, 0.7246111631393433], [-0.5318097472190857, 0.7170624136924744], [-0.5829489827156067, 0.7103254199028015], [-0.6387033462524414, 0.7047005295753479], [-0.7071067690849304, 0.7071067690849304], [-0.7047005295753479, 0.6387033462524414], [-0.7103254199028015, 0.5829489827156067], [-0.7170624136924744, 0.5318097472190857], [-0.7246111631393433, 0.48416969180107117], [-0.7332532405853271, 0.4394950866699219], [-0.7434084415435791, 0.39736008644104004], [-0.7555009126663208, 0.35732531547546387], [-0.7698996067047119, 0.318902850151062], [-0.786886990070343, 0.28155267238616943], [-0.8066451549530029, 0.24469313025474548], [-0.8292582631111145, 0.2077183872461319], [-0.8547371625900269, 0.1700177937746048], [-0.8830859661102295, 0.13099342584609985], [-0.9144831299781799, 0.09006872773170471], [-0.9499300122261047, 0.04666706919670105]],
     COLOR: 9,
-}
+};
 Class.unknownClass_36828_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
@@ -1666,7 +3735,7 @@ Class.unknownClass_36828_AR = {
     STAT_NAMES: 0,
     SHAPE: [[-1, 0], [-0.9547625184059143, -0.027780752629041672], [-0.9238945841789246, -0.0538107305765152], [-0.8974711894989014, -0.07851855456829071], [-0.8744010329246521, -0.10220282524824142], [-0.8544119000434875, -0.12515291571617126], [-0.8374584317207336, -0.14766651391983032], [-0.8235569596290588, -0.17005082964897156], [-0.8127220869064331, -0.19261868298053741], [-0.8049381971359253, -0.21568253636360168], [-0.800147294998169, -0.23954838514328003], [-0.7982466816902161, -0.2645101547241211], [-0.7990935444831848, -0.2908462584018707], [-0.8025188446044922, -0.31882035732269287], [-0.808354914188385, -0.3486902713775635], [-0.8164921402931213, -0.3807365298271179], [-0.8270215392112732, -0.41534584760665894], [-0.8407390117645264, -0.4533224403858185], [-0.8660253882408142, -0.5], [-0.8129582405090332, -0.5014401078224182], [-0.7732108235359192, -0.5085487365722656], [-0.7379735708236694, -0.5167346596717834], [-0.706152081489563, -0.5257107615470886], [-0.6773659586906433, -0.5355915427207947], [-0.6514270305633545, -0.5466121435165405], [-0.6281958222389221, -0.5590468049049377], [-0.6075286269187927, -0.5731737017631531], [-0.5892556309700012, -0.5892556309700012], [-0.5731737017631531, -0.6075286269187927], [-0.5590468049049377, -0.6281958222389221], [-0.5466121435165405, -0.6514270305633545], [-0.5355915427207947, -0.6773659586906433], [-0.5257107615470886, -0.706152081489563], [-0.5167346596717834, -0.7379735708236694], [-0.5085487365722656, -0.7732108235359192], [-0.5014401078224182, -0.8129582405090332], [-0.5, -0.8660253882408142], [-0.4533224403858185, -0.8407390117645264], [-0.41534584760665894, -0.8270215392112732], [-0.3807365298271179, -0.8164921402931213], [-0.3486902713775635, -0.808354914188385], [-0.31882035732269287, -0.8025188446044922], [-0.2908462584018707, -0.7990935444831848], [-0.2645101547241211, -0.7982466816902161], [-0.23954838514328003, -0.800147294998169], [-0.21568253636360168, -0.8049381971359253], [-0.19261868298053741, -0.8127220869064331], [-0.17005082964897156, -0.8235569596290588], [-0.14766651391983032, -0.8374584317207336], [-0.12515291571617126, -0.8544119000434875], [-0.10220282524824142, -0.8744010329246521], [-0.07851855456829071, -0.8974711894989014], [-0.0538107305765152, -0.9238945841789246], [-0.027780752629041672, -0.9547625184059143], [-6.123234262925839e-17, -1.0], [0.027780752629041672, -0.9547625184059143], [0.0538107305765152, -0.9238945841789246], [0.07851855456829071, -0.8974711894989014], [0.10220282524824142, -0.8744010329246521], [0.12515291571617126, -0.8544119000434875], [0.14766651391983032, -0.8374584317207336], [0.17005082964897156, -0.8235569596290588], [0.19261868298053741, -0.8127220869064331], [0.21568253636360168, -0.8049381971359253], [0.23954838514328003, -0.800147294998169], [0.2645101547241211, -0.7982466816902161], [0.2908462584018707, -0.7990935444831848], [0.31882035732269287, -0.8025188446044922], [0.3486902713775635, -0.808354914188385], [0.3807365298271179, -0.8164921402931213], [0.41534584760665894, -0.8270215392112732], [0.4533224403858185, -0.8407390117645264], [0.5, -0.8660253882408142], [0.5014401078224182, -0.8129582405090332], [0.5085487365722656, -0.7732108235359192], [0.5167346596717834, -0.7379735708236694], [0.5257107615470886, -0.706152081489563], [0.5355915427207947, -0.6773659586906433], [0.5466121435165405, -0.6514270305633545], [0.5590468049049377, -0.6281958222389221], [0.5731737017631531, -0.6075286269187927], [0.5892556309700012, -0.5892556309700012], [0.6075286269187927, -0.5731737017631531], [0.6281958222389221, -0.5590468049049377], [0.6514270305633545, -0.5466121435165405], [0.6773659586906433, -0.5355915427207947], [0.706152081489563, -0.5257107615470886], [0.7379735708236694, -0.5167346596717834], [0.7732108235359192, -0.5085487365722656], [0.8129582405090332, -0.5014401078224182], [0.8660253882408142, -0.5], [0.8407390117645264, -0.4533224403858185], [0.8270215392112732, -0.41534584760665894], [0.8164921402931213, -0.3807365298271179], [0.808354914188385, -0.3486902713775635], [0.8025188446044922, -0.31882035732269287], [0.7990935444831848, -0.2908462584018707], [0.7982466816902161, -0.2645101547241211], [0.800147294998169, -0.23954838514328003], [0.8049381971359253, -0.21568253636360168], [0.8127220869064331, -0.19261868298053741], [0.8235569596290588, -0.17005082964897156], [0.8374584317207336, -0.14766651391983032], [0.8544119000434875, -0.12515291571617126], [0.8744010329246521, -0.10220282524824142], [0.8974711894989014, -0.07851855456829071], [0.9238945841789246, -0.0538107305765152], [0.9547625184059143, -0.027780752629041672], [1.0, -1.2246468525851679e-16], [0.9547625184059143, 0.027780752629041672], [0.9238945841789246, 0.0538107305765152], [0.8974711894989014, 0.07851855456829071], [0.8744010329246521, 0.10220282524824142], [0.8544119000434875, 0.12515291571617126], [0.8374584317207336, 0.14766651391983032], [0.8235569596290588, 0.17005082964897156], [0.8127220869064331, 0.19261868298053741], [0.8049381971359253, 0.21568253636360168], [0.800147294998169, 0.23954838514328003], [0.7982466816902161, 0.2645101547241211], [0.7990935444831848, 0.2908462584018707], [0.8025188446044922, 0.31882035732269287], [0.808354914188385, 0.3486902713775635], [0.8164921402931213, 0.3807365298271179], [0.8270215392112732, 0.41534584760665894], [0.8407390117645264, 0.4533224403858185], [0.8660253882408142, 0.5], [0.8129582405090332, 0.5014401078224182], [0.7732108235359192, 0.5085487365722656], [0.7379735708236694, 0.5167346596717834], [0.706152081489563, 0.5257107615470886], [0.6773659586906433, 0.5355915427207947], [0.6514270305633545, 0.5466121435165405], [0.6281958222389221, 0.5590468049049377], [0.6075286269187927, 0.5731737017631531], [0.5892556309700012, 0.5892556309700012], [0.5731737017631531, 0.6075286269187927], [0.5590468049049377, 0.6281958222389221], [0.5466121435165405, 0.6514270305633545], [0.5355915427207947, 0.6773659586906433], [0.5257107615470886, 0.706152081489563], [0.5167346596717834, 0.7379735708236694], [0.5085487365722656, 0.7732108235359192], [0.5014401078224182, 0.8129582405090332], [0.5, 0.8660253882408142], [0.4533224403858185, 0.8407390117645264], [0.41534584760665894, 0.8270215392112732], [0.3807365298271179, 0.8164921402931213], [0.3486902713775635, 0.808354914188385], [0.31882035732269287, 0.8025188446044922], [0.2908462584018707, 0.7990935444831848], [0.2645101547241211, 0.7982466816902161], [0.23954838514328003, 0.800147294998169], [0.21568253636360168, 0.8049381971359253], [0.19261868298053741, 0.8127220869064331], [0.17005082964897156, 0.8235569596290588], [0.14766651391983032, 0.8374584317207336], [0.12515291571617126, 0.8544119000434875], [0.10220282524824142, 0.8744010329246521], [0.07851855456829071, 0.8974711894989014], [0.0538107305765152, 0.9238945841789246], [0.027780752629041672, 0.9547625184059143], [1.8369701465288538e-16, 1.0], [-0.027780752629041672, 0.9547625184059143], [-0.0538107305765152, 0.9238945841789246], [-0.07851855456829071, 0.8974711894989014], [-0.10220282524824142, 0.8744010329246521], [-0.12515291571617126, 0.8544119000434875], [-0.14766651391983032, 0.8374584317207336], [-0.17005082964897156, 0.8235569596290588], [-0.19261868298053741, 0.8127220869064331], [-0.21568253636360168, 0.8049381971359253], [-0.23954838514328003, 0.800147294998169], [-0.2645101547241211, 0.7982466816902161], [-0.2908462584018707, 0.7990935444831848], [-0.31882035732269287, 0.8025188446044922], [-0.3486902713775635, 0.808354914188385], [-0.3807365298271179, 0.8164921402931213], [-0.41534584760665894, 0.8270215392112732], [-0.4533224403858185, 0.8407390117645264], [-0.5, 0.8660253882408142], [-0.5014401078224182, 0.8129582405090332], [-0.5085487365722656, 0.7732108235359192], [-0.5167346596717834, 0.7379735708236694], [-0.5257107615470886, 0.706152081489563], [-0.5355915427207947, 0.6773659586906433], [-0.5466121435165405, 0.6514270305633545], [-0.5590468049049377, 0.6281958222389221], [-0.5731737017631531, 0.6075286269187927], [-0.5892556309700012, 0.5892556309700012], [-0.6075286269187927, 0.5731737017631531], [-0.6281958222389221, 0.5590468049049377], [-0.6514270305633545, 0.5466121435165405], [-0.6773659586906433, 0.5355915427207947], [-0.706152081489563, 0.5257107615470886], [-0.7379735708236694, 0.5167346596717834], [-0.7732108235359192, 0.5085487365722656], [-0.8129582405090332, 0.5014401078224182], [-0.8660253882408142, 0.5], [-0.8407390117645264, 0.4533224403858185], [-0.8270215392112732, 0.41534584760665894], [-0.8164921402931213, 0.3807365298271179], [-0.808354914188385, 0.3486902713775635], [-0.8025188446044922, 0.31882035732269287], [-0.7990935444831848, 0.2908462584018707], [-0.7982466816902161, 0.2645101547241211], [-0.800147294998169, 0.23954838514328003], [-0.8049381971359253, 0.21568253636360168], [-0.8127220869064331, 0.19261868298053741], [-0.8235569596290588, 0.17005082964897156], [-0.8374584317207336, 0.14766651391983032], [-0.8544119000434875, 0.12515291571617126], [-0.8744010329246521, 0.10220282524824142], [-0.8974711894989014, 0.07851855456829071], [-0.9238945841789246, 0.0538107305765152], [-0.9547625184059143, 0.027780752629041672]],
     COLOR: 9,
-}
+};
 Class.unknownClass_59626_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
@@ -1674,7 +3743,7 @@ Class.unknownClass_59626_AR = {
     STAT_NAMES: 0,
     SHAPE: [[-1, 0], [-0.8550236225128174, -0.0537935271859169], [-0.8069185614585876, -0.10193752497434616], [-0.7712593674659729, -0.14712558686733246], [-0.7422848343849182, -0.19058634340763092], [-0.7180173993110657, -0.23329798877239227], [-0.6975159645080566, -0.2761661112308502], [-0.6802315711975098, -0.32009267807006836], [-0.6658210754394531, -0.3660382330417633], [-0.6541486382484436, -0.41513535380363464], [-0.6454916000366211, -0.4689771234989166], [-0.6413562297821045, -0.5305759906768799], [-0.6495586037635803, -0.6099761128425598], [-0.6099761128425598, -0.6495586037635803], [-0.5305759906768799, -0.6413562297821045], [-0.4689771234989166, -0.6454916000366211], [-0.41513535380363464, -0.6541486382484436], [-0.3660382330417633, -0.6658210754394531], [-0.32009267807006836, -0.6802315711975098], [-0.2761661112308502, -0.6975159645080566], [-0.23329798877239227, -0.7180173993110657], [-0.19058634340763092, -0.7422848343849182], [-0.14712558686733246, -0.7712593674659729], [-0.10193752497434616, -0.8069185614585876], [-0.0537935271859169, -0.8550236225128174], [1.6081223582599331e-16, -0.9999997615814209], [0.0537935271859169, -0.8550236225128174], [0.10193752497434616, -0.8069185614585876], [0.14712558686733246, -0.7712593674659729], [0.19058634340763092, -0.7422848343849182], [0.23329798877239227, -0.7180173993110657], [0.2761661112308502, -0.6975159645080566], [0.32009267807006836, -0.6802315711975098], [0.3660382330417633, -0.6658210754394531], [0.41513535380363464, -0.6541486382484436], [0.4689771234989166, -0.6454916000366211], [0.5305759906768799, -0.6413562297821045], [0.6099761128425598, -0.6495586037635803], [0.6495586037635803, -0.6099761128425598], [0.6413562297821045, -0.5305759906768799], [0.6454916000366211, -0.4689771234989166], [0.6541486382484436, -0.41513535380363464], [0.6658210754394531, -0.3660382330417633], [0.6802315711975098, -0.32009267807006836], [0.6975159645080566, -0.2761661112308502], [0.7180173993110657, -0.23329798877239227], [0.7422848343849182, -0.19058634340763092], [0.7712593674659729, -0.14712558686733246], [0.8069185614585876, -0.10193752497434616], [0.8550236225128174, -0.0537935271859169], [0.9999997019767761, 3.2162444518220703e-16], [0.8550236225128174, 0.0537935271859169], [0.8069185614585876, 0.10193752497434616], [0.7712593674659729, 0.14712558686733246], [0.7422848343849182, 0.19058634340763092], [0.7180173993110657, 0.23329798877239227], [0.6975159645080566, 0.2761661112308502], [0.6802315711975098, 0.32009267807006836], [0.6658210754394531, 0.3660382330417633], [0.6541486382484436, 0.41513535380363464], [0.6454916000366211, 0.4689771234989166], [0.6413562297821045, 0.5305759906768799], [0.6495586037635803, 0.6099761128425598], [0.6099761128425598, 0.6495586037635803], [0.5305759906768799, 0.6413562297821045], [0.4689771234989166, 0.6454916000366211], [0.41513535380363464, 0.6541486382484436], [0.3660382330417633, 0.6658210754394531], [0.32009267807006836, 0.6802315711975098], [0.2761661112308502, 0.6975159645080566], [0.23329798877239227, 0.7180173993110657], [0.19058634340763092, 0.7422848343849182], [0.14712558686733246, 0.7712593674659729], [0.10193752497434616, 0.8069185614585876], [0.0537935271859169, 0.8550236225128174], [1.8369697494821597e-16, 0.9999997615814209], [-0.0537935271859169, 0.8550236225128174], [-0.10193752497434616, 0.8069185614585876], [-0.14712558686733246, 0.7712593674659729], [-0.19058634340763092, 0.7422848343849182], [-0.23329798877239227, 0.7180173993110657], [-0.2761661112308502, 0.6975159645080566], [-0.32009267807006836, 0.6802315711975098], [-0.3660382330417633, 0.6658210754394531], [-0.41513535380363464, 0.6541486382484436], [-0.4689771234989166, 0.6454916000366211], [-0.5305759906768799, 0.6413562297821045], [-0.6099761128425598, 0.6495586037635803], [-0.6495586037635803, 0.6099761128425598], [-0.6413562297821045, 0.5305759906768799], [-0.6454916000366211, 0.4689771234989166], [-0.6541486382484436, 0.41513535380363464], [-0.6658210754394531, 0.3660382330417633], [-0.6802315711975098, 0.32009267807006836], [-0.6975159645080566, 0.2761661112308502], [-0.7180173993110657, 0.23329798877239227], [-0.7422848343849182, 0.19058634340763092], [-0.7712593674659729, 0.14712558686733246], [-0.8069185614585876, 0.10193752497434616], [-0.8550236225128174, 0.0537935271859169]],
     COLOR: 9,
-}
+};
 Class.unnamed_38115_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1704,9 +3773,8 @@ Class.unnamed_38115_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_50514_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1736,9 +3804,8 @@ Class.unnamed_50514_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_10007_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1758,9 +3825,8 @@ Class.unnamed_10007_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_26034_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1780,9 +3846,8 @@ Class.unnamed_26034_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_49970_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1802,9 +3867,8 @@ Class.unnamed_49970_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_56743_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1834,9 +3898,8 @@ Class.unnamed_56743_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_63056_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1876,9 +3939,8 @@ Class.unnamed_63056_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_31232_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1908,9 +3970,8 @@ Class.unnamed_31232_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_2560_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1940,9 +4001,8 @@ Class.unnamed_2560_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_65428_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1962,9 +4022,8 @@ Class.unnamed_65428_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_19040_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -1994,9 +4053,8 @@ Class.unnamed_19040_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_57137_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2036,9 +4094,8 @@ Class.unnamed_57137_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_14345_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2078,9 +4135,8 @@ Class.unnamed_14345_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_28538_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2130,9 +4186,8 @@ Class.unnamed_28538_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_11140_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2152,9 +4207,8 @@ Class.unnamed_11140_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_44885_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2194,9 +4248,8 @@ Class.unnamed_44885_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_23761_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2226,9 +4279,8 @@ Class.unnamed_23761_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_18236_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2248,9 +4300,8 @@ Class.unnamed_18236_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_31022_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2270,9 +4321,8 @@ Class.unnamed_31022_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_60505_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2302,9 +4352,8 @@ Class.unnamed_60505_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_45845_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2354,9 +4403,8 @@ Class.unnamed_45845_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_19419_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2396,9 +4444,8 @@ Class.unnamed_19419_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_30339_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2448,9 +4495,8 @@ Class.unnamed_30339_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_24994_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2490,9 +4536,8 @@ Class.unnamed_24994_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unnamed_14474_AR = {
     PARENT: 'genericTank',
     LABEL: '',
@@ -2532,9 +4577,8 @@ Class.unnamed_14474_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.acquirer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Acquirer',
@@ -2574,9 +4618,8 @@ Class.acquirer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.adderall_AR = {
     PARENT: 'genericTank',
     LABEL: 'Adderall',
@@ -2606,9 +4649,8 @@ Class.adderall_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.addict_AR = {
     PARENT: 'genericTank',
     LABEL: 'Addict',
@@ -2638,9 +4680,8 @@ Class.addict_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.adjurer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Adjurer',
@@ -2770,9 +4811,8 @@ Class.adjurer_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.aerodome_AR = {
     PARENT: 'genericTank',
     LABEL: 'Aerodome',
@@ -2832,9 +4872,8 @@ Class.aerodome_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.affiliator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Affiliator',
@@ -2904,9 +4943,8 @@ Class.affiliator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.airfield_AR = {
     PARENT: 'genericTank',
     LABEL: 'Airfield',
@@ -2970,7 +5008,7 @@ Class.airfield_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -2979,9 +5017,8 @@ Class.airfield_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.alloy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Alloy',
@@ -3114,9 +5151,8 @@ Class.alloy_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.amalgam_AR = {
     PARENT: 'genericTank',
     LABEL: 'Amalgam',
@@ -3146,9 +5182,8 @@ Class.amalgam_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.anaconda_AR = {
     PARENT: 'genericTank',
     LABEL: 'Anaconda',
@@ -3198,9 +5233,8 @@ Class.anaconda_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.anchor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Anchor',
@@ -3240,9 +5274,8 @@ Class.anchor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.annexer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Annexer',
@@ -3322,9 +5355,8 @@ Class.annexer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.annihilator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Annihilator',
@@ -3357,8 +5389,8 @@ Class.annihilator_AR = {
         'autoannihilator',
         'shaver',
         'eradicator',
-    ],
-}
+    ]
+};
 Class.anomaly_AR = {
     PARENT: 'genericTank',
     LABEL: 'Anomaly',
@@ -3408,9 +5440,8 @@ Class.anomaly_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.apiarist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Apiarist',
@@ -3450,9 +5481,8 @@ Class.apiarist_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.apiculturist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Apiculturist',
@@ -3502,9 +5532,8 @@ Class.apiculturist_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.arbalest_AR = {
     PARENT: 'genericTank',
     LABEL: 'Arbalest',
@@ -3594,9 +5623,8 @@ Class.arbalest_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.architect_AR = {
     PARENT: 'genericTank',
     LABEL: 'Architect',
@@ -3648,8 +5676,8 @@ Class.architect_AR = {
         'designer',
         'draftsman',
         'architectGuard',
-    ],
-}
+    ]
+};
 Class.architectGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Architect Guard',
@@ -3702,9 +5730,8 @@ Class.architectGuard_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.armament_AR = {
     PARENT: 'genericTank',
     LABEL: 'Armament',
@@ -3774,9 +5801,8 @@ Class.armament_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.armsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Armsman',
@@ -3829,8 +5855,8 @@ Class.armsman_AR = {
         'autoarmsman',
         'slayer',
         'pilfer',
-    ],
-}
+    ]
+};
 Class.armsmandrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Armsmandrive',
@@ -3874,7 +5900,7 @@ Class.armsmandrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -3883,9 +5909,8 @@ Class.armsmandrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.arsenal_AR = {
     PARENT: 'genericTank',
     LABEL: 'Arsenal',
@@ -3945,9 +5970,8 @@ Class.arsenal_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.artificer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Artificer',
@@ -3987,9 +6011,8 @@ Class.artificer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.artillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Artillery',
@@ -4046,8 +6069,8 @@ Class.artillery_AR = {
     UPGRADES_TIER_4: [
         'blare',
         'erne',
-    ],
-}
+    ]
+};
 Class.artist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Artist',
@@ -4086,9 +6109,8 @@ Class.artist_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.aspirer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Aspirer',
@@ -4161,9 +6183,8 @@ Class.aspirer_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.assailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assailer',
@@ -4213,9 +6234,8 @@ Class.assailer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.assassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assassin',
@@ -4261,8 +6281,8 @@ Class.assassin_AR = {
     UPGRADES_TIER_4: [
         'executor',
         'finger',
-    ],
-}
+    ]
+};
 Class.assassin3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assassin-3',
@@ -4301,9 +6321,8 @@ Class.assassin3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.assaulter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assaulter',
@@ -4403,9 +6422,8 @@ Class.assaulter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.assembler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assembler',
@@ -4435,9 +6453,8 @@ Class.assembler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.assimilator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assimilator',
@@ -4507,9 +6524,8 @@ Class.assimilator_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.assistant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assistant',
@@ -4549,9 +6565,8 @@ Class.assistant_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.auto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-3',
@@ -4601,8 +6616,8 @@ Class.auto3_AR = {
         'crowbar',
         'autoauto3',
         'combo',
-    ],
-}
+    ]
+};
 Class.auto4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-4',
@@ -4661,8 +6676,8 @@ Class.auto4_AR = {
         'volley4',
         'chisel',
         'trove',
-    ],
-}
+    ]
+};
 Class.auto5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-5',
@@ -4731,8 +6746,8 @@ Class.auto5_AR = {
         'sniper5',
         'pryer',
         'autoauto5',
-    ],
-}
+    ]
+};
 Class.auto6_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-6',
@@ -4801,9 +6816,8 @@ Class.auto6_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.auto7_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-7',
@@ -4882,9 +6896,8 @@ Class.auto7_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoannihilator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Annihilator',
@@ -4917,9 +6930,8 @@ Class.autoannihilator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoarmsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Armsman',
@@ -4972,9 +6984,8 @@ Class.autoarmsman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Artillery',
@@ -5041,8 +7052,8 @@ Class.autoartillery_AR = {
         'autoforce',
         'autofoctillery',
         'autodischarger',
-    ],
-}
+    ]
+};
 Class.autoassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Assassin',
@@ -5098,8 +7109,8 @@ Class.autoassassin_AR = {
         'autosniper3',
         'autoenforcer',
         'autocourser',
-    ],
-}
+    ]
+};
 Class.autoauto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Auto-3',
@@ -5160,8 +7171,8 @@ Class.autoauto3_AR = {
         'autosniper3',
         'autocrowbar',
         'autocombo',
-    ],
-}
+    ]
+};
 Class.autoauto4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Auto-4',
@@ -5220,9 +7231,8 @@ Class.autoauto4_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoauto5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Auto-5',
@@ -5291,9 +7301,8 @@ Class.autoauto5_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobaltimore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Baltimore',
@@ -5336,9 +7345,8 @@ Class.autobaltimore_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobanger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Banger',
@@ -5367,9 +7375,8 @@ Class.autobanger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobanshee_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Banshee',
@@ -5452,9 +7459,8 @@ Class.autobanshee_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Barricade',
@@ -5517,9 +7523,8 @@ Class.autobarricade_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobattery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Battery',
@@ -5592,9 +7597,8 @@ Class.autobattery_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobattleship_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Battleship',
@@ -5657,9 +7661,8 @@ Class.autobattleship_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobeekeeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Beekeeper',
@@ -5712,9 +7715,8 @@ Class.autobeekeeper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobentDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Double',
@@ -5797,9 +7799,8 @@ Class.autobentDouble_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobentGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Gunner',
@@ -5882,9 +7883,8 @@ Class.autobentGunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobentHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Hybrid',
@@ -5947,9 +7947,8 @@ Class.autobentHybrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobentMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Minigun',
@@ -6042,9 +8041,8 @@ Class.autobentMinigun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobigCheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Big Cheese',
@@ -6077,9 +8075,8 @@ Class.autobigCheese_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoblower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Blower',
@@ -6142,9 +8139,8 @@ Class.autoblower_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobomber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bomber',
@@ -6237,9 +8233,8 @@ Class.autobomber_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobonker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bonker',
@@ -6268,9 +8263,8 @@ Class.autobonker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoboomer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Boomer',
@@ -6323,9 +8317,8 @@ Class.autoboomer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobooster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Booster',
@@ -6398,9 +8391,8 @@ Class.autobooster_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobrisker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Brisker',
@@ -6443,9 +8435,8 @@ Class.autobrisker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Builder',
@@ -6501,8 +8492,8 @@ Class.autobuilder_AR = {
         'autostall',
         'autofashioner',
         'autocharger',
-    ],
-}
+    ]
+};
 Class.autobulwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bulwark',
@@ -6585,9 +8576,8 @@ Class.autobulwark_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobushwhacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bushwhacker',
@@ -6640,9 +8630,8 @@ Class.autobushwhacker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autobuttbuttin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Buttbuttin',
@@ -6715,9 +8704,8 @@ Class.autobuttbuttin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocaptain_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Captain',
@@ -6800,9 +8788,8 @@ Class.autocaptain_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocarrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Carrier',
@@ -6855,9 +8842,8 @@ Class.autocarrier_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocharger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Charger',
@@ -6910,9 +8896,8 @@ Class.autocharger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocluster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cluster',
@@ -6955,9 +8940,8 @@ Class.autocluster_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocoalesce_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Coalesce',
@@ -7030,9 +9014,8 @@ Class.autocoalesce_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocobbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cobbler',
@@ -7095,9 +9078,8 @@ Class.autocobbler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocockatiel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cockatiel',
@@ -7180,9 +9162,8 @@ Class.autocockatiel_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocog_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cog',
@@ -7265,9 +9246,8 @@ Class.autocog_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocombo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Combo',
@@ -7350,9 +9330,8 @@ Class.autocombo_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocommander_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Commander',
@@ -7435,9 +9414,8 @@ Class.autocommander_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoconqueror_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Conqueror',
@@ -7490,9 +9468,8 @@ Class.autoconqueror_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoconstructor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Constructor',
@@ -7535,9 +9512,8 @@ Class.autoconstructor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocourser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Courser',
@@ -7590,9 +9566,8 @@ Class.autocourser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocropDuster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Crop Duster',
@@ -7655,9 +9630,8 @@ Class.autocropDuster_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocrossbow_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Crossbow',
@@ -7750,9 +9724,8 @@ Class.autocrossbow_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocrowbar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Crowbar',
@@ -7825,9 +9798,8 @@ Class.autocrowbar_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cruiser',
@@ -7882,8 +9854,8 @@ Class.autocruiser_AR = {
         'autoproductionist',
         'autobaltimore',
         'automosey',
-    ],
-}
+    ]
+};
 Class.autocruiserdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cruiserdrive',
@@ -7926,9 +9898,8 @@ Class.autocruiserdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autocyclone_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cyclone',
@@ -8071,9 +10042,8 @@ Class.autocyclone_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodeathStar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Death Star',
@@ -8156,9 +10126,8 @@ Class.autodeathStar_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodefect_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Defect',
@@ -8241,9 +10210,8 @@ Class.autodefect_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Destroyer',
@@ -8290,8 +10258,8 @@ Class.autodestroyer_AR = {
         'autoqueller',
         'autohurler',
         'autoslinker',
-    ],
-}
+    ]
+};
 Class.autodeviation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Deviation',
@@ -8344,9 +10312,8 @@ Class.autodeviation_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Diesel',
@@ -8388,8 +10355,8 @@ Class.autodiesel_AR = {
         'autojalopy',
         'autodieselTrapper',
         'autopolluter',
-    ],
-}
+    ]
+};
 Class.autodieselTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Diesel Trapper',
@@ -8432,9 +10399,8 @@ Class.autodieselTrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodirectordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Directordrive',
@@ -8477,8 +10443,8 @@ Class.autodirectordrive_AR = {
         'autocruiserdrive',
         'autounderdrive',
         'autospawnerdrive',
-    ],
-}
+    ]
+};
 Class.autodirectorstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Directorstorm',
@@ -8511,9 +10477,8 @@ Class.autodirectorstorm_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodischarger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Discharger',
@@ -8586,9 +10551,8 @@ Class.autodischarger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodoper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Doper',
@@ -8641,8 +10605,8 @@ Class.autodoper_AR = {
         'autoissuer',
         'autodoperdrive',
         'autojunkie',
-    ],
-}
+    ]
+};
 Class.autodoperdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Doperdrive',
@@ -8685,9 +10649,8 @@ Class.autodoperdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodopeseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Dopeseer',
@@ -8750,9 +10713,8 @@ Class.autodopeseer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Double',
@@ -8826,8 +10788,8 @@ Class.autodouble_AR = {
         'autodoubleFlankTwin',
         'autodoubleGunner',
         'autowarkwark',
-    ],
-}
+    ]
+};
 Class.autodoubleFlankTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Double Flank Twin',
@@ -8910,9 +10872,8 @@ Class.autodoubleFlankTwin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodoubleGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Double Gunner',
@@ -9015,9 +10976,8 @@ Class.autodoubleGunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodrifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Drifter',
@@ -9046,9 +11006,8 @@ Class.autodrifter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autodual_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Dual',
@@ -9111,9 +11070,8 @@ Class.autodual_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoeagle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Eagle',
@@ -9176,9 +11134,8 @@ Class.autoeagle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoencircler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Encircler',
@@ -9231,9 +11188,8 @@ Class.autoencircler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoenforcer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Enforcer',
@@ -9286,9 +11242,8 @@ Class.autoenforcer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoengineer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Engineer',
@@ -9351,9 +11306,8 @@ Class.autoengineer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoequalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Equalizer',
@@ -9456,9 +11410,8 @@ Class.autoequalizer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoexpeller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Expeller',
@@ -9521,9 +11474,8 @@ Class.autoexpeller_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofactory_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Factory',
@@ -9576,9 +11528,8 @@ Class.autofactory_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofalcon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Falcon',
@@ -9651,9 +11602,8 @@ Class.autofalcon_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofashioner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Fashioner',
@@ -9706,9 +11656,8 @@ Class.autofashioner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofieldGun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Field Gun',
@@ -9771,9 +11720,8 @@ Class.autofieldGun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofighter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Fighter',
@@ -9846,9 +11794,8 @@ Class.autofighter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofoctillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Foctillery',
@@ -9901,9 +11848,8 @@ Class.autofoctillery_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoforce_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Force',
@@ -9966,9 +11912,8 @@ Class.autoforce_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoforeman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Foreman',
@@ -10011,9 +11956,8 @@ Class.autoforeman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoforger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Forger',
@@ -10076,9 +12020,8 @@ Class.autoforger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autofoundry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Foundry',
@@ -10131,9 +12074,8 @@ Class.autofoundry_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autogunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Gunner',
@@ -10214,8 +12156,8 @@ Class.autogunner_AR = {
         'autorimfire',
         'autovolley',
         'autodoubleGunner',
-    ],
-}
+    ]
+};
 Class.autogunnerTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Gunner Trapper',
@@ -10288,9 +12230,8 @@ Class.autogunnerTrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohangar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hangar',
@@ -10363,9 +12304,8 @@ Class.autohangar_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoheaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Heaver',
@@ -10418,9 +12358,8 @@ Class.autoheaver_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohewnDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hewn Double',
@@ -10503,9 +12442,8 @@ Class.autohewnDouble_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hexa Tank',
@@ -10598,8 +12536,8 @@ Class.autohexaTank_AR = {
         'autodeathStar',
         'automingler',
         'autocombo',
-    ],
-}
+    ]
+};
 Class.autohexatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hexa-Trapper',
@@ -10762,9 +12700,8 @@ Class.autohexatrapper_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohitman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hitman',
@@ -10817,9 +12754,8 @@ Class.autohitman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohoncho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Honcho',
@@ -10863,8 +12799,8 @@ Class.autohoncho_AR = {
         'autobigCheese',
         'autohonchodrive',
         'autojunkie',
-    ],
-}
+    ]
+};
 Class.autohonchodrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Honchodrive',
@@ -10897,9 +12833,8 @@ Class.autohonchodrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hunter',
@@ -10954,8 +12889,8 @@ Class.autohunter_AR = {
         'automegaHunter',
         'autoprober',
         'autocourser',
-    ],
-}
+    ]
+};
 Class.autohurler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hurler',
@@ -10998,9 +12933,8 @@ Class.autohurler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohutch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hutch',
@@ -11083,9 +13017,8 @@ Class.autohutch_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autohybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hybrid',
@@ -11128,9 +13061,8 @@ Class.autohybrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoincarcerator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Incarcerator',
@@ -11193,9 +13125,8 @@ Class.autoincarcerator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoinception_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Inception',
@@ -11248,9 +13179,8 @@ Class.autoinception_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoinfestor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Infestor',
@@ -11313,9 +13243,8 @@ Class.autoinfestor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autointegrator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Integrator',
@@ -11378,9 +13307,8 @@ Class.autointegrator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autointerner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Interner',
@@ -11443,9 +13371,8 @@ Class.autointerner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoissuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Issuer',
@@ -11508,9 +13435,8 @@ Class.autoissuer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autojalopy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Jalopy',
@@ -11543,9 +13469,8 @@ Class.autojalopy_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autojunkie_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Junkie',
@@ -11588,9 +13513,8 @@ Class.autojunkie_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autolaborer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Laborer',
@@ -11643,9 +13567,8 @@ Class.autolaborer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autolandmine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Landmine',
@@ -11684,9 +13607,8 @@ Class.autolandmine_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autolauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Launcher',
@@ -11746,8 +13668,8 @@ Class.autolauncher_AR = {
         'autoprojector',
         'autoheaver',
         'autohurler',
-    ],
-}
+    ]
+};
 Class.automachineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Guard',
@@ -11800,9 +13722,8 @@ Class.automachineGuard_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automachineGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Gunner',
@@ -11875,9 +13796,8 @@ Class.automachineGunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automachineMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Mech',
@@ -11930,9 +13850,8 @@ Class.automachineMech_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automachineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Trapper',
@@ -11988,8 +13907,8 @@ Class.automachineTrapper_AR = {
         'automachineMech',
         'automachineGuard',
         'autoexpeller',
-    ],
-}
+    ]
+};
 Class.automanager_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Manager',
@@ -12022,9 +13941,8 @@ Class.automanager_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mech',
@@ -12088,8 +14006,8 @@ Class.automech_AR = {
         'autooperator',
         'autocobbler',
         'autocog',
-    ],
-}
+    ]
+};
 Class.automechGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mech Guard',
@@ -12152,9 +14070,8 @@ Class.automechGuard_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automegaHunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega Hunter',
@@ -12197,9 +14114,8 @@ Class.automegaHunter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automegaSpawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega Spawner',
@@ -12252,9 +14168,8 @@ Class.automegaSpawner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automegaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega Trapper',
@@ -12297,9 +14212,8 @@ Class.automegaTrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automega3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega-3',
@@ -12348,9 +14262,8 @@ Class.automega3_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automegasmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega-Smasher',
@@ -12379,9 +14292,8 @@ Class.automegasmasher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automingler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mingler',
@@ -12524,9 +14436,8 @@ Class.automingler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autominigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Minigun',
@@ -12593,8 +14504,8 @@ Class.autominigun_AR = {
         'autozipper',
         'autobentMinigun',
         'autowidget',
-    ],
-}
+    ]
+};
 Class.automortar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mortar',
@@ -12667,9 +14578,8 @@ Class.automortar_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automosey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mosey',
@@ -12732,9 +14642,8 @@ Class.automosey_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automusket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Musket',
@@ -12797,9 +14706,8 @@ Class.automusket_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autonailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Nailgun',
@@ -12862,9 +14770,8 @@ Class.autonailgun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autooctoTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Octo Tank',
@@ -12967,9 +14874,8 @@ Class.autooctoTank_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autooperator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Operator',
@@ -13032,9 +14938,8 @@ Class.autooperator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoordnance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Ordnance',
@@ -13097,9 +15002,8 @@ Class.autoordnance_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autooverdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overdrive',
@@ -13142,9 +15046,8 @@ Class.autooverdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoovergunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overgunner',
@@ -13217,9 +15120,8 @@ Class.autoovergunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autooverlord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overlord',
@@ -13282,9 +15184,8 @@ Class.autooverlord_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autooverseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overseer',
@@ -13340,8 +15241,8 @@ Class.autooverseer_AR = {
         'autocommander',
         'autoforeman',
         'autodopeseer',
-    ],
-}
+    ]
+};
 Class.autoovertrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overtrapper',
@@ -13404,9 +15305,8 @@ Class.autoovertrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autopeashooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Peashooter',
@@ -13469,9 +15369,8 @@ Class.autopeashooter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autopen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pen',
@@ -13536,8 +15435,8 @@ Class.autopen_AR = {
         'autointerner',
         'autocockatiel',
         'autohutch',
-    ],
-}
+    ]
+};
 Class.autopentaShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Penta Shot',
@@ -13610,9 +15509,8 @@ Class.autopentaShot_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autopitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pitcher',
@@ -13675,9 +15573,8 @@ Class.autopitcher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autopoacher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Poacher',
@@ -13730,9 +15627,8 @@ Class.autopoacher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autopolluter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Polluter',
@@ -13775,9 +15671,8 @@ Class.autopolluter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autopredator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Predator',
@@ -13830,9 +15725,8 @@ Class.autopredator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoprober_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Prober',
@@ -13885,9 +15779,8 @@ Class.autoprober_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoproductionist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Productionist',
@@ -13970,9 +15863,8 @@ Class.autoproductionist_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoprojector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Projector',
@@ -14035,9 +15927,8 @@ Class.autoprojector_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoquadangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Quad-Angle',
@@ -14100,9 +15991,8 @@ Class.autoquadangle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoqueller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Queller',
@@ -14155,9 +16045,8 @@ Class.autoqueller_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autorailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Railgun',
@@ -14210,9 +16099,8 @@ Class.autorailgun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoranger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Ranger',
@@ -14255,9 +16143,8 @@ Class.autoranger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autorifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Rifle',
@@ -14310,8 +16197,8 @@ Class.autorifle_AR = {
         'autoarmsman',
         'autoenforcer',
         'autoprober',
-    ],
-}
+    ]
+};
 Class.autorimfire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Rimfire',
@@ -14384,9 +16271,8 @@ Class.autorimfire_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autorocketeer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Rocketeer',
@@ -14429,9 +16315,8 @@ Class.autorocketeer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoshotgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Shotgun',
@@ -14564,9 +16449,8 @@ Class.autoshotgun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosidewinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Sidewinder',
@@ -14609,9 +16493,8 @@ Class.autosidewinder_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosingle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Single',
@@ -14654,9 +16537,8 @@ Class.autosingle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoskimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Skimmer',
@@ -14699,9 +16581,8 @@ Class.autoskimmer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoslinker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Slinker',
@@ -14734,9 +16615,8 @@ Class.autoslinker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Smasher',
@@ -14780,8 +16660,8 @@ Class.autosmasher_AR = {
         'autobonker',
         'autobanger',
         'autodrifter',
-    ],
-}
+    ]
+};
 Class.autosniper3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Sniper-3',
@@ -14830,9 +16710,8 @@ Class.autosniper3_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autospawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spawner',
@@ -14899,8 +16778,8 @@ Class.autospawner_AR = {
         'autolaborer',
         'autofoundry',
         'autoissuer',
-    ],
-}
+    ]
+};
 Class.autospawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spawnerdrive',
@@ -14953,9 +16832,8 @@ Class.autospawnerdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autospike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spike',
@@ -15014,9 +16892,8 @@ Class.autospike_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosplitShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Split Shot',
@@ -15089,9 +16966,8 @@ Class.autosplitShot_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosprayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Sprayer',
@@ -15134,9 +17010,8 @@ Class.autosprayer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autospreadshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spreadshot',
@@ -15269,9 +17144,8 @@ Class.autospreadshot_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autostalker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Stalker',
@@ -15304,9 +17178,8 @@ Class.autostalker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autostall_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Stall',
@@ -15359,9 +17232,8 @@ Class.autostall_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autostreamliner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Streamliner',
@@ -15434,9 +17306,8 @@ Class.autostreamliner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosubverter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Subverter',
@@ -15489,9 +17360,8 @@ Class.autosubverter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autosurfer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Surfer',
@@ -15564,9 +17434,8 @@ Class.autosurfer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autoswarmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Swarmer',
@@ -15609,9 +17478,8 @@ Class.autoswarmer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autotaser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Taser',
@@ -15694,9 +17562,8 @@ Class.autotaser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autotrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Trap Guard',
@@ -15763,8 +17630,8 @@ Class.autotrapGuard_AR = {
         'autoincarcerator',
         'automechGuard',
         'automachineGuard',
-    ],
-}
+    ]
+};
 Class.autotriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Tri-Angle',
@@ -15833,8 +17700,8 @@ Class.autotriangle_AR = {
         'autointegrator',
         'autodefect',
         'autoquadangle',
-    ],
-}
+    ]
+};
 Class.autotripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Triple Shot',
@@ -15901,8 +17768,8 @@ Class.autotripleShot_AR = {
         'autobentMinigun',
         'autodefect',
         'autowaarrk',
-    ],
-}
+    ]
+};
 Class.autotripleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Triple Twin',
@@ -15985,9 +17852,8 @@ Class.autotripleTwin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autotriplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Triplet',
@@ -16040,9 +17906,8 @@ Class.autotriplet_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autotwister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Twister',
@@ -16085,9 +17950,8 @@ Class.autotwister_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autovolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Volley',
@@ -16150,9 +18014,8 @@ Class.autovolley_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autowaarrk_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Waarrk',
@@ -16235,9 +18098,8 @@ Class.autowaarrk_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autowark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Wark',
@@ -16313,8 +18175,8 @@ Class.autowark_AR = {
         'autoexpeller',
         'autobulwark',
         'autocoalesce',
-    ],
-}
+    ]
+};
 Class.autowarkwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Warkwark',
@@ -16417,9 +18279,8 @@ Class.autowarkwark_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autowidget_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Widget',
@@ -16472,9 +18333,8 @@ Class.autowidget_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autozipper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Zipper',
@@ -16547,9 +18407,8 @@ Class.autozipper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automaton_AR = {
     PARENT: 'genericTank',
     LABEL: 'Automaton',
@@ -16619,9 +18478,8 @@ Class.automaton_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.avian_AR = {
     PARENT: 'genericTank',
     LABEL: 'Avian',
@@ -16681,9 +18539,8 @@ Class.avian_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.aviator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Aviator',
@@ -16733,9 +18590,8 @@ Class.aviator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ballista_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ballista',
@@ -16855,9 +18711,8 @@ Class.ballista_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.baltimore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Baltimore',
@@ -16901,8 +18756,8 @@ Class.baltimore_AR = {
         'fabrication',
         'bigSwiss',
         'harbor',
-    ],
-}
+    ]
+};
 Class.baltimoredrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Baltimoredrive',
@@ -16945,9 +18800,8 @@ Class.baltimoredrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.band_AR = {
     PARENT: 'genericTank',
     LABEL: 'Band',
@@ -17060,9 +18914,8 @@ Class.band_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.banger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Banger',
@@ -17091,8 +18944,8 @@ Class.banger_AR = {
         'tripwire',
         'thwacker',
         'sharper',
-    ],
-}
+    ]
+};
 Class.banshee_AR = {
     PARENT: 'genericTank',
     LABEL: 'Banshee',
@@ -17176,8 +19029,8 @@ Class.banshee_AR = {
         'revenant',
         'bansheedrive',
         'shade',
-    ],
-}
+    ]
+};
 Class.bansheedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bansheedrive',
@@ -17221,7 +19074,7 @@ Class.bansheedrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -17260,9 +19113,8 @@ Class.bansheedrive_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.barber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barber',
@@ -17342,9 +19194,8 @@ Class.barber_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.barn_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barn',
@@ -17404,9 +19255,8 @@ Class.barn_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.barrage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barrage',
@@ -17466,9 +19316,8 @@ Class.barrage_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.barricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barricade',
@@ -17533,8 +19382,8 @@ Class.barricade_AR = {
         'bentBarricade',
         'tribarricade',
         'roadblock',
-    ],
-}
+    ]
+};
 Class.barrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barrier',
@@ -17604,9 +19453,8 @@ Class.barrier_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.basher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Basher',
@@ -17625,9 +19473,8 @@ Class.basher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bastion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bastion',
@@ -17757,9 +19604,8 @@ Class.bastion_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.baton_AR = {
     PARENT: 'genericTank',
     LABEL: 'Baton',
@@ -17839,9 +19685,8 @@ Class.baton_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.batter4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Batter-4',
@@ -17890,9 +19735,8 @@ Class.batter4_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.battery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battery',
@@ -17966,8 +19810,8 @@ Class.battery_AR = {
         'autobattery',
         'doubleBattery',
         'batteryHybrid',
-    ],
-}
+    ]
+};
 Class.batteryHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battery Hybrid',
@@ -18037,9 +19881,8 @@ Class.batteryHybrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.battledrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battledrive',
@@ -18102,9 +19945,8 @@ Class.battledrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.battlegunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battlegunner',
@@ -18184,9 +20026,8 @@ Class.battlegunner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.battleship_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battleship',
@@ -18250,8 +20091,8 @@ Class.battleship_AR = {
         'bismarck',
         'battlewagon',
         'manOWar',
-    ],
-}
+    ]
+};
 Class.battletrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battletrapper',
@@ -18321,9 +20162,8 @@ Class.battletrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.battlewagon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battlewagon',
@@ -18373,9 +20213,8 @@ Class.battlewagon_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bazooka_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bazooka',
@@ -18405,9 +20244,8 @@ Class.bazooka_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.beater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Beater',
@@ -18487,9 +20325,8 @@ Class.beater_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.beekeeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Beekeeper',
@@ -18542,8 +20379,8 @@ Class.beekeeper_AR = {
         'autobeekeeper',
         'apiculturist',
         'degrader',
-    ],
-}
+    ]
+};
 Class.beemaster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Beemaster',
@@ -18603,9 +20440,8 @@ Class.beemaster_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.befouler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Befouler',
@@ -18635,9 +20471,8 @@ Class.befouler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentBarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Barricade',
@@ -18747,9 +20582,8 @@ Class.bentBarricade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentBoomer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Boomer',
@@ -18819,9 +20653,8 @@ Class.bentBoomer_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentBulwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Bulwark',
@@ -18921,9 +20754,8 @@ Class.bentBulwark_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentCatcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Catcher',
@@ -19003,9 +20835,8 @@ Class.bentCatcher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentCrossbreed_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Crossbreed',
@@ -19055,9 +20886,8 @@ Class.bentCrossbreed_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Double',
@@ -19141,140 +20971,8 @@ Class.bentDouble_AR = {
         'bentDoubleMinigun',
         'splitDouble',
         'waarrkwaarrk',
-    ],
-}
-Class.bentDoubleGunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Bent Double Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.606189619143052e-07,
-                Y: 8.249999880790703,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762909974658683e-07,
-                Y: 4.749999940395351,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.60618963302084e-07,
-                Y: -8.249999880790703,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762910030169834e-07,
-                Y: -4.749999940395351,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.606189613591937e-07,
-                Y: 8.249999880790703,
-                ANGLE: 197.9999986796628,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762909946903108e-07,
-                Y: 4.749999940395351,
-                ANGLE: 197.9999986796628,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.6061896302452823e-07,
-                Y: -8.249999880790703,
-                ANGLE: -197.9999986796628,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762910030169834e-07,
-                Y: -4.749999940395351,
-                ANGLE: -197.9999986796628,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736275e-07,
-                Y: 3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660538e-07,
-                Y: -3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.bentDoubleMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Double Minigun',
@@ -19424,90 +21122,8 @@ Class.bentDoubleMinigun_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.bentGunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Bent Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.606189619143052e-07,
-                Y: 8.249999880790703,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762909974658683e-07,
-                Y: 4.749999940395351,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.60618963302084e-07,
-                Y: -8.249999880790703,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762910030169834e-07,
-                Y: -4.749999940395351,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'flexedGunner',
-        'spambrid',
-        'bentDoubleGunner',
-        'autobentGunner',
-        'dagger',
-        'bentVolley',
-        'donkey',
-    ],
-}
+    ]
+};
 Class.bentHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Hybrid',
@@ -19573,8 +21189,8 @@ Class.bentHybrid_AR = {
         'junker',
         'triprid',
         'bentCatcher',
-    ],
-}
+    ]
+};
 Class.bentHybriddrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Hybriddrive',
@@ -19628,7 +21244,7 @@ Class.bentHybriddrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -19637,105 +21253,8 @@ Class.bentHybriddrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.bentMinigun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Bent Minigun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.0000001041368844,
-                Y: -2.0000000802871223,
-                ANGLE: -15.999999876058132,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.0000001041368844,
-                Y: -2.0000000802871223,
-                ANGLE: -15.999999876058132,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.000000104136884,
-                Y: 2.0000000802871223,
-                ANGLE: 15.999999876058132,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.000000104136884,
-                Y: 2.0000000802871223,
-                ANGLE: 15.999999876058132,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'flexedMinigun',
-        'bentDoubleMinigun',
-        'junker',
-        'hackshot',
-        'minilet',
-        'bentStreamliner',
-        'bentBarricade',
-        'bentSubverter',
-        'jerker',
-        'sizzler',
-        'autobentMinigun',
-        'bentWidget',
-    ],
-}
+    ]
+};
 Class.bentStreamliner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Streamliner',
@@ -19855,9 +21374,8 @@ Class.bentStreamliner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentSubverter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Subverter',
@@ -19937,9 +21455,8 @@ Class.bentSubverter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentSynthesis_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Synthesis',
@@ -19999,9 +21516,8 @@ Class.bentSynthesis_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentTriple_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Triple',
@@ -20101,9 +21617,8 @@ Class.bentTriple_AR = {
                 ANGLE: -120.00000333930423,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentVolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Volley',
@@ -20173,9 +21688,8 @@ Class.bentVolley_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bentWidget_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Widget',
@@ -20255,9 +21769,8 @@ Class.bentWidget_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bidder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bidder',
@@ -20327,9 +21840,8 @@ Class.bidder_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bifold_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bifold',
@@ -20399,9 +21911,8 @@ Class.bifold_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bigCheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Cheese',
@@ -20431,8 +21942,8 @@ Class.bigCheese_AR = {
         'bigCheesedrive',
         'autobigCheese',
         'stoner',
-    ],
-}
+    ]
+};
 Class.bigCheesedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Cheesedrive',
@@ -20456,7 +21967,7 @@ Class.bigCheesedrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -20465,9 +21976,8 @@ Class.bigCheesedrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bigMac_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Mac',
@@ -20497,9 +22007,8 @@ Class.bigMac_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bigSwiss_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Swiss',
@@ -20529,9 +22038,8 @@ Class.bigSwiss_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.biggerCheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bigger Cheese',
@@ -20551,9 +22059,8 @@ Class.biggerCheese_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.binder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Binder',
@@ -20633,9 +22140,8 @@ Class.binder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bismarck_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bismarck',
@@ -20765,9 +22271,8 @@ Class.bismarck_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blackjack_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blackjack',
@@ -20837,9 +22342,8 @@ Class.blackjack_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blare_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blare',
@@ -20979,9 +22483,8 @@ Class.blare_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blend_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blend',
@@ -21041,9 +22544,8 @@ Class.blend_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blight_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blight',
@@ -21083,9 +22585,8 @@ Class.blight_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blitz_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blitz',
@@ -21185,9 +22686,8 @@ Class.blitz_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blockade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blockade',
@@ -21237,9 +22737,8 @@ Class.blockade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blockbuster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blockbuster',
@@ -21319,9 +22818,8 @@ Class.blockbuster_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blower',
@@ -21385,8 +22883,8 @@ Class.blower_AR = {
         'storm',
         'lavisher',
         'zephyr',
-    ],
-}
+    ]
+};
 Class.blowgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blowgun',
@@ -21436,9 +22934,8 @@ Class.blowgun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.blusterer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blusterer',
@@ -21498,9 +22995,8 @@ Class.blusterer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bolter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bolter',
@@ -21590,9 +23086,8 @@ Class.bolter_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bombard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bombard',
@@ -21622,9 +23117,8 @@ Class.bombard_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bomber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bomber',
@@ -21719,8 +23213,8 @@ Class.bomber_AR = {
         'nuker',
         'bolter',
         'fleeter',
-    ],
-}
+    ]
+};
 Class.bonker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bonker',
@@ -21749,8 +23243,8 @@ Class.bonker_AR = {
         'basher',
         'thwacker',
         'bundler',
-    ],
-}
+    ]
+};
 Class.boomer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boomer',
@@ -21802,8 +23296,8 @@ Class.boomer_AR = {
         'fender',
         'bentBoomer',
         'deflector',
-    ],
-}
+    ]
+};
 Class.boomslang_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boomslang',
@@ -21853,9 +23347,8 @@ Class.boomslang_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.boomstick_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boomstick',
@@ -21975,9 +23468,8 @@ Class.boomstick_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.booster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Booster',
@@ -22052,8 +23544,8 @@ Class.booster_AR = {
         'hightailer',
         'loon',
         'aspirer',
-    ],
-}
+    ]
+};
 Class.bounder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bounder',
@@ -22103,9 +23595,8 @@ Class.bounder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bowler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bowler',
@@ -22175,9 +23666,8 @@ Class.bowler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.boxer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boxer',
@@ -22237,9 +23727,8 @@ Class.boxer_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bozo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bozo',
@@ -22389,9 +23878,8 @@ Class.bozo_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bracer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bracer',
@@ -22461,9 +23949,8 @@ Class.bracer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.brawler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brawler',
@@ -22543,9 +24030,8 @@ Class.brawler_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.brig_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brig',
@@ -22645,9 +24131,8 @@ Class.brig_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.brink_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brink',
@@ -22727,9 +24212,8 @@ Class.brink_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.brio_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brio',
@@ -22789,9 +24273,8 @@ Class.brio_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.brisker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brisker',
@@ -22831,8 +24314,8 @@ Class.brisker_AR = {
         'briskerdrive',
         'addict',
         'autobrisker',
-    ],
-}
+    ]
+};
 Class.briskerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Briskerdrive',
@@ -22866,7 +24349,7 @@ Class.briskerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -22875,9 +24358,8 @@ Class.briskerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.briskseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Briskseer',
@@ -22927,9 +24409,8 @@ Class.briskseer_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.broadsider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Broadsider',
@@ -22999,9 +24480,8 @@ Class.broadsider_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.browser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Browser',
@@ -23081,9 +24561,8 @@ Class.browser_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bruiser',
@@ -23113,9 +24592,8 @@ Class.bruiser_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.buckshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buckshot',
@@ -23275,9 +24753,8 @@ Class.buckshot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.builder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Builder',
@@ -23323,8 +24800,8 @@ Class.builder_AR = {
     ],
     UPGRADES_TIER_4: [
         'blockade',
-    ],
-}
+    ]
+};
 Class.bulker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bulker',
@@ -23374,9 +24851,8 @@ Class.bulker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bulwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bulwark',
@@ -23460,8 +24936,8 @@ Class.bulwark_AR = {
         'fencer',
         'impeder',
         'quadwark',
-    ],
-}
+    ]
+};
 Class.bumbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bumbler',
@@ -23514,9 +24990,8 @@ Class.bumbler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.buncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buncher',
@@ -23535,9 +25010,8 @@ Class.buncher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bundler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bundler',
@@ -23556,9 +25030,8 @@ Class.bundler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bunger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bunger',
@@ -23598,9 +25071,8 @@ Class.bunger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bunker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bunker',
@@ -23730,9 +25202,8 @@ Class.bunker_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.bushwhacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bushwhacker',
@@ -23788,8 +25259,8 @@ Class.bushwhacker_AR = {
         'lockup',
         'watchman',
         'tribushwhacker',
-    ],
-}
+    ]
+};
 Class.buster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buster',
@@ -23849,9 +25320,8 @@ Class.buster_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.butcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Butcher',
@@ -23901,9 +25371,8 @@ Class.butcher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.buttbuttin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buttbuttin',
@@ -23976,8 +25445,8 @@ Class.buttbuttin_AR = {
         'autobuttbuttin',
         'armament',
         'sifter',
-    ],
-}
+    ]
+};
 Class.cacatua_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cacatua',
@@ -24057,9 +25526,8 @@ Class.cacatua_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.caduceus_AR = {
     PARENT: 'genericTank',
     LABEL: 'Caduceus',
@@ -24109,9 +25577,8 @@ Class.caduceus_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cannonade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cannonade',
@@ -24161,9 +25628,8 @@ Class.cannonade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.capgunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Capgunner',
@@ -24263,9 +25729,8 @@ Class.capgunner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.captain_AR = {
     PARENT: 'genericTank',
     LABEL: 'Captain',
@@ -24348,8 +25813,8 @@ Class.captain_AR = {
         'phantom',
         'stocker',
         'mogul',
-    ],
-}
+    ]
+};
 Class.captaindrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Captaindrive',
@@ -24423,7 +25888,7 @@ Class.captaindrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -24432,9 +25897,8 @@ Class.captaindrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.captrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Captrapper',
@@ -24524,9 +25988,8 @@ Class.captrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.caracara_AR = {
     PARENT: 'genericTank',
     LABEL: 'Caracara',
@@ -24606,9 +26069,8 @@ Class.caracara_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.carbine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carbine',
@@ -24738,9 +26200,8 @@ Class.carbine_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.careerer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Careerer',
@@ -24780,9 +26241,8 @@ Class.careerer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.carnage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carnage',
@@ -24872,9 +26332,8 @@ Class.carnage_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.carnivore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carnivore',
@@ -24924,9 +26383,8 @@ Class.carnivore_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.carrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carrier',
@@ -24977,8 +26435,8 @@ Class.carrier_AR = {
         'initiator',
         'epoch',
         'lugger',
-    ],
-}
+    ]
+};
 Class.carrierdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carrierdrive',
@@ -25031,9 +26489,8 @@ Class.carrierdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.carronade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carronade',
@@ -25083,9 +26540,8 @@ Class.carronade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cartridge_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cartridge',
@@ -25125,9 +26581,8 @@ Class.cartridge_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cassowary_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cassowary',
@@ -25197,9 +26652,8 @@ Class.cassowary_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.caster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Caster',
@@ -25269,9 +26723,8 @@ Class.caster_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.castle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Castle',
@@ -25344,9 +26797,8 @@ Class.castle_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.catapult_AR = {
     PARENT: 'genericTank',
     LABEL: 'Catapult',
@@ -25376,9 +26828,8 @@ Class.catapult_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.catcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Catcher',
@@ -25418,9 +26869,8 @@ Class.catcher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cauldron_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cauldron',
@@ -25509,9 +26959,8 @@ Class.cauldron_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.charger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Charger',
@@ -25563,8 +27012,8 @@ Class.charger_AR = {
         'compartment',
         'rallyer',
         'deviser',
-    ],
-}
+    ]
+};
 Class.chisel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Chisel',
@@ -25637,9 +27086,8 @@ Class.chisel_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.chucker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Chucker',
@@ -25699,9 +27147,8 @@ Class.chucker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.circulator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Circulator',
@@ -25751,9 +27198,8 @@ Class.circulator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.claimant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Claimant',
@@ -25803,9 +27249,8 @@ Class.claimant_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.clasp_AR = {
     PARENT: 'genericTank',
     LABEL: 'Clasp',
@@ -25875,9 +27320,8 @@ Class.clasp_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.claymore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Claymore',
@@ -25926,9 +27370,8 @@ Class.claymore_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cleaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cleaver',
@@ -26008,9 +27451,8 @@ Class.cleaver_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.clobberer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Clobberer',
@@ -26050,9 +27492,8 @@ Class.clobberer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.clunker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Clunker',
@@ -26112,9 +27553,8 @@ Class.clunker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cluster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cluster',
@@ -26163,8 +27603,8 @@ Class.cluster_AR = {
         'bombard',
         'flock',
         'recursor',
-    ],
-}
+    ]
+};
 Class.coalesce_AR = {
     PARENT: 'genericTank',
     LABEL: 'Coalesce',
@@ -26237,8 +27677,8 @@ Class.coalesce_AR = {
         'contriver',
         'throttler',
         'autocoalesce',
-    ],
-}
+    ]
+};
 Class.cobbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cobbler',
@@ -26301,8 +27741,8 @@ Class.cobbler_AR = {
         'contriver',
         'utilizer',
         'autocobbler',
-    ],
-}
+    ]
+};
 Class.cockatiel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cockatiel',
@@ -26383,8 +27823,8 @@ Class.cockatiel_AR = {
         'autocockatiel',
         'parrot',
         'corella',
-    ],
-}
+    ]
+};
 Class.cockatoo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cockatoo',
@@ -26474,9 +27914,8 @@ Class.cockatoo_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cog_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cog',
@@ -26558,8 +27997,8 @@ Class.cog_AR = {
         'impeder',
         'contriver',
         'autocog',
-    ],
-}
+    ]
+};
 Class.collision_AR = {
     PARENT: 'genericTank',
     LABEL: 'Collision',
@@ -26609,9 +28048,8 @@ Class.collision_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.colonizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Colonizer',
@@ -26684,9 +28122,8 @@ Class.colonizer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.combo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Combo',
@@ -26768,8 +28205,8 @@ Class.combo_AR = {
         'alloy',
         'autocombo',
         'band',
-    ],
-}
+    ]
+};
 Class.commander_AR = {
     PARENT: 'genericTank',
     LABEL: 'Commander',
@@ -26852,8 +28289,8 @@ Class.commander_AR = {
         'gaffer',
         'bidder',
         'adjurer',
-    ],
-}
+    ]
+};
 Class.commix_AR = {
     PARENT: 'genericTank',
     LABEL: 'Commix',
@@ -26913,9 +28350,8 @@ Class.commix_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.compartment_AR = {
     PARENT: 'genericTank',
     LABEL: 'Compartment',
@@ -26965,9 +28401,8 @@ Class.compartment_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.compound_AR = {
     PARENT: 'genericTank',
     LABEL: 'Compound',
@@ -26997,9 +28432,8 @@ Class.compound_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.concoctor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Concoctor',
@@ -27059,9 +28493,8 @@ Class.concoctor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.condor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Condor',
@@ -27131,9 +28564,8 @@ Class.condor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.confiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Confiner',
@@ -27193,9 +28625,8 @@ Class.confiner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.conformer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conformer',
@@ -27258,9 +28689,8 @@ Class.conformer_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.conqueror_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conqueror',
@@ -27314,8 +28744,8 @@ Class.conqueror_AR = {
         'pulverizer',
         'overrunner',
         'massacrer',
-    ],
-}
+    ]
+};
 Class.consolidation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Consolidation',
@@ -27408,9 +28838,8 @@ Class.consolidation_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.consolidator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Consolidator',
@@ -27460,9 +28889,8 @@ Class.consolidator_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.constructor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Constructor',
@@ -27506,8 +28934,8 @@ Class.constructor_AR = {
         'meld',
         'stormer',
         'settler',
-    ],
-}
+    ]
+};
 Class.contaminator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contaminator',
@@ -27537,9 +28965,8 @@ Class.contaminator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.contractor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contractor',
@@ -27579,9 +29006,8 @@ Class.contractor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.contradictor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contradictor',
@@ -27621,9 +29047,8 @@ Class.contradictor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.contrivance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contrivance',
@@ -27733,9 +29158,8 @@ Class.contrivance_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.contriver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contriver',
@@ -27815,9 +29239,8 @@ Class.contriver_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.controller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Controller',
@@ -27847,9 +29270,8 @@ Class.controller_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.converger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Converger',
@@ -27929,9 +29351,8 @@ Class.converger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.conveyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conveyer',
@@ -27991,9 +29412,8 @@ Class.conveyer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.conveyor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conveyor',
@@ -28053,9 +29473,8 @@ Class.conveyor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.coop_AR = {
     PARENT: 'genericTank',
     LABEL: 'Coop',
@@ -28228,9 +29647,8 @@ Class.coop_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.coordinator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Coordinator',
@@ -28260,9 +29678,8 @@ Class.coordinator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.copier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Copier',
@@ -28322,9 +29739,8 @@ Class.copier_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.corella_AR = {
     PARENT: 'genericTank',
     LABEL: 'Corella',
@@ -28424,9 +29840,8 @@ Class.corella_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cornerer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cornerer',
@@ -28476,9 +29891,8 @@ Class.cornerer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.corral_AR = {
     PARENT: 'genericTank',
     LABEL: 'Corral',
@@ -28608,9 +30022,8 @@ Class.corral_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.courier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Courier',
@@ -28680,9 +30093,8 @@ Class.courier_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.courser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Courser',
@@ -28737,8 +30149,8 @@ Class.courser_AR = {
         'dyadic',
         'megaCourser',
         'flicher',
-    ],
-}
+    ]
+};
 Class.covert_AR = {
     PARENT: 'genericTank',
     LABEL: 'Covert',
@@ -28778,9 +30190,8 @@ Class.covert_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cozen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cozen',
@@ -28983,9 +30394,8 @@ Class.cozen_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.crackshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crackshot',
@@ -29085,9 +30495,8 @@ Class.crackshot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.crank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crank',
@@ -29150,9 +30559,8 @@ Class.crank_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.creator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Creator',
@@ -29202,9 +30610,8 @@ Class.creator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.creeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Creeper',
@@ -29243,9 +30650,8 @@ Class.creeper_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cropDuster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crop Duster',
@@ -29310,8 +30716,8 @@ Class.cropDuster_AR = {
         'junker',
         'autocropDuster',
         'sandstorm',
-    ],
-}
+    ]
+};
 Class.cropDusterdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crop Dusterdrive',
@@ -29365,7 +30771,7 @@ Class.cropDusterdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -29374,9 +30780,8 @@ Class.cropDusterdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cross_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cross',
@@ -29426,9 +30831,8 @@ Class.cross_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.crossbow_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crossbow',
@@ -29518,8 +30922,8 @@ Class.crossbow_AR = {
         'autocrossbow',
         'pique',
         'carnage',
-    ],
-}
+    ]
+};
 Class.crossbreed_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crossbreed',
@@ -29549,9 +30953,8 @@ Class.crossbreed_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.crowbar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crowbar',
@@ -29626,8 +31029,8 @@ Class.crowbar_AR = {
         'dualbar',
         'spanner',
         'wrench',
-    ],
-}
+    ]
+};
 Class.cruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cruiser',
@@ -29674,8 +31077,8 @@ Class.cruiser_AR = {
     ],
     UPGRADES_TIER_4: [
         'superintendent',
-    ],
-}
+    ]
+};
 Class.cruiserdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cruiserdrive',
@@ -29730,8 +31133,8 @@ Class.cruiserdrive_AR = {
         'helipad',
         'baltimoredrive',
         'moseydrive',
-    ],
-}
+    ]
+};
 Class.crusher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crusher',
@@ -29791,9 +31194,8 @@ Class.crusher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cubicle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cubicle',
@@ -29853,9 +31255,8 @@ Class.cubicle_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.culverin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Culverin',
@@ -29975,9 +31376,8 @@ Class.culverin_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.custodian_AR = {
     PARENT: 'genericTank',
     LABEL: 'Custodian',
@@ -30027,9 +31427,8 @@ Class.custodian_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cutlass_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cutlass',
@@ -30139,9 +31538,8 @@ Class.cutlass_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.cyclone_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cyclone',
@@ -30281,8 +31679,8 @@ Class.cyclone_AR = {
         'gale',
         'whirlwind',
         'trove',
-    ],
-}
+    ]
+};
 Class.dagger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dagger',
@@ -30412,9 +31810,8 @@ Class.dagger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dam_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dam',
@@ -30504,9 +31901,8 @@ Class.dam_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dauber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dauber',
@@ -30646,9 +32042,8 @@ Class.dauber_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.deadeye_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deadeye',
@@ -30698,9 +32093,8 @@ Class.deadeye_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.deathStar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Death Star',
@@ -30779,8 +32173,8 @@ Class.deathStar_AR = {
         'autodeathStar',
         'unity',
         'sequence',
-    ],
-}
+    ]
+};
 Class.decaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deca Tank',
@@ -30890,9 +32284,8 @@ Class.decaTank_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.decoy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Decoy',
@@ -30921,9 +32314,8 @@ Class.decoy_AR = {
                 ANGLE: 90.00000250447816,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.defeater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Defeater',
@@ -30973,9 +32365,8 @@ Class.defeater_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.defect_AR = {
     PARENT: 'genericTank',
     LABEL: 'Defect',
@@ -31059,8 +32450,8 @@ Class.defect_AR = {
         'jerker',
         'fault',
         'autodefect',
-    ],
-}
+    ]
+};
 Class.deficiency_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deficiency',
@@ -31150,9 +32541,8 @@ Class.deficiency_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.deflector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deflector',
@@ -31202,9 +32592,8 @@ Class.deflector_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.degrader_AR = {
     PARENT: 'genericTank',
     LABEL: 'Degrader',
@@ -31264,9 +32653,8 @@ Class.degrader_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.delayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Delayer',
@@ -31316,9 +32704,8 @@ Class.delayer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.deliverer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deliverer',
@@ -31348,9 +32735,8 @@ Class.deliverer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.demise_AR = {
     PARENT: 'genericTank',
     LABEL: 'Demise',
@@ -31440,9 +32826,8 @@ Class.demise_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.deposer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deposer',
@@ -31492,9 +32877,8 @@ Class.deposer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.depraver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Depraver',
@@ -31534,9 +32918,8 @@ Class.depraver_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.designer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Designer',
@@ -31615,9 +32998,8 @@ Class.designer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.despot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Despot',
@@ -31687,9 +33069,8 @@ Class.despot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.destabalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Destabalizer',
@@ -31749,9 +33130,8 @@ Class.destabalizer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.destroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Destroyer',
@@ -31788,8 +33168,8 @@ Class.destroyer_AR = {
     UPGRADES_TIER_4: [
         'harrier',
         'toppler',
-    ],
-}
+    ]
+};
 Class.deviation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deviation',
@@ -31843,8 +33223,8 @@ Class.deviation_AR = {
         'environ',
         'repairman',
         'throttler',
-    ],
-}
+    ]
+};
 Class.deviationdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deviationdrive',
@@ -31888,7 +33268,7 @@ Class.deviationdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -31897,9 +33277,8 @@ Class.deviationdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.deviser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deviser',
@@ -31959,42 +33338,8 @@ Class.deviser_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.diesel_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Diesel',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.600000023841858,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'jalopy',
-        'machineGunner',
-        'dieselTrapper',
-        'polluter',
-        'autodiesel',
-    ],
-    UPGRADES_TIER_4: [
-        'foamer',
-        'gizmo',
-    ],
-}
+    ]
+};
 Class.dieselTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Diesel Trapper',
@@ -32035,8 +33380,8 @@ Class.dieselTrapper_AR = {
         'stainer',
         'blight',
         'autodieselTrapper',
-    ],
-}
+    ]
+};
 Class.dipper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dipper',
@@ -32076,57 +33421,8 @@ Class.dipper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
-Class.directordrive_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Directordrive',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'driveSquare',
-            POSITION: {
-                SIZE: 8.999999761581421,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'directorstorm',
-        'overdrive',
-        'cruiserdrive',
-        'underdrive',
-        'spawnerdrive',
-        'autodirectordrive',
-        'honchodrive',
-        'doperdrive',
-    ],
-    UPGRADES_TIER_4: [
-        'managerdrive',
-    ],
-}
+    ]
+};
 Class.directorstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Directorstorm',
@@ -32169,8 +33465,8 @@ Class.directorstorm_AR = {
         'honchostorm',
         'downpourer',
         'doperstorm',
-    ],
-}
+    ]
+};
 Class.dirigible_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dirigible',
@@ -32260,9 +33556,8 @@ Class.dirigible_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.discharger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Discharger',
@@ -32336,8 +33631,8 @@ Class.discharger_AR = {
         'hatchet',
         'kitter',
         'concoctor',
-    ],
-}
+    ]
+};
 Class.dispatcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dispatcher',
@@ -32407,9 +33702,8 @@ Class.dispatcher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.disperser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Disperser',
@@ -32479,9 +33773,8 @@ Class.disperser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.donjon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Donjon',
@@ -32581,9 +33874,8 @@ Class.donjon_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.donkey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Donkey',
@@ -32683,9 +33975,8 @@ Class.donkey_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doorman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doorman',
@@ -32725,9 +34016,8 @@ Class.doorman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dopelord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dopelord',
@@ -32817,53 +34107,8 @@ Class.dopelord_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
-Class.doper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Doper',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 1.0000000149011612,
-                ASPECT: -5,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'brisker',
-        'dopeseer',
-        'mosey',
-        'issuer',
-        'junkie',
-        'doperdrive',
-        'autodoper',
-    ],
-    UPGRADES_TIER_4: [
-        'controller',
-    ],
-}
+    ]
+};
 Class.doperdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doperdrive',
@@ -32897,7 +34142,7 @@ Class.doperdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -32916,8 +34161,8 @@ Class.doperdrive_AR = {
         'issuerdrive',
         'junkiedrive',
         'autodoperdrive',
-    ],
-}
+    ]
+};
 Class.doperstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doperstorm',
@@ -32960,9 +34205,8 @@ Class.doperstorm_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dopeseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dopeseer',
@@ -33023,8 +34267,8 @@ Class.dopeseer_AR = {
         'adjurer',
         'mogul',
         'ganger',
-    ],
-}
+    ]
+};
 Class.dopeseerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dopeseerdrive',
@@ -33078,7 +34322,7 @@ Class.dopeseerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -33087,9 +34331,8 @@ Class.dopeseerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doppelganger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doppelganger',
@@ -33139,9 +34382,8 @@ Class.doppelganger_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dork_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dork',
@@ -33231,9 +34473,8 @@ Class.dork_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dotter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dotter',
@@ -33283,9 +34524,8 @@ Class.dotter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Auto-Smasher',
@@ -33314,9 +34554,8 @@ Class.doubleAutosmasher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleBattery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Battery',
@@ -33426,9 +34665,8 @@ Class.doubleBattery_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleEqualizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Equalizer',
@@ -33598,9 +34836,8 @@ Class.doubleEqualizer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleMachineGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Machine Gunner',
@@ -33710,9 +34947,8 @@ Class.doubleMachineGunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleNailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Nailgun',
@@ -33802,9 +35038,8 @@ Class.doubleNailgun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleRimfire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Rimfire',
@@ -33914,201 +35149,8 @@ Class.doubleRimfire_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
-Class.doubleSpreadshot_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Double Spreadshot',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139068759522e-08,
-                Y: -1.0000000149011603,
-                ANGLE: -56.50000100307331,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -5.245366689610176e-08,
-                Y: -1.1999999731779087,
-                ANGLE: -41.50000058566028,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.5,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -6.119594636588843e-08,
-                Y: -1.4000000059604631,
-                ANGLE: -26.50000016824725,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139068759522e-08,
-                Y: -1.0000000149011603,
-                ANGLE: -15.000000417413029,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139061820628e-08,
-                Y: 1.0000000149011603,
-                ANGLE: 56.50000100307331,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -5.245366675732388e-08,
-                Y: 1.1999999731779085,
-                ANGLE: 41.50000058566028,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.5,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -6.119594622711055e-08,
-                Y: 1.4000000059604631,
-                ANGLE: 26.50000016824725,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139058351181e-08,
-                Y: 1.0000000149011603,
-                ANGLE: 15.000000417413029,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139068759522e-08,
-                Y: -1.0000000149011603,
-                ANGLE: -236.49999918184048,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -5.245366675732388e-08,
-                Y: -1.1999999731779087,
-                ANGLE: -221.50000217952203,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.5,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -6.119594643527737e-08,
-                Y: -1.4000000059604634,
-                ANGLE: -206.50000517720358,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139072228969e-08,
-                Y: -1.0000000149011603,
-                ANGLE: -195.00000201127477,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139061820628e-08,
-                Y: 1.0000000149011603,
-                ANGLE: 236.49999918184048,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -5.245366668793494e-08,
-                Y: 1.1999999731779087,
-                ANGLE: 221.50000217952203,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.5,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -6.119594615772161e-08,
-                Y: 1.4000000059604631,
-                ANGLE: 206.50000517720358,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 4.000000059604645,
-                ASPECT: 1,
-                X: -4.371139065290075e-08,
-                Y: 1.0000000149011603,
-                ANGLE: 195.00000201127477,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.doubleTriplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Triplet',
@@ -34178,9 +35220,8 @@ Class.doubleTriplet_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.doubleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Twin',
@@ -34245,8 +35286,8 @@ Class.doubleTwin_AR = {
         'doubleDual',
         'doubleMusket',
         'overdoubleTwin',
-    ],
-}
+    ]
+};
 Class.doubleVolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Volley',
@@ -34336,9 +35377,8 @@ Class.doubleVolley_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.downpourer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Downpourer',
@@ -34371,9 +35411,8 @@ Class.downpourer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.draftsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Draftsman',
@@ -34412,9 +35451,8 @@ Class.draftsman_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.drifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Drifter',
@@ -34443,8 +35481,8 @@ Class.drifter_AR = {
         'cauldron',
         'sharper',
         'bundler',
-    ],
-}
+    ]
+};
 Class.driver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Driver',
@@ -34534,9 +35572,8 @@ Class.driver_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dual_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dual',
@@ -34597,8 +35634,8 @@ Class.dual_AR = {
         'autodual',
         'bifold',
         'dyadic',
-    ],
-}
+    ]
+};
 Class.dualbar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dualbar',
@@ -34711,9 +35748,8 @@ Class.dualbar_AR = {
                 ANGLE: -90.00000250447816,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.duelist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duelist',
@@ -34763,51 +35799,8 @@ Class.duelist_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.duo_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Duo',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.185569497031504e-07,
-                Y: 4.999999999999995,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.185569503154738e-07,
-                Y: -4.999999999999995,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 17.999999523162842,
-                ASPECT: -1.100000023841858,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.duper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duper',
@@ -34867,9 +35860,8 @@ Class.duper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dustStorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dust Storm',
@@ -35019,9 +36011,8 @@ Class.dustStorm_AR = {
                 ANGLE: 360.00001001791264,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.duster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duster',
@@ -35061,9 +36052,8 @@ Class.duster_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.dyadic_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dyadic',
@@ -35123,9 +36113,8 @@ Class.dyadic_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.eagle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Eagle',
@@ -35187,8 +36176,8 @@ Class.eagle_AR = {
         'condor',
         'osprey',
         'virago',
-    ],
-}
+    ]
+};
 Class.electrocutor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Electrocutor',
@@ -35268,9 +36257,8 @@ Class.electrocutor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.embargo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Embargo',
@@ -35340,9 +36328,8 @@ Class.embargo_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.emitter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Emitter',
@@ -35382,9 +36369,8 @@ Class.emitter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.employer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Employer',
@@ -35474,9 +36460,8 @@ Class.employer_AR = {
                 ANGLE: -9.99999970909292,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.enactor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Enactor',
@@ -35526,9 +36511,8 @@ Class.enactor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.encircler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Encircler',
@@ -35580,8 +36564,8 @@ Class.encircler_AR = {
         'environ',
         'landau',
         'kraal',
-    ],
-}
+    ]
+};
 Class.endeavor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Endeavor',
@@ -35621,9 +36605,8 @@ Class.endeavor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.energizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Energizer',
@@ -35673,9 +36656,8 @@ Class.energizer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.enforcer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Enforcer',
@@ -35728,8 +36710,8 @@ Class.enforcer_AR = {
         'armament',
         'merganser',
         'flicher',
-    ],
-}
+    ]
+};
 Class.engineer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Engineer',
@@ -35793,8 +36775,8 @@ Class.engineer_AR = {
         'driver',
         'specialist',
         'deviser',
-    ],
-}
+    ]
+};
 Class.environ_AR = {
     PARENT: 'genericTank',
     LABEL: 'Environ',
@@ -35844,9 +36826,8 @@ Class.environ_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.epoch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Epoch',
@@ -35886,118 +36867,8 @@ Class.epoch_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.equalizer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Equalizer',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 11.999999753454386,
-                Y: 7.249999853328825,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 11.999999753454386,
-                Y: -7.249999853328827,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 16.00000029064175,
-                Y: 3.7500000749860716,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 16.00000029064175,
-                Y: -3.7500000749860734,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'autoequalizer',
-        'whirlwind',
-        'brink',
-        'contrivance',
-        'binder',
-        'overequalizer',
-        'cleaver',
-        'cutlass',
-        'baton',
-        'blackjack',
-        'doubleEqualizer',
-        'dagger',
-        'machete',
-        'hardware',
-        'equalizerGuard',
-    ],
-}
+    ]
+};
 Class.equalizerGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Equalizer Guard',
@@ -36097,9 +36968,8 @@ Class.equalizerGuard_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.eradicator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Eradicator',
@@ -36119,9 +36989,8 @@ Class.eradicator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.erne_AR = {
     PARENT: 'genericTank',
     LABEL: 'Erne',
@@ -36191,9 +37060,8 @@ Class.erne_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.escort_AR = {
     PARENT: 'genericTank',
     LABEL: 'Escort',
@@ -36243,9 +37111,8 @@ Class.escort_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.examiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Examiner',
@@ -36275,9 +37142,8 @@ Class.examiner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.executor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Executor',
@@ -36327,9 +37193,8 @@ Class.executor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.exerter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Exerter',
@@ -36379,9 +37244,8 @@ Class.exerter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.expeller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Expeller',
@@ -36444,8 +37308,8 @@ Class.expeller_AR = {
         'partition',
         'throttler',
         'autoexpeller',
-    ],
-}
+    ]
+};
 Class.experimenter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Experimenter',
@@ -36505,9 +37369,8 @@ Class.experimenter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fabrication_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fabrication',
@@ -36597,9 +37460,8 @@ Class.fabrication_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.facility_AR = {
     PARENT: 'genericTank',
     LABEL: 'Facility',
@@ -36649,9 +37511,8 @@ Class.facility_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.factory_AR = {
     PARENT: 'genericTank',
     LABEL: 'Factory',
@@ -36704,8 +37565,8 @@ Class.factory_AR = {
         'shopper',
         'manufacture',
         'facility',
-    ],
-}
+    ]
+};
 Class.factorydrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Factorydrive',
@@ -36749,7 +37610,7 @@ Class.factorydrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -36758,9 +37619,8 @@ Class.factorydrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.falcon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Falcon',
@@ -36832,8 +37692,8 @@ Class.falcon_AR = {
         'caracara',
         'merganser',
         'cassowary',
-    ],
-}
+    ]
+};
 Class.fang_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fang',
@@ -36903,9 +37763,8 @@ Class.fang_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fashioner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fashioner',
@@ -36960,8 +37819,8 @@ Class.fashioner_AR = {
         'blend',
         'delayer',
         'rallyer',
-    ],
-}
+    ]
+};
 Class.fashionerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fashionerdrive',
@@ -37005,7 +37864,7 @@ Class.fashionerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -37014,9 +37873,8 @@ Class.fashionerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fault_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fault',
@@ -37116,9 +37974,8 @@ Class.fault_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.femaleficitor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Femaleficitor',
@@ -37148,9 +38005,8 @@ Class.femaleficitor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fencer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fencer',
@@ -37240,9 +38096,8 @@ Class.fencer_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fender_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fender',
@@ -37292,9 +38147,8 @@ Class.fender_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fieldGun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Field Gun',
@@ -37363,8 +38217,8 @@ Class.fieldGun_AR = {
         'bulker',
         'conveyer',
         'flurry',
-    ],
-}
+    ]
+};
 Class.fighter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fighter',
@@ -37439,8 +38293,8 @@ Class.fighter_AR = {
         'pug',
         'mangle',
         'scrimmer',
-    ],
-}
+    ]
+};
 Class.finger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Finger',
@@ -37480,9 +38334,8 @@ Class.finger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.firepower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Firepower',
@@ -37532,9 +38385,8 @@ Class.firepower_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.firework_AR = {
     PARENT: 'genericTank',
     LABEL: 'Firework',
@@ -37564,9 +38416,8 @@ Class.firework_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fleeter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fleeter',
@@ -37659,9 +38510,8 @@ Class.fleeter_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.flexedGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flexed Gunner',
@@ -37751,9 +38601,8 @@ Class.flexedGunner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.flexedHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flexed Hybrid',
@@ -37823,9 +38672,8 @@ Class.flexedHybrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.flexedMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flexed Minigun',
@@ -37945,9 +38793,8 @@ Class.flexedMinigun_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.flicher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flicher',
@@ -37997,71 +38844,8 @@ Class.flicher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.flintlock_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Flintlock',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.7484556288915876e-07,
-                Y: -4.000000059604641,
-                ANGLE: -12.999999792575526,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.7484556233404724e-07,
-                Y: 4.000000059604641,
-                ANGLE: 12.999999792575526,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -8.742278144457938e-08,
-                Y: -2.0000000298023206,
-                ANGLE: -12.999999792575526,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -8.742278116702362e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 12.999999792575526,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.flock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flock',
@@ -38111,9 +38895,8 @@ Class.flock_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.flocker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flocker',
@@ -38153,9 +38936,8 @@ Class.flocker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.flurry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flurry',
@@ -38225,9 +39007,8 @@ Class.flurry_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.foamer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foamer',
@@ -38257,9 +39038,8 @@ Class.foamer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.foctar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foctar',
@@ -38319,9 +39099,8 @@ Class.foctar_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.foctillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foctillery',
@@ -38372,8 +39151,8 @@ Class.foctillery_AR = {
         'vigor',
         'autofoctillery',
         'pivoter',
-    ],
-}
+    ]
+};
 Class.force_AR = {
     PARENT: 'genericTank',
     LABEL: 'Force',
@@ -38440,8 +39219,8 @@ Class.force_AR = {
         'autoforce',
         'vigor',
         'vitality',
-    ],
-}
+    ]
+};
 Class.forcedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Forcedrive',
@@ -38495,7 +39274,7 @@ Class.forcedrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -38504,9 +39283,8 @@ Class.forcedrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.foredrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foredrive',
@@ -38540,7 +39318,7 @@ Class.foredrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -38549,9 +39327,8 @@ Class.foredrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.foregunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foregunner',
@@ -38611,9 +39388,8 @@ Class.foregunner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.foreman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foreman',
@@ -38655,8 +39431,8 @@ Class.foreman_AR = {
         'stocker',
         'ganger',
         'doppelganger',
-    ],
-}
+    ]
+};
 Class.foretrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foretrapper',
@@ -38706,9 +39482,8 @@ Class.foretrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.forger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Forger',
@@ -38774,8 +39549,8 @@ Class.forger_AR = {
         'shaper',
         'modeler',
         'melder',
-    ],
-}
+    ]
+};
 Class.former_AR = {
     PARENT: 'genericTank',
     LABEL: 'Former',
@@ -38835,9 +39610,8 @@ Class.former_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.formulator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Formulator',
@@ -38897,9 +39671,8 @@ Class.formulator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fortalice_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortalice',
@@ -39029,9 +39802,8 @@ Class.fortalice_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fortdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortdrive',
@@ -39144,9 +39916,8 @@ Class.fortdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fortifier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortifier',
@@ -39206,9 +39977,8 @@ Class.fortifier_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fortress_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortress',
@@ -39322,8 +40092,8 @@ Class.fortress_AR = {
         'palisade',
         'outpost',
         'fortalice',
-    ],
-}
+    ]
+};
 Class.foundry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foundry',
@@ -39376,8 +40146,8 @@ Class.foundry_AR = {
         'barn',
         'topBanana',
         'plant',
-    ],
-}
+    ]
+};
 Class.foundrydrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foundrydrive',
@@ -39421,7 +40191,7 @@ Class.foundrydrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -39430,9 +40200,8 @@ Class.foundrydrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.frother_AR = {
     PARENT: 'genericTank',
     LABEL: 'Frother',
@@ -39482,9 +40251,8 @@ Class.frother_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fryer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fryer',
@@ -39574,9 +40342,8 @@ Class.fryer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fungus_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fungus',
@@ -39806,9 +40573,8 @@ Class.fungus_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fuser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fuser',
@@ -39868,9 +40634,8 @@ Class.fuser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fusil_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fusil',
@@ -39920,9 +40685,8 @@ Class.fusil_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.fusillade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fusillade',
@@ -40022,9 +40786,8 @@ Class.fusillade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gadgetGun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gadget Gun',
@@ -40054,9 +40817,8 @@ Class.gadgetGun_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gaffer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gaffer',
@@ -40186,9 +40948,8 @@ Class.gaffer_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.galah_AR = {
     PARENT: 'genericTank',
     LABEL: 'Galah',
@@ -40278,9 +41039,8 @@ Class.galah_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gale_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gale',
@@ -40450,9 +41210,8 @@ Class.gale_AR = {
                 ANGLE: 329.9999886925191,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ganger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ganger',
@@ -40502,9 +41261,8 @@ Class.ganger_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.garrison_AR = {
     PARENT: 'genericTank',
     LABEL: 'Garrison',
@@ -40544,9 +41302,8 @@ Class.garrison_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.garroter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Garroter',
@@ -40596,9 +41353,8 @@ Class.garroter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.general_AR = {
     PARENT: 'genericTank',
     LABEL: 'General',
@@ -40688,9 +41444,8 @@ Class.general_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.generator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Generator',
@@ -40760,9 +41515,8 @@ Class.generator_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gimmicker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gimmicker',
@@ -40802,9 +41556,8 @@ Class.gimmicker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gizmo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gizmo',
@@ -40844,9 +41597,8 @@ Class.gizmo_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.glider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Glider',
@@ -40919,9 +41671,8 @@ Class.glider_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.governer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Governer',
@@ -41051,9 +41802,8 @@ Class.governer_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.grazer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Grazer',
@@ -41103,9 +41853,8 @@ Class.grazer_AR = {
                 ANGLE: -90.00000250447816,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.grenade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Grenade',
@@ -41135,9 +41884,8 @@ Class.grenade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.griffin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Griffin',
@@ -41207,9 +41955,8 @@ Class.griffin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.grinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Grinder',
@@ -41269,9 +42016,8 @@ Class.grinder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.guarder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Guarder',
@@ -41321,141 +42067,8 @@ Class.guarder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.guardrail_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Guardrail',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: 5.50000000348401,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: 175.00000600818353,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.gunman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunman',
@@ -41505,9 +42118,8 @@ Class.gunman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner',
@@ -41578,8 +42190,8 @@ Class.gunner_AR = {
     ],
     UPGRADES_TIER_4: [
         'dam',
-    ],
-}
+    ]
+};
 Class.gunnerAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Auto-Smasher',
@@ -41608,9 +42220,8 @@ Class.gunnerAutosmasher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gunnerBuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Builder',
@@ -41670,9 +42281,8 @@ Class.gunnerBuilder_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gunnerMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Mech',
@@ -41742,9 +42352,8 @@ Class.gunnerMech_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gunnerPen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Pen',
@@ -41814,9 +42423,8 @@ Class.gunnerPen_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gunnerTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Trapper',
@@ -41890,8 +42498,8 @@ Class.gunnerTrapper_AR = {
         'gunnerMech',
         'lavisher',
         'gunnerTritrapper',
-    ],
-}
+    ]
+};
 Class.gunnerTritrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Tri-Trapper',
@@ -41991,9 +42599,8 @@ Class.gunnerTritrapper_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gusher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gusher',
@@ -42073,9 +42680,8 @@ Class.gusher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.gyro_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gyro',
@@ -42135,9 +42741,8 @@ Class.gyro_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hackshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hackshot',
@@ -42237,9 +42842,8 @@ Class.hackshot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hammer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hammer',
@@ -42289,9 +42893,8 @@ Class.hammer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.handler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Handler',
@@ -42331,9 +42934,8 @@ Class.handler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hangar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hangar',
@@ -42408,8 +43010,8 @@ Class.hangar_AR = {
         'grinder',
         'barn',
         'reposit',
-    ],
-}
+    ]
+};
 Class.harbinger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harbinger',
@@ -42489,9 +43091,8 @@ Class.harbinger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.harbor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harbor',
@@ -42541,9 +43142,8 @@ Class.harbor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hardware_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hardware',
@@ -42673,9 +43273,8 @@ Class.hardware_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.harpoon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harpoon',
@@ -42765,9 +43364,8 @@ Class.harpoon_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.harpy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harpy',
@@ -42857,9 +43455,8 @@ Class.harpy_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.harrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harrier',
@@ -42909,9 +43506,8 @@ Class.harrier_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hatcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hatcher',
@@ -42981,9 +43577,8 @@ Class.hatcher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hatchet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hatchet',
@@ -43063,9 +43658,8 @@ Class.hatchet_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hawker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hawker',
@@ -43085,9 +43679,8 @@ Class.hawker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.headman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Headman',
@@ -43137,9 +43730,8 @@ Class.headman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.heaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Heaver',
@@ -43199,8 +43791,8 @@ Class.heaver_AR = {
         'jutter',
         'autoheaver',
         'mongrel',
-    ],
-}
+    ]
+};
 Class.heaverdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Heaverdrive',
@@ -43244,7 +43836,7 @@ Class.heaverdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -43253,9 +43845,8 @@ Class.heaverdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.helipad_AR = {
     PARENT: 'genericTank',
     LABEL: 'Helipad',
@@ -43328,9 +43919,8 @@ Class.helipad_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.helix_AR = {
     PARENT: 'genericTank',
     LABEL: 'Helix',
@@ -43370,9 +43960,8 @@ Class.helix_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.heptaShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hepta Shot',
@@ -43452,9 +44041,8 @@ Class.heptaShot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hewnDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hewn Double',
@@ -43534,8 +44122,8 @@ Class.hewnDouble_AR = {
         'hewnFlankDouble',
         'hewnGunner',
         'warkwawarkrk',
-    ],
-}
+    ]
+};
 Class.hexaAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa Auto-Smasher',
@@ -43564,9 +44152,8 @@ Class.hexaAutosmasher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa Tank',
@@ -43649,8 +44236,8 @@ Class.hexaTank_AR = {
     ],
     UPGRADES_TIER_4: [
         'tripleFlankTwin',
-    ],
-}
+    ]
+};
 Class.hexamachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Machine',
@@ -43793,9 +44380,8 @@ Class.hexamachine_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hexamech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Mech',
@@ -43998,9 +44584,8 @@ Class.hexamech_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hexatrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Trap Guard',
@@ -44153,9 +44738,8 @@ Class.hexatrapGuard_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hexatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Trapper',
@@ -44312,8 +44896,8 @@ Class.hexatrapper_AR = {
         'hexamech',
         'hexatrapGuard',
         'band',
-    ],
-}
+    ]
+};
 Class.hightailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hightailer',
@@ -44383,9 +44967,8 @@ Class.hightailer_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hitman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hitman',
@@ -44439,8 +45022,8 @@ Class.hitman_AR = {
         'mercenary',
         'slayer',
         'immolater',
-    ],
-}
+    ]
+};
 Class.hitmandrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hitmandrive',
@@ -44484,7 +45067,7 @@ Class.hitmandrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -44493,9 +45076,8 @@ Class.hitmandrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hognose_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hognose',
@@ -44535,43 +45117,8 @@ Class.hognose_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.honcho_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Honcho',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1.2999999523162842,
-                X: 2.0000000298023224,
-                Y: -1.2246468173960126e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'foreman',
-        'baltimore',
-        'foundry',
-        'bigCheese',
-        'autohoncho',
-        'honchodrive',
-        'junkie',
-    ],
-    UPGRADES_TIER_4: [
-        'minister',
-    ],
-}
+    ]
+};
 Class.honchodrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Honchodrive',
@@ -44595,7 +45142,7 @@ Class.honchodrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -44614,8 +45161,8 @@ Class.honchodrive_AR = {
         'bigCheesedrive',
         'autohonchodrive',
         'junkiedrive',
-    ],
-}
+    ]
+};
 Class.honchostorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Honchostorm',
@@ -44648,9 +45195,8 @@ Class.honchostorm_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hotbed_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hotbed',
@@ -44750,9 +45296,8 @@ Class.hotbed_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.howitzer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Howitzer',
@@ -44802,9 +45347,8 @@ Class.howitzer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hunter',
@@ -44849,8 +45393,8 @@ Class.hunter_AR = {
     UPGRADES_TIER_4: [
         'butcher',
         'reverberator',
-    ],
-}
+    ]
+};
 Class.hunter3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hunter-3',
@@ -44889,9 +45433,8 @@ Class.hunter3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.huntsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Huntsman',
@@ -44951,9 +45494,8 @@ Class.huntsman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hurdle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hurdle',
@@ -44993,9 +45535,8 @@ Class.hurdle_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hurler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hurler',
@@ -45043,8 +45584,8 @@ Class.hurler_AR = {
         'bunger',
         'deliverer',
         'slingshot',
-    ],
-}
+    ]
+};
 Class.hurler3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hurler-3',
@@ -45083,9 +45624,8 @@ Class.hurler3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hutch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hutch',
@@ -45168,8 +45708,8 @@ Class.hutch_AR = {
         'fencer',
         'retainer',
         'autohutch',
-    ],
-}
+    ]
+};
 Class.hybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hybrid',
@@ -45215,8 +45755,8 @@ Class.hybrid_AR = {
         'autohybrid',
         'mongrel',
         'amalgam',
-    ],
-}
+    ]
+};
 Class.hybriddrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hybriddrive',
@@ -45250,7 +45790,7 @@ Class.hybriddrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -45259,9 +45799,8 @@ Class.hybriddrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hypercluster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hypercluster',
@@ -45311,9 +45850,8 @@ Class.hypercluster_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hyperinception_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperinception',
@@ -45363,9 +45901,8 @@ Class.hyperinception_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hyperprojector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperprojector',
@@ -45425,9 +45962,8 @@ Class.hyperprojector_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hyperskimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperskimmer',
@@ -45477,9 +46013,8 @@ Class.hyperskimmer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hyperswarmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperswarmer',
@@ -45519,9 +46054,8 @@ Class.hyperswarmer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hypertwister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hypertwister',
@@ -45571,9 +46105,8 @@ Class.hypertwister_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.hyperwinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperwinder',
@@ -45623,9 +46156,8 @@ Class.hyperwinder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.icbm_AR = {
     PARENT: 'genericTank',
     LABEL: 'ICBM',
@@ -45665,9 +46197,8 @@ Class.icbm_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.immolater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Immolater',
@@ -45717,9 +46248,8 @@ Class.immolater_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.impeder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Impeder',
@@ -45809,9 +46339,8 @@ Class.impeder_AR = {
                 ANGLE: 169.99999334703236,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.incarcerator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Incarcerator',
@@ -45874,8 +46403,8 @@ Class.incarcerator_AR = {
         'autoincarcerator',
         'jailer',
         'triincarcerator',
-    ],
-}
+    ]
+};
 Class.inception_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inception',
@@ -45931,8 +46460,8 @@ Class.inception_AR = {
         'resourcer',
         'gimmicker',
         'propeller',
-    ],
-}
+    ]
+};
 Class.incline_AR = {
     PARENT: 'genericTank',
     LABEL: 'Incline',
@@ -45982,9 +46511,8 @@ Class.incline_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.inducer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inducer',
@@ -46074,9 +46602,8 @@ Class.inducer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.industry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Industry',
@@ -46116,9 +46643,8 @@ Class.industry_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.infestor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Infestor',
@@ -46176,8 +46702,8 @@ Class.infestor_AR = {
         'femaleficitor',
         'autoinfestor',
         'infestordrive',
-    ],
-}
+    ]
+};
 Class.infestordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Infestordrive',
@@ -46231,7 +46757,7 @@ Class.infestordrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46240,9 +46766,8 @@ Class.infestordrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.initiator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Initiator',
@@ -46342,9 +46867,8 @@ Class.initiator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.inspector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inspector',
@@ -46374,9 +46898,8 @@ Class.inspector_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.instructor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Instructor',
@@ -46450,7 +46973,7 @@ Class.instructor_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46459,9 +46982,8 @@ Class.instructor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.integrator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Integrator',
@@ -46522,8 +47044,8 @@ Class.integrator_AR = {
         'hightailer',
         'autointegrator',
         'skater',
-    ],
-}
+    ]
+};
 Class.integratordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Integratordrive',
@@ -46577,7 +47099,7 @@ Class.integratordrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46586,9 +47108,8 @@ Class.integratordrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.interner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Interner',
@@ -46651,8 +47172,8 @@ Class.interner_AR = {
         'utilizer',
         'autointerner',
         'retainer',
-    ],
-}
+    ]
+};
 Class.internerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Internerdrive',
@@ -46706,7 +47227,7 @@ Class.internerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46715,9 +47236,8 @@ Class.internerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.inventor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inventor',
@@ -46796,9 +47316,8 @@ Class.inventor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.issuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Issuer',
@@ -46861,8 +47380,8 @@ Class.issuer_AR = {
         'reposit',
         'slogger',
         'plant',
-    ],
-}
+    ]
+};
 Class.issuerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Issuerdrive',
@@ -46916,7 +47435,7 @@ Class.issuerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46925,9 +47444,8 @@ Class.issuerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.jailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jailer',
@@ -46987,9 +47505,8 @@ Class.jailer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.jalopy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jalopy',
@@ -47017,8 +47534,8 @@ Class.jalopy_AR = {
         'jalopyTrapper',
         'autojalopy',
         'clunker',
-    ],
-}
+    ]
+};
 Class.jalopyTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jalopy Trapper',
@@ -47048,9 +47565,8 @@ Class.jalopyTrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.jerker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jerker',
@@ -47160,9 +47676,8 @@ Class.jerker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.jolter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jolter',
@@ -47242,9 +47757,8 @@ Class.jolter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.junker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Junker',
@@ -47334,9 +47848,8 @@ Class.junker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.junkie_AR = {
     PARENT: 'genericTank',
     LABEL: 'Junkie',
@@ -47376,8 +47889,8 @@ Class.junkie_AR = {
         'stoner',
         'junkiedrive',
         'autojunkie',
-    ],
-}
+    ]
+};
 Class.junkiedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Junkiedrive',
@@ -47411,7 +47924,7 @@ Class.junkiedrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -47420,9 +47933,8 @@ Class.junkiedrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.jutter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jutter',
@@ -47482,9 +47994,8 @@ Class.jutter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.kettle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kettle',
@@ -47544,9 +48055,8 @@ Class.kettle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.kicker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kicker',
@@ -47636,9 +48146,8 @@ Class.kicker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.kingpin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kingpin',
@@ -47698,9 +48207,8 @@ Class.kingpin_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.kitter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kitter',
@@ -47780,9 +48288,8 @@ Class.kitter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.klutz_AR = {
     PARENT: 'genericTank',
     LABEL: 'Klutz',
@@ -47872,9 +48379,8 @@ Class.klutz_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.kraal_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kraal',
@@ -47944,9 +48450,8 @@ Class.kraal_AR = {
                 ANGLE: -4.99999985454646,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.labordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Labordrive',
@@ -47990,7 +48495,7 @@ Class.labordrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -47999,9 +48504,8 @@ Class.labordrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.laborer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Laborer',
@@ -48053,8 +48557,8 @@ Class.laborer_AR = {
         'servicer',
         'endeavor',
         'slogger',
-    ],
-}
+    ]
+};
 Class.ladle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ladle',
@@ -48114,9 +48618,8 @@ Class.ladle_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.landau_AR = {
     PARENT: 'genericTank',
     LABEL: 'Landau',
@@ -48156,9 +48659,8 @@ Class.landau_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.landmine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Landmine',
@@ -48197,8 +48699,8 @@ Class.landmine_AR = {
         'decoy',
         'tripwire',
         'vessel',
-    ],
-}
+    ]
+};
 Class.lasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lasher',
@@ -48278,9 +48780,8 @@ Class.lasher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.launcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Launcher',
@@ -48331,8 +48832,8 @@ Class.launcher_AR = {
         'seriemas',
         'supplant',
         'pumper',
-    ],
-}
+    ]
+};
 Class.lavisher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lavisher',
@@ -48392,9 +48893,8 @@ Class.lavisher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.leader_AR = {
     PARENT: 'genericTank',
     LABEL: 'Leader',
@@ -48414,9 +48914,8 @@ Class.leader_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lever_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lever',
@@ -48479,9 +48978,8 @@ Class.lever_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.leviathan_AR = {
     PARENT: 'genericTank',
     LABEL: 'Leviathan',
@@ -48511,9 +49009,8 @@ Class.leviathan_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.licker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Licker',
@@ -48573,9 +49070,8 @@ Class.licker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.limpet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Limpet',
@@ -48604,9 +49100,8 @@ Class.limpet_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lobber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lobber',
@@ -48656,9 +49151,8 @@ Class.lobber_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lockup_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lockup',
@@ -48708,9 +49202,8 @@ Class.lockup_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.loon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Loon',
@@ -48800,9 +49293,8 @@ Class.loon_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lorry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lorry',
@@ -48822,9 +49314,8 @@ Class.lorry_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lugger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lugger',
@@ -48894,9 +49385,8 @@ Class.lugger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lure_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lure',
@@ -48976,9 +49466,8 @@ Class.lure_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.lyncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lyncher',
@@ -49038,9 +49527,8 @@ Class.lyncher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.machete_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machete',
@@ -49170,9 +49658,8 @@ Class.machete_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.machgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machgun',
@@ -49232,9 +49719,8 @@ Class.machgun_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.machineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Guard',
@@ -49289,8 +49775,8 @@ Class.machineGuard_AR = {
         'restrainer',
         'trimachineGuard',
         'scout',
-    ],
-}
+    ]
+};
 Class.machineGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Gunner',
@@ -49361,8 +49847,8 @@ Class.machineGunner_AR = {
         'salvo',
         'doubleMachineGunner',
         'machineVolley',
-    ],
-}
+    ]
+};
 Class.machineMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Mech',
@@ -49413,8 +49899,8 @@ Class.machineMech_AR = {
         'hardware',
         'artificer',
         'rigger',
-    ],
-}
+    ]
+};
 Class.machineMegaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Mega Trapper',
@@ -49444,57 +49930,8 @@ Class.machineMegaTrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.machineTrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Machine Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'dieselTrapper',
-        'barricade',
-        'equalizer',
-        'machineGuard',
-        'encircler',
-        'machineMech',
-        'trimachine',
-        'expeller',
-        'automachineTrapper',
-        'deviation',
-    ],
-    UPGRADES_TIER_4: [
-        'frother',
-        'machineMegaTrapper',
-    ],
-}
+    ]
+};
 Class.machineVolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Volley',
@@ -49554,9 +49991,8 @@ Class.machineVolley_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.machinist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machinist',
@@ -49616,9 +50052,8 @@ Class.machinist_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.magnet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Magnet',
@@ -49688,9 +50123,8 @@ Class.magnet_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.magnum_AR = {
     PARENT: 'genericTank',
     LABEL: 'Magnum',
@@ -49760,9 +50194,8 @@ Class.magnum_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.maker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maker',
@@ -49822,9 +50255,8 @@ Class.maker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mamba_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mamba',
@@ -49874,9 +50306,8 @@ Class.mamba_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.manOWar_AR = {
     PARENT: 'genericTank',
     LABEL: "Man o' War",
@@ -49966,9 +50397,8 @@ Class.manOWar_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.manager_AR = {
     PARENT: 'genericTank',
     LABEL: 'Manager',
@@ -50000,8 +50430,8 @@ Class.manager_AR = {
         'managerdrive',
         'automanager',
         'controller',
-    ],
-}
+    ]
+};
 Class.managerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Managerdrive',
@@ -50025,7 +50455,7 @@ Class.managerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -50034,9 +50464,8 @@ Class.managerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mandarin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mandarin',
@@ -50106,9 +50535,8 @@ Class.mandarin_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mandible_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mandible',
@@ -50161,9 +50589,8 @@ Class.mandible_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mangle',
@@ -50253,9 +50680,8 @@ Class.mangle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.manufacture_AR = {
     PARENT: 'genericTank',
     LABEL: 'Manufacture',
@@ -50325,9 +50751,8 @@ Class.manufacture_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.marine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Marine',
@@ -50387,9 +50812,8 @@ Class.marine_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.massacrer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Massacrer',
@@ -50429,9 +50853,8 @@ Class.massacrer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mastermind_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mastermind',
@@ -50470,9 +50893,8 @@ Class.mastermind_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.matchlock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Matchlock',
@@ -50532,9 +50954,8 @@ Class.matchlock_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.maverick_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maverick',
@@ -50574,9 +50995,8 @@ Class.maverick_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.maw_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maw',
@@ -50636,65 +51056,8 @@ Class.maw_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
-Class.mech_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Mech',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'engineer',
-        'trimech',
-        'machineMech',
-        'mechGuard',
-        'operator',
-        'cog',
-        'cobbler',
-        'automech',
-    ],
-    UPGRADES_TIER_4: [
-        'propper',
-        'technician',
-    ],
-}
+    ]
+};
 Class.mechGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mech Guard',
@@ -50757,8 +51120,8 @@ Class.mechGuard_AR = {
         'automechGuard',
         'jailer',
         'trimechGuard',
-    ],
-}
+    ]
+};
 Class.mechanic_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mechanic',
@@ -50808,9 +51171,8 @@ Class.mechanic_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutoartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Artillery',
@@ -50863,9 +51225,8 @@ Class.megaAutoartillery_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutoassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Assassin',
@@ -50908,9 +51269,8 @@ Class.megaAutoassassin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutoauto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Auto-3',
@@ -50959,9 +51319,8 @@ Class.megaAutoauto3_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutobuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Builder',
@@ -51004,9 +51363,8 @@ Class.megaAutobuilder_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutocruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Cruiser',
@@ -51049,9 +51407,8 @@ Class.megaAutocruiser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutodestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Destroyer',
@@ -51084,9 +51441,8 @@ Class.megaAutodestroyer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutodiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Diesel',
@@ -51119,9 +51475,8 @@ Class.megaAutodiesel_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutodirectordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Directordrive',
@@ -51154,9 +51509,8 @@ Class.megaAutodirectordrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutodoper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Doper',
@@ -51199,9 +51553,8 @@ Class.megaAutodoper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutodoubleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Double Twin',
@@ -51264,9 +51617,8 @@ Class.megaAutodoubleTwin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutogunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Gunner',
@@ -51329,9 +51681,8 @@ Class.megaAutogunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutohexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Hexa Tank',
@@ -51414,9 +51765,8 @@ Class.megaAutohexaTank_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutohoncho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Honcho',
@@ -51449,9 +51799,8 @@ Class.megaAutohoncho_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutohunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Hunter',
@@ -51494,9 +51843,8 @@ Class.megaAutohunter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutolauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Launcher',
@@ -51539,9 +51887,8 @@ Class.megaAutolauncher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutomachineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Machine Trapper',
@@ -51584,9 +51931,8 @@ Class.megaAutomachineTrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutomech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Mech',
@@ -51639,9 +51985,8 @@ Class.megaAutomech_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutominigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Minigun',
@@ -51694,9 +52039,8 @@ Class.megaAutominigun_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutooverseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Overseer',
@@ -51739,9 +52083,8 @@ Class.megaAutooverseer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutopen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Pen',
@@ -51794,9 +52137,8 @@ Class.megaAutopen_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutorifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Rifle',
@@ -51839,9 +52181,8 @@ Class.megaAutorifle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Smasher',
@@ -51870,9 +52211,8 @@ Class.megaAutosmasher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutospawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Spawner',
@@ -51925,9 +52265,8 @@ Class.megaAutospawner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutotrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Trap Guard',
@@ -51980,9 +52319,8 @@ Class.megaAutotrapGuard_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutotriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Tri-Angle',
@@ -52035,9 +52373,8 @@ Class.megaAutotriangle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutotripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Triple Shot',
@@ -52090,9 +52427,8 @@ Class.megaAutotripleShot_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaAutowark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Wark',
@@ -52155,9 +52491,8 @@ Class.megaAutowark_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaBanger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Banger',
@@ -52176,9 +52511,8 @@ Class.megaBanger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaCaptain_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Captain',
@@ -52248,9 +52582,8 @@ Class.megaCaptain_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaCourser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Courser',
@@ -52290,9 +52623,8 @@ Class.megaCourser_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaFactory_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Factory',
@@ -52332,9 +52664,8 @@ Class.megaFactory_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaFoundry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Foundry',
@@ -52374,9 +52705,8 @@ Class.megaFoundry_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaHangar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Hangar',
@@ -52436,9 +52766,8 @@ Class.megaHangar_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaHexatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Hexa-Trapper',
@@ -52581,9 +52910,8 @@ Class.megaHexatrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaHunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Hunter',
@@ -52624,8 +52952,8 @@ Class.megaHunter_AR = {
         'automegaHunter',
         'megaProber',
         'megaCourser',
-    ],
-}
+    ]
+};
 Class.megaIssuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Issuer',
@@ -52675,9 +53003,8 @@ Class.megaIssuer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaLaborer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Laborer',
@@ -52717,9 +53044,8 @@ Class.megaLaborer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaOrdnance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Ordnance',
@@ -52769,9 +53095,8 @@ Class.megaOrdnance_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaPoacher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Poacher',
@@ -52811,9 +53136,8 @@ Class.megaPoacher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaPredator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Predator',
@@ -52853,9 +53177,8 @@ Class.megaPredator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaProber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Prober',
@@ -52895,9 +53218,8 @@ Class.megaProber_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaSpawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Spawner',
@@ -52949,8 +53271,8 @@ Class.megaSpawner_AR = {
         'megaLaborer',
         'megaFoundry',
         'megaIssuer',
-    ],
-}
+    ]
+};
 Class.megaSpawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Spawnerdrive',
@@ -52994,7 +53316,7 @@ Class.megaSpawnerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -53003,9 +53325,8 @@ Class.megaSpawnerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Trapper',
@@ -53052,80 +53373,8 @@ Class.megaTrapper_AR = {
         'shoebill',
         'seizer',
         'megaWark',
-    ],
-}
-Class.megaWark_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Mega Wark',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: -0.4999999806931039,
-                Y: 6.999999763519447,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 10,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999717468045,
-                Y: 6.999999810185851,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: -0.4999999806931048,
-                Y: -6.999999763519447,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 10,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999717468045,
-                Y: -6.999999810185852,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 5.0,
-                ASPECT: 2,
-                X: -5.500000440031348,
-                Y: 6.999999711075784,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 5.0,
-                ASPECT: 2,
-                X: -5.50000044003135,
-                Y: -6.999999711075784,
-                ANGLE: -4.99999985454646,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.mega3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-3',
@@ -53177,8 +53426,8 @@ Class.mega3_AR = {
         'crank',
         'automega3',
         'sequence',
-    ],
-}
+    ]
+};
 Class.mega5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-5',
@@ -53237,9 +53486,8 @@ Class.mega5_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megabonker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Bonker',
@@ -53258,9 +53506,8 @@ Class.megabonker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megadrifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Drifter',
@@ -53279,9 +53526,8 @@ Class.megadrifter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megalandmine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Landmine',
@@ -53310,9 +53556,8 @@ Class.megalandmine_AR = {
                 ANGLE: 90.00000250447816,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.megasmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Smasher',
@@ -53341,8 +53586,8 @@ Class.megasmasher_AR = {
         'megabonker',
         'megaBanger',
         'megadrifter',
-    ],
-}
+    ]
+};
 Class.megaspike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Spike',
@@ -53391,9 +53636,8 @@ Class.megaspike_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.meld_AR = {
     PARENT: 'genericTank',
     LABEL: 'Meld',
@@ -53433,9 +53677,8 @@ Class.meld_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.melder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Melder',
@@ -53505,9 +53748,8 @@ Class.melder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mercenary_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mercenary',
@@ -53577,9 +53819,8 @@ Class.mercenary_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.merganser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Merganser',
@@ -53649,9 +53890,8 @@ Class.merganser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.merlin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Merlin',
@@ -53731,9 +53971,8 @@ Class.merlin_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.methodist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Methodist',
@@ -53773,9 +54012,8 @@ Class.methodist_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mine',
@@ -53825,9 +54063,8 @@ Class.mine_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mingler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mingler',
@@ -53965,8 +54202,8 @@ Class.mingler_AR = {
         'gale',
         'cozen',
         'automingler',
-    ],
-}
+    ]
+};
 Class.minigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minigun',
@@ -54023,8 +54260,8 @@ Class.minigun_AR = {
     UPGRADES_TIER_4: [
         'tommy',
         'machgun',
-    ],
-}
+    ]
+};
 Class.minilet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minilet',
@@ -54104,9 +54341,8 @@ Class.minilet_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.minister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minister',
@@ -54126,9 +54362,8 @@ Class.minister_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mixer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mixer',
@@ -54188,9 +54423,8 @@ Class.mixer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.modeler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Modeler',
@@ -54250,9 +54484,8 @@ Class.modeler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mogul_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mogul',
@@ -54342,9 +54575,8 @@ Class.mogul_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.molder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Molder',
@@ -54384,9 +54616,8 @@ Class.molder_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.molotov_AR = {
     PARENT: 'genericTank',
     LABEL: 'Molotov',
@@ -54426,9 +54657,8 @@ Class.molotov_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mongrel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mongrel',
@@ -54468,9 +54698,8 @@ Class.mongrel_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mono_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mono',
@@ -54510,9 +54739,8 @@ Class.mono_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.mortar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mortar',
@@ -54585,8 +54813,8 @@ Class.mortar_AR = {
         'plaster',
         'foctar',
         'fusillade',
-    ],
-}
+    ]
+};
 Class.mosey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mosey',
@@ -54650,8 +54878,8 @@ Class.mosey_AR = {
         'reposit',
         'pepper',
         'harbor',
-    ],
-}
+    ]
+};
 Class.moseydrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Moseydrive',
@@ -54714,9 +54942,8 @@ Class.moseydrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.motorGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Motor Gunner',
@@ -54796,9 +55023,8 @@ Class.motorGunner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.musket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Musket',
@@ -54858,8 +55084,8 @@ Class.musket_AR = {
         'automusket',
         'duelist',
         'bifold',
-    ],
-}
+    ]
+};
 Class.myriad_AR = {
     PARENT: 'genericTank',
     LABEL: 'Myriad',
@@ -54889,9 +55115,8 @@ Class.myriad_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.nabber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nabber',
@@ -54931,9 +55156,8 @@ Class.nabber_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.nailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nailgun',
@@ -55000,8 +55224,8 @@ Class.nailgun_AR = {
         'doubleNailgun',
         'binder',
         'hammer',
-    ],
-}
+    ]
+};
 Class.nester_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nester',
@@ -55041,9 +55265,8 @@ Class.nester_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.neutron_AR = {
     PARENT: 'genericTank',
     LABEL: 'Neutron',
@@ -55083,9 +55306,8 @@ Class.neutron_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.nimrod_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nimrod',
@@ -55155,9 +55377,8 @@ Class.nimrod_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.nitwit_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nitwit',
@@ -55227,9 +55448,8 @@ Class.nitwit_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.nonatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nona-Trapper',
@@ -55419,9 +55639,8 @@ Class.nonatrapper_AR = {
                 ANGLE: 319.99999069097345,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.nuker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nuker',
@@ -55511,9 +55730,8 @@ Class.nuker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.obliterator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Obliterator',
@@ -55553,9 +55771,8 @@ Class.obliterator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.octoTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Octo Tank',
@@ -55655,8 +55872,8 @@ Class.octoTank_AR = {
         'demise',
         'autooctoTank',
         'consolidation',
-    ],
-}
+    ]
+};
 Class.octotrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Octo-Trapper',
@@ -55839,9 +56056,8 @@ Class.octotrapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.operator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Operator',
@@ -55902,8 +56118,8 @@ Class.operator_AR = {
         'employer',
         'utilizer',
         'autooperator',
-    ],
-}
+    ]
+};
 Class.oracle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Oracle',
@@ -55983,9 +56199,8 @@ Class.oracle_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.orbitalStrike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Orbital Strike',
@@ -56055,9 +56270,8 @@ Class.orbitalStrike_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ordnance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ordnance',
@@ -56121,8 +56335,8 @@ Class.ordnance_AR = {
         'carnage',
         'lyncher',
         'broadsider',
-    ],
-}
+    ]
+};
 Class.originator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Originator',
@@ -56161,9 +56375,8 @@ Class.originator_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.osprey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Osprey',
@@ -56233,9 +56446,8 @@ Class.osprey_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.outpost_AR = {
     PARENT: 'genericTank',
     LABEL: 'Outpost',
@@ -56335,9 +56547,8 @@ Class.outpost_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overangle',
@@ -56397,9 +56608,8 @@ Class.overangle_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overartillery',
@@ -56459,9 +56669,8 @@ Class.overartillery_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overassassin',
@@ -56511,9 +56720,8 @@ Class.overassassin_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overbuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overbuilder',
@@ -56563,9 +56771,8 @@ Class.overbuilder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overcheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overcheese',
@@ -56595,9 +56802,8 @@ Class.overcheese_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overczar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overczar',
@@ -56667,9 +56873,8 @@ Class.overczar_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overdestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdestroyer',
@@ -56709,9 +56914,8 @@ Class.overdestroyer_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overdiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdiesel',
@@ -56751,101 +56955,8 @@ Class.overdiesel_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
-Class.overdoubleGunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Overdouble Gunner',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784748515752e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847515773685e-07,
-                Y: -2.499999999999998,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847485157515e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.overdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdrive',
@@ -56879,7 +56990,7 @@ Class.overdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -56900,8 +57011,8 @@ Class.overdrive_AR = {
         'overstorm',
         'foredrive',
         'dopeseerdrive',
-    ],
-}
+    ]
+};
 Class.overequalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overequalizer',
@@ -56981,9 +57092,8 @@ Class.overequalizer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overgunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overgunner',
@@ -57057,8 +57167,8 @@ Class.overgunner_AR = {
         'foregunner',
         'overdoubleGunner',
         'overequalizer',
-    ],
-}
+    ]
+};
 Class.overgunnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overgunnerdrive',
@@ -57122,7 +57232,7 @@ Class.overgunnerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -57131,9 +57241,8 @@ Class.overgunnerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overhunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overhunter',
@@ -57183,9 +57292,8 @@ Class.overhunter_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overlauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overlauncher',
@@ -57235,9 +57343,8 @@ Class.overlauncher_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overlord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overlord',
@@ -57300,8 +57407,8 @@ Class.overlord_AR = {
         'supervisor',
         'headman',
         'dopelord',
-    ],
-}
+    ]
+};
 Class.overmach_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overmach',
@@ -57351,9 +57458,8 @@ Class.overmach_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overmech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overmech',
@@ -57413,9 +57519,8 @@ Class.overmech_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overminigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overminigun',
@@ -57475,9 +57580,8 @@ Class.overminigun_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overnailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overnailer',
@@ -57547,9 +57651,8 @@ Class.overnailer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overpen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overpen',
@@ -57609,9 +57712,8 @@ Class.overpen_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overrifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overrifle',
@@ -57661,9 +57763,8 @@ Class.overrifle_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overrunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overrunner',
@@ -57713,9 +57814,8 @@ Class.overrunner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overseer',
@@ -57759,8 +57859,8 @@ Class.overseer_AR = {
     ],
     UPGRADES_TIER_4: [
         'inspector',
-    ],
-}
+    ]
+};
 Class.overshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overshot',
@@ -57820,9 +57920,8 @@ Class.overshot_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overstorm',
@@ -57865,9 +57964,8 @@ Class.overstorm_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overthrower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overthrower',
@@ -57917,9 +58015,8 @@ Class.overthrower_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overtrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overtrap Guard',
@@ -57979,9 +58076,8 @@ Class.overtrapGuard_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overtrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overtrapper',
@@ -58046,8 +58142,8 @@ Class.overtrapper_AR = {
         'overpen',
         'overmech',
         'overwark',
-    ],
-}
+    ]
+};
 Class.overtrapperdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overtrapperdrive',
@@ -58101,7 +58197,7 @@ Class.overtrapperdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -58110,9 +58206,8 @@ Class.overtrapperdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overwark',
@@ -58182,9 +58277,8 @@ Class.overwark_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.overwhelmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overwhelmer',
@@ -58224,9 +58318,8 @@ Class.overwhelmer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.owl_AR = {
     PARENT: 'genericTank',
     LABEL: 'Owl',
@@ -58276,9 +58369,8 @@ Class.owl_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.packer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Packer',
@@ -58328,9 +58420,8 @@ Class.packer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.paddock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Paddock',
@@ -58369,9 +58460,8 @@ Class.paddock_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.palisade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Palisade',
@@ -58531,9 +58621,8 @@ Class.palisade_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.parakeet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parakeet',
@@ -58603,9 +58692,8 @@ Class.parakeet_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.parapet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parapet',
@@ -58675,9 +58763,8 @@ Class.parapet_AR = {
                 ANGLE: 171.00000134341394,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.parrot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parrot',
@@ -58767,9 +58854,8 @@ Class.parrot_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.parryer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parryer',
@@ -58819,9 +58905,8 @@ Class.parryer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.partisan_AR = {
     PARENT: 'genericTank',
     LABEL: 'Partisan',
@@ -58871,9 +58956,8 @@ Class.partisan_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.partition_AR = {
     PARENT: 'genericTank',
     LABEL: 'Partition',
@@ -58943,9 +59027,8 @@ Class.partition_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.patrol_AR = {
     PARENT: 'genericTank',
     LABEL: 'Patrol',
@@ -59005,9 +59088,8 @@ Class.patrol_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.peashooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Peashooter',
@@ -59071,8 +59153,8 @@ Class.peashooter_AR = {
         'pommel',
         'dotter',
         'tripeashooter',
-    ],
-}
+    ]
+};
 Class.peashooterdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Peashooterdrive',
@@ -59135,66 +59217,8 @@ Class.peashooterdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
-Class.pen_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Pen',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -7.960203902479247e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'stall',
-        'tripen',
-        'encircler',
-        'incarcerator',
-        'operator',
-        'cockatiel',
-        'hutch',
-        'interner',
-        'autopen',
-    ],
-    UPGRADES_TIER_4: [
-        'fortifier',
-        'sty',
-    ],
-}
+    ]
+};
 Class.pentaDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Penta Double',
@@ -59304,9 +59328,8 @@ Class.pentaDouble_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pentaShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Penta Shot',
@@ -59379,8 +59402,8 @@ Class.pentaShot_AR = {
         'flexedMinigun',
         'deficiency',
         'waarararrk',
-    ],
-}
+    ]
+};
 Class.pepper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pepper',
@@ -59460,9 +59483,8 @@ Class.pepper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.peregrine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Peregrine',
@@ -59522,9 +59544,8 @@ Class.peregrine_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.petrifier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Petrifier',
@@ -59644,9 +59665,8 @@ Class.petrifier_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.phantom_AR = {
     PARENT: 'genericTank',
     LABEL: 'Phantom',
@@ -59779,9 +59799,8 @@ Class.phantom_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.phoenix_AR = {
     PARENT: 'genericTank',
     LABEL: 'Phoenix',
@@ -59841,9 +59860,8 @@ Class.phoenix_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.picket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Picket',
@@ -59893,9 +59911,8 @@ Class.picket_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pilfer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pilfer',
@@ -59945,9 +59962,8 @@ Class.pilfer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pincer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pincer',
@@ -59997,9 +60013,8 @@ Class.pincer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pinner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pinner',
@@ -60069,9 +60084,8 @@ Class.pinner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pipeline_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pipeline',
@@ -60131,9 +60145,8 @@ Class.pipeline_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pique_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pique',
@@ -60223,9 +60236,8 @@ Class.pique_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pitViper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pit Viper',
@@ -60275,9 +60287,8 @@ Class.pitViper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pitcher',
@@ -60343,8 +60354,8 @@ Class.pitcher_AR = {
         'incline',
         'pyromaniac',
         'pleuron',
-    ],
-}
+    ]
+};
 Class.pivoter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pivoter',
@@ -60404,9 +60415,8 @@ Class.pivoter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.plaguer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plaguer',
@@ -60496,9 +60506,8 @@ Class.plaguer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.planner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Planner',
@@ -60537,9 +60546,8 @@ Class.planner_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.plant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plant',
@@ -60589,9 +60597,8 @@ Class.plant_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.plaster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plaster',
@@ -60661,9 +60668,8 @@ Class.plaster_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pleuron_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pleuron',
@@ -60733,9 +60739,8 @@ Class.pleuron_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.plunderer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plunderer',
@@ -60785,9 +60790,8 @@ Class.plunderer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.poacher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Poacher',
@@ -60842,8 +60846,8 @@ Class.poacher_AR = {
         'megaPoacher',
         'pilfer',
         'immolater',
-    ],
-}
+    ]
+};
 Class.poacherdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Poacherdrive',
@@ -60887,7 +60891,7 @@ Class.poacherdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -60896,9 +60900,8 @@ Class.poacherdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.polluter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Polluter',
@@ -60940,8 +60943,8 @@ Class.polluter_AR = {
         'sprinkler',
         'blight',
         'autopolluter',
-    ],
-}
+    ]
+};
 Class.polluterdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Polluterdrive',
@@ -60975,7 +60978,7 @@ Class.polluterdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -60984,9 +60987,8 @@ Class.polluterdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pommel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pommel',
@@ -61056,9 +61058,8 @@ Class.pommel_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.predator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Predator',
@@ -61109,8 +61110,8 @@ Class.predator_AR = {
         'megaPredator',
         'presage',
         'garroter',
-    ],
-}
+    ]
+};
 Class.presage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Presage',
@@ -61160,9 +61161,8 @@ Class.presage_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.prescriber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Prescriber',
@@ -61245,9 +61245,8 @@ Class.prescriber_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.prick_AR = {
     PARENT: 'genericTank',
     LABEL: 'Prick',
@@ -61266,9 +61265,8 @@ Class.prick_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.probationer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Probationer',
@@ -61318,9 +61316,8 @@ Class.probationer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.prober_AR = {
     PARENT: 'genericTank',
     LABEL: 'Prober',
@@ -61370,8 +61367,8 @@ Class.prober_AR = {
         'carnage',
         'megaProber',
         'flicher',
-    ],
-}
+    ]
+};
 Class.producer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Producer',
@@ -61441,9 +61438,8 @@ Class.producer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.productiondrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Productiondrive',
@@ -61526,9 +61522,8 @@ Class.productiondrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.productionist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Productionist',
@@ -61611,8 +61606,8 @@ Class.productionist_AR = {
         'gaffer',
         'fabrication',
         'inducer',
-    ],
-}
+    ]
+};
 Class.projector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Projector',
@@ -61678,8 +61673,8 @@ Class.projector_AR = {
         'collision',
         'claimant',
         'pleuron',
-    ],
-}
+    ]
+};
 Class.propeller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Propeller',
@@ -61739,9 +61734,8 @@ Class.propeller_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.propper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Propper',
@@ -61801,9 +61795,8 @@ Class.propper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pryer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pryer',
@@ -61886,9 +61879,8 @@ Class.pryer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.puffer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Puffer',
@@ -61948,9 +61940,8 @@ Class.puffer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pug_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pug',
@@ -62020,9 +62011,8 @@ Class.pug_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pulverizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pulverizer',
@@ -62072,9 +62062,8 @@ Class.pulverizer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pummeler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pummeler',
@@ -62134,9 +62123,8 @@ Class.pummeler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pumper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pumper',
@@ -62266,9 +62254,8 @@ Class.pumper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pursuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pursuer',
@@ -62288,9 +62275,8 @@ Class.pursuer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pyromaniac_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pyromaniac',
@@ -62340,9 +62326,8 @@ Class.pyromaniac_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.python_AR = {
     PARENT: 'genericTank',
     LABEL: 'Python',
@@ -62372,9 +62357,8 @@ Class.python_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.quadTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quad Twin',
@@ -62464,9 +62448,8 @@ Class.quadTwin_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.quadangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quad-Angle',
@@ -62531,8 +62514,8 @@ Class.quadangle_AR = {
         'spoiler',
         'mandible',
         'waster',
-    ],
-}
+    ]
+};
 Class.quadwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quadwark',
@@ -62642,9 +62625,8 @@ Class.quadwark_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.quarrion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quarrion',
@@ -62714,9 +62696,8 @@ Class.quarrion_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.queller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Queller',
@@ -62771,8 +62752,8 @@ Class.queller_AR = {
         'clobberer',
         'thwarter',
         'stifler',
-    ],
-}
+    ]
+};
 Class.queller3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Queller-3',
@@ -62811,9 +62792,8 @@ Class.queller3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.quintuplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quintuplet',
@@ -62873,9 +62853,8 @@ Class.quintuplet_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.raider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Raider',
@@ -62955,9 +62934,8 @@ Class.raider_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.railgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Railgun',
@@ -63008,8 +62986,8 @@ Class.railgun_AR = {
         'autorailgun',
         'raven',
         'covert',
-    ],
-}
+    ]
+};
 Class.rainmaker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rainmaker',
@@ -63079,9 +63057,8 @@ Class.rainmaker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rallyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rallyer',
@@ -63131,9 +63108,8 @@ Class.rallyer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rampart_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rampart',
@@ -63193,9 +63169,8 @@ Class.rampart_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ranger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ranger',
@@ -63236,8 +63211,8 @@ Class.ranger_AR = {
         'doorman',
         'maverick',
         'acquirer',
-    ],
-}
+    ]
+};
 Class.ransacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ransacker',
@@ -63287,9 +63262,8 @@ Class.ransacker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.raptor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Raptor',
@@ -63359,9 +63333,8 @@ Class.raptor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rationalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rationalizer',
@@ -63441,9 +63414,8 @@ Class.rationalizer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rattler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rattler',
@@ -63493,9 +63465,8 @@ Class.rattler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.raven_AR = {
     PARENT: 'genericTank',
     LABEL: 'Raven',
@@ -63565,9 +63536,8 @@ Class.raven_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ravisher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ravisher',
@@ -63627,9 +63597,8 @@ Class.ravisher_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ream_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ream',
@@ -63669,9 +63638,8 @@ Class.ream_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rebounder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rebounder',
@@ -63731,9 +63699,8 @@ Class.rebounder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.recoiler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Recoiler',
@@ -63773,9 +63740,8 @@ Class.recoiler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.recursor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Recursor',
@@ -63815,9 +63781,8 @@ Class.recursor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.recurver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Recurver',
@@ -63897,9 +63862,8 @@ Class.recurver_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.refuge_AR = {
     PARENT: 'genericTank',
     LABEL: 'Refuge',
@@ -64072,9 +64036,8 @@ Class.refuge_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.regulator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Regulator',
@@ -64174,9 +64137,8 @@ Class.regulator_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.repairman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Repairman',
@@ -64226,9 +64188,8 @@ Class.repairman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.reposit_AR = {
     PARENT: 'genericTank',
     LABEL: 'Reposit',
@@ -64298,9 +64259,8 @@ Class.reposit_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.represser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Represser',
@@ -64340,9 +64300,8 @@ Class.represser_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.resourcer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Resourcer',
@@ -64402,9 +64361,8 @@ Class.resourcer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.restorer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Restorer',
@@ -64454,9 +64412,8 @@ Class.restorer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.restrainer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Restrainer',
@@ -64496,9 +64453,8 @@ Class.restrainer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.retainer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Retainer',
@@ -64578,9 +64534,8 @@ Class.retainer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.revenant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Revenant',
@@ -64683,9 +64638,8 @@ Class.revenant_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.reverberator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Reverberator',
@@ -64735,9 +64689,8 @@ Class.reverberator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ricochet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ricochet',
@@ -64776,9 +64729,8 @@ Class.ricochet_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rider',
@@ -64878,9 +64830,8 @@ Class.rider_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rifle',
@@ -64923,8 +64874,8 @@ Class.rifle_AR = {
     UPGRADES_TIER_4: [
         'ransacker',
         'thunderclap',
-    ],
-}
+    ]
+};
 Class.rifle3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rifle-3',
@@ -64963,9 +64914,8 @@ Class.rifle3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rigger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rigger',
@@ -65035,85 +64985,8 @@ Class.rigger_AR = {
                 ANGLE: -9.99999970909292,
             }
         },
-
-    ],
-}
-Class.rimfire_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Rimfire',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: 1.999999990170974,
-                Y: -2.5000000686897828,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: 1.9999999901709742,
-                Y: 2.5000000686897823,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.185569497031504e-07,
-                Y: 4.999999999999995,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.185569503154738e-07,
-                Y: -4.999999999999995,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: 2.0000000298023224,
-                Y: -1.2246468173960126e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'brink',
-        'pinner',
-        'salvo',
-        'lure',
-        'harbinger',
-        'beater',
-        'barber',
-        'walloper',
-        'rimflak',
-        'barrage',
-        'doubleRimfire',
-        'autorimfire',
-    ],
-}
+    ]
+};
 Class.rimflak_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rimflak',
@@ -65213,9 +65086,8 @@ Class.rimflak_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ringer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ringer',
@@ -65285,9 +65157,8 @@ Class.ringer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.roadblock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Roadblock',
@@ -65337,9 +65208,8 @@ Class.roadblock_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rocket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rocket',
@@ -65419,9 +65289,8 @@ Class.rocket_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rocketeer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rocketeer',
@@ -65465,8 +65334,8 @@ Class.rocketeer_AR = {
         'careerer',
         'autorocketeer',
         'pyromaniac',
-    ],
-}
+    ]
+};
 Class.rogue_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rogue',
@@ -65486,9 +65355,8 @@ Class.rogue_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.roller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Roller',
@@ -65588,9 +65456,8 @@ Class.roller_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ruiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ruiner',
@@ -65660,9 +65527,8 @@ Class.ruiner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.rustler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rustler',
@@ -65712,9 +65578,8 @@ Class.rustler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sailor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sailor',
@@ -65764,9 +65629,8 @@ Class.sailor_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.salvo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Salvo',
@@ -65846,9 +65710,8 @@ Class.salvo_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sandstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sandstorm',
@@ -65898,9 +65761,8 @@ Class.sandstorm_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sawedOff_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sawed Off',
@@ -66030,9 +65892,8 @@ Class.sawedOff_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.scatterer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scatterer',
@@ -66062,9 +65923,8 @@ Class.scatterer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.scorcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scorcher',
@@ -66094,9 +65954,8 @@ Class.scorcher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.scout_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scout',
@@ -66136,9 +65995,8 @@ Class.scout_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.scrimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scrimmer',
@@ -66201,9 +66059,8 @@ Class.scrimmer_AR = {
                 ANGLE: -90.00000250447816,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.scrutiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scrutiner',
@@ -66233,141 +66090,8 @@ Class.scrutiner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.sealer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Sealer',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -1.9670124945525558e-07,
-                Y: 4.499999880790706,
-                ANGLE: 9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: -1.9670124945525558e-07,
-                Y: 4.499999880790706,
-                ANGLE: 9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.000000247771727,
-                Y: 4.499999981143676,
-                ANGLE: 9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -1.967012500103671e-07,
-                Y: -4.499999880790706,
-                ANGLE: -9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: -1.967012500103671e-07,
-                Y: -4.499999880790706,
-                ANGLE: -9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.000000247771727,
-                Y: -4.499999981143679,
-                ANGLE: -9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -1.9670124945525558e-07,
-                Y: 4.499999880790705,
-                ANGLE: 190.00000301050196,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: -1.9670124945525558e-07,
-                Y: 4.499999880790705,
-                ANGLE: 190.00000301050196,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.00000024777173,
-                Y: 4.499999981143677,
-                ANGLE: 190.00000301050196,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -1.967012500103671e-07,
-                Y: -4.499999880790707,
-                ANGLE: 169.99999334703236,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: -1.967012500103671e-07,
-                Y: -4.499999880790707,
-                ANGLE: 169.99999334703236,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.00000024777173,
-                Y: -4.499999981143679,
-                ANGLE: 169.99999334703236,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.seizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Seizer',
@@ -66397,9 +66121,8 @@ Class.seizer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.septamachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Machine',
@@ -66549,9 +66272,8 @@ Class.septamachine_AR = {
                 ANGLE: 308.5714176433847,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.septamech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Mech',
@@ -66771,9 +66493,8 @@ Class.septamech_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.septatrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Trap Guard',
@@ -66933,9 +66654,8 @@ Class.septatrapGuard_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.septatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Trapper',
@@ -67095,8 +66815,8 @@ Class.septatrapper_AR = {
         'inventor',
         'septamech',
         'septatrapGuard',
-    ],
-}
+    ]
+};
 Class.sequence_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sequence',
@@ -67169,9 +66889,8 @@ Class.sequence_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.seriemas_AR = {
     PARENT: 'genericTank',
     LABEL: 'Seriemas',
@@ -67231,9 +66950,8 @@ Class.seriemas_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.servicer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Servicer',
@@ -67283,9 +67001,8 @@ Class.servicer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.settler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Settler',
@@ -67315,101 +67032,8 @@ Class.settler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.setup_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Setup',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.999999841697319,
-                Y: 5.50000000348401,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: 175.00000600818353,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.shade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shade',
@@ -67512,9 +67136,8 @@ Class.shade_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shaper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shaper',
@@ -67564,9 +67187,8 @@ Class.shaper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sharper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sharper',
@@ -67585,9 +67207,8 @@ Class.sharper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sharpshooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sharpshooter',
@@ -67617,9 +67238,8 @@ Class.sharpshooter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shaver',
@@ -67649,9 +67269,8 @@ Class.shaver_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shearer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shearer',
@@ -67721,9 +67340,8 @@ Class.shearer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shell_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shell',
@@ -67773,9 +67391,8 @@ Class.shell_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sheller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sheller',
@@ -67855,9 +67472,8 @@ Class.sheller_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shepherd_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shepherd',
@@ -67907,9 +67523,8 @@ Class.shepherd_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shiver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shiver',
@@ -67989,9 +67604,8 @@ Class.shiver_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shoal_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shoal',
@@ -68031,9 +67645,8 @@ Class.shoal_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shocker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shocker',
@@ -68123,9 +67736,8 @@ Class.shocker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shoebill_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shoebill',
@@ -68185,9 +67797,8 @@ Class.shoebill_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shopper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shopper',
@@ -68227,9 +67838,8 @@ Class.shopper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.shotgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shotgun',
@@ -68361,8 +67971,8 @@ Class.shotgun_AR = {
         'carbine',
         'autoshotgun',
         'petrifier',
-    ],
-}
+    ]
+};
 Class.shower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shower',
@@ -68402,9 +68012,8 @@ Class.shower_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sidewinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sidewinder',
@@ -68449,8 +68058,8 @@ Class.sidewinder_AR = {
         'rattler',
         'python',
         'hognose',
-    ],
-}
+    ]
+};
 Class.sifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sifter',
@@ -68520,9 +68129,8 @@ Class.sifter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.single_AR = {
     PARENT: 'genericTank',
     LABEL: 'Single',
@@ -68567,8 +68175,8 @@ Class.single_AR = {
         'custodian',
         'assistant',
         'autosingle',
-    ],
-}
+    ]
+};
 Class.sire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sire',
@@ -68628,9 +68236,8 @@ Class.sire_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sizzler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sizzler',
@@ -68730,9 +68337,8 @@ Class.sizzler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.skater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skater',
@@ -68802,9 +68408,8 @@ Class.skater_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.skidder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skidder',
@@ -68854,9 +68459,8 @@ Class.skidder_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.skimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skimmer',
@@ -68902,8 +68506,8 @@ Class.skimmer_AR = {
         'skidder',
         'ticker',
         'scorcher',
-    ],
-}
+    ]
+};
 Class.slammer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slammer',
@@ -68922,9 +68526,8 @@ Class.slammer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.slayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slayer',
@@ -68974,9 +68577,8 @@ Class.slayer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.slinger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slinger',
@@ -69036,9 +68638,8 @@ Class.slinger_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.slingshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slingshot',
@@ -69078,9 +68679,8 @@ Class.slingshot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.slinker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slinker',
@@ -69113,8 +68713,8 @@ Class.slinker_AR = {
         'thwarter',
         'autoslinker',
         'deliverer',
-    ],
-}
+    ]
+};
 Class.slinker3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slinker-3',
@@ -69153,9 +68753,8 @@ Class.slinker3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.slitShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slit Shot',
@@ -69235,9 +68834,8 @@ Class.slitShot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.slogger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slogger',
@@ -69287,9 +68885,8 @@ Class.slogger_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.smasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Smasher',
@@ -69318,8 +68915,8 @@ Class.smasher_AR = {
         'bonker',
         'banger',
         'drifter',
-    ],
-}
+    ]
+};
 Class.smearer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Smearer',
@@ -69449,9 +69046,8 @@ Class.smearer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sniper3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sniper-3',
@@ -69502,8 +69098,8 @@ Class.sniper3_AR = {
         'alloy',
         'rifle3',
         'hunter3',
-    ],
-}
+    ]
+};
 Class.sniper5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sniper-5',
@@ -69562,9 +69158,8 @@ Class.sniper5_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.soarer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Soarer',
@@ -69644,9 +69239,8 @@ Class.soarer_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spambrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spambrid',
@@ -69726,9 +69320,8 @@ Class.spambrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spanner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spanner',
@@ -69801,9 +69394,8 @@ Class.spanner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sparrow_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sparrow',
@@ -69883,9 +69475,8 @@ Class.sparrow_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawner',
@@ -69941,8 +69532,8 @@ Class.spawner_AR = {
     ],
     UPGRADES_TIER_4: [
         'handler',
-    ],
-}
+    ]
+};
 Class.spawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawnerdrive',
@@ -69986,7 +69577,7 @@ Class.spawnerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -70008,8 +69599,8 @@ Class.spawnerdrive_AR = {
         'labordrive',
         'foundrydrive',
         'issuerdrive',
-    ],
-}
+    ]
+};
 Class.spawnerstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawnerstorm',
@@ -70062,9 +69653,8 @@ Class.spawnerstorm_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spear_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spear',
@@ -70113,9 +69703,8 @@ Class.spear_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.specialist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Specialist',
@@ -70175,9 +69764,8 @@ Class.specialist_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spectre_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spectre',
@@ -70290,9 +69878,8 @@ Class.spectre_AR = {
                 ANGLE: 288.00000801433015,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spieler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spieler',
@@ -70352,9 +69939,8 @@ Class.spieler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spike',
@@ -70413,8 +69999,8 @@ Class.spike_AR = {
         'spear',
         'prick',
         'cauldron',
-    ],
-}
+    ]
+};
 Class.spindle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spindle',
@@ -70487,9 +70073,8 @@ Class.spindle_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spindrift_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spindrift',
@@ -70549,9 +70134,8 @@ Class.spindrift_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spinner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spinner',
@@ -70601,9 +70185,8 @@ Class.spinner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spiral_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spiral',
@@ -70656,9 +70239,8 @@ Class.spiral_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spirit_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spirit',
@@ -70731,9 +70313,8 @@ Class.spirit_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spitter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spitter',
@@ -70803,9 +70384,8 @@ Class.spitter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.splinterShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Splinter Shot',
@@ -70915,9 +70495,8 @@ Class.splinterShot_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.splitDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Split Double',
@@ -71027,9 +70606,8 @@ Class.splitDouble_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.splitHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Split Hybrid',
@@ -71099,81 +70677,8 @@ Class.splitHybrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
-Class.splitShot_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Split Shot',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248668,
-                Y: -2.0000000638309294,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248668,
-                Y: 2.0000000638309285,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 4.00000000852121,
-                Y: 0.500000006104204,
-                ANGLE: 15.000000417413029,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 4.00000000852121,
-                Y: -0.5000000061042046,
-                ANGLE: -15.000000417413029,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'slitShot',
-        'crackshot',
-        'splitHybrid',
-        'splitDouble',
-        'autosplitShot',
-        'hackshot',
-        'dork',
-        'splinterShot',
-    ],
-}
+    ]
+};
 Class.spoiler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spoiler',
@@ -71226,9 +70731,8 @@ Class.spoiler_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.spouter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spouter',
@@ -71268,9 +70772,8 @@ Class.spouter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sprayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sprayer',
@@ -71310,8 +70813,8 @@ Class.sprayer_AR = {
         'shower',
         'autosprayer',
         'phoenix',
-    ],
-}
+    ]
+};
 Class.spreadshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spreadshot',
@@ -71441,8 +70944,8 @@ Class.spreadshot_AR = {
         'ballista',
         'bozo',
         'fungus',
-    ],
-}
+    ]
+};
 Class.sprinkler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sprinkler',
@@ -71512,9 +71015,8 @@ Class.sprinkler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.squaller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Squaller',
@@ -71574,9 +71076,8 @@ Class.squaller_AR = {
                 ANGLE: -80.79999723965945,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stainer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stainer',
@@ -71626,9 +71127,8 @@ Class.stainer_AR = {
                 ANGLE: -4.99999985454646,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stalker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stalker',
@@ -71659,8 +71159,8 @@ Class.stalker_AR = {
         'tailer',
         'examiner',
         'scrutiner',
-    ],
-}
+    ]
+};
 Class.stall_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stall',
@@ -71712,8 +71212,8 @@ Class.stall_AR = {
         'former',
         'delayer',
         'compartment',
-    ],
-}
+    ]
+};
 Class.stapler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stapler',
@@ -71783,9 +71283,8 @@ Class.stapler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stifler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stifler',
@@ -71845,9 +71344,8 @@ Class.stifler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stockade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stockade',
@@ -71937,9 +71435,8 @@ Class.stockade_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stocker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stocker',
@@ -72009,9 +71506,8 @@ Class.stocker_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stomper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stomper',
@@ -72051,9 +71547,8 @@ Class.stomper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stoner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stoner',
@@ -72083,9 +71578,8 @@ Class.stoner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.storm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm',
@@ -72155,9 +71649,8 @@ Class.storm_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stormer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stormer',
@@ -72197,9 +71690,8 @@ Class.stormer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.strafe_AR = {
     PARENT: 'genericTank',
     LABEL: 'Strafe',
@@ -72249,9 +71741,8 @@ Class.strafe_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.strapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Strapper',
@@ -72321,9 +71812,8 @@ Class.strapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.streamliner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Streamliner',
@@ -72396,8 +71886,8 @@ Class.streamliner_AR = {
         'gusher',
         'bentStreamliner',
         'systematizer',
-    ],
-}
+    ]
+};
 Class.strider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Strider',
@@ -72477,9 +71967,8 @@ Class.strider_AR = {
                 ANGLE: -149.99999734394112,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.striker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Striker',
@@ -72589,9 +72078,8 @@ Class.striker_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stronghold_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stronghold',
@@ -72721,9 +72209,8 @@ Class.stronghold_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stunner',
@@ -72813,9 +72300,8 @@ Class.stunner_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sty_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sty',
@@ -72855,9 +72341,8 @@ Class.sty_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stylist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stylist',
@@ -72917,9 +72402,8 @@ Class.stylist_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.subverter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Subverter',
@@ -72972,8 +72456,8 @@ Class.subverter_AR = {
         'supplant',
         'bentSubverter',
         'tumble',
-    ],
-}
+    ]
+};
 Class.superintendent_AR = {
     PARENT: 'genericTank',
     LABEL: 'Superintendent',
@@ -73003,9 +72487,8 @@ Class.superintendent_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.supervisor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Supervisor',
@@ -73135,9 +72618,8 @@ Class.supervisor_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.supplant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Supplant',
@@ -73187,9 +72669,8 @@ Class.supplant_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.surfer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Surfer',
@@ -73267,8 +72748,8 @@ Class.surfer_AR = {
         'skater',
         'klutz',
         'glider',
-    ],
-}
+    ]
+};
 Class.surferdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Surferdrive',
@@ -73341,9 +72822,8 @@ Class.surferdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.swarmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Swarmer',
@@ -73387,8 +72867,8 @@ Class.swarmer_AR = {
         'packer',
         'cartridge',
         'shoal',
-    ],
-}
+    ]
+};
 Class.swarmerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Swarmerdrive',
@@ -73431,9 +72911,8 @@ Class.swarmerdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.sweeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sweeper',
@@ -73483,9 +72962,8 @@ Class.sweeper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.synthesis_AR = {
     PARENT: 'genericTank',
     LABEL: 'Synthesis',
@@ -73525,9 +73003,8 @@ Class.synthesis_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.systematizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Systematizer',
@@ -73587,9 +73064,8 @@ Class.systematizer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tacker',
@@ -73659,9 +73135,8 @@ Class.tacker_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tailer',
@@ -73711,9 +73186,8 @@ Class.tailer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tainter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tainter',
@@ -73763,9 +73237,8 @@ Class.tainter_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.taser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Taser',
@@ -73849,8 +73322,8 @@ Class.taser_AR = {
         'fryer',
         'jerker',
         'magnet',
-    ],
-}
+    ]
+};
 Class.technician_AR = {
     PARENT: 'genericTank',
     LABEL: 'Technician',
@@ -73890,9 +73363,8 @@ Class.technician_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tempest_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tempest',
@@ -74082,9 +73554,8 @@ Class.tempest_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ternion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ternion',
@@ -74154,9 +73625,8 @@ Class.ternion_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.thorn_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thorn',
@@ -74245,9 +73715,8 @@ Class.thorn_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.thrasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thrasher',
@@ -74317,81 +73786,8 @@ Class.thrasher_AR = {
                 ANGLE: 175.00000600818353,
             }
         },
-
-    ],
-}
-Class.threefold_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Threefold',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -8.742278151396832e-08,
-                Y: -2.0000000298023206,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: -8.742278151396832e-08,
-                Y: -2.0000000298023206,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -8.742278123641256e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: -8.742278123641256e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.throttler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Throttler',
@@ -74451,9 +73847,8 @@ Class.throttler_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.thunderclap_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thunderclap',
@@ -74503,9 +73898,8 @@ Class.thunderclap_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.thwacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thwacker',
@@ -74524,9 +73918,8 @@ Class.thwacker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.thwarter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thwarter',
@@ -74566,9 +73959,8 @@ Class.thwarter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ticker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ticker',
@@ -74598,9 +73990,8 @@ Class.ticker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.toiler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Toiler',
@@ -74670,9 +74061,8 @@ Class.toiler_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tommy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tommy',
@@ -74732,9 +74122,8 @@ Class.tommy_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.topBanana_AR = {
     PARENT: 'genericTank',
     LABEL: 'Top Banana',
@@ -74774,9 +74163,8 @@ Class.topBanana_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.toppler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Toppler',
@@ -74816,9 +74204,8 @@ Class.toppler_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tornado_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tornado',
@@ -74948,9 +74335,8 @@ Class.tornado_AR = {
                 ANGLE: 329.9999886925191,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.torpedo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Torpedo',
@@ -75000,9 +74386,8 @@ Class.torpedo_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.torsion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Torsion',
@@ -75042,9 +74427,8 @@ Class.torsion_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tosser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tosser',
@@ -75094,9 +74478,8 @@ Class.tosser_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trailer',
@@ -75126,9 +74509,8 @@ Class.trailer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trap Guard',
@@ -75188,8 +74570,8 @@ Class.trapGuard_AR = {
         'maw',
         'overtrapGuard',
         'custodian',
-    ],
-}
+    ]
+};
 Class.triangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Angle',
@@ -75250,8 +74632,8 @@ Class.triangle_AR = {
         'raven',
         'phoenix',
         'shoebill',
-    ],
-}
+    ]
+};
 Class.tribarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Barricade',
@@ -75381,9 +74763,8 @@ Class.tribarricade_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tribushwhacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Bushwhacker',
@@ -75463,9 +74844,8 @@ Class.tribushwhacker_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tridieselTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Diesel Trapper',
@@ -75535,9 +74915,8 @@ Class.tridieselTrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.triencircler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Encircler',
@@ -75637,9 +75016,8 @@ Class.triencircler_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.triincarcerator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Incarcerator',
@@ -75749,9 +75127,8 @@ Class.triincarcerator_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trimachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine',
@@ -75831,8 +75208,8 @@ Class.trimachine_AR = {
         'trimachineMech',
         'tridieselTrapper',
         'trimachineGuard',
-    ],
-}
+    ]
+};
 Class.trimachineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine Guard',
@@ -75912,9 +75289,8 @@ Class.trimachineGuard_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trimachineMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine Mech',
@@ -76014,9 +75390,8 @@ Class.trimachineMech_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trimech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Mech',
@@ -76126,8 +75501,8 @@ Class.trimech_AR = {
         'originator',
         'trioperator',
         'trimechGuard',
-    ],
-}
+    ]
+};
 Class.trimechGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Mech Guard',
@@ -76237,9 +75612,8 @@ Class.trimechGuard_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trimegaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Mega Trapper',
@@ -76309,9 +75683,8 @@ Class.trimegaTrapper_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trioperator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Operator',
@@ -76441,9 +75814,8 @@ Class.trioperator_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripeashooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Peashooter',
@@ -76533,9 +75905,8 @@ Class.tripeashooter_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Pen',
@@ -76644,8 +76015,8 @@ Class.tripen_AR = {
         'coop',
         'trioperator',
         'triincarcerator',
-    ],
-}
+    ]
+};
 Class.tritrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Trap Guard',
@@ -76738,8 +76109,8 @@ Class.tritrapGuard_AR = {
         'hexatrapGuard',
         'septatrapGuard',
         'architectGuard',
-    ],
-}
+    ]
+};
 Class.tritrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Trapper',
@@ -76825,8 +76196,8 @@ Class.tritrapper_AR = {
         'tribarricade',
         'trimegaTrapper',
         'warkwarkwark',
-    ],
-}
+    ]
+};
 Class.tricker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tricker',
@@ -76866,9 +76237,8 @@ Class.tricker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trimmer',
@@ -76928,9 +76298,8 @@ Class.trimmer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutoartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Artillery',
@@ -77003,9 +76372,8 @@ Class.tripleAutoartillery_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutoassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Assassin',
@@ -77068,9 +76436,8 @@ Class.tripleAutoassassin_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutoauto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Auto-3',
@@ -77139,9 +76506,8 @@ Class.tripleAutoauto3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutobuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Builder',
@@ -77204,9 +76570,8 @@ Class.tripleAutobuilder_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutocruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Cruiser',
@@ -77269,9 +76634,8 @@ Class.tripleAutocruiser_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutodestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Destroyer',
@@ -77324,9 +76688,8 @@ Class.tripleAutodestroyer_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutodiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Diesel',
@@ -77379,9 +76742,8 @@ Class.tripleAutodiesel_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutodirectordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Directordrive',
@@ -77434,9 +76796,8 @@ Class.tripleAutodirectordrive_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutodoper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Doper',
@@ -77499,9 +76860,8 @@ Class.tripleAutodoper_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutodouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Double',
@@ -77584,9 +76944,8 @@ Class.tripleAutodouble_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutogunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Gunner',
@@ -77669,9 +77028,8 @@ Class.tripleAutogunner_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutohexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Hexa Tank',
@@ -77774,9 +77132,8 @@ Class.tripleAutohexaTank_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutohoncho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Honcho',
@@ -77829,9 +77186,8 @@ Class.tripleAutohoncho_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutohunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Hunter',
@@ -77894,9 +77250,8 @@ Class.tripleAutohunter_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutolauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Launcher',
@@ -77959,9 +77314,8 @@ Class.tripleAutolauncher_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutomachineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Machine Trapper',
@@ -78024,9 +77378,8 @@ Class.tripleAutomachineTrapper_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutomech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Mech',
@@ -78099,9 +77452,8 @@ Class.tripleAutomech_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutominigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Minigun',
@@ -78174,9 +77526,8 @@ Class.tripleAutominigun_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutooverseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Overseer',
@@ -78239,9 +77590,8 @@ Class.tripleAutooverseer_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutopen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Pen',
@@ -78314,9 +77664,8 @@ Class.tripleAutopen_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutorifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Rifle',
@@ -78379,9 +77728,8 @@ Class.tripleAutorifle_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutosmasher_18774_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Smasher',
@@ -78430,9 +77778,8 @@ Class.tripleAutosmasher_18774_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutosmasher_33130_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Smasher',
@@ -78461,9 +77808,8 @@ Class.tripleAutosmasher_33130_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutospawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Spawner',
@@ -78536,9 +77882,8 @@ Class.tripleAutospawner_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutotrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Trap Guard',
@@ -78611,9 +77956,8 @@ Class.tripleAutotrapGuard_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutotriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Tri-Angle',
@@ -78686,9 +78030,8 @@ Class.tripleAutotriangle_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutotripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Triple Shot',
@@ -78761,9 +78104,8 @@ Class.tripleAutotripleShot_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutowark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Wark',
@@ -78846,9 +78188,8 @@ Class.tripleAutowark_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Gunner',
@@ -78978,9 +78319,8 @@ Class.tripleGunner_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Shot',
@@ -79039,8 +78379,8 @@ Class.tripleShot_AR = {
         'threefold',
         'flintlock',
         'bentBulwark',
-    ],
-}
+    ]
+};
 Class.tripleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Twin',
@@ -79120,8 +78460,8 @@ Class.tripleTwin_AR = {
         'tripleFlankTwin',
         'tripleGunner',
         'warkwarkwark',
-    ],
-}
+    ]
+};
 Class.triplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triplet',
@@ -79172,8 +78512,8 @@ Class.triplet_AR = {
         'minilet',
         'nitwit',
         'warklet',
-    ],
-}
+    ]
+};
 Class.triprid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triprid',
@@ -79223,9 +78563,8 @@ Class.triprid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripwire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tripwire',
@@ -79254,9 +78593,8 @@ Class.tripwire_AR = {
                 ANGLE: 25.00000012650595,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.trove_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trove',
@@ -79389,9 +78727,8 @@ Class.trove_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tumble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tumble',
@@ -79431,9 +78768,8 @@ Class.tumble_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_51376_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79463,9 +78799,8 @@ Class.turret_51376_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_34618_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79485,9 +78820,8 @@ Class.turret_34618_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_59723_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79517,9 +78851,8 @@ Class.turret_59723_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_51860_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79569,9 +78902,8 @@ Class.turret_51860_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_7887_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79611,9 +78943,8 @@ Class.turret_7887_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_16326_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79663,9 +78994,8 @@ Class.turret_16326_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_17322_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79735,9 +79065,8 @@ Class.turret_17322_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_34583_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -79757,9 +79086,8 @@ Class.turret_34583_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.twister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Twister',
@@ -79805,8 +79133,8 @@ Class.twister_AR = {
         'collision',
         'catapult',
         'grenade',
-    ],
-}
+    ]
+};
 Class.tyrant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tyrant',
@@ -79860,7 +79188,7 @@ Class.tyrant_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -79869,9 +79197,8 @@ Class.tyrant_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ultraHunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra Hunter',
@@ -79901,9 +79228,8 @@ Class.ultraHunter_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ultraSpawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra Spawner',
@@ -79943,9 +79269,8 @@ Class.ultraSpawner_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ultraTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra Trapper',
@@ -79975,9 +79300,8 @@ Class.ultraTrapper_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ultra3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra-3',
@@ -80016,9 +79340,8 @@ Class.ultra3_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.ultrasmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra-Smasher',
@@ -80037,9 +79360,8 @@ Class.ultrasmasher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unity_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unity',
@@ -80169,9 +79491,8 @@ Class.unity_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.unknownEntity_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Entity',
@@ -80179,7 +79500,7 @@ Class.unknownEntity_AR = {
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
-}
+};
 Class.utilizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Utilizer',
@@ -80239,9 +79560,8 @@ Class.utilizer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vallation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vallation',
@@ -80301,9 +79621,8 @@ Class.vallation_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vanquisher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vanquisher',
@@ -80363,9 +79682,8 @@ Class.vanquisher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.veerer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Veerer',
@@ -80405,9 +79723,8 @@ Class.veerer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vendor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vendor',
@@ -80447,9 +79764,8 @@ Class.vendor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.venture_AR = {
     PARENT: 'genericTank',
     LABEL: 'Venture',
@@ -80499,9 +79815,8 @@ Class.venture_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vermin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vermin',
@@ -80571,9 +79886,8 @@ Class.vermin_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vessel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vessel',
@@ -80602,9 +79916,8 @@ Class.vessel_AR = {
                 ANGLE: 45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vigor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vigor',
@@ -80654,9 +79967,8 @@ Class.vigor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vindicator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vindicator',
@@ -80686,9 +79998,8 @@ Class.vindicator_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.virago_AR = {
     PARENT: 'genericTank',
     LABEL: 'Virago',
@@ -80768,9 +80079,8 @@ Class.virago_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vitality_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vitality',
@@ -80840,72 +80150,8 @@ Class.vitality_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
-Class.volley_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Volley',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'cannonade',
-        'volley4',
-        'tornado',
-        'pummeler',
-        'barrage',
-        'autovolley',
-        'doubleVolley',
-        'machineVolley',
-        'volleyHybrid',
-    ],
-}
+    ]
+};
 Class.volleyHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Volley Hybrid',
@@ -80965,9 +80211,8 @@ Class.volleyHybrid_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.volley4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Volley-4',
@@ -81016,9 +80261,8 @@ Class.volley4_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vortex_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vortex',
@@ -81051,9 +80295,8 @@ Class.vortex_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.voyage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Voyage',
@@ -81103,9 +80346,8 @@ Class.voyage_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vulcan_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vulcan',
@@ -81235,9 +80477,8 @@ Class.vulcan_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.vulture_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vulture',
@@ -81307,9 +80548,8 @@ Class.vulture_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.waarararrk_AR = {
     PARENT: 'genericTank',
     LABEL: 'Waarararrk',
@@ -81419,229 +80659,8 @@ Class.waarararrk_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
-Class.waarrk_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Waarrk',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -8.742278123641256e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 14.999999550535769,
-                Y: 1.9999999960594628,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -8.742278151396832e-08,
-                Y: -2.0000000298023206,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 14.999999550535769,
-                Y: -1.9999999960594645,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 17.000000476837158,
-                Y: -1.0409498084731052e-15,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'waarararrk',
-        'fungus',
-        'bentCatcher',
-        'waarrkwaarrk',
-        'warklet',
-        'splinterShot',
-        'autowaarrk',
-        'dagger',
-        'bentBarricade',
-        'fault',
-        'bentBulwark',
-        'brig',
-        'yard',
-        'spitter',
-    ],
-}
-Class.waarrkwaarrk_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Waarrkwaarrk',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -8.742278123641256e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 14.999999550535769,
-                Y: 1.9999999960594628,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -8.742278151396832e-08,
-                Y: -2.0000000298023206,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 14.999999550535769,
-                Y: -1.9999999960594645,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 17.000000476837158,
-                Y: -1.0409498084731052e-15,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -8.742278123641256e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 197.9999986796628,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 14.999999550535767,
-                Y: 1.9999999960594623,
-                ANGLE: 197.9999986796628,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -8.742278144457938e-08,
-                Y: -2.0000000298023206,
-                ANGLE: 161.99999767787153,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 14.999999550535767,
-                Y: -1.9999999960594639,
-                ANGLE: 161.99999767787153,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 17.00000047683716,
-                Y: -1.0409500232207397e-15,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
+    ]
+};
 Class.walloper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Walloper',
@@ -81711,9 +80730,8 @@ Class.walloper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.warkdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warkdrive',
@@ -81777,7 +80795,7 @@ Class.warkdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -81786,9 +80804,8 @@ Class.warkdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.warklet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warklet',
@@ -81858,9 +80875,8 @@ Class.warklet_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.warkwarkwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warkwarkwark',
@@ -81990,9 +81006,8 @@ Class.warkwarkwark_AR = {
                 ANGLE: 235.00000767783564,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.warlord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warlord',
@@ -82082,9 +81097,8 @@ Class.warlord_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.warship_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warship',
@@ -82174,9 +81188,8 @@ Class.warship_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.waster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Waster',
@@ -82229,9 +81242,8 @@ Class.waster_AR = {
                 ANGLE: -45.00000125223908,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.watchman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Watchman',
@@ -82281,9 +81293,8 @@ Class.watchman_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.whirlwind_AR = {
     PARENT: 'genericTank',
     LABEL: 'Whirlwind',
@@ -82533,9 +81544,8 @@ Class.whirlwind_AR = {
                 ANGLE: 329.9999886925191,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.whizzer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Whizzer',
@@ -82625,9 +81635,8 @@ Class.whizzer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.widget_AR = {
     PARENT: 'genericTank',
     LABEL: 'Widget',
@@ -82680,8 +81689,8 @@ Class.widget_AR = {
         'bentWidget',
         'systematizer',
         'sandstorm',
-    ],
-}
+    ]
+};
 Class.wiper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wiper',
@@ -82731,9 +81740,8 @@ Class.wiper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.worker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Worker',
@@ -82773,9 +81781,8 @@ Class.worker_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.wraith_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wraith',
@@ -82868,9 +81875,8 @@ Class.wraith_AR = {
                 ANGLE: 314.99999169020066,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.wrench_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wrench',
@@ -82933,9 +81939,8 @@ Class.wrench_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.yard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Yard',
@@ -83035,9 +82040,8 @@ Class.yard_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.zapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Zapper',
@@ -83127,9 +82131,8 @@ Class.zapper_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.zephyr_AR = {
     PARENT: 'genericTank',
     LABEL: 'Zephyr',
@@ -83179,9 +82182,8 @@ Class.zephyr_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.zipper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Zipper',
@@ -83257,8 +82259,8 @@ Class.zipper_AR = {
         'brio',
         'pipeline',
         'pepper',
-    ],
-}
+    ]
+};
 Class.cobblerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'cobblerdrive',
@@ -83312,7 +82314,7 @@ Class.cobblerdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -83321,9 +82323,8 @@ Class.cobblerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.driveTriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Drive Triangle',
@@ -83331,7 +82332,7 @@ Class.driveTriangle_AR = {
     STAT_NAMES: 0,
     SHAPE: 3,
     COLOR: 16,
-}
+};
 Class.turret_64872_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -83351,9 +82352,8 @@ Class.turret_64872_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.automaleficitor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Maleficitor',
@@ -83386,9 +82386,8 @@ Class.automaleficitor_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autonecromancer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Necromancer',
@@ -83451,9 +82450,8 @@ Class.autonecromancer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autounderdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Underdrive',
@@ -83496,9 +82494,8 @@ Class.autounderdrive_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.autounderseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Underseer',
@@ -83551,8 +82548,8 @@ Class.autounderseer_AR = {
         'autounderdrive',
         'autoinfestor',
         'autopentaseer',
-    ],
-}
+    ]
+};
 Class.bewitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bewitcher',
@@ -83572,9 +82569,8 @@ Class.bewitcher_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.charmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Charmer',
@@ -83604,9 +82600,8 @@ Class.charmer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.conductor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conductor',
@@ -83636,9 +82631,8 @@ Class.conductor_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.driveSquare_AR = {
     PARENT: 'genericTank',
     LABEL: 'Drive Square',
@@ -83646,7 +82640,7 @@ Class.driveSquare_AR = {
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
-}
+};
 Class.hexer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexer',
@@ -83670,7 +82664,7 @@ Class.hexer_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -83679,9 +82673,8 @@ Class.hexer_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.maleficitor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maleficitor',
@@ -83710,8 +82703,8 @@ Class.maleficitor_AR = {
         'hexer',
         'femaleficitor',
         'witch',
-    ],
-}
+    ]
+};
 Class.megaAutounderseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Underseer',
@@ -83754,9 +82747,8 @@ Class.megaAutounderseer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.necrodrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Necrodrive',
@@ -83810,7 +82802,7 @@ Class.necrodrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -83819,9 +82811,8 @@ Class.necrodrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.necromancer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Necromancer',
@@ -83880,8 +82871,8 @@ Class.necromancer_AR = {
         'necrodrive',
         'plaguer',
         'pentamancer',
-    ],
-}
+    ]
+};
 Class.pollen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pollen',
@@ -83951,9 +82942,8 @@ Class.pollen_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stormSquare_42341_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm Square',
@@ -83983,9 +82973,8 @@ Class.stormSquare_42341_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stormSquare_38288_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm Square',
@@ -84035,9 +83024,8 @@ Class.stormSquare_38288_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.stormSquare_2164_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm Square',
@@ -84107,9 +83095,8 @@ Class.stormSquare_2164_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.tripleAutounderseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Underseer',
@@ -84172,9 +83159,8 @@ Class.tripleAutounderseer_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_17340_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -84194,9 +83180,8 @@ Class.turret_17340_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_49473_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -84236,9 +83221,8 @@ Class.turret_49473_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.turret_36298_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
@@ -84258,9 +83242,8 @@ Class.turret_36298_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.underdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Underdrive',
@@ -84294,7 +83277,7 @@ Class.underdrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -84311,8 +83294,8 @@ Class.underdrive_AR = {
         'autounderdrive',
         'infestordrive',
         'pentadrive',
-    ],
-}
+    ]
+};
 Class.underseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Underseer',
@@ -84354,8 +83337,8 @@ Class.underseer_AR = {
     ],
     UPGRADES_TIER_4: [
         'conductor',
-    ],
-}
+    ]
+};
 Class.autopentaseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pentaseer',
@@ -84398,9 +83381,8 @@ Class.autopentaseer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pentadrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pentadrive',
@@ -84434,7 +83416,7 @@ Class.pentadrive_AR = {
     ],
     TURRETS: [
         {
-            TYPE: 'driveSquare',
+            TYPE: ['squareHat', {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -84443,9 +83425,8 @@ Class.pentadrive_AR = {
                 ANGLE: 0.0,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pentamancer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pentamancer',
@@ -84505,9 +83486,8 @@ Class.pentamancer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.pentaseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pentaseer',
@@ -84545,8 +83525,8 @@ Class.pentaseer_AR = {
         'autopentaseer',
         'pentadrive',
         'warlock',
-    ],
-}
+    ]
+};
 Class.warlock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warlock',
@@ -84586,9 +83566,8 @@ Class.warlock_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.witch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Witch',
@@ -84608,9 +83587,8 @@ Class.witch_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-
-    ],
-}
+    ]
+};
 Class.diviner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Diviner',
@@ -84680,6 +83658,5 @@ Class.diviner_AR = {
                 ANGLE: 299.99999468788224,
             }
         },
-
-    ],
-}
+    ]
+};
