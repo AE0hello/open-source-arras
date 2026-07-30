@@ -1,4 +1,4 @@
-const {combineStats, addUpgrades, removeUpgrades, makeFlank} = require('../../../facilitators.js')
+const {combineStats, addUpgrades, removeUpgrades, makeFlank, makeOver} = require('../../../facilitators.js')
 const {base, statnames} = require('../../../constants.js')
 const g = require('../../../gunvals.js')
 const preset = require('../../../presets.js')
@@ -64,7 +64,7 @@ Class.wark_AR = {
 // Tier 3 (Level 45)
 Class.doubleFlankTwin_AR = {
     PARENT: 'genericTank',
-    LABEL: 'Double Flank Twin',
+    LABEL: "Double Flank Twin",
     ...placeholder,
     GUNS: [
         {
@@ -117,6 +117,9 @@ Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.
 Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]});
 
 // Tier 4 (Level 60)
+Class.doubleDual_AR = makeFlank('dual', 2, "Double Dual", {extraStats: [g.doubleTwin]});
+Class.doubleMusket_AR = makeFlank('musket', 2, "Double Musket", {extraStats: [g.doubleTwin]});
+Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90, renderBehind: true});
 
 // Tier 5 (are we deadass)
 
@@ -140,7 +143,7 @@ addUpgrades('basic', 1, []);
             addUpgrades('musket', tier4, []);
 
         addUpgrades('doubleTwin', 3, ['doubleFlankTwin_AR', 'doubleGunner_AR', 'warkwark_AR']);
-            addUpgrades('doubleTwin', tier4, []);
+            addUpgrades('doubleTwin', tier4, ['doubleDual_AR', 'doubleMusket_AR', 'overdoubleTwin_AR']);
             addUpgrades('tripleTwin', tier4, []);
             addUpgrades('hewnDouble', tier4, []);
             addUpgrades('autoDouble', tier4, []);
@@ -31880,97 +31883,6 @@ Class.customDoubleBattery = {
 
     ],
 }
-Class.customDoubleDual = {
-    PARENT: 'genericTank',
-    LABEL: 'Double Dual',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.500000238418579,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
 Class.customDoubleEqualizer = {
     PARENT: 'genericTank',
     LABEL: 'Double Equalizer',
@@ -32398,97 +32310,6 @@ Class.customDoubleMachineGunner = {
                 ASPECT: 4,
                 X: 3.00000011920929,
                 Y: -1.8369699480055068e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customDoubleMusket = {
-    PARENT: 'genericTank',
-    LABEL: 'Double Musket',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.6882505230351795e-07,
-                Y: 6.1500000953674245,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.688250530566758e-07,
-                Y: -6.1500000953674245,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.8140226460605218e-07,
-                Y: 4.149999916553494,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.814022651142806e-07,
-                Y: -4.149999916553494,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.6882505230351785e-07,
-                Y: 6.1500000953674245,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.688250530566757e-07,
-                Y: -6.150000095367427,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.8140226460605218e-07,
-                Y: 4.149999916553494,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.8140226511428066e-07,
-                Y: -4.149999916553494,
                 ANGLE: 180.00000500895632,
             }
         },
@@ -55672,77 +55493,6 @@ Class.customOverdoubleGunner = {
                 ASPECT: 1,
                 X: 0.0,
                 Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customOverdoubleTwin = {
-    PARENT: 'genericTank',
-    LABEL: 'Overdouble Twin',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
                 ANGLE: 180.00000500895632,
             }
         },
