@@ -1,4 +1,4 @@
-const {combineStats, addUpgrades, removeUpgrades, makeFlank, makeOver} = require('../../../facilitators.js')
+const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeFlank, makeOver} = require('../../../facilitators.js')
 const {base, statnames} = require('../../../constants.js')
 const g = require('../../../gunvals.js')
 const preset = require('../../../presets.js')
@@ -14,6 +14,30 @@ const placeholder = {
     UPGRADE_COLOR: "black",
     UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!"
 }
+
+// Sorted Garbage
+Class.unnamed_63735_AR = {
+    PARENT: 'genericTank',
+    LABEL: '',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+};
 
 // Tier 2 (Level 30)
 Class.wark_AR = {
@@ -117,9 +141,1278 @@ Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.
 Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]});
 
 // Tier 4 (Level 60)
+Class.autoBentDouble_AR = makeAuto('bentDouble');
+Class.autoDoubleFlank_AR = makeAuto('doubleFlankTwin_AR', "Auto-Double Flank");
+Class.autoDoubleGunner_AR = makeAuto('doubleGunner_AR');
+Class.autoHewnDouble_AR = makeAuto('hewnDouble');
+Class.autoTriple_AR = makeAuto('tripleTwin', "Auto-Triple");
+Class.autoWarkwark_AR = makeAuto('warkwark_AR');
+Class.bentFlankDouble_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Bent Flank Double',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: -90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000147248668,
+                Y: -2.0000000638309294,
+                ANGLE: -18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000147248668,
+                Y: 2.0000000638309285,
+                ANGLE: 18.000000500895634,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000147248667,
+                Y: -2.0000000638309294,
+                ANGLE: 161.99999767787153,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000147248667,
+                Y: 2.0000000638309285,
+                ANGLE: -161.99999767787153,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+};
+Class.bentTriple_AR = makeFlank('tripleShot', 3, "Bent Triple", {extraStats: [g.doubleTwin, g.tripleTwin]});
+Class.cleft_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Cleft',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265089813635e-07,
+                Y: -5.500000119209285,
+                ANGLE: -205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126498842691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126505578249e-07,
+                Y: -5.500000119209285,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126500654691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 25.00000012650595,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126506205806e-07,
+                Y: -5.500000119209284,
+                ANGLE: -25.00000012650595,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+};
 Class.doubleDual_AR = makeFlank('dual', 2, "Double Dual", {extraStats: [g.doubleTwin]});
+Class.doubleFlankGunner_AR = {
+    PARENT: "genericTank",
+    LABEL: 'Double Flank Gunner',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847515773687e-07,
+                Y: -2.4999999999999973,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847485157517e-07,
+                Y: 2.4999999999999973,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.092784751577369e-07,
+                Y: -2.4999999999999973,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847485157517e-07,
+                Y: 2.4999999999999973,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758749117554e-07,
+                Y: 7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.169075883790445e-07,
+                Y: -7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758749117543e-07,
+                Y: 7.250000238418571,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758837904447e-07,
+                Y: -7.250000238418572,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736275e-07,
+                Y: 3.7499999999999964,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660538e-07,
+                Y: -3.7499999999999964,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+};
 Class.doubleMusket_AR = makeFlank('musket', 2, "Double Musket", {extraStats: [g.doubleTwin]});
+Class.hewnFlankDouble_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Hewn Flank Double',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: -90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265089813635e-07,
+                Y: -5.500000119209285,
+                ANGLE: -205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126498842691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126505578249e-07,
+                Y: -5.500000119209285,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+};
+Class.hewnGunner_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Hewn Gunner',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758749117554e-07,
+                Y: 7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.169075883790445e-07,
+                Y: -7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.6061896302452823e-07,
+                Y: -8.249999880790703,
+                ANGLE: -205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762910030169834e-07,
+                Y: -4.749999940395351,
+                ANGLE: -205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.606189624694167e-07,
+                Y: 8.249999880790703,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -2.0762909946903108e-07,
+                Y: 4.749999940395351,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758749117543e-07,
+                Y: 7.250000238418571,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758837904447e-07,
+                Y: -7.250000238418572,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736275e-07,
+                Y: 3.7499999999999964,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660538e-07,
+                Y: -3.7499999999999964,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+};
+Class.hewnTriple_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Hewn Triple',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126500654691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 25.00000012650595,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126506205806e-07,
+                Y: -5.500000119209284,
+                ANGLE: -25.00000012650595,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.3604151522249595e-07,
+                Y: 5.400000214576716,
+                ANGLE: 120.00000333930423,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.360415155000517e-07,
+                Y: -5.400000214576716,
+                ANGLE: 120.00000333930423,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.3604151466738443e-07,
+                Y: 5.400000214576716,
+                ANGLE: 240.00000667860846,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.3604151605516321e-07,
+                Y: -5.400000214576716,
+                ANGLE: 240.00000667860846,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+};
+Class.hipwatch_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Hipwatch',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126498842691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126505578249e-07,
+                Y: -5.500000119209285,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+    TURRETS: [
+        {
+            TYPE: 'unnamed_63735_AR',
+            POSITION: {
+                SIZE: 11.000000238418579,
+                LAYER: 0,
+                X: 8.00000011920929,
+                Y: -4.898587410340671e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            TYPE: 'unnamed_63735_AR',
+            POSITION: {
+                SIZE: 11.000000238418579,
+                LAYER: 0,
+                X: 8.000000119209288,
+                Y: -4.898587244904549e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+
+    ],
+};
+Class.megaAutoDouble_AR = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
+Class.scuffler_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Scuffler',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: -90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126498842691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126505578249e-07,
+                Y: -5.500000119209285,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+};
+Class.tripleAutoDouble_AR = makeAuto('doubleTwin', "Triple Auto-Double", preset.makeAuto.triple);
 Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90, renderBehind: true});
+Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8});
+Class.skewnDouble_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Skewn Double',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126492328018e-07,
+                Y: 5.500000119209285,
+                ANGLE: 224.99999601591168,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265089813635e-07,
+                Y: -5.500000119209284,
+                ANGLE: -224.99999601591168,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265089813635e-07,
+                Y: -5.500000119209285,
+                ANGLE: -205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126498842691e-07,
+                Y: 5.500000119209284,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126505578249e-07,
+                Y: -5.500000119209285,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+};
+Class.tripleFlankTwin_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Triple Flank Twin',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: -60.000001669652114,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 60.000001669652114,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264988426915e-07,
+                Y: 5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265055782493e-07,
+                Y: -5.500000119209284,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265034302484e-07,
+                Y: 5.500000119209284,
+                ANGLE: 120.00000333930423,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126506205806e-07,
+                Y: -5.500000119209284,
+                ANGLE: 120.00000333930423,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264951035757e-07,
+                Y: 5.500000119209284,
+                ANGLE: 240.00000667860846,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265034302484e-07,
+                Y: -5.5000001192092824,
+                ANGLE: 240.00000667860846,
+            }
+        },
+
+    ],
+};
+Class.tripleGunner_AR = makeFlank('gunner', 3, "Triple Gunner", {extraStats: [g.doubleTwin, g.tripleTwin]});
+Class.warkwarkwark_AR = makeFlank('wark_AR', 3, "Warkwarkwark", {extraStats: [g.doubleTwin, g.tripleTwin]});
+Class.warkwawarkrk_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Warkwawarkrk',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 205.0000000128204,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265034302484e-07,
+                Y: -5.500000119209284,
+                ANGLE: 154.99999634471394,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.99999984169732,
+                Y: -5.500000003484012,
+                ANGLE: 154.99999634471394,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264985730226e-07,
+                Y: 5.500000119209285,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: 5.50000000348401,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265068996953e-07,
+                Y: -5.500000119209284,
+                ANGLE: 175.00000600818353,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: 175.00000600818353,
+            }
+        },
+
+    ],
+};
+Class.warkwawawark_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Warkwawawark',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999761581421,
+                Y: -8.572527968096175e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: -90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999761581421,
+                Y: -8.572526644607195e-16,
+                ANGLE: -90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264985730226e-07,
+                Y: 5.500000119209285,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: 5.50000000348401,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265068996953e-07,
+                Y: -5.500000119209284,
+                ANGLE: 175.00000600818353,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: 175.00000600818353,
+            }
+        },
+
+    ],
+};
 
 // Tier 5 (are we deadass)
 
@@ -144,11 +1437,11 @@ addUpgrades('basic', 1, []);
 
         addUpgrades('doubleTwin', 3, ['doubleFlankTwin_AR', 'doubleGunner_AR', 'warkwark_AR']);
             addUpgrades('doubleTwin', tier4, ['doubleDual_AR', 'doubleMusket_AR', 'overdoubleTwin_AR']);
-            addUpgrades('tripleTwin', tier4, []);
-            addUpgrades('hewnDouble', tier4, []);
-            addUpgrades('autoDouble', tier4, []);
-            addUpgrades('bentDouble', tier4, []);
-            //addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin_AR', 'tripleFlankTwin_AR', 'hewnFlankDouble_AR', 'autoDoubleFlankTwin_AR', 'bentFlankDouble_AR', 'doubleFlankGunner_AR', 'hipwatch_AR', 'scuffler_AR', 'warkwawawark_AR']);
+            addUpgrades('tripleTwin', tier4, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'warkwarkwark'].map(x => x + '_AR'));
+            addUpgrades('hewnDouble', tier4, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'warkwawarkrk'].map(x => x + '_AR'));
+            addUpgrades('autoDouble', tier4, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoWarkwark'].map(x => x + '_AR'));
+            addUpgrades('bentDouble', tier4, [].map(x => x + '_AR'));
+            addUpgrades('doubleFlankTwin_AR', tier4, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'hipwatch', 'scuffler', 'warkwawawark'].map(x => x + '_AR'));
             //addUpgrades('doubleGunner_AR', tier4, ['tripleGunner_AR', 'hewnGunner_AR', 'autoDoubleGunner_AR', 'bentDoubleGunner_AR', 'doubleFlankGunner_AR', 'doubleNailgun_AR', 'doubleMachineGunner_AR', 'overdoubleGunner_AR', 'doubleBattery_AR', 'doubleRimfire_AR', 'doubleVolley_AR', 'doubleEqualizer_AR'])
             //addUpgrades('warkwark_AR', tier4', ['warkwarkwark_AR', 'warkwawarkrk_AR', 'autoWarkwark_AR', 'waarrkwaarrk_AR', 'warkwawawark_AR', 'doubleEqualizer_AR', 'guardrail_AR', 'sealer_AR', 'setup_AR'])
 
@@ -315,8 +1608,10 @@ if (use_original_tree) {
 // new wip AR addon, nothing works yet
 // new wip AR addon, nothing works yet
 
+return;
+
 // UNSORTED GARBAGE
-Class.customUnnamed_24987 = {
+Class.unnamed_24987_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
@@ -324,7 +1619,7 @@ Class.customUnnamed_24987 = {
     SHAPE: 3,
     COLOR: 9,
 }
-Class.customUnnamed_28741 = {
+Class.unnamed_28741_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
@@ -332,7 +1627,7 @@ Class.customUnnamed_28741 = {
     SHAPE: 4,
     COLOR: 9,
 }
-Class.customUnknownClass_5627 = {
+Class.unknownClass_5627_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
@@ -340,7 +1635,7 @@ Class.customUnknownClass_5627 = {
     SHAPE: 4,
     COLOR: 9,
 }
-Class.customUnnamed_36502 = {
+Class.unnamed_36502_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
@@ -348,7 +1643,7 @@ Class.customUnnamed_36502 = {
     SHAPE: 5,
     COLOR: 9,
 }
-Class.customUnnamed_29686 = {
+Class.unnamed_29686_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 1,
@@ -356,7 +1651,7 @@ Class.customUnnamed_29686 = {
     SHAPE: 6,
     COLOR: 9,
 }
-Class.customUnknownClass_18594 = {
+Class.unknownClass_18594_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
@@ -364,7 +1659,7 @@ Class.customUnknownClass_18594 = {
     SHAPE: [[-1, 0], [-0.9499300122261047, -0.04666706919670105], [-0.9144831299781799, -0.09006872773170471], [-0.8830859661102295, -0.13099342584609985], [-0.8547371625900269, -0.1700177937746048], [-0.8292582631111145, -0.2077183872461319], [-0.8066451549530029, -0.24469313025474548], [-0.786886990070343, -0.28155267238616943], [-0.7698996067047119, -0.318902850151062], [-0.7555009126663208, -0.35732531547546387], [-0.7434084415435791, -0.39736008644104004], [-0.7332532405853271, -0.4394950866699219], [-0.7246111631393433, -0.48416969180107117], [-0.7170624136924744, -0.5318097472190857], [-0.7103254199028015, -0.5829489827156067], [-0.7047005295753479, -0.6387033462524414], [-0.7071067690849304, -0.7071067690849304], [-0.6387033462524414, -0.7047005295753479], [-0.5829489827156067, -0.7103254199028015], [-0.5318097472190857, -0.7170624136924744], [-0.48416969180107117, -0.7246111631393433], [-0.4394950866699219, -0.7332532405853271], [-0.39736008644104004, -0.7434084415435791], [-0.35732531547546387, -0.7555009126663208], [-0.318902850151062, -0.7698996067047119], [-0.28155267238616943, -0.786886990070343], [-0.24469313025474548, -0.8066451549530029], [-0.2077183872461319, -0.8292582631111145], [-0.1700177937746048, -0.8547371625900269], [-0.13099342584609985, -0.8830859661102295], [-0.09006872773170471, -0.9144831299781799], [-0.04666706919670105, -0.9499300122261047], [-6.123234262925839e-17, -1.0], [0.04666706919670105, -0.9499300122261047], [0.09006872773170471, -0.9144831299781799], [0.13099342584609985, -0.8830859661102295], [0.1700177937746048, -0.8547371625900269], [0.2077183872461319, -0.8292582631111145], [0.24469313025474548, -0.8066451549530029], [0.28155267238616943, -0.786886990070343], [0.318902850151062, -0.7698996067047119], [0.35732531547546387, -0.7555009126663208], [0.39736008644104004, -0.7434084415435791], [0.4394950866699219, -0.7332532405853271], [0.48416969180107117, -0.7246111631393433], [0.5318097472190857, -0.7170624136924744], [0.5829489827156067, -0.7103254199028015], [0.6387033462524414, -0.7047005295753479], [0.7071067690849304, -0.7071067690849304], [0.7047005295753479, -0.6387033462524414], [0.7103254199028015, -0.5829489827156067], [0.7170624136924744, -0.5318097472190857], [0.7246111631393433, -0.48416969180107117], [0.7332532405853271, -0.4394950866699219], [0.7434084415435791, -0.39736008644104004], [0.7555009126663208, -0.35732531547546387], [0.7698996067047119, -0.318902850151062], [0.786886990070343, -0.28155267238616943], [0.8066451549530029, -0.24469313025474548], [0.8292582631111145, -0.2077183872461319], [0.8547371625900269, -0.1700177937746048], [0.8830859661102295, -0.13099342584609985], [0.9144831299781799, -0.09006872773170471], [0.9499300122261047, -0.04666706919670105], [1.0, -1.2246468525851679e-16], [0.9499300122261047, 0.04666706919670105], [0.9144831299781799, 0.09006872773170471], [0.8830859661102295, 0.13099342584609985], [0.8547371625900269, 0.1700177937746048], [0.8292582631111145, 0.2077183872461319], [0.8066451549530029, 0.24469313025474548], [0.786886990070343, 0.28155267238616943], [0.7698996067047119, 0.318902850151062], [0.7555009126663208, 0.35732531547546387], [0.7434084415435791, 0.39736008644104004], [0.7332532405853271, 0.4394950866699219], [0.7246111631393433, 0.48416969180107117], [0.7170624136924744, 0.5318097472190857], [0.7103254199028015, 0.5829489827156067], [0.7047005295753479, 0.6387033462524414], [0.7071067690849304, 0.7071067690849304], [0.6387033462524414, 0.7047005295753479], [0.5829489827156067, 0.7103254199028015], [0.5318097472190857, 0.7170624136924744], [0.48416969180107117, 0.7246111631393433], [0.4394950866699219, 0.7332532405853271], [0.39736008644104004, 0.7434084415435791], [0.35732531547546387, 0.7555009126663208], [0.318902850151062, 0.7698996067047119], [0.28155267238616943, 0.786886990070343], [0.24469313025474548, 0.8066451549530029], [0.2077183872461319, 0.8292582631111145], [0.1700177937746048, 0.8547371625900269], [0.13099342584609985, 0.8830859661102295], [0.09006872773170471, 0.9144831299781799], [0.04666706919670105, 0.9499300122261047], [1.8369701465288538e-16, 1.0], [-0.04666706919670105, 0.9499300122261047], [-0.09006872773170471, 0.9144831299781799], [-0.13099342584609985, 0.8830859661102295], [-0.1700177937746048, 0.8547371625900269], [-0.2077183872461319, 0.8292582631111145], [-0.24469313025474548, 0.8066451549530029], [-0.28155267238616943, 0.786886990070343], [-0.318902850151062, 0.7698996067047119], [-0.35732531547546387, 0.7555009126663208], [-0.39736008644104004, 0.7434084415435791], [-0.4394950866699219, 0.7332532405853271], [-0.48416969180107117, 0.7246111631393433], [-0.5318097472190857, 0.7170624136924744], [-0.5829489827156067, 0.7103254199028015], [-0.6387033462524414, 0.7047005295753479], [-0.7071067690849304, 0.7071067690849304], [-0.7047005295753479, 0.6387033462524414], [-0.7103254199028015, 0.5829489827156067], [-0.7170624136924744, 0.5318097472190857], [-0.7246111631393433, 0.48416969180107117], [-0.7332532405853271, 0.4394950866699219], [-0.7434084415435791, 0.39736008644104004], [-0.7555009126663208, 0.35732531547546387], [-0.7698996067047119, 0.318902850151062], [-0.786886990070343, 0.28155267238616943], [-0.8066451549530029, 0.24469313025474548], [-0.8292582631111145, 0.2077183872461319], [-0.8547371625900269, 0.1700177937746048], [-0.8830859661102295, 0.13099342584609985], [-0.9144831299781799, 0.09006872773170471], [-0.9499300122261047, 0.04666706919670105]],
     COLOR: 9,
 }
-Class.customUnknownClass_36828 = {
+Class.unknownClass_36828_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
@@ -372,7 +1667,7 @@ Class.customUnknownClass_36828 = {
     SHAPE: [[-1, 0], [-0.9547625184059143, -0.027780752629041672], [-0.9238945841789246, -0.0538107305765152], [-0.8974711894989014, -0.07851855456829071], [-0.8744010329246521, -0.10220282524824142], [-0.8544119000434875, -0.12515291571617126], [-0.8374584317207336, -0.14766651391983032], [-0.8235569596290588, -0.17005082964897156], [-0.8127220869064331, -0.19261868298053741], [-0.8049381971359253, -0.21568253636360168], [-0.800147294998169, -0.23954838514328003], [-0.7982466816902161, -0.2645101547241211], [-0.7990935444831848, -0.2908462584018707], [-0.8025188446044922, -0.31882035732269287], [-0.808354914188385, -0.3486902713775635], [-0.8164921402931213, -0.3807365298271179], [-0.8270215392112732, -0.41534584760665894], [-0.8407390117645264, -0.4533224403858185], [-0.8660253882408142, -0.5], [-0.8129582405090332, -0.5014401078224182], [-0.7732108235359192, -0.5085487365722656], [-0.7379735708236694, -0.5167346596717834], [-0.706152081489563, -0.5257107615470886], [-0.6773659586906433, -0.5355915427207947], [-0.6514270305633545, -0.5466121435165405], [-0.6281958222389221, -0.5590468049049377], [-0.6075286269187927, -0.5731737017631531], [-0.5892556309700012, -0.5892556309700012], [-0.5731737017631531, -0.6075286269187927], [-0.5590468049049377, -0.6281958222389221], [-0.5466121435165405, -0.6514270305633545], [-0.5355915427207947, -0.6773659586906433], [-0.5257107615470886, -0.706152081489563], [-0.5167346596717834, -0.7379735708236694], [-0.5085487365722656, -0.7732108235359192], [-0.5014401078224182, -0.8129582405090332], [-0.5, -0.8660253882408142], [-0.4533224403858185, -0.8407390117645264], [-0.41534584760665894, -0.8270215392112732], [-0.3807365298271179, -0.8164921402931213], [-0.3486902713775635, -0.808354914188385], [-0.31882035732269287, -0.8025188446044922], [-0.2908462584018707, -0.7990935444831848], [-0.2645101547241211, -0.7982466816902161], [-0.23954838514328003, -0.800147294998169], [-0.21568253636360168, -0.8049381971359253], [-0.19261868298053741, -0.8127220869064331], [-0.17005082964897156, -0.8235569596290588], [-0.14766651391983032, -0.8374584317207336], [-0.12515291571617126, -0.8544119000434875], [-0.10220282524824142, -0.8744010329246521], [-0.07851855456829071, -0.8974711894989014], [-0.0538107305765152, -0.9238945841789246], [-0.027780752629041672, -0.9547625184059143], [-6.123234262925839e-17, -1.0], [0.027780752629041672, -0.9547625184059143], [0.0538107305765152, -0.9238945841789246], [0.07851855456829071, -0.8974711894989014], [0.10220282524824142, -0.8744010329246521], [0.12515291571617126, -0.8544119000434875], [0.14766651391983032, -0.8374584317207336], [0.17005082964897156, -0.8235569596290588], [0.19261868298053741, -0.8127220869064331], [0.21568253636360168, -0.8049381971359253], [0.23954838514328003, -0.800147294998169], [0.2645101547241211, -0.7982466816902161], [0.2908462584018707, -0.7990935444831848], [0.31882035732269287, -0.8025188446044922], [0.3486902713775635, -0.808354914188385], [0.3807365298271179, -0.8164921402931213], [0.41534584760665894, -0.8270215392112732], [0.4533224403858185, -0.8407390117645264], [0.5, -0.8660253882408142], [0.5014401078224182, -0.8129582405090332], [0.5085487365722656, -0.7732108235359192], [0.5167346596717834, -0.7379735708236694], [0.5257107615470886, -0.706152081489563], [0.5355915427207947, -0.6773659586906433], [0.5466121435165405, -0.6514270305633545], [0.5590468049049377, -0.6281958222389221], [0.5731737017631531, -0.6075286269187927], [0.5892556309700012, -0.5892556309700012], [0.6075286269187927, -0.5731737017631531], [0.6281958222389221, -0.5590468049049377], [0.6514270305633545, -0.5466121435165405], [0.6773659586906433, -0.5355915427207947], [0.706152081489563, -0.5257107615470886], [0.7379735708236694, -0.5167346596717834], [0.7732108235359192, -0.5085487365722656], [0.8129582405090332, -0.5014401078224182], [0.8660253882408142, -0.5], [0.8407390117645264, -0.4533224403858185], [0.8270215392112732, -0.41534584760665894], [0.8164921402931213, -0.3807365298271179], [0.808354914188385, -0.3486902713775635], [0.8025188446044922, -0.31882035732269287], [0.7990935444831848, -0.2908462584018707], [0.7982466816902161, -0.2645101547241211], [0.800147294998169, -0.23954838514328003], [0.8049381971359253, -0.21568253636360168], [0.8127220869064331, -0.19261868298053741], [0.8235569596290588, -0.17005082964897156], [0.8374584317207336, -0.14766651391983032], [0.8544119000434875, -0.12515291571617126], [0.8744010329246521, -0.10220282524824142], [0.8974711894989014, -0.07851855456829071], [0.9238945841789246, -0.0538107305765152], [0.9547625184059143, -0.027780752629041672], [1.0, -1.2246468525851679e-16], [0.9547625184059143, 0.027780752629041672], [0.9238945841789246, 0.0538107305765152], [0.8974711894989014, 0.07851855456829071], [0.8744010329246521, 0.10220282524824142], [0.8544119000434875, 0.12515291571617126], [0.8374584317207336, 0.14766651391983032], [0.8235569596290588, 0.17005082964897156], [0.8127220869064331, 0.19261868298053741], [0.8049381971359253, 0.21568253636360168], [0.800147294998169, 0.23954838514328003], [0.7982466816902161, 0.2645101547241211], [0.7990935444831848, 0.2908462584018707], [0.8025188446044922, 0.31882035732269287], [0.808354914188385, 0.3486902713775635], [0.8164921402931213, 0.3807365298271179], [0.8270215392112732, 0.41534584760665894], [0.8407390117645264, 0.4533224403858185], [0.8660253882408142, 0.5], [0.8129582405090332, 0.5014401078224182], [0.7732108235359192, 0.5085487365722656], [0.7379735708236694, 0.5167346596717834], [0.706152081489563, 0.5257107615470886], [0.6773659586906433, 0.5355915427207947], [0.6514270305633545, 0.5466121435165405], [0.6281958222389221, 0.5590468049049377], [0.6075286269187927, 0.5731737017631531], [0.5892556309700012, 0.5892556309700012], [0.5731737017631531, 0.6075286269187927], [0.5590468049049377, 0.6281958222389221], [0.5466121435165405, 0.6514270305633545], [0.5355915427207947, 0.6773659586906433], [0.5257107615470886, 0.706152081489563], [0.5167346596717834, 0.7379735708236694], [0.5085487365722656, 0.7732108235359192], [0.5014401078224182, 0.8129582405090332], [0.5, 0.8660253882408142], [0.4533224403858185, 0.8407390117645264], [0.41534584760665894, 0.8270215392112732], [0.3807365298271179, 0.8164921402931213], [0.3486902713775635, 0.808354914188385], [0.31882035732269287, 0.8025188446044922], [0.2908462584018707, 0.7990935444831848], [0.2645101547241211, 0.7982466816902161], [0.23954838514328003, 0.800147294998169], [0.21568253636360168, 0.8049381971359253], [0.19261868298053741, 0.8127220869064331], [0.17005082964897156, 0.8235569596290588], [0.14766651391983032, 0.8374584317207336], [0.12515291571617126, 0.8544119000434875], [0.10220282524824142, 0.8744010329246521], [0.07851855456829071, 0.8974711894989014], [0.0538107305765152, 0.9238945841789246], [0.027780752629041672, 0.9547625184059143], [1.8369701465288538e-16, 1.0], [-0.027780752629041672, 0.9547625184059143], [-0.0538107305765152, 0.9238945841789246], [-0.07851855456829071, 0.8974711894989014], [-0.10220282524824142, 0.8744010329246521], [-0.12515291571617126, 0.8544119000434875], [-0.14766651391983032, 0.8374584317207336], [-0.17005082964897156, 0.8235569596290588], [-0.19261868298053741, 0.8127220869064331], [-0.21568253636360168, 0.8049381971359253], [-0.23954838514328003, 0.800147294998169], [-0.2645101547241211, 0.7982466816902161], [-0.2908462584018707, 0.7990935444831848], [-0.31882035732269287, 0.8025188446044922], [-0.3486902713775635, 0.808354914188385], [-0.3807365298271179, 0.8164921402931213], [-0.41534584760665894, 0.8270215392112732], [-0.4533224403858185, 0.8407390117645264], [-0.5, 0.8660253882408142], [-0.5014401078224182, 0.8129582405090332], [-0.5085487365722656, 0.7732108235359192], [-0.5167346596717834, 0.7379735708236694], [-0.5257107615470886, 0.706152081489563], [-0.5355915427207947, 0.6773659586906433], [-0.5466121435165405, 0.6514270305633545], [-0.5590468049049377, 0.6281958222389221], [-0.5731737017631531, 0.6075286269187927], [-0.5892556309700012, 0.5892556309700012], [-0.6075286269187927, 0.5731737017631531], [-0.6281958222389221, 0.5590468049049377], [-0.6514270305633545, 0.5466121435165405], [-0.6773659586906433, 0.5355915427207947], [-0.706152081489563, 0.5257107615470886], [-0.7379735708236694, 0.5167346596717834], [-0.7732108235359192, 0.5085487365722656], [-0.8129582405090332, 0.5014401078224182], [-0.8660253882408142, 0.5], [-0.8407390117645264, 0.4533224403858185], [-0.8270215392112732, 0.41534584760665894], [-0.8164921402931213, 0.3807365298271179], [-0.808354914188385, 0.3486902713775635], [-0.8025188446044922, 0.31882035732269287], [-0.7990935444831848, 0.2908462584018707], [-0.7982466816902161, 0.2645101547241211], [-0.800147294998169, 0.23954838514328003], [-0.8049381971359253, 0.21568253636360168], [-0.8127220869064331, 0.19261868298053741], [-0.8235569596290588, 0.17005082964897156], [-0.8374584317207336, 0.14766651391983032], [-0.8544119000434875, 0.12515291571617126], [-0.8744010329246521, 0.10220282524824142], [-0.8974711894989014, 0.07851855456829071], [-0.9238945841789246, 0.0538107305765152], [-0.9547625184059143, 0.027780752629041672]],
     COLOR: 9,
 }
-Class.customUnknownClass_59626 = {
+Class.unknownClass_59626_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Class',
     SIZE: 12,
@@ -380,34 +1675,14 @@ Class.customUnknownClass_59626 = {
     SHAPE: [[-1, 0], [-0.8550236225128174, -0.0537935271859169], [-0.8069185614585876, -0.10193752497434616], [-0.7712593674659729, -0.14712558686733246], [-0.7422848343849182, -0.19058634340763092], [-0.7180173993110657, -0.23329798877239227], [-0.6975159645080566, -0.2761661112308502], [-0.6802315711975098, -0.32009267807006836], [-0.6658210754394531, -0.3660382330417633], [-0.6541486382484436, -0.41513535380363464], [-0.6454916000366211, -0.4689771234989166], [-0.6413562297821045, -0.5305759906768799], [-0.6495586037635803, -0.6099761128425598], [-0.6099761128425598, -0.6495586037635803], [-0.5305759906768799, -0.6413562297821045], [-0.4689771234989166, -0.6454916000366211], [-0.41513535380363464, -0.6541486382484436], [-0.3660382330417633, -0.6658210754394531], [-0.32009267807006836, -0.6802315711975098], [-0.2761661112308502, -0.6975159645080566], [-0.23329798877239227, -0.7180173993110657], [-0.19058634340763092, -0.7422848343849182], [-0.14712558686733246, -0.7712593674659729], [-0.10193752497434616, -0.8069185614585876], [-0.0537935271859169, -0.8550236225128174], [1.6081223582599331e-16, -0.9999997615814209], [0.0537935271859169, -0.8550236225128174], [0.10193752497434616, -0.8069185614585876], [0.14712558686733246, -0.7712593674659729], [0.19058634340763092, -0.7422848343849182], [0.23329798877239227, -0.7180173993110657], [0.2761661112308502, -0.6975159645080566], [0.32009267807006836, -0.6802315711975098], [0.3660382330417633, -0.6658210754394531], [0.41513535380363464, -0.6541486382484436], [0.4689771234989166, -0.6454916000366211], [0.5305759906768799, -0.6413562297821045], [0.6099761128425598, -0.6495586037635803], [0.6495586037635803, -0.6099761128425598], [0.6413562297821045, -0.5305759906768799], [0.6454916000366211, -0.4689771234989166], [0.6541486382484436, -0.41513535380363464], [0.6658210754394531, -0.3660382330417633], [0.6802315711975098, -0.32009267807006836], [0.6975159645080566, -0.2761661112308502], [0.7180173993110657, -0.23329798877239227], [0.7422848343849182, -0.19058634340763092], [0.7712593674659729, -0.14712558686733246], [0.8069185614585876, -0.10193752497434616], [0.8550236225128174, -0.0537935271859169], [0.9999997019767761, 3.2162444518220703e-16], [0.8550236225128174, 0.0537935271859169], [0.8069185614585876, 0.10193752497434616], [0.7712593674659729, 0.14712558686733246], [0.7422848343849182, 0.19058634340763092], [0.7180173993110657, 0.23329798877239227], [0.6975159645080566, 0.2761661112308502], [0.6802315711975098, 0.32009267807006836], [0.6658210754394531, 0.3660382330417633], [0.6541486382484436, 0.41513535380363464], [0.6454916000366211, 0.4689771234989166], [0.6413562297821045, 0.5305759906768799], [0.6495586037635803, 0.6099761128425598], [0.6099761128425598, 0.6495586037635803], [0.5305759906768799, 0.6413562297821045], [0.4689771234989166, 0.6454916000366211], [0.41513535380363464, 0.6541486382484436], [0.3660382330417633, 0.6658210754394531], [0.32009267807006836, 0.6802315711975098], [0.2761661112308502, 0.6975159645080566], [0.23329798877239227, 0.7180173993110657], [0.19058634340763092, 0.7422848343849182], [0.14712558686733246, 0.7712593674659729], [0.10193752497434616, 0.8069185614585876], [0.0537935271859169, 0.8550236225128174], [1.8369697494821597e-16, 0.9999997615814209], [-0.0537935271859169, 0.8550236225128174], [-0.10193752497434616, 0.8069185614585876], [-0.14712558686733246, 0.7712593674659729], [-0.19058634340763092, 0.7422848343849182], [-0.23329798877239227, 0.7180173993110657], [-0.2761661112308502, 0.6975159645080566], [-0.32009267807006836, 0.6802315711975098], [-0.3660382330417633, 0.6658210754394531], [-0.41513535380363464, 0.6541486382484436], [-0.4689771234989166, 0.6454916000366211], [-0.5305759906768799, 0.6413562297821045], [-0.6099761128425598, 0.6495586037635803], [-0.6495586037635803, 0.6099761128425598], [-0.6413562297821045, 0.5305759906768799], [-0.6454916000366211, 0.4689771234989166], [-0.6541486382484436, 0.41513535380363464], [-0.6658210754394531, 0.3660382330417633], [-0.6802315711975098, 0.32009267807006836], [-0.6975159645080566, 0.2761661112308502], [-0.7180173993110657, 0.23329798877239227], [-0.7422848343849182, 0.19058634340763092], [-0.7712593674659729, 0.14712558686733246], [-0.8069185614585876, 0.10193752497434616], [-0.8550236225128174, 0.0537935271859169]],
     COLOR: 9,
 }
-Class.customUnnamed_63735 = {
+Class.unnamed_38115_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-}
-Class.customUnnamed_38115 = {
-    PARENT: 'genericTank',
-    LABEL: '',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -432,13 +1707,14 @@ Class.customUnnamed_38115 = {
 
     ],
 }
-Class.customUnnamed_50514 = {
+Class.unnamed_50514_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -463,13 +1739,14 @@ Class.customUnnamed_50514 = {
 
     ],
 }
-Class.customUnnamed_10007 = {
+Class.unnamed_10007_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -484,13 +1761,14 @@ Class.customUnnamed_10007 = {
 
     ],
 }
-Class.customUnnamed_26034 = {
+Class.unnamed_26034_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -505,13 +1783,14 @@ Class.customUnnamed_26034 = {
 
     ],
 }
-Class.customUnnamed_49970 = {
+Class.unnamed_49970_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -526,13 +1805,14 @@ Class.customUnnamed_49970 = {
 
     ],
 }
-Class.customUnnamed_56743 = {
+Class.unnamed_56743_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -557,13 +1837,14 @@ Class.customUnnamed_56743 = {
 
     ],
 }
-Class.customUnnamed_63056 = {
+Class.unnamed_63056_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -598,13 +1879,14 @@ Class.customUnnamed_63056 = {
 
     ],
 }
-Class.customUnnamed_31232 = {
+Class.unnamed_31232_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -629,13 +1911,14 @@ Class.customUnnamed_31232 = {
 
     ],
 }
-Class.customUnnamed_2560 = {
+Class.unnamed_2560_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -660,13 +1943,14 @@ Class.customUnnamed_2560 = {
 
     ],
 }
-Class.customUnnamed_65428 = {
+Class.unnamed_65428_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -681,13 +1965,14 @@ Class.customUnnamed_65428 = {
 
     ],
 }
-Class.customUnnamed_19040 = {
+Class.unnamed_19040_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -712,13 +1997,14 @@ Class.customUnnamed_19040 = {
 
     ],
 }
-Class.customUnnamed_57137 = {
+Class.unnamed_57137_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -753,13 +2039,14 @@ Class.customUnnamed_57137 = {
 
     ],
 }
-Class.customUnnamed_14345 = {
+Class.unnamed_14345_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -794,13 +2081,14 @@ Class.customUnnamed_14345 = {
 
     ],
 }
-Class.customUnnamed_28538 = {
+Class.unnamed_28538_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -845,13 +2133,14 @@ Class.customUnnamed_28538 = {
 
     ],
 }
-Class.customUnnamed_11140 = {
+Class.unnamed_11140_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -866,13 +2155,14 @@ Class.customUnnamed_11140 = {
 
     ],
 }
-Class.customUnnamed_44885 = {
+Class.unnamed_44885_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -907,13 +2197,14 @@ Class.customUnnamed_44885 = {
 
     ],
 }
-Class.customUnnamed_23761 = {
+Class.unnamed_23761_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -938,13 +2229,14 @@ Class.customUnnamed_23761 = {
 
     ],
 }
-Class.customUnnamed_18236 = {
+Class.unnamed_18236_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -959,13 +2251,14 @@ Class.customUnnamed_18236 = {
 
     ],
 }
-Class.customUnnamed_31022 = {
+Class.unnamed_31022_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -980,13 +2273,14 @@ Class.customUnnamed_31022 = {
 
     ],
 }
-Class.customUnnamed_60505 = {
+Class.unnamed_60505_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1011,13 +2305,14 @@ Class.customUnnamed_60505 = {
 
     ],
 }
-Class.customUnnamed_45845 = {
+Class.unnamed_45845_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1062,13 +2357,14 @@ Class.customUnnamed_45845 = {
 
     ],
 }
-Class.customUnnamed_19419 = {
+Class.unnamed_19419_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1103,13 +2399,14 @@ Class.customUnnamed_19419 = {
 
     ],
 }
-Class.customUnnamed_30339 = {
+Class.unnamed_30339_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1154,13 +2451,14 @@ Class.customUnnamed_30339 = {
 
     ],
 }
-Class.customUnnamed_24994 = {
+Class.unnamed_24994_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1195,13 +2493,14 @@ Class.customUnnamed_24994 = {
 
     ],
 }
-Class.customUnnamed_14474 = {
+Class.unnamed_14474_AR = {
     PARENT: 'genericTank',
     LABEL: '',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1236,13 +2535,14 @@ Class.customUnnamed_14474 = {
 
     ],
 }
-Class.customAcquirer = {
+Class.acquirer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Acquirer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1277,13 +2577,14 @@ Class.customAcquirer = {
 
     ],
 }
-Class.customAdderall = {
+Class.adderall_AR = {
     PARENT: 'genericTank',
     LABEL: 'Adderall',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1308,13 +2609,14 @@ Class.customAdderall = {
 
     ],
 }
-Class.customAddict = {
+Class.addict_AR = {
     PARENT: 'genericTank',
     LABEL: 'Addict',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1339,13 +2641,14 @@ Class.customAddict = {
 
     ],
 }
-Class.customAdjurer = {
+Class.adjurer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Adjurer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1470,13 +2773,14 @@ Class.customAdjurer = {
 
     ],
 }
-Class.customAerodome = {
+Class.aerodome_AR = {
     PARENT: 'genericTank',
     LABEL: 'Aerodome',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1531,13 +2835,14 @@ Class.customAerodome = {
 
     ],
 }
-Class.customAffiliator = {
+Class.affiliator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Affiliator',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1602,13 +2907,14 @@ Class.customAffiliator = {
 
     ],
 }
-Class.customAirfield = {
+Class.airfield_AR = {
     PARENT: 'genericTank',
     LABEL: 'Airfield',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1664,7 +2970,7 @@ Class.customAirfield = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -1676,13 +2982,14 @@ Class.customAirfield = {
 
     ],
 }
-Class.customAlloy = {
+Class.alloy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Alloy',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1778,7 +3085,7 @@ Class.customAlloy = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -1788,7 +3095,7 @@ Class.customAlloy = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -1798,7 +3105,7 @@ Class.customAlloy = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -1810,13 +3117,14 @@ Class.customAlloy = {
 
     ],
 }
-Class.customAmalgam = {
+Class.amalgam_AR = {
     PARENT: 'genericTank',
     LABEL: 'Amalgam',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1841,13 +3149,14 @@ Class.customAmalgam = {
 
     ],
 }
-Class.customAnaconda = {
+Class.anaconda_AR = {
     PARENT: 'genericTank',
     LABEL: 'Anaconda',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1892,13 +3201,14 @@ Class.customAnaconda = {
 
     ],
 }
-Class.customAnchor = {
+Class.anchor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Anchor',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -1933,13 +3243,14 @@ Class.customAnchor = {
 
     ],
 }
-Class.customAnnexer = {
+Class.annexer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Annexer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2014,13 +3325,14 @@ Class.customAnnexer = {
 
     ],
 }
-Class.customAnnihilator = {
+Class.annihilator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Annihilator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2035,25 +3347,26 @@ Class.customAnnihilator = {
 
     ],
     UPGRADES_TIER_4: [
-        'customObliterator',
-        'customBigMac',
-        'customCompound',
-        'customAssembler',
-        'customWiper',
-        'customUltraTrapper',
-        'customStomper',
-        'customAutoannihilator',
-        'customShaver',
-        'customEradicator',
+        'obliterator',
+        'bigMac',
+        'compound',
+        'assembler',
+        'wiper',
+        'ultraTrapper',
+        'stomper',
+        'autoannihilator',
+        'shaver',
+        'eradicator',
     ],
 }
-Class.customAnomaly = {
+Class.anomaly_AR = {
     PARENT: 'genericTank',
     LABEL: 'Anomaly',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2098,13 +3411,14 @@ Class.customAnomaly = {
 
     ],
 }
-Class.customApiarist = {
+Class.apiarist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Apiarist',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2139,13 +3453,14 @@ Class.customApiarist = {
 
     ],
 }
-Class.customApiculturist = {
+Class.apiculturist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Apiculturist',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2190,13 +3505,14 @@ Class.customApiculturist = {
 
     ],
 }
-Class.customArbalest = {
+Class.arbalest_AR = {
     PARENT: 'genericTank',
     LABEL: 'Arbalest',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2281,7 +3597,7 @@ Class.customArbalest = {
 
     ],
 }
-Class.customArchitect = {
+Class.architect_AR = {
     PARENT: 'genericTank',
     LABEL: 'Architect',
     SIZE: 12,
@@ -2290,7 +3606,7 @@ Class.customArchitect = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2300,7 +3616,7 @@ Class.customArchitect = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2310,7 +3626,7 @@ Class.customArchitect = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2322,25 +3638,26 @@ Class.customArchitect = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMastermind',
-        'customOriginator',
-        'customRicochet',
-        'customArtist',
-        'customPaddock',
-        'customCastle',
-        'customInventor',
-        'customDesigner',
-        'customDraftsman',
-        'customArchitectGuard',
+        'mastermind',
+        'originator',
+        'ricochet',
+        'artist',
+        'paddock',
+        'castle',
+        'inventor',
+        'designer',
+        'draftsman',
+        'architectGuard',
     ],
 }
-Class.customArchitectGuard = {
+Class.architectGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Architect Guard',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2356,7 +3673,7 @@ Class.customArchitectGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2366,7 +3683,7 @@ Class.customArchitectGuard = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2376,7 +3693,7 @@ Class.customArchitectGuard = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2388,13 +3705,14 @@ Class.customArchitectGuard = {
 
     ],
 }
-Class.customArmament = {
+Class.armament_AR = {
     PARENT: 'genericTank',
     LABEL: 'Armament',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2459,13 +3777,14 @@ Class.customArmament = {
 
     ],
 }
-Class.customArmsman = {
+Class.armsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Armsman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2500,25 +3819,26 @@ Class.customArmsman = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverrifle',
-        'customPartisan',
-        'customCopier',
-        'customArmsmandrive',
-        'customVendor',
-        'customMatchlock',
-        'customHarpoon',
-        'customAutoarmsman',
-        'customSlayer',
-        'customPilfer',
+        'overrifle',
+        'partisan',
+        'copier',
+        'armsmandrive',
+        'vendor',
+        'matchlock',
+        'harpoon',
+        'autoarmsman',
+        'slayer',
+        'pilfer',
     ],
 }
-Class.customArmsmandrive = {
+Class.armsmandrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Armsmandrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2554,7 +3874,7 @@ Class.customArmsmandrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -2566,13 +3886,14 @@ Class.customArmsmandrive = {
 
     ],
 }
-Class.customArsenal = {
+Class.arsenal_AR = {
     PARENT: 'genericTank',
     LABEL: 'Arsenal',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2627,13 +3948,14 @@ Class.customArsenal = {
 
     ],
 }
-Class.customArtificer = {
+Class.artificer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Artificer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2668,13 +3990,14 @@ Class.customArtificer = {
 
     ],
 }
-Class.customArtillery = {
+Class.artillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2709,23 +4032,23 @@ Class.customArtillery = {
 
     ],
     UPGRADES_TIER_3: [
-        'customMortar',
-        'customOrdnance',
-        'customBeekeeper',
-        'customFieldGun',
-        'customQueller',
-        'customForger',
-        'customForce',
-        'customAutoartillery',
-        'customFoctillery',
-        'customDischarger',
+        'mortar',
+        'ordnance',
+        'beekeeper',
+        'fieldGun',
+        'queller',
+        'forger',
+        'force',
+        'autoartillery',
+        'foctillery',
+        'discharger',
     ],
     UPGRADES_TIER_4: [
-        'customBlare',
-        'customErne',
+        'blare',
+        'erne',
     ],
 }
-Class.customArtist = {
+Class.artist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Artist',
     SIZE: 12,
@@ -2734,7 +4057,7 @@ Class.customArtist = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_30339',
+            TYPE: 'unnamed_30339',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2744,7 +4067,7 @@ Class.customArtist = {
             }
         },
         {
-            TYPE: 'customUnnamed_30339',
+            TYPE: 'unnamed_30339',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2754,7 +4077,7 @@ Class.customArtist = {
             }
         },
         {
-            TYPE: 'customUnnamed_30339',
+            TYPE: 'unnamed_30339',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -2766,13 +4089,14 @@ Class.customArtist = {
 
     ],
 }
-Class.customAspirer = {
+Class.aspirer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Aspirer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2818,7 +4142,7 @@ Class.customAspirer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -2828,7 +4152,7 @@ Class.customAspirer = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -2840,13 +4164,14 @@ Class.customAspirer = {
 
     ],
 }
-Class.customAssailer = {
+Class.assailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assailer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2891,13 +4216,14 @@ Class.customAssailer = {
 
     ],
 }
-Class.customAssassin = {
+Class.assassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -2922,22 +4248,22 @@ Class.customAssassin = {
 
     ],
     UPGRADES_TIER_3: [
-        'customRanger',
-        'customFalcon',
-        'customStalker',
-        'customAutoassassin',
-        'customButtbuttin',
-        'customHitman',
-        'customSniper3',
-        'customEnforcer',
-        'customCourser',
+        'ranger',
+        'falcon',
+        'stalker',
+        'autoassassin',
+        'buttbuttin',
+        'hitman',
+        'sniper3',
+        'enforcer',
+        'courser',
     ],
     UPGRADES_TIER_4: [
-        'customExecutor',
-        'customFinger',
+        'executor',
+        'finger',
     ],
 }
-Class.customAssassin3 = {
+Class.assassin3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assassin-3',
     SIZE: 12,
@@ -2946,7 +4272,7 @@ Class.customAssassin3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_2560',
+            TYPE: 'unnamed_2560',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -2956,7 +4282,7 @@ Class.customAssassin3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_2560',
+            TYPE: 'unnamed_2560',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -2966,7 +4292,7 @@ Class.customAssassin3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_2560',
+            TYPE: 'unnamed_2560',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -2978,13 +4304,14 @@ Class.customAssassin3 = {
 
     ],
 }
-Class.customAssaulter = {
+Class.assaulter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assaulter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3079,13 +4406,14 @@ Class.customAssaulter = {
 
     ],
 }
-Class.customAssembler = {
+Class.assembler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assembler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3110,13 +4438,14 @@ Class.customAssembler = {
 
     ],
 }
-Class.customAssimilator = {
+Class.assimilator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assimilator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3181,13 +4510,14 @@ Class.customAssimilator = {
 
     ],
 }
-Class.customAssistant = {
+Class.assistant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Assistant',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3222,7 +4552,7 @@ Class.customAssistant = {
 
     ],
 }
-Class.customAuto3 = {
+Class.auto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-3',
     SIZE: 12,
@@ -3231,7 +4561,7 @@ Class.customAuto3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3241,7 +4571,7 @@ Class.customAuto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3251,7 +4581,7 @@ Class.customAuto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3263,17 +4593,17 @@ Class.customAuto3 = {
 
     ],
     UPGRADES_TIER_3: [
-        'customAuto5',
-        'customMega3',
-        'customAuto4',
-        'customBanshee',
-        'customSniper3',
-        'customCrowbar',
-        'customAutoauto3',
-        'customCombo',
+        'auto5',
+        'mega3',
+        'auto4',
+        'banshee',
+        'sniper3',
+        'crowbar',
+        'autoauto3',
+        'combo',
     ],
 }
-Class.customAuto4 = {
+Class.auto4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-4',
     SIZE: 12,
@@ -3282,7 +4612,7 @@ Class.customAuto4 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3292,7 +4622,7 @@ Class.customAuto4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3302,7 +4632,7 @@ Class.customAuto4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3312,7 +4642,7 @@ Class.customAuto4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3324,16 +4654,16 @@ Class.customAuto4 = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAuto6',
-        'customBatter4',
-        'customAutoauto4',
-        'customWraith',
-        'customVolley4',
-        'customChisel',
-        'customTrove',
+        'auto6',
+        'batter4',
+        'autoauto4',
+        'wraith',
+        'volley4',
+        'chisel',
+        'trove',
     ],
 }
-Class.customAuto5 = {
+Class.auto5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-5',
     SIZE: 12,
@@ -3342,7 +4672,7 @@ Class.customAuto5 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3352,7 +4682,7 @@ Class.customAuto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3362,7 +4692,7 @@ Class.customAuto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3372,7 +4702,7 @@ Class.customAuto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3382,7 +4712,7 @@ Class.customAuto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3394,16 +4724,16 @@ Class.customAuto5 = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAuto7',
-        'customMega5',
-        'customAuto6',
-        'customSpectre',
-        'customSniper5',
-        'customPryer',
-        'customAutoauto5',
+        'auto7',
+        'mega5',
+        'auto6',
+        'spectre',
+        'sniper5',
+        'pryer',
+        'autoauto5',
     ],
 }
-Class.customAuto6 = {
+Class.auto6_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-6',
     SIZE: 12,
@@ -3412,7 +4742,7 @@ Class.customAuto6 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3422,7 +4752,7 @@ Class.customAuto6 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3432,7 +4762,7 @@ Class.customAuto6 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3442,7 +4772,7 @@ Class.customAuto6 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3452,7 +4782,7 @@ Class.customAuto6 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3462,7 +4792,7 @@ Class.customAuto6 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3474,7 +4804,7 @@ Class.customAuto6 = {
 
     ],
 }
-Class.customAuto7 = {
+Class.auto7_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-7',
     SIZE: 12,
@@ -3483,7 +4813,7 @@ Class.customAuto7 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3493,7 +4823,7 @@ Class.customAuto7 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3503,7 +4833,7 @@ Class.customAuto7 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3513,7 +4843,7 @@ Class.customAuto7 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3523,7 +4853,7 @@ Class.customAuto7 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3533,7 +4863,7 @@ Class.customAuto7 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3543,7 +4873,7 @@ Class.customAuto7 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3555,13 +4885,14 @@ Class.customAuto7 = {
 
     ],
 }
-Class.customAutoannihilator = {
+Class.autoannihilator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Annihilator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3577,7 +4908,7 @@ Class.customAutoannihilator = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3589,13 +4920,14 @@ Class.customAutoannihilator = {
 
     ],
 }
-Class.customAutoarmsman = {
+Class.autoarmsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Armsman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3631,7 +4963,7 @@ Class.customAutoarmsman = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3643,13 +4975,14 @@ Class.customAutoarmsman = {
 
     ],
 }
-Class.customAutoartillery = {
+Class.autoartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3685,7 +5018,7 @@ Class.customAutoartillery = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3697,26 +5030,27 @@ Class.customAutoartillery = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutoartillery',
-        'customTripleAutoartillery',
-        'customAutomortar',
-        'customAutoordnance',
-        'customAutobeekeeper',
-        'customAutoqueller',
-        'customAutoforger',
-        'customAutofieldGun',
-        'customAutoforce',
-        'customAutofoctillery',
-        'customAutodischarger',
+        'megaAutoartillery',
+        'tripleAutoartillery',
+        'automortar',
+        'autoordnance',
+        'autobeekeeper',
+        'autoqueller',
+        'autoforger',
+        'autofieldGun',
+        'autoforce',
+        'autofoctillery',
+        'autodischarger',
     ],
 }
-Class.customAutoassassin = {
+Class.autoassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3742,7 +5076,7 @@ Class.customAutoassassin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3754,19 +5088,19 @@ Class.customAutoassassin = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutoassassin',
-        'customTripleAutoassassin',
-        'customAutoranger',
-        'customAutofalcon',
-        'customAutostalker',
-        'customAutobuttbuttin',
-        'customAutohitman',
-        'customAutosniper3',
-        'customAutoenforcer',
-        'customAutocourser',
+        'megaAutoassassin',
+        'tripleAutoassassin',
+        'autoranger',
+        'autofalcon',
+        'autostalker',
+        'autobuttbuttin',
+        'autohitman',
+        'autosniper3',
+        'autoenforcer',
+        'autocourser',
     ],
 }
-Class.customAutoauto3 = {
+Class.autoauto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Auto-3',
     SIZE: 12,
@@ -3775,7 +5109,7 @@ Class.customAutoauto3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3785,7 +5119,7 @@ Class.customAutoauto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3795,7 +5129,7 @@ Class.customAutoauto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3805,7 +5139,7 @@ Class.customAutoauto3 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3817,18 +5151,18 @@ Class.customAutoauto3 = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutoauto3',
-        'customTripleAutoauto3',
-        'customAutoauto5',
-        'customAutomega3',
-        'customAutoauto4',
-        'customAutobanshee',
-        'customAutosniper3',
-        'customAutocrowbar',
-        'customAutocombo',
+        'megaAutoauto3',
+        'tripleAutoauto3',
+        'autoauto5',
+        'automega3',
+        'autoauto4',
+        'autobanshee',
+        'autosniper3',
+        'autocrowbar',
+        'autocombo',
     ],
 }
-Class.customAutoauto4 = {
+Class.autoauto4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Auto-4',
     SIZE: 12,
@@ -3837,7 +5171,7 @@ Class.customAutoauto4 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3847,7 +5181,7 @@ Class.customAutoauto4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3857,7 +5191,7 @@ Class.customAutoauto4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3867,7 +5201,7 @@ Class.customAutoauto4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -3877,7 +5211,7 @@ Class.customAutoauto4 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3889,7 +5223,7 @@ Class.customAutoauto4 = {
 
     ],
 }
-Class.customAutoauto5 = {
+Class.autoauto5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Auto-5',
     SIZE: 12,
@@ -3898,7 +5232,7 @@ Class.customAutoauto5 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3908,7 +5242,7 @@ Class.customAutoauto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3918,7 +5252,7 @@ Class.customAutoauto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3928,7 +5262,7 @@ Class.customAutoauto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3938,7 +5272,7 @@ Class.customAutoauto5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -3948,7 +5282,7 @@ Class.customAutoauto5 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -3960,13 +5294,14 @@ Class.customAutoauto5 = {
 
     ],
 }
-Class.customAutobaltimore = {
+Class.autobaltimore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Baltimore',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -3992,7 +5327,7 @@ Class.customAutobaltimore = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4004,7 +5339,7 @@ Class.customAutobaltimore = {
 
     ],
 }
-Class.customAutobanger = {
+Class.autobanger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Banger',
     SIZE: 12,
@@ -4013,7 +5348,7 @@ Class.customAutobanger = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -4023,7 +5358,7 @@ Class.customAutobanger = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -4035,13 +5370,14 @@ Class.customAutobanger = {
 
     ],
 }
-Class.customAutobanshee = {
+Class.autobanshee_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Banshee',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4077,7 +5413,7 @@ Class.customAutobanshee = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -4087,7 +5423,7 @@ Class.customAutobanshee = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -4097,7 +5433,7 @@ Class.customAutobanshee = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -4107,7 +5443,7 @@ Class.customAutobanshee = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4119,13 +5455,14 @@ Class.customAutobanshee = {
 
     ],
 }
-Class.customAutobarricade = {
+Class.autobarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4171,7 +5508,7 @@ Class.customAutobarricade = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4183,13 +5520,14 @@ Class.customAutobarricade = {
 
     ],
 }
-Class.customAutobattery = {
+Class.autobattery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Battery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4245,7 +5583,7 @@ Class.customAutobattery = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4257,13 +5595,14 @@ Class.customAutobattery = {
 
     ],
 }
-Class.customAutobattleship = {
+Class.autobattleship_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Battleship',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4309,7 +5648,7 @@ Class.customAutobattleship = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4321,13 +5660,14 @@ Class.customAutobattleship = {
 
     ],
 }
-Class.customAutobeekeeper = {
+Class.autobeekeeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Beekeeper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4363,7 +5703,7 @@ Class.customAutobeekeeper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4375,13 +5715,14 @@ Class.customAutobeekeeper = {
 
     ],
 }
-Class.customAutobentDouble = {
+Class.autobentDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4447,7 +5788,7 @@ Class.customAutobentDouble = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4459,13 +5800,14 @@ Class.customAutobentDouble = {
 
     ],
 }
-Class.customAutobentGunner = {
+Class.autobentGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4531,7 +5873,7 @@ Class.customAutobentGunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4543,13 +5885,14 @@ Class.customAutobentGunner = {
 
     ],
 }
-Class.customAutobentHybrid = {
+Class.autobentHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4595,7 +5938,7 @@ Class.customAutobentHybrid = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4607,13 +5950,14 @@ Class.customAutobentHybrid = {
 
     ],
 }
-Class.customAutobentMinigun = {
+Class.autobentMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bent Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4689,7 +6033,7 @@ Class.customAutobentMinigun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4701,13 +6045,14 @@ Class.customAutobentMinigun = {
 
     ],
 }
-Class.customAutobigCheese = {
+Class.autobigCheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Big Cheese',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4723,7 +6068,7 @@ Class.customAutobigCheese = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4735,13 +6080,14 @@ Class.customAutobigCheese = {
 
     ],
 }
-Class.customAutoblower = {
+Class.autoblower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Blower',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4787,7 +6133,7 @@ Class.customAutoblower = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4799,13 +6145,14 @@ Class.customAutoblower = {
 
     ],
 }
-Class.customAutobomber = {
+Class.autobomber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bomber',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4881,7 +6228,7 @@ Class.customAutobomber = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4893,7 +6240,7 @@ Class.customAutobomber = {
 
     ],
 }
-Class.customAutobonker = {
+Class.autobonker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bonker',
     SIZE: 12,
@@ -4902,7 +6249,7 @@ Class.customAutobonker = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -4912,7 +6259,7 @@ Class.customAutobonker = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -4924,13 +6271,14 @@ Class.customAutobonker = {
 
     ],
 }
-Class.customAutoboomer = {
+Class.autoboomer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Boomer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -4966,7 +6314,7 @@ Class.customAutoboomer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -4978,13 +6326,14 @@ Class.customAutoboomer = {
 
     ],
 }
-Class.customAutobooster = {
+Class.autobooster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Booster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5040,7 +6389,7 @@ Class.customAutobooster = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5052,13 +6401,14 @@ Class.customAutobooster = {
 
     ],
 }
-Class.customAutobrisker = {
+Class.autobrisker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Brisker',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5084,7 +6434,7 @@ Class.customAutobrisker = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5096,13 +6446,14 @@ Class.customAutobrisker = {
 
     ],
 }
-Class.customAutobuilder = {
+Class.autobuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Builder',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5128,7 +6479,7 @@ Class.customAutobuilder = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5140,25 +6491,26 @@ Class.customAutobuilder = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutobuilder',
-        'customTripleAutobuilder',
-        'customAutoconstructor',
-        'customAutoengineer',
-        'customAutoboomer',
-        'customAutoconqueror',
-        'customAutoforger',
-        'customAutostall',
-        'customAutofashioner',
-        'customAutocharger',
+        'megaAutobuilder',
+        'tripleAutobuilder',
+        'autoconstructor',
+        'autoengineer',
+        'autoboomer',
+        'autoconqueror',
+        'autoforger',
+        'autostall',
+        'autofashioner',
+        'autocharger',
     ],
 }
-Class.customAutobulwark = {
+Class.autobulwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bulwark',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5224,7 +6576,7 @@ Class.customAutobulwark = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5236,13 +6588,14 @@ Class.customAutobulwark = {
 
     ],
 }
-Class.customAutobushwhacker = {
+Class.autobushwhacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Bushwhacker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5278,7 +6631,7 @@ Class.customAutobushwhacker = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5290,13 +6643,14 @@ Class.customAutobushwhacker = {
 
     ],
 }
-Class.customAutobuttbuttin = {
+Class.autobuttbuttin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Buttbuttin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5352,7 +6706,7 @@ Class.customAutobuttbuttin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5364,13 +6718,14 @@ Class.customAutobuttbuttin = {
 
     ],
 }
-Class.customAutocaptain = {
+Class.autocaptain_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Captain',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5436,7 +6791,7 @@ Class.customAutocaptain = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5448,13 +6803,14 @@ Class.customAutocaptain = {
 
     ],
 }
-Class.customAutocarrier = {
+Class.autocarrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Carrier',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5490,7 +6846,7 @@ Class.customAutocarrier = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5502,13 +6858,14 @@ Class.customAutocarrier = {
 
     ],
 }
-Class.customAutocharger = {
+Class.autocharger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Charger',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5544,7 +6901,7 @@ Class.customAutocharger = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5556,13 +6913,14 @@ Class.customAutocharger = {
 
     ],
 }
-Class.customAutocluster = {
+Class.autocluster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cluster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5588,7 +6946,7 @@ Class.customAutocluster = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5600,13 +6958,14 @@ Class.customAutocluster = {
 
     ],
 }
-Class.customAutocoalesce = {
+Class.autocoalesce_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Coalesce',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5662,7 +7021,7 @@ Class.customAutocoalesce = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5674,13 +7033,14 @@ Class.customAutocoalesce = {
 
     ],
 }
-Class.customAutocobbler = {
+Class.autocobbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cobbler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5726,7 +7086,7 @@ Class.customAutocobbler = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5738,13 +7098,14 @@ Class.customAutocobbler = {
 
     ],
 }
-Class.customAutocockatiel = {
+Class.autocockatiel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cockatiel',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5810,7 +7171,7 @@ Class.customAutocockatiel = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5822,13 +7183,14 @@ Class.customAutocockatiel = {
 
     ],
 }
-Class.customAutocog = {
+Class.autocog_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cog',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5894,7 +7256,7 @@ Class.customAutocog = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5906,13 +7268,14 @@ Class.customAutocog = {
 
     ],
 }
-Class.customAutocombo = {
+Class.autocombo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Combo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -5948,7 +7311,7 @@ Class.customAutocombo = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -5958,7 +7321,7 @@ Class.customAutocombo = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -5968,7 +7331,7 @@ Class.customAutocombo = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -5978,7 +7341,7 @@ Class.customAutocombo = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -5990,13 +7353,14 @@ Class.customAutocombo = {
 
     ],
 }
-Class.customAutocommander = {
+Class.autocommander_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Commander',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6062,7 +7426,7 @@ Class.customAutocommander = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6074,13 +7438,14 @@ Class.customAutocommander = {
 
     ],
 }
-Class.customAutoconqueror = {
+Class.autoconqueror_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Conqueror',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6116,7 +7481,7 @@ Class.customAutoconqueror = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6128,13 +7493,14 @@ Class.customAutoconqueror = {
 
     ],
 }
-Class.customAutoconstructor = {
+Class.autoconstructor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Constructor',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6160,7 +7526,7 @@ Class.customAutoconstructor = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6172,13 +7538,14 @@ Class.customAutoconstructor = {
 
     ],
 }
-Class.customAutocourser = {
+Class.autocourser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Courser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6214,7 +7581,7 @@ Class.customAutocourser = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6226,13 +7593,14 @@ Class.customAutocourser = {
 
     ],
 }
-Class.customAutocropDuster = {
+Class.autocropDuster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Crop Duster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6278,7 +7646,7 @@ Class.customAutocropDuster = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6290,13 +7658,14 @@ Class.customAutocropDuster = {
 
     ],
 }
-Class.customAutocrossbow = {
+Class.autocrossbow_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Crossbow',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6372,7 +7741,7 @@ Class.customAutocrossbow = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6384,13 +7753,14 @@ Class.customAutocrossbow = {
 
     ],
 }
-Class.customAutocrowbar = {
+Class.autocrowbar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Crowbar',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6416,7 +7786,7 @@ Class.customAutocrowbar = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -6426,7 +7796,7 @@ Class.customAutocrowbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -6436,7 +7806,7 @@ Class.customAutocrowbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -6446,7 +7816,7 @@ Class.customAutocrowbar = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6458,13 +7828,14 @@ Class.customAutocrowbar = {
 
     ],
 }
-Class.customAutocruiser = {
+Class.autocruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6490,7 +7861,7 @@ Class.customAutocruiser = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6502,24 +7873,25 @@ Class.customAutocruiser = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutocruiser',
-        'customTripleAutocruiser',
-        'customAutocarrier',
-        'customAutobattleship',
-        'customAutocommander',
-        'customAutocruiserdrive',
-        'customAutoproductionist',
-        'customAutobaltimore',
-        'customAutomosey',
+        'megaAutocruiser',
+        'tripleAutocruiser',
+        'autocarrier',
+        'autobattleship',
+        'autocommander',
+        'autocruiserdrive',
+        'autoproductionist',
+        'autobaltimore',
+        'automosey',
     ],
 }
-Class.customAutocruiserdrive = {
+Class.autocruiserdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cruiserdrive',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6545,7 +7917,7 @@ Class.customAutocruiserdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_64872',
+            TYPE: 'turret_64872',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -6557,13 +7929,14 @@ Class.customAutocruiserdrive = {
 
     ],
 }
-Class.customAutocyclone = {
+Class.autocyclone_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Cyclone',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6689,7 +8062,7 @@ Class.customAutocyclone = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6701,13 +8074,14 @@ Class.customAutocyclone = {
 
     ],
 }
-Class.customAutodeathStar = {
+Class.autodeathStar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Death Star',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6773,7 +8147,7 @@ Class.customAutodeathStar = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6785,13 +8159,14 @@ Class.customAutodeathStar = {
 
     ],
 }
-Class.customAutodefect = {
+Class.autodefect_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Defect',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6857,7 +8232,7 @@ Class.customAutodefect = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6869,13 +8244,14 @@ Class.customAutodefect = {
 
     ],
 }
-Class.customAutodestroyer = {
+Class.autodestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6891,7 +8267,7 @@ Class.customAutodestroyer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6903,26 +8279,27 @@ Class.customAutodestroyer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutodestroyer',
-        'customTripleAutodestroyer',
-        'customAutoconqueror',
-        'customAutoannihilator',
-        'customAutohybrid',
-        'customAutoconstructor',
-        'customAutoblower',
-        'customAutomegaTrapper',
-        'customAutoqueller',
-        'customAutohurler',
-        'customAutoslinker',
+        'megaAutodestroyer',
+        'tripleAutodestroyer',
+        'autoconqueror',
+        'autoannihilator',
+        'autohybrid',
+        'autoconstructor',
+        'autoblower',
+        'automegaTrapper',
+        'autoqueller',
+        'autohurler',
+        'autoslinker',
     ],
 }
-Class.customAutodeviation = {
+Class.autodeviation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Deviation',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6958,7 +8335,7 @@ Class.customAutodeviation = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -6970,13 +8347,14 @@ Class.customAutodeviation = {
 
     ],
 }
-Class.customAutodiesel = {
+Class.autodiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -6992,7 +8370,7 @@ Class.customAutodiesel = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7004,21 +8382,22 @@ Class.customAutodiesel = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutodiesel',
-        'customTripleAutodiesel',
-        'customAutomachineGunner',
-        'customAutojalopy',
-        'customAutodieselTrapper',
-        'customAutopolluter',
+        'megaAutodiesel',
+        'tripleAutodiesel',
+        'automachineGunner',
+        'autojalopy',
+        'autodieselTrapper',
+        'autopolluter',
     ],
 }
-Class.customAutodieselTrapper = {
+Class.autodieselTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Diesel Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7044,7 +8423,7 @@ Class.customAutodieselTrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7056,13 +8435,14 @@ Class.customAutodieselTrapper = {
 
     ],
 }
-Class.customAutodirectordrive = {
+Class.autodirectordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7078,7 +8458,7 @@ Class.customAutodirectordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -7090,22 +8470,23 @@ Class.customAutodirectordrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutodirectordrive',
-        'customTripleAutodirectordrive',
-        'customAutodirectorstorm',
-        'customAutooverdrive',
-        'customAutocruiserdrive',
-        'customAutounderdrive',
-        'customAutospawnerdrive',
+        'megaAutodirectordrive',
+        'tripleAutodirectordrive',
+        'autodirectorstorm',
+        'autooverdrive',
+        'autocruiserdrive',
+        'autounderdrive',
+        'autospawnerdrive',
     ],
 }
-Class.customAutodirectorstorm = {
+Class.autodirectorstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Directorstorm',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7121,7 +8502,7 @@ Class.customAutodirectorstorm = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_49473',
+            TYPE: 'turret_49473',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -7133,13 +8514,14 @@ Class.customAutodirectorstorm = {
 
     ],
 }
-Class.customAutodischarger = {
+Class.autodischarger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Discharger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7195,7 +8577,7 @@ Class.customAutodischarger = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7207,13 +8589,14 @@ Class.customAutodischarger = {
 
     ],
 }
-Class.customAutodoper = {
+Class.autodoper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Doper',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7239,7 +8622,7 @@ Class.customAutodoper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7251,22 +8634,23 @@ Class.customAutodoper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutodoper',
-        'customTripleAutodoper',
-        'customAutodopeseer',
-        'customAutomosey',
-        'customAutoissuer',
-        'customAutodoperdrive',
-        'customAutojunkie',
+        'megaAutodoper',
+        'tripleAutodoper',
+        'autodopeseer',
+        'automosey',
+        'autoissuer',
+        'autodoperdrive',
+        'autojunkie',
     ],
 }
-Class.customAutodoperdrive = {
+Class.autodoperdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Doperdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7292,7 +8676,7 @@ Class.customAutodoperdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -7304,13 +8688,14 @@ Class.customAutodoperdrive = {
 
     ],
 }
-Class.customAutodopeseer = {
+Class.autodopeseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Dopeseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7356,7 +8741,7 @@ Class.customAutodopeseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7368,13 +8753,14 @@ Class.customAutodopeseer = {
 
     ],
 }
-Class.customAutodouble = {
+Class.autodouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7420,7 +8806,7 @@ Class.customAutodouble = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7432,23 +8818,24 @@ Class.customAutodouble = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutodoubleTwin',
-        'customTripleAutodouble',
-        'customAutotripleTwin',
-        'customAutohewnDouble',
-        'customAutobentDouble',
-        'customAutodoubleFlankTwin',
-        'customAutodoubleGunner',
-        'customAutowarkwark',
+        'megaAutodoubleTwin',
+        'tripleAutodouble',
+        'autotripleTwin',
+        'autohewnDouble',
+        'autobentDouble',
+        'autodoubleFlankTwin',
+        'autodoubleGunner',
+        'autowarkwark',
     ],
 }
-Class.customAutodoubleFlankTwin = {
+Class.autodoubleFlankTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Double Flank Twin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7514,7 +8901,7 @@ Class.customAutodoubleFlankTwin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7526,13 +8913,14 @@ Class.customAutodoubleFlankTwin = {
 
     ],
 }
-Class.customAutodoubleGunner = {
+Class.autodoubleGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Double Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7618,7 +9006,7 @@ Class.customAutodoubleGunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7630,7 +9018,7 @@ Class.customAutodoubleGunner = {
 
     ],
 }
-Class.customAutodrifter = {
+Class.autodrifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Drifter',
     SIZE: 12,
@@ -7639,7 +9027,7 @@ Class.customAutodrifter = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_5627',
+            TYPE: 'unknownClass_5627',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -7649,7 +9037,7 @@ Class.customAutodrifter = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -7661,13 +9049,14 @@ Class.customAutodrifter = {
 
     ],
 }
-Class.customAutodual = {
+Class.autodual_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Dual',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7713,7 +9102,7 @@ Class.customAutodual = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7725,13 +9114,14 @@ Class.customAutodual = {
 
     ],
 }
-Class.customAutoeagle = {
+Class.autoeagle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Eagle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7777,7 +9167,7 @@ Class.customAutoeagle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7789,13 +9179,14 @@ Class.customAutoeagle = {
 
     ],
 }
-Class.customAutoencircler = {
+Class.autoencircler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Encircler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7831,7 +9222,7 @@ Class.customAutoencircler = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7843,13 +9234,14 @@ Class.customAutoencircler = {
 
     ],
 }
-Class.customAutoenforcer = {
+Class.autoenforcer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Enforcer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7885,7 +9277,7 @@ Class.customAutoenforcer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7897,13 +9289,14 @@ Class.customAutoenforcer = {
 
     ],
 }
-Class.customAutoengineer = {
+Class.autoengineer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Engineer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -7949,7 +9342,7 @@ Class.customAutoengineer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -7961,13 +9354,14 @@ Class.customAutoengineer = {
 
     ],
 }
-Class.customAutoequalizer = {
+Class.autoequalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Equalizer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8053,7 +9447,7 @@ Class.customAutoequalizer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8065,13 +9459,14 @@ Class.customAutoequalizer = {
 
     ],
 }
-Class.customAutoexpeller = {
+Class.autoexpeller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Expeller',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8117,7 +9512,7 @@ Class.customAutoexpeller = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8129,13 +9524,14 @@ Class.customAutoexpeller = {
 
     ],
 }
-Class.customAutofactory = {
+Class.autofactory_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Factory',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8171,7 +9567,7 @@ Class.customAutofactory = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8183,13 +9579,14 @@ Class.customAutofactory = {
 
     ],
 }
-Class.customAutofalcon = {
+Class.autofalcon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Falcon',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8245,7 +9642,7 @@ Class.customAutofalcon = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8257,13 +9654,14 @@ Class.customAutofalcon = {
 
     ],
 }
-Class.customAutofashioner = {
+Class.autofashioner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Fashioner',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8299,7 +9697,7 @@ Class.customAutofashioner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8311,13 +9709,14 @@ Class.customAutofashioner = {
 
     ],
 }
-Class.customAutofieldGun = {
+Class.autofieldGun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Field Gun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8363,7 +9762,7 @@ Class.customAutofieldGun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8375,13 +9774,14 @@ Class.customAutofieldGun = {
 
     ],
 }
-Class.customAutofighter = {
+Class.autofighter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Fighter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8437,7 +9837,7 @@ Class.customAutofighter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8449,13 +9849,14 @@ Class.customAutofighter = {
 
     ],
 }
-Class.customAutofoctillery = {
+Class.autofoctillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Foctillery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8491,7 +9892,7 @@ Class.customAutofoctillery = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8503,13 +9904,14 @@ Class.customAutofoctillery = {
 
     ],
 }
-Class.customAutoforce = {
+Class.autoforce_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Force',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8555,7 +9957,7 @@ Class.customAutoforce = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8567,13 +9969,14 @@ Class.customAutoforce = {
 
     ],
 }
-Class.customAutoforeman = {
+Class.autoforeman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Foreman',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8599,7 +10002,7 @@ Class.customAutoforeman = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8611,13 +10014,14 @@ Class.customAutoforeman = {
 
     ],
 }
-Class.customAutoforger = {
+Class.autoforger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Forger',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8663,7 +10067,7 @@ Class.customAutoforger = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8675,13 +10079,14 @@ Class.customAutoforger = {
 
     ],
 }
-Class.customAutofoundry = {
+Class.autofoundry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Foundry',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8717,7 +10122,7 @@ Class.customAutofoundry = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8729,13 +10134,14 @@ Class.customAutofoundry = {
 
     ],
 }
-Class.customAutogunner = {
+Class.autogunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8781,7 +10187,7 @@ Class.customAutogunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8793,30 +10199,31 @@ Class.customAutogunner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutogunner',
-        'customAutoequalizer',
-        'customTripleAutogunner',
-        'customAutonailgun',
-        'customAutoauto4',
-        'customAutomachineGunner',
-        'customAutogunnerTrapper',
-        'customAutocyclone',
-        'customAutoovergunner',
-        'customAutobattery',
-        'customAutobuttbuttin',
-        'customAutoblower',
-        'customAutorimfire',
-        'customAutovolley',
-        'customAutodoubleGunner',
+        'megaAutogunner',
+        'autoequalizer',
+        'tripleAutogunner',
+        'autonailgun',
+        'autoauto4',
+        'automachineGunner',
+        'autogunnerTrapper',
+        'autocyclone',
+        'autoovergunner',
+        'autobattery',
+        'autobuttbuttin',
+        'autoblower',
+        'autorimfire',
+        'autovolley',
+        'autodoubleGunner',
     ],
 }
-Class.customAutogunnerTrapper = {
+Class.autogunnerTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Gunner Trapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8872,7 +10279,7 @@ Class.customAutogunnerTrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8884,13 +10291,14 @@ Class.customAutogunnerTrapper = {
 
     ],
 }
-Class.customAutohangar = {
+Class.autohangar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hangar',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -8946,7 +10354,7 @@ Class.customAutohangar = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -8958,13 +10366,14 @@ Class.customAutohangar = {
 
     ],
 }
-Class.customAutoheaver = {
+Class.autoheaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Heaver',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9000,7 +10409,7 @@ Class.customAutoheaver = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9012,13 +10421,14 @@ Class.customAutoheaver = {
 
     ],
 }
-Class.customAutohewnDouble = {
+Class.autohewnDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hewn Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9084,7 +10494,7 @@ Class.customAutohewnDouble = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9096,13 +10506,14 @@ Class.customAutohewnDouble = {
 
     ],
 }
-Class.customAutohexaTank = {
+Class.autohexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9168,7 +10579,7 @@ Class.customAutohexaTank = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9180,22 +10591,23 @@ Class.customAutohexaTank = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutohexaTank',
-        'customTripleAutohexaTank',
-        'customAutooctoTank',
-        'customAutocyclone',
-        'customAutodeathStar',
-        'customAutomingler',
-        'customAutocombo',
+        'megaAutohexaTank',
+        'tripleAutohexaTank',
+        'autooctoTank',
+        'autocyclone',
+        'autodeathStar',
+        'automingler',
+        'autocombo',
     ],
 }
-Class.customAutohexatrapper = {
+Class.autohexatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hexa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9321,7 +10733,7 @@ Class.customAutohexatrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -9331,7 +10743,7 @@ Class.customAutohexatrapper = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -9341,7 +10753,7 @@ Class.customAutohexatrapper = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -9353,13 +10765,14 @@ Class.customAutohexatrapper = {
 
     ],
 }
-Class.customAutohitman = {
+Class.autohitman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hitman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9395,7 +10808,7 @@ Class.customAutohitman = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9407,13 +10820,14 @@ Class.customAutohitman = {
 
     ],
 }
-Class.customAutohoncho = {
+Class.autohoncho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9429,7 +10843,7 @@ Class.customAutohoncho = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9441,23 +10855,24 @@ Class.customAutohoncho = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutohoncho',
-        'customTripleAutohoncho',
-        'customAutoforeman',
-        'customAutobaltimore',
-        'customAutofoundry',
-        'customAutobigCheese',
-        'customAutohonchodrive',
-        'customAutojunkie',
+        'megaAutohoncho',
+        'tripleAutohoncho',
+        'autoforeman',
+        'autobaltimore',
+        'autofoundry',
+        'autobigCheese',
+        'autohonchodrive',
+        'autojunkie',
     ],
 }
-Class.customAutohonchodrive = {
+Class.autohonchodrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Honchodrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9473,7 +10888,7 @@ Class.customAutohonchodrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -9485,13 +10900,14 @@ Class.customAutohonchodrive = {
 
     ],
 }
-Class.customAutohunter = {
+Class.autohunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9517,7 +10933,7 @@ Class.customAutohunter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9529,24 +10945,25 @@ Class.customAutohunter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutohunter',
-        'customTripleAutohunter',
-        'customAutopredator',
-        'customAutoordnance',
-        'customAutopoacher',
-        'customAutodual',
-        'customAutomegaHunter',
-        'customAutoprober',
-        'customAutocourser',
+        'megaAutohunter',
+        'tripleAutohunter',
+        'autopredator',
+        'autoordnance',
+        'autopoacher',
+        'autodual',
+        'automegaHunter',
+        'autoprober',
+        'autocourser',
     ],
 }
-Class.customAutohurler = {
+Class.autohurler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hurler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9572,7 +10989,7 @@ Class.customAutohurler = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9584,13 +11001,14 @@ Class.customAutohurler = {
 
     ],
 }
-Class.customAutohutch = {
+Class.autohutch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hutch',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9656,7 +11074,7 @@ Class.customAutohutch = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9668,13 +11086,14 @@ Class.customAutohutch = {
 
     ],
 }
-Class.customAutohybrid = {
+Class.autohybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9700,7 +11119,7 @@ Class.customAutohybrid = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9712,13 +11131,14 @@ Class.customAutohybrid = {
 
     ],
 }
-Class.customAutoincarcerator = {
+Class.autoincarcerator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Incarcerator',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9764,7 +11184,7 @@ Class.customAutoincarcerator = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9776,13 +11196,14 @@ Class.customAutoincarcerator = {
 
     ],
 }
-Class.customAutoinception = {
+Class.autoinception_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Inception',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9818,7 +11239,7 @@ Class.customAutoinception = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9830,13 +11251,14 @@ Class.customAutoinception = {
 
     ],
 }
-Class.customAutoinfestor = {
+Class.autoinfestor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Infestor',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9882,7 +11304,7 @@ Class.customAutoinfestor = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9894,13 +11316,14 @@ Class.customAutoinfestor = {
 
     ],
 }
-Class.customAutointegrator = {
+Class.autointegrator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Integrator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -9946,7 +11369,7 @@ Class.customAutointegrator = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -9958,13 +11381,14 @@ Class.customAutointegrator = {
 
     ],
 }
-Class.customAutointerner = {
+Class.autointerner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Interner',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10010,7 +11434,7 @@ Class.customAutointerner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10022,13 +11446,14 @@ Class.customAutointerner = {
 
     ],
 }
-Class.customAutoissuer = {
+Class.autoissuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Issuer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10074,7 +11499,7 @@ Class.customAutoissuer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10086,13 +11511,14 @@ Class.customAutoissuer = {
 
     ],
 }
-Class.customAutojalopy = {
+Class.autojalopy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Jalopy',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10108,7 +11534,7 @@ Class.customAutojalopy = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10120,13 +11546,14 @@ Class.customAutojalopy = {
 
     ],
 }
-Class.customAutojunkie = {
+Class.autojunkie_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Junkie',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10152,7 +11579,7 @@ Class.customAutojunkie = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10164,13 +11591,14 @@ Class.customAutojunkie = {
 
     ],
 }
-Class.customAutolaborer = {
+Class.autolaborer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Laborer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10206,7 +11634,7 @@ Class.customAutolaborer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10218,7 +11646,7 @@ Class.customAutolaborer = {
 
     ],
 }
-Class.customAutolandmine = {
+Class.autolandmine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Landmine',
     SIZE: 12,
@@ -10227,7 +11655,7 @@ Class.customAutolandmine = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -10237,7 +11665,7 @@ Class.customAutolandmine = {
             }
         },
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -10247,7 +11675,7 @@ Class.customAutolandmine = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -10259,13 +11687,14 @@ Class.customAutolandmine = {
 
     ],
 }
-Class.customAutolauncher = {
+Class.autolauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10291,7 +11720,7 @@ Class.customAutolauncher = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10303,29 +11732,30 @@ Class.customAutolauncher = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutolauncher',
-        'customTripleAutolauncher',
-        'customAutoinception',
-        'customAutoskimmer',
-        'customAutotwister',
-        'customAutoswarmer',
-        'customAutosidewinder',
-        'customAutorocketeer',
-        'customAutofieldGun',
-        'customAutopitcher',
-        'customAutocluster',
-        'customAutoprojector',
-        'customAutoheaver',
-        'customAutohurler',
+        'megaAutolauncher',
+        'tripleAutolauncher',
+        'autoinception',
+        'autoskimmer',
+        'autotwister',
+        'autoswarmer',
+        'autosidewinder',
+        'autorocketeer',
+        'autofieldGun',
+        'autopitcher',
+        'autocluster',
+        'autoprojector',
+        'autoheaver',
+        'autohurler',
     ],
 }
-Class.customAutomachineGuard = {
+Class.automachineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10361,7 +11791,7 @@ Class.customAutomachineGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10373,13 +11803,14 @@ Class.customAutomachineGuard = {
 
     ],
 }
-Class.customAutomachineGunner = {
+Class.automachineGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10435,7 +11866,7 @@ Class.customAutomachineGunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10447,13 +11878,14 @@ Class.customAutomachineGunner = {
 
     ],
 }
-Class.customAutomachineMech = {
+Class.automachineMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10489,7 +11921,7 @@ Class.customAutomachineMech = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10501,13 +11933,14 @@ Class.customAutomachineMech = {
 
     ],
 }
-Class.customAutomachineTrapper = {
+Class.automachineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10533,7 +11966,7 @@ Class.customAutomachineTrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10545,25 +11978,26 @@ Class.customAutomachineTrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutomachineTrapper',
-        'customTripleAutomachineTrapper',
-        'customAutodeviation',
-        'customAutodieselTrapper',
-        'customAutobarricade',
-        'customAutoequalizer',
-        'customAutoencircler',
-        'customAutomachineMech',
-        'customAutomachineGuard',
-        'customAutoexpeller',
+        'megaAutomachineTrapper',
+        'tripleAutomachineTrapper',
+        'autodeviation',
+        'autodieselTrapper',
+        'autobarricade',
+        'autoequalizer',
+        'autoencircler',
+        'automachineMech',
+        'automachineGuard',
+        'autoexpeller',
     ],
 }
-Class.customAutomanager = {
+Class.automanager_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Manager',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10579,7 +12013,7 @@ Class.customAutomanager = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10591,13 +12025,14 @@ Class.customAutomanager = {
 
     ],
 }
-Class.customAutomech = {
+Class.automech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10633,7 +12068,7 @@ Class.customAutomech = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10645,23 +12080,24 @@ Class.customAutomech = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutomech',
-        'customTripleAutomech',
-        'customAutomachineMech',
-        'customAutoengineer',
-        'customAutomechGuard',
-        'customAutooperator',
-        'customAutocobbler',
-        'customAutocog',
+        'megaAutomech',
+        'tripleAutomech',
+        'automachineMech',
+        'autoengineer',
+        'automechGuard',
+        'autooperator',
+        'autocobbler',
+        'autocog',
     ],
 }
-Class.customAutomechGuard = {
+Class.automechGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mech Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10707,7 +12143,7 @@ Class.customAutomechGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10719,13 +12155,14 @@ Class.customAutomechGuard = {
 
     ],
 }
-Class.customAutomegaHunter = {
+Class.automegaHunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10751,7 +12188,7 @@ Class.customAutomegaHunter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10763,13 +12200,14 @@ Class.customAutomegaHunter = {
 
     ],
 }
-Class.customAutomegaSpawner = {
+Class.automegaSpawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10805,7 +12243,7 @@ Class.customAutomegaSpawner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10817,13 +12255,14 @@ Class.customAutomegaSpawner = {
 
     ],
 }
-Class.customAutomegaTrapper = {
+Class.automegaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -10849,7 +12288,7 @@ Class.customAutomegaTrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10861,7 +12300,7 @@ Class.customAutomegaTrapper = {
 
     ],
 }
-Class.customAutomega3 = {
+Class.automega3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega-3',
     SIZE: 12,
@@ -10870,7 +12309,7 @@ Class.customAutomega3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -10880,7 +12319,7 @@ Class.customAutomega3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -10890,7 +12329,7 @@ Class.customAutomega3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -10900,7 +12339,7 @@ Class.customAutomega3 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -10912,7 +12351,7 @@ Class.customAutomega3 = {
 
     ],
 }
-Class.customAutomegasmasher = {
+Class.automegasmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mega-Smasher',
     SIZE: 12,
@@ -10921,7 +12360,7 @@ Class.customAutomegasmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 25.0,
                 LAYER: 0,
@@ -10931,7 +12370,7 @@ Class.customAutomegasmasher = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -10943,13 +12382,14 @@ Class.customAutomegasmasher = {
 
     ],
 }
-Class.customAutomingler = {
+Class.automingler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mingler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11075,7 +12515,7 @@ Class.customAutomingler = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11087,13 +12527,14 @@ Class.customAutomingler = {
 
     ],
 }
-Class.customAutominigun = {
+Class.autominigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11129,7 +12570,7 @@ Class.customAutominigun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11141,26 +12582,27 @@ Class.customAutominigun = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutominigun',
-        'customTripleAutominigun',
-        'customAutostreamliner',
-        'customAutonailgun',
-        'customAutocropDuster',
-        'customAutobarricade',
-        'customAutosubverter',
-        'customAutotaser',
-        'customAutozipper',
-        'customAutobentMinigun',
-        'customAutowidget',
+        'megaAutominigun',
+        'tripleAutominigun',
+        'autostreamliner',
+        'autonailgun',
+        'autocropDuster',
+        'autobarricade',
+        'autosubverter',
+        'autotaser',
+        'autozipper',
+        'autobentMinigun',
+        'autowidget',
     ],
 }
-Class.customAutomortar = {
+Class.automortar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mortar',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11216,7 +12658,7 @@ Class.customAutomortar = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11228,13 +12670,14 @@ Class.customAutomortar = {
 
     ],
 }
-Class.customAutomosey = {
+Class.automosey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Mosey',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11280,7 +12723,7 @@ Class.customAutomosey = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11292,13 +12735,14 @@ Class.customAutomosey = {
 
     ],
 }
-Class.customAutomusket = {
+Class.automusket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Musket',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11344,7 +12788,7 @@ Class.customAutomusket = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11356,13 +12800,14 @@ Class.customAutomusket = {
 
     ],
 }
-Class.customAutonailgun = {
+Class.autonailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Nailgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11408,7 +12853,7 @@ Class.customAutonailgun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11420,13 +12865,14 @@ Class.customAutonailgun = {
 
     ],
 }
-Class.customAutooctoTank = {
+Class.autooctoTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Octo Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11512,7 +12958,7 @@ Class.customAutooctoTank = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11524,13 +12970,14 @@ Class.customAutooctoTank = {
 
     ],
 }
-Class.customAutooperator = {
+Class.autooperator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Operator',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11576,7 +13023,7 @@ Class.customAutooperator = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11588,13 +13035,14 @@ Class.customAutooperator = {
 
     ],
 }
-Class.customAutoordnance = {
+Class.autoordnance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Ordnance',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11640,7 +13088,7 @@ Class.customAutoordnance = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11652,13 +13100,14 @@ Class.customAutoordnance = {
 
     ],
 }
-Class.customAutooverdrive = {
+Class.autooverdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11684,7 +13133,7 @@ Class.customAutooverdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -11696,13 +13145,14 @@ Class.customAutooverdrive = {
 
     ],
 }
-Class.customAutoovergunner = {
+Class.autoovergunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overgunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11758,7 +13208,7 @@ Class.customAutoovergunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11770,13 +13220,14 @@ Class.customAutoovergunner = {
 
     ],
 }
-Class.customAutooverlord = {
+Class.autooverlord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overlord',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11822,7 +13273,7 @@ Class.customAutooverlord = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11834,13 +13285,14 @@ Class.customAutooverlord = {
 
     ],
 }
-Class.customAutooverseer = {
+Class.autooverseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11866,7 +13318,7 @@ Class.customAutooverseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11878,25 +13330,26 @@ Class.customAutooverseer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutooverseer',
-        'customTripleAutooverseer',
-        'customAutooverlord',
-        'customAutoovertrapper',
-        'customAutoovergunner',
-        'customAutobanshee',
-        'customAutooverdrive',
-        'customAutocommander',
-        'customAutoforeman',
-        'customAutodopeseer',
+        'megaAutooverseer',
+        'tripleAutooverseer',
+        'autooverlord',
+        'autoovertrapper',
+        'autoovergunner',
+        'autobanshee',
+        'autooverdrive',
+        'autocommander',
+        'autoforeman',
+        'autodopeseer',
     ],
 }
-Class.customAutoovertrapper = {
+Class.autoovertrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Overtrapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -11942,7 +13395,7 @@ Class.customAutoovertrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -11954,13 +13407,14 @@ Class.customAutoovertrapper = {
 
     ],
 }
-Class.customAutopeashooter = {
+Class.autopeashooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Peashooter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12006,7 +13460,7 @@ Class.customAutopeashooter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12018,13 +13472,14 @@ Class.customAutopeashooter = {
 
     ],
 }
-Class.customAutopen = {
+Class.autopen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12060,7 +13515,7 @@ Class.customAutopen = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12072,24 +13527,25 @@ Class.customAutopen = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutopen',
-        'customTripleAutopen',
-        'customAutoencircler',
-        'customAutostall',
-        'customAutoincarcerator',
-        'customAutooperator',
-        'customAutointerner',
-        'customAutocockatiel',
-        'customAutohutch',
+        'megaAutopen',
+        'tripleAutopen',
+        'autoencircler',
+        'autostall',
+        'autoincarcerator',
+        'autooperator',
+        'autointerner',
+        'autocockatiel',
+        'autohutch',
     ],
 }
-Class.customAutopentaShot = {
+Class.autopentaShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Penta Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12145,7 +13601,7 @@ Class.customAutopentaShot = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12157,13 +13613,14 @@ Class.customAutopentaShot = {
 
     ],
 }
-Class.customAutopitcher = {
+Class.autopitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pitcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12209,7 +13666,7 @@ Class.customAutopitcher = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12221,13 +13678,14 @@ Class.customAutopitcher = {
 
     ],
 }
-Class.customAutopoacher = {
+Class.autopoacher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Poacher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12263,7 +13721,7 @@ Class.customAutopoacher = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12275,13 +13733,14 @@ Class.customAutopoacher = {
 
     ],
 }
-Class.customAutopolluter = {
+Class.autopolluter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Polluter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12307,7 +13766,7 @@ Class.customAutopolluter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12319,13 +13778,14 @@ Class.customAutopolluter = {
 
     ],
 }
-Class.customAutopredator = {
+Class.autopredator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Predator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12361,7 +13821,7 @@ Class.customAutopredator = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12373,13 +13833,14 @@ Class.customAutopredator = {
 
     ],
 }
-Class.customAutoprober = {
+Class.autoprober_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Prober',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12415,7 +13876,7 @@ Class.customAutoprober = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12427,13 +13888,14 @@ Class.customAutoprober = {
 
     ],
 }
-Class.customAutoproductionist = {
+Class.autoproductionist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Productionist',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12499,7 +13961,7 @@ Class.customAutoproductionist = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12511,13 +13973,14 @@ Class.customAutoproductionist = {
 
     ],
 }
-Class.customAutoprojector = {
+Class.autoprojector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Projector',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12563,7 +14026,7 @@ Class.customAutoprojector = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12575,13 +14038,14 @@ Class.customAutoprojector = {
 
     ],
 }
-Class.customAutoquadangle = {
+Class.autoquadangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Quad-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12607,7 +14071,7 @@ Class.customAutoquadangle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -12617,7 +14081,7 @@ Class.customAutoquadangle = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -12627,7 +14091,7 @@ Class.customAutoquadangle = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12639,13 +14103,14 @@ Class.customAutoquadangle = {
 
     ],
 }
-Class.customAutoqueller = {
+Class.autoqueller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Queller',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12681,7 +14146,7 @@ Class.customAutoqueller = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12693,13 +14158,14 @@ Class.customAutoqueller = {
 
     ],
 }
-Class.customAutorailgun = {
+Class.autorailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Railgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12735,7 +14201,7 @@ Class.customAutorailgun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12747,13 +14213,14 @@ Class.customAutorailgun = {
 
     ],
 }
-Class.customAutoranger = {
+Class.autoranger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Ranger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12779,7 +14246,7 @@ Class.customAutoranger = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12791,13 +14258,14 @@ Class.customAutoranger = {
 
     ],
 }
-Class.customAutorifle = {
+Class.autorifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12823,7 +14291,7 @@ Class.customAutorifle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12835,22 +14303,23 @@ Class.customAutorifle = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutorifle',
-        'customTripleAutorifle',
-        'customAutomusket',
-        'customAutocrossbow',
-        'customAutoarmsman',
-        'customAutoenforcer',
-        'customAutoprober',
+        'megaAutorifle',
+        'tripleAutorifle',
+        'automusket',
+        'autocrossbow',
+        'autoarmsman',
+        'autoenforcer',
+        'autoprober',
     ],
 }
-Class.customAutorimfire = {
+Class.autorimfire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Rimfire',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12906,7 +14375,7 @@ Class.customAutorimfire = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12918,13 +14387,14 @@ Class.customAutorimfire = {
 
     ],
 }
-Class.customAutorocketeer = {
+Class.autorocketeer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Rocketeer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -12950,7 +14420,7 @@ Class.customAutorocketeer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -12962,13 +14432,14 @@ Class.customAutorocketeer = {
 
     ],
 }
-Class.customAutoshotgun = {
+Class.autoshotgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Shotgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13084,7 +14555,7 @@ Class.customAutoshotgun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13096,13 +14567,14 @@ Class.customAutoshotgun = {
 
     ],
 }
-Class.customAutosidewinder = {
+Class.autosidewinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Sidewinder',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13128,7 +14600,7 @@ Class.customAutosidewinder = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13140,13 +14612,14 @@ Class.customAutosidewinder = {
 
     ],
 }
-Class.customAutosingle = {
+Class.autosingle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Single',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13172,7 +14645,7 @@ Class.customAutosingle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13184,13 +14657,14 @@ Class.customAutosingle = {
 
     ],
 }
-Class.customAutoskimmer = {
+Class.autoskimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Skimmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13216,7 +14690,7 @@ Class.customAutoskimmer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13228,13 +14702,14 @@ Class.customAutoskimmer = {
 
     ],
 }
-Class.customAutoslinker = {
+Class.autoslinker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Slinker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13250,7 +14725,7 @@ Class.customAutoslinker = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13262,7 +14737,7 @@ Class.customAutoslinker = {
 
     ],
 }
-Class.customAutosmasher = {
+Class.autosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Smasher',
     SIZE: 12,
@@ -13271,7 +14746,7 @@ Class.customAutosmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -13281,7 +14756,7 @@ Class.customAutosmasher = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -13293,21 +14768,21 @@ Class.customAutosmasher = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutosmasher',
-        'customTripleAutosmasher_18774',
-        'customDoubleAutosmasher',
-        'customTripleAutosmasher_33130',
-        'customGunnerAutosmasher',
-        'customHexaAutosmasher',
-        'customAutomegasmasher',
-        'customAutospike',
-        'customAutolandmine',
-        'customAutobonker',
-        'customAutobanger',
-        'customAutodrifter',
+        'megaAutosmasher',
+        'tripleAutosmasher_18774',
+        'doubleAutosmasher',
+        'tripleAutosmasher_33130',
+        'gunnerAutosmasher',
+        'hexaAutosmasher',
+        'automegasmasher',
+        'autospike',
+        'autolandmine',
+        'autobonker',
+        'autobanger',
+        'autodrifter',
     ],
 }
-Class.customAutosniper3 = {
+Class.autosniper3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Sniper-3',
     SIZE: 12,
@@ -13316,7 +14791,7 @@ Class.customAutosniper3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -13326,7 +14801,7 @@ Class.customAutosniper3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -13336,7 +14811,7 @@ Class.customAutosniper3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -13346,7 +14821,7 @@ Class.customAutosniper3 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13358,13 +14833,14 @@ Class.customAutosniper3 = {
 
     ],
 }
-Class.customAutospawner = {
+Class.autospawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13400,7 +14876,7 @@ Class.customAutospawner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13412,26 +14888,27 @@ Class.customAutospawner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutospawner',
-        'customTripleAutospawner',
-        'customAutofactory',
-        'customAutomegaSpawner',
-        'customAutoproductionist',
-        'customAutospawnerdrive',
-        'customAutocaptain',
-        'customAutohangar',
-        'customAutolaborer',
-        'customAutofoundry',
-        'customAutoissuer',
+        'megaAutospawner',
+        'tripleAutospawner',
+        'autofactory',
+        'automegaSpawner',
+        'autoproductionist',
+        'autospawnerdrive',
+        'autocaptain',
+        'autohangar',
+        'autolaborer',
+        'autofoundry',
+        'autoissuer',
     ],
 }
-Class.customAutospawnerdrive = {
+Class.autospawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spawnerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13467,7 +14944,7 @@ Class.customAutospawnerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -13479,7 +14956,7 @@ Class.customAutospawnerdrive = {
 
     ],
 }
-Class.customAutospike = {
+Class.autospike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spike',
     SIZE: 12,
@@ -13488,7 +14965,7 @@ Class.customAutospike = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -13498,7 +14975,7 @@ Class.customAutospike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -13508,7 +14985,7 @@ Class.customAutospike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -13518,7 +14995,7 @@ Class.customAutospike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -13528,7 +15005,7 @@ Class.customAutospike = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -13540,13 +15017,14 @@ Class.customAutospike = {
 
     ],
 }
-Class.customAutosplitShot = {
+Class.autosplitShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Split Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13602,7 +15080,7 @@ Class.customAutosplitShot = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13614,13 +15092,14 @@ Class.customAutosplitShot = {
 
     ],
 }
-Class.customAutosprayer = {
+Class.autosprayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Sprayer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13646,7 +15125,7 @@ Class.customAutosprayer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13658,13 +15137,14 @@ Class.customAutosprayer = {
 
     ],
 }
-Class.customAutospreadshot = {
+Class.autospreadshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Spreadshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13780,7 +15260,7 @@ Class.customAutospreadshot = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13792,13 +15272,14 @@ Class.customAutospreadshot = {
 
     ],
 }
-Class.customAutostalker = {
+Class.autostalker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Stalker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13814,7 +15295,7 @@ Class.customAutostalker = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13826,13 +15307,14 @@ Class.customAutostalker = {
 
     ],
 }
-Class.customAutostall = {
+Class.autostall_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Stall',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13868,7 +15350,7 @@ Class.customAutostall = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13880,13 +15362,14 @@ Class.customAutostall = {
 
     ],
 }
-Class.customAutostreamliner = {
+Class.autostreamliner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Streamliner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13942,7 +15425,7 @@ Class.customAutostreamliner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -13954,13 +15437,14 @@ Class.customAutostreamliner = {
 
     ],
 }
-Class.customAutosubverter = {
+Class.autosubverter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Subverter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -13996,7 +15480,7 @@ Class.customAutosubverter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14008,13 +15492,14 @@ Class.customAutosubverter = {
 
     ],
 }
-Class.customAutosurfer = {
+Class.autosurfer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Surfer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14070,7 +15555,7 @@ Class.customAutosurfer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14082,13 +15567,14 @@ Class.customAutosurfer = {
 
     ],
 }
-Class.customAutoswarmer = {
+Class.autoswarmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Swarmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14114,7 +15600,7 @@ Class.customAutoswarmer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14126,13 +15612,14 @@ Class.customAutoswarmer = {
 
     ],
 }
-Class.customAutotaser = {
+Class.autotaser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Taser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14198,7 +15685,7 @@ Class.customAutotaser = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14210,13 +15697,14 @@ Class.customAutotaser = {
 
     ],
 }
-Class.customAutotrapGuard = {
+Class.autotrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14252,7 +15740,7 @@ Class.customAutotrapGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14264,26 +15752,27 @@ Class.customAutotrapGuard = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutotrapGuard',
-        'customTripleAutotrapGuard',
-        'customAutobushwhacker',
-        'customAutogunnerTrapper',
-        'customAutobomber',
-        'customAutoconqueror',
-        'customAutobulwark',
-        'customAutopeashooter',
-        'customAutoincarcerator',
-        'customAutomechGuard',
-        'customAutomachineGuard',
+        'megaAutotrapGuard',
+        'tripleAutotrapGuard',
+        'autobushwhacker',
+        'autogunnerTrapper',
+        'autobomber',
+        'autoconqueror',
+        'autobulwark',
+        'autopeashooter',
+        'autoincarcerator',
+        'automechGuard',
+        'automachineGuard',
     ],
 }
-Class.customAutotriangle = {
+Class.autotriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14319,7 +15808,7 @@ Class.customAutotriangle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14331,28 +15820,29 @@ Class.customAutotriangle = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutotriangle',
-        'customTripleAutotriangle',
-        'customAutofighter',
-        'customAutobooster',
-        'customAutofalcon',
-        'customAutobomber',
-        'customAutosurfer',
-        'customAutoeagle',
-        'customAutotaser',
-        'customAutocockatiel',
-        'customAutointegrator',
-        'customAutodefect',
-        'customAutoquadangle',
+        'megaAutotriangle',
+        'tripleAutotriangle',
+        'autofighter',
+        'autobooster',
+        'autofalcon',
+        'autobomber',
+        'autosurfer',
+        'autoeagle',
+        'autotaser',
+        'autocockatiel',
+        'autointegrator',
+        'autodefect',
+        'autoquadangle',
     ],
 }
-Class.customAutotripleShot = {
+Class.autotripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14388,7 +15878,7 @@ Class.customAutotripleShot = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14400,26 +15890,27 @@ Class.customAutotripleShot = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutotripleShot',
-        'customTripleAutotripleShot',
-        'customAutopentaShot',
-        'customAutospreadshot',
-        'customAutobentHybrid',
-        'customAutotriplet',
-        'customAutosplitShot',
-        'customAutobentGunner',
-        'customAutobentMinigun',
-        'customAutodefect',
-        'customAutowaarrk',
+        'megaAutotripleShot',
+        'tripleAutotripleShot',
+        'autopentaShot',
+        'autospreadshot',
+        'autobentHybrid',
+        'autotriplet',
+        'autosplitShot',
+        'autobentGunner',
+        'autobentMinigun',
+        'autodefect',
+        'autowaarrk',
     ],
 }
-Class.customAutotripleTwin = {
+Class.autotripleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Triple Twin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14485,7 +15976,7 @@ Class.customAutotripleTwin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14497,13 +15988,14 @@ Class.customAutotripleTwin = {
 
     ],
 }
-Class.customAutotriplet = {
+Class.autotriplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Triplet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14539,7 +16031,7 @@ Class.customAutotriplet = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14551,13 +16043,14 @@ Class.customAutotriplet = {
 
     ],
 }
-Class.customAutotwister = {
+Class.autotwister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Twister',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14583,7 +16076,7 @@ Class.customAutotwister = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14595,13 +16088,14 @@ Class.customAutotwister = {
 
     ],
 }
-Class.customAutovolley = {
+Class.autovolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Volley',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14647,7 +16141,7 @@ Class.customAutovolley = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14659,13 +16153,14 @@ Class.customAutovolley = {
 
     ],
 }
-Class.customAutowaarrk = {
+Class.autowaarrk_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Waarrk',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14731,7 +16226,7 @@ Class.customAutowaarrk = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14743,13 +16238,14 @@ Class.customAutowaarrk = {
 
     ],
 }
-Class.customAutowark = {
+Class.autowark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Wark',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14795,7 +16291,7 @@ Class.customAutowark = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14807,25 +16303,26 @@ Class.customAutowark = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutowark',
-        'customTripleAutowark',
-        'customAutowarkwark',
-        'customAutowaarrk',
-        'customAutoequalizer',
-        'customAutohutch',
-        'customAutocog',
-        'customAutoexpeller',
-        'customAutobulwark',
-        'customAutocoalesce',
+        'megaAutowark',
+        'tripleAutowark',
+        'autowarkwark',
+        'autowaarrk',
+        'autoequalizer',
+        'autohutch',
+        'autocog',
+        'autoexpeller',
+        'autobulwark',
+        'autocoalesce',
     ],
 }
-Class.customAutowarkwark = {
+Class.autowarkwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Warkwark',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14911,7 +16408,7 @@ Class.customAutowarkwark = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14923,13 +16420,14 @@ Class.customAutowarkwark = {
 
     ],
 }
-Class.customAutowidget = {
+Class.autowidget_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Widget',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -14965,7 +16463,7 @@ Class.customAutowidget = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -14977,13 +16475,14 @@ Class.customAutowidget = {
 
     ],
 }
-Class.customAutozipper = {
+Class.autozipper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Zipper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15039,7 +16538,7 @@ Class.customAutozipper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -15051,13 +16550,14 @@ Class.customAutozipper = {
 
     ],
 }
-Class.customAutomaton = {
+Class.automaton_AR = {
     PARENT: 'genericTank',
     LABEL: 'Automaton',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15122,13 +16622,14 @@ Class.customAutomaton = {
 
     ],
 }
-Class.customAvian = {
+Class.avian_AR = {
     PARENT: 'genericTank',
     LABEL: 'Avian',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15183,13 +16684,14 @@ Class.customAvian = {
 
     ],
 }
-Class.customAviator = {
+Class.aviator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Aviator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15234,13 +16736,14 @@ Class.customAviator = {
 
     ],
 }
-Class.customBallista = {
+Class.ballista_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ballista',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15355,13 +16858,14 @@ Class.customBallista = {
 
     ],
 }
-Class.customBaltimore = {
+Class.baltimore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Baltimore',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15386,26 +16890,27 @@ Class.customBaltimore = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBarn',
-        'customBrio',
-        'customOutpost',
-        'customBaltimoredrive',
-        'customAutobaltimore',
-        'customBattlewagon',
-        'customEpoch',
-        'customBidder',
-        'customFabrication',
-        'customBigSwiss',
-        'customHarbor',
+        'barn',
+        'brio',
+        'outpost',
+        'baltimoredrive',
+        'autobaltimore',
+        'battlewagon',
+        'epoch',
+        'bidder',
+        'fabrication',
+        'bigSwiss',
+        'harbor',
     ],
 }
-Class.customBaltimoredrive = {
+Class.baltimoredrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Baltimoredrive',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15431,7 +16936,7 @@ Class.customBaltimoredrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -15443,13 +16948,14 @@ Class.customBaltimoredrive = {
 
     ],
 }
-Class.customBand = {
+Class.band_AR = {
     PARENT: 'genericTank',
     LABEL: 'Band',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15515,7 +17021,7 @@ Class.customBand = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -15525,7 +17031,7 @@ Class.customBand = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -15535,7 +17041,7 @@ Class.customBand = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -15545,7 +17051,7 @@ Class.customBand = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -15557,7 +17063,7 @@ Class.customBand = {
 
     ],
 }
-Class.customBanger = {
+Class.banger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Banger',
     SIZE: 12,
@@ -15566,7 +17072,7 @@ Class.customBanger = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -15578,22 +17084,23 @@ Class.customBanger = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSlammer',
-        'customMegaBanger',
-        'customPrick',
-        'customAutobanger',
-        'customTripwire',
-        'customThwacker',
-        'customSharper',
+        'slammer',
+        'megaBanger',
+        'prick',
+        'autobanger',
+        'tripwire',
+        'thwacker',
+        'sharper',
     ],
 }
-Class.customBanshee = {
+Class.banshee_AR = {
     PARENT: 'genericTank',
     LABEL: 'Banshee',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15629,7 +17136,7 @@ Class.customBanshee = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -15639,7 +17146,7 @@ Class.customBanshee = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -15649,7 +17156,7 @@ Class.customBanshee = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -15661,23 +17168,24 @@ Class.customBanshee = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSpectre',
-        'customSpirit',
-        'customWraith',
-        'customPhantom',
-        'customAutobanshee',
-        'customRevenant',
-        'customBansheedrive',
-        'customShade',
+        'spectre',
+        'spirit',
+        'wraith',
+        'phantom',
+        'autobanshee',
+        'revenant',
+        'bansheedrive',
+        'shade',
     ],
 }
-Class.customBansheedrive = {
+Class.bansheedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bansheedrive',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15713,7 +17221,7 @@ Class.customBansheedrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -15723,7 +17231,7 @@ Class.customBansheedrive = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -15733,7 +17241,7 @@ Class.customBansheedrive = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -15743,7 +17251,7 @@ Class.customBansheedrive = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -15755,13 +17263,14 @@ Class.customBansheedrive = {
 
     ],
 }
-Class.customBarber = {
+Class.barber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barber',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15836,13 +17345,14 @@ Class.customBarber = {
 
     ],
 }
-Class.customBarn = {
+Class.barn_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barn',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15897,13 +17407,14 @@ Class.customBarn = {
 
     ],
 }
-Class.customBarrage = {
+Class.barrage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barrage',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -15958,13 +17469,14 @@ Class.customBarrage = {
 
     ],
 }
-Class.customBarricade = {
+Class.barricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16009,27 +17521,28 @@ Class.customBarricade = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBlockade',
-        'customBarrier',
-        'customRampart',
-        'customAutobarricade',
-        'customMaw',
-        'customElectrocutor',
-        'customClasp',
-        'customFortifier',
-        'customPropper',
-        'customBentBarricade',
-        'customTribarricade',
-        'customRoadblock',
+        'blockade',
+        'barrier',
+        'rampart',
+        'autobarricade',
+        'maw',
+        'electrocutor',
+        'clasp',
+        'fortifier',
+        'propper',
+        'bentBarricade',
+        'tribarricade',
+        'roadblock',
     ],
 }
-Class.customBarrier = {
+Class.barrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Barrier',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16094,7 +17607,7 @@ Class.customBarrier = {
 
     ],
 }
-Class.customBasher = {
+Class.basher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Basher',
     SIZE: 12,
@@ -16103,7 +17616,7 @@ Class.customBasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -16115,13 +17628,14 @@ Class.customBasher = {
 
     ],
 }
-Class.customBastion = {
+Class.bastion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bastion',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16246,13 +17760,14 @@ Class.customBastion = {
 
     ],
 }
-Class.customBaton = {
+Class.baton_AR = {
     PARENT: 'genericTank',
     LABEL: 'Baton',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16327,7 +17842,7 @@ Class.customBaton = {
 
     ],
 }
-Class.customBatter4 = {
+Class.batter4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Batter-4',
     SIZE: 12,
@@ -16336,7 +17851,7 @@ Class.customBatter4 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63056',
+            TYPE: 'unnamed_63056',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -16346,7 +17861,7 @@ Class.customBatter4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63056',
+            TYPE: 'unnamed_63056',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -16356,7 +17871,7 @@ Class.customBatter4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63056',
+            TYPE: 'unnamed_63056',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -16366,7 +17881,7 @@ Class.customBatter4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63056',
+            TYPE: 'unnamed_63056',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -16378,13 +17893,14 @@ Class.customBatter4 = {
 
     ],
 }
-Class.customBattery = {
+Class.battery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16439,26 +17955,27 @@ Class.customBattery = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCutlass',
-        'customStapler',
-        'customBatter4',
-        'customMotorGunner',
-        'customTempest',
-        'customLasher',
-        'customPummeler',
-        'customBeater',
-        'customAutobattery',
-        'customDoubleBattery',
-        'customBatteryHybrid',
+        'cutlass',
+        'stapler',
+        'batter4',
+        'motorGunner',
+        'tempest',
+        'lasher',
+        'pummeler',
+        'beater',
+        'autobattery',
+        'doubleBattery',
+        'batteryHybrid',
     ],
 }
-Class.customBatteryHybrid = {
+Class.batteryHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battery Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16523,13 +18040,14 @@ Class.customBatteryHybrid = {
 
     ],
 }
-Class.customBattledrive = {
+Class.battledrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battledrive',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16575,7 +18093,7 @@ Class.customBattledrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -16587,13 +18105,14 @@ Class.customBattledrive = {
 
     ],
 }
-Class.customBattlegunner = {
+Class.battlegunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battlegunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16668,13 +18187,14 @@ Class.customBattlegunner = {
 
     ],
 }
-Class.customBattleship = {
+Class.battleship_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battleship',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16719,26 +18239,27 @@ Class.customBattleship = {
 
     ],
     UPGRADES_TIER_4: [
-        'customWarship',
-        'customBastion',
-        'customRegulator',
-        'customBattletrapper',
-        'customBattlegunner',
-        'customWraith',
-        'customAutobattleship',
-        'customBattledrive',
-        'customBismarck',
-        'customBattlewagon',
-        'customManOWar',
+        'warship',
+        'bastion',
+        'regulator',
+        'battletrapper',
+        'battlegunner',
+        'wraith',
+        'autobattleship',
+        'battledrive',
+        'bismarck',
+        'battlewagon',
+        'manOWar',
     ],
 }
-Class.customBattletrapper = {
+Class.battletrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battletrapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16803,13 +18324,14 @@ Class.customBattletrapper = {
 
     ],
 }
-Class.customBattlewagon = {
+Class.battlewagon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Battlewagon',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16854,13 +18376,14 @@ Class.customBattlewagon = {
 
     ],
 }
-Class.customBazooka = {
+Class.bazooka_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bazooka',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16885,13 +18408,14 @@ Class.customBazooka = {
 
     ],
 }
-Class.customBeater = {
+Class.beater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Beater',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -16966,13 +18490,14 @@ Class.customBeater = {
 
     ],
 }
-Class.customBeekeeper = {
+Class.beekeeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Beekeeper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17007,25 +18532,26 @@ Class.customBeekeeper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customApiarist',
-        'customBumbler',
-        'customBeemaster',
-        'customEscort',
-        'customRepresser',
-        'customBounder',
-        'customCarronade',
-        'customAutobeekeeper',
-        'customApiculturist',
-        'customDegrader',
+        'apiarist',
+        'bumbler',
+        'beemaster',
+        'escort',
+        'represser',
+        'bounder',
+        'carronade',
+        'autobeekeeper',
+        'apiculturist',
+        'degrader',
     ],
 }
-Class.customBeemaster = {
+Class.beemaster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Beemaster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17080,13 +18606,14 @@ Class.customBeemaster = {
 
     ],
 }
-Class.customBefouler = {
+Class.befouler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Befouler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17111,13 +18638,14 @@ Class.customBefouler = {
 
     ],
 }
-Class.customBentBarricade = {
+Class.bentBarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17222,13 +18750,14 @@ Class.customBentBarricade = {
 
     ],
 }
-Class.customBentBoomer = {
+Class.bentBoomer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Boomer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17293,13 +18822,14 @@ Class.customBentBoomer = {
 
     ],
 }
-Class.customBentBulwark = {
+Class.bentBulwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Bulwark',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17394,13 +18924,14 @@ Class.customBentBulwark = {
 
     ],
 }
-Class.customBentCatcher = {
+Class.bentCatcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Catcher',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17475,13 +19006,14 @@ Class.customBentCatcher = {
 
     ],
 }
-Class.customBentCrossbreed = {
+Class.bentCrossbreed_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Crossbreed',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17526,13 +19058,14 @@ Class.customBentCrossbreed = {
 
     ],
 }
-Class.customBentDouble = {
+Class.bentDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17597,26 +19130,27 @@ Class.customBentDouble = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBentTriple',
-        'customPentaDouble',
-        'customAutobentDouble',
-        'customDoubleTriplet',
-        'customCleft',
-        'customDoubleSpreadshot',
-        'customBentFlankDouble',
-        'customBentDoubleGunner',
-        'customBentDoubleMinigun',
-        'customSplitDouble',
-        'customWaarrkwaarrk',
+        'bentTriple',
+        'pentaDouble',
+        'autobentDouble',
+        'doubleTriplet',
+        'cleft',
+        'doubleSpreadshot',
+        'bentFlankDouble',
+        'bentDoubleGunner',
+        'bentDoubleMinigun',
+        'splitDouble',
+        'waarrkwaarrk',
     ],
 }
-Class.customBentDoubleGunner = {
+Class.bentDoubleGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Double Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17741,13 +19275,14 @@ Class.customBentDoubleGunner = {
 
     ],
 }
-Class.customBentDoubleMinigun = {
+Class.bentDoubleMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Double Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -17892,104 +19427,14 @@ Class.customBentDoubleMinigun = {
 
     ],
 }
-Class.customBentFlankDouble = {
-    PARENT: 'genericTank',
-    LABEL: 'Bent Flank Double',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248668,
-                Y: -2.0000000638309294,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248668,
-                Y: 2.0000000638309285,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248667,
-                Y: -2.0000000638309294,
-                ANGLE: 161.99999767787153,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248667,
-                Y: 2.0000000638309285,
-                ANGLE: -161.99999767787153,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customBentGunner = {
+Class.bentGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18054,22 +19499,23 @@ Class.customBentGunner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFlexedGunner',
-        'customSpambrid',
-        'customBentDoubleGunner',
-        'customAutobentGunner',
-        'customDagger',
-        'customBentVolley',
-        'customDonkey',
+        'flexedGunner',
+        'spambrid',
+        'bentDoubleGunner',
+        'autobentGunner',
+        'dagger',
+        'bentVolley',
+        'donkey',
     ],
 }
-Class.customBentHybrid = {
+Class.bentHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18114,28 +19560,29 @@ Class.customBentHybrid = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOvershot',
-        'customBentSynthesis',
-        'customHatcher',
-        'customBentHybriddrive',
-        'customBentCrossbreed',
-        'customFlexedHybrid',
-        'customSmearer',
-        'customSplitHybrid',
-        'customAutobentHybrid',
-        'customSpambrid',
-        'customJunker',
-        'customTriprid',
-        'customBentCatcher',
+        'overshot',
+        'bentSynthesis',
+        'hatcher',
+        'bentHybriddrive',
+        'bentCrossbreed',
+        'flexedHybrid',
+        'smearer',
+        'splitHybrid',
+        'autobentHybrid',
+        'spambrid',
+        'junker',
+        'triprid',
+        'bentCatcher',
     ],
 }
-Class.customBentHybriddrive = {
+Class.bentHybriddrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Hybriddrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18181,7 +19628,7 @@ Class.customBentHybriddrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -18193,13 +19640,14 @@ Class.customBentHybriddrive = {
 
     ],
 }
-Class.customBentMinigun = {
+Class.bentMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18274,27 +19722,28 @@ Class.customBentMinigun = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFlexedMinigun',
-        'customBentDoubleMinigun',
-        'customJunker',
-        'customHackshot',
-        'customMinilet',
-        'customBentStreamliner',
-        'customBentBarricade',
-        'customBentSubverter',
-        'customJerker',
-        'customSizzler',
-        'customAutobentMinigun',
-        'customBentWidget',
+        'flexedMinigun',
+        'bentDoubleMinigun',
+        'junker',
+        'hackshot',
+        'minilet',
+        'bentStreamliner',
+        'bentBarricade',
+        'bentSubverter',
+        'jerker',
+        'sizzler',
+        'autobentMinigun',
+        'bentWidget',
     ],
 }
-Class.customBentStreamliner = {
+Class.bentStreamliner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Streamliner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18409,13 +19858,14 @@ Class.customBentStreamliner = {
 
     ],
 }
-Class.customBentSubverter = {
+Class.bentSubverter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Subverter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18490,13 +19940,14 @@ Class.customBentSubverter = {
 
     ],
 }
-Class.customBentSynthesis = {
+Class.bentSynthesis_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Synthesis',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18551,13 +20002,14 @@ Class.customBentSynthesis = {
 
     ],
 }
-Class.customBentTriple = {
+Class.bentTriple_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Triple',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18652,13 +20104,14 @@ Class.customBentTriple = {
 
     ],
 }
-Class.customBentVolley = {
+Class.bentVolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Volley',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18723,13 +20176,14 @@ Class.customBentVolley = {
 
     ],
 }
-Class.customBentWidget = {
+Class.bentWidget_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Widget',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18804,13 +20258,14 @@ Class.customBentWidget = {
 
     ],
 }
-Class.customBidder = {
+Class.bidder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bidder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18875,13 +20330,14 @@ Class.customBidder = {
 
     ],
 }
-Class.customBifold = {
+Class.bifold_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bifold',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18946,13 +20402,14 @@ Class.customBifold = {
 
     ],
 }
-Class.customBigCheese = {
+Class.bigCheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Cheese',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18967,22 +20424,23 @@ Class.customBigCheese = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBiggerCheese',
-        'customOvercheese',
-        'customBigSwiss',
-        'customTopBanana',
-        'customBigCheesedrive',
-        'customAutobigCheese',
-        'customStoner',
+        'biggerCheese',
+        'overcheese',
+        'bigSwiss',
+        'topBanana',
+        'bigCheesedrive',
+        'autobigCheese',
+        'stoner',
     ],
 }
-Class.customBigCheesedrive = {
+Class.bigCheesedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Cheesedrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -18998,7 +20456,7 @@ Class.customBigCheesedrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -19010,13 +20468,14 @@ Class.customBigCheesedrive = {
 
     ],
 }
-Class.customBigMac = {
+Class.bigMac_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Mac',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19041,13 +20500,14 @@ Class.customBigMac = {
 
     ],
 }
-Class.customBigSwiss = {
+Class.bigSwiss_AR = {
     PARENT: 'genericTank',
     LABEL: 'Big Swiss',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19072,13 +20532,14 @@ Class.customBigSwiss = {
 
     ],
 }
-Class.customBiggerCheese = {
+Class.biggerCheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bigger Cheese',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19093,13 +20554,14 @@ Class.customBiggerCheese = {
 
     ],
 }
-Class.customBinder = {
+Class.binder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Binder',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19174,13 +20636,14 @@ Class.customBinder = {
 
     ],
 }
-Class.customBismarck = {
+Class.bismarck_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bismarck',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19305,13 +20768,14 @@ Class.customBismarck = {
 
     ],
 }
-Class.customBlackjack = {
+Class.blackjack_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blackjack',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19376,13 +20840,14 @@ Class.customBlackjack = {
 
     ],
 }
-Class.customBlare = {
+Class.blare_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blare',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19517,13 +20982,14 @@ Class.customBlare = {
 
     ],
 }
-Class.customBlend = {
+Class.blend_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blend',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19578,13 +21044,14 @@ Class.customBlend = {
 
     ],
 }
-Class.customBlight = {
+Class.blight_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blight',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19619,13 +21086,14 @@ Class.customBlight = {
 
     ],
 }
-Class.customBlitz = {
+Class.blitz_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blitz',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19720,13 +21188,14 @@ Class.customBlitz = {
 
     ],
 }
-Class.customBlockade = {
+Class.blockade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blockade',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19771,13 +21240,14 @@ Class.customBlockade = {
 
     ],
 }
-Class.customBlockbuster = {
+Class.blockbuster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blockbuster',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19852,13 +21322,14 @@ Class.customBlockbuster = {
 
     ],
 }
-Class.customBlower = {
+Class.blower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blower',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19903,26 +21374,27 @@ Class.customBlower = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBlackjack',
-        'customBlusterer',
-        'customWiper',
-        'customBuster',
-        'customLicker',
-        'customWalloper',
-        'customPuffer',
-        'customAutoblower',
-        'customStorm',
-        'customLavisher',
-        'customZephyr',
+        'blackjack',
+        'blusterer',
+        'wiper',
+        'buster',
+        'licker',
+        'walloper',
+        'puffer',
+        'autoblower',
+        'storm',
+        'lavisher',
+        'zephyr',
     ],
 }
-Class.customBlowgun = {
+Class.blowgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blowgun',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -19967,13 +21439,14 @@ Class.customBlowgun = {
 
     ],
 }
-Class.customBlusterer = {
+Class.blusterer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Blusterer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20028,13 +21501,14 @@ Class.customBlusterer = {
 
     ],
 }
-Class.customBolter = {
+Class.bolter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bolter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20119,13 +21593,14 @@ Class.customBolter = {
 
     ],
 }
-Class.customBombard = {
+Class.bombard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bombard',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20150,13 +21625,14 @@ Class.customBombard = {
 
     ],
 }
-Class.customBomber = {
+Class.bomber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bomber',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20231,21 +21707,21 @@ Class.customBomber = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBlockbuster',
-        'customShiver',
-        'customStriker',
-        'customRaider',
-        'customBlitz',
-        'customAssaulter',
-        'customAutobomber',
-        'customRider',
-        'customWhizzer',
-        'customNuker',
-        'customBolter',
-        'customFleeter',
+        'blockbuster',
+        'shiver',
+        'striker',
+        'raider',
+        'blitz',
+        'assaulter',
+        'autobomber',
+        'rider',
+        'whizzer',
+        'nuker',
+        'bolter',
+        'fleeter',
     ],
 }
-Class.customBonker = {
+Class.bonker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bonker',
     SIZE: 12,
@@ -20254,7 +21730,7 @@ Class.customBonker = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -20266,22 +21742,23 @@ Class.customBonker = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDecoy',
-        'customSpear',
-        'customAutobonker',
-        'customMegabonker',
-        'customBasher',
-        'customThwacker',
-        'customBundler',
+        'decoy',
+        'spear',
+        'autobonker',
+        'megabonker',
+        'basher',
+        'thwacker',
+        'bundler',
     ],
 }
-Class.customBoomer = {
+Class.boomer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boomer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20316,24 +21793,25 @@ Class.customBoomer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRecoiler',
-        'customAutoboomer',
-        'customParryer',
-        'customRicochet',
-        'customDefeater',
-        'customRebounder',
-        'customFender',
-        'customBentBoomer',
-        'customDeflector',
+        'recoiler',
+        'autoboomer',
+        'parryer',
+        'ricochet',
+        'defeater',
+        'rebounder',
+        'fender',
+        'bentBoomer',
+        'deflector',
     ],
 }
-Class.customBoomslang = {
+Class.boomslang_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boomslang',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20378,13 +21856,14 @@ Class.customBoomslang = {
 
     ],
 }
-Class.customBoomstick = {
+Class.boomstick_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boomstick',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20499,13 +21978,14 @@ Class.customBoomstick = {
 
     ],
 }
-Class.customBooster = {
+Class.booster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Booster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20560,27 +22040,28 @@ Class.customBooster = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRocket',
-        'customBrawler',
-        'customMerlin',
-        'customAssaulter',
-        'customAutobooster',
-        'customSoarer',
-        'customRaptor',
-        'customZapper',
-        'customGalah',
-        'customHightailer',
-        'customLoon',
-        'customAspirer',
+        'rocket',
+        'brawler',
+        'merlin',
+        'assaulter',
+        'autobooster',
+        'soarer',
+        'raptor',
+        'zapper',
+        'galah',
+        'hightailer',
+        'loon',
+        'aspirer',
     ],
 }
-Class.customBounder = {
+Class.bounder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bounder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20625,13 +22106,14 @@ Class.customBounder = {
 
     ],
 }
-Class.customBowler = {
+Class.bowler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bowler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20696,13 +22178,14 @@ Class.customBowler = {
 
     ],
 }
-Class.customBoxer = {
+Class.boxer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Boxer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20757,13 +22240,14 @@ Class.customBoxer = {
 
     ],
 }
-Class.customBozo = {
+Class.bozo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bozo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20908,13 +22392,14 @@ Class.customBozo = {
 
     ],
 }
-Class.customBracer = {
+Class.bracer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bracer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -20979,13 +22464,14 @@ Class.customBracer = {
 
     ],
 }
-Class.customBrawler = {
+Class.brawler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brawler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21060,13 +22546,14 @@ Class.customBrawler = {
 
     ],
 }
-Class.customBrig = {
+Class.brig_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brig',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21161,13 +22648,14 @@ Class.customBrig = {
 
     ],
 }
-Class.customBrink = {
+Class.brink_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brink',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21242,13 +22730,14 @@ Class.customBrink = {
 
     ],
 }
-Class.customBrio = {
+Class.brio_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brio',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21303,13 +22792,14 @@ Class.customBrio = {
 
     ],
 }
-Class.customBrisker = {
+Class.brisker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Brisker',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21334,22 +22824,23 @@ Class.customBrisker = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAdderall',
-        'customBriskseer',
-        'customSailor',
-        'customCirculator',
-        'customBriskerdrive',
-        'customAddict',
-        'customAutobrisker',
+        'adderall',
+        'briskseer',
+        'sailor',
+        'circulator',
+        'briskerdrive',
+        'addict',
+        'autobrisker',
     ],
 }
-Class.customBriskerdrive = {
+Class.briskerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Briskerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21375,7 +22866,7 @@ Class.customBriskerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -21387,13 +22878,14 @@ Class.customBriskerdrive = {
 
     ],
 }
-Class.customBriskseer = {
+Class.briskseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Briskseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21438,13 +22930,14 @@ Class.customBriskseer = {
 
     ],
 }
-Class.customBroadsider = {
+Class.broadsider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Broadsider',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21509,13 +23002,14 @@ Class.customBroadsider = {
 
     ],
 }
-Class.customBrowser = {
+Class.browser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Browser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21590,13 +23084,14 @@ Class.customBrowser = {
 
     ],
 }
-Class.customBruiser = {
+Class.bruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bruiser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21621,13 +23116,14 @@ Class.customBruiser = {
 
     ],
 }
-Class.customBuckshot = {
+Class.buckshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buckshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21782,13 +23278,14 @@ Class.customBuckshot = {
 
     ],
 }
-Class.customBuilder = {
+Class.builder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Builder',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21813,28 +23310,29 @@ Class.customBuilder = {
 
     ],
     UPGRADES_TIER_3: [
-        'customConstructor',
-        'customAutobuilder',
-        'customEngineer',
-        'customBoomer',
-        'customArchitect',
-        'customConqueror',
-        'customForger',
-        'customStall',
-        'customFashioner',
-        'customCharger',
+        'constructor',
+        'autobuilder',
+        'engineer',
+        'boomer',
+        'architect',
+        'conqueror',
+        'forger',
+        'stall',
+        'fashioner',
+        'charger',
     ],
     UPGRADES_TIER_4: [
-        'customBlockade',
+        'blockade',
     ],
 }
-Class.customBulker = {
+Class.bulker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bulker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21879,13 +23377,14 @@ Class.customBulker = {
 
     ],
 }
-Class.customBulwark = {
+Class.bulwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bulwark',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -21950,26 +23449,27 @@ Class.customBulwark = {
 
     ],
     UPGRADES_TIER_4: [
-        'customParapet',
-        'customPartition',
-        'customThrasher',
-        'customDam',
-        'customStriker',
-        'customBentBulwark',
-        'customAutobulwark',
-        'customStockade',
-        'customFencer',
-        'customImpeder',
-        'customQuadwark',
+        'parapet',
+        'partition',
+        'thrasher',
+        'dam',
+        'striker',
+        'bentBulwark',
+        'autobulwark',
+        'stockade',
+        'fencer',
+        'impeder',
+        'quadwark',
     ],
 }
-Class.customBumbler = {
+Class.bumbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bumbler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22005,7 +23505,7 @@ Class.customBumbler = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -22017,7 +23517,7 @@ Class.customBumbler = {
 
     ],
 }
-Class.customBuncher = {
+Class.buncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buncher',
     SIZE: 12,
@@ -22026,7 +23526,7 @@ Class.customBuncher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 20.999999046325684,
                 LAYER: 0,
@@ -22038,7 +23538,7 @@ Class.customBuncher = {
 
     ],
 }
-Class.customBundler = {
+Class.bundler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bundler',
     SIZE: 12,
@@ -22047,7 +23547,7 @@ Class.customBundler = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_5627',
+            TYPE: 'unknownClass_5627',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -22059,13 +23559,14 @@ Class.customBundler = {
 
     ],
 }
-Class.customBunger = {
+Class.bunger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bunger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22100,13 +23601,14 @@ Class.customBunger = {
 
     ],
 }
-Class.customBunker = {
+Class.bunker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bunker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22231,13 +23733,14 @@ Class.customBunker = {
 
     ],
 }
-Class.customBushwhacker = {
+Class.bushwhacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bushwhacker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22272,28 +23775,29 @@ Class.customBushwhacker = {
 
     ],
     UPGRADES_TIER_4: [
-        'customExecutor',
-        'customAnchor',
-        'customButcher',
-        'customTommy',
-        'customRansacker',
-        'customRaider',
-        'customMolder',
-        'customThrasher',
-        'customAutobushwhacker',
-        'customBlowgun',
-        'customLockup',
-        'customWatchman',
-        'customTribushwhacker',
+        'executor',
+        'anchor',
+        'butcher',
+        'tommy',
+        'ransacker',
+        'raider',
+        'molder',
+        'thrasher',
+        'autobushwhacker',
+        'blowgun',
+        'lockup',
+        'watchman',
+        'tribushwhacker',
     ],
 }
-Class.customBuster = {
+Class.buster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22348,13 +23852,14 @@ Class.customBuster = {
 
     ],
 }
-Class.customButcher = {
+Class.butcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Butcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22399,13 +23904,14 @@ Class.customButcher = {
 
     ],
 }
-Class.customButtbuttin = {
+Class.buttbuttin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Buttbuttin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22460,25 +23966,26 @@ Class.customButtbuttin = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBaton',
-        'customMarine',
-        'customHarpy',
-        'customTailer',
-        'customFang',
-        'customBarber',
-        'customMercenary',
-        'customAutobuttbuttin',
-        'customArmament',
-        'customSifter',
+        'baton',
+        'marine',
+        'harpy',
+        'tailer',
+        'fang',
+        'barber',
+        'mercenary',
+        'autobuttbuttin',
+        'armament',
+        'sifter',
     ],
 }
-Class.customCacatua = {
+Class.cacatua_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cacatua',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22553,13 +24060,14 @@ Class.customCacatua = {
 
     ],
 }
-Class.customCaduceus = {
+Class.caduceus_AR = {
     PARENT: 'genericTank',
     LABEL: 'Caduceus',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22604,13 +24112,14 @@ Class.customCaduceus = {
 
     ],
 }
-Class.customCannonade = {
+Class.cannonade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cannonade',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22655,13 +24164,14 @@ Class.customCannonade = {
 
     ],
 }
-Class.customCapgunner = {
+Class.capgunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Capgunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22756,13 +24266,14 @@ Class.customCapgunner = {
 
     ],
 }
-Class.customCaptain = {
+Class.captain_AR = {
     PARENT: 'genericTank',
     LABEL: 'Captain',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22827,25 +24338,26 @@ Class.customCaptain = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSupervisor',
-        'customMandarin',
-        'customAutocaptain',
-        'customMegaCaptain',
-        'customCaptaindrive',
-        'customGoverner',
-        'customToiler',
-        'customPhantom',
-        'customStocker',
-        'customMogul',
+        'supervisor',
+        'mandarin',
+        'autocaptain',
+        'megaCaptain',
+        'captaindrive',
+        'governer',
+        'toiler',
+        'phantom',
+        'stocker',
+        'mogul',
     ],
 }
-Class.customCaptaindrive = {
+Class.captaindrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Captaindrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -22911,7 +24423,7 @@ Class.customCaptaindrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -22923,13 +24435,14 @@ Class.customCaptaindrive = {
 
     ],
 }
-Class.customCaptrapper = {
+Class.captrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Captrapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23014,13 +24527,14 @@ Class.customCaptrapper = {
 
     ],
 }
-Class.customCaracara = {
+Class.caracara_AR = {
     PARENT: 'genericTank',
     LABEL: 'Caracara',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23095,13 +24609,14 @@ Class.customCaracara = {
 
     ],
 }
-Class.customCarbine = {
+Class.carbine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carbine',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23226,13 +24741,14 @@ Class.customCarbine = {
 
     ],
 }
-Class.customCareerer = {
+Class.careerer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Careerer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23267,13 +24783,14 @@ Class.customCareerer = {
 
     ],
 }
-Class.customCarnage = {
+Class.carnage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carnage',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23358,13 +24875,14 @@ Class.customCarnage = {
 
     ],
 }
-Class.customCarnivore = {
+Class.carnivore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carnivore',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23409,13 +24927,14 @@ Class.customCarnivore = {
 
     ],
 }
-Class.customCarrier = {
+Class.carrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carrier',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23450,23 +24969,24 @@ Class.customCarrier = {
 
     ],
     UPGRADES_TIER_4: [
-        'customConveyor',
-        'customCarrierdrive',
-        'customAutocarrier',
-        'customGeneral',
-        'customStronghold',
-        'customInitiator',
-        'customEpoch',
-        'customLugger',
+        'conveyor',
+        'carrierdrive',
+        'autocarrier',
+        'general',
+        'stronghold',
+        'initiator',
+        'epoch',
+        'lugger',
     ],
 }
-Class.customCarrierdrive = {
+Class.carrierdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carrierdrive',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23502,7 +25022,7 @@ Class.customCarrierdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -23514,13 +25034,14 @@ Class.customCarrierdrive = {
 
     ],
 }
-Class.customCarronade = {
+Class.carronade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Carronade',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23565,13 +25086,14 @@ Class.customCarronade = {
 
     ],
 }
-Class.customCartridge = {
+Class.cartridge_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cartridge',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23606,13 +25128,14 @@ Class.customCartridge = {
 
     ],
 }
-Class.customCassowary = {
+Class.cassowary_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cassowary',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23677,13 +25200,14 @@ Class.customCassowary = {
 
     ],
 }
-Class.customCaster = {
+Class.caster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Caster',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23748,13 +25272,14 @@ Class.customCaster = {
 
     ],
 }
-Class.customCastle = {
+Class.castle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Castle',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23790,7 +25315,7 @@ Class.customCastle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -23800,7 +25325,7 @@ Class.customCastle = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -23810,7 +25335,7 @@ Class.customCastle = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -23822,13 +25347,14 @@ Class.customCastle = {
 
     ],
 }
-Class.customCatapult = {
+Class.catapult_AR = {
     PARENT: 'genericTank',
     LABEL: 'Catapult',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23853,13 +25379,14 @@ Class.customCatapult = {
 
     ],
 }
-Class.customCatcher = {
+Class.catcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Catcher',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -23894,7 +25421,7 @@ Class.customCatcher = {
 
     ],
 }
-Class.customCauldron = {
+Class.cauldron_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cauldron',
     SIZE: 12,
@@ -23903,7 +25430,7 @@ Class.customCauldron = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23913,7 +25440,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23923,7 +25450,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23933,7 +25460,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23943,7 +25470,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23953,7 +25480,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23963,7 +25490,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23973,7 +25500,7 @@ Class.customCauldron = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -23985,13 +25512,14 @@ Class.customCauldron = {
 
     ],
 }
-Class.customCharger = {
+Class.charger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Charger',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24026,24 +25554,25 @@ Class.customCharger = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAssailer',
-        'customStormer',
-        'customAutocharger',
-        'customDraftsman',
-        'customOverrunner',
-        'customModeler',
-        'customCompartment',
-        'customRallyer',
-        'customDeviser',
+        'assailer',
+        'stormer',
+        'autocharger',
+        'draftsman',
+        'overrunner',
+        'modeler',
+        'compartment',
+        'rallyer',
+        'deviser',
     ],
 }
-Class.customChisel = {
+Class.chisel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Chisel',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24069,7 +25598,7 @@ Class.customChisel = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -24079,7 +25608,7 @@ Class.customChisel = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -24089,7 +25618,7 @@ Class.customChisel = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -24099,7 +25628,7 @@ Class.customChisel = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -24111,13 +25640,14 @@ Class.customChisel = {
 
     ],
 }
-Class.customChucker = {
+Class.chucker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Chucker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24172,13 +25702,14 @@ Class.customChucker = {
 
     ],
 }
-Class.customCirculator = {
+Class.circulator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Circulator',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24223,13 +25754,14 @@ Class.customCirculator = {
 
     ],
 }
-Class.customClaimant = {
+Class.claimant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Claimant',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24274,13 +25806,14 @@ Class.customClaimant = {
 
     ],
 }
-Class.customClasp = {
+Class.clasp_AR = {
     PARENT: 'genericTank',
     LABEL: 'Clasp',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24345,7 +25878,7 @@ Class.customClasp = {
 
     ],
 }
-Class.customClaymore = {
+Class.claymore_AR = {
     PARENT: 'genericTank',
     LABEL: 'Claymore',
     SIZE: 12,
@@ -24354,7 +25887,7 @@ Class.customClaymore = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_36502',
+            TYPE: 'unnamed_36502',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -24364,7 +25897,7 @@ Class.customClaymore = {
             }
         },
         {
-            TYPE: 'customUnnamed_36502',
+            TYPE: 'unnamed_36502',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -24374,7 +25907,7 @@ Class.customClaymore = {
             }
         },
         {
-            TYPE: 'customUnnamed_36502',
+            TYPE: 'unnamed_36502',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -24384,7 +25917,7 @@ Class.customClaymore = {
             }
         },
         {
-            TYPE: 'customUnnamed_36502',
+            TYPE: 'unnamed_36502',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -24396,13 +25929,14 @@ Class.customClaymore = {
 
     ],
 }
-Class.customCleaver = {
+Class.cleaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cleaver',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24477,104 +26011,14 @@ Class.customCleaver = {
 
     ],
 }
-Class.customCleft = {
-    PARENT: 'genericTank',
-    LABEL: 'Cleft',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265089813635e-07,
-                Y: -5.500000119209285,
-                ANGLE: -205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126500654691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 25.00000012650595,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126506205806e-07,
-                Y: -5.500000119209284,
-                ANGLE: -25.00000012650595,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-}
-Class.customClobberer = {
+Class.clobberer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Clobberer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24609,13 +26053,14 @@ Class.customClobberer = {
 
     ],
 }
-Class.customClunker = {
+Class.clunker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Clunker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24670,13 +26115,14 @@ Class.customClunker = {
 
     ],
 }
-Class.customCluster = {
+Class.cluster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cluster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24701,31 +26147,32 @@ Class.customCluster = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAutocluster',
-        'customGimmicker',
-        'customNester',
-        'customHypercluster',
-        'customStrafe',
-        'customMolotov',
-        'customFirework',
-        'customGrenade',
-        'customTicker',
-        'customBoomslang',
-        'customMine',
-        'customShell',
-        'customNeutron',
-        'customBombard',
-        'customFlock',
-        'customRecursor',
+        'autocluster',
+        'gimmicker',
+        'nester',
+        'hypercluster',
+        'strafe',
+        'molotov',
+        'firework',
+        'grenade',
+        'ticker',
+        'boomslang',
+        'mine',
+        'shell',
+        'neutron',
+        'bombard',
+        'flock',
+        'recursor',
     ],
 }
-Class.customCoalesce = {
+Class.coalesce_AR = {
     PARENT: 'genericTank',
     LABEL: 'Coalesce',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24780,25 +26227,26 @@ Class.customCoalesce = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverwark',
-        'customAffiliator',
-        'customConverger',
-        'customWarkdrive',
-        'customCommix',
-        'customBentCatcher',
-        'customRetainer',
-        'customContriver',
-        'customThrottler',
-        'customAutocoalesce',
+        'overwark',
+        'affiliator',
+        'converger',
+        'warkdrive',
+        'commix',
+        'bentCatcher',
+        'retainer',
+        'contriver',
+        'throttler',
+        'autocoalesce',
     ],
 }
-Class.customCobbler = {
+Class.cobbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cobbler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24843,25 +26291,26 @@ Class.customCobbler = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOvermech',
-        'customFuser',
-        'customRepairman',
-        'customAutomaton',
-        'customCobblerdrive',
-        'customRestorer',
-        'customMachinist',
-        'customContriver',
-        'customUtilizer',
-        'customAutocobbler',
+        'overmech',
+        'fuser',
+        'repairman',
+        'automaton',
+        'cobblerdrive',
+        'restorer',
+        'machinist',
+        'contriver',
+        'utilizer',
+        'autocobbler',
     ],
 }
-Class.customCockatiel = {
+Class.cockatiel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cockatiel',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -24926,23 +26375,24 @@ Class.customCockatiel = {
 
     ],
     UPGRADES_TIER_4: [
-        'customParakeet',
-        'customQuarrion',
-        'customCacatua',
-        'customCockatoo',
-        'customGalah',
-        'customAutocockatiel',
-        'customParrot',
-        'customCorella',
+        'parakeet',
+        'quarrion',
+        'cacatua',
+        'cockatoo',
+        'galah',
+        'autocockatiel',
+        'parrot',
+        'corella',
     ],
 }
-Class.customCockatoo = {
+Class.cockatoo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cockatoo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25027,13 +26477,14 @@ Class.customCockatoo = {
 
     ],
 }
-Class.customCog = {
+Class.cog_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cog',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25098,24 +26549,25 @@ Class.customCog = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSealer',
-        'customYard',
-        'customHardware',
-        'customHexamech',
-        'customEmployer',
-        'customRigger',
-        'customImpeder',
-        'customContriver',
-        'customAutocog',
+        'sealer',
+        'yard',
+        'hardware',
+        'hexamech',
+        'employer',
+        'rigger',
+        'impeder',
+        'contriver',
+        'autocog',
     ],
 }
-Class.customCollision = {
+Class.collision_AR = {
     PARENT: 'genericTank',
     LABEL: 'Collision',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25160,13 +26612,14 @@ Class.customCollision = {
 
     ],
 }
-Class.customColonizer = {
+Class.colonizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Colonizer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25222,7 +26675,7 @@ Class.customColonizer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -25234,13 +26687,14 @@ Class.customColonizer = {
 
     ],
 }
-Class.customCombo = {
+Class.combo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Combo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25276,7 +26730,7 @@ Class.customCombo = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25286,7 +26740,7 @@ Class.customCombo = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25296,7 +26750,7 @@ Class.customCombo = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25308,21 +26762,22 @@ Class.customCombo = {
 
     ],
     UPGRADES_TIER_4: [
-        'customConsolidation',
-        'customSequence',
-        'customTrove',
-        'customAlloy',
-        'customAutocombo',
-        'customBand',
+        'consolidation',
+        'sequence',
+        'trove',
+        'alloy',
+        'autocombo',
+        'band',
     ],
 }
-Class.customCommander = {
+Class.commander_AR = {
     PARENT: 'genericTank',
     LABEL: 'Commander',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25387,25 +26842,26 @@ Class.customCommander = {
 
     ],
     UPGRADES_TIER_4: [
-        'customGeneral',
-        'customAutocommander',
-        'customInstructor',
-        'customPrescriber',
-        'customGoverner',
-        'customRegulator',
-        'customRevenant',
-        'customGaffer',
-        'customBidder',
-        'customAdjurer',
+        'general',
+        'autocommander',
+        'instructor',
+        'prescriber',
+        'governer',
+        'regulator',
+        'revenant',
+        'gaffer',
+        'bidder',
+        'adjurer',
     ],
 }
-Class.customCommix = {
+Class.commix_AR = {
     PARENT: 'genericTank',
     LABEL: 'Commix',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25460,13 +26916,14 @@ Class.customCommix = {
 
     ],
 }
-Class.customCompartment = {
+Class.compartment_AR = {
     PARENT: 'genericTank',
     LABEL: 'Compartment',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25511,13 +26968,14 @@ Class.customCompartment = {
 
     ],
 }
-Class.customCompound = {
+Class.compound_AR = {
     PARENT: 'genericTank',
     LABEL: 'Compound',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25542,13 +27000,14 @@ Class.customCompound = {
 
     ],
 }
-Class.customConcoctor = {
+Class.concoctor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Concoctor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25603,13 +27062,14 @@ Class.customConcoctor = {
 
     ],
 }
-Class.customCondor = {
+Class.condor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Condor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25674,13 +27134,14 @@ Class.customCondor = {
 
     ],
 }
-Class.customConfiner = {
+Class.confiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Confiner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25735,13 +27196,14 @@ Class.customConfiner = {
 
     ],
 }
-Class.customConformer = {
+Class.conformer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conformer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25777,7 +27239,7 @@ Class.customConformer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -25787,7 +27249,7 @@ Class.customConformer = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -25799,13 +27261,14 @@ Class.customConformer = {
 
     ],
 }
-Class.customConqueror = {
+Class.conqueror_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conqueror',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25840,26 +27303,27 @@ Class.customConqueror = {
 
     ],
     UPGRADES_TIER_4: [
-        'customObliterator',
-        'customOverwhelmer',
-        'customVanquisher',
-        'customDefeater',
-        'customAnnexer',
-        'customBlusterer',
-        'customAutoconqueror',
-        'customOverthrower',
-        'customPulverizer',
-        'customOverrunner',
-        'customMassacrer',
+        'obliterator',
+        'overwhelmer',
+        'vanquisher',
+        'defeater',
+        'annexer',
+        'blusterer',
+        'autoconqueror',
+        'overthrower',
+        'pulverizer',
+        'overrunner',
+        'massacrer',
     ],
 }
-Class.customConsolidation = {
+Class.consolidation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Consolidation',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25905,7 +27369,7 @@ Class.customConsolidation = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25915,7 +27379,7 @@ Class.customConsolidation = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25925,7 +27389,7 @@ Class.customConsolidation = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25935,7 +27399,7 @@ Class.customConsolidation = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -25947,13 +27411,14 @@ Class.customConsolidation = {
 
     ],
 }
-Class.customConsolidator = {
+Class.consolidator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Consolidator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -25998,13 +27463,14 @@ Class.customConsolidator = {
 
     ],
 }
-Class.customConstructor = {
+Class.constructor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Constructor',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26029,26 +27495,27 @@ Class.customConstructor = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAssembler',
-        'customAutoconstructor',
-        'customMechanic',
-        'customRecoiler',
-        'customMastermind',
-        'customOverwhelmer',
-        'customCreator',
-        'customHurdle',
-        'customMeld',
-        'customStormer',
-        'customSettler',
+        'assembler',
+        'autoconstructor',
+        'mechanic',
+        'recoiler',
+        'mastermind',
+        'overwhelmer',
+        'creator',
+        'hurdle',
+        'meld',
+        'stormer',
+        'settler',
     ],
 }
-Class.customContaminator = {
+Class.contaminator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contaminator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26073,13 +27540,14 @@ Class.customContaminator = {
 
     ],
 }
-Class.customContractor = {
+Class.contractor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contractor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26114,13 +27582,14 @@ Class.customContractor = {
 
     ],
 }
-Class.customContradictor = {
+Class.contradictor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contradictor',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26155,13 +27624,14 @@ Class.customContradictor = {
 
     ],
 }
-Class.customContrivance = {
+Class.contrivance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contrivance',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26266,13 +27736,14 @@ Class.customContrivance = {
 
     ],
 }
-Class.customContriver = {
+Class.contriver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Contriver',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26347,13 +27818,14 @@ Class.customContriver = {
 
     ],
 }
-Class.customController = {
+Class.controller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Controller',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26378,13 +27850,14 @@ Class.customController = {
 
     ],
 }
-Class.customConverger = {
+Class.converger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Converger',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26459,13 +27932,14 @@ Class.customConverger = {
 
     ],
 }
-Class.customConveyer = {
+Class.conveyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conveyer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26520,13 +27994,14 @@ Class.customConveyer = {
 
     ],
 }
-Class.customConveyor = {
+Class.conveyor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conveyor',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26581,13 +28056,14 @@ Class.customConveyor = {
 
     ],
 }
-Class.customCoop = {
+Class.coop_AR = {
     PARENT: 'genericTank',
     LABEL: 'Coop',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26743,7 +28219,7 @@ Class.customCoop = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -26755,13 +28231,14 @@ Class.customCoop = {
 
     ],
 }
-Class.customCoordinator = {
+Class.coordinator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Coordinator',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26786,13 +28263,14 @@ Class.customCoordinator = {
 
     ],
 }
-Class.customCopier = {
+Class.copier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Copier',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26847,13 +28325,14 @@ Class.customCopier = {
 
     ],
 }
-Class.customCorella = {
+Class.corella_AR = {
     PARENT: 'genericTank',
     LABEL: 'Corella',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26948,13 +28427,14 @@ Class.customCorella = {
 
     ],
 }
-Class.customCornerer = {
+Class.cornerer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cornerer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -26999,13 +28479,14 @@ Class.customCornerer = {
 
     ],
 }
-Class.customCorral = {
+Class.corral_AR = {
     PARENT: 'genericTank',
     LABEL: 'Corral',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27130,13 +28611,14 @@ Class.customCorral = {
 
     ],
 }
-Class.customCourier = {
+Class.courier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Courier',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27201,13 +28683,14 @@ Class.customCourier = {
 
     ],
 }
-Class.customCourser = {
+Class.courser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Courser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27242,27 +28725,28 @@ Class.customCourser = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSifter',
-        'customHunter3',
-        'customAutocourser',
-        'customImmolater',
-        'customScrutiner',
-        'customAcquirer',
-        'customCassowary',
-        'customGarroter',
-        'customLyncher',
-        'customDyadic',
-        'customMegaCourser',
-        'customFlicher',
+        'sifter',
+        'hunter3',
+        'autocourser',
+        'immolater',
+        'scrutiner',
+        'acquirer',
+        'cassowary',
+        'garroter',
+        'lyncher',
+        'dyadic',
+        'megaCourser',
+        'flicher',
     ],
 }
-Class.customCovert = {
+Class.covert_AR = {
     PARENT: 'genericTank',
     LABEL: 'Covert',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27297,13 +28781,14 @@ Class.customCovert = {
 
     ],
 }
-Class.customCozen = {
+Class.cozen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cozen',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27489,7 +28974,7 @@ Class.customCozen = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -27501,13 +28986,14 @@ Class.customCozen = {
 
     ],
 }
-Class.customCrackshot = {
+Class.crackshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crackshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27602,13 +29088,14 @@ Class.customCrackshot = {
 
     ],
 }
-Class.customCrank = {
+Class.crank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27634,7 +29121,7 @@ Class.customCrank = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_31022',
+            TYPE: 'unnamed_31022',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -27644,7 +29131,7 @@ Class.customCrank = {
             }
         },
         {
-            TYPE: 'customUnnamed_31022',
+            TYPE: 'unnamed_31022',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -27654,7 +29141,7 @@ Class.customCrank = {
             }
         },
         {
-            TYPE: 'customUnnamed_31022',
+            TYPE: 'unnamed_31022',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -27666,13 +29153,14 @@ Class.customCrank = {
 
     ],
 }
-Class.customCreator = {
+Class.creator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Creator',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27717,7 +29205,7 @@ Class.customCreator = {
 
     ],
 }
-Class.customCreeper = {
+Class.creeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Creeper',
     SIZE: 12,
@@ -27726,7 +29214,7 @@ Class.customCreeper = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_65428',
+            TYPE: 'unnamed_65428',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -27736,7 +29224,7 @@ Class.customCreeper = {
             }
         },
         {
-            TYPE: 'customUnnamed_65428',
+            TYPE: 'unnamed_65428',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -27746,7 +29234,7 @@ Class.customCreeper = {
             }
         },
         {
-            TYPE: 'customUnnamed_65428',
+            TYPE: 'unnamed_65428',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -27758,13 +29246,14 @@ Class.customCreeper = {
 
     ],
 }
-Class.customCropDuster = {
+Class.cropDuster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crop Duster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27809,27 +29298,28 @@ Class.customCropDuster = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverminigun',
-        'customTrimmer',
-        'customShearer',
-        'customCropDusterdrive',
-        'customSweeper',
-        'customDisperser',
-        'customRampart',
-        'customDeposer',
-        'customStrapper',
-        'customJunker',
-        'customAutocropDuster',
-        'customSandstorm',
+        'overminigun',
+        'trimmer',
+        'shearer',
+        'cropDusterdrive',
+        'sweeper',
+        'disperser',
+        'rampart',
+        'deposer',
+        'strapper',
+        'junker',
+        'autocropDuster',
+        'sandstorm',
     ],
 }
-Class.customCropDusterdrive = {
+Class.cropDusterdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crop Dusterdrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27875,7 +29365,7 @@ Class.customCropDusterdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -27887,13 +29377,14 @@ Class.customCropDusterdrive = {
 
     ],
 }
-Class.customCross = {
+Class.cross_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cross',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -27938,13 +29429,14 @@ Class.customCross = {
 
     ],
 }
-Class.customCrossbow = {
+Class.crossbow_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crossbow',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28019,22 +29511,23 @@ Class.customCrossbow = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRecurver',
-        'customBallista',
-        'customArbalest',
-        'customHarpoon',
-        'customAutocrossbow',
-        'customPique',
-        'customCarnage',
+        'recurver',
+        'ballista',
+        'arbalest',
+        'harpoon',
+        'autocrossbow',
+        'pique',
+        'carnage',
     ],
 }
-Class.customCrossbreed = {
+Class.crossbreed_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crossbreed',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28059,13 +29552,14 @@ Class.customCrossbreed = {
 
     ],
 }
-Class.customCrowbar = {
+Class.crowbar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crowbar',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28091,7 +29585,7 @@ Class.customCrowbar = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -28101,7 +29595,7 @@ Class.customCrowbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -28111,7 +29605,7 @@ Class.customCrowbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -28123,24 +29617,25 @@ Class.customCrowbar = {
 
     ],
     UPGRADES_TIER_4: [
-        'customPryer',
-        'customCrank',
-        'customChisel',
-        'customLever',
-        'customSpindle',
-        'customAutocrowbar',
-        'customDualbar',
-        'customSpanner',
-        'customWrench',
+        'pryer',
+        'crank',
+        'chisel',
+        'lever',
+        'spindle',
+        'autocrowbar',
+        'dualbar',
+        'spanner',
+        'wrench',
     ],
 }
-Class.customCruiser = {
+Class.cruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28165,29 +29660,30 @@ Class.customCruiser = {
 
     ],
     UPGRADES_TIER_3: [
-        'customCarrier',
-        'customBattleship',
-        'customFortress',
-        'customAutocruiser',
-        'customCommander',
-        'customProductionist',
-        'customCruiserdrive',
-        'customHangar',
-        'customZipper',
-        'customBaltimore',
-        'customMosey',
+        'carrier',
+        'battleship',
+        'fortress',
+        'autocruiser',
+        'commander',
+        'productionist',
+        'cruiserdrive',
+        'hangar',
+        'zipper',
+        'baltimore',
+        'mosey',
     ],
     UPGRADES_TIER_4: [
-        'customSuperintendent',
+        'superintendent',
     ],
 }
-Class.customCruiserdrive = {
+Class.cruiserdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cruiserdrive',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28213,7 +29709,7 @@ Class.customCruiserdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -28225,24 +29721,25 @@ Class.customCruiserdrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCarrierdrive',
-        'customBattledrive',
-        'customFortdrive',
-        'customAutocruiserdrive',
-        'customPrescriber',
-        'customProductiondrive',
-        'customHelipad',
-        'customBaltimoredrive',
-        'customMoseydrive',
+        'carrierdrive',
+        'battledrive',
+        'fortdrive',
+        'autocruiserdrive',
+        'prescriber',
+        'productiondrive',
+        'helipad',
+        'baltimoredrive',
+        'moseydrive',
     ],
 }
-Class.customCrusher = {
+Class.crusher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Crusher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28297,13 +29794,14 @@ Class.customCrusher = {
 
     ],
 }
-Class.customCubicle = {
+Class.cubicle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cubicle',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28358,13 +29856,14 @@ Class.customCubicle = {
 
     ],
 }
-Class.customCulverin = {
+Class.culverin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Culverin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28479,13 +29978,14 @@ Class.customCulverin = {
 
     ],
 }
-Class.customCustodian = {
+Class.custodian_AR = {
     PARENT: 'genericTank',
     LABEL: 'Custodian',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28530,13 +30030,14 @@ Class.customCustodian = {
 
     ],
 }
-Class.customCutlass = {
+Class.cutlass_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cutlass',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28641,13 +30142,14 @@ Class.customCutlass = {
 
     ],
 }
-Class.customCyclone = {
+Class.cyclone_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cyclone',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28772,22 +30274,23 @@ Class.customCyclone = {
 
     ],
     UPGRADES_TIER_4: [
-        'customTornado',
-        'customDustStorm',
-        'customAutocyclone',
-        'customTempest',
-        'customGale',
-        'customWhirlwind',
-        'customTrove',
+        'tornado',
+        'dustStorm',
+        'autocyclone',
+        'tempest',
+        'gale',
+        'whirlwind',
+        'trove',
     ],
 }
-Class.customDagger = {
+Class.dagger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dagger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -28912,13 +30415,14 @@ Class.customDagger = {
 
     ],
 }
-Class.customDam = {
+Class.dam_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dam',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29003,13 +30507,14 @@ Class.customDam = {
 
     ],
 }
-Class.customDauber = {
+Class.dauber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dauber',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29144,13 +30649,14 @@ Class.customDauber = {
 
     ],
 }
-Class.customDeadeye = {
+Class.deadeye_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deadeye',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29195,13 +30701,14 @@ Class.customDeadeye = {
 
     ],
 }
-Class.customDeathStar = {
+Class.deathStar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Death Star',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29266,21 +30773,22 @@ Class.customDeathStar = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDemise',
-        'customDesigner',
-        'customOrbitalStrike',
-        'customAutodeathStar',
-        'customUnity',
-        'customSequence',
+        'demise',
+        'designer',
+        'orbitalStrike',
+        'autodeathStar',
+        'unity',
+        'sequence',
     ],
 }
-Class.customDecaTank = {
+Class.decaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deca Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29385,7 +30893,7 @@ Class.customDecaTank = {
 
     ],
 }
-Class.customDecoy = {
+Class.decoy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Decoy',
     SIZE: 12,
@@ -29394,7 +30902,7 @@ Class.customDecoy = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -29404,7 +30912,7 @@ Class.customDecoy = {
             }
         },
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -29416,13 +30924,14 @@ Class.customDecoy = {
 
     ],
 }
-Class.customDefeater = {
+Class.defeater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Defeater',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29467,13 +30976,14 @@ Class.customDefeater = {
 
     ],
 }
-Class.customDefect = {
+Class.defect_AR = {
     PARENT: 'genericTank',
     LABEL: 'Defect',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29538,26 +31048,27 @@ Class.customDefect = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDeficiency',
-        'customBozo',
-        'customNitwit',
-        'customDork',
-        'customDonkey',
-        'customMangle',
-        'customLoon',
-        'customKlutz',
-        'customJerker',
-        'customFault',
-        'customAutodefect',
+        'deficiency',
+        'bozo',
+        'nitwit',
+        'dork',
+        'donkey',
+        'mangle',
+        'loon',
+        'klutz',
+        'jerker',
+        'fault',
+        'autodefect',
     ],
 }
-Class.customDeficiency = {
+Class.deficiency_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deficiency',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29642,13 +31153,14 @@ Class.customDeficiency = {
 
     ],
 }
-Class.customDeflector = {
+Class.deflector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deflector',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29693,13 +31205,14 @@ Class.customDeflector = {
 
     ],
 }
-Class.customDegrader = {
+Class.degrader_AR = {
     PARENT: 'genericTank',
     LABEL: 'Degrader',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29754,13 +31267,14 @@ Class.customDegrader = {
 
     ],
 }
-Class.customDelayer = {
+Class.delayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Delayer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29805,13 +31319,14 @@ Class.customDelayer = {
 
     ],
 }
-Class.customDeliverer = {
+Class.deliverer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deliverer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29836,13 +31351,14 @@ Class.customDeliverer = {
 
     ],
 }
-Class.customDemise = {
+Class.demise_AR = {
     PARENT: 'genericTank',
     LABEL: 'Demise',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29927,13 +31443,14 @@ Class.customDemise = {
 
     ],
 }
-Class.customDeposer = {
+Class.deposer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deposer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -29978,13 +31495,14 @@ Class.customDeposer = {
 
     ],
 }
-Class.customDepraver = {
+Class.depraver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Depraver',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30019,7 +31537,7 @@ Class.customDepraver = {
 
     ],
 }
-Class.customDesigner = {
+Class.designer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Designer',
     SIZE: 12,
@@ -30028,7 +31546,7 @@ Class.customDesigner = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -30038,7 +31556,7 @@ Class.customDesigner = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -30048,7 +31566,7 @@ Class.customDesigner = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -30058,7 +31576,7 @@ Class.customDesigner = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -30068,7 +31586,7 @@ Class.customDesigner = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -30078,7 +31596,7 @@ Class.customDesigner = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -30088,7 +31606,7 @@ Class.customDesigner = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -30100,13 +31618,14 @@ Class.customDesigner = {
 
     ],
 }
-Class.customDespot = {
+Class.despot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Despot',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30171,13 +31690,14 @@ Class.customDespot = {
 
     ],
 }
-Class.customDestabalizer = {
+Class.destabalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Destabalizer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30232,13 +31752,14 @@ Class.customDestabalizer = {
 
     ],
 }
-Class.customDestroyer = {
+Class.destroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30253,29 +31774,30 @@ Class.customDestroyer = {
 
     ],
     UPGRADES_TIER_3: [
-        'customConqueror',
-        'customAnnihilator',
-        'customHybrid',
-        'customConstructor',
-        'customBlower',
-        'customMegaTrapper',
-        'customQueller',
-        'customAutodestroyer',
-        'customHurler',
-        'customSlinker',
+        'conqueror',
+        'annihilator',
+        'hybrid',
+        'constructor',
+        'blower',
+        'megaTrapper',
+        'queller',
+        'autodestroyer',
+        'hurler',
+        'slinker',
     ],
     UPGRADES_TIER_4: [
-        'customHarrier',
-        'customToppler',
+        'harrier',
+        'toppler',
     ],
 }
-Class.customDeviation = {
+Class.deviation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deviation',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30310,26 +31832,27 @@ Class.customDeviation = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAutodeviation',
-        'customAnomaly',
-        'customSire',
-        'customDeviationdrive',
-        'customOvermach',
-        'customContradictor',
-        'customBlight',
-        'customRampart',
-        'customEnviron',
-        'customRepairman',
-        'customThrottler',
+        'autodeviation',
+        'anomaly',
+        'sire',
+        'deviationdrive',
+        'overmach',
+        'contradictor',
+        'blight',
+        'rampart',
+        'environ',
+        'repairman',
+        'throttler',
     ],
 }
-Class.customDeviationdrive = {
+Class.deviationdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deviationdrive',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30365,7 +31888,7 @@ Class.customDeviationdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -30377,13 +31900,14 @@ Class.customDeviationdrive = {
 
     ],
 }
-Class.customDeviser = {
+Class.deviser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Deviser',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30438,13 +31962,14 @@ Class.customDeviser = {
 
     ],
 }
-Class.customDiesel = {
+Class.diesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30459,24 +31984,25 @@ Class.customDiesel = {
 
     ],
     UPGRADES_TIER_3: [
-        'customJalopy',
-        'customMachineGunner',
-        'customDieselTrapper',
-        'customPolluter',
-        'customAutodiesel',
+        'jalopy',
+        'machineGunner',
+        'dieselTrapper',
+        'polluter',
+        'autodiesel',
     ],
     UPGRADES_TIER_4: [
-        'customFoamer',
-        'customGizmo',
+        'foamer',
+        'gizmo',
     ],
 }
-Class.customDieselTrapper = {
+Class.dieselTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Diesel Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30501,23 +32027,24 @@ Class.customDieselTrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customJalopyTrapper',
-        'customTridieselTrapper',
-        'customLandau',
-        'customRestrainer',
-        'customArtificer',
-        'customStainer',
-        'customBlight',
-        'customAutodieselTrapper',
+        'jalopyTrapper',
+        'tridieselTrapper',
+        'landau',
+        'restrainer',
+        'artificer',
+        'stainer',
+        'blight',
+        'autodieselTrapper',
     ],
 }
-Class.customDipper = {
+Class.dipper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dipper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30552,13 +32079,14 @@ Class.customDipper = {
 
     ],
 }
-Class.customDirectordrive = {
+Class.directordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30574,7 +32102,7 @@ Class.customDirectordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -30586,26 +32114,27 @@ Class.customDirectordrive = {
 
     ],
     UPGRADES_TIER_3: [
-        'customDirectorstorm',
-        'customOverdrive',
-        'customCruiserdrive',
-        'customUnderdrive',
-        'customSpawnerdrive',
-        'customAutodirectordrive',
-        'customHonchodrive',
-        'customDoperdrive',
+        'directorstorm',
+        'overdrive',
+        'cruiserdrive',
+        'underdrive',
+        'spawnerdrive',
+        'autodirectordrive',
+        'honchodrive',
+        'doperdrive',
     ],
     UPGRADES_TIER_4: [
-        'customManagerdrive',
+        'managerdrive',
     ],
 }
-Class.customDirectorstorm = {
+Class.directorstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Directorstorm',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30621,7 +32150,7 @@ Class.customDirectorstorm = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_42341',
+            TYPE: 'stormSquare_42341',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -30633,22 +32162,23 @@ Class.customDirectorstorm = {
 
     ],
     UPGRADES_TIER_4: [
-        'customVortex',
-        'customOverstorm',
-        'customSpawnerstorm',
-        'customAutodirectorstorm',
-        'customHonchostorm',
-        'customDownpourer',
-        'customDoperstorm',
+        'vortex',
+        'overstorm',
+        'spawnerstorm',
+        'autodirectorstorm',
+        'honchostorm',
+        'downpourer',
+        'doperstorm',
     ],
 }
-Class.customDirigible = {
+Class.dirigible_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dirigible',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30733,13 +32263,14 @@ Class.customDirigible = {
 
     ],
 }
-Class.customDischarger = {
+Class.discharger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Discharger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30794,26 +32325,27 @@ Class.customDischarger = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFusillade',
-        'customBroadsider',
-        'customStifler',
-        'customMelder',
-        'customFlurry',
-        'customVitality',
-        'customAutodischarger',
-        'customPivoter',
-        'customHatchet',
-        'customKitter',
-        'customConcoctor',
+        'fusillade',
+        'broadsider',
+        'stifler',
+        'melder',
+        'flurry',
+        'vitality',
+        'autodischarger',
+        'pivoter',
+        'hatchet',
+        'kitter',
+        'concoctor',
     ],
 }
-Class.customDispatcher = {
+Class.dispatcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dispatcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30878,13 +32410,14 @@ Class.customDispatcher = {
 
     ],
 }
-Class.customDisperser = {
+Class.disperser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Disperser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -30949,13 +32482,14 @@ Class.customDisperser = {
 
     ],
 }
-Class.customDonjon = {
+Class.donjon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Donjon',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31050,13 +32584,14 @@ Class.customDonjon = {
 
     ],
 }
-Class.customDonkey = {
+Class.donkey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Donkey',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31151,13 +32686,14 @@ Class.customDonkey = {
 
     ],
 }
-Class.customDoorman = {
+Class.doorman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doorman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31192,13 +32728,14 @@ Class.customDoorman = {
 
     ],
 }
-Class.customDopelord = {
+Class.dopelord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dopelord',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31283,13 +32820,14 @@ Class.customDopelord = {
 
     ],
 }
-Class.customDoper = {
+Class.doper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doper',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31314,25 +32852,26 @@ Class.customDoper = {
 
     ],
     UPGRADES_TIER_3: [
-        'customBrisker',
-        'customDopeseer',
-        'customMosey',
-        'customIssuer',
-        'customJunkie',
-        'customDoperdrive',
-        'customAutodoper',
+        'brisker',
+        'dopeseer',
+        'mosey',
+        'issuer',
+        'junkie',
+        'doperdrive',
+        'autodoper',
     ],
     UPGRADES_TIER_4: [
-        'customController',
+        'controller',
     ],
 }
-Class.customDoperdrive = {
+Class.doperdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doperdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31358,7 +32897,7 @@ Class.customDoperdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -31370,22 +32909,23 @@ Class.customDoperdrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBriskerdrive',
-        'customDoperstorm',
-        'customDopeseerdrive',
-        'customMoseydrive',
-        'customIssuerdrive',
-        'customJunkiedrive',
-        'customAutodoperdrive',
+        'briskerdrive',
+        'doperstorm',
+        'dopeseerdrive',
+        'moseydrive',
+        'issuerdrive',
+        'junkiedrive',
+        'autodoperdrive',
     ],
 }
-Class.customDoperstorm = {
+Class.doperstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doperstorm',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31411,7 +32951,7 @@ Class.customDoperstorm = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_42341',
+            TYPE: 'stormSquare_42341',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -31423,13 +32963,14 @@ Class.customDoperstorm = {
 
     ],
 }
-Class.customDopeseer = {
+Class.dopeseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dopeseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31474,23 +33015,24 @@ Class.customDopeseer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBriskseer',
-        'customDopelord',
-        'customShade',
-        'customAutodopeseer',
-        'customDopeseerdrive',
-        'customAdjurer',
-        'customMogul',
-        'customGanger',
+        'briskseer',
+        'dopelord',
+        'shade',
+        'autodopeseer',
+        'dopeseerdrive',
+        'adjurer',
+        'mogul',
+        'ganger',
     ],
 }
-Class.customDopeseerdrive = {
+Class.dopeseerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dopeseerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31536,7 +33078,7 @@ Class.customDopeseerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -31548,13 +33090,14 @@ Class.customDopeseerdrive = {
 
     ],
 }
-Class.customDoppelganger = {
+Class.doppelganger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Doppelganger',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31599,13 +33142,14 @@ Class.customDoppelganger = {
 
     ],
 }
-Class.customDork = {
+Class.dork_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dork',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31690,13 +33234,14 @@ Class.customDork = {
 
     ],
 }
-Class.customDotter = {
+Class.dotter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dotter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31741,7 +33286,7 @@ Class.customDotter = {
 
     ],
 }
-Class.customDoubleAutosmasher = {
+Class.doubleAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Auto-Smasher',
     SIZE: 12,
@@ -31750,7 +33295,7 @@ Class.customDoubleAutosmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -31760,7 +33305,7 @@ Class.customDoubleAutosmasher = {
             }
         },
         {
-            TYPE: 'customTurret_51860',
+            TYPE: 'turret_51860',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -31772,13 +33317,14 @@ Class.customDoubleAutosmasher = {
 
     ],
 }
-Class.customDoubleBattery = {
+Class.doubleBattery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Battery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -31883,13 +33429,14 @@ Class.customDoubleBattery = {
 
     ],
 }
-Class.customDoubleEqualizer = {
+Class.doubleEqualizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Equalizer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32054,164 +33601,14 @@ Class.customDoubleEqualizer = {
 
     ],
 }
-Class.customDoubleFlankGunner = {
-    PARENT: "genericTank",
-    LABEL: 'Double Flank Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847515773687e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847485157517e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847485157517e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117543e-07,
-                Y: 7.250000238418571,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758837904447e-07,
-                Y: -7.250000238418572,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736275e-07,
-                Y: 3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660538e-07,
-                Y: -3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customDoubleMachineGunner = {
+Class.doubleMachineGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Machine Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32316,13 +33713,14 @@ Class.customDoubleMachineGunner = {
 
     ],
 }
-Class.customDoubleNailgun = {
+Class.doubleNailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Nailgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32407,13 +33805,14 @@ Class.customDoubleNailgun = {
 
     ],
 }
-Class.customDoubleRimfire = {
+Class.doubleRimfire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Rimfire',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32518,13 +33917,14 @@ Class.customDoubleRimfire = {
 
     ],
 }
-Class.customDoubleSpreadshot = {
+Class.doubleSpreadshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Spreadshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32709,13 +34109,14 @@ Class.customDoubleSpreadshot = {
 
     ],
 }
-Class.customDoubleTriplet = {
+Class.doubleTriplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Triplet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32780,13 +34181,14 @@ Class.customDoubleTriplet = {
 
     ],
 }
-Class.customDoubleTwin = {
+Class.doubleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Twin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32831,27 +34233,28 @@ Class.customDoubleTwin = {
 
     ],
     UPGRADES_TIER_3: [
-        'customTripleTwin',
-        'customHewnDouble',
-        'customAutodouble',
-        'customBentDouble',
-        'customDoubleFlankTwin',
-        'customDoubleGunner',
-        'customWarkwark',
+        'tripleTwin',
+        'hewnDouble',
+        'autodouble',
+        'bentDouble',
+        'doubleFlankTwin',
+        'doubleGunner',
+        'warkwark',
     ],
     UPGRADES_TIER_4: [
-        'customDoubleDual',
-        'customDoubleMusket',
-        'customOverdoubleTwin',
+        'doubleDual',
+        'doubleMusket',
+        'overdoubleTwin',
     ],
 }
-Class.customDoubleVolley = {
+Class.doubleVolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Double Volley',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32936,13 +34339,14 @@ Class.customDoubleVolley = {
 
     ],
 }
-Class.customDownpourer = {
+Class.downpourer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Downpourer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -32958,7 +34362,7 @@ Class.customDownpourer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_2164',
+            TYPE: 'stormSquare_2164',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -32970,7 +34374,7 @@ Class.customDownpourer = {
 
     ],
 }
-Class.customDraftsman = {
+Class.draftsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Draftsman',
     SIZE: 12,
@@ -32979,7 +34383,7 @@ Class.customDraftsman = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_14474',
+            TYPE: 'unnamed_14474',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -32989,7 +34393,7 @@ Class.customDraftsman = {
             }
         },
         {
-            TYPE: 'customUnnamed_14474',
+            TYPE: 'unnamed_14474',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -32999,7 +34403,7 @@ Class.customDraftsman = {
             }
         },
         {
-            TYPE: 'customUnnamed_14474',
+            TYPE: 'unnamed_14474',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -33011,7 +34415,7 @@ Class.customDraftsman = {
 
     ],
 }
-Class.customDrifter = {
+Class.drifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Drifter',
     SIZE: 12,
@@ -33020,7 +34424,7 @@ Class.customDrifter = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_5627',
+            TYPE: 'unknownClass_5627',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -33032,22 +34436,23 @@ Class.customDrifter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBuncher',
-        'customMegadrifter',
-        'customAutodrifter',
-        'customVessel',
-        'customCauldron',
-        'customSharper',
-        'customBundler',
+        'buncher',
+        'megadrifter',
+        'autodrifter',
+        'vessel',
+        'cauldron',
+        'sharper',
+        'bundler',
     ],
 }
-Class.customDriver = {
+Class.driver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Driver',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33132,13 +34537,14 @@ Class.customDriver = {
 
     ],
 }
-Class.customDual = {
+Class.dual_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dual',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33183,23 +34589,24 @@ Class.customDual = {
 
     ],
     UPGRADES_TIER_4: [
-        'customThreefold',
-        'customDoubleDual',
-        'customRavisher',
-        'customVulture',
-        'customNimrod',
-        'customAutodual',
-        'customBifold',
-        'customDyadic',
+        'threefold',
+        'doubleDual',
+        'ravisher',
+        'vulture',
+        'nimrod',
+        'autodual',
+        'bifold',
+        'dyadic',
     ],
 }
-Class.customDualbar = {
+Class.dualbar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dualbar',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33245,7 +34652,7 @@ Class.customDualbar = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -33255,7 +34662,7 @@ Class.customDualbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -33265,7 +34672,7 @@ Class.customDualbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -33275,7 +34682,7 @@ Class.customDualbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -33285,7 +34692,7 @@ Class.customDualbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -33295,7 +34702,7 @@ Class.customDualbar = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -33307,13 +34714,14 @@ Class.customDualbar = {
 
     ],
 }
-Class.customDuelist = {
+Class.duelist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duelist',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33358,13 +34766,14 @@ Class.customDuelist = {
 
     ],
 }
-Class.customDuo = {
+Class.duo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33399,13 +34808,14 @@ Class.customDuo = {
 
     ],
 }
-Class.customDuper = {
+Class.duper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33460,13 +34870,14 @@ Class.customDuper = {
 
     ],
 }
-Class.customDustStorm = {
+Class.dustStorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dust Storm',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33611,13 +35022,14 @@ Class.customDustStorm = {
 
     ],
 }
-Class.customDuster = {
+Class.duster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Duster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33652,13 +35064,14 @@ Class.customDuster = {
 
     ],
 }
-Class.customDyadic = {
+Class.dyadic_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dyadic',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33713,13 +35126,14 @@ Class.customDyadic = {
 
     ],
 }
-Class.customEagle = {
+Class.eagle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Eagle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33764,24 +35178,25 @@ Class.customEagle = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHarrier',
-        'customErne',
-        'customSeriemas',
-        'customGriffin',
-        'customRaptor',
-        'customAutoeagle',
-        'customCondor',
-        'customOsprey',
-        'customVirago',
+        'harrier',
+        'erne',
+        'seriemas',
+        'griffin',
+        'raptor',
+        'autoeagle',
+        'condor',
+        'osprey',
+        'virago',
     ],
 }
-Class.customElectrocutor = {
+Class.electrocutor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Electrocutor',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33856,13 +35271,14 @@ Class.customElectrocutor = {
 
     ],
 }
-Class.customEmbargo = {
+Class.embargo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Embargo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33927,13 +35343,14 @@ Class.customEmbargo = {
 
     ],
 }
-Class.customEmitter = {
+Class.emitter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Emitter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -33968,13 +35385,14 @@ Class.customEmitter = {
 
     ],
 }
-Class.customEmployer = {
+Class.employer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Employer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34059,13 +35477,14 @@ Class.customEmployer = {
 
     ],
 }
-Class.customEnactor = {
+Class.enactor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Enactor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34110,13 +35529,14 @@ Class.customEnactor = {
 
     ],
 }
-Class.customEncircler = {
+Class.encircler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Encircler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34151,24 +35571,25 @@ Class.customEncircler = {
 
     ],
     UPGRADES_TIER_4: [
-        'customQuarrion',
-        'customMachete',
-        'customTriencircler',
-        'customPicket',
-        'customExerter',
-        'customAutoencircler',
-        'customEnviron',
-        'customLandau',
-        'customKraal',
+        'quarrion',
+        'machete',
+        'triencircler',
+        'picket',
+        'exerter',
+        'autoencircler',
+        'environ',
+        'landau',
+        'kraal',
     ],
 }
-Class.customEndeavor = {
+Class.endeavor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Endeavor',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34203,13 +35624,14 @@ Class.customEndeavor = {
 
     ],
 }
-Class.customEnergizer = {
+Class.energizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Energizer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34254,13 +35676,14 @@ Class.customEnergizer = {
 
     ],
 }
-Class.customEnforcer = {
+Class.enforcer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Enforcer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34295,25 +35718,26 @@ Class.customEnforcer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMaverick',
-        'customExaminer',
-        'customPique',
-        'customSlayer',
-        'customAutoenforcer',
-        'customRifle3',
-        'customDuelist',
-        'customArmament',
-        'customMerganser',
-        'customFlicher',
+        'maverick',
+        'examiner',
+        'pique',
+        'slayer',
+        'autoenforcer',
+        'rifle3',
+        'duelist',
+        'armament',
+        'merganser',
+        'flicher',
     ],
 }
-Class.customEngineer = {
+Class.engineer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Engineer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34358,26 +35782,27 @@ Class.customEngineer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMechanic',
-        'customAutoengineer',
-        'customParryer',
-        'customOriginator',
-        'customVanquisher',
-        'customProducer',
-        'customCubicle',
-        'customMachinist',
-        'customDriver',
-        'customSpecialist',
-        'customDeviser',
+        'mechanic',
+        'autoengineer',
+        'parryer',
+        'originator',
+        'vanquisher',
+        'producer',
+        'cubicle',
+        'machinist',
+        'driver',
+        'specialist',
+        'deviser',
     ],
 }
-Class.customEnviron = {
+Class.environ_AR = {
     PARENT: 'genericTank',
     LABEL: 'Environ',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34422,13 +35847,14 @@ Class.customEnviron = {
 
     ],
 }
-Class.customEpoch = {
+Class.epoch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Epoch',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34463,13 +35889,14 @@ Class.customEpoch = {
 
     ],
 }
-Class.customEqualizer = {
+Class.equalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Equalizer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34554,30 +35981,31 @@ Class.customEqualizer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAutoequalizer',
-        'customWhirlwind',
-        'customBrink',
-        'customContrivance',
-        'customBinder',
-        'customOverequalizer',
-        'customCleaver',
-        'customCutlass',
-        'customBaton',
-        'customBlackjack',
-        'customDoubleEqualizer',
-        'customDagger',
-        'customMachete',
-        'customHardware',
-        'customEqualizerGuard',
+        'autoequalizer',
+        'whirlwind',
+        'brink',
+        'contrivance',
+        'binder',
+        'overequalizer',
+        'cleaver',
+        'cutlass',
+        'baton',
+        'blackjack',
+        'doubleEqualizer',
+        'dagger',
+        'machete',
+        'hardware',
+        'equalizerGuard',
     ],
 }
-Class.customEqualizerGuard = {
+Class.equalizerGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Equalizer Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34672,13 +36100,14 @@ Class.customEqualizerGuard = {
 
     ],
 }
-Class.customEradicator = {
+Class.eradicator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Eradicator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34693,13 +36122,14 @@ Class.customEradicator = {
 
     ],
 }
-Class.customErne = {
+Class.erne_AR = {
     PARENT: 'genericTank',
     LABEL: 'Erne',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34764,13 +36194,14 @@ Class.customErne = {
 
     ],
 }
-Class.customEscort = {
+Class.escort_AR = {
     PARENT: 'genericTank',
     LABEL: 'Escort',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34815,13 +36246,14 @@ Class.customEscort = {
 
     ],
 }
-Class.customExaminer = {
+Class.examiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Examiner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34846,13 +36278,14 @@ Class.customExaminer = {
 
     ],
 }
-Class.customExecutor = {
+Class.executor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Executor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34897,13 +36330,14 @@ Class.customExecutor = {
 
     ],
 }
-Class.customExerter = {
+Class.exerter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Exerter',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34948,13 +36382,14 @@ Class.customExerter = {
 
     ],
 }
-Class.customExpeller = {
+Class.expeller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Expeller',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -34999,25 +36434,26 @@ Class.customExpeller = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSetup',
-        'customSpitter',
-        'customContrivance',
-        'customHexamachine',
-        'customKraal',
-        'customRigger',
-        'customStainer',
-        'customPartition',
-        'customThrottler',
-        'customAutoexpeller',
+        'setup',
+        'spitter',
+        'contrivance',
+        'hexamachine',
+        'kraal',
+        'rigger',
+        'stainer',
+        'partition',
+        'throttler',
+        'autoexpeller',
     ],
 }
-Class.customExperimenter = {
+Class.experimenter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Experimenter',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35072,13 +36508,14 @@ Class.customExperimenter = {
 
     ],
 }
-Class.customFabrication = {
+Class.fabrication_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fabrication',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35163,13 +36600,14 @@ Class.customFabrication = {
 
     ],
 }
-Class.customFacility = {
+Class.facility_AR = {
     PARENT: 'genericTank',
     LABEL: 'Facility',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35214,13 +36652,14 @@ Class.customFacility = {
 
     ],
 }
-Class.customFactory = {
+Class.factory_AR = {
     PARENT: 'genericTank',
     LABEL: 'Factory',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35255,25 +36694,26 @@ Class.customFactory = {
 
     ],
     UPGRADES_TIER_4: [
-        'customIndustry',
-        'customAutofactory',
-        'customMegaFactory',
-        'customFactorydrive',
-        'customMandarin',
-        'customAerodome',
-        'customWorker',
-        'customShopper',
-        'customManufacture',
-        'customFacility',
+        'industry',
+        'autofactory',
+        'megaFactory',
+        'factorydrive',
+        'mandarin',
+        'aerodome',
+        'worker',
+        'shopper',
+        'manufacture',
+        'facility',
     ],
 }
-Class.customFactorydrive = {
+Class.factorydrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Factorydrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35309,7 +36749,7 @@ Class.customFactorydrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -35321,13 +36761,14 @@ Class.customFactorydrive = {
 
     ],
 }
-Class.customFalcon = {
+Class.falcon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Falcon',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35382,24 +36823,25 @@ Class.customFalcon = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMerlin',
-        'customPeregrine',
-        'customOwl',
-        'customAutofalcon',
-        'customHarpy',
-        'customSparrow',
-        'customCaracara',
-        'customMerganser',
-        'customCassowary',
+        'merlin',
+        'peregrine',
+        'owl',
+        'autofalcon',
+        'harpy',
+        'sparrow',
+        'caracara',
+        'merganser',
+        'cassowary',
     ],
 }
-Class.customFang = {
+Class.fang_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fang',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35464,13 +36906,14 @@ Class.customFang = {
 
     ],
 }
-Class.customFashioner = {
+Class.fashioner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fashioner',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35505,27 +36948,28 @@ Class.customFashioner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverbuilder',
-        'customStylist',
-        'customExperimenter',
-        'customFashionerdrive',
-        'customMethodist',
-        'customMeld',
-        'customAutofashioner',
-        'customMachinist',
-        'customDeflector',
-        'customBlend',
-        'customDelayer',
-        'customRallyer',
+        'overbuilder',
+        'stylist',
+        'experimenter',
+        'fashionerdrive',
+        'methodist',
+        'meld',
+        'autofashioner',
+        'machinist',
+        'deflector',
+        'blend',
+        'delayer',
+        'rallyer',
     ],
 }
-Class.customFashionerdrive = {
+Class.fashionerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fashionerdrive',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35561,7 +37005,7 @@ Class.customFashionerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -35573,13 +37017,14 @@ Class.customFashionerdrive = {
 
     ],
 }
-Class.customFault = {
+Class.fault_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fault',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35674,13 +37119,14 @@ Class.customFault = {
 
     ],
 }
-Class.customFemaleficitor = {
+Class.femaleficitor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Femaleficitor',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35705,13 +37151,14 @@ Class.customFemaleficitor = {
 
     ],
 }
-Class.customFencer = {
+Class.fencer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fencer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35796,13 +37243,14 @@ Class.customFencer = {
 
     ],
 }
-Class.customFender = {
+Class.fender_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fender',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35847,13 +37295,14 @@ Class.customFender = {
 
     ],
 }
-Class.customFieldGun = {
+Class.fieldGun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Field Gun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35898,31 +37347,32 @@ Class.customFieldGun = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSkidder',
-        'customSpinner',
-        'customPacker',
-        'customAnaconda',
-        'customAviator',
-        'customRainmaker',
-        'customCarronade',
-        'customStrafe',
-        'customEmbargo',
-        'customAutofieldGun',
-        'customSlinger',
-        'customHowitzer',
-        'customMagnum',
-        'customBulker',
-        'customConveyer',
-        'customFlurry',
+        'skidder',
+        'spinner',
+        'packer',
+        'anaconda',
+        'aviator',
+        'rainmaker',
+        'carronade',
+        'strafe',
+        'embargo',
+        'autofieldGun',
+        'slinger',
+        'howitzer',
+        'magnum',
+        'bulker',
+        'conveyer',
+        'flurry',
     ],
 }
-Class.customFighter = {
+Class.fighter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fighter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -35977,27 +37427,28 @@ Class.customFighter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBoxer',
-        'customBrawler',
-        'customSparrow',
-        'customBlitz',
-        'customAutofighter',
-        'customStrider',
-        'customGriffin',
-        'customShocker',
-        'customCockatoo',
-        'customPug',
-        'customMangle',
-        'customScrimmer',
+        'boxer',
+        'brawler',
+        'sparrow',
+        'blitz',
+        'autofighter',
+        'strider',
+        'griffin',
+        'shocker',
+        'cockatoo',
+        'pug',
+        'mangle',
+        'scrimmer',
     ],
 }
-Class.customFinger = {
+Class.finger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Finger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36032,13 +37483,14 @@ Class.customFinger = {
 
     ],
 }
-Class.customFirepower = {
+Class.firepower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Firepower',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36083,13 +37535,14 @@ Class.customFirepower = {
 
     ],
 }
-Class.customFirework = {
+Class.firework_AR = {
     PARENT: 'genericTank',
     LABEL: 'Firework',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36114,13 +37567,14 @@ Class.customFirework = {
 
     ],
 }
-Class.customFleeter = {
+Class.fleeter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fleeter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36186,7 +37640,7 @@ Class.customFleeter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -36196,7 +37650,7 @@ Class.customFleeter = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -36208,13 +37662,14 @@ Class.customFleeter = {
 
     ],
 }
-Class.customFlexedGunner = {
+Class.flexedGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flexed Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36299,13 +37754,14 @@ Class.customFlexedGunner = {
 
     ],
 }
-Class.customFlexedHybrid = {
+Class.flexedHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flexed Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36370,13 +37826,14 @@ Class.customFlexedHybrid = {
 
     ],
 }
-Class.customFlexedMinigun = {
+Class.flexedMinigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flexed Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36491,13 +37948,14 @@ Class.customFlexedMinigun = {
 
     ],
 }
-Class.customFlicher = {
+Class.flicher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flicher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36542,13 +38000,14 @@ Class.customFlicher = {
 
     ],
 }
-Class.customFlintlock = {
+Class.flintlock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flintlock',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36603,13 +38062,14 @@ Class.customFlintlock = {
 
     ],
 }
-Class.customFlock = {
+Class.flock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flock',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36654,13 +38114,14 @@ Class.customFlock = {
 
     ],
 }
-Class.customFlocker = {
+Class.flocker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flocker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36695,13 +38156,14 @@ Class.customFlocker = {
 
     ],
 }
-Class.customFlurry = {
+Class.flurry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Flurry',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36766,13 +38228,14 @@ Class.customFlurry = {
 
     ],
 }
-Class.customFoamer = {
+Class.foamer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foamer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36797,13 +38260,14 @@ Class.customFoamer = {
 
     ],
 }
-Class.customFoctar = {
+Class.foctar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foctar',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36858,13 +38322,14 @@ Class.customFoctar = {
 
     ],
 }
-Class.customFoctillery = {
+Class.foctillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foctillery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36899,23 +38364,24 @@ Class.customFoctillery = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFoctar',
-        'customFirepower',
-        'customClobberer',
-        'customShaper',
-        'customHowitzer',
-        'customVigor',
-        'customAutofoctillery',
-        'customPivoter',
+        'foctar',
+        'firepower',
+        'clobberer',
+        'shaper',
+        'howitzer',
+        'vigor',
+        'autofoctillery',
+        'pivoter',
     ],
 }
-Class.customForce = {
+Class.force_AR = {
     PARENT: 'genericTank',
     LABEL: 'Force',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -36960,29 +38426,30 @@ Class.customForce = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverartillery',
-        'customMixer',
-        'customGenerator',
-        'customForcedrive',
-        'customEnergizer',
-        'customPlaster',
-        'customHuntsman',
-        'customApiculturist',
-        'customCross',
-        'customBlend',
-        'customSlinger',
-        'customAutoforce',
-        'customVigor',
-        'customVitality',
+        'overartillery',
+        'mixer',
+        'generator',
+        'forcedrive',
+        'energizer',
+        'plaster',
+        'huntsman',
+        'apiculturist',
+        'cross',
+        'blend',
+        'slinger',
+        'autoforce',
+        'vigor',
+        'vitality',
     ],
 }
-Class.customForcedrive = {
+Class.forcedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Forcedrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37028,7 +38495,7 @@ Class.customForcedrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -37040,13 +38507,14 @@ Class.customForcedrive = {
 
     ],
 }
-Class.customForedrive = {
+Class.foredrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foredrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37072,7 +38540,7 @@ Class.customForedrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -37084,13 +38552,14 @@ Class.customForedrive = {
 
     ],
 }
-Class.customForegunner = {
+Class.foregunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foregunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37145,13 +38614,14 @@ Class.customForegunner = {
 
     ],
 }
-Class.customForeman = {
+Class.foreman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foreman',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37176,24 +38646,25 @@ Class.customForeman = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHeadman',
-        'customOvercheese',
-        'customForedrive',
-        'customBidder',
-        'customAutoforeman',
-        'customSpirit',
-        'customStocker',
-        'customGanger',
-        'customDoppelganger',
+        'headman',
+        'overcheese',
+        'foredrive',
+        'bidder',
+        'autoforeman',
+        'spirit',
+        'stocker',
+        'ganger',
+        'doppelganger',
     ],
 }
-Class.customForetrapper = {
+Class.foretrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foretrapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37238,13 +38709,14 @@ Class.customForetrapper = {
 
     ],
 }
-Class.customForger = {
+Class.forger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Forger',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37289,28 +38761,29 @@ Class.customForger = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCreator',
-        'customAutoforger',
-        'customProducer',
-        'customRebounder',
-        'customPlanner',
-        'customAnnexer',
-        'customFormer',
-        'customCaster',
-        'customBounder',
-        'customBlend',
-        'customShaper',
-        'customModeler',
-        'customMelder',
+        'creator',
+        'autoforger',
+        'producer',
+        'rebounder',
+        'planner',
+        'annexer',
+        'former',
+        'caster',
+        'bounder',
+        'blend',
+        'shaper',
+        'modeler',
+        'melder',
     ],
 }
-Class.customFormer = {
+Class.former_AR = {
     PARENT: 'genericTank',
     LABEL: 'Former',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37365,13 +38838,14 @@ Class.customFormer = {
 
     ],
 }
-Class.customFormulator = {
+Class.formulator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Formulator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37426,13 +38900,14 @@ Class.customFormulator = {
 
     ],
 }
-Class.customFortalice = {
+Class.fortalice_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortalice',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37557,13 +39032,14 @@ Class.customFortalice = {
 
     ],
 }
-Class.customFortdrive = {
+Class.fortdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortdrive',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37659,7 +39135,7 @@ Class.customFortdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -37671,13 +39147,14 @@ Class.customFortdrive = {
 
     ],
 }
-Class.customFortifier = {
+Class.fortifier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortifier',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37732,13 +39209,14 @@ Class.customFortifier = {
 
     ],
 }
-Class.customFortress = {
+Class.fortress_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fortress',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37833,26 +39311,27 @@ Class.customFortress = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCorral',
-        'customDonjon',
-        'customBastion',
-        'customRefuge',
-        'customCastle',
-        'customStronghold',
-        'customBunker',
-        'customFortdrive',
-        'customPalisade',
-        'customOutpost',
-        'customFortalice',
+        'corral',
+        'donjon',
+        'bastion',
+        'refuge',
+        'castle',
+        'stronghold',
+        'bunker',
+        'fortdrive',
+        'palisade',
+        'outpost',
+        'fortalice',
     ],
 }
-Class.customFoundry = {
+Class.foundry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foundry',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37887,25 +39366,26 @@ Class.customFoundry = {
 
     ],
     UPGRADES_TIER_4: [
-        'customEndeavor',
-        'customStocker',
-        'customFoundrydrive',
-        'customMegaFoundry',
-        'customFabrication',
-        'customShopper',
-        'customAutofoundry',
-        'customBarn',
-        'customTopBanana',
-        'customPlant',
+        'endeavor',
+        'stocker',
+        'foundrydrive',
+        'megaFoundry',
+        'fabrication',
+        'shopper',
+        'autofoundry',
+        'barn',
+        'topBanana',
+        'plant',
     ],
 }
-Class.customFoundrydrive = {
+Class.foundrydrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Foundrydrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -37941,7 +39421,7 @@ Class.customFoundrydrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -37953,13 +39433,14 @@ Class.customFoundrydrive = {
 
     ],
 }
-Class.customFrother = {
+Class.frother_AR = {
     PARENT: 'genericTank',
     LABEL: 'Frother',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38004,13 +39485,14 @@ Class.customFrother = {
 
     ],
 }
-Class.customFryer = {
+Class.fryer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fryer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38095,13 +39577,14 @@ Class.customFryer = {
 
     ],
 }
-Class.customFungus = {
+Class.fungus_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fungus',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38326,13 +39809,14 @@ Class.customFungus = {
 
     ],
 }
-Class.customFuser = {
+Class.fuser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fuser',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38387,13 +39871,14 @@ Class.customFuser = {
 
     ],
 }
-Class.customFusil = {
+Class.fusil_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fusil',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38438,13 +39923,14 @@ Class.customFusil = {
 
     ],
 }
-Class.customFusillade = {
+Class.fusillade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Fusillade',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38539,13 +40025,14 @@ Class.customFusillade = {
 
     ],
 }
-Class.customGadgetGun = {
+Class.gadgetGun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gadget Gun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38570,13 +40057,14 @@ Class.customGadgetGun = {
 
     ],
 }
-Class.customGaffer = {
+Class.gaffer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gaffer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38701,13 +40189,14 @@ Class.customGaffer = {
 
     ],
 }
-Class.customGalah = {
+Class.galah_AR = {
     PARENT: 'genericTank',
     LABEL: 'Galah',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38792,13 +40281,14 @@ Class.customGalah = {
 
     ],
 }
-Class.customGale = {
+Class.gale_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gale',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -38963,13 +40453,14 @@ Class.customGale = {
 
     ],
 }
-Class.customGanger = {
+Class.ganger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ganger',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39014,13 +40505,14 @@ Class.customGanger = {
 
     ],
 }
-Class.customGarrison = {
+Class.garrison_AR = {
     PARENT: 'genericTank',
     LABEL: 'Garrison',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39055,13 +40547,14 @@ Class.customGarrison = {
 
     ],
 }
-Class.customGarroter = {
+Class.garroter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Garroter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39106,13 +40599,14 @@ Class.customGarroter = {
 
     ],
 }
-Class.customGeneral = {
+Class.general_AR = {
     PARENT: 'genericTank',
     LABEL: 'General',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39197,13 +40691,14 @@ Class.customGeneral = {
 
     ],
 }
-Class.customGenerator = {
+Class.generator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Generator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39268,13 +40763,14 @@ Class.customGenerator = {
 
     ],
 }
-Class.customGimmicker = {
+Class.gimmicker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gimmicker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39309,13 +40805,14 @@ Class.customGimmicker = {
 
     ],
 }
-Class.customGizmo = {
+Class.gizmo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gizmo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39350,13 +40847,14 @@ Class.customGizmo = {
 
     ],
 }
-Class.customGlider = {
+Class.glider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Glider',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39402,7 +40900,7 @@ Class.customGlider = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -39412,7 +40910,7 @@ Class.customGlider = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -39424,13 +40922,14 @@ Class.customGlider = {
 
     ],
 }
-Class.customGoverner = {
+Class.governer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Governer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39555,13 +41054,14 @@ Class.customGoverner = {
 
     ],
 }
-Class.customGrazer = {
+Class.grazer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Grazer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39606,13 +41106,14 @@ Class.customGrazer = {
 
     ],
 }
-Class.customGrenade = {
+Class.grenade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Grenade',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39637,13 +41138,14 @@ Class.customGrenade = {
 
     ],
 }
-Class.customGriffin = {
+Class.griffin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Griffin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39708,13 +41210,14 @@ Class.customGriffin = {
 
     ],
 }
-Class.customGrinder = {
+Class.grinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Grinder',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39769,13 +41272,14 @@ Class.customGrinder = {
 
     ],
 }
-Class.customGuarder = {
+Class.guarder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Guarder',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39820,13 +41324,14 @@ Class.customGuarder = {
 
     ],
 }
-Class.customGuardrail = {
+Class.guardrail_AR = {
     PARENT: 'genericTank',
     LABEL: 'Guardrail',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -39951,13 +41456,14 @@ Class.customGuardrail = {
 
     ],
 }
-Class.customGunman = {
+Class.gunman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40002,13 +41508,14 @@ Class.customGunman = {
 
     ],
 }
-Class.customGunner = {
+Class.gunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40053,27 +41560,27 @@ Class.customGunner = {
 
     ],
     UPGRADES_TIER_3: [
-        'customAutogunner',
-        'customNailgun',
-        'customAuto4',
-        'customMachineGunner',
-        'customGunnerTrapper',
-        'customCyclone',
-        'customOvergunner',
-        'customBattery',
-        'customButtbuttin',
-        'customBlower',
-        'customRimfire',
-        'customVolley',
-        'customDoubleGunner',
-        'customBentGunner',
-        'customEqualizer',
+        'autogunner',
+        'nailgun',
+        'auto4',
+        'machineGunner',
+        'gunnerTrapper',
+        'cyclone',
+        'overgunner',
+        'battery',
+        'buttbuttin',
+        'blower',
+        'rimfire',
+        'volley',
+        'doubleGunner',
+        'bentGunner',
+        'equalizer',
     ],
     UPGRADES_TIER_4: [
-        'customDam',
+        'dam',
     ],
 }
-Class.customGunnerAutosmasher = {
+Class.gunnerAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Auto-Smasher',
     SIZE: 12,
@@ -40082,7 +41589,7 @@ Class.customGunnerAutosmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -40092,7 +41599,7 @@ Class.customGunnerAutosmasher = {
             }
         },
         {
-            TYPE: 'customTurret_16326',
+            TYPE: 'turret_16326',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -40104,13 +41611,14 @@ Class.customGunnerAutosmasher = {
 
     ],
 }
-Class.customGunnerBuilder = {
+Class.gunnerBuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Builder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40165,13 +41673,14 @@ Class.customGunnerBuilder = {
 
     ],
 }
-Class.customGunnerMech = {
+Class.gunnerMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Mech',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40236,13 +41745,14 @@ Class.customGunnerMech = {
 
     ],
 }
-Class.customGunnerPen = {
+Class.gunnerPen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Pen',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40307,13 +41817,14 @@ Class.customGunnerPen = {
 
     ],
 }
-Class.customGunnerTrapper = {
+Class.gunnerTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Trapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40368,26 +41879,27 @@ Class.customGunnerTrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCleaver',
-        'customVallation',
-        'customLure',
-        'customTacker',
-        'customAutogunnerTrapper',
-        'customGunnerBuilder',
-        'customOracle',
-        'customGunnerPen',
-        'customGunnerMech',
-        'customLavisher',
-        'customGunnerTritrapper',
+        'cleaver',
+        'vallation',
+        'lure',
+        'tacker',
+        'autogunnerTrapper',
+        'gunnerBuilder',
+        'oracle',
+        'gunnerPen',
+        'gunnerMech',
+        'lavisher',
+        'gunnerTritrapper',
     ],
 }
-Class.customGunnerTritrapper = {
+Class.gunnerTritrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Tri-Trapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40482,13 +41994,14 @@ Class.customGunnerTritrapper = {
 
     ],
 }
-Class.customGusher = {
+Class.gusher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gusher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40563,13 +42076,14 @@ Class.customGusher = {
 
     ],
 }
-Class.customGyro = {
+Class.gyro_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gyro',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40624,13 +42138,14 @@ Class.customGyro = {
 
     ],
 }
-Class.customHackshot = {
+Class.hackshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hackshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40725,13 +42240,14 @@ Class.customHackshot = {
 
     ],
 }
-Class.customHammer = {
+Class.hammer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hammer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40776,13 +42292,14 @@ Class.customHammer = {
 
     ],
 }
-Class.customHandler = {
+Class.handler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Handler',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40817,13 +42334,14 @@ Class.customHandler = {
 
     ],
 }
-Class.customHangar = {
+Class.hangar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hangar',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40878,27 +42396,28 @@ Class.customHangar = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCourier',
-        'customWarlord',
-        'customAerodome',
-        'customAutohangar',
-        'customMegaHangar',
-        'customDirigible',
-        'customAirfield',
-        'customHelipad',
-        'customGoverner',
-        'customGrinder',
-        'customBarn',
-        'customReposit',
+        'courier',
+        'warlord',
+        'aerodome',
+        'autohangar',
+        'megaHangar',
+        'dirigible',
+        'airfield',
+        'helipad',
+        'governer',
+        'grinder',
+        'barn',
+        'reposit',
     ],
 }
-Class.customHarbinger = {
+Class.harbinger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harbinger',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -40973,13 +42492,14 @@ Class.customHarbinger = {
 
     ],
 }
-Class.customHarbor = {
+Class.harbor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harbor',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41024,13 +42544,14 @@ Class.customHarbor = {
 
     ],
 }
-Class.customHardware = {
+Class.hardware_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hardware',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41155,13 +42676,14 @@ Class.customHardware = {
 
     ],
 }
-Class.customHarpoon = {
+Class.harpoon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harpoon',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41246,13 +42768,14 @@ Class.customHarpoon = {
 
     ],
 }
-Class.customHarpy = {
+Class.harpy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harpy',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41337,13 +42860,14 @@ Class.customHarpy = {
 
     ],
 }
-Class.customHarrier = {
+Class.harrier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Harrier',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41388,13 +42912,14 @@ Class.customHarrier = {
 
     ],
 }
-Class.customHatcher = {
+Class.hatcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hatcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41459,13 +42984,14 @@ Class.customHatcher = {
 
     ],
 }
-Class.customHatchet = {
+Class.hatchet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hatchet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41540,13 +43066,14 @@ Class.customHatchet = {
 
     ],
 }
-Class.customHawker = {
+Class.hawker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hawker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41561,13 +43088,14 @@ Class.customHawker = {
 
     ],
 }
-Class.customHeadman = {
+Class.headman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Headman',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41612,13 +43140,14 @@ Class.customHeadman = {
 
     ],
 }
-Class.customHeaver = {
+Class.heaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Heaver',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41653,32 +43182,33 @@ Class.customHeaver = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverlauncher',
-        'customLobber',
-        'customDuper',
-        'customHeaverdrive',
-        'customEmitter',
-        'customDipper',
-        'customSpouter',
-        'customFlocker',
-        'customVeerer',
-        'customCareerer',
-        'customSlinger',
-        'customSpieler',
-        'customNester',
-        'customTosser',
-        'customJutter',
-        'customAutoheaver',
-        'customMongrel',
+        'overlauncher',
+        'lobber',
+        'duper',
+        'heaverdrive',
+        'emitter',
+        'dipper',
+        'spouter',
+        'flocker',
+        'veerer',
+        'careerer',
+        'slinger',
+        'spieler',
+        'nester',
+        'tosser',
+        'jutter',
+        'autoheaver',
+        'mongrel',
     ],
 }
-Class.customHeaverdrive = {
+Class.heaverdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Heaverdrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41714,7 +43244,7 @@ Class.customHeaverdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -41726,13 +43256,14 @@ Class.customHeaverdrive = {
 
     ],
 }
-Class.customHelipad = {
+Class.helipad_AR = {
     PARENT: 'genericTank',
     LABEL: 'Helipad',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41788,7 +43319,7 @@ Class.customHelipad = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -41800,13 +43331,14 @@ Class.customHelipad = {
 
     ],
 }
-Class.customHelix = {
+Class.helix_AR = {
     PARENT: 'genericTank',
     LABEL: 'Helix',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41841,13 +43373,14 @@ Class.customHelix = {
 
     ],
 }
-Class.customHeptaShot = {
+Class.heptaShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hepta Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41922,13 +43455,14 @@ Class.customHeptaShot = {
 
     ],
 }
-Class.customHewnDouble = {
+Class.hewnDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hewn Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -41993,329 +43527,16 @@ Class.customHewnDouble = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHewnTriple',
-        'customAutohewnDouble',
-        'customCleft',
-        'customSkewnDouble',
-        'customHewnFlankDouble',
-        'customHewnGunner',
-        'customWarkwawarkrk',
+        'hewnTriple',
+        'autohewnDouble',
+        'cleft',
+        'skewnDouble',
+        'hewnFlankDouble',
+        'hewnGunner',
+        'warkwawarkrk',
     ],
 }
-Class.customHewnFlankDouble = {
-    PARENT: 'genericTank',
-    LABEL: 'Hewn Flank Double',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265089813635e-07,
-                Y: -5.500000119209285,
-                ANGLE: -205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customHewnGunner = {
-    PARENT: 'genericTank',
-    LABEL: 'Hewn Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.6061896302452823e-07,
-                Y: -8.249999880790703,
-                ANGLE: -205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762910030169834e-07,
-                Y: -4.749999940395351,
-                ANGLE: -205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.606189624694167e-07,
-                Y: 8.249999880790703,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -2.0762909946903108e-07,
-                Y: 4.749999940395351,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117543e-07,
-                Y: 7.250000238418571,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758837904447e-07,
-                Y: -7.250000238418572,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736275e-07,
-                Y: 3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660538e-07,
-                Y: -3.7499999999999964,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customHewnTriple = {
-    PARENT: 'genericTank',
-    LABEL: 'Hewn Triple',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126500654691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 25.00000012650595,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126506205806e-07,
-                Y: -5.500000119209284,
-                ANGLE: -25.00000012650595,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.3604151522249595e-07,
-                Y: 5.400000214576716,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.360415155000517e-07,
-                Y: -5.400000214576716,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.3604151466738443e-07,
-                Y: 5.400000214576716,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.3604151605516321e-07,
-                Y: -5.400000214576716,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-}
-Class.customHexaAutosmasher = {
+Class.hexaAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa Auto-Smasher',
     SIZE: 12,
@@ -42324,7 +43545,7 @@ Class.customHexaAutosmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -42334,7 +43555,7 @@ Class.customHexaAutosmasher = {
             }
         },
         {
-            TYPE: 'customTurret_17322',
+            TYPE: 'turret_17322',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -42346,13 +43567,14 @@ Class.customHexaAutosmasher = {
 
     ],
 }
-Class.customHexaTank = {
+Class.hexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -42417,25 +43639,26 @@ Class.customHexaTank = {
 
     ],
     UPGRADES_TIER_3: [
-        'customOctoTank',
-        'customCyclone',
-        'customHexatrapper',
-        'customDeathStar',
-        'customAutohexaTank',
-        'customMingler',
-        'customCombo',
+        'octoTank',
+        'cyclone',
+        'hexatrapper',
+        'deathStar',
+        'autohexaTank',
+        'mingler',
+        'combo',
     ],
     UPGRADES_TIER_4: [
-        'customTripleFlankTwin',
+        'tripleFlankTwin',
     ],
 }
-Class.customHexamachine = {
+Class.hexamachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Machine',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -42561,7 +43784,7 @@ Class.customHexamachine = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -42573,13 +43796,14 @@ Class.customHexamachine = {
 
     ],
 }
-Class.customHexamech = {
+Class.hexamech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -42765,7 +43989,7 @@ Class.customHexamech = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -42777,13 +44001,14 @@ Class.customHexamech = {
 
     ],
 }
-Class.customHexatrapGuard = {
+Class.hexatrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -42919,7 +44144,7 @@ Class.customHexatrapGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -42931,13 +44156,14 @@ Class.customHexatrapGuard = {
 
     ],
 }
-Class.customHexatrapper = {
+Class.hexatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43063,7 +44289,7 @@ Class.customHexatrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -43075,26 +44301,27 @@ Class.customHexatrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaHexatrapper',
-        'customAutohexatrapper',
-        'customHexamachine',
-        'customOctotrapper',
-        'customDesigner',
-        'customCozen',
-        'customRefuge',
-        'customCoop',
-        'customHexamech',
-        'customHexatrapGuard',
-        'customBand',
+        'megaHexatrapper',
+        'autohexatrapper',
+        'hexamachine',
+        'octotrapper',
+        'designer',
+        'cozen',
+        'refuge',
+        'coop',
+        'hexamech',
+        'hexatrapGuard',
+        'band',
     ],
 }
-Class.customHightailer = {
+Class.hightailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hightailer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43159,87 +44386,14 @@ Class.customHightailer = {
 
     ],
 }
-Class.customHipwatch = {
-    PARENT: 'genericTank',
-    LABEL: 'Hipwatch',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'customUnnamed_63735',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            TYPE: 'customUnnamed_63735',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 0,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-}
-Class.customHitman = {
+Class.hitman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hitman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43274,26 +44428,27 @@ Class.customHitman = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverassassin',
-        'customGunman',
-        'customFormulator',
-        'customHitmandrive',
-        'customContractor',
-        'customDoorman',
-        'customTrailer',
-        'customAutohitman',
-        'customMercenary',
-        'customSlayer',
-        'customImmolater',
+        'overassassin',
+        'gunman',
+        'formulator',
+        'hitmandrive',
+        'contractor',
+        'doorman',
+        'trailer',
+        'autohitman',
+        'mercenary',
+        'slayer',
+        'immolater',
     ],
 }
-Class.customHitmandrive = {
+Class.hitmandrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hitmandrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43329,7 +44484,7 @@ Class.customHitmandrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -43341,13 +44496,14 @@ Class.customHitmandrive = {
 
     ],
 }
-Class.customHognose = {
+Class.hognose_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hognose',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43382,13 +44538,14 @@ Class.customHognose = {
 
     ],
 }
-Class.customHoncho = {
+Class.honcho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43403,25 +44560,26 @@ Class.customHoncho = {
 
     ],
     UPGRADES_TIER_3: [
-        'customForeman',
-        'customBaltimore',
-        'customFoundry',
-        'customBigCheese',
-        'customAutohoncho',
-        'customHonchodrive',
-        'customJunkie',
+        'foreman',
+        'baltimore',
+        'foundry',
+        'bigCheese',
+        'autohoncho',
+        'honchodrive',
+        'junkie',
     ],
     UPGRADES_TIER_4: [
-        'customMinister',
+        'minister',
     ],
 }
-Class.customHonchodrive = {
+Class.honchodrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Honchodrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43437,7 +44595,7 @@ Class.customHonchodrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -43449,22 +44607,23 @@ Class.customHonchodrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHonchostorm',
-        'customForedrive',
-        'customBaltimoredrive',
-        'customFoundrydrive',
-        'customBigCheesedrive',
-        'customAutohonchodrive',
-        'customJunkiedrive',
+        'honchostorm',
+        'foredrive',
+        'baltimoredrive',
+        'foundrydrive',
+        'bigCheesedrive',
+        'autohonchodrive',
+        'junkiedrive',
     ],
 }
-Class.customHonchostorm = {
+Class.honchostorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Honchostorm',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43480,7 +44639,7 @@ Class.customHonchostorm = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_42341',
+            TYPE: 'stormSquare_42341',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -43492,13 +44651,14 @@ Class.customHonchostorm = {
 
     ],
 }
-Class.customHotbed = {
+Class.hotbed_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hotbed',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43593,13 +44753,14 @@ Class.customHotbed = {
 
     ],
 }
-Class.customHowitzer = {
+Class.howitzer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Howitzer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43644,13 +44805,14 @@ Class.customHowitzer = {
 
     ],
 }
-Class.customHunter = {
+Class.hunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43675,21 +44837,21 @@ Class.customHunter = {
 
     ],
     UPGRADES_TIER_3: [
-        'customPredator',
-        'customPoacher',
-        'customOrdnance',
-        'customDual',
-        'customAutohunter',
-        'customMegaHunter',
-        'customProber',
-        'customCourser',
+        'predator',
+        'poacher',
+        'ordnance',
+        'dual',
+        'autohunter',
+        'megaHunter',
+        'prober',
+        'courser',
     ],
     UPGRADES_TIER_4: [
-        'customButcher',
-        'customReverberator',
+        'butcher',
+        'reverberator',
     ],
 }
-Class.customHunter3 = {
+Class.hunter3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hunter-3',
     SIZE: 12,
@@ -43698,7 +44860,7 @@ Class.customHunter3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_14345',
+            TYPE: 'unnamed_14345',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -43708,7 +44870,7 @@ Class.customHunter3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_14345',
+            TYPE: 'unnamed_14345',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -43718,7 +44880,7 @@ Class.customHunter3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_14345',
+            TYPE: 'unnamed_14345',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -43730,13 +44892,14 @@ Class.customHunter3 = {
 
     ],
 }
-Class.customHuntsman = {
+Class.huntsman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Huntsman',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43791,13 +44954,14 @@ Class.customHuntsman = {
 
     ],
 }
-Class.customHurdle = {
+Class.hurdle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hurdle',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43832,13 +44996,14 @@ Class.customHurdle = {
 
     ],
 }
-Class.customHurler = {
+Class.hurler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hurler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43863,24 +45028,24 @@ Class.customHurler = {
 
     ],
     UPGRADES_TIER_4: [
-        'customShaver',
-        'customBazooka',
-        'customCatapult',
-        'customMyriad',
-        'customLeviathan',
-        'customBulker',
-        'customBombard',
-        'customPython',
-        'customClaimant',
-        'customIncline',
-        'customAutohurler',
-        'customMongrel',
-        'customBunger',
-        'customDeliverer',
-        'customSlingshot',
+        'shaver',
+        'bazooka',
+        'catapult',
+        'myriad',
+        'leviathan',
+        'bulker',
+        'bombard',
+        'python',
+        'claimant',
+        'incline',
+        'autohurler',
+        'mongrel',
+        'bunger',
+        'deliverer',
+        'slingshot',
     ],
 }
-Class.customHurler3 = {
+Class.hurler3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hurler-3',
     SIZE: 12,
@@ -43889,7 +45054,7 @@ Class.customHurler3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_23761',
+            TYPE: 'unnamed_23761',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -43899,7 +45064,7 @@ Class.customHurler3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_23761',
+            TYPE: 'unnamed_23761',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -43909,7 +45074,7 @@ Class.customHurler3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_23761',
+            TYPE: 'unnamed_23761',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -43921,13 +45086,14 @@ Class.customHurler3 = {
 
     ],
 }
-Class.customHutch = {
+Class.hutch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hutch',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -43992,25 +45158,26 @@ Class.customHutch = {
 
     ],
     UPGRADES_TIER_4: [
-        'customKraal',
-        'customEmployer',
-        'customCorella',
-        'customGuardrail',
-        'customBrig',
-        'customMachete',
-        'customCoop',
-        'customFencer',
-        'customRetainer',
-        'customAutohutch',
+        'kraal',
+        'employer',
+        'corella',
+        'guardrail',
+        'brig',
+        'machete',
+        'coop',
+        'fencer',
+        'retainer',
+        'autohutch',
     ],
 }
-Class.customHybrid = {
+Class.hybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44035,28 +45202,29 @@ Class.customHybrid = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverdestroyer',
-        'customSynthesis',
-        'customEnactor',
-        'customHybriddrive',
-        'customCrossbreed',
-        'customCompound',
-        'customMeld',
-        'customPuffer',
-        'customCatcher',
-        'customCross',
-        'customAutohybrid',
-        'customMongrel',
-        'customAmalgam',
+        'overdestroyer',
+        'synthesis',
+        'enactor',
+        'hybriddrive',
+        'crossbreed',
+        'compound',
+        'meld',
+        'puffer',
+        'catcher',
+        'cross',
+        'autohybrid',
+        'mongrel',
+        'amalgam',
     ],
 }
-Class.customHybriddrive = {
+Class.hybriddrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hybriddrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44082,7 +45250,7 @@ Class.customHybriddrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -44094,13 +45262,14 @@ Class.customHybriddrive = {
 
     ],
 }
-Class.customHypercluster = {
+Class.hypercluster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hypercluster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44145,13 +45314,14 @@ Class.customHypercluster = {
 
     ],
 }
-Class.customHyperinception = {
+Class.hyperinception_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperinception',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44196,13 +45366,14 @@ Class.customHyperinception = {
 
     ],
 }
-Class.customHyperprojector = {
+Class.hyperprojector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperprojector',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44257,13 +45428,14 @@ Class.customHyperprojector = {
 
     ],
 }
-Class.customHyperskimmer = {
+Class.hyperskimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperskimmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44308,13 +45480,14 @@ Class.customHyperskimmer = {
 
     ],
 }
-Class.customHyperswarmer = {
+Class.hyperswarmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperswarmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44349,13 +45522,14 @@ Class.customHyperswarmer = {
 
     ],
 }
-Class.customHypertwister = {
+Class.hypertwister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hypertwister',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44400,13 +45574,14 @@ Class.customHypertwister = {
 
     ],
 }
-Class.customHyperwinder = {
+Class.hyperwinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hyperwinder',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44451,13 +45626,14 @@ Class.customHyperwinder = {
 
     ],
 }
-Class.customIcbm = {
+Class.icbm_AR = {
     PARENT: 'genericTank',
     LABEL: 'ICBM',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44492,13 +45668,14 @@ Class.customIcbm = {
 
     ],
 }
-Class.customImmolater = {
+Class.immolater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Immolater',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44543,13 +45720,14 @@ Class.customImmolater = {
 
     ],
 }
-Class.customImpeder = {
+Class.impeder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Impeder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44634,13 +45812,14 @@ Class.customImpeder = {
 
     ],
 }
-Class.customIncarcerator = {
+Class.incarcerator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Incarcerator',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44685,25 +45864,26 @@ Class.customIncarcerator = {
 
     ],
     UPGRADES_TIER_4: [
-        'customLockup',
-        'customPicket',
-        'customGunnerPen',
-        'customNuker',
-        'customOverthrower',
-        'customFencer',
-        'customConfiner',
-        'customAutoincarcerator',
-        'customJailer',
-        'customTriincarcerator',
+        'lockup',
+        'picket',
+        'gunnerPen',
+        'nuker',
+        'overthrower',
+        'fencer',
+        'confiner',
+        'autoincarcerator',
+        'jailer',
+        'triincarcerator',
     ],
 }
-Class.customInception = {
+Class.inception_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inception',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44738,28 +45918,29 @@ Class.customInception = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHyperinception',
-        'customReam',
-        'customHelix',
-        'customTosser',
-        'customAutoinception',
-        'customShoal',
-        'customHognose',
-        'customIcbm',
-        'customConveyer',
-        'customBunger',
-        'customResourcer',
-        'customGimmicker',
-        'customPropeller',
+        'hyperinception',
+        'ream',
+        'helix',
+        'tosser',
+        'autoinception',
+        'shoal',
+        'hognose',
+        'icbm',
+        'conveyer',
+        'bunger',
+        'resourcer',
+        'gimmicker',
+        'propeller',
     ],
 }
-Class.customIncline = {
+Class.incline_AR = {
     PARENT: 'genericTank',
     LABEL: 'Incline',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44804,13 +45985,14 @@ Class.customIncline = {
 
     ],
 }
-Class.customInducer = {
+Class.inducer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inducer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44895,13 +46077,14 @@ Class.customInducer = {
 
     ],
 }
-Class.customIndustry = {
+Class.industry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Industry',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44936,13 +46119,14 @@ Class.customIndustry = {
 
     ],
 }
-Class.customInfestor = {
+Class.infestor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Infestor',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -44987,20 +46171,21 @@ Class.customInfestor = {
 
     ],
     UPGRADES_TIER_4: [
-        'customPlaguer',
-        'customPollen',
-        'customFemaleficitor',
-        'customAutoinfestor',
-        'customInfestordrive',
+        'plaguer',
+        'pollen',
+        'femaleficitor',
+        'autoinfestor',
+        'infestordrive',
     ],
 }
-Class.customInfestordrive = {
+Class.infestordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Infestordrive',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45046,7 +46231,7 @@ Class.customInfestordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -45058,13 +46243,14 @@ Class.customInfestordrive = {
 
     ],
 }
-Class.customInitiator = {
+Class.initiator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Initiator',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45159,13 +46345,14 @@ Class.customInitiator = {
 
     ],
 }
-Class.customInspector = {
+Class.inspector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inspector',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45190,13 +46377,14 @@ Class.customInspector = {
 
     ],
 }
-Class.customInstructor = {
+Class.instructor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Instructor',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45262,7 +46450,7 @@ Class.customInstructor = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -45274,13 +46462,14 @@ Class.customInstructor = {
 
     ],
 }
-Class.customIntegrator = {
+Class.integrator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Integrator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45325,23 +46514,24 @@ Class.customIntegrator = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverangle',
-        'customAssimilator',
-        'customIntegratordrive',
-        'customConsolidator',
-        'customPug',
-        'customHightailer',
-        'customAutointegrator',
-        'customSkater',
+        'overangle',
+        'assimilator',
+        'integratordrive',
+        'consolidator',
+        'pug',
+        'hightailer',
+        'autointegrator',
+        'skater',
     ],
 }
-Class.customIntegratordrive = {
+Class.integratordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Integratordrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45387,7 +46577,7 @@ Class.customIntegratordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -45399,13 +46589,14 @@ Class.customIntegratordrive = {
 
     ],
 }
-Class.customInterner = {
+Class.interner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Interner',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45450,25 +46641,26 @@ Class.customInterner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverpen',
-        'customKettle',
-        'customRinger',
-        'customEnviron',
-        'customInternerdrive',
-        'customProbationer',
-        'customDelayer',
-        'customUtilizer',
-        'customAutointerner',
-        'customRetainer',
+        'overpen',
+        'kettle',
+        'ringer',
+        'environ',
+        'internerdrive',
+        'probationer',
+        'delayer',
+        'utilizer',
+        'autointerner',
+        'retainer',
     ],
 }
-Class.customInternerdrive = {
+Class.internerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Internerdrive',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45514,7 +46706,7 @@ Class.customInternerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -45526,7 +46718,7 @@ Class.customInternerdrive = {
 
     ],
 }
-Class.customInventor = {
+Class.inventor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Inventor',
     SIZE: 12,
@@ -45535,7 +46727,7 @@ Class.customInventor = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45545,7 +46737,7 @@ Class.customInventor = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45555,7 +46747,7 @@ Class.customInventor = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45565,7 +46757,7 @@ Class.customInventor = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45575,7 +46767,7 @@ Class.customInventor = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45585,7 +46777,7 @@ Class.customInventor = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45595,7 +46787,7 @@ Class.customInventor = {
             }
         },
         {
-            TYPE: 'customUnnamed_56743',
+            TYPE: 'unnamed_56743',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -45607,13 +46799,14 @@ Class.customInventor = {
 
     ],
 }
-Class.customIssuer = {
+Class.issuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Issuer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45658,25 +46851,26 @@ Class.customIssuer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCirculator',
-        'customFacility',
-        'customAutoissuer',
-        'customMegaIssuer',
-        'customInducer',
-        'customIssuerdrive',
-        'customMogul',
-        'customReposit',
-        'customSlogger',
-        'customPlant',
+        'circulator',
+        'facility',
+        'autoissuer',
+        'megaIssuer',
+        'inducer',
+        'issuerdrive',
+        'mogul',
+        'reposit',
+        'slogger',
+        'plant',
     ],
 }
-Class.customIssuerdrive = {
+Class.issuerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Issuerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45722,7 +46916,7 @@ Class.customIssuerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -45734,13 +46928,14 @@ Class.customIssuerdrive = {
 
     ],
 }
-Class.customJailer = {
+Class.jailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jailer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45795,13 +46990,14 @@ Class.customJailer = {
 
     ],
 }
-Class.customJalopy = {
+Class.jalopy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jalopy',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45816,20 +47012,21 @@ Class.customJalopy = {
 
     ],
     UPGRADES_TIER_4: [
-        'customLorry',
-        'customContaminator',
-        'customJalopyTrapper',
-        'customAutojalopy',
-        'customClunker',
+        'lorry',
+        'contaminator',
+        'jalopyTrapper',
+        'autojalopy',
+        'clunker',
     ],
 }
-Class.customJalopyTrapper = {
+Class.jalopyTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jalopy Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45854,13 +47051,14 @@ Class.customJalopyTrapper = {
 
     ],
 }
-Class.customJerker = {
+Class.jerker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jerker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -45965,13 +47163,14 @@ Class.customJerker = {
 
     ],
 }
-Class.customJolter = {
+Class.jolter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jolter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46046,13 +47245,14 @@ Class.customJolter = {
 
     ],
 }
-Class.customJunker = {
+Class.junker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Junker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46137,13 +47337,14 @@ Class.customJunker = {
 
     ],
 }
-Class.customJunkie = {
+Class.junkie_AR = {
     PARENT: 'genericTank',
     LABEL: 'Junkie',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46168,22 +47369,23 @@ Class.customJunkie = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAddict',
-        'customGanger',
-        'customHarbor',
-        'customPlant',
-        'customStoner',
-        'customJunkiedrive',
-        'customAutojunkie',
+        'addict',
+        'ganger',
+        'harbor',
+        'plant',
+        'stoner',
+        'junkiedrive',
+        'autojunkie',
     ],
 }
-Class.customJunkiedrive = {
+Class.junkiedrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Junkiedrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46209,7 +47411,7 @@ Class.customJunkiedrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46221,13 +47423,14 @@ Class.customJunkiedrive = {
 
     ],
 }
-Class.customJutter = {
+Class.jutter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Jutter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46282,13 +47485,14 @@ Class.customJutter = {
 
     ],
 }
-Class.customKettle = {
+Class.kettle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kettle',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46343,13 +47547,14 @@ Class.customKettle = {
 
     ],
 }
-Class.customKicker = {
+Class.kicker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kicker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46434,13 +47639,14 @@ Class.customKicker = {
 
     ],
 }
-Class.customKingpin = {
+Class.kingpin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kingpin',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46495,13 +47701,14 @@ Class.customKingpin = {
 
     ],
 }
-Class.customKitter = {
+Class.kitter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kitter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46576,13 +47783,14 @@ Class.customKitter = {
 
     ],
 }
-Class.customKlutz = {
+Class.klutz_AR = {
     PARENT: 'genericTank',
     LABEL: 'Klutz',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46667,13 +47875,14 @@ Class.customKlutz = {
 
     ],
 }
-Class.customKraal = {
+Class.kraal_AR = {
     PARENT: 'genericTank',
     LABEL: 'Kraal',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46738,13 +47947,14 @@ Class.customKraal = {
 
     ],
 }
-Class.customLabordrive = {
+Class.labordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Labordrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46780,7 +47990,7 @@ Class.customLabordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -46792,13 +48002,14 @@ Class.customLabordrive = {
 
     ],
 }
-Class.customLaborer = {
+Class.laborer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Laborer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46833,24 +48044,25 @@ Class.customLaborer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customWorker',
-        'customAutolaborer',
-        'customMegaLaborer',
-        'customLabordrive',
-        'customToiler',
-        'customGrinder',
-        'customServicer',
-        'customEndeavor',
-        'customSlogger',
+        'worker',
+        'autolaborer',
+        'megaLaborer',
+        'labordrive',
+        'toiler',
+        'grinder',
+        'servicer',
+        'endeavor',
+        'slogger',
     ],
 }
-Class.customLadle = {
+Class.ladle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ladle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46905,13 +48117,14 @@ Class.customLadle = {
 
     ],
 }
-Class.customLandau = {
+Class.landau_AR = {
     PARENT: 'genericTank',
     LABEL: 'Landau',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -46946,7 +48159,7 @@ Class.customLandau = {
 
     ],
 }
-Class.customLandmine = {
+Class.landmine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Landmine',
     SIZE: 12,
@@ -46955,7 +48168,7 @@ Class.customLandmine = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -46965,7 +48178,7 @@ Class.customLandmine = {
             }
         },
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -46977,22 +48190,23 @@ Class.customLandmine = {
 
     ],
     UPGRADES_TIER_4: [
-        'customLimpet',
-        'customMegalandmine',
-        'customClaymore',
-        'customAutolandmine',
-        'customDecoy',
-        'customTripwire',
-        'customVessel',
+        'limpet',
+        'megalandmine',
+        'claymore',
+        'autolandmine',
+        'decoy',
+        'tripwire',
+        'vessel',
     ],
 }
-Class.customLasher = {
+Class.lasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lasher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47067,13 +48281,14 @@ Class.customLasher = {
 
     ],
 }
-Class.customLauncher = {
+Class.launcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47098,33 +48313,34 @@ Class.customLauncher = {
 
     ],
     UPGRADES_TIER_3: [
-        'customSkimmer',
-        'customTwister',
-        'customSwarmer',
-        'customSidewinder',
-        'customFieldGun',
-        'customRocketeer',
-        'customPitcher',
-        'customCluster',
-        'customProjector',
-        'customHeaver',
-        'customAutolauncher',
-        'customHurler',
-        'customInception',
+        'skimmer',
+        'twister',
+        'swarmer',
+        'sidewinder',
+        'fieldGun',
+        'rocketeer',
+        'pitcher',
+        'cluster',
+        'projector',
+        'heaver',
+        'autolauncher',
+        'hurler',
+        'inception',
     ],
     UPGRADES_TIER_4: [
-        'customSeriemas',
-        'customSupplant',
-        'customPumper',
+        'seriemas',
+        'supplant',
+        'pumper',
     ],
 }
-Class.customLavisher = {
+Class.lavisher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lavisher',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47179,13 +48395,14 @@ Class.customLavisher = {
 
     ],
 }
-Class.customLeader = {
+Class.leader_AR = {
     PARENT: 'genericTank',
     LABEL: 'Leader',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47200,13 +48417,14 @@ Class.customLeader = {
 
     ],
 }
-Class.customLever = {
+Class.lever_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lever',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47232,7 +48450,7 @@ Class.customLever = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -47242,7 +48460,7 @@ Class.customLever = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -47252,7 +48470,7 @@ Class.customLever = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -47264,13 +48482,14 @@ Class.customLever = {
 
     ],
 }
-Class.customLeviathan = {
+Class.leviathan_AR = {
     PARENT: 'genericTank',
     LABEL: 'Leviathan',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47295,13 +48514,14 @@ Class.customLeviathan = {
 
     ],
 }
-Class.customLicker = {
+Class.licker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Licker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47356,7 +48576,7 @@ Class.customLicker = {
 
     ],
 }
-Class.customLimpet = {
+Class.limpet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Limpet',
     SIZE: 12,
@@ -47365,7 +48585,7 @@ Class.customLimpet = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_36502',
+            TYPE: 'unnamed_36502',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -47375,7 +48595,7 @@ Class.customLimpet = {
             }
         },
         {
-            TYPE: 'customUnnamed_36502',
+            TYPE: 'unnamed_36502',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -47387,13 +48607,14 @@ Class.customLimpet = {
 
     ],
 }
-Class.customLobber = {
+Class.lobber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lobber',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47438,13 +48659,14 @@ Class.customLobber = {
 
     ],
 }
-Class.customLockup = {
+Class.lockup_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lockup',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47489,13 +48711,14 @@ Class.customLockup = {
 
     ],
 }
-Class.customLoon = {
+Class.loon_AR = {
     PARENT: 'genericTank',
     LABEL: 'Loon',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47580,13 +48803,14 @@ Class.customLoon = {
 
     ],
 }
-Class.customLorry = {
+Class.lorry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lorry',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47601,13 +48825,14 @@ Class.customLorry = {
 
     ],
 }
-Class.customLugger = {
+Class.lugger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lugger',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47672,13 +48897,14 @@ Class.customLugger = {
 
     ],
 }
-Class.customLure = {
+Class.lure_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lure',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47753,13 +48979,14 @@ Class.customLure = {
 
     ],
 }
-Class.customLyncher = {
+Class.lyncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Lyncher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47814,13 +49041,14 @@ Class.customLyncher = {
 
     ],
 }
-Class.customMachete = {
+Class.machete_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machete',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -47945,13 +49173,14 @@ Class.customMachete = {
 
     ],
 }
-Class.customMachgun = {
+Class.machgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48006,13 +49235,14 @@ Class.customMachgun = {
 
     ],
 }
-Class.customMachineGuard = {
+Class.machineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48047,27 +49277,28 @@ Class.customMachineGuard = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFusil',
-        'customShepherd',
-        'customPicket',
-        'customAnchor',
-        'customPartition',
-        'customShiver',
-        'customVallation',
-        'customEqualizerGuard',
-        'customAutomachineGuard',
-        'customRestrainer',
-        'customTrimachineGuard',
-        'customScout',
+        'fusil',
+        'shepherd',
+        'picket',
+        'anchor',
+        'partition',
+        'shiver',
+        'vallation',
+        'equalizerGuard',
+        'automachineGuard',
+        'restrainer',
+        'trimachineGuard',
+        'scout',
     ],
 }
-Class.customMachineGunner = {
+Class.machineGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48122,23 +49353,24 @@ Class.customMachineGunner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customContrivance',
-        'customClunker',
-        'customMotorGunner',
-        'customSprinkler',
-        'customAutomachineGunner',
-        'customSalvo',
-        'customDoubleMachineGunner',
-        'customMachineVolley',
+        'contrivance',
+        'clunker',
+        'motorGunner',
+        'sprinkler',
+        'automachineGunner',
+        'salvo',
+        'doubleMachineGunner',
+        'machineVolley',
     ],
 }
-Class.customMachineMech = {
+Class.machineMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48173,23 +49405,24 @@ Class.customMachineMech = {
 
     ],
     UPGRADES_TIER_4: [
-        'customTrimachineMech',
-        'customShepherd',
-        'customExerter',
-        'customAutomachineMech',
-        'customRepairman',
-        'customHardware',
-        'customArtificer',
-        'customRigger',
+        'trimachineMech',
+        'shepherd',
+        'exerter',
+        'automachineMech',
+        'repairman',
+        'hardware',
+        'artificer',
+        'rigger',
     ],
 }
-Class.customMachineMegaTrapper = {
+Class.machineMegaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48214,13 +49447,14 @@ Class.customMachineMegaTrapper = {
 
     ],
 }
-Class.customMachineTrapper = {
+Class.machineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48245,29 +49479,30 @@ Class.customMachineTrapper = {
 
     ],
     UPGRADES_TIER_3: [
-        'customDieselTrapper',
-        'customBarricade',
-        'customEqualizer',
-        'customMachineGuard',
-        'customEncircler',
-        'customMachineMech',
-        'customTrimachine',
-        'customExpeller',
-        'customAutomachineTrapper',
-        'customDeviation',
+        'dieselTrapper',
+        'barricade',
+        'equalizer',
+        'machineGuard',
+        'encircler',
+        'machineMech',
+        'trimachine',
+        'expeller',
+        'automachineTrapper',
+        'deviation',
     ],
     UPGRADES_TIER_4: [
-        'customFrother',
-        'customMachineMegaTrapper',
+        'frother',
+        'machineMegaTrapper',
     ],
 }
-Class.customMachineVolley = {
+Class.machineVolley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Volley',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48322,13 +49557,14 @@ Class.customMachineVolley = {
 
     ],
 }
-Class.customMachinist = {
+Class.machinist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machinist',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48383,13 +49619,14 @@ Class.customMachinist = {
 
     ],
 }
-Class.customMagnet = {
+Class.magnet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Magnet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48454,13 +49691,14 @@ Class.customMagnet = {
 
     ],
 }
-Class.customMagnum = {
+Class.magnum_AR = {
     PARENT: 'genericTank',
     LABEL: 'Magnum',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48525,13 +49763,14 @@ Class.customMagnum = {
 
     ],
 }
-Class.customMaker = {
+Class.maker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48586,13 +49825,14 @@ Class.customMaker = {
 
     ],
 }
-Class.customMamba = {
+Class.mamba_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mamba',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48637,13 +49877,14 @@ Class.customMamba = {
 
     ],
 }
-Class.customManOWar = {
+Class.manOWar_AR = {
     PARENT: 'genericTank',
     LABEL: "Man o' War",
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48728,13 +49969,14 @@ Class.customManOWar = {
 
     ],
 }
-Class.customManager = {
+Class.manager_AR = {
     PARENT: 'genericTank',
     LABEL: 'Manager',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48749,24 +49991,25 @@ Class.customManager = {
 
     ],
     UPGRADES_TIER_4: [
-        'customLeader',
-        'customInspector',
-        'customSuperintendent',
-        'customConductor',
-        'customHandler',
-        'customMinister',
-        'customManagerdrive',
-        'customAutomanager',
-        'customController',
+        'leader',
+        'inspector',
+        'superintendent',
+        'conductor',
+        'handler',
+        'minister',
+        'managerdrive',
+        'automanager',
+        'controller',
     ],
 }
-Class.customManagerdrive = {
+Class.managerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Managerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48782,7 +50025,7 @@ Class.customManagerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -48794,13 +50037,14 @@ Class.customManagerdrive = {
 
     ],
 }
-Class.customMandarin = {
+Class.mandarin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mandarin',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48865,13 +50109,14 @@ Class.customMandarin = {
 
     ],
 }
-Class.customMandible = {
+Class.mandible_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mandible',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -48897,7 +50142,7 @@ Class.customMandible = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -48907,7 +50152,7 @@ Class.customMandible = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -48919,13 +50164,14 @@ Class.customMandible = {
 
     ],
 }
-Class.customMangle = {
+Class.mangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mangle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49010,13 +50256,14 @@ Class.customMangle = {
 
     ],
 }
-Class.customManufacture = {
+Class.manufacture_AR = {
     PARENT: 'genericTank',
     LABEL: 'Manufacture',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49081,13 +50328,14 @@ Class.customManufacture = {
 
     ],
 }
-Class.customMarine = {
+Class.marine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Marine',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49142,13 +50390,14 @@ Class.customMarine = {
 
     ],
 }
-Class.customMassacrer = {
+Class.massacrer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Massacrer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49183,7 +50432,7 @@ Class.customMassacrer = {
 
     ],
 }
-Class.customMastermind = {
+Class.mastermind_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mastermind',
     SIZE: 12,
@@ -49192,7 +50441,7 @@ Class.customMastermind = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_60505',
+            TYPE: 'unnamed_60505',
             POSITION: {
                 SIZE: 13.500000238418579,
                 LAYER: 0,
@@ -49202,7 +50451,7 @@ Class.customMastermind = {
             }
         },
         {
-            TYPE: 'customUnnamed_60505',
+            TYPE: 'unnamed_60505',
             POSITION: {
                 SIZE: 13.500000238418579,
                 LAYER: 0,
@@ -49212,7 +50461,7 @@ Class.customMastermind = {
             }
         },
         {
-            TYPE: 'customUnnamed_60505',
+            TYPE: 'unnamed_60505',
             POSITION: {
                 SIZE: 13.500000238418579,
                 LAYER: 0,
@@ -49224,13 +50473,14 @@ Class.customMastermind = {
 
     ],
 }
-Class.customMatchlock = {
+Class.matchlock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Matchlock',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49285,13 +50535,14 @@ Class.customMatchlock = {
 
     ],
 }
-Class.customMaverick = {
+Class.maverick_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maverick',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49326,13 +50577,14 @@ Class.customMaverick = {
 
     ],
 }
-Class.customMaw = {
+Class.maw_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maw',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49387,13 +50639,14 @@ Class.customMaw = {
 
     ],
 }
-Class.customMech = {
+Class.mech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49428,27 +50681,28 @@ Class.customMech = {
 
     ],
     UPGRADES_TIER_3: [
-        'customEngineer',
-        'customTrimech',
-        'customMachineMech',
-        'customMechGuard',
-        'customOperator',
-        'customCog',
-        'customCobbler',
-        'customAutomech',
+        'engineer',
+        'trimech',
+        'machineMech',
+        'mechGuard',
+        'operator',
+        'cog',
+        'cobbler',
+        'automech',
     ],
     UPGRADES_TIER_4: [
-        'customPropper',
-        'customTechnician',
+        'propper',
+        'technician',
     ],
 }
-Class.customMechGuard = {
+Class.mechGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mech Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49493,25 +50747,26 @@ Class.customMechGuard = {
 
     ],
     UPGRADES_TIER_4: [
-        'customWatchman',
-        'customShepherd',
-        'customGunnerMech',
-        'customBolter',
-        'customVanquisher',
-        'customImpeder',
-        'customPatrol',
-        'customAutomechGuard',
-        'customJailer',
-        'customTrimechGuard',
+        'watchman',
+        'shepherd',
+        'gunnerMech',
+        'bolter',
+        'vanquisher',
+        'impeder',
+        'patrol',
+        'automechGuard',
+        'jailer',
+        'trimechGuard',
     ],
 }
-Class.customMechanic = {
+Class.mechanic_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mechanic',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49556,13 +50811,14 @@ Class.customMechanic = {
 
     ],
 }
-Class.customMegaAutoartillery = {
+Class.megaAutoartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49598,7 +50854,7 @@ Class.customMegaAutoartillery = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49610,13 +50866,14 @@ Class.customMegaAutoartillery = {
 
     ],
 }
-Class.customMegaAutoassassin = {
+Class.megaAutoassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49642,7 +50899,7 @@ Class.customMegaAutoassassin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49654,7 +50911,7 @@ Class.customMegaAutoassassin = {
 
     ],
 }
-Class.customMegaAutoauto3 = {
+Class.megaAutoauto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Auto-3',
     SIZE: 12,
@@ -49663,7 +50920,7 @@ Class.customMegaAutoauto3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -49673,7 +50930,7 @@ Class.customMegaAutoauto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -49683,7 +50940,7 @@ Class.customMegaAutoauto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -49693,7 +50950,7 @@ Class.customMegaAutoauto3 = {
             }
         },
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49705,13 +50962,14 @@ Class.customMegaAutoauto3 = {
 
     ],
 }
-Class.customMegaAutobuilder = {
+Class.megaAutobuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Builder',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49737,7 +50995,7 @@ Class.customMegaAutobuilder = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49749,13 +51007,14 @@ Class.customMegaAutobuilder = {
 
     ],
 }
-Class.customMegaAutocruiser = {
+Class.megaAutocruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49781,7 +51040,7 @@ Class.customMegaAutocruiser = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49793,13 +51052,14 @@ Class.customMegaAutocruiser = {
 
     ],
 }
-Class.customMegaAutodestroyer = {
+Class.megaAutodestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49815,7 +51075,7 @@ Class.customMegaAutodestroyer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49827,13 +51087,14 @@ Class.customMegaAutodestroyer = {
 
     ],
 }
-Class.customMegaAutodiesel = {
+Class.megaAutodiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49849,7 +51110,7 @@ Class.customMegaAutodiesel = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49861,13 +51122,14 @@ Class.customMegaAutodiesel = {
 
     ],
 }
-Class.customMegaAutodirectordrive = {
+Class.megaAutodirectordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49883,7 +51145,7 @@ Class.customMegaAutodirectordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_36298',
+            TYPE: 'turret_36298',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -49895,13 +51157,14 @@ Class.customMegaAutodirectordrive = {
 
     ],
 }
-Class.customMegaAutodoper = {
+Class.megaAutodoper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Doper',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49927,7 +51190,7 @@ Class.customMegaAutodoper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -49939,13 +51202,14 @@ Class.customMegaAutodoper = {
 
     ],
 }
-Class.customMegaAutodoubleTwin = {
+Class.megaAutodoubleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Double Twin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -49991,7 +51255,7 @@ Class.customMegaAutodoubleTwin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50003,13 +51267,14 @@ Class.customMegaAutodoubleTwin = {
 
     ],
 }
-Class.customMegaAutogunner = {
+Class.megaAutogunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50055,7 +51320,7 @@ Class.customMegaAutogunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50067,13 +51332,14 @@ Class.customMegaAutogunner = {
 
     ],
 }
-Class.customMegaAutohexaTank = {
+Class.megaAutohexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50139,7 +51405,7 @@ Class.customMegaAutohexaTank = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50151,13 +51417,14 @@ Class.customMegaAutohexaTank = {
 
     ],
 }
-Class.customMegaAutohoncho = {
+Class.megaAutohoncho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50173,7 +51440,7 @@ Class.customMegaAutohoncho = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50185,13 +51452,14 @@ Class.customMegaAutohoncho = {
 
     ],
 }
-Class.customMegaAutohunter = {
+Class.megaAutohunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50217,7 +51485,7 @@ Class.customMegaAutohunter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50229,13 +51497,14 @@ Class.customMegaAutohunter = {
 
     ],
 }
-Class.customMegaAutolauncher = {
+Class.megaAutolauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50261,7 +51530,7 @@ Class.customMegaAutolauncher = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50273,13 +51542,14 @@ Class.customMegaAutolauncher = {
 
     ],
 }
-Class.customMegaAutomachineTrapper = {
+Class.megaAutomachineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50305,7 +51575,7 @@ Class.customMegaAutomachineTrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50317,13 +51587,14 @@ Class.customMegaAutomachineTrapper = {
 
     ],
 }
-Class.customMegaAutomech = {
+Class.megaAutomech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50359,7 +51630,7 @@ Class.customMegaAutomech = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50371,13 +51642,14 @@ Class.customMegaAutomech = {
 
     ],
 }
-Class.customMegaAutominigun = {
+Class.megaAutominigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50413,7 +51685,7 @@ Class.customMegaAutominigun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50425,13 +51697,14 @@ Class.customMegaAutominigun = {
 
     ],
 }
-Class.customMegaAutooverseer = {
+Class.megaAutooverseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50457,7 +51730,7 @@ Class.customMegaAutooverseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50469,13 +51742,14 @@ Class.customMegaAutooverseer = {
 
     ],
 }
-Class.customMegaAutopen = {
+Class.megaAutopen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50511,7 +51785,7 @@ Class.customMegaAutopen = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50523,13 +51797,14 @@ Class.customMegaAutopen = {
 
     ],
 }
-Class.customMegaAutorifle = {
+Class.megaAutorifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50555,7 +51830,7 @@ Class.customMegaAutorifle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50567,7 +51842,7 @@ Class.customMegaAutorifle = {
 
     ],
 }
-Class.customMegaAutosmasher = {
+Class.megaAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Smasher',
     SIZE: 12,
@@ -50576,7 +51851,7 @@ Class.customMegaAutosmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -50586,7 +51861,7 @@ Class.customMegaAutosmasher = {
             }
         },
         {
-            TYPE: 'customTurret_59723',
+            TYPE: 'turret_59723',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 1,
@@ -50598,13 +51873,14 @@ Class.customMegaAutosmasher = {
 
     ],
 }
-Class.customMegaAutospawner = {
+Class.megaAutospawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50640,7 +51916,7 @@ Class.customMegaAutospawner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50652,13 +51928,14 @@ Class.customMegaAutospawner = {
 
     ],
 }
-Class.customMegaAutotrapGuard = {
+Class.megaAutotrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50694,7 +51971,7 @@ Class.customMegaAutotrapGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50706,13 +51983,14 @@ Class.customMegaAutotrapGuard = {
 
     ],
 }
-Class.customMegaAutotriangle = {
+Class.megaAutotriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50748,7 +52026,7 @@ Class.customMegaAutotriangle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50760,13 +52038,14 @@ Class.customMegaAutotriangle = {
 
     ],
 }
-Class.customMegaAutotripleShot = {
+Class.megaAutotripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50802,7 +52081,7 @@ Class.customMegaAutotripleShot = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50814,13 +52093,14 @@ Class.customMegaAutotripleShot = {
 
     ],
 }
-Class.customMegaAutowark = {
+Class.megaAutowark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Wark',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50866,7 +52146,7 @@ Class.customMegaAutowark = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -50878,7 +52158,7 @@ Class.customMegaAutowark = {
 
     ],
 }
-Class.customMegaBanger = {
+Class.megaBanger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Banger',
     SIZE: 12,
@@ -50887,7 +52167,7 @@ Class.customMegaBanger = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 30.0,
                 LAYER: 0,
@@ -50899,13 +52179,14 @@ Class.customMegaBanger = {
 
     ],
 }
-Class.customMegaCaptain = {
+Class.megaCaptain_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Captain',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -50970,13 +52251,14 @@ Class.customMegaCaptain = {
 
     ],
 }
-Class.customMegaCourser = {
+Class.megaCourser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Courser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51011,13 +52293,14 @@ Class.customMegaCourser = {
 
     ],
 }
-Class.customMegaFactory = {
+Class.megaFactory_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Factory',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51052,13 +52335,14 @@ Class.customMegaFactory = {
 
     ],
 }
-Class.customMegaFoundry = {
+Class.megaFoundry_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Foundry',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51093,13 +52377,14 @@ Class.customMegaFoundry = {
 
     ],
 }
-Class.customMegaHangar = {
+Class.megaHangar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Hangar',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51154,13 +52439,14 @@ Class.customMegaHangar = {
 
     ],
 }
-Class.customMegaHexatrapper = {
+Class.megaHexatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Hexa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51286,7 +52572,7 @@ Class.customMegaHexatrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -51298,13 +52584,14 @@ Class.customMegaHexatrapper = {
 
     ],
 }
-Class.customMegaHunter = {
+Class.megaHunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51329,23 +52616,24 @@ Class.customMegaHunter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customUltraHunter',
-        'customSlingshot',
-        'customMegaPredator',
-        'customMegaOrdnance',
-        'customMegaPoacher',
-        'customAutomegaHunter',
-        'customMegaProber',
-        'customMegaCourser',
+        'ultraHunter',
+        'slingshot',
+        'megaPredator',
+        'megaOrdnance',
+        'megaPoacher',
+        'automegaHunter',
+        'megaProber',
+        'megaCourser',
     ],
 }
-Class.customMegaIssuer = {
+Class.megaIssuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Issuer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51390,13 +52678,14 @@ Class.customMegaIssuer = {
 
     ],
 }
-Class.customMegaLaborer = {
+Class.megaLaborer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Laborer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51431,13 +52720,14 @@ Class.customMegaLaborer = {
 
     ],
 }
-Class.customMegaOrdnance = {
+Class.megaOrdnance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Ordnance',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51482,13 +52772,14 @@ Class.customMegaOrdnance = {
 
     ],
 }
-Class.customMegaPoacher = {
+Class.megaPoacher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Poacher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51523,13 +52814,14 @@ Class.customMegaPoacher = {
 
     ],
 }
-Class.customMegaPredator = {
+Class.megaPredator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Predator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51564,13 +52856,14 @@ Class.customMegaPredator = {
 
     ],
 }
-Class.customMegaProber = {
+Class.megaProber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Prober',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51605,13 +52898,14 @@ Class.customMegaProber = {
 
     ],
 }
-Class.customMegaSpawner = {
+Class.megaSpawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51646,24 +52940,25 @@ Class.customMegaSpawner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customUltraSpawner',
-        'customMegaFactory',
-        'customAutomegaSpawner',
-        'customMegaSpawnerdrive',
-        'customMegaCaptain',
-        'customMegaHangar',
-        'customMegaLaborer',
-        'customMegaFoundry',
-        'customMegaIssuer',
+        'ultraSpawner',
+        'megaFactory',
+        'automegaSpawner',
+        'megaSpawnerdrive',
+        'megaCaptain',
+        'megaHangar',
+        'megaLaborer',
+        'megaFoundry',
+        'megaIssuer',
     ],
 }
-Class.customMegaSpawnerdrive = {
+Class.megaSpawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Spawnerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51699,7 +52994,7 @@ Class.customMegaSpawnerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -51711,13 +53006,14 @@ Class.customMegaSpawnerdrive = {
 
     ],
 }
-Class.customMegaTrapper = {
+Class.megaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51742,29 +53038,30 @@ Class.customMegaTrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customUltraTrapper',
-        'customAssembler',
-        'customTrimegaTrapper',
-        'customGarrison',
-        'customSty',
-        'customTechnician',
-        'customPulverizer',
-        'customCornerer',
-        'customCatcher',
-        'customAutomegaTrapper',
-        'customMachineMegaTrapper',
-        'customShoebill',
-        'customSeizer',
-        'customMegaWark',
+        'ultraTrapper',
+        'assembler',
+        'trimegaTrapper',
+        'garrison',
+        'sty',
+        'technician',
+        'pulverizer',
+        'cornerer',
+        'catcher',
+        'automegaTrapper',
+        'machineMegaTrapper',
+        'shoebill',
+        'seizer',
+        'megaWark',
     ],
 }
-Class.customMegaWark = {
+Class.megaWark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Wark',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -51829,7 +53126,7 @@ Class.customMegaWark = {
 
     ],
 }
-Class.customMega3 = {
+Class.mega3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-3',
     SIZE: 12,
@@ -51838,7 +53135,7 @@ Class.customMega3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51848,7 +53145,7 @@ Class.customMega3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51858,7 +53155,7 @@ Class.customMega3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51870,19 +53167,19 @@ Class.customMega3 = {
 
     ],
     UPGRADES_TIER_4: [
-        'customUltra3',
-        'customQueller3',
-        'customHurler3',
-        'customSlinker3',
-        'customMega5',
-        'customVolley4',
-        'customSpirit',
-        'customCrank',
-        'customAutomega3',
-        'customSequence',
+        'ultra3',
+        'queller3',
+        'hurler3',
+        'slinker3',
+        'mega5',
+        'volley4',
+        'spirit',
+        'crank',
+        'automega3',
+        'sequence',
     ],
 }
-Class.customMega5 = {
+Class.mega5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-5',
     SIZE: 12,
@@ -51891,7 +53188,7 @@ Class.customMega5 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51901,7 +53198,7 @@ Class.customMega5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51911,7 +53208,7 @@ Class.customMega5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51921,7 +53218,7 @@ Class.customMega5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51931,7 +53228,7 @@ Class.customMega5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -51943,7 +53240,7 @@ Class.customMega5 = {
 
     ],
 }
-Class.customMegabonker = {
+Class.megabonker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Bonker',
     SIZE: 12,
@@ -51952,7 +53249,7 @@ Class.customMegabonker = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 25.0,
                 LAYER: 0,
@@ -51964,7 +53261,7 @@ Class.customMegabonker = {
 
     ],
 }
-Class.customMegadrifter = {
+Class.megadrifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Drifter',
     SIZE: 12,
@@ -51973,7 +53270,7 @@ Class.customMegadrifter = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_5627',
+            TYPE: 'unknownClass_5627',
             POSITION: {
                 SIZE: 22.999999523162842,
                 LAYER: 0,
@@ -51985,7 +53282,7 @@ Class.customMegadrifter = {
 
     ],
 }
-Class.customMegalandmine = {
+Class.megalandmine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Landmine',
     SIZE: 12,
@@ -51994,7 +53291,7 @@ Class.customMegalandmine = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 25.0,
                 LAYER: 0,
@@ -52004,7 +53301,7 @@ Class.customMegalandmine = {
             }
         },
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 25.0,
                 LAYER: 0,
@@ -52016,7 +53313,7 @@ Class.customMegalandmine = {
 
     ],
 }
-Class.customMegasmasher = {
+Class.megasmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Smasher',
     SIZE: 12,
@@ -52025,7 +53322,7 @@ Class.customMegasmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 25.0,
                 LAYER: 0,
@@ -52037,16 +53334,16 @@ Class.customMegasmasher = {
 
     ],
     UPGRADES_TIER_4: [
-        'customUltrasmasher',
-        'customMegaspike',
-        'customMegalandmine',
-        'customAutomegasmasher',
-        'customMegabonker',
-        'customMegaBanger',
-        'customMegadrifter',
+        'ultrasmasher',
+        'megaspike',
+        'megalandmine',
+        'automegasmasher',
+        'megabonker',
+        'megaBanger',
+        'megadrifter',
     ],
 }
-Class.customMegaspike = {
+Class.megaspike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega-Spike',
     SIZE: 12,
@@ -52055,7 +53352,7 @@ Class.customMegaspike = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 19.500000476837158,
                 LAYER: 0,
@@ -52065,7 +53362,7 @@ Class.customMegaspike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 19.500000476837158,
                 LAYER: 0,
@@ -52075,7 +53372,7 @@ Class.customMegaspike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 19.500000476837158,
                 LAYER: 0,
@@ -52085,7 +53382,7 @@ Class.customMegaspike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 19.500000476837158,
                 LAYER: 0,
@@ -52097,13 +53394,14 @@ Class.customMegaspike = {
 
     ],
 }
-Class.customMeld = {
+Class.meld_AR = {
     PARENT: 'genericTank',
     LABEL: 'Meld',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52138,13 +53436,14 @@ Class.customMeld = {
 
     ],
 }
-Class.customMelder = {
+Class.melder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Melder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52209,13 +53508,14 @@ Class.customMelder = {
 
     ],
 }
-Class.customMercenary = {
+Class.mercenary_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mercenary',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52280,13 +53580,14 @@ Class.customMercenary = {
 
     ],
 }
-Class.customMerganser = {
+Class.merganser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Merganser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52351,13 +53652,14 @@ Class.customMerganser = {
 
     ],
 }
-Class.customMerlin = {
+Class.merlin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Merlin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52432,13 +53734,14 @@ Class.customMerlin = {
 
     ],
 }
-Class.customMethodist = {
+Class.methodist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Methodist',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52473,13 +53776,14 @@ Class.customMethodist = {
 
     ],
 }
-Class.customMine = {
+Class.mine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mine',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52524,13 +53828,14 @@ Class.customMine = {
 
     ],
 }
-Class.customMingler = {
+Class.mingler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mingler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52655,20 +53960,21 @@ Class.customMingler = {
 
     ],
     UPGRADES_TIER_4: [
-        'customUnity',
-        'customAlloy',
-        'customGale',
-        'customCozen',
-        'customAutomingler',
+        'unity',
+        'alloy',
+        'gale',
+        'cozen',
+        'automingler',
     ],
 }
-Class.customMinigun = {
+Class.minigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52703,29 +54009,30 @@ Class.customMinigun = {
 
     ],
     UPGRADES_TIER_3: [
-        'customStreamliner',
-        'customNailgun',
-        'customCropDuster',
-        'customBarricade',
-        'customSubverter',
-        'customTaser',
-        'customZipper',
-        'customBentMinigun',
-        'customAutominigun',
-        'customWidget',
+        'streamliner',
+        'nailgun',
+        'cropDuster',
+        'barricade',
+        'subverter',
+        'taser',
+        'zipper',
+        'bentMinigun',
+        'autominigun',
+        'widget',
     ],
     UPGRADES_TIER_4: [
-        'customTommy',
-        'customMachgun',
+        'tommy',
+        'machgun',
     ],
 }
-Class.customMinilet = {
+Class.minilet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minilet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52800,13 +54107,14 @@ Class.customMinilet = {
 
     ],
 }
-Class.customMinister = {
+Class.minister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minister',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52821,13 +54129,14 @@ Class.customMinister = {
 
     ],
 }
-Class.customMixer = {
+Class.mixer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mixer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52882,13 +54191,14 @@ Class.customMixer = {
 
     ],
 }
-Class.customModeler = {
+Class.modeler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Modeler',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -52943,13 +54253,14 @@ Class.customModeler = {
 
     ],
 }
-Class.customMogul = {
+Class.mogul_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mogul',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53034,13 +54345,14 @@ Class.customMogul = {
 
     ],
 }
-Class.customMolder = {
+Class.molder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Molder',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53075,13 +54387,14 @@ Class.customMolder = {
 
     ],
 }
-Class.customMolotov = {
+Class.molotov_AR = {
     PARENT: 'genericTank',
     LABEL: 'Molotov',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53116,13 +54429,14 @@ Class.customMolotov = {
 
     ],
 }
-Class.customMongrel = {
+Class.mongrel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mongrel',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53157,13 +54471,14 @@ Class.customMongrel = {
 
     ],
 }
-Class.customMono = {
+Class.mono_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mono',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53198,13 +54513,14 @@ Class.customMono = {
 
     ],
 }
-Class.customMortar = {
+Class.mortar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mortar',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53259,25 +54575,26 @@ Class.customMortar = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSheller',
-        'customRuiner',
-        'customBeemaster',
-        'customCrusher',
-        'customCaster',
-        'customRainmaker',
-        'customAutomortar',
-        'customPlaster',
-        'customFoctar',
-        'customFusillade',
+        'sheller',
+        'ruiner',
+        'beemaster',
+        'crusher',
+        'caster',
+        'rainmaker',
+        'automortar',
+        'plaster',
+        'foctar',
+        'fusillade',
     ],
 }
-Class.customMosey = {
+Class.mosey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mosey',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53322,26 +54639,27 @@ Class.customMosey = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSailor',
-        'customLugger',
-        'customManOWar',
-        'customFortalice',
-        'customAutomosey',
-        'customAdjurer',
-        'customInducer',
-        'customMoseydrive',
-        'customReposit',
-        'customPepper',
-        'customHarbor',
+        'sailor',
+        'lugger',
+        'manOWar',
+        'fortalice',
+        'automosey',
+        'adjurer',
+        'inducer',
+        'moseydrive',
+        'reposit',
+        'pepper',
+        'harbor',
     ],
 }
-Class.customMoseydrive = {
+Class.moseydrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Moseydrive',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53387,7 +54705,7 @@ Class.customMoseydrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -53399,13 +54717,14 @@ Class.customMoseydrive = {
 
     ],
 }
-Class.customMotorGunner = {
+Class.motorGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Motor Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53480,13 +54799,14 @@ Class.customMotorGunner = {
 
     ],
 }
-Class.customMusket = {
+Class.musket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Musket',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53531,22 +54851,23 @@ Class.customMusket = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDoubleMusket',
-        'customFlintlock',
-        'customArbalest',
-        'customMatchlock',
-        'customAutomusket',
-        'customDuelist',
-        'customBifold',
+        'doubleMusket',
+        'flintlock',
+        'arbalest',
+        'matchlock',
+        'automusket',
+        'duelist',
+        'bifold',
     ],
 }
-Class.customMyriad = {
+Class.myriad_AR = {
     PARENT: 'genericTank',
     LABEL: 'Myriad',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53571,13 +54892,14 @@ Class.customMyriad = {
 
     ],
 }
-Class.customNabber = {
+Class.nabber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nabber',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53612,13 +54934,14 @@ Class.customNabber = {
 
     ],
 }
-Class.customNailgun = {
+Class.nailgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nailgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53663,29 +54986,30 @@ Class.customNailgun = {
 
     ],
     UPGRADES_TIER_4: [
-        'customVulcan',
-        'customOvernailer',
-        'customTacker',
-        'customAutonailgun',
-        'customStapler',
-        'customPincer',
-        'customPinner',
-        'customFang',
-        'customLicker',
-        'customJolter',
-        'customBracer',
-        'customDoubleNailgun',
-        'customBinder',
-        'customHammer',
+        'vulcan',
+        'overnailer',
+        'tacker',
+        'autonailgun',
+        'stapler',
+        'pincer',
+        'pinner',
+        'fang',
+        'licker',
+        'jolter',
+        'bracer',
+        'doubleNailgun',
+        'binder',
+        'hammer',
     ],
 }
-Class.customNester = {
+Class.nester_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nester',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53720,13 +55044,14 @@ Class.customNester = {
 
     ],
 }
-Class.customNeutron = {
+Class.neutron_AR = {
     PARENT: 'genericTank',
     LABEL: 'Neutron',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53761,13 +55086,14 @@ Class.customNeutron = {
 
     ],
 }
-Class.customNimrod = {
+Class.nimrod_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nimrod',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53832,13 +55158,14 @@ Class.customNimrod = {
 
     ],
 }
-Class.customNitwit = {
+Class.nitwit_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nitwit',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -53903,13 +55230,14 @@ Class.customNitwit = {
 
     ],
 }
-Class.customNonatrapper = {
+Class.nonatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nona-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54094,13 +55422,14 @@ Class.customNonatrapper = {
 
     ],
 }
-Class.customNuker = {
+Class.nuker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Nuker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54185,13 +55514,14 @@ Class.customNuker = {
 
     ],
 }
-Class.customObliterator = {
+Class.obliterator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Obliterator',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54226,13 +55556,14 @@ Class.customObliterator = {
 
     ],
 }
-Class.customOctoTank = {
+Class.octoTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Octo Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54317,22 +55648,23 @@ Class.customOctoTank = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDecaTank',
-        'customTempest',
-        'customGale',
-        'customOctotrapper',
-        'customDemise',
-        'customAutooctoTank',
-        'customConsolidation',
+        'decaTank',
+        'tempest',
+        'gale',
+        'octotrapper',
+        'demise',
+        'autooctoTank',
+        'consolidation',
     ],
 }
-Class.customOctotrapper = {
+Class.octotrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Octo-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54498,7 +55830,7 @@ Class.customOctotrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -54510,13 +55842,14 @@ Class.customOctotrapper = {
 
     ],
 }
-Class.customOperator = {
+Class.operator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Operator',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54561,23 +55894,24 @@ Class.customOperator = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCubicle',
-        'customTrioperator',
-        'customExerter',
-        'customJailer',
-        'customCacatua',
-        'customEmployer',
-        'customUtilizer',
-        'customAutooperator',
+        'cubicle',
+        'trioperator',
+        'exerter',
+        'jailer',
+        'cacatua',
+        'employer',
+        'utilizer',
+        'autooperator',
     ],
 }
-Class.customOracle = {
+Class.oracle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Oracle',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54652,13 +55986,14 @@ Class.customOracle = {
 
     ],
 }
-Class.customOrbitalStrike = {
+Class.orbitalStrike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Orbital Strike',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54723,13 +56058,14 @@ Class.customOrbitalStrike = {
 
     ],
 }
-Class.customOrdnance = {
+Class.ordnance_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ordnance',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54774,20 +56110,20 @@ Class.customOrdnance = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRuiner',
-        'customEscort',
-        'customArsenal',
-        'customHuntsman',
-        'customNimrod',
-        'customAutoordnance',
-        'customFirepower',
-        'customMegaOrdnance',
-        'customCarnage',
-        'customLyncher',
-        'customBroadsider',
+        'ruiner',
+        'escort',
+        'arsenal',
+        'huntsman',
+        'nimrod',
+        'autoordnance',
+        'firepower',
+        'megaOrdnance',
+        'carnage',
+        'lyncher',
+        'broadsider',
     ],
 }
-Class.customOriginator = {
+Class.originator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Originator',
     SIZE: 12,
@@ -54796,7 +56132,7 @@ Class.customOriginator = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_45845',
+            TYPE: 'unnamed_45845',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -54806,7 +56142,7 @@ Class.customOriginator = {
             }
         },
         {
-            TYPE: 'customUnnamed_45845',
+            TYPE: 'unnamed_45845',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -54816,7 +56152,7 @@ Class.customOriginator = {
             }
         },
         {
-            TYPE: 'customUnnamed_45845',
+            TYPE: 'unnamed_45845',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -54828,13 +56164,14 @@ Class.customOriginator = {
 
     ],
 }
-Class.customOsprey = {
+Class.osprey_AR = {
     PARENT: 'genericTank',
     LABEL: 'Osprey',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -54899,13 +56236,14 @@ Class.customOsprey = {
 
     ],
 }
-Class.customOutpost = {
+Class.outpost_AR = {
     PARENT: 'genericTank',
     LABEL: 'Outpost',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55000,13 +56338,14 @@ Class.customOutpost = {
 
     ],
 }
-Class.customOverangle = {
+Class.overangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overangle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55061,13 +56400,14 @@ Class.customOverangle = {
 
     ],
 }
-Class.customOverartillery = {
+Class.overartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overartillery',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55122,13 +56462,14 @@ Class.customOverartillery = {
 
     ],
 }
-Class.customOverassassin = {
+Class.overassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overassassin',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55173,13 +56514,14 @@ Class.customOverassassin = {
 
     ],
 }
-Class.customOverbuilder = {
+Class.overbuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overbuilder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55224,13 +56566,14 @@ Class.customOverbuilder = {
 
     ],
 }
-Class.customOvercheese = {
+Class.overcheese_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overcheese',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55255,13 +56598,14 @@ Class.customOvercheese = {
 
     ],
 }
-Class.customOverczar = {
+Class.overczar_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overczar',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55326,13 +56670,14 @@ Class.customOverczar = {
 
     ],
 }
-Class.customOverdestroyer = {
+Class.overdestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdestroyer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55367,13 +56712,14 @@ Class.customOverdestroyer = {
 
     ],
 }
-Class.customOverdiesel = {
+Class.overdiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdiesel',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55408,13 +56754,14 @@ Class.customOverdiesel = {
 
     ],
 }
-Class.customOverdoubleGunner = {
+Class.overdoubleGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdouble Gunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55499,13 +56846,14 @@ Class.customOverdoubleGunner = {
 
     ],
 }
-Class.customOverdrive = {
+Class.overdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55531,7 +56879,7 @@ Class.customOverdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -55543,24 +56891,25 @@ Class.customOverdrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customTyrant',
-        'customOvertrapperdrive',
-        'customOvergunnerdrive',
-        'customBansheedrive',
-        'customAutooverdrive',
-        'customInstructor',
-        'customOverstorm',
-        'customForedrive',
-        'customDopeseerdrive',
+        'tyrant',
+        'overtrapperdrive',
+        'overgunnerdrive',
+        'bansheedrive',
+        'autooverdrive',
+        'instructor',
+        'overstorm',
+        'foredrive',
+        'dopeseerdrive',
     ],
 }
-Class.customOverequalizer = {
+Class.overequalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overequalizer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55635,13 +56984,14 @@ Class.customOverequalizer = {
 
     ],
 }
-Class.customOvergunner = {
+Class.overgunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overgunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55696,26 +57046,27 @@ Class.customOvergunner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHarbinger',
-        'customOvernailer',
-        'customOracle',
-        'customAutoovergunner',
-        'customDespot',
-        'customOvergunnerdrive',
-        'customBattlegunner',
-        'customCapgunner',
-        'customForegunner',
-        'customOverdoubleGunner',
-        'customOverequalizer',
+        'harbinger',
+        'overnailer',
+        'oracle',
+        'autoovergunner',
+        'despot',
+        'overgunnerdrive',
+        'battlegunner',
+        'capgunner',
+        'foregunner',
+        'overdoubleGunner',
+        'overequalizer',
     ],
 }
-Class.customOvergunnerdrive = {
+Class.overgunnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overgunnerdrive',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55771,7 +57122,7 @@ Class.customOvergunnerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -55783,13 +57134,14 @@ Class.customOvergunnerdrive = {
 
     ],
 }
-Class.customOverhunter = {
+Class.overhunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overhunter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55834,13 +57186,14 @@ Class.customOverhunter = {
 
     ],
 }
-Class.customOverlauncher = {
+Class.overlauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overlauncher',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55885,13 +57238,14 @@ Class.customOverlauncher = {
 
     ],
 }
-Class.customOverlord = {
+Class.overlord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overlord',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55936,25 +57290,26 @@ Class.customOverlord = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverczar',
-        'customKingpin',
-        'customDespot',
-        'customSpectre',
-        'customAutooverlord',
-        'customTyrant',
-        'customGeneral',
-        'customSupervisor',
-        'customHeadman',
-        'customDopelord',
+        'overczar',
+        'kingpin',
+        'despot',
+        'spectre',
+        'autooverlord',
+        'tyrant',
+        'general',
+        'supervisor',
+        'headman',
+        'dopelord',
     ],
 }
-Class.customOvermach = {
+Class.overmach_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overmach',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -55999,13 +57354,14 @@ Class.customOvermach = {
 
     ],
 }
-Class.customOvermech = {
+Class.overmech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overmech',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56060,13 +57416,14 @@ Class.customOvermech = {
 
     ],
 }
-Class.customOverminigun = {
+Class.overminigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overminigun',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56121,13 +57478,14 @@ Class.customOverminigun = {
 
     ],
 }
-Class.customOvernailer = {
+Class.overnailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overnailer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56192,13 +57550,14 @@ Class.customOvernailer = {
 
     ],
 }
-Class.customOverpen = {
+Class.overpen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overpen',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56253,13 +57612,14 @@ Class.customOverpen = {
 
     ],
 }
-Class.customOverrifle = {
+Class.overrifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overrifle',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56304,13 +57664,14 @@ Class.customOverrifle = {
 
     ],
 }
-Class.customOverrunner = {
+Class.overrunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overrunner',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56355,13 +57716,14 @@ Class.customOverrunner = {
 
     ],
 }
-Class.customOverseer = {
+Class.overseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56386,26 +57748,27 @@ Class.customOverseer = {
 
     ],
     UPGRADES_TIER_3: [
-        'customOverlord',
-        'customBanshee',
-        'customAutooverseer',
-        'customOverdrive',
-        'customCommander',
-        'customCaptain',
-        'customForeman',
-        'customDopeseer',
+        'overlord',
+        'banshee',
+        'autooverseer',
+        'overdrive',
+        'commander',
+        'captain',
+        'foreman',
+        'dopeseer',
     ],
     UPGRADES_TIER_4: [
-        'customInspector',
+        'inspector',
     ],
 }
-Class.customOvershot = {
+Class.overshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overshot',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56460,13 +57823,14 @@ Class.customOvershot = {
 
     ],
 }
-Class.customOverstorm = {
+Class.overstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overstorm',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56492,7 +57856,7 @@ Class.customOverstorm = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_42341',
+            TYPE: 'stormSquare_42341',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -56504,13 +57868,14 @@ Class.customOverstorm = {
 
     ],
 }
-Class.customOverthrower = {
+Class.overthrower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overthrower',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56555,13 +57920,14 @@ Class.customOverthrower = {
 
     ],
 }
-Class.customOvertrapGuard = {
+Class.overtrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overtrap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56616,13 +57982,14 @@ Class.customOvertrapGuard = {
 
     ],
 }
-Class.customOvertrapper = {
+Class.overtrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overtrapper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56667,27 +58034,28 @@ Class.customOvertrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customKingpin',
-        'customOvermach',
-        'customAutoovertrapper',
-        'customOvertrapperdrive',
-        'customBattletrapper',
-        'customCaptrapper',
-        'customForetrapper',
-        'customOverbuilder',
-        'customOvertrapGuard',
-        'customOverpen',
-        'customOvermech',
-        'customOverwark',
+        'kingpin',
+        'overmach',
+        'autoovertrapper',
+        'overtrapperdrive',
+        'battletrapper',
+        'captrapper',
+        'foretrapper',
+        'overbuilder',
+        'overtrapGuard',
+        'overpen',
+        'overmech',
+        'overwark',
     ],
 }
-Class.customOvertrapperdrive = {
+Class.overtrapperdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overtrapperdrive',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56733,7 +58101,7 @@ Class.customOvertrapperdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -56745,13 +58113,14 @@ Class.customOvertrapperdrive = {
 
     ],
 }
-Class.customOverwark = {
+Class.overwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overwark',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56816,13 +58185,14 @@ Class.customOverwark = {
 
     ],
 }
-Class.customOverwhelmer = {
+Class.overwhelmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Overwhelmer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56857,13 +58227,14 @@ Class.customOverwhelmer = {
 
     ],
 }
-Class.customOwl = {
+Class.owl_AR = {
     PARENT: 'genericTank',
     LABEL: 'Owl',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56908,13 +58279,14 @@ Class.customOwl = {
 
     ],
 }
-Class.customPacker = {
+Class.packer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Packer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -56959,7 +58331,7 @@ Class.customPacker = {
 
     ],
 }
-Class.customPaddock = {
+Class.paddock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Paddock',
     SIZE: 12,
@@ -56968,7 +58340,7 @@ Class.customPaddock = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24994',
+            TYPE: 'unnamed_24994',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -56978,7 +58350,7 @@ Class.customPaddock = {
             }
         },
         {
-            TYPE: 'customUnnamed_24994',
+            TYPE: 'unnamed_24994',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -56988,7 +58360,7 @@ Class.customPaddock = {
             }
         },
         {
-            TYPE: 'customUnnamed_24994',
+            TYPE: 'unnamed_24994',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -57000,13 +58372,14 @@ Class.customPaddock = {
 
     ],
 }
-Class.customPalisade = {
+Class.palisade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Palisade',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57161,13 +58534,14 @@ Class.customPalisade = {
 
     ],
 }
-Class.customParakeet = {
+Class.parakeet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parakeet',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57232,13 +58606,14 @@ Class.customParakeet = {
 
     ],
 }
-Class.customParapet = {
+Class.parapet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parapet',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57303,13 +58678,14 @@ Class.customParapet = {
 
     ],
 }
-Class.customParrot = {
+Class.parrot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parrot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57394,13 +58770,14 @@ Class.customParrot = {
 
     ],
 }
-Class.customParryer = {
+Class.parryer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Parryer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57445,13 +58822,14 @@ Class.customParryer = {
 
     ],
 }
-Class.customPartisan = {
+Class.partisan_AR = {
     PARENT: 'genericTank',
     LABEL: 'Partisan',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57496,13 +58874,14 @@ Class.customPartisan = {
 
     ],
 }
-Class.customPartition = {
+Class.partition_AR = {
     PARENT: 'genericTank',
     LABEL: 'Partition',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57567,13 +58946,14 @@ Class.customPartition = {
 
     ],
 }
-Class.customPatrol = {
+Class.patrol_AR = {
     PARENT: 'genericTank',
     LABEL: 'Patrol',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57628,13 +59008,14 @@ Class.customPatrol = {
 
     ],
 }
-Class.customPeashooter = {
+Class.peashooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Peashooter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57679,26 +59060,27 @@ Class.customPeashooter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customStockade',
-        'customFusil',
-        'customWhizzer',
-        'customBlowgun',
-        'customAutopeashooter',
-        'customConfiner',
-        'customPatrol',
-        'customPeashooterdrive',
-        'customPommel',
-        'customDotter',
-        'customTripeashooter',
+        'stockade',
+        'fusil',
+        'whizzer',
+        'blowgun',
+        'autopeashooter',
+        'confiner',
+        'patrol',
+        'peashooterdrive',
+        'pommel',
+        'dotter',
+        'tripeashooter',
     ],
 }
-Class.customPeashooterdrive = {
+Class.peashooterdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Peashooterdrive',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57744,7 +59126,7 @@ Class.customPeashooterdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -57756,13 +59138,14 @@ Class.customPeashooterdrive = {
 
     ],
 }
-Class.customPen = {
+Class.pen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pen',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57797,28 +59180,29 @@ Class.customPen = {
 
     ],
     UPGRADES_TIER_3: [
-        'customStall',
-        'customTripen',
-        'customEncircler',
-        'customIncarcerator',
-        'customOperator',
-        'customCockatiel',
-        'customHutch',
-        'customInterner',
-        'customAutopen',
+        'stall',
+        'tripen',
+        'encircler',
+        'incarcerator',
+        'operator',
+        'cockatiel',
+        'hutch',
+        'interner',
+        'autopen',
     ],
     UPGRADES_TIER_4: [
-        'customFortifier',
-        'customSty',
+        'fortifier',
+        'sty',
     ],
 }
-Class.customPentaDouble = {
+Class.pentaDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Penta Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57923,13 +59307,14 @@ Class.customPentaDouble = {
 
     ],
 }
-Class.customPentaShot = {
+Class.pentaShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Penta Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -57984,25 +59369,26 @@ Class.customPentaShot = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHeptaShot',
-        'customPentaDouble',
-        'customFlexedHybrid',
-        'customQuintuplet',
-        'customCrackshot',
-        'customAutopentaShot',
-        'customFlexedGunner',
-        'customFlexedMinigun',
-        'customDeficiency',
-        'customWaarararrk',
+        'heptaShot',
+        'pentaDouble',
+        'flexedHybrid',
+        'quintuplet',
+        'crackshot',
+        'autopentaShot',
+        'flexedGunner',
+        'flexedMinigun',
+        'deficiency',
+        'waarararrk',
     ],
 }
-Class.customPepper = {
+Class.pepper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pepper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58077,13 +59463,14 @@ Class.customPepper = {
 
     ],
 }
-Class.customPeregrine = {
+Class.peregrine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Peregrine',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58138,13 +59525,14 @@ Class.customPeregrine = {
 
     ],
 }
-Class.customPetrifier = {
+Class.petrifier_AR = {
     PARENT: 'genericTank',
     LABEL: 'Petrifier',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58259,13 +59647,14 @@ Class.customPetrifier = {
 
     ],
 }
-Class.customPhantom = {
+Class.phantom_AR = {
     PARENT: 'genericTank',
     LABEL: 'Phantom',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58361,7 +59750,7 @@ Class.customPhantom = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_19040',
+            TYPE: 'unnamed_19040',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -58371,7 +59760,7 @@ Class.customPhantom = {
             }
         },
         {
-            TYPE: 'customUnnamed_19040',
+            TYPE: 'unnamed_19040',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -58381,7 +59770,7 @@ Class.customPhantom = {
             }
         },
         {
-            TYPE: 'customUnnamed_19040',
+            TYPE: 'unnamed_19040',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -58393,13 +59782,14 @@ Class.customPhantom = {
 
     ],
 }
-Class.customPhoenix = {
+Class.phoenix_AR = {
     PARENT: 'genericTank',
     LABEL: 'Phoenix',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58454,13 +59844,14 @@ Class.customPhoenix = {
 
     ],
 }
-Class.customPicket = {
+Class.picket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Picket',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58505,13 +59896,14 @@ Class.customPicket = {
 
     ],
 }
-Class.customPilfer = {
+Class.pilfer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pilfer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58556,13 +59948,14 @@ Class.customPilfer = {
 
     ],
 }
-Class.customPincer = {
+Class.pincer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pincer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58607,13 +60000,14 @@ Class.customPincer = {
 
     ],
 }
-Class.customPinner = {
+Class.pinner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pinner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58678,13 +60072,14 @@ Class.customPinner = {
 
     ],
 }
-Class.customPipeline = {
+Class.pipeline_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pipeline',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58739,13 +60134,14 @@ Class.customPipeline = {
 
     ],
 }
-Class.customPique = {
+Class.pique_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pique',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58830,13 +60226,14 @@ Class.customPique = {
 
     ],
 }
-Class.customPitViper = {
+Class.pitViper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pit Viper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58881,13 +60278,14 @@ Class.customPitViper = {
 
     ],
 }
-Class.customPitcher = {
+Class.pitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pitcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -58932,28 +60330,29 @@ Class.customPitcher = {
 
     ],
     UPGRADES_TIER_4: [
-        'customChucker',
-        'customCaduceus',
-        'customPropeller',
-        'customDispatcher',
-        'customBowler',
-        'customGyro',
-        'customSpieler',
-        'customAutopitcher',
-        'customMagnum',
-        'customMine',
-        'customIncline',
-        'customPyromaniac',
-        'customPleuron',
+        'chucker',
+        'caduceus',
+        'propeller',
+        'dispatcher',
+        'bowler',
+        'gyro',
+        'spieler',
+        'autopitcher',
+        'magnum',
+        'mine',
+        'incline',
+        'pyromaniac',
+        'pleuron',
     ],
 }
-Class.customPivoter = {
+Class.pivoter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pivoter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59008,13 +60407,14 @@ Class.customPivoter = {
 
     ],
 }
-Class.customPlaguer = {
+Class.plaguer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plaguer',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59099,7 +60499,7 @@ Class.customPlaguer = {
 
     ],
 }
-Class.customPlanner = {
+Class.planner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Planner',
     SIZE: 12,
@@ -59108,7 +60508,7 @@ Class.customPlanner = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_28538',
+            TYPE: 'unnamed_28538',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -59118,7 +60518,7 @@ Class.customPlanner = {
             }
         },
         {
-            TYPE: 'customUnnamed_28538',
+            TYPE: 'unnamed_28538',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -59128,7 +60528,7 @@ Class.customPlanner = {
             }
         },
         {
-            TYPE: 'customUnnamed_28538',
+            TYPE: 'unnamed_28538',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -59140,13 +60540,14 @@ Class.customPlanner = {
 
     ],
 }
-Class.customPlant = {
+Class.plant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plant',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59191,13 +60592,14 @@ Class.customPlant = {
 
     ],
 }
-Class.customPlaster = {
+Class.plaster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plaster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59262,13 +60664,14 @@ Class.customPlaster = {
 
     ],
 }
-Class.customPleuron = {
+Class.pleuron_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pleuron',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59333,13 +60736,14 @@ Class.customPleuron = {
 
     ],
 }
-Class.customPlunderer = {
+Class.plunderer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Plunderer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59384,13 +60788,14 @@ Class.customPlunderer = {
 
     ],
 }
-Class.customPoacher = {
+Class.poacher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Poacher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59425,27 +60830,28 @@ Class.customPoacher = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverhunter',
-        'customPlunderer',
-        'customMaker',
-        'customPoacherdrive',
-        'customNabber',
-        'customRustler',
-        'customHuntsman',
-        'customRavisher',
-        'customAutopoacher',
-        'customMegaPoacher',
-        'customPilfer',
-        'customImmolater',
+        'overhunter',
+        'plunderer',
+        'maker',
+        'poacherdrive',
+        'nabber',
+        'rustler',
+        'huntsman',
+        'ravisher',
+        'autopoacher',
+        'megaPoacher',
+        'pilfer',
+        'immolater',
     ],
 }
-Class.customPoacherdrive = {
+Class.poacherdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Poacherdrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59481,7 +60887,7 @@ Class.customPoacherdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -59493,13 +60899,14 @@ Class.customPoacherdrive = {
 
     ],
 }
-Class.customPolluter = {
+Class.polluter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Polluter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59524,24 +60931,25 @@ Class.customPolluter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customOverdiesel',
-        'customDepraver',
-        'customTainter',
-        'customPolluterdrive',
-        'customBefouler',
-        'customContaminator',
-        'customSprinkler',
-        'customBlight',
-        'customAutopolluter',
+        'overdiesel',
+        'depraver',
+        'tainter',
+        'polluterdrive',
+        'befouler',
+        'contaminator',
+        'sprinkler',
+        'blight',
+        'autopolluter',
     ],
 }
-Class.customPolluterdrive = {
+Class.polluterdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Polluterdrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59567,7 +60975,7 @@ Class.customPolluterdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -59579,13 +60987,14 @@ Class.customPolluterdrive = {
 
     ],
 }
-Class.customPommel = {
+Class.pommel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pommel',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59650,13 +61059,14 @@ Class.customPommel = {
 
     ],
 }
-Class.customPredator = {
+Class.predator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Predator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59691,23 +61101,24 @@ Class.customPredator = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCarnivore',
-        'customArsenal',
-        'customRustler',
-        'customVulture',
-        'customAutopredator',
-        'customMegaPredator',
-        'customPresage',
-        'customGarroter',
+        'carnivore',
+        'arsenal',
+        'rustler',
+        'vulture',
+        'autopredator',
+        'megaPredator',
+        'presage',
+        'garroter',
     ],
 }
-Class.customPresage = {
+Class.presage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Presage',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59752,13 +61163,14 @@ Class.customPresage = {
 
     ],
 }
-Class.customPrescriber = {
+Class.prescriber_AR = {
     PARENT: 'genericTank',
     LABEL: 'Prescriber',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59824,7 +61236,7 @@ Class.customPrescriber = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -59836,7 +61248,7 @@ Class.customPrescriber = {
 
     ],
 }
-Class.customPrick = {
+Class.prick_AR = {
     PARENT: 'genericTank',
     LABEL: 'Prick',
     SIZE: 12,
@@ -59845,7 +61257,7 @@ Class.customPrick = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_36828',
+            TYPE: 'unknownClass_36828',
             POSITION: {
                 SIZE: 28.499999046325684,
                 LAYER: 0,
@@ -59857,13 +61269,14 @@ Class.customPrick = {
 
     ],
 }
-Class.customProbationer = {
+Class.probationer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Probationer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59908,13 +61321,14 @@ Class.customProbationer = {
 
     ],
 }
-Class.customProber = {
+Class.prober_AR = {
     PARENT: 'genericTank',
     LABEL: 'Prober',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -59949,22 +61363,23 @@ Class.customProber = {
 
     ],
     UPGRADES_TIER_4: [
-        'customPresage',
-        'customBifold',
-        'customPilfer',
-        'customAutoprober',
-        'customCarnage',
-        'customMegaProber',
-        'customFlicher',
+        'presage',
+        'bifold',
+        'pilfer',
+        'autoprober',
+        'carnage',
+        'megaProber',
+        'flicher',
     ],
 }
-Class.customProducer = {
+Class.producer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Producer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60029,13 +61444,14 @@ Class.customProducer = {
 
     ],
 }
-Class.customProductiondrive = {
+Class.productiondrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Productiondrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60101,7 +61517,7 @@ Class.customProductiondrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -60113,13 +61529,14 @@ Class.customProductiondrive = {
 
     ],
 }
-Class.customProductionist = {
+Class.productionist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Productionist',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60184,25 +61601,26 @@ Class.customProductionist = {
 
     ],
     UPGRADES_TIER_4: [
-        'customInitiator',
-        'customBismarck',
-        'customAutoproductionist',
-        'customProductiondrive',
-        'customManufacture',
-        'customDirigible',
-        'customPalisade',
-        'customGaffer',
-        'customFabrication',
-        'customInducer',
+        'initiator',
+        'bismarck',
+        'autoproductionist',
+        'productiondrive',
+        'manufacture',
+        'dirigible',
+        'palisade',
+        'gaffer',
+        'fabrication',
+        'inducer',
     ],
 }
-Class.customProjector = {
+Class.projector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Projector',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60247,28 +61665,29 @@ Class.customProjector = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAutoprojector',
-        'customResourcer',
-        'customJutter',
-        'customShell',
-        'customEmbargo',
-        'customLadle',
-        'customVenture',
-        'customVermin',
-        'customHyperprojector',
-        'customGuarder',
-        'customCollision',
-        'customClaimant',
-        'customPleuron',
+        'autoprojector',
+        'resourcer',
+        'jutter',
+        'shell',
+        'embargo',
+        'ladle',
+        'venture',
+        'vermin',
+        'hyperprojector',
+        'guarder',
+        'collision',
+        'claimant',
+        'pleuron',
     ],
 }
-Class.customPropeller = {
+Class.propeller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Propeller',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60323,13 +61742,14 @@ Class.customPropeller = {
 
     ],
 }
-Class.customPropper = {
+Class.propper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Propper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60384,13 +61804,14 @@ Class.customPropper = {
 
     ],
 }
-Class.customPryer = {
+Class.pryer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pryer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60416,7 +61837,7 @@ Class.customPryer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -60426,7 +61847,7 @@ Class.customPryer = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -60436,7 +61857,7 @@ Class.customPryer = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -60446,7 +61867,7 @@ Class.customPryer = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -60456,7 +61877,7 @@ Class.customPryer = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -60468,13 +61889,14 @@ Class.customPryer = {
 
     ],
 }
-Class.customPuffer = {
+Class.puffer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Puffer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60529,13 +61951,14 @@ Class.customPuffer = {
 
     ],
 }
-Class.customPug = {
+Class.pug_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pug',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60600,13 +62023,14 @@ Class.customPug = {
 
     ],
 }
-Class.customPulverizer = {
+Class.pulverizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pulverizer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60651,13 +62075,14 @@ Class.customPulverizer = {
 
     ],
 }
-Class.customPummeler = {
+Class.pummeler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pummeler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60712,13 +62137,14 @@ Class.customPummeler = {
 
     ],
 }
-Class.customPumper = {
+Class.pumper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pumper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60843,13 +62269,14 @@ Class.customPumper = {
 
     ],
 }
-Class.customPursuer = {
+Class.pursuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pursuer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60864,13 +62291,14 @@ Class.customPursuer = {
 
     ],
 }
-Class.customPyromaniac = {
+Class.pyromaniac_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pyromaniac',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60915,13 +62343,14 @@ Class.customPyromaniac = {
 
     ],
 }
-Class.customPython = {
+Class.python_AR = {
     PARENT: 'genericTank',
     LABEL: 'Python',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -60946,13 +62375,14 @@ Class.customPython = {
 
     ],
 }
-Class.customQuadTwin = {
+Class.quadTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quad Twin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61037,13 +62467,14 @@ Class.customQuadTwin = {
 
     ],
 }
-Class.customQuadangle = {
+Class.quadangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quad-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61069,7 +62500,7 @@ Class.customQuadangle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -61079,7 +62510,7 @@ Class.customQuadangle = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -61091,24 +62522,25 @@ Class.customQuadangle = {
 
     ],
     UPGRADES_TIER_4: [
-        'customScrimmer',
-        'customAspirer',
-        'customFleeter',
-        'customAutoquadangle',
-        'customGlider',
-        'customConformer',
-        'customSpoiler',
-        'customMandible',
-        'customWaster',
+        'scrimmer',
+        'aspirer',
+        'fleeter',
+        'autoquadangle',
+        'glider',
+        'conformer',
+        'spoiler',
+        'mandible',
+        'waster',
     ],
 }
-Class.customQuadwark = {
+Class.quadwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quadwark',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61213,13 +62645,14 @@ Class.customQuadwark = {
 
     ],
 }
-Class.customQuarrion = {
+Class.quarrion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quarrion',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61284,13 +62717,14 @@ Class.customQuarrion = {
 
     ],
 }
-Class.customQueller = {
+Class.queller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Queller',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61325,21 +62759,21 @@ Class.customQueller = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAnnexer',
-        'customStomper',
-        'customCross',
-        'customCreator',
-        'customStorm',
-        'customCornerer',
-        'customCrusher',
-        'customRepresser',
-        'customAutoqueller',
-        'customClobberer',
-        'customThwarter',
-        'customStifler',
+        'annexer',
+        'stomper',
+        'cross',
+        'creator',
+        'storm',
+        'cornerer',
+        'crusher',
+        'represser',
+        'autoqueller',
+        'clobberer',
+        'thwarter',
+        'stifler',
     ],
 }
-Class.customQueller3 = {
+Class.queller3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Queller-3',
     SIZE: 12,
@@ -61348,7 +62782,7 @@ Class.customQueller3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_44885',
+            TYPE: 'unnamed_44885',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -61358,7 +62792,7 @@ Class.customQueller3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_44885',
+            TYPE: 'unnamed_44885',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -61368,7 +62802,7 @@ Class.customQueller3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_44885',
+            TYPE: 'unnamed_44885',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -61380,13 +62814,14 @@ Class.customQueller3 = {
 
     ],
 }
-Class.customQuintuplet = {
+Class.quintuplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Quintuplet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61441,13 +62876,14 @@ Class.customQuintuplet = {
 
     ],
 }
-Class.customRaider = {
+Class.raider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Raider',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61522,13 +62958,14 @@ Class.customRaider = {
 
     ],
 }
-Class.customRailgun = {
+Class.railgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Railgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61563,23 +63000,24 @@ Class.customRailgun = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFinger',
-        'customMachgun',
-        'customThunderclap',
-        'customReverberator',
-        'customDeadeye',
-        'customAutorailgun',
-        'customRaven',
-        'customCovert',
+        'finger',
+        'machgun',
+        'thunderclap',
+        'reverberator',
+        'deadeye',
+        'autorailgun',
+        'raven',
+        'covert',
     ],
 }
-Class.customRainmaker = {
+Class.rainmaker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rainmaker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61644,13 +63082,14 @@ Class.customRainmaker = {
 
     ],
 }
-Class.customRallyer = {
+Class.rallyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rallyer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61695,13 +63134,14 @@ Class.customRallyer = {
 
     ],
 }
-Class.customRampart = {
+Class.rampart_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rampart',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61756,13 +63196,14 @@ Class.customRampart = {
 
     ],
 }
-Class.customRanger = {
+Class.ranger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ranger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61787,23 +63228,24 @@ Class.customRanger = {
 
     ],
     UPGRADES_TIER_4: [
-        'customVindicator',
-        'customPeregrine',
-        'customAutoranger',
-        'customMarine',
-        'customHawker',
-        'customDoorman',
-        'customMaverick',
-        'customAcquirer',
+        'vindicator',
+        'peregrine',
+        'autoranger',
+        'marine',
+        'hawker',
+        'doorman',
+        'maverick',
+        'acquirer',
     ],
 }
-Class.customRansacker = {
+Class.ransacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ransacker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61848,13 +63290,14 @@ Class.customRansacker = {
 
     ],
 }
-Class.customRaptor = {
+Class.raptor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Raptor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -61919,13 +63362,14 @@ Class.customRaptor = {
 
     ],
 }
-Class.customRationalizer = {
+Class.rationalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rationalizer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62000,13 +63444,14 @@ Class.customRationalizer = {
 
     ],
 }
-Class.customRattler = {
+Class.rattler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rattler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62051,13 +63496,14 @@ Class.customRattler = {
 
     ],
 }
-Class.customRaven = {
+Class.raven_AR = {
     PARENT: 'genericTank',
     LABEL: 'Raven',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62122,13 +63568,14 @@ Class.customRaven = {
 
     ],
 }
-Class.customRavisher = {
+Class.ravisher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ravisher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62183,13 +63630,14 @@ Class.customRavisher = {
 
     ],
 }
-Class.customReam = {
+Class.ream_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ream',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62224,13 +63672,14 @@ Class.customReam = {
 
     ],
 }
-Class.customRebounder = {
+Class.rebounder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rebounder',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62285,13 +63734,14 @@ Class.customRebounder = {
 
     ],
 }
-Class.customRecoiler = {
+Class.recoiler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Recoiler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62326,13 +63776,14 @@ Class.customRecoiler = {
 
     ],
 }
-Class.customRecursor = {
+Class.recursor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Recursor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62367,13 +63818,14 @@ Class.customRecursor = {
 
     ],
 }
-Class.customRecurver = {
+Class.recurver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Recurver',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62448,13 +63900,14 @@ Class.customRecurver = {
 
     ],
 }
-Class.customRefuge = {
+Class.refuge_AR = {
     PARENT: 'genericTank',
     LABEL: 'Refuge',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62610,7 +64063,7 @@ Class.customRefuge = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -62622,13 +64075,14 @@ Class.customRefuge = {
 
     ],
 }
-Class.customRegulator = {
+Class.regulator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Regulator',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62723,13 +64177,14 @@ Class.customRegulator = {
 
     ],
 }
-Class.customRepairman = {
+Class.repairman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Repairman',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62774,13 +64229,14 @@ Class.customRepairman = {
 
     ],
 }
-Class.customReposit = {
+Class.reposit_AR = {
     PARENT: 'genericTank',
     LABEL: 'Reposit',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62845,13 +64301,14 @@ Class.customReposit = {
 
     ],
 }
-Class.customRepresser = {
+Class.represser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Represser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62886,13 +64343,14 @@ Class.customRepresser = {
 
     ],
 }
-Class.customResourcer = {
+Class.resourcer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Resourcer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62947,13 +64405,14 @@ Class.customResourcer = {
 
     ],
 }
-Class.customRestorer = {
+Class.restorer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Restorer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -62998,13 +64457,14 @@ Class.customRestorer = {
 
     ],
 }
-Class.customRestrainer = {
+Class.restrainer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Restrainer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63039,13 +64499,14 @@ Class.customRestrainer = {
 
     ],
 }
-Class.customRetainer = {
+Class.retainer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Retainer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63120,13 +64581,14 @@ Class.customRetainer = {
 
     ],
 }
-Class.customRevenant = {
+Class.revenant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Revenant',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63192,7 +64654,7 @@ Class.customRevenant = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -63202,7 +64664,7 @@ Class.customRevenant = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -63212,7 +64674,7 @@ Class.customRevenant = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -63224,13 +64686,14 @@ Class.customRevenant = {
 
     ],
 }
-Class.customReverberator = {
+Class.reverberator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Reverberator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63275,7 +64738,7 @@ Class.customReverberator = {
 
     ],
 }
-Class.customRicochet = {
+Class.ricochet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ricochet',
     SIZE: 12,
@@ -63284,7 +64747,7 @@ Class.customRicochet = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_19419',
+            TYPE: 'unnamed_19419',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -63294,7 +64757,7 @@ Class.customRicochet = {
             }
         },
         {
-            TYPE: 'customUnnamed_19419',
+            TYPE: 'unnamed_19419',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -63304,7 +64767,7 @@ Class.customRicochet = {
             }
         },
         {
-            TYPE: 'customUnnamed_19419',
+            TYPE: 'unnamed_19419',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 0,
@@ -63316,13 +64779,14 @@ Class.customRicochet = {
 
     ],
 }
-Class.customRider = {
+Class.rider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rider',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63417,13 +64881,14 @@ Class.customRider = {
 
     ],
 }
-Class.customRifle = {
+Class.rifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63448,19 +64913,19 @@ Class.customRifle = {
 
     ],
     UPGRADES_TIER_3: [
-        'customMusket',
-        'customCrossbow',
-        'customArmsman',
-        'customAutorifle',
-        'customEnforcer',
-        'customProber',
+        'musket',
+        'crossbow',
+        'armsman',
+        'autorifle',
+        'enforcer',
+        'prober',
     ],
     UPGRADES_TIER_4: [
-        'customRansacker',
-        'customThunderclap',
+        'ransacker',
+        'thunderclap',
     ],
 }
-Class.customRifle3 = {
+Class.rifle3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rifle-3',
     SIZE: 12,
@@ -63469,7 +64934,7 @@ Class.customRifle3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_57137',
+            TYPE: 'unnamed_57137',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -63479,7 +64944,7 @@ Class.customRifle3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_57137',
+            TYPE: 'unnamed_57137',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -63489,7 +64954,7 @@ Class.customRifle3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_57137',
+            TYPE: 'unnamed_57137',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -63501,13 +64966,14 @@ Class.customRifle3 = {
 
     ],
 }
-Class.customRigger = {
+Class.rigger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rigger',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63572,13 +65038,14 @@ Class.customRigger = {
 
     ],
 }
-Class.customRimfire = {
+Class.rimfire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rimfire',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63633,27 +65100,28 @@ Class.customRimfire = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBrink',
-        'customPinner',
-        'customSalvo',
-        'customLure',
-        'customHarbinger',
-        'customBeater',
-        'customBarber',
-        'customWalloper',
-        'customRimflak',
-        'customBarrage',
-        'customDoubleRimfire',
-        'customAutorimfire',
+        'brink',
+        'pinner',
+        'salvo',
+        'lure',
+        'harbinger',
+        'beater',
+        'barber',
+        'walloper',
+        'rimflak',
+        'barrage',
+        'doubleRimfire',
+        'autorimfire',
     ],
 }
-Class.customRimflak = {
+Class.rimflak_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rimflak',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63748,13 +65216,14 @@ Class.customRimflak = {
 
     ],
 }
-Class.customRinger = {
+Class.ringer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ringer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63819,13 +65288,14 @@ Class.customRinger = {
 
     ],
 }
-Class.customRoadblock = {
+Class.roadblock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Roadblock',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63870,13 +65340,14 @@ Class.customRoadblock = {
 
     ],
 }
-Class.customRocket = {
+Class.rocket_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rocket',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63951,13 +65422,14 @@ Class.customRocket = {
 
     ],
 }
-Class.customRocketeer = {
+Class.rocketeer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rocketeer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -63982,26 +65454,27 @@ Class.customRocketeer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFirework',
-        'customIcbm',
-        'customVenture',
-        'customLeviathan',
-        'customScorcher',
-        'customMamba',
-        'customCartridge',
-        'customAviator',
-        'customCareerer',
-        'customAutorocketeer',
-        'customPyromaniac',
+        'firework',
+        'icbm',
+        'venture',
+        'leviathan',
+        'scorcher',
+        'mamba',
+        'cartridge',
+        'aviator',
+        'careerer',
+        'autorocketeer',
+        'pyromaniac',
     ],
 }
-Class.customRogue = {
+Class.rogue_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rogue',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64016,13 +65489,14 @@ Class.customRogue = {
 
     ],
 }
-Class.customRoller = {
+Class.roller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Roller',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64117,13 +65591,14 @@ Class.customRoller = {
 
     ],
 }
-Class.customRuiner = {
+Class.ruiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ruiner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64188,13 +65663,14 @@ Class.customRuiner = {
 
     ],
 }
-Class.customRustler = {
+Class.rustler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rustler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64239,13 +65715,14 @@ Class.customRustler = {
 
     ],
 }
-Class.customSailor = {
+Class.sailor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sailor',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64290,13 +65767,14 @@ Class.customSailor = {
 
     ],
 }
-Class.customSalvo = {
+Class.salvo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Salvo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64371,13 +65849,14 @@ Class.customSalvo = {
 
     ],
 }
-Class.customSandstorm = {
+Class.sandstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sandstorm',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64422,13 +65901,14 @@ Class.customSandstorm = {
 
     ],
 }
-Class.customSawedOff = {
+Class.sawedOff_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sawed Off',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64553,13 +66033,14 @@ Class.customSawedOff = {
 
     ],
 }
-Class.customScatterer = {
+Class.scatterer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scatterer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64584,13 +66065,14 @@ Class.customScatterer = {
 
     ],
 }
-Class.customScorcher = {
+Class.scorcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scorcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64615,13 +66097,14 @@ Class.customScorcher = {
 
     ],
 }
-Class.customScout = {
+Class.scout_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scout',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64656,13 +66139,14 @@ Class.customScout = {
 
     ],
 }
-Class.customScrimmer = {
+Class.scrimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scrimmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64698,7 +66182,7 @@ Class.customScrimmer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -64708,7 +66192,7 @@ Class.customScrimmer = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 0,
@@ -64720,13 +66204,14 @@ Class.customScrimmer = {
 
     ],
 }
-Class.customScrutiner = {
+Class.scrutiner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scrutiner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64751,84 +66236,14 @@ Class.customScrutiner = {
 
     ],
 }
-Class.customScuffler = {
-    PARENT: 'genericTank',
-    LABEL: 'Scuffler',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customSealer = {
+Class.sealer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sealer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64953,13 +66368,14 @@ Class.customSealer = {
 
     ],
 }
-Class.customSeizer = {
+Class.seizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Seizer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -64984,13 +66400,14 @@ Class.customSeizer = {
 
     ],
 }
-Class.customSeptamachine = {
+Class.septamachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Machine',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65135,13 +66552,14 @@ Class.customSeptamachine = {
 
     ],
 }
-Class.customSeptamech = {
+Class.septamech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65356,13 +66774,14 @@ Class.customSeptamech = {
 
     ],
 }
-Class.customSeptatrapGuard = {
+Class.septatrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65517,13 +66936,14 @@ Class.customSeptatrapGuard = {
 
     ],
 }
-Class.customSeptatrapper = {
+Class.septatrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Septa-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65668,22 +67088,23 @@ Class.customSeptatrapper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customNonatrapper',
-        'customSeptamachine',
-        'customOctotrapper',
-        'customWhirlwind',
-        'customInventor',
-        'customSeptamech',
-        'customSeptatrapGuard',
+        'nonatrapper',
+        'septamachine',
+        'octotrapper',
+        'whirlwind',
+        'inventor',
+        'septamech',
+        'septatrapGuard',
     ],
 }
-Class.customSequence = {
+Class.sequence_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sequence',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65719,7 +67140,7 @@ Class.customSequence = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -65729,7 +67150,7 @@ Class.customSequence = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -65739,7 +67160,7 @@ Class.customSequence = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -65751,13 +67172,14 @@ Class.customSequence = {
 
     ],
 }
-Class.customSeriemas = {
+Class.seriemas_AR = {
     PARENT: 'genericTank',
     LABEL: 'Seriemas',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65812,13 +67234,14 @@ Class.customSeriemas = {
 
     ],
 }
-Class.customServicer = {
+Class.servicer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Servicer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65863,13 +67286,14 @@ Class.customServicer = {
 
     ],
 }
-Class.customSettler = {
+Class.settler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Settler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65894,13 +67318,14 @@ Class.customSettler = {
 
     ],
 }
-Class.customSetup = {
+Class.setup_AR = {
     PARENT: 'genericTank',
     LABEL: 'Setup',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -65985,13 +67410,14 @@ Class.customSetup = {
 
     ],
 }
-Class.customShade = {
+Class.shade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shade',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66057,7 +67483,7 @@ Class.customShade = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -66067,7 +67493,7 @@ Class.customShade = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -66077,7 +67503,7 @@ Class.customShade = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -66089,13 +67515,14 @@ Class.customShade = {
 
     ],
 }
-Class.customShaper = {
+Class.shaper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shaper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66140,7 +67567,7 @@ Class.customShaper = {
 
     ],
 }
-Class.customSharper = {
+Class.sharper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sharper',
     SIZE: 12,
@@ -66149,7 +67576,7 @@ Class.customSharper = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_59626',
+            TYPE: 'unknownClass_59626',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -66161,13 +67588,14 @@ Class.customSharper = {
 
     ],
 }
-Class.customSharpshooter = {
+Class.sharpshooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sharpshooter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66192,13 +67620,14 @@ Class.customSharpshooter = {
 
     ],
 }
-Class.customShaver = {
+Class.shaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shaver',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66223,13 +67652,14 @@ Class.customShaver = {
 
     ],
 }
-Class.customShearer = {
+Class.shearer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shearer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66294,13 +67724,14 @@ Class.customShearer = {
 
     ],
 }
-Class.customShell = {
+Class.shell_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shell',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66345,13 +67776,14 @@ Class.customShell = {
 
     ],
 }
-Class.customSheller = {
+Class.sheller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sheller',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66426,13 +67858,14 @@ Class.customSheller = {
 
     ],
 }
-Class.customShepherd = {
+Class.shepherd_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shepherd',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66477,13 +67910,14 @@ Class.customShepherd = {
 
     ],
 }
-Class.customShiver = {
+Class.shiver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shiver',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66558,13 +67992,14 @@ Class.customShiver = {
 
     ],
 }
-Class.customShoal = {
+Class.shoal_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shoal',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66599,13 +68034,14 @@ Class.customShoal = {
 
     ],
 }
-Class.customShocker = {
+Class.shocker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shocker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66690,13 +68126,14 @@ Class.customShocker = {
 
     ],
 }
-Class.customShoebill = {
+Class.shoebill_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shoebill',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66751,13 +68188,14 @@ Class.customShoebill = {
 
     ],
 }
-Class.customShopper = {
+Class.shopper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shopper',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66792,13 +68230,14 @@ Class.customShopper = {
 
     ],
 }
-Class.customShotgun = {
+Class.shotgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shotgun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66913,24 +68352,25 @@ Class.customShotgun = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCulverin',
-        'customBuckshot',
-        'customBoomstick',
-        'customSawedOff',
-        'customBlare',
-        'customPumper',
-        'customCarbine',
-        'customAutoshotgun',
-        'customPetrifier',
+        'culverin',
+        'buckshot',
+        'boomstick',
+        'sawedOff',
+        'blare',
+        'pumper',
+        'carbine',
+        'autoshotgun',
+        'petrifier',
     ],
 }
-Class.customShower = {
+Class.shower_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shower',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66965,13 +68405,14 @@ Class.customShower = {
 
     ],
 }
-Class.customSidewinder = {
+Class.sidewinder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sidewinder',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -66996,27 +68437,28 @@ Class.customSidewinder = {
 
     ],
     UPGRADES_TIER_4: [
-        'customVeerer',
-        'customCaduceus',
-        'customAutosidewinder',
-        'customHyperwinder',
-        'customPitViper',
-        'customVermin',
-        'customBoomslang',
-        'customAnaconda',
-        'customMamba',
-        'customRattler',
-        'customPython',
-        'customHognose',
+        'veerer',
+        'caduceus',
+        'autosidewinder',
+        'hyperwinder',
+        'pitViper',
+        'vermin',
+        'boomslang',
+        'anaconda',
+        'mamba',
+        'rattler',
+        'python',
+        'hognose',
     ],
 }
-Class.customSifter = {
+Class.sifter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sifter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67081,13 +68523,14 @@ Class.customSifter = {
 
     ],
 }
-Class.customSingle = {
+Class.single_AR = {
     PARENT: 'genericTank',
     LABEL: 'Single',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67112,27 +68555,28 @@ Class.customSingle = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDuo',
-        'customSharpshooter',
-        'customGadgetGun',
-        'customTernion',
-        'customCoordinator',
-        'customBruiser',
-        'customTricker',
-        'customMono',
-        'customAvian',
-        'customCustodian',
-        'customAssistant',
-        'customAutosingle',
+        'duo',
+        'sharpshooter',
+        'gadgetGun',
+        'ternion',
+        'coordinator',
+        'bruiser',
+        'tricker',
+        'mono',
+        'avian',
+        'custodian',
+        'assistant',
+        'autosingle',
     ],
 }
-Class.customSire = {
+Class.sire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sire',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67187,13 +68631,14 @@ Class.customSire = {
 
     ],
 }
-Class.customSizzler = {
+Class.sizzler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sizzler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67288,13 +68733,14 @@ Class.customSizzler = {
 
     ],
 }
-Class.customSkater = {
+Class.skater_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skater',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67359,104 +68805,14 @@ Class.customSkater = {
 
     ],
 }
-Class.customSkewnDouble = {
-    PARENT: 'genericTank',
-    LABEL: 'Skewn Double',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126492328018e-07,
-                Y: 5.500000119209285,
-                ANGLE: 224.99999601591168,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265089813635e-07,
-                Y: -5.500000119209284,
-                ANGLE: -224.99999601591168,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265089813635e-07,
-                Y: -5.500000119209285,
-                ANGLE: -205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-}
-Class.customSkidder = {
+Class.skidder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skidder',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67501,13 +68857,14 @@ Class.customSkidder = {
 
     ],
 }
-Class.customSkimmer = {
+Class.skimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skimmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67532,22 +68889,22 @@ Class.customSkimmer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAutoskimmer',
-        'customDipper',
-        'customHyperskimmer',
-        'customReam',
-        'customLadle',
-        'customBazooka',
-        'customTorpedo',
-        'customBowler',
-        'customGrazer',
-        'customPitViper',
-        'customSkidder',
-        'customTicker',
-        'customScorcher',
+        'autoskimmer',
+        'dipper',
+        'hyperskimmer',
+        'ream',
+        'ladle',
+        'bazooka',
+        'torpedo',
+        'bowler',
+        'grazer',
+        'pitViper',
+        'skidder',
+        'ticker',
+        'scorcher',
     ],
 }
-Class.customSlammer = {
+Class.slammer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slammer',
     SIZE: 12,
@@ -67556,7 +68913,7 @@ Class.customSlammer = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -67568,13 +68925,14 @@ Class.customSlammer = {
 
     ],
 }
-Class.customSlayer = {
+Class.slayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slayer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67619,13 +68977,14 @@ Class.customSlayer = {
 
     ],
 }
-Class.customSlinger = {
+Class.slinger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slinger',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67680,13 +69039,14 @@ Class.customSlinger = {
 
     ],
 }
-Class.customSlingshot = {
+Class.slingshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slingshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67721,13 +69081,14 @@ Class.customSlingshot = {
 
     ],
 }
-Class.customSlinker = {
+Class.slinker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slinker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67742,19 +69103,19 @@ Class.customSlinker = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRogue',
-        'customMassacrer',
-        'customEradicator',
-        'customAmalgam',
-        'customSettler',
-        'customZephyr',
-        'customSeizer',
-        'customThwarter',
-        'customAutoslinker',
-        'customDeliverer',
+        'rogue',
+        'massacrer',
+        'eradicator',
+        'amalgam',
+        'settler',
+        'zephyr',
+        'seizer',
+        'thwarter',
+        'autoslinker',
+        'deliverer',
     ],
 }
-Class.customSlinker3 = {
+Class.slinker3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slinker-3',
     SIZE: 12,
@@ -67763,7 +69124,7 @@ Class.customSlinker3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_18236',
+            TYPE: 'unnamed_18236',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -67773,7 +69134,7 @@ Class.customSlinker3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_18236',
+            TYPE: 'unnamed_18236',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -67783,7 +69144,7 @@ Class.customSlinker3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_18236',
+            TYPE: 'unnamed_18236',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -67795,13 +69156,14 @@ Class.customSlinker3 = {
 
     ],
 }
-Class.customSlitShot = {
+Class.slitShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slit Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67876,13 +69238,14 @@ Class.customSlitShot = {
 
     ],
 }
-Class.customSlogger = {
+Class.slogger_AR = {
     PARENT: 'genericTank',
     LABEL: 'Slogger',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -67927,7 +69290,7 @@ Class.customSlogger = {
 
     ],
 }
-Class.customSmasher = {
+Class.smasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Smasher',
     SIZE: 12,
@@ -67936,7 +69299,7 @@ Class.customSmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -67948,22 +69311,23 @@ Class.customSmasher = {
 
     ],
     UPGRADES_TIER_3: [
-        'customMegasmasher',
-        'customSpike',
-        'customAutosmasher',
-        'customLandmine',
-        'customBonker',
-        'customBanger',
-        'customDrifter',
+        'megasmasher',
+        'spike',
+        'autosmasher',
+        'landmine',
+        'bonker',
+        'banger',
+        'drifter',
     ],
 }
-Class.customSmearer = {
+Class.smearer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Smearer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68088,7 +69452,7 @@ Class.customSmearer = {
 
     ],
 }
-Class.customSniper3 = {
+Class.sniper3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sniper-3',
     SIZE: 12,
@@ -68097,7 +69461,7 @@ Class.customSniper3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68107,7 +69471,7 @@ Class.customSniper3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68117,7 +69481,7 @@ Class.customSniper3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68129,18 +69493,18 @@ Class.customSniper3 = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAssassin3',
-        'customCreeper',
-        'customSniper5',
-        'customPhantom',
-        'customLever',
-        'customAutosniper3',
-        'customAlloy',
-        'customRifle3',
-        'customHunter3',
+        'assassin3',
+        'creeper',
+        'sniper5',
+        'phantom',
+        'lever',
+        'autosniper3',
+        'alloy',
+        'rifle3',
+        'hunter3',
     ],
 }
-Class.customSniper5 = {
+Class.sniper5_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sniper-5',
     SIZE: 12,
@@ -68149,7 +69513,7 @@ Class.customSniper5 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68159,7 +69523,7 @@ Class.customSniper5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68169,7 +69533,7 @@ Class.customSniper5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68179,7 +69543,7 @@ Class.customSniper5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68189,7 +69553,7 @@ Class.customSniper5 = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -68201,13 +69565,14 @@ Class.customSniper5 = {
 
     ],
 }
-Class.customSoarer = {
+Class.soarer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Soarer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68282,13 +69647,14 @@ Class.customSoarer = {
 
     ],
 }
-Class.customSpambrid = {
+Class.spambrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spambrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68363,13 +69729,14 @@ Class.customSpambrid = {
 
     ],
 }
-Class.customSpanner = {
+Class.spanner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spanner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68405,7 +69772,7 @@ Class.customSpanner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -68415,7 +69782,7 @@ Class.customSpanner = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -68425,7 +69792,7 @@ Class.customSpanner = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -68437,13 +69804,14 @@ Class.customSpanner = {
 
     ],
 }
-Class.customSparrow = {
+Class.sparrow_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sparrow',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68518,13 +69886,14 @@ Class.customSparrow = {
 
     ],
 }
-Class.customSpawner = {
+Class.spawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68559,28 +69928,29 @@ Class.customSpawner = {
 
     ],
     UPGRADES_TIER_3: [
-        'customFactory',
-        'customAutospawner',
-        'customMegaSpawner',
-        'customProductionist',
-        'customSpawnerdrive',
-        'customCaptain',
-        'customHangar',
-        'customLaborer',
-        'customFoundry',
-        'customIssuer',
+        'factory',
+        'autospawner',
+        'megaSpawner',
+        'productionist',
+        'spawnerdrive',
+        'captain',
+        'hangar',
+        'laborer',
+        'foundry',
+        'issuer',
     ],
     UPGRADES_TIER_4: [
-        'customHandler',
+        'handler',
     ],
 }
-Class.customSpawnerdrive = {
+Class.spawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawnerdrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68616,7 +69986,7 @@ Class.customSpawnerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -68628,25 +69998,26 @@ Class.customSpawnerdrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSpawnerstorm',
-        'customFactorydrive',
-        'customAutospawnerdrive',
-        'customMegaSpawnerdrive',
-        'customProductiondrive',
-        'customCaptaindrive',
-        'customAirfield',
-        'customLabordrive',
-        'customFoundrydrive',
-        'customIssuerdrive',
+        'spawnerstorm',
+        'factorydrive',
+        'autospawnerdrive',
+        'megaSpawnerdrive',
+        'productiondrive',
+        'captaindrive',
+        'airfield',
+        'labordrive',
+        'foundrydrive',
+        'issuerdrive',
     ],
 }
-Class.customSpawnerstorm = {
+Class.spawnerstorm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawnerstorm',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68682,7 +70053,7 @@ Class.customSpawnerstorm = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_42341',
+            TYPE: 'stormSquare_42341',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -68694,7 +70065,7 @@ Class.customSpawnerstorm = {
 
     ],
 }
-Class.customSpear = {
+Class.spear_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spear',
     SIZE: 12,
@@ -68703,7 +70074,7 @@ Class.customSpear = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -68713,7 +70084,7 @@ Class.customSpear = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -68723,7 +70094,7 @@ Class.customSpear = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -68733,7 +70104,7 @@ Class.customSpear = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -68745,13 +70116,14 @@ Class.customSpear = {
 
     ],
 }
-Class.customSpecialist = {
+Class.specialist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Specialist',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68806,13 +70178,14 @@ Class.customSpecialist = {
 
     ],
 }
-Class.customSpectre = {
+Class.spectre_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spectre',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68868,7 +70241,7 @@ Class.customSpectre = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -68878,7 +70251,7 @@ Class.customSpectre = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -68888,7 +70261,7 @@ Class.customSpectre = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -68898,7 +70271,7 @@ Class.customSpectre = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -68908,7 +70281,7 @@ Class.customSpectre = {
             }
         },
         {
-            TYPE: 'customUnnamed_26034',
+            TYPE: 'unnamed_26034',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 0,
@@ -68920,13 +70293,14 @@ Class.customSpectre = {
 
     ],
 }
-Class.customSpieler = {
+Class.spieler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spieler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -68981,7 +70355,7 @@ Class.customSpieler = {
 
     ],
 }
-Class.customSpike = {
+Class.spike_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spike',
     SIZE: 12,
@@ -68990,7 +70364,7 @@ Class.customSpike = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -69000,7 +70374,7 @@ Class.customSpike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -69010,7 +70384,7 @@ Class.customSpike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -69020,7 +70394,7 @@ Class.customSpike = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -69032,22 +70406,23 @@ Class.customSpike = {
 
     ],
     UPGRADES_TIER_4: [
-        'customThorn',
-        'customMegaspike',
-        'customClaymore',
-        'customAutospike',
-        'customSpear',
-        'customPrick',
-        'customCauldron',
+        'thorn',
+        'megaspike',
+        'claymore',
+        'autospike',
+        'spear',
+        'prick',
+        'cauldron',
     ],
 }
-Class.customSpindle = {
+Class.spindle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spindle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69083,7 +70458,7 @@ Class.customSpindle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -69093,7 +70468,7 @@ Class.customSpindle = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -69103,7 +70478,7 @@ Class.customSpindle = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -69115,13 +70490,14 @@ Class.customSpindle = {
 
     ],
 }
-Class.customSpindrift = {
+Class.spindrift_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spindrift',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69176,13 +70552,14 @@ Class.customSpindrift = {
 
     ],
 }
-Class.customSpinner = {
+Class.spinner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spinner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69227,13 +70604,14 @@ Class.customSpinner = {
 
     ],
 }
-Class.customSpiral = {
+Class.spiral_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spiral',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69269,7 +70647,7 @@ Class.customSpiral = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnknownEntity',
+            TYPE: 'unknownEntity',
             POSITION: {
                 SIZE: 3.0000001192092896,
                 LAYER: 1,
@@ -69281,13 +70659,14 @@ Class.customSpiral = {
 
     ],
 }
-Class.customSpirit = {
+Class.spirit_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spirit',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69323,7 +70702,7 @@ Class.customSpirit = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -69333,7 +70712,7 @@ Class.customSpirit = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -69343,7 +70722,7 @@ Class.customSpirit = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -69355,13 +70734,14 @@ Class.customSpirit = {
 
     ],
 }
-Class.customSpitter = {
+Class.spitter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spitter',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69426,13 +70806,14 @@ Class.customSpitter = {
 
     ],
 }
-Class.customSplinterShot = {
+Class.splinterShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Splinter Shot',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69537,13 +70918,14 @@ Class.customSplinterShot = {
 
     ],
 }
-Class.customSplitDouble = {
+Class.splitDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Split Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69648,13 +71030,14 @@ Class.customSplitDouble = {
 
     ],
 }
-Class.customSplitHybrid = {
+Class.splitHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Split Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69719,13 +71102,14 @@ Class.customSplitHybrid = {
 
     ],
 }
-Class.customSplitShot = {
+Class.splitShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Split Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69780,23 +71164,24 @@ Class.customSplitShot = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSlitShot',
-        'customCrackshot',
-        'customSplitHybrid',
-        'customSplitDouble',
-        'customAutosplitShot',
-        'customHackshot',
-        'customDork',
-        'customSplinterShot',
+        'slitShot',
+        'crackshot',
+        'splitHybrid',
+        'splitDouble',
+        'autosplitShot',
+        'hackshot',
+        'dork',
+        'splinterShot',
     ],
 }
-Class.customSpoiler = {
+Class.spoiler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spoiler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69822,7 +71207,7 @@ Class.customSpoiler = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -69832,7 +71217,7 @@ Class.customSpoiler = {
             }
         },
         {
-            TYPE: 'customUnnamed_10007',
+            TYPE: 'unnamed_10007',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -69844,13 +71229,14 @@ Class.customSpoiler = {
 
     ],
 }
-Class.customSpouter = {
+Class.spouter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spouter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69885,13 +71271,14 @@ Class.customSpouter = {
 
     ],
 }
-Class.customSprayer = {
+Class.sprayer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sprayer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -69916,22 +71303,23 @@ Class.customSprayer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDuster',
-        'customFrother',
-        'customScatterer',
-        'customFoamer',
-        'customShower',
-        'customAutosprayer',
-        'customPhoenix',
+        'duster',
+        'frother',
+        'scatterer',
+        'foamer',
+        'shower',
+        'autosprayer',
+        'phoenix',
     ],
 }
-Class.customSpreadshot = {
+Class.spreadshot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spreadshot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70046,22 +71434,23 @@ Class.customSpreadshot = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDoubleSpreadshot',
-        'customSmearer',
-        'customAutospreadshot',
-        'customDauber',
-        'customBallista',
-        'customBozo',
-        'customFungus',
+        'doubleSpreadshot',
+        'smearer',
+        'autospreadshot',
+        'dauber',
+        'ballista',
+        'bozo',
+        'fungus',
     ],
 }
-Class.customSprinkler = {
+Class.sprinkler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sprinkler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70126,13 +71515,14 @@ Class.customSprinkler = {
 
     ],
 }
-Class.customSqualler = {
+Class.squaller_AR = {
     PARENT: 'genericTank',
     LABEL: 'Squaller',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70187,13 +71577,14 @@ Class.customSqualler = {
 
     ],
 }
-Class.customStainer = {
+Class.stainer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stainer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70238,13 +71629,14 @@ Class.customStainer = {
 
     ],
 }
-Class.customStalker = {
+Class.stalker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stalker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70259,23 +71651,24 @@ Class.customStalker = {
 
     ],
     UPGRADES_TIER_4: [
-        'customPursuer',
-        'customOwl',
-        'customAutostalker',
-        'customHawker',
-        'customTrailer',
-        'customTailer',
-        'customExaminer',
-        'customScrutiner',
+        'pursuer',
+        'owl',
+        'autostalker',
+        'hawker',
+        'trailer',
+        'tailer',
+        'examiner',
+        'scrutiner',
     ],
 }
-Class.customStall = {
+Class.stall_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stall',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70310,24 +71703,25 @@ Class.customStall = {
 
     ],
     UPGRADES_TIER_4: [
-        'customHurdle',
-        'customAutostall',
-        'customCubicle',
-        'customFender',
-        'customPaddock',
-        'customOverthrower',
-        'customFormer',
-        'customDelayer',
-        'customCompartment',
+        'hurdle',
+        'autostall',
+        'cubicle',
+        'fender',
+        'paddock',
+        'overthrower',
+        'former',
+        'delayer',
+        'compartment',
     ],
 }
-Class.customStapler = {
+Class.stapler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stapler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70392,13 +71786,14 @@ Class.customStapler = {
 
     ],
 }
-Class.customStifler = {
+Class.stifler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stifler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70453,13 +71848,14 @@ Class.customStifler = {
 
     ],
 }
-Class.customStockade = {
+Class.stockade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stockade',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70544,13 +71940,14 @@ Class.customStockade = {
 
     ],
 }
-Class.customStocker = {
+Class.stocker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stocker',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70615,13 +72012,14 @@ Class.customStocker = {
 
     ],
 }
-Class.customStomper = {
+Class.stomper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stomper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70656,13 +72054,14 @@ Class.customStomper = {
 
     ],
 }
-Class.customStoner = {
+Class.stoner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stoner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70687,13 +72086,14 @@ Class.customStoner = {
 
     ],
 }
-Class.customStorm = {
+Class.storm_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70758,13 +72158,14 @@ Class.customStorm = {
 
     ],
 }
-Class.customStormer = {
+Class.stormer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stormer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70799,13 +72200,14 @@ Class.customStormer = {
 
     ],
 }
-Class.customStrafe = {
+Class.strafe_AR = {
     PARENT: 'genericTank',
     LABEL: 'Strafe',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70850,13 +72252,14 @@ Class.customStrafe = {
 
     ],
 }
-Class.customStrapper = {
+Class.strapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Strapper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70921,13 +72324,14 @@ Class.customStrapper = {
 
     ],
 }
-Class.customStreamliner = {
+Class.streamliner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Streamliner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -70982,25 +72386,26 @@ Class.customStreamliner = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRationalizer',
-        'customDisperser',
-        'customBarrier',
-        'customAutostreamliner',
-        'customStapler',
-        'customDestabalizer',
-        'customStunner',
-        'customGusher',
-        'customBentStreamliner',
-        'customSystematizer',
+        'rationalizer',
+        'disperser',
+        'barrier',
+        'autostreamliner',
+        'stapler',
+        'destabalizer',
+        'stunner',
+        'gusher',
+        'bentStreamliner',
+        'systematizer',
     ],
 }
-Class.customStrider = {
+Class.strider_AR = {
     PARENT: 'genericTank',
     LABEL: 'Strider',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71075,13 +72480,14 @@ Class.customStrider = {
 
     ],
 }
-Class.customStriker = {
+Class.striker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Striker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71186,13 +72592,14 @@ Class.customStriker = {
 
     ],
 }
-Class.customStronghold = {
+Class.stronghold_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stronghold',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71317,13 +72724,14 @@ Class.customStronghold = {
 
     ],
 }
-Class.customStunner = {
+Class.stunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71408,13 +72816,14 @@ Class.customStunner = {
 
     ],
 }
-Class.customSty = {
+Class.sty_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sty',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71449,13 +72858,14 @@ Class.customSty = {
 
     ],
 }
-Class.customStylist = {
+Class.stylist_AR = {
     PARENT: 'genericTank',
     LABEL: 'Stylist',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71510,13 +72920,14 @@ Class.customStylist = {
 
     ],
 }
-Class.customSubverter = {
+Class.subverter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Subverter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71551,25 +72962,26 @@ Class.customSubverter = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDestabalizer',
-        'customDeposer',
-        'customBlockade',
-        'customToppler',
-        'customAutosubverter',
-        'customOsprey',
-        'customDegrader',
-        'customSupplant',
-        'customBentSubverter',
-        'customTumble',
+        'destabalizer',
+        'deposer',
+        'blockade',
+        'toppler',
+        'autosubverter',
+        'osprey',
+        'degrader',
+        'supplant',
+        'bentSubverter',
+        'tumble',
     ],
 }
-Class.customSuperintendent = {
+Class.superintendent_AR = {
     PARENT: 'genericTank',
     LABEL: 'Superintendent',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71594,13 +73006,14 @@ Class.customSuperintendent = {
 
     ],
 }
-Class.customSupervisor = {
+Class.supervisor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Supervisor',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71725,13 +73138,14 @@ Class.customSupervisor = {
 
     ],
 }
-Class.customSupplant = {
+Class.supplant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Supplant',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71776,13 +73190,14 @@ Class.customSupplant = {
 
     ],
 }
-Class.customSurfer = {
+Class.surfer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Surfer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71837,30 +73252,31 @@ Class.customSurfer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBrowser',
-        'customSpindrift',
-        'customSurferdrive',
-        'customRoller',
-        'customSoarer',
-        'customStrider',
-        'customCaracara',
-        'customRider',
-        'customAutosurfer',
-        'customCondor',
-        'customFryer',
-        'customParrot',
-        'customSkater',
-        'customKlutz',
-        'customGlider',
+        'browser',
+        'spindrift',
+        'surferdrive',
+        'roller',
+        'soarer',
+        'strider',
+        'caracara',
+        'rider',
+        'autosurfer',
+        'condor',
+        'fryer',
+        'parrot',
+        'skater',
+        'klutz',
+        'glider',
     ],
 }
-Class.customSurferdrive = {
+Class.surferdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Surferdrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71916,7 +73332,7 @@ Class.customSurferdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -71928,13 +73344,14 @@ Class.customSurferdrive = {
 
     ],
 }
-Class.customSwarmer = {
+Class.swarmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Swarmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -71959,26 +73376,27 @@ Class.customSwarmer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customFlocker',
-        'customAutoswarmer',
-        'customMyriad',
-        'customHyperswarmer',
-        'customMolotov',
-        'customTorsion',
-        'customSwarmerdrive',
-        'customVoyage',
-        'customPacker',
-        'customCartridge',
-        'customShoal',
+        'flocker',
+        'autoswarmer',
+        'myriad',
+        'hyperswarmer',
+        'molotov',
+        'torsion',
+        'swarmerdrive',
+        'voyage',
+        'packer',
+        'cartridge',
+        'shoal',
     ],
 }
-Class.customSwarmerdrive = {
+Class.swarmerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Swarmerdrive',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72004,7 +73422,7 @@ Class.customSwarmerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveTriangle',
+            TYPE: 'driveTriangle',
             POSITION: {
                 SIZE: 8.00000011920929,
                 LAYER: 1,
@@ -72016,13 +73434,14 @@ Class.customSwarmerdrive = {
 
     ],
 }
-Class.customSweeper = {
+Class.sweeper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sweeper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72067,13 +73486,14 @@ Class.customSweeper = {
 
     ],
 }
-Class.customSynthesis = {
+Class.synthesis_AR = {
     PARENT: 'genericTank',
     LABEL: 'Synthesis',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72108,13 +73528,14 @@ Class.customSynthesis = {
 
     ],
 }
-Class.customSystematizer = {
+Class.systematizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Systematizer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72169,13 +73590,14 @@ Class.customSystematizer = {
 
     ],
 }
-Class.customTacker = {
+Class.tacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tacker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72240,13 +73662,14 @@ Class.customTacker = {
 
     ],
 }
-Class.customTailer = {
+Class.tailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tailer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72291,13 +73714,14 @@ Class.customTailer = {
 
     ],
 }
-Class.customTainter = {
+Class.tainter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tainter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72342,13 +73766,14 @@ Class.customTainter = {
 
     ],
 }
-Class.customTaser = {
+Class.taser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Taser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72413,26 +73838,27 @@ Class.customTaser = {
 
     ],
     UPGRADES_TIER_4: [
-        'customStunner',
-        'customJolter',
-        'customElectrocutor',
-        'customOsprey',
-        'customKicker',
-        'customShocker',
-        'customZapper',
-        'customAutotaser',
-        'customFryer',
-        'customJerker',
-        'customMagnet',
+        'stunner',
+        'jolter',
+        'electrocutor',
+        'osprey',
+        'kicker',
+        'shocker',
+        'zapper',
+        'autotaser',
+        'fryer',
+        'jerker',
+        'magnet',
     ],
 }
-Class.customTechnician = {
+Class.technician_AR = {
     PARENT: 'genericTank',
     LABEL: 'Technician',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72467,13 +73893,14 @@ Class.customTechnician = {
 
     ],
 }
-Class.customTempest = {
+Class.tempest_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tempest',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72658,13 +74085,14 @@ Class.customTempest = {
 
     ],
 }
-Class.customTernion = {
+Class.ternion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ternion',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72729,7 +74157,7 @@ Class.customTernion = {
 
     ],
 }
-Class.customThorn = {
+Class.thorn_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thorn',
     SIZE: 12,
@@ -72738,7 +74166,7 @@ Class.customThorn = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -72748,7 +74176,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -72758,7 +74186,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -72768,7 +74196,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 17.999999523162842,
                 LAYER: 0,
@@ -72778,7 +74206,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 16.00000023841858,
                 LAYER: 0,
@@ -72788,7 +74216,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 16.00000023841858,
                 LAYER: 0,
@@ -72798,7 +74226,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 16.00000023841858,
                 LAYER: 0,
@@ -72808,7 +74236,7 @@ Class.customThorn = {
             }
         },
         {
-            TYPE: 'customUnnamed_24987',
+            TYPE: 'unnamed_24987',
             POSITION: {
                 SIZE: 16.00000023841858,
                 LAYER: 0,
@@ -72820,13 +74248,14 @@ Class.customThorn = {
 
     ],
 }
-Class.customThrasher = {
+Class.thrasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thrasher',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72891,13 +74320,14 @@ Class.customThrasher = {
 
     ],
 }
-Class.customThreefold = {
+Class.threefold_AR = {
     PARENT: 'genericTank',
     LABEL: 'Threefold',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -72962,13 +74392,14 @@ Class.customThreefold = {
 
     ],
 }
-Class.customThrottler = {
+Class.throttler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Throttler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73023,13 +74454,14 @@ Class.customThrottler = {
 
     ],
 }
-Class.customThunderclap = {
+Class.thunderclap_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thunderclap',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73074,7 +74506,7 @@ Class.customThunderclap = {
 
     ],
 }
-Class.customThwacker = {
+Class.thwacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thwacker',
     SIZE: 12,
@@ -73083,7 +74515,7 @@ Class.customThwacker = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -73095,13 +74527,14 @@ Class.customThwacker = {
 
     ],
 }
-Class.customThwarter = {
+Class.thwarter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Thwarter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73136,13 +74569,14 @@ Class.customThwarter = {
 
     ],
 }
-Class.customTicker = {
+Class.ticker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ticker',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73167,13 +74601,14 @@ Class.customTicker = {
 
     ],
 }
-Class.customToiler = {
+Class.toiler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Toiler',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73238,13 +74673,14 @@ Class.customToiler = {
 
     ],
 }
-Class.customTommy = {
+Class.tommy_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tommy',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73299,13 +74735,14 @@ Class.customTommy = {
 
     ],
 }
-Class.customTopBanana = {
+Class.topBanana_AR = {
     PARENT: 'genericTank',
     LABEL: 'Top Banana',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73340,13 +74777,14 @@ Class.customTopBanana = {
 
     ],
 }
-Class.customToppler = {
+Class.toppler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Toppler',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73381,13 +74819,14 @@ Class.customToppler = {
 
     ],
 }
-Class.customTornado = {
+Class.tornado_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tornado',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73512,13 +74951,14 @@ Class.customTornado = {
 
     ],
 }
-Class.customTorpedo = {
+Class.torpedo_AR = {
     PARENT: 'genericTank',
     LABEL: 'Torpedo',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73563,13 +75003,14 @@ Class.customTorpedo = {
 
     ],
 }
-Class.customTorsion = {
+Class.torsion_AR = {
     PARENT: 'genericTank',
     LABEL: 'Torsion',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73604,13 +75045,14 @@ Class.customTorsion = {
 
     ],
 }
-Class.customTosser = {
+Class.tosser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tosser',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73655,13 +75097,14 @@ Class.customTosser = {
 
     ],
 }
-Class.customTrailer = {
+Class.trailer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trailer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73686,13 +75129,14 @@ Class.customTrailer = {
 
     ],
 }
-Class.customTrapGuard = {
+Class.trapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73727,32 +75171,33 @@ Class.customTrapGuard = {
 
     ],
     UPGRADES_TIER_3: [
-        'customBushwhacker',
-        'customGunnerTrapper',
-        'customBomber',
-        'customConqueror',
-        'customBulwark',
-        'customPeashooter',
-        'customIncarcerator',
-        'customMechGuard',
-        'customAutotrapGuard',
-        'customMachineGuard',
-        'customTritrapGuard',
+        'bushwhacker',
+        'gunnerTrapper',
+        'bomber',
+        'conqueror',
+        'bulwark',
+        'peashooter',
+        'incarcerator',
+        'mechGuard',
+        'autotrapGuard',
+        'machineGuard',
+        'tritrapGuard',
     ],
     UPGRADES_TIER_4: [
-        'customGarrison',
-        'customMaw',
-        'customOvertrapGuard',
-        'customCustodian',
+        'garrison',
+        'maw',
+        'overtrapGuard',
+        'custodian',
     ],
 }
-Class.customTriangle = {
+Class.triangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73787,33 +75232,34 @@ Class.customTriangle = {
 
     ],
     UPGRADES_TIER_3: [
-        'customFighter',
-        'customBooster',
-        'customFalcon',
-        'customBomber',
-        'customAutotriangle',
-        'customSurfer',
-        'customEagle',
-        'customTaser',
-        'customCockatiel',
-        'customIntegrator',
-        'customDefect',
-        'customQuadangle',
+        'fighter',
+        'booster',
+        'falcon',
+        'bomber',
+        'autotriangle',
+        'surfer',
+        'eagle',
+        'taser',
+        'cockatiel',
+        'integrator',
+        'defect',
+        'quadangle',
     ],
     UPGRADES_TIER_4: [
-        'customAvian',
-        'customRaven',
-        'customPhoenix',
-        'customShoebill',
+        'avian',
+        'raven',
+        'phoenix',
+        'shoebill',
     ],
 }
-Class.customTribarricade = {
+Class.tribarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Barricade',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -73938,13 +75384,14 @@ Class.customTribarricade = {
 
     ],
 }
-Class.customTribushwhacker = {
+Class.tribushwhacker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Bushwhacker',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74019,13 +75466,14 @@ Class.customTribushwhacker = {
 
     ],
 }
-Class.customTridieselTrapper = {
+Class.tridieselTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Diesel Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74090,13 +75538,14 @@ Class.customTridieselTrapper = {
 
     ],
 }
-Class.customTriencircler = {
+Class.triencircler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Encircler',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74191,13 +75640,14 @@ Class.customTriencircler = {
 
     ],
 }
-Class.customTriincarcerator = {
+Class.triincarcerator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Incarcerator',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74302,13 +75752,14 @@ Class.customTriincarcerator = {
 
     ],
 }
-Class.customTrimachine = {
+Class.trimachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74373,22 +75824,23 @@ Class.customTrimachine = {
 
     ],
     UPGRADES_TIER_4: [
-        'customSeptamachine',
-        'customHexamachine',
-        'customDonjon',
-        'customTriencircler',
-        'customTrimachineMech',
-        'customTridieselTrapper',
-        'customTrimachineGuard',
+        'septamachine',
+        'hexamachine',
+        'donjon',
+        'triencircler',
+        'trimachineMech',
+        'tridieselTrapper',
+        'trimachineGuard',
     ],
 }
-Class.customTrimachineGuard = {
+Class.trimachineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74463,13 +75915,14 @@ Class.customTrimachineGuard = {
 
     ],
 }
-Class.customTrimachineMech = {
+Class.trimachineMech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74564,13 +76017,14 @@ Class.customTrimachineMech = {
 
     ],
 }
-Class.customTrimech = {
+Class.trimech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74665,22 +76119,23 @@ Class.customTrimech = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBunker',
-        'customHexamech',
-        'customTrimachineMech',
-        'customSeptamech',
-        'customOriginator',
-        'customTrioperator',
-        'customTrimechGuard',
+        'bunker',
+        'hexamech',
+        'trimachineMech',
+        'septamech',
+        'originator',
+        'trioperator',
+        'trimechGuard',
     ],
 }
-Class.customTrimechGuard = {
+Class.trimechGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Mech Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74785,13 +76240,14 @@ Class.customTrimechGuard = {
 
     ],
 }
-Class.customTrimegaTrapper = {
+Class.trimegaTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Mega Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74856,13 +76312,14 @@ Class.customTrimegaTrapper = {
 
     ],
 }
-Class.customTrioperator = {
+Class.trioperator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Operator',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -74987,13 +76444,14 @@ Class.customTrioperator = {
 
     ],
 }
-Class.customTripeashooter = {
+Class.tripeashooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Peashooter',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75078,13 +76536,14 @@ Class.customTripeashooter = {
 
     ],
 }
-Class.customTripen = {
+Class.tripen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75179,21 +76638,22 @@ Class.customTripen = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCorral',
-        'customTriencircler',
-        'customPaddock',
-        'customCoop',
-        'customTrioperator',
-        'customTriincarcerator',
+        'corral',
+        'triencircler',
+        'paddock',
+        'coop',
+        'trioperator',
+        'triincarcerator',
     ],
 }
-Class.customTritrapGuard = {
+Class.tritrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75268,25 +76728,26 @@ Class.customTritrapGuard = {
 
     ],
     UPGRADES_TIER_4: [
-        'customTribushwhacker',
-        'customGunnerTritrapper',
-        'customQuadwark',
-        'customTripeashooter',
-        'customTriincarcerator',
-        'customTrimechGuard',
-        'customTrimachineGuard',
-        'customHexatrapGuard',
-        'customSeptatrapGuard',
-        'customArchitectGuard',
+        'tribushwhacker',
+        'gunnerTritrapper',
+        'quadwark',
+        'tripeashooter',
+        'triincarcerator',
+        'trimechGuard',
+        'trimachineGuard',
+        'hexatrapGuard',
+        'septatrapGuard',
+        'architectGuard',
     ],
 }
-Class.customTritrapper = {
+Class.tritrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75351,28 +76812,29 @@ Class.customTritrapper = {
 
     ],
     UPGRADES_TIER_3: [
-        'customFortress',
-        'customHexatrapper',
-        'customSeptatrapper',
-        'customArchitect',
-        'customTripen',
-        'customTrimech',
-        'customTrimachine',
-        'customTritrapGuard',
+        'fortress',
+        'hexatrapper',
+        'septatrapper',
+        'architect',
+        'tripen',
+        'trimech',
+        'trimachine',
+        'tritrapGuard',
     ],
     UPGRADES_TIER_4: [
-        'customTribarricade',
-        'customTrimegaTrapper',
-        'customWarkwarkwark',
+        'tribarricade',
+        'trimegaTrapper',
+        'warkwarkwark',
     ],
 }
-Class.customTricker = {
+Class.tricker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tricker',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75407,13 +76869,14 @@ Class.customTricker = {
 
     ],
 }
-Class.customTrimmer = {
+Class.trimmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trimmer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75468,13 +76931,14 @@ Class.customTrimmer = {
 
     ],
 }
-Class.customTripleAutoartillery = {
+Class.tripleAutoartillery_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Artillery',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75510,7 +76974,7 @@ Class.customTripleAutoartillery = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75520,7 +76984,7 @@ Class.customTripleAutoartillery = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75530,7 +76994,7 @@ Class.customTripleAutoartillery = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75542,13 +77006,14 @@ Class.customTripleAutoartillery = {
 
     ],
 }
-Class.customTripleAutoassassin = {
+Class.tripleAutoassassin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Assassin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75574,7 +77039,7 @@ Class.customTripleAutoassassin = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75584,7 +77049,7 @@ Class.customTripleAutoassassin = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75594,7 +77059,7 @@ Class.customTripleAutoassassin = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75606,7 +77071,7 @@ Class.customTripleAutoassassin = {
 
     ],
 }
-Class.customTripleAutoauto3 = {
+Class.tripleAutoauto3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Auto-3',
     SIZE: 12,
@@ -75615,7 +77080,7 @@ Class.customTripleAutoauto3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -75625,7 +77090,7 @@ Class.customTripleAutoauto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -75635,7 +77100,7 @@ Class.customTripleAutoauto3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_63735',
+            TYPE: 'unnamed_63735',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -75645,7 +77110,7 @@ Class.customTripleAutoauto3 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75655,7 +77120,7 @@ Class.customTripleAutoauto3 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75665,7 +77130,7 @@ Class.customTripleAutoauto3 = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75677,13 +77142,14 @@ Class.customTripleAutoauto3 = {
 
     ],
 }
-Class.customTripleAutobuilder = {
+Class.tripleAutobuilder_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Builder',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75709,7 +77175,7 @@ Class.customTripleAutobuilder = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75719,7 +77185,7 @@ Class.customTripleAutobuilder = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75729,7 +77195,7 @@ Class.customTripleAutobuilder = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75741,13 +77207,14 @@ Class.customTripleAutobuilder = {
 
     ],
 }
-Class.customTripleAutocruiser = {
+Class.tripleAutocruiser_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Cruiser',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75773,7 +77240,7 @@ Class.customTripleAutocruiser = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75783,7 +77250,7 @@ Class.customTripleAutocruiser = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75793,7 +77260,7 @@ Class.customTripleAutocruiser = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75805,13 +77272,14 @@ Class.customTripleAutocruiser = {
 
     ],
 }
-Class.customTripleAutodestroyer = {
+Class.tripleAutodestroyer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Destroyer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75827,7 +77295,7 @@ Class.customTripleAutodestroyer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75837,7 +77305,7 @@ Class.customTripleAutodestroyer = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75847,7 +77315,7 @@ Class.customTripleAutodestroyer = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75859,13 +77327,14 @@ Class.customTripleAutodestroyer = {
 
     ],
 }
-Class.customTripleAutodiesel = {
+Class.tripleAutodiesel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Diesel',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75881,7 +77350,7 @@ Class.customTripleAutodiesel = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75891,7 +77360,7 @@ Class.customTripleAutodiesel = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75901,7 +77370,7 @@ Class.customTripleAutodiesel = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75913,13 +77382,14 @@ Class.customTripleAutodiesel = {
 
     ],
 }
-Class.customTripleAutodirectordrive = {
+Class.tripleAutodirectordrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Directordrive',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75935,7 +77405,7 @@ Class.customTripleAutodirectordrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75945,7 +77415,7 @@ Class.customTripleAutodirectordrive = {
             }
         },
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75955,7 +77425,7 @@ Class.customTripleAutodirectordrive = {
             }
         },
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -75967,13 +77437,14 @@ Class.customTripleAutodirectordrive = {
 
     ],
 }
-Class.customTripleAutodoper = {
+Class.tripleAutodoper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Doper',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -75999,7 +77470,7 @@ Class.customTripleAutodoper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76009,7 +77480,7 @@ Class.customTripleAutodoper = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76019,7 +77490,7 @@ Class.customTripleAutodoper = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76031,13 +77502,14 @@ Class.customTripleAutodoper = {
 
     ],
 }
-Class.customTripleAutodouble = {
+Class.tripleAutodouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Double',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76083,7 +77555,7 @@ Class.customTripleAutodouble = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76093,7 +77565,7 @@ Class.customTripleAutodouble = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76103,7 +77575,7 @@ Class.customTripleAutodouble = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76115,13 +77587,14 @@ Class.customTripleAutodouble = {
 
     ],
 }
-Class.customTripleAutogunner = {
+Class.tripleAutogunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76167,7 +77640,7 @@ Class.customTripleAutogunner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76177,7 +77650,7 @@ Class.customTripleAutogunner = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76187,7 +77660,7 @@ Class.customTripleAutogunner = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76199,13 +77672,14 @@ Class.customTripleAutogunner = {
 
     ],
 }
-Class.customTripleAutohexaTank = {
+Class.tripleAutohexaTank_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Hexa Tank',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76271,7 +77745,7 @@ Class.customTripleAutohexaTank = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76281,7 +77755,7 @@ Class.customTripleAutohexaTank = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76291,7 +77765,7 @@ Class.customTripleAutohexaTank = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76303,13 +77777,14 @@ Class.customTripleAutohexaTank = {
 
     ],
 }
-Class.customTripleAutohoncho = {
+Class.tripleAutohoncho_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Honcho',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76325,7 +77800,7 @@ Class.customTripleAutohoncho = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76335,7 +77810,7 @@ Class.customTripleAutohoncho = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76345,7 +77820,7 @@ Class.customTripleAutohoncho = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76357,13 +77832,14 @@ Class.customTripleAutohoncho = {
 
     ],
 }
-Class.customTripleAutohunter = {
+Class.tripleAutohunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76389,7 +77865,7 @@ Class.customTripleAutohunter = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76399,7 +77875,7 @@ Class.customTripleAutohunter = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76409,7 +77885,7 @@ Class.customTripleAutohunter = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76421,13 +77897,14 @@ Class.customTripleAutohunter = {
 
     ],
 }
-Class.customTripleAutolauncher = {
+Class.tripleAutolauncher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Launcher',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76453,7 +77930,7 @@ Class.customTripleAutolauncher = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76463,7 +77940,7 @@ Class.customTripleAutolauncher = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76473,7 +77950,7 @@ Class.customTripleAutolauncher = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76485,13 +77962,14 @@ Class.customTripleAutolauncher = {
 
     ],
 }
-Class.customTripleAutomachineTrapper = {
+Class.tripleAutomachineTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Machine Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76517,7 +77995,7 @@ Class.customTripleAutomachineTrapper = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76527,7 +78005,7 @@ Class.customTripleAutomachineTrapper = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76537,7 +78015,7 @@ Class.customTripleAutomachineTrapper = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76549,13 +78027,14 @@ Class.customTripleAutomachineTrapper = {
 
     ],
 }
-Class.customTripleAutomech = {
+Class.tripleAutomech_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Mech',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76591,7 +78070,7 @@ Class.customTripleAutomech = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76601,7 +78080,7 @@ Class.customTripleAutomech = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76611,7 +78090,7 @@ Class.customTripleAutomech = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76623,13 +78102,14 @@ Class.customTripleAutomech = {
 
     ],
 }
-Class.customTripleAutominigun = {
+Class.tripleAutominigun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Minigun',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76665,7 +78145,7 @@ Class.customTripleAutominigun = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76675,7 +78155,7 @@ Class.customTripleAutominigun = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76685,7 +78165,7 @@ Class.customTripleAutominigun = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76697,13 +78177,14 @@ Class.customTripleAutominigun = {
 
     ],
 }
-Class.customTripleAutooverseer = {
+Class.tripleAutooverseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Overseer',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76729,7 +78210,7 @@ Class.customTripleAutooverseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76739,7 +78220,7 @@ Class.customTripleAutooverseer = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76749,7 +78230,7 @@ Class.customTripleAutooverseer = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76761,13 +78242,14 @@ Class.customTripleAutooverseer = {
 
     ],
 }
-Class.customTripleAutopen = {
+Class.tripleAutopen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Pen',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76803,7 +78285,7 @@ Class.customTripleAutopen = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76813,7 +78295,7 @@ Class.customTripleAutopen = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76823,7 +78305,7 @@ Class.customTripleAutopen = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76835,13 +78317,14 @@ Class.customTripleAutopen = {
 
     ],
 }
-Class.customTripleAutorifle = {
+Class.tripleAutorifle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Rifle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -76867,7 +78350,7 @@ Class.customTripleAutorifle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76877,7 +78360,7 @@ Class.customTripleAutorifle = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76887,7 +78370,7 @@ Class.customTripleAutorifle = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76899,7 +78382,7 @@ Class.customTripleAutorifle = {
 
     ],
 }
-Class.customTripleAutosmasher_18774 = {
+Class.tripleAutosmasher_18774_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Smasher',
     SIZE: 12,
@@ -76908,7 +78391,7 @@ Class.customTripleAutosmasher_18774 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -76918,7 +78401,7 @@ Class.customTripleAutosmasher_18774 = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76928,7 +78411,7 @@ Class.customTripleAutosmasher_18774 = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76938,7 +78421,7 @@ Class.customTripleAutosmasher_18774 = {
             }
         },
         {
-            TYPE: 'customTurret_51376',
+            TYPE: 'turret_51376',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -76950,7 +78433,7 @@ Class.customTripleAutosmasher_18774 = {
 
     ],
 }
-Class.customTripleAutosmasher_33130 = {
+Class.tripleAutosmasher_33130_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Smasher',
     SIZE: 12,
@@ -76959,7 +78442,7 @@ Class.customTripleAutosmasher_33130 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 21.500000953674316,
                 LAYER: 0,
@@ -76969,7 +78452,7 @@ Class.customTripleAutosmasher_33130 = {
             }
         },
         {
-            TYPE: 'customTurret_7887',
+            TYPE: 'turret_7887',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 1,
@@ -76981,13 +78464,14 @@ Class.customTripleAutosmasher_33130 = {
 
     ],
 }
-Class.customTripleAutospawner = {
+Class.tripleAutospawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77023,7 +78507,7 @@ Class.customTripleAutospawner = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77033,7 +78517,7 @@ Class.customTripleAutospawner = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77043,7 +78527,7 @@ Class.customTripleAutospawner = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77055,13 +78539,14 @@ Class.customTripleAutospawner = {
 
     ],
 }
-Class.customTripleAutotrapGuard = {
+Class.tripleAutotrapGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Trap Guard',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77097,7 +78582,7 @@ Class.customTripleAutotrapGuard = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77107,7 +78592,7 @@ Class.customTripleAutotrapGuard = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77117,7 +78602,7 @@ Class.customTripleAutotrapGuard = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77129,13 +78614,14 @@ Class.customTripleAutotrapGuard = {
 
     ],
 }
-Class.customTripleAutotriangle = {
+Class.tripleAutotriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Tri-Angle',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77171,7 +78657,7 @@ Class.customTripleAutotriangle = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77181,7 +78667,7 @@ Class.customTripleAutotriangle = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77191,7 +78677,7 @@ Class.customTripleAutotriangle = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77203,13 +78689,14 @@ Class.customTripleAutotriangle = {
 
     ],
 }
-Class.customTripleAutotripleShot = {
+Class.tripleAutotripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77245,7 +78732,7 @@ Class.customTripleAutotripleShot = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77255,7 +78742,7 @@ Class.customTripleAutotripleShot = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77265,7 +78752,7 @@ Class.customTripleAutotripleShot = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77277,13 +78764,14 @@ Class.customTripleAutotripleShot = {
 
     ],
 }
-Class.customTripleAutowark = {
+Class.tripleAutowark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Wark',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77329,7 +78817,7 @@ Class.customTripleAutowark = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77339,7 +78827,7 @@ Class.customTripleAutowark = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77349,7 +78837,7 @@ Class.customTripleAutowark = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -77361,114 +78849,14 @@ Class.customTripleAutowark = {
 
     ],
 }
-Class.customTripleFlankTwin = {
-    PARENT: 'genericTank',
-    LABEL: 'Triple Flank Twin',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: -60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265034302484e-07,
-                Y: 5.500000119209284,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126506205806e-07,
-                Y: -5.500000119209284,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264951035757e-07,
-                Y: 5.500000119209284,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265034302484e-07,
-                Y: -5.5000001192092824,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-}
-Class.customTripleGunner = {
+Class.tripleGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Gunner',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77593,13 +78981,14 @@ Class.customTripleGunner = {
 
     ],
 }
-Class.customTripleShot = {
+Class.tripleShot_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Shot',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77634,31 +79023,32 @@ Class.customTripleShot = {
 
     ],
     UPGRADES_TIER_3: [
-        'customPentaShot',
-        'customSpreadshot',
-        'customBentHybrid',
-        'customBentDouble',
-        'customTriplet',
-        'customSplitShot',
-        'customAutotripleShot',
-        'customBentGunner',
-        'customBentMinigun',
-        'customDefect',
-        'customWaarrk',
+        'pentaShot',
+        'spreadshot',
+        'bentHybrid',
+        'bentDouble',
+        'triplet',
+        'splitShot',
+        'autotripleShot',
+        'bentGunner',
+        'bentMinigun',
+        'defect',
+        'waarrk',
     ],
     UPGRADES_TIER_4: [
-        'customThreefold',
-        'customFlintlock',
-        'customBentBulwark',
+        'threefold',
+        'flintlock',
+        'bentBulwark',
     ],
 }
-Class.customTripleTwin = {
+Class.tripleTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Twin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77723,22 +79113,23 @@ Class.customTripleTwin = {
 
     ],
     UPGRADES_TIER_4: [
-        'customQuadTwin',
-        'customAutotripleTwin',
-        'customBentTriple',
-        'customHewnTriple',
-        'customTripleFlankTwin',
-        'customTripleGunner',
-        'customWarkwarkwark',
+        'quadTwin',
+        'autotripleTwin',
+        'bentTriple',
+        'hewnTriple',
+        'tripleFlankTwin',
+        'tripleGunner',
+        'warkwarkwark',
     ],
 }
-Class.customTriplet = {
+Class.triplet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triplet',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77773,23 +79164,24 @@ Class.customTriplet = {
 
     ],
     UPGRADES_TIER_4: [
-        'customQuintuplet',
-        'customDoubleTriplet',
-        'customTriprid',
-        'customAutotriplet',
-        'customLasher',
-        'customMinilet',
-        'customNitwit',
-        'customWarklet',
+        'quintuplet',
+        'doubleTriplet',
+        'triprid',
+        'autotriplet',
+        'lasher',
+        'minilet',
+        'nitwit',
+        'warklet',
     ],
 }
-Class.customTriprid = {
+Class.triprid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triprid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77834,7 +79226,7 @@ Class.customTriprid = {
 
     ],
 }
-Class.customTripwire = {
+Class.tripwire_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tripwire',
     SIZE: 12,
@@ -77843,7 +79235,7 @@ Class.customTripwire = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -77853,7 +79245,7 @@ Class.customTripwire = {
             }
         },
         {
-            TYPE: 'customUnknownClass_18594',
+            TYPE: 'unknownClass_18594',
             POSITION: {
                 SIZE: 27.000000476837158,
                 LAYER: 0,
@@ -77865,13 +79257,14 @@ Class.customTripwire = {
 
     ],
 }
-Class.customTrove = {
+Class.trove_AR = {
     PARENT: 'genericTank',
     LABEL: 'Trove',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -77957,7 +79350,7 @@ Class.customTrove = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -77967,7 +79360,7 @@ Class.customTrove = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -77977,7 +79370,7 @@ Class.customTrove = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -77987,7 +79380,7 @@ Class.customTrove = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -77999,13 +79392,14 @@ Class.customTrove = {
 
     ],
 }
-Class.customTumble = {
+Class.tumble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tumble',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78040,13 +79434,14 @@ Class.customTumble = {
 
     ],
 }
-Class.customTurret_51376 = {
+Class.turret_51376_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78071,13 +79466,14 @@ Class.customTurret_51376 = {
 
     ],
 }
-Class.customTurret_34618 = {
+Class.turret_34618_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78092,13 +79488,14 @@ Class.customTurret_34618 = {
 
     ],
 }
-Class.customTurret_59723 = {
+Class.turret_59723_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78123,13 +79520,14 @@ Class.customTurret_59723 = {
 
     ],
 }
-Class.customTurret_51860 = {
+Class.turret_51860_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78174,13 +79572,14 @@ Class.customTurret_51860 = {
 
     ],
 }
-Class.customTurret_7887 = {
+Class.turret_7887_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78215,13 +79614,14 @@ Class.customTurret_7887 = {
 
     ],
 }
-Class.customTurret_16326 = {
+Class.turret_16326_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78266,13 +79666,14 @@ Class.customTurret_16326 = {
 
     ],
 }
-Class.customTurret_17322 = {
+Class.turret_17322_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78337,13 +79738,14 @@ Class.customTurret_17322 = {
 
     ],
 }
-Class.customTurret_34583 = {
+Class.turret_34583_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78358,13 +79760,14 @@ Class.customTurret_34583 = {
 
     ],
 }
-Class.customTwister = {
+Class.twister_AR = {
     PARENT: 'genericTank',
     LABEL: 'Twister',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78389,28 +79792,29 @@ Class.customTwister = {
 
     ],
     UPGRADES_TIER_4: [
-        'customAutotwister',
-        'customSpouter',
-        'customHypertwister',
-        'customHelix',
-        'customSpiral',
-        'customGyro',
-        'customRattler',
-        'customSqualler',
-        'customSpinner',
-        'customTorsion',
-        'customCollision',
-        'customCatapult',
-        'customGrenade',
+        'autotwister',
+        'spouter',
+        'hypertwister',
+        'helix',
+        'spiral',
+        'gyro',
+        'rattler',
+        'squaller',
+        'spinner',
+        'torsion',
+        'collision',
+        'catapult',
+        'grenade',
     ],
 }
-Class.customTyrant = {
+Class.tyrant_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tyrant',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78456,7 +79860,7 @@ Class.customTyrant = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -78468,13 +79872,14 @@ Class.customTyrant = {
 
     ],
 }
-Class.customUltraHunter = {
+Class.ultraHunter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra Hunter',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78499,13 +79904,14 @@ Class.customUltraHunter = {
 
     ],
 }
-Class.customUltraSpawner = {
+Class.ultraSpawner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra Spawner',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78540,13 +79946,14 @@ Class.customUltraSpawner = {
 
     ],
 }
-Class.customUltraTrapper = {
+Class.ultraTrapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra Trapper',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78571,7 +79978,7 @@ Class.customUltraTrapper = {
 
     ],
 }
-Class.customUltra3 = {
+Class.ultra3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra-3',
     SIZE: 12,
@@ -78580,7 +79987,7 @@ Class.customUltra3 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_11140',
+            TYPE: 'unnamed_11140',
             POSITION: {
                 SIZE: 15.499999523162842,
                 LAYER: 0,
@@ -78590,7 +79997,7 @@ Class.customUltra3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_11140',
+            TYPE: 'unnamed_11140',
             POSITION: {
                 SIZE: 15.499999523162842,
                 LAYER: 0,
@@ -78600,7 +80007,7 @@ Class.customUltra3 = {
             }
         },
         {
-            TYPE: 'customUnnamed_11140',
+            TYPE: 'unnamed_11140',
             POSITION: {
                 SIZE: 15.499999523162842,
                 LAYER: 0,
@@ -78612,7 +80019,7 @@ Class.customUltra3 = {
 
     ],
 }
-Class.customUltrasmasher = {
+Class.ultrasmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Ultra-Smasher',
     SIZE: 12,
@@ -78621,7 +80028,7 @@ Class.customUltrasmasher = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_29686',
+            TYPE: 'unnamed_29686',
             POSITION: {
                 SIZE: 27.5,
                 LAYER: 0,
@@ -78633,13 +80040,14 @@ Class.customUltrasmasher = {
 
     ],
 }
-Class.customUnity = {
+Class.unity_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unity',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78764,7 +80172,7 @@ Class.customUnity = {
 
     ],
 }
-Class.customUnknownEntity = {
+Class.unknownEntity_AR = {
     PARENT: 'genericTank',
     LABEL: 'Unknown Entity',
     SIZE: 10,
@@ -78772,13 +80180,14 @@ Class.customUnknownEntity = {
     SHAPE: 0,
     COLOR: 16,
 }
-Class.customUtilizer = {
+Class.utilizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Utilizer',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78833,13 +80242,14 @@ Class.customUtilizer = {
 
     ],
 }
-Class.customVallation = {
+Class.vallation_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vallation',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78894,13 +80304,14 @@ Class.customVallation = {
 
     ],
 }
-Class.customVanquisher = {
+Class.vanquisher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vanquisher',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78955,13 +80366,14 @@ Class.customVanquisher = {
 
     ],
 }
-Class.customVeerer = {
+Class.veerer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Veerer',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -78996,13 +80408,14 @@ Class.customVeerer = {
 
     ],
 }
-Class.customVendor = {
+Class.vendor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vendor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79037,13 +80450,14 @@ Class.customVendor = {
 
     ],
 }
-Class.customVenture = {
+Class.venture_AR = {
     PARENT: 'genericTank',
     LABEL: 'Venture',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79088,13 +80502,14 @@ Class.customVenture = {
 
     ],
 }
-Class.customVermin = {
+Class.vermin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vermin',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79159,7 +80574,7 @@ Class.customVermin = {
 
     ],
 }
-Class.customVessel = {
+Class.vessel_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vessel',
     SIZE: 12,
@@ -79168,7 +80583,7 @@ Class.customVessel = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnknownClass_5627',
+            TYPE: 'unknownClass_5627',
             POSITION: {
                 SIZE: 20,
                 LAYER: 0,
@@ -79178,7 +80593,7 @@ Class.customVessel = {
             }
         },
         {
-            TYPE: 'customUnnamed_28741',
+            TYPE: 'unnamed_28741',
             POSITION: {
                 SIZE: 18.50000023841858,
                 LAYER: 0,
@@ -79190,13 +80605,14 @@ Class.customVessel = {
 
     ],
 }
-Class.customVigor = {
+Class.vigor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vigor',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79241,13 +80657,14 @@ Class.customVigor = {
 
     ],
 }
-Class.customVindicator = {
+Class.vindicator_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vindicator',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79272,13 +80689,14 @@ Class.customVindicator = {
 
     ],
 }
-Class.customVirago = {
+Class.virago_AR = {
     PARENT: 'genericTank',
     LABEL: 'Virago',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79353,13 +80771,14 @@ Class.customVirago = {
 
     ],
 }
-Class.customVitality = {
+Class.vitality_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vitality',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79424,13 +80843,14 @@ Class.customVitality = {
 
     ],
 }
-Class.customVolley = {
+Class.volley_AR = {
     PARENT: 'genericTank',
     LABEL: 'Volley',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79475,24 +80895,25 @@ Class.customVolley = {
 
     ],
     UPGRADES_TIER_4: [
-        'customCannonade',
-        'customVolley4',
-        'customTornado',
-        'customPummeler',
-        'customBarrage',
-        'customAutovolley',
-        'customDoubleVolley',
-        'customMachineVolley',
-        'customVolleyHybrid',
+        'cannonade',
+        'volley4',
+        'tornado',
+        'pummeler',
+        'barrage',
+        'autovolley',
+        'doubleVolley',
+        'machineVolley',
+        'volleyHybrid',
     ],
 }
-Class.customVolleyHybrid = {
+Class.volleyHybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Volley Hybrid',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79547,7 +80968,7 @@ Class.customVolleyHybrid = {
 
     ],
 }
-Class.customVolley4 = {
+Class.volley4_AR = {
     PARENT: 'genericTank',
     LABEL: 'Volley-4',
     SIZE: 12,
@@ -79556,7 +80977,7 @@ Class.customVolley4 = {
     COLOR: 16,
     TURRETS: [
         {
-            TYPE: 'customUnnamed_31232',
+            TYPE: 'unnamed_31232',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -79566,7 +80987,7 @@ Class.customVolley4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_31232',
+            TYPE: 'unnamed_31232',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -79576,7 +80997,7 @@ Class.customVolley4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_31232',
+            TYPE: 'unnamed_31232',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -79586,7 +81007,7 @@ Class.customVolley4 = {
             }
         },
         {
-            TYPE: 'customUnnamed_31232',
+            TYPE: 'unnamed_31232',
             POSITION: {
                 SIZE: 13.999999761581421,
                 LAYER: 0,
@@ -79598,13 +81019,14 @@ Class.customVolley4 = {
 
     ],
 }
-Class.customVortex = {
+Class.vortex_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vortex',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79620,7 +81042,7 @@ Class.customVortex = {
     ],
     TURRETS: [
         {
-            TYPE: 'customStormSquare_38288',
+            TYPE: 'stormSquare_38288',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -79632,13 +81054,14 @@ Class.customVortex = {
 
     ],
 }
-Class.customVoyage = {
+Class.voyage_AR = {
     PARENT: 'genericTank',
     LABEL: 'Voyage',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79683,13 +81106,14 @@ Class.customVoyage = {
 
     ],
 }
-Class.customVulcan = {
+Class.vulcan_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vulcan',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79814,13 +81238,14 @@ Class.customVulcan = {
 
     ],
 }
-Class.customVulture = {
+Class.vulture_AR = {
     PARENT: 'genericTank',
     LABEL: 'Vulture',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79885,13 +81310,14 @@ Class.customVulture = {
 
     ],
 }
-Class.customWaarararrk = {
+Class.waarararrk_AR = {
     PARENT: 'genericTank',
     LABEL: 'Waarararrk',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -79996,13 +81422,14 @@ Class.customWaarararrk = {
 
     ],
 }
-Class.customWaarrk = {
+Class.waarrk_AR = {
     PARENT: 'genericTank',
     LABEL: 'Waarrk',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80067,29 +81494,30 @@ Class.customWaarrk = {
 
     ],
     UPGRADES_TIER_4: [
-        'customWaarararrk',
-        'customFungus',
-        'customBentCatcher',
-        'customWaarrkwaarrk',
-        'customWarklet',
-        'customSplinterShot',
-        'customAutowaarrk',
-        'customDagger',
-        'customBentBarricade',
-        'customFault',
-        'customBentBulwark',
-        'customBrig',
-        'customYard',
-        'customSpitter',
+        'waarararrk',
+        'fungus',
+        'bentCatcher',
+        'waarrkwaarrk',
+        'warklet',
+        'splinterShot',
+        'autowaarrk',
+        'dagger',
+        'bentBarricade',
+        'fault',
+        'bentBulwark',
+        'brig',
+        'yard',
+        'spitter',
     ],
 }
-Class.customWaarrkwaarrk = {
+Class.waarrkwaarrk_AR = {
     PARENT: 'genericTank',
     LABEL: 'Waarrkwaarrk',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80214,13 +81642,14 @@ Class.customWaarrkwaarrk = {
 
     ],
 }
-Class.customWalloper = {
+Class.walloper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Walloper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80285,13 +81714,14 @@ Class.customWalloper = {
 
     ],
 }
-Class.customWarkdrive = {
+Class.warkdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warkdrive',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80347,7 +81777,7 @@ Class.customWarkdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -80359,13 +81789,14 @@ Class.customWarkdrive = {
 
     ],
 }
-Class.customWarklet = {
+Class.warklet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warklet',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80430,13 +81861,14 @@ Class.customWarklet = {
 
     ],
 }
-Class.customWarkwarkwark = {
+Class.warkwarkwark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warkwarkwark',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80561,275 +81993,14 @@ Class.customWarkwarkwark = {
 
     ],
 }
-Class.customWarkwawarkrk = {
-    PARENT: 'genericTank',
-    LABEL: 'Warkwawarkrk',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 205.0000000128204,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265034302484e-07,
-                Y: -5.500000119209284,
-                ANGLE: 154.99999634471394,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: -5.500000003484012,
-                ANGLE: 154.99999634471394,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: 5.50000000348401,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: 175.00000600818353,
-            }
-        },
-
-    ],
-}
-Class.customWarkwawawark = {
-    PARENT: 'genericTank',
-    LABEL: 'Warkwawawark',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999761581421,
-                Y: -8.572527968096175e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999761581421,
-                Y: -8.572526644607195e-16,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: 5.50000000348401,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: 175.00000600818353,
-            }
-        },
-
-    ],
-}
-Class.customWarlord = {
+Class.warlord_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warlord',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -80914,13 +82085,14 @@ Class.customWarlord = {
 
     ],
 }
-Class.customWarship = {
+Class.warship_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warship',
     SIZE: 12,
     STAT_NAMES: 4,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81005,13 +82177,14 @@ Class.customWarship = {
 
     ],
 }
-Class.customWaster = {
+Class.waster_AR = {
     PARENT: 'genericTank',
     LABEL: 'Waster',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81037,7 +82210,7 @@ Class.customWaster = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -81047,7 +82220,7 @@ Class.customWaster = {
             }
         },
         {
-            TYPE: 'customUnnamed_50514',
+            TYPE: 'unnamed_50514',
             POSITION: {
                 SIZE: 11.000000238418579,
                 LAYER: 0,
@@ -81059,13 +82232,14 @@ Class.customWaster = {
 
     ],
 }
-Class.customWatchman = {
+Class.watchman_AR = {
     PARENT: 'genericTank',
     LABEL: 'Watchman',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81110,13 +82284,14 @@ Class.customWatchman = {
 
     ],
 }
-Class.customWhirlwind = {
+Class.whirlwind_AR = {
     PARENT: 'genericTank',
     LABEL: 'Whirlwind',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81361,13 +82536,14 @@ Class.customWhirlwind = {
 
     ],
 }
-Class.customWhizzer = {
+Class.whizzer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Whizzer',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81452,13 +82628,14 @@ Class.customWhizzer = {
 
     ],
 }
-Class.customWidget = {
+Class.widget_AR = {
     PARENT: 'genericTank',
     LABEL: 'Widget',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81493,25 +82670,26 @@ Class.customWidget = {
 
     ],
     UPGRADES_TIER_4: [
-        'customRoadblock',
-        'customGizmo',
-        'customTumble',
-        'customHammer',
-        'customAutowidget',
-        'customPipeline',
-        'customMagnet',
-        'customBentWidget',
-        'customSystematizer',
-        'customSandstorm',
+        'roadblock',
+        'gizmo',
+        'tumble',
+        'hammer',
+        'autowidget',
+        'pipeline',
+        'magnet',
+        'bentWidget',
+        'systematizer',
+        'sandstorm',
     ],
 }
-Class.customWiper = {
+Class.wiper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wiper',
     SIZE: 12,
     STAT_NAMES: 6,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81556,13 +82734,14 @@ Class.customWiper = {
 
     ],
 }
-Class.customWorker = {
+Class.worker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Worker',
     SIZE: 12,
     STAT_NAMES: 2,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81597,13 +82776,14 @@ Class.customWorker = {
 
     ],
 }
-Class.customWraith = {
+Class.wraith_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wraith',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81649,7 +82829,7 @@ Class.customWraith = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -81659,7 +82839,7 @@ Class.customWraith = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -81669,7 +82849,7 @@ Class.customWraith = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -81679,7 +82859,7 @@ Class.customWraith = {
             }
         },
         {
-            TYPE: 'customUnnamed_38115',
+            TYPE: 'unnamed_38115',
             POSITION: {
                 SIZE: 12.999999523162842,
                 LAYER: 0,
@@ -81691,13 +82871,14 @@ Class.customWraith = {
 
     ],
 }
-Class.customWrench = {
+Class.wrench_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wrench',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81723,7 +82904,7 @@ Class.customWrench = {
     ],
     TURRETS: [
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -81733,7 +82914,7 @@ Class.customWrench = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -81743,7 +82924,7 @@ Class.customWrench = {
             }
         },
         {
-            TYPE: 'customUnnamed_49970',
+            TYPE: 'unnamed_49970',
             POSITION: {
                 SIZE: 6.000000238418579,
                 LAYER: 1,
@@ -81755,13 +82936,14 @@ Class.customWrench = {
 
     ],
 }
-Class.customYard = {
+Class.yard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Yard',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81856,13 +83038,14 @@ Class.customYard = {
 
     ],
 }
-Class.customZapper = {
+Class.zapper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Zapper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81947,13 +83130,14 @@ Class.customZapper = {
 
     ],
 }
-Class.customZephyr = {
+Class.zephyr_AR = {
     PARENT: 'genericTank',
     LABEL: 'Zephyr',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -81998,13 +83182,14 @@ Class.customZephyr = {
 
     ],
 }
-Class.customZipper = {
+Class.zipper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Zipper',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82059,28 +83244,29 @@ Class.customZipper = {
 
     ],
     UPGRADES_TIER_4: [
-        'customGusher',
-        'customBracer',
-        'customStrapper',
-        'customClasp',
-        'customDegrader',
-        'customKicker',
-        'customColonizer',
-        'customHotbed',
-        'customAutozipper',
-        'customSizzler',
-        'customBrio',
-        'customPipeline',
-        'customPepper',
+        'gusher',
+        'bracer',
+        'strapper',
+        'clasp',
+        'degrader',
+        'kicker',
+        'colonizer',
+        'hotbed',
+        'autozipper',
+        'sizzler',
+        'brio',
+        'pipeline',
+        'pepper',
     ],
 }
-Class.customCobblerdrive = {
+Class.cobblerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'cobblerdrive',
     SIZE: 12,
     STAT_NAMES: 5,
     SHAPE: 0,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82126,7 +83312,7 @@ Class.customCobblerdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -82138,7 +83324,7 @@ Class.customCobblerdrive = {
 
     ],
 }
-Class.customDriveTriangle = {
+Class.driveTriangle_AR = {
     PARENT: 'genericTank',
     LABEL: 'Drive Triangle',
     SIZE: 10,
@@ -82146,13 +83332,14 @@ Class.customDriveTriangle = {
     SHAPE: 3,
     COLOR: 16,
 }
-Class.customTurret_64872 = {
+Class.turret_64872_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 3,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82167,13 +83354,14 @@ Class.customTurret_64872 = {
 
     ],
 }
-Class.customAutomaleficitor = {
+Class.automaleficitor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Maleficitor',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82189,7 +83377,7 @@ Class.customAutomaleficitor = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -82201,13 +83389,14 @@ Class.customAutomaleficitor = {
 
     ],
 }
-Class.customAutonecromancer = {
+Class.autonecromancer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Necromancer',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82253,7 +83442,7 @@ Class.customAutonecromancer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -82265,13 +83454,14 @@ Class.customAutonecromancer = {
 
     ],
 }
-Class.customAutounderdrive = {
+Class.autounderdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Underdrive',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82297,7 +83487,7 @@ Class.customAutounderdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_17340',
+            TYPE: 'turret_17340',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -82309,13 +83499,14 @@ Class.customAutounderdrive = {
 
     ],
 }
-Class.customAutounderseer = {
+Class.autounderseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82341,7 +83532,7 @@ Class.customAutounderseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -82353,22 +83544,23 @@ Class.customAutounderseer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customMegaAutounderseer',
-        'customTripleAutounderseer',
-        'customAutonecromancer',
-        'customAutomaleficitor',
-        'customAutounderdrive',
-        'customAutoinfestor',
-        'customAutopentaseer',
+        'megaAutounderseer',
+        'tripleAutounderseer',
+        'autonecromancer',
+        'automaleficitor',
+        'autounderdrive',
+        'autoinfestor',
+        'autopentaseer',
     ],
 }
-Class.customBewitcher = {
+Class.bewitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bewitcher',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82383,13 +83575,14 @@ Class.customBewitcher = {
 
     ],
 }
-Class.customCharmer = {
+Class.charmer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Charmer',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82414,13 +83607,14 @@ Class.customCharmer = {
 
     ],
 }
-Class.customConductor = {
+Class.conductor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Conductor',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82445,7 +83639,7 @@ Class.customConductor = {
 
     ],
 }
-Class.customDriveSquare = {
+Class.driveSquare_AR = {
     PARENT: 'genericTank',
     LABEL: 'Drive Square',
     SIZE: 10,
@@ -82453,13 +83647,14 @@ Class.customDriveSquare = {
     SHAPE: 4,
     COLOR: 16,
 }
-Class.customHexer = {
+Class.hexer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexer',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82475,7 +83670,7 @@ Class.customHexer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -82487,13 +83682,14 @@ Class.customHexer = {
 
     ],
 }
-Class.customMaleficitor = {
+Class.maleficitor_AR = {
     PARENT: 'genericTank',
     LABEL: 'Maleficitor',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82508,21 +83704,22 @@ Class.customMaleficitor = {
 
     ],
     UPGRADES_TIER_4: [
-        'customBewitcher',
-        'customCharmer',
-        'customAutomaleficitor',
-        'customHexer',
-        'customFemaleficitor',
-        'customWitch',
+        'bewitcher',
+        'charmer',
+        'automaleficitor',
+        'hexer',
+        'femaleficitor',
+        'witch',
     ],
 }
-Class.customMegaAutounderseer = {
+Class.megaAutounderseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Auto-Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82548,7 +83745,7 @@ Class.customMegaAutounderseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34583',
+            TYPE: 'turret_34583',
             POSITION: {
                 SIZE: 12.000000476837158,
                 LAYER: 1,
@@ -82560,13 +83757,14 @@ Class.customMegaAutounderseer = {
 
     ],
 }
-Class.customNecrodrive = {
+Class.necrodrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Necrodrive',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82612,7 +83810,7 @@ Class.customNecrodrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -82624,13 +83822,14 @@ Class.customNecrodrive = {
 
     ],
 }
-Class.customNecromancer = {
+Class.necromancer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Necromancer',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82675,21 +83874,22 @@ Class.customNecromancer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customDiviner',
-        'customCharmer',
-        'customAutonecromancer',
-        'customNecrodrive',
-        'customPlaguer',
-        'customPentamancer',
+        'diviner',
+        'charmer',
+        'autonecromancer',
+        'necrodrive',
+        'plaguer',
+        'pentamancer',
     ],
 }
-Class.customPollen = {
+Class.pollen_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pollen',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82754,13 +83954,14 @@ Class.customPollen = {
 
     ],
 }
-Class.customStormSquare_42341 = {
+Class.stormSquare_42341_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm Square',
     SIZE: 10,
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82785,13 +83986,14 @@ Class.customStormSquare_42341 = {
 
     ],
 }
-Class.customStormSquare_38288 = {
+Class.stormSquare_38288_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm Square',
     SIZE: 10,
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82836,13 +84038,14 @@ Class.customStormSquare_38288 = {
 
     ],
 }
-Class.customStormSquare_2164 = {
+Class.stormSquare_2164_AR = {
     PARENT: 'genericTank',
     LABEL: 'Storm Square',
     SIZE: 10,
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82907,13 +84110,14 @@ Class.customStormSquare_2164 = {
 
     ],
 }
-Class.customTripleAutounderseer = {
+Class.tripleAutounderseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Auto-Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82939,7 +84143,7 @@ Class.customTripleAutounderseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -82949,7 +84153,7 @@ Class.customTripleAutounderseer = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -82959,7 +84163,7 @@ Class.customTripleAutounderseer = {
             }
         },
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 6.499999761581421,
                 LAYER: 1,
@@ -82971,13 +84175,14 @@ Class.customTripleAutounderseer = {
 
     ],
 }
-Class.customTurret_17340 = {
+Class.turret_17340_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -82992,13 +84197,14 @@ Class.customTurret_17340 = {
 
     ],
 }
-Class.customTurret_49473 = {
+Class.turret_49473_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83033,13 +84239,14 @@ Class.customTurret_49473 = {
 
     ],
 }
-Class.customTurret_36298 = {
+Class.turret_36298_AR = {
     PARENT: 'genericTank',
     LABEL: 'Turret',
     SIZE: 12,
     STAT_NAMES: 0,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83054,13 +84261,14 @@ Class.customTurret_36298 = {
 
     ],
 }
-Class.customUnderdrive = {
+Class.underdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Underdrive',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83086,7 +84294,7 @@ Class.customUnderdrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -83098,20 +84306,21 @@ Class.customUnderdrive = {
 
     ],
     UPGRADES_TIER_4: [
-        'customNecrodrive',
-        'customHexer',
-        'customAutounderdrive',
-        'customInfestordrive',
-        'customPentadrive',
+        'necrodrive',
+        'hexer',
+        'autounderdrive',
+        'infestordrive',
+        'pentadrive',
     ],
 }
-Class.customUnderseer = {
+Class.underseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Underseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 4,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83136,24 +84345,25 @@ Class.customUnderseer = {
 
     ],
     UPGRADES_TIER_3: [
-        'customNecromancer',
-        'customMaleficitor',
-        'customAutounderseer',
-        'customUnderdrive',
-        'customInfestor',
-        'customPentaseer',
+        'necromancer',
+        'maleficitor',
+        'autounderseer',
+        'underdrive',
+        'infestor',
+        'pentaseer',
     ],
     UPGRADES_TIER_4: [
-        'customConductor',
+        'conductor',
     ],
 }
-Class.customAutopentaseer = {
+Class.autopentaseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pentaseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 5,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83179,7 +84389,7 @@ Class.customAutopentaseer = {
     ],
     TURRETS: [
         {
-            TYPE: 'customTurret_34618',
+            TYPE: 'turret_34618',
             POSITION: {
                 SIZE: 10.0,
                 LAYER: 1,
@@ -83191,13 +84401,14 @@ Class.customAutopentaseer = {
 
     ],
 }
-Class.customPentadrive = {
+Class.pentadrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pentadrive',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 5,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83223,7 +84434,7 @@ Class.customPentadrive = {
     ],
     TURRETS: [
         {
-            TYPE: 'customDriveSquare',
+            TYPE: 'driveSquare',
             POSITION: {
                 SIZE: 8.999999761581421,
                 LAYER: 1,
@@ -83235,13 +84446,14 @@ Class.customPentadrive = {
 
     ],
 }
-Class.customPentamancer = {
+Class.pentamancer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pentamancer',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 5,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83296,13 +84508,14 @@ Class.customPentamancer = {
 
     ],
 }
-Class.customPentaseer = {
+Class.pentaseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Pentaseer',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 5,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83327,20 +84540,21 @@ Class.customPentaseer = {
 
     ],
     UPGRADES_TIER_4: [
-        'customPentamancer',
-        'customWitch',
-        'customAutopentaseer',
-        'customPentadrive',
-        'customWarlock',
+        'pentamancer',
+        'witch',
+        'autopentaseer',
+        'pentadrive',
+        'warlock',
     ],
 }
-Class.customWarlock = {
+Class.warlock_AR = {
     PARENT: 'genericTank',
     LABEL: 'Warlock',
     SIZE: 11.5,
     STAT_NAMES: 2,
     SHAPE: 5,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83375,13 +84589,14 @@ Class.customWarlock = {
 
     ],
 }
-Class.customWitch = {
+Class.witch_AR = {
     PARENT: 'genericTank',
     LABEL: 'Witch',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 5,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
@@ -83396,13 +84611,14 @@ Class.customWitch = {
 
     ],
 }
-Class.customDiviner = {
+Class.diviner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Diviner',
     SIZE: 11.5,
     STAT_NAMES: 3,
     SHAPE: 6,
     COLOR: 16,
+    ...placeholder,
     GUNS: [
         {
             POSITION: {
