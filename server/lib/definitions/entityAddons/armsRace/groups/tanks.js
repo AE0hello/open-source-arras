@@ -48,6 +48,9 @@ addUpgrades('basic', 1, []);
         addUpgrades('hexaTank', 3, []);
             addUpgrades('hexaTank', tier4, []);
 
+        addUpgrades('helix', 3, ['coil', 'duplicator']);
+            addUpgrades('helix', tier4, []);
+
 //        addUpgrades('wark_AR', 3, []);
 //            addUpgrades('wark_AR', tier4, []);
 
@@ -165,11 +168,11 @@ addUpgrades('basic', 1, []);
 
         //addUpgrades('wark_AR', 3, []);
 
-    addUpgrades('desmos', 2, []);
+    addUpgrades('desmos', 2, ['spiral', 'repeater']);
         addUpgrades('desmos', 3, []);
             addUpgrades('desmos', tier4, []);
 
-        //addUpgrades('wark_AR', 3, []);
+        //addUpgrades('helix_AR', 3, []);
 
 if (use_original_tree) {
     addUpgrades('basic', 3, ['single']);

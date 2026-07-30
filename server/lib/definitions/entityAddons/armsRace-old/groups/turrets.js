@@ -1,3 +1,5 @@
+return;
+
 const {combineStats, makeTurret} = require('../../../facilitators.js')
 const g = require('../../../gunvals.js')
 
