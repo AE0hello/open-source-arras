@@ -1184,7 +1184,7 @@ Class.bentDoubleGunner_AR = {
         },
     ]
 };
-Class.bentDoubleMinigun_AR = makeFlank('minigun', 2, "Bent Double Minigun", {extraStats: [g.doubleTwin]});
+Class.bentDoubleMinigun_AR = makeFlank('bentMinigun_AR', 2, "Bent Double Minigun", {extraStats: [g.doubleTwin]});
 Class.bentFlankDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Flank Double',
