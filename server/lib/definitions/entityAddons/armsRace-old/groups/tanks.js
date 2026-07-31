@@ -42,10 +42,7 @@ preset.makeDrive.storm = {suffix: "storm", type: "swarmAutoTurret_AR", hatType: 
 preset.makeDrive.stormMinion = {...preset.makeDrive.storm, projectileType: 'minion'}
 preset.makeDrive.stormSunchip = {...preset.makeDrive.storm, projectileType: 'sunchip'}
 preset.makeDrive.stormSwarm = {suffix: "storm", type: "swarmAutoTurret_AR", projectileType: 'swarm', hatType: "stormTriangle_AR", hatSize: 8, hatAngle: 180}
-preset.makeOver.hybridUnder = {
-    ...preset.makeOver.hybrid,
-    renderBehind: true
-}
+preset.makeOver.hybridUnder = {...preset.makeOver.hybrid, renderBehind: true}
 preset.todo_placeholder_guns = {
     UPGRADE_COLOR: "black",
     UPGRADE_TOOLTIP: "The guns of this tank have not had their SHOOT_SETTINGS defined yet and will not shoot."

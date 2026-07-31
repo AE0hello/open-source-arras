@@ -1,4 +1,4 @@
-const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeOver} = require('../../../facilitators.js')
+const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver} = require('../../../facilitators.js')
 const {base, dfltskl, smshskl, statnames} = require('../../../constants.js')
 const g = require('../../../gunvals.js')
 const preset = require('../../../presets.js')
@@ -14,6 +14,11 @@ const placeholder = {
     UPGRADE_COLOR: "black",
     UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!"
 }
+
+// Presets
+preset.makeAuto.drive = {type: 'driveAutoTurret_AR', size: 9, clearTurrets: true}
+preset.makeAuto.storm = {type: 'stormAutoTurret_AR', size: 9, clearTurrets: true}
+preset.makeAuto.smasher = {type: 'autoSmasherTurret', size: 11}
 
 // Sorted Garbage
 Class.unnamed_2560_AR = {
@@ -124,6 +129,37 @@ Class.unnamed_38115_AR = {
                 ASPECT: 1,
                 X: -1.529898621868034e-07,
                 Y: 3.4999999403953517,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
+Class.unnamed_50514_AR = {
+    PARENT: 'genericTank',
+    LABEL: '',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 27.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: -2.200000047683716,
+                X: 0.0,
+                Y: 0.0,
                 ANGLE: 0.0,
             }
         },
@@ -553,7 +589,19 @@ Class.autoArtillery_AR = makeAuto('artillery');
 Class.autoAuto3_AR = makeAuto('auto3');
 Class.autoCruiser_AR = makeAuto('cruiser');
 Class.autoDestroyer_AR = makeAuto('destroyer');
+Class.autoHexaTank_AR = makeAuto('hexaTank');
+Class.autoHunter_AR = makeAuto('hunter');
+Class.autoLauncher_AR = makeAuto('launcher');
+Class.autoMinigun_AR = makeAuto('minigun');
 Class.autoTripleShot_AR = makeAuto('tripleShot');
+Class.autoDiesel_AR = makeAuto('diesel_AR');
+Class.autoDirectordrive_AR = makeAuto('directordrive_AR', "Auto-Directordrive", preset.makeAuto.drive);
+Class.autoDoper_AR = makeAuto('doper_AR');
+Class.autoHoncho_AR = makeAuto('honcho_AR');
+Class.autoMachineTrapper_AR = makeAuto('machineTrapper_AR');
+Class.autoMech_AR = makeAuto('mech_AR');
+Class.autoPen_AR = makeAuto('pen_AR');
+Class.autoWark_AR = makeAuto('wark_AR');
 Class.bentGunner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bent Gunner',
@@ -731,7 +779,232 @@ Class.bentMinigun_AR = {
         'bentWidget',
     ]*/
 };
+Class.coalesce_AR = makeOver('wark_AR', "Coalesce", preset.makeOver.hybrid);
+Class.cobbler_AR = makeOver('mech_AR', "Cobbler", preset.makeOver.hybrid);
+Class.cog_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Cog',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -1.9670124945525558e-07,
+                Y: 4.499999880790706,
+                ANGLE: 9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: -1.9670124945525558e-07,
+                Y: 4.499999880790706,
+                ANGLE: 9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.000000247771727,
+                Y: 4.499999981143676,
+                ANGLE: 9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -1.967012500103671e-07,
+                Y: -4.499999880790706,
+                ANGLE: -9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: -1.967012500103671e-07,
+                Y: -4.499999880790706,
+                ANGLE: -9.99999970909292,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 15.000000247771727,
+                Y: -4.499999981143679,
+                ANGLE: -9.99999970909292,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'sealer',
+        'yard',
+        'hardware',
+        'hexamech',
+        'employer',
+        'rigger',
+        'impeder',
+        'contriver',
+        'autocog',
+    ]*/
+};
+Class.combo_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Combo',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 4.000000059604645,
+                Y: -2.7755575615628914e-16,
+                ANGLE: 120.00000333930423,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 4.000000059604645,
+                Y: -5.551115123125783e-16,
+                ANGLE: 240.00000667860846,
+            }
+        },
+
+    ],
+    TURRETS: [
+        {
+            TYPE: 'unnamed_63735_AR',
+            POSITION: {
+                SIZE: 11.000000238418579,
+                LAYER: 0,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 60.000001669652114,
+            }
+        },
+        {
+            TYPE: 'unnamed_63735_AR',
+            POSITION: {
+                SIZE: 11.000000238418579,
+                LAYER: 0,
+                X: 8.000000119209291,
+                Y: -4.898587410340671e-16,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            TYPE: 'unnamed_63735_AR',
+            POSITION: {
+                SIZE: 11.000000238418579,
+                LAYER: 0,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 299.99999468788224,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'consolidation',
+        'sequence',
+        'trove',
+        'alloy',
+        'autocombo',
+        'band',
+    ]*/
+};
+Class.courser_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Courser',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 27.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 11.000000238418579,
+                ASPECT: -1.7000000476837158,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'sifter',
+        'hunter3',
+        'autocourser',
+        'immolater',
+        'scrutiner',
+        'acquirer',
+        'cassowary',
+        'garroter',
+        'lyncher',
+        'dyadic',
+        'megaCourser',
+        'flicher',
+    ]*/
+};
 Class.defect_AR = makeBird('tripleShot', "Defect");
+Class.deviation_AR = makeOver('machineTrapper_AR', "Deviation", preset.makeOver.hybrid);
 Class.doubleFlankTwin_AR = {
     PARENT: 'genericTank',
     LABEL: "Double Flank Twin",
@@ -784,6 +1057,60 @@ Class.doubleFlankTwin_AR = {
     ]
 };
 Class.doubleGunner_AR = makeFlank('gunner', 2, "Double Gunner", {extraStats: [g.doubleTwin]});
+Class.enforcer_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Enforcer',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 22.999999523162842,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 27.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 6.9999998807907104,
+                ASPECT: -2.200000047683716,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'maverick',
+        'examiner',
+        'pique',
+        'slayer',
+        'autoenforcer',
+        'rifle3',
+        'duelist',
+        'armament',
+        'merganser',
+        'flicher',
+    ]*/
+};
 Class.equalizer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Equalizer',
@@ -891,6 +1218,445 @@ Class.equalizer_AR = {
         'machete',
         'hardware',
         'equalizerGuard',
+    ]*/
+};
+Class.expeller_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Expeller',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2999999523162842,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: -4.99999985454646,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'setup',
+        'spitter',
+        'contrivance',
+        'hexamachine',
+        'kraal',
+        'rigger',
+        'stainer',
+        'partition',
+        'throttler',
+        'autoexpeller',
+    ]*/
+};
+Class.fashioner_AR = makeOver('builder', "Fashioner", preset.makeOver.hybrid);
+Class.force_AR = makeOver('artillery', "Force", preset.makeOver.hybrid);
+Class.heaver_AR = makeOver('launcher', "Heaver", preset.makeOver.hybrid);
+Class.hitman_AR = makeOver('assassin', "Hitman", preset.makeOver.hybrid);
+Class.hutch_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Hutch',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20.250000953674316,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.250000953674316,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126497879133e-07,
+                Y: 5.500000119209284,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.99999984169732,
+                Y: 5.500000003484011,
+                ANGLE: 4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.404126504818027e-07,
+                Y: -5.500000119209284,
+                ANGLE: -4.99999985454646,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: -4.99999985454646,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'kraal',
+        'employer',
+        'corella',
+        'guardrail',
+        'brig',
+        'machete',
+        'coop',
+        'fencer',
+        'retainer',
+        'autohutch',
+    ]*/
+};
+Class.integrator_AR = makeOver('triAngle', "Integrator", {...preset.makeOver.hybrid, renderBehind: true});
+Class.interner_AR = makeOver('pen_AR', "Interner", preset.makeOver.hybrid);
+Class.megaHunter_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Mega Hunter',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 15.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'ultraHunter',
+        'slingshot',
+        'megaPredator',
+        'megaOrdnance',
+        'megaPoacher',
+        'automegaHunter',
+        'megaProber',
+        'megaCourser',
+    ]*/
+};
+Class.mingler_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Mingler',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6.9999998807907104,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 30.000000834826057,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.9999998807907104,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: 0.0,
+                ANGLE: -30.000000834826057,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.9999998807907104,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: 0.0,
+                ANGLE: 149.99999734394112,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.9999998807907104,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -4.898587410340671e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.9999998807907104,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 8.000000119209288,
+                Y: -4.898587244904549e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.9999998807907104,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 209.99999901359323,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -4.8985872695840505e-16,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 60.000001669652114,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 120.00000333930423,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.000000119209291,
+                Y: -4.898587410340671e-16,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -1.1102230246251565e-15,
+                ANGLE: 240.00000667860846,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 299.99999468788224,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'unity',
+        'alloy',
+        'gale',
+        'cozen',
+        'automingler',
+    ]*/
+};
+Class.polluter_AR = makeOver('diesel_AR', "Polluter", preset.makeOver.hybrid);
+Class.prober_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Prober',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25.999999046325684,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'presage',
+        'bifold',
+        'pilfer',
+        'autoprober',
+        'carnage',
+        'megaProber',
+        'flicher',
+    ]*/
+};
+Class.railgun_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Railgun',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7.950000166893005,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'finger',
+        'machgun',
+        'thunderclap',
+        'reverberator',
+        'deadeye',
+        'autorailgun',
+        'raven',
+        'covert',
     ]*/
 };
 Class.rimfire_AR = {
@@ -1039,6 +1805,92 @@ Class.splitShot_AR = {
         'hackshot',
         'dork',
         'splinterShot',
+    ]*/
+};
+Class.shower_AR = makeOver('sprayer', "Shower", preset.makeOver.hybrid);
+Class.taser_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Taser',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 6.9999998807907104,
+                ASPECT: -1.5,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7.5,
+                ASPECT: -1.5,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.5,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 8.00000011920929,
+                WIDTH: 8.999999761581421,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -5.551115123125783e-16,
+                ANGLE: 152.99999401232913,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 8.00000011920929,
+                WIDTH: 8.999999761581421,
+                ASPECT: 1,
+                X: 8.000000119209291,
+                Y: -5.551115123125783e-16,
+                ANGLE: -152.99999401232913,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'stunner',
+        'jolter',
+        'electrocutor',
+        'osprey',
+        'kicker',
+        'shocker',
+        'zapper',
+        'autotaser',
+        'fryer',
+        'jerker',
+        'magnet',
     ]*/
 };
 Class.volley_AR = {
@@ -1193,6 +2045,137 @@ Class.waarrk_AR = {
     ]*/
 };
 Class.warkwark_AR = makeFlank('wark_AR', 2, "Warkwark", {extraStats: [g.doubleTwin]});
+Class.widget_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Widget',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.399999976158142,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'roadblock',
+        'gizmo',
+        'tumble',
+        'hammer',
+        'autowidget',
+        'pipeline',
+        'magnet',
+        'bentWidget',
+        'systematizer',
+        'sandstorm',
+    ]*/
+};
+Class.zipper_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Zipper',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 8.999999761581421,
+                WIDTH: 8.199999928474426,
+                ASPECT: 0.6000000238418579,
+                X: 5.000000082590575,
+                Y: 1.4999999937145585,
+                ANGLE: 22.50000062611954,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 8.999999761581421,
+                WIDTH: 8.199999928474426,
+                ASPECT: 0.6000000238418579,
+                X: 5.000000082590575,
+                Y: -1.4999999937145594,
+                ANGLE: -22.50000062611954,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20.999999046325684,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.000000476837158,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'gusher',
+        'bracer',
+        'strapper',
+        'clasp',
+        'degrader',
+        'kicker',
+        'colonizer',
+        'hotbed',
+        'autozipper',
+        'sizzler',
+        'brio',
+        'pipeline',
+        'pepper',
+    ]*/
+};
 
 // Tier 4 (Level 60)
 Class.acquirer_AR = {
@@ -2896,47 +3879,7 @@ Class.assimilator_AR = {
         },
     ]
 };
-Class.assistant_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Assistant',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
+Class.assistant_AR = makeOver('single', "Assistant", preset.makeOver.hybrid);
 Class.auto6_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-6',
@@ -3117,8 +4060,32 @@ Class.autoDoubleFlank_AR = makeAuto('doubleFlankTwin_AR', "Auto-Double Flank");
 Class.autoDoubleGunner_AR = makeAuto('doubleGunner_AR');
 Class.autoDual_AR = makeAuto('dual');
 Class.autoEagle_AR = makeAuto('eagle');
+Class.autoEngineer_AR = makeAuto('engineer');
+Class.autoFactory_AR = makeAuto('factory');
+Class.autoFalcon_AR = makeAuto('falcon');
+Class.autoFieldGun_AR = makeAuto('fieldGun');
+Class.autoFighter_AR = makeAuto('fighter');
+Class.autoGunnerTrapper_AR = makeAuto('gunnerTrapper');
 Class.autoHewnDouble_AR = makeAuto('hewnDouble');
-Class.autoTriple_AR = makeAuto('tripleTwin', "Auto-Triple");
+Class.autoHexaTrapper_AR = makeAuto('hexaTrapper', {clearTurrets: true, ...preset.makeAuto.Triple});
+Class.autoHybrid_AR = makeAuto('hybrid');
+Class.autoInfestor_AR = makeAuto('infestor');
+Class.autoLandmine_AR = makeAuto('landmine', "Auto-Landmine", preset.makeAuto.smasher);
+Class.autoLandmine_AR.SKILL_CAP = Array(10).fill(smshskl);
+Class.autoMachineGunner_AR = makeAuto('machineGunner');
+Class.autoManager_AR = makeAuto('manager');
+Class.autoMega3_AR = makeAuto('mega3');
+Class.autoMegaSmasher_AR = makeAuto('megaSmasher', "Auto-Mega-Smasher", preset.makeAuto.smasher);
+Class.autoMegaSmasher_AR.SKILL_CAP = Array(10).fill(smshskl);
+Class.autoMortar_AR = makeAuto('mortar');
+Class.autoMusket_AR = makeAuto('musket');
+Class.autoNailgun_AR = makeAuto('nailgun');
+Class.autoOctoTank_AR = makeAuto('octoTank');
+Class.autoOrdnance_AR = makeAuto('ordnance');
+Class.autoOverdrive_AR = makeAuto('overdrive');
+Class.autoOvergunner_AR = makeAuto('overgunner');
+Class.autoOverlord_AR = makeAuto('overlord');
+Class.autoOvertrapper_AR = makeAuto('overtrapper');
 Class.autoPentaShot_AR = makeAuto('pentaShot');
 Class.autoPoacher_AR = makeAuto('poacher');
 Class.autoPredator_AR = makeAuto('predator');
@@ -3129,7 +4096,7 @@ Class.autoShotgun_AR = makeAuto('shotgun');
 Class.autoSidewinder_AR = makeAuto('sidewinder');
 Class.autoSingle_AR = makeAuto('single');
 Class.autoSkimmer_AR = makeAuto('skimmer');
-Class.autoSpike_AR = makeAuto('spike', "Auto-Spike", {type: 'autoSmasherTurret', size: 11});
+Class.autoSpike_AR = makeAuto('spike', "Auto-Spike", preset.makeAuto.smasher);
 Class.autoSpike_AR.SKILL_CAP = Array(10).fill(smshskl);
 Class.autoSprayer_AR = makeAuto('sprayer');
 Class.autoSpreadshot_AR = makeAuto('spreadshot');
@@ -3139,11 +4106,11 @@ Class.autoSubverter_AR = makeAuto('subverter');
 Class.autoSurfer_AR = makeAuto('surfer');
 Class.autoSwarmer_AR = makeAuto('swarmer');
 Class.autoTrapGuard_AR = makeAuto('trapGuard');
+Class.autoTriple_AR = makeAuto('tripleTwin', "Auto-Triple");
 Class.autoTripleShot_AR = makeAuto('tripleShot');
 Class.autoTriplet_AR = makeAuto('triplet');
 Class.autoTwister_AR = makeAuto('twister');
 Class.autoWaarrk_AR = makeAuto('waarrk_AR');
-Class.autoWark_AR = makeAuto('wark_AR');
 Class.autoWarkwark_AR = makeAuto('warkwark_AR');
 Class.bentDoubleGunner_AR = {
     PARENT: 'genericTank',
@@ -3370,6 +4337,7 @@ Class.bentFlankDouble_AR = {
     ],
 };
 Class.bentTriple_AR = makeFlank('tripleShot', 3, "Bent Triple", {extraStats: [g.doubleTwin, g.tripleTwin]});
+Class.butcher_AR = makeGuard('hunter', "Butcher");
 Class.cleft_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cleft',
@@ -3461,6 +4429,97 @@ Class.cleft_AR = {
         },
 
     ],
+};
+Class.dam_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Dam',
+    SIZE: 12,
+    STAT_NAMES: 6,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.1690758749117554e-07,
+                Y: 7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -3.169075883790445e-07,
+                Y: -7.250000238418571,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771227736278e-07,
+                Y: 3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 3.4999999403953552,
+                ASPECT: 1,
+                X: -1.6391771273660533e-07,
+                Y: -3.749999999999996,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041264985730226e-07,
+                Y: 5.500000119209285,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: 5.50000000348401,
+                ANGLE: 185.00000400972914,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: -2.4041265068996953e-07,
+                Y: -5.500000119209284,
+                ANGLE: 175.00000600818353,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.2499998807907104,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 13.999999841697319,
+                Y: -5.500000003484012,
+                ANGLE: 175.00000600818353,
+            }
+        },
+    ]
 };
 Class.doubleBattery_AR = makeFlank('battery', 2, "Double Battery", {extraStats: [g.doubleTwin]});
 Class.doubleDual_AR = makeFlank('dual', 2, "Double Dual", {extraStats: [g.doubleTwin]});
@@ -3850,6 +4909,48 @@ Class.duo_AR = {
                 ASPECT: -1.100000023841858,
                 X: 0.0,
                 Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
+Class.executor_AR = makeGuard('assassin', "Executor");
+Class.finger_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Finger',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 7.950000166893005,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 27.999999523162842,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
                 ANGLE: 0.0,
             }
         },
@@ -4439,6 +5540,67 @@ Class.hipwatch_AR = {
 
     ],
 };
+Class.machgun_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Machgun',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 7.950000166893005,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25.999999046325684,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 22.000000476837158,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
 Class.megaAutoDouble_AR = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
 Class.megaWark_AR = {
     PARENT: 'genericTank',
@@ -4512,6 +5674,7 @@ Class.megaWark_AR = {
 
     ],
 };
+Class.rampart_AR = makeOver('barricade', "Rampart", preset.makeOver.hybrid);
 Class.scuffler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scuffler',
@@ -4901,7 +6064,89 @@ Class.overdoubleGunner_AR = {
 };
 Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90, renderBehind: true});
 Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8});
-Class.ravisher_AR = makeOver('dual', "Ravisher", preset.makeOver.hybrid)
+Class.ravisher_AR = makeOver('dual', "Ravisher", preset.makeOver.hybrid);
+Class.reverberator_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Reverberator',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7.950000166893005,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25.499999523162842,
+                WIDTH: 3.0000001192092896,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
+Class.sharpshooter_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Sharpshooter',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 25.0,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
 Class.skewnDouble_AR = {
     PARENT: 'genericTank',
     LABEL: 'Skewn Double',
@@ -5065,6 +6310,58 @@ Class.threefold_AR = {
         },
     ]
 };
+Class.thunderclap_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Thunderclap',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7.950000166893005,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
+Class.tommy_AR = makeGuard('minigun', "Tommy");
 Class.tripleFlankTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Flank Twin',
@@ -5602,35 +6899,35 @@ addUpgrades('basic', 1, []);
             addUpgrades('tripleShot', tier4, ['threefold', 'flintlock'].map(x => x + '_AR'));
 
         addUpgrades('gunner', 3, ['rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer'].map(x => x + '_AR'));
-            addUpgrades('gunner', tier4, [].map(x => x + '_AR'));
+            addUpgrades('gunner', tier4, ['dam'].map(x => x + '_AR'));
 
-        addUpgrades('hexaTank', 3, []);
-            addUpgrades('hexaTank', tier4, [].map(x => x + '_AR'));
+        addUpgrades('hexaTank', 3, ['autoHexaTank', 'mingler', 'combo'].map(x => x + '_AR'));
+            addUpgrades('hexaTank', tier4, ['tripleFlankTwin'].map(x => x + '_AR'));
 
         addUpgrades('helix', 3, ['coil', 'duplicator']);
             addUpgrades('helix', tier4, [].map(x => x + '_AR'));
 
-        addUpgrades('wark_AR', 3, [/*'warkwark_AR', 'waarrk_AR', 'equalizer_AR', */'hexaTrapper'/*, 'hutch_AR', 'cog_AR', 'expeller_AR'*/, 'bulwark'/*, 'coalesce_AR', 'autoWark_AR'*/]);
+        addUpgrades('wark_AR', 3, ['warkwark_AR', 'waarrk_AR', 'equalizer_AR', 'hexaTrapper', 'hutch_AR', 'cog_AR', 'expeller_AR', 'bulwark', 'coalesce_AR', 'autoWark_AR']);
             addUpgrades('wark_AR', tier4, ['megaWark'].map(x => x + '_AR'));
 
     addUpgrades('sniper', 2, []);
-        addUpgrades('sniper', 3, []);
-            addUpgrades('sniper', tier4, []);
+        addUpgrades('sniper', 3, ['railgun'].map(x => x + '_AR'));
+            addUpgrades('sniper', tier4, ['sharpshooter'].map(x => x + '_AR'));
             addUpgrades('bushwhacker', tier4, []);
             //addUpgrades('railgun_AR', tier4, []);
 
-        addUpgrades('assassin', 3, []);
-            addUpgrades('assassin', tier4, []);
+        addUpgrades('assassin', 3, ['hitman_AR', 'sniper3', 'enforcer_AR', 'courser_AR']);
+            addUpgrades('assassin', tier4, ['executor', 'finger'].map(x => x + '_AR'));
             addUpgrades('single', tier4, []);
 
-        addUpgrades('hunter', 3, []);
-            addUpgrades('hunter', tier4, []);
+        addUpgrades('hunter', 3, ['autoHunter', 'megaHunter', 'prober', 'courser'].map(x => x + '_AR'));
+            addUpgrades('hunter', tier4, ['butcher', 'reverberator'].map(x => x + '_AR'));
 
-        addUpgrades('minigun', 3, []);
-            addUpgrades('minigun', tier4, []);
+        addUpgrades('minigun', 3, ['taser', 'zipper', 'bentMinigun', 'autoMinigun', 'widget'].map(x => x + '_AR'));
+            addUpgrades('minigun', tier4, ['tommy', 'machgun'].map(x => x + '_AR'));
 
-        addUpgrades('rifle', 3, []);
-            addUpgrades('rifle', tier4, []);
+        addUpgrades('rifle', 3, ['autoRifle', 'enforcer', 'prober'].map(x => x + '_AR'));
+            addUpgrades('rifle', tier4, ['ransacker', 'thunderclap_AR']);
 
         addUpgrades('marksman', 3, []);
             addUpgrades('marksman', tier4, []);
@@ -5836,37 +7133,6 @@ Class.unknownClass_59626_AR = {
     STAT_NAMES: 0,
     SHAPE: [[-1, 0], [-0.8550236225128174, -0.0537935271859169], [-0.8069185614585876, -0.10193752497434616], [-0.7712593674659729, -0.14712558686733246], [-0.7422848343849182, -0.19058634340763092], [-0.7180173993110657, -0.23329798877239227], [-0.6975159645080566, -0.2761661112308502], [-0.6802315711975098, -0.32009267807006836], [-0.6658210754394531, -0.3660382330417633], [-0.6541486382484436, -0.41513535380363464], [-0.6454916000366211, -0.4689771234989166], [-0.6413562297821045, -0.5305759906768799], [-0.6495586037635803, -0.6099761128425598], [-0.6099761128425598, -0.6495586037635803], [-0.5305759906768799, -0.6413562297821045], [-0.4689771234989166, -0.6454916000366211], [-0.41513535380363464, -0.6541486382484436], [-0.3660382330417633, -0.6658210754394531], [-0.32009267807006836, -0.6802315711975098], [-0.2761661112308502, -0.6975159645080566], [-0.23329798877239227, -0.7180173993110657], [-0.19058634340763092, -0.7422848343849182], [-0.14712558686733246, -0.7712593674659729], [-0.10193752497434616, -0.8069185614585876], [-0.0537935271859169, -0.8550236225128174], [1.6081223582599331e-16, -0.9999997615814209], [0.0537935271859169, -0.8550236225128174], [0.10193752497434616, -0.8069185614585876], [0.14712558686733246, -0.7712593674659729], [0.19058634340763092, -0.7422848343849182], [0.23329798877239227, -0.7180173993110657], [0.2761661112308502, -0.6975159645080566], [0.32009267807006836, -0.6802315711975098], [0.3660382330417633, -0.6658210754394531], [0.41513535380363464, -0.6541486382484436], [0.4689771234989166, -0.6454916000366211], [0.5305759906768799, -0.6413562297821045], [0.6099761128425598, -0.6495586037635803], [0.6495586037635803, -0.6099761128425598], [0.6413562297821045, -0.5305759906768799], [0.6454916000366211, -0.4689771234989166], [0.6541486382484436, -0.41513535380363464], [0.6658210754394531, -0.3660382330417633], [0.6802315711975098, -0.32009267807006836], [0.6975159645080566, -0.2761661112308502], [0.7180173993110657, -0.23329798877239227], [0.7422848343849182, -0.19058634340763092], [0.7712593674659729, -0.14712558686733246], [0.8069185614585876, -0.10193752497434616], [0.8550236225128174, -0.0537935271859169], [0.9999997019767761, 3.2162444518220703e-16], [0.8550236225128174, 0.0537935271859169], [0.8069185614585876, 0.10193752497434616], [0.7712593674659729, 0.14712558686733246], [0.7422848343849182, 0.19058634340763092], [0.7180173993110657, 0.23329798877239227], [0.6975159645080566, 0.2761661112308502], [0.6802315711975098, 0.32009267807006836], [0.6658210754394531, 0.3660382330417633], [0.6541486382484436, 0.41513535380363464], [0.6454916000366211, 0.4689771234989166], [0.6413562297821045, 0.5305759906768799], [0.6495586037635803, 0.6099761128425598], [0.6099761128425598, 0.6495586037635803], [0.5305759906768799, 0.6413562297821045], [0.4689771234989166, 0.6454916000366211], [0.41513535380363464, 0.6541486382484436], [0.3660382330417633, 0.6658210754394531], [0.32009267807006836, 0.6802315711975098], [0.2761661112308502, 0.6975159645080566], [0.23329798877239227, 0.7180173993110657], [0.19058634340763092, 0.7422848343849182], [0.14712558686733246, 0.7712593674659729], [0.10193752497434616, 0.8069185614585876], [0.0537935271859169, 0.8550236225128174], [1.8369697494821597e-16, 0.9999997615814209], [-0.0537935271859169, 0.8550236225128174], [-0.10193752497434616, 0.8069185614585876], [-0.14712558686733246, 0.7712593674659729], [-0.19058634340763092, 0.7422848343849182], [-0.23329798877239227, 0.7180173993110657], [-0.2761661112308502, 0.6975159645080566], [-0.32009267807006836, 0.6802315711975098], [-0.3660382330417633, 0.6658210754394531], [-0.41513535380363464, 0.6541486382484436], [-0.4689771234989166, 0.6454916000366211], [-0.5305759906768799, 0.6413562297821045], [-0.6099761128425598, 0.6495586037635803], [-0.6495586037635803, 0.6099761128425598], [-0.6413562297821045, 0.5305759906768799], [-0.6454916000366211, 0.4689771234989166], [-0.6541486382484436, 0.41513535380363464], [-0.6658210754394531, 0.3660382330417633], [-0.6802315711975098, 0.32009267807006836], [-0.6975159645080566, 0.2761661112308502], [-0.7180173993110657, 0.23329798877239227], [-0.7422848343849182, 0.19058634340763092], [-0.7712593674659729, 0.14712558686733246], [-0.8069185614585876, 0.10193752497434616], [-0.8550236225128174, 0.0537935271859169]],
     COLOR: 9,
-};
-Class.unnamed_50514_AR = {
-    PARENT: 'genericTank',
-    LABEL: '',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 27.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: -2.200000047683716,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-    ]
 };
 Class.unnamed_10007_AR = {
     PARENT: 'genericTank',
@@ -6553,3965 +7819,46 @@ Class.autoCrowbar_AR = makeAuto('crowbar_AR');
 Class.autoCruiserdrive_AR = makeAuto('cruiserdrive_AR');
 Class.autoDefect_AR = makeAuto('defect_AR');
 Class.autoDeviation_AR = makeAuto('deviation_AR');
-Class.autoDiesel_AR = makeAuto('diesel_AR');
 Class.autoDieselTrapper_AR = makeAuto('dieselTrapper_AR');
-Class.autoDirectordrive_AR = makeAuto('directordrive_AR');
 Class.autoDirectorstorm_AR = makeAuto('directorstorm_AR');
 Class.autoDischarger_AR = makeAuto('discharger_AR');
-Class.autoDoper_AR = makeAuto('doper_AR');
 Class.autoDoperdrive_AR = makeAuto('doperdrive_AR');
 Class.autoDopeseer_AR = makeAuto('dopeseer_AR');
 Class.autoDrifter_AR = makeAuto('drifter_AR');
-Class.autoEncircler_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Encircler',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoEnforcer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Enforcer',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 22.999999523162842,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 27.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: -2.200000047683716,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoEngineer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Engineer',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 10.499999523162842,
-                Y: -6.429395403545054e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1,
-                X: 15.499999523162842,
-                Y: -9.491012401413437e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1.2999999523162842,
-                X: 17.999999523162842,
-                Y: -1.1021820900347628e-15,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoEqualizer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Equalizer',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 11.999999753454386,
-                Y: 7.249999853328825,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 11.999999753454386,
-                Y: -7.249999853328827,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 16.00000029064175,
-                Y: 3.7500000749860716,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1.7699999809265137,
-                X: 16.00000029064175,
-                Y: -3.7500000749860734,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoExpeller_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Expeller',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFactory_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Factory',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1,
-                X: 15.499999523162842,
-                Y: -9.491012401413437e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFalcon_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Falcon',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 27.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: -2.200000047683716,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 152.99999401232913,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -5.551115123125783e-16,
-                ANGLE: -152.99999401232913,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFashioner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Fashioner',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.100000023841858,
-                X: 17.999999523162842,
-                Y: -1.1021820900347628e-15,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFieldGun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Field Gun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: -2.622683506481316e-07,
-                Y: -6.000000238418572,
-                ANGLE: -7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: -2.622683499542422e-07,
-                Y: 6.000000238418572,
-                ANGLE: 7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 19.199999570846558,
-                WIDTH: 12.999999523162842,
-                ASPECT: 0.699999988079071,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFighter_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Fighter',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000001704242,
-                Y: -1.000000012208409,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000001704242,
-                Y: 1.000000012208408,
-                ANGLE: -90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 149.99999734394112,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: -149.99999734394112,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFoctillery_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Foctillery',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.6226835080017607e-07,
-                Y: -6.000000238418574,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.6226835006538795e-07,
-                Y: 6.000000238418574,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoForce_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Force',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.1855695031547384e-07,
-                Y: -4.999999999999995,
-                ANGLE: -7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.185569496909734e-07,
-                Y: 4.999999999999995,
-                ANGLE: 7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoForeman_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Foreman',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 15.0,
-                ASPECT: 1.2999999523162842,
-                X: 2.0000000298023224,
-                Y: -1.2246468525851679e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 15.0,
-                ASPECT: 1.2999999523162842,
-                X: 2.000000029802322,
-                Y: -1.2246468112261372e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoForger_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Forger',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.1855695031547384e-07,
-                Y: -4.999999999999995,
-                ANGLE: -7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.185569496909734e-07,
-                Y: 4.999999999999995,
-                ANGLE: 7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.100000023841858,
-                X: 17.000000476837158,
-                Y: -1.0409498084731052e-15,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoFoundry_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Foundry',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 17.000000476837158,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.499999761581421,
-                WIDTH: 17.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoGunnerTrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Gunner Trapper',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784748515752e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162844,
-                Y: -7.960203880059101e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHangar_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hangar',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8.500000238418579,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 2.999999908763607,
-                Y: 5.500000255302172,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.500000238418579,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 2.9999999087636064,
-                Y: -5.500000255302172,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.4999998807907104,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: 10.499999523162842,
-                Y: -6.429395403545054e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.4999999403953552,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHeaver_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Heaver',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19.199999570846558,
-                WIDTH: 12.999999523162842,
-                ASPECT: 0.699999988079071,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHexaTank_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hexa Tank',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 299.99999468788224,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutohexaTank',
-        'tripleAutohexaTank',
-        'autooctoTank',
-        'autocyclone',
-        'autodeathStar',
-        'automingler',
-        'autocombo',
-    ]
-};
-Class.autoHexaTrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hexa-Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.000000000000002,
-                Y: -9.184852056133249e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 299.99999468788224,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 299.99999468788224,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 6.499999761581421,
-                LAYER: 1,
-                X: 5.199999809265137,
-                Y: -3.184081560991698e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 6.499999761581421,
-                LAYER: 1,
-                X: 5.199999809265137,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 6.499999761581421,
-                LAYER: 1,
-                X: 5.199999809265137,
-                Y: -5.551115123125783e-16,
-                ANGLE: 240.00000667860846,
-            }
-        },
-    ]
-};
-Class.autoHitman_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hitman',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 27.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: -2.200000047683716,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHoncho_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Honcho',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1.2999999523162842,
-                X: 2.0000000298023224,
-                Y: -1.2246468173960126e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutohoncho',
-        'tripleAutohoncho',
-        'autoforeman',
-        'autobaltimore',
-        'autofoundry',
-        'autobigCheese',
-        'autohonchodrive',
-        'autojunkie',
-    ]
-};
-Class.autoHonchodrive_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Honchodrive',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1.2999999523162842,
-                X: 2.0000000298023224,
-                Y: -1.2246468173960126e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_17340',
-            POSITION: {
-                SIZE: 8.999999761581421,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHunter_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hunter',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutohunter',
-        'tripleAutohunter',
-        'autopredator',
-        'autoordnance',
-        'autopoacher',
-        'autodual',
-        'automegaHunter',
-        'autoprober',
-        'autocourser',
-    ]
-};
-Class.autoHurler_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hurler',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19.199999570846558,
-                WIDTH: 16.00000023841858,
-                ASPECT: 0.699999988079071,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 16.00000023841858,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHutch_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hutch',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoHybrid_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Hybrid',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.499999523162842,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoIncarcerator_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Incarcerator',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162844,
-                Y: -7.960203880059101e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoInception_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Inception',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19.199999570846558,
-                WIDTH: 12.999999523162842,
-                ASPECT: 0.699999988079071,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 12.999999523162842,
-                Y: -7.960203902479247e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoInfestor_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Infestor',
-    SIZE: 11.5,
-    STAT_NAMES: 3,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 6.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 3.0000001904713507,
-                Y: 4.999999925655833,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 6.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 3.00000019047135,
-                Y: 4.999999925655832,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 6.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 3.00000019047135,
-                Y: -4.999999925655832,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 6.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 3.00000019047135,
-                Y: -4.999999925655833,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoIntegrator_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Integrator',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 149.99999734394112,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: -149.99999734394112,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoInterner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Interner',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -7.960203902479247e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoIssuer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Issuer',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.4999998807907104,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: 10.499999523162842,
-                Y: -6.429395403545054e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.4999999403953552,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 1.0000000149011612,
-                ASPECT: -5,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoJalopy_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Jalopy',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.7999999523162842,
-                X: 6.000000238418579,
-                Y: -3.6739405434313347e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoJunkie_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Junkie',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1.2999999523162842,
-                X: 2.0000000298023224,
-                Y: -1.2246468173960126e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 1.0000000149011612,
-                ASPECT: -5,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoLaborer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Laborer',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.4999998807907104,
-                WIDTH: 10,
-                ASPECT: 1.2000000476837158,
-                X: 10.499999523162842,
-                Y: -6.429395403545054e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 11.000000238418579,
-                ASPECT: -1.2999999523162842,
-                X: 6.000000238418579,
-                Y: -3.6739405434313347e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoLandmine_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Landmine',
-    SIZE: 12,
-    STAT_NAMES: 1,
-    SHAPE: 0,
-    COLOR: 16,
-    TURRETS: [
-        {
-            TYPE: 'unnamed_29686',
-            POSITION: {
-                SIZE: 21.500000953674316,
-                LAYER: 0,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            TYPE: 'unnamed_29686',
-            POSITION: {
-                SIZE: 21.500000953674316,
-                LAYER: 0,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            TYPE: 'turret_51376',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoLauncher_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Launcher',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19.199999570846558,
-                WIDTH: 12.999999523162842,
-                ASPECT: 0.699999988079071,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutolauncher',
-        'tripleAutolauncher',
-        'autoinception',
-        'autoskimmer',
-        'autotwister',
-        'autoswarmer',
-        'autosidewinder',
-        'autorocketeer',
-        'autofieldGun',
-        'autopitcher',
-        'autocluster',
-        'autoprojector',
-        'autoheaver',
-        'autohurler',
-    ]
-};
-Class.autoMachineGuard_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Machine Guard',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1.2999999523162842,
-                X: 15.000000000000002,
-                Y: -9.184852056133249e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMachineGunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Machine Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 4,
-                X: -3.0000000315388027,
-                Y: 5.0000000210153654,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 4,
-                X: -3.000000031538803,
-                Y: -5.000000021015364,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 4,
-                X: -1.092784748515752e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 4,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 4,
-                X: 3.0000001192092896,
-                Y: -1.8369702717156674e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMachineMech_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Machine Mech',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.499999761581421,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1.2000000476837158,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMachineTrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Machine Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutomachineTrapper',
-        'tripleAutomachineTrapper',
-        'autodeviation',
-        'autodieselTrapper',
-        'autobarricade',
-        'autoequalizer',
-        'autoencircler',
-        'automachineMech',
-        'automachineGuard',
-        'autoexpeller',
-    ]
-};
-Class.autoManager_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Manager',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMech_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mech',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutomech',
-        'tripleAutomech',
-        'automachineMech',
-        'autoengineer',
-        'automechGuard',
-        'autooperator',
-        'autocobbler',
-        'autocog',
-    ]
-};
-Class.autoMechGuard_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mech Guard',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.000000000000002,
-                Y: -9.184852056133249e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMegaHunter_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mega Hunter',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMegaSpawner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mega Spawner',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.499999761581421,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMegaTrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mega Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -7.960203902479247e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMega3_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mega-3',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    TURRETS: [
-        {
-            TYPE: 'unnamed_10007',
-            POSITION: {
-                SIZE: 13.999999761581421,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            TYPE: 'unnamed_10007',
-            POSITION: {
-                SIZE: 13.999999761581421,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            TYPE: 'unnamed_10007',
-            POSITION: {
-                SIZE: 13.999999761581421,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMegaSmasher_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mega-Smasher',
-    SIZE: 12,
-    STAT_NAMES: 1,
-    SHAPE: 0,
-    COLOR: 16,
-    TURRETS: [
-        {
-            TYPE: 'unnamed_29686',
-            POSITION: {
-                SIZE: 25.0,
-                LAYER: 0,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            TYPE: 'turret_51376',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMingler_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mingler',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 30.000000834826057,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: -30.000000834826057,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 149.99999734394112,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 209.99999901359323,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 299.99999468788224,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMinigun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Minigun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutominigun',
-        'tripleAutominigun',
-        'autostreamliner',
-        'autonailgun',
-        'autocropDuster',
-        'autobarricade',
-        'autosubverter',
-        'autotaser',
-        'autozipper',
-        'autobentMinigun',
-        'autowidget',
-    ]
-};
-Class.autoMortar_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mortar',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: -3.4969112563953964e-07,
-                Y: -8.000000119209282,
-                ANGLE: -3.500000026248569,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: -3.496911246680945e-07,
-                Y: 8.000000119209282,
-                ANGLE: 3.500000026248569,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.1855695031547384e-07,
-                Y: -4.999999999999996,
-                ANGLE: -3.500000026248569,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -2.185569496909734e-07,
-                Y: 4.999999999999996,
-                ANGLE: 3.500000026248569,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMosey_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Mosey',
-    SIZE: 12,
-    STAT_NAMES: 4,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8.999999761581421,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 4.999999962534001,
-                Y: 4.0000001988989,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.999999761581421,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 4.999999962534,
-                Y: -4.0000001988989,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 1.0000000149011612,
-                ASPECT: -2.5,
-                X: 7.999999924258222,
-                Y: 3.9999999120075245,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 1.0000000149011612,
-                ASPECT: -2.5,
-                X: 7.999999924258221,
-                Y: -3.999999912007526,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoMusket_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Musket',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.6882505230351795e-07,
-                Y: 6.1500000953674245,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.499999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -2.688250530566758e-07,
-                Y: -6.1500000953674245,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.8140226460605218e-07,
-                Y: 4.149999916553494,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: -1.814022651142806e-07,
-                Y: -4.149999916553494,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoNailgun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Nailgun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: -8.742278142889045e-08,
-                Y: -2.0000000298023206,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: -8.742278118396109e-08,
-                Y: 2.0000000298023206,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOctoTank_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Octo Tank',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 45.00000125223908,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 135.00000034162267,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 224.99999601591168,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 314.99999169020066,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOperator_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Operator',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOrdnance_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Ordnance',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -1.9670125007975603e-07,
-                Y: -4.499999880790706,
-                ANGLE: -7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: -1.9670124952464452e-07,
-                Y: 4.499999880790706,
-                ANGLE: 7.000000052497138,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOverdrive_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Overdrive',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_17340',
-            POSITION: {
-                SIZE: 8.999999761581421,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOvergunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Overgunner',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 125.00000234007703,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 235.00000767783564,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784748515752e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOverlord_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Overlord',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.autoOvertrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Overtrapper',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 125.00000234007703,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 235.00000767783564,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.5,
-                X: 13.999999761581421,
-                Y: -8.572527448042198e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
+Class.autoEncircler_AR = makeAuto('encircler_AR');
+Class.autoEnforcer_AR = makeAuto('enforcer_AR');
+Class.autoEqualizer_AR = makeAuto('equalizer_AR');
+Class.autoExpeller_AR = makeAuto('expeller_AR');
+Class.autoFashioner_AR = makeAuto('fashioner_AR');
+Class.autoFoctillery_AR = makeAuto('foctillery_AR');
+Class.autoForce_AR = makeAuto('force_AR');
+Class.autoForeman_AR = makeAuto('foreman_AR');
+Class.autoForger_AR = makeAuto('forger_AR');
+Class.autoFoundry_AR = makeAuto('foundry_AR');
+Class.autoHangar_AR = makeAuto('hangar_AR');
+Class.autoHeaver_AR = makeAuto('heaver_AR');
+Class.autoHitman_AR = makeAuto('hitman_AR');
+Class.autoHonchodrive_AR = makeAuto('honchodrive_AR');
+Class.autoHurler_AR = makeAuto('hurler_AR');
+Class.autoHutch_AR = makeAuto('hutch_AR');
+Class.autoIncarcerator_AR = makeAuto('incarcerator_AR');
+Class.autoInception_AR = makeAuto('inception_AR');
+Class.autoIntegrator_AR = makeAuto('integrator_AR');
+Class.autoInterner_AR = makeAuto('interner_AR');
+Class.autoIssuer_AR = makeAuto('issuer_AR');
+Class.autoJalopy_AR = makeAuto('jalopy_AR');
+Class.autoJunkie_AR = makeAuto('junkie_AR');
+Class.autoLaborer_AR = makeAuto('laborer_AR');
+Class.autoMachineGuard_AR = makeAuto('machineGuard_AR');
+Class.autoMachineMech_AR = makeAuto('machineMech_AR');
+Class.autoMechGuard_AR = makeAuto('mechGuard_AR');
+Class.autoMegaHunter_AR = makeAuto('megaHunter_AR');
+Class.autoMegaSpawner_AR = makeAuto('megaSpawner_AR');
+Class.autoMegaTrapper_AR = makeAuto('megaTrapper_AR');
+Class.autoMingler_AR = makeAuto('mingler_AR');
+Class.autoMosey_AR = makeAuto('mosey_AR');
+Class.autoOperator_AR = makeAuto('operator_AR');
 Class.autoPeashooter_AR = makeAuto('peashooter_AR');
-Class.autoPen_AR = makeAuto('pen_AR');
 Class.autoPitcher_AR = makeAuto('pitcher_AR');
 Class.autoPolluter_AR = makeAuto('polluter_AR');
 Class.autoProber_AR = makeAuto('prober_AR');
@@ -19730,80 +17077,6 @@ Class.cluster_AR = {
         'recursor',
     ]
 };
-Class.coalesce_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Coalesce',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'overwark',
-        'affiliator',
-        'converger',
-        'warkdrive',
-        'commix',
-        'bentCatcher',
-        'retainer',
-        'contriver',
-        'throttler',
-        'autocoalesce',
-    ]
-};
 Class.cobbler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cobbler',
@@ -20041,89 +17314,6 @@ Class.cockatoo_AR = {
         },
     ]
 };
-Class.cog_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Cog',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -1.9670124945525558e-07,
-                Y: 4.499999880790706,
-                ANGLE: 9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: -1.9670124945525558e-07,
-                Y: 4.499999880790706,
-                ANGLE: 9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.000000247771727,
-                Y: 4.499999981143676,
-                ANGLE: 9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -1.967012500103671e-07,
-                Y: -4.499999880790706,
-                ANGLE: -9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: -1.967012500103671e-07,
-                Y: -4.499999880790706,
-                ANGLE: -9.99999970909292,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.000000247771727,
-                Y: -4.499999981143679,
-                ANGLE: -9.99999970909292,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'sealer',
-        'yard',
-        'hardware',
-        'hexamech',
-        'employer',
-        'rigger',
-        'impeder',
-        'contriver',
-        'autocog',
-    ]
-};
 Class.collision_AR = {
     PARENT: 'genericTank',
     LABEL: 'Collision',
@@ -20247,89 +17437,6 @@ Class.colonizer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.combo_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Combo',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 4.000000059604645,
-                Y: -2.7755575615628914e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 4.000000059604645,
-                Y: -5.551115123125783e-16,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'unnamed_63735',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            TYPE: 'unnamed_63735',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 0,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            TYPE: 'unnamed_63735',
-            POSITION: {
-                SIZE: 11.000000238418579,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 299.99999468788224,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'consolidation',
-        'sequence',
-        'trove',
-        'alloy',
-        'autocombo',
-        'band',
     ]
 };
 Class.commander_AR = {
@@ -22220,62 +19327,6 @@ Class.courier_AR = {
         },
     ]
 };
-Class.courser_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Courser',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 27.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 11.000000238418579,
-                ASPECT: -1.7000000476837158,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'sifter',
-        'hunter3',
-        'autocourser',
-        'immolater',
-        'scrutiner',
-        'acquirer',
-        'cassowary',
-        'garroter',
-        'lyncher',
-        'dyadic',
-        'megaCourser',
-        'flicher',
-    ]
-};
 Class.covert_AR = {
     PARENT: 'genericTank',
     LABEL: 'Covert',
@@ -23933,97 +20984,6 @@ Class.dagger_AR = {
                 X: 16.00000029064175,
                 Y: -3.7500000749860734,
                 ANGLE: 0.0,
-            }
-        },
-    ]
-};
-Class.dam_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Dam',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264985730226e-07,
-                Y: 5.500000119209285,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: 5.50000000348401,
-                ANGLE: 185.00000400972914,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265068996953e-07,
-                Y: -5.500000119209284,
-                ANGLE: 175.00000600818353,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: 175.00000600818353,
             }
         },
     ]
@@ -28783,60 +25743,6 @@ Class.energizer_AR = {
         },
     ]
 };
-Class.enforcer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Enforcer',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 22.999999523162842,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 27.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 6.9999998807907104,
-                ASPECT: -2.200000047683716,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'maverick',
-        'examiner',
-        'pique',
-        'slayer',
-        'autoenforcer',
-        'rifle3',
-        'duelist',
-        'armament',
-        'merganser',
-        'flicher',
-    ]
-};
 Class.engineer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Engineer',
@@ -29369,70 +26275,6 @@ Class.exerter_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.expeller_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Expeller',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2999999523162842,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'setup',
-        'spitter',
-        'contrivance',
-        'hexamachine',
-        'kraal',
-        'rigger',
-        'stainer',
-        'partition',
-        'throttler',
-        'autoexpeller',
     ]
 };
 Class.experimenter_AR = {
@@ -30418,47 +27260,6 @@ Class.fighter_AR = {
         'pug',
         'mangle',
         'scrimmer',
-    ]
-};
-Class.finger_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Finger',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 7.950000166893005,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 27.999999523162842,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
     ]
 };
 Class.firepower_AR = {
@@ -37751,90 +34552,6 @@ Class.hurler3_AR = {
         },
     ]
 };
-Class.hutch_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Hutch',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.250000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126497879133e-07,
-                Y: 5.500000119209284,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.99999984169732,
-                Y: 5.500000003484011,
-                ANGLE: 4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126504818027e-07,
-                Y: -5.500000119209284,
-                ANGLE: -4.99999985454646,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.2499998807907104,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 13.999999841697319,
-                Y: -5.500000003484012,
-                ANGLE: -4.99999985454646,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'kraal',
-        'employer',
-        'corella',
-        'guardrail',
-        'brig',
-        'machete',
-        'coop',
-        'fencer',
-        'retainer',
-        'autohutch',
-    ]
-};
 Class.hybrid_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hybrid',
@@ -41785,67 +38502,6 @@ Class.machete_AR = {
         },
     ]
 };
-Class.machgun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Machgun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 7.950000166893005,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 25.999999046325684,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
-    ]
-};
 Class.machineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machine Guard',
@@ -45037,48 +41693,6 @@ Class.megaHexatrapper_AR = {
         },
     ]
 };
-Class.megaHunter_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Mega Hunter',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'ultraHunter',
-        'slingshot',
-        'megaPredator',
-        'megaOrdnance',
-        'megaPoacher',
-        'automegaHunter',
-        'megaProber',
-        'megaCourser',
-    ]
-};
 Class.megaIssuer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Issuer',
@@ -46188,145 +42802,6 @@ Class.mine_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.mingler_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Mingler',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 30.000000834826057,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: -30.000000834826057,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 149.99999734394112,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 209.99999901359323,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 299.99999468788224,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'unity',
-        'alloy',
-        'gale',
-        'cozen',
-        'automingler',
     ]
 };
 Class.minigun_AR = {
@@ -53443,57 +49918,6 @@ Class.probationer_AR = {
         },
     ]
 };
-Class.prober_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Prober',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 25.999999046325684,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'presage',
-        'bifold',
-        'pilfer',
-        'autoprober',
-        'carnage',
-        'megaProber',
-        'flicher',
-    ]
-};
 Class.producer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Producer',
@@ -55059,58 +51483,6 @@ Class.raider_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.railgun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Railgun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 7.950000166893005,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'finger',
-        'machgun',
-        'thunderclap',
-        'reverberator',
-        'deadeye',
-        'autorailgun',
-        'raven',
-        'covert',
     ]
 };
 Class.rainmaker_AR = {
@@ -56761,57 +53133,6 @@ Class.revenant_AR = {
                 X: 8.00000011920929,
                 Y: -1.1102230246251565e-15,
                 ANGLE: 240.00000667860846,
-            }
-        },
-    ]
-};
-Class.reverberator_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Reverberator',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 7.950000166893005,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 25.499999523162842,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
             }
         },
     ]
@@ -59334,37 +55655,6 @@ Class.sharper_AR = {
         },
     ]
 };
-Class.sharpshooter_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Sharpshooter',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 25.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
-    ]
-};
 Class.shaver_AR = {
     PARENT: 'genericTank',
     LABEL: 'Shaver',
@@ -61171,58 +57461,6 @@ Class.smearer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.sniper3_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Sniper-3',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    TURRETS: [
-        {
-            TYPE: 'unnamed_50514',
-            POSITION: {
-                SIZE: 12.999999523162842,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            TYPE: 'unnamed_50514',
-            POSITION: {
-                SIZE: 12.999999523162842,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            TYPE: 'unnamed_50514',
-            POSITION: {
-                SIZE: 12.999999523162842,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'assassin3',
-        'creeper',
-        'sniper5',
-        'phantom',
-        'lever',
-        'autosniper3',
-        'alloy',
-        'rifle3',
-        'hunter3',
     ]
 };
 Class.sniper5_AR = {
@@ -65364,91 +61602,6 @@ Class.tainter_AR = {
         },
     ]
 };
-Class.taser_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Taser',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 6.9999998807907104,
-                ASPECT: -1.5,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 7.5,
-                ASPECT: -1.5,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.5,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 152.99999401232913,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.999999761581421,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -5.551115123125783e-16,
-                ANGLE: -152.99999401232913,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'stunner',
-        'jolter',
-        'electrocutor',
-        'osprey',
-        'kicker',
-        'shocker',
-        'zapper',
-        'autotaser',
-        'fryer',
-        'jerker',
-        'magnet',
-    ]
-};
 Class.technician_AR = {
     PARENT: 'genericTank',
     LABEL: 'Technician',
@@ -65970,57 +62123,6 @@ Class.throttler_AR = {
                 X: 8.000000119209291,
                 Y: -4.898587410340671e-16,
                 ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.thunderclap_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Thunderclap',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 7.950000166893005,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
             }
         },
     ]
@@ -73762,60 +69864,6 @@ Class.whizzer_AR = {
         },
     ]
 };
-Class.widget_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Widget',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'roadblock',
-        'gizmo',
-        'tumble',
-        'hammer',
-        'autowidget',
-        'pipeline',
-        'magnet',
-        'bentWidget',
-        'systematizer',
-        'sandstorm',
-    ]
-};
 Class.wiper_AR = {
     PARENT: 'genericTank',
     LABEL: 'Wiper',
@@ -74307,83 +70355,6 @@ Class.zephyr_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.zipper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Zipper',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8.999999761581421,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 5.000000082590575,
-                Y: 1.4999999937145585,
-                ANGLE: 22.50000062611954,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.999999761581421,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 5.000000082590575,
-                Y: -1.4999999937145594,
-                ANGLE: -22.50000062611954,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'gusher',
-        'bracer',
-        'strapper',
-        'clasp',
-        'degrader',
-        'kicker',
-        'colonizer',
-        'hotbed',
-        'autozipper',
-        'sizzler',
-        'brio',
-        'pipeline',
-        'pepper',
     ]
 };
 Class.cobblerdrive_AR = {
