@@ -1350,20 +1350,8 @@ Class.autoCruiser = makeAuto('cruiser');
 Class.autoDouble = makeAuto('doubleTwin', "Auto-Double");
 Class.autoGunner = makeAuto('gunner');
 Class.autoOverseer = makeAuto('overseer');
-Class.autoSmasher = makeAuto({
-    PARENT: 'genericSmasher',
-    DANGER: 6,
-    TURRETS: [
-        {
-            TYPE: ['hexagonHat_spin', {COLOR: 'black'}],
-            POSITION: {
-                SIZE: 21.5,
-                ARC: 360
-            }
-        }
-    ],
-    SKILL_CAP: Array(10).fill(smshskl)
-}, "Auto-Smasher", {type: 'autoSmasherTurret', size: 11});
+Class.autoSmasher = makeAuto('smasher', "Auto-Smasher", {type: 'autoSmasherTurret', size: 11});
+Class.autoSmasher.SKILL_CAP = Array(10).fill(smshskl);
 Class.autoSpawner = makeAuto('spawner');
 Class.autoTriAngle = makeAuto('triAngle');
 Class.banshee = makeRadialAuto('bansheegun', {isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: {FOV: base.FOV * 1.1}});
