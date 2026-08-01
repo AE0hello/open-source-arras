@@ -601,6 +601,7 @@ Class.autoHoncho_AR = makeAuto('honcho_AR');
 Class.autoMachineTrapper_AR = makeAuto('machineTrapper_AR');
 Class.autoMech_AR = makeAuto('mech_AR');
 Class.autoPen_AR = makeAuto('pen_AR');
+Class.autoUnderseer_AR = makeAuto('underseer');
 Class.autoWark_AR = makeAuto('wark_AR');
 Class.bentGunner_AR = {
     PARENT: 'genericTank',
@@ -1656,6 +1657,45 @@ Class.mingler_AR = {
         'automingler',
     ]*/
 };
+Class.pentaseer_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Pentaseer',
+    SIZE: 11.5,
+    STAT_NAMES: 2,
+    SHAPE: 5,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 7.400000095367432,
+                Y: -5.551115123125783e-16,
+                ANGLE: 36.00000100179127,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 7.400000095367432,
+                Y: -5.551115123125783e-16,
+                ANGLE: -36.00000100179127,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'pentamancer',
+        'witch',
+        'autopentaseer',
+        'pentadrive',
+        'warlock',
+    ]*/
+};
 Class.polluter_AR = makeOver('diesel_AR', "Polluter", preset.makeOver.hybrid);
 Class.prober_AR = {
     PARENT: 'genericTank',
@@ -2143,6 +2183,58 @@ Class.taser_AR = {
         'fryer',
         'jerker',
         'magnet',
+    ]*/
+};
+Class.underdrive_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Underdrive',
+    SIZE: 11.5,
+    STAT_NAMES: 2,
+    SHAPE: 4,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1.2000000476837158,
+                X: 7.400000095367431,
+                Y: -4.531194148658509e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1.2000000476837158,
+                X: 7.400000095367431,
+                Y: -4.531193156041774e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+
+    ],
+    TURRETS: [
+        {
+            TYPE: ['squareHat', {COLOR: 'grey'}],
+            POSITION: {
+                SIZE: 8.999999761581421,
+                LAYER: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'necrodrive',
+        'hexer',
+        'autounderdrive',
+        'infestordrive',
+        'pentadrive',
     ]*/
 };
 Class.volley_AR = {
@@ -4675,6 +4767,37 @@ Class.cleft_AR = {
 
     ],
 };
+Class.conductor_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Conductor',
+    SIZE: 11.5,
+    STAT_NAMES: 2,
+    SHAPE: 4,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 7.400000095367431,
+                Y: -4.531194148658509e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 7.400000095367431,
+                Y: -4.531193156041774e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+    ]
+};
 Class.dam_AR = {
     PARENT: 'genericTank',
     LABEL: 'Dam',
@@ -5847,6 +5970,7 @@ Class.machgun_AR = {
     ]
 };
 Class.megaAutoDouble_AR = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
+Class.megaAutoUnderseer_AR = makeAuto('underseer', "Mega Auto-Underseer", preset.makeAuto.mega);
 Class.megaWark_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Wark',
@@ -5919,7 +6043,152 @@ Class.megaWark_AR = {
 
     ],
 };
+Class.overdoubleGunner_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Overdouble Gunner',
+    SIZE: 12,
+    STAT_NAMES: 6,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 8.00000011920929,
+                Y: -4.898587410340671e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6.000000238418579,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1.2000000476837158,
+                X: 8.000000119209288,
+                Y: -4.898587244904549e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.092784751577369e-07,
+                Y: -2.4999999999999973,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.092784748515752e-07,
+                Y: 2.4999999999999973,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847515773685e-07,
+                Y: -2.499999999999998,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18.99999976158142,
+                WIDTH: 2.0000000298023224,
+                ASPECT: 1,
+                X: -1.0927847485157515e-07,
+                Y: 2.4999999999999973,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.000000476837158,
+                WIDTH: 11.000000238418579,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+    ]
+};
+Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90, renderBehind: true});
+Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8});
 Class.rampart_AR = makeOver('barricade', "Rampart", preset.makeOver.hybrid);
+Class.ravisher_AR = makeOver('dual', "Ravisher", preset.makeOver.hybrid);
+Class.reverberator_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Reverberator',
+    SIZE: 12,
+    STAT_NAMES: 0,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 7.950000166893005,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 25.499999523162842,
+                WIDTH: 3.0000001192092896,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24.000000953674316,
+                WIDTH: 5.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5000001192092896,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.7999999523162842,
+                X: 6.499999761581421,
+                Y: -3.9801019512396234e-16,
+                ANGLE: 0.0,
+            }
+        },
+    ]
+};
 Class.scuffler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Scuffler',
@@ -6214,153 +6483,6 @@ Class.setup_AR = {
         },
     ]
 };
-Class.splitDouble_AR = makeFlank('splitShot_AR', 2, "Split Double", {extraStats: [g.doubleTwin]});
-Class.tripleAutoDouble_AR = makeAuto('doubleTwin', "Triple Auto-Double", preset.makeAuto.triple);
-Class.overdoubleGunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Overdouble Gunner',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784751577369e-07,
-                Y: -2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.092784748515752e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847515773685e-07,
-                Y: -2.499999999999998,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 2.0000000298023224,
-                ASPECT: 1,
-                X: -1.0927847485157515e-07,
-                Y: 2.4999999999999973,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-    ]
-};
-Class.overdoubleTwin_AR = makeOver('doubleTwin', "Overdouble Twin", {angle: 90, renderBehind: true});
-Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8});
-Class.ravisher_AR = makeOver('dual', "Ravisher", preset.makeOver.hybrid);
-Class.reverberator_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Reverberator',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 7.950000166893005,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 25.499999523162842,
-                WIDTH: 3.0000001192092896,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 5.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.5000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.7999999523162842,
-                X: 6.499999761581421,
-                Y: -3.9801019512396234e-16,
-                ANGLE: 0.0,
-            }
-        },
-    ]
-};
 Class.sharpshooter_AR = {
     PARENT: 'genericTank',
     LABEL: 'Sharpshooter',
@@ -6484,6 +6606,7 @@ Class.skewnDouble_AR = {
 
     ],
 };
+Class.splitDouble_AR = makeFlank('splitShot_AR', 2, "Split Double", {extraStats: [g.doubleTwin]});
 Class.threefold_AR = {
     PARENT: 'genericTank',
     LABEL: 'Threefold',
@@ -6607,6 +6730,8 @@ Class.thunderclap_AR = {
     ]
 };
 Class.tommy_AR = makeGuard('minigun', "Tommy");
+Class.tripleAutoDouble_AR = makeAuto('doubleTwin', "Triple Auto-Double", preset.makeAuto.triple);
+Class.tripleAutoUnderseer_AR = makeAuto('underseer', "Triple Auto-Underseer", preset.makeAuto.triple);
 Class.tripleFlankTwin_AR = {
     PARENT: 'genericTank',
     LABEL: 'Triple Flank Twin',
@@ -7225,8 +7350,14 @@ addUpgrades('basic', 1, []);
         addUpgrades('cruiser', 3, []);
             addUpgrades('cruiser', tier4, []);
 
-        addUpgrades('underseer', 3, []);
-            addUpgrades('underseer', tier4, []);
+        addUpgrades('underseer', 3, ['autoUnderseer', 'underdrive', 'pentaseer'].map(x => x + '_AR'));
+            addUpgrades('underseer', tier4, ['conductor'].map(x => x + '_AR'));
+            addUpgrades('necromancer', tier4, [].map(x => x + '_AR'));
+            addUpgrades('maleficitor', tier4, [].map(x => x + '_AR'));
+            addUpgrades('infestor', tier4, [].map(x => x + '_AR'));
+            addUpgrades('autoUnderseer_AR', tier4, [].map(x => x + '_AR'));
+            addUpgrades('underdrive_AR', tier4, [].map(x => x + '_AR'));
+            addUpgrades('pentaseer_AR', tier4, [].map(x => x + '_AR'));
 
         addUpgrades('spawner', 3, []);
             addUpgrades('spawner', tier4, []);
@@ -69628,60 +69759,6 @@ Class.autounderdrive_AR = {
         },
     ]
 };
-Class.autounderseer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Auto-Underseer',
-    SIZE: 11.5,
-    STAT_NAMES: 2,
-    SHAPE: 4,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531194148658509e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531193156041774e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: 'turret_34618',
-            POSITION: {
-                SIZE: 10.0,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'megaAutounderseer',
-        'tripleAutounderseer',
-        'autonecromancer',
-        'automaleficitor',
-        'autounderdrive',
-        'autoinfestor',
-        'autopentaseer',
-    ]
-};
 Class.bewitcher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bewitcher',
@@ -69730,37 +69807,6 @@ Class.charmer_AR = {
                 X: 7.400000095367432,
                 Y: -4.531193215240917e-16,
                 ANGLE: 0.0,
-            }
-        },
-    ]
-};
-Class.conductor_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Conductor',
-    SIZE: 11.5,
-    STAT_NAMES: 2,
-    SHAPE: 4,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531194148658509e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531193156041774e-16,
-                ANGLE: 270.00000068324533,
             }
         },
     ]
@@ -70376,58 +70422,6 @@ Class.turret_36298_AR = {
         },
     ]
 };
-Class.underdrive_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Underdrive',
-    SIZE: 11.5,
-    STAT_NAMES: 2,
-    SHAPE: 4,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531194148658509e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531193156041774e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: ['squareHat', {COLOR: 'grey'}],
-            POSITION: {
-                SIZE: 8.999999761581421,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'necrodrive',
-        'hexer',
-        'autounderdrive',
-        'infestordrive',
-        'pentadrive',
-    ]
-};
 Class.autopentaseer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Auto-Pentaseer',
@@ -70575,45 +70569,6 @@ Class.pentamancer_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.pentaseer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Pentaseer',
-    SIZE: 11.5,
-    STAT_NAMES: 2,
-    SHAPE: 5,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367432,
-                Y: -5.551115123125783e-16,
-                ANGLE: 36.00000100179127,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367432,
-                Y: -5.551115123125783e-16,
-                ANGLE: -36.00000100179127,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'pentamancer',
-        'witch',
-        'autopentaseer',
-        'pentadrive',
-        'warlock',
     ]
 };
 Class.warlock_AR = {

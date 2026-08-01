@@ -5785,6 +5785,7 @@ if (Config.teams == 1) {
     removeUpgrades('whirlwind', 3, ['prophet']);
 };
 
+return;
 
 function makeAutoBranch(type, tier, options = {}) {
     let typeClass = ensureIsClass(type);
@@ -5829,7 +5830,6 @@ function makeAutoBranch(type, tier, options = {}) {
 
 makeAutoBranch('basic', 1);
 
-return;
 /*
 function makeAutoBranch(type, tier, options = {}) {
     let typeClass = ensureIsClass(type);
