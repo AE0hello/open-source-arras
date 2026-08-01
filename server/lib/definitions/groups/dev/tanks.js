@@ -206,7 +206,7 @@ Class.banHammer = {
 }
 
 // Tank Menu(s)
-if (Config.siege) {
+if (Config.teams == 1) {
     unavailable_tanks = ['smasher', 'underseer']
 } else {
     unavailable_tanks = ['healer']
