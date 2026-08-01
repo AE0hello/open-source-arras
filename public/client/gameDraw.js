@@ -204,6 +204,11 @@ var gameDraw = {
         gameDraw.animatedColor.gay = gameDraw.hslToRgb(gay_transition, 0.75, 0.5);
         gameDraw.animatedColor.trans = gameDraw.mixColors(trans_white, 2000 > now % 4000 ? trans_blue : trans_pink, Math.max(Math.min(5 * Math.sin(now % 2000 / 2000 * Math.PI) - 2, 1), 0));
         gameDraw.animatedColor.trueTrans = [trans_blue, trans_pink, trans_white, trans_pink, trans_blue][five_bars];
+        gameDraw.animatedColor.magenta = gameDraw.hslToRgb(
+            light_purple.h + (purple.h - light_purple.h) * ratio,
+            light_purple.s + (purple.s - light_purple.s) * ratio,
+            light_purple.l + (purple.l - light_purple.l) * ratio
+        );
         gameDraw.animatedColor.blue_red = blinker ? gameDraw.color.blue : gameDraw.color.red;
         gameDraw.animatedColor.blue_grey = blinker ? gameDraw.color.blue : gameDraw.color.grey;
         gameDraw.animatedColor.grey_blue = blinker ? gameDraw.color.grey : gameDraw.color.blue;
@@ -247,6 +252,10 @@ var gameDraw = {
         // bi
         38: true,
         bi: true,
+
+        // magenta
+        42: true,
+        animatedMagenta: true,
     },
     getColor: (colorNumber, ctx, x1, y1, x2, y2) => {
         if (colorNumber == undefined || colorNumber == null) return gameDraw.color.black;
@@ -474,6 +483,10 @@ var gameDraw = {
             case "bi":
             case "animatedBi":
                 return gameDraw.animatedColor.bi;
+
+            case 42:
+            case "animatedMagenta":
+                return gameDraw.animatedColor.magenta;
 
             case "nest":
                 return config.graphical.coloredNest ? gameDraw.color.lavender : gameDraw.color.white;
