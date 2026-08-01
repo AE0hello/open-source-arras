@@ -145,7 +145,7 @@ module.exports = {
             id: 'lz',
 
             region: "Local",
-            gamemode: ['sandbox'],
+            gamemode: ['arms_race', 'sandbox'],
             player_cap: 80,
 
             featured: false,
