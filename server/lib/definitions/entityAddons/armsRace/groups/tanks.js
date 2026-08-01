@@ -14472,53 +14472,6 @@ Class.buckshot_AR = {
         },
     ]
 };
-Class.builder_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Builder',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 2.0000000298023224,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.100000023841858,
-                X: 17.999999523162842,
-                Y: -1.1021820900347628e-15,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'constructor',
-        'autobuilder',
-        'engineer',
-        'boomer',
-        'architect',
-        'conqueror',
-        'forger',
-        'stall',
-        'fashioner',
-        'charger',
-    ],
-    UPGRADES_TIER_4: [
-        'blockade',
-    ]
-};
 Class.bulker_AR = {
     PARENT: 'genericTank',
     LABEL: 'Bulker',
@@ -20452,54 +20405,6 @@ Class.crowbar_AR = {
         'wrench',
     ]
 };
-Class.cruiser_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Cruiser',
-    SIZE: 12,
-    STAT_NAMES: 4,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8.999999761581421,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 4.999999962534001,
-                Y: 4.0000001988989,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.999999761581421,
-                WIDTH: 8.199999928474426,
-                ASPECT: 0.6000000238418579,
-                X: 4.999999962534,
-                Y: -4.0000001988989,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'carrier',
-        'battleship',
-        'fortress',
-        'autocruiser',
-        'commander',
-        'productionist',
-        'cruiserdrive',
-        'hangar',
-        'zipper',
-        'baltimore',
-        'mosey',
-    ],
-    UPGRADES_TIER_4: [
-        'superintendent',
-    ]
-};
 Class.cruiserdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cruiserdrive',
@@ -22460,44 +22365,6 @@ Class.destabalizer_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.destroyer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Destroyer',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.499999523162842,
-                WIDTH: 13.999999761581421,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'conqueror',
-        'annihilator',
-        'hybrid',
-        'constructor',
-        'blower',
-        'megaTrapper',
-        'queller',
-        'autodestroyer',
-        'hurler',
-        'slinker',
-    ],
-    UPGRADES_TIER_4: [
-        'harrier',
-        'toppler',
     ]
 };
 Class.deviation_AR = {
@@ -24550,72 +24417,6 @@ Class.doubleTriplet_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.doubleTwin_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Double Twin',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041264988426915e-07,
-                Y: 5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.4041265055782493e-07,
-                Y: -5.500000119209284,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126498842691e-07,
-                Y: 5.500000119209284,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: -2.404126505578249e-07,
-                Y: -5.500000119209285,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'tripleTwin',
-        'hewnDouble',
-        'autodouble',
-        'bentDouble',
-        'doubleFlankTwin',
-        'doubleGunner',
-        'warkwark',
-    ],
-    UPGRADES_TIER_4: [
-        'doubleDual',
-        'doubleMusket',
-        'overdoubleTwin',
     ]
 };
 Class.doubleVolley_AR = {
@@ -31291,78 +31092,6 @@ Class.gunman_AR = {
         },
     ]
 };
-Class.gunner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Gunner',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.1690758749117554e-07,
-                Y: 7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -3.169075883790445e-07,
-                Y: -7.250000238418571,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771227736278e-07,
-                Y: 3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16.00000023841858,
-                WIDTH: 3.4999999403953552,
-                ASPECT: 1,
-                X: -1.6391771273660533e-07,
-                Y: -3.749999999999996,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'autogunner',
-        'nailgun',
-        'auto4',
-        'machineGunner',
-        'gunnerTrapper',
-        'cyclone',
-        'overgunner',
-        'battery',
-        'buttbuttin',
-        'blower',
-        'rimfire',
-        'volley',
-        'doubleGunner',
-        'bentGunner',
-        'equalizer',
-    ],
-    UPGRADES_TIER_4: [
-        'dam',
-    ]
-};
 Class.gunnerAutosmasher_AR = {
     PARENT: 'genericTank',
     LABEL: 'Gunner Auto-Smasher',
@@ -33325,90 +33054,6 @@ Class.hexaAutosmasher_AR = {
         },
     ]
 };
-Class.hexaTank_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Hexa Tank',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 60.000001669652114,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000119209291,
-                Y: -4.898587410340671e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 10,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 299.99999468788224,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'octoTank',
-        'cyclone',
-        'hexatrapper',
-        'deathStar',
-        'autohexaTank',
-        'mingler',
-        'combo',
-    ],
-    UPGRADES_TIER_4: [
-        'tripleFlankTwin',
-    ]
-};
 Class.hexamachine_AR = {
     PARENT: 'genericTank',
     LABEL: 'Hexa-Machine',
@@ -34518,52 +34163,6 @@ Class.howitzer_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.hunter_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Hunter',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'predator',
-        'poacher',
-        'ordnance',
-        'dual',
-        'autohunter',
-        'megaHunter',
-        'prober',
-        'courser',
-    ],
-    UPGRADES_TIER_4: [
-        'butcher',
-        'reverberator',
     ]
 };
 Class.hunter3_AR = {
@@ -37867,58 +37466,6 @@ Class.lasher_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.launcher_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Launcher',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19.199999570846558,
-                WIDTH: 12.999999523162842,
-                ASPECT: 0.699999988079071,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'skimmer',
-        'twister',
-        'swarmer',
-        'sidewinder',
-        'fieldGun',
-        'rocketeer',
-        'pitcher',
-        'cluster',
-        'projector',
-        'heaver',
-        'autolauncher',
-        'hurler',
-        'inception',
-    ],
-    UPGRADES_TIER_4: [
-        'seriemas',
-        'supplant',
-        'pumper',
     ]
 };
 Class.lavisher_AR = {
@@ -42948,64 +42495,6 @@ Class.mine_AR = {
         },
     ]
 };
-Class.minigun_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Minigun',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20.999999046325684,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 18.99999976158142,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 17.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'streamliner',
-        'nailgun',
-        'cropDuster',
-        'barricade',
-        'subverter',
-        'taser',
-        'zipper',
-        'bentMinigun',
-        'autominigun',
-        'widget',
-    ],
-    UPGRADES_TIER_4: [
-        'tommy',
-        'machgun',
-    ]
-};
 Class.minilet_AR = {
     PARENT: 'genericTank',
     LABEL: 'Minilet',
@@ -46558,51 +46047,6 @@ Class.overrunner_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.overseer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Overseer',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'overlord',
-        'banshee',
-        'autooverseer',
-        'overdrive',
-        'commander',
-        'captain',
-        'foreman',
-        'dopeseer',
-    ],
-    UPGRADES_TIER_4: [
-        'inspector',
     ]
 };
 Class.overshot_AR = {
@@ -53338,50 +52782,6 @@ Class.rider_AR = {
         },
     ]
 };
-Class.rifle_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Rifle',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 24.000000953674316,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'musket',
-        'crossbow',
-        'armsman',
-        'autorifle',
-        'enforcer',
-        'prober',
-    ],
-    UPGRADES_TIER_4: [
-        'ransacker',
-        'thunderclap',
-    ]
-};
 Class.rifle3_AR = {
     PARENT: 'genericTank',
     LABEL: 'Rifle-3',
@@ -57362,36 +56762,6 @@ Class.slogger_AR = {
         },
     ]
 };
-Class.smasher_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Smasher',
-    SIZE: 12,
-    STAT_NAMES: 1,
-    SHAPE: 0,
-    COLOR: 16,
-    TURRETS: [
-        {
-            TYPE: 'unnamed_29686',
-            POSITION: {
-                SIZE: 21.500000953674316,
-                LAYER: 0,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'megasmasher',
-        'spike',
-        'autosmasher',
-        'landmine',
-        'bonker',
-        'banger',
-        'drifter',
-    ]
-};
 Class.smearer_AR = {
     PARENT: 'genericTank',
     LABEL: 'Smearer',
@@ -57898,63 +57268,6 @@ Class.sparrow_AR = {
                 ANGLE: 180.00000500895632,
             }
         },
-    ]
-};
-Class.spawner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Spawner',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.4999998807907104,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: 10.499999523162842,
-                Y: -6.429395403545054e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.4999999403953552,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'factory',
-        'autospawner',
-        'megaSpawner',
-        'productionist',
-        'spawnerdrive',
-        'captain',
-        'hangar',
-        'laborer',
-        'foundry',
-        'issuer',
-    ],
-    UPGRADES_TIER_4: [
-        'handler',
     ]
 };
 Class.spawnerstorm_AR = {
@@ -62731,129 +62044,6 @@ Class.trailer_AR = {
         },
     ]
 };
-Class.trapGuard_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Trap Guard',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162844,
-                Y: -7.960203880059101e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'bushwhacker',
-        'gunnerTrapper',
-        'bomber',
-        'conqueror',
-        'bulwark',
-        'peashooter',
-        'incarcerator',
-        'mechGuard',
-        'autotrapGuard',
-        'machineGuard',
-        'tritrapGuard',
-    ],
-    UPGRADES_TIER_4: [
-        'garrison',
-        'maw',
-        'overtrapGuard',
-        'custodian',
-    ]
-};
-Class.triangle_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Tri-Angle',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 17.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: 0.0,
-                ANGLE: 149.99999734394112,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 8.00000011920929,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: -149.99999734394112,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'fighter',
-        'booster',
-        'falcon',
-        'bomber',
-        'autotriangle',
-        'surfer',
-        'eagle',
-        'taser',
-        'cockatiel',
-        'integrator',
-        'defect',
-        'quadangle',
-    ],
-    UPGRADES_TIER_4: [
-        'avian',
-        'raven',
-        'phoenix',
-        'shoebill',
-    ]
-};
 Class.tribarricade_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Barricade',
@@ -64329,93 +63519,6 @@ Class.tritrapGuard_AR = {
         'hexatrapGuard',
         'septatrapGuard',
         'architectGuard',
-    ]
-};
-Class.tritrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Tri-Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -5.551115123125783e-16,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.9999998807907104,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'fortress',
-        'hexatrapper',
-        'septatrapper',
-        'architect',
-        'tripen',
-        'trimech',
-        'trimachine',
-        'tritrapGuard',
-    ],
-    UPGRADES_TIER_4: [
-        'tribarricade',
-        'trimegaTrapper',
-        'warkwarkwark',
     ]
 };
 Class.tricker_AR = {
@@ -66539,66 +65642,6 @@ Class.tripleGunner_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-    ]
-};
-Class.tripleShot_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Triple Shot',
-    SIZE: 12,
-    STAT_NAMES: 0,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248668,
-                Y: -2.0000000638309294,
-                ANGLE: -18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 8.000000147248668,
-                Y: 2.0000000638309285,
-                ANGLE: 18.000000500895634,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 22.000000476837158,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'pentaShot',
-        'spreadshot',
-        'bentHybrid',
-        'bentDouble',
-        'triplet',
-        'splitShot',
-        'autotripleShot',
-        'bentGunner',
-        'bentMinigun',
-        'defect',
-        'waarrk',
-    ],
-    UPGRADES_TIER_4: [
-        'threefold',
-        'flintlock',
-        'bentBulwark',
     ]
 };
 Class.tripleTwin_AR = {
@@ -71383,49 +70426,6 @@ Class.underdrive_AR = {
         'autounderdrive',
         'infestordrive',
         'pentadrive',
-    ]
-};
-Class.underseer_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Underseer',
-    SIZE: 11.5,
-    STAT_NAMES: 2,
-    SHAPE: 4,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531194148658509e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6.000000238418579,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.2000000476837158,
-                X: 7.400000095367431,
-                Y: -4.531193156041774e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_3: [
-        'necromancer',
-        'maleficitor',
-        'autounderseer',
-        'underdrive',
-        'infestor',
-        'pentaseer',
-    ],
-    UPGRADES_TIER_4: [
-        'conductor',
     ]
 };
 Class.autopentaseer_AR = {
