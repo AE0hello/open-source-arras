@@ -1,5 +1,3 @@
-const {combineStats, weaponMirror} = require('./facilitators.js')
-const g = require('./gunvals.js')
 module.exports = {
 	// Tooltips
 	tooltip: {
@@ -9,10 +7,10 @@ module.exports = {
 	// Regular Functions
 	makeAuto: {
 		mega: {
-			type: "megaAutoTurret", size: 12
+			type: 'megaAutoTurret', size: 12
 		},
 		ultra: {
-			type: "ultraAutoTurret", size: 14
+			type: 'ultraAutoTurret', size: 14
 		},
 		triple: {
 			size: 6.5, x: 5.2, angle: 0, total: 3
@@ -55,4 +53,4 @@ module.exports = {
 			}
 		}
 	}
-}
+};
