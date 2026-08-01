@@ -96,7 +96,7 @@ import * as socketStuff from "./socketinit.js";
         })
 
         // Retrieve forms
-        util.retrieveFromLocalStorage("playerNameInput");
+        util.retrieveFromLocalStorage("optName");
         util.retrieveFromLocalStorage("playerKeyInput");
         util.retrieveFromLocalStorage("optSharpEdges");
         util.retrieveFromLocalStorage("optSlowerFOV");
@@ -1230,14 +1230,14 @@ import * as socketStuff from "./socketinit.js";
         loadSettings();
         global.optionsCheckboxes = undefined;
         // Other more important stuff
-        let playerNameInput = document.getElementById("playerNameInput");
+        let optName = document.getElementById("optName");
         let playerKeyInput = document.getElementById("playerKeyInput");
         let autolevelUpInput = document.getElementById("autoLevelUp").checked;
         global.autolvlUp = autolevelUpInput;
         // Name and keys
-        util.submitToLocalStorage("playerNameInput");
+        util.submitToLocalStorage("optName");
         util.submitToLocalStorage("playerKeyInput");
-        global.playerName = global.player.name = playerNameInput.value;
+        global.playerName = global.player.name = optName.value;
         global.playerKey = playerKeyInput.value.replace(/(<([^>]+)>)/gi, "").substring(0, 64);
         // Change the screen
         global.screenWidth = window.innerWidth;
