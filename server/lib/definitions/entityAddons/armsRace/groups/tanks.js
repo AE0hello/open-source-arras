@@ -7,7 +7,7 @@ const preset = require('../../../presets.js');
 const use_original_tree = true;
 
 // Set the below variable to true to allow tier 4 upgrades at level 45, like in arras.io.
-const free_tier_4 = true;
+const free_tier_4 = false;
 
 // Placeholder Marker
 const placeholder = {
@@ -8260,14 +8260,14 @@ Class.witch_AR = {
 Class.custodian_AR = makeGuard('single', "Custodian");
 
 // Class Tree
+if (!Config.arms_race) return;
+
 let tier4 = 3;
 if (!free_tier_4) {
     tier4 = 4;
     Config.level_cap = 60;
     Config.level_cap_cheat = 60;
 };
-
-if (!Config.arms_race) return;
 
 addUpgrades('basic', 1, []);
     addUpgrades('basic', 2, []);
