@@ -374,7 +374,7 @@ body.mobile #startMenuWrapper {
 
 .mainWrapper {
 	transition: all 0.5s;
-	padding: 48px 20px 0; /* 75px for arras.cx UI */
+	padding: 75px 20px 0; /* 75px for arras.cx UI */
 }
 
 body.mobile .mainWrapper {
