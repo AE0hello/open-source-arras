@@ -450,7 +450,7 @@ class gameHandler {
         o.name = botName;
         o.invuln = true;
         o.leftoverUpgrades = ran.chooseChance(...Config.bot_class_upgrade_chances);
-        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "darkGrey";
+        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : 'red';
         o.color.base = color;
         o.leaderboardColor = color;
         o.minimapColor = color;
