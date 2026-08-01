@@ -3192,54 +3192,47 @@ Class.arbalest_AR = {
 };
 Class.architectGuard_AR = {
     PARENT: 'genericTank',
-    LABEL: 'Architect Guard',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
+    LABEL: "Architect Guard",
+    STAT_NAMES: statnames.mixed,
+    BODY: Class.architect.BODY,
     GUNS: [
         {
             POSITION: {
                 LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
+                WIDTH: 8,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic]),
+                TYPE: 'bullet'
             }
-        },
-
+        }
     ],
     TURRETS: [
         {
-            TYPE: 'unnamed_56743_AR',
+            TYPE: 'architectGun',
             POSITION: {
-                SIZE: 12.000000476837158,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -4.898587410340671e-16,
-                ANGLE: 90.00000250447816,
+                SIZE: 12,
+                X: 8,
+                ANGLE: 90,
+                ARC: 220
             }
         },
         {
-            TYPE: 'unnamed_56743_AR',
+            TYPE: 'architectGun',
             POSITION: {
-                SIZE: 12.000000476837158,
-                LAYER: 0,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
+                SIZE: 12,
+                X: 8,
+                ARC: 220
             }
         },
         {
-            TYPE: 'unnamed_56743_AR',
+            TYPE: 'architectGun',
             POSITION: {
-                SIZE: 12.000000476837158,
-                LAYER: 0,
-                X: 8.000000119209288,
-                Y: -4.898587244904549e-16,
-                ANGLE: 270.00000068324533,
+                SIZE: 12,
+                X: 8,
+                ANGLE: 270,
+                ARC: 220
             }
         },
     ]
