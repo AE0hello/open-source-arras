@@ -717,8 +717,8 @@ Class.trplnrBoss = {
                     'This thing is really gonna annoy you HAHA!',
                     'I don\'t know what to say uhhh, die i guess.'
                 ]
-                sockets.broadcast(messages[Math.floor(Math.random() * messages.length)])
-                sockets.broadcast('Lavender will turn into `BULL3T HELL F0rM`, Run!')
+                global.gameManager.socketManager.broadcast(messages[Math.floor(Math.random() * messages.length)])
+                global.gameManager.socketManager.broadcast('Lavender will turn into `BULL3T HELL F0rM`, Run!')
                 for (let i = 0; i < 24; i++) {
                     i < 12 ?
                         setTimeout(() => { body.SIZE /= 1.1; body.alpha /= 1.2 }, i * 50)
@@ -842,8 +842,8 @@ Class.trplnrBossBulletHellForm = {
                         'Bruh my keyboard isn\'t working',
                         'Omg bruh I chose the wrong form'
                     ]
-                    sockets.broadcast(messages[Math.floor(Math.random() * messages.length)])
-                    sockets.broadcast('Lavender is in its `VULN3RABLE F0RM`, Attack!')
+                    global.gameManager.socketManager.broadcast(messages[Math.floor(Math.random() * messages.length)])
+                    global.gameManager.socketManager.broadcast('Lavender is in its `VULN3RABLE F0RM`, Attack!')
                 }
             }
         }
@@ -919,9 +919,9 @@ Class.trplnrBossVulnerableForm = {
                 if (gun.identifier != 'onHandler') return
                 setTimeout(() => {
                     body.define('trplnrBoss')
-                    sockets.broadcast('im awake')
+                    global.gameManager.socketManager.broadcast('im awake')
                 }, 15000)
-                setTimeout(() => sockets.broadcast('Lavender will activate in 10 seconds and turn into S4nctuary F0rM'), 5000)
+                setTimeout(() => global.gameManager.socketManager.broadcast('Lavender will activate in 10 seconds and turn into S4nctuary F0rM'), 5000)
             }
         }
     ],
