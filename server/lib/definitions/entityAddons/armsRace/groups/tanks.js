@@ -1,24 +1,24 @@
-const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver} = require('../../../facilitators.js')
-const {base, dfltskl, smshskl, statnames} = require('../../../constants.js')
-const g = require('../../../gunvals.js')
-const preset = require('../../../presets.js')
+const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver} = require('../../../facilitators.js');
+const {base, dfltskl, smshskl, statnames} = require('../../../constants.js');
+const g = require('../../../gunvals.js');
+const preset = require('../../../presets.js');
 
 // Set the below variable to true to enable the original arras.io Arms Race tree, with some minor bugfixes.
-const use_original_tree = true
+const use_original_tree = true;
 
 // Set the below variable to true to allow tier 4 upgrades at level 45, like in arras.io.
-const free_tier_4 = true
+const free_tier_4 = true;
 
 // Placeholder Marker
 const placeholder = {
     UPGRADE_COLOR: "black",
     UPGRADE_TOOLTIP: "[DEV NOTE] This tank is a placeholder!"
-}
+};
 
 // Presets
-preset.makeAuto.drive = {type: 'driveAutoTurret_AR', size: 9, clearTurrets: true}
-preset.makeAuto.storm = {type: 'stormAutoTurret_AR', size: 9, clearTurrets: true}
-preset.makeAuto.smasher = {type: 'autoSmasherTurret', size: 11}
+preset.makeAuto.drive = {type: 'driveAutoTurret_AR', size: 9, clearTurrets: true};
+preset.makeAuto.storm = {type: 'stormAutoTurret_AR', size: 9, clearTurrets: true};
+preset.makeAuto.smasher = {type: 'autoSmasherTurret', size: 11};
 
 // Sorted Garbage
 Class.unnamed_2560_AR = {
@@ -1416,6 +1416,107 @@ Class.megaHunter_AR = {
         'megaCourser',
     ]*/
 };
+Class.megaSpawner_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Mega Spawner',
+    SIZE: 12,
+    STAT_NAMES: 2,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15.0,
+                WIDTH: 12.999999523162842,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.499999761581421,
+                WIDTH: 15.0,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1.0000000149011612,
+                WIDTH: 15.0,
+                ASPECT: 1,
+                X: 15.0,
+                Y: -9.184850993605148e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'ultraSpawner',
+        'megaFactory',
+        'automegaSpawner',
+        'megaSpawnerdrive',
+        'megaCaptain',
+        'megaHangar',
+        'megaLaborer',
+        'megaFoundry',
+        'megaIssuer',
+    ]*/
+};
+Class.megaTrapper_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Mega Trapper',
+    SIZE: 12,
+    STAT_NAMES: 5,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13.999999761581421,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.0,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1.7000000476837158,
+                X: 12.999999523162842,
+                Y: -7.960203902479247e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'ultraTrapper',
+        'assembler',
+        'trimegaTrapper',
+        'garrison',
+        'sty',
+        'technician',
+        'pulverizer',
+        'cornerer',
+        'catcher',
+        'automegaTrapper',
+        'machineMegaTrapper',
+        'shoebill',
+        'seizer',
+        'megaWark',
+    ]*/
+};
 Class.mingler_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mingler',
@@ -1607,6 +1708,90 @@ Class.prober_AR = {
         'flicher',
     ]*/
 };
+Class.productionist_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Productionist',
+    SIZE: 12,
+    STAT_NAMES: 2,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 14.500000476837158,
+                WIDTH: 6.000000238418579,
+                ASPECT: 1,
+                X: -2.2729921935399042e-07,
+                Y: 5.199999809265131,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.2000000476837158,
+                X: -2.2729921935399042e-07,
+                Y: 5.199999809265131,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1.0000000149011612,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 14.499999495606398,
+                Y: 5.199999707306231,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 14.500000476837158,
+                WIDTH: 6.000000238418579,
+                ASPECT: 1,
+                X: -2.2729921999080673e-07,
+                Y: -5.199999809265131,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: -1.2000000476837158,
+                X: -2.2729921999080673e-07,
+                Y: -5.199999809265131,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1.0000000149011612,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 14.499999495606398,
+                Y: -5.199999707306232,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'initiator',
+        'bismarck',
+        'autoproductionist',
+        'productiondrive',
+        'manufacture',
+        'dirigible',
+        'palisade',
+        'gaffer',
+        'fabrication',
+        'inducer',
+    ]*/
+};
 Class.railgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Railgun',
@@ -1733,6 +1918,73 @@ Class.rimfire_AR = {
         'barrage',
         'doubleRimfire',
         'autorimfire',
+    ]*/
+};
+Class.spawnerdrive_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Spawnerdrive',
+    SIZE: 12,
+    STAT_NAMES: 2,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 4.4999998807907104,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: 10.499999523162842,
+                Y: -6.429395403545054e-16,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1.0000000149011612,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1,
+                X: 15.0,
+                Y: -9.184850993605148e-16,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.4999999403953552,
+                WIDTH: 12.000000476837158,
+                ASPECT: 1,
+                X: 8.00000011920929,
+                Y: -4.8985872695840505e-16,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    TURRETS: [
+        {
+            TYPE: ['squareHat', {COLOR: 'grey'}],
+            POSITION: {
+                SIZE: 8.999999761581421,
+                LAYER: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'spawnerstorm',
+        'factorydrive',
+        'autospawnerdrive',
+        'megaSpawnerdrive',
+        'productiondrive',
+        'captaindrive',
+        'airfield',
+        'labordrive',
+        'foundrydrive',
+        'issuerdrive',
     ]*/
 };
 Class.splitShot_AR = {
@@ -41952,59 +42204,6 @@ Class.megaProber_AR = {
         },
     ]
 };
-Class.megaSpawner_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Mega Spawner',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 12.999999523162842,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.499999761581421,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 15.0,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'ultraSpawner',
-        'megaFactory',
-        'automegaSpawner',
-        'megaSpawnerdrive',
-        'megaCaptain',
-        'megaHangar',
-        'megaLaborer',
-        'megaFoundry',
-        'megaIssuer',
-    ]
-};
 Class.megaSpawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Mega Spawnerdrive',
@@ -42057,54 +42256,6 @@ Class.megaSpawnerdrive_AR = {
                 ANGLE: 0.0,
             }
         },
-    ]
-};
-Class.megaTrapper_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Mega Trapper',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 13.999999761581421,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 5.0,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -7.960203902479247e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'ultraTrapper',
-        'assembler',
-        'trimegaTrapper',
-        'garrison',
-        'sty',
-        'technician',
-        'pulverizer',
-        'cornerer',
-        'catcher',
-        'automegaTrapper',
-        'machineMegaTrapper',
-        'shoebill',
-        'seizer',
-        'megaWark',
     ]
 };
 Class.mega3_AR = {
@@ -50066,90 +50217,6 @@ Class.productiondrive_AR = {
         },
     ]
 };
-Class.productionist_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Productionist',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 6.000000238418579,
-                ASPECT: 1,
-                X: -2.2729921935399042e-07,
-                Y: 5.199999809265131,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.2000000476837158,
-                X: -2.2729921935399042e-07,
-                Y: 5.199999809265131,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 14.499999495606398,
-                Y: 5.199999707306231,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 14.500000476837158,
-                WIDTH: 6.000000238418579,
-                ASPECT: 1,
-                X: -2.2729921999080673e-07,
-                Y: -5.199999809265131,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.000000238418579,
-                WIDTH: 8.00000011920929,
-                ASPECT: -1.2000000476837158,
-                X: -2.2729921999080673e-07,
-                Y: -5.199999809265131,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 14.499999495606398,
-                Y: -5.199999707306232,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'initiator',
-        'bismarck',
-        'autoproductionist',
-        'productiondrive',
-        'manufacture',
-        'dirigible',
-        'palisade',
-        'gaffer',
-        'fabrication',
-        'inducer',
-    ]
-};
 Class.projector_AR = {
     PARENT: 'genericTank',
     LABEL: 'Projector',
@@ -57888,73 +57955,6 @@ Class.spawner_AR = {
     ],
     UPGRADES_TIER_4: [
         'handler',
-    ]
-};
-Class.spawnerdrive_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Spawnerdrive',
-    SIZE: 12,
-    STAT_NAMES: 2,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.4999998807907104,
-                WIDTH: 10,
-                ASPECT: 1,
-                X: 10.499999523162842,
-                Y: -6.429395403545054e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1.0000000149011612,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.4999999403953552,
-                WIDTH: 12.000000476837158,
-                ASPECT: 1,
-                X: 8.00000011920929,
-                Y: -4.8985872695840505e-16,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    TURRETS: [
-        {
-            TYPE: ['squareHat', {COLOR: 'grey'}],
-            POSITION: {
-                SIZE: 8.999999761581421,
-                LAYER: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'spawnerstorm',
-        'factorydrive',
-        'autospawnerdrive',
-        'megaSpawnerdrive',
-        'productiondrive',
-        'captaindrive',
-        'airfield',
-        'labordrive',
-        'foundrydrive',
-        'issuerdrive',
     ]
 };
 Class.spawnerstorm_AR = {

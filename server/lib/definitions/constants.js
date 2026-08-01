@@ -78,4 +78,4 @@ module.exports = {
 			BULLET_DAMAGE: "Trap Damage"
 		}
 	}
-}
+};

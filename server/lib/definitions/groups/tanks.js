@@ -1270,7 +1270,7 @@ Class.annihilator = {
     ]
 };
 Class.armsman = makeOver('rifle', "Armsman", preset.makeOver.hybrid);
-Class.architect = makeRadialAuto('architectGun', {isTurret: true, danger: 7, size: 12, label: "Architect", body: {FOV: base.FOV * 1.15, SPEED: base.SPEED * 1.125}}); // todo: fix this
+Class.architect = makeRadialAuto('architectGun', {isTurret: true, danger: 7, size: 12, label: "Architect", body: {FOV: base.FOV * 1.15, SPEED: base.SPEED * 1.125}});
 Class.assembler = {
     PARENT: 'genericTank',
     LABEL: "Assembler",
@@ -5740,7 +5740,7 @@ addUpgrades('basic', 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director
         //addUpgrades('builder', 3, []);
         //addUpgrades('triTrapper', 3, []);
         //addUpgrades('trapGuard', 3, []);
-        addUpgrades('autoTrapper', 3, ['autoBuilder', 'hexaTrapper']);
+        addUpgrades('autoTrapper', 3, ['megaAutoTrapper', 'tripleAutoTrapper', 'autoBuilder', 'hexaTrapper']);
 
     addUpgrades('desmos', 2, ['helix']);
         addUpgrades('volute', 3, ['sidewinder']);
