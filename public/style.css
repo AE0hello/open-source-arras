@@ -558,11 +558,11 @@ body.mobile #optBorders {
 	display: inline-block;
 }
 
-.mobileRow {
+#mobileRow {
 	display: none;
 }
 
-body.mobile .mobileRow {
+body.mobile #mobileRow {
 	display: true;
 }
 
@@ -736,7 +736,7 @@ body.mobile .startMenuSlidingContent {
 	border-radius: 5px;
 }
 .bottomHolder > a:last-child {
-	width: 204px;
+	width: 157px;
 }
 .bottomHolder > a:hover {
 	top: 2px;
