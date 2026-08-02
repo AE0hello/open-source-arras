@@ -572,7 +572,7 @@ body.mobile #mobileRow {
 	transition: all 500ms, opacity 500ms;
 }
 .slided .slider {
-	top: -270px;
+	top: -280px;
 }
 .slided2 .slider {
 	top: calc(-100% + 20px);
