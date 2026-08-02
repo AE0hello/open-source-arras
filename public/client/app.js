@@ -76,9 +76,11 @@ import * as socketStuff from "./socketinit.js";
     // Window setup <3
     global.mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
     global.mobile && document.body.classList.add("mobile");
-    if (!global.mobile) {
-        document.getElementById("tabAppearance").style.height = "236px";
-        document.getElementById("tabOptions").style.height = "236px";
+    if (global.mobile) {
+        document.getElementById("tabAppearance").style.height = "84.5%";
+        document.getElementById("tabOptions").style.height = "84.5%";
+        document.getElementById("tabAbout").style.height = "84.5%";
+        document.getElementById("tabAddons").style.height = "84.5%";
     };
 
     window.onload = async () => {
@@ -294,7 +296,7 @@ import * as socketStuff from "./socketinit.js";
                 document.getElementById("tabAppearance"),
                 document.getElementById("tabOptions"),
                 document.getElementById("tabControls"),
-                document.getElementById("tabLinks"),
+                document.getElementById("tabAbout"),
                 document.getElementById("tabAddons"),
             ];
         for (let g = 1; g < tabOptions.length; g++) tabOptions[g].style.display = "none";

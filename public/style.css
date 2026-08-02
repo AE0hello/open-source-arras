@@ -144,8 +144,6 @@ h3 {
 	line-height: 10px;
 	padding: 0 6px;
 	scroll-behavior: smooth;
-	scrollbar-width: thin;
-	scrollbar-color: rgba(0, 0, 0, 0.3) rgba(0, 0, 0, 0.15);
 }
 body.mobile .serverSelector {
 	height: 68px;
