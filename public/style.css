@@ -733,9 +733,6 @@ body.mobile .startMenuSlidingContent {
 	box-shadow: inset 0 -4px rgba(0, 0, 0, 0.2);
 	border-radius: 5px;
 }
-.bottomHolder > a:last-child {
-	width: 157px;
-}
 .bottomHolder > a:hover {
 	top: 2px;
 	height: 38px;
