@@ -77,8 +77,8 @@ import * as socketStuff from "./socketinit.js";
     global.mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
     global.mobile && document.body.classList.add("mobile");
     if (!global.mobile) {
-        document.getElementById("tabAppearance").style.height = "242px";
-        document.getElementById("tabOptions").style.height = "242px";
+        document.getElementById("tabAppearance").style.height = "236px";
+        document.getElementById("tabOptions").style.height = "236px";
     };
 
     window.onload = async () => {
