@@ -556,12 +556,8 @@ body.mobile #optBorders {
 	display: inline-block;
 }
 
-#mobileRow {
+body.not-mobile .mobileRow {
 	display: none;
-}
-
-body.mobile #mobileRow {
-	display: true;
 }
 
 .slider {
