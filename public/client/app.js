@@ -76,6 +76,7 @@ import * as socketStuff from "./socketinit.js";
     // Window setup <3
     global.mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent);
     global.mobile && document.body.classList.add("mobile");
+    !global.mobile && document.body.classList.add("not-mobile");
     if (global.mobile) {
         document.getElementById("tabAppearance").style.height = "84.5%";
         document.getElementById("tabOptions").style.height = "84.5%";
