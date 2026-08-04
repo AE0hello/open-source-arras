@@ -75,7 +75,7 @@ module.exports = {
             id: 'lb',
 
             region: "Local",
-            gamemode: ['squads'],
+            gamemode: ['maze', 'ffa'],
             player_cap: 80,
 
             featured: false,
