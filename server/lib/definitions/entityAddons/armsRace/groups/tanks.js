@@ -1983,6 +1983,44 @@ Class.rimfire_AR = {
         'autorimfire',
     ]*/
 };
+Class.scientist_AR = {
+    PARENT: 'genericHealer',
+    LABEL: "Scientist",
+    STAT_NAMES: statnames.trap,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.500000238418579,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 6.9999998807907104,
+                ASPECT: 1.5,
+                X: 16.00000023841858,
+                Y: -9.797174539168101e-16,
+                ANGLE: 0.0,
+            }
+        }
+    ]
+};
 Class.spawnerdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Spawnerdrive',
@@ -2208,6 +2246,7 @@ Class.taser_AR = {
         'magnet',
     ]*/
 };
+Class.triHealer_AR = makeFlank('healer', 3, "Tri-Healer", {extraStats: [g.flankGuard]});
 Class.underdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Underdrive',
@@ -4829,6 +4868,7 @@ Class.charmer_AR = {
         },
     ]
 };
+Class.chemist_AR = makeFlank('scientist_AR', 3, "Chemist", {extraStats: [g.flankGuard]});
 Class.cleft_AR = {
     PARENT: 'genericTank',
     LABEL: 'Cleft',
@@ -6923,6 +6963,65 @@ Class.pollen_AR = {
         },
     ]
 };
+Class.professor_AR = {
+    PARENT: 'genericHealer',
+    LABEL: "Professor",
+    STAT_NAMES: statnames.trap,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16.00000023841858,
+                WIDTH: 8.999999761581421,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.500000238418579,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.0000001192092896,
+                WIDTH: 8.999999761581421,
+                ASPECT: 1.5,
+                X: 16.000000238418583,
+                Y: -9.797174820681343e-16,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.000000238418579,
+                WIDTH: 8.999999761581421,
+                ASPECT: -0.4000000059604645,
+                X: 9.49999988079071,
+                Y: -5.817072222955291e-16,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 17.999999523162842,
+                WIDTH: 10,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+
+    ],
+};
 Class.quadTwin_AR = makeFlank('twin', 4, "Quad Twin", {extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8});
 Class.rampart_AR = makeOver('barricade', "Rampart", preset.makeOver.hybrid);
 Class.ravisher_AR = makeOver('dual', "Ravisher", preset.makeOver.hybrid);
@@ -8273,6 +8372,15 @@ addUpgrades('basic', 1, []);
     addUpgrades('basic', 2, []);
         addUpgrades('basic', 3, []);
             addUpgrades('basic', tier4, []);
+
+        addUpgrades('smasher', 3, []);
+            addUpgrades('smasher', tier4, []);
+
+        addUpgrades('healer', 3, ['scientist', 'triHealer'].map(x => x + '_AR'));
+            addUpgrades('healer', tier4, []);
+            addUpgrades('medic', tier4, []);
+            addUpgrades('scientist_AR', tier4, ['surgeon', 'professor_AR', 'chemist_AR']);
+            addUpgrades('triHealer_AR', tier4, ['ambulance']);
 
     addUpgrades('twin', 2, ['wark'].map(x => x + '_AR'));
         addUpgrades('twin', 3, []);
