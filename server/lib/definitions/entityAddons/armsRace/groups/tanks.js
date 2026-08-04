@@ -8438,9 +8438,10 @@ addUpgrades('basic', 1, []);
 
         //addUpgrades('helix_AR', 3, []);
 
-removeUpgrades('twin', 3, ['bulwark']);
 removeUpgrades('director', 3, ['bigCheese']);
+removeUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic']);
 removeUpgrades('trapper', 3, ['barricade']);
+removeUpgrades('twin', 3, ['bulwark']);
 
 if (use_original_tree) {
     addUpgrades('basic', 3, ['single']);

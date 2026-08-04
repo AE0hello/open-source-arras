@@ -195,7 +195,7 @@ let commands = [
         },
     },
     {
-        command: ["developer", "dev"],
+        command: ["developer", "dev", "d"],
         description: "Developer commands, go troll some players or just take a look for yourself.",
         level: 3,
         run: ({ socket, args, gameManager }) => {
@@ -207,7 +207,7 @@ let commands = [
                 socket.talk("Em", 10_000, JSON.stringify(lines));
             }
             let command = args[0];
-            if (command === "reloaddefs" || command === "redefs") {
+            if (command === "reloaddefs" || command === "redefs" || command === "r") {
                 /* IMPORT FROM (defsReloadCommand.js) */
                 if (!global.reloadDefinitionsInfo) {
                     global.reloadDefinitionsInfo = {
