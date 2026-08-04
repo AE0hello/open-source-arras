@@ -31,7 +31,7 @@ module.exports = {
         private     - Whether the server requires a privileged token to join (except through server travel).
 
         properties  - This overrides other settings in this file, assuming the selected gamemode doesn't also override it.
-    
+
     */
 
     servers: [
@@ -244,7 +244,7 @@ module.exports = {
             Array(6).fill().map((_, k, c) => [
                 // Chance of spawning, set to 200mil for regular polygons and exponents of 10 otherwise
                 k ? 10 ** (c.length - k - 1) : 200_000_000,
-                
+
                 // 2-wide dimension of the 2 shape "ranks" - normal, crasher
                 // laby_${poly}_${tier}_${shiny}_${rank}
                 [

@@ -328,7 +328,7 @@ const global = {
         mspt: 0,
     },
     advanced: {
-        roundMap: false,
+        arenaShape: 'rect',
         blackout: {
             active: false,
             color: "#000000"
