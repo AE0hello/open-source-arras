@@ -2587,24 +2587,7 @@ import * as socketStuff from "./socketinit.js";
         }
         let gridsize = 30 * ratio;
         if (config.graphical.showGrid && 2.5 < gridsize) { // Draw grid if the user wants to.
-            if (global.advanced.arenaShape == 'rect') {
-                ctx[0].save();
-                ctx[0].lineWidth = ratio;
-                ctx[0].strokeStyle = color.guiblack;
-                ctx[0].globalAlpha = 0.04;
-                ctx[0].beginPath();
-                for (let x = (global.screenWidth / 2 - px) % gridsize; x < global.screenWidth; x += gridsize) {
-                    ctx[0].moveTo(x, 0);
-                    ctx[0].lineTo(x, global.screenHeight);
-                }
-                for (let y = (global.screenHeight / 2 - py) % gridsize; y < global.screenHeight; y += gridsize) {
-                    ctx[0].moveTo(0, y);
-                    ctx[0].lineTo(global.screenWidth, y);
-                }
-                ctx[0].stroke();
-                ctx[0].globalAlpha = 1;
-                ctx[0].restore();
-            } else if (global.advanced.arenaShape == 'hexagonal') {
+            if (global.advanced.arenaShape == 'hexagonal') {
                 ctx[0].save();
                 ctx[0].lineWidth = 2 * ratio;
                 ctx[0].strokeStyle = color.guiblack;
@@ -2622,6 +2605,23 @@ import * as socketStuff from "./socketinit.js";
                 }
                 ctx[0].stroke();
                 gridsize /= 2;
+                ctx[0].globalAlpha = 1;
+                ctx[0].restore();
+            } else {
+                ctx[0].save();
+                ctx[0].lineWidth = ratio;
+                ctx[0].strokeStyle = color.guiblack;
+                ctx[0].globalAlpha = 0.04;
+                ctx[0].beginPath();
+                for (let x = (global.screenWidth / 2 - px) % gridsize; x < global.screenWidth; x += gridsize) {
+                    ctx[0].moveTo(x, 0);
+                    ctx[0].lineTo(x, global.screenHeight);
+                }
+                for (let y = (global.screenHeight / 2 - py) % gridsize; y < global.screenHeight; y += gridsize) {
+                    ctx[0].moveTo(0, y);
+                    ctx[0].lineTo(global.screenWidth, y);
+                }
+                ctx[0].stroke();
                 ctx[0].globalAlpha = 1;
                 ctx[0].restore();
             }
