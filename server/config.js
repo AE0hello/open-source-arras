@@ -346,6 +346,6 @@ module.exports = {
 
     // Room setup (don't change these unless you know what you're doing)
     room_setup: ['room_default'],
-    arena_shape: 'rect',
+    round_arena: false,
     mode: 'ffa',
 }

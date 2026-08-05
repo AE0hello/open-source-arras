@@ -1103,6 +1103,7 @@ import * as socketStuff from "./socketinit.js";
         config.graphical.separatedHealthbars = document.getElementById("separatedHealthbars").checked;
         config.graphical.lowResolution = document.getElementById("optLowResolution").checked;
         config.graphical.showGrid = !document.getElementById("optNoGrid").checked;
+        config.graphical.hexaGrid = document.getElementById("optHexaGrid").checked;
         config.graphical.coloredNest = document.getElementById("optColoredNest").checked;
         config.graphical.slowerFOV = document.getElementById("optSlowerFOV").checked;
         config.graphical.optimizeMode = document.getElementById("optOptimizeMode").checked;
@@ -2532,7 +2533,7 @@ import * as socketStuff from "./socketinit.js";
             roomY = -py + global.screenHeight / 2 - ratio * gameHeight / 2,
             roomWidth = ratio * gameWidth,
             roomHeight = ratio * gameHeight;
-        if (global.advanced.arenaShape == 'circle') {
+        if (global.advanced.roundArena == true) {
             ctx[0].save();
             ctx[0].beginPath();
             ctx[0].arc(
@@ -2581,19 +2582,18 @@ import * as socketStuff from "./socketinit.js";
                 }
             }
         }
-        if (global.advanced.arenaShape == 'circle' ||
-            global.advanced.arenaShape == 'hexagonal') {
+        if (global.advanced.roundArena || config.graphical.hexaGrid) {
             ctx[0].restore();
         }
         let gridsize = 30 * ratio;
         if (config.graphical.showGrid && 2.5 < gridsize) { // Draw grid if the user wants to.
-            if (global.advanced.arenaShape == 'hexagonal') {
-                ctx[0].save();
-                ctx[0].lineWidth = 2 * ratio;
-                ctx[0].strokeStyle = color.guiblack;
-                ctx[0].globalAlpha = 0.04;
-                ctx[0].beginPath();
-                gridsize *= 2;
+            ctx[0].save();
+            ctx[0].lineWidth = config.graphical.gridDrawSize * ratio;
+            ctx[0].strokeStyle = color.guiblack;
+            ctx[0].globalAlpha = 0.04;
+            ctx[0].beginPath();
+            gridsize *= config.graphical.gridDrawSize;
+            if (config.graphical.hexaGrid) {
                 let ygridsize = 2 * gridsize / 1.1525;
                 for (let x = (global.screenWidth / 2 - px) % gridsize - gridsize / 2; x < global.screenWidth; x += gridsize) {
                     for (let y = (global.screenHeight / 2 - py) % ygridsize - ygridsize; y < global.screenHeight + ygridsize; y += ygridsize) {
@@ -2608,11 +2608,6 @@ import * as socketStuff from "./socketinit.js";
                 ctx[0].globalAlpha = 1;
                 ctx[0].restore();
             } else {
-                ctx[0].save();
-                ctx[0].lineWidth = ratio;
-                ctx[0].strokeStyle = color.guiblack;
-                ctx[0].globalAlpha = 0.04;
-                ctx[0].beginPath();
                 for (let x = (global.screenWidth / 2 - px) % gridsize; x < global.screenWidth; x += gridsize) {
                     ctx[0].moveTo(x, 0);
                     ctx[0].lineTo(x, global.screenHeight);
@@ -3515,9 +3510,9 @@ import * as socketStuff from "./socketinit.js";
             ctx[2].globalAlpha = 0.4;
             ctx[2].save();
             ctx[2].fillStyle = color.white;
-            global.advanced.arenaShape == 'circle' ? drawGuiCircle(x + len / 2, y + height / 2, len / 2) : drawGuiRect(x, y, len, height);
+            global.advanced.roundArena == true ? drawGuiCircle(x + len / 2, y + height / 2, len / 2) : drawGuiRect(x, y, len, height);
             ctx[2].beginPath(); // We will not allow to draw outside of the minimap so we are only allowing minimap entities to draw INSIDE the minimap only
-            global.advanced.arenaShape == 'circle' ? ctx[2].arc(x + len / 2, y + height / 2, len / 2, 0, 2 * Math.PI) : ctx[2].rect(x, y, len, height); // Draw everything inside the minimap
+            global.advanced.roundArena == true ? ctx[2].arc(x + len / 2, y + height / 2, len / 2, 0, 2 * Math.PI) : ctx[2].rect(x, y, len, height); // Draw everything inside the minimap
             ctx[2].clip();
 
             if (global.roomSetup.length) {
@@ -3612,7 +3607,7 @@ import * as socketStuff from "./socketinit.js";
             ctx[2].fillStyle = color.black;
             // Draw border of the minimap
             ctx[2].lineWidth = 3;
-            global.advanced.arenaShape == 'circle' ? drawGuiCircle(x + len / 2, y + height / 2, len / 2, true) : drawGuiRect(x, y, len, height, true); // Border
+            global.advanced.roundArena == true ? drawGuiCircle(x + len / 2, y + height / 2, len / 2, true) : drawGuiRect(x, y, len, height, true); // Border
         }
         if (global.mobile || !global.GUIStatus.renderMinimap) {
             x = global.screenWidth - spacing - len;

@@ -290,7 +290,7 @@ class socketManager {
                             active: Config.blackout,
                             color: Config.blackout_fog,
                         }),
-                        Config.arena_shape,
+                        Config.round_arena,
                     );
                     return;
                 }

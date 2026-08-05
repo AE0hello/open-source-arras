@@ -857,7 +857,7 @@ let incoming = async function(message, socket) {
                 let blackoutData = JSON.parse(m[5]);
                 global.advanced.blackout.active = blackoutData.active;
                 global.advanced.blackout.color = blackoutData.color;
-                global.advanced.arenaShape = m[6];
+                global.advanced.roundArena = m[6];
                 // Start syncing
                 socket.talk('S', getNow());
             } break;

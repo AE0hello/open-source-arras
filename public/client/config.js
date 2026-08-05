@@ -17,6 +17,8 @@ const config = {
         colors: 'normal',
         pointy: true,
         showGrid: true,
+        hexaGrid: true,
+        gridDrawSize: 1,
         fontSizeBoost: 1.4,
         fontStrokeRatio: 4.5,
         neon: false,

@@ -329,6 +329,7 @@ const global = {
     },
     advanced: {
         arenaShape: 'rect',
+        roundArena: false,
         blackout: {
             active: false,
             color: "#000000"
