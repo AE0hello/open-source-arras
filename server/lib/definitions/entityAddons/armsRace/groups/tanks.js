@@ -1,4 +1,4 @@
-const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver} = require('../../../facilitators.js');
+const {combineStats, addUpgrades, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver, makeRadialAuto} = require('../../../facilitators.js');
 const {base, dfltskl, smshskl, statnames} = require('../../../constants.js');
 const g = require('../../../gunvals.js');
 const preset = require('../../../presets.js');
@@ -2247,6 +2247,103 @@ Class.taser_AR = {
     ]*/
 };
 Class.triHealer_AR = makeFlank('healer', 3, "Tri-Healer", {extraStats: [g.flankGuard]});
+Class.triPen_AR = makeFlank('pen_AR', 3, "Tri-Pen", {extraStats: [g.flankGuard]});
+Class.triMachine_AR = makeFlank('machineTrapper_AR', 3, "Tri-Machine", {extraStats: [g.flankGuard]});
+Class.triMech_AR = makeFlank('mech_AR', 3, "Tri-Mech", {extraStats: [g.flankGuard]});
+Class.triTrapGuard_AR = {
+    PARENT: 'genericTank',
+    LABEL: 'Tri-Trap Guard',
+    SIZE: 12,
+    STAT_NAMES: 6,
+    SHAPE: 0,
+    COLOR: 16,
+    ...placeholder,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 0.0,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4.000000059604645,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 12.999999523162844,
+                Y: -7.960203880059101e-16,
+                ANGLE: 180.00000500895632,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4.000000059604645,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 12.99999952316284,
+                Y: -7.960203880059101e-16,
+                ANGLE: 90.00000250447816,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12.999999523162842,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1,
+                X: 0.0,
+                Y: 0.0,
+                ANGLE: 270.00000068324533,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4.000000059604645,
+                WIDTH: 8.00000011920929,
+                ASPECT: 1.7000000476837158,
+                X: 12.99999952316284,
+                Y: -7.960203880059101e-16,
+                ANGLE: 270.00000068324533,
+            }
+        },
+
+    ],
+    /*UPGRADES_TIER_4: [
+        'tribushwhacker',
+        'gunnerTritrapper',
+        'quadwark',
+        'tripeashooter',
+        'triincarcerator',
+        'trimechGuard',
+        'trimachineGuard',
+        'hexatrapGuard',
+        'septatrapGuard',
+        'architectGuard',
+    ]*/
+};
 Class.underdrive_AR = {
     PARENT: 'genericTank',
     LABEL: 'Underdrive',
@@ -5114,6 +5211,7 @@ Class.dam_AR = {
         },
     ]
 };
+Class.designer_AR = makeAuto(makeRadialAuto('architectGun', {isTurret: true, danger: 8, size: 12, count: 6, body: {FOV: base.FOV * 1.15, SPEED: base.SPEED * 19/15}}), "Designer");
 Class.diviner_AR = {
     PARENT: 'genericTank',
     LABEL: 'Diviner',
@@ -6364,6 +6462,7 @@ Class.infestordrive_AR = {
         },
     ]
 };
+Class.inventor_AR = makeRadialAuto('architectGun', {isTurret: true, danger: 8, size: 12, label: "Inventor", count: 7, body: {FOV: base.FOV * 1.15, SPEED: base.SPEED * 1.125}});
 Class.machgun_AR = {
     PARENT: 'genericTank',
     LABEL: 'Machgun',
@@ -8406,6 +8505,7 @@ addUpgrades('basic', 1, []);
 
         addUpgrades('hexaTank', 3, ['autoHexaTank', 'mingler', 'combo'].map(x => x + '_AR'));
             addUpgrades('hexaTank', tier4, ['tripleFlankTwin'].map(x => x + '_AR'));
+            addUpgrades('hexaTrapper', tier4, ['designer'].map(x => x + '_AR'));
 
         addUpgrades('helix', 3, ['coil', 'duplicator']);
             addUpgrades('helix', tier4, [].map(x => x + '_AR'));
@@ -8467,8 +8567,14 @@ addUpgrades('basic', 1, []);
         addUpgrades('auto3', 3, []);
             addUpgrades('auto3', tier4, []);
 
-        addUpgrades('triTrapper', 3, []);
+        addUpgrades('triTrapper', 3, ['triPen', 'triMech', 'triMachine', 'triTrapGuard'].map(x => x + '_AR'));
             addUpgrades('triTrapper', tier4, []);
+            addUpgrades('septaTrapper', tier4, ['inventor'].map(x => x + '_AR'));
+            addUpgrades('architect', tier4, ['inventor', 'designer', 'architectGuard'].map(x => x + '_AR'));
+            addUpgrades('triPen_AR', tier4, [].map(x => x + '_AR'));
+            addUpgrades('triMech_AR', tier4, [].map(x => x + '_AR'));
+            addUpgrades('triMachine_AR', tier4, [].map(x => x + '_AR'));
+            addUpgrades('triTrapGuard_AR', tier4, ['architectGuard'].map(x => x + '_AR'));
 
         addUpgrades('trapGuard', 3, []);
             addUpgrades('trapGuard', tier4, []);
@@ -63307,87 +63413,6 @@ Class.triincarcerator_AR = {
         },
     ]
 };
-Class.trimachine_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Tri-Machine',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 10,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 10,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 6.9999998807907104,
-                ASPECT: 1.399999976158142,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 10,
-                ASPECT: 1.2999999523162842,
-                X: 15.0,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'septamachine',
-        'hexamachine',
-        'donjon',
-        'triencircler',
-        'trimachineMech',
-        'tridieselTrapper',
-        'trimachineGuard',
-    ]
-};
 Class.trimachineGuard_AR = {
     PARENT: 'genericTank',
     LABEL: 'Tri-Machine Guard',
@@ -63568,117 +63593,6 @@ Class.trimachineMech_AR = {
                 ANGLE: 240.00000667860846,
             }
         },
-    ]
-};
-Class.trimech_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Tri-Mech',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -9.184850993605148e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 15.0,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.000000476837158,
-                WIDTH: 11.000000238418579,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 3.0000001192092896,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 15.0,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'bunker',
-        'hexamech',
-        'trimachineMech',
-        'septamech',
-        'originator',
-        'trioperator',
-        'trimechGuard',
     ]
 };
 Class.trimechGuard_AR = {
@@ -64083,210 +63997,6 @@ Class.tripeashooter_AR = {
                 ANGLE: 270.00000068324533,
             }
         },
-    ]
-};
-Class.tripen_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Tri-Pen',
-    SIZE: 12,
-    STAT_NAMES: 5,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -7.960203902479247e-16,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -1.1102230246251565e-15,
-                ANGLE: 120.00000333930423,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 240.00000667860846,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162842,
-                Y: -2.220446049250313e-15,
-                ANGLE: 240.00000667860846,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'corral',
-        'triencircler',
-        'paddock',
-        'coop',
-        'trioperator',
-        'triincarcerator',
-    ]
-};
-Class.tritrapGuard_AR = {
-    PARENT: 'genericTank',
-    LABEL: 'Tri-Trap Guard',
-    SIZE: 12,
-    STAT_NAMES: 6,
-    SHAPE: 0,
-    COLOR: 16,
-    ...placeholder,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 20,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 0.0,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.999999523162844,
-                Y: -7.960203880059101e-16,
-                ANGLE: 180.00000500895632,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.99999952316284,
-                Y: -7.960203880059101e-16,
-                ANGLE: 90.00000250447816,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12.999999523162842,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1,
-                X: 0.0,
-                Y: 0.0,
-                ANGLE: 270.00000068324533,
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4.000000059604645,
-                WIDTH: 8.00000011920929,
-                ASPECT: 1.7000000476837158,
-                X: 12.99999952316284,
-                Y: -7.960203880059101e-16,
-                ANGLE: 270.00000068324533,
-            }
-        },
-
-    ],
-    UPGRADES_TIER_4: [
-        'tribushwhacker',
-        'gunnerTritrapper',
-        'quadwark',
-        'tripeashooter',
-        'triincarcerator',
-        'trimechGuard',
-        'trimachineGuard',
-        'hexatrapGuard',
-        'septatrapGuard',
-        'architectGuard',
     ]
 };
 Class.trimmer_AR = {
