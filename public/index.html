@@ -86,14 +86,20 @@
                         <div class="sliderHolder">
                             <div class="slider startMenuSlidingContent">
                                 <div class="header">
-                                    <a href="/" class="icon" tabindex="-1"><img src="/favicon/base.svg" alt="OSA icon"></a>
+                                    <a href="/" class="icon" tabindex="-1">
+                                        <img src="/favicon/base.svg" alt="OSA icon">
+                                    </a>
                                     <h1>arras.io</h1>
                                 </div>
                                 <div>
                                     <div class="horizontalSelector" id="serverFilterRegion" style="display: none;"></div>
                                     <div class="horizontalSelector" id="serverFilterMode" style="display: none;"></div>
                                 </div>
-                                <div class="serverSelector shadowScroll"><table><tbody id="serverSelector"></tbody></table></div>
+                                <div class="serverSelector shadowScroll">
+                                    <table>
+                                        <tbody id="serverSelector"/>
+                                    </table>
+                                </div>
                                 <input type="text" autofocus tabindex="1" spellcheck="false" placeholder="This is the tale of" id="optName" maxlength="24">
                             </div>
                             <div class="slider" id="startMenuSlidingTrigger">
@@ -220,7 +226,7 @@
                                 </div>
                                 <div id="tabOptions" class="shadowScroll" style="height: 88.5%;">
                                     <div class="optionsHeader">Performance</div>
-                                    <select id="placeholderOptRenderer" tabindex="-1">
+                                    <select id="optCanvas" tabindex="-1">
                                         <option value="auto">Auto (Recommended)</option>
                                         <option value="high">High (WebGL + MSAA)</option>
                                         <option value="mid">Medium (WebGL + MSAA)</option>
@@ -247,7 +253,7 @@
                                         </tr>
                                     </table>
                                     <div class="optionsHeader">Miscellaneous</div>
-                                    <select id="placeholderOptFilter" tabindex="-1">
+                                    <select id="optNames" tabindex="-1">
                                         <option value="none">No Filter</option>
                                         <option value="offense">Filter Offensive Words Only</option>
                                         <option value="swear">Filter Swear Words</option>

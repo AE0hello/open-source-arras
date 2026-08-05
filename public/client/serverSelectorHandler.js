@@ -191,7 +191,7 @@ let initializeFilter = () => {
         let r = l.length;
         l.push(data[0].filter);
         let e = document.getElementsByClassName("serverSelector");
-        global.fixedServerSelectorHeight = "103px"
+        global.mobile ? global.fixedServerSelectorHeight = "65px" : global.fixedServerSelectorHeight = "104px"
         if (!global.uncappedMenu) e[0].style.height = global.fixedServerSelectorHeight;
         let v = null;
         for (let { name: textContent, filter: y } of data) {

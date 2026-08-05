@@ -46,6 +46,10 @@
 				width: 350px;
 				height: 350px;
 			}
+			body.mobile #calculator {
+				width: 300px;
+				height: 300px;
+			}
 			#add:active {
 				background: rgba(0, 0, 0, 0.3);
 			}
@@ -76,6 +80,7 @@
 				</div>
 			</div>
 		</div>
+        <script type="module" src="../../client/app.js"></script>
 		<script>
 		let calculatorElement = document.getElementById('calculator')
 		let addElement = document.getElementById('add')

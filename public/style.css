@@ -137,7 +137,7 @@ h3 {
 }
 
 .serverSelector {
-	height: 153px; /*Should be 104px*/
+	height: 154px; /*Should be 104px*/
 	text-align: center;
 	font-size: 13px;
 	font-weight: bold;
@@ -526,22 +526,22 @@ body.mobile .desktopControlTab {
 }
 
 #optColors {
-	width: 210px;
+	width: 60%;
 }
 #optBorders {
-	width: 120px;
+	width: 35%;
 }
 #optNames {
-	width: 200px;
+	width: 60%;
 }
 #optCanvas {
-	width: 200px;
+	width: 60%;
 }
 #optMobile {
 	display: none;
 }
 #optUiScale {
-  width: 210px;
+  width: 60%;
 }
 
 body.mobile #optColors {
