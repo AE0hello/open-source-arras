@@ -5293,7 +5293,7 @@ Class.weedwhacker_AR = makeGuard('marksman', "Weedwhacker")
 Class.custodian_AR = makeGuard('single', "Custodian")
 
 // Class Tree
-if (!Config.arms_race == true) {return}
+if (!Config.arms_race) {return}
 Config.spawn_message = "You have spawned! Welcome to the game.\n"
                      + "You will be invulnerable until you move or shoot.\n"
                      + "It looks like this server is using the Arms Race addon. It is currently in an alpha state with many missing features.\n"

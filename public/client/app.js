@@ -2533,7 +2533,7 @@ import * as socketStuff from "./socketinit.js";
             roomY = -py + global.screenHeight / 2 - ratio * gameHeight / 2,
             roomWidth = ratio * gameWidth,
             roomHeight = ratio * gameHeight;
-        if (global.advanced.roundArena == true) {
+        if (global.advanced.roundArena) {
             ctx[0].save();
             ctx[0].beginPath();
             ctx[0].arc(
