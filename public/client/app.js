@@ -117,6 +117,7 @@ import * as socketStuff from "./socketinit.js";
         util.retrieveFromLocalStorage("optCenterMinimap");
         util.retrieveFromLocalStorage("optBorders");
         util.retrieveFromLocalStorage("optNoGrid");
+        util.retrieveFromLocalStorage("optHexaGrid");
         util.retrieveFromLocalStorage("optColoredNest");
         util.retrieveFromLocalStorage("optRenderKillbar");
         util.retrieveFromLocalStorage("separatedHealthbars");
@@ -1213,6 +1214,7 @@ import * as socketStuff from "./socketinit.js";
         util.submitToLocalStorage("separatedHealthbars");
         util.submitToLocalStorage("optColoredNest");
         util.submitToLocalStorage("optNoGrid");
+        util.submitToLocalStorage("optHexaGrid");
         // GUI
         util.submitToLocalStorage("optRenderGui");
         util.submitToLocalStorage("optRenderLeaderboard");
@@ -4796,9 +4798,9 @@ import * as socketStuff from "./socketinit.js";
             // OPTIONS TAB
 
             drawText("Game Appearance", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 15.5, color.guiwhite, "center");
-            drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 350, 15.5, color.guiwhite, "center");
-            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 540, 15.5, color.guiwhite, "center");
-            drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 710, 15.5, color.guiwhite, "center");
+            drawText("UI Elements",     panelX + PANEL_WIDTH / 2, PANEL_Y + 385, 15.5, color.guiwhite, "center");
+            drawText("Extra",           panelX + PANEL_WIDTH / 2, PANEL_Y + 575, 15.5, color.guiwhite, "center");
+            drawText("Performance",     panelX + PANEL_WIDTH / 2, PANEL_Y + 745, 15.5, color.guiwhite, "center");
 
             if (!global.optionsCheckboxes) {
                 global.optionsCheckboxes = [
@@ -4809,7 +4811,8 @@ import * as socketStuff from "./socketinit.js";
                     { type: "checkbox",  id: "optPointy",              label: "Sharp Traps",           column: 0, row: 3, section: "appearance", tooltip: "Sharpen the corners of traps." },
                     { type: "checkbox",  id: "optSharpEdges",          label: "Sharp Polygons",        column: 0, row: 4, section: "appearance", tooltip: "Sharpen the corners of all polygons.\n" + "May slightly lower the frame rate." },
                     { type: "checkbox",  id: "coloredHealthbars",      label: "Colored Health Bars",   column: 0, row: 5, section: "appearance", tooltip: "Make the health and shield bar(s) of entities match their body color." },
-                    { type: "slidingBar",id: "strokeThickness",        label: "Border Thickness",      column: 0, row: 6, section: "appearance", tooltip: "Choose the thickness of the border of entities.",
+                    { type: "checkbox",  id: "optHexaGrid",            label: "Hexagon Grid",          column: 0, row: 6, section: "appearance", tooltip: "Make the background grid hexagonal.\n" + "May slightly lower the frame rate." },
+                    { type: "slidingBar",id: "strokeThickness",        label: "Border Thickness",      column: 0, row: 7, section: "appearance", tooltip: "Choose the thickness of the border of entities.",
                       maxValue: 6, maxLowestValue: 0.7, listTarget: "graphical", target: "borderChunk",
                       trigger: (mouse, data) => {
                         let pointer = optionsMenu_getPointer();
@@ -4832,7 +4835,7 @@ import * as socketStuff from "./socketinit.js";
                     { type: "checkbox", id: "separatedHealthbars",    label: "Separate Shield Bar",   column: 1, row: 2, section: "appearance", tooltip: "Separate the shield bar from the health bar." },
                     { type: "checkbox", id: "optCurvyTraps",          label: "Curvy Traps",           column: 1, row: 3, section: "appearance", tooltip: "Add curvature to the sides of traps.\n" + "May slightly lower the frame rate." },
                     { type: "checkbox", id: "optTankSkins",           label: "Tank Skins",            column: 1, row: 4, section: "appearance", tooltip: "Show tank skins.\n" + "Note: Skins will be in grayscale if the low WebGL driver is selected." },
-                    { type: "checkbox", id: "optSecretOptions",       label: "Secret Options",        column: 1, row: 5, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
+                    { type: "checkbox", id: "optSecretOptions",       label: "Secret Options",        column: 1, row: 6, section: "appearance", tooltip: "Unlock the secret options tab.\n" + "Note: Some of these options are hidden for a reason. They can cause glitches, and may get removed at any time." },
 
                     // UI Elements
                     { type: "checkbox", id: "optRenderUpgrades",      label: "Upgrades",              column: 0, row: 0, section: "ui", tooltip: "Toggle the visibility of the class and skill upgrade menus." },
@@ -4882,9 +4885,9 @@ import * as socketStuff from "./socketinit.js";
             for (let i = 0; i < global.optionsCheckboxes.length; i++) {
                 const cb = global.optionsCheckboxes[i];
                 let baseY = PANEL_Y + 45;
-                if (cb.section === "ui")    baseY = PANEL_Y + 365;
-                if (cb.section === "extra") baseY = PANEL_Y + 555;
-                if (cb.section === "perf")  baseY = PANEL_Y + 725;
+                if (cb.section === "ui")    baseY = PANEL_Y + 400;
+                if (cb.section === "extra") baseY = PANEL_Y + 590;
+                if (cb.section === "perf")  baseY = PANEL_Y + 760;
 
                 const baseXLeft  = panelX + 20;
                 const baseXRight = panelX + PANEL_WIDTH / 2 + 7.5;
