@@ -145,6 +145,24 @@ module.exports = {
             id: 'lz',
 
             region: "Local",
+            gamemode: ['sandbox'],
+            player_cap: 80,
+
+            featured: false,
+            unlisted: false,
+            private: false,
+
+            properties: {
+
+            }
+        },
+        {
+            share_client_server: false,
+            host: 'localhost:3999',
+            port: 3999,
+            id: 'lzz',
+
+            region: "Local",
             gamemode: ['arms_race', 'sandbox'],
             player_cap: 80,
 
