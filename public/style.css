@@ -450,7 +450,7 @@ body.mobile .sliderHolder {
 table {
 	width: 100%;
 }
-body.mobile .desktopControlTab {
+body.mobile .mobile-hide {
 	display: none;
 }
 .resetControls {
