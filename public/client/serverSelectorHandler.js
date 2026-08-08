@@ -37,6 +37,7 @@ global.loadServerSelector = (serverData, text) => {
     // If you dont want have a server filter, just dont run this function.
     initializeFilter();
 
+    // Initial server load
     servers.forEach(async (server) => {
         try {
             const tr = document.createElement("tr");
@@ -47,7 +48,7 @@ global.loadServerSelector = (serverData, text) => {
             td2.textContent = `${server.gameMode}`;
             const td3 = document.createElement("td");
             if (server.maxPlayers < 1) {
-                td3.textContent = `${server.players}`;
+                td3.textContent = `${server.players}/∞`;
             } else {
                 td3.textContent = `${server.players}/${server.maxPlayers}`;
             }
@@ -77,7 +78,7 @@ global.loadServerSelector = (serverData, text) => {
             serverMap[server.id] = tr;
             global.serverMap[server.ip] = tr;
             if (id === server.id) myServer = tr;
-            availableServers.push({ element: tr, region: server.region, gameMode: server.gameMode, id: server.id });
+            availableServers.push({ element: tr, region: server.region, gameMode: server.gameMode, id: server.id, private: server.private });
         } catch (e) {
             console.log(e);
         }
@@ -226,14 +227,17 @@ let initializeFilter = () => {
     let checkFilter = (h, e) => {
         let check = false;
         e.forEach(data => {
-            if (data.gameMode == h.gameMode) {
+            if (data.gameMode == h.gameMode && !h.private) {
                 check = true;
             }
         })
         return check;
     }
     createFilter(svFilterRegionDoc, [
-        { name: "All", filter: () => true },
+        { name: "All", filter: (h) => {
+            let e = checkFilter(h, global.filters.regions.all);
+            return e;
+        } },
         { name: "USA", filter: (h) => {
             let e = checkFilter(h, global.filters.regions.america);
             return e;
@@ -256,7 +260,10 @@ let initializeFilter = () => {
         } },
     ]);
     createFilter(svFilterModeDoc, [
-        { name: "All", filter: () => true },
+        { name: "All", filter: (h) => {
+            let e = checkFilter(h, global.filters.gamemodeFilters.all);
+            return e;
+        } },
         { name: "FFA", filter: (h) => {
             let e = checkFilter(h, global.filters.gamemodeFilters.ffa);
             return e;

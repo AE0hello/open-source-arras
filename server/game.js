@@ -64,7 +64,6 @@ const getName = (name, gamemodeData) => {
         nexus: "Nexus",
 
     // Miscellaneous
-        private: "Private",
         tartarus: "Tartarus",
 
     // Modifiers
