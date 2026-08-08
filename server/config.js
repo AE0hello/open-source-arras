@@ -37,11 +37,50 @@ module.exports = {
     servers: [
         {
             share_client_server: false,
+            host: 'localhost:4000',
+            port: 4000,
+            id: 'c',
+
+            region: "Local",
+            location: "Localhost",
+            gamemode: ['tdm'],
+            player_cap: 80,
+
+            featured: false,
+            unlisted: true,
+            private: true,
+
+            properties: {
+
+            }
+        },
+        {
+            share_client_server: false,
+            host: 'localhost:5000',
+            port: 5000,
+            id: 'x',
+
+            region: "Local",
+            location: "Localhost",
+            gamemode: ['ffa'],
+            player_cap: 80,
+
+            featured: false,
+            unlisted: true,
+            private: true,
+
+            properties: {
+
+            }
+        },
+        {
+            share_client_server: false,
             host: 'localhost:3001',
             port: 3001,
             id: 'la',
 
             region: "Local",
+            location: "Localhost",
             gamemode: ['ffa'],
             player_cap: 80,
 
@@ -75,6 +114,7 @@ module.exports = {
             id: 'lb',
 
             region: "Local",
+            location: "Localhost",
             gamemode: ['maze', 'ffa'],
             player_cap: 80,
 
@@ -93,6 +133,7 @@ module.exports = {
             id: 'lc',
 
             region: "Local",
+            location: "Localhost",
             gamemode: ['tdm'],
             player_cap: 80,
 
@@ -125,6 +166,7 @@ module.exports = {
             id: 'ld',
 
             region: "Local",
+            location: "Localhost",
             gamemode: ['mothership'],
             player_cap: 80,
 
@@ -145,6 +187,7 @@ module.exports = {
             id: 'lz',
 
             region: "Local",
+            location: "Localhost",
             gamemode: ['sandbox'],
             player_cap: 80,
 
@@ -163,6 +206,7 @@ module.exports = {
             id: 'lzz',
 
             region: "Local",
+            location: "Localhost",
             gamemode: ['arms_race', 'sandbox'],
             player_cap: 80,
 

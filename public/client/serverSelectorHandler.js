@@ -54,7 +54,14 @@ global.loadServerSelector = (serverData, text) => {
             tr.appendChild(td1);
             tr.appendChild(td2);
             tr.appendChild(td3);
+            tr.title = `${server.region} - ${server.location} - #${server.id} (${server.gameMode})`;
             server.featured && tr.classList.add("featured");
+            if (server.unlisted) tr.style.display = 'none';
+            if (server.private) {
+                td2.textContent = "Private";
+                td3.textContent = "?/?";
+                tr.title = "This server is private.";
+            };
             tr.onclick = () => {
                 if (myServer.classList.contains("selected")) {
                     myServer.classList.remove("selected");
@@ -64,8 +71,7 @@ global.loadServerSelector = (serverData, text) => {
                 global.locationHash = location.hash;
                 localStorage.setItem("lastServer", server.id);
                 tr.classList.add("selected"), (global.serverAdd = server.ip);
-                if (server.ip == "localhost")
-                  global.serverAdd = global.serverAdd + ":" + server.port;
+                if (server.ip == "localhost") global.serverAdd = global.serverAdd + ":" + server.port;
             };
             serversDocs.appendChild(tr);
             serverMap[server.id] = tr;
@@ -191,7 +197,7 @@ let initializeFilter = () => {
         let r = l.length;
         l.push(data[0].filter);
         let e = document.getElementsByClassName("serverSelector");
-        global.mobile ? global.fixedServerSelectorHeight = "65px" : global.fixedServerSelectorHeight = "104px"
+        global.mobile ? global.fixedServerSelectorHeight = "63px" : global.fixedServerSelectorHeight = "100px"
         if (!global.uncappedMenu) e[0].style.height = global.fixedServerSelectorHeight;
         let v = null;
         for (let { name: textContent, filter: y } of data) {

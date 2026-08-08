@@ -112,7 +112,10 @@ server = http.createServer((req, res) => {
                 maxPlayers: server.maxPlayers,
                 id: server.id,
                 featured: server.featured,
+                unlisted: server.unlisted,
+                private: server.private,
                 region: server.region,
+                location: server.location,
                 gameMode: server.gameMode,
             })));
         } break;
@@ -224,7 +227,7 @@ server = http.createServer((req, res) => {
 });
 
 // Loads a game server
-function loadGameServer(loadViaMain = false, host, port, gamemode, region, webProperties, properties, isFeatured) {
+function loadGameServer(loadViaMain = false, host, port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate) {
     // Determine the new server index and initialize an empty object in the global servers array
     if (!loadViaMain) {
         let index = global.servers.length;
@@ -237,9 +240,12 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, webPr
                 port: port, // Increment port for each server
                 gamemode,
                 region,
+                location,
                 webProperties,
                 properties,
                 isFeatured,
+                isUnlisted,
+                isPrivate,
                 index,
             }
         });
@@ -270,7 +276,7 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, webPr
                 process.exit(1);
             }
             global.launchedOnMainServer = true;
-            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, webProperties, properties, isFeatured, false);
+            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate, false);
         }, 10)
     }
 }
@@ -305,9 +311,12 @@ server.listen(Config.port, () => {
             server.port,
             server.gamemode,
             server.region,
+            server.location,
             { id: server.id, maxPlayers: server.player_cap },
             server.properties,
-            server.featured
+            server.featured,
+            server.unlisted,
+            server.private
         );
     })
 });
