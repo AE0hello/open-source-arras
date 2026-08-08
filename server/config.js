@@ -48,7 +48,7 @@ module.exports = {
 
             featured: false,
             unlisted: true,
-            private: true,
+            private: false,
 
             properties: {
 
@@ -66,7 +66,7 @@ module.exports = {
             player_cap: 80,
 
             featured: false,
-            unlisted: true,
+            unlisted: false,
             private: true,
 
             properties: {

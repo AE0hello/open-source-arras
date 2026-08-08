@@ -78,7 +78,7 @@ global.loadServerSelector = (serverData, text) => {
             serverMap[server.id] = tr;
             global.serverMap[server.ip] = tr;
             if (id === server.id) myServer = tr;
-            availableServers.push({ element: tr, region: server.region, gameMode: server.gameMode, id: server.id, private: server.private });
+            availableServers.push({ element: tr, region: server.region, gameMode: server.gameMode, id: server.id, hidden: server.hidden });
         } catch (e) {
             console.log(e);
         }
@@ -227,7 +227,7 @@ let initializeFilter = () => {
     let checkFilter = (h, e) => {
         let check = false;
         e.forEach(data => {
-            if (data.gameMode == h.gameMode && !h.private) {
+            if (data.gameMode == h.gameMode && !h.hidden) {
                 check = true;
             }
         })
