@@ -11,6 +11,7 @@ module.exports = {
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
     startup_logs: true, // Enable startup logs and log speed loop warnings in the terminal
     load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
+    editor: true, // Enable the editor at '[host]/ext/editor'.
 
     /* SERVER PROPERTIES INFORMATION - Make sure to change the host, port and id between servers!
 
@@ -31,7 +32,6 @@ module.exports = {
         private     - Whether the server requires a privileged token to join (except through server travel).
 
         properties  - This overrides other settings in this file, assuming the selected gamemode doesn't also override it.
-
     */
 
     servers: [
