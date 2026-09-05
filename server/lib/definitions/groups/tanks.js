@@ -6826,6 +6826,7 @@ const autoTanksT4 = [
     'mingler',
     'musket',
     'octoTank',
+    'single',
     'sniper3',
     'sprayer',
     'warkwark'
@@ -6859,6 +6860,7 @@ const hybridTanksT4 = [
     ['jalopy',      "Contaminator"],
     ['musket',      "Matchlock"],
     ['pentaShot',   "Flexed Hybrid"],
+    ['single',      "Assistant"],
     ['sprayer',     "Shower"],
     ['spreadshot',  "Smearer"],
     ['triplet',     "Triprid"],
@@ -6931,6 +6933,7 @@ Class.alloy = {
 Class.autoDoubleFlank = makeAuto('doubleFlankTwin', "Auto-Double Flank");
 Class.autoHexaTrapper = makeAuto(makeFlank('trapper', 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
 Class.autoTriple = makeAuto('tripleTwin', "Auto-Triple");
+Class.avian = makeBird('single', "Avian");
 Class.band = makeAuto({
     PARENT: 'genericTank',
     DANGER: 7,
@@ -7062,6 +7065,30 @@ Class.bentFlankDouble = makeFlank({
     ]
 }, 2, "Bent Flank Double", { extraStats: [g.doubleTwin] });
 Class.bentTriple = makeFlank('tripleShot', 3, "Bent Triple", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.bruiser = {
+    PARENT: 'genericTank',
+    LABEL: "Bruiser",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21.5,
+                WIDTH: 12
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.single]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 12,
+                ASPECT: -1.6
+            }
+        }
+    ]
+};
 Class.captrapper = makeCap({
     PARENT: 'genericTank',
     LABEL: "Trapper",
@@ -7174,6 +7201,38 @@ Class.cleft_old = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.doubleTwin, g.hewnDouble]),
                 TYPE: 'bullet'
+            }
+        }
+    ]
+};
+Class.coordinator = {
+    PARENT: 'genericTank',
+    LABEL: "Coordinator",
+    STAT_NAMES: statnames.drone,
+    BODY: Class.director.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.single]),
+                TYPE: 'drone',
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 13.5,
+                ASPECT: -1.45
             }
         }
     ]
@@ -7578,6 +7637,31 @@ Class.dualbar = {
         }
     ], 2)
 };
+Class.duo = {
+    PARENT: 'genericTank',
+    LABEL: "Duo",
+    DANGER: 8,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                Y: 5.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.single]),
+                TYPE: 'bullet'
+            }
+        }, {delayIncrement: 0.5}),
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 18,
+                ASPECT: -1.1
+            }
+        }
+    ]
+};
 Class.dustStorm = {
     PARENT: 'genericTank',
     LABEL: "Dust Storm",
@@ -7804,6 +7888,32 @@ Class.foretrapper = makeFore({
         }
     ]
 });
+Class.gadgetGun = {
+    PARENT: 'genericTank',
+    LABEL: "Gadget Gun",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 10,
+                ASPECT: 1.4,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.single]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 11.3,
+                ASPECT: -1.6
+            }
+        }
+    ]
+};
 Class.gale = {
     PARENT: 'genericTank',
     LABEL: "Gale",
@@ -8186,6 +8296,37 @@ Class.marine = makeGunner('ranger', "Marine");
 Class.megaAutoDirectordrive = makeAuto('directordrive', "Mega Auto-Directordrive", preset.makeAuto.driveMega);
 Class.megaAutoDouble = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
 Class.megaHexaTrapper = makeAuto(makeFlank('trapper', 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Mega Hexa-Trapper", preset.makeAuto.mega);
+Class.mono = {
+    PARENT: 'genericTank',
+    LABEL: "Mono",
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.single, g.single]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13.5,
+                WIDTH: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3.5,
+                WIDTH: 8,
+                ASPECT: -1.5,
+                X: 13.5
+            }
+        }
+    ]
+};
 Class.octoTrapper = makeAuto(makeFlank('trapper', 8, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Octo-Trapper");
 Class.orbitalStrike = {
     PARENT: 'genericTank',
@@ -8453,6 +8594,32 @@ Class.sequence = {
     }, 3)
 };
 Class.setup = makeFlank('expeller', 2, "Setup", { extraStats: [g.doubleTwin] });
+Class.sharpshooter = {
+    PARENT: 'genericTank',
+    LABEL: "Sharpshooter",
+    DANGER: 8,
+    BODY: Class.sniper.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 25,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.single]),
+                TYPE: 'bullet'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5,
+                WIDTH: 8,
+                ASPECT: -1.8,
+                X: 6.5
+            }
+        }
+    ]
+};
 Class.skewnDouble = {
     PARENT: 'genericTank',
     LABEL: "Skewn Double",
@@ -8543,6 +8710,8 @@ Class.tempest_AR = {
         }
     ], 6)
 };
+Class.ternion = makeFlank('single', 3, "Ternion", { extraStats: [g.flankGuard] });
+Class.ternion.BODY = Class.flankGuard.BODY;
 Class.tornado_AR = {
     PARENT: 'genericTank',
     LABEL: "Tornado",
@@ -8595,6 +8764,41 @@ Class.tornado_AR = {
             }
         }
     ], 3)
+};
+Class.tricker = {
+    PARENT: 'genericTank',
+    LABEL: "Tricker",
+    STAT_NAMES: statnames.trap,
+    DANGER: 8,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 16
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.single]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: 'trap'
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5,
+                WIDTH: 7,
+                ASPECT: -1.8,
+                X: 6.5
+            }
+        }
+    ]
 };
 Class.tripleAutoDirectordrive = makeAuto('directordrive', "Triple Auto-Directordrive", preset.makeAuto.driveTriple);
 Class.tripleAutoDouble = makeAuto('doubleTwin', "Triple Auto-Double", preset.makeAuto.triple);
@@ -9091,6 +9295,9 @@ Class.wrench = {
         }
     ]
 };
+
+// Tier 5 (Level 75)
+Class.custodian = makeGuard('single', "Custodian");
 
 // Special Tanks (Dominators)
 Class.dominator = {
@@ -10440,6 +10647,7 @@ if (Config.arms_race) {
     addUpgrades('basic', 1, []);
         addUpgrades('basic', 2, []);
             addUpgrades('basic', 3, ['single']);
+                addUpgrades('single', tier4_AR, ['duo', 'sharpshooter', 'gadgetGun', 'ternion', 'coordinator', 'bruiser', 'tricker', 'mono', 'avian', 'custodian', 'assistant', 'autoSingle']);
 
             addUpgrades('healer', 3, [/*'scientist', 'nurse', 'triHealer', 'analyzer', 'psychiatrist', 'soother'*/]);
                 addUpgrades('healer', tier4_AR, [/*'renovater', 'physician'*/]);
@@ -10462,7 +10670,7 @@ if (Config.arms_race) {
 
         addUpgrades('twin', 2, ['wark']);
             addUpgrades('twin', 3, []);
-                addUpgrades('twin', tier4_AR, [/*'duo'*/]);
+                addUpgrades('twin', tier4_AR, ['duo']);
                 addUpgrades('dual', tier4_AR, [/*'threefold', */'doubleDual', 'ravisher'/*, 'vulture_AR', 'nimrod_AR'*/, 'autoDual'/*, 'bifold', 'dyadic'*/]);
                 addUpgrades('musket', tier4_AR, ['doubleMusket'/*, 'flintlock', 'arbalest'*/, 'matchlock', 'autoMusket'/*, 'duelist', 'bifold'*/]);
 
@@ -10533,7 +10741,7 @@ if (Config.arms_race) {
 
         addUpgrades('sniper', 2, []);
             addUpgrades('sniper', 3, ['railgun']);
-                addUpgrades('sniper', tier4_AR, [/*'sharpshooter'*/]);
+                addUpgrades('sniper', tier4_AR, ['sharpshooter']);
                 addUpgrades('bushwhacker', tier4_AR, []);
                 addUpgrades('railgun', tier4_AR, []);
 
@@ -10584,7 +10792,7 @@ if (Config.arms_race) {
 
         addUpgrades('machineGun', 2, ['diesel', 'machineTrapper']);
             addUpgrades('machineGun', 3, ['sprayer']);
-                addUpgrades('machineGun', tier4_AR, [/*'gadgetGun'*/]);
+                addUpgrades('machineGun', tier4_AR, ['gadgetGun']);
                 addUpgrades('sprayer', tier4_AR, [/*'duster', 'frother', */'scatterer'/*, 'foamer'*/, 'shower', 'autoSprayer', 'phoenix']);
 
             addUpgrades('artillery', 3, [/*'queller', 'forger', */'force', 'autoArtillery'/*, 'foctillery', 'discharger'*/]);
@@ -10627,13 +10835,13 @@ if (Config.arms_race) {
 
         addUpgrades('flankGuard', 2, []);
             addUpgrades('flankGuard', 3);
-                addUpgrades('flankGuard', tier4_AR, [/*'ternion'*/]);
+                addUpgrades('flankGuard', tier4_AR, ['ternion']);
                 //addUpgrades('tripleTwin', tier4_AR);
 
             //addUpgrades('hexaTank', 3);
 
             addUpgrades('triAngle', 3, [/*'taser', 'cockatiel', */'integrator', 'defect'/*, 'quadAngle'*/]);
-                addUpgrades('triAngle', tier4_AR, [/*'avian', 'raven', */'phoenix'/*, 'shoebill'*/]);
+                addUpgrades('triAngle', tier4_AR, ['avian'/*, 'raven'*/, 'phoenix'/*, 'shoebill'*/]);
                 addUpgrades('fighter', tier4_AR, []);
                 addUpgrades('booster', tier4_AR, []);
                 addUpgrades('falcon', tier4_AR, []);
@@ -10658,7 +10866,7 @@ if (Config.arms_race) {
                 //addUpgrades('combo', tier4_AR);
 
             addUpgrades('trapGuard', 3, ['peashooter'/*, 'incarcerator', 'mechGuard'*/, 'autoTrapGuard'/*, 'machineGuard', 'triTrapGuard'*/]);
-                addUpgrades('trapGuard', tier4_AR, [/*'garrison', 'maw', 'overtrapGuard', 'custodian'*/]);
+                addUpgrades('trapGuard', tier4_AR, [/*'garrison', 'maw', 'overtrapGuard', */'custodian']);
                 //addUpgrades('bushwhacker', tier4_AR);
                 //addUpgrades('gunnerTrapper', tier4_AR);
                 //addUpgrades('bomber', tier4_AR);
@@ -10684,7 +10892,7 @@ if (Config.arms_race) {
 
         addUpgrades('director', 2, ['directordrive', 'honcho'/*, 'doper'*/]);
             addUpgrades('director', 3, []);
-                addUpgrades('director', tier4_AR, [/*'coordinator'*/]);
+                addUpgrades('director', tier4_AR, ['coordinator']);
                 addUpgrades('manager', tier4_AR, []);
 
             addUpgrades('overseer', 3, ['captain', 'foreman'/*, 'dopeseer'*/]);
@@ -10767,7 +10975,7 @@ if (Config.arms_race) {
 
         addUpgrades('pounder', 2, []);
             addUpgrades('pounder', 3, ['subverter']);
-                addUpgrades('pounder', tier4_AR, [/*'bruiser'*/]);
+                addUpgrades('pounder', tier4_AR, ['bruiser']);
                 addUpgrades('shotgun', tier4_AR, []);
                 //addUpgrades('eagle', tier4_AR);
                 //addUpgrades('subverter', tier4_AR);
@@ -10818,7 +11026,7 @@ if (Config.arms_race) {
 
         addUpgrades('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark']);
             addUpgrades('trapper', 3, [/*'megaTrapper'*/]);
-                addUpgrades('trapper', tier4_AR, [/*'tricker'*/]);
+                addUpgrades('trapper', tier4_AR, ['tricker']);
                 //addUpgrades('barricade', tier4_AR);
                 addUpgrades('overtrapper', tier4_AR, ['battletrapper', 'captrapper', 'foretrapper']);
                 //addUpgrades('megaTrapper', tier4_AR);
