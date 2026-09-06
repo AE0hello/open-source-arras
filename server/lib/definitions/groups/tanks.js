@@ -1136,7 +1136,7 @@ Class.spiral = {
                 ASPECT: -1.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5/3 }]),
                 TYPE: ['spiralBullet', {CONTROLLERS: ['snake']}]
             }
         },
@@ -2450,7 +2450,7 @@ Class.coil = {
                 Y: -5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos, { reload: 5/3 }]),
                 TYPE: ['spiralBullet', {CONTROLLERS: ['snake']}]
             },
         },
@@ -2462,7 +2462,7 @@ Class.coil = {
                 Y: 5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos, { reload: 5/3 }]),
                 TYPE: ['spiralBullet', {CONTROLLERS: [['snake', {invert: true}]]}]
             },
         },
@@ -5099,7 +5099,7 @@ Class.python = {
                 ASPECT: -1.5
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5/3 }]),
                 TYPE: ['pythonBullet', {CONTROLLERS: ['snake']}]
             }
         },
