@@ -111,7 +111,7 @@ Class.spiralBullet = {
         {
             event: 'tick',
             handler: ({body}) => {
-                const numOfSegments = 2;
+                const numOfSegments = 4;
                 const segmentClass = 'spiralBulletSegment';
 
                 body.store.snakeSegments ??= [];
@@ -154,7 +154,7 @@ Class.pythonBullet = {
         {
             event: 'tick',
             handler: ({body}) => {
-                const numOfSegments = 4;
+                const numOfSegments = 8;
                 const segmentClass = 'spiralBulletSegment';
 
                 body.store.snakeSegments ??= [];
