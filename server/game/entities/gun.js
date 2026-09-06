@@ -254,10 +254,10 @@ class Gun extends EventEmitter {
     checkShootPermission() {
         let sk = this.bulletStats === "master" ? this.body.skill : this.bulletStats;
         let shootPermission = this.countsOwnKids
-            ? this.countsOwnKids >
+            ? this.countsOwnKids >=
                 this.children.length * (this.calculator == "necro" ? sk.rld : 1)
             : this.body.maxChildren
-            ? this.body.maxChildren >
+            ? this.body.maxChildren >=
                 this.body.children.length * (this.calculator == "necro" ? sk.rld : 1)
             : true;
 
