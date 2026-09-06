@@ -1,5 +1,5 @@
-const {combineStats, weaponArray, weaponMirror} = require('../facilitators.js')
-const g = require('../gunvals.js')
+const { combineStats, makeAuto, weaponArray, weaponMirror } = require('../facilitators.js');
+const g = require('../gunvals.js');
 
 // Bullets
 Class.casing = {
@@ -111,7 +111,7 @@ Class.spiralBullet = {
         {
             event: 'tick',
             handler: ({body}) => {
-                const numOfSegments = 2;
+                const numOfSegments = 4;
                 const segmentClass = 'spiralBulletSegment';
 
                 body.store.snakeSegments ??= [];
@@ -154,7 +154,7 @@ Class.pythonBullet = {
         {
             event: 'tick',
             handler: ({body}) => {
-                const numOfSegments = 4;
+                const numOfSegments = 8;
                 const segmentClass = 'spiralBulletSegment';
 
                 body.store.snakeSegments ??= [];
@@ -262,6 +262,10 @@ Class.assemblerEffect = {
         RANGE: 10
     },
     ALPHA: 0.8
+}
+Class.cxATMGBullet = {
+    PARENT: "bullet",
+    SHAPE: Class.cube.SHAPE
 }
 
 // Missiles
@@ -772,39 +776,6 @@ Class.desmosMinion = {
         })
     ]
 }
-Class.sentrySwarmMinion = {
-    PARENT: 'drone',
-    LABEL: 'sentry',
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
-    DRAW_HEALTH: true,
-    HAS_NO_RECOIL: true,
-    GUNS: Class.sentrySwarm.GUNS
-}
-Class.sentryGunMinion = {
-    PARENT: 'drone',
-    LABEL: 'sentry',
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
-    DRAW_HEALTH: true,
-    HAS_NO_RECOIL: true,
-    TURRETS: [{
-        POSITION: [12, 0, 0, 0, 360, 1],
-        TYPE: ['megaAutoTankGun', {GUN_STAT_SCALE: {health: 0.8}}]
-    }]
-}
-Class.sentryTrapMinion = {
-    PARENT: 'drone',
-    LABEL: 'sentry',
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
-    DRAW_HEALTH: true,
-    HAS_NO_RECOIL: true,
-    TURRETS: [{
-        POSITION: [12, 0, 0, 0, 360, 1],
-        TYPE: 'trapTurret'
-    }]
-}
 Class.wranglerMinion = {
     PARENT: 'minion',
     ON: [
@@ -995,6 +966,22 @@ Class.oroborosTrap = {
             }
         }
     ]
+}
+Class.beemanTrap = {
+    PARENT: 'setTrap',
+    SHAPE: 9,
+    INDEPENDENT: true,
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 1,
+            WIDTH: 10
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+            TYPE: "bee",
+            SHOOT_ON_DEATH: true,
+        }
+    }, 60)
 }
 
 // Pillboxes
@@ -1189,3 +1176,10 @@ Class.superSplitterBullet = {
         },
     ],
 }
+
+// -Drive projectiles
+Class.autoDrone = makeAuto('drone', "Auto-Drone", {type: 'droneAutoTurret'});
+Class.autoSwarm = makeAuto('swarm', "Auto-Swarm Drone", {type: 'droneAutoTurret'});
+Class.autoSunchip = makeAuto('sunchip', "Auto-Drone", {type: 'droneAutoTurret'});
+Class.autoMinion = makeAuto('minion', "Auto-Minion", {type: 'droneAutoTurret'});
+Class.autoTrap = makeAuto('trap', "Auto-Trap", {type: 'droneAutoTurret'}); //sorta counts

@@ -1,6 +1,6 @@
-const {combineStats, makeAuto, makeTurret, weaponArray, weaponMirror} = require('../facilitators.js')
-const {base} = require('../constants.js')
-const g = require('../gunvals.js')
+const { combineStats, makeAuto, makeTurret, weaponArray, weaponMirror } = require('../facilitators.js');
+const { base } = require('../constants.js');
+const g = require('../gunvals.js');
 
 // Radial Auto Guns
 Class.autoTankGun = makeTurret({
@@ -270,7 +270,6 @@ Class.machineTripleTurret = {
     }, 3)
 }
 Class.launcherTurret = makeTurret('launcher', {canRepel: true, limitFov: true, extraStats: []})
-Class.eliteLauncherTurret = makeTurret('launcher', {canRepel: true, limitFov: true, extraStats: [], color: 'mirror'})
 Class.skimmerTurret = makeTurret('skimmer', {canRepel: true, limitFov: true, extraStats: [], color: 'mirror'})
 Class.hyperSkimmerTurret = makeTurret({
     GUNS: [
@@ -377,35 +376,6 @@ Class.rocketeerTurret = makeTurret({
         }
     ]
 }, {canRepel: true, limitFov: true})
-Class.eliteRocketeerTurret = makeTurret({
-    PARENT: 'genericTank',
-    LABEL: "Rocketeer",
-    DANGER: 7,
-    BODY: {
-        FOV: 1.15 * base.FOV
-    },
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 19,
-                WIDTH: 7.73,
-                ASPECT: 1.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
-                TYPE: "rocketeerMissile",
-                STAT_CALCULATOR: "sustained",
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 16,
-                WIDTH: 11,
-                ASPECT: -1.5
-            }
-        }
-    ]
-}, {canRepel: true, limitFov: true, color: 'mirror'})
 Class.boomerTurret = makeTurret('boomer', {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
 Class.ultraBoomerTurret = makeTurret({
     GUNS: [
@@ -710,7 +680,6 @@ Class.juliusLowerTurret = makeTurret({
     ],
 }, {canRepel: true, limitFov: true, extraStats: []})
 Class.swarmerTurret = makeTurret('swarmer', {canRepel: true, limitFov: true, extraStats: []})
-Class.eliteSwarmerTurret = makeTurret('swarmer', {canRepel: true, limitFov: true, extraStats: [], color: "mirror"})
 Class.basicTurret = makeTurret({
     GUNS: [
         {
@@ -812,6 +781,8 @@ Class.ultraAutoTurret = makeTurret({
         },
     ],
 }, {label: "Turret", fov: 0.8, extraStats: []})
+Class.driveAutoTurret = { PARENT: 'autoTurret', SHAPE: 4 };
+Class.driveMegaAutoTurret = { PARENT: 'megaAutoTurret', SHAPE: 4 };
 Class.droneAutoTurret = makeTurret({
     GUNS: [
         {
@@ -1007,6 +978,46 @@ Class.antiTankMachineGunArm = {
         },
         {
             POSITION: { LENGTH: 5, WIDTH: 6.000000238418579, ASPECT: -1.600000023841858, X: 7.5, Y: -4.592425496802574e-16, ANGLE: 0 }
+        }
+    ],
+}
+Class.cxATMGArm = {
+    PARENT: 'genericTank',
+    COLOR: "white",
+    SHAPE: Class.cube.SHAPE,
+    SKILL_CAP: Array(10).fill(15),
+    SKILL: Array(10).fill(15),
+    GUNS: [
+        {
+            POSITION: [15, 2.5, 1, 0, 2, 0, 0.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
+                TYPE: "cxATMGBullet",
+            }
+        },
+        {
+            POSITION: [15, 2.5, 1, 0, -2, 0, 0.2],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
+                TYPE: "cxATMGBullet",
+            }
+        },
+        {
+            POSITION: [1, 2.5, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
+                TYPE: "cxATMGBullet",
+            }
+        },
+        {
+            POSITION: [16.5, 3.5, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
+                TYPE: "cxATMGBullet",
+            }
+        },
+        {
+            POSITION: [5.5, 6.5, -1.8, 6.5, 0, 0, 0]
         }
     ],
 }

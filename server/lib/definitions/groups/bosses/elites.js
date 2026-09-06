@@ -19,118 +19,6 @@ Class.elite = {
     },
 }
 
-// Dev Menus
-Class.menu_elites = makeMenu("Elites", {upgrades: [
-    "eliteDestroyer",
-    "eliteGunner",
-    "eliteSprayer",
-    "eliteBattleship",
-    "eliteSpawner",
-    "eliteTrapGuard",
-    "eliteSpinner",
-    "eliteLauncher",
-    "eliteTwister",
-    "eliteSkimmer",
-    "eliteSwarmer",
-    "eliteRocketeer",
-    "menu_legions",
-    "menu_deltas",
-], color: 'pink', boxColor: 'pink', shape: 3.5})
-
-Class.menu_legions = makeMenu("Crasher Legions", {upgrades: [
-    "destroyerLegion",
-    "gunnerLegion",
-    "sprayerLegion",
-    "battleshipLegion",
-    "spawnerLegion",
-    "legionaryCrasher",
-], color: 'pink', boxColor: 'pink', boxLabel: "Legions", shape: 3.5})
-
-Class.menu_deltas = makeMenu("Delta Crashers", {upgrades: [
-    "deltaDestroyer",
-    "deltaGunner",
-    "deltaSprayer",
-    "deltaBattleship",
-], color: 'pink', boxColor: 'pink', boxLabel: "Deltas", shape: 3.5})
-
-// Basic Elites
-Class.eliteLauncher = {
-    PARENT: 'elite',
-    LABEL: "Elite Launcher",
-    COLOR: 'egg',
-    UPGRADE_COLOR: 'egg',
-    SHAPE: 0,
-    TURRETS: weaponArray({
-        TYPE: "eliteLauncherTurret",
-        POSITION: {
-            SIZE: 15,
-            X: 5,
-            ARC: 240
-        }
-    }, 2)
-}
-Class.eliteTwister = {
-    PARENT: 'elite',
-    LABEL: "Elite Twister",
-    COLOR: 'square',
-    UPGRADE_COLOR: 'square',
-    SHAPE: 4,
-    TURRETS: weaponArray({
-        TYPE: "hyperTwisterTurret",
-        POSITION: {
-            SIZE: 15,
-            X: 5,
-            ARC: 170
-        }
-    }, 4)
-}
-Class.eliteSkimmer = {
-    PARENT: 'elite',
-    LABEL: "Elite Skimmer",
-    COLOR: 'triangle',
-    UPGRADE_COLOR: 'triangle',
-    TURRETS: weaponArray({
-        TYPE: "hyperSkimmerTurret",
-        POSITION: {
-            SIZE: 15,
-            X: 5,
-            ANGLE: 60,
-            ARC: 170
-        }
-    }, 3)
-}
-Class.eliteSwarmer = {
-    PARENT: 'elite',
-    LABEL: "Elite Swarmer",
-    COLOR: 'pentagon',
-    UPGRADE_COLOR: 'pentagon',
-    SHAPE: 5,
-    TURRETS: weaponArray({
-        TYPE: "eliteSwarmerTurret",
-        POSITION: {
-            SIZE: 15,
-            X: 5,
-            ANGLE: 36,
-            ARC: 120
-        }
-    }, 5)
-}
-Class.eliteRocketeer = {
-    PARENT: 'elite',
-    LABEL: "Elite Rocketeer",
-    COLOR: 'hexagon',
-    UPGRADE_COLOR: 'hexagon',
-    SHAPE: 6,
-    TURRETS: weaponArray({
-        TYPE: "eliteRocketeerTurret",
-        POSITION: {
-            SIZE: 14,
-            X: 5,
-            ARC: 90
-        }
-    }, 6)
-}
-
 // Elite Crashers
 Class.eliteDestroyer = {
     PARENT: 'elite',
@@ -379,38 +267,6 @@ Class.eliteSpinner = {
 }
 
 // Deltas (moving to Arms Race addon later)
-Class.scatterer_AR = {
-    PARENT: 'genericTank',
-    LABEL: "Scatterer",
-    DANGER: 8,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 10,
-                ASPECT: 1.4,
-                X: 11
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 12,
-                WIDTH: 10,
-                ASPECT: 1.4,
-                X: 8,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.machineGun]),
-                TYPE: "bullet"
-            }
-        }
-    ]
-}
 Class.delta = {
     PARENT: 'elite',
     LABEL: "Delta Crasher",
@@ -517,7 +373,7 @@ Class.deltaSprayer = {
                 TYPE: ["sprayer", { COLOR: "grey" }],
             }, {
                 POSITION: [9, 6, 0, 60, 130, 0],
-                TYPE: ["scatterer_AR", { COLOR: "grey" }],
+                TYPE: ["scatterer", { COLOR: "grey" }],
             },
         ], 3)
     ],
@@ -910,4 +766,21 @@ Class.legionaryCrasherFix = {
             TYPE: 'legionaryCrasherSpawnerFix'
         }
     ],
+}
+
+// Miscellaneous Elites
+Class.eliteSkimmer = {
+    PARENT: 'elite',
+    LABEL: "Elite Skimmer",
+    COLOR: 'triangle',
+    UPGRADE_COLOR: 'triangle',
+    TURRETS: weaponArray({
+        TYPE: "hyperSkimmerTurret",
+        POSITION: {
+            SIZE: 15,
+            X: 5,
+            ANGLE: 60,
+            ARC: 170
+        }
+    }, 3)
 }

@@ -57,6 +57,14 @@ module.exports = {
         resist: 3,
         spray: 0
     },
+    trapSpray: {
+        reload: 23,
+        shudder: 0.25,
+        size: 0.7,
+        damage: 0.75,
+        speed: 3.25,
+        resist: 3
+    },
 
     // Spammers
     single: {
@@ -255,12 +263,19 @@ module.exports = {
     // Machine guns
     machineGun: {
         reload: 0.5,
-        recoil: 0.8,
         shudder: 1.7,
+        size: 0.8,
         health: 0.7,
         damage: 0.7,
         maxSpeed: 0.8,
         spray: 2.5
+    },
+    diesel: {
+        reload: 0.5,
+        recoil: 0.5,
+        size: 0.8,
+        range: 0.8,
+        spray: 2
     },
     minigun: {
         reload: 1.25,
@@ -487,6 +502,13 @@ module.exports = {
         maxSpeed: 1.5,
         density: 0.25
     },
+    dustStorm: {
+        reload: 1/3,
+        size: 1.35,
+        damage: 1/3,
+        speed: 0.75,
+        maxSpeed: 0.75
+    },
     sunchip: {
         reload: 4,
         size: 1.4,
@@ -522,11 +544,17 @@ module.exports = {
         range: 0.75,
         spray: 2
     },
+    honcho: {
+        reload: 5/3,
+        size: 1.5,
+        health: 1.5,
+        speed: 2/3
+    },
     bigCheese: {
-        reload: 1.5,
-        size: 1.8,
-        health: 2.5,
-        speed: 1.25
+        //reload: 1.5,
+        size: 4/3,
+        //health: 4/3,
+        speed: 2/3
     },
     mothership: {
         reload: 1.25,
@@ -546,6 +574,14 @@ module.exports = {
     spawner: {
         reload: 1.5,
         maxSpeed: 1.25
+    },
+    productionist: {
+        reload: 7/6,
+        recoil: 0.25,
+        shudder: 0.5,
+        speed: 4/3,
+        range: 1.5,
+        spray: 50
     },
 
     // Heavy cannons
@@ -707,6 +743,20 @@ module.exports = {
     },
 
     // Traps and blocks
+    pen: {
+        recoil: 0.75,
+        health: 1.02,
+        damage: 0.81,
+        pen: 0.9,
+        maxSpeed: 0.85,
+        density: 1.2
+    },
+    megaTrap: {
+        reload: 2,
+        damage: 2,
+        recoil: 2,
+        size: 1.2
+    },
     setTrap: {
         reload: 1.1,
         recoil: 2,
@@ -748,7 +798,6 @@ module.exports = {
         shudder: 1.25,
         speed: 0.8,
         range: 0.5
-   
     },
     trapperDominator: {
         reload: 1.46,

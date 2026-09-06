@@ -67,7 +67,7 @@ module.exports = {
             region: "Local",
             serverhost: "Local",
             location: "Localhost",
-            gamemode: ['ffa'],
+            gamemode: ['arms_race', 'ffa'],
             player_cap: 80,
 
             featured: false,
@@ -262,6 +262,7 @@ module.exports = {
     level_cap_cheat: 45, // Maximum level via the level-up key and auto-level-up.
 
     skill_cap: 9, // Default skill caps.
+    skill_cap_soft: 0, // TODO: Figure out what this does.
     tier_multiplier: 15, // Level difference between each upgrade tier.
 
     // Bots
