@@ -252,23 +252,23 @@ class Gun extends EventEmitter {
         }
     }
     checkShootPermission() {
-        let sk = this.bulletStats === "master" ? this.body.skill : this.bulletStats;
-        let shootPermission = this.countsOwnKids
-            ? this.countsOwnKids >
-                this.children.length * (this.calculator == "necro" ? sk.rld : 1)
-            : this.body.maxChildren
-            ? this.body.maxChildren >
-                this.body.children.length * (this.calculator == "necro" ? sk.rld : 1)
-            : true;
+        let skill = this.bulletStats === 'master' ? this.body.skill : this.bulletStats;
+        let necroReload = this.calculator === 'necro' ? skill.rld : 1;
+        let shootPermission = true;
 
-        // Handle destroying oldest child
+        if (this.countsOwnKids) {
+            shootPermission = this.countsOwnKids + this.destroyOldestChild > this.children.length * necroReload;
+        } else if (this.body.maxChildren) {
+            shootPermission = this.body.maxChildren > this.body.children.length * necroReload;
+        };
+
         if (this.destroyOldestChild && !shootPermission) {
             shootPermission = true;
             this.destroyOldest();
-        }
+        };
 
         return shootPermission;
-    }
+    };
     destroyOldest() {
         let oldestChild,
             oldestTime = Infinity;
