@@ -99,7 +99,7 @@ module.exports = {
                 daily_tank: {
                     tank: 'whirlwind',
                     tier: 3,
-                    ads: false,
+                    ads: true,
                     ad_sources: [
                         {
                             file: 'example_video_ad.mp4',
