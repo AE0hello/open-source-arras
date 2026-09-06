@@ -834,7 +834,7 @@ class Entity extends EventEmitter {
 
     upgrade(number, branchId, skipDelay = false) {
         // Account for upgrades that are too high level for the player to access
-        if (!skipDelay && this.isPlayer && this.socket && !this.socket.permissions && Config.upgrade_delay !== 0) {
+        if (!skipDelay && this.isPlayer && this.socket && !this.socket.permissions && Config.upgrade_delay !== 0 && !number.isDailyUpgrade) {
             let now = Date.now();
             let lastAction = Math.max(this.lastMovementTime, this.lastFiredTime);
             if (!this.inBase() && now - lastAction < Config.upgrade_delay) {
