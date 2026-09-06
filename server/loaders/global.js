@@ -214,7 +214,7 @@ global.bringToLife = (() => {
                 return;
             }
             if (my.inBase() || now - lastAction >= Config.upgrade_delay) {
-                my.upgrade(my.upgradePending.number, my.upgradePending.branch, true);
+                my.upgrade(my.upgradePending.number, my.upgradePending.branch, true, my.upgradePending.dailyTankRequest);
                 my.upgradePending = undefined;
             } else if (!my.inBase() && now - (my.upgradePending.lastReminder ?? 0) >= Config.upgrade_delay_reminder) {
                 my.upgradePending.lastReminder = now;

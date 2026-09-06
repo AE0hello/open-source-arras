@@ -440,8 +440,6 @@ class socketManager {
             } break;
             case "U": {
                 // upgrade request
-                m[0] = util.isStringified(m[0]);
-                if (Array.isArray(m[0])) m[0] = m[0][0];
                 if (m.length !== 2) {
                     socket.kick("Ill-sized upgrade request.");
                     return 1;
@@ -449,12 +447,15 @@ class socketManager {
                 // Get data
                 let upgrade = m[0];
                 let branchId = m[1];
+                if (upgrade === 0 && branchId === -1) { // If client sends an daily tank request then we execute that
+                    if (!Config.daily_tank) return socket.kick("Bad daily tank upgrade request (there is no daily tanks set up)");
+                    player.body.upgrade(upgrade, branchId, false, true); // Ask to upgrade (daily tank request)
+                    return;
+                }
                 // Verify the request
                 if (typeof upgrade != "number" || upgrade < 0 || typeof branchId != "number" || !isFinite(branchId) || branchId < 0) {
-                    if (!upgrade?.isDailyUpgrade) { // Atleast allow the daily upgrade request, else get out.
-                        socket.kick("Bad upgrade request.");
-                        return 1;
-                    }
+                    socket.kick("Bad upgrade request.");
+                    return 1;
                 }
                 // Upgrade it
                 if (player.body != null) {

@@ -832,41 +832,52 @@ class Entity extends EventEmitter {
 
     refreshSkills() { this.skill.update(); this.syncSkillsToGuns(); }
 
-    upgrade(number, branchId, skipDelay = false) {
+    upgrade(number, branchId, skipDelay = false, dailyTankRequest = false) {
         // Account for upgrades that are too high level for the player to access
-        if (!skipDelay && this.isPlayer && this.socket && !this.socket.permissions && Config.upgrade_delay !== 0 && !number.isDailyUpgrade) {
+        if (!skipDelay && this.isPlayer && this.socket && !this.socket.permissions && Config.upgrade_delay !== 0) {
             let now = Date.now();
             let lastAction = Math.max(this.lastMovementTime, this.lastFiredTime);
             if (!this.inBase() && now - lastAction < Config.upgrade_delay) {
                 let tankLabel = "Unknown";
 
-                let upgrade = this.upgrades[number];
-                let list = Array.isArray(upgrade.class) ? upgrade.class : [upgrade.class]
-                for (let entry of list) {
-                    let tank = Array.isArray(entry) ? ensureIsClass(...entry) : ensureIsClass(entry);
-                    let label = tank.LABEL;
-                    if (label) { 
-                        tankLabel = label; 
-                        break;
-                     }
+                let upgrade,
+                    list;
+                if (dailyTankRequest) {
+                    if (Config.daily_tank) {
+                        list = false;
+                        if (this.socket.status.daily_tank_watched_ad || !Config.daily_tank.ads) list = [Config.daily_tank.tank];
+                    }
+                } else {
+                    upgrade = this.upgrades[number];
+                    list = Array.isArray(upgrade.class) ? upgrade.class : [upgrade.class]
                 }
-                this.upgradePending = {
-                    number,
-                    branchId,
-                    tankLabel,
-                    lastReminder: now,
-                    lastIndex: this.index
-                };
-                this.sendMessage(`Upgrading to ${tankLabel}... Stay still for ${Math.ceil(Config.upgrade_delay / 1000)} seconds without firing to upgrade.`);
-                return;
+                if (list) {
+                    for (let entry of list) {
+                        let tank = Array.isArray(entry) ? ensureIsClass(...entry) : ensureIsClass(entry);
+                        let label = tank.LABEL;
+                        if (label) { 
+                            tankLabel = label; 
+                            break;
+                        }
+                    }
+                    this.upgradePending = {
+                        number,
+                        branchId,
+                        tankLabel,
+                        lastReminder: now,
+                        lastIndex: this.index,
+                        dailyTankRequest,
+                    };
+                    this.sendMessage(`Upgrading to ${tankLabel}... Stay still for ${Math.ceil(Config.upgrade_delay / 1000)} seconds without firing to upgrade.`);
+                    return;
+                }
             }
         }
         let upgraded = false;
-        if (number.isDailyUpgrade && Config.daily_tank && Config.daily_tank.tank) {
+        if (dailyTankRequest && Config.daily_tank && Config.daily_tank.tank) {
             let hasWatchedAd = this.socket.status.daily_tank_watched_ad;
             if (!Config.daily_tank.ads) hasWatchedAd = true;
-            let requestedIndex = parseInt(number.tank);
-            if (requestedIndex === ensureIsClass(Config.daily_tank.tank).index && this.skill.level >= Config.tier_multiplier * Config.daily_tank.tier) {
+            if (this.skill.level >= Config.tier_multiplier * Config.daily_tank.tier) {
                 if (hasWatchedAd) {
                     upgraded = true;
                     this.upgrades = [];
