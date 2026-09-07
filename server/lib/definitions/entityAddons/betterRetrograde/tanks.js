@@ -15,7 +15,7 @@ Class.blaster.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }
 ];
@@ -30,7 +30,7 @@ Class.gatlingGun.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }
 ];
@@ -61,7 +61,7 @@ Class.accurator.GUNS = [
     }
 ];
 Class.flamethrower_betterRG = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Flamethrower",
     DANGER: 7,
     GUNS: [
@@ -97,7 +97,7 @@ Class.halfNHalf.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, g.doubleTwin]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     },
     {
@@ -110,7 +110,7 @@ Class.halfNHalf.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun, g.doubleTwin]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }
 ];
@@ -123,7 +123,7 @@ Class.splasher.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     },
     {
@@ -135,7 +135,7 @@ Class.splasher.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }
 ];
@@ -152,7 +152,7 @@ Class.triBlaster.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, { recoil: 0.5 }, g.lowPower]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }),
     {
@@ -164,7 +164,7 @@ Class.triBlaster.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, { recoil: 0.5 }]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }
 ];

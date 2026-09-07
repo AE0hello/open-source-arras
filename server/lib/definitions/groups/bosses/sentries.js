@@ -20,7 +20,7 @@ Class.menu_sentries = makeMenu("Sentries", {upgrades: [
 
 // Sentries
 Class.sentry = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     TYPE: "crasher",
     LABEL: "Sentry",
     DANGER: 3,
@@ -86,7 +86,7 @@ Class.sentryTrap = makeAuto("sentry", "Sentry", {
 })
 Class.sentryTrap.UPGRADE_LABEL = "Trap Sentry"
 Class.sentrySwarmMinion = {
-    PARENT: 'drone',
+    PARENT: "drone",
     LABEL: 'sentry',
     COLOR: 'pink',
     UPGRADE_COLOR: 'pink',
@@ -95,7 +95,7 @@ Class.sentrySwarmMinion = {
     GUNS: Class.sentrySwarm.GUNS
 }
 Class.sentryGunMinion = {
-    PARENT: 'drone',
+    PARENT: "drone",
     LABEL: 'sentry',
     COLOR: 'pink',
     UPGRADE_COLOR: 'pink',
@@ -107,7 +107,7 @@ Class.sentryGunMinion = {
     }]
 }
 Class.sentryTrapMinion = {
-    PARENT: 'drone',
+    PARENT: "drone",
     LABEL: 'sentry',
     COLOR: 'pink',
     UPGRADE_COLOR: 'pink',
@@ -160,7 +160,7 @@ Class.shinySentryTrap.UPGRADE_LABEL = "Shiny Trap Sentry"
 
 // Sentinels
 Class.sentinel = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     TYPE: "crasher",
     LABEL: "Sentinel",
     DANGER: 7,

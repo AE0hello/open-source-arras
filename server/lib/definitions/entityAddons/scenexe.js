@@ -1,4 +1,4 @@
-const {base} = require('../constants.js');
+const {base} = require("../constants.js");
 const {basePolygonDamage, basePolygonHealth, statnames} = require("../constants");
 const {combineStats, makeTurret, makeHat, weaponMirror, weaponArray, makeAuto} = require("../facilitators");
 
@@ -380,12 +380,12 @@ Class.scenexeMinion = {
 }
 
 Class.scenexeNode = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     REROOT_UPGRADE_TREE: ["scenexeNode", "scenexeBase"],
     LABEL: "Node",
 }
 Class.scenexeBase = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     REROOT_UPGRADE_TREE: ["scenexeNode", "scenexeBase"],
     LABEL: "Base",
     BODY: {
@@ -476,7 +476,7 @@ Class.scenexeSingle = {
         POSITION: { LENGTH: 21.5, WIDTH: 12.5 },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }]
 }
@@ -724,7 +724,7 @@ Class.scenexeCompound = {
     ]
 }
 Class.scenexeAssassin = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     DANGER: 6,
     LABEL: "Assassin",
     BODY: {

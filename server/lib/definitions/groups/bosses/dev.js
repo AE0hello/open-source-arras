@@ -8,7 +8,7 @@ Class.taureonCoreBase = {
     COLOR: '#00A2E8'
 }
 Class.taureonCore = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Core Turret",
     SHAPE: 4.5,
     COLOR: '#99D9EA',
@@ -41,7 +41,7 @@ Class.taureonStar = {
     MIRROR_MASTER_ANGLE: true
 }
 Class.taureonRailgunTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     LABEL: "Railgun Turret",
     CONTROLLERS: ["nearestDifferentMaster", "onlyAcceptInArc"],
@@ -59,7 +59,7 @@ Class.taureonRailgunTurret = {
     }]
 }
 Class.taureonThruster = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     LABEL: "Thruster",
     CONTROLLERS: ["onlyAcceptInArc"],
@@ -311,12 +311,12 @@ Class.tgsBoss = {
 
 // DogeisCut
 Class.dogeiscutBody = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     SHAPE: [[1,0],[-0.7,0.7],[-0.35,0],[-0.7,-0.7]]
 }
 Class.dogeiscutTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     GUNS: [ {
             POSITION: [ 50, 5, 2.5, 0, 0, 0, 0, ],
@@ -341,7 +341,7 @@ Class.dogeiscutTurret = {
 }
 function createDogeiscutMissileTurret(color) {
     return {
-        PARENT: 'genericTank',
+        PARENT: "genericTank",
         COLOR: "grey",
         GUNS: [ {
                 POSITION: [ 15, 8, 2.5, 0, 0, 180, 0, ],
@@ -614,7 +614,7 @@ Class.dogeiscutBoss = {
 // Trioplane
 Class.trplnrBossAuraBulletAura = makeAura(1, 0.8)
 Class.trplnrBossAuraBullet = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Nest',
     SHAPE: -4,
     PERSISTS_AFTER_DEATH: true,
@@ -763,7 +763,7 @@ Class.trplnrBoss = {
     ]
 }
 Class.trplnrBossBulletHellFormPentagonsAuraBullet = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     PERSISTS_AFTER_DEATH: true,
     TURRETS: [{
         POSITION: {SIZE: 13, LAYER: 1},
@@ -771,7 +771,7 @@ Class.trplnrBossBulletHellFormPentagonsAuraBullet = {
     }]
 } 
 Class.trplnrBossBulletHellFormPentagons = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     LABEL: 'Pentagon',
     SHAPE: -5,
     PROPS: [{
@@ -869,7 +869,7 @@ Class.trplnrBossBulletHellForm = {
             POSITION: { WIDTH: 0, HEIGHT: 0 },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { reload: 2 }, g.fake]),
-                TYPE: 'bullet',
+                TYPE: "bullet",
                 IDENTIFIER: 'onHandler',
                 ALPHA: 0
             }
@@ -913,7 +913,7 @@ Class.trplnrBossVulnerableForm = {
         POSITION: {LENGTH: 0, WIDTH: 0},
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, {reload: 500}]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             AUTOFIRE: true,
             IDENTIFIER: 'onHandler',
             ALPHA: 0
@@ -969,7 +969,7 @@ Class.frostAuraLargeOutline = {
         "M 0 0 L 0.293 0.902 M 0 0 L -0.768 0.558 M 0 0 L -0.768 -0.558 M 0 0 L 0.293 -0.902",
 }
 Class.frostAuraSymbol = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
 	CONTROLLERS: [["spin", { speed: -0.04 }]],
 	INDEPENDENT: true,
     BORDERLESS: true,
@@ -981,7 +981,7 @@ Class.frostAuraSymbol = {
     }]
 }
 Class.frostAuraSymbolOutline = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
 	MIRROR_MASTER_ANGLE: true,
     DRAW_FILL: false,
 	SHAPE: "M 1 0 L 0.797 0.46 L 0.5 0.866 L 0 0.92 L -0.5 0.866 L -0.797 0.46 L -1 0 L -0.797 -0.46 L -0.5 -0.866 L 0 -0.92 L 0.5 -0.866 L 0.797 -0.46 L 1 0 Z" +
@@ -990,7 +990,7 @@ Class.frostAuraSymbolOutline = {
 function addIcosphereAura(damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraSize = "Medium") {
 	let auraType = "frostAura" + auraSize;
 	return {
-		PARENT: 'genericTank',
+		PARENT: "genericTank",
 		INDEPENDENT: true,
 		LABEL: "",
 		COLOR: 17,
@@ -1020,7 +1020,7 @@ Class.frostAuraBlockTop = {
 	MIRROR_MASTER_ANGLE: true,
 }
 Class.frostAuraBlockTurret = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
     INDEPENDENT: true,
 	COLOR: 17,
     CONTROLLERS: ["nearestDifferentMaster"],
@@ -1240,7 +1240,7 @@ Class.frostBoss = {
                 POSITION: [2, 6, 1.6, 16, 0, 60, 0],
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([...hielamanStats, g.fake]),
-                    TYPE: 'bullet',
+                    TYPE: "bullet",
                     COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
                 },
             },
@@ -1272,7 +1272,7 @@ Class.frostBoss = {
 
 // Toothless
 Class.toothlessBase = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Absolute Solver",
     UPGRADE_TOOLTIP: "Easier to assimilate than explain",
     GLOW: {
@@ -1302,7 +1302,7 @@ Class.toothlessBase = {
     },
 };
 Class.toothlessBossDeco = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     SHAPE: "m-.4239.5982c.009-.0756.0238-.1433.0314-.1504.0071-.0063.028-.0104.0457-.0071.0614.0077.0757-.0071.1363-.1361.0307-.0631.0534-.1204.0512-.1286C-.1611.1691-.1824.1279-.2071.0848l-.0449-.0802.0457-.0891c.0249-.0491.0456-.0949.0447-.1035C-.163-.2177-.2684-.4171-.2878-.4295-.2991-.436-.3262-.4389-.347-.437-.3682-.4343-.389-.4382-.3953-.4453-.4065-.4599-.4424-.7358-.4339-.7505c.006-.0104.0435.0147.169.1172l.0786.0639-.0249.0491c-.0133.027-.0236.0568-.021.0664.0033.0204.1304.2162.1451.2247.0061.0035.0507.0062.1004.006s.0978.0045.1082.0105.0385.0453.0632.0885.0494.0805.0554.084c.0147.0085.2479.0207.2671.0133.0096-.0026.0303-.0264.047-.0514l.0301-.0461.0946.0361c.1704.0649.193.0757.1855.0886-.008.0139-.2498.1167-.2768.1173C.5735.1187.5646.1101.5528.0825.5432.0631.5257.0414.5136.0344.4946.0234.2664.0326.2401.0462.2341.0485.2048.0893.1747.1355l-.0543.0841-.0919.0012c-.0511.0005-.0997.0048-.1077.0106-.0083.0044-.0458.0533-.084.1074C-.2408.451-.2454.4691-.2114.5142c.0121.0151.0202.0371.0181.0486-.0032.0155-.1795.1608-.2253.1863C-.4404.7607-.4418.7253-.4239.5982",
     LABEL: "",
     COLOR: "purple",
@@ -1344,7 +1344,7 @@ Class.absoluteSolver = {
     ],
 };
 Class.toothlessBossTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "",
     BODY: {
         FOV: 3,
@@ -1470,7 +1470,7 @@ Class.MKTurretFactoryWithController = {
     ]
 }
 Class.MKTurretFactory = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "MKTurret factory",
     SKILL: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
     COLOR: 16,
@@ -1546,7 +1546,7 @@ Class.MKTurretCarrierWithController = {
     ]
 }
 Class.MKTurretThruster = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "MKTurret Thruster",
     FACING_TYPE: 'toTarget',
     IGNORED_BY_AI: true,
@@ -1567,7 +1567,7 @@ Class.MKTurretThruster = {
     }]
 }
 Class.MKTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     FACING_TYPE: 'toTarget',
     IGNORED_BY_AI: true,
     DAMAGE_EFFECTS: false,
@@ -1623,7 +1623,7 @@ Class.MKTurret = {
     ],
 }
 Class.AEMKShipBoss = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "MKShip",
     NAME: "Æ🚫Sports",
     SYNC_WITH_TANK: true,
@@ -1714,7 +1714,7 @@ Class.AEMKShipBoss = {
 // Helena
 Class.helenaBossBaseAura = makeAura(2, 2, 0)
 Class.helenaBossBase = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "crasher",
     UPGRADE_COLOR: "crasher",
     UPGRADE_LABEL: "CMX-2048-XX", //CrasherMachinery X 2048-bit Xtra Xtra
@@ -1751,7 +1751,7 @@ Class.helenaBossBase = {
 Class.helenaDpProp = makeHat(3.5, { color: "crasher" })
 Class.helenaBossDpProp2 = makeHat(3.5, { color: "black" })
 Class.helenaBossDpPropArmed = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "crasher",
     SHAPE: 3,
     GUNS: weaponArray(

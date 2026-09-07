@@ -1,6 +1,6 @@
-const { combineStats, LayeredBoss, makeAura, makeMenu, makeRadialAuto, weaponArray, weaponMirror, weaponStack } = require('../facilitators.js');
-const { base, statnames } = require('../constants.js');
-const g = require('../gunvals.js');
+const { combineStats, LayeredBoss, makeAura, makeMenu, makeRadialAuto, weaponArray, weaponMirror, weaponStack } = require("../facilitators.js");
+const { base, statnames } = require("../constants.js");
+const g = require("../gunvals.js");
 
 Class.menu_testing = makeMenu("Testing", {upgrades: [
     'upgradeMenuStressTest',
@@ -70,7 +70,7 @@ Class.tagBullet = {
     ]
 }
 Class.tagger = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tagger",
     GUNS: [
         {
@@ -141,11 +141,11 @@ Class.roaringHat = {
 }
 Class.roaringHat2 = {
     PARENT: 'circleHat',
-    COLOR: '#FFFFFF',
+    COLOR: "#FFFFFF",
     BORDERLESS: true
 }
 Class.roaringLancer = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Roaring Lancer",
     COLOR: '#000000',
     BORDERLESS: true,
@@ -204,7 +204,7 @@ Class.roaringLancer = {
             PROPERTIES: {
                 AUTOFIRE: true,
                 SHOOT_SETTINGS: combineStats([{reload: 6, recoil: 0, health: 0.5, damage: 2, pen: 1.6, speed: 2/3, range: 0.08, spray: 180}]),
-                TYPE: ['bullet', {
+                TYPE: ["bullet", {
                     ALPHA: 0,
                     LABEL: 'Lance'
                 }]
@@ -217,7 +217,7 @@ Class.roaringLancer = {
                 ASPECT: -55
             },
             PROPERTIES: {
-                COLOR: '#FFFFFF',
+                COLOR: "#FFFFFF",
                 BORDERLESS: true
             }
         },
@@ -240,7 +240,7 @@ Class.roaringLancer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, { reload: 11, recoil: 9.75 * 2 }]),
-                TYPE: ['bullet', {ALPHA: 0}],
+                TYPE: ["bullet", {ALPHA: 0}],
                 IDENTIFIER: 'charge'
             }
         }
@@ -248,7 +248,7 @@ Class.roaringLancer = {
 }
 
 Class.gunLayerTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Gun Layer Test",
     GUNS: [
         {
@@ -258,7 +258,7 @@ Class.gunLayerTest = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         },
         {
@@ -270,7 +270,7 @@ Class.gunLayerTest = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         },
         {
@@ -282,7 +282,7 @@ Class.gunLayerTest = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }
     ]
@@ -303,7 +303,7 @@ Class.ntf_spike = {
     SHAPE: [[-1,-0.5],[1,0],[-1,0.5]]
 }
 Class.ntf_tailBolt0 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
     INDEPENDENT: true,
@@ -351,7 +351,7 @@ Class.ntf_tailBolt0 = {
     ]
 }
 Class.ntf_tailBolt1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
     INDEPENDENT: true,
@@ -370,7 +370,7 @@ Class.ntf_tailBolt1 = {
     ]
 }
 Class.ntf_tailBolt2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
     INDEPENDENT: true,
@@ -389,7 +389,7 @@ Class.ntf_tailBolt2 = {
     ],
 }
 Class.ntf_tailBolt3 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
     GUNS: ntf_tailConnector,
@@ -429,7 +429,7 @@ Class.ntf_tail = {
     ]
 }
 Class.ntf = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "???",
     NAME: "Nine",
     UPGRADE_LABEL: "???",
@@ -444,7 +444,7 @@ Class.ntf = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ['bullet', {COLOR: 'teal'}],
+                TYPE: ["bullet", {COLOR: 'teal'}],
                 COLOR: '#c7c7cf'
             }
         },
@@ -582,7 +582,7 @@ Class.ntf = {
 
 // to be sorted later
 Class.bacteria = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Bacteria',
     MAX_BULLETS: 32,
     CONNECT_CHILDREN_ON_CAMERA: true,
@@ -602,7 +602,7 @@ Class.bacteria = {
     ]
 }
 Class.bacteriaClone = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Bacteria',
     FACING_TYPE: 'smoothToTarget',
     CONTROLLERS: ['mapTargetToGoal'],
@@ -634,7 +634,7 @@ class io_turretWithMotion extends IO {
 }
 ioTypes.turretWithMotion = io_turretWithMotion
 Class.latDeco1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tank Deco",
     FACING_TYPE: ["turnWithSpeed"],
     COLOR: "#5C533F",
@@ -642,7 +642,7 @@ Class.latDeco1 = {
     MIRROR_MASTER_ANGLE: true,
 }
 Class.latDeco2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tank Deco",
     FACING_TYPE: ["turnWithSpeed"],
     COLOR: "#5C533F",
@@ -650,7 +650,7 @@ Class.latDeco2 = {
     MIRROR_MASTER_ANGLE: true,
 }
 Class.latDeco3 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tank Deco",
     FACING_TYPE: ["turnWithSpeed"],
     COLOR: "#3F3B2D",
@@ -658,7 +658,7 @@ Class.latDeco3 = {
     MIRROR_MASTER_ANGLE: true,
 }
 Class.latRight = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tank Side",
     FACING_TYPE: ["turnWithSpeed"],
     COLOR: "#96794E",
@@ -696,7 +696,7 @@ Class.latRight = {
     ]
 }
 Class.latLeft = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tank Side",
     FACING_TYPE: ["turnWithSpeed"],
     COLOR: "#96794E",
@@ -734,7 +734,7 @@ Class.latLeft = {
     ]
 }
 Class.latBase = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tank Base",
     CONTROLLERS: ["turretWithMotion"],
     COLOR: "#96794E",
@@ -806,7 +806,7 @@ Class.latBase = {
     ]
 }
 Class.literallyATank = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Literally A Tank",
     DANGER: 6,
     BODY: {
@@ -850,7 +850,7 @@ Class.literallyATank = {
 // airblast testing
 Class.airblastBullet = {PARENT: "bullet", ALPHA: 0.5, BODY: {KNOCKBACK: 30}}
 Class.airblast = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Airblast",
     GUNS: [
         {
@@ -881,7 +881,7 @@ Class.trichip = {
     SHAPE: 3
 }
 Class.anglemancer = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Anglemancer",
     DANGER: 7,
     NECRO: true,
@@ -906,7 +906,7 @@ Class.anglemancer = {
     }, 3)
 }
 Class.cycloneM1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "",
     DANGER: 6,
     GUNS: weaponArray([
@@ -947,7 +947,7 @@ Class.cycloneM1 = {
     ], 3)
 }
 Class.gunnerCruiser = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Gunner Cruiser",
     DANGER: 7,
     GUNS: [
@@ -995,7 +995,7 @@ Class.diamondShape = {
     SHAPE: 4.5
 }
 Class.miscTestHelper2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Turret Reload 3",
     MIRROR_MASTER_ANGLE: true,
     COLOR: -1,
@@ -1011,7 +1011,7 @@ Class.miscTestHelper2 = {
     ],
 }
 Class.miscTestHelper = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Turret Reload 2",
     //MIRROR_MASTER_ANGLE: true,
     COLOR: {
@@ -1036,7 +1036,7 @@ Class.miscTestHelper = {
     ]
 }
 Class.miscTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Turret Reload",
     COLOR: "teal",
     GUNS: [
@@ -1056,7 +1056,7 @@ Class.miscTest = {
     ]
 }
 Class.mmaTest2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     MIRROR_MASTER_ANGLE: true,
     COLOR: "grey",
     GUNS: [{
@@ -1064,7 +1064,7 @@ Class.mmaTest2 = {
         }],
 }
 Class.mmaTest1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: -1,
     TURRETS: [
         {
@@ -1074,7 +1074,7 @@ Class.mmaTest1 = {
     ]
 }
 Class.mmaTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Mirror Master Angle",
     TURRETS: [
         {
@@ -1088,14 +1088,14 @@ Class.mmaTest = {
     ]
 }
 Class.vulnturrettest_turret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     HITS_OWN_TYPE: 'hard',
     LABEL: 'Shield',
     COLOR: 'teal',
 }
 Class.vulnturrettest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Vulnerable Turrets",
     TOOLTIP: "[DEV NOTE] Vulnerable turrets are still being worked on and may not function as intended!",
     BODY: {
@@ -1106,7 +1106,7 @@ Class.vulnturrettest = {
         POSITION: {},
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet'
+            TYPE: "bullet"
         }
     }],
     TURRETS: weaponArray({
@@ -1116,7 +1116,7 @@ Class.vulnturrettest = {
     }, 10)
 }
 Class.turretLayerTesting = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Turret Layer Testing',
     TURRETS: [
         {
@@ -1148,7 +1148,7 @@ Class.alphaGunTest = {
         POSITION: {},
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             ALPHA: 0.5
         }
     }]
@@ -1167,13 +1167,13 @@ Class.radialAutoTest = makeRadialAuto("gunner", {
     danger: 10,
 })
 Class.imageShapeTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Image Shape Test",
     SHAPE: 'image=/round.png',
     GUNS: Class.basic.GUNS
 }
 Class.screenShakeTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Screen Shake Test",
     COLOR: 36,
     SHAKE: [
@@ -1211,13 +1211,13 @@ Class.strokeWidthTest = {
         POSITION: {},
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             STROKE_WIDTH: 0.5
         }
     }]
 }
 Class.onTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "ON property test",
     TOOLTIP: "Refer to Class.onTest in dev/tanks.js to know more.",
     ON: [{
@@ -1260,36 +1260,36 @@ Class.onTest = {
         POSITION: {},
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             IDENTIFIER: 'mainGun'
         }
     }, {
         POSITION: { ANGLE: 90 },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             ALT_FIRE: true
         }
     }, {
         POSITION: { ANGLE: 180, DELAY: 0.5 },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             IDENTIFIER: 'secondaryGun'
         }
     }]
 }
 Class.turretStatScaleTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Turret Stat Test',
     TURRETS: Array(5).fill().map((_, i) => ({
         POSITION: [15, 0, -40 + 20 * i, 0, 360, 1],
-        TYPE: ['autoTankGun', {GUN_STAT_SCALE: {speed: 1 + i / 5, maxSpeed: 1 + i / 5, reload: 1 + i / 5, recoil: 0}}]
+        TYPE: ["autoTankGun", {GUN_STAT_SCALE: {speed: 1 + i / 5, maxSpeed: 1 + i / 5, reload: 1 + i / 5, recoil: 0}}]
     }))
 }
 Class.auraBasicGen = makeAura();
 Class.auraBasic = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Aura Basic",
     TURRETS: [
         {
@@ -1301,7 +1301,7 @@ Class.auraBasic = {
 }
 Class.auraHealerGen = makeAura(-1);
 Class.auraHealer = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Aura Healer",
     TURRETS: [
         {
@@ -1312,7 +1312,7 @@ Class.auraHealer = {
     GUNS: Class.healer.GUNS
 }
 Class.ghoster_ghosted = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     TOOLTIP: 'You are now invisible, roam around and find your next target. You will be visible again in 5 seconds',
     LABEL: 'Ghoster',
     BODY: {
@@ -1326,7 +1326,7 @@ Class.ghoster_ghosted = {
     ALPHA: 0.6,
 }
 Class.ghoster = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Ghoster',
     TOOLTIP: 'Shooting will turn you invisible for 5 seconds',
     BODY: {
@@ -1354,7 +1354,7 @@ Class.ghoster = {
     GUNS: [{
         POSITION: {WIDTH: 20, LENGTH: 20},
         PROPERTIES: {
-            TYPE: 'bullet',
+            TYPE: "bullet",
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
         }
     }],
@@ -1382,13 +1382,13 @@ Class.switcheroo = {
         POSITION: {},
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic]),
-            TYPE: 'bullet',
+            TYPE: "bullet",
             IDENTIFIER: 'switcherooGun'
         }
     }]
 }
 Class.vanquisher = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     DANGER: 8,
     LABEL: "Vanquisher",
     STAT_NAMES: statnames.mixed,
@@ -1472,7 +1472,7 @@ Class.armyOfOneBullet = {
     ]
 }
 Class.armyOfOne = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Army Of One",
     DANGER: 9,
     SKILL_CAP: [31, 31, 31, 31, 31, 31, 31, 31, 31, 31],
@@ -1497,33 +1497,33 @@ Class.armyOfOne = {
     ],
 }
 Class.tooltipTank = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Tooltips",
     UPGRADE_TOOLTIP: "Allan please add details"
 }
 Class.bulletSpawnTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Bullet Spawn Position",
     GUNS: [
         {
             POSITION: [20, 10, 1, 0, -5, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {speed: 0, maxSpeed: 0, shudder: 0, spray: 0, recoil: 0}]),
-                TYPE: ['bullet', {BORDERLESS: true}],
+                TYPE: ["bullet", {BORDERLESS: true}],
                 BORDERLESS: true,
             }
         }, {
             POSITION: [50, 10, 1, 0, 5, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {speed: 0, maxSpeed: 0, shudder: 0, spray: 0, recoil: 0}]),
-                TYPE: ['bullet', {BORDERLESS: true}],
+                TYPE: ["bullet", {BORDERLESS: true}],
                 BORDERLESS: true,
             }
         }
     ]
 }
 Class.propTestProp = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     SHAPE: 6,
     COLOR: 0,
     GUNS: [
@@ -1537,7 +1537,7 @@ Class.propTestProp = {
     ]
 }
 Class.propTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Deco Prop Test',
     GUNS: Class.basic.GUNS,
     PROPS: [
@@ -1548,32 +1548,32 @@ Class.propTest = {
     ]
 }
 Class.weaponArrayTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: 'Weapon Array Test',
     GUNS: weaponArray([
         {
             POSITION: [20, 8, 1, 0, 0, 25, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 2}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }, {
             POSITION: [17, 8, 1, 0, 0, 25, 0.1],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 2}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }
     ], 5, {delayIncrement: 0.4, delayOverflow: true}),
     TURRETS: weaponArray(
         {
             POSITION: [7, 10, 0, -11, 180, 0],
-            TYPE: 'autoTankGun'
+            TYPE: "autoTankGun"
         }
     , 5),
 }
 Class.gunBenchmark = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Gun Benchmark",
     GUNS: weaponArray({
         POSITION: [60, 0.2, 0, 0, 0, 0, 0],
@@ -1584,7 +1584,7 @@ Class.gunBenchmark = {
     }, 720)
 }
 Class.syncWithTankTest = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Sync With Tank Test",
     SHAPE: 6,
     SYNC_WITH_TANK: true,
@@ -1592,7 +1592,7 @@ Class.syncWithTankTest = {
     GUNS: Class.basic.GUNS
 }
 exports.backwardsExports = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Basic `Exports` exported tank",
     BODY: Class.basic.BODY,
     GUNS: Class.basic.GUNS,

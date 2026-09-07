@@ -296,7 +296,7 @@ const util = (function() {
                             return 1;
                         },
                         getColor: () => {
-                            return '#FFFFFF';
+                            return "#FFFFFF";
                         },
                         getBlend: () => {
                             return 0;

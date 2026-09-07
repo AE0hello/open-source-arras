@@ -100,7 +100,7 @@ const hexnoughtScaleFactor = 0.9
 
 // Generics
 Class.genericDreadnought_dreadsV2 = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
 	SKILL_CAP: Array(10).fill(smshskl),
 	REROOT_UPGRADE_TREE: ["dreadWeapon_dreadsV2", "dreadBody_dreadsV2"],
 }
@@ -163,7 +163,7 @@ Class.byteTurret_dreadsV2 = {
 	]
 }
 Class.dropperTurret_dreadsV2 = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
 	CONTROLLERS: [["spin", {speed: -0.035}]],
 	INDEPENDENT: true,
 	LABEL: "",
@@ -225,7 +225,7 @@ Class.megabyteTurret_dreadsV2 = {
 	]
 }
 Class.showerTurret_dreadsV2 = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
 	LABEL: "",
 	BODY: {
 		FOV: 1.5,
@@ -239,7 +239,7 @@ Class.showerTurret_dreadsV2 = {
 			POSITION: [6, 12, 1.2, 8, 0, 0, 0],
 			PROPERTIES: {
 			SHOOT_SETTINGS: combineStats([g.drone, {size: 1.3}]),
-			TYPE: ['drone', {INDEPENDENT: true}],
+			TYPE: ["drone", {INDEPENDENT: true}],
 			AUTOFIRE: true,
 			SYNCS_SKILLS: true,
 			STAT_CALCULATOR: "drone",
@@ -366,7 +366,7 @@ Class.gladiatorHealAuraMinion_dreadsV2 = {
 	]
 }
 Class.spotterRadar_dreadsV2 = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
 	CONTROLLERS: [['spin', {speed: 0.02}]],
 	INDEPENDENT: true,
 	SHAPE: [[0.225, 1], [0.225, -1], [-0.225, -1], [-0.225, 1]],

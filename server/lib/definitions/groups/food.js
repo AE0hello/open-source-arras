@@ -1,5 +1,5 @@
-const {makeCrasher, makeLaby, makePolychoron, makePolyhedron, makePresent, makeRarities, makeRelic} = require('../facilitators.js')
-const {basePolygonDamage, basePolygonHealth} = require('../constants.js')
+const {makeCrasher, makeLaby, makePolychoron, makePolyhedron, makePresent, makeRarities, makeRelic} = require("../facilitators.js")
+const {basePolygonDamage, basePolygonHealth} = require("../constants.js")
 
 // Set the below variable to true to enable the flat 3D shapes from Old Dreadnoughts.
 const classic_3D_shapes = false

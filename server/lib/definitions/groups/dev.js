@@ -1,6 +1,6 @@
-const { combineStats, makeHat, makeMenu } = require('../facilitators.js');
-const { base } = require('../constants.js');
-const g = require('../gunvals.js');
+const { combineStats, makeHat, makeMenu } = require("../facilitators.js");
+const { base } = require("../constants.js");
+const g = require("../gunvals.js");
 let dreadnoughts = 'dreadnought_dreadsV2';
 if (Config.classic_food) {
     dreadnoughts = 'dreadnought_dreadsV1';
@@ -107,7 +107,7 @@ Class.menu_healers = makeMenu("Healer Menu", {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ['bullet', {
+                TYPE: ["bullet", {
                     TURRETS: [
                         {
                             POSITION: {
@@ -447,7 +447,7 @@ Class.menu_youtuber = {
     },
     PROPS: [
         {
-            TYPE: ['triangleHat', {COLOR: 'pureWhite'}],
+            TYPE: ["triangleHat", {COLOR: 'pureWhite'}],
             POSITION: {
                 SIZE: 6,
                 LAYER: 1,
@@ -465,7 +465,7 @@ Class.menu_youtuber = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ['bullet', {COLOR: '#FFFFFF'}],
+                TYPE: ["bullet", {COLOR: "#FFFFFF"}],
             }
         }
     ]

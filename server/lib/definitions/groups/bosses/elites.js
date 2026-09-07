@@ -628,7 +628,7 @@ Class.legionaryCrasherTop = {
     }, 3),
 }
 Class.legionaryCrasherSpawner = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     SHAPE: "",
     INDEPENDENT: true,
     GUNS: [{
@@ -698,7 +698,7 @@ Class.legionaryCrasher = {
     ],
 }
 Class.legionaryCrasherSpawnerFix = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     SHAPE: "",
     INDEPENDENT: true,
     GUNS: [{

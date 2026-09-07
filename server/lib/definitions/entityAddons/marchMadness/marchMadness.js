@@ -2,7 +2,7 @@ if (Config.march_madness) {
     (function(c, s = Math.floor(Math.random() * 5) + 1, r = 1) {
         const t = [
             "bullet",
-            ["bullet", { CONTROLLERS: ['snake'] }],
+            ["bullet", { CONTROLLERS: ["snake"] }],
             "casing",
             "growBullet",
             "speedBullet",

@@ -353,7 +353,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
 
     damageMultiplier() {
         switch (this.type) {
-            case 'swarm': return 0.25 + 1.5 * util.clamp(this.range / (this.RANGE + 1), 0, 1);
+            case "swarm": return 0.25 + 1.5 * util.clamp(this.range / (this.RANGE + 1), 0, 1);
             default: return 1;
         }
     }

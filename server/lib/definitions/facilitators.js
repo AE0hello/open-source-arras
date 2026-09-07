@@ -1,5 +1,5 @@
-const {statnames, basePolygonDamage, basePolygonHealth, dfltskl, smshskl} = require('./constants.js')
-const g = require('./gunvals.js')
+const {statnames, basePolygonDamage, basePolygonHealth, dfltskl, smshskl} = require("./constants.js")
+const g = require("./gunvals.js")
 let skcnv = {
     atk: 6,
     spd: 4,
@@ -102,7 +102,7 @@ exports.dereference = type => {
         }
     }
     for (let key in output) {
-        if (key.startsWith('UPGRADES_TIER_')) {
+        if (key.startsWith("UPGRADES_TIER_")) {
             delete output[key];
         }
     }
@@ -122,13 +122,13 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let cycle = options.cycle ?? true
     let maxChildren = options.maxDrones ?? 3
     let stats = options.extraStats ?? []
-    let droneType = options.drive == true ? 'autoDrone' : 'drone'
+    let droneType = options.drive == true ? "autoDrone" : "drone"
 
     options.renderBehind ??= false
 
     let driveHat = [
         {
-            TYPE: ['squareHat', {COLOR: 'grey'}],
+            TYPE: ["squareHat", {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 9,
                 LAYER: 1
@@ -141,7 +141,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
         TYPE: [droneType, {INDEPENDENT: independent}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: 'drone',
+        STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: cycle,
         MAX_CHILDREN: maxChildren,
     }
@@ -200,14 +200,14 @@ exports.makeBattle = (type, name = -1, options = {}) => {
     let spawners = [];
     let guidedSpawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.swarm, g.battleship, ...stats]),
-        TYPE: ['swarm', {INDEPENDENT: independent}],
-        STAT_CALCULATOR: 'swarm',
+        TYPE: ["swarm", {INDEPENDENT: independent}],
+        STAT_CALCULATOR: "swarm",
         LABEL: "Guided"
     }
     let autoSpawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.swarm, ...stats]),
         TYPE: 'autoswarm',
-        STAT_CALCULATOR: 'swarm',
+        STAT_CALCULATOR: "swarm",
         LABEL: "Autonomous"
     }
     if (count % 2 == 1) {
@@ -279,7 +279,7 @@ exports.makeCap = (type, name = -1, options = {}) => {
     let spawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.minion, g.spawner]),
         TYPE: ['minion', {INDEPENDENT: independent}],
-        STAT_CALCULATOR: 'drone',
+        STAT_CALCULATOR: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         MAX_CHILDREN: maxChildren,
@@ -360,13 +360,13 @@ exports.makeFore = (type, name = -1, options = {}) => {
     let cycle = options.cycle ?? true
     let maxChildren = options.maxDrones ?? 1
     let stats = options.extraStats ?? []
-    let droneType = options.drive == true ? 'autoDrone' : 'drone'
+    let droneType = options.drive == true ? "autoDrone" : "drone"
 
     options.renderBehind ??= false
 
     let driveHat = [
         {
-            TYPE: ['squareHat', {COLOR: 'grey'}],
+            TYPE: ["squareHat", {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 9,
                 LAYER: 1
@@ -379,7 +379,7 @@ exports.makeFore = (type, name = -1, options = {}) => {
         TYPE: [droneType, {INDEPENDENT: independent}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: 'drone',
+        STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: cycle,
         MAX_CHILDREN: maxChildren,
     }
@@ -547,8 +547,8 @@ exports.makeGuard = (type, name = -1, options = {}) => {
                 },
                 PROPERTIES: {
                     SHOOT_SETTINGS: exports.combineStats([g.trap]),
-                    TYPE: 'trap',
-                    STAT_CALCULATOR: 'trap'
+                    TYPE: "trap",
+                    STAT_CALCULATOR: "trap"
                 }
             }
         ]
@@ -609,7 +609,7 @@ exports.makeGunner = (type, name = -1, options  = {}) => {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: exports.combineStats([g.basic, g.pelleter, g.power, g.twin, {recoil: 4}, {recoil: 1.8}]),
-                TYPE: 'bullet',
+                TYPE: "bullet",
             },
         }, {delayIncrement: 0.5})
     ]
@@ -824,7 +824,7 @@ exports.makeRadialAuto = (type, options = {}) => {
         turretIdentifier = options.turretIdentifier ?? `auto${type.LABEL}Gun`;
 
         Class[turretIdentifier] = {
-            PARENT: 'genericTank',
+            PARENT: "genericTank",
             LABEL: "",
             BODY: {
                 FOV: 2,
@@ -848,7 +848,7 @@ exports.makeRadialAuto = (type, options = {}) => {
     let HAS_NO_RECOIL = options.noRecoil ?? false;
 
     return {
-        PARENT: 'genericTank',
+        PARENT: "genericTank",
         LABEL,
         HAS_NO_RECOIL,
         FACING_TYPE: ["spin", {speed: options.rotation ?? 0.02}],
@@ -914,7 +914,7 @@ exports.makeTurret = (type, options = {}) => {
     }
 
     return {
-        PARENT: 'genericTank',
+        PARENT: "genericTank",
         LABEL: options.label ?? "",
         SHAPE: options.shape ?? 0,
         COLOR: options.color ?? "grey",
@@ -933,7 +933,7 @@ exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) 
     let symbolType = isHeal ? "healerHat" : "auraSymbol";
     auraColor = auraColor ?? (isHeal ? 12 : 0);
     return {
-        PARENT: 'genericTank',
+        PARENT: "genericTank",
         INDEPENDENT: true,
         LABEL: "",
         COLOR: 17,
@@ -993,7 +993,7 @@ exports.makeMenu = (name = -1, options = {}) => {
     options.color ??= "mirror"
 
     return {
-        PARENT: 'genericTank',
+        PARENT: "genericTank",
         LABEL: name == -1 ? undefined : name,
         COLOR: options.color == "mirror" ? null : options.color,
         REROOT_UPGRADE_TREE: options.rerootTree,
@@ -1278,7 +1278,7 @@ class LayeredBoss {
         this.shape -= decreaseSides ? 2 : 0;
         this.layerSize -= layerScale ?? this.layerScale;
         let layer = {
-            PARENT: 'genericTank',
+            PARENT: "genericTank",
             LABEL: "",
             SHAPE: this.shape,
             COLOR: -1,

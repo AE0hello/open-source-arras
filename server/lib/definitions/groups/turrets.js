@@ -1,6 +1,6 @@
-const { combineStats, makeAuto, makeTurret, weaponArray, weaponMirror } = require('../facilitators.js');
-const { base } = require('../constants.js');
-const g = require('../gunvals.js');
+const { combineStats, makeAuto, makeTurret, weaponArray, weaponMirror } = require("../facilitators.js");
+const { base } = require("../constants.js");
+const g = require("../gunvals.js");
 
 // Radial Auto Guns
 Class.autoTankGun = makeTurret({
@@ -255,7 +255,7 @@ Class.shottrapTurret = makeTurret({
     }]
 }, {limitFov: true, aiSettings: {SKYNET: true, FULL_VIEW: true, independent: true, extraStats: []}})
 Class.machineTripleTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Snowstorm",
     FACING_TYPE: ["spin", {speed: 0.06}],
     INDEPENDENT: true,
@@ -348,7 +348,7 @@ Class.hyperTwisterTurret = makeTurret({
     ]
 }, {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
 Class.rocketeerTurret = makeTurret({
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Rocketeer",
     DANGER: 7,
     BODY: {
@@ -396,7 +396,7 @@ Class.ultraBoomerTurret = makeTurret({
     ],
 },{canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
 Class.triTrapGuardTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: -1,
     FACING_TYPE: ["spin", { independent: true }],
     GUNS: weaponArray([
@@ -419,7 +419,7 @@ Class.triTrapGuardTurret = {
     ], 3),
 }
 Class.eliteSpinnerCyclone = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: -1,
     FACING_TYPE: ["spin", { speed: -0.1, independent: true }],
     GUNS: weaponArray([
@@ -714,7 +714,7 @@ Class.kronosTripletTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, extraStats: []})
-Class.napoleonUpperTurretBullet = makeAuto('bullet', "Auto-Bullet", {type: "bulletAutoTurret", size: 14, color: "veryLightGrey", angle: 0});
+Class.napoleonUpperTurretBullet = makeAuto("bullet", "Auto-Bullet", {type: "bulletAutoTurret", size: 14, color: "veryLightGrey", angle: 0});
 Class.napoleonUpperTurret = makeTurret({
     GUNS: [
         {
@@ -729,7 +729,7 @@ Class.napoleonUpperTurret = makeTurret({
     ],
 }, {canRepel: true, limitFov: true, extraStats: []})
 Class.gadgetGunTripleTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     FACING_TYPE: ["spin", {speed: 0.06}],
     INDEPENDENT: true,
     COLOR: -1,
@@ -782,7 +782,7 @@ Class.ultraAutoTurret = makeTurret({
     ],
 }, {label: "Turret", fov: 0.8, extraStats: []})
 Class.driveAutoTurret = { PARENT: 'autoTurret', SHAPE: 4 };
-Class.driveMegaAutoTurret = { PARENT: 'megaAutoTurret', SHAPE: 4 };
+Class.driveMegaAutoTurret = { PARENT: "megaAutoTurret", SHAPE: 4 };
 Class.droneAutoTurret = makeTurret({
     GUNS: [
         {
@@ -868,7 +868,7 @@ Class.legionaryTwin = makeTurret({
 
 // Healer turrets
 Class.sanctuaryHealer = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "",
     COLOR: "grey",
     BODY: {
@@ -881,7 +881,7 @@ Class.sanctuaryHealer = {
     }],
 }
 Class.medkitTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "",
     COLOR: "grey",
     HAS_NO_RECOIL: true,
@@ -904,7 +904,7 @@ Class.medkitTurret = {
 
 // RCS (for space)
 Class.rcs = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "RCS Thruster",
     INDEPENDENT: true,
     CONTROLLERS: ['rcs'],
@@ -913,8 +913,8 @@ Class.rcs = {
             POSITION: [18, 10, 1.3, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5, speed: 1, range: 0.1}]),
-                TYPE: 'bullet',
-                STAT_CALCULATOR: 'bullet',
+                TYPE: "bullet",
+                STAT_CALCULATOR: "bullet",
             }
         }
     ]
@@ -949,7 +949,7 @@ Class.baseSwarmTurret = makeTurret({
     ],
 }, {label: "Protector", independent: true, fov: 0.8, aiSettings: { NO_LEAD: true, CHASE: true, IGNORE_SHAPES: true, }})
 Class.antiTankMachineGunArm = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     CONTROLLERS: ["mapTargetToGoal"],
     SKILL_CAP: Array(10).fill(15),
@@ -982,7 +982,7 @@ Class.antiTankMachineGunArm = {
     ],
 }
 Class.cxATMGArm = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "white",
     SHAPE: Class.cube.SHAPE,
     SKILL_CAP: Array(10).fill(15),
@@ -1157,13 +1157,13 @@ Class.tracker3gun = makeTurret({
 
 // FLAIL!!!
 Class.flailBallSpike = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "black",
     SHAPE: 6,
     INDEPENDENT: true,
 }
 Class.flailBall = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     HITS_OWN_TYPE: 'hard',
     INDEPENDENT: true,
@@ -1204,7 +1204,7 @@ Class.flailBall = {
     ]
 }
 Class.flailBolt1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1216,7 +1216,7 @@ Class.flailBolt1 = {
     }],
 }
 Class.flailBolt2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1228,7 +1228,7 @@ Class.flailBolt2 = {
     }],
 }
 Class.flailBolt3 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     GUNS: [{
         POSITION: [30, 5, 1, 8, 0, 0, 0]
@@ -1240,13 +1240,13 @@ Class.flailBolt3 = {
 }
 
 Class.maceBallSpike = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: 9,
     SHAPE: 3,
     INDEPENDENT: true,
 }
 Class.maceBall = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     HITS_OWN_TYPE: 'hard',
     INDEPENDENT: true,
@@ -1287,7 +1287,7 @@ Class.maceBall = {
     ]
 }
 Class.maceBolt1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1299,7 +1299,7 @@ Class.maceBolt1 = {
     }],
 }
 Class.maceBolt2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1312,7 +1312,7 @@ Class.maceBolt2 = {
     ],
 }
 Class.maceBolt3 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     GUNS: [{
         POSITION: [24, 5, 1, 8, 0, 0, 0]
@@ -1324,7 +1324,7 @@ Class.maceBolt3 = {
 }
 
 Class.mamaBolt1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1337,7 +1337,7 @@ Class.mamaBolt1 = {
     ],
 }
 Class.mamaBolt2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1350,7 +1350,7 @@ Class.mamaBolt2 = {
     ],
 }
 Class.mamaBolt3 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1364,7 +1364,7 @@ Class.mamaBolt3 = {
 }
 
 Class.ihdtiBall = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     HITS_OWN_TYPE: 'hard',
     INDEPENDENT: true,
@@ -1408,7 +1408,7 @@ Class.ihdtiBall = {
     ]
 }
 Class.ihdtiBolt1 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1421,7 +1421,7 @@ Class.ihdtiBolt1 = {
     ]
 }
 Class.ihdtiBolt2 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     INDEPENDENT: true,
     GUNS: [{
@@ -1434,7 +1434,7 @@ Class.ihdtiBolt2 = {
     ]
 }
 Class.ihdtiBolt3 = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: "grey",
     GUNS: [{
         POSITION: [24, 5, 1, 8, 0, 0, 0]
@@ -1448,7 +1448,7 @@ Class.ihdtiBolt3 = {
 
 // thing for later
 Class.crowbarTurretTank = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     COLOR: 16,
     BODY: {
         FOV: 1,
@@ -1456,7 +1456,7 @@ Class.crowbarTurretTank = {
     TURRETS: [{
         POSITION: [20, 0, 0, 0, 180, 1],
         TYPE: makeTurret({
-            PARENT: 'genericTank',
+            PARENT: "genericTank",
             LABEL: "",
             BODY: {
                 FOV: 6,
@@ -1774,7 +1774,7 @@ Class.rimflakTurret = makeTurret({
 
 // LAMG
 Class.lamgSpinnerTurret = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     FACING_TYPE: ["spinOnFire", {speed: 0.5}],
     LABEL: "Spinner Turret",
     COLOR: "grey",

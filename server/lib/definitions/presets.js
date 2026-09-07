@@ -10,7 +10,7 @@ module.exports = {
     turret: {
         driveHat: [
             {
-                TYPE: ['squareHat', {COLOR: 'grey'}],
+                TYPE: ["squareHat", {COLOR: 'grey'}],
                 POSITION: {
                     SIZE: 9,
                     LAYER: 1
@@ -19,7 +19,7 @@ module.exports = {
         ],
         swarmdriveHat: [
             {
-                TYPE: ['triangleHat', {COLOR: 'grey'}],
+                TYPE: ["triangleHat", {COLOR: 'grey'}],
                 POSITION: {
                     SIZE: 8,
                     ANGLE: 180,
@@ -37,46 +37,46 @@ module.exports = {
     // Function-Specific Presets
     makeAuto: {
         mega: {
-            type: 'megaAutoTurret', size: 12
+            type: "megaAutoTurret", size: 12
         },
         ultra: {
-            type: 'ultraAutoTurret', size: 14
+            type: "ultraAutoTurret", size: 14
         },
         triple: {
             size: 6.5, x: 5.2, angle: 0, total: 3
         },
         tripleMega: {
-            type: 'megaAutoTurret', size: 7.5, x: 5.5, angle: 0, total: 3
+            type: "megaAutoTurret", size: 7.5, x: 5.5, angle: 0, total: 3
         },
         tripleUltra: {
-            type: 'ultraAutoTurret', size: 8.5, x: 5.8, angle: 0, total: 3
+            type: "ultraAutoTurret", size: 8.5, x: 5.8, angle: 0, total: 3
         },
         penta: {
             size: 5.2, x: 6.5, angle: 0, total: 5
         },
         pentaMega: {
-            type: 'megaAutoTurret', size: 5.7, x: 6.9, angle: 0, total: 5
+            type: "megaAutoTurret", size: 5.7, x: 6.9, angle: 0, total: 5
         },
         pentaUltra: {
-            type: 'ultraAutoTurret', size: 6.2, x: 7.3, angle: 0, total: 5
+            type: "ultraAutoTurret", size: 6.2, x: 7.3, angle: 0, total: 5
         },
         hepta: {
             size: 4, x: 6.5, angle: 0, total: 7
         },
         heptaMega: {
-            type: 'megaAutoTurret', size: 4.25, x: 7, angle: 0, total: 7
+            type: "megaAutoTurret", size: 4.25, x: 7, angle: 0, total: 7
         },
         heptaUltra: {
-            type: 'ultraAutoTurret', size: 4.5, x: 7.5, angle: 0, total: 7
+            type: "ultraAutoTurret", size: 4.5, x: 7.5, angle: 0, total: 7
         },
         drive: {
-            type: 'driveAutoTurret', clearTurrets: true, size: 9
+            type: "driveAutoTurret", clearTurrets: true, size: 9
         },
         driveMega: {
-            type: 'driveMegaAutoTurret', clearTurrets: true, size: 11
+            type: "driveMegaAutoTurret", clearTurrets: true, size: 11
         },
         driveTriple: {
-            type: 'driveAutoTurret', clearTurrets: true, size: 6.5, x: 5.2, angle: 0, total: 3
+            type: "driveAutoTurret", clearTurrets: true, size: 6.5, x: 5.2, angle: 0, total: 3
         }
     },
     makeFore: {
@@ -102,7 +102,7 @@ module.exports = {
     // On Functions
     on: {
         retrograde_self_destruct: {
-            event: 'define',
+            event: "define",
             handler: ({ body }) => {
                 if (Config.retrograde && body.socket && !body.socket.permissions) {
                     body.sendMessage("WARNING: This tank will self-destruct in 10 seconds!");

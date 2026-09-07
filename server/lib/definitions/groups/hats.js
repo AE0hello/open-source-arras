@@ -1,5 +1,5 @@
-const { makeHat, makePolygon } = require('../facilitators.js');
-const preset = require('../presets.js');
+const { makeHat, makePolygon } = require("../facilitators.js");
+const preset = require("../presets.js");
 
 // Circle Hats
 Class.circleHat = makeHat();

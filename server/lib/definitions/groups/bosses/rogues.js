@@ -32,7 +32,7 @@ Class.roguePalisade = {
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([ g.minion, g.pounder, { reload: 2, damage: 0.7, density: 0.6 }]),
             TYPE: ['minion', {INDEPENDENT: true}],
-            STAT_CALCULATOR: 'drone',
+            STAT_CALCULATOR: "drone",
             AUTOFIRE: true,
             MAX_CHILDREN: 3,
             SYNCS_SKILLS: true,
@@ -78,31 +78,31 @@ Class.rogueArmada = {
             POSITION: [8, 2, 1, 0, -1, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }, {
             POSITION: [8, 3, 1, 0, 0.5, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }, {
             POSITION: [8, 3, 1, 0, 0, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }, {
             POSITION: [8, 3, 1, 0, 0.5, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }, {
             POSITION: [8, 4, 1, 0, 1, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }, {
             POSITION: [8, 4, 1, 0, 1.5, 360 / 14, 0],

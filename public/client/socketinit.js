@@ -21,16 +21,16 @@ startSettings = {
 gui = {
     getStatNames: data => {
         return [
-            data?.body_damage ?? 'Body Damage',
-            data?.max_health ?? 'Max Health',
-            data?.bullet_speed ?? 'Bullet Speed',
-            data?.bullet_health ?? 'Bullet Health',
-            data?.bullet_pen ?? 'Bullet Penetration',
-            data?.bullet_damage ?? 'Bullet Damage',
-            data?.reload ?? 'Reload',
-            data?.move_speed ?? 'Movement Speed',
-            data?.shield_regen ?? 'Shield Regeneration',
-            data?.shield_cap ?? 'Shield Capacity',
+            data?.body_damage ?? "Body Damage",
+            data?.max_health ?? "Max Health",
+            data?.bullet_speed ?? "Bullet Speed",
+            data?.bullet_health ?? "Bullet Health",
+            data?.bullet_pen ?? "Bullet Penetration",
+            data?.bullet_damage ?? "Bullet Damage",
+            data?.reload ?? "Reload",
+            data?.move_speed ?? "Movement Speed",
+            data?.shield_regen ?? "Shield Regeneration",
+            data?.shield_cap ?? "Shield Capacity",
         ]
     },
     skills: [
@@ -432,7 +432,7 @@ function Status() {
             return (statState === 'dying' || statState === 'killed') ? 1 - Math.min(1, (getNow() - statTime) / 300) : 1;
         },
         getColor: () => {
-            return '#FFFFFF';
+            return "#FFFFFF";
         },
         getBlend: () => {
             let o = (statState === 'normal' || statState === 'dying') ? 0 : 1 - Math.min(1, (getNow() - statTime) / 80);

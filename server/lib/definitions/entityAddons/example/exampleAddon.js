@@ -3,8 +3,8 @@
 // Addons that are dependant on other addons should be named something like
 // "[PARENT ADDON NAME]-[EXTENSION NAME].js", to make sure that it would run after that addon ran.
 
-const {base} = require('../../constants.js');
-const {makeMenu} = require("../../facilitators");
+const {base} = require("../../constants.js");
+const {makeMenu} = require("../../facilitators.js");
 
 // This addon is disabled by default.
 // You can also disable addons by not making them end with '.js'
@@ -16,7 +16,7 @@ let MAX_CHILDREN = 0,
 	TURRETS = [],
 
 alreadySeen = [],
-next = ['basic'],
+next = ["basic"],
 
 // We don't loop infinitely, because that's a bad idea if someone makes a circular upgrade path.
 // Also, RECURSION BAD. RECURSION BAD. RECURSION BAD. RECURSION BAD. RECURSION BAD. RECURSION BAD.
@@ -39,13 +39,13 @@ while (next.length && limit--) {
 		if (now.TURRETS) TURRETS.push(...now.TURRETS);
 
 		// Add upgrades of current tank to next iteration
-		for (let key of Object.keys(now)) if (key.startsWith('UPGRADES_TIER_')) next.push(...now[key]);
+		for (let key of Object.keys(now)) if (key.startsWith("UPGRADES_TIER_")) next.push(...now[key]);
 	}
 }
 
 // This adds the tank to the definitions and to the fun menu
 Class.abomination = {
-	PARENT: 'genericTank',
+	PARENT: "genericTank",
 	LABEL: "The Abomination",
 	SKILL_CAP: Array(10).fill(15),
 	SIZE: 15,

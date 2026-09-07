@@ -1,5 +1,5 @@
-const { combineStats, makeAuto, weaponArray, weaponMirror } = require('../facilitators.js');
-const g = require('../gunvals.js');
+const { combineStats, makeAuto, weaponArray, weaponMirror } = require("../facilitators.js");
+const g = require("../gunvals.js");
 
 // Bullets
 Class.casing = {
@@ -15,7 +15,7 @@ Class.flare = {
 }
 Class.growBullet = {
     PARENT: "bullet",
-    MOTION_TYPE: ['grow', {speed: 0.75}]
+    MOTION_TYPE: ["grow", {speed: 0.75}]
 }
 Class.masterBullet = {
     PARENT: "missile",
@@ -102,11 +102,11 @@ Class.speedBullet = {
     MOTION_TYPE: ['glide', {damp: -0.0125}]
 }
 Class.spiralBulletSegment = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.spiralBullet = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     ON: [
         {
             event: 'tick',
@@ -149,7 +149,7 @@ Class.spiralBullet = {
     ]
 }
 Class.pythonBullet = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     ON: [
         {
             event: 'tick',
@@ -191,7 +191,7 @@ Class.pythonBullet = {
     ]
 }
 Class.undertowBullet = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     ON: [
         {
         event: "tick",
@@ -237,7 +237,7 @@ Class.undertowBullet = {
     ],
 }
 Class.undertowEffect = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     TYPE: "undertowEffect",
     SIZE: 5,
     COLOR: 1,
@@ -254,7 +254,7 @@ Class.undertowEffect = {
     }
 }
 Class.assemblerEffect = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     MOTION_TYPE: 'assembler',
     LABEL: '',
     BODY: {
@@ -647,7 +647,7 @@ Class.herbalistDrone = {...Class.summonerDrone, SHAPE: 9}
 
 // Minions
 Class.genericMinion = {
-    PARENT: 'genericTank',
+    PARENT: "genericTank",
     LABEL: "Minion",
     TYPE: "minion",
     HITS_OWN_TYPE: "hardWithBuffer",
@@ -698,7 +698,7 @@ Class.tinyMinion = {
     LABEL: "Swarm Minion",
     ACCEPTS_SCORE: false,
     SHAPE: 0,
-    MOTION_TYPE: 'swarm',
+    MOTION_TYPE: "swarm",
     CRAVES_ATTENTION: true,
     BODY: {
         ACCELERATION: 3,
@@ -761,7 +761,7 @@ Class.desmosMinion = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.desmos]),
-                TYPE: ["bullet", {CONTROLLERS: ['snake']}]
+                TYPE: ["bullet", {CONTROLLERS: ["snake"]}]
             }
         },
         ...weaponMirror({
@@ -968,7 +968,7 @@ Class.oroborosTrap = {
     ]
 }
 Class.beemanTrap = {
-    PARENT: 'setTrap',
+    PARENT: "setTrap",
     SHAPE: 9,
     INDEPENDENT: true,
     GUNS: weaponArray({
@@ -1082,9 +1082,9 @@ Class.baseSwarmTurret_swarm = {
     },
 }
 Class.homingBullet = {
-    PARENT: 'bullet',
+    PARENT: "bullet",
     LABEL: "Homing Bullet",
-    MOTION_TYPE: 'swarm',
+    MOTION_TYPE: "swarm",
     FACING_TYPE: 'smoothWithMotion',
     CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal']
 }
@@ -1178,8 +1178,8 @@ Class.superSplitterBullet = {
 }
 
 // -Drive projectiles
-Class.autoDrone = makeAuto('drone', "Auto-Drone", {type: 'droneAutoTurret'});
-Class.autoSwarm = makeAuto('swarm', "Auto-Swarm Drone", {type: 'droneAutoTurret'});
+Class.autoDrone = makeAuto("drone", "Auto-Drone", {type: 'droneAutoTurret'});
+Class.autoSwarm = makeAuto("swarm", "Auto-Swarm Drone", {type: 'droneAutoTurret'});
 Class.autoSunchip = makeAuto('sunchip', "Auto-Drone", {type: 'droneAutoTurret'});
 Class.autoMinion = makeAuto('minion', "Auto-Minion", {type: 'droneAutoTurret'});
-Class.autoTrap = makeAuto('trap', "Auto-Trap", {type: 'droneAutoTurret'}); //sorta counts
+Class.autoTrap = makeAuto("trap", "Auto-Trap", {type: 'droneAutoTurret'}); //sorta counts

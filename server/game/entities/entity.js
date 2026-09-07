@@ -1,7 +1,7 @@
-let EventEmitter = require('events');
+let EventEmitter = require("events");
 global.entitiesIdLog = 0;
 const forceTwiggle = ["autospin", "turnWithSpeed", "spin", "fastspin", "veryfastspin", "withMotion", "smoothWithMotion", "looseWithMotion"];
-const { combineStats } = require('../../lib/definitions/facilitators.js');
+const { combineStats } = require("../../lib/definitions/facilitators.js");
 class Entity extends EventEmitter {
     constructor(position, master) {
         super();
@@ -40,13 +40,13 @@ class Entity extends EventEmitter {
         this.controllers = [];
         this.definitionEvents = [];
         this.blend = {
-            color: '#FFFFFF',
+            color: "#FFFFFF",
             amount: 0,
         };
         // Objects
         this.skill = new Skill();
-        this.health = new HealthType(1, 'static', 0);
-        this.shield = new HealthType(0, 'dynamic');
+        this.health = new HealthType(1, "static", 0);
+        this.shield = new HealthType(0, "dynamic");
         this.guns = new Map();
         this.gunsArrayed = [];
         this.turrets = new Map();
@@ -119,7 +119,7 @@ class Entity extends EventEmitter {
         };
         entities.set(this.id, this);
         for (let v of global.gameManager.views) v.add(this);
-        Events.emit('spawn', this);
+        Events.emit("spawn", this);
     }
 
     life() { bringToLife(this); }
@@ -282,16 +282,16 @@ class Entity extends EventEmitter {
         if (set.INTANGIBLE != null) this.intangibility = set.INTANGIBLE;
         if (set.IS_SMASHER != null) this.settings.reloadToAcceleration = set.IS_SMASHER;
         if (set.STAT_NAMES != null) this.settings.skillNames = {
-            body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? 'Body Damage',
-            max_health: set.STAT_NAMES?.MAX_HEALTH ?? 'Max Health',
-            bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? 'Bullet Speed',
-            bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? 'Bullet Health',
-            bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? 'Bullet Penetration',
-            bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? 'Bullet Damage',
-            reload: set.STAT_NAMES?.RELOAD ?? 'Reload',
-            move_speed: set.STAT_NAMES?.MOVE_SPEED ?? 'Movement Speed',
-            shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? 'Shield Regeneration',
-            shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? 'Shield Capacity',
+            body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? "Body Damage",
+            max_health: set.STAT_NAMES?.MAX_HEALTH ?? "Max Health",
+            bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? "Bullet Speed",
+            bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? "Bullet Health",
+            bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? "Bullet Penetration",
+            bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? "Bullet Damage",
+            reload: set.STAT_NAMES?.RELOAD ?? "Reload",
+            move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
+            shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
+            shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity",
         };
         if (set.AI != null) this.aiSettings = set.AI;
         if (set.INVISIBLE != null) this.invisible = set.INVISIBLE;
@@ -334,7 +334,7 @@ class Entity extends EventEmitter {
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
         for (const prop in set) {
-            if (!prop.startsWith('UPGRADES_TIER_')) {
+            if (!prop.startsWith("UPGRADES_TIER_")) {
                 continue;
             }
             for (let j = 0; j < set[prop].length; j++) {
@@ -565,7 +565,7 @@ class Entity extends EventEmitter {
             for (let def of defs) this.defs.push(def);
         }
         if (emitEvent) {
-            this.emit('define', { body: this, set });
+            this.emit("define", { body: this, set });
             // We dont want a broken camera
             this.cameraOverrideX = null;
             this.cameraOverrideY = null;
@@ -948,7 +948,7 @@ class Entity extends EventEmitter {
 
     damageMultiplier() {
         switch (this.type) {
-            case 'swarm': return 0.25 + 1.5 * util.clamp(this.range / (this.RANGE + 1), 0, 1);
+            case "swarm": return 0.25 + 1.5 * util.clamp(this.range / (this.RANGE + 1), 0, 1);
             default: return 1;
         }
     }

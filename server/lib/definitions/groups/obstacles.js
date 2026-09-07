@@ -1,4 +1,4 @@
-const { weaponArray } = require('../facilitators.js');
+const { weaponArray } = require("../facilitators.js");
 
 // Rocks
 Class.gravel = {
@@ -126,7 +126,7 @@ Class.oneWayWallUp = {
     LABEL: "One-Way Wall (Up)",
     PROPS: [
         {
-            TYPE: 'triangleHat',
+            TYPE: "triangleHat",
             POSITION: {
                 SIZE: 7,
                 X: -0.5,
@@ -141,7 +141,7 @@ Class.oneWayWallDown = {
     LABEL: "One-Way Wall (Down)",
     PROPS: [
         {
-            TYPE: 'triangleHat',
+            TYPE: "triangleHat",
             POSITION: {
                 SIZE: 7,
                 X: -0.5,
@@ -156,7 +156,7 @@ Class.oneWayWallLeft = {
     LABEL: "One-Way Wall (Left)",
     PROPS: [
         {
-            TYPE: 'triangleHat',
+            TYPE: "triangleHat",
             POSITION: {
                 SIZE: 7,
                 X: -0.5,
@@ -171,7 +171,7 @@ Class.oneWayWallRight = {
     LABEL: "One-Way Wall (Right)",
     PROPS: [
         {
-            TYPE: 'triangleHat',
+            TYPE: "triangleHat",
             POSITION: {
                 SIZE: 7,
                 X: -0.5,
@@ -196,7 +196,7 @@ Class.paintWall = {
     COLOR: 'veryLightGrey',
     PROPS: [
         {
-            TYPE: 'squareHat',
+            TYPE: "squareHat",
             POSITION: {
                 SIZE: 10 * Math.SQRT2,
                 ANGLE: 45,
@@ -211,7 +211,7 @@ Class.filterWall = {
     COLOR: 'veryLightGrey',
     PROPS: [
         {
-            TYPE: 'squareHat',
+            TYPE: "squareHat",
             POSITION: {
                 SIZE: 10 * Math.SQRT2,
                 ANGLE: 45,
