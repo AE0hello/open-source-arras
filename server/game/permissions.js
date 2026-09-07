@@ -11,21 +11,21 @@ module.exports = [
         key: process.env.BETA_TESTER,
         level: 1,
         class: "menu_betaTester",
-        nameColor: "#ffffff",
+        nameColor: "#FFFFFF",
         note: "note here"
     },
     {
         key: process.env.SHINY,
         level: 2,
         class: "menu_shinyMember",
-        nameColor: "#ffffff",
+        nameColor: "#FFFFFF",
         note: "note here"
     },
     {
         key: process.env.YOUTUBER,
         level: 2,
         class: "menu_youtuber",
-        nameColor: "#ffffff",
+        nameColor: "#FFFFFF",
         note: "note here"
     },
     {
@@ -33,7 +33,7 @@ module.exports = [
         administrator: true,
         level: 3,
         class: "menu_special",
-        nameColor: "#ffffff",
+        nameColor: "#FFFFFF",
         note: "note here"
     },
 ]

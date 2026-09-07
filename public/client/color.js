@@ -24,7 +24,7 @@ var color = {
         "lgreen": "#b9e87e", // Health Bars, Shiny Polygons
         "teal": "#7ad3db", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#dbdbdb", // Arena Background
         "grey": "#a7a7af", // Barrels, Bar Backgrounds
         "black": "#484848", // Borders
@@ -60,7 +60,7 @@ var color = {
         "white": "#0a0a0a", // Arena Background
         "grey": "#635f5f", // Barrels, Bar Backgrounds
         "black": "#131313", // Borders
-        "guiblack": "#ffffff", // Grid
+        "guiblack": "#FFFFFF", // Grid
         "paletteSize": 20,
         "border": 0.15
     },
@@ -88,7 +88,7 @@ var color = {
         "lgreen": "#85e37d", // Health Bars, Shiny Polygons
         "teal": "#6cfffa", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#cccccc", // Arena Background
         "grey": "#999999", // Barrels, Bar Backgrounds
         "black": "#444444", // Borders
@@ -117,7 +117,7 @@ var color = {
         "grey": "#635f5f",
         "dgrey": "#73747a",
         "white": "#11110f",
-        "guiblack": "#ffffff",
+        "guiblack": "#FFFFFF",
         "paletteSize": 20,
         "border": 0.15
     },
@@ -145,7 +145,7 @@ var color = {
         "lgreen": "#aad35d", // Health Bars, Shiny Polygons
         "teal": "#76c1bb", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#a5b2a5", // Arena Background
         "grey": "#998f8f", // Barrels, Bar Backgrounds
         "black": "#373834", // Borders
@@ -241,7 +241,7 @@ var color = {
         "lgreen": "#b58900", // Health Bars, Shiny Polygons
         "teal": "#2b9098", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#002b36", // Arena Background
         "grey": "#839496", // Barrels, Bar Backgrounds
         "black": "#000000", // Borders
@@ -273,7 +273,7 @@ var color = {
         "lgreen": "#06bf3b", // Health Bars, Shiny Polygons
         "teal": "#ffff62", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#081e20", // Arena Background
         "grey": "#839496", // Barrels, Bar Backgrounds
         "black": "#000000", // Borders
@@ -294,7 +294,7 @@ var color = {
         "dgrey": "#a0a0b2", // Rogue Team
 
         "vlgrey": "#b2b2b2", // Eggs
-        "gold": "#ffffff", // Squares
+        "gold": "#FFFFFF", // Squares
         "orange": "#e5e0e0", // Triangles
         "purple": "#c3c3d8", // Pentagons
         "aqua": "#8b8ba9", // Hexagons
@@ -305,7 +305,7 @@ var color = {
         "lgreen": "#b5d17d", // Health Bars, Shiny Polygons
         "teal": "#89bfba", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#f2f2f2", // Arena Background
         "grey": "#cccccc", // Barrels, Bar Backgrounds
         "black": "#383835", // Borders
@@ -337,11 +337,11 @@ var color = {
         "lgreen": "#c20644", // Health Bars, Shiny Polygons
         "teal": "#8975b7", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#1f1f1f", // Arena Background
         "grey": "#9c8993", // Barrels, Bar Backgrounds
         "black": "#000000", // Borders
-        "guiblack": "#ffffff", // Grid
+        "guiblack": "#FFFFFF", // Grid
         "paletteSize": 20, // (Placeholder)
         "border": 0.25 // (Placeholder)
     },
@@ -369,7 +369,7 @@ var color = {
         "lgreen": "#41aa78", // Health Bars, Shiny Polygons
         "teal": "#76eec6", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#3283bc", // Arena Background
         "grey": "#656884", // Barrels, Bar Backgrounds
         "black": "#12466b", // Borders
@@ -433,7 +433,7 @@ var color = {
         "lgreen": "#78d4b6", // Health Bars, Shiny Polygons
         "teal": "#e96ba8", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#50374d", // Arena Background
         "grey": "#b9b6b0", // Barrels, Bar Backgrounds
         "black": "#2b1a29", // Borders
@@ -465,7 +465,7 @@ var color = {
         "lgreen": "#689168", // Health Bars, Shiny Polygons
         "teal": "#fd9827", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#cbb690", // Arena Background
         "grey": "#868788", // Barrels, Bar Backgrounds
         "black": "#56372b", // Borders
@@ -497,7 +497,7 @@ var color = {
         "lgreen": "#931a1a", // Health Bars, Shiny Polygons
         "teal": "#92a59f", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#554e4e", // Arena Background
         "grey": "#787878", // Barrels, Bar Backgrounds
         "black": "#000000", // Borders
@@ -659,7 +659,7 @@ var color = {
         "lgreen": "#ffa5ff", // Health Bars, Shiny Polygons
         "teal": "#95cecf", // Shield Bars, Legendary Polygons
 
-        "guiwhite": "#ffffff", // Text
+        "guiwhite": "#FFFFFF", // Text
         "white": "#3b3b37", // Arena Background
         "grey": "#c4bb9d", // Barrels, Bar Backgrounds
         "black": "#000000", // Borders
@@ -718,14 +718,14 @@ var color = {
         "aqua": "#1b713a", // Hexagons
         "pink": "#194417", // Crashers
         "lavender": "#941100", // Nest
-        "lgrey": "#ffffff", // Maze Walls
+        "lgrey": "#FFFFFF", // Maze Walls
 
         "lgreen": "#ff6347", // Health Bars, Shiny Polygons
         "teal": "#721970", // Shield Bars, Legendary Polygons
 
         "guiwhite": "#fed8b1", // Text
         "white": "#ff9b58", // Arena Background
-        "grey": "#ffffff", // Barrels, Bar Backgrounds
+        "grey": "#FFFFFF", // Barrels, Bar Backgrounds
         "black": "#484848", // Borders
         "guiblack": "#000000", // Grid
         "paletteSize": 20,

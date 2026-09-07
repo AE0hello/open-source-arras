@@ -219,7 +219,7 @@ class Siege {
         entity.SIZE = this.room.tileWidth / Config.sanctuary_size ?? 13.5;
         entity.isDominator = true;
         entity.displayName = true;
-        entity.nameColor = "#ffffff";
+        entity.nameColor = "#FFFFFF";
         entity.define({ DANGER: 11 });
     }
 

@@ -437,7 +437,7 @@ const global = {
             time: 0,
             screenWidth: global.screenWidth,
             screenHeight: global.screenHeight,
-            nameColor: "#ffffff",
+            nameColor: "#FFFFFF",
         }
         list.animv.add(list.renderv);
         return list;

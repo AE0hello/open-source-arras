@@ -70,7 +70,7 @@ class Entity extends EventEmitter {
         this.SIZE = 1;
         this.sizeMultiplier = 1;
         this.define("genericEntity");
-        this.nameColor = "#ffffff";
+        this.nameColor = "#FFFFFF";
         // Initalize physics and collision
         this.alwaysShowOnMinimap = false;
         this.allowedOnMinimap = true;
@@ -762,7 +762,7 @@ class Entity extends EventEmitter {
             color: this.color.compiled,
             borderless: this.borderless,
             drawFill: this.drawFill,
-            name: (this.nameColor || "#ffffff") + this.name,
+            name: (this.nameColor || "#FFFFFF") + this.name,
             score: this.settings.scoreLabel || score,
             guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
             turrets: turretsAndProps.map(turret => turret.camera()),

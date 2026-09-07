@@ -233,7 +233,7 @@ import * as socketStuff from "./socketinit.js";
                     global.createTabMenu(`Open Source Arras ${global.version} (dev build)`, "warning", true);
                 }
                 // Addon info handler
-                let keyValue = localStorage.getItem('playerKeyInputValue');
+                let keyValue = localStorage.getItem("playerKeyInputValue");
                 (async function() {
                     let A_response = await fetch(`/api/getAddonAuthors?token=${keyValue}`);
                     let A_data = await A_response.json().catch(() => false);
@@ -394,7 +394,7 @@ import * as socketStuff from "./socketinit.js";
             let targetVer = document.createElement("ul");
 
             name.textContent = e.name;
-            addonVer.textContent = 'Version: ';
+            addonVer.textContent = "Version: ";
             versionValue.textContent = `${e["addon-version"]}`;
             addonVer.appendChild(versionValue);
             author.textContent = "Author(s): ";
@@ -594,7 +594,7 @@ import * as socketStuff from "./socketinit.js";
                 snowCanvas.width !== window.innerWidth && (snowCanvas.width = window.innerWidth);
                 snowCanvas.height !== window.innerHeight && (snowCanvas.height = window.innerHeight);
                 b.clearRect(0, 0, snowCanvas.width, snowCanvas.height);
-                b.fillStyle = "#ffffff";
+                b.fillStyle = "#FFFFFF";
                 for (let snow of snows) {
                 snow.x += 5 / snow.speed + Math.random();
                 snow.y += 12.5 / snow.speed + Math.random();
@@ -870,7 +870,7 @@ import * as socketStuff from "./socketinit.js";
             var stripped = string.replace(/\s+/g, "");
             2 == stripped.length % 4 ? (stripped += "==") : 3 == stripped.length % 4 && (stripped += "=");
             let data = atob(stripped);
-            let name = 'Unknown Theme',
+            let name = "Unknown Theme",
                 author = '';
             let index = data.indexOf('\x00');
             if (index === -1) return null;
@@ -923,9 +923,9 @@ import * as socketStuff from "./socketinit.js";
         // Decode from JSON
         try {
             let output = JSON.parse(string);
-            if (typeof output !== 'object')
+            if (typeof output !== "object")
                 return null;
-            let { name = 'Unknown Theme', author = '', content } = output;
+            let { name = "Unknown Theme", author = '', content } = output;
             for (let colorHex of [
                 content.teal,
                 content.lgreen,
@@ -961,23 +961,23 @@ import * as socketStuff from "./socketinit.js";
                         if (logError) {
                             throw new Error("Unable to read the theme");
                         } else return {
-                            name: 'Unknown Theme',
-                            author: '?',
+                            name: "Unknown Theme",
+                            author: "?",
                             content: null,
                         }
                     }
                 };
             }
             return {
-                name: (typeof name === 'string' && name) || 'Unnamed Theme',
-                author: (typeof author === 'string' && author) || '',
+                name: (typeof name === "string" && name) || "Unnamed Theme",
+                author: (typeof author === "string" && author) || '',
                 content,
             }
         } catch (e) { logError && alert("An error has accoured while reading your theme, it may be corrupted or outdated."); }
 
         return {
-            name: 'Unknown Theme',
-            author: '?',
+            name: "Unknown Theme",
+            author: "?",
             content: null,
         };
     }
@@ -1667,7 +1667,7 @@ import * as socketStuff from "./socketinit.js";
 
     function drawBar(x1, x2, y, width, color, context = ctx[2]) {
         context.beginPath();
-        context.lineCap = 'round';
+        context.lineCap = "round";
         context.lineWidth = width;
         if (color) context.strokeStyle = color;
         context.moveTo(x1, y);
@@ -1895,7 +1895,7 @@ import * as socketStuff from "./socketinit.js";
                         );
                 } else {
                     if ("string" === typeof sides) {
-                        if (sides.startsWith('image=')) {
+                        if (sides.startsWith("image=")) {
                             const defaultDirectory = sides.startsWith("image=/");
                             const clientRootDirectory = sides.startsWith("image=./");
                             const onlineDirectory = sides.startsWith("image=https");
@@ -1921,17 +1921,12 @@ import * as socketStuff from "./socketinit.js";
                             context.translate(-centerX, -centerY);
                             return;
                         }
-                        if (sides.startsWith('3d=')) {
+                        if (sides.startsWith("3d=")) {
                             let polygon3d = drawPoly3D.get(sides);
                             if (!polygon3d) {
-                                let dividedParts = sides.slice(3).split('/');
-                                let vertexesRaw = dividedParts[0].split(',').map(Number);
-                                if (vertexesRaw.length % 3 != 0) {
-                                    throw new Error(
-                                        '3D Shape cannot be rendered. Vertexes count: ' +
-                                            vertexesRaw.length / 3
-                                    );
-                                }
+                                let dividedParts = sides.slice(3).split("/");
+                                let vertexesRaw = dividedParts[0].split(",").map(Number);
+                                if (vertexesRaw.length % 3 != 0) throw new Error(`3D Shape cannot be rendered. Vertexes count: ${vertexesRaw.length / 3}`);
                                 let vertexes = Array(vertexesRaw.length / 3);
                                 for (let i = 0; i < vertexesRaw.length; i += 3) {
                                     vertexes[i / 3] = {
@@ -1940,19 +1935,19 @@ import * as socketStuff from "./socketinit.js";
                                         z: vertexesRaw[i + 2]
                                     };
                                 }
-                                let indicesRaw = dividedParts[1].split(';');
+                                let indicesRaw = dividedParts[1].split(";");
                                 let indices = [];
                                 for (let i = 0; i < indicesRaw.length; ++i) {
-                                    indices.push(indicesRaw[i].split(',').map(Number));
+                                    indices.push(indicesRaw[i].split(",").map(Number));
                                 }
                                 // Optional 4th "/" segment: one colour per face (e.g. "pureWhite,pureBlack,...").
                                 let faceColors = null;
                                 if (dividedParts[3]) {
-                                    faceColors = dividedParts[3].split(',').map(tok => {
-                                        tok = (tok || '').trim();
+                                    faceColors = dividedParts[3].split(",").map(tok => {
+                                        tok = (tok || "").trim();
                                         if (!tok) return null;
                                         try {
-                                            return gameDraw.modifyColor(tok.includes(' ') ? tok : tok + ' 0 1 0 false');
+                                            return gameDraw.modifyColor(tok.includes(" ") ? tok : tok + " 0 1 0 false");
                                         } catch (e) { return null; }
                                     });
                                 }
@@ -1999,17 +1994,12 @@ import * as socketStuff from "./socketinit.js";
                             if (polygon3d.faceColors) context.fillStyle = defaultFill;
                             return;
                         }
-                        if (sides.startsWith('4d=')) {
+                        if (sides.startsWith("4d=")) {
                             let polygon4d = drawPoly4D.get(sides);
                             if (!polygon4d) {
-                                let dividedParts = sides.slice(3).split('/');
-                                let vertexesRaw = dividedParts[0].split(',').map(Number);
-                                if (vertexesRaw.length % 4 != 0) {
-                                    throw new Error(
-                                        '4D Shape cannot be rendered. Vertexes count: ' +
-                                            vertexesRaw.length / 4
-                                    );
-                                }
+                                let dividedParts = sides.slice(3).split("/");
+                                let vertexesRaw = dividedParts[0].split(",").map(Number);
+                                if (vertexesRaw.length % 4 != 0) throw new Error(`4D Shape cannot be rendered. Vertexes count: ${vertexesRaw.length / 4}`);
                                 let vertexes = Array(vertexesRaw.length / 4);
                                 for (let i = 0; i < vertexesRaw.length; i += 4) {
                                     vertexes[i / 4] = {
@@ -2019,18 +2009,18 @@ import * as socketStuff from "./socketinit.js";
                                         w: vertexesRaw[i + 3]
                                     };
                                 }
-                                let indicesRaw = dividedParts[1].split(';');
+                                let indicesRaw = dividedParts[1].split(";");
                                 let indices = [];
                                 for (let i = 0; i < indicesRaw.length; ++i) {
-                                    indices.push(indicesRaw[i].split(',').map(Number));
+                                    indices.push(indicesRaw[i].split(",").map(Number));
                                 }
                                 let faceColors = null;
                                 if (dividedParts[3]) {
-                                    faceColors = dividedParts[3].split(',').map(tok => {
+                                    faceColors = dividedParts[3].split(",").map(tok => {
                                         tok = (tok || '').trim();
                                         if (!tok) return null;
                                         try {
-                                            return gameDraw.modifyColor(tok.includes(' ') ? tok : tok + ' 0 1 0 false');
+                                            return gameDraw.modifyColor(tok.includes(" ") ? tok : tok + " 0 1 0 false");
                                         } catch (e) { return null; }
                                     });
                                 }
@@ -2165,7 +2155,7 @@ import * as socketStuff from "./socketinit.js";
                 context.lineJoin = "round";
             } catch (e) { // this actually prevents to panic the client. so we will just call "resizeEvent()".
                 resizeEvent();
-                console.error("Uh oh, 'CanvasRenderingContext2D' has gotton an error! Error: " + e);
+                console.error(`CanvasRenderingContext2D error: ${e}`);
             }
         },
         // Draw gun function, (AKA: drawTrapezoid)
@@ -2490,7 +2480,7 @@ import * as socketStuff from "./socketinit.js";
           (((color1 & 255) * e + (color2 & 255) * d) & 255)
         )
           .toString(16)
-          .padStart(6, '0')
+          .padStart(6, "0")
       );
     }
     function getOldIconColor(index) {
@@ -2616,15 +2606,15 @@ import * as socketStuff from "./socketinit.js";
                             tile.renderImage = new Image();
                             tile.renderImage.src = `img/${tile.image}`;
                             tile.renderImage.onerror = () => {
-                                console.warn(`Failed to get ${tile.image}! If you are the developer of this game, make sure that you typed the path correctly. Using unknown image.`)
-                                tile.renderImage.src = `img/missingno.png`;
+                                console.warn(`Failed to get ${tile.image}, using fallback texture.`)
+                                tile.renderImage.src = "img/missingno.png";
                             }
                         };
                         ctx[0].drawImage(tile.renderImage, top, bottom, left - top, right - bottom);
                     }
 
                     ctx[0].globalAlpha = 0.3;
-                    if (tile.color == 'none') tile.color = 'border';
+                    if (tile.color == "none") tile.color = "border";
                     let tileColor = gameDraw.getColor(tile.color, true);
                     // If not default tile color, draw that tile!
                     if (tileColor !== color.white) {
@@ -2911,7 +2901,7 @@ import * as socketStuff from "./socketinit.js";
             // Show only basic if no results found
             filteredTiles = tiles.filter(tile => {
                 const mockup = global.mockups[parseInt(tile.index)];
-                return mockup && mockup.className === 'basic';
+                return mockup && mockup.className === "basic";
             });
         }
 
@@ -2954,7 +2944,7 @@ import * as socketStuff from "./socketinit.js";
         }
 
         if (!tankTree) {
-            console.log('No class tree rendered yet.');
+            console.log("No class tree rendered yet.");
             return;
         }
         // Draw semi-transparent overlay
@@ -3371,8 +3361,8 @@ import * as socketStuff from "./socketinit.js";
                 var namecolor = instance.name.substring(0, 7);
                 ctx[1].globalAlpha = alpha * alpha * fade;
                 let g = Math.max(20, size);
-                if (global.GUIStatus.renderPlayerNames) drawText(name, x, y - g * (global.GUIStatus.renderPlayerScores ? 1.9 : 1.45), 0.55 * g, namecolor == "#ffffff" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1]);
-                if (global.GUIStatus.renderPlayerScores || typeof instance.score === "string") drawText(typeof instance.score === "string" ? instance.score : util.handleLargeNumber(instance.score, 1), x, y - 1.45 * g, 0.3 * g, namecolor == "#ffffff" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1]);
+                if (global.GUIStatus.renderPlayerNames) drawText(name, x, y - g * (global.GUIStatus.renderPlayerScores ? 1.9 : 1.45), 0.55 * g, namecolor == "#FFFFFF" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1]);
+                if (global.GUIStatus.renderPlayerScores || typeof instance.score === "string") drawText(typeof instance.score === "string" ? instance.score : util.handleLargeNumber(instance.score, 1), x, y - 1.45 * g, 0.3 * g, namecolor == "#FFFFFF" ? color.guiwhite : namecolor, "center", false, 1, true, ctx[1]);
                 ctx[1].globalAlpha = 1;
             }
         }
@@ -3524,7 +3514,7 @@ import * as socketStuff from "./socketinit.js";
         drawText("Score: " + util.formatLargeNumber(Math.round(gui.__s.getScore())), x + width / 2 - scorelength, y + height / 2 + extraHeight, config.graphical.oldUIStyle ? 12.5 : 13, color.guiwhite, "center");
         ctx[2].lineWidth = 4;
         var name = global.player.name.substring(7, global.player.name.length + 1);
-        drawText(name, Math.round(x + width / 2) + 1.5, Math.round(y - 10 - 4) - 1, 31, global.nameColor == "#ffffff" ? color.guiwhite : global.nameColor, "center");
+        drawText(name, Math.round(x + width / 2) + 1.5, Math.round(y - 10 - 4) - 1, 31, global.nameColor == "#FFFFFF" ? color.guiwhite : global.nameColor, "center");
     }
 
     function handleSpeedMonitor() {
@@ -3598,7 +3588,7 @@ import * as socketStuff from "./socketinit.js";
                             drawGuiRect(minimapX, minimapY, cellWidth, cellHeight);
                         } else {
                             let color = cell.color;
-                            if (color == 'none') cell.color = 'pureBlack';
+                            if (color == "none") cell.color = "pureBlack";
                             if (cell.renderImage) {
                                 ctx[2].globalAlpha = 1;
                                 ctx[2].drawImage(cell.renderImage, minimapX, minimapY, cellWidth, cellHeight);
@@ -3814,7 +3804,7 @@ import * as socketStuff from "./socketinit.js";
                 let overwritelabel = entry.label.includes("#")
                     ? entry.label.replace("##", Math.round(entry.score).toString()).replace("#s", 1 === Math.round(entry.score) ? "" : "s")
                     : false;
-                drawText(overwritelabel ? overwritelabel : entry.label + (": " + util.handleLargeNumber(Math.round(entry.score))), entryX + len / 2, entryY + height / 2, height - 4.5, nameColor == "#ffffff" ? color.guiwhite : nameColor, "center", true);
+                drawText(overwritelabel ? overwritelabel : entry.label + (": " + util.handleLargeNumber(Math.round(entry.score))), entryX + len / 2, entryY + height / 2, height - 4.5, nameColor == "#FFFFFF" ? color.guiwhite : nameColor, "center", true);
 
                 // Mini-image
                 if (entry.renderEntity) {
@@ -3963,7 +3953,7 @@ import * as socketStuff from "./socketinit.js";
         );
 
         ctx[2].globalAlpha = 0.3;
-        ctx[2].fillStyle = "#ffffff";
+        ctx[2].fillStyle = "#FFFFFF";
         ctx[2].beginPath();
         ctx[2].arc(
             (global.screenWidth * 1) / 6,
@@ -3981,7 +3971,7 @@ import * as socketStuff from "./socketinit.js";
         );
         ctx[2].fill();
         ctx[2].globalAlpha = 0.5;
-        ctx[2].fillStyle = "#ffffff";
+        ctx[2].fillStyle = "#FFFFFF";
         ctx[2].beginPath();
         if (global.mobileStatus.showJoysticks && global.canvas.movementTouchPos) {
             ctx[2].arc(
@@ -4677,7 +4667,7 @@ import * as socketStuff from "./socketinit.js";
         const topY = arrowCenterY - arrowH / 2;
         const botY = arrowCenterY + arrowH / 2;
 
-        ctx[2].fillStyle = "#ffffff";
+        ctx[2].fillStyle = "#FFFFFF";
         ctx[2].lineJoin = "round";
         ctx[2].lineCap = "round";
         ctx[2].lineWidth = 3;
@@ -4688,7 +4678,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].lineTo(leftX, botY);
         ctx[2].closePath();
         ctx[2].fill();
-        ctx[2].strokeStyle = "#ffffff";
+        ctx[2].strokeStyle = "#FFFFFF";
         ctx[2].stroke();
 
         ctx[2].restore();
@@ -5086,7 +5076,7 @@ import * as socketStuff from "./socketinit.js";
                     drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
 
                     if (isOn) {
-                        ctx[2].strokeStyle = "#ffffff";
+                        ctx[2].strokeStyle = "#FFFFFF";
                         ctx[2].lineWidth = 3;
                         ctx[2].beginPath();
                         ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
@@ -5109,7 +5099,7 @@ import * as socketStuff from "./socketinit.js";
                     height += 25;
                 }
                 const bottomPos = cb.optionService.y + 25 + height;
-                if (bottomPos > global.screenHeight && cb.location === 'auto') {
+                if (bottomPos > global.screenHeight && cb.location === "auto") {
                     above = true;
                 }
                 if (cb.optionService.opened) {
@@ -5252,7 +5242,7 @@ import * as socketStuff from "./socketinit.js";
         gameDraw.setColor(ctx[2], color.black);
         drawGuiRect(closeX, closeY, CLOSE_SIZE, CLOSE_SIZE, true);
 
-        ctx[2].strokeStyle = "#ffffff";
+        ctx[2].strokeStyle = "#FFFFFF";
         ctx[2].lineWidth = 4;
         ctx[2].beginPath();
         ctx[2].moveTo(closeX + 8, closeY + 8);

@@ -730,7 +730,7 @@ class Canvas {
                 capture: () => {
                     ctx.canvas.width = this.cv.width; // Set Width
                     ctx.canvas.height = this.cv.height; // Set Height
-                    ctx.fillStyle = "#ffffff"
+                    ctx.fillStyle = "#FFFFFF"
                     ctx.fillRect(0, 0, this.cv.width, this.cv.height);
                     toMerge.forEach(layer => {
                         if (layer) ctx.drawImage(layer, 0, 0);

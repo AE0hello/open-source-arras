@@ -141,7 +141,7 @@ Class.roaringHat = {
 }
 Class.roaringHat2 = {
     PARENT: 'circleHat',
-    COLOR: '#ffffff',
+    COLOR: '#FFFFFF',
     BORDERLESS: true
 }
 Class.roaringLancer = {
@@ -217,7 +217,7 @@ Class.roaringLancer = {
                 ASPECT: -55
             },
             PROPERTIES: {
-                COLOR: '#ffffff',
+                COLOR: '#FFFFFF',
                 BORDERLESS: true
             }
         },

@@ -1783,7 +1783,7 @@ class socketManager {
                         entry.name === "" ? entry.label : entry.name,
                         entry.color.compiled,
                         entry.color.compiled,
-                        "#ffffff",
+                        "#FFFFFF",
                         Class.hp.LABEL,
                         false,
                     ]
@@ -1862,7 +1862,7 @@ class socketManager {
                       teamNames[i],
                       getTeamColor(-i - 1, true),
                       getTeamColor(-i - 1, true),
-                      "#ffffff",
+                      "#FFFFFF",
                       Class.tagMode.LABEL,
                       false,
                     ],
@@ -1883,7 +1883,7 @@ class socketManager {
                                 teamNames[i],
                                 getTeamColor(-i - 1, true),
                                 getTeamColor(-i - 1, true),
-                                "#ffffff",
+                                "#FFFFFF",
                                 Class.hp.LABEL,
                                 false,
                             ]

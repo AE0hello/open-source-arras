@@ -186,7 +186,7 @@ var gameDraw = {
 
         lesbian_magenta = "#a50062",
         lesbian_oredange = "#d62900",
-        lesbian_white = "#ffffff",
+        lesbian_white = "#FFFFFF",
         lesbian_useSecondSet = five_bars < 2,
 
         gay_transition = (now / 2000) % 1,
@@ -197,7 +197,7 @@ var gameDraw = {
 
         trans_pink = "#f7a8b8",
         trans_blue = "#55cdfc",
-        trans_white = "#ffffff";
+        trans_white = "#FFFFFF";
 
         gameDraw.animatedColor.lesbian = gameDraw.getRainbow(lesbian_useSecondSet ? lesbian_oredange : lesbian_white, lesbian_useSecondSet ? lesbian_white : lesbian_magenta, (lesbian_useSecondSet ? five_bars : five_bars - 3) / 2);
         gameDraw.animatedColor.gay = gameDraw.hslToRgb(gay_transition, 0.75, 0.5);

@@ -465,7 +465,7 @@ Class.menu_youtuber = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: ['bullet', {COLOR: '#ffffff'}],
+                TYPE: ['bullet', {COLOR: '#FFFFFF'}],
             }
         }
     ]

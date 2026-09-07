@@ -23,7 +23,7 @@ let Portal = class {
         this.ip = ip;
         this.body = null;
     }
-    spawn(loc, color = "#ffffff", duration) {
+    spawn(loc, color = "#FFFFFF", duration) {
         if (loc.data) loc.data.has_portal = true;
         this.body = new Entity(loc.data ? loc.randomInside() : loc);
         this.body.define("serverPortal");
