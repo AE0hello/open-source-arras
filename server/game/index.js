@@ -19,8 +19,8 @@ class gameHandler {
         if (instance.noclip || other.noclip) return 0;
 
         // Emit collision events
-        instance.emit('collide', { body: instance, instance, other });
-        other.emit('collide', { body: other, instance: other, other: instance });
+        instance.emit("collide", { body: instance, instance, other });
+        other.emit("collide", { body: other, instance: other, other: instance });
         // Custom tick handlers for bullet entities
         if (instance.tickHandler) instance.tickHandler(instance, instance, other);
         if (other.tickHandler) other.tickHandler(other, other, instance);
@@ -130,7 +130,7 @@ class gameHandler {
                 break;
             case instance.settings.hitsOwnType === other.settings.hitsOwnType:
                 switch (instance.settings.hitsOwnType) {
-                    case 'assembler': {
+                    case "assembler": {
                         if (instance.assemblerLevel == null) instance.assemblerLevel = 1;
                         if (other.assemblerLevel == null) other.assemblerLevel = 1;
                         const [target1, target2] = (instance.id > other.id) ? [instance, other] : [other, instance];
@@ -146,16 +146,16 @@ class gameHandler {
                         }
                         const better = (state) => (target1[state] > target2[state] ? target1[state] : target2[state]);
                         target1.assemblerLevel = Math.min(target2.assemblerLevel + target1.assemblerLevel, 10);
-                        target1.SIZE = better('SIZE') * 1.15;
-                        target1.SPEED = better('SPEED') * 0.9;
-                        target1.HEALTH = better('HEALTH') * 1.2;
+                        target1.SIZE = better("SIZE") * 1.15;
+                        target1.SPEED = better("SPEED") * 0.9;
+                        target1.HEALTH = better("HEALTH") * 1.2;
                         target1.health.amount = target1.health.max;
-                        target1.DAMAGE = better('DAMAGE') * 1.1;
+                        target1.DAMAGE = better("DAMAGE") * 1.1;
                         target2.kill();
                         target1.refreshBodyAttributes();
                         for (let i = 0; i < 10; ++i) {
                             const o = new Entity(target1, target1);
-                            o.define('assemblerEffect');
+                            o.define("assemblerEffect");
                             o.team = target1.team;
                             o.color = target1.color;
                             o.SIZE = target1.SIZE / 1.5;
@@ -270,7 +270,7 @@ class gameHandler {
             instance.activation.update();
             logs.activation.mark();
 
-            instance.emit('tick', { body: instance });
+            instance.emit("tick", { body: instance });
         }
         logs.entities.mark();
         logs.master.mark();
@@ -408,10 +408,10 @@ class gameHandler {
                     }
 
                     this.naturallySpawnedBosses.push(boss);
-                    boss.on('dead', () => util.remove(this.naturallySpawnedBosses, this.naturallySpawnedBosses.indexOf(boss)));
+                    boss.on("dead", () => util.remove(this.naturallySpawnedBosses, this.naturallySpawnedBosses.indexOf(boss)));
                 }
 
-                global.gameManager.socketManager.broadcast(`${util.listify(names)} ${names.length == 1 ? 'has' : 'have'} arrived!`);
+                global.gameManager.socketManager.broadcast(`${util.listify(names)} ha${names.length == 1 ? "s" : "ve"} arrived!`);
             }, Config.boss_spawn_delay * 30);
         }
     };
@@ -450,7 +450,7 @@ class gameHandler {
         o.name = botName;
         o.invuln = true;
         o.leftoverUpgrades = ran.chooseChance(...Config.bot_class_upgrade_chances);
-        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : 'red';
+        let color = Config.random_body_colors ? Math.floor(Math.random() * 20) : team ? getTeamColor(team) : "red";
         o.color.base = color;
         o.leaderboardColor = color;
         o.minimapColor = color;

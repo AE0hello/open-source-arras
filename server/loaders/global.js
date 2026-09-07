@@ -1,6 +1,6 @@
 // Global Variables (These must come before we import from the modules folder.)
-let EventEmitter = require('events');
-const HashGrid = require('../lib/hashgrid.js');
+let EventEmitter = require("events");
+const HashGrid = require("../lib/hashgrid.js");
 global.Events = new EventEmitter();
 global.Config = require("../config.js");
 
@@ -128,7 +128,7 @@ global.ensureIsClass = str => {
 
 global.ensureIsManager = str => {
     if ("undefined" == typeof str) {
-        console.error(`No game manager detected! Please check your code.`);
+        console.error("No game manager detected! Please check your code.");
         throw new Error("No game manager detected!");
     }
     return str;
@@ -210,7 +210,7 @@ global.bringToLife = (() => {
             let waitSec = Math.ceil(Config.upgrade_delay / 1000);
             if (my.index !== my.upgradePending.lastIndex) {
                 my.upgradePending = undefined;
-                my.sendMessage('Upgrade cancelled.');
+                my.sendMessage("Upgrade cancelled.");
                 return;
             }
             if (my.inBase() || now - lastAction >= Config.upgrade_delay) {
@@ -243,14 +243,14 @@ global.runMove = (() => {
         if (gactive && my.lastMovementTime) my.lastMovementTime = now;
         if (my.control.fire && my.lastFiredTime) my.lastFiredTime = now;
         switch (my.motionType) {
-            case 'grow':
+            case "grow":
                 my.SIZE += my.motionTypeArgs.speed ?? 1;
                 break;
-            case 'glide':
+            case "glide":
                 my.maxSpeed = my.topSpeed;
                 my.damp = my.motionTypeArgs.damp ?? 0.05;
                 break;
-            case 'motor':
+            case "motor":
                 my.maxSpeed = 0;
                 if (my.topSpeed) {
                     my.damp = a / my.topSpeed;
@@ -260,7 +260,7 @@ global.runMove = (() => {
                     engine = { x: a * g.x / len, y: a * g.y / len, };
                 }
                 break;
-            case 'swarm':
+            case "swarm":
                 my.maxSpeed = my.topSpeed;
                 let l = util.getDistance({ x: 0, y: 0, }, g) + 1;
                 if (gactive && l > my.size) {
@@ -280,7 +280,7 @@ global.runMove = (() => {
                     }
                 }
                 break;
-            case 'chase':
+            case "chase":
                 if (gactive) {
                     let l = util.getDistance({ x: 0, y: 0, }, g);
                     if (l > my.size * 2) {
@@ -308,7 +308,7 @@ global.runMove = (() => {
                     }
                 } else my.maxSpeed = 0;
                 break;
-            case 'drift':
+            case "drift":
                 my.maxSpeed = 0;
                 engine = { x: g.x * a, y: g.y * a, };
                 break;
@@ -354,18 +354,18 @@ global.runFace = (() => {
             case "spinWhenIdle":
                 if (t && my.control.fire) my.facing = Math.atan2(t.y, t.x); else my.facing += (my.facingTypeArgs.speed ?? 0.05) / global.gameManager.runSpeed;
                 break;
-            case 'turnWithSpeed':
+            case "turnWithSpeed":
                 my.facing += my.velocity.length / 90 * Math.PI / global.gameManager.roomSpeed * (my.facingTypeArgs.multiplier ?? 1);
                 break;
-            case 'withMotion':
+            case "withMotion":
                 my.facing = my.velocity.direction;
                 break;
-            case 'smoothWithMotion':
-            case 'looseWithMotion':
+            case "smoothWithMotion":
+            case "looseWithMotion":
                 my.facing += util.loopSmooth(my.facing, my.velocity.direction, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
                 break;
-            case 'withTarget':
-            case 'toTarget':
+            case "withTarget":
+            case "toTarget":
                 if (my.eastereggs.braindamage) return;
                 if (my.isPlayer) {
                     let reverse = my.reverseTargetWithTank ? 1 : my.reverseTank;
@@ -374,28 +374,26 @@ global.runFace = (() => {
                     my.facing = Math.atan2(t.y, t.x);
                 }
                 break;
-            case 'locksFacing':
+            case "locksFacing":
                 if (!my.control.alt) my.facing = Math.atan2(t.y, t.x);
                 break;
-            case 'looseWithTarget':
-            case 'looseToTarget':
-            case 'smoothToTarget':
+            case "looseWithTarget":
+            case "looseToTarget":
+            case "smoothToTarget":
                 my.facing += util.loopSmooth(my.facing, Math.atan2(t.y, t.x), (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.roomSpeed);
                 break;
             case "noFacing":
                 if (my.lastSavedFacing !== my.facing) my.facing = my.facingTypeArgs.angle ?? 0;
                 my.lastSavedFacing = my.facing;
                 break;
-            case 'bound':
+            case "bound":
                 defaultBound();
                 break;
             case "spinOnFire":
                 if (t && my.control.fire) my.facing += util.loopSmooth(my.facing, my.facing += 1, (my.facingTypeArgs.smoothness ?? 4) / global.gameManager.runSpeed); else defaultBound();
                 break;
             case "manual":
-                if ((my.facingTypeArgs.angle ?? 0) !== my.facing) {
-                    my.facing = my.facingTypeArgs.angle;
-                }
+                if ((my.facingTypeArgs.angle ?? 0) !== my.facing) my.facing = my.facingTypeArgs.angle;
                 break;
         }
         // Loop
@@ -489,7 +487,7 @@ global.defineSplit = (() => {
         }
         if (set.BATCH_UPGRADES != null) my.batchUpgrades = set.BATCH_UPGRADES;
         for (const prop in set) {
-            if (!prop.startsWith('UPGRADES_TIER_')) {
+            if (!prop.startsWith("UPGRADES_TIER_")) {
                 continue;
             }
             for (let j = 0; j < set[prop].length; j++) {
@@ -502,7 +500,7 @@ global.defineSplit = (() => {
                     let e = ensureIsClass(k);
                     index += e.index + "-";
                 }
-                let i = parseInt(prop.split('_')[2])
+                let i = parseInt(prop.split("_")[2])
                 my.upgrades.push({
                     class: trueUpgrades,
                     level: Config.tier_multiplier * i,
@@ -539,7 +537,7 @@ global.handleBatchUpgradeSplit = (() => {
                 upgradeIndex = "";
             for (let u of my.selection) {
                 upgradeClass.push(u.class);
-                upgradeIndex += u.index + '-';
+                upgradeIndex += u.index + "-";
                 upgradeTier = Math.max(upgradeTier, u.tier);
             }
             my.upgrades.push({
@@ -666,17 +664,17 @@ global.makeHitbox = wall => {
 }
 
 global.wallTypes = [
-    { color: 16, label: 'Wall',    alpha: 1, class: 'wall' },
-    { color: 12, label: 'deadly',  alpha: 1, class: 'deadlyWall' },
-    { color: 11, label: 'heal',    alpha: 1, class: 'healingWall' },
-    { color: 19, label: 'bouncy',  alpha: 1, class: 'bouncyWall' },
-    { color: 5,  label: 'breaker', alpha: 1, class: 'breakerWall' },
-    { color: 0,  label: 'chunks',  alpha: 1, class: 'chunksWall' },
-    { color: 13, label: 'optical', alpha: 1, class: 'opticalWall' },
-    { color: 17, label: '!up',     alpha: 1, class: 'oneWayWallUp' },
-    { color: 17, label: '!down',   alpha: 1, class: 'oneWayWallDown' },
-    { color: 17, label: '!left',   alpha: 1, class: 'oneWayWallLeft' },
-    { color: 17, label: '!right',  alpha: 1, class: 'oneWayWallRight' },
+    { color: 16, label: "Wall",    alpha: 1, class: "wall" },
+    { color: 12, label: "deadly",  alpha: 1, class: "deadlyWall" },
+    { color: 11, label: "heal",    alpha: 1, class: "healingWall" },
+    { color: 19, label: "bouncy",  alpha: 1, class: "bouncyWall" },
+    { color: 5,  label: "breaker", alpha: 1, class: "breakerWall" },
+    { color: 0,  label: "chunks",  alpha: 1, class: "chunksWall" },
+    { color: 13, label: "optical", alpha: 1, class: "opticalWall" },
+    { color: 17, label: "!up",     alpha: 1, class: "oneWayWallUp" },
+    { color: 17, label: "!down",   alpha: 1, class: "oneWayWallDown" },
+    { color: 17, label: "!left",   alpha: 1, class: "oneWayWallLeft" },
+    { color: 17, label: "!right",  alpha: 1, class: "oneWayWallRight" },
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {
@@ -720,6 +718,6 @@ global.loadAllMockups = (logText = true) => {
     if (logText) console.log("Started Loading All Mockups...");
     for (let k in Class) buildMockup(k, false);
     let mockupsLoadEndTime = performance.now();
-    if (logText) console.log("Finished created " + mockupData.length + " MockupEntities.");
-    if (logText) console.log("Mockups generated in " + util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3) + " milliseconds.\n");
+    if (logText) console.log(`Loaded ${mockupData.length} MockupEntities.`);
+    if (logText) console.log(`Mockups generated in ${util.rounder(mockupsLoadEndTime - mockupsLoadStartTime, 3)} milliseconds.\n`);
 }

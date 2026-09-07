@@ -52,7 +52,7 @@ function firmcollide(my, n, buffer = 0) {
         n.velocity.x += adjustX;
         n.velocity.y += adjustY;
     }
-    if (my.label.includes("Spike") && n.label.includes("Spike")) {
+    if (my.label.includes("Spike") && n.label.includes("Spike")) { //TODO: Make this a check for some property like "BOUNCY" instead of hardcoding for Spike
         const bounceFactor = 5;
         const dx = my.x - n.x;
         const dy = my.y - n.y;
@@ -242,9 +242,9 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
         };
         /********** DO DAMAGE *********/
         let bail = false;
-        if (n.type === 'food' && my.settings.necroTypes.includes(n.shape)) {
+        if (n.type === "food" && my.settings.necroTypes.includes(n.shape)) {
             bail = my.necro(n);
-        } else if (my.type === 'food' && n.settings.necroTypes.includes(my.shape)) {
+        } else if (my.type === "food" && n.settings.necroTypes.includes(my.shape)) {
             bail = n.necro(my);
         }
         if (!bail && !my.invuln && !n.invuln) {
@@ -363,7 +363,7 @@ function mooncollide(moon, bounce) {
     if (collisionRadius >= properCollisionRadius) return;
     
     // Get elasticity
-    let elasticity = bounce.type == 'tank' ? 0 : bounce.type == "bullet" ? 1 : bounce.pushability;
+    let elasticity = bounce.type == "tank" ? 0 : bounce.type == "bullet" ? 1 : bounce.pushability;
 
     // Place at edge of the moon
     let angleFromMoonToBounce = Math.atan2(bounce.y - moon.y, bounce.x - moon.x);
@@ -390,7 +390,7 @@ function mooncollide(moon, bounce) {
 }
 
 function mazewallcollidekill(bounce, wall) {
-    if (bounce.type !== 'tank' && bounce.type !== 'miniboss' && bounce.type !== 'food' && bounce.type !== 'crasher') {
+    if (bounce.type !== "tank" && bounce.type !== "miniboss" && bounce.type !== "food" && bounce.type !== "crasher") {
         bounce.destroy();
     } else {
         bounce.collisionArray.push(wall);
@@ -461,7 +461,7 @@ function mazewallcollide(wall, bounce) {
 function mazewallcustomcollide(wall, bounce) {
     /* By LA3T */
     if (!bounce || bounce.ac || bounce.passive) return;
-    const canResize = bounce.type === 'tank';
+    const canResize = bounce.type === "tank";
     if (canResize) {
         if (!bounce.originalSize) {
             bounce.originalSize = bounce.SIZE;

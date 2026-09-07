@@ -1,5 +1,5 @@
 let { MockupEntity } = require("./mockupEntity");
-let { getDimensions } = require("./mockup_dimentions.js");
+let { getDimensions } = require("./mockupDimensions.js");
 
 function getMockup(e, positionInfo) {
     let turretsAndProps = e.turrets.concat(e.props);

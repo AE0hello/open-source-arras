@@ -7,7 +7,7 @@ class MockupEntityGun {
             brightnessShift: 0,
             allowBrightnessInvert: false,
         };
-        this.color = '16 0 1 0 false';
+        this.color = "16 0 1 0 false";
         this.alpha = 1;
         this.strokeWidth = 1;
         this.borderless = false;
@@ -81,7 +81,7 @@ class MockupEntityProp {
             brightnessShift: 0,
             allowBrightnessInvert: false,
         };
-        this.color = '16 0 1 0 false';
+        this.color = "16 0 1 0 false";
         this.borderless = false;
         this.drawFill = true;
         this.strokeWidth = 1;
@@ -185,8 +185,8 @@ class MockupEntity {
             brightnessShift: 0,
             allowBrightnessInvert: false,
         };
-        this.color = '16 0 1 0 false';
-        this.glow = { radius: null, color: '16 0 1 0 false', alpha: 1, recursion: 1 };
+        this.color = "16 0 1 0 false";
+        this.glow = { radius: null, color: "16 0 1 0 false", alpha: 1, recursion: 1 };
         this.invisible = [0, 0];
         this.alphaRange = [0, 1];
         this.alpha = 1;
@@ -264,16 +264,16 @@ class MockupEntity {
             this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 2);
         }
         if (set.STAT_NAMES != null) this.settings.skillNames = {
-            body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? 'Body Damage',
-            max_health: set.STAT_NAMES?.MAX_HEALTH ?? 'Max Health',
-            bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? 'Bullet Speed',
-            bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? 'Bullet Health',
-            bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? 'Bullet Penetration',
-            bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? 'Bullet Damage',
-            reload: set.STAT_NAMES?.RELOAD ?? 'Reload',
-            move_speed: set.STAT_NAMES?.MOVE_SPEED ?? 'Movement Speed',
-            shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? 'Shield Regeneration',
-            shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? 'Shield Capacity',
+            body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? "Body Damage",
+            max_health: set.STAT_NAMES?.MAX_HEALTH ?? "Max Health",
+            bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? "Bullet Speed",
+            bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? "Bullet Health",
+            bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? "Bullet Penetration",
+            bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? "Bullet Damage",
+            reload: set.STAT_NAMES?.RELOAD ?? "Reload",
+            move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
+            shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
+            shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity",
         };
         if (set.ALPHA != null) {
             this.alpha = ("number" === typeof set.ALPHA) ? set.ALPHA : set.ALPHA[1];
@@ -299,7 +299,7 @@ class MockupEntity {
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
         for (const prop in set) {
-            if (!prop.startsWith('UPGRADES_TIER_')) {
+            if (!prop.startsWith("UPGRADES_TIER_")) {
                 continue;
             }
             for (let j = 0; j < set[prop].length; j++) {
@@ -312,7 +312,7 @@ class MockupEntity {
                     let e = ensureIsClass(k);
                     index += e.index + "-";
                 }
-                let i = parseInt(prop.split('_')[2])
+                let i = parseInt(prop.split("_")[2])
                 this.upgrades.push({
                     class: trueUpgrades,
                     level: Config.tier_multiplier * i,
@@ -342,7 +342,7 @@ class MockupEntity {
             }
             if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
             for (const prop in set) {
-                if (!prop.startsWith('UPGRADES_TIER_')) {
+                if (!prop.startsWith("UPGRADES_TIER_")) {
                     continue;
                 }
                 for (let j = 0; j < set[prop].length; j++) {

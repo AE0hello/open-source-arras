@@ -131,7 +131,7 @@ const MazeZone = class {
       }
       return squares
     }
-    toString(filled = '[]', unfilled = '--') {
+    toString(filled = "[]", unfilled = "--") {
       let map = Array(this.height).fill().map((_, i) => this.array.map(row => row[i]))
       return [
         `${ this.width }x${ this.height } (${ this.length })`,
@@ -240,7 +240,7 @@ const MazeGenerator = class {
     }
     erodeSym4(side, corner) {
       if (this.width !== this.height)
-        throw new Error('Maze must be a square')
+        throw new Error("Maze must be a square!")
       let size = this.width - 1
       let [x, y] = this.randomErosion(side, corner)
       if (this.staticRand < 0.5) {
@@ -257,7 +257,7 @@ const MazeGenerator = class {
     }
     erodeSym8(side, corner) {
       if (this.width !== this.height)
-        throw new Error('Maze must be a square')
+        throw new Error("Maze must be a square!")
       let size = this.width - 1
       let [x, y] = this.randomErosion(side, corner)
       this.maze[x][y] = false

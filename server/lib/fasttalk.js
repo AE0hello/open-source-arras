@@ -1,4 +1,4 @@
-'use strict'
+"use strict"
 
 let u32 = new Uint32Array(1)
 let c32 = new Uint8Array(u32.buffer)
@@ -52,7 +52,7 @@ let encode = message => {
             typeCode = 0b0000
         } else if (block === 1 || block === true) {
             typeCode = 0b0001
-        } else if (typeof block === 'number') {
+        } else if (typeof block === "number") {
         if (!Number.isInteger(block) || block < -0x100000000 || block >= 0x100000000) {
             typeCode = 0b1000
             contentSize += 4
@@ -79,14 +79,14 @@ let encode = message => {
                 contentSize += 4
             }
         }
-        } else if (typeof block === 'string') {
+        } else if (typeof block === "string") {
             let hasUnicode = false
             for (let i = 0; i < block.length; i++) {
                 if (block.charAt(i) > '\xff') {
                     hasUnicode = true
                 } else if (block.charAt(i) === '\x00') {
-                    console.error('Null containing string', block)
-                    throw new Error('Null containing string')
+                    console.error(`Null containing string ${block}`)
+                    throw new Error("Null containing string")
                 }
             }
             if (!hasUnicode && block.length <= 1) {
@@ -100,14 +100,14 @@ let encode = message => {
                 contentSize += block.length + 1
             }
         } else {
-            console.error("Unencodable data type:", block);
+            console.error(`Unencodable data type: ${block}`);
             let packetType = message[0];
             console.error(`Packet type: ${packetType}`);
             console.error(`Unencoded packet: \n${message.join(' ')}`);
             if (packetType == 'u') {
-                console.error(`\nThis is an uplink (u) packet. Typically, the error comes from an invalid value in the socket's view data, meaning it's related to entities.`);
-                console.error(`For that, check socket.js flatten() for invalid values. These are because the corresponding values in entity.js Entity.prototype.camera() are also invalid.`);
-                console.error(`It's advised to count forwards or backwards from the easily discernable values of 65535 for health/shield fraction and #ffffff (or another color hexcode) for names.\n`);
+                console.error("\nThis is an uplink (u) packet. Typically, the error comes from an invalid value in the socket's view data, meaning it's related to entities.");
+                console.error("For that, check socket.js flatten() for invalid values. These are because the corresponding values in entity.js Entity.prototype.camera() are also invalid.");
+                console.error("It's advised to count forwards or backwards from the easily discernable values of 65535 for health/shield fraction and #ffffff (or another color hexcode) for names.\n");
             }
             throw "Unencodable data type";
         }

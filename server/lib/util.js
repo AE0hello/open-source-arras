@@ -1,9 +1,9 @@
 /* jslint node: true */
 
-'use strict';
+"use strict";
 
 exports.addArticle = string => {
-    let article = /^[aeiou]/i.test(string) ? 'an' : 'a'
+    let article = /^[aeiou]/i.test(string) ? "an" : "a"
     return `${article} ${string}`
 }
 
@@ -18,13 +18,13 @@ exports.clamp = (value, min, max) => Math.min(Math.max(value, min), max)
 exports.lerp = (value, target, scale) => value + scale * (target - value)
 
 exports.listify = list => {
-    if (list.length === 0) return ''
+    if (list.length === 0) return ""
     if (list.length === 1) return list[0]
     if (list.length === 2) return `${list[0]} and ${list[1]}`
 
     let output = ''
     for (let [i, item] of list.entries()) {
-        if (typeof item !== 'string') throw Error(`Item #${i + 1} (${item} of list is not a string.`)
+        if (typeof item !== "string") throw Error(`Item #${i + 1} (${item} of list is not a string.`)
         output += i !== list.length - 1 ? `${item}, ` : `and ${item}`
     }
     return output
@@ -140,13 +140,13 @@ exports.time = () => {
 // create a custom timestamp format for log statements
 
 exports.log = text => {
-    console.log('[' + (exports.time() / 1000).toFixed(3) + ']: ' + text);
+    console.log(`[${(exports.time() / 1000).toFixed(3)}]: ${text}`);
 };
 exports.saveToLog = (title, description, color) => {
-    console.log("[!]: " + title + " (#" + color.toString(16).padStart(6, "0") + ")\n :: " + description);
+    console.log(`[!]: ${title} (#${color.toString(16).padStart(6, "0")})\n :: ${description}`);
 }
 exports.warn = text => {
-    console.log('[' + (exports.time() / 1000).toFixed(3) + ']: ' + '[WARNING]: ' + text);
+    console.log(`[${(exports.time() / 1000).toFixed(3)}]: [WARNING]: ${text}`);
 };
 exports.error = text => {
     console.log(text);

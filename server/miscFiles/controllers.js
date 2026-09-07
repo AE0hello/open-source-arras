@@ -165,7 +165,7 @@ class io_moveInCircles extends IO {
 class io_listenToPlayer extends IO {
     constructor(b, opts = { static: false }) {
         super(b);
-        if ("object" != typeof opts.player) throw new Error('Required IO Option "player" is not an object');
+        if ("object" != typeof opts.player) throw new Error("Required IO Option 'player' is not an object");
         this.player = opts.player;
         this.static = opts.static;
         this.acceptsFromTop = false;
@@ -739,7 +739,7 @@ class io_avoid extends IO {
             x: this.body.x,
             y: this.body.y
         }, function (test, sqrdst) {
-            return (test.master.id !== masterId && (test.type === 'bullet' || test.type === 'drone' || test.type === 'swarm' || test.type === 'trap' || test.type === 'block') && sqrdst < range);
+            return (test.master.id !== masterId && (test.type === "bullet" || test.type === "drone" || test.type === "swarm" || test.type === "trap" || test.type === "block") && sqrdst < range);
         })
         // Aim at that target
         if (this.avoid != null) {

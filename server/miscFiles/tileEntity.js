@@ -2,7 +2,7 @@ class tileEntity {
     constructor(tile, loc) {
         // Lets check if an tile is an definition. If not tell them about it.
         if (!(tile instanceof Tile)) {
-            console.error(`Tile Class definition ${loc.x},${loc.y} is attempted to be gotton but does not exist! wich you means need to update your room setup!`);
+            console.error(`Tile class definition ${loc.x},${loc.y} was attempted to be gotten but does not exist!`);
             throw new Error("Undefined tile class detected!");
         };
         // Now lets add their locations to the public.
