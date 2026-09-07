@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
-const pjson = require('../package.json')
+const pjson = require("../package.json")
 
 const { Worker } = require("worker_threads");
 
@@ -29,8 +29,8 @@ const GLOBAL = require("./loaders/loader.js");
 // Load definitions and tile definitions
 new definitionCombiner(
     {
-        groups: path.join(__dirname, './lib/definitions/groups'),
-        addonsFolder: path.join(__dirname, './lib/definitions/entityAddons')
+        groups: path.join(__dirname, "./lib/definitions/groups"),
+        addonsFolder: path.join(__dirname, "./lib/definitions/entityAddons")
     }
 ).loadDefinitions();
 GLOBAL.loadRooms(true);
@@ -39,7 +39,7 @@ GLOBAL.loadRooms(true);
 if (Config.load_all_mockups) global.loadAllMockups();
 
 // Log loader information including creation date and time
-console.log(`Successfully loaded all files.`);
+console.log("Successfully loaded all files.");
 console.log(`Created on date ${GLOBAL.creationDate} at timestamp ${GLOBAL.creationTime}`);
 
 // Define the public directory for static files
@@ -300,8 +300,8 @@ global.onServerLoaded = () => {
             console.log("\n");
         }
         let serverStartEndTime = performance.now();
-        console.log("Server loaded in " + util.rounder(serverStartEndTime, 4) + " milliseconds.");
-        console.log("[WEB SERVER]: Server listening on port", Config.port);
+        console.log(`Server loaded in ${util.rounder(serverStartEndTime, 4)} milliseconds.`);
+        console.log(`[WEB SERVER]: Server listening on port ${Config.port}`);
     }
 };
 

@@ -1,4 +1,4 @@
-const { workerData } = require('worker_threads');
+const { workerData } = require("worker_threads");
 
 const http = require("http");
 const ws = require("ws");
@@ -118,8 +118,8 @@ class gameServer {
         this.parentPort = parentPort;
         this.definitionsCombiner = new definitionCombiner(
             {
-                groups: path.join(__dirname, './lib/definitions/groups'),
-                addonsFolder: path.join(__dirname, './lib/definitions/entityAddons')
+                groups: path.join(__dirname, "./lib/definitions/groups"),
+                addonsFolder: path.join(__dirname, "./lib/definitions/entityAddons")
             }
         );
         this.loaderGlobal = loaderGlobal;
@@ -184,9 +184,9 @@ class gameServer {
         this.wsServer = new ws.WebSocketServer({ noServer: true });
         // Create the http server
         this.httpServer = http.createServer((req, res) => {
-            res.setHeader('Access-Control-Allow-Origin', '*');
-            res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-            res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+            res.setHeader("Access-Control-Allow-Origin", "*");
+            res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+            res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
             const { pathname, query } = url.parse(req.url, true);
             switch (pathname) {
                 case "/api/sendPlayer": {
@@ -353,7 +353,7 @@ class gameServer {
             // Redefine the room
             this.defineRoom();
             // Log that we are running again
-            util.log(`New game instance is now running`);
+            util.log("New game instance is now running");
 
             // Init every tile
             for (let y = 0; y < this.room.setup.length; y++) {
@@ -547,7 +547,7 @@ class gameServer {
         if (this.arenaClosed) return;
         // Log this
         util.saveToLog("Game Instance Ending", "Game running " + this.gamemode + " at `" + this.gamemode + "` is now closing.", 0xEE4132);
-        util.log(`Arena Closing initiated`);
+        util.log("Arena Closing initiated");
         // And broadcast it
         this.socketManager.broadcast("Arena closed: No players may join!");
         this.arenaClosed = true;
@@ -563,7 +563,7 @@ class gameServer {
                 });
 
                 // Define it as arena closer
-                o.define('arenaCloser');
+                o.define("arenaCloser");
                 o.define({
                     COLOR: "yellow",
                     SIZE: 68,
@@ -623,7 +623,7 @@ class gameServer {
 
     close(spawnTimeout) {
         // Log that we are closing
-        util.log(`Ending Game instance`);
+        util.log("Ending Game instance");
         // Clear the timeout if the arena closers did not spawn yet
         if (spawnTimeout) clearTimeout(spawnTimeout);
         // Now broadcast it
@@ -658,7 +658,7 @@ class gameServer {
 
     onEnd() {
         // Log that we are restarting
-        util.log(`Game instance is now over. Soft restarting the server.`);
+        util.log("Game instance is now over. Soft restarting the server.");
         // Set this to true to run the softstart code
         this.start(true);
     }
