@@ -1188,7 +1188,7 @@ Class.flailBall = {
                 TYPE: ["bullet", {
                     ALPHA: 0,
                     ON: [{
-                        event: 'tick',
+                        event: "tick",
                         handler: ({body}) => {
                             body.DAMAGE -= 1;
                             body.SIZE -= 0.6;
@@ -1271,7 +1271,7 @@ Class.maceBall = {
                 TYPE: ["bullet", {
                     ALPHA: 0,
                     ON: [{
-                        event: 'tick',
+                        event: "tick",
                         handler: ({body}) => {
                             body.DAMAGE -= 1;
                             body.SIZE -= 0.6;
@@ -1392,7 +1392,7 @@ Class.ihdtiBall = {
                 TYPE: ["bullet", {
                     ALPHA: 0,
                     ON: [{
-                        event: 'tick',
+                        event: "tick",
                         handler: ({body}) => {
                             body.DAMAGE -= 1;
                             body.SIZE -= 0.6;

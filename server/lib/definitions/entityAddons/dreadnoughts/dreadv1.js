@@ -161,7 +161,7 @@ Class.bluePortal_dreadsV1 = {
 	PROPS: [
 		{
 			POSITION: [20, 0, 0, 0, 1],
-			TYPE: ['egg', {COLOR: 'black'}]
+			TYPE: ['egg', {COLOR: "black"}]
 		},
 		...portalRings()
 	]
@@ -171,7 +171,7 @@ Class.greenPortal_dreadsV1 = {
 	PROPS: [
 		{
 			POSITION: [20, 0, 0, 0, 1],
-			TYPE: ['egg', {COLOR: 'black'}]
+			TYPE: ['egg', {COLOR: "black"}]
 		},
 		...portalRings('#1c6620')
 	]

@@ -758,7 +758,7 @@ exports.makeWhirlwind = (type, options = {}) => {
                     POSITION: {WIDTH: options.satelliteSize ??= 8, LENGTH: 1, DELAY: i * 0.25},
                     PROPERTIES: {
                         SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
-                        TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites), CONTROLLERS: [['orbit', {invert: true}]]}], 
+                        TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites), CONTROLLERS: [["orbit", {invert: true}]]}], 
                         MAX_CHILDREN: 1,
                         AUTOFIRE: true,
                         SYNCS_SKILLS: false,
@@ -1486,7 +1486,7 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
         downscale = Math.cos(Math.PI / usableSHAPE),
         healthMultiplier = Math.pow(5, level) - (level > 2 ? Math.pow(5, level) / Math.pow(5, level - 2) : 0);
     return {
-        PARENT: 'food',
+        PARENT: "food",
         LABEL: ['', 'Beta ', 'Alpha ', 'Omega ', 'Gamma ', 'Delta '][level] + type.LABEL,
         VALUE: util.getReversedJackpot(
             Math.min(
@@ -1728,7 +1728,7 @@ exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
     output.DANGER = options.danger ??= output.DANGER + 1
     output.ON = [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({body}) => {
                 const numOfSegments = count;
                 const segmentClass = segment;

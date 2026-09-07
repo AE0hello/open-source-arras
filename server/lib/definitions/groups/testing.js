@@ -116,7 +116,7 @@ Class.roaringParent = {
     },
     ON: [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({body}) => {
                 body.ticking ??= 0
                 body.ticking++
@@ -326,7 +326,7 @@ Class.ntf_tailBolt0 = {
                     ALPHA: 0,
                     COLOR: 'teal',
                     ON: [{
-                        event: 'tick',
+                        event: "tick",
                         handler: ({body}) => {
                             body.DAMAGE -= 1;
                             body.SIZE -= 0.6;

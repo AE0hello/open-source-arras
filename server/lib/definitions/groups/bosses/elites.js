@@ -47,7 +47,7 @@ Class.eliteGunner = {
     PARENT: 'elite',
     UPGRADE_LABEL: "Elite Gunner",
     UPGRADE_COLOR: 'pink',
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     AI: { NO_LEAD: false },
     GUNS: [
         {
@@ -320,7 +320,7 @@ Class.deltaDestroyer = {
 Class.deltaGunner = {
     PARENT: "delta",
     UPGRADE_LABEL: "Delta Gunner",
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     AI: { NO_LEAD: false },
     GUNS: [
         {
@@ -453,7 +453,7 @@ Class.gunnerLegion = {
     UPGRADE_LABEL: "Gunner Legion",
     DISPLAY_NAME: false,
     UPGRADE_COLOR: 'pink',
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     AI: { NO_LEAD: false },
     SIZE: 30,
     BODY: {

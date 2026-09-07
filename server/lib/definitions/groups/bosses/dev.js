@@ -632,7 +632,7 @@ Class.trplnrBossAuraBullet = {
     GUNS: weaponArray({
         POSITION: { ASPECT: -0.35, X: -5 },
         PROPERTIES: {
-            COLOR: 'white',
+            COLOR: "white",
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder, { size: 0.8 }, {reload: 1.6, damage: 1.5}]),
             TYPE: 'autoswarm',
             AUTOFIRE: true,
@@ -662,13 +662,13 @@ const trplnrBossDecor = {
     },
     PROPS: [{
         POSITION: { SIZE: 25 ** Math.SQRT1_2, ANGLE: 180, LAYER: 1 },
-        TYPE: ['triangle', { COLOR: 'black', MIRROR_MASTER_ANGLE: true }]
+        TYPE: ['triangle', { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
     }, {
         POSITION: { SIZE: 25 ** Math.SQRT1_2, LAYER: 1 },
         TYPE: ['triangle', { COLOR: -1, MIRROR_MASTER_ANGLE: true }]
     }, {
         POSITION: { SIZE: 25 },
-        TYPE: ['triangle', { COLOR: 'black', MIRROR_MASTER_ANGLE: true }]
+        TYPE: ['triangle', { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
     }],
 }
 Class.trplnrBoss = {
@@ -724,7 +724,7 @@ Class.trplnrBoss = {
         ...weaponArray({
             POSITION: { WIDTH: 10, X: -5, ASPECT: -0.7, ANGLE: 180 },
             PROPERTIES: {
-                COLOR: 'white',
+                COLOR: "white",
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 100}]),
                 TYPE: "trplnrBossAuraBullet",
                 INDEPENDENT_CHILDREN: true,
@@ -733,7 +733,7 @@ Class.trplnrBoss = {
         {
             POSITION: { WIDTH: 10, X: -5, ASPECT: -0.7, ANGLE: 60 },
             PROPERTIES: {
-                COLOR: 'white',
+                COLOR: "white",
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 100}]),
                 TYPE: "trplnrBossAuraBullet",
                 INDEPENDENT_CHILDREN: true,
@@ -744,19 +744,19 @@ Class.trplnrBoss = {
         ...weaponArray({
             POSITION: { WIDTH: 5, ASPECT: -0.7, ANGLE: 60 },
             PROPERTIES: {
-                COLOR: 'black'
+                COLOR: "black"
             }
         }, 3),
         ...weaponArray([
             {
                 POSITION: { WIDTH: 5, HEIGHT: 5, X: -30, ASPECT: 0, ANGLE: 60 },
                 PROPERTIES: {
-                    COLOR: 'black'
+                    COLOR: "black"
                 }
             }, {
                 POSITION: { WIDTH: 5, HEIGHT: 5, X: -25, ASPECT: 0, ANGLE: 60 },
                 PROPERTIES: {
-                    COLOR: 'white'
+                    COLOR: "white"
                 }
             }
         ], 3)
@@ -776,7 +776,7 @@ Class.trplnrBossBulletHellFormPentagons = {
     SHAPE: -5,
     PROPS: [{
         POSITION: { SIZE: 40 ** Math.SQRT1_2, ANGLE: 180, LAYER: 1 },
-        TYPE: ['pentagon', {COLOR: 'black', MIRROR_MASTER_ANGLE: true}]
+        TYPE: ['pentagon', {COLOR: "black", MIRROR_MASTER_ANGLE: true}]
     }],
     GUNS: weaponArray({
         POSITION: { WIDTH: 10, HEIGHT: 10, ANGLE: 180, DELAY: 11.5 },
@@ -784,7 +784,7 @@ Class.trplnrBossBulletHellFormPentagons = {
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 0.4}]),
             TYPE: 'trplnrBossBulletHellFormPentagonsAuraBullet',
             AUTOFIRE: true,
-            COLOR: 'white',
+            COLOR: "white",
         }
     }, 5)
 }
@@ -839,19 +839,19 @@ Class.trplnrBossBulletHellForm = {
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { reload: 1 }]),
                     TYPE: 'trplnrBossBulletHellFormPentagonsAuraBullet',
-                    COLOR: 'black'
+                    COLOR: "black"
                 }
             }, {
                 POSITION: { WIDTH: 15, HEIGHT: 5, ANGLE: 180, ASPECT: 0, X: -20 },
                 PROPERTIES: {
-                    COLOR: 'white'
+                    COLOR: "white"
                 }
             }, {
                 POSITION: { WIDTH: 10, HEIGHT: 5, ASPECT: 1.5, ANGLE: 180 },
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { reload: 3 }]),
                     TYPE: 'trplnrBossBulletHellFormPentagons',
-                    COLOR: 'white'
+                    COLOR: "white"
                 }
             }, {
                 POSITION: { WIDTH: 8, HEIGHT: 3, X: -1, ASPECT: 1.5, ANGLE: 180 },
@@ -1144,7 +1144,7 @@ Class.frostBoss = {
     LABEL: 'Extrasolar',
     NAME: 'Frostbyte',
     CONTROLLERS: [["minion", {orbit: 260, leash: 190, repel: 270}]],
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     SHAPE: 6,
     COLOR: "aqua",
     UPGRADE_COLOR: "aqua",
@@ -1499,7 +1499,7 @@ Class.MKTurretFactory = {
 Class.MKTurretCarrier = {
     PARENT: "carrier",
     LABEL: "MKTurret carrier",
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     GUNS: [
         {
             POSITION: [7, 8, 0.6, 7, 0, 0, 0],
@@ -1548,7 +1548,7 @@ Class.MKTurretCarrierWithController = {
 Class.MKTurretThruster = {
     PARENT: "genericTank",
     LABEL: "MKTurret Thruster",
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     IGNORED_BY_AI: true,
     DAMAGE_EFFECTS: false,
     COLOR: 16,
@@ -1568,7 +1568,7 @@ Class.MKTurretThruster = {
 }
 Class.MKTurret = {
     PARENT: "genericTank",
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     IGNORED_BY_AI: true,
     DAMAGE_EFFECTS: false,
     LABEL: "MKTurret",

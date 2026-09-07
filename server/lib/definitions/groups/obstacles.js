@@ -77,7 +77,7 @@ Class.wall = {
 };
 Class.labyrinthWall = {
     PARENT: 'wall',
-    COLOR: 'black',
+    COLOR: "black",
     ALPHA: 0.5
 };
 Class.deadlyWall = {
@@ -183,7 +183,7 @@ Class.oneWayWallRight = {
 Class.stickyWall = {
     PARENT: 'wall',
     LABEL: "Sticky Wall",
-    COLOR: 'veryLightGrey'
+    COLOR: "veryLightGrey"
 };
 Class.trickWall = {
     PARENT: 'wall',
@@ -193,7 +193,7 @@ Class.trickWall = {
 Class.paintWall = {
     PARENT: 'wall',
     LABEL: "Paint Wall",
-    COLOR: 'veryLightGrey',
+    COLOR: "veryLightGrey",
     PROPS: [
         {
             TYPE: "squareHat",
@@ -208,7 +208,7 @@ Class.paintWall = {
 Class.filterWall = {
     PARENT: 'wall',
     LABEL: "Filter Wall",
-    COLOR: 'veryLightGrey',
+    COLOR: "veryLightGrey",
     PROPS: [
         {
             TYPE: "squareHat",

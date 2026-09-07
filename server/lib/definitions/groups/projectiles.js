@@ -109,7 +109,7 @@ Class.spiralBullet = {
     PARENT: "bullet",
     ON: [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({body}) => {
                 const numOfSegments = 4;
                 const segmentClass = 'spiralBulletSegment';
@@ -152,7 +152,7 @@ Class.pythonBullet = {
     PARENT: "bullet",
     ON: [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({body}) => {
                 const numOfSegments = 8;
                 const segmentClass = 'spiralBulletSegment';
@@ -780,7 +780,7 @@ Class.wranglerMinion = {
     PARENT: 'minion',
     ON: [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({body}) => {
                 const numOfSegments = 2;
                 const segmentClass = 'genericEntity';
@@ -923,7 +923,7 @@ Class.oroborosTrap = {
     PARENT: 'unsetTrap',
     ON: [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({ body }) => {
                 const numOfSegments = 5;
                 const segmentClass = 'oroborosTrapSegment';

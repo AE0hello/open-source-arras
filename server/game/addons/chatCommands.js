@@ -257,7 +257,7 @@ let commands = [
                 // Redefine all tanks and bosses
                 for (let entity of entities.values()) {
                     // If it's a valid type, and it's not a turret
-                    if (!['tank', 'miniboss', 'food'].includes(entity.type)) continue;
+                    if (!['tank', 'miniboss', "food"].includes(entity.type)) continue;
                     if (entity.bond) continue;
 
                     let entityDefs = JSON.parse(JSON.stringify(entity.defs));

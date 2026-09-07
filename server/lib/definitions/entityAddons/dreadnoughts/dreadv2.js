@@ -230,7 +230,7 @@ Class.showerTurret_dreadsV2 = {
 	BODY: {
 		FOV: 1.5,
 	},
-	CONTROLLERS: [[ 'spin', {speed: 0.03}]],
+	CONTROLLERS: [[ "spin", {speed: 0.03}]],
 	COLOR: 16,
 	INDEPENDENT: true,
 	MAX_CHILDREN: 4,
@@ -367,7 +367,7 @@ Class.gladiatorHealAuraMinion_dreadsV2 = {
 }
 Class.spotterRadar_dreadsV2 = {
 	PARENT: "genericTank",
-	CONTROLLERS: [['spin', {speed: 0.02}]],
+	CONTROLLERS: [["spin", {speed: 0.02}]],
 	INDEPENDENT: true,
 	SHAPE: [[0.225, 1], [0.225, -1], [-0.225, -1], [-0.225, 1]],
 	COLOR: 17,

@@ -26,7 +26,7 @@ Class.genericEntity = {
     CONTROLLERS: [],
     HAS_NO_MASTER: false,
     MOTION_TYPE: "glide",
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     DRAW_HEALTH: false,
     DRAW_SELF: true,
     IS_IMMUNE_TO_TILES: false,
@@ -104,9 +104,9 @@ Class.genericTank = {
     DANGER: 5,
     SHAPE: 0,
     SIZE: 12,
-    HITS_OWN_TYPE: 'hardOnlyTanks',
+    HITS_OWN_TYPE: "hardOnlyTanks",
     MOTION_TYPE: "motor",
-    FACING_TYPE: 'toTarget',
+    FACING_TYPE: "toTarget",
     ACCEPTS_SCORE: true,
     ALPHA: [0, 1],
     ARENA_CLOSER: false,
@@ -119,7 +119,6 @@ Class.genericTank = {
     DRAW_HEALTH: true,
     GIVE_KILL_MESSAGE: true,
     HAS_NO_RECOIL: false,
-    HITS_OWN_TYPE: "hardOnlyTanks",
     IGNORED_BY_AI: false,
     INVISIBLE: [0, 0],
     IS_IMMUNE_TO_TILES: false,
@@ -212,7 +211,7 @@ Class.flag = {
     COLOR: 3,
     TURRETS: [
         {
-            TYPE: 'flagHat',
+            TYPE: "flagHat",
             POSITION: {
                 SIZE: 20,
                 LAYER: 1
@@ -362,12 +361,12 @@ let ballShape = makePolyhedron({
     VERTEXES_SCALE: 0.1
 });
 Class.ball = {
-    PARENT: 'food',
+    PARENT: "food",
     LABEL: "Ball",
     VALUE: 2e7,
     SIZE: 30,
-    COLOR: 'veryLightGrey',
-    SHAPE: ballShape + '/' + ballShape.split("/")[1].split(";").map(face => face.split(",").length === 5 ? "black" : "veryLightGrey").join(","),
+    COLOR: "veryLightGrey",
+    SHAPE: ballShape + "/" + ballShape.split("/")[1].split(";").map(face => face.split(",").length === 5 ? "black" : "veryLightGrey").join(","),
     BODY: {
         DAMAGE: 4.8,
         DENSITY: 20,
@@ -382,10 +381,10 @@ Class.ball = {
 };
 if (classic_ball) {
     Class.ball.SHAPE = 0
-    Class.ball.COLOR = 'black'
+    Class.ball.COLOR = "black"
     Class.ball.PROPS = [
         {
-            TYPE: 'ballHat',
+            TYPE: "ballHat",
             POSITION: {
                 SIZE: 20,
                 LAYER: 1
@@ -455,7 +454,7 @@ Class.satellite = {
     DANGER: 2,
     SHAPE: 0,
     LAYER: 13,
-    CONTROLLERS: ['orbit'],
+    CONTROLLERS: ["orbit"],
     FACING_TYPE: "spin",
     BODY: {
         PENETRATION: 1.2,
@@ -472,7 +471,7 @@ Class.satellite = {
     DRAW_HEALTH: false,
     CLEAR_ON_MASTER_UPGRADE: true,
     BUFF_VS_FOOD: true,
-    MOTION_TYPE: 'motor'
+    MOTION_TYPE: "motor"
 };
 Class.swarm = {
     LABEL: "Swarm Drone",
@@ -536,7 +535,7 @@ Class.genericBoss = {
     }),
     LEVEL: 45,
     CONTROLLERS: [["nearestDifferentMaster", { lockThroughWalls: true }], "canRepel"],
-    FACING_TYPE: ['spin', {speed: 0.02}],
+    FACING_TYPE: ["spin", {speed: 0.02}],
     HITS_OWN_TYPE: "hardOnlyBosses",
     BROADCAST_MESSAGE: "A visitor has left!",
     BODY: { PUSHABILITY: 0.05 }
@@ -581,8 +580,8 @@ Class.aura = {
 Class.healAura = {
     PARENT: "auraBase",
     LABEL: "Heal Aura",
-    HEALER: true,
     COLOR: "red",
+    HEALER: true,
     BODY: {
         DAMAGE: 0.4 / 3,
     },
@@ -612,7 +611,7 @@ Class.portalAura = {
     DIE_AT_RANGE: false,
     ON: [
         {
-            event: 'tick',
+            event: "tick",
             handler: ({ body }) => {
                 if (body.growing) {
                     body.SIZE += 1.2;
@@ -749,7 +748,7 @@ for (let i = 0; i < 2; i++) {
 
 // Technical
 Class.bot = {
-    FACING_TYPE: 'looseToTarget',
+    FACING_TYPE: "looseToTarget",
     CONTROLLERS: [
         "nearestDifferentMaster",
         "mapAltToFire",
@@ -765,7 +764,7 @@ Class.hp = { // HP for mothership or your custom gamemodes
     LABEL: "##% HP"
 };
 Class.selectionOrb = {
-    COLOR: 'white'
+    COLOR: "white"
 };
 Class.tagMode = {
     SHAPE: "",

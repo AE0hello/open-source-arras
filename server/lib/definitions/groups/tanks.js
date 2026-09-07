@@ -1074,7 +1074,7 @@ Class.smasher = {
     DANGER: 6,
     TURRETS: [
         {
-            TYPE: ["hexagonHat_spin", {COLOR: 'black'}],
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}],
             POSITION: {
                 SIZE: 21.5
             }
@@ -2570,7 +2570,7 @@ Class.commander_old = {
     BODY: {
         FOV: 1.15 * base.FOV,
     },
-    FACING_TYPE: 'spin',
+    FACING_TYPE: "spin",
     GUNS: [
         {
             POSITION: {
@@ -3941,7 +3941,7 @@ Class.jumpSmasher = {
     TURRETS: [
         {
             POSITION: [21.5, 0, 0, 0, 360, 0],
-            TYPE: ["hexagonHat_spin", {COLOR: 'black'}]
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}]
         }
     ],
     GUNS: [
@@ -3965,13 +3965,13 @@ Class.landmine = {
     TOOLTIP: "Stay still to turn invisible.",
     TURRETS: [
         {
-            TYPE: ["hexagonHat_spin", {COLOR: 'black'}],
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}],
             POSITION: {
                 SIZE: 21.5
             }
         },
         {
-            TYPE: ['hexagonHat_spinFaster', {COLOR: 'black'}],
+            TYPE: ['hexagonHat_spinFaster', {COLOR: "black"}],
             POSITION: {
                 SIZE: 21.5,
                 ANGLE: 90
@@ -4216,7 +4216,7 @@ Class.megaSmasher = {
     },
     TURRETS: [
         {
-            TYPE: ["hexagonHat_spin", {COLOR: 'black'}],
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}],
             POSITION: { SIZE: 25 }
         }
     ]
@@ -4384,7 +4384,7 @@ Class.monsoon = makeWhirlwind({
     PARENT: "genericTank",
     TURRETS: [
         {
-            TYPE: ["hexagonHat_spin", {COLOR: 'black'}],
+            TYPE: ["hexagonHat_spin", {COLOR: "black"}],
             POSITION: {SIZE: 26}
         }
     ]
@@ -5865,7 +5865,7 @@ Class.spike = {
         SPEED: base.SPEED
     },
     TURRETS: weaponArray([{
-        TYPE: ['triangleHat_spin', {COLOR: 'black'}],
+        TYPE: ['triangleHat_spin', {COLOR: "black"}],
         POSITION: {SIZE: 18}
     }], 4)
 };
@@ -5884,7 +5884,7 @@ Class.spike_old = {
     STAT_NAMES: statnames.smasher,
     TURRETS: [
         {
-            TYPE: ['triangleHat_spinFast', {COLOR: 'black'}],
+            TYPE: ['triangleHat_spinFast', {COLOR: "black"}],
             POSITION: {
                 SIZE: 20.5
             }
@@ -7456,7 +7456,7 @@ Class.designer = makeAuto({
     // Must be defined manually to preserve visual layering
     PARENT: "genericTank",
     DANGER: 8,
-    FACING_TYPE: ['spin', { speed: 0.02 }],
+    FACING_TYPE: ["spin", { speed: 0.02 }],
     BODY: {
         FOV: base.FOV * 1.15,
         SPEED: base.SPEED * 1.125 // 4.7X
@@ -9419,7 +9419,7 @@ Class.sanctuary = {
     DISPLAY_SCORE: false,
     LEVEL: 45,
     SIZE: 20,
-    FACING_TYPE: ['spin', {speed: 0.025}],
+    FACING_TYPE: ["spin", {speed: 0.025}],
     SKILL: skillSet({
         rld: 1.25,
         dam: 1.25,
@@ -9444,7 +9444,7 @@ let sancHealerTiers = [2, 3, 4];
 for (let tier of sancHealerTiers) {
     Class['sanctuaryHealerTier' + (sancHealerTiers.indexOf(tier) + 1)] = {
         PARENT: 'sanctuaryHealer',
-        FACING_TYPE: ['spin', {speed: -0.06}],
+        FACING_TYPE: ["spin", {speed: -0.06}],
         GUNS: weaponArray([
             {
                 POSITION: {
@@ -9860,7 +9860,7 @@ Class.antiTankMachineGun = {
     PARENT: "dominator",
     LABEL: "Anti-Tank Machine Gun",
     UPGRADE_LABEL: "A.T.M.G.",
-    CONTROLLERS: [['spin', {onlyWhenIdle: true}], 'nearestDifferentMaster'],
+    CONTROLLERS: [["spin", {onlyWhenIdle: true}], 'nearestDifferentMaster'],
     LEVEL: 45,
     SIZE: 32,
     BODY: {
@@ -10070,7 +10070,7 @@ Class.baseProtector = {
         RESIST: 10000,
         HETERO: 0,
     },
-    FACING_TYPE: ['spin', {speed: 0.04}],
+    FACING_TYPE: ["spin", {speed: 0.04}],
     TURRETS: [
         {
             POSITION: [25, 0, 0, 0, 360, 0],
@@ -10275,7 +10275,7 @@ Class.developer = {
     ARENA_CLOSER: true,
     INVISIBLE: [0, 0],
     ALPHA: [0, 1],
-    HITS_OWN_TYPE: 'hardOnlyTanks',
+    HITS_OWN_TYPE: "hardOnlyTanks",
     NECRO: false,
     SHAPE: [
         [-1, -0.8],
