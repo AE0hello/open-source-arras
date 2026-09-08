@@ -467,15 +467,12 @@ class gameServer {
 
     // Define room properties
     setRoomProperties() {
-        // It's size
         Object.defineProperties(this.room, {
             tileWidth: { get: () => Config.map_tile_width, set: v => Config.map_tile_width = v },
             tileHeight: { get: () => Config.map_tile_height, set: v => Config.map_tile_height = v },
             width: { get: () => this.room.xgrid * Config.map_tile_width, set: v => Config.map_tile_width = v / this.room.xgrid },
             height: { get: () => this.room.ygrid * Config.map_tile_height, set: v => Config.map_tile_height = v / this.room.ygrid }
         });
-
-        // And center
         Object.defineProperties(this.room.center, {
             x: { get: () => this.room.xgrid * Config.map_tile_width / 2 - this.room.width / 2, set: v => Config.map_tile_width = v * 2 / this.room.xgrid - this.room.width / 2 },
             y: { get: () => this.room.ygrid * Config.map_tile_height / 2 - this.room.height / 2, set: v => Config.map_tile_height = v * 2 / this.room.ygrid - this.room.height / 2 }

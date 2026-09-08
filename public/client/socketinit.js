@@ -34,16 +34,16 @@ gui = {
         ]
     },
     skills: [
-        { amount: 0, color: 'purple', cap: 1, softcap: 1 },
+        { amount: 0, color: "purple", cap: 1, softcap: 1 },
         { amount: 0, color: "pink"  , cap: 1, softcap: 1 },
         { amount: 0, color: "blue"  , cap: 1, softcap: 1 },
-        { amount: 0, color: 'lgreen', cap: 1, softcap: 1 },
+        { amount: 0, color: "lgreen", cap: 1, softcap: 1 },
         { amount: 0, color: "red"   , cap: 1, softcap: 1 },
-        { amount: 0, color: 'yellow', cap: 1, softcap: 1 },
+        { amount: 0, color: "yellow", cap: 1, softcap: 1 },
         { amount: 0, color: "green" , cap: 1, softcap: 1 },
-        { amount: 0, color: 'teal'  , cap: 1, softcap: 1 },
+        { amount: 0, color: "teal"  , cap: 1, softcap: 1 },
         { amount: 0, color: "gold"  , cap: 1, softcap: 1 },
-        { amount: 0, color: 'orange', cap: 1, softcap: 1 }
+        { amount: 0, color: "orange", cap: 1, softcap: 1 }
     ],
     points: 0,
     upgrades: [],
@@ -305,7 +305,7 @@ const get = {
     next: () => {
         if (crawlIndex >= crawlData.length) {
             console.log(crawlData);
-            throw new Error('Trying to crawl past the end of the provided data!');
+            throw new Error("Trying to crawl past the end of the provided data!");
         } else {
             return crawlData[crawlIndex++];
         }
@@ -418,26 +418,26 @@ const GunContainer = n => {
     };
 };
 function Status() {
-    let statState = 'normal',
+    let statState = "normal",
         statTime = getNow();
     return {
         set: val => {
-            if (val !== statState || statState === 'injured') {
-                if (statState !== 'dying') statTime = getNow();
+            if (val !== statState || statState === "injured") {
+                if (statState !== "dying") statTime = getNow();
                 statState = val;
             }
         },
         getState: () => statState,
         getFade: () => {
-            return (statState === 'dying' || statState === 'killed') ? 1 - Math.min(1, (getNow() - statTime) / 300) : 1;
+            return (statState === "dying" || statState === "killed") ? 1 - Math.min(1, (getNow() - statTime) / 300) : 1;
         },
         getColor: () => {
             return "#FFFFFF";
         },
         getBlend: () => {
-            let o = (statState === 'normal' || statState === 'dying') ? 0 : 1 - Math.min(1, (getNow() - statTime) / 80);
-            if (getNow() - statTime > 500 && statState === 'injured') {
-                statState = 'normal';
+            let o = (statState === "normal" || statState === "dying") ? 0 : 1 - Math.min(1, (getNow() - statTime) / 80);
+            if (getNow() - statTime > 500 && statState === "injured") {
+                statState = "normal";
             }
             return o;
         }
@@ -526,10 +526,10 @@ const process = (z = {}) => {
             z.shield = get.next() / 65535;
             // Update stuff
             if (z.health < hh || z.shield < ss) {
-                z.render.status.set('injured');
+                z.render.status.set("injured");
             } else if (z.render.status.getFade() !== 1) {
                 // If it turns out that we thought it was dead and it wasn't
-                z.render.status.set('normal');
+                z.render.status.set("normal");
             }
         }
         z.alpha = get.next() / 255;
@@ -568,9 +568,9 @@ const process = (z = {}) => {
             };
         }
         if (invuln) {
-            z.render.status.set('invuln');
-        } else if (z.render.status.getState() === 'invuln') {
-            z.render.status.set('normal');
+            z.render.status.set("invuln");
+        } else if (z.render.status.getState() === "invuln") {
+            z.render.status.set("normal");
         }
         // Update the rendering healthbars and size
         z.render.health.set(z.health);
@@ -588,7 +588,7 @@ const process = (z = {}) => {
     if (isNew) {
         z.guns = GunContainer(gunnumb);
     } else if (gunnumb !== z.guns.length) {
-        throw new Error('Mismatch between data gun number and remembered gun number!');
+        throw new Error("Mismatch between data gun number and remembered gun number!");
     }
     // Decide if guns need to be fired one by one
     for (let i = 0; i < gunnumb; i++) {
@@ -619,7 +619,7 @@ const process = (z = {}) => {
         }
     } else {
         if (z.turrets.length !== turnumb) {
-            throw new Error('Mismatch between data turret number and remembered turret number!');
+            throw new Error("Mismatch between data turret number and remembered turret number!");
         }
         for (let tur of z.turrets) {
             tur = process(tur);
@@ -642,7 +642,7 @@ const convert = {
         // Handle the dead/leftover entities
         for (let e of global.entities) {
             // Kill them
-            e.render.status.set(e.health === 1 ? 'dying' : 'killed');
+            e.render.status.set(e.health === 1 ? "dying" : "killed");
             // And only push them if they're not entirely dead and still visible
             if (e.render.status.getFade() !== 0 && util.isInView(e.render.x - global.player.renderx, e.render.y - global.player.rendery, e.size, true)) {
                 output.push(e);
@@ -665,7 +665,7 @@ const convert = {
         global.entities.sort((a, b) => {
             let sort = a.layer - b.layer;
             if (!sort) sort = b.id - a.id;
-            if (!sort) throw new Error('tha fuq is up now');
+            if (!sort) throw new Error("tha fuq is up now");
             return sort;
         });
     },
@@ -821,17 +821,17 @@ let incoming = async function(message, socket) {
     global.bandwidth.currentFa += message.data.byteLength;
     let m = protocol.decode(message.data);
     if (m === -1) {
-        throw new Error('Malformed packet.');
+        throw new Error("Malformed packet.");
     }
     // Decide how to interpret it
     switch (m.shift()) {
-        case 'W': {
+        case "W": {
             if (m[0]) {
-                global.message = '';
-                socket.talk('k', global.playerKey);
+                global.message = "";
+                socket.talk("k", global.playerKey);
                 // define a pinging function
                 socket.ping = (payload) => {
-                    socket.talk('p', payload);
+                    socket.talk("p", payload);
                 };
                 socket.commandCycle = setInterval(() => {
                     if (socket.cmd.check()) socket.cmd.talk();
@@ -840,12 +840,12 @@ let incoming = async function(message, socket) {
         }; break;
 
 
-            case 'w': { // welcome to the game
+            case "w": { // welcome to the game
                 if (m[0]) { // Ask to get the room data first
-                    socket.talk('s', "", 1, 0, false, 0);
+                    socket.talk("s", "", 1, 0, false, 0);
                 }
             }; break;
-            case 'R': { // room setup
+            case "R": { // room setup
                 global.gameWidth = m[0];
                 global.gameHeight = m[1];
                 global.player.roomAnim.x.add(m[0]);
@@ -859,7 +859,7 @@ let incoming = async function(message, socket) {
                 global.advanced.blackout.color = blackoutData.color;
                 global.advanced.roundArena = m[6];
                 // Start syncing
-                socket.talk('S', getNow());
+                socket.talk("S", getNow());
             } break;
             case "r": {
                 global.gameWidth = m[0];
@@ -883,14 +883,14 @@ let incoming = async function(message, socket) {
             case "gSvInfo": {
                 global.serverStats.players = m[1];
             } break;
-            case 'c': { // force camera move
+            case "c": { // force camera move
                 global.player.renderx = global.player.cx.x = m[0];
                 global.player.rendery = global.player.cy.y = m[1];
                 global.player.renderv = global.player.view = m[2];
                 global.player.animX.add(m[0]);
                 global.player.animY.add(m[1]);
             } break;
-            case 'S': { // clock syncing
+            case "S": { // clock syncing
                 let clientTime = m[0],
                     serverTime = m[1],
                     laten = (getNow() - clientTime) / 2,
@@ -905,7 +905,7 @@ let incoming = async function(message, socket) {
                     // Erase entities if resync is needed.
                     if (startSettings.neededtoresync) global.entities = [];
                     // Wait a bit just to space things out
-                    setTimeout(() => socket.talk('S', getNow()), 10);
+                    setTimeout(() => socket.talk("S", getNow()), 10);
                 } else {
                     // Calculate the clock error
                     sync.sort((e, f) => e.latency - f.latency);
@@ -935,7 +935,7 @@ let incoming = async function(message, socket) {
                     util.pullTotalPlayers();
                     global.gameUpdate = true;
                     // Now we can ask for spawn.
-                    socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, global.bodyID ? global.bodyID : false, 1 * config.game.incognitoMode);
+                    socket.talk("s", global.playerName, 0, 1 * config.game.autoLevelUp, global.bodyID ? global.bodyID : false, 1 * config.game.incognitoMode);
                     global.bodyID = undefined;
                 }
             } break;
@@ -945,14 +945,14 @@ let incoming = async function(message, socket) {
         case "Em": {
             global.createMessage(m[1], m[0], true);
         } break;
-        case 'RE': {
+        case "RE": {
             global.mockups = [];
             global.entities = [];
         } break;
-        case 'CC': {
+        case "CC": {
             global.cached = {};
         } break;
-        case 'M': {
+        case "M": {
             if (!m[1]) return;
             global.mockups[m[0]] = JSON.parse(m[1]);
         } break;
@@ -992,7 +992,7 @@ let incoming = async function(message, socket) {
                 global.player.time = camtime + lag.get();
                 global.metrics.rendergap = camtime - global.player.lastUpdate;
                 if (global.metrics.rendergap <= 0) {
-                    console.log('yo some bullshit is up wtf');
+                    console.log("yo some bullshit is up wtf");
                 }
                 global.player.lastUpdate = camtime;
                 // Convert the gui and entities
@@ -1028,7 +1028,7 @@ let incoming = async function(message, socket) {
                 console.log("Old data! Last given time: " + global.player.time + "; offered packet timestamp: " + camtime + ".");
             }
             // Send the downlink and the target
-            socket.talk('d', Math.max(global.player.lastUpdate, camtime));
+            socket.talk("d", Math.max(global.player.lastUpdate, camtime));
             socket.cmd.talk();
             global.updateTimes++; // metrics
         } break;
@@ -1037,7 +1037,7 @@ let incoming = async function(message, socket) {
             convert.begin(m);
             convert.broadcast();
         } break;
-        case 'p': { // ping
+        case "p": { // ping
             setTimeout(() => {
                 try {
                     global.socket.ping(Date.now() - clockDiff - serverStart);
@@ -1047,7 +1047,7 @@ let incoming = async function(message, socket) {
             let c = Date.now() - clockDiff - serverStart - m[0];
             0 < c && global.metrics.latency.push(c);
         } break;
-        case 'F': { // to pay respects
+        case "F": { // to pay respects
             global.deathAnimation = util.AdvancedSmoothBar(0, 4, 1);
             global.deathAnimation.set(4);
             global.finalScore = util.AdvancedSmoothBar(0, 1.5);
@@ -1084,14 +1084,14 @@ let incoming = async function(message, socket) {
             global.syncingWithTank = false;
             global.clickables.mobileButtons.active = false;
         } break;
-        case 'I': { // sync with the tank
+        case "I": { // sync with the tank
             if (m[0]) {
                 global.syncingWithTank = true;
             } else {
                 global.syncingWithTank = false;
             }
         } break;
-        case 'DTA': {
+        case "DTA": {
             let data = JSON.parse(m[0]);
             if (data.waitTime == "isVideo") {
                 let renderDoc = document.createElement("video");
@@ -1136,11 +1136,11 @@ let incoming = async function(message, socket) {
             }
             global.dailyTankAd.renderUI = true;
         } break;
-        case 'DTAD': {
+        case "DTAD": {
             if (global.dailyTankAd.requestInterval) clearInterval(global.dailyTankAd.requestInterval)
             global.dailyTankAd.exit();
         } break;
-        case 'DTAST': {
+        case "DTAST": {
             global.dailyTankAd.render.onended = () => {
                 global.dailyTankAd.requestInterval = setInterval(() => {
                     socket.talk("DTAD");
@@ -1150,7 +1150,7 @@ let incoming = async function(message, socket) {
             global.dailyTankAd.render.play();
             global.dailyTankAd.readyToRender = true;
         } break;
-        case 'SH': {
+        case "SH": {
             let data = JSON.parse(m[0]);
             if (data.type == "camera") { // If the server wants to shake our camera...
                 let set = config.graphical.shakeProperties.CameraShake; // Quick define
@@ -1213,36 +1213,36 @@ let incoming = async function(message, socket) {
             // Reconnect server
             global.reconnect();
         } break;
-        case 'T': {
+        case "T": {
             global.generateTankTree = true;
             global.renderTankTree = true;
         } break;
 
-        case 'K': { // kicked
+        case "K": { // kicked
             // Put your code while being kicked from the server.
         } break;
-        case 'z': { // name color
+        case "z": { // name color
             global.nameColor = m[0];
         } break;
-        case 'RM': { // Reset minimap teams if needed
+        case "RM": { // Reset minimap teams if needed
             minimapTeamInt.reset();
             minimapAllInt.elements = {};
         } break;
-        case 'RL': { // Reset leaderboard if needed
+        case "RL": { // Reset leaderboard if needed
             leaderboardInt.reset();
         } break;
-        case 'message': {
+        case "message": {
             global.message = m[0];
         } break;
-        case 'AS': { // Activating smooth camera if needed.
+        case "AS": { // Activating smooth camera if needed.
             config.graphical.smoothcamera2 = config.graphical.smoothcamera;
             config.graphical.smoothcamera = true;
         } break;
-        case 'DS': { // Deactivate smooth camera if needed.
+        case "DS": { // Deactivate smooth camera if needed.
             if (!config.graphical.smoothcamera2) config.graphical.smoothcamera = false;
             delete config.graphical.smoothcamera2;
         } break;
-        case 'CHAT_MESSAGE_ENTITY': {
+        case "CHAT_MESSAGE_ENTITY": {
             if (!global.chats) global.chats = {};
             for (let data of JSON.parse(m[0])) {
                 if (!global.chats[data.id]) global.chats[data.id] = [];
@@ -1274,7 +1274,7 @@ const socketInit = () => {
     window.resizeEvent();
     let socket = new WebSocket(protocols[location.protocol] + global.serverAdd);
     // Set up our socket
-    socket.binaryType = 'arraybuffer';
+    socket.binaryType = "arraybuffer";
     socket.open = false;
     // Handle commands
     let flag = false;
@@ -1302,7 +1302,7 @@ const socketInit = () => {
                 if (commands[i]) o += Math.pow(2, i);
             }
             let ratio = util.getRatio();
-            socket.talk('C', Math.round(global.target.x / ratio), Math.round(global.target.y / ratio), global.reverseTank, o);
+            socket.talk("C", Math.round(global.target.x / ratio), Math.round(global.target.y / ratio), global.reverseTank, o);
         },
         check: () => flag,
         getMotion: () => ({
@@ -1328,7 +1328,7 @@ const socketInit = () => {
     socket.onopen = function socketOpen() {
         socket.open = true;
         // define a pinging function
-        socket.ping = payload => socket.talk('p', payload);
+        socket.ping = payload => socket.talk("p", payload);
     };
 
     // Handle incoming messages
@@ -1347,7 +1347,7 @@ const socketInit = () => {
     socket.onerror = error => {
         clearInterval(socket.commandCycle);
         clearInterval(global.socketMotionCycle);
-        global.message = 'Socket error. Maybe another server will work.';
+        global.message = "Socket error. Maybe another server will work.";
     };
     // Gift it to the rest of the world
     return socket;
@@ -1365,7 +1365,7 @@ const resync = () => {
     leaderboardInt.elements = {};
     leaderboard.entries = {};
     minimap.map = {};
-    socket.talk('S', Date.now() - clockDiff - serverStart);
+    socket.talk("S", Date.now() - clockDiff - serverStart);
 };
 
 global.resetSocket = () => {

@@ -454,8 +454,8 @@ import * as socketStuff from "./socketinit.js";
                 }
                 for (let docs of [".serverSelector", ".slider", ".sliderHolder", ".startMenuHolder", ".startMenuHolder.changelogHolder", ".startMenu", ".mainWrapper", "#startMenuWrapper", "#patchNotes"]) {
                     let doc;
-                    if (docs.startsWith('#')) doc = document.getElementById(docs.substring(docs.length, 1));
-                    if (docs.startsWith('.')) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
+                    if (docs.startsWith("#")) doc = document.getElementById(docs.substring(docs.length, 1));
+                    if (docs.startsWith(".")) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
                     switch (docs) {
                         case ".mainWrapper":
                             doc.style.padding = "0px";
@@ -504,8 +504,8 @@ import * as socketStuff from "./socketinit.js";
                 }
                 for (let docs of [".serverSelector", ".slider", ".sliderHolder", ".startMenuHolder.changelogHolder", ".startMenu", ".mainWrapper", "#startMenuWrapper", "#patchNotes"]) {
                     let doc;
-                    if (docs.startsWith('#')) doc = document.getElementById(docs.substring(docs.length, 1));
-                    if (docs.startsWith('.')) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
+                    if (docs.startsWith("#")) doc = document.getElementById(docs.substring(docs.length, 1));
+                    if (docs.startsWith(".")) doc = document.getElementsByClassName(docs.substring(docs.length, 1))[0];
                     switch (docs) {
                         case ".mainWrapper":
                             doc.style.padding = menu_mainWrapperHeight_padding;
@@ -871,12 +871,12 @@ import * as socketStuff from "./socketinit.js";
             2 == stripped.length % 4 ? (stripped += "==") : 3 == stripped.length % 4 && (stripped += "=");
             let data = atob(stripped);
             let name = "Unknown Theme",
-                author = '';
-            let index = data.indexOf('\x00');
+                author = "";
+            let index = data.indexOf("\x00");
             if (index === -1) return null;
             name = data.slice(0, index) || name;
             data = data.slice(index + 1);
-            index = data.indexOf('\x00');
+            index = data.indexOf("\x00");
             if (index === -1) return null;
             author = data.slice(0, index) || author;
             data = data.slice(index + 1);
@@ -890,7 +890,7 @@ import * as socketStuff from "./socketinit.js";
                 let green = data.charCodeAt(i * 3 + 1)
                 let blue = data.charCodeAt(i * 3 + 2)
                 let color = (red << 16) | (green << 8) | blue
-                colorArray.push('#' + color.toString(16).padStart(6, "0"))
+                colorArray.push("#" + color.toString(16).padStart(6, "0"))
             }
             let content = {
                 teal: colorArray[0],
@@ -925,7 +925,7 @@ import * as socketStuff from "./socketinit.js";
             let output = JSON.parse(string);
             if (typeof output !== "object")
                 return null;
-            let { name = "Unknown Theme", author = '', content } = output;
+            let { name = "Unknown Theme", author = "", content } = output;
             for (let colorHex of [
                 content.teal,
                 content.lgreen,
@@ -970,7 +970,7 @@ import * as socketStuff from "./socketinit.js";
             }
             return {
                 name: (typeof name === "string" && name) || "Unnamed Theme",
-                author: (typeof author === "string" && author) || '',
+                author: (typeof author === "string" && author) || "",
                 content,
             }
         } catch (e) { logError && alert("An error has accoured while reading your theme, it may be corrupted or outdated."); }
@@ -1524,7 +1524,7 @@ import * as socketStuff from "./socketinit.js";
     function measureText(text, fontSize, withHeight = false) {
         fontSize += config.graphical.fontSizeBoost;
         ctx[2].font = fontWidth + " " + fontSize + "px Ubuntu";
-        let measurement = ctx[2].measureText(arrayifyText(text).reduce((a, b, i) => (i & 1) ? a : a + b, ''));
+        let measurement = ctx[2].measureText(arrayifyText(text).reduce((a, b, i) => (i & 1) ? a : a + b, ""));
         return withHeight ? { width: measurement.width, height: fontSize } : measurement.width;
     }
 
@@ -1534,10 +1534,10 @@ import * as socketStuff from "./socketinit.js";
         // string with double §           txt   col   txt                      txt
         // "...§text§§text§..." => [..., "text", "", "text", ...] => [..., "text§text", ...]
         // this code is balanced on tight threads, holy shit
-        let textArrayRaw = rawText.split('§'),
+        let textArrayRaw = rawText.split("§"),
             textArray = [];
         if (!(textArrayRaw.length & 1)) {
-            textArrayRaw.unshift('');
+            textArrayRaw.unshift("");
         }
         while (textArrayRaw.length) {
             let first = textArrayRaw.shift();
@@ -1547,7 +1547,7 @@ import * as socketStuff from "./socketinit.js";
                 textArray.push(first, textArrayRaw.shift());
             } else {
                 textArrayRaw.shift();
-                textArray.push(first + '§' + textArrayRaw.shift(), textArrayRaw.shift());
+                textArray.push(first + "§" + textArrayRaw.shift(), textArrayRaw.shift());
             }
         }
         return textArray;
@@ -1559,7 +1559,7 @@ import * as socketStuff from "./socketinit.js";
         let offset = size / 5,
             ratio = 1,
             textArray = arrayifyText(rawText),
-            renderedFullText = textArray.reduce((a, b, i) => (i & 1) ? a : a + b, '');
+            renderedFullText = textArray.reduce((a, b, i) => (i & 1) ? a : a + b, "");
 
         if (ratio !== 1) {
             size *= ratio;
@@ -2017,7 +2017,7 @@ import * as socketStuff from "./socketinit.js";
                                 let faceColors = null;
                                 if (dividedParts[3]) {
                                     faceColors = dividedParts[3].split(",").map(tok => {
-                                        tok = (tok || '').trim();
+                                        tok = (tok || "").trim();
                                         if (!tok) return null;
                                         try {
                                             return gameDraw.modifyColor(tok.includes(" ") ? tok : tok + " 0 1 0 false");
@@ -2473,7 +2473,7 @@ import * as socketStuff from "./socketinit.js";
       color1 = parseInt(color1.slice(1, 7), 16);
       color2 = parseInt(color2.slice(1, 7), 16);
       return (
-        '#' +
+        "#" +
         (
           (((color1 & 16711680) * e + (color2 & 16711680) * d) & 16711680) |
           (((color1 & 65280) * e + (color2 & 65280) * d) & 65280) |
@@ -2824,13 +2824,13 @@ import * as socketStuff from "./socketinit.js";
     const CULL_MARGIN = 200;
 
     let tankNameCache = new Map();
-    global.searchQuery = '';
+    global.searchQuery = "";
     function searchTankByName(query) {
-        if (!query || query.trim() === '') {
+        if (!query || query.trim() === "") {
             searchResults = [];
             filteredTiles = null;
             tankNameCache.clear();
-            global.searchQuery = ''; // Update global
+            global.searchQuery = ""; // Update global
             return;
         }
 
@@ -2936,7 +2936,7 @@ import * as socketStuff from "./socketinit.js";
                 lastGuiType = gui.type;
                 global.generateTankTree = false;
                 // Clear search when tree regenerates
-                global.searchQuery = ''; // Use global
+                global.searchQuery = ""; // Use global
                 searchResults = [];
                 filteredTiles = null;
                 searchCache.clear();
@@ -3169,7 +3169,7 @@ import * as socketStuff from "./socketinit.js";
         const instructionY = searchBarY + searchBarHeight + 5;
         if (global.searchQuery) {
             const resultsText = searchResults.length > 0
-                ? `Found ${searchResults.length} tank${searchResults.length !== 1 ? 's' : ''} (showing upgrade paths)`
+                ? `Found ${searchResults.length} tank${searchResults.length !== 1 ? "s" : ""} (showing upgrade paths)`
                 : "No tanks found - showing Basic";
             drawText(
                 resultsText,
@@ -3896,7 +3896,7 @@ import * as socketStuff from "./socketinit.js";
                 buttonX = initialX + (rowWidth + len - initialX) / 2,
                 buttonY = initialY + height + internalSpacing - 5;
 
-            drawButton(buttonX, buttonY, m, h, 1, config.graphical.oldUIStyle ? 'bar' : 'rect', msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, 0);
+            drawButton(buttonX, buttonY, m, h, 1, config.graphical.oldUIStyle ? "bar" : "rect", msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, 0);
 
             if (gui.dailyTank && gui.dailyTank.tank) {
                 let image = util.requestEntityImage(gui.dailyTank.tank, gui.color);
@@ -4201,20 +4201,20 @@ import * as socketStuff from "./socketinit.js";
             global.canvas.chatBox.style.color = color.black;
             global.canvas.chatBox.style.backgroundColor = color.guiwhite;
             global.canvas.chatBox.style.borderColor = color.black;
-            global.canvas.chatBox.style.borderWidth = 0.1 * g + 'px';
+            global.canvas.chatBox.style.borderWidth = 0.1 * g + "px";
             global.canvas.chatBox.style.opacity = global.showChatGlide;
             global.canvas.chatBox.style.width = (boxLengthHalf * 2 + 0.75 * g) / global.screenWidth * 100 + `%`;
-            global.canvas.chatBox.style.height = 0.95 * g + `px`;
+            global.canvas.chatBox.style.height = 0.95 * g + "px";
             global.canvas.chatBox.style.left = (x - boxLengthHalf - 0.75 * g / 2) / global.screenWidth * 100 + `%`;
-            global.canvas.chatBox.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
+            global.canvas.chatBox.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + "px";
             // Input
             global.canvas.chatInput.style.opacity = global.showChatGlide;
-            global.canvas.chatInput.style["font-size"] = 0.5 * g + 'px';
+            global.canvas.chatInput.style["font-size"] = 0.5 * g + "px";
             global.canvas.chatInput.style.color = color.black;
             global.canvas.chatInput.style.width = (boxLengthHalf * 2 + 0.35 * g) / global.screenWidth * 100 + `%`;
-            global.canvas.chatInput.style.height = 0.95 * g + `px`;
+            global.canvas.chatInput.style.height = 0.95 * g + "px";
             global.canvas.chatInput.style.left = (x - boxLengthHalf - 0.35 * g / 2) / global.screenWidth * 100 + `%`;
-            global.canvas.chatInput.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + `px`;
+            global.canvas.chatInput.style.top =  (y - g * (2.26) - 0.55 * g) / global.screenWidth * window.innerWidth + "px";
             if (global.canvas.chatBox && global.showChatGlide < 0.005 && !global.showChat) chatInput.force(0), global.canvas.chatInput.remove(), global.canvas.chatBox.remove(), global.canvas.chatBox = false;
         }
     }
@@ -4342,7 +4342,7 @@ import * as socketStuff from "./socketinit.js";
         drawEntity(baseColor, (xx - 190 - len / 2 + 0.5) | 0, (yy - -5 + 0.5) | 0, picture, 1.5, 1, (0.5 * scale) / picture.realSize, 1, -Math.PI / 4, true, ctx[2]);
         drawText("Level " + gui.__s.getLevel(), x - 275, y - -80, 14, color.guiwhite, "center");
         drawText(picture.name, x - 275, y - -110, 24, color.guiwhite, "center");
-        drawText(timestamp + '', x, y - 80, 10, color.guiwhite, "center");
+        drawText(timestamp + "", x, y - 80, 10, color.guiwhite, "center");
         drawText(name == "" ? "Your Score: " : name + "'s Score: ", x - 170, y - 30, 24, color.guiwhite);
         drawText(util.formatLargeNumber(Math.round(global.finalScore.get())), x - 170, y + 25, 50, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(1, 1.25, glide);
@@ -4358,13 +4358,13 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].globalAlpha = global.lerp(3, 3.25, glide);
         if (global.cannotRespawn || global.mobile || global.gamepadMode) drawText(global.cannotRespawn ?
             global.respawnTimeout ?
-            "(you may respawn in " + global.respawnTimeout + " second" + `${global.respawnTimeout <= 1 ? '' : 's'}` + ")"
+            "(you may respawn in " + global.respawnTimeout + " second" + `${global.respawnTimeout <= 1 ? "" : "s"}` + ")"
             : "(you cannot respawn)"
             : global.mobile ?
             "(tap to respawn)"
             : global.gamepadMode ?
             "(Press RT or R2 button to respawn)"
-            : '',
+            : "",
             x, y + 189, 16, color.guiwhite, "center");
         if (!global.disconnected && !global.cannotRespawn) {
             if (!global.mobile && !global.gamepadMode) {
@@ -5280,7 +5280,7 @@ import * as socketStuff from "./socketinit.js";
         scaleScreenRatio(ratio, true);
         clearScreen(gameDraw.mixColors(color.red, color.guiblack, 0.3), global.gameStart ? 0.25 : 1, ctx[2]);
         drawText("Disconnected", global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, "center");
-        if (global.message === '') global.message = 'The connection has closed. You may attempt to regain score or reload the game.';
+        if (global.message === "") global.message = "The connection has closed. You may attempt to regain score or reload the game.";
         drawText(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, "center");
         lastPing = 0;
         drawButton(global.screenWidth / 2 - 80, global.screenHeight / 2 + 135, 130, 30, 1, "rect", "Back", 15, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);

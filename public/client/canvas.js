@@ -20,14 +20,14 @@ class Canvas {
                 if (!this.chatBox.loadedProperly) this.chatBox.remove(), this.chatInput.remove(), this.chatBox = false;
             }, 50)
             if (!this[id].value) return;
-            if (event.code === "Enter") this.socket.talk('M', this[id].value);
+            if (event.code === "Enter") this.socket.talk("M", this[id].value);
             this[id].value = "";
         }
 
-        this.cv = document.getElementById('gameCanvas');
-        this.cvb = document.getElementById('gameCanvas-background');
-        this.cvg = document.getElementById('gameCanvas-gameplay');
-        this.cvu = document.getElementById('gameCanvas-gui');
+        this.cv = document.getElementById("gameCanvas");
+        this.cvb = document.getElementById("gameCanvas-background");
+        this.cvg = document.getElementById("gameCanvas-gameplay");
+        this.cvu = document.getElementById("gameCanvas-gui");
         this.cv.resize = (width, height) => {
             this.cv.width = this.cvb.width = this.cvg.width = this.cvu.width = this.width = width;
             this.cv.height = this.cvb.height = this.cvg.height = this.cvu.height = this.height = height;
@@ -41,7 +41,7 @@ class Canvas {
         this.treeScrollSpeedMultiplier = 1;
         this.initalized = false;
         this.tankTreeProps = {
-            searchQuery: '',
+            searchQuery: "",
             enabled: false,
         }
         global.canvas = this;
@@ -106,7 +106,7 @@ class Canvas {
             this.chatInput = document.createElement("input");
             this.chatInput.id = "chatInput";
             this.chatInput.style.zIndex = 11;
-            this.chatInput.addEventListener('keydown', event => this.chatListener("chatInput", event));
+            this.chatInput.addEventListener("keydown", event => this.chatListener("chatInput", event));
             document.getElementById("gameAreaWrapper").appendChild(this.chatInput);
         }
         this.chatInput.focus();
@@ -115,7 +115,7 @@ class Canvas {
 
     respawn() {
         if (global.died && !global.cannotRespawn) {
-            this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp, false, 1 * config.game.incognitoMode);
+            this.socket.talk("s", global.playerName, 0, 1 * config.game.autoLevelUp, false, 1 * config.game.incognitoMode);
             global.died = false;
         }
     }
@@ -174,8 +174,8 @@ class Canvas {
                 return;
             } else if (event.code === "Escape") {
                 event.preventDefault();
-                this.tankTreeProps.searchQuery = '';
-                global.searchTankByName('');
+                this.tankTreeProps.searchQuery = "";
+                global.searchTankByName("");
                 global.searchBarActive = false;
                 return;
             } else if (event.code === "Enter") {
@@ -237,16 +237,16 @@ class Canvas {
                 this.socket.cmd.set(6, true);
                 break;
             case global.KEY_LEVEL_UP:
-                this.socket.talk('L');
+                this.socket.talk("L");
                 break;
             case global.KEY_ABILITY:
-                this.socket.talk('H');
+                this.socket.talk("H");
                 break;
             case global.KEY_SKILL_MAX:
                 global.statMaxing = true;
                 break;
             case global.KEY_SUICIDE:
-                this.socket.talk('1');
+                this.socket.talk("1");
                 break;
         }
         if (!event.repeat) {
@@ -308,7 +308,7 @@ class Canvas {
                     global.KEY_SKILL_9,
                     global.KEY_SKILL_10
                 ].indexOf(event.code);
-                if (skill >= 0) this.socket.talk('x', skill, 1 * global.statMaxing);
+                if (skill >= 0) this.socket.talk("x", skill, 1 * global.statMaxing);
             }
             const upgradeMap = {
                 [global.KEY_UPGRADE_1]: 0,
@@ -323,7 +323,7 @@ class Canvas {
             }
             if (global.canUpgrade) {
                 const i = upgradeMap[event.code];
-                if (i !== undefined) this.socket.talk('U', i, parseInt(gui.upgrades[i][0]));
+                if (i !== undefined) this.socket.talk("U", i, parseInt(gui.upgrades[i][0]));
             }
         }
     }
@@ -465,7 +465,7 @@ class Canvas {
                     }
                 }
                 if (statIndex !== -1) {
-                    this.socket.talk('x', statIndex, 0);
+                    this.socket.talk("x", statIndex, 0);
                 } else if (
                     !global.dailyTankAd.renderUI &&
                     global.clickables.optionsMenu.toggleBoxes.check(mpos) == -1 && 
@@ -595,9 +595,9 @@ class Canvas {
                 if (exitGame !== -1) {
                     if (global.disconnected || (global.died && !global.cannotRespawn)) global.exit();
                 } else 
-                if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length && !global.dailyTankAd.renderUI) this.socket.talk('U', upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
+                if (upgradeIndex !== -1 && upgradeIndex < gui.upgrades.length && !global.dailyTankAd.renderUI) this.socket.talk("U", upgradeIndex, parseInt(gui.upgrades[upgradeIndex][0]));
                 else if (dailyTankUpgrade == true && !global.dailyTankAd.renderUI) {
-                    this.socket.talk('U', 0, -1);
+                    this.socket.talk("U", 0, -1);
                 } else if (dailyTankAd == true) {
                     this.socket.talk("DTA"); // Request to get an ad
                 } else if (dailyTankCloseAd == true && global.dailyTankAd.renderUI) {
@@ -1062,7 +1062,7 @@ class Canvas {
                 }
             
                 if (gamepadControls.Y === 1) {
-                    this.socket.talk('H');
+                    this.socket.talk("H");
                 }
 
                 if (gamepadControls.help === 1) {
@@ -1071,7 +1071,7 @@ class Canvas {
                 // Shoot
                 if (this.gamepad.buttons[7].pressed) {
                     if (global.died && !global.cannotRespawn) {
-                        this.socket.talk('s', global.playerName, 0, 1 * config.game.autoLevelUp);
+                        this.socket.talk("s", global.playerName, 0, 1 * config.game.autoLevelUp);
                         global.died = false;
                     } else {
                         this.socket.cmd.set(4, true);

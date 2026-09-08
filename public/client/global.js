@@ -85,7 +85,7 @@ let Region = (size) => {
             if (index >= data.length) {
                 console.log(index);
                 console.log(data);
-                throw new Error('Trying to reference a clickable outside a region!');
+                throw new Error("Trying to reference a clickable outside a region!");
             }
             data[index].set(...a);
         },
@@ -100,113 +100,113 @@ let gameDraw;
 
 const global = {
     // Keys and other mathematical constants.
-    KEY_AUTO_FIRE: 'KeyE',
-    KEY_AUTO_ALT: 'KeyX',
-    KEY_AUTO_SPIN: 'KeyC',
-    KEY_SPIN_LOCK: 'KeyG',
-    KEY_OVERRIDE: 'KeyR',
-    KEY_LEVEL_UP: 'KeyN',
-    KEY_ABILITY: 'KeyF',
-    //KEY_PAUSE: 'KeyG',
-    KEY_REVERSE_TANK: 'KeyV',
-    KEY_REVERSE_MOUSE: 'KeyB',
-    KEY_SCREENSHOT: 'KeyQ',
-    KEY_SKILL_MAX: 'KeyM',
-    KEY_CLASS_TREE: 'KeyT',
-    KEY_RECORD: 'KeyZ',
-    KEY_PING: 'KeyL',
+    KEY_AUTO_FIRE: "KeyE",
+    KEY_AUTO_ALT: "KeyX",
+    KEY_AUTO_SPIN: "KeyC",
+    KEY_SPIN_LOCK: "KeyG",
+    KEY_OVERRIDE: "KeyR",
+    KEY_LEVEL_UP: "KeyN",
+    KEY_ABILITY: "KeyF",
+    //KEY_PAUSE: "KeyG",
+    KEY_REVERSE_TANK: "KeyV",
+    KEY_REVERSE_MOUSE: "KeyB",
+    KEY_SCREENSHOT: "KeyQ",
+    KEY_SKILL_MAX: "KeyM",
+    KEY_CLASS_TREE: "KeyT",
+    KEY_RECORD: "KeyZ",
+    KEY_PING: "KeyL",
 
-    KEY_UP: 'KeyW',
-    KEY_LEFT: 'KeyA',
-    KEY_DOWN: 'KeyS',
-    KEY_RIGHT: 'KeyD',
+    KEY_UP: "KeyW",
+    KEY_LEFT: "KeyA",
+    KEY_DOWN: "KeyS",
+    KEY_RIGHT: "KeyD",
 
-    KEY_UPGRADE_1: 'KeyY',
-    KEY_UPGRADE_2: 'KeyU',
-    KEY_UPGRADE_3: 'KeyI',
-    KEY_UPGRADE_4: 'KeyH',
-    KEY_UPGRADE_5: 'KeyJ',
-    KEY_UPGRADE_6: 'KeyK',
+    KEY_UPGRADE_1: "KeyY",
+    KEY_UPGRADE_2: "KeyU",
+    KEY_UPGRADE_3: "KeyI",
+    KEY_UPGRADE_4: "KeyH",
+    KEY_UPGRADE_5: "KeyJ",
+    KEY_UPGRADE_6: "KeyK",
 
-    KEY_SKILL_1: 'Digit1',
-    KEY_SKILL_2: 'Digit2',
-    KEY_SKILL_3: 'Digit3',
-    KEY_SKILL_4: 'Digit4',
-    KEY_SKILL_5: 'Digit5',
-    KEY_SKILL_6: 'Digit6',
-    KEY_SKILL_7: 'Digit7',
-    KEY_SKILL_8: 'Digit8',
-    KEY_SKILL_9: 'Digit9',
-    KEY_SKILL_10: 'Digit0',
+    KEY_SKILL_1: "Digit1",
+    KEY_SKILL_2: "Digit2",
+    KEY_SKILL_3: "Digit3",
+    KEY_SKILL_4: "Digit4",
+    KEY_SKILL_5: "Digit5",
+    KEY_SKILL_6: "Digit6",
+    KEY_SKILL_7: "Digit7",
+    KEY_SKILL_8: "Digit8",
+    KEY_SKILL_9: "Digit9",
+    KEY_SKILL_10: "Digit0",
 
-    KEY_MOUSE_0: 'Space',
-    KEY_MOUSE_2: 'ShiftLeft',
+    KEY_MOUSE_0: "Space",
+    KEY_MOUSE_2: "ShiftLeft",
 
-    KEY_SUICIDE: 'KeyO',
+    KEY_SUICIDE: "KeyO",
 
-    KEY_SPECIAL: 'Backquote',
-    KEY_SPECIAL_HELP: 'Slash',
-    KEY_SPECIAL_HELP_ALT: 'F1',
+    KEY_SPECIAL: "Backquote",
+    KEY_SPECIAL_HELP: "Slash",
+    KEY_SPECIAL_HELP_ALT: "F1",
 
-    KEY_SPECIAL_PRESET_1: 'Digit1',
-    KEY_SPECIAL_PRESET_2: 'Digit2',
-    KEY_SPECIAL_PRESET_3: 'Digit3',
-    KEY_SPECIAL_BASIC: 'KeyQ',
+    KEY_SPECIAL_PRESET_1: "Digit1",
+    KEY_SPECIAL_PRESET_2: "Digit2",
+    KEY_SPECIAL_PRESET_3: "Digit3",
+    KEY_SPECIAL_BASIC: "KeyQ",
 
-    KEY_SPECIAL_TELEPORT: 'KeyE',
-    KEY_SPECIAL_KILL: 'KeyK',
-    KEY_SPECIAL_WHIRLPOOL: 'KeyW',
-    KEY_SPECIAL_DRAG: 'KeyD',
-    KEY_SPECIAL_COLOR: 'KeyC',
+    KEY_SPECIAL_TELEPORT: "KeyE",
+    KEY_SPECIAL_KILL: "KeyK",
+    KEY_SPECIAL_WHIRLPOOL: "KeyW",
+    KEY_SPECIAL_DRAG: "KeyD",
+    KEY_SPECIAL_COLOR: "KeyC",
 
-    KEY_SPECIAL_WALL: 'KeyX',
-    KEY_SPECIAL_WALL_TYPE: 'KeyZ',
+    KEY_SPECIAL_WALL: "KeyX",
+    KEY_SPECIAL_WALL_TYPE: "KeyZ",
 
-    KEY_SPECIAL_VANISH: 'KeyV',
-    KEY_SPECIAL_INVINCIBLE: 'KeyI',
+    KEY_SPECIAL_VANISH: "KeyV",
+    KEY_SPECIAL_INVINCIBLE: "KeyI",
 
-    KEY_SPECIAL_TEAM: 'KeyT',
-    KEY_SPECIAL_TEAM_INVITE: 'KeyY',
+    KEY_SPECIAL_TEAM: "KeyT",
+    KEY_SPECIAL_TEAM_INVITE: "KeyY",
 
-    KEY_SPECIAL_HEAL: 'KeyH',
+    KEY_SPECIAL_HEAL: "KeyH",
 
-    KEY_SPECIAL_SKILL: 'KeyS',
-    KEY_SPECIAL_SKILL_RESET: 'KeyR',
-    KEY_SPECIAL_SKILL_CLEAR: 'KeyC',
-    KEY_SPECIAL_SKILL_MAX: 'KeyM',
-    KEY_SPECIAL_SKILL_REMOVE: 'KeyD',
-    KEY_SPECIAL_SKILL_ADD: 'KeyF',
-    KEY_SPECIAL_SKILL_CAP_REMOVE: 'KeyG',
-    KEY_SPECIAL_SKILL_CAP_ADD: 'KeyH',
+    KEY_SPECIAL_SKILL: "KeyS",
+    KEY_SPECIAL_SKILL_RESET: "KeyR",
+    KEY_SPECIAL_SKILL_CLEAR: "KeyC",
+    KEY_SPECIAL_SKILL_MAX: "KeyM",
+    KEY_SPECIAL_SKILL_REMOVE: "KeyD",
+    KEY_SPECIAL_SKILL_ADD: "KeyF",
+    KEY_SPECIAL_SKILL_CAP_REMOVE: "KeyG",
+    KEY_SPECIAL_SKILL_CAP_ADD: "KeyH",
 
-    KEY_SPECIAL_DATA: 'KeyG',
-    KEY_SPECIAL_LEVEL_UP: 'KeyN',
-    KEY_SPECIAL_POLICE: 'KeyP',
-    KEY_SPECIAL_BLAST: 'KeyB',
+    KEY_SPECIAL_DATA: "KeyG",
+    KEY_SPECIAL_LEVEL_UP: "KeyN",
+    KEY_SPECIAL_POLICE: "KeyP",
+    KEY_SPECIAL_BLAST: "KeyB",
 
-    KEY_SPECIAL_ATTRIBUTE: 'KeyA',
-    KEY_SPECIAL_ATTRIBUTE_MINIMAP_TEAM: 'KeyT',
-    KEY_SPECIAL_ATTRIBUTE_MINIMAP_HIDE: 'KeyM',
-    KEY_SPECIAL_ATTRIBUTE_LEADERBOARD: 'KeyL',
-    KEY_SPECIAL_ATTRIBUTE_RELOAD: 'KeyC',
-    KEY_SPECIAL_ATTRIBUTE_RECOIL: 'KeyR',
-    KEY_SPECIAL_ATTRIBUTE_ARENA_EDGE: 'KeyO',
-    KEY_SPECIAL_ATTRIBUTE_WALL: 'KeyW',
-    KEY_SPECIAL_ATTRIBUTE_SCORE: 'KeyK',
+    KEY_SPECIAL_ATTRIBUTE: "KeyA",
+    KEY_SPECIAL_ATTRIBUTE_MINIMAP_TEAM: "KeyT",
+    KEY_SPECIAL_ATTRIBUTE_MINIMAP_HIDE: "KeyM",
+    KEY_SPECIAL_ATTRIBUTE_LEADERBOARD: "KeyL",
+    KEY_SPECIAL_ATTRIBUTE_RELOAD: "KeyC",
+    KEY_SPECIAL_ATTRIBUTE_RECOIL: "KeyR",
+    KEY_SPECIAL_ATTRIBUTE_ARENA_EDGE: "KeyO",
+    KEY_SPECIAL_ATTRIBUTE_WALL: "KeyW",
+    KEY_SPECIAL_ATTRIBUTE_SCORE: "KeyK",
 
-    KEY_SPECIAL_BAN: 'KeyO',
+    KEY_SPECIAL_BAN: "KeyO",
 
-    KEY_SPECIAL_ZOOM_OUT: 'Minus',
-    KEY_SPECIAL_ZOOM_IN: 'Equal',
-    KEY_SPECIAL_ZOOM_CLEAR: 'Digit0',
+    KEY_SPECIAL_ZOOM_OUT: "Minus",
+    KEY_SPECIAL_ZOOM_IN: "Equal",
+    KEY_SPECIAL_ZOOM_CLEAR: "Digit0",
 
-    KEY_SPECIAL_SMALLER: 'Comma',
-    KEY_SPECIAL_BIGGER: 'Period',
+    KEY_SPECIAL_SMALLER: "Comma",
+    KEY_SPECIAL_BIGGER: "Period",
 
-    KEY_SPECIAL_PROMOTE: 'Semicolon',
-    KEY_SPECIAL_DEMOTE: 'Quote',
+    KEY_SPECIAL_PROMOTE: "Semicolon",
+    KEY_SPECIAL_DEMOTE: "Quote",
 
-    KEY_ABILITIES: ['KEY_SPECIAL_ATTRIBUTE", "KEY_SPECIAL_SKILL'],
+    KEY_ABILITIES: ["KEY_SPECIAL_ATTRIBUTE", "KEY_SPECIAL_SKILL"],
 
     showTree: false,
     scrollX: 0,
@@ -236,7 +236,7 @@ const global = {
     generateTankTree: false,
     specialPressed: false,
     specialKeysPressed: [],
-    backgroundColor: '#f2fbff',
+    backgroundColor: "#F2FBFF",
     lineColor: "#000000",
     nameColor: "#FFFFFF",
     message: "",
@@ -314,7 +314,7 @@ const global = {
         mspt: 0,
     },
     advanced: {
-        arenaShape: 'rect',
+        arenaShape: "rect",
         roundArena: false,
         blackout: {
             active: false,
@@ -448,7 +448,7 @@ const global = {
             global.showTree = true;
             global.pullUpgradeMenu = true;
             global.pullSkillBar = true;
-            global.socket.talk('T');
+            global.socket.talk("T");
         } else if (type === "exit") {
             global.showTree = false;
             global.renderTankTree = false;
@@ -459,7 +459,7 @@ const global = {
             global.scrollVelocityY = global.scrollVelocityX = 0;
             global.classTreeDrag.isDragging = false;
             global.classTreeDrag.momentum = { x: 0, y: 0 };
-            global.searchQuery = '';
+            global.searchQuery = "";
             global.searchBarActive = false;
             global.canvas.tankTreeProps.enabled = false;
         }

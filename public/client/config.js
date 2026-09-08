@@ -14,7 +14,7 @@ const config = {
         lowResolution: false,
         oldUIStyle: false,
         coloredNest: false,
-        colors: 'normal',
+        colors: "normal",
         pointy: true,
         showGrid: true,
         hexaGrid: true,

@@ -111,8 +111,8 @@ const keybinderHandler = (function() {
                     let key = e.code;
                     if (selectedElement) {
                         if (1 !== e.key.length || 3 === e.location) {
-                            if (!('Backspace' !== e.key && 'Delete' !== e.key)) {
-                                setKeybind('', -1);
+                            if (!("Backspace" !== e.key && "Delete" !== e.key)) {
+                                setKeybind("", -1);
                             }
                         } else {
                             setKeybind(e.key.toUpperCase(), e.code);

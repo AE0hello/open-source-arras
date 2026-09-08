@@ -376,7 +376,7 @@ class gameHandler {
     };
     
     maintainloop = () => {   
-        // Upgrade bots's skill
+        // Upgrade bots' skill
         for (let i = 0; i < this.bots.length; i++) {
             let o = this.bots[i];
             if (o.skill.level < Config.level_cap && o.skill.level >= Config.bot_start_level) {

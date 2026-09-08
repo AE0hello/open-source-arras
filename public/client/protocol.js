@@ -268,11 +268,11 @@ const protocol = (function() {
                         break
                     case 0b1001: {
                         let byte = data[index++]
-                        output.push(byte === 0 ? '' : String.fromCharCode(byte))
+                        output.push(byte === 0 ? "" : String.fromCharCode(byte))
                     }
                     break
                 case 0b1010: {
-                    let string = ''
+                    let string = ""
                     let byte = 0
                     while (byte = data[index++]) {
                         string += String.fromCharCode(byte)
@@ -281,7 +281,7 @@ const protocol = (function() {
                 }
                 break
                 case 0b1011: {
-                    let string = ''
+                    let string = ""
                     let byte = 0
                     while (byte = data[index++] | (data[index++] << 8)) {
                         string += String.fromCharCode(byte)

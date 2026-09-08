@@ -235,11 +235,11 @@ let commands = [
                 classMap.clear();
 
                 // Log it.
-                util.warn(`Reloading all definitions`);
+                util.warn("Reloading all definitions");
 
                 // Purge all cache entries of every file in definitions
                 for (let file in require.cache) {
-                    if (!file.includes('definitions') || file.includes(__filename)) continue;
+                    if (!file.includes("definitions") || file.includes(__filename)) continue;
                     delete require.cache[file];
                 }
 
@@ -257,7 +257,7 @@ let commands = [
                 // Redefine all tanks and bosses
                 for (let entity of entities.values()) {
                     // If it's a valid type, and it's not a turret
-                    if (!['tank", "miniboss', "food"].includes(entity.type)) continue;
+                    if (!["tank", "miniboss", "food"].includes(entity.type)) continue;
                     if (entity.bond) continue;
 
                     let entityDefs = JSON.parse(JSON.stringify(entity.defs));
