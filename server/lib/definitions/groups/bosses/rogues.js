@@ -13,13 +13,13 @@ Class.menu_rogues = makeMenu("Rogues", {upgrades: [
 Class.roguePalisade = {
     PARENT: 'miniboss',
     LABEL: "Rogue Palisade",
-    COLOR: 'darkGrey',
-    UPGRADE_COLOR: 'darkGrey',
+    COLOR: "darkGrey",
+    UPGRADE_COLOR: "darkGrey",
     SHAPE: 6,
     SIZE: 30,
     VALUE: 5e5,
     SKILL: [2, 6, 6, 6, 2, 0, 0, 9, 0, 0],
-    CONTROLLERS: ['nearestDifferentMaster', 'onlyAcceptInArc'],
+    CONTROLLERS: ["nearestDifferentMaster", "onlyAcceptInArc"],
     BODY: {
         FOV: 1.4,
         SPEED: 0.05 * base.SPEED,
@@ -31,7 +31,7 @@ Class.roguePalisade = {
         POSITION: [4, 6, -1.6, 8, 0, 0, 0], 
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([ g.minion, g.pounder, { reload: 2, damage: 0.7, density: 0.6 }]),
-            TYPE: ['minion', {INDEPENDENT: true}],
+            TYPE: ["minion", {INDEPENDENT: true}],
             STAT_CALCULATOR: "drone",
             AUTOFIRE: true,
             MAX_CHILDREN: 3,
@@ -47,8 +47,8 @@ Class.roguePalisade = {
 Class.rogueArmada = {
     PARENT: 'miniboss',
     LABEL: "Rogue Armada",
-    COLOR: 'darkGrey',
-    UPGRADE_COLOR: 'darkGrey',
+    COLOR: "darkGrey",
+    UPGRADE_COLOR: "darkGrey",
     SHAPE: 7,
     SIZE: 28,
     VALUE: 5e5,

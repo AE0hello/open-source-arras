@@ -16,7 +16,7 @@ Class.menu_sentries = makeMenu("Sentries", {upgrades: [
 	"sentinelMinigun",
 	"sentinelLauncher",
 	"sentinelCrossbow",
-], color: 'pink', boxColor: 'pink', shape: 3.5, props: [{POSITION: [12, 0, 0, 0, 360, 1], TYPE: ["circleHat", {COLOR: "grey"}]}]})
+], color: "pink", boxColor: "pink", shape: 3.5, props: [{POSITION: [12, 0, 0, 0, 360, 1], TYPE: ["circleHat", {COLOR: "grey"}]}]})
 
 // Sentries
 Class.sentry = {
@@ -24,8 +24,8 @@ Class.sentry = {
     TYPE: "crasher",
     LABEL: "Sentry",
     DANGER: 3,
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
+    COLOR: "pink",
+    UPGRADE_COLOR: "pink",
     SHAPE: 3,
     SIZE: 10,
     SKILL: skillSet({
@@ -63,7 +63,7 @@ Class.sentry = {
 Class.sentrySwarm = {
     PARENT: "sentry",
     UPGRADE_LABEL: "Swarm Sentry",
-    UPGRADE_COLOR: 'pink',
+    UPGRADE_COLOR: "pink",
     GUNS: [
         {
             POSITION: [7, 14, 0.6, 7, 0, 180, 0],
@@ -88,8 +88,8 @@ Class.sentryTrap.UPGRADE_LABEL = "Trap Sentry"
 Class.sentrySwarmMinion = {
     PARENT: "drone",
     LABEL: 'sentry',
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
+    COLOR: "pink",
+    UPGRADE_COLOR: "pink",
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     GUNS: Class.sentrySwarm.GUNS
@@ -97,8 +97,8 @@ Class.sentrySwarmMinion = {
 Class.sentryGunMinion = {
     PARENT: "drone",
     LABEL: 'sentry',
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
+    COLOR: "pink",
+    UPGRADE_COLOR: "pink",
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -109,8 +109,8 @@ Class.sentryGunMinion = {
 Class.sentryTrapMinion = {
     PARENT: "drone",
     LABEL: 'sentry',
-    COLOR: 'pink',
-    UPGRADE_COLOR: 'pink',
+    COLOR: "pink",
+    UPGRADE_COLOR: "pink",
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
@@ -312,7 +312,7 @@ Class.sentinelSwarm = {
     PARENT: "sentry",
     LABEL: "Sentinel",
     UPGRADE_LABEL: "Swarm Sentinel",
-    UPGRADE_COLOR: 'pink',
+    UPGRADE_COLOR: "pink",
     GUNS: weaponMirror({
         POSITION: [7, 10, 0.6, 7, 5.5, 180, 0],
         PROPERTIES: {

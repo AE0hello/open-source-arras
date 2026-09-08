@@ -108,7 +108,7 @@ Class.genericEggnought = {
 	PARENT: "genericDreadnought_dreadsV2",
 	BODY: eggnoughtBody,
 	SHAPE: 0,
-	COLOR: 'egg',
+	COLOR: "egg",
 	SIZE: 16,
 	DANGER: 8,
 }
@@ -116,7 +116,7 @@ Class.genericSquarenought = {
 	PARENT: "genericDreadnought_dreadsV2",
 	BODY: squarenoughtBody,
 	SHAPE: 4,
-	COLOR: 'square',
+	COLOR: "square",
 	SIZE: 20,
 	DANGER: 9,
 }
@@ -124,7 +124,7 @@ Class.genericTrinought = {
 	PARENT: "genericDreadnought_dreadsV2",
 	BODY: trinoughtBody,
 	SHAPE: 3.5,
-	COLOR: 'triangle',
+	COLOR: "triangle",
 	SIZE: 23,
 	DANGER: 10,
 }
@@ -132,7 +132,7 @@ Class.genericPentanought = {
 	PARENT: "genericDreadnought_dreadsV2",
 	BODY: pentanoughtBody,
 	SHAPE: 5.5,
-	COLOR: 'pentagon',
+	COLOR: "pentagon",
 	SIZE: 25,
 	DANGER: 11,
 }
@@ -140,7 +140,7 @@ Class.genericHexnought = {
 	PARENT: "genericDreadnought_dreadsV2",
 	BODY: hexnoughtBody,
 	SHAPE: 6,
-	COLOR: 'hexagon',
+	COLOR: "hexagon",
 	SIZE: 26,
 	DANGER: 12,
 }
@@ -269,7 +269,7 @@ Class.spamAutoTurret = {
 Class.aggressorMinion_dreadsV2 = {
 	PARENT: "minion",
 	SHAPE: 3.5,
-	COLOR: 'triangle',
+	COLOR: "triangle",
 	GUNS: weaponArray({
 		POSITION: [16, 8.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
@@ -282,7 +282,7 @@ Class.aggressorMinion_dreadsV2 = {
 Class.assailantMinion_dreadsV2 = {
 	PARENT: "minion",
 	SHAPE: 4,
-	COLOR: 'square',
+	COLOR: "square",
 	GUNS: weaponArray({
 		POSITION: [15, 7.5, 1, 0, 0, 0, 0],
 		PROPERTIES: {
@@ -493,12 +493,12 @@ Class.dreadnought_dreadsV2 = {
 }
 Class.dreadWeapon_dreadsV2 = {
 	LABEL: "",
-	COLOR: 'egg',
+	COLOR: "egg",
 	REROOT_UPGRADE_TREE: "dreadWeapon_dreadsV2",
 }
 Class.dreadBody_dreadsV2 = {
 	LABEL: "",
-	COLOR: 'egg',
+	COLOR: "egg",
 	REROOT_UPGRADE_TREE: "dreadBody_dreadsV2",
 }
 
@@ -734,14 +734,14 @@ Class.spotter_dreadsV2 = {
 	},
 	TURRETS: [
 		{
-			TYPE: 'egg',
+			TYPE: "egg",
 			POSITION: {
 				SIZE: 15,
 				LAYER: 1
 			}
 		},
 		{
-			TYPE: 'egg',
+			TYPE: "egg",
 			POSITION: {
 				SIZE: 9,
 				LAYER: 1
@@ -1817,7 +1817,7 @@ Class.moon_dreadsV2 = {
 	PROPS: [
 		{
 			POSITION: [24, 0, 0, 180, 0],
-			TYPE: ['triangle', {COLOR: 9}]
+			TYPE: ["triangle", {COLOR: 9}]
 		}, {
 			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "triangle"
@@ -1835,7 +1835,7 @@ Class.planet_dreadsV2 = {
 	PROPS: [
 		{
 			POSITION: [24, 0, 0, 180, 0],
-			TYPE: ['triangle', {COLOR: 9}]
+			TYPE: ["triangle", {COLOR: 9}]
 		}, {
 			POSITION: [12, 0, 0, 180, 1],
 			TYPE: "triangle"

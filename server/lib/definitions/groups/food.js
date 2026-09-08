@@ -184,7 +184,7 @@ Class.hexagon = {
 Class.crasher = {
     TYPE: "crasher",
     LABEL: "Crasher",
-    COLOR: 'pink',
+    COLOR: "pink",
     SHAPE: 3,
     SIZE: 5,
     VARIES_IN_SIZE: true,
@@ -289,17 +289,17 @@ Class.nonagon = {
 
 // Rarities
 makeRarities([
-    'egg',
-    'square',
-    'triangle',
-    'pentagon',
-    'betaPentagon',
-    'alphaPentagon',
-    'hexagon',
-    'hexagon_old',
-    'septagon',
-    'octagon',
-    'nonagon'
+    "egg",
+    "square",
+    "triangle",
+    "pentagon",
+    "betaPentagon",
+    "alphaPentagon",
+    "hexagon",
+    "hexagon_old",
+    "septagon",
+    "octagon",
+    "nonagon"
 ])
 
 // 3D
@@ -651,7 +651,7 @@ Class.cube = {
     NAME: "The Cube",
     VALUE: 2e7,
     SIZE: 10,
-    COLOR: 'egg',
+    COLOR: "egg",
     SHAPE: cube_shape,
     BODY: {
         DAMAGE: 4.8,
@@ -671,7 +671,7 @@ Class.tetrahedron = {
     NAME: "The Tetrahedron",
     VALUE: 3e7,
     SIZE: 12,
-    COLOR: 'egg',
+    COLOR: "egg",
     SHAPE: tetrahedron_shape,
     BODY: {
         DAMAGE: 6,
@@ -690,7 +690,7 @@ Class.octahedron = {
     NAME: "The Octahedron",
     VALUE: 4e7,
     SIZE: 13,
-    COLOR: 'egg',
+    COLOR: "egg",
     SHAPE: octahedron_shape,
     BODY: {
         DAMAGE: 6.5,
@@ -709,7 +709,7 @@ Class.dodecahedron = {
     NAME: "The Dodecahedron",
     VALUE: 5e7,
     SIZE: 18,
-    COLOR: 'egg',
+    COLOR: "egg",
     SHAPE: dodecahedron_shape,
     BODY: {
         DAMAGE: 7,
@@ -728,7 +728,7 @@ Class.icosahedron = {
     NAME: "The Icosahedron",
     VALUE: 1e8,
     SIZE: 20,
-    COLOR: 'egg',
+    COLOR: "egg",
     SHAPE: icosahedron_shape,
     BODY: {
         DAMAGE: 9,
@@ -749,7 +749,7 @@ Class.tesseract = {
     NAME: "The Tesseract",
     VALUE: 42e7,
     SIZE: 25,
-    COLOR: 'egg',
+    COLOR: "egg",
     SHAPE: tesseract_shape,
     BODY: {
         DAMAGE: 10,
@@ -787,8 +787,8 @@ for (let [gemColor, name] of [
     let gem;
     if (gemColor) {
         gem = Class[name + "Gem"] = {
-            PARENT: 'gem',
-            LABEL: name + ' Gem',
+            PARENT: "gem",
+            LABEL: `${name} Gem`,
             SHAPE: 6,
             COLOR: gemColor
         }
@@ -808,8 +808,8 @@ for (let [gemColor, name] of [
 }
 
 // Tiered Food
-let polyNames = ['egg', 'square', 'triangle', 'pentagon', 'hexagon'],
-    shinyNames = ['', 'shiny', 'legendary', 'shadow', 'rainbow', 'trans'];
+let polyNames = ["egg", "square", "triangle", "pentagon", "hexagon"],
+    shinyNames = ["", "shiny", "legendary", "shadow", "rainbow", "trans"];
 for (let tier = 0; tier < 6; tier++) {
     for (let poly in polyNames) {
         let polyName = polyNames[poly];
@@ -825,7 +825,7 @@ for (let tier = 0; tier < 6; tier++) {
                 parseInt(poly),
                 parseInt(shiny),
                 tier,
-                polyName === 'Triangle' && tier > 0 ? 2 / 3 : 1
+                polyName === "Triangle" && tier > 0 ? 2 / 3 : 1
             );
 
             Class[`laby_${poly}_${tier}_${shiny}_1`] = makeCrasher(

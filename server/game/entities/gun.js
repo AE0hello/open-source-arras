@@ -253,7 +253,7 @@ class Gun extends EventEmitter {
     }
     checkShootPermission() {
         let skill = this.bulletStats === 'master' ? this.body.skill : this.bulletStats;
-        let necroReload = this.calculator === 'necro' ? skill.rld : 1;
+        let necroReload = this.calculator === "necro" ? skill.rld : 1;
         let shootPermission = true;
 
         if (this.countsOwnKids) {

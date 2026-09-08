@@ -13,7 +13,7 @@
 
 ## Setup Guide (Localhost)
 
-You'll first need to install Node.js from either [the Node website](http://nodejs.org) or your distribution's package manager (for *nix-like systems). Once Node.js is installed, [download the source code of the latest release](https://github.com/open-source-arras/open-source-arras/releases) and extract it. Open the extracted folder in a terminal window and run the following commands in order:
+You'll first need to install Node.js from either [the Node website](http://nodejs.org) or your distribution's package manager (for \*nix-like systems). Once Node.js is installed, [download the source code of the latest release](https://github.com/open-source-arras/open-source-arras/releases) and extract it. Open the extracted folder in a terminal window and run the following commands in order:S
 
 ```sh
 ~$ npm install
@@ -42,7 +42,7 @@ server_travel: [
         ip: '<YourIP>', // destination server host, don't add "https://" or any slashes to it
         portal_properties: {
             spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = lower chances, lower = higher chance)
-            color: 'red', // portal color
+            color: "red", // portal color
         }
     }
 ]

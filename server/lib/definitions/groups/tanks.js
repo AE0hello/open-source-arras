@@ -83,7 +83,7 @@ Class.flail = {
     PARENT: "genericFlail",
     LABEL: "Flail",
     TURRETS: [{
-        TYPE: ['flailBolt3', {
+        TYPE: ["flailBolt3", {
             INDEPENDENT: true
         }],
         POSITION: {
@@ -241,10 +241,10 @@ for (let i = 0; i < autoTanksT2.length; i++) {
     Class[`tripleMegaAuto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type, `Triple Mega Auto-${Class[type].LABEL}`, preset.makeAuto.tripleMega);
     Class[`pentaAuto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type, `Penta Auto-${Class[type].LABEL}`, preset.makeAuto.penta);
 
-    addUpgrades(`auto${type.charAt(0).toUpperCase() + type.slice(1)}`, 3, [...['mega', 'triple'].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
+    addUpgrades(`auto${type.charAt(0).toUpperCase() + type.slice(1)}`, 3, [...["mega", "triple"].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
     if (Config.arms_race) {
-        addUpgrades(`megaAuto${type.charAt(0).toUpperCase() + type.slice(1)}`, tier4_AR, [...['ultra', 'tripleMega'].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
-        addUpgrades(`tripleAuto${type.charAt(0).toUpperCase() + type.slice(1)}`, tier4_AR, [...['tripleMega', 'penta'].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
+        addUpgrades(`megaAuto${type.charAt(0).toUpperCase() + type.slice(1)}`, tier4_AR, [...["ultra", "tripleMega"].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
+        addUpgrades(`tripleAuto${type.charAt(0).toUpperCase() + type.slice(1)}`, tier4_AR, [...["tripleMega", "penta"].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
     };
 };
 
@@ -451,7 +451,7 @@ Class.doubleFlail = {
     DANGER: 6,
     TURRETS: weaponArray(Class.flail.TURRETS, 2)
 };
-Class.doubleTwin = makeFlank('twin', 2, "Double Twin", { extraStats: [g.doubleTwin] });
+Class.doubleTwin = makeFlank("twin", 2, "Double Twin", { extraStats: [g.doubleTwin] });
 Class.flangle = {
     PARENT: "genericFlail",
     LABEL: "Flangle",
@@ -720,7 +720,7 @@ Class.mace = {
         }]
     }]
 };
-Class.machineFlank = makeFlank('machineGun', 2, "Machine Flank", { extraStats: [g.doubleTwin] });
+Class.machineFlank = makeFlank("machineGun", 2, "Machine Flank", { extraStats: [g.doubleTwin] });
 Class.machineTrapper = {
     PARENT: "genericTank",
     LABEL: "Machine Trapper",
@@ -987,7 +987,7 @@ Class.repeater = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ['splitterBullet', {CONTROLLERS: ["snake"]}]
+                TYPE: ["splitterBullet", {CONTROLLERS: ["snake"]}]
             }
         },
         ...weaponMirror([
@@ -1103,7 +1103,7 @@ Class.spawner = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
-                TYPE: 'minion',
+                TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
@@ -1139,7 +1139,7 @@ Class.spiral = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5/3 }]),
-                TYPE: ['spiralBullet', {CONTROLLERS: ["snake"]}]
+                TYPE: ["spiralBullet", {CONTROLLERS: ["snake"]}]
             }
         },
         ...weaponMirror({
@@ -1210,7 +1210,7 @@ Class.tempest_bent = {
         }
     ]
 };
-Class.tornado = makeWhirlwind("genericTank", { hat: 'squareHat_spin', hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
+Class.tornado = makeWhirlwind("genericTank", { hat: "squareHat_spin", hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
 Class.trapGuard = makeGuard({
     PARENT: "genericTank",
     DANGER: 4,
@@ -1263,7 +1263,7 @@ Class.triAngle = {
         })
     ]
 };
-Class.triTrapper = makeFlank('trapper', 3, "Tri-Trapper", { extraStats: [g.flankGuard] });
+Class.triTrapper = makeFlank("trapper", 3, "Tri-Trapper", { extraStats: [g.flankGuard] });
 Class.tripleShot = {
     PARENT: "genericTank",
     LABEL: "Triple Shot",
@@ -1337,10 +1337,10 @@ Class.underseer = {
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}]),
-            TYPE: 'sunchip',
+            TYPE: "sunchip",
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
-            STAT_CALCULATOR: 'necro',
+            STAT_CALCULATOR: "necro",
             WAIT_TO_CYCLE: true,
             DELAY_SPAWN: false
         }
@@ -1355,7 +1355,7 @@ Class.undertow = {
            POSITION: [14, 12, 0.8, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, { size: 0.8, reload: 1.2 }]),
-                TYPE: 'undertowBullet'
+                TYPE: "undertowBullet"
             }
         },
         ...weaponMirror({
@@ -1423,9 +1423,9 @@ Class.wark = {
         }
     ], {delayIncrement: 0.5})
 };
-Class.whirlwind_old = makeWhirlwind("genericTank", { hat: 'circleHat', hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind" });
+Class.whirlwind_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind" });
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind";
-Class.whirlwind_old.UPGRADES_TIER_3 = ['monsoon', 'maelstrom', 'tornado_old', 'typhoon_old', 'vortex_old'];
+Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"];
 
 // Tier 3 (Level 45)
 const autoTanksT3 = [
@@ -2342,7 +2342,7 @@ Class.captain = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
-                TYPE: 'minion',
+                TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
@@ -2453,7 +2453,7 @@ Class.coil = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos, { reload: 5/3 }]),
-                TYPE: ['spiralBullet', {CONTROLLERS: ["snake"]}]
+                TYPE: ["spiralBullet", {CONTROLLERS: ["snake"]}]
             },
         },
         {
@@ -2465,7 +2465,7 @@ Class.coil = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos, { reload: 5/3 }]),
-                TYPE: ['spiralBullet', {CONTROLLERS: [["snake", {invert: true}]]}]
+                TYPE: ["spiralBullet", {CONTROLLERS: [["snake", {invert: true}]]}]
             },
         },
         ...weaponMirror({
@@ -3010,7 +3010,7 @@ Class.dreadnought_old = {
     BODY: Class.cruiser.BODY,
     TURRETS: [
         {
-            TYPE: ['circleHat', {COLOR: 'grey'}],
+            TYPE: ["circleHat", {COLOR: 'grey'}],
             POSITION: {
                 SIZE: 19.5,
                 X: -4.5,
@@ -3199,14 +3199,14 @@ Class.duplicator = {
             POSITION: [20, 8, -4/3, 0, 0, 20, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
-                TYPE: ['splitterBullet', {CONTROLLERS: [["snake", {invert: false}]]}]
+                TYPE: ["splitterBullet", {CONTROLLERS: [["snake", {invert: false}]]}]
             }
         },
         {
             POSITION: [20, 8, -4/3, 0, 0, -20, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
-                TYPE: ['splitterBullet', {CONTROLLERS: [["snake", {invert: true}]]}]
+                TYPE: ["splitterBullet", {CONTROLLERS: [["snake", {invert: true}]]}]
             }
         },
         ...weaponMirror([{
@@ -3377,7 +3377,7 @@ Class.factory = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.minion]),
-                TYPE: 'minion',
+                TYPE: "minion",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
@@ -3618,7 +3618,7 @@ Class.fork = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.marksman]),
-                TYPE: 'splitterBullet'
+                TYPE: "splitterBullet"
             }
         }
     ]
@@ -3779,7 +3779,7 @@ Class.hewnDouble = {
         }, {delayIncrement: 0.5}), 2)
     ]
 };
-Class.hexaTrapper = makeAuto(makeFlank('trapper', 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6 }), "Hexa-Trapper");
+Class.hexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6 }), "Hexa-Trapper");
 Class.hexaWhirl = makeWhirlwind('hexaTank', { label: "Hexa Whirl" });
 Class.honchodrive = {
     PARENT: "genericTank",
@@ -3866,7 +3866,7 @@ Class.infestor = {
             TYPE: 'eggchip',
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
-            STAT_CALCULATOR: 'necro',
+            STAT_CALCULATOR: "necro",
             WAIT_TO_CYCLE: true,
             DELAY_SPAWN: false,
             MAX_CHILDREN: 10
@@ -4064,7 +4064,7 @@ Class.machineGunner = {
         }
     ]
 };
-Class.machineTriple = makeFlank('machineGun', 3, "Machine Triple", { extraStats: [g.doubleTwin, g.tripleTwin], danger: 7 });
+Class.machineTriple = makeFlank("machineGun", 3, "Machine Triple", { extraStats: [g.doubleTwin, g.tripleTwin], danger: 7 });
 Class.maelstrom = makeAuto('whirlwind_old', "Maelstrom");
 Class.manager = {
     PARENT: "genericTank",
@@ -4116,10 +4116,10 @@ Class.maleficitor = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.maleficitor]),
-                TYPE: ['sunchip', {INVISIBLE: [0.06, 0.03]}],
+                TYPE: ["sunchip", {INVISIBLE: [0.06, 0.03]}],
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
-                STAT_CALCULATOR: 'necro',
+                STAT_CALCULATOR: "necro",
                 WAIT_TO_CYCLE: true,
                 DELAY_SPAWN: false,
             },
@@ -4388,7 +4388,7 @@ Class.monsoon = makeWhirlwind({
             POSITION: {SIZE: 26}
         }
     ]
-}, {hat: 'circleHat', hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Monsoon", danger: 7});
+}, {hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Monsoon", danger: 7});
 Class.mortar = {
     PARENT: "genericTank",
     LABEL: "Mortar",
@@ -4521,10 +4521,10 @@ Class.necromancer = {
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.drone, g.sunchip]),
-            TYPE: 'sunchip',
+            TYPE: "sunchip",
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
-            STAT_CALCULATOR: 'necro',
+            STAT_CALCULATOR: "necro",
             WAIT_TO_CYCLE: true,
             DELAY_SPAWN: false
         }
@@ -5010,10 +5010,10 @@ Class.prodigy = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.5, size: 2, damage: 0.95}]),
-                TYPE: 'sunchip',
+                TYPE: "sunchip",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
-                STAT_CALCULATOR: 'necro',
+                STAT_CALCULATOR: "necro",
                 WAIT_TO_CYCLE: true,
                 DELAY_SPAWN: false,
                 MAX_CHILDREN: 2
@@ -5435,7 +5435,7 @@ Class.riptide = {
             POSITION: [18, 16, 0.75, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, { size: 0.9, reload: 1.2 }]),
-                TYPE: 'undertowBullet'
+                TYPE: "undertowBullet"
             }
         },
         ...weaponMirror({
@@ -5619,7 +5619,7 @@ Class.septaTrapper = {
         ], {delayOverflow: true})
     ]
 };
-Class.septaTrapper_old = makeFlank('trapper', 7, "Septa Trapper", { extraStats: [g.hexaTrapper], delayIncrement: 4/7, danger: 7, noRecoil: true });
+Class.septaTrapper_old = makeFlank("trapper", 7, "Septa Trapper", { extraStats: [g.hexaTrapper], delayIncrement: 4/7, danger: 7, noRecoil: true });
 Class.septaTrapper_old.UPGRADE_LABEL = "Old Septa Trapper";
 Class.shotgun = {
     PARENT: "genericTank",
@@ -6418,7 +6418,7 @@ Class.swarmer = {
 };
 Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinReverse", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
 Class.thunderbolt = makeWhirlwind("genericTank", { hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7 });
-Class.tornado_old = makeWhirlwind("genericTank", { hat: 'circleHat', hatSize: 30, hatLayer: 0, satellites: 1, satelliteSize: 16, satelliteType: "satellite_old", extraStats: [g.pounder, g.destroyer], label: "Tornado", danger: 7 });
+Class.tornado_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 30, hatLayer: 0, satellites: 1, satelliteSize: 16, satelliteType: "satellite_old", extraStats: [g.pounder, g.destroyer], label: "Tornado", danger: 7 });
 Class.triBlaster = {
     PARENT: "genericTank",
     LABEL: "Tri-Blaster",
@@ -6458,7 +6458,7 @@ Class.tripleFlail = {
     DANGER: 7,
     TURRETS: weaponArray(Class.flail.TURRETS, 3)
 };
-Class.tripleTwin = makeFlank('twin', 3, "Triple Twin", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7 });
+Class.tripleTwin = makeFlank("twin", 3, "Triple Twin", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7 });
 Class.triplet = {
     PARENT: "genericTank",
     LABEL: "Triplet",
@@ -6581,7 +6581,7 @@ Class.twister = {
     ]
 };
 Class.typhoon = makeWhirlwind("genericTank", { hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7 });
-Class.typhoon_old = makeWhirlwind("genericTank", { dualLayer: true, hat: 'circleHat', hatSize: 28, hatLayer: 0, hat2: 'circleHat', hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon" });
+Class.typhoon_old = makeWhirlwind("genericTank", { dualLayer: true, hat: "circleHat", hatSize: 28, hatLayer: 0, hat2: "circleHat", hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon" });
 Class.underdrive = {
     PARENT: "genericTank",
     LABEL: "Underdrive",
@@ -6604,7 +6604,7 @@ Class.underdrive = {
             TYPE: "autoSunchip",
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
-            STAT_CALCULATOR: 'necro',
+            STAT_CALCULATOR: "necro",
             WAIT_TO_CYCLE: true,
             DELAY_SPAWN: false
         }
@@ -6933,7 +6933,7 @@ Class.alloy = {
     }, 3)
 };
 Class.autoDoubleFlank = makeAuto('doubleFlankTwin', "Auto-Double Flank");
-Class.autoHexaTrapper = makeAuto(makeFlank('trapper', 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
+Class.autoHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
 Class.autoTriple = makeAuto('tripleTwin', "Auto-Triple");
 Class.avian = makeBird('single', "Avian");
 Class.band = makeAuto({
@@ -8297,7 +8297,7 @@ Class.hipwatch = {
 Class.marine = makeGunner('ranger', "Marine");
 Class.megaAutoDirectordrive = makeAuto('directordrive', "Mega Auto-Directordrive", preset.makeAuto.driveMega);
 Class.megaAutoDouble = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
-Class.megaHexaTrapper = makeAuto(makeFlank('trapper', 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Mega Hexa-Trapper", preset.makeAuto.mega);
+Class.megaHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Mega Hexa-Trapper", preset.makeAuto.mega);
 Class.mono = {
     PARENT: "genericTank",
     LABEL: "Mono",
@@ -8329,7 +8329,7 @@ Class.mono = {
         }
     ]
 };
-Class.octoTrapper = makeAuto(makeFlank('trapper', 8, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Octo-Trapper");
+Class.octoTrapper = makeAuto(makeFlank("trapper", 8, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Octo-Trapper");
 Class.orbitalStrike = {
     PARENT: "genericTank",
     LABEL: "Orbital Strike",
@@ -8423,7 +8423,7 @@ Class.protector = {
         }
     ]
 };
-Class.quadTwin = makeFlank('twin', 4, "Quad Twin", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.quadTwin = makeFlank("twin", 4, "Quad Twin", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
 Class.quintuplet = {
     PARENT: "genericTank",
     LABEL: "Quintuplet",
@@ -9860,7 +9860,7 @@ Class.antiTankMachineGun = {
     PARENT: "dominator",
     LABEL: "Anti-Tank Machine Gun",
     UPGRADE_LABEL: "A.T.M.G.",
-    CONTROLLERS: [["spin", {onlyWhenIdle: true}], 'nearestDifferentMaster'],
+    CONTROLLERS: [["spin", {onlyWhenIdle: true}], "nearestDifferentMaster"],
     LEVEL: 45,
     SIZE: 32,
     BODY: {
@@ -10239,7 +10239,7 @@ Class.cxATMG = {
 Class.damoclone = {
     PARENT: "genericTank",
     LABEL: "Damoclone",
-    COLOR: 'trans',
+    COLOR: "trans",
     HAS_NO_RECOIL: true,
     GUNS: weaponArray({
         POSITION: {
@@ -10531,13 +10531,13 @@ Class.worstTank = {
 };
 
 // Class Tree
-addUpgrades("basic", 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director', 'pounder', 'trapper', 'desmos']);
+addUpgrades("basic", 1, ["twin", 'sniper', "machineGun", 'flankGuard', 'director', 'pounder', "trapper", 'desmos']);
     addUpgrades("basic", 2, ['smasher']);
         addUpgrades('smasher', 3, ['megaSmasher', 'spike', 'autoSmasher', 'landmine']);
         addUpgrades('healer', 3, ['medic', 'ambulance', 'surgeon', 'paramedic']);
 
-    addUpgrades('twin', 2, ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix']);
-        addUpgrades('twin', 3, ['dual', 'bulwark', 'musket']);
+    addUpgrades("twin", 2, ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix']);
+        addUpgrades("twin", 3, ['dual', 'bulwark', 'musket']);
         addUpgrades('doubleTwin', 3, ['tripleTwin', 'hewnDouble', 'autoDouble', 'bentDouble']);
         addUpgrades('tripleShot', 3, ['pentaShot', 'spreadshot', 'bentHybrid', 'bentDouble', 'triplet', 'triplex']);
         addUpgrades('gunner', 3, ['autoGunner', 'nailgun', 'auto4', 'machineGunner', 'gunnerTrapper', 'cyclone', 'overgunner']);
@@ -10553,7 +10553,7 @@ addUpgrades("basic", 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director
         addUpgrades('marksman', 3, ['deadeye', 'nimrod', 'revolver', 'fork']);
         addUpgrades('gatlingGun', 3, ['sprayer_RG', 'accurator', 'halfNHalf']);
 
-    addUpgrades('machineGun', 2, ['artillery', 'minigun', 'gunner', 'sprayer']);
+    addUpgrades("machineGun", 2, ['artillery', 'minigun', 'gunner', 'sprayer']);
         addUpgrades('artillery', 3, ['mortar', 'ordnance', 'beekeeper', 'fieldGun']);
         //addUpgrades('minigun', 3, []);
         //addUpgrades('gunner', 3, []);
@@ -10584,8 +10584,8 @@ addUpgrades("basic", 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director
         //addUpgrades('artillery', 3, []);
         addUpgrades('launcher', 3, ['skimmer', 'twister', 'swarmer', 'sidewinder', 'fieldGun']);
 
-    addUpgrades('trapper', 2, ['builder', 'triTrapper', 'trapGuard']);
-        addUpgrades('trapper', 3, ['barricade', 'overtrapper']);
+    addUpgrades("trapper", 2, ['builder', 'triTrapper', 'trapGuard']);
+        addUpgrades("trapper", 3, ['barricade', 'overtrapper']);
         //addUpgrades('builder', 3, []);
         //addUpgrades('triTrapper', 3, []);
         //addUpgrades('trapGuard', 3, []);
@@ -10609,7 +10609,7 @@ addUpgrades("basic", 1, ['twin', 'sniper', 'machineGun', 'flankGuard', 'director
         addUpgrades('hurricane', 3, ['typhoon', 'blizzard']);
 
 if (Config.retrograde) {
-    addUpgrades('machineGun', 2, ['blaster', 'gatlingGun', 'machineFlank']);
+    addUpgrades("machineGun", 2, ['blaster', 'gatlingGun', 'machineFlank']);
     addUpgrades('sniper', 2, ['gatlingGun']);
 
     addUpgrades('hexaTank', 3, ['tornado_AR']);
@@ -10628,9 +10628,9 @@ if (Config.arms_race || Config.retrograde) {
 if (Config.arms_race) {
     removeUpgrades("basic", 1, ['desmos']);
 
-    removeUpgrades('machineGun', 2, ['sprayer']);
+    removeUpgrades("machineGun", 2, ['sprayer']);
     removeUpgrades('sniper', 2, ['marksman']);
-    removeUpgrades('twin', 2, ['helix']);
+    removeUpgrades("twin", 2, ['helix']);
 
     removeUpgrades('assassin', 3, ['single', 'deadeye']);
     removeUpgrades('builder', 3, ['assembler']);
@@ -10644,7 +10644,7 @@ if (Config.arms_race) {
     removeUpgrades('triAngle', 3, ['phoenix', 'vulture']);
     removeUpgrades('tripleShot', 3, ['triplex']);
     removeUpgrades('director', 3, ['bigCheese']);
-    removeUpgrades('twin', 3, ['bulwark']);
+    removeUpgrades("twin", 3, ['bulwark']);
 
     addUpgrades("basic", 1, []);
         addUpgrades("basic", 2, []);
@@ -10670,9 +10670,9 @@ if (Config.arms_race) {
             ///addUpgrades('banger', tier4_AR, []);
             ///addUpgrades('drifter', tier4_AR, []);
 
-        addUpgrades('twin', 2, ['wark']);
-            addUpgrades('twin', 3, []);
-                addUpgrades('twin', tier4_AR, ['duo']);
+        addUpgrades("twin", 2, ['wark']);
+            addUpgrades("twin", 3, []);
+                addUpgrades("twin", tier4_AR, ['duo']);
                 addUpgrades('dual', tier4_AR, [/*'threefold', */'doubleDual', 'ravisher'/*, 'vulture_AR', 'nimrod_AR'*/, 'autoDual'/*, 'bifold', 'dyadic'*/]);
                 addUpgrades('musket', tier4_AR, ['doubleMusket'/*, 'flintlock', 'arbalest'*/, 'matchlock', 'autoMusket'/*, 'duelist', 'bifold'*/]);
 
@@ -10792,9 +10792,9 @@ if (Config.arms_race) {
                 //addUpgrades('enforcer', tier4_AR);
                 //addUpgrades('courser', tier4_AR);
 
-        addUpgrades('machineGun', 2, ['diesel', 'machineTrapper']);
-            addUpgrades('machineGun', 3, ['sprayer']);
-                addUpgrades('machineGun', tier4_AR, ['gadgetGun']);
+        addUpgrades("machineGun", 2, ['diesel', 'machineTrapper']);
+            addUpgrades("machineGun", 3, ['sprayer']);
+                addUpgrades("machineGun", tier4_AR, ['gadgetGun']);
                 addUpgrades('sprayer', tier4_AR, [/*'duster', 'frother', */'scatterer'/*, 'foamer'*/, 'shower', 'autoSprayer', 'phoenix']);
 
             addUpgrades('artillery', 3, [/*'queller', 'forger', */'force', 'autoArtillery'/*, 'foctillery', 'discharger'*/]);
@@ -11026,9 +11026,9 @@ if (Config.arms_race) {
             ////addUpgrades('hurler', tier4_AR, []);
             ////addUpgrades('inception', tier4_AR, []);
 
-        addUpgrades('trapper', 2, ['pen', 'mech', 'machineTrapper', 'wark']);
-            addUpgrades('trapper', 3, [/*'megaTrapper'*/]);
-                addUpgrades('trapper', tier4_AR, ['tricker']);
+        addUpgrades("trapper", 2, ['pen', 'mech', 'machineTrapper', 'wark']);
+            addUpgrades("trapper", 3, [/*'megaTrapper'*/]);
+                addUpgrades("trapper", tier4_AR, ['tricker']);
                 //addUpgrades('barricade', tier4_AR);
                 addUpgrades('overtrapper', tier4_AR, ['battletrapper', 'captrapper', 'foretrapper']);
                 //addUpgrades('megaTrapper', tier4_AR);

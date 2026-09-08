@@ -1,17 +1,17 @@
-const {combineStats, makeAura, makeHat, makeMenu, skillSet, weaponArray, weaponMirror} = require('../../facilitators.js')
-const {base, smshskl} = require('../../constants.js')
-const g = require('../../gunvals.js')
+const {combineStats, makeAura, makeHat, makeMenu, skillSet, weaponArray, weaponMirror} = require("../../facilitators.js")
+const {base, smshskl} = require("../../constants.js")
+const g = require("../../gunvals.js")
 
 // Taureon
 Class.taureonCoreBase = {
     SHAPE: 4,
-    COLOR: '#00A2E8'
+    COLOR: "#00A2E8"
 }
 Class.taureonCore = {
     PARENT: "genericTank",
     LABEL: "Core Turret",
     SHAPE: 4.5,
-    COLOR: '#99D9EA',
+    COLOR: "#99D9EA",
     CONTROLLERS: ["nearestDifferentMaster", "onlyAcceptInArc"],
     INDEPENDENT: true,
     GUNS: [{
@@ -31,13 +31,13 @@ Class.taureonCore = {
 }
 Class.taureonBase = {
     SHAPE: 4.5,
-    COLOR: '#161B54',
+    COLOR: "#161B54",
     MIRROR_MASTER_ANGLE: true
 }
 let d = 1/4;
 Class.taureonStar = {
     SHAPE: [[0,1],[d,d],[1,0],[d,-d],[0,-1],[-d,-d],[-1,0],[-d,d]],
-    COLOR: '#3F48CC',
+    COLOR: "#3F48CC",
     MIRROR_MASTER_ANGLE: true
 }
 Class.taureonRailgunTurret = {
@@ -120,7 +120,7 @@ Class.taureonBoss = {
     PARENT: "miniboss",
     LABEL: "Diamond Marauder",
     NAME: "Taureon",
-    COLOR: '#2B339B',
+    COLOR: "#2B339B",
     UPGRADE_COLOR: "spaceGem",
     DANGER: 10,
     SHAPE: 4.5,
@@ -129,7 +129,7 @@ Class.taureonBoss = {
     UPGRADE_TOOLTIP: "With a powerful Gatling Gun on the front, Rocket Launchers as wings, movable Thrusters on the back, " +
                     "and equipped with Railgun Turrets, it perfectly excells at terminating those who feel its Wrath.\n" +
                     "An octahedral carbon robot, exclusively designed to eradicate opponents with sheer brutality alone.\n" +
-                    '"NOW YOU FACE MY ULTIMATE CREATION."',
+                    "\"NOW YOU FACE MY ULTIMATE CREATION.\"",
     VALUE: 9e6,
     BODY: {
         FOV: 1,
@@ -335,7 +335,7 @@ Class.dogeiscutTurret = {
         },
         {
             POSITION: [12, 0, 0, 0, 360, 1],
-            TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: 'pink'}],
+            TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}],
         },
     ]
 }
@@ -393,20 +393,20 @@ function createDogeiscutMissile(color) {
         ]
     }
 }
-Class.dogeiscutMissileTurret_red = createDogeiscutMissileTurret('red')
-Class.dogeiscutMissile_red = createDogeiscutMissile('red')
-Class.dogeiscutMissileTurret_orange = createDogeiscutMissileTurret('orange')
-Class.dogeiscutMissile_orange = createDogeiscutMissile('orange')
-Class.dogeiscutMissileTurret_yellow = createDogeiscutMissileTurret('yellow')
-Class.dogeiscutMissile_yellow = createDogeiscutMissile('yellow')
-Class.dogeiscutMissileTurret_green = createDogeiscutMissileTurret('green')
-Class.dogeiscutMissile_green = createDogeiscutMissile('green')
-Class.dogeiscutMissileTurret_cyan = createDogeiscutMissileTurret('cyan')
-Class.dogeiscutMissile_cyan = createDogeiscutMissile('cyan')
-Class.dogeiscutMissileTurret_blue = createDogeiscutMissileTurret('blue')
-Class.dogeiscutMissile_blue = createDogeiscutMissile('blue')
-Class.dogeiscutMissileTurret_purple = createDogeiscutMissileTurret('purple')
-Class.dogeiscutMissile_purple = createDogeiscutMissile('purple')
+Class.dogeiscutMissileTurret_red = createDogeiscutMissileTurret("red")
+Class.dogeiscutMissile_red = createDogeiscutMissile("red")
+Class.dogeiscutMissileTurret_orange = createDogeiscutMissileTurret("orange")
+Class.dogeiscutMissile_orange = createDogeiscutMissile("orange")
+Class.dogeiscutMissileTurret_yellow = createDogeiscutMissileTurret("yellow")
+Class.dogeiscutMissile_yellow = createDogeiscutMissile("yellow")
+Class.dogeiscutMissileTurret_green = createDogeiscutMissileTurret("green")
+Class.dogeiscutMissile_green = createDogeiscutMissile("green")
+Class.dogeiscutMissileTurret_cyan = createDogeiscutMissileTurret("cyan")
+Class.dogeiscutMissile_cyan = createDogeiscutMissile("cyan")
+Class.dogeiscutMissileTurret_blue = createDogeiscutMissileTurret("blue")
+Class.dogeiscutMissile_blue = createDogeiscutMissile("blue")
+Class.dogeiscutMissileTurret_purple = createDogeiscutMissileTurret("purple")
+Class.dogeiscutMissile_purple = createDogeiscutMissile("purple")
 Class.dogeiscutBomb = {
     PARENT: "trap",
     LABEL: "Bomb",
@@ -480,7 +480,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_red"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'red'
+                COLOR: "red"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, -5.333, 68, 1/7, ],
@@ -488,7 +488,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_orange"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'orange'
+                COLOR: "orange"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, -2.666, 68, (1/7)*2, ],
@@ -496,7 +496,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_yellow"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'yellow'
+                COLOR: "yellow"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, 0, 68, (1/7)*3, ],
@@ -504,7 +504,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_green"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'green'
+                COLOR: "green"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, 2.666, 68, (1/7)*4, ],
@@ -512,7 +512,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_cyan"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'cyan'
+                COLOR: "cyan"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, 5.333, 68, (1/7)*5, ],
@@ -520,7 +520,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_blue"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'blue'
+                COLOR: "blue"
             }
         }, {
         POSITION: [ 1, 2, 1, 4, 8, 68, (1/7)*6, ],
@@ -528,7 +528,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_purple"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'purple'
+                COLOR: "purple"
             }
         }, 
         
@@ -539,7 +539,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_red"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'red'
+                COLOR: "red"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, 5.333, -68, 1/7, ],
@@ -547,7 +547,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_orange"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'orange'
+                COLOR: "orange"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, 2.666, -68, (1/7)*2, ],
@@ -555,7 +555,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_yellow"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'yellow'
+                COLOR: "yellow"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, 0, -68, (1/7)*3, ],
@@ -563,7 +563,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_green"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'green'
+                COLOR: "green"
             }
         }, {
         POSITION: [ 1, 2, 1, 4, -2.666, -68, (1/7)*4, ],
@@ -571,7 +571,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_cyan"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'cyan'
+                COLOR: "cyan"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, -5.333, -68, (1/7)*5, ],
@@ -579,7 +579,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_blue"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'blue'
+                COLOR: "blue"
             }
         }, {
             POSITION: [ 1, 2, 1, 4, -8, -68, (1/7)*6, ],
@@ -587,7 +587,7 @@ Class.dogeiscutBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
                 TYPE: ["dogeiscutMissile_purple"],
                 STAT_CALCULATOR: "sustained",
-                COLOR: 'purple'
+                COLOR: "purple"
             }
         },
     ],
@@ -598,7 +598,7 @@ Class.dogeiscutBoss = {
         },
         {
             POSITION: [12, 0, 0, 0, 360, 1],
-            TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: 'pink'}],
+            TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}],
         },
         {
             POSITION: [5, 0, 0, 0, 360, 1],
@@ -615,17 +615,17 @@ Class.dogeiscutBoss = {
 Class.trplnrBossAuraBulletAura = makeAura(1, 0.8)
 Class.trplnrBossAuraBullet = {
     PARENT: "genericTank",
-    LABEL: 'Nest',
+    LABEL: "Nest",
     SHAPE: -4,
     PERSISTS_AFTER_DEATH: true,
     BODY: {
         HEALTH: 100,
     },
     SIZE: 25,
-    COLOR: '#F49EFF',
+    COLOR: "#F49EFF",
     GLOW: {
         STRENGTH: 25,
-        COLOR: 'mirror',
+        COLOR: "mirror",
         ALPHA: 1
     },
     DRAW_HEALTH: true,
@@ -634,7 +634,7 @@ Class.trplnrBossAuraBullet = {
         PROPERTIES: {
             COLOR: "white",
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder, { size: 0.8 }, {reload: 1.6, damage: 1.5}]),
-            TYPE: 'autoswarm',
+            TYPE: "autoswarm",
             AUTOFIRE: true,
         },
     }, 4),
@@ -646,29 +646,29 @@ Class.trplnrBossAuraBullet = {
     ]
 }
 const trplnrBossDecor = {
-    COLOR: '#F49EFF',
+    COLOR: "#F49EFF",
     UPGRADE_COLOR: "lavender",
-    LABEL: 'Lavender',
-    NAME: 'Trioplane',
+    LABEL: "Lavender",
+    NAME: "Trioplane",
     SHAPE: 3,
     SIZE: 25,
     VALUE: 5e7,
     DANGER: 10,
     GLOW: {
         RADIUS: 15,
-        COLOR: 'mirror',
+        COLOR: "mirror",
         ALPHA: 1,
         RECURSION: 5
     },
     PROPS: [{
         POSITION: { SIZE: 25 ** Math.SQRT1_2, ANGLE: 180, LAYER: 1 },
-        TYPE: ['triangle', { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
+        TYPE: ["triangle", { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
     }, {
         POSITION: { SIZE: 25 ** Math.SQRT1_2, LAYER: 1 },
-        TYPE: ['triangle', { COLOR: -1, MIRROR_MASTER_ANGLE: true }]
+        TYPE: ["triangle", { COLOR: -1, MIRROR_MASTER_ANGLE: true }]
     }, {
         POSITION: { SIZE: 25 },
-        TYPE: ['triangle', { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
+        TYPE: ["triangle", { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
     }],
 }
 Class.trplnrBoss = {
@@ -691,18 +691,18 @@ Class.trplnrBoss = {
     },
     ON: [
         {
-            event: 'fire',
+            event: "fire",
             handler: ({ body, gun }) => {
-                if (gun.identifier != 'onHandler') return
+                if (gun.identifier != "onHandler") return
                 const messages = [
-                    'Attack my little swarms!',
-                    'Deploying, Attack swarms',
-                    'You really think you can defeat me? Heres a little challenge for you.',
-                    'This thing is really gonna annoy you HAHA!',
-                    'I don\'t know what to say uhhh, die i guess.'
+                    "Attack my little swarms!",
+                    "Deploying, Attack swarms",
+                    "You really think you can defeat me? Heres a little challenge for you.",
+                    "This thing is really gonna annoy you HAHA!",
+                    "I don\'t know what to say uhhh, die i guess."
                 ]
                 global.gameManager.socketManager.broadcast(messages[Math.floor(Math.random() * messages.length)])
-                global.gameManager.socketManager.broadcast('Lavender will turn into `BULL3T HELL F0rM`, Run!')
+                global.gameManager.socketManager.broadcast("Lavender will turn into `BULL3T HELL F0rM`, Run!")
                 for (let i = 0; i < 24; i++) {
                     i < 12 ?
                         setTimeout(() => { body.SIZE /= 1.1; body.alpha /= 1.2 }, i * 50)
@@ -716,7 +716,7 @@ Class.trplnrBoss = {
                     body.x += whereToGoX
                     body.y += whereToGoY
                 }, 12 * 50);
-                setTimeout(() => body.define('trplnrBossBulletHellForm'), 24 * 50)
+                setTimeout(() => body.define("trplnrBossBulletHellForm"), 24 * 50)
             }
         }
     ],
@@ -737,7 +737,7 @@ Class.trplnrBoss = {
                 SHOOT_SETTINGS: combineStats([g.basic, {reload: 100}]),
                 TYPE: "trplnrBossAuraBullet",
                 INDEPENDENT_CHILDREN: true,
-                IDENTIFIER: 'onHandler',
+                IDENTIFIER: "onHandler",
                 ALPHA: 0,
             }
         },
@@ -772,17 +772,17 @@ Class.trplnrBossBulletHellFormPentagonsAuraBullet = {
 } 
 Class.trplnrBossBulletHellFormPentagons = {
     PARENT: "bullet",
-    LABEL: 'Pentagon',
+    LABEL: "Pentagon",
     SHAPE: -5,
     PROPS: [{
         POSITION: { SIZE: 40 ** Math.SQRT1_2, ANGLE: 180, LAYER: 1 },
-        TYPE: ['pentagon', {COLOR: "black", MIRROR_MASTER_ANGLE: true}]
+        TYPE: ["pentagon", {COLOR: "black", MIRROR_MASTER_ANGLE: true}]
     }],
     GUNS: weaponArray({
         POSITION: { WIDTH: 10, HEIGHT: 10, ANGLE: 180, DELAY: 11.5 },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 0.4}]),
-            TYPE: 'trplnrBossBulletHellFormPentagonsAuraBullet',
+            TYPE: "trplnrBossBulletHellFormPentagonsAuraBullet",
             AUTOFIRE: true,
             COLOR: "white",
         }
@@ -791,7 +791,7 @@ Class.trplnrBossBulletHellFormPentagons = {
 Class.trplnrBossBulletHellForm = {
     PARENT: "miniboss",
     ...trplnrBossDecor,
-    LABEL: 'Lavender - Bullet Hell Form',
+    LABEL: "Lavender - Bullet Hell Form",
     BODY: {
         HEALTH: 500,
     },
@@ -799,7 +799,7 @@ Class.trplnrBossBulletHellForm = {
         {
             event: "fire",
             handler: ({ body, masterStore, gun }) => {
-                if (gun.identifier != 'onHandler') return
+                if (gun.identifier != "onHandler") return
                 masterStore.shotsFired ??= 0
                 masterStore.shotsFired++
 
@@ -818,16 +818,16 @@ Class.trplnrBossBulletHellForm = {
                 }, 12 * 50)
 
                 if (masterStore.shotsFired > 5) {
-                    body.define('trplnrBossVulnerableForm')
+                    body.define("trplnrBossVulnerableForm")
                     const messages = [
-                        'I\'m a little tired right now',
-                        'Ouch my leg!',
-                        'i sleep',
-                        'Bruh my keyboard isn\'t working',
-                        'Omg bruh I chose the wrong form'
+                        "I\'m a little tired right now",
+                        "Ouch my leg!",
+                        "i sleep",
+                        "Bruh my keyboard isn\'t working",
+                        "Omg bruh I chose the wrong form"
                     ]
                     global.gameManager.socketManager.broadcast(messages[Math.floor(Math.random() * messages.length)])
-                    global.gameManager.socketManager.broadcast('Lavender is in its `VULN3RABLE F0RM`, Attack!')
+                    global.gameManager.socketManager.broadcast("Lavender is in its `VULN3RABLE F0RM`, Attack!")
                 }
             }
         }
@@ -838,7 +838,7 @@ Class.trplnrBossBulletHellForm = {
                 POSITION: { WIDTH: 15, HEIGHT: 5, ANGLE: 180, ASPECT: 0, X: -25 },
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { reload: 1 }]),
-                    TYPE: 'trplnrBossBulletHellFormPentagonsAuraBullet',
+                    TYPE: "trplnrBossBulletHellFormPentagonsAuraBullet",
                     COLOR: "black"
                 }
             }, {
@@ -850,13 +850,13 @@ Class.trplnrBossBulletHellForm = {
                 POSITION: { WIDTH: 10, HEIGHT: 5, ASPECT: 1.5, ANGLE: 180 },
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { reload: 3 }]),
-                    TYPE: 'trplnrBossBulletHellFormPentagons',
+                    TYPE: "trplnrBossBulletHellFormPentagons",
                     COLOR: "white"
                 }
             }, {
                 POSITION: { WIDTH: 8, HEIGHT: 3, X: -1, ASPECT: 1.5, ANGLE: 180 },
                 PROPERTIES: {
-                    COLOR: 'pureWhite',
+                    COLOR: "pureWhite",
                 }
             }, {
                 POSITION: { WIDTH: 5, HEIGHT: 10, X: 5, ASPECT: 0.2, ANGLE: 180 },
@@ -870,7 +870,7 @@ Class.trplnrBossBulletHellForm = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, { reload: 2 }, g.fake]),
                 TYPE: "bullet",
-                IDENTIFIER: 'onHandler',
+                IDENTIFIER: "onHandler",
                 ALPHA: 0
             }
         }
@@ -879,7 +879,7 @@ Class.trplnrBossBulletHellForm = {
 Class.trplnrBossVulnerableForm = {
     PARENT: "miniboss",
     ...trplnrBossDecor,
-    LABEL: 'Lavender - Vulnerable Form',
+    LABEL: "Lavender - Vulnerable Form",
     BODY: {
         HEALTH: 500,
         SPEED: 0.1
@@ -900,12 +900,12 @@ Class.trplnrBossVulnerableForm = {
         {
             event: "fire",
             handler: ({ body, gun }) => {
-                if (gun.identifier != 'onHandler') return
+                if (gun.identifier != "onHandler") return
                 setTimeout(() => {
-                    body.define('trplnrBoss')
-                    global.gameManager.socketManager.broadcast('im awake')
+                    body.define("trplnrBoss")
+                    global.gameManager.socketManager.broadcast("im awake")
                 }, 15000)
-                setTimeout(() => global.gameManager.socketManager.broadcast('Lavender will activate in 10 seconds and turn into S4nctuary F0rM'), 5000)
+                setTimeout(() => global.gameManager.socketManager.broadcast("Lavender will activate in 10 seconds and turn into S4nctuary F0rM"), 5000)
             }
         }
     ],
@@ -915,7 +915,7 @@ Class.trplnrBossVulnerableForm = {
             SHOOT_SETTINGS: combineStats([g.basic, {reload: 500}]),
             TYPE: "bullet",
             AUTOFIRE: true,
-            IDENTIFIER: 'onHandler',
+            IDENTIFIER: "onHandler",
             ALPHA: 0
         }
     }]
@@ -923,40 +923,40 @@ Class.trplnrBossVulnerableForm = {
 
 // Frostbyte
 Class.frostAuraSmall = {
-	PARENT: "aura",
-	LAYER: 30,
-	FACING_TYPE: ["spin", {speed: -0.04}],
+    PARENT: "aura",
+    LAYER: 30,
+    FACING_TYPE: ["spin", {speed: -0.04}],
     BORDERLESS: true,
-	SHAPE: "M 1 0 L 0.715 0.519 L 0.309 0.951 L -0.273 0.84 L -0.809 0.588 L -0.883 0 L -0.809 -0.588 L -0.273 -0.84 L 0.309 -0.951 L 0.715 -0.519 L 1 0",
+    SHAPE: "M 1 0 L 0.715 0.519 L 0.309 0.951 L -0.273 0.84 L -0.809 0.588 L -0.883 0 L -0.809 -0.588 L -0.273 -0.84 L 0.309 -0.951 L 0.715 -0.519 L 1 0",
     TURRETS: [{
         POSITION: [20, 0, 0, 0, 0, 1],
-        TYPE: 'frostAuraSmallOutline'
+        TYPE: "frostAuraSmallOutline"
     }]
 }
 Class.frostAuraSmallOutline = {
     PARENT: "aura",
-	MIRROR_MASTER_ANGLE: true,
+    MIRROR_MASTER_ANGLE: true,
     DRAW_FILL: false,
-	SHAPE: "M 1 0 L 0.715 0.519 L 0.309 0.951 L -0.273 0.84 L -0.809 0.588 L -0.883 0 L -0.809 -0.588 L -0.273 -0.84 L 0.309 -0.951 L 0.715 -0.519 L 1 0" + 
-		"L 0.309 0.951 L -0.809 0.588 L -0.809 -0.588 L 0.309 -0.951 L 1 0" + 
-		"L 0 0 L 0.309 0.951 M 0 0 L -0.809 0.588 M 0 0 L -0.809 -0.588 M 0 0 L 0.309 -0.951",
+    SHAPE: "M 1 0 L 0.715 0.519 L 0.309 0.951 L -0.273 0.84 L -0.809 0.588 L -0.883 0 L -0.809 -0.588 L -0.273 -0.84 L 0.309 -0.951 L 0.715 -0.519 L 1 0" + 
+        "L 0.309 0.951 L -0.809 0.588 L -0.809 -0.588 L 0.309 -0.951 L 1 0" + 
+        "L 0 0 L 0.309 0.951 M 0 0 L -0.809 0.588 M 0 0 L -0.809 -0.588 M 0 0 L 0.309 -0.951",
 }
 Class.frostAuraLarge = {
-	PARENT: "aura",
-	LAYER: 30,
-	FACING_TYPE: ["spin", {speed: -0.04}],
-	BORDERLESS: true,
-	SHAPE: "M 1 0 L 0.988 0.156 L 0.951 0.309 L 0.891 0.454 L 0.809 0.588 L 0.707 0.707 L 0.588 0.809 L 0.454 0.891 L 0.309 0.951 L 0.156 0.988 L 0 1 L -0.156 0.988 L -0.309 0.951 L -0.454 0.891 L -0.588 0.809 L -0.707 0.707 L -0.809 0.588 L -0.891 0.454 L -0.951 0.309 L -0.988 0.156 L -1 0 L -0.988 -0.156 L -0.951 -0.309 L -0.891 -0.454 L -0.809 -0.588 L -0.707 -0.707 L -0.588 -0.809 L -0.454 -0.891 L -0.309 -0.951 L -0.156 -0.988 L 0 -1 L 0.156 -0.988 L 0.309 -0.951 L 0.454 -0.891 L 0.588 -0.809 L 0.707 -0.707 L 0.809 -0.588 L 0.891 -0.454 L 0.951 -0.309 L 0.988 -0.156 L 1 0",
+    PARENT: "aura",
+    LAYER: 30,
+    FACING_TYPE: ["spin", {speed: -0.04}],
+    BORDERLESS: true,
+    SHAPE: "M 1 0 L 0.988 0.156 L 0.951 0.309 L 0.891 0.454 L 0.809 0.588 L 0.707 0.707 L 0.588 0.809 L 0.454 0.891 L 0.309 0.951 L 0.156 0.988 L 0 1 L -0.156 0.988 L -0.309 0.951 L -0.454 0.891 L -0.588 0.809 L -0.707 0.707 L -0.809 0.588 L -0.891 0.454 L -0.951 0.309 L -0.988 0.156 L -1 0 L -0.988 -0.156 L -0.951 -0.309 L -0.891 -0.454 L -0.809 -0.588 L -0.707 -0.707 L -0.588 -0.809 L -0.454 -0.891 L -0.309 -0.951 L -0.156 -0.988 L 0 -1 L 0.156 -0.988 L 0.309 -0.951 L 0.454 -0.891 L 0.588 -0.809 L 0.707 -0.707 L 0.809 -0.588 L 0.891 -0.454 L 0.951 -0.309 L 0.988 -0.156 L 1 0",
     TURRETS: [{
         POSITION: [20, 0, 0, 0, 0, 1],
-        TYPE: 'frostAuraLargeOutline'
+        TYPE: "frostAuraLargeOutline"
     }]
 }
 Class.frostAuraLargeOutline = {
     PARENT: "aura",
-	MIRROR_MASTER_ANGLE: true,
+    MIRROR_MASTER_ANGLE: true,
     DRAW_FILL: false,
-	SHAPE: "M 1 0 L 0.988 0.156 L 0.951 0.309 L 0.891 0.454 L 0.809 0.588 L 0.707 0.707 L 0.588 0.809 L 0.454 0.891 L 0.309 0.951 L 0.156 0.988 L 0 1 L -0.156 0.988 L -0.309 0.951 L -0.454 0.891 L -0.588 0.809 L -0.707 0.707 L -0.809 0.588 L -0.891 0.454 L -0.951 0.309 L -0.988 0.156 L -1 0 L -0.988 -0.156 L -0.951 -0.309 L -0.891 -0.454 L -0.809 -0.588 L -0.707 -0.707 L -0.588 -0.809 L -0.454 -0.891 L -0.309 -0.951 L -0.156 -0.988 L 0 -1 L 0.156 -0.988 L 0.309 -0.951 L 0.454 -0.891 L 0.588 -0.809 L 0.707 -0.707 L 0.809 -0.588 L 0.891 -0.454 L 0.951 -0.309 L 0.988 -0.156 L 1 0" + 
+    SHAPE: "M 1 0 L 0.988 0.156 L 0.951 0.309 L 0.891 0.454 L 0.809 0.588 L 0.707 0.707 L 0.588 0.809 L 0.454 0.891 L 0.309 0.951 L 0.156 0.988 L 0 1 L -0.156 0.988 L -0.309 0.951 L -0.454 0.891 L -0.588 0.809 L -0.707 0.707 L -0.809 0.588 L -0.891 0.454 L -0.951 0.309 L -0.988 0.156 L -1 0 L -0.988 -0.156 L -0.951 -0.309 L -0.891 -0.454 L -0.809 -0.588 L -0.707 -0.707 L -0.588 -0.809 L -0.454 -0.891 L -0.309 -0.951 L -0.156 -0.988 L 0 -1 L 0.156 -0.988 L 0.309 -0.951 L 0.454 -0.891 L 0.588 -0.809 L 0.707 -0.707 L 0.809 -0.588 L 0.891 -0.454 L 0.951 -0.309 L 0.988 -0.156 L 1 0" + 
         "M 0.988 -0.156 L 0.988 0.156 L 0.891 0.454 L 0.707 0.707 L 0.454 0.891 L 0.156 0.988 L -0.156 0.988 L -0.454 0.891 L -0.707 0.707 L -0.891 0.454 L -0.988 0.156 L -0.988 -0.156 L -0.891 -0.454 L -0.707 -0.707 L -0.454 -0.891 L -0.156 -0.988 L 0.156 -0.988 L 0.454 -0.891 L 0.707 -0.707 L 0.891 -0.454 L 0.988 -0.156 L 0.949 0" + 
         "L 0.988 0.156 L 0.891 0.256 L 0.891 0.454 L 0.739 0.537 L 0.707 0.707 L 0.519 0.769 L 0.454 0.891 L 0.293 0.902 L 0.156 0.988 L 0.032 0.927 L -0.156 0.988 L -0.282 0.869 L -0.454 0.891 L -0.571 0.731 L -0.707 0.707 L -0.768 0.558 L -0.891 0.454 L -0.871 0.317 L -0.988 0.156 L -0.914 0 L -0.988 -0.156 L -0.871 -0.317 L -0.891 -0.454 L -0.768 -0.558 L -0.707 -0.707 L -0.571 -0.731 L -0.454 -0.891 L -0.282 -0.869 L -0.156 -0.988 L 0.032 -0.927 L 0.156 -0.988 L 0.293 -0.902 L 0.454 -0.891 L 0.519 -0.769 L 0.707 -0.707 L 0.739 -0.537 L 0.891 -0.454 L 0.891 -0.256 L 0.988 -0.156 L 0.949 0" + 
         "L 0.891 0.256 L 0.739 0.537 L 0.519 0.769 L 0.293 0.902 L 0.032 0.927 L -0.282 0.869 L -0.571 0.731 L -0.768 0.558 L -0.871 0.317 L -0.914 0 L -0.871 -0.317 L -0.768 -0.558 L -0.571 -0.731 L -0.282 -0.869 L 0.032 -0.927 L 0.293 -0.902 L 0.519 -0.769 L 0.739 -0.537 L 0.891 -0.256 L 0.949 0" + 
@@ -969,180 +969,180 @@ Class.frostAuraLargeOutline = {
         "M 0 0 L 0.293 0.902 M 0 0 L -0.768 0.558 M 0 0 L -0.768 -0.558 M 0 0 L 0.293 -0.902",
 }
 Class.frostAuraSymbol = {
-	PARENT: "genericTank",
-	CONTROLLERS: [["spin", { speed: -0.04 }]],
-	INDEPENDENT: true,
+    PARENT: "genericTank",
+    CONTROLLERS: [["spin", { speed: -0.04 }]],
+    INDEPENDENT: true,
     BORDERLESS: true,
-	COLOR: 'teal',
-	SHAPE: "M 1 0 L 0.797 0.46 L 0.5 0.866 L 0 0.92 L -0.5 0.866 L -0.797 0.46 L -1 0 L -0.797 -0.46 L -0.5 -0.866 L 0 -0.92 L 0.5 -0.866 L 0.797 -0.46 L 1 0 Z",
+    COLOR: "teal",
+    SHAPE: "M 1 0 L 0.797 0.46 L 0.5 0.866 L 0 0.92 L -0.5 0.866 L -0.797 0.46 L -1 0 L -0.797 -0.46 L -0.5 -0.866 L 0 -0.92 L 0.5 -0.866 L 0.797 -0.46 L 1 0 Z",
     TURRETS: [{
         POSITION: [20, 0, 0, 0, 0, 1],
-        TYPE: 'frostAuraSymbolOutline'
+        TYPE: "frostAuraSymbolOutline"
     }]
 }
 Class.frostAuraSymbolOutline = {
     PARENT: "genericTank",
-	MIRROR_MASTER_ANGLE: true,
+    MIRROR_MASTER_ANGLE: true,
     DRAW_FILL: false,
-	SHAPE: "M 1 0 L 0.797 0.46 L 0.5 0.866 L 0 0.92 L -0.5 0.866 L -0.797 0.46 L -1 0 L -0.797 -0.46 L -0.5 -0.866 L 0 -0.92 L 0.5 -0.866 L 0.797 -0.46 L 1 0 Z" +
-	    "M 0.52 0.3 L 0.52 -0.3 L 0.797 -0.46 M 0.52 -0.3 L 0 -0.6 L 0 -0.92 M 0 -0.6 L -0.52 -0.3 L -0.797 -0.46 M -0.52 -0.3 L -0.52 0.3 L -0.797 0.46 M -0.52 0.3 L 0 0.6 L 0 0.92 M 0 0.6 L 0.52 0.3 L 0.797 0.46"
+    SHAPE: "M 1 0 L 0.797 0.46 L 0.5 0.866 L 0 0.92 L -0.5 0.866 L -0.797 0.46 L -1 0 L -0.797 -0.46 L -0.5 -0.866 L 0 -0.92 L 0.5 -0.866 L 0.797 -0.46 L 1 0 Z" +
+        "M 0.52 0.3 L 0.52 -0.3 L 0.797 -0.46 M 0.52 -0.3 L 0 -0.6 L 0 -0.92 M 0 -0.6 L -0.52 -0.3 L -0.797 -0.46 M -0.52 -0.3 L -0.52 0.3 L -0.797 0.46 M -0.52 0.3 L 0 0.6 L 0 0.92 M 0 0.6 L 0.52 0.3 L 0.797 0.46"
 }
 function addIcosphereAura(damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraSize = "Medium") {
-	let auraType = "frostAura" + auraSize;
-	return {
-		PARENT: "genericTank",
-		INDEPENDENT: true,
-		LABEL: "",
-		COLOR: 17,
-		GUNS: [
-			{
-				POSITION: [0, 20, 1, 0, 0, 0, 0,],
-				PROPERTIES: {
-					SHOOT_SETTINGS: combineStats([g.aura, { size: sizeFactor, damage: damageFactor }]),
-					TYPE: [auraType, {ALPHA: opacity}],
-					MAX_CHILDREN: 1,
-					AUTOFIRE: true,
-					SYNCS_SKILLS: true,
-				}, 
-			}, 
-		],
-		TURRETS: [
-			{
-				POSITION: [20, 0, 0, 0, 360, 1],
-				TYPE: "frostAuraSymbol"
-			},
-		]
-	};
+    let auraType = "frostAura" + auraSize;
+    return {
+        PARENT: "genericTank",
+        INDEPENDENT: true,
+        LABEL: "",
+        COLOR: 17,
+        GUNS: [
+            {
+                POSITION: [0, 20, 1, 0, 0, 0, 0,],
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.aura, { size: sizeFactor, damage: damageFactor }]),
+                    TYPE: [auraType, {ALPHA: opacity}],
+                    MAX_CHILDREN: 1,
+                    AUTOFIRE: true,
+                    SYNCS_SKILLS: true,
+                }, 
+            }, 
+        ],
+        TURRETS: [
+            {
+                POSITION: [20, 0, 0, 0, 360, 1],
+                TYPE: "frostAuraSymbol"
+            },
+        ]
+    };
 }
 Class.frostAuraBlockTop = {
-	SHAPE: "M -1.3 -0.15 L -1.3 0.15 L -0.3 0.3 L -0.15 1.3 L 0.15 1.3 L 0.3 0.3 L 1.3 0.15 L 1.3 -0.15 L 0.3 -0.3 L 0.15 -1.3 L -0.15 -1.3 L -0.3 -0.3 Z",
-	COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 5 },
-	MIRROR_MASTER_ANGLE: true,
+    SHAPE: "M -1.3 -0.15 L -1.3 0.15 L -0.3 0.3 L -0.15 1.3 L 0.15 1.3 L 0.3 0.3 L 1.3 0.15 L 1.3 -0.15 L 0.3 -0.3 L 0.15 -1.3 L -0.15 -1.3 L -0.3 -0.3 Z",
+    COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 5 },
+    MIRROR_MASTER_ANGLE: true,
 }
 Class.frostAuraBlockTurret = {
-	PARENT: "genericTank",
+    PARENT: "genericTank",
     INDEPENDENT: true,
-	COLOR: 17,
+    COLOR: 17,
     CONTROLLERS: ["nearestDifferentMaster"],
-	LABEL: "",
-	BODY: {
-		FOV: 2,
-	},
-	HAS_NO_RECOIL: true,
-	GUNS: [
-		{
-			POSITION: [18, 15, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, g.fake]),
-				TYPE: "bullet",
-				COLOR: {BASE: 17, BRIGHTNESS_SHIFT: -7.5}
-			},
-		}, {
-			POSITION: [23, 11, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, {density: 0.2}]),
-				TYPE: "bullet",
-				COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -10, SATURATION_SHIFT: 0.6}
-			},
-		}, {
-			POSITION: [15, 13, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, g.fake]),
-				TYPE: "bullet",
-				COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
-			},
-		},
-	],
+    LABEL: "",
+    BODY: {
+        FOV: 2,
+    },
+    HAS_NO_RECOIL: true,
+    GUNS: [
+        {
+            POSITION: [18, 15, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, g.fake]),
+                TYPE: "bullet",
+                COLOR: {BASE: 17, BRIGHTNESS_SHIFT: -7.5}
+            },
+        }, {
+            POSITION: [23, 11, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, {density: 0.2}]),
+                TYPE: "bullet",
+                COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -10, SATURATION_SHIFT: 0.6}
+            },
+        }, {
+            POSITION: [15, 13, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, g.fake]),
+                TYPE: "bullet",
+                COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
+            },
+        },
+    ],
 }
 Class.frostAuraBlockAura = addIcosphereAura(0.25, 1.6, 0.15, "Small");
 Class.frostAuraBlock = {
-	PARENT: 'unsetTrap',
-	TURRETS: [
-		{
-			POSITION: [20, 0, 0, 45, 0, 1],
-			TYPE: 'frostAuraBlockTop'
-		}, {
-			POSITION: [11, 0, 0, 0, 360, 1],
-			TYPE: 'frostAuraBlockTurret'
-		}, {
-			POSITION: [10, 0, 0, 0, 360, 1],
-			TYPE: 'frostAuraBlockAura'
-		}
-	]
+    PARENT: "unsetTrap",
+    TURRETS: [
+        {
+            POSITION: [20, 0, 0, 45, 0, 1],
+            TYPE: "frostAuraBlockTop"
+        }, {
+            POSITION: [11, 0, 0, 0, 360, 1],
+            TYPE: "frostAuraBlockTurret"
+        }, {
+            POSITION: [10, 0, 0, 0, 360, 1],
+            TYPE: "frostAuraBlockAura"
+        }
+    ]
 }
 Class.frostBossBigAura = addIcosphereAura(1.5, 1.45, 0.3, "Large");
 Class.frostBossAutoTurret = {
-	PARENT: "autoTankGun",
-	INDEPENDENT: true,
-	COLOR: 17,
-	GUNS: [
-		{
-			POSITION: [17, 14, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}, g.fake]),
-				TYPE: "bullet",
-				COLOR: {BASE: 17, BRIGHTNESS_SHIFT: -7.5}
-			},
-		}, {
-			POSITION: [22, 10, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}]),
-				TYPE: "bullet",
-				COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -10, SATURATION_SHIFT: 0.6}
-			},
-		}, {
-			POSITION: [14, 12, 1, 0, 0, 0, 0],
-			PROPERTIES: {
-				SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}, g.fake]),
-				TYPE: "bullet",
-				COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
-			},
-		},
-	],
-	TURRETS: [
-		{
-			POSITION: [13, 0, 0, 0, 0, 1],
-			TYPE: ["egg", {COLOR: -1, BORDERLESS: true}],
-		},
-	],
+    PARENT: "autoTankGun",
+    INDEPENDENT: true,
+    COLOR: 17,
+    GUNS: [
+        {
+            POSITION: [17, 14, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}, g.fake]),
+                TYPE: "bullet",
+                COLOR: {BASE: 17, BRIGHTNESS_SHIFT: -7.5}
+            },
+        }, {
+            POSITION: [22, 10, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}]),
+                TYPE: "bullet",
+                COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -10, SATURATION_SHIFT: 0.6}
+            },
+        }, {
+            POSITION: [14, 12, 1, 0, 0, 0, 0],
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}, g.fake]),
+                TYPE: "bullet",
+                COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
+            },
+        },
+    ],
+    TURRETS: [
+        {
+            POSITION: [13, 0, 0, 0, 0, 1],
+            TYPE: ["egg", {COLOR: -1, BORDERLESS: true}],
+        },
+    ],
 }
 Class.frostBossBaseDeco = {
-	SHAPE: "M -1.1 0 L -0.956 0.292 L -0.669 0.205 L -0.669 -0.205 L -0.956 -0.292 Z" +
-		"M -0.55 0.952 L -0.225 0.974 L -0.157 0.682 L -0.512 0.477 L -0.731 0.682 Z" +
-		"M -0.55 -0.952 L -0.225 -0.974 L -0.157 -0.682 L -0.512 -0.477 L -0.731 -0.682 Z" +
-		"M 0.55 0.952 L 0.225 0.974 L 0.157 0.682 L 0.512 0.477 L 0.731 0.682 Z" +
-		"M 0.55 -0.952 L 0.225 -0.974 L 0.157 -0.682 L 0.512 -0.477 L 0.731 -0.682 Z" +
-		"M 1.1 0 L 0.956 0.292 L 0.669 0.205 L 0.669 -0.205 L 0.956 -0.292 Z",
-	COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 },
-	MIRROR_MASTER_ANGLE: true,
-	GUNS: weaponArray([
+    SHAPE: "M -1.1 0 L -0.956 0.292 L -0.669 0.205 L -0.669 -0.205 L -0.956 -0.292 Z" +
+        "M -0.55 0.952 L -0.225 0.974 L -0.157 0.682 L -0.512 0.477 L -0.731 0.682 Z" +
+        "M -0.55 -0.952 L -0.225 -0.974 L -0.157 -0.682 L -0.512 -0.477 L -0.731 -0.682 Z" +
+        "M 0.55 0.952 L 0.225 0.974 L 0.157 0.682 L 0.512 0.477 L 0.731 0.682 Z" +
+        "M 0.55 -0.952 L 0.225 -0.974 L 0.157 -0.682 L 0.512 -0.477 L 0.731 -0.682 Z" +
+        "M 1.1 0 L 0.956 0.292 L 0.669 0.205 L 0.669 -0.205 L 0.956 -0.292 Z",
+    COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 },
+    MIRROR_MASTER_ANGLE: true,
+    GUNS: weaponArray([
         {
-			POSITION: [1.75, 3, -0.75, 7.5, 0, 0, 0],
-			PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 2.5, SATURATION_SHIFT: 0.9 }, DRAW_ABOVE: true },
-		}, {
-			POSITION: [1, 9, 0, 8.5, 0, 30, 0],
-			PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 10, SATURATION_SHIFT: 1.15 } },
-		},
+            POSITION: [1.75, 3, -0.75, 7.5, 0, 0, 0],
+            PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 2.5, SATURATION_SHIFT: 0.9 }, DRAW_ABOVE: true },
+        }, {
+            POSITION: [1, 9, 0, 8.5, 0, 30, 0],
+            PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 10, SATURATION_SHIFT: 1.15 } },
+        },
     ], 6)
 }
 Class.frostBossBaseDeco2 = {
-	COLOR: {BASE: -1, BRIGHTNESS_SHIFT: 7.5},
-	GUNS: weaponArray([
-		{
-			POSITION: [5, 10, 0.001, 9.5, 0, 0, 0],
-			PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}},
-		}, {
-			POSITION: [1.6, 9, 0, 8.4, 0, 0, 0],
-			PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}, DRAW_ABOVE: true},
-		},
-	], 6),
+    COLOR: {BASE: -1, BRIGHTNESS_SHIFT: 7.5},
+    GUNS: weaponArray([
+        {
+            POSITION: [5, 10, 0.001, 9.5, 0, 0, 0],
+            PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}},
+        }, {
+            POSITION: [1.6, 9, 0, 8.4, 0, 0, 0],
+            PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}, DRAW_ABOVE: true},
+        },
+    ], 6),
 }
 const trebuchetStats = [g.basic, g.sniper, g.predator, g.predator, g.predator, g.predator, {speed: 0.93, maxSpeed: 0.93, reload: 2, health: 1.7, damage: 1.4, size: 2}];
 const hielamanStats = [g.trap, g.setTrap, g.hexaTrapper, {reload: 2.85, health: 3.2, range: 1.2}];
 Class.frostBoss = {
-    PARENT: 'miniboss',
-    LABEL: 'Extrasolar',
-    NAME: 'Frostbyte',
+    PARENT: "miniboss",
+    LABEL: "Extrasolar",
+    NAME: "Frostbyte",
     CONTROLLERS: [["minion", {orbit: 260, leash: 190, repel: 270}]],
     FACING_TYPE: "toTarget",
     SHAPE: 6,
@@ -1150,7 +1150,7 @@ Class.frostBoss = {
     UPGRADE_COLOR: "aqua",
     SIZE: 31,
     NO_SIZE_ANIMATION: true,
-	DANGER: 12,
+    DANGER: 12,
     VALUE: 888888,
     UPGRADE_TOOLTIP: "\"When the golden rays of sun shine through this world's\n" +
                     "darkened skies and looming clouds, the legend of the warrior\n" +
@@ -1232,7 +1232,7 @@ Class.frostBoss = {
                 POSITION: [3, 8.5, 1.6, 15, 0, 60, 0],
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats(hielamanStats),
-                    TYPE: 'frostAuraBlock',
+                    TYPE: "frostAuraBlock",
                     STAT_CALCULATOR: "trap",
                     COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -15, SATURATION_SHIFT: 0.6}
                 },
@@ -1628,7 +1628,7 @@ Class.AEMKShipBoss = {
     NAME: "Æ🚫Sports",
     SYNC_WITH_TANK: true,
     CONTROLLERS: ["nearestDifferentMaster", "minion"],
-    UPGRADE_TOOLTIP: "Has 4 carrier's, 4 factories, and their own auras. NOW FACE MY DESTRUCTION!",
+    UPGRADE_TOOLTIP: "Has 4 carriers, 4 factories, and their own auras. NOW FACE MY DESTRUCTION!",
     NO_SIZE_ANIMATION: true,
     COLOR: 32,
     UPGRADE_COLOR: 32,

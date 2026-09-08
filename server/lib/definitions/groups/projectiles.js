@@ -777,7 +777,7 @@ Class.desmosMinion = {
     ]
 }
 Class.wranglerMinion = {
-    PARENT: 'minion',
+    PARENT: "minion",
     ON: [
         {
             event: "tick",
@@ -1086,7 +1086,7 @@ Class.homingBullet = {
     LABEL: "Homing Bullet",
     MOTION_TYPE: "swarm",
     FACING_TYPE: 'smoothWithMotion',
-    CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal']
+    CONTROLLERS: ["nearestDifferentMaster", 'mapTargetToGoal']
 }
 Class.autoHomingBullet = {
     PARENT: 'homingBullet',
@@ -1180,6 +1180,6 @@ Class.superSplitterBullet = {
 // -Drive projectiles
 Class.autoDrone = makeAuto("drone", "Auto-Drone", {type: 'droneAutoTurret'});
 Class.autoSwarm = makeAuto("swarm", "Auto-Swarm Drone", {type: 'droneAutoTurret'});
-Class.autoSunchip = makeAuto('sunchip', "Auto-Drone", {type: 'droneAutoTurret'});
-Class.autoMinion = makeAuto('minion', "Auto-Minion", {type: 'droneAutoTurret'});
+Class.autoSunchip = makeAuto("sunchip", "Auto-Drone", {type: 'droneAutoTurret'});
+Class.autoMinion = makeAuto("minion", "Auto-Minion", {type: 'droneAutoTurret'});
 Class.autoTrap = makeAuto("trap", "Auto-Trap", {type: 'droneAutoTurret'}); //sorta counts

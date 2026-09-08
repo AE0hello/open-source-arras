@@ -278,7 +278,7 @@ exports.makeCap = (type, name = -1, options = {}) => {
     let spawners = [];
     let spawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.minion, g.spawner]),
-        TYPE: ['minion', {INDEPENDENT: independent}],
+        TYPE: ["minion", {INDEPENDENT: independent}],
         STAT_CALCULATOR: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
@@ -1404,10 +1404,10 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
 
 exports.makeCrasher = type => ({
     PARENT: type,
-    COLOR: 'pink',
+    COLOR: "pink",
     TYPE: 'crasher',
     LABEL: 'Crasher ' + type.LABEL,
-    CONTROLLERS: ['nearestDifferentMaster', 'mapTargetToGoal'],
+    CONTROLLERS: ["nearestDifferentMaster", 'mapTargetToGoal'],
     MOTION_TYPE: "motor",
     FACING_TYPE: "smoothWithMotion",
     HITS_OWN_TYPE: "hard",

@@ -597,7 +597,7 @@ Class.crasherSpawner = makeTurret({
             },
         },
     ],
-}, {independent: true, aiSettings: {chase: true}, label: 'Spawned', color: 'pink'})
+}, {independent: true, aiSettings: {chase: true}, label: 'Spawned', color: "pink"})
 Class.genghisLowerTurret = makeTurret({
     MAX_CHILDREN: 4,
     GUNS: [

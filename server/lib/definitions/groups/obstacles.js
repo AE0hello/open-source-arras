@@ -66,52 +66,52 @@ Class.pumpkin = {
 
 // Walls
 Class.wall = {
-    PARENT: 'genericObstacle',
+    PARENT: "genericObstacle",
     LABEL: "Wall",
     SIZE: 25,
     SHAPE: 4,
     ANGLE: 0,
-    FACING_TYPE: ['noFacing', { angle: Math.PI / 2 }],
+    FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }],
     WALL_TYPE: 1,
     VARIES_IN_SIZE: false
 };
 Class.labyrinthWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     COLOR: "black",
     ALPHA: 0.5
 };
 Class.deadlyWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Deadly Wall",
-    COLOR: 'red'
+    COLOR: "red"
 };
 Class.healingWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Healing Wall",
-    COLOR: 'green'
+    COLOR: "green"
 };
 Class.bouncyWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Bouncy Wall",
-    COLOR: 'pureBlack'
+    COLOR: "pureBlack"
 };
 Class.breakerWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Breaker Wall",
-    COLOR: 'pink'
+    COLOR: "pink"
 };
 Class.chunksWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Chunks Wall",
-    COLOR: 'aqua'
+    COLOR: "aqua"
 };
 Class.opticalWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Optical Wall",
-    COLOR: 'gold',
+    COLOR: "gold",
     PROPS: [
         {
-            TYPE: 'eyeTurret',
+            TYPE: "eyeTurret",
             POSITION: {
                 SIZE: 14,
                 ARC: 360,
@@ -122,7 +122,7 @@ Class.opticalWall = {
     ]
 };
 Class.oneWayWallUp = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "One-Way Wall (Up)",
     PROPS: [
         {
@@ -137,7 +137,7 @@ Class.oneWayWallUp = {
     ]
 };
 Class.oneWayWallDown = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "One-Way Wall (Down)",
     PROPS: [
         {
@@ -152,7 +152,7 @@ Class.oneWayWallDown = {
     ]
 };
 Class.oneWayWallLeft = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "One-Way Wall (Left)",
     PROPS: [
         {
@@ -167,7 +167,7 @@ Class.oneWayWallLeft = {
     ]
 };
 Class.oneWayWallRight = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "One-Way Wall (Right)",
     PROPS: [
         {
@@ -181,17 +181,17 @@ Class.oneWayWallRight = {
     ]
 };
 Class.stickyWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Sticky Wall",
     COLOR: "veryLightGrey"
 };
 Class.trickWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Trick Wall",
-    COLOR: 'aqua'
+    COLOR: "aqua"
 };
 Class.paintWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Paint Wall",
     COLOR: "veryLightGrey",
     PROPS: [
@@ -206,7 +206,7 @@ Class.paintWall = {
     ]
 };
 Class.filterWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Filter Wall",
     COLOR: "veryLightGrey",
     PROPS: [
@@ -246,17 +246,17 @@ Class.teamWall = {
     ]
 };
 Class.baseWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Base Wall",
-    COLOR: 'red'
+    COLOR: "red"
 };
 Class.portalWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Portal Wall",
-    COLOR: 'blue'
+    COLOR: "blue"
 };
 Class.checkpointWall = {
-    PARENT: 'wall',
+    PARENT: "wall",
     LABEL: "Checkpoint Wall",
-    COLOR: 'green'
+    COLOR: "green"
 };

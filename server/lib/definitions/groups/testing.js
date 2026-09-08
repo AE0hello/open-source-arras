@@ -135,12 +135,12 @@ Class.roaringParent = {
     ]
 }
 Class.roaringHat = {
-    PARENT: 'circleHat',
+    PARENT: "circleHat",
     COLOR: '#000000',
     BORDERLESS: true
 }
 Class.roaringHat2 = {
-    PARENT: 'circleHat',
+    PARENT: "circleHat",
     COLOR: "#FFFFFF",
     BORDERLESS: true
 }
