@@ -31,8 +31,8 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
         this.controllers = [];
         // Initalize
         this.skill = new Skill();
-        this.health = new HealthType(1, 'static', 0);
-        this.shield = new HealthType(0, 'dynamic');
+        this.health = new HealthType(1, "static", 0);
+        this.shield = new HealthType(0, "dynamic");
         this.x = position.x;
         this.y = position.y;
         this.settings = {};
@@ -388,7 +388,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
 
     physics() {
         if (this.accel.x == null || this.velocity.x == null) {
-            util.error('Void Error!');
+            util.error("Void Error!");
             util.error(this.collisionArray);
             util.error(this.label);
             util.error(this);
@@ -420,7 +420,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
 
     confinementToTheseEarthlyShackles() {
         if (this.x == null || this.x == null) {
-            util.error('Void Error!');
+            util.error("Void Error!");
             util.error(this.collisionArray);
             util.error(this.label);
             util.error(this);

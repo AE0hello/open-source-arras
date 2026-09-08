@@ -119,7 +119,7 @@ var gameDraw = {
         }
 
         // Exit if calculated already
-        let colorId = colorDetails.join(' ');
+        let colorId = colorDetails.join(" ");
         let cachedColor = gameDraw.colorCache[colorId];
         if (cachedColor != undefined) return cachedColor;
 

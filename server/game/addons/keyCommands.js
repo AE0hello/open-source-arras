@@ -664,7 +664,7 @@ function init() {
             level: 1,
             run: ({ player, gameManager }) => {
                 player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                player.body.define('arrasPolice');
+                player.body.define("arrasPolice");
                 player.body.name = "ARRAS POLICE";
                 player.body.skill.set(player.body.skill.caps);
                 player.body.syncTurrets();

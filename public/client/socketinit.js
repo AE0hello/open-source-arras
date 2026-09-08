@@ -939,7 +939,7 @@ let incoming = async function(message, socket) {
                     global.bodyID = undefined;
                 }
             } break;
-        case 'm': { // message
+        case "m": { // message
             global.createMessage(m[1], m[0]);
         } break;
         case "Em": {

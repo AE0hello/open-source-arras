@@ -652,7 +652,7 @@ class socketManager {
                     original = original.replace(/§/g, "§§§§");
                 }
     
-                Events.emit('chatMessage', { gameManager: global.gameManager, message: original, socket, preventDefault: () => abort = true, setMessage: str => message = str });
+                Events.emit("chatMessage", { gameManager: global.gameManager, message: original, socket, preventDefault: () => abort = true, setMessage: str => message = str });
     
                 // we are not anti-choice here.
                 if (abort) break;

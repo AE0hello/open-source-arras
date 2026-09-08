@@ -6,22 +6,22 @@ let recent = {},
 	ratelimit = 3,
 	decay = 10_000;
 
-Events.on('chatMessage', ({ message, socket, preventDefault, setMessage }) => {
+Events.on("chatMessage", ({ message, socket, preventDefault, setMessage }) => {
 	let perms = socket.permissions,
 		id = socket.player.body.id;
 
 	// Here we block out some very bad and banned word by replacing it with asterisks,
 	// then we set the message that others will see to that filtered message.
-	setMessage(message.replaceAll('someverybadandbannedword', '************************'));
+	setMessage(message.replaceAll("someverybadandbannedword", "somemuchbetternotbannedword"));
 
 	// They are allowed to spam ANYTHING they want INFINITELY.
 	if (message.startsWith("$") || (perms && perms.allowSpam)) return;
 
 	// If they're talking too much, they can take a break.
-	// Fortunately, this returns false if 'recent[id] is 'undefined'.
+	// Fortunately, this returns false if recent[id] is undefined.
 	if (recent[id] >= ratelimit) {
-		preventDefault(); // 'preventDefault()' prevents the message from being sent.
-		socket.talk('m', Config.popup_message_duration, 'Please slow down!');
+		preventDefault(); // Prevents the message from being sent.
+		socket.talk("m", Config.popup_message_duration, "Please slow down!");
 		return;
 	}
 
@@ -44,6 +44,6 @@ Events.on('chatMessage', ({ message, socket, preventDefault, setMessage }) => {
 	// If message above the character limit, lets stop that from getting through
 	if (message.length > 56) {
 		preventDefault();
-		socket.talk('m', Config.popup_message_duration, 'Too long!')
+		socket.talk("m", Config.popup_message_duration, "Too long!")
 	}
 });

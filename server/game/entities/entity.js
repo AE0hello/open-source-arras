@@ -347,7 +347,7 @@ class Entity extends EventEmitter {
                     let e = ensureIsClass(k);
                     index += e.index + "-";
                 }
-                let i = parseInt(prop.split('_')[2])
+                let i = parseInt(prop.split("_")[2])
                 this.upgrades.push({
                     class: trueUpgrades,
                     level: Config.tier_multiplier * i,
@@ -649,7 +649,7 @@ class Entity extends EventEmitter {
         this.bound = { size: position.SIZE / 20, angle: position.ANGLE * Math.PI / 180, direction: _off.direction, offset: _off.length / 10, arc: position.ARC * Math.PI / 180, layer: position.LAYER };
         // Initalize.
         this.facing = this.bond.facing + this.bound.angle;
-        if (this.facingType.includes('Target') || this.facingType.includes('Speed')) this.facingType = "bound", this.facingTypeArgs = {};
+        if (this.facingType.includes("Target") || this.facingType.includes("Speed")) this.facingType = "bound", this.facingTypeArgs = {};
         this.motionType = "bound";
         this.motionTypeArgs = {};
         this.move();
@@ -970,7 +970,7 @@ class Entity extends EventEmitter {
 
     physics() {
         if (this.accel.x == null || this.velocity.x == null) {
-            util.error('Void Error!');
+            util.error("Void Error!");
             util.error(this.collisionArray);
             util.error(this.label);
             util.error(this);
@@ -1002,7 +1002,7 @@ class Entity extends EventEmitter {
 
     confinementToTheseEarthlyShackles() {
         if (this.x == null || this.x == null) {
-            util.error('Void Error!');
+            util.error("Void Error!");
             util.error(this.collisionArray);
             util.error(this.label);
             util.error(this);
@@ -1045,7 +1045,7 @@ class Entity extends EventEmitter {
                 damageInflictor.push(instance.master)
                 damageTool.push(instance)
             }
-            this.emit('damage', { body: this, damageInflictor, damageTool });
+            this.emit("damage", { body: this, damageInflictor, damageTool });
         }
         // Life-limiting effects
         if (this.settings.diesAtRange) {
@@ -1088,7 +1088,7 @@ class Entity extends EventEmitter {
             let name = this.master.name == ""
                 ? this.master.type === "tank"
                     ? "an unnamed " + this.label : this.master.type === "miniboss"
-                        ? "a visiting " + this.label : this.label.substring(0, 3) == 'The'
+                        ? "a visiting " + this.label : this.label.substring(0, 3) == "The"
                             ? this.label : util.addArticle(this.label)
                 : this.master.name + "'s " + this.label;
             // Calculate the jackpot
@@ -1111,7 +1111,7 @@ class Entity extends EventEmitter {
             }
             // Remove duplicates
             killers = killers.filter((elem, index, self) => index == self.indexOf(elem));
-            killers.forEach((e) => e.emit('kill', { body: e, entity: this }));
+            killers.forEach((e) => e.emit("kill", { body: e, entity: this }));
             // If there's no valid killers (you were killed by food), change the message to be more passive
             let killText = notJustFood ? "" : "You have been killed by ",
                 killSuffix = ".",
@@ -1186,8 +1186,8 @@ class Entity extends EventEmitter {
             }
             let killCountEntries = Object.entries(killCounts).map(([name, count], i) => name);
             for (let i = 0; i < killCountEntries.length; i++) {
-                killText += (killCounts[killCountEntries[i]] == 1) ? util.addArticle(killTools[i].label) : killCounts[killCountEntries[i]] + ' ' + killCountEntries[i] + 's';
-                killText += i < killCountEntries.length - 2 ? ', ' : ' and ';
+                killText += (killCounts[killCountEntries[i]] == 1) ? util.addArticle(killTools[i].label) : killCounts[killCountEntries[i]] + " " + killCountEntries[i] + 's';
+                killText += i < killCountEntries.length - 2 ? ", " : " and ";
             }
 
             // Prepare it and clear the collision array.

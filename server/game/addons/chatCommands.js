@@ -218,7 +218,7 @@ let commands = [
                 let time = performance.now();
                 let sinceLastReload = time - global.reloadDefinitionsInfo.lastReloadTime;
                 if (sinceLastReload < 5000) {
-                    socket.talk('m', Config.popup_message_duration, `Wait ${Math.floor((5000 - sinceLastReload) / 100) / 10} seconds and try again.`);
+                    socket.talk("m", Config.popup_message_duration, `Wait ${Math.floor((5000 - sinceLastReload) / 100) / 10} seconds and try again.`);
                     return;
                 }
                 // Set the timeout timer ---
@@ -257,7 +257,7 @@ let commands = [
                 // Redefine all tanks and bosses
                 for (let entity of entities.values()) {
                     // If it's a valid type, and it's not a turret
-                    if (!['tank', 'miniboss', "food"].includes(entity.type)) continue;
+                    if (!['tank", "miniboss', "food"].includes(entity.type)) continue;
                     if (entity.bond) continue;
 
                     let entityDefs = JSON.parse(JSON.stringify(entity.defs));
@@ -282,7 +282,7 @@ let commands = [
                 }
 
                 // Tell the command sender
-                socket.talk('m', Config.popup_message_duration, "Successfully reloaded all definitions.");
+                socket.talk("m", Config.popup_message_duration, "Successfully reloaded all definitions.");
 
 
                 // Erase mockups so it can rebuild.

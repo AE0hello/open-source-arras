@@ -86,7 +86,7 @@ class turretEntity extends EventEmitter {
     }
     fixFacing() {
         this.facing = this.bond.facing + this.bound.angle;
-        if (this.facingType.includes('Target') || this.facingType.includes('Speed')) this.facingType = "bound", this.facingTypeArgs = {}, 
+        if (this.facingType.includes("Target") || this.facingType.includes("Speed")) this.facingType = "bound", this.facingTypeArgs = {}, 
         this.facingTypeArgs = {smoothness: this.settings.smoothness ?? 4}; 
     }
     life() { bringToLife(this); }

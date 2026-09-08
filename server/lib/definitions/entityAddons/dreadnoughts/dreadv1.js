@@ -565,7 +565,7 @@ Class.cerberus_dreadsV1 = {
 Class.minotaur_dreadsV1 = {
     PARENT: "genericDreadnought1",
     LABEL: "Minotaur",
-    UPGRADE_TOOLTIP: ""Set" Traps",
+    UPGRADE_TOOLTIP: "\"Set\" Traps",
     GUNS: weaponArray([
         {
             POSITION: [13, 9.5, 1, 0, 0, 0, 0],

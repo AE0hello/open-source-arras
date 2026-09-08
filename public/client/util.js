@@ -112,7 +112,7 @@ const util = (function() {
     
             function weh(z, text) {
                 if (z) {
-                    y = y + ((y === '') ? '' : ', ') + z + ' ' + text + ((z > 1) ? 's' : '');
+                    y = y + ((y === '') ? '' : ", ") + z + " " + text + ((z > 1) ? 's' : '');
                 }
             }
             weh(days, 'day');
