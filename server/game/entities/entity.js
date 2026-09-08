@@ -104,6 +104,7 @@ class Entity extends EventEmitter {
         this.maxX = 0;
         this.maxY = 0;
         this.collidingBond = false;
+        this.globalStore = {};
         // Optimized AABB calculation and update
         this.updateAABB = (active) => {
             this.antiNaN.update();
