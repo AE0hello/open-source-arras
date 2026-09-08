@@ -1,5 +1,5 @@
-const {combineStats, addUpgrades, removeUpgrades, weaponMirror} = require('../../facilitators.js');
-const g = require('../../gunvals.js');
+const {combineStats, addUpgrades, removeUpgrades, weaponMirror} = require("../../facilitators.js");
+const g = require("../../gunvals.js");
 
 // Remove the below return instruction to enable the addon
 return;
@@ -56,7 +56,7 @@ Class.accurator.GUNS = [
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
-            TYPE: 'speedBullet'
+            TYPE: "speedBullet"
         }
     }
 ];
@@ -74,7 +74,7 @@ Class.flamethrower_betterRG = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.blaster, g.flamethrower]),
-                TYPE: 'growBullet'
+                TYPE: "growBullet"
             }
         },
         {
@@ -170,15 +170,15 @@ Class.triBlaster.GUNS = [
 ];
 
 // Class Tree
-addUpgrades('blaster', 3, ['flamethrower_betterRG', 'halfNHalf', 'subverter']);
+addUpgrades("blaster", 3, ["flamethrower_betterRG", "halfNHalf", "subverter"]);
 
 if (Config.retrograde) {
-    removeUpgrades('sniper', 2, ['gatlingGun']);
+    removeUpgrades("sniper", 2, ["gatlingGun"]);
 
-    addUpgrades('flankGuard', 3, ['machineTriple']);
-    Class.gatlingGun.UPGRADES_TIER_3.splice(0, 1, 'focal');
-    addUpgrades('gunner', 3, ['buttbuttin', 'blower']);
-    removeUpgrades('hexaTank', 3, ['tornado_AR']);
-    addUpgrades('pounder', 3, ['subverter', 'deathStar']);
-    addUpgrades('sprayer', 3, ['splasher']);
+    addUpgrades("flankGuard", 3, ["machineTriple"]);
+    Class.gatlingGun.UPGRADES_TIER_3.splice(0, 1, "focal");
+    addUpgrades("gunner", 3, ["buttbuttin", "blower"]);
+    removeUpgrades("hexaTank", 3, ["tornado_AR"]);
+    addUpgrades("pounder", 3, ["subverter", "deathStar"]);
+    addUpgrades("sprayer", 3, ["splasher"]);
 };

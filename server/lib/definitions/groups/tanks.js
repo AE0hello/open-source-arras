@@ -1423,36 +1423,36 @@ Class.wark = {
         }
     ], {delayIncrement: 0.5})
 };
-Class.whirlwind_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: 'satellite_old', label: "Whirlwind" });
+Class.whirlwind_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Whirlwind" });
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind";
 Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"];
 
 // Tier 3 (Level 45)
 const autoTanksT3 = [
-    'artillery',
-    'assassin',
-    'auto3',
-    'builder',
-    'cruiser',
-    'destroyer',
-    'diesel',
-    'gunner',
-    'hexaTank',
-    'honcho',
-    'hunter',
-    'launcher',
-    'mech',
-    'minigun',
-    'overseer',
-    'pen',
-    'rifle',
-    'spawner',
-    //'sprayer',
-    'trapGuard',
-    'triAngle',
-    'tripleShot',
-    'underseer',
-    'wark'
+    "artillery",
+    "assassin",
+    "auto3",
+    "builder",
+    "cruiser",
+    "destroyer",
+    "diesel",
+    "gunner",
+    "hexaTank",
+    "honcho",
+    "hunter",
+    "launcher",
+    "mech",
+    "minigun",
+    "overseer",
+    "pen",
+    "rifle",
+    "spawner",
+    //"sprayer",
+    "trapGuard",
+    "triAngle",
+    "tripleShot",
+    "underseer",
+    "wark"
 ];
 for (let i = 0; i < autoTanksT3.length; i++) {
     let type = autoTanksT3[i];
@@ -1461,25 +1461,25 @@ for (let i = 0; i < autoTanksT3.length; i++) {
     Class[`tripleAuto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type, `Triple Auto-${Class[type].LABEL}`, preset.makeAuto.triple);
 
     if (Config.arms_race) {
-        addUpgrades(`auto${type.charAt(0).toUpperCase() + type.slice(1)}`, tier4_AR, [...['mega', 'triple'].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
+        addUpgrades(`auto${type.charAt(0).toUpperCase() + type.slice(1)}`, tier4_AR, [...["mega", "triple"].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`)]);
     };
 };
 
 const hybridTanksT3 = [
     // Base Tank    //Director      //Cruiser           //Spawner       //Honcho            //Overseer  //Directordrive
-    ['artillery',   "Force",        "Mixer",            "Generator",    "Energizer"         ],
-    ['assassin',    "Hitman",       "Gunman",           "Formulator",   "Contractor"        ],
-    ['builder',     "Fashioner",    "Stylist",          "Experimenter", "Methodist"         ],
-    ['diesel',      "Polluter",     "Depraver",         "Tainter",      "Befouler"          ],
-    ['destroyer',   "Hybrid",       "Synthesis",        "Enactor",      "Crossbreed"        ],
-    ['hunter',      "Poacher",      "Plunderer",        "Maker",        "Nabber"            ],
-    ['launcher',    "Heaver",       "Lobber",           "Duper",        "Emitter"           ],
-    ['mech',        "Cobbler",      "Fuser",            "Automaton",    "Restorer"          ],
-    ['minigun',     "Crop Duster",  "Trimmer",          "Shearer",      "Sweeper"           ],
-    ['pen',         "Interner",     "Kettle",           "Ringer",       "Probationer"       ],
-    ['tripleShot',  "Bent Hybrid",  "Bent Synthesis",   "Hatcher",      "Bent Crossbreed",  "Overshot"  ],
-    ['rifle',       "Armsman",      "Partisan",         "Copier",       "Vendor"            ],
-    ['wark',        "Coalesce",     "Affiliator",       "Converger",    "Commix",           undefined,  "Warkdrive"],
+    ["artillery",   "Force",        "Mixer",            "Generator",    "Energizer"         ],
+    ["assassin",    "Hitman",       "Gunman",           "Formulator",   "Contractor"        ],
+    ["builder",     "Fashioner",    "Stylist",          "Experimenter", "Methodist"         ],
+    ["diesel",      "Polluter",     "Depraver",         "Tainter",      "Befouler"          ],
+    ["destroyer",   "Hybrid",       "Synthesis",        "Enactor",      "Crossbreed"        ],
+    ["hunter",      "Poacher",      "Plunderer",        "Maker",        "Nabber"            ],
+    ["launcher",    "Heaver",       "Lobber",           "Duper",        "Emitter"           ],
+    ["mech",        "Cobbler",      "Fuser",            "Automaton",    "Restorer"          ],
+    ["minigun",     "Crop Duster",  "Trimmer",          "Shearer",      "Sweeper"           ],
+    ["pen",         "Interner",     "Kettle",           "Ringer",       "Probationer"       ],
+    ["tripleShot",  "Bent Hybrid",  "Bent Synthesis",   "Hatcher",      "Bent Crossbreed",  "Overshot"  ],
+    ["rifle",       "Armsman",      "Partisan",         "Copier",       "Vendor"            ],
+    ["wark",        "Coalesce",     "Affiliator",       "Converger",    "Commix",           undefined,  "Warkdrive"],
     // The last two are optional and will be filled out automatically so long as the Base Tank and Director are defined.
 ];
 for (let i = 0; i < hybridTanksT3.length; i++) {
@@ -1493,7 +1493,7 @@ for (let i = 0; i < hybridTanksT3.length; i++) {
     let directordrive = hybridTanksT3[i][6] ??= `${director}drive`;
 
     function typeify(x) {
-        return x.charAt(0).toLowerCase() + x.slice(1).replace(/[\s-]+/g, '');
+        return x.charAt(0).toLowerCase() + x.slice(1).replace(/[\s-]+/g, "");
     };
     let typeDirector = typeify(director);
     let typeOverseer = typeify(overseer);
@@ -1536,7 +1536,7 @@ Class.accurator = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.gatlingGun]),
-                TYPE: 'speedBullet'
+                TYPE: "speedBullet"
             }
         }
     ]
@@ -1601,7 +1601,7 @@ Class.annihilator = {
         }
     ]
 };
-Class.architect = makeRadialAuto('architectGun', { isTurret: true, danger: 7, size: 12, label: "Architect", body: { FOV: base.FOV * 1.15, SPEED: base.SPEED * 1.125 } });
+Class.architect = makeRadialAuto("architectGun", { isTurret: true, danger: 7, size: 12, label: "Architect", body: { FOV: base.FOV * 1.15, SPEED: base.SPEED * 1.125 } });
 Class.assembler = {
     PARENT: "genericTank",
     LABEL: "Assembler",
@@ -1624,10 +1624,10 @@ Class.assembler = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-                TYPE: 'assemblent',
+                TYPE: "assemblent",
                 NO_LIMITATIONS: true,
                 MAX_CHILDREN: 8,
-                STAT_CALCULATOR: "block",
+                STAT_CALCULATOR: "block"
             }
         }
     ],
@@ -1673,14 +1673,14 @@ Class.atomizer = {
         }
     ]
 };
-Class.auto4 = makeRadialAuto('auto4gun', { isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4 });
-Class.auto4_old = makeRadialAuto('auto4gun', { isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3 });
+Class.auto4 = makeRadialAuto("auto4gun", { isTurret: true, danger: 7, size: 13, x: 6, angle: 45, label: "Auto-4", count: 4 });
+Class.auto4_old = makeRadialAuto("auto4gun", { isTurret: true, danger: 7, size: 13, x: 6, label: "Gunner-3", count: 3 });
 Class.auto5 = makeRadialAuto("autoTankGun", { isTurret: true, danger: 7, label: "Auto-5", count: 5 });
-Class.autoDirectordrive = makeAuto('directordrive', "Auto-Directordrive", preset.makeAuto.drive);
-Class.autoDouble = makeAuto('doubleTwin', "Auto-Double");
-Class.autoSmasher = makeAuto('smasher', "Auto-Smasher", { type: 'autoSmasherTurret', size: 11 });
+Class.autoDirectordrive = makeAuto("directordrive", "Auto-Directordrive", preset.makeAuto.drive);
+Class.autoDouble = makeAuto("doubleTwin", "Auto-Double");
+Class.autoSmasher = makeAuto("smasher", "Auto-Smasher", { type: "autoSmasherTurret", size: 11 });
 Class.autoSmasher.SKILL_CAP = Array(10).fill(smshskl);
-Class.banshee = makeRadialAuto('bansheegun', { isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: { FOV: base.FOV * 1.1 } });
+Class.banshee = makeRadialAuto("bansheegun", { isTurret: true, danger: 7, size: 10, arc: 80, label: "Banshee", body: { FOV: base.FOV * 1.1 } });
 Class.banshee.GUNS = weaponArray({
     POSITION: {
         LENGTH: 6,
@@ -1805,7 +1805,7 @@ Class.battleship = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: 'autoswarm',
+                TYPE: "autoswarm",
                 STAT_CALCULATOR: "swarm",
                 LABEL: "Autonomous"
             }
@@ -1827,7 +1827,7 @@ Class.beekeeper = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -1862,7 +1862,7 @@ Class.bender = {
             PROPERTIES: {
                 MAX_CHILDREN: 4, // todo: check if this is still 3
                 SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
-                TYPE: 'desmosMinion',
+                TYPE: "desmosMinion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true
@@ -1876,7 +1876,7 @@ Class.bender = {
         })
     ]
 };
-Class.bentDouble = makeFlank('tripleShot', 2, "Bent Double", { extraStats: [g.doubleTwin] });
+Class.bentDouble = makeFlank("tripleShot", 2, "Bent Double", { extraStats: [g.doubleTwin] });
 Class.bentGunner = {
     PARENT: "genericTank",
     LABEL: "Bent Gunner",
@@ -1991,7 +1991,7 @@ Class.bigMama = {
     }]
 };
 Class.blizzard = makeWhirlwind("genericTank", { dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinReverse", satellites: 5, label: "Blizzard", danger: 7 });
-Class.blower = makeGunner('destroyer', "Blower");
+Class.blower = makeGunner("destroyer", "Blower");
 Class.blunderbuss = {
     PARENT: "genericTank",
     LABEL: "Blunderbuss",
@@ -2153,7 +2153,7 @@ Class.boomer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.boomerang]),
-                TYPE: 'boomerang',
+                TYPE: "boomerang",
                 STAT_CALCULATOR: "block"
             }
         }
@@ -2177,7 +2177,7 @@ Class.bentBoomer_old = {
             POSITION: [2, 10, 1.3, 16, -2, -35, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.twin, {speed: 1.2}]),
-                TYPE: 'boomerang'
+                TYPE: "boomerang"
             }
         }
     ], {delayIncrement: 0.5})
@@ -2316,8 +2316,8 @@ Class.bulwark_old = {
         }
     ], {delayIncrement: 0.5})
 };
-Class.bushwhacker = makeGuard('sniper', "Bushwhacker");
-Class.buttbuttin = makeGunner('assassin', "Buttbuttin");
+Class.bushwhacker = makeGuard("sniper", "Bushwhacker");
+Class.buttbuttin = makeGunner("assassin", "Buttbuttin");
 Class.captain = {
     PARENT: "genericTank",
     LABEL: "Captain",
@@ -2398,7 +2398,7 @@ Class.carrier = {
         }
     ]
 };
-Class.cocci = makeSnake('smasher', 5, "Cocci");
+Class.cocci = makeSnake("smasher", 5, "Cocci");
 Class.cog = {
     PARENT: "genericTank",
     LABEL: "Cog",
@@ -2953,7 +2953,7 @@ Class.deathStar_old = {
         }
     ], 3)
 };
-Class.defect = makeBird('tripleShot', "Defect");
+Class.defect = makeBird("tripleShot", "Defect");
 Class.doctor = {
     PARENT: "genericHealer",
     LABEL: "Doctor",
@@ -2999,7 +2999,7 @@ Class.doubleFlankTwin = makeFlank({
         }, {delayIncrement: 0.5})
     ]
 }, 2, "Double Flank Twin", { extraStats: [g.doubleTwin] });
-Class.doubleGunner = makeFlank('gunner', 2, "Double Gunner", { extraStats: [g.doubleTwin] });
+Class.doubleGunner = makeFlank("gunner", 2, "Double Gunner", { extraStats: [g.doubleTwin] });
 Class.dreadnought_old = {
     PARENT: "genericTank",
     LABEL: "Dreadnought",
@@ -3010,7 +3010,7 @@ Class.dreadnought_old = {
     BODY: Class.cruiser.BODY,
     TURRETS: [
         {
-            TYPE: ["circleHat", {COLOR: 'grey'}],
+            TYPE: ["circleHat", {COLOR: "grey"}],
             POSITION: {
                 SIZE: 19.5,
                 X: -4.5,
@@ -3223,7 +3223,7 @@ Class.duplicator = {
         },
     ]
 };
-Class.eagle = makeBird('pounder', "Eagle");
+Class.eagle = makeBird("pounder", "Eagle");
 Class.engineer = {
     PARENT: "genericTank",
     LABEL: "Engineer",
@@ -3254,7 +3254,7 @@ Class.engineer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-                TYPE: 'pillbox',
+                TYPE: "pillbox",
                 NO_LIMITATIONS: true,
                 SYNCS_SKILLS: true,
                 DESTROY_OLDEST_CHILD: true,
@@ -3393,7 +3393,7 @@ Class.factory = {
         }
     ]
 };
-Class.falcon = makeBird('assassin', "Falcon");
+Class.falcon = makeBird("assassin", "Falcon");
 Class.fieldGun = {
     PARENT: "genericTank",
     LABEL: "Field Gun",
@@ -3780,7 +3780,7 @@ Class.hewnDouble = {
     ]
 };
 Class.hexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6 }), "Hexa-Trapper");
-Class.hexaWhirl = makeWhirlwind('hexaTank', { label: "Hexa Whirl" });
+Class.hexaWhirl = makeWhirlwind("hexaTank", { label: "Hexa Whirl" });
 Class.honchodrive = {
     PARENT: "genericTank",
     LABEL: "Honchodrive",
@@ -3863,7 +3863,7 @@ Class.infestor = {
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.5}]),
-            TYPE: 'eggchip',
+            TYPE: "eggchip",
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
             STAT_CALCULATOR: "necro",
@@ -3873,7 +3873,7 @@ Class.infestor = {
         }
     }), 2)
 };
-Class.integrator = makeOver('triAngle', "Integrator", { ...preset.hybrid, renderBehind: true });
+Class.integrator = makeOver("triAngle", "Integrator", { ...preset.hybrid, renderBehind: true });
 Class.itHurtsDontTouchIt = {
     PARENT: "genericFlail",
     LABEL: "It hurts dont touch it",
@@ -3896,7 +3896,7 @@ Class.iterator = {
             POSITION: [22, 8, -4/3, 0, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
-                TYPE: ['superSplitterBullet', {CONTROLLERS: ["snake"]}] // nerf supersplitter when
+                TYPE: ["superSplitterBullet", {CONTROLLERS: ["snake"]}] // nerf supersplitter when
             }
         },
         ...weaponMirror([{
@@ -3971,7 +3971,7 @@ Class.landmine = {
             }
         },
         {
-            TYPE: ['hexagonHat_spinFaster', {COLOR: "black"}],
+            TYPE: ["hexagonHat_spinFaster", {COLOR: "black"}],
             POSITION: {
                 SIZE: 21.5,
                 ANGLE: 90
@@ -3989,7 +3989,7 @@ Class.literallyAMachineGun = {
     },
     TURRETS: [
         {
-            TYPE: 'lamgSpinnerTurret',
+            TYPE: "lamgSpinnerTurret",
             POSITION: {
                 SIZE: 10,
                 X: 14,
@@ -4065,7 +4065,7 @@ Class.machineGunner = {
     ]
 };
 Class.machineTriple = makeFlank("machineGun", 3, "Machine Triple", { extraStats: [g.doubleTwin, g.tripleTwin], danger: 7 });
-Class.maelstrom = makeAuto('whirlwind_old', "Maelstrom");
+Class.maelstrom = makeAuto("whirlwind_old", "Maelstrom");
 Class.manager = {
     PARENT: "genericTank",
     LABEL: "Manager",
@@ -4143,7 +4143,7 @@ Class.master = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic]),
-                TYPE: 'masterBullet',
+                TYPE: "masterBullet",
                 MAX_CHILDREN: 4,
                 DESTROY_OLDEST_CHILD: true
             }
@@ -4205,7 +4205,7 @@ Class.medic = {
         }
     ]
 };
-Class.mega3 = makeRadialAuto('megaAutoTankGun', { isTurret: true, danger: 7, size: 14, label: "Mega-3", body: { SPEED: 0.95 * base.SPEED } });
+Class.mega3 = makeRadialAuto("megaAutoTankGun", { isTurret: true, danger: 7, size: 14, label: "Mega-3", body: { SPEED: 0.95 * base.SPEED } });
 Class.megaSmasher = {
     PARENT: "genericSmasher",
     LABEL: "Mega-Smasher",
@@ -4346,7 +4346,7 @@ Class.mender = {
     ],
     TURRETS: [
         {
-            TYPE: ["triangleHat", {COLOR: 'grey'}],
+            TYPE: ["triangleHat", {COLOR: "grey"}],
             POSITION: { SIZE: 7, LAYER: 1 }
         }
     ]
@@ -4435,7 +4435,7 @@ Class.mortar = {
         }
     ]
 };
-Class.munition = makeWhirlwind('artillery', { label: "Munition" });
+Class.munition = makeWhirlwind("artillery", { label: "Munition" });
 Class.musket = {
     PARENT: "genericTank",
     LABEL: "Musket",
@@ -4675,7 +4675,7 @@ Class.oroboros = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
-                TYPE: ['oroborosTrap', {CONTROLLERS: [['oroboros', {range: 75, speed: Math.PI / 32}], 'snakeTillNot']}],
+                TYPE: ["oroborosTrap", {CONTROLLERS: [["oroboros", {range: 75, speed: Math.PI / 32}], "snakeTillNot"]}],
                 STAT_CALCULATOR: "block",
                 DESTROY_OLDEST_CHILD: true,
                 MAX_CHILDREN: 4
@@ -4921,7 +4921,7 @@ Class.pentaShot = {
         }
     ]
 };
-Class.phoenix = makeBird('sprayer', "Phoenix");
+Class.phoenix = makeBird("sprayer", "Phoenix");
 Class.physician = {
     PARENT: "genericSmasher",
     LABEL: "Physician",
@@ -5081,7 +5081,7 @@ Class.productionist = {
         }
     ], {delayIncrement: 0.5})
 };
-Class.prophet = makeWhirlwind('underseer', { label: "Prophet", satelliteType: 'squareSatellite' });
+Class.prophet = makeWhirlwind("underseer", { label: "Prophet", satelliteType: "squareSatellite" });
 Class.python = {
     PARENT: "genericTank",
     LABEL: "Python", //"Super Spiral",
@@ -5102,7 +5102,7 @@ Class.python = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5/3 }]),
-                TYPE: ['pythonBullet', {CONTROLLERS: ["snake"]}]
+                TYPE: ["pythonBullet", {CONTROLLERS: ["snake"]}]
             }
         },
         ...weaponMirror({
@@ -5504,7 +5504,7 @@ Class.rocketeer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
-                TYPE: 'rocketeerMissile',
+                TYPE: "rocketeerMissile",
                 STAT_CALCULATOR: "sustained",
             }
         },
@@ -5650,7 +5650,7 @@ Class.shotgun = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         },
         {
@@ -5674,7 +5674,7 @@ Class.shotgun = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         }]),
         {
@@ -5685,7 +5685,7 @@ Class.shotgun = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         },
         {
@@ -5696,7 +5696,7 @@ Class.shotgun = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.fake]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         },
         {
@@ -5786,13 +5786,13 @@ Class.skimmer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer]),
-                TYPE: 'missile',
+                TYPE: "missile",
                 STAT_CALCULATOR: "sustained",
             },
         },
     ],
 };
-Class.sniper3 = makeRadialAuto('sniper3gun', { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11/15 * base.SPEED, FOV: 1.25 * base.FOV } });
+Class.sniper3 = makeRadialAuto("sniper3gun", { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11/15 * base.SPEED, FOV: 1.25 * base.FOV } });
 Class.sniperRifle = {
     PARENT: "genericTank",
     LABEL: "Sniper Rifle",
@@ -5865,7 +5865,7 @@ Class.spike = {
         SPEED: base.SPEED
     },
     TURRETS: weaponArray([{
-        TYPE: ['triangleHat_spin', {COLOR: "black"}],
+        TYPE: ["triangleHat_spin", {COLOR: "black"}],
         POSITION: {SIZE: 18}
     }], 4)
 };
@@ -5884,13 +5884,13 @@ Class.spike_old = {
     STAT_NAMES: statnames.smasher,
     TURRETS: [
         {
-            TYPE: ['triangleHat_spinFast', {COLOR: "black"}],
+            TYPE: ["triangleHat_spinFast", {COLOR: "black"}],
             POSITION: {
                 SIZE: 20.5
             }
         },
         {
-            TYPE: 'triangleHat_weirdSpike',
+            TYPE: "triangleHat_weirdSpike",
             POSITION: {
                 SIZE: 20.5,
                 ANGLE: 180
@@ -6327,7 +6327,7 @@ Class.surfer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: 'autoswarm',
+                TYPE: "autoswarm",
                 STAT_CALCULATOR: "swarm"
             }
         }]),
@@ -6375,7 +6375,7 @@ Class.surgeon = {
             PROPERTIES: {
                 MAX_CHILDREN: 2,
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {speed: 0.9, maxSpeed: 0.9, size: 1.1}]),
-                TYPE: 'medkit',
+                TYPE: "medkit",
                 NO_LIMITATIONS: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "block"
@@ -6404,7 +6404,7 @@ Class.swarmer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.hive]),
-                TYPE: 'hive'
+                TYPE: "hive"
             }
         },
         {
@@ -6574,8 +6574,8 @@ Class.twister = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer, {speed: 0.6, reload: 4/3, shudder: 0.1}]),
-                TYPE: 'spinmissile',
-                STAT_CALCULATOR: 'sustained+lowspeed'
+                TYPE: "spinmissile",
+                STAT_CALCULATOR: "sustained+lowspeed"
             }
         }
     ]
@@ -6640,7 +6640,7 @@ Class.volley = {
         }
     ], {delayIncrement: 0.25})
 };
-Class.vortex = makeWhirlwind('launcher', { label: "Vortex" });
+Class.vortex = makeWhirlwind("launcher", { label: "Vortex" });
 Class.vortex_old = makeWhirlwind("genericTank", { enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex" });
 Class.vulture = makeBird({
     PARENT: "genericTank",
@@ -6737,8 +6737,8 @@ Class.waarrk = {
         }
     ]
 };
-Class.warkwark = makeFlank('wark', 2, "Warkwark", { extraStats: [g.doubleTwin] });
-Class.whirlGuard = makeWhirlwind('trapGuard', { label: "Whirl Guard" });
+Class.warkwark = makeFlank("wark", 2, "Warkwark", { extraStats: [g.doubleTwin] });
+Class.whirlGuard = makeWhirlwind("trapGuard", { label: "Whirl Guard" });
 Class.whirl3 = makeWhirlwind("auto3", { label: "Whirl-3" });
 Class.wrangler = {
     PARENT: "genericTank",
@@ -6756,7 +6756,7 @@ Class.wrangler = {
             PROPERTIES: {
                 MAX_CHILDREN: 3,
                 SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
-                TYPE: 'wranglerMinion',
+                TYPE: "wranglerMinion",
                 STAT_CALCULATOR: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true
@@ -6810,28 +6810,28 @@ Class.xHunter = {
 
 // Tier 4 (Level 60)
 const autoTanksT4 = [
-    'auto4',
-    'auto5',
-    'banshee',
-    'bentDouble',
-    'bentHybrid',
-    'buttbuttin',
-    'combo',
-    'crowbar',
-    'cyclone',
-    'deathStar',
-    'doubleGunner',
-    'dual',
-    'hewnDouble',
-    'jalopy',
-    'mega3',
-    'mingler',
-    'musket',
-    'octoTank',
-    'single',
-    'sniper3',
-    'sprayer',
-    'warkwark'
+    "auto4",
+    "auto5",
+    "banshee",
+    "bentDouble",
+    "bentHybrid",
+    "buttbuttin",
+    "combo",
+    "crowbar",
+    "cyclone",
+    "deathStar",
+    "doubleGunner",
+    "dual",
+    "hewnDouble",
+    "jalopy",
+    "mega3",
+    "mingler",
+    "musket",
+    "octoTank",
+    "single",
+    "sniper3",
+    "sprayer",
+    "warkwark"
 ];
 for (let i = 0; i < autoTanksT4.length; i++) {
     let type = autoTanksT4[i];
@@ -6839,15 +6839,15 @@ for (let i = 0; i < autoTanksT4.length; i++) {
 };
 
 const doubleTanksT4 = [
-    'battery',
-    'dual',
-    'equalizer',
-    'machineGunner',
-    'musket',
-    'nailgun',
-    'rimfire',
-    'triplet',
-    'volley'
+    "battery",
+    "dual",
+    "equalizer",
+    "machineGunner",
+    "musket",
+    "nailgun",
+    "rimfire",
+    "triplet",
+    "volley"
 ];
 for (let i = 0; i < doubleTanksT4.length; i++) {
     let type = doubleTanksT4[i];
@@ -6856,16 +6856,16 @@ for (let i = 0; i < doubleTanksT4.length; i++) {
 
 const hybridTanksT4 = [
     // Base Tank    //Director
-    ['buttbuttin',  "Mercenary"],
-    ['crowbar',     "Spindle"],
-    ['dual',        "Ravisher"],
-    ['jalopy',      "Contaminator"],
-    ['musket',      "Matchlock"],
-    ['pentaShot',   "Flexed Hybrid"],
-    ['single',      "Assistant"],
-    ['sprayer',     "Shower"],
-    ['spreadshot',  "Smearer"],
-    ['triplet',     "Triprid"],
+    ["buttbuttin",  "Mercenary"],
+    ["crowbar",     "Spindle"],
+    ["dual",        "Ravisher"],
+    ["jalopy",      "Contaminator"],
+    ["musket",      "Matchlock"],
+    ["pentaShot",   "Flexed Hybrid"],
+    ["single",      "Assistant"],
+    ["sprayer",     "Shower"],
+    ["spreadshot",  "Smearer"],
+    ["triplet",     "Triprid"],
 ];
 for (let i = 0; i < hybridTanksT4.length; i++) {
     let type = hybridTanksT4[i][0];
@@ -6873,7 +6873,7 @@ for (let i = 0; i < hybridTanksT4.length; i++) {
     let director = hybridTanksT4[i][1];
 
     function typeify(x) {
-        return x.charAt(0).toLowerCase() + x.slice(1).replace(/[\s-]+/g, '');
+        return x.charAt(0).toLowerCase() + x.slice(1).replace(/[\s-]+/g, "");
     };
     let typeDirector = typeify(director);
 
@@ -6923,7 +6923,7 @@ Class.alloy = {
         }
     ], 3),
     TURRETS: weaponArray({
-        TYPE: ['sniper3gun', { INDEPENDENT: true }],
+        TYPE: ["sniper3gun", { INDEPENDENT: true }],
         POSITION: {
             SIZE: 13,
             X: 8,
@@ -6932,10 +6932,10 @@ Class.alloy = {
         }
     }, 3)
 };
-Class.autoDoubleFlank = makeAuto('doubleFlankTwin', "Auto-Double Flank");
+Class.autoDoubleFlank = makeAuto("doubleFlankTwin", "Auto-Double Flank");
 Class.autoHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
-Class.autoTriple = makeAuto('tripleTwin', "Auto-Triple");
-Class.avian = makeBird('single', "Avian");
+Class.autoTriple = makeAuto("tripleTwin", "Auto-Triple");
+Class.avian = makeBird("single", "Avian");
 Class.band = makeAuto({
     PARENT: "genericTank",
     DANGER: 7,
@@ -7045,7 +7045,7 @@ Class.bentDoubleGunner = makeFlank({
         }
     ], { delayIncrement: 1/6 })
 }, 2, "Bent Double Gunner", { extraStats: [g.doubleTwin] });
-Class.bentDoubleMinigun = makeFlank('bentMinigun', 2, "Bent Double Minigun", { extraStats: [g.doubleTwin] });
+Class.bentDoubleMinigun = makeFlank("bentMinigun", 2, "Bent Double Minigun", { extraStats: [g.doubleTwin] });
 Class.bentDoubleMinigun.BODY = { ...Class.bentMinigun.BODY, SPEED: base.SPEED * 14/15 };
 Class.bentFlankDouble = makeFlank({
     PARENT: "genericTank",
@@ -7066,7 +7066,7 @@ Class.bentFlankDouble = makeFlank({
         ...Class.tripleShot.GUNS
     ]
 }, 2, "Bent Flank Double", { extraStats: [g.doubleTwin] });
-Class.bentTriple = makeFlank('tripleShot', 3, "Bent Triple", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.bentTriple = makeFlank("tripleShot", 3, "Bent Triple", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
 Class.bruiser = {
     PARENT: "genericTank",
     LABEL: "Bruiser",
@@ -7463,7 +7463,7 @@ Class.designer = makeAuto({
     },
     TURRETS: weaponArray([
         {
-            TYPE: 'architectGun',
+            TYPE: "architectGun",
             POSITION: {
                 SIZE: 12,
                 X: 8,
@@ -7472,7 +7472,7 @@ Class.designer = makeAuto({
             }
         },
         {
-            TYPE: 'architectGun',
+            TYPE: "architectGun",
             POSITION: {
                 SIZE: 12,
                 X: 8,
@@ -7688,7 +7688,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7716,7 +7716,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7742,7 +7742,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7770,7 +7770,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7796,7 +7796,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7824,7 +7824,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7849,7 +7849,7 @@ Class.dustStorm = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm, g.bee, g.dustStorm]),
-                TYPE: ['bee', { INDEPENDENT: true }],
+                TYPE: ["bee", { INDEPENDENT: true }],
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 WAIT_TO_CYCLE: true,
@@ -7858,7 +7858,7 @@ Class.dustStorm = {
         }
     ]
 };
-Class.flexedDouble = makeFlank('pentaShot', 2, "Flexed Double", { extraStats: [g.doubleTwin] });
+Class.flexedDouble = makeFlank("pentaShot", 2, "Flexed Double", { extraStats: [g.doubleTwin] });
 Class.foretrapper = makeFore({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -7968,8 +7968,8 @@ Class.gale = {
         },
     ], 4)
 };
-Class.guardrail = makeFlank('hutch', 2, "Guardrail", { extraStats: [g.doubleTwin] });
-Class.harpy = makeGunner('falcon', "Harpy", { gunLength: 20, noDeco: true, renderBehind: true });
+Class.guardrail = makeFlank("hutch", 2, "Guardrail", { extraStats: [g.doubleTwin] });
+Class.harpy = makeGunner("falcon", "Harpy", { gunLength: 20, noDeco: true, renderBehind: true });
 Class.hewnFlankDouble = {
     PARENT: "genericTank",
     LABEL: "Hewn Flank Double",
@@ -8294,9 +8294,9 @@ Class.hipwatch = {
         }
     }, 2)
 };
-Class.marine = makeGunner('ranger', "Marine");
-Class.megaAutoDirectordrive = makeAuto('directordrive', "Mega Auto-Directordrive", preset.makeAuto.driveMega);
-Class.megaAutoDouble = makeAuto('doubleTwin', "Mega Auto-Double", preset.makeAuto.mega);
+Class.marine = makeGunner("ranger", "Marine");
+Class.megaAutoDirectordrive = makeAuto("directordrive", "Mega Auto-Directordrive", preset.makeAuto.driveMega);
+Class.megaAutoDouble = makeAuto("doubleTwin", "Mega Auto-Double", preset.makeAuto.mega);
 Class.megaHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Mega Hexa-Trapper", preset.makeAuto.mega);
 Class.mono = {
     PARENT: "genericTank",
@@ -8383,7 +8383,7 @@ Class.overdoubleGunner = makeOver({
         }
     ], 2)
 }, "Overdouble Gunner", { angle: 90, renderBehind: true });
-Class.overdoubleTwin = makeOver('doubleTwin', "Overdouble Twin", { angle: 90, renderBehind: true });
+Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", { angle: 90, renderBehind: true });
 Class.protector = {
     PARENT: "genericTank",
     LABEL: "Protector",
@@ -8465,8 +8465,8 @@ Class.quintuplet = {
         }
     ]
 };
-Class.ransacker = makeGuard('rifle', "Ransacker");
-Class.ransacker_old = makeGuard('rifle_old');
+Class.ransacker = makeGuard("rifle", "Ransacker");
+Class.ransacker_old = makeGuard("rifle_old");
 Class.refuge = makeAuto({
     PARENT: "genericTank",
     DANGER: 7,
@@ -8570,7 +8570,7 @@ Class.scuffler = makeFlank({
         }, {delayIncrement: 0.5})
     ]
 }, 2, "Scuffler", { extraStats: [g.doubleTwin] });
-Class.sealer = makeFlank('cog', 2, "Sealer", { extraStats: [g.doubleTwin] });
+Class.sealer = makeFlank("cog", 2, "Sealer", { extraStats: [g.doubleTwin] });
 Class.sequence = {
     PARENT: "genericTank",
     LABEL: "Sequence",
@@ -8586,7 +8586,7 @@ Class.sequence = {
         }
     }, 3),
     TURRETS: weaponArray({
-        TYPE: ['megaAutoTankGun', { INDEPENDENT: true }],
+        TYPE: ["megaAutoTankGun", { INDEPENDENT: true }],
         POSITION: {
             SIZE: 14,
             X: 8,
@@ -8595,7 +8595,7 @@ Class.sequence = {
         }
     }, 3)
 };
-Class.setup = makeFlank('expeller', 2, "Setup", { extraStats: [g.doubleTwin] });
+Class.setup = makeFlank("expeller", 2, "Setup", { extraStats: [g.doubleTwin] });
 Class.sharpshooter = {
     PARENT: "genericTank",
     LABEL: "Sharpshooter",
@@ -8666,8 +8666,8 @@ Class.skewnDouble = {
         }, {delayIncrement: 0.5}), 2)
     ]
 };
-Class.splitDouble = makeFlank('splitShot', 2, "Split Double", { extraStats: [g.doubleTwin] });
-Class.tailer = makeGunner('stalker', "Tailer");
+Class.splitDouble = makeFlank("splitShot", 2, "Split Double", { extraStats: [g.doubleTwin] });
+Class.tailer = makeGunner("stalker", "Tailer");
 Class.tempest_AR = {
     PARENT: "genericTank",
     LABEL: "Tempest",
@@ -8712,7 +8712,7 @@ Class.tempest_AR = {
         }
     ], 6)
 };
-Class.ternion = makeFlank('single', 3, "Ternion", { extraStats: [g.flankGuard] });
+Class.ternion = makeFlank("single", 3, "Ternion", { extraStats: [g.flankGuard] });
 Class.ternion.BODY = Class.flankGuard.BODY;
 Class.tornado_AR = {
     PARENT: "genericTank",
@@ -8802,8 +8802,8 @@ Class.tricker = {
         }
     ]
 };
-Class.tripleAutoDirectordrive = makeAuto('directordrive', "Triple Auto-Directordrive", preset.makeAuto.driveTriple);
-Class.tripleAutoDouble = makeAuto('doubleTwin', "Triple Auto-Double", preset.makeAuto.triple);
+Class.tripleAutoDirectordrive = makeAuto("directordrive", "Triple Auto-Directordrive", preset.makeAuto.driveTriple);
+Class.tripleAutoDouble = makeAuto("doubleTwin", "Triple Auto-Double", preset.makeAuto.triple);
 Class.tripleFlankTwin = makeFlank({
     PARENT: "genericTank",
     DANGER: 7,
@@ -8833,7 +8833,7 @@ Class.tripleFlankTwin = makeFlank({
         }, {delayIncrement: 0.5})
     ]
 }, 3, "Triple Flank Twin", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin] });
-Class.tripleGunner = makeFlank('gunner', 3, "Triple Gunner", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.tripleGunner = makeFlank("gunner", 3, "Triple Gunner", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
 Class.trove = {
     PARENT: "genericTank",
     LABEL: "Trove",
@@ -8951,7 +8951,7 @@ Class.trove = {
         }
     ],
     TURRETS: weaponArray({
-        TYPE: ['auto4gun', { INDEPENDENT: true }],
+        TYPE: ["auto4gun", { INDEPENDENT: true }],
         POSITION: {
             SIZE: 13,
             X: 6,
@@ -9061,8 +9061,8 @@ Class.vulcan = {
         }
     ]
 };
-Class.waarrkwaarrk = makeFlank('waarrk', 2, "Waarrkwaarrk", { extraStats: [g.doubleTwin] });
-Class.warkwarkwark = makeFlank('wark', 3, "Warkwarkwark", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.waarrkwaarrk = makeFlank("waarrk", 2, "Waarrkwaarrk", { extraStats: [g.doubleTwin] });
+Class.warkwarkwark = makeFlank("wark", 3, "Warkwarkwark", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
 Class.warkwawarkrk = {
     PARENT: "genericTank",
     LABEL: "Warkwawarkrk",
@@ -9299,13 +9299,13 @@ Class.wrench = {
 };
 
 // Tier 5 (Level 75)
-Class.custodian = makeGuard('single', "Custodian");
+Class.custodian = makeGuard("single", "Custodian");
 
 // Special Tanks (Dominators)
 Class.dominator = {
     PARENT: "genericTank",
     LABEL: "Dominator",
-    UPGRADE_LABEL: 'Unknown',
+    UPGRADE_LABEL: "Unknown",
     ON_MINIMAP: false,
     DANGER: 7,
     SKILL: skillSet({
@@ -9347,7 +9347,7 @@ Class.dominator = {
 };
 Class.destroyerDominator = {
     PARENT: "dominator",
-    UPGRADE_LABEL: 'Destroyer',
+    UPGRADE_LABEL: "Destroyer",
     GUNS: [
         {
             POSITION: [15.25, 6.75, 1, 0, 0, 0, 0],
@@ -9363,7 +9363,7 @@ Class.destroyerDominator = {
 };
 Class.gunnerDominator = {
     PARENT: "dominator",
-    UPGRADE_LABEL: 'Gunner',
+    UPGRADE_LABEL: "Gunner",
     GUNS: [
         {
             POSITION: [14.25, 3, 1, 0, -2, 0, 0.5],
@@ -9393,7 +9393,7 @@ Class.gunnerDominator = {
 };
 Class.trapperDominator = {
     PARENT: "dominator",
-    UPGRADE_LABEL: 'Trapper',
+    UPGRADE_LABEL: "Trapper",
     FACING_TYPE: ["spin", {speed: 0.02}],
     GUNS: weaponArray([
         {
@@ -9413,7 +9413,7 @@ Class.trapperDominator = {
 
 // Special Tanks (Sanctuaries)
 Class.sanctuary = {
-    PARENT: 'dominator',
+    PARENT: "dominator",
     LABEL: "Sanctuary",
     DISPLAY_NAME: false,
     DISPLAY_SCORE: false,
@@ -9432,7 +9432,7 @@ Class.sanctuary = {
     },
     TURRETS: [
         {
-            TYPE: 'dominationBody',
+            TYPE: "dominationBody",
             POSITION: {
                 SIZE: 22
             }
@@ -9442,8 +9442,8 @@ Class.sanctuary = {
 let sancTiers = [3, 6, 8, 9, 10, 12];
 let sancHealerTiers = [2, 3, 4];
 for (let tier of sancHealerTiers) {
-    Class['sanctuaryHealerTier' + (sancHealerTiers.indexOf(tier) + 1)] = {
-        PARENT: 'sanctuaryHealer',
+    Class["sanctuaryHealerTier" + (sancHealerTiers.indexOf(tier) + 1)] = {
+        PARENT: "sanctuaryHealer",
         FACING_TYPE: ["spin", {speed: -0.06}],
         GUNS: weaponArray([
             {
@@ -9463,7 +9463,7 @@ for (let tier of sancHealerTiers) {
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.basic, { range: 0.5, reload: 1.1, speed: 0.80 }, g.healer]),
                     SPAWN_OFFSET: 0,
-                    TYPE: 'healerSanctuaryBullet',
+                    TYPE: "healerSanctuaryBullet",
                     AUTOFIRE: true,
                 }
             }
@@ -9472,10 +9472,10 @@ for (let tier of sancHealerTiers) {
 };
 for (let tier of sancTiers) {
     let sancIndex = sancTiers.indexOf(tier)
-    Class['sanctuaryTier' + (sancIndex + 1)] = {
-        PARENT: 'sanctuary',
+    Class["sanctuaryTier" + (sancIndex + 1)] = {
+        PARENT: "sanctuary",
         TURRETS: [],
-        UPGRADE_LABEL: 'Tier ' + (sancIndex + 1),
+        UPGRADE_LABEL: "Tier " + (sancIndex + 1),
         GUNS: weaponArray([
             {
                 POSITION: {LENGTH: 12, WIDTH: 4}
@@ -9490,12 +9490,12 @@ for (let tier of sancTiers) {
             }
         ], tier)
     }
-    Class['sanctuaryTier' + (sancIndex + 1)].TURRETS.push({
+    Class["sanctuaryTier" + (sancIndex + 1)].TURRETS.push({
         POSITION: { SIZE: 22 },
-        TYPE: 'dominationBody',
+        TYPE: "dominationBody",
     }, {
         POSITION: { SIZE: 9.3, LAYER: 1 },
-        TYPE: 'sanctuaryHealerTier' + (sancIndex < 2 ? 1 : sancIndex < 4 ? 2 : sancIndex < 6 ? 3 : 3),
+        TYPE: "sanctuaryHealerTier" + (sancIndex < 2 ? 1 : sancIndex < 4 ? 2 : sancIndex < 6 ? 3 : 3),
     })
 };
 
@@ -9554,12 +9554,12 @@ Class.mothership = {
     ], 8, {delayIncrement: 1/16})
 };
 Class.flagship = {
-    PARENT: 'mothership',
+    PARENT: "mothership",
     LABEL: "Flagship",
     NAME: "Flagship",
     TURRETS: [
         {
-            TYPE: 'flagshipTurret',
+            TYPE: "flagshipTurret",
             POSITION: {
                 SIZE: 10,
                 ANGLE: 45,
@@ -9570,12 +9570,12 @@ Class.flagship = {
 };
 Class.turkeyNose = {
     COLOR: 19,
-    LABEL: '',
+    LABEL: "",
     SIZE: 6.45,
 };
 Class.turkeyEye = {
     COLOR: 18,
-    LABEL: '',
+    LABEL: "",
     TURRETS: [
         {
             POSITION: [10.75, 1, 0, 0, 360, 1],
@@ -9584,7 +9584,7 @@ Class.turkeyEye = {
     ] 
 };
 Class.turkeyHead = {
-    LABEL: 'Turkey',
+    LABEL: "Turkey",
     SIZE: 26.9,
     GUNS: [
         {
@@ -9605,8 +9605,8 @@ Class.turkeyHead = {
 };
 Class.turkey = {
     PARENT: "genericTank",
-    LABEL: 'Turkey',
-    NAME: 'Turkey',
+    LABEL: "Turkey",
+    NAME: "Turkey",
     SIZE: 50,
     MAX_CHILDREN: 16,
     SHAPE: 16,
@@ -10137,7 +10137,7 @@ Class.beeman = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {range: 0.5}]),
-                TYPE: 'beemanTrap'
+                TYPE: "beemanTrap"
             }
         }
     ]
@@ -10157,7 +10157,7 @@ Class.bigBalls = {
         },
         PROPERTIES: {
             SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.bigBalls]),
-            TYPE: 'bigBall',
+            TYPE: "bigBall",
             AUTOFIRE: true,
             SYNCS_SKILLS: true,
             STAT_CALCULATOR: "drone",
@@ -10297,13 +10297,13 @@ Class.developer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.op]),
-                TYPE: 'developerBullet'
+                TYPE: "developerBullet"
             }
         }
     ]
 };
-Class.fat456 = makeRadialAuto('architectGun', { isTurret: true, danger: 7, size: 12, label: "Fat456", body: { FOV: base.FOV * 1.15, SPEED: base.SPEED * 4 } });
-Class.fat456.COLOR = 'brown';
+Class.fat456 = makeRadialAuto("architectGun", { isTurret: true, danger: 7, size: 12, label: "Fat456", body: { FOV: base.FOV * 1.15, SPEED: base.SPEED * 4 } });
+Class.fat456.COLOR = "brown";
 Class.fat456.SIZE = 30;
 Class.heptaAutoBasic = makeAuto("basic", "Hepta Auto-Basic", preset.makeAuto.hepta);
 Class.machineShot = {
@@ -10407,7 +10407,7 @@ Class.rapture = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
-                TYPE: 'speedBullet'
+                TYPE: "speedBullet"
             }
         },
         {
@@ -10427,7 +10427,7 @@ Class.rapture = {
         }
     ]
 };
-Class.smasher3 = makeRadialAuto('flailBall', { isTurret: true, danger: 8, label: "Smasher-3" });
+Class.smasher3 = makeRadialAuto("flailBall", { isTurret: true, danger: 8, label: "Smasher-3" });
 Class.tetraGunner = {
     PARENT: "genericTank",
     LABEL: "Tetra Gunner",
@@ -10457,11 +10457,11 @@ Class.tetraGunner = {
         },
     ], 4)
 };
-Class.tracker3 = makeRadialAuto('tracker3gun', { isTurret: true, danger: 7, label: "Tracker-3" });
+Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
 Class.tracker3.SKILL_CAP = [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl];
 Class.wifeBeater = {
     PARENT: "overlord",
-    LABEL: 'Wife Beater',
+    LABEL: "Wife Beater",
     DANGER: 8,
     STAT_NAMES: statnames.drone,
     BODY: {
@@ -10531,558 +10531,558 @@ Class.worstTank = {
 };
 
 // Class Tree
-addUpgrades("basic", 1, ["twin", 'sniper', "machineGun", 'flankGuard', 'director', 'pounder', "trapper", 'desmos']);
-    addUpgrades("basic", 2, ['smasher']);
-        addUpgrades('smasher', 3, ['megaSmasher', 'spike', 'autoSmasher', 'landmine']);
-        addUpgrades('healer', 3, ['medic', 'ambulance', 'surgeon', 'paramedic']);
+addUpgrades("basic", 1, ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "desmos"]);
+    addUpgrades("basic", 2, ["smasher"]);
+        addUpgrades("smasher", 3, ["megaSmasher", "spike", "autoSmasher", "landmine"]);
+        addUpgrades("healer", 3, ["medic", "ambulance", "surgeon", "paramedic"]);
 
-    addUpgrades("twin", 2, ['doubleTwin', 'tripleShot', 'gunner', 'hexaTank', 'helix']);
-        addUpgrades("twin", 3, ['dual', 'bulwark', 'musket']);
-        addUpgrades('doubleTwin', 3, ['tripleTwin', 'hewnDouble', 'autoDouble', 'bentDouble']);
-        addUpgrades('tripleShot', 3, ['pentaShot', 'spreadshot', 'bentHybrid', 'bentDouble', 'triplet', 'triplex']);
-        addUpgrades('gunner', 3, ['autoGunner', 'nailgun', 'auto4', 'machineGunner', 'gunnerTrapper', 'cyclone', 'overgunner']);
-        addUpgrades('hexaTank', 3, ['octoTank', 'cyclone', 'hexaTrapper']);
-        addUpgrades('helix', 3, ['triplex', 'quadruplex']);
+    addUpgrades("twin", 2, ["doubleTwin", "tripleShot", "gunner", "hexaTank", "helix"]);
+        addUpgrades("twin", 3, ["dual", "bulwark", "musket"]);
+        addUpgrades("doubleTwin", 3, ["tripleTwin", "hewnDouble", "autoDouble", "bentDouble"]);
+        addUpgrades("tripleShot", 3, ["pentaShot", "spreadshot", "bentHybrid", "bentDouble", "triplet", "triplex"]);
+        addUpgrades("gunner", 3, ["autoGunner", "nailgun", "auto4", "machineGunner", "gunnerTrapper", "cyclone", "overgunner"]);
+        addUpgrades("hexaTank", 3, ["octoTank", "cyclone", "hexaTrapper"]);
+        addUpgrades("helix", 3, ["triplex", "quadruplex"]);
 
-    addUpgrades('sniper', 2, ['assassin', 'hunter', 'minigun', 'rifle', 'marksman']);
-        addUpgrades('sniper', 3, ['bushwhacker']);
-        addUpgrades('assassin', 3, ['ranger', 'falcon', 'stalker', 'autoAssassin', 'single', 'deadeye']);
-        addUpgrades('hunter', 3, ['predator', 'xHunter', 'poacher', 'ordnance', 'dual', 'nimrod']);
-        addUpgrades('minigun', 3, ['streamliner', 'nailgun', 'cropDuster', 'barricade', 'vulture']);
-        addUpgrades('rifle', 3, ['musket', 'crossbow', 'armsman', 'revolver']);
-        addUpgrades('marksman', 3, ['deadeye', 'nimrod', 'revolver', 'fork']);
-        addUpgrades('gatlingGun', 3, ['sprayer_RG', 'accurator', 'halfNHalf']);
+    addUpgrades("sniper", 2, ["assassin", "hunter", "minigun", "rifle", "marksman"]);
+        addUpgrades("sniper", 3, ["bushwhacker"]);
+        addUpgrades("assassin", 3, ["ranger", "falcon", "stalker", "autoAssassin", "single", "deadeye"]);
+        addUpgrades("hunter", 3, ["predator", "xHunter", "poacher", "ordnance", "dual", "nimrod"]);
+        addUpgrades("minigun", 3, ["streamliner", "nailgun", "cropDuster", "barricade", "vulture"]);
+        addUpgrades("rifle", 3, ["musket", "crossbow", "armsman", "revolver"]);
+        addUpgrades("marksman", 3, ["deadeye", "nimrod", "revolver", "fork"]);
+        addUpgrades("gatlingGun", 3, ["sprayer_RG", "accurator", "halfNHalf"]);
 
-    addUpgrades("machineGun", 2, ['artillery', 'minigun', 'gunner', 'sprayer']);
-        addUpgrades('artillery', 3, ['mortar', 'ordnance', 'beekeeper', 'fieldGun']);
-        //addUpgrades('minigun', 3, []);
-        //addUpgrades('gunner', 3, []);
-        addUpgrades('sprayer', 3, ['redistributor', 'phoenix', 'atomizer', 'focal']);
-        addUpgrades('blaster', 3, ['triBlaster', 'splasher']);
-        //addUpgrades('gatlingGun', 3, []);
-        addUpgrades('machineFlank', 3, ['machineTriple', 'halfNHalf']);
+    addUpgrades("machineGun", 2, ["artillery", "minigun", "gunner", "sprayer"]);
+        addUpgrades("artillery", 3, ["mortar", "ordnance", "beekeeper", "fieldGun"]);
+        //addUpgrades("minigun", 3, []);
+        //addUpgrades("gunner", 3, []);
+        addUpgrades("sprayer", 3, ["redistributor", "phoenix", "atomizer", "focal"]);
+        addUpgrades("blaster", 3, ["triBlaster", "splasher"]);
+        //addUpgrades("gatlingGun", 3, []);
+        addUpgrades("machineFlank", 3, ["machineTriple", "halfNHalf"]);
 
-    addUpgrades('flankGuard', 2, ['hexaTank', 'triAngle', 'auto3', 'trapGuard', 'triTrapper']);
-        addUpgrades('flankGuard', 3, ['tripleTwin', 'quadruplex']);
-        //addUpgrades('hexaTank', 3, []);
-        addUpgrades('triAngle', 3, ['fighter', 'booster', 'falcon', 'bomber', 'autoTriAngle', 'surfer', 'eagle', 'phoenix', 'vulture']);
-        addUpgrades('auto3', 3, ['auto5', 'mega3', 'auto4', 'banshee']);
-        addUpgrades('trapGuard', 3, ['bushwhacker', 'gunnerTrapper', 'bomber', 'conqueror', 'bulwark']);
-        addUpgrades('triTrapper', 3, ['fortress', 'hexaTrapper', 'septaTrapper', 'architect']);
+    addUpgrades("flankGuard", 2, ["hexaTank", "triAngle", "auto3", "trapGuard", "triTrapper"]);
+        addUpgrades("flankGuard", 3, ["tripleTwin", "quadruplex"]);
+        //addUpgrades("hexaTank", 3, []);
+        addUpgrades("triAngle", 3, ["fighter", "booster", "falcon", "bomber", "autoTriAngle", "surfer", "eagle", "phoenix", "vulture"]);
+        addUpgrades("auto3", 3, ["auto5", "mega3", "auto4", "banshee"]);
+        addUpgrades("trapGuard", 3, ["bushwhacker", "gunnerTrapper", "bomber", "conqueror", "bulwark"]);
+        addUpgrades("triTrapper", 3, ["fortress", "hexaTrapper", "septaTrapper", "architect"]);
 
-    addUpgrades('director', 2, ['overseer', 'cruiser', 'underseer', 'spawner']);
-        addUpgrades('director', 3, ['manager', 'bigCheese']);
-        addUpgrades('overseer', 3, ['overlord', 'overtrapper', 'overgunner', 'banshee', 'autoOverseer', 'overdrive', 'commander']);
-        addUpgrades('cruiser', 3, ['carrier', 'battleship', 'fortress', 'autoCruiser', 'commander']);
-        addUpgrades('underseer', 3, ['necromancer', 'maleficitor', 'infestor']);
-        addUpgrades('spawner', 3, ['factory', 'autoSpawner']);
+    addUpgrades("director", 2, ["overseer", "cruiser", "underseer", "spawner"]);
+        addUpgrades("director", 3, ["manager", "bigCheese"]);
+        addUpgrades("overseer", 3, ["overlord", "overtrapper", "overgunner", "banshee", "autoOverseer", "overdrive", "commander"]);
+        addUpgrades("cruiser", 3, ["carrier", "battleship", "fortress", "autoCruiser", "commander"]);
+        addUpgrades("underseer", 3, ["necromancer", "maleficitor", "infestor"]);
+        addUpgrades("spawner", 3, ["factory", "autoSpawner"]);
 
-    addUpgrades('pounder', 2, ['destroyer', 'builder', 'artillery', 'launcher']);
-        addUpgrades('pounder', 3, ['shotgun', 'eagle']);
-        addUpgrades('destroyer', 3, ['conqueror', 'annihilator', 'hybrid', 'construct']);
-        addUpgrades('builder', 3, ['construct', 'autoBuilder', 'engineer', 'boomer', 'assembler', 'architect', 'conqueror']);
-        //addUpgrades('artillery', 3, []);
-        addUpgrades('launcher', 3, ['skimmer', 'twister', 'swarmer', 'sidewinder', 'fieldGun']);
+    addUpgrades("pounder", 2, ["destroyer", "builder", "artillery", "launcher"]);
+        addUpgrades("pounder", 3, ["shotgun", "eagle"]);
+        addUpgrades("destroyer", 3, ["conqueror", "annihilator", "hybrid", "construct"]);
+        addUpgrades("builder", 3, ["construct", "autoBuilder", "engineer", "boomer", "assembler", "architect", "conqueror"]);
+        //addUpgrades("artillery", 3, []);
+        addUpgrades("launcher", 3, ["skimmer", "twister", "swarmer", "sidewinder", "fieldGun"]);
 
-    addUpgrades("trapper", 2, ['builder', 'triTrapper', 'trapGuard']);
-        addUpgrades("trapper", 3, ['barricade', 'overtrapper']);
-        //addUpgrades('builder', 3, []);
-        //addUpgrades('triTrapper', 3, []);
-        //addUpgrades('trapGuard', 3, []);
-        addUpgrades('autoTrapper', 3, ['autoBuilder', 'hexaTrapper', 'autoTrapGuard']);
+    addUpgrades("trapper", 2, ["builder", "triTrapper", "trapGuard"]);
+        addUpgrades("trapper", 3, ["barricade", "overtrapper"]);
+        //addUpgrades("builder", 3, []);
+        //addUpgrades("triTrapper", 3, []);
+        //addUpgrades("trapGuard", 3, []);
+        addUpgrades("autoTrapper", 3, ["autoBuilder", "hexaTrapper", "autoTrapGuard"]);
 
-    addUpgrades('desmos', 2, ['helix']);
-        addUpgrades('volute', 3, ['sidewinder']);
-        //addUpgrades('helix', 3, []);
-        addUpgrades('spiral', 3, ['coil', 'python']);
-        addUpgrades('undertow', 3, []);
-        addUpgrades('repeater', 3, ['iterator', 'duplicator']);
+    addUpgrades("desmos", 2, ["helix"]);
+        addUpgrades("volute", 3, ["sidewinder"]);
+        //addUpgrades("helix", 3, []);
+        addUpgrades("spiral", 3, ["coil", "python"]);
+        addUpgrades("undertow", 3, []);
+        addUpgrades("repeater", 3, ["iterator", "duplicator"]);
 
-    addUpgrades('flail', 2, ['doubleFlail', 'mace', 'flangle']);
-        addUpgrades('doubleFlail', 3, ['tripleFlail']);
-        addUpgrades('mace', 3, ['bigMama', 'itHurtsDontTouchIt', 'flace']);
-        addUpgrades('flangle', 3, ['flooster', 'flace']);
+    addUpgrades("flail", 2, ["doubleFlail", "mace", "flangle"]);
+        addUpgrades("doubleFlail", 3, ["tripleFlail"]);
+        addUpgrades("mace", 3, ["bigMama", "itHurtsDontTouchIt", "flace"]);
+        addUpgrades("flangle", 3, ["flooster", "flace"]);
 
-    addUpgrades('whirlwind', 2, ['tornado', 'hurricane']);
-        addUpgrades('whirlwind', 3, ['hexaWhirl', 'munition', 'whirl3', 'whirlGuard', 'prophet', 'vortex']);
-        addUpgrades('tornado', 3, ['megaTornado', 'tempest', 'thunderbolt']);
-        addUpgrades('hurricane', 3, ['typhoon', 'blizzard']);
+    addUpgrades("whirlwind", 2, ["tornado", "hurricane"]);
+        addUpgrades("whirlwind", 3, ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"]);
+        addUpgrades("tornado", 3, ["megaTornado", "tempest", "thunderbolt"]);
+        addUpgrades("hurricane", 3, ["typhoon", "blizzard"]);
 
 if (Config.retrograde) {
-    addUpgrades("machineGun", 2, ['blaster', 'gatlingGun', 'machineFlank']);
-    addUpgrades('sniper', 2, ['gatlingGun']);
+    addUpgrades("machineGun", 2, ["blaster", "gatlingGun", "machineFlank"]);
+    addUpgrades("sniper", 2, ["gatlingGun"]);
 
-    addUpgrades('hexaTank', 3, ['tornado_AR']);
-    addUpgrades('tripleShot', 3, ['triBlaster']);
+    addUpgrades("hexaTank", 3, ["tornado_AR"]);
+    addUpgrades("tripleShot", 3, ["triBlaster"]);
 };
 
 if (Config.arms_race || Config.retrograde) {
-    addUpgrades('assassin', 3, ['buttbuttin']);
-    addUpgrades('destroyer', 3, ['blower']);
-    addUpgrades('gunner', 3, ['battery']);
-    addUpgrades('hexaTank', 3, ['deathStar']);
-    addUpgrades('minigun', 3, ['subverter']);
-    addUpgrades('smasher', 3, ['bonker']);
+    addUpgrades("assassin", 3, ["buttbuttin"]);
+    addUpgrades("destroyer", 3, ["blower"]);
+    addUpgrades("gunner", 3, ["battery"]);
+    addUpgrades("hexaTank", 3, ["deathStar"]);
+    addUpgrades("minigun", 3, ["subverter"]);
+    addUpgrades("smasher", 3, ["bonker"]);
 };
 
 if (Config.arms_race) {
-    removeUpgrades("basic", 1, ['desmos']);
+    removeUpgrades("basic", 1, ["desmos"]);
 
-    removeUpgrades("machineGun", 2, ['sprayer']);
-    removeUpgrades('sniper', 2, ['marksman']);
-    removeUpgrades("twin", 2, ['helix']);
+    removeUpgrades("machineGun", 2, ["sprayer"]);
+    removeUpgrades("sniper", 2, ["marksman"]);
+    removeUpgrades("twin", 2, ["helix"]);
 
-    removeUpgrades('assassin', 3, ['single', 'deadeye']);
-    removeUpgrades('builder', 3, ['assembler']);
-    removeUpgrades('flankGuard', 3, ['quadruplex']);
-    removeUpgrades('healer', 3, ['ambulance', 'surgeon', 'paramedic']);
-    removeUpgrades('hunter', 3, ['xHunter', 'nimrod']);
-    removeUpgrades('minigun', 3, ['vulture']);
-    removeUpgrades('overseer', 3, ['overtrapper', 'overgunner']);
-    removeUpgrades('rifle', 3, ['revolver']);
-    removeUpgrades('sprayer', 3, Class.sprayer.UPGRADES_TIER_3);
-    removeUpgrades('triAngle', 3, ['phoenix', 'vulture']);
-    removeUpgrades('tripleShot', 3, ['triplex']);
-    removeUpgrades('director', 3, ['bigCheese']);
-    removeUpgrades("twin", 3, ['bulwark']);
+    removeUpgrades("assassin", 3, ["single", "deadeye"]);
+    removeUpgrades("builder", 3, ["assembler"]);
+    removeUpgrades("flankGuard", 3, ["quadruplex"]);
+    removeUpgrades("healer", 3, ["ambulance", "surgeon", "paramedic"]);
+    removeUpgrades("hunter", 3, ["xHunter", "nimrod"]);
+    removeUpgrades("minigun", 3, ["vulture"]);
+    removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
+    removeUpgrades("rifle", 3, ["revolver"]);
+    removeUpgrades("sprayer", 3, Class.sprayer.UPGRADES_TIER_3);
+    removeUpgrades("triAngle", 3, ["phoenix", "vulture"]);
+    removeUpgrades("tripleShot", 3, ["triplex"]);
+    removeUpgrades("director", 3, ["bigCheese"]);
+    removeUpgrades("twin", 3, ["bulwark"]);
 
     addUpgrades("basic", 1, []);
         addUpgrades("basic", 2, []);
-            addUpgrades("basic", 3, ['single']);
-                addUpgrades('single', tier4_AR, ['duo', 'sharpshooter', 'gadgetGun', 'ternion', 'coordinator', 'bruiser', 'tricker', 'mono', 'avian', 'custodian', 'assistant', 'autoSingle']);
+            addUpgrades("basic", 3, ["single"]);
+                addUpgrades("single", tier4_AR, ["duo", "sharpshooter", "gadgetGun", "ternion", "coordinator", "bruiser", "tricker", "mono", "avian", "custodian", "assistant", "autoSingle"]);
 
-            addUpgrades('healer', 3, [/*'scientist', 'nurse', 'triHealer', 'analyzer', 'psychiatrist', 'soother'*/]);
-                addUpgrades('healer', tier4_AR, [/*'renovater', 'physician'*/]);
-                addUpgrades('medic', tier4_AR, [/*'intern', 'ointment', 'injection', 'actuary'*/]);
-            ////addUpgrades('scientist', tier4_AR, ['surgeon'/*, 'professor', 'chemist'*/]);
-            ////addUpgrades('nurse', tier4_AR, ['paramedic'/*, 'therapist', 'clinician'*/]);
-            ////addUpgrades('triHealer', tier4_AR, ['ambulance'/*, 'healer3', 'hexaHealer', 'chemist'*/]);
-            ////addUpgrades('analyzer', tier4_AR, [/*'accountant', 'clerk', 'guru'*/]);
-            ////addUpgrades('psychiatrist', tier4_AR, [/*'therapist', 'guru', 'actuary'*/]);
-            ////addUpgrades('soother', tier4_AR, [/*'doctor', 'antidote', 'medicare'*/]);
+            addUpgrades("healer", 3, [/*"scientist", "nurse", "triHealer", "analyzer", "psychiatrist", "soother"*/]);
+                addUpgrades("healer", tier4_AR, [/*"renovater", "physician"*/]);
+                addUpgrades("medic", tier4_AR, [/*"intern", "ointment", "injection", "actuary"*/]);
+            ////addUpgrades("scientist", tier4_AR, ["surgeon"/*, "professor", "chemist"*/]);
+            ////addUpgrades("nurse", tier4_AR, ["paramedic"/*, "therapist", "clinician"*/]);
+            ////addUpgrades("triHealer", tier4_AR, ["ambulance"/*, "healer3", "hexaHealer", "chemist"*/]);
+            ////addUpgrades("analyzer", tier4_AR, [/*"accountant", "clerk", "guru"*/]);
+            ////addUpgrades("psychiatrist", tier4_AR, [/*"therapist", "guru", "actuary"*/]);
+            ////addUpgrades("soother", tier4_AR, [/*"doctor", "antidote", "medicare"*/]);
 
-            addUpgrades('smasher', 3, [/*'banger', 'drifter'*/]);
-                addUpgrades('megaSmasher', tier4_AR, []);
-                addUpgrades('spike', tier4_AR, []);
-                addUpgrades('autoSmasher', tier4_AR, []);
-                addUpgrades('landmine', tier4_AR, []);
-                addUpgrades('bonker', tier4_AR, []);
-            ///addUpgrades('banger', tier4_AR, []);
-            ///addUpgrades('drifter', tier4_AR, []);
+            addUpgrades("smasher", 3, [/*"banger", "drifter"*/]);
+                addUpgrades("megaSmasher", tier4_AR, []);
+                addUpgrades("spike", tier4_AR, []);
+                addUpgrades("autoSmasher", tier4_AR, []);
+                addUpgrades("landmine", tier4_AR, []);
+                addUpgrades("bonker", tier4_AR, []);
+            ///addUpgrades("banger", tier4_AR, []);
+            ///addUpgrades("drifter", tier4_AR, []);
 
-        addUpgrades("twin", 2, ['wark']);
+        addUpgrades("twin", 2, ["wark"]);
             addUpgrades("twin", 3, []);
-                addUpgrades("twin", tier4_AR, ['duo']);
-                addUpgrades('dual', tier4_AR, [/*'threefold', */'doubleDual', 'ravisher'/*, 'vulture_AR', 'nimrod_AR'*/, 'autoDual'/*, 'bifold', 'dyadic'*/]);
-                addUpgrades('musket', tier4_AR, ['doubleMusket'/*, 'flintlock', 'arbalest'*/, 'matchlock', 'autoMusket'/*, 'duelist', 'bifold'*/]);
+                addUpgrades("twin", tier4_AR, ["duo"]);
+                addUpgrades("dual", tier4_AR, [/*"threefold", */"doubleDual", "ravisher"/*, "vulture_AR", "nimrod_AR"*/, "autoDual"/*, "bifold", "dyadic"*/]);
+                addUpgrades("musket", tier4_AR, ["doubleMusket"/*, "flintlock", "arbalest"*/, "matchlock", "autoMusket"/*, "duelist", "bifold"*/]);
 
-            addUpgrades('doubleTwin', 3, ['doubleFlankTwin', 'doubleGunner', 'warkwark']);
-                addUpgrades('doubleTwin', tier4_AR, ['doubleDual', 'doubleMusket', 'overdoubleTwin']);
-                addUpgrades('tripleTwin', tier4_AR, ['quadTwin', 'autoTriple', 'bentTriple', 'hewnTriple', 'tripleFlankTwin', 'tripleGunner', 'warkwarkwark']);
-                addUpgrades('hewnDouble', tier4_AR, ['hewnTriple', 'autoHewnDouble', 'cleft', 'skewnDouble', 'hewnFlankDouble', 'hewnGunner', 'warkwawarkrk']);
-                addUpgrades('autoDouble', tier4_AR, ['megaAutoDouble', 'tripleAutoDouble', 'autoTriple', 'autoHewnDouble', 'autoBentDouble', 'autoDoubleFlank', 'autoDoubleGunner', 'autoWarkwark']);
-                addUpgrades('bentDouble', tier4_AR, ['bentTriple', 'flexedDouble', 'autoBentDouble', 'doubleTriplet', 'cleft', 'doubleSpreadshot', 'bentFlankDouble', 'bentDoubleGunner', 'bentDoubleMinigun', 'splitDouble', 'waarrkwaarrk']);
-                addUpgrades('doubleFlankTwin', tier4_AR, ['quadTwin', 'tripleFlankTwin', 'hewnFlankDouble', 'autoDoubleFlank', 'bentFlankDouble', 'doubleFlankGunner', 'hipwatch', 'scuffler', 'warkwawawark']);
-                addUpgrades('doubleGunner', tier4_AR, ['tripleGunner', 'hewnGunner', 'autoDoubleGunner', 'bentDoubleGunner', 'doubleFlankGunner', 'doubleNailgun', 'doubleMachineGunner', 'overdoubleGunner', 'doubleBattery', 'doubleRimfire', 'doubleVolley', 'doubleEqualizer']);
-                addUpgrades('warkwark', tier4_AR, ['warkwarkwark', 'warkwawarkrk', 'autoWarkwark', 'waarrkwaarrk', 'warkwawawark', 'doubleEqualizer', 'guardrail', 'sealer', 'setup']);
+            addUpgrades("doubleTwin", 3, ["doubleFlankTwin", "doubleGunner", "warkwark"]);
+                addUpgrades("doubleTwin", tier4_AR, ["doubleDual", "doubleMusket", "overdoubleTwin"]);
+                addUpgrades("tripleTwin", tier4_AR, ["quadTwin", "autoTriple", "bentTriple", "hewnTriple", "tripleFlankTwin", "tripleGunner", "warkwarkwark"]);
+                addUpgrades("hewnDouble", tier4_AR, ["hewnTriple", "autoHewnDouble", "cleft", "skewnDouble", "hewnFlankDouble", "hewnGunner", "warkwawarkrk"]);
+                addUpgrades("autoDouble", tier4_AR, ["megaAutoDouble", "tripleAutoDouble", "autoTriple", "autoHewnDouble", "autoBentDouble", "autoDoubleFlank", "autoDoubleGunner", "autoWarkwark"]);
+                addUpgrades("bentDouble", tier4_AR, ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "cleft", "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"]);
+                addUpgrades("doubleFlankTwin", tier4_AR, ["quadTwin", "tripleFlankTwin", "hewnFlankDouble", "autoDoubleFlank", "bentFlankDouble", "doubleFlankGunner", "hipwatch", "scuffler", "warkwawawark"]);
+                addUpgrades("doubleGunner", tier4_AR, ["tripleGunner", "hewnGunner", "autoDoubleGunner", "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire", "doubleVolley", "doubleEqualizer"]);
+                addUpgrades("warkwark", tier4_AR, ["warkwarkwark", "warkwawarkrk", "autoWarkwark", "waarrkwaarrk", "warkwawawark", "doubleEqualizer", "guardrail", "sealer", "setup"]);
 
-            addUpgrades('tripleShot', 3, ['splitShot', 'autoTripleShot', 'bentGunner', 'bentMinigun', 'defect', 'waarrk']);
-                addUpgrades('tripleShot', tier4_AR, []);
-                addUpgrades('pentaShot', tier4_AR, []);
-                addUpgrades('spreadshot', tier4_AR, []);
-                addUpgrades('bentHybrid', tier4_AR, ['flexedHybrid', 'smearer'/*, 'splitHybrid'*/, 'autoBentHybrid'/*, 'spambrid', 'junker'*/, 'triprid'/*, 'bentCatcher'*/]);
-                //addUpgrades('bentDouble', tier4_AR);
-                addUpgrades('triplet', tier4_AR, []);
-                addUpgrades('splitShot', tier4_AR, []);
-                addUpgrades('autoTripleShot', tier4_AR, []);
-                addUpgrades('bentGunner', tier4_AR, []);
-                addUpgrades('bentMinigun', tier4_AR, []);
-                addUpgrades('defect', tier4_AR, []);
-                addUpgrades('waarrk', tier4_AR, []);
+            addUpgrades("tripleShot", 3, ["splitShot", "autoTripleShot", "bentGunner", "bentMinigun", "defect", "waarrk"]);
+                addUpgrades("tripleShot", tier4_AR, []);
+                addUpgrades("pentaShot", tier4_AR, []);
+                addUpgrades("spreadshot", tier4_AR, []);
+                addUpgrades("bentHybrid", tier4_AR, ["flexedHybrid", "smearer"/*, "splitHybrid"*/, "autoBentHybrid"/*, "spambrid", "junker"*/, "triprid"/*, "bentCatcher"*/]);
+                //addUpgrades("bentDouble", tier4_AR);
+                addUpgrades("triplet", tier4_AR, []);
+                addUpgrades("splitShot", tier4_AR, []);
+                addUpgrades("autoTripleShot", tier4_AR, []);
+                addUpgrades("bentGunner", tier4_AR, []);
+                addUpgrades("bentMinigun", tier4_AR, []);
+                addUpgrades("defect", tier4_AR, []);
+                addUpgrades("waarrk", tier4_AR, []);
 
-            addUpgrades('gunner', 3, ['buttbuttin', 'blower', 'rimfire', 'volley', 'doubleGunner', 'bentGunner', 'equalizer']);
-                addUpgrades('gunner', tier4_AR, ['dam']);
-                addUpgrades('autoGunner', tier4_AR, []);
-                addUpgrades('nailgun', tier4_AR, []);
-                addUpgrades('auto4', tier4_AR, []);
-                addUpgrades('machineGunner', tier4_AR, []);
-                addUpgrades('gunnerTrapper', tier4_AR, []);
-                addUpgrades('cyclone', tier4_AR, ['tornado_AR', 'dustStorm', 'autoCyclone', 'tempest_AR', 'gale', 'whirlwind_AR', 'trove']);
-                addUpgrades('overgunner', tier4_AR, []);
-                addUpgrades('battery', tier4_AR, []);
-                addUpgrades('buttbuttin', tier4_AR, [/*'baton', */'marine', 'harpy', 'tailer'/*, 'fang', 'barber'*/, 'mercenary', 'autoButtbuttin'/*, 'armament', 'sifter'*/]);
-                addUpgrades('blower', tier4_AR, []);
-                addUpgrades('rimfire', tier4_AR, []);
-                addUpgrades('volley', tier4_AR, []);
-                //addUpgrades('doubleGunner', tier4_AR);
-                //addUpgrades('bentGunner', tier4_AR, []);
-                addUpgrades('equalizer', tier4_AR, []);
+            addUpgrades("gunner", 3, ["buttbuttin", "blower", "rimfire", "volley", "doubleGunner", "bentGunner", "equalizer"]);
+                addUpgrades("gunner", tier4_AR, ["dam"]);
+                addUpgrades("autoGunner", tier4_AR, []);
+                addUpgrades("nailgun", tier4_AR, []);
+                addUpgrades("auto4", tier4_AR, []);
+                addUpgrades("machineGunner", tier4_AR, []);
+                addUpgrades("gunnerTrapper", tier4_AR, []);
+                addUpgrades("cyclone", tier4_AR, ["tornado_AR", "dustStorm", "autoCyclone", "tempest_AR", "gale", "whirlwind_AR", "trove"]);
+                addUpgrades("overgunner", tier4_AR, []);
+                addUpgrades("battery", tier4_AR, []);
+                addUpgrades("buttbuttin", tier4_AR, [/*"baton", */"marine", "harpy", "tailer"/*, "fang", "barber"*/, "mercenary", "autoButtbuttin"/*, "armament", "sifter"*/]);
+                addUpgrades("blower", tier4_AR, []);
+                addUpgrades("rimfire", tier4_AR, []);
+                addUpgrades("volley", tier4_AR, []);
+                //addUpgrades("doubleGunner", tier4_AR);
+                //addUpgrades("bentGunner", tier4_AR, []);
+                addUpgrades("equalizer", tier4_AR, []);
 
-            addUpgrades('hexaTank', 3, ['autoHexaTank', 'mingler', 'combo']);
-                addUpgrades('hexaTank', tier4_AR, ['tripleFlankTwin']);
-                addUpgrades('octoTank', tier4_AR, ['decaTank', 'tempest_AR', 'gale', 'octoTrapper', 'demise', 'autoOctoTank', 'consolidation']);
-                addUpgrades('hexaTrapper', tier4_AR, [...['mega', 'auto'].map(x => `${x}HexaTrapper`), 'hexaMachine', 'octoTrapper', 'designer', 'cozen', 'refuge', 'coop', 'hexaMech', 'hexaTrapGuard', 'band']);
-                //addUpgrades('cyclone', tier4_AR);
-                addUpgrades('deathStar', tier4_AR, ['demise', 'designer', 'orbitalStrike', 'autoDeathStar', 'unity', 'sequence']);
-                addUpgrades('autoHexaTank', tier4_AR, ['OctoTank', 'Cyclone', 'DeathStar', 'Mingler', 'Combo'].map(x => `auto${x}`));
-                addUpgrades('mingler', tier4_AR, ['unity', 'alloy', 'gale', 'cozen', 'autoMingler']);
-                addUpgrades('combo', tier4_AR, ['consolidation', 'sequence', 'trove', 'alloy', 'autoCombo', 'band']);
+            addUpgrades("hexaTank", 3, ["autoHexaTank", "mingler", "combo"]);
+                addUpgrades("hexaTank", tier4_AR, ["tripleFlankTwin"]);
+                addUpgrades("octoTank", tier4_AR, ["decaTank", "tempest_AR", "gale", "octoTrapper", "demise", "autoOctoTank", "consolidation"]);
+                addUpgrades("hexaTrapper", tier4_AR, [...["mega", "auto"].map(x => `${x}HexaTrapper`), "hexaMachine", "octoTrapper", "designer", "cozen", "refuge", "coop", "hexaMech", "hexaTrapGuard", "band"]);
+                //addUpgrades("cyclone", tier4_AR);
+                addUpgrades("deathStar", tier4_AR, ["demise", "designer", "orbitalStrike", "autoDeathStar", "unity", "sequence"]);
+                addUpgrades("autoHexaTank", tier4_AR, ["OctoTank", "Cyclone", "DeathStar", "Mingler", "Combo"].map(x => `auto${x}`));
+                addUpgrades("mingler", tier4_AR, ["unity", "alloy", "gale", "cozen", "autoMingler"]);
+                addUpgrades("combo", tier4_AR, ["consolidation", "sequence", "trove", "alloy", "autoCombo", "band"]);
 
-            addUpgrades('wark', 3, ['warkwark', 'waarrk', 'equalizer', 'hexaTrapper', 'hutch', 'cog', 'expeller', 'bulwark', 'coalesce', 'autoWark']);
-                addUpgrades('wark', tier4_AR, []);
-                //addUpgrades('warkwark', tier4_AR);
-                //addUpgrades('waarrk', tier4_AR);
-                //addUpgrades('equalizer', tier4_AR);
-                //addUpgrades('hexaTrapper', tier4_AR);
-                addUpgrades('hutch', tier4_AR, []);
-                addUpgrades('cog', tier4_AR, []);
-                addUpgrades('expeller', tier4_AR, []);
-                addUpgrades('bulwark', tier4_AR, []);
-                addUpgrades('coalesce', tier4_AR, []);
-                addUpgrades('autoWark', tier4_AR, []);
+            addUpgrades("wark", 3, ["warkwark", "waarrk", "equalizer", "hexaTrapper", "hutch", "cog", "expeller", "bulwark", "coalesce", "autoWark"]);
+                addUpgrades("wark", tier4_AR, []);
+                //addUpgrades("warkwark", tier4_AR);
+                //addUpgrades("waarrk", tier4_AR);
+                //addUpgrades("equalizer", tier4_AR);
+                //addUpgrades("hexaTrapper", tier4_AR);
+                addUpgrades("hutch", tier4_AR, []);
+                addUpgrades("cog", tier4_AR, []);
+                addUpgrades("expeller", tier4_AR, []);
+                addUpgrades("bulwark", tier4_AR, []);
+                addUpgrades("coalesce", tier4_AR, []);
+                addUpgrades("autoWark", tier4_AR, []);
 
-        addUpgrades('sniper', 2, []);
-            addUpgrades('sniper', 3, ['railgun']);
-                addUpgrades('sniper', tier4_AR, ['sharpshooter']);
-                addUpgrades('bushwhacker', tier4_AR, []);
-                addUpgrades('railgun', tier4_AR, []);
+        addUpgrades("sniper", 2, []);
+            addUpgrades("sniper", 3, ["railgun"]);
+                addUpgrades("sniper", tier4_AR, ["sharpshooter"]);
+                addUpgrades("bushwhacker", tier4_AR, []);
+                addUpgrades("railgun", tier4_AR, []);
 
-            addUpgrades('assassin', 3, ['hitman', 'sniper3'/*, 'enforcer', 'courser'*/]);
-                addUpgrades('assassin', tier4_AR, [/*'executor', 'finger'*/]);
-                addUpgrades('ranger', tier4_AR, []);
-                addUpgrades('falcon', tier4_AR, []);
-                addUpgrades('stalker', tier4_AR, []);
-                addUpgrades('autoAssassin', tier4_AR, []);
-                //addUpgrades('buttbuttin', tier4_AR);
-                addUpgrades('hitman', tier4_AR, []);
-                addUpgrades('sniper3', tier4_AR, []);
-            ////addUpgrades('enforcer', tier4_AR, []);
-            ////addUpgrades('courser', tier4_AR, []);
+            addUpgrades("assassin", 3, ["hitman", "sniper3"/*, "enforcer", "courser"*/]);
+                addUpgrades("assassin", tier4_AR, [/*"executor", "finger"*/]);
+                addUpgrades("ranger", tier4_AR, []);
+                addUpgrades("falcon", tier4_AR, []);
+                addUpgrades("stalker", tier4_AR, []);
+                addUpgrades("autoAssassin", tier4_AR, []);
+                //addUpgrades("buttbuttin", tier4_AR);
+                addUpgrades("hitman", tier4_AR, []);
+                addUpgrades("sniper3", tier4_AR, []);
+            ////addUpgrades("enforcer", tier4_AR, []);
+            ////addUpgrades("courser", tier4_AR, []);
 
-            addUpgrades('hunter', 3, ['autoHunter'/*, 'megaHunter', 'prober', 'courser'*/]);
-                addUpgrades('hunter', tier4_AR, [/*'butcher', 'reverberator'*/]);
-                addUpgrades('predator', tier4_AR, []);
-                addUpgrades('poacher', tier4_AR, []);
-                addUpgrades('ordnance', tier4_AR, []);
-                addUpgrades('dual', tier4_AR, []);
-                addUpgrades('autoHunter', tier4_AR, []);
-            ////addUpgrades('megaHunter', tier4_AR, []);
-            ////addUpgrades('prober', tier4_AR, []);
-                //addUpgrades('courser', tier4_AR);
+            addUpgrades("hunter", 3, ["autoHunter"/*, "megaHunter", "prober", "courser"*/]);
+                addUpgrades("hunter", tier4_AR, [/*"butcher", "reverberator"*/]);
+                addUpgrades("predator", tier4_AR, []);
+                addUpgrades("poacher", tier4_AR, []);
+                addUpgrades("ordnance", tier4_AR, []);
+                addUpgrades("dual", tier4_AR, []);
+                addUpgrades("autoHunter", tier4_AR, []);
+            ////addUpgrades("megaHunter", tier4_AR, []);
+            ////addUpgrades("prober", tier4_AR, []);
+                //addUpgrades("courser", tier4_AR);
 
-            addUpgrades('minigun', 3, [/*'taser', 'zipper', */'bentMinigun', 'autoMinigun'/*, 'widget'*/]);
-                addUpgrades('minigun', tier4_AR, [/*'tommy', 'machgun'*/]);
-                addUpgrades('streamliner', tier4_AR, []);
-                addUpgrades('nailgun', tier4_AR, []);
-                addUpgrades('cropDuster', tier4_AR, []);
-                addUpgrades('barricade', tier4_AR, []);
-                addUpgrades('subverter', tier4_AR, []);
-            ////addUpgrades('taser', tier4_AR, []);
-            ////addUpgrades('zipper', tier4_AR, []);
-                //addUpgrades('bentMinigun', tier4_AR, []);
-                addUpgrades('autoMinigun', tier4_AR, []);
-            ////addUpgrades('widget', tier4_AR, []);
+            addUpgrades("minigun", 3, [/*"taser", "zipper", */"bentMinigun", "autoMinigun"/*, "widget"*/]);
+                addUpgrades("minigun", tier4_AR, [/*"tommy", "machgun"*/]);
+                addUpgrades("streamliner", tier4_AR, []);
+                addUpgrades("nailgun", tier4_AR, []);
+                addUpgrades("cropDuster", tier4_AR, []);
+                addUpgrades("barricade", tier4_AR, []);
+                addUpgrades("subverter", tier4_AR, []);
+            ////addUpgrades("taser", tier4_AR, []);
+            ////addUpgrades("zipper", tier4_AR, []);
+                //addUpgrades("bentMinigun", tier4_AR, []);
+                addUpgrades("autoMinigun", tier4_AR, []);
+            ////addUpgrades("widget", tier4_AR, []);
 
-            addUpgrades('rifle', 3, ['autoRifle'/*, 'enforcer', 'courser'*/]);
-                addUpgrades('rifle', tier4_AR, ['ransacker'/*, 'thunderclap'*/]);
-                addUpgrades('musket', tier4_AR, []);
-                addUpgrades('crossbow', tier4_AR, []);
-                addUpgrades('armsman', tier4_AR, []);
-                addUpgrades('autoRifle', tier4_AR, []);
-                //addUpgrades('enforcer', tier4_AR);
-                //addUpgrades('courser', tier4_AR);
+            addUpgrades("rifle", 3, ["autoRifle"/*, "enforcer", "courser"*/]);
+                addUpgrades("rifle", tier4_AR, ["ransacker"/*, "thunderclap"*/]);
+                addUpgrades("musket", tier4_AR, []);
+                addUpgrades("crossbow", tier4_AR, []);
+                addUpgrades("armsman", tier4_AR, []);
+                addUpgrades("autoRifle", tier4_AR, []);
+                //addUpgrades("enforcer", tier4_AR);
+                //addUpgrades("courser", tier4_AR);
 
-        addUpgrades("machineGun", 2, ['diesel', 'machineTrapper']);
-            addUpgrades("machineGun", 3, ['sprayer']);
-                addUpgrades("machineGun", tier4_AR, ['gadgetGun']);
-                addUpgrades('sprayer', tier4_AR, [/*'duster', 'frother', */'scatterer'/*, 'foamer'*/, 'shower', 'autoSprayer', 'phoenix']);
+        addUpgrades("machineGun", 2, ["diesel", "machineTrapper"]);
+            addUpgrades("machineGun", 3, ["sprayer"]);
+                addUpgrades("machineGun", tier4_AR, ["gadgetGun"]);
+                addUpgrades("sprayer", tier4_AR, [/*"duster", "frother", */"scatterer"/*, "foamer"*/, "shower", "autoSprayer", "phoenix"]);
 
-            addUpgrades('artillery', 3, [/*'queller', 'forger', */'force', 'autoArtillery'/*, 'foctillery', 'discharger'*/]);
-                addUpgrades('artillery', tier4_AR, [/*'blare', 'erne'*/]);
-                addUpgrades('mortar', tier4_AR, []);
-                addUpgrades('ordnance', tier4_AR, []);
-                addUpgrades('beekeeper', tier4_AR, []);
-                addUpgrades('fieldGun', tier4_AR, []);
-            ////addUpgrades('queller', tier4_AR, []);
-            ////addUpgrades('forger', tier4_AR, []);
-                addUpgrades('force', tier4_AR, []);
-                addUpgrades('autoArtillery', tier4_AR, []);
-            ////addUpgrades('foctillery', tier4_AR, []);
-            ////addUpgrades('discharger', tier4_AR, []);
+            addUpgrades("artillery", 3, [/*"queller", "forger", */"force", "autoArtillery"/*, "foctillery", "discharger"*/]);
+                addUpgrades("artillery", tier4_AR, [/*"blare", "erne"*/]);
+                addUpgrades("mortar", tier4_AR, []);
+                addUpgrades("ordnance", tier4_AR, []);
+                addUpgrades("beekeeper", tier4_AR, []);
+                addUpgrades("fieldGun", tier4_AR, []);
+            ////addUpgrades("queller", tier4_AR, []);
+            ////addUpgrades("forger", tier4_AR, []);
+                addUpgrades("force", tier4_AR, []);
+                addUpgrades("autoArtillery", tier4_AR, []);
+            ////addUpgrades("foctillery", tier4_AR, []);
+            ////addUpgrades("discharger", tier4_AR, []);
 
-            //addUpgrades('minigun', 3);
+            //addUpgrades("minigun", 3);
 
-            //addUpgrades('gunner', 3);
+            //addUpgrades("gunner", 3);
 
-            addUpgrades('diesel', 3, ['jalopy', 'machineGunner'/*, 'dieselTrapper'*/, 'polluter', 'autoDiesel']);
-                addUpgrades('diesel', tier4_AR, [/*'foamer', 'gizmo'*/]);
-                addUpgrades('jalopy', tier4_AR, [/*'lorry', */'contaminator'/*, 'jalopyTrapper'*/, 'autoJalopy'/*, 'clunker'*/]);
-                //addUpgrades('machineGunner', tier4_AR);
-            ////addUpgrades('dieselTrapper', tier4_AR, []);
-                addUpgrades('polluter', tier4_AR, []);
-                addUpgrades('autoDiesel', tier4_AR, []);
+            addUpgrades("diesel", 3, ["jalopy", "machineGunner"/*, "dieselTrapper"*/, "polluter", "autoDiesel"]);
+                addUpgrades("diesel", tier4_AR, [/*"foamer", "gizmo"*/]);
+                addUpgrades("jalopy", tier4_AR, [/*"lorry", */"contaminator"/*, "jalopyTrapper"*/, "autoJalopy"/*, "clunker"*/]);
+                //addUpgrades("machineGunner", tier4_AR);
+            ////addUpgrades("dieselTrapper", tier4_AR, []);
+                addUpgrades("polluter", tier4_AR, []);
+                addUpgrades("autoDiesel", tier4_AR, []);
 
-            addUpgrades('machineTrapper', 3, [/*'dieselTrapper', */'barricade', 'equalizer'/*, 'machineGuard', 'encircler', 'machineMech', 'triMachine'*/, 'expeller'/*, 'autoMachineTrapper', 'deviation'*/]);
-                addUpgrades('machineTrapper', tier4_AR, [/*'frother', 'machineMegaTrapper'*/]);
-                //addUpgrades('dieselTrapper', tier4_AR, []);
-                //addUpgrades('barricade', tier4_AR);
-                //addUpgrades('equalizer', tier4_AR);
-            ////addUpgrades('machineGuard', tier4_AR, []);
-            ////addUpgrades('encircler', tier4_AR, []);
-            ////addUpgrades('machineMech', tier4_AR, []);
-            ////addUpgrades('triMachine', tier4_AR, []);
-                //addUpgrades('expeller', tier4_AR, []);
-            ////addUpgrades('autoMachineTrapper', tier4_AR, []);
-            ////addUpgrades('deviation', tier4_AR, []);
+            addUpgrades("machineTrapper", 3, [/*"dieselTrapper", */"barricade", "equalizer"/*, "machineGuard", "encircler", "machineMech", "triMachine"*/, "expeller"/*, "autoMachineTrapper", "deviation"*/]);
+                addUpgrades("machineTrapper", tier4_AR, [/*"frother", "machineMegaTrapper"*/]);
+                //addUpgrades("dieselTrapper", tier4_AR, []);
+                //addUpgrades("barricade", tier4_AR);
+                //addUpgrades("equalizer", tier4_AR);
+            ////addUpgrades("machineGuard", tier4_AR, []);
+            ////addUpgrades("encircler", tier4_AR, []);
+            ////addUpgrades("machineMech", tier4_AR, []);
+            ////addUpgrades("triMachine", tier4_AR, []);
+                //addUpgrades("expeller", tier4_AR, []);
+            ////addUpgrades("autoMachineTrapper", tier4_AR, []);
+            ////addUpgrades("deviation", tier4_AR, []);
 
-        addUpgrades('flankGuard', 2, []);
-            addUpgrades('flankGuard', 3);
-                addUpgrades('flankGuard', tier4_AR, ['ternion']);
-                //addUpgrades('tripleTwin', tier4_AR);
+        addUpgrades("flankGuard", 2, []);
+            addUpgrades("flankGuard", 3);
+                addUpgrades("flankGuard", tier4_AR, ["ternion"]);
+                //addUpgrades("tripleTwin", tier4_AR);
 
-            //addUpgrades('hexaTank', 3);
+            //addUpgrades("hexaTank", 3);
 
-            addUpgrades('triAngle', 3, [/*'taser', 'cockatiel', */'integrator', 'defect'/*, 'quadAngle'*/]);
-                addUpgrades('triAngle', tier4_AR, ['avian'/*, 'raven'*/, 'phoenix'/*, 'shoebill'*/]);
-                addUpgrades('fighter', tier4_AR, []);
-                addUpgrades('booster', tier4_AR, []);
-                addUpgrades('falcon', tier4_AR, []);
-                addUpgrades('bomber', tier4_AR, []);
-                addUpgrades('autoTriAngle', tier4_AR, []);
-                addUpgrades('surfer', tier4_AR, []);
-                addUpgrades('eagle', tier4_AR, []);
-            ////addUpgrades('taser', tier4_AR, []);
-            ////addUpgrades('cockatiel', tier4_AR, []);
-                addUpgrades('integrator', tier4_AR, []);
-                addUpgrades('defect', tier4_AR, []);
-            ////addUpgrades('quadAngle', tier4_AR, []);
+            addUpgrades("triAngle", 3, [/*"taser", "cockatiel", */"integrator", "defect"/*, "quadAngle"*/]);
+                addUpgrades("triAngle", tier4_AR, ["avian"/*, "raven"*/, "phoenix"/*, "shoebill"*/]);
+                addUpgrades("fighter", tier4_AR, []);
+                addUpgrades("booster", tier4_AR, []);
+                addUpgrades("falcon", tier4_AR, []);
+                addUpgrades("bomber", tier4_AR, []);
+                addUpgrades("autoTriAngle", tier4_AR, []);
+                addUpgrades("surfer", tier4_AR, []);
+                addUpgrades("eagle", tier4_AR, []);
+            ////addUpgrades("taser", tier4_AR, []);
+            ////addUpgrades("cockatiel", tier4_AR, []);
+                addUpgrades("integrator", tier4_AR, []);
+                addUpgrades("defect", tier4_AR, []);
+            ////addUpgrades("quadAngle", tier4_AR, []);
 
-            addUpgrades('auto3', 3, ['sniper3', 'crowbar', 'autoAuto3', 'combo']);
-                addUpgrades('auto5', tier4_AR, [/*'auto7', 'mega5', 'auto6', 'spectre', 'sniper5', 'pryer', */'autoAuto5']);
-                addUpgrades('mega3', tier4_AR, [/*'ultra3', 'queller3', 'hurler3', 'slinker3', 'mega5', 'volley4', 'spirit', 'crank', */'autoMega3', 'sequence']);
-                addUpgrades('auto4', tier4_AR, [/*'auto6', 'batter4', */'autoAuto4'/*, 'wraith', 'volley4', 'chisel'*/, 'trove']);
-                addUpgrades('banshee', tier4_AR, [/*'spectre', 'spirit', 'wraith', 'phantom', */'autoBanshee'/*, 'revenant', 'bansheedrive', 'shade'*/]);
-                addUpgrades('sniper3', tier4_AR, [/*'assassin3', 'creeper', 'sniper5', 'phantom', 'lever', */'autoSniper3', 'alloy'/*, 'rifle3', 'hunter3'*/]);
-                addUpgrades('crowbar', tier4_AR, [/*'pryer', 'crank', 'chisel', 'lever', */'spindle', 'autoCrowbar', 'dualbar'/*, 'spanner'*/, 'wrench']);
-                addUpgrades('autoAuto3', tier4_AR, ['Auto5', 'Mega3', 'Auto4', 'Banshee', 'Sniper3', 'Crowbar', 'Combo'].map(x => `auto${x}`));
-                //addUpgrades('combo', tier4_AR);
+            addUpgrades("auto3", 3, ["sniper3", "crowbar", "autoAuto3", "combo"]);
+                addUpgrades("auto5", tier4_AR, [/*"auto7", "mega5", "auto6", "spectre", "sniper5", "pryer", */"autoAuto5"]);
+                addUpgrades("mega3", tier4_AR, [/*"ultra3", "queller3", "hurler3", "slinker3", "mega5", "volley4", "spirit", "crank", */"autoMega3", "sequence"]);
+                addUpgrades("auto4", tier4_AR, [/*"auto6", "batter4", */"autoAuto4"/*, "wraith", "volley4", "chisel"*/, "trove"]);
+                addUpgrades("banshee", tier4_AR, [/*"spectre", "spirit", "wraith", "phantom", */"autoBanshee"/*, "revenant", "bansheedrive", "shade"*/]);
+                addUpgrades("sniper3", tier4_AR, [/*"assassin3", "creeper", "sniper5", "phantom", "lever", */"autoSniper3", "alloy"/*, "rifle3", "hunter3"*/]);
+                addUpgrades("crowbar", tier4_AR, [/*"pryer", "crank", "chisel", "lever", */"spindle", "autoCrowbar", "dualbar"/*, "spanner"*/, "wrench"]);
+                addUpgrades("autoAuto3", tier4_AR, ["Auto5", "Mega3", "Auto4", "Banshee", "Sniper3", "Crowbar", "Combo"].map(x => `auto${x}`));
+                //addUpgrades("combo", tier4_AR);
 
-            addUpgrades('trapGuard', 3, ['peashooter'/*, 'incarcerator', 'mechGuard'*/, 'autoTrapGuard'/*, 'machineGuard', 'triTrapGuard'*/]);
-                addUpgrades('trapGuard', tier4_AR, [/*'garrison', 'maw', 'overtrapGuard', */'custodian']);
-                //addUpgrades('bushwhacker', tier4_AR);
-                //addUpgrades('gunnerTrapper', tier4_AR);
-                //addUpgrades('bomber', tier4_AR);
-                addUpgrades('conqueror', tier4_AR, []);
-                //addUpgrades('bulwark', tier4_AR);
-                addUpgrades('peashooter', tier4_AR, []);
-            ////addUpgrades('incarcerator', tier4_AR, []);
-            ////addUpgrades('mechGuard', tier4_AR, []);
-                addUpgrades('autoTrapGuard', tier4_AR, []);
-            ////addUpgrades('machineGuard', tier4_AR, []);
-            ////addUpgrades('triTrapGuard', tier4_AR, []);
+            addUpgrades("trapGuard", 3, ["peashooter"/*, "incarcerator", "mechGuard"*/, "autoTrapGuard"/*, "machineGuard", "triTrapGuard"*/]);
+                addUpgrades("trapGuard", tier4_AR, [/*"garrison", "maw", "overtrapGuard", */"custodian"]);
+                //addUpgrades("bushwhacker", tier4_AR);
+                //addUpgrades("gunnerTrapper", tier4_AR);
+                //addUpgrades("bomber", tier4_AR);
+                addUpgrades("conqueror", tier4_AR, []);
+                //addUpgrades("bulwark", tier4_AR);
+                addUpgrades("peashooter", tier4_AR, []);
+            ////addUpgrades("incarcerator", tier4_AR, []);
+            ////addUpgrades("mechGuard", tier4_AR, []);
+                addUpgrades("autoTrapGuard", tier4_AR, []);
+            ////addUpgrades("machineGuard", tier4_AR, []);
+            ////addUpgrades("triTrapGuard", tier4_AR, []);
 
-            addUpgrades('triTrapper', 3, [/*'triPen', 'triMech', 'triMachine', 'triTrapGuard'*/]);
-                addUpgrades('triTrapper', tier4_AR, [/*'triBarricade', 'triMegaTrapper', 'warkwarkwark'*/]);
-                addUpgrades('fortress', tier4_AR, []);
-                //addUpgrades('hexaTrapper', tier4_AR);
-                addUpgrades('septaTrapper', tier4_AR, []);
-                addUpgrades('architect', tier4_AR, []);
-            ////addUpgrades('triPen', tier4_AR, []);
-            ////addUpgrades('triMech', tier4_AR, []);
-                //addUpgrades('triMachine', tier4_AR);
-                //addUpgrades('triTrapGuard', tier4_AR);
+            addUpgrades("triTrapper", 3, [/*"triPen", "triMech", "triMachine", "triTrapGuard"*/]);
+                addUpgrades("triTrapper", tier4_AR, [/*"triBarricade", "triMegaTrapper", "warkwarkwark"*/]);
+                addUpgrades("fortress", tier4_AR, []);
+                //addUpgrades("hexaTrapper", tier4_AR);
+                addUpgrades("septaTrapper", tier4_AR, []);
+                addUpgrades("architect", tier4_AR, []);
+            ////addUpgrades("triPen", tier4_AR, []);
+            ////addUpgrades("triMech", tier4_AR, []);
+                //addUpgrades("triMachine", tier4_AR);
+                //addUpgrades("triTrapGuard", tier4_AR);
 
-        addUpgrades('director', 2, ['directordrive', 'honcho'/*, 'doper'*/]);
-            addUpgrades('director', 3, []);
-                addUpgrades('director', tier4_AR, ['coordinator']);
-                addUpgrades('manager', tier4_AR, []);
+        addUpgrades("director", 2, ["directordrive", "honcho"/*, "doper"*/]);
+            addUpgrades("director", 3, []);
+                addUpgrades("director", tier4_AR, ["coordinator"]);
+                addUpgrades("manager", tier4_AR, []);
 
-            addUpgrades('overseer', 3, ['captain', 'foreman'/*, 'dopeseer'*/]);
-                addUpgrades('overseer', tier4_AR, [/*'inspector'*/]);
-                addUpgrades('overlord', tier4_AR, []);
-                addUpgrades('banshee', tier4_AR, []);
-                addUpgrades('autoOverseer', tier4_AR, []);
-                addUpgrades('overdrive', tier4_AR, []);
-                addUpgrades('commander', tier4_AR, []);
-                addUpgrades('captain', tier4_AR, []);
-                addUpgrades('foreman', tier4_AR, []);
-            ////addUpgrades('dopeseer', tier4_AR, []);
+            addUpgrades("overseer", 3, ["captain", "foreman"/*, "dopeseer"*/]);
+                addUpgrades("overseer", tier4_AR, [/*"inspector"*/]);
+                addUpgrades("overlord", tier4_AR, []);
+                addUpgrades("banshee", tier4_AR, []);
+                addUpgrades("autoOverseer", tier4_AR, []);
+                addUpgrades("overdrive", tier4_AR, []);
+                addUpgrades("commander", tier4_AR, []);
+                addUpgrades("captain", tier4_AR, []);
+                addUpgrades("foreman", tier4_AR, []);
+            ////addUpgrades("dopeseer", tier4_AR, []);
 
-            addUpgrades('cruiser', 3, ['productionist', 'cruiserdrive'/*, 'hangar', 'zipper', 'baltimore', 'mosey'*/]);
-                addUpgrades('cruiser', tier4_AR, [/*'superintendent'*/]);
-                addUpgrades('carrier', tier4_AR, []);
-                addUpgrades('battleship', tier4_AR, []);
-                //addUpgrades('fortress', tier4_AR);
-                addUpgrades('autoCruiser', tier4_AR, []);
-                //addUpgrades('commander', tier4_AR);
-                addUpgrades('productionist', tier4_AR, []);
-                addUpgrades('cruiserdrive', tier4_AR, []);
-            ////addUpgrades('hangar', tier4_AR, []);
-                //addUpgrades('zipper', tier4_AR);
-            ////addUpgrades('baltimore', tier4_AR, []);
-            ////addUpgrades('mosey', tier4_AR, []);
+            addUpgrades("cruiser", 3, ["productionist", "cruiserdrive"/*, "hangar", "zipper", "baltimore", "mosey"*/]);
+                addUpgrades("cruiser", tier4_AR, [/*"superintendent"*/]);
+                addUpgrades("carrier", tier4_AR, []);
+                addUpgrades("battleship", tier4_AR, []);
+                //addUpgrades("fortress", tier4_AR);
+                addUpgrades("autoCruiser", tier4_AR, []);
+                //addUpgrades("commander", tier4_AR);
+                addUpgrades("productionist", tier4_AR, []);
+                addUpgrades("cruiserdrive", tier4_AR, []);
+            ////addUpgrades("hangar", tier4_AR, []);
+                //addUpgrades("zipper", tier4_AR);
+            ////addUpgrades("baltimore", tier4_AR, []);
+            ////addUpgrades("mosey", tier4_AR, []);
 
-            addUpgrades('underseer', 3, ['autoUnderseer', 'underdrive'/*, 'pentaseer'*/]);
-                addUpgrades('underseer', tier4_AR, [/*'conductor'*/]);
-                addUpgrades('necromancer', tier4_AR, []);
-                addUpgrades('maleficitor', tier4_AR, []);
-                addUpgrades('infestor', tier4_AR, []);
-                addUpgrades('autoUnderseer', tier4_AR, []);
-                addUpgrades('underdrive', tier4_AR, []);
-            ////addUpgrades('pentaseer', tier4_AR, []);
+            addUpgrades("underseer", 3, ["autoUnderseer", "underdrive"/*, "pentaseer"*/]);
+                addUpgrades("underseer", tier4_AR, [/*"conductor"*/]);
+                addUpgrades("necromancer", tier4_AR, []);
+                addUpgrades("maleficitor", tier4_AR, []);
+                addUpgrades("infestor", tier4_AR, []);
+                addUpgrades("autoUnderseer", tier4_AR, []);
+                addUpgrades("underdrive", tier4_AR, []);
+            ////addUpgrades("pentaseer", tier4_AR, []);
 
-            addUpgrades('spawner', 3, ['megaSpawner', 'productionist', 'spawnerdrive', 'captain'/*, 'hangar', 'laborer', 'foundry', 'issuer'*/]);
-                addUpgrades('spawner', tier4_AR, [/*'handler'*/]);
-                addUpgrades('factory', tier4_AR, []);
-                addUpgrades('autoSpawner', tier4_AR, []);
-                addUpgrades('megaSpawner', tier4_AR, []);
-                //addUpgrades('productionist', tier4_AR);
-                addUpgrades('spawnerdrive', tier4_AR, []);
-                //addUpgrades('captain', tier4_AR);
-                //addUpgrades('hangar', tier4_AR);
-            ////addUpgrades('laborer', tier4_AR, []);
-            ////addUpgrades('foundry', tier4_AR, []);
-            ////addUpgrades('issuer', tier4_AR, []);
+            addUpgrades("spawner", 3, ["megaSpawner", "productionist", "spawnerdrive", "captain"/*, "hangar", "laborer", "foundry", "issuer"*/]);
+                addUpgrades("spawner", tier4_AR, [/*"handler"*/]);
+                addUpgrades("factory", tier4_AR, []);
+                addUpgrades("autoSpawner", tier4_AR, []);
+                addUpgrades("megaSpawner", tier4_AR, []);
+                //addUpgrades("productionist", tier4_AR);
+                addUpgrades("spawnerdrive", tier4_AR, []);
+                //addUpgrades("captain", tier4_AR);
+                //addUpgrades("hangar", tier4_AR);
+            ////addUpgrades("laborer", tier4_AR, []);
+            ////addUpgrades("foundry", tier4_AR, []);
+            ////addUpgrades("issuer", tier4_AR, []);
 
-            addUpgrades('directordrive', 3, [/*'directorstorm', */'overdrive', 'cruiserdrive', 'underdrive', 'spawnerdrive', 'autoDirectordrive', 'honchodrive'/*, 'doperdrive'*/]);
-                addUpgrades('directordrive', tier4_AR, [/*'managerdrive'*/]);
-            ////addUpgrades('directorstorm', tier4_AR, []);
-                //addUpgrades('overdrive', tier4_AR);
-                //addUpgrades('cruiserdrive', tier4_AR);
-                //addUpgrades('underdrive', tier4_AR);
-                //addUpgrades('spawnerdrive', tier4_AR);
-                addUpgrades('autoDirectordrive', tier4_AR, [...['mega', 'triple'].map(x => `${x}AutoDirectordrive`)]);
-                addUpgrades('honchodrive', tier4_AR, []);
-            ////addUpgrades('doperdrive', tier4_AR, []);
+            addUpgrades("directordrive", 3, [/*"directorstorm", */"overdrive", "cruiserdrive", "underdrive", "spawnerdrive", "autoDirectordrive", "honchodrive"/*, "doperdrive"*/]);
+                addUpgrades("directordrive", tier4_AR, [/*"managerdrive"*/]);
+            ////addUpgrades("directorstorm", tier4_AR, []);
+                //addUpgrades("overdrive", tier4_AR);
+                //addUpgrades("cruiserdrive", tier4_AR);
+                //addUpgrades("underdrive", tier4_AR);
+                //addUpgrades("spawnerdrive", tier4_AR);
+                addUpgrades("autoDirectordrive", tier4_AR, [...["mega", "triple"].map(x => `${x}AutoDirectordrive`)]);
+                addUpgrades("honchodrive", tier4_AR, []);
+            ////addUpgrades("doperdrive", tier4_AR, []);
 
-            addUpgrades('honcho', 3, ['foreman'/*, 'baltimore', 'foundry'*/, 'bigCheese', 'autoHoncho', 'honchodrive'/*, 'junkie'*/]);
-                addUpgrades('honcho', tier4_AR, [/*'minister'*/]);
-                //addUpgrades('foreman', tier4_AR);
-                //addUpgrades('baltimore', tier4_AR);
-                //addUpgrades('foundry', tier4_AR);
-                addUpgrades('bigCheese', tier4_AR, []);
-                addUpgrades('autoHoncho', tier4_AR, []);
-                //addUpgrades('honchodrive', tier4_AR);
-            ////addUpgrades('junkie', tier4_AR, []);
+            addUpgrades("honcho", 3, ["foreman"/*, "baltimore", "foundry"*/, "bigCheese", "autoHoncho", "honchodrive"/*, "junkie"*/]);
+                addUpgrades("honcho", tier4_AR, [/*"minister"*/]);
+                //addUpgrades("foreman", tier4_AR);
+                //addUpgrades("baltimore", tier4_AR);
+                //addUpgrades("foundry", tier4_AR);
+                addUpgrades("bigCheese", tier4_AR, []);
+                addUpgrades("autoHoncho", tier4_AR, []);
+                //addUpgrades("honchodrive", tier4_AR);
+            ////addUpgrades("junkie", tier4_AR, []);
 
-        ////addUpgrades('doper', 3, [/*'brisker', 'dopeseer', 'mosey', 'issuer', 'junkie', 'doperdrive', 'autoDoper'*/]);
-            ////addUpgrades('doper', tier4_AR, [/*'controller'*/]);
-            ////addUpgrades('brisker', tier4_AR, []);
-                //addUpgrades('dopeseer', tier4_AR);
-                //addUpgrades('mosey', tier4_AR);
-                //addUpgrades('issuer', tier4_AR);
-                //addUpgrades('junkie', tier4_AR);
-                //addUpgrades('doperdrive', tier4_AR);
-            ////addUpgrades('autoDoper', tier4_AR, []);
+        ////addUpgrades("doper", 3, [/*"brisker", "dopeseer", "mosey", "issuer", "junkie", "doperdrive", "autoDoper"*/]);
+            ////addUpgrades("doper", tier4_AR, [/*"controller"*/]);
+            ////addUpgrades("brisker", tier4_AR, []);
+                //addUpgrades("dopeseer", tier4_AR);
+                //addUpgrades("mosey", tier4_AR);
+                //addUpgrades("issuer", tier4_AR);
+                //addUpgrades("junkie", tier4_AR);
+                //addUpgrades("doperdrive", tier4_AR);
+            ////addUpgrades("autoDoper", tier4_AR, []);
 
-        addUpgrades('pounder', 2, []);
-            addUpgrades('pounder', 3, ['subverter']);
-                addUpgrades('pounder', tier4_AR, ['bruiser']);
-                addUpgrades('shotgun', tier4_AR, []);
-                //addUpgrades('eagle', tier4_AR);
-                //addUpgrades('subverter', tier4_AR);
+        addUpgrades("pounder", 2, []);
+            addUpgrades("pounder", 3, ["subverter"]);
+                addUpgrades("pounder", tier4_AR, ["bruiser"]);
+                addUpgrades("shotgun", tier4_AR, []);
+                //addUpgrades("eagle", tier4_AR);
+                //addUpgrades("subverter", tier4_AR);
 
-            addUpgrades('destroyer', 3, [/*'megaTrapper', 'queller', */'autoDestroyer'/*, 'hurler', 'slinker'*/]);
-                addUpgrades('destroyer', tier4_AR, [/*'harrier', 'toppler'*/]);
-                //addUpgrades('conqueror', tier4_AR);
-                addUpgrades('annihilator', tier4_AR, []);
-                addUpgrades('hybrid', tier4_AR, []);
-                addUpgrades('construct', tier4_AR, []);
-                //addUpgrades('blower', tier4_AR);
-            ////addUpgrades('megaTrapper', tier4_AR, []);
-                //addUpgrades('queller', tier4_AR);
-                addUpgrades('autoDestroyer', tier4_AR, []);
-            ////addUpgrades('hurler', tier4_AR, []);
-            ////addUpgrades('slinker', tier4_AR, []);
+            addUpgrades("destroyer", 3, [/*"megaTrapper", "queller", */"autoDestroyer"/*, "hurler", "slinker"*/]);
+                addUpgrades("destroyer", tier4_AR, [/*"harrier", "toppler"*/]);
+                //addUpgrades("conqueror", tier4_AR);
+                addUpgrades("annihilator", tier4_AR, []);
+                addUpgrades("hybrid", tier4_AR, []);
+                addUpgrades("construct", tier4_AR, []);
+                //addUpgrades("blower", tier4_AR);
+            ////addUpgrades("megaTrapper", tier4_AR, []);
+                //addUpgrades("queller", tier4_AR);
+                addUpgrades("autoDestroyer", tier4_AR, []);
+            ////addUpgrades("hurler", tier4_AR, []);
+            ////addUpgrades("slinker", tier4_AR, []);
 
-            addUpgrades('builder', 3, [/*'forger', 'stall', */'fashioner'/*, 'charger'*/]);
-                addUpgrades('builder', tier4_AR, [/*'blockade'*/]);
-                //addUpgrades('construct', tier4_AR);
-                addUpgrades('autoBuilder', tier4_AR, []);
-                addUpgrades('engineer', tier4_AR, []);
-                addUpgrades('boomer', tier4_AR, []);
-                //addUpgrades('architect', tier4_AR);
-                //addUpgrades('conqueror', tier4_AR);
-                //addUpgrades('forger', tier4_AR);
-            ////addUpgrades('stall', tier4_AR, []);
-                addUpgrades('fashioner', tier4_AR, []);
-            ////addUpgrades('charger', tier4_AR, []);
+            addUpgrades("builder", 3, [/*"forger", "stall", */"fashioner"/*, "charger"*/]);
+                addUpgrades("builder", tier4_AR, [/*"blockade"*/]);
+                //addUpgrades("construct", tier4_AR);
+                addUpgrades("autoBuilder", tier4_AR, []);
+                addUpgrades("engineer", tier4_AR, []);
+                addUpgrades("boomer", tier4_AR, []);
+                //addUpgrades("architect", tier4_AR);
+                //addUpgrades("conqueror", tier4_AR);
+                //addUpgrades("forger", tier4_AR);
+            ////addUpgrades("stall", tier4_AR, []);
+                addUpgrades("fashioner", tier4_AR, []);
+            ////addUpgrades("charger", tier4_AR, []);
 
-            //addUpgrades('artillery', 3, []);
+            //addUpgrades("artillery", 3, []);
 
-            addUpgrades('launcher', 3, ['rocketeer'/*, 'pitcher', 'cluster', 'projector'*/, 'heaver', 'autoLauncher'/*, 'hurler', 'inception'*/]);
-                addUpgrades('launcher', tier4_AR, [/*'seriemas', 'supplant', 'pumper'*/]);
-                addUpgrades('skimmer', tier4_AR, []);
-                addUpgrades('twister', tier4_AR, []);
-                addUpgrades('swarmer', tier4_AR, []);
-                addUpgrades('sidewinder', tier4_AR, []);
-                //addUpgrades('fieldGun', tier4_AR);
-                addUpgrades('rocketeer', tier4_AR, []);
-            ////addUpgrades('pitcher', tier4_AR, []);
-            ////addUpgrades('cluster', tier4_AR, []);
-            ////addUpgrades('projector', tier4_AR, []);
-                addUpgrades('heaver', tier4_AR, []);
-                addUpgrades('autoLauncher', tier4_AR, []);
-            ////addUpgrades('hurler', tier4_AR, []);
-            ////addUpgrades('inception', tier4_AR, []);
+            addUpgrades("launcher", 3, ["rocketeer"/*, "pitcher", "cluster", "projector"*/, "heaver", "autoLauncher"/*, "hurler", "inception"*/]);
+                addUpgrades("launcher", tier4_AR, [/*"seriemas", "supplant", "pumper"*/]);
+                addUpgrades("skimmer", tier4_AR, []);
+                addUpgrades("twister", tier4_AR, []);
+                addUpgrades("swarmer", tier4_AR, []);
+                addUpgrades("sidewinder", tier4_AR, []);
+                //addUpgrades("fieldGun", tier4_AR);
+                addUpgrades("rocketeer", tier4_AR, []);
+            ////addUpgrades("pitcher", tier4_AR, []);
+            ////addUpgrades("cluster", tier4_AR, []);
+            ////addUpgrades("projector", tier4_AR, []);
+                addUpgrades("heaver", tier4_AR, []);
+                addUpgrades("autoLauncher", tier4_AR, []);
+            ////addUpgrades("hurler", tier4_AR, []);
+            ////addUpgrades("inception", tier4_AR, []);
 
-        addUpgrades("trapper", 2, ['pen', 'mech', 'machineTrapper', 'wark']);
-            addUpgrades("trapper", 3, [/*'megaTrapper'*/]);
-                addUpgrades("trapper", tier4_AR, ['tricker']);
-                //addUpgrades('barricade', tier4_AR);
-                addUpgrades('overtrapper', tier4_AR, ['battletrapper', 'captrapper', 'foretrapper']);
-                //addUpgrades('megaTrapper', tier4_AR);
+        addUpgrades("trapper", 2, ["pen", "mech", "machineTrapper", "wark"]);
+            addUpgrades("trapper", 3, [/*"megaTrapper"*/]);
+                addUpgrades("trapper", tier4_AR, ["tricker"]);
+                //addUpgrades("barricade", tier4_AR);
+                addUpgrades("overtrapper", tier4_AR, ["battletrapper", "captrapper", "foretrapper"]);
+                //addUpgrades("megaTrapper", tier4_AR);
 
-            //addUpgrades('builder', 3);
+            //addUpgrades("builder", 3);
 
-            //addUpgrades('triTrapper', 3);
+            //addUpgrades("triTrapper", 3);
 
-            //addUpgrades('trapGuard', 3);
+            //addUpgrades("trapGuard", 3);
 
-            addUpgrades('pen', 3, [/*'stall', 'triPen', 'encircler', 'incarcerator', 'operator', 'cockatiel', */'hutch', 'interner', 'autoPen']);
-                addUpgrades('pen', tier4_AR, [/*'fortifier', 'sty'*/]);
-                //addUpgrades('stall', tier4_AR, []);
-                //addUpgrades('triPen', tier4_AR, []);
-                //addUpgrades('encircler', tier4_AR, []);
-                //addUpgrades('incarcerator', tier4_AR, []);
-            ////addUpgrades('operator', tier4_AR, []);
-                //addUpgrades('cockatiel', tier4_AR, []);
-                //addUpgrades('hutch', tier4_AR, []);
-            ////addUpgrades('interner', tier4_AR, []);
-            ////addUpgrades('autoPen', tier4_AR, []);
+            addUpgrades("pen", 3, [/*"stall", "triPen", "encircler", "incarcerator", "operator", "cockatiel", */"hutch", "interner", "autoPen"]);
+                addUpgrades("pen", tier4_AR, [/*"fortifier", "sty"*/]);
+                //addUpgrades("stall", tier4_AR, []);
+                //addUpgrades("triPen", tier4_AR, []);
+                //addUpgrades("encircler", tier4_AR, []);
+                //addUpgrades("incarcerator", tier4_AR, []);
+            ////addUpgrades("operator", tier4_AR, []);
+                //addUpgrades("cockatiel", tier4_AR, []);
+                //addUpgrades("hutch", tier4_AR, []);
+            ////addUpgrades("interner", tier4_AR, []);
+            ////addUpgrades("autoPen", tier4_AR, []);
 
-            addUpgrades('mech', 3, ['engineer'/*, 'triMech', 'machineMech', 'mechGuard', 'operator'*/, 'cog', 'cobbler', 'autoMech']);
-                addUpgrades('mech', tier4_AR, [/*'propper', 'technician'*/]);
-                //addUpgrades('engineer', tier4_AR);
-                //addUpgrades('triMech', tier4_AR);
-                //addUpgrades('machineMech', tier4_AR);
-                //addUpgrades('mechGuard', tier4_AR);
-                //addUpgrades('operator', tier4_AR);
-                //addUpgrades('cog', tier4_AR);
-            ////addUpgrades('cobbler', tier4_AR);
-            ////addUpgrades('autoMech', tier4_AR);
+            addUpgrades("mech", 3, ["engineer"/*, "triMech", "machineMech", "mechGuard", "operator"*/, "cog", "cobbler", "autoMech"]);
+                addUpgrades("mech", tier4_AR, [/*"propper", "technician"*/]);
+                //addUpgrades("engineer", tier4_AR);
+                //addUpgrades("triMech", tier4_AR);
+                //addUpgrades("machineMech", tier4_AR);
+                //addUpgrades("mechGuard", tier4_AR);
+                //addUpgrades("operator", tier4_AR);
+                //addUpgrades("cog", tier4_AR);
+            ////addUpgrades("cobbler", tier4_AR);
+            ////addUpgrades("autoMech", tier4_AR);
 
-            //addUpgrades('machineTrapper', 3);
+            //addUpgrades("machineTrapper", 3);
 
-            //addUpgrades('wark', 3);
+            //addUpgrades("wark", 3);
 
-            addUpgrades('autoTrapper', 3, [/*'autoPen', 'autoMech', 'autoMachineTrapper', */'autoWark']);
-                addUpgrades('megaAutoTrapper', tier4_AR, ['AutoBuilder', 'HexaTrapper', 'AutoTrapGuard'/*, 'AutoPen', 'AutoMech', 'AutoMachineTrapper'*/, 'AutoWark'].map(x => `mega${x}`));
-                addUpgrades('tripleAutoTrapper', tier4_AR, ['tripleAutoBuilder', 'autoHexaTrapper', 'tripleAutoTrapGuard'/*, 'tripleAutoPen', 'tripleAutoMech', 'tripleAutoMachineTrapper'*/, 'tripleAutoWark']);
-                //addUpgrades('autoBuilder', tier4_AR);
-                //addUpgrades('hexaTrapper', tier4_AR);
-                //addUpgrades('autoTrapGuard', tier4_AR);
-                //addUpgrades('autoPen', tier4_AR);
-                //addUpgrades('autoMech', tier4_AR);
-                //addUpgrades('autoMachineTrapper', tier4_AR);
-                //addUpgrades('autoWark', tier4_AR);
+            addUpgrades("autoTrapper", 3, [/*"autoPen", "autoMech", "autoMachineTrapper", */"autoWark"]);
+                addUpgrades("megaAutoTrapper", tier4_AR, ["AutoBuilder", "HexaTrapper", "AutoTrapGuard"/*, "AutoPen", "AutoMech", "AutoMachineTrapper"*/, "AutoWark"].map(x => `mega${x}`));
+                addUpgrades("tripleAutoTrapper", tier4_AR, ["tripleAutoBuilder", "autoHexaTrapper", "tripleAutoTrapGuard"/*, "tripleAutoPen", "tripleAutoMech", "tripleAutoMachineTrapper"*/, "tripleAutoWark"]);
+                //addUpgrades("autoBuilder", tier4_AR);
+                //addUpgrades("hexaTrapper", tier4_AR);
+                //addUpgrades("autoTrapGuard", tier4_AR);
+                //addUpgrades("autoPen", tier4_AR);
+                //addUpgrades("autoMech", tier4_AR);
+                //addUpgrades("autoMachineTrapper", tier4_AR);
+                //addUpgrades("autoWark", tier4_AR);
 };
 
 if (Config.teams == 1) {
-    addUpgrades("basic", 2, ['healer']);
-    removeUpgrades("basic", 2, ['smasher']);
-    removeUpgrades('director', 2, ['underseer']);
+    addUpgrades("basic", 2, ["healer"]);
+    removeUpgrades("basic", 2, ["smasher"]);
+    removeUpgrades("director", 2, ["underseer"]);
 
-    removeUpgrades('directordrive', 3, ['underdrive']);
-    removeUpgrades('whirlwind', 3, ['prophet']);
+    removeUpgrades("directordrive", 3, ["underdrive"]);
+    removeUpgrades("whirlwind", 3, ["prophet"]);
 };
