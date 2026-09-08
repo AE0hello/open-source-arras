@@ -28,7 +28,7 @@ function stringify(obj, depth = 1) {
                 .map(([key, obj]) => {
                     let value = stringify(obj);
                     if (typeof obj === "function" && value.startsWith(obj.name)) return value;
-                    else return `${isLegalName(key) ? key : `['${key}]'`}: ${value}`;
+                    else return `${isLegalName(key) ? key : `["${key}"]`}: ${value}`;
                 })
                 .join(",\n")
                 .split("\n")
@@ -67,7 +67,7 @@ class Editor {
                 case "getDefinitions":
                     response.data = `const Class = {};\n\n${
                         Object.entries(Class)
-                            .map(([key, obj]) => `Class${isLegalName(key) ? `.${key}` : `['${key}']`} = ${stringify(obj)};`)
+                            .map(([key, obj]) => `Class${isLegalName(key) ? `.${key}` : `["${key}"]`} = ${stringify(obj)};`)
                             .join("\n")
                     }\n\nexport default Class;`;
                     break;
