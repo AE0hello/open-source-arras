@@ -1186,7 +1186,7 @@ class Entity extends EventEmitter {
             }
             let killCountEntries = Object.entries(killCounts).map(([name, count], i) => name);
             for (let i = 0; i < killCountEntries.length; i++) {
-                killText += (killCounts[killCountEntries[i]] == 1) ? util.addArticle(killTools[i].label) : killCounts[killCountEntries[i]] + " " + killCountEntries[i] + 's';
+                killText += (killCounts[killCountEntries[i]] == 1) ? util.addArticle(killTools[i].label) : killCounts[killCountEntries[i]] + " " + killCountEntries[i] + "s";
                 killText += i < killCountEntries.length - 2 ? ", " : " and ";
             }
 

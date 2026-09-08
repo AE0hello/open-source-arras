@@ -8,5 +8,5 @@ module.exports = {
     enable_bosses: false,
     disable_base_check: true,
     disable_guns: true,
-    room_setup: ['room_nexus']
+    room_setup: ["room_nexus"]
 }

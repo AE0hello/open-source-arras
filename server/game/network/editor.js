@@ -109,7 +109,7 @@ class Editor {
 
                         try {
                             for (let entity of entities.values()) {
-                                if (!['tank", "miniboss', "food"].includes(entity.type)) continue;
+                                if (!["tank", "miniboss", "food"].includes(entity.type)) continue;
                                 if (entity.bond) continue;
 
                                 let entityDefs = JSON.parse(JSON.stringify(entity.defs));

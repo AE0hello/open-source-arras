@@ -890,7 +890,7 @@ import * as socketStuff from "./socketinit.js";
                 let green = data.charCodeAt(i * 3 + 1)
                 let blue = data.charCodeAt(i * 3 + 2)
                 let color = (red << 16) | (green << 8) | blue
-                colorArray.push('#' + color.toString(16).padStart(6, '0'))
+                colorArray.push('#' + color.toString(16).padStart(6, "0"))
             }
             let content = {
                 teal: colorArray[0],

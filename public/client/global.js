@@ -237,7 +237,7 @@ const global = {
     specialPressed: false,
     specialKeysPressed: [],
     backgroundColor: '#f2fbff',
-    lineColor: '#000000',
+    lineColor: "#000000",
     nameColor: "#FFFFFF",
     message: "",
     player: {},

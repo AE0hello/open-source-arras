@@ -1,5 +1,5 @@
 let crypto = require("crypto"),
-    net = require('net'),
+    net = require("net"),
     fs = require("fs");
     PERMABAN_FILE = "./permanentBans.json";
 let bans = global.bans || (global.bans = []);
@@ -31,7 +31,7 @@ class socketManager {
     broadcastRoom() {
         for (let i = 0; i < this.clients.length; i++) {
             this.clients[i].talk(
-                'r',
+                "r",
                 global.gameManager.room.width,
                 global.gameManager.room.height,
                 JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => { 
@@ -199,10 +199,10 @@ class socketManager {
             return;
         }
         switch (m.shift()) {
-            case 'k': { // key verification
-                if (m.length > 1) { socket.kick('Ill-sized key request.'); return 1; }
-                if (socket.status.verified) { socket.kick('Duplicate player spawn attempt.'); return 1; }
-                socket.talk('w', true);
+            case "k": { // key verification
+                if (m.length > 1) { socket.kick("Ill-sized key request."); return 1; }
+                if (socket.status.verified) { socket.kick("Duplicate player spawn attempt."); return 1; }
+                socket.talk("w", true);
                 if (m.length === 1) {
                     let key = m[0].toString().trim();
                     // Use hasOwnProperty to avoid prototype chain lookup
@@ -216,13 +216,13 @@ class socketManager {
                 }
                 socket.status.verified = true;
                 if (this.clients.length == 1) {
-                    util.log('[INFO]: ' + this.clients.length + ' client connected');
+                    util.log("[INFO]: " + this.clients.length + " client connected");
                 } else {
-                    util.log('[INFO]: ' + this.clients.length + ' clients connected');
+                    util.log("[INFO]: " + this.clients.length + " clients connected");
                 }
             } break;
-            case 's': { // spawn request
-                if (!socket.status.deceased) { socket.kick('Trying to spawn while already alive.'); return 1; }
+            case "s": { // spawn request
+                if (!socket.status.deceased) { socket.kick("Trying to spawn while already alive."); return 1; }
                 if (global.gameManager.private && !socket.permissions) return (
                     socket.talk("message", "This server is private."),
                     socket.kick("Tried to join private server without valid token.")
@@ -274,14 +274,14 @@ class socketManager {
                 if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
                 
                 // Get rid of the banned characters
-                name = name.replace(Config.banned_characters, '');
+                name = name.replace(Config.banned_characters, "");
 
                 // Give it the room state and move the camera.
                 if (needsRoom) {
                     if (Config.hidden) return socket.close(); // If the server is hidden then just kick the client.
                     this.newPlayer(socket);
                     socket.talk(
-                        'R',
+                        "R",
                         global.gameManager.room.width,
                         global.gameManager.room.height,
                         JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => { 
@@ -318,23 +318,23 @@ class socketManager {
                     }
                 }, 20)
             } break;
-            case 'S': { // clock syncing
-                if (m.length !== 1) { socket.kick('Ill-sized sync packet.'); return 1; }
+            case "S": { // clock syncing
+                if (m.length !== 1) { socket.kick("Ill-sized sync packet."); return 1; }
                 // Get data
                 let synctick = m[0];
                 // Verify it
-                if (typeof synctick !== 'number') { socket.kick('Weird sync packet.'); return 1; }
+                if (typeof synctick !== "number") { socket.kick("Weird sync packet."); return 1; }
                 // Bounce it back
-                socket.talk('S', synctick, util.time());
+                socket.talk("S", synctick, util.time());
             } break;
-            case 'p': { // ping
-                if (m.length !== 1) { socket.kick('Ill-sized ping.'); return 1; }
+            case "p": { // ping
+                if (m.length !== 1) { socket.kick("Ill-sized ping."); return 1; }
                 // Get data
                 let ping = m[0];
                 // Verify it
-                if (typeof ping !== 'number') { socket.kick('Weird ping.'); return 1; }
+                if (typeof ping !== "number") { socket.kick("Weird ping."); return 1; }
                 // Pong
-                socket.talk('p', ping.toFixed(1)); // Just pong it right back
+                socket.talk("p", ping.toFixed(1)); // Just pong it right back
                 socket.status.lastHeartbeat = util.time();
             } break;
             case "d": {
@@ -570,7 +570,7 @@ class socketManager {
                     if (Config.mothership_time_limit != 0) {
                         if (Config.mothership_time_limit <= 10_000) {
                             if (player.body == null) return;
-                            player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? '' : 's') + ` in control of the mothership!`);
+                            player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? "" : "s") + ` in control of the mothership!`);
                             setTimeout(function (){
                                 if (player.body == null) return;
                                 player.body.sendMessage("You have lost control of the mothership.");
@@ -644,7 +644,7 @@ class socketManager {
                     return 1;
                 }
     
-                util.log(player.body.name + ': ' + original);
+                util.log(player.body.name + ": " + original);
     
                 if (Config.sanitize_chat_input) {
                     // I thought it should be "§§" but it only works if you do "§§§§"?
@@ -658,7 +658,7 @@ class socketManager {
                 if (abort) break;
     
                 if (message !== original) {
-                    util.log('changed to: ' + message);
+                    util.log("changed to: " + message);
                 }
     
                 let id = player.body.id;
@@ -888,18 +888,18 @@ class socketManager {
     }
 
     getstuff(s) {
-        let val = '';
+        let val = "";
         //these have to be in reverse order
-        val += s.amount("shi").toString(16).padStart(2, '0');
-        val += s.amount("rgn").toString(16).padStart(2, '0');
-        val += s.amount("mob").toString(16).padStart(2, '0');
-        val += s.amount("rld").toString(16).padStart(2, '0');
-        val += s.amount("dam").toString(16).padStart(2, '0');
-        val += s.amount("pen").toString(16).padStart(2, '0');
-        val += s.amount("str").toString(16).padStart(2, '0');
-        val += s.amount("spd").toString(16).padStart(2, '0');
-        val += s.amount("hlt").toString(16).padStart(2, '0');
-        val += s.amount("atk").toString(16).padStart(2, '0');
+        val += s.amount("shi").toString(16).padStart(2, "0");
+        val += s.amount("rgn").toString(16).padStart(2, "0");
+        val += s.amount("mob").toString(16).padStart(2, "0");
+        val += s.amount("rld").toString(16).padStart(2, "0");
+        val += s.amount("dam").toString(16).padStart(2, "0");
+        val += s.amount("pen").toString(16).padStart(2, "0");
+        val += s.amount("str").toString(16).padStart(2, "0");
+        val += s.amount("spd").toString(16).padStart(2, "0");
+        val += s.amount("hlt").toString(16).padStart(2, "0");
+        val += s.amount("atk").toString(16).padStart(2, "0");
         return val;
     }
 
@@ -1180,18 +1180,18 @@ class socketManager {
         socket.status.daily_tank_watched_ad_client = false;
         // Decide how to color and team the body
         if (!filter.length) switch (Config.mode) {
-            case 'tdm': {
+            case "tdm": {
                 body.team = player.team;
                 body.color.base = global.getTeamColor(player.body.team);
                 socket.rememberedTeam = body.team;
             } break;
-            case 'tag': {
+            case "tag": {
                 body.team = player.team;
                 body.color.base = global.getTeamColor(player.body.team);
                 socket.rememberedTeam = body.team;
                 Config.tag_data.addPlayer(body);
             } break;
-            case 'clan': {
+            case "clan": {
                 body.team = player.team;
                 body.originalName = body.name;
                 body.clan = player.clan;
@@ -1228,7 +1228,7 @@ class socketManager {
 
     preparePlayer(socket, player, body, doNotTakeAction = {}) {
         // Decide what to do about colors when sending updates and stuff
-        player.teamColor = new Color(!Config.random_body_colors && (Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
+        player.teamColor = new Color(!Config.random_body_colors && (Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag)) ? 10 : global.getTeamColor(body.team)).compiled; // blue
         // Set up the targeting structure
         player.target = { x: 0, y: 0 };
         // Set up the command structure
@@ -1390,7 +1390,7 @@ class socketManager {
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
                 // Set the proper color if it's on our team and decide what to do about colors when sending updates and stuff
-                player.teamColor = new Color(!Config.random_body_colors && (Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
+                player.teamColor = new Color(!Config.random_body_colors && (Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag)) ? 10 : global.getTeamColor(player.body.team)).compiled; // blue
                 // And make it force to our mouse if it ought to
                 if (player.command.autospin) {
                     data[10] = 1;
@@ -1404,7 +1404,7 @@ class socketManager {
             }
             if (
                 player.body.team === e.source.team &&
-                (Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag))
+                (Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag))
             ) {
                 // groups
                 data = data.slice();
@@ -1741,7 +1741,7 @@ class socketManager {
                 if (is === 0) break;
                 let entry = list[top];
                 let color = entry.leaderboardColor ? entry.leaderboardColor + " 0 1 0 false" 
-                    : Config.groups || (Config.mode == 'ffa' && !Config.tag) ? '11 0 1 0 false'
+                    : Config.groups || (Config.mode == "ffa" && !Config.tag) ? "11 0 1 0 false"
                     : entry.color.compiled;
                 topTen.push({
                     id: entry.id,
@@ -1749,7 +1749,7 @@ class socketManager {
                         Math.round(entry.skill.score),
                         entry.index,
                         entry.name,
-                        entry.leaderboardColor ? color : Config.mode == 'ffa' && !Config.tag ? '12 0 1 0 false' : color,
+                        entry.leaderboardColor ? color : Config.mode == "ffa" && !Config.tag ? "12 0 1 0 false" : color,
                         color,
                         entry.nameColor || "#FFFFFF",
                         entry.label,
@@ -1828,7 +1828,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag) ? '10 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "10 0 1 0 false" : my.color.compiled,
                         ],
                     });
                 }
@@ -1843,7 +1843,7 @@ class socketManager {
                         data: [
                             util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
                             util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == 'ffa' || Config.mode == 'clan' && !Config.tag) ? '12 0 1 0 false' : my.color.compiled,
+                            my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "12 0 1 0 false" : my.color.compiled,
                         ],
                     });
                 }
@@ -1965,7 +1965,7 @@ class socketManager {
 
                 leaderboardUpdate = getLeaderboard.update(
                     socket.id,
-                    (Config.groups || (Config.mode == 'ffa' && !Config.tag)) && socket.player.body ? socket.player.body.id : null
+                    (Config.groups || (Config.mode == "ffa" && !Config.tag)) && socket.player.body ? socket.player.body.id : null
                 );
                 let team = socket.status.seesAllTeams ? minimapAllTeamsUpdate : minimapTeamUpdates;
                 
@@ -2169,9 +2169,9 @@ class socketManager {
 
         // Account for proxies
         // Very simplified reimplementation of what the forwarded-for npm package does
-        let store = req.headers['fastly-client-ip'] || req.headers["cf-connecting-ip"] || req.headers['x-forwarded-for'] || req.headers['z-forwarded-for'] ||
-                    req.headers['forwarded'] || req.headers['x-real-ip'] || req.connection.remoteAddress,
-            ips = store.split(',');
+        let store = req.headers["fastly-client-ip"] || req.headers["cf-connecting-ip"] || req.headers["x-forwarded-for"] || req.headers["z-forwarded-for"] ||
+                    req.headers["forwarded"] || req.headers["x-real-ip"] || req.connection.remoteAddress,
+            ips = store.split(",");
 
         if (!ips) {
             return socket.kick("Missing IP: " + store);
@@ -2181,7 +2181,7 @@ class socketManager {
             if (net.isIPv6(ips[i])) {
                 ips[i] = ips[i].trim();
             } else {
-                ips[i] = ips[i].split(':')[0].trim();
+                ips[i] = ips[i].split(":")[0].trim();
             }
             if (!net.isIP(ips[i])) {
                 return socket.kick("Invalid IP(s): " + store);

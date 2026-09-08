@@ -34,7 +34,7 @@ var gameDraw = {
             const g1 = (c1 >> 8) & 0xFF;
             const b1 = c1 & 0xFF;
             const result = ((1 << 24) | (((r1 + (((c2 >> 16) & 0xFF) - r1) * mix) | 0) << 16) | (((g1 + (((c2 >> 8) & 0xFF) - g1) * mix) | 0) << 8) | ((b1 + ((c2 & 0xFF) - b1) * mix) | 0));
-            const hex = '#' + (result & 0xFFFFFF).toString(16).padStart(6, '0');
+            const hex = '#' + (result & 0xFFFFFF).toString(16).padStart(6, "0");
             mixCache.set(key, hex);
             return hex;
         }
@@ -52,9 +52,9 @@ var gameDraw = {
             b = gameDraw.hueToRgb(p, q, h - 1 / 3);
         }
         return '#' +
-            Math.round(r * 255).toString(16).padStart(2, '0') +
-            Math.round(g * 255).toString(16).padStart(2, '0') +
-            Math.round(b * 255).toString(16).padStart(2, '0');
+            Math.round(r * 255).toString(16).padStart(2, "0") +
+            Math.round(g * 255).toString(16).padStart(2, "0") +
+            Math.round(b * 255).toString(16).padStart(2, "0");
     },
     rgbToHsl: (rgb) => {
         let r, g, b, h, s, l;
