@@ -22,7 +22,7 @@ exports.listify = list => {
     if (list.length === 1) return list[0]
     if (list.length === 2) return `${list[0]} and ${list[1]}`
 
-    let output = ''
+    let output = ""
     for (let [i, item] of list.entries()) {
         if (typeof item !== "string") throw Error(`Item #${i + 1} (${item} of list is not a string.`)
         output += i !== list.length - 1 ? `${item}, ` : `and ${item}`

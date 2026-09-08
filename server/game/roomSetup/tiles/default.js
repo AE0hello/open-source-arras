@@ -1,6 +1,6 @@
 let spawnPermanentAntiTankMachineGun = (loc, gameManager) => {
     let o = new Entity(loc);
-    o.define('antiTankMachineGun');
+    o.define("antiTankMachineGun");
     o.define({
         BODY: { FOV: 1.5, },
         FACING_TYPE: "spinWhenIdle",
@@ -9,7 +9,7 @@ let spawnPermanentAntiTankMachineGun = (loc, gameManager) => {
     o.team = TEAM_ROOM;
     o.SIZE = 15;
     o.color.base = getTeamColor(TEAM_RED);
-    o.on('dead', () => spawnPermanentAntiTankMachineGun(loc, gameManager));
+    o.on("dead", () => spawnPermanentAntiTankMachineGun(loc, gameManager));
 };
 
 tileClass.normal = new Tile({

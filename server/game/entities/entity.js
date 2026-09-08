@@ -635,7 +635,7 @@ class Entity extends EventEmitter {
             this.skipLife = true;
             targetableEntities.delete(this.id);
         }
-        if (isInvulnerable) this.on('dead', () => { this.master.turrets.delete(this.id); })
+        if (isInvulnerable) this.on("dead", () => { this.master.turrets.delete(this.id); })
         this.settings.drawShape = false;
         // Get my position.
         if (Array.isArray(position)) position = { SIZE: position[0], X: position[1], Y: position[2], ANGLE: position[3], ARC: position[4], LAYER: position[5] };
@@ -1219,7 +1219,7 @@ class Entity extends EventEmitter {
                 global.gameManager.socketManager.broadcast(usurptText);
             }
             this.setKillers(killers);
-            this.emit('dead', { body: this, killers, killTools });
+            this.emit("dead", { body: this, killers, killTools });
             // Kill it
             return 1;
         }

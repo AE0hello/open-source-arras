@@ -128,7 +128,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
 
     let driveHat = [
         {
-            TYPE: ["squareHat", {COLOR: 'grey'}],
+            TYPE: ["squareHat", {COLOR: "grey"}],
             POSITION: {
                 SIZE: 9,
                 LAYER: 1
@@ -206,7 +206,7 @@ exports.makeBattle = (type, name = -1, options = {}) => {
     }
     let autoSpawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.swarm, ...stats]),
-        TYPE: 'autoswarm',
+        TYPE: "autoswarm",
         STAT_CALCULATOR: "swarm",
         LABEL: "Autonomous"
     }
@@ -366,7 +366,7 @@ exports.makeFore = (type, name = -1, options = {}) => {
 
     let driveHat = [
         {
-            TYPE: ["squareHat", {COLOR: 'grey'}],
+            TYPE: ["squareHat", {COLOR: "grey"}],
             POSITION: {
                 SIZE: 9,
                 LAYER: 1
@@ -1320,15 +1320,15 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
     // Albeit heavily modified because the math in the original didn't work LOL
     type = ensureIsClass(type);
     let relicCasing = {
-        PARENT: 'genericEntity',
-        LABEL: 'Relic Casing',
+        PARENT: "genericEntity",
+        LABEL: "Relic Casing",
         LEVEL_CAP: 45,
         COLOR: type.COLOR,
         MIRROR_MASTER_ANGLE: true,
         SHAPE: [[-0.4,-1],[0.4,-0.25],[0.4,0.25],[-0.4,1]].map(r => r.map(s => s * scale))
     }, relicBody = {
-        PARENT: 'genericEntity',
-        LABEL: 'Relic Mantle',
+        PARENT: "genericEntity",
+        LABEL: "Relic Mantle",
         LEVEL_CAP: 45,
         COLOR: type.COLOR,
         MIRROR_MASTER_ANGLE: true,
@@ -1384,7 +1384,7 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
 
     let out = {
         PARENT,
-        LABEL: type.LABEL + ' Relic',
+        LABEL: type.LABEL + " Relic",
         COLOR: "white", // This is the color of the floor, this makes it look hollow.
         BODY: {
             ACCELERATION: 0.001
@@ -1405,9 +1405,9 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
 exports.makeCrasher = type => ({
     PARENT: type,
     COLOR: "pink",
-    TYPE: 'crasher',
-    LABEL: 'Crasher ' + type.LABEL,
-    CONTROLLERS: ["nearestDifferentMaster", 'mapTargetToGoal'],
+    TYPE: "crasher",
+    LABEL: "Crasher " + type.LABEL,
+    CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"],
     MOTION_TYPE: "motor",
     FACING_TYPE: "smoothWithMotion",
     HITS_OWN_TYPE: "hard",
@@ -1487,7 +1487,7 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
         healthMultiplier = Math.pow(5, level) - (level > 2 ? Math.pow(5, level) / Math.pow(5, level - 2) : 0);
     return {
         PARENT: "food",
-        LABEL: ['', 'Beta ', 'Alpha ', 'Omega ', 'Gamma ', 'Delta '][level] + type.LABEL,
+        LABEL: ["", "Beta ", "Alpha ", "Omega ", "Gamma ", "Delta "][level] + type.LABEL,
         VALUE: util.getReversedJackpot(
             Math.min(
                 5e6,
@@ -1528,7 +1528,7 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
                 !(i & 1) ? 180 / usableSHAPE : 0,
                 1
             ],
-            TYPE: [type, { COLOR: 'mirror' }]
+            TYPE: [type, { COLOR: "mirror" }]
         }))
     };
 };
@@ -1589,7 +1589,7 @@ exports.makePolyhedron = function (info) {
     if (info.VERTEXES) vertexes = info.VERTEXES;
 
     if (!info.FACES) {
-        throw new Error('FACES are not set');
+        throw new Error("FACES are not set");
     } else if (!vertexes) {
         vertexes = [];
         faces = [];
@@ -1621,11 +1621,11 @@ exports.makePolyhedron = function (info) {
     }
 
     return (
-        '3d=' +
-        vertexes.flat().join(',') +
-        '/' +
-        faces.map(i => i.join(',')).join(';') +
-        '/' +
+        "3d=" +
+        vertexes.flat().join(",") +
+        "/" +
+        faces.map(i => i.join(",")).join(";") +
+        "/" +
         (info.SCALE || 1)
     );
 };
@@ -1645,7 +1645,7 @@ exports.makePolychoron = function (info) {
     if (info.VERTEXES) vertexes = info.VERTEXES;
 
     if (!info.FACES) {
-        throw new Error('FACES are not set');
+        throw new Error("FACES are not set");
     } else if (!vertexes) {
         vertexes = [];
         faces = [];
@@ -1678,11 +1678,11 @@ exports.makePolychoron = function (info) {
     }
 
     return (
-        '4d=' +
-        vertexes.flat().join(',') +
-        '/' +
-        faces.map(i => i.join(',')).join(';') +
-        '/' +
+        "4d=" +
+        vertexes.flat().join(",") +
+        "/" +
+        faces.map(i => i.join(",")).join(";") +
+        "/" +
         (info.SCALE || 1)
     );
 };
@@ -1690,7 +1690,7 @@ exports.makePolychoron = function (info) {
 // tgs
 exports.addUpgrades = (type, tier, upgrades = [], options = {}) => {
     name = ensureIsClass(type);
-    upgradeList = upgrades.map(x => x + (options.suffix ??= ''));
+    upgradeList = upgrades.map(x => x + (options.suffix ??= ""));
     startValue = options.start ?? -1;
 
     if (name[`UPGRADES_TIER_${tier}`] == undefined) {

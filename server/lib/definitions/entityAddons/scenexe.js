@@ -257,12 +257,12 @@ makeHearth = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) => {
         TURRETS: isHeal ? [
             {
                 POSITION: [6.4 * sizeFactor, 0, 0, 0, 360, 1],
-                TYPE: ['octagonDeco', { INDEPENDENT: true }],
+                TYPE: ["octagonDeco", { INDEPENDENT: true }],
             },
         ] : [
             {
                 POSITION: [6.4 * sizeFactor, 0, 0, 0, 360, 1],
-                TYPE: ['hearthDeco', { INDEPENDENT: true }],
+                TYPE: ["hearthDeco", { INDEPENDENT: true }],
             }
         ]
     };

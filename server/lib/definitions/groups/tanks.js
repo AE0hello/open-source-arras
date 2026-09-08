@@ -10007,7 +10007,7 @@ Class.arrasPolice = {
     ],
     PROPS: [
         {
-            TYPE: ['hexagonHat', {COLOR: 21}],
+            TYPE: ["hexagonHat", { COLOR: 21 }],
             POSITION: {
                 SIZE: 6,
                 Y: 7.45,
@@ -10015,7 +10015,7 @@ Class.arrasPolice = {
             }
         },
         {
-            TYPE: ['hexagonHat', {COLOR: 24}],
+            TYPE: ["hexagonHat", { COLOR: 24 }],
             POSITION: {
                 SIZE: 6,
                 Y: -7.45,
@@ -10023,7 +10023,7 @@ Class.arrasPolice = {
             }
         },
         {
-            TYPE: ["squareHat", {COLOR: 22}],
+            TYPE: ["squareHat", { COLOR: 22 }],
             POSITION: {
                 SIZE: 6.35,
                 Y: 2.85,
@@ -10031,7 +10031,7 @@ Class.arrasPolice = {
             }
         },
         {
-            TYPE: ["squareHat", {COLOR: 23}],
+            TYPE: ["squareHat", { COLOR: 23 }],
             POSITION: {
                 SIZE: 6.35,
                 Y: -2.85,

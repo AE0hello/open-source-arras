@@ -269,8 +269,8 @@ Class.machineTripleTurret = {
         },
     }, 3)
 }
-Class.launcherTurret = makeTurret('launcher', {canRepel: true, limitFov: true, extraStats: []})
-Class.skimmerTurret = makeTurret('skimmer', {canRepel: true, limitFov: true, extraStats: [], color: 'mirror'})
+Class.launcherTurret = makeTurret("launcher", {canRepel: true, limitFov: true, extraStats: []})
+Class.skimmerTurret = makeTurret("skimmer", {canRepel: true, limitFov: true, extraStats: [], color: "mirror"})
 Class.hyperSkimmerTurret = makeTurret({
     GUNS: [
         {
@@ -293,7 +293,7 @@ Class.hyperSkimmerTurret = makeTurret({
             },
         },
     ],
-}, {canRepel: true, limitFov: true, extraStats: [], color: 'mirror'})
+}, {canRepel: true, limitFov: true, extraStats: [], color: "mirror"})
 Class.kronosSkimmerTurret = makeTurret({
     GUNS: [
         {
@@ -322,7 +322,7 @@ Class.autoSmasherLauncherTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, fov: 10, independent: true, extraStats: []})
-Class.twisterTurret = makeTurret('twister', {canRepel: true, limitFov: true, color: 'mirror', extraStats: [{speed: 1.3, maxSpeed: 1.3}]})
+Class.twisterTurret = makeTurret("twister", {canRepel: true, limitFov: true, color: "mirror", extraStats: [{speed: 1.3, maxSpeed: 1.3}]})
 Class.hyperTwisterTurret = makeTurret({
     GUNS: [
         {
@@ -346,7 +346,7 @@ Class.hyperTwisterTurret = makeTurret({
             }
         }
     ]
-}, {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
+}, {canRepel: true, limitFov: true, color: "mirror", extraStats: []})
 Class.rocketeerTurret = makeTurret({
     PARENT: "genericTank",
     LABEL: "Rocketeer",
@@ -376,7 +376,7 @@ Class.rocketeerTurret = makeTurret({
         }
     ]
 }, {canRepel: true, limitFov: true})
-Class.boomerTurret = makeTurret('boomer', {canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
+Class.boomerTurret = makeTurret("boomer", {canRepel: true, limitFov: true, color: "mirror", extraStats: []})
 Class.ultraBoomerTurret = makeTurret({
     GUNS: [
         {
@@ -394,7 +394,7 @@ Class.ultraBoomerTurret = makeTurret({
             },
         },
     ],
-},{canRepel: true, limitFov: true, color: 'mirror', extraStats: []})
+},{canRepel: true, limitFov: true, color: "mirror", extraStats: []})
 Class.triTrapGuardTurret = {
     PARENT: "genericTank",
     COLOR: -1,
@@ -453,7 +453,7 @@ Class.eliteSpinnerCyclone = {
         }
     ], 3)
 }
-Class.barricadeTurret = makeTurret('barricade', {aiSettings: {SKYNET: true, FULL_VIEW: true, independent: true, extraStats: []}})
+Class.barricadeTurret = makeTurret("barricade", {aiSettings: {SKYNET: true, FULL_VIEW: true, independent: true, extraStats: []}})
 Class.ultraBarricadeTurret = makeTurret({
     GUNS: [
         {
@@ -493,8 +493,8 @@ Class.ultraBarricadeTurret = makeTurret({
         },
     ],
 }, {aiSettings: {SKYNET: true, FULL_VIEW: true, independent: true, extraStats: []}})
-Class.artilleryTurret = makeTurret('artillery', {canRepel: true, limitFov: true, extraStats: []})
-Class.nailgunTurret = makeTurret('nailgun', {canRepel: true, limitFov: true, extraStats: []})
+Class.artilleryTurret = makeTurret("artillery", {canRepel: true, limitFov: true, extraStats: []})
+Class.nailgunTurret = makeTurret("nailgun", {canRepel: true, limitFov: true, extraStats: []})
 Class.crowbarTurret = makeTurret({
     GUNS: [
         {
@@ -571,7 +571,7 @@ Class.swarmTurret = makeTurret({
             POSITION: [7, 7.5, 0.6, 7, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: 'autoswarm',
+                TYPE: "autoswarm",
                 STAT_CALCULATOR: "swarm",
             },
         },
@@ -597,7 +597,7 @@ Class.crasherSpawner = makeTurret({
             },
         },
     ],
-}, {independent: true, aiSettings: {chase: true}, label: 'Spawned', color: "pink"})
+}, {independent: true, aiSettings: {chase: true}, label: "Spawned", color: "pink"})
 Class.genghisLowerTurret = makeTurret({
     MAX_CHILDREN: 4,
     GUNS: [
@@ -614,8 +614,8 @@ Class.genghisLowerTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, extraStats: []})
-Class.cruiserTurret = makeTurret('cruiser', {canRepel: true, limitFov: true})
-Class.carrierTurret = makeTurret('carrier', {canRepel: true, limitFov: true})
+Class.cruiserTurret = makeTurret("cruiser", {canRepel: true, limitFov: true})
+Class.carrierTurret = makeTurret("carrier", {canRepel: true, limitFov: true})
 Class.napoleonLowerTurret = makeTurret({
     GUNS: [
         {
@@ -679,7 +679,7 @@ Class.juliusLowerTurret = makeTurret({
         },
     ],
 }, {canRepel: true, limitFov: true, extraStats: []})
-Class.swarmerTurret = makeTurret('swarmer', {canRepel: true, limitFov: true, extraStats: []})
+Class.swarmerTurret = makeTurret("swarmer", {canRepel: true, limitFov: true, extraStats: []})
 Class.basicTurret = makeTurret({
     GUNS: [
         {
@@ -781,7 +781,7 @@ Class.ultraAutoTurret = makeTurret({
         },
     ],
 }, {label: "Turret", fov: 0.8, extraStats: []})
-Class.driveAutoTurret = { PARENT: 'autoTurret', SHAPE: 4 };
+Class.driveAutoTurret = { PARENT: "autoTurret", SHAPE: 4 };
 Class.driveMegaAutoTurret = { PARENT: "megaAutoTurret", SHAPE: 4 };
 Class.droneAutoTurret = makeTurret({
     GUNS: [
@@ -877,7 +877,7 @@ Class.sanctuaryHealer = {
     FACING_TYPE: ["spin", { speed: -0.05 }],
     TURRETS: [{ 
         POSITION: { SIZE: 13, LAYER: 1 },
-        TYPE: ['healerHat', { FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }] }]
+        TYPE: ["healerHat", { FACING_TYPE: ["noFacing", { angle: Math.PI / 2 }] }]
     }],
 }
 Class.medkitTurret = {
@@ -907,7 +907,7 @@ Class.rcs = {
     PARENT: "genericTank",
     LABEL: "RCS Thruster",
     INDEPENDENT: true,
-    CONTROLLERS: ['rcs'],
+    CONTROLLERS: ["rcs"],
     GUNS: [
         {
             POSITION: [18, 10, 1.3, 0, 0, 0, 0],
@@ -1165,7 +1165,7 @@ Class.flailBallSpike = {
 Class.flailBall = {
     PARENT: "genericTank",
     COLOR: "grey",
-    HITS_OWN_TYPE: 'hard',
+    HITS_OWN_TYPE: "hard",
     INDEPENDENT: true,
     TURRETS: [{
         POSITION: [21.5, 0, 0, 0, 360, 0],
@@ -1248,7 +1248,7 @@ Class.maceBallSpike = {
 Class.maceBall = {
     PARENT: "genericTank",
     COLOR: "grey",
-    HITS_OWN_TYPE: 'hard',
+    HITS_OWN_TYPE: "hard",
     INDEPENDENT: true,
     TURRETS: [{
         POSITION: [21.5, 0, 0, 0, 360, 0],
@@ -1366,7 +1366,7 @@ Class.mamaBolt3 = {
 Class.ihdtiBall = {
     PARENT: "genericTank",
     COLOR: "grey",
-    HITS_OWN_TYPE: 'hard',
+    HITS_OWN_TYPE: "hard",
     INDEPENDENT: true,
     TURRETS: [{
         POSITION: [21.5, 0, 0, 0, 360, 0],
@@ -1523,7 +1523,7 @@ Class.heavyTurret = makeTurret({
                 POSITION: [5.5, 9, -1.8, 6.5, 0, 0, 0]
             }
         ]
-}, {canRepel: true, limitFov: true, color: 'grey', extraStats: [{health: 1.1, damage: 1.1}]})
+}, {canRepel: true, limitFov: true, color: "grey", extraStats: [{health: 1.1, damage: 1.1}]})
 Class.engineerTurret = makeTurret({
     GUNS: [
             {

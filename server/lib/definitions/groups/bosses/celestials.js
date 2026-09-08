@@ -1,15 +1,15 @@
-const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
-const g = require('../../gunvals.js')
-const preset = require('../../presets.js')
+const { combineStats, LayeredBoss, setTurretProjectileRecoil } = require("../../facilitators.js")
+const { base } = require("../../constants.js")
+const g = require("../../gunvals.js")
+const preset = require("../../presets.js")
 
 // Since this is the first file loaded from groups, we'll also load the important stuff we need for every other file before this so nothing breaks
-require('../generics.js')
-require('../food.js')
-require('../projectiles.js')
-require('../tanks.js')
-require('../turrets.js')
-require('../hats.js')
+require("../generics.js")
+require("../food.js")
+require("../projectiles.js")
+require("../tanks.js")
+require("../turrets.js")
+require("../hats.js")
 
 Class.celestial = {
     PARENT: "miniboss",
@@ -34,43 +34,6 @@ Class.rogueCelestial = {
     LABEL: "Rogue Celestial",
     COLOR: "darkGrey",
 }
-
-Class.menu_celestials = makeMenu("Celestials", {upgrades: [
-    'paladin',
-    'freyja',
-    'zaphkiel',
-    'nyx',
-    'theia',
-    'atlas',
-    'rhea',
-    'hyperion',
-    'aether',
-    'styx',
-    'eros',
-    'tethys',
-    'iapetus',
-    'apollo',
-    'hera',
-    'sif',
-    'freyr',
-    'tyr',
-    'hjordis',
-    'vor',
-    'alcis',
-    'baldr',
-    'dellingr',
-    'ullr',
-    'isis',
-    'nephthys',
-    'osiris',
-    'horus',
-    'anubis',
-    'khonsu',
-    'ptah',
-    'julius',
-    'genghis',
-    'napoleon',
-], color: 'lime', boxColor: 'lime', shape: 9.5, tooltip: preset.tooltip.menu_lag})
 
 let paladin = new LayeredBoss(null, "Paladin", "celestial", 9, "purple", "baseTrapTurret", 6.5, 5.5);
 paladin.addLayer({gun: {

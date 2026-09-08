@@ -1,6 +1,6 @@
-const {combineStats, makeMenu, weaponArray} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
-const g = require('../../gunvals.js')
+const { combineStats, weaponArray } = require("../../facilitators.js")
+const { base } = require("../../constants.js")
+const g = require("../../gunvals.js")
 
 Class.elite = {
     PARENT: "miniboss",
@@ -21,7 +21,7 @@ Class.elite = {
 
 // Elite Crashers
 Class.eliteDestroyer = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Destroyer",
     UPGRADE_COLOR: "pink",
     GUNS: weaponArray({
@@ -44,7 +44,7 @@ Class.eliteDestroyer = {
     ],
 }
 Class.eliteGunner = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Gunner",
     UPGRADE_COLOR: "pink",
     FACING_TYPE: "toTarget",
@@ -77,7 +77,7 @@ Class.eliteGunner = {
     ],
 }
 Class.eliteSprayer = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Sprayer",
     UPGRADE_COLOR: "pink",
     SKILL: [3, 5, 5, 5, 3, 1, 0, 9, 1, 0],
@@ -100,7 +100,7 @@ Class.eliteSprayer = {
     ],
 }
 Class.eliteSprayer_old = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Old Elite Sprayer",
     UPGRADE_COLOR: "pink",
     AI: { NO_LEAD: false },
@@ -110,7 +110,7 @@ Class.eliteSprayer_old = {
     }, 3)
 }
 Class.eliteBattleship = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Battleship",
     UPGRADE_COLOR: "pink",
     GUNS: weaponArray([
@@ -143,7 +143,7 @@ Class.eliteBattleship = {
     }, 3)
 }
 Class.eliteSpawner = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Spawner",
     UPGRADE_COLOR: "pink",
     MAX_CHILDREN: 9,
@@ -197,7 +197,7 @@ Class.eliteSpawner = {
     ],
 }
 Class.eliteTrapGuard = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Trap Guard",
     UPGRADE_COLOR: "pink",
     AI: { STRAFE: false },
@@ -230,7 +230,7 @@ Class.eliteTrapGuard = {
     ],
 }
 Class.eliteSpinner = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Elite Spinner",
     UPGRADE_COLOR: "pink",
     AI: { STRAFE: false },
@@ -268,7 +268,7 @@ Class.eliteSpinner = {
 
 // Deltas (moving to Arms Race addon later)
 Class.delta = {
-    PARENT: 'elite',
+    PARENT: "elite",
     LABEL: "Delta Crasher",
     COLOR: "pink",
     UPGRADE_COLOR: "pink",
@@ -420,7 +420,7 @@ Class.deltaBattleship = {
 
 // Legions
 Class.destroyerLegion = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Destroyer Legion",
     DISPLAY_NAME: false,
     UPGRADE_COLOR: "pink",
@@ -449,7 +449,7 @@ Class.destroyerLegion = {
     ],
 }
 Class.gunnerLegion = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Gunner Legion",
     DISPLAY_NAME: false,
     UPGRADE_COLOR: "pink",
@@ -486,7 +486,7 @@ Class.gunnerLegion = {
     ],
 }
 Class.sprayerLegion = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Sprayer Legion",
     DISPLAY_NAME: false,
     UPGRADE_COLOR: "pink",
@@ -503,7 +503,7 @@ Class.sprayerLegion = {
     }, 3)
 }
 Class.battleshipLegion = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Battleship Legion",
     DISPLAY_NAME: false,
     UPGRADE_COLOR: "pink",
@@ -542,7 +542,7 @@ Class.battleshipLegion = {
     }, 3)
 }
 Class.spawnerLegion = {
-    PARENT: 'elite',
+    PARENT: "elite",
     UPGRADE_LABEL: "Spawner Legion",
     DISPLAY_NAME: false,
     UPGRADE_COLOR: "pink",
@@ -597,7 +597,7 @@ Class.spawnerLegion = {
 
 // Legionary Crasher
 Class.legionaryCrasherTop = {
-    PARENT: 'elite',
+    PARENT: "elite",
     AI: { STRAFE: false, NO_LEAD: false },
     CONTROLLERS: [ ["spin", { independent: true, speed: -0.005 }] ],
     INDEPENDENT: true,
@@ -634,7 +634,7 @@ Class.legionaryCrasherSpawner = {
     GUNS: [{
         POSITION: [0, 10, 0, 0, 0, 0, 10],
         PROPERTIES: {
-            TYPE: 'destroyerLegion',
+            TYPE: "destroyerLegion",
             SHOOT_SETTINGS: combineStats([{reload: 0.1}]),
             NO_LIMITATIONS: true,
             INDEPENDENT_CHILDREN: true,
@@ -651,7 +651,7 @@ Class.legionaryCrasherSpawner = {
     }],
 }
 Class.legionaryCrasher = {
-    PARENT: 'elite',
+    PARENT: "elite",
     LABEL: "Legionary Crasher",
     UPGRADE_COLOR: "pink",
     AI: { STRAFE: false, NO_LEAD: false },
@@ -693,7 +693,7 @@ Class.legionaryCrasher = {
         }, 3),
         {
             POSITION: [12, 0, 0, 0, 0, 0],
-            TYPE: 'legionaryCrasherSpawner'
+            TYPE: "legionaryCrasherSpawner"
         }
     ],
 }
@@ -704,7 +704,7 @@ Class.legionaryCrasherSpawnerFix = {
     GUNS: [{
         POSITION: [0, 10, 0, 0, 0, 0, 10],
         PROPERTIES: {
-            TYPE: 'destroyerLegion',
+            TYPE: "destroyerLegion",
             SHOOT_SETTINGS: combineStats([{reload: 0.1, size: 0.75}]),
             NO_LIMITATIONS: true,
             INDEPENDENT_CHILDREN: false,
@@ -721,7 +721,7 @@ Class.legionaryCrasherSpawnerFix = {
     }],
 }
 Class.legionaryCrasherFix = {
-    PARENT: 'elite',
+    PARENT: "elite",
     LABEL: "Legionary Crasher",
     UPGRADE_COLOR: "pink",
     AI: { STRAFE: false, NO_LEAD: false },
@@ -763,14 +763,14 @@ Class.legionaryCrasherFix = {
         }, 3),
         {
             POSITION: [12, 0, 0, 0, 0, 0],
-            TYPE: 'legionaryCrasherSpawnerFix'
+            TYPE: "legionaryCrasherSpawnerFix"
         }
     ],
 }
 
 // Miscellaneous Elites
 Class.eliteSkimmer = {
-    PARENT: 'elite',
+    PARENT: "elite",
     LABEL: "Elite Skimmer",
     COLOR: "triangle",
     UPGRADE_COLOR: "triangle",

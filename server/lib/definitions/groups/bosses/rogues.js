@@ -1,6 +1,6 @@
-const {combineStats, makeMenu, weaponArray} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
-const g = require('../../gunvals.js')
+const {combineStats, makeMenu, weaponArray} = require("../../facilitators.js")
+const {base} = require("../../constants.js")
+const g = require("../../gunvals.js")
 
 Class.menu_rogues = makeMenu("Rogues", {upgrades: [
     "roguePalisade",
@@ -11,7 +11,7 @@ Class.menu_rogues = makeMenu("Rogues", {upgrades: [
 ], color: "darkGrey", boxColor: "darkGrey", shape: 6})
 
 Class.roguePalisade = {
-    PARENT: 'miniboss',
+    PARENT: "miniboss",
     LABEL: "Rogue Palisade",
     COLOR: "darkGrey",
     UPGRADE_COLOR: "darkGrey",
@@ -41,11 +41,11 @@ Class.roguePalisade = {
     }, 6),
     TURRETS: weaponArray({
         POSITION: [5, 10, 0, 30, 110, 0],
-        TYPE: ['baseTrapTurret', {GUN_STAT_SCALE: {health: 0.7, damage: 0.8}}]
+        TYPE: ["baseTrapTurret", {GUN_STAT_SCALE: {health: 0.7, damage: 0.8}}]
     }, 6)
 }
 Class.rogueArmada = {
-    PARENT: 'miniboss',
+    PARENT: "miniboss",
     LABEL: "Rogue Armada",
     COLOR: "darkGrey",
     UPGRADE_COLOR: "darkGrey",
@@ -66,13 +66,13 @@ Class.rogueArmada = {
             POSITION: [8, 2, 1, 0, -2, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         }, {
             POSITION: [8, 2, 1, 0, -1.5, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         }, {
             POSITION: [8, 2, 1, 0, -1, 360 / 14, 0],
@@ -108,13 +108,13 @@ Class.rogueArmada = {
             POSITION: [8, 4, 1, 0, 1.5, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2, damage: 1.5, health: 1.5, resist: 1.25}]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         }, {
             POSITION: [8.5, 6, 1, 4, 0, 360 / 14, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.pounder, {reload: 2}, g.fake]),
-                TYPE: 'casing'
+                TYPE: "casing"
             }
         }, {
             POSITION: [7, 6, -1.6, 4, 0, 360 / 14, 0]
@@ -122,6 +122,6 @@ Class.rogueArmada = {
     ], 7),
     TURRETS: weaponArray({
         POSITION: [5, 10, 0, 0, 110, 0],
-        TYPE: 'shottrapTurret'
+        TYPE: "shottrapTurret"
     }, 7),
 }

@@ -82,9 +82,9 @@ let encode = message => {
         } else if (typeof block === "string") {
             let hasUnicode = false
             for (let i = 0; i < block.length; i++) {
-                if (block.charAt(i) > '\xff') {
+                if (block.charAt(i) > "\xff") {
                     hasUnicode = true
-                } else if (block.charAt(i) === '\x00') {
+                } else if (block.charAt(i) === "\x00") {
                     console.error(`Null containing string ${block}`)
                     throw new Error("Null containing string")
                 }
@@ -103,8 +103,8 @@ let encode = message => {
             console.error(`Unencodable data type: ${block}`);
             let packetType = message[0];
             console.error(`Packet type: ${packetType}`);
-            console.error(`Unencoded packet: \n${message.join(' ')}`);
-            if (packetType == 'u') {
+            console.error(`Unencoded packet: \n${message.join(" ")}`);
+            if (packetType == "u") {
                 console.error("\nThis is an uplink (u) packet. Typically, the error comes from an invalid value in the socket's view data, meaning it's related to entities.");
                 console.error("For that, check socket.js flatten() for invalid values. These are because the corresponding values in entity.js Entity.prototype.camera() are also invalid.");
                 console.error("It's advised to count forwards or backwards from the easily discernable values of 65535 for health/shield fraction and #FFFFFF (or another color hexcode) for names.\n");
@@ -323,12 +323,12 @@ let decode = packet => {
         case 0b1001:
             {
                 let byte = data[index++]
-                output.push(byte === 0 ? '' : String.fromCharCode(byte))
+                output.push(byte === 0 ? "" : String.fromCharCode(byte))
             }
             break
         case 0b1010:
             {
-                let string = ''
+                let string = ""
                 let byte = 0
                 while (byte = data[index++]) {
                     string += String.fromCharCode(byte)
@@ -338,7 +338,7 @@ let decode = packet => {
             break
         case 0b1011:
             {
-                let string = ''
+                let string = ""
                 let byte = 0
                 while (byte = data[index++] | (data[index++] << 8)) {
                     string += String.fromCharCode(byte)

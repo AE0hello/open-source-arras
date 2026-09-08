@@ -1,22 +1,6 @@
-const {combineStats, skillSet, makeAuto, makeMenu, weaponMirror} = require('../../facilitators.js')
-const {base/*, statnames, dfltskl, smshskl*/} = require('../../constants.js')
-const g = require('../../gunvals.js')
-
-// Dev Menus
-Class.menu_sentries = makeMenu("Sentries", {upgrades: [
-	"sentrySwarm",
-	"sentryGun",
-	"sentryTrap",
-	"sentinelSwarm",
-	"sentinelGun",
-	"sentinelTrap",
-	"shinySentrySwarm",
-	"shinySentryGun",
-	"shinySentryTrap",
-	"sentinelMinigun",
-	"sentinelLauncher",
-	"sentinelCrossbow",
-], color: "pink", boxColor: "pink", shape: 3.5, props: [{POSITION: [12, 0, 0, 0, 360, 1], TYPE: ["circleHat", {COLOR: "grey"}]}]})
+const { combineStats, skillSet, makeAuto, weaponMirror } = require("../../facilitators.js")
+const { base } = require("../../constants.js")
+const g = require("../../gunvals.js")
 
 // Sentries
 Class.sentry = {
@@ -87,7 +71,7 @@ Class.sentryTrap = makeAuto("sentry", "Sentry", {
 Class.sentryTrap.UPGRADE_LABEL = "Trap Sentry"
 Class.sentrySwarmMinion = {
     PARENT: "drone",
-    LABEL: 'sentry',
+    LABEL: "sentry",
     COLOR: "pink",
     UPGRADE_COLOR: "pink",
     DRAW_HEALTH: true,
@@ -96,26 +80,26 @@ Class.sentrySwarmMinion = {
 }
 Class.sentryGunMinion = {
     PARENT: "drone",
-    LABEL: 'sentry',
+    LABEL: "sentry",
     COLOR: "pink",
     UPGRADE_COLOR: "pink",
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
         POSITION: [12, 0, 0, 0, 360, 1],
-        TYPE: ['megaAutoTankGun', {GUN_STAT_SCALE: {health: 0.8}}]
+        TYPE: ["megaAutoTankGun", {GUN_STAT_SCALE: {health: 0.8}}]
     }]
 }
 Class.sentryTrapMinion = {
     PARENT: "drone",
-    LABEL: 'sentry',
+    LABEL: "sentry",
     COLOR: "pink",
     UPGRADE_COLOR: "pink",
     DRAW_HEALTH: true,
     HAS_NO_RECOIL: true,
     TURRETS: [{
         POSITION: [12, 0, 0, 0, 360, 1],
-        TYPE: 'trapTurret'
+        TYPE: "trapTurret"
     }]
 }
 

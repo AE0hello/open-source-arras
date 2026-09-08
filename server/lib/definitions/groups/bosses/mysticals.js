@@ -1,6 +1,6 @@
-const {combineStats, makeMenu, weaponArray, weaponMirror} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
-const g = require('../../gunvals.js')
+const { combineStats, weaponArray, weaponMirror } = require("../../facilitators.js")
+const { base } = require("../../constants.js")
+const g = require("../../gunvals.js")
 
 const mystical_gun_position = {
     LENGTH: 3.5,
@@ -275,7 +275,7 @@ Class.witch = {
 }
 
 if (Config.classic_food) {
-    Class.menu_mysticalBosses.UPGRADES_TIER_0.splice(5, 0, 'sangoma', 'preacher', 'herbalist')
+    Class.menu_mysticalBosses.UPGRADES_TIER_0.splice(5, 0, "sangoma", "preacher", "herbalist")
     Class.shaman.COLOR = "magenta"
     Class.shaman.UPGRADE_COLOR = "magenta"
 }

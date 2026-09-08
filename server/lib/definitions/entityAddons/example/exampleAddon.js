@@ -7,7 +7,7 @@ const {base} = require("../../constants.js");
 const {makeMenu} = require("../../facilitators.js");
 
 // This addon is disabled by default.
-// You can also disable addons by not making them end with '.js'
+// You can also disable addons by not making them end with ".js"
 // If you want to enable it, simply make the line below just not run.
 return;
 

@@ -956,7 +956,7 @@ let incoming = async function(message, socket) {
             if (!m[1]) return;
             global.mockups[m[0]] = JSON.parse(m[1]);
         } break;
-        case 'u': { // uplink
+        case "u": { // uplink
             // Pull the camera info
             if (m[0] == true) { // Update camera only if we want to.
                 let camx = m[1],

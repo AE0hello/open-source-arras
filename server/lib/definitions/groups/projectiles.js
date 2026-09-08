@@ -99,7 +99,7 @@ Class.satelliteBullet = {
 }
 Class.speedBullet = {
     PARENT: "bullet",
-    MOTION_TYPE: ['glide', {damp: -0.0125}]
+    MOTION_TYPE: ["glide", {damp: -0.0125}]
 }
 Class.spiralBulletSegment = {
     PARENT: "bullet",
@@ -112,7 +112,7 @@ Class.spiralBullet = {
             event: "tick",
             handler: ({body}) => {
                 const numOfSegments = 4;
-                const segmentClass = 'spiralBulletSegment';
+                const segmentClass = "spiralBulletSegment";
 
                 body.store.snakeSegments ??= [];
 
@@ -155,7 +155,7 @@ Class.pythonBullet = {
             event: "tick",
             handler: ({body}) => {
                 const numOfSegments = 8;
-                const segmentClass = 'spiralBulletSegment';
+                const segmentClass = "spiralBulletSegment";
 
                 body.store.snakeSegments ??= [];
 
@@ -215,7 +215,7 @@ Class.undertowBullet = {
                     instance.velocity.y += util.clamp(body.y - instance.y, -90, 90) * instance.damp * forceMulti;//0.05
                         if (instance.type != "undertowEffect" && instance.type != "bullet" && instance.type != "swarm" && instance.type != "drone" && instance.type != "trap" && instance.type != "dominator") {
                                 let o = new Entity({x: instance.x, y: instance.y})
-                                o.define('undertowEffect')
+                                o.define("undertowEffect")
                                 o.team = body.team;
                                 o.color = instance.color;
                                 o.alpha = 0.3;
@@ -255,8 +255,8 @@ Class.undertowEffect = {
 }
 Class.assemblerEffect = {
     PARENT: "bullet",
-    MOTION_TYPE: 'assembler',
-    LABEL: '',
+    MOTION_TYPE: "assembler",
+    LABEL: "",
     BODY: {
         DAMAGE: 0,
         RANGE: 10
@@ -678,7 +678,7 @@ Class.genericMinion = {
     ]
 }
 Class.minion = {
-    PARENT: 'genericMinion',
+    PARENT: "genericMinion",
     GUNS: [
         {
             POSITION: {
@@ -783,7 +783,7 @@ Class.wranglerMinion = {
             event: "tick",
             handler: ({body}) => {
                 const numOfSegments = 2;
-                const segmentClass = 'genericEntity';
+                const segmentClass = "genericEntity";
 
                 body.store.snakeSegments ??= [];
 
@@ -910,23 +910,23 @@ Class.boomerang = {
     },
 }
 Class.shotTrapBox = {
-    PARENT: 'unsetTrap',
+    PARENT: "unsetTrap",
     MOTION_TYPE: "glide",
 }
 Class.oroborosTrapSegment = {
-    PARENT: 'unsetTrap',
-    COLOR: 'mirror',
+    PARENT: "unsetTrap",
+    COLOR: "mirror",
     DIE_AT_RANGE: false,
     CLEAR_ON_MASTER_UPGRADE: true
 }
 Class.oroborosTrap = {
-    PARENT: 'unsetTrap',
+    PARENT: "unsetTrap",
     ON: [
         {
             event: "tick",
             handler: ({ body }) => {
                 const numOfSegments = 5;
-                const segmentClass = 'oroborosTrapSegment';
+                const segmentClass = "oroborosTrapSegment";
 
                 body.store.snakeSegments ??= [];
 
@@ -1085,11 +1085,11 @@ Class.homingBullet = {
     PARENT: "bullet",
     LABEL: "Homing Bullet",
     MOTION_TYPE: "swarm",
-    FACING_TYPE: 'smoothWithMotion',
-    CONTROLLERS: ["nearestDifferentMaster", 'mapTargetToGoal']
+    FACING_TYPE: "smoothWithMotion",
+    CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"]
 }
 Class.autoHomingBullet = {
-    PARENT: 'homingBullet',
+    PARENT: "homingBullet",
     AI: {
         FARMER: true
     },
@@ -1178,8 +1178,8 @@ Class.superSplitterBullet = {
 }
 
 // -Drive projectiles
-Class.autoDrone = makeAuto("drone", "Auto-Drone", {type: 'droneAutoTurret'});
-Class.autoSwarm = makeAuto("swarm", "Auto-Swarm Drone", {type: 'droneAutoTurret'});
-Class.autoSunchip = makeAuto("sunchip", "Auto-Drone", {type: 'droneAutoTurret'});
-Class.autoMinion = makeAuto("minion", "Auto-Minion", {type: 'droneAutoTurret'});
-Class.autoTrap = makeAuto("trap", "Auto-Trap", {type: 'droneAutoTurret'}); //sorta counts
+Class.autoDrone = makeAuto("drone", "Auto-Drone", {type: "droneAutoTurret"});
+Class.autoSwarm = makeAuto("swarm", "Auto-Swarm Drone", {type: "droneAutoTurret"});
+Class.autoSunchip = makeAuto("sunchip", "Auto-Drone", {type: "droneAutoTurret"});
+Class.autoMinion = makeAuto("minion", "Auto-Minion", {type: "droneAutoTurret"});
+Class.autoTrap = makeAuto("trap", "Auto-Trap", {type: "droneAutoTurret"}); //sorta counts

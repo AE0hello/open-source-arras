@@ -1,9 +1,9 @@
 let spawnPermanentBaseProtector = (loc, team) => {
     let o = new Entity(loc);
-    o.define('baseProtector');
+    o.define("baseProtector");
     o.team = team;
     o.color.base = getTeamColor(team);
-    o.on('dead', () => spawnPermanentBaseProtector(loc, team));
+    o.on("dead", () => spawnPermanentBaseProtector(loc, team));
 },
 teamCheck = (tile, team) => {
     for (let i = 0; i < tile.entities.length; i++) {

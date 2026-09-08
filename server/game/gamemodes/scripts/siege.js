@@ -165,15 +165,15 @@ class Siege {
         o.team = team;
         this.defineSanctuary(o, type, o.team === TEAM_ENEMIES ? "DESTROYED" : false);
         if (addToSanctuaryList) this.sanctuaries.push(o);
-        o.on('dead', () => {
+        o.on("dead", () => {
             if (o.team === TEAM_ENEMIES) {
                 // Allow the player to spawn so we add it to the spawnable locations.
                 this.room.spawnable[TEAM_BLUE].push(tile);
                 this.spawnSanctuary(tile, TEAM_BLUE, `sanctuaryTier${this.sanctuaryTier}`);
                 tile.color = "blue";
-                if (this.leftSanctuaries == 0) global.gameManager.socketManager.broadcast('You can now respawn.');
+                if (this.leftSanctuaries == 0) global.gameManager.socketManager.broadcast("You can now respawn.");
                 this.leftSanctuaries++;
-                global.gameManager.socketManager.broadcast('A sanctuary has been restored!');
+                global.gameManager.socketManager.broadcast("A sanctuary has been restored!");
             } else {
                 // Don't allow players to spawn at the destroyed sanctuary so we remove it from spawnable location.
                 if (this.gameActive) util.remove(this.room.spawnable[TEAM_BLUE], this.room.spawnable[TEAM_BLUE].indexOf(tile));
@@ -182,11 +182,11 @@ class Siege {
                 this.spawnSanctuary(tile, newTeam, "dominator", false);
                 tile.color = "yellow";
                 this.leftSanctuaries--;
-                global.gameManager.socketManager.broadcast('A sanctuary has been destroyed!');
+                global.gameManager.socketManager.broadcast("A sanctuary has been destroyed!");
                 if (this.leftSanctuaries == 0) {
                     global.cannotRespawn = true;
                     let timeRemaining = 61; // 1 minute
-                    global.gameManager.socketManager.broadcast('All of the sanctuaries are destroyed. You cannot respawn.');
+                    global.gameManager.socketManager.broadcast("All of the sanctuaries are destroyed. You cannot respawn.");
                     let loop = setInterval(() => {
                         if (this.leftSanctuaries !== 0) global.cannotRespawn = false, clearInterval(loop);
                         timeRemaining--;
@@ -226,12 +226,12 @@ class Siege {
     playerWin() {
         if (this.gameActive) {
             this.gameActive = false;
-            global.gameManager.socketManager.broadcast('Your team has won the game!');
+            global.gameManager.socketManager.broadcast("Your team has won the game!");
             setTimeout(() => {global.gameManager.closeArena()}, 1500);
         }
     }
     bossWin() {
-        global.gameManager.socketManager.broadcast('Team boss has won the game!');
+        global.gameManager.socketManager.broadcast("Team boss has won the game!");
         setTimeout(() => {global.gameManager.closeArena()}, 1500);
     }
     playerLose() {
@@ -252,7 +252,7 @@ class Siege {
         enemy.isBoss = true;
         if (Config.fortress || Config.citadel) enemy.controllers.push(new ioTypes.siegeAI(enemy, {}, global.gameManager));
         this.remainingEnemies++;
-        enemy.on('dead', () => {
+        enemy.on("dead", () => {
             //this enemy has been killed, decrease the remainingEnemies counter
             //if afterwards the counter happens to be 0, announce that the wave has been defeated
             if (!this.gameActive) return;

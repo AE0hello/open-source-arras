@@ -1,5 +1,5 @@
-const {makeMenu} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
+const {makeMenu} = require("../../facilitators.js")
+const {base} = require("../../constants.js")
 
 Class.ramMiniboss = {
     PARENT: "genericBoss",

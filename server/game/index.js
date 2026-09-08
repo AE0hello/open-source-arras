@@ -499,7 +499,7 @@ class gameHandler {
                 o.define({ FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE, AI: Class.bot.AI, }, false, true, false) // Just reoverride the facing type.
             })
         }, 3000 + Math.floor(Math.random() * 7000));
-        o.on('dead', () => {
+        o.on("dead", () => {
             setTimeout(() => {
                 if (global.nextTagBotTeam) {
                     let loc = getSpawnableArea(global.nextTagBotTeam, global.gameManager);

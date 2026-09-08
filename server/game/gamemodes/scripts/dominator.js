@@ -31,7 +31,7 @@ class Domination {
         }
         this.teamcounts[team]++;
 
-        o.on('dead', () => {
+        o.on("dead", () => {
 
             this.teamcounts[team]--;
             if (!this.teamcounts[team]) {

@@ -1,4 +1,4 @@
-let EventEmitter = require('events');
+let EventEmitter = require("events");
 class turretEntity extends EventEmitter {
     constructor(position, bond, master) {
         super();

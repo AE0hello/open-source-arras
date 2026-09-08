@@ -1,7 +1,7 @@
-const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
-const g = require('../../gunvals.js')
-const preset = require('../../presets.js')
+const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require("../../facilitators.js")
+const {base} = require("../../constants.js")
+const g = require("../../gunvals.js")
+const preset = require("../../presets.js")
 
 Class.terrestrial = {
     PARENT: "miniboss",

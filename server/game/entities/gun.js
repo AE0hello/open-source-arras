@@ -1,5 +1,5 @@
 // Define how guns work
-let EventEmitter = require('events'),
+let EventEmitter = require("events"),
     events,
     init = g => events = g.events;
 class Gun extends EventEmitter {
@@ -172,7 +172,7 @@ class Gun extends EventEmitter {
     }
 
     getSkillRaw() { 
-        if (this.bulletStats === 'master') {
+        if (this.bulletStats === "master") {
             return [
                 this.body.skill.raw[0],
                 this.body.skill.raw[1],
@@ -252,7 +252,7 @@ class Gun extends EventEmitter {
         }
     }
     checkShootPermission() {
-        let skill = this.bulletStats === 'master' ? this.body.skill : this.bulletStats;
+        let skill = this.bulletStats === "master" ? this.body.skill : this.bulletStats;
         let necroReload = this.calculator === "necro" ? skill.rld : 1;
         let shootPermission = true;
 
@@ -348,7 +348,7 @@ class Gun extends EventEmitter {
             o.life();
             this.onShootFunction();
             this.recoilDir = this.body.facing + this.angle;
-            this.master.emit(this.altFire ? 'altFire' : 'fire', {
+            this.master.emit(this.altFire ? "altFire" : "fire", {
                 gun: this,
                 store: this.store,
                 globalStore: this.globalStore,
@@ -367,7 +367,7 @@ class Gun extends EventEmitter {
                     break;
             }
             this.bulletInitIndependent(o);
-            this.master.emit(this.altFire ? 'altFire' : 'fire', {
+            this.master.emit(this.altFire ? "altFire" : "fire", {
                 gun: this,
                 store: this.store,
                 globalStore: this.globalStore,
@@ -389,7 +389,7 @@ class Gun extends EventEmitter {
         o.velocity = s;
         this.bulletInit(o);
         o.coreSize = o.SIZE;
-        this.master.emit(this.altFire ? 'altFire' : 'fire', {
+        this.master.emit(this.altFire ? "altFire" : "fire", {
             body: this.master,
             gun: this,
             child: o,
@@ -481,7 +481,7 @@ class Gun extends EventEmitter {
         let amount = (util.getDistance(target, save) / s) | 0;
         let gun = this;
         let explode = (e) => {
-            e.on('dead', () => {
+            e.on("dead", () => {
                 let o = new Entity(e, gun.body);
                 o.accel = {
                     x: 3 * Math.cos(save.angle),
@@ -594,10 +594,10 @@ class Gun extends EventEmitter {
     }
     getTracking() {
         return {
-            speed: global.gameManager.runSpeed * ((this.bulletStats == 'master') ? this.body.skill.spd : this.bulletStats.spd) * 
+            speed: global.gameManager.runSpeed * ((this.bulletStats == "master") ? this.body.skill.spd : this.bulletStats.spd) * 
                 this.settings.maxSpeed * 
                 this.bulletBodyStats.SPEED,
-            range:  Math.sqrt((this.bulletStats == 'master') ? this.body.skill.spd : this.bulletStats.spd) * 
+            range:  Math.sqrt((this.bulletStats == "master") ? this.body.skill.spd : this.bulletStats.spd) * 
                 this.settings.range * 
                 this.bulletBodyStats.RANGE,
         };
@@ -628,7 +628,7 @@ class Gun extends EventEmitter {
 
         let sizeFactor = this.master.size / this.master.SIZE;
         let shoot = this.settings;
-        let sk = (this.bulletStats == 'master') ? this.body.skill : this.bulletStats;
+        let sk = (this.bulletStats == "master") ? this.body.skill : this.bulletStats;
         // Defaults
         let out = {
             SPEED: shoot.maxSpeed * sk.spd,

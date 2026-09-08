@@ -1,7 +1,7 @@
-const {combineStats, LayeredBoss, makeMenu, setTurretProjectileRecoil} = require('../../facilitators.js')
-const {base} = require('../../constants.js')
-const g = require('../../gunvals.js')
-const preset = require('../../presets.js')
+const { combineStats, LayeredBoss, setTurretProjectileRecoil } = require("../../facilitators.js")
+const { base } = require("../../constants.js")
+const g = require("../../gunvals.js")
+const preset = require("../../presets.js")
 
 Class.eternal = {
     PARENT: "miniboss",
@@ -22,18 +22,12 @@ Class.eternal = {
     ON: [preset.on.retrograde_self_destruct]
 }
 
-Class.menu_eternals = makeMenu("Eternals", {upgrades: [
-    "odin",
-    "kronos",
-    "amun",
-], color: "veryLightGrey", boxColor: "veryLightGrey", shape: 11.5})
-
 let odin = new LayeredBoss(null, "Odin", "eternal", 11, "teal", "baseTrapTurret", 4.5, 3.5) // formerly Ragnarok
 odin.addLayer({gun: {
     POSITION: [2.25, 3.25, -1.6, 9, 0, null, 0],
     PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, g.destroyer, {speed: 1.25, maxSpeed: 1.25}]),
-        TYPE: ["shamanDrone", {INDEPENDENT: true, DRAW_HEALTH: true, COLOR: 'teal'}],
+        TYPE: ["shamanDrone", {INDEPENDENT: true, DRAW_HEALTH: true, COLOR: "teal"}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
     },

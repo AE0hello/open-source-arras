@@ -10,7 +10,7 @@ module.exports = {
     turret: {
         driveHat: [
             {
-                TYPE: ["squareHat", {COLOR: 'grey'}],
+                TYPE: ["squareHat", {COLOR: "grey"}],
                 POSITION: {
                     SIZE: 9,
                     LAYER: 1
@@ -19,7 +19,7 @@ module.exports = {
         ],
         swarmdriveHat: [
             {
-                TYPE: ["triangleHat", {COLOR: 'grey'}],
+                TYPE: ["triangleHat", {COLOR: "grey"}],
                 POSITION: {
                     SIZE: 8,
                     ANGLE: 180,
