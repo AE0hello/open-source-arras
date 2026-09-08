@@ -476,15 +476,15 @@ const util = (function() {
             if (!global.cached.imageEntities) global.cached.imageEntities = [];
             if (!global.cached.indexes) global.cached.indexes = [];
             if (!data) throw new Error("undefined detected!");
-            if (typeof data === 'string' || data instanceof String && data.includes("-")) return util.getEntityImageFromMockup(data, color);
+            if (typeof data === "string" || data instanceof String && data.includes("-")) return util.getEntityImageFromMockup(data, color);
             let image = {};
-            for (let index of typeof data === 'string' || data instanceof String ? data.split("-") : data.index.split("-")) {
+            for (let index of typeof data === "string" || data instanceof String ? data.split("-") : data.index.split("-")) {
                 if (global.cached.indexes.includes(index)) {
-                    const int = typeof data === 'string' || data instanceof String ? data.toString() : index;
+                    const int = typeof data === "string" || data instanceof String ? data.toString() : index;
                     image = global.cached.imageEntities.find(o => o.index == int);
                     continue;
                 };
-                image = util.getEntityImageFromMockup(typeof data === 'string' || data instanceof String ? data.toString() : data.index, color);
+                image = util.getEntityImageFromMockup(typeof data === "string" || data instanceof String ? data.toString() : data.index, color);
                 global.cached.imageEntities.push(image);
                 global.cached.indexes.push(index);
             }

@@ -62,7 +62,7 @@ class Prop {
             this.shape = typeof set.SHAPE === "number" ? set.SHAPE : 0;
             this.shapeData = set.SHAPE;
         }
-        this.imageInterpolation = set.IMAGE_INTERPOLATION != null ? set.IMAGE_INTERPOLATION : 'bilinear'
+        this.imageInterpolation = set.IMAGE_INTERPOLATION != null ? set.IMAGE_INTERPOLATION : "bilinear"
         if (set.COLOR != null) {
             this.color.interpret(set.COLOR);
         }

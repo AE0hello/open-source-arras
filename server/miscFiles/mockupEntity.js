@@ -145,7 +145,7 @@ class MockupEntityProp {
             this.shape = typeof set.SHAPE === "number" ? set.SHAPE : (set.SHAPE_NUM ?? 0);
             this.shapeData = set.SHAPE;
         }
-        this.imageInterpolation = set.IMAGE_INTERPOLATION != null ? set.IMAGE_INTERPOLATION : 'bilinear'
+        this.imageInterpolation = set.IMAGE_INTERPOLATION != null ? set.IMAGE_INTERPOLATION : "bilinear"
         if (set.COLOR != null) {
             if (typeof set.COLOR === "number" || typeof set.COLOR === "string") {
                 if (!isNaN(set.COLOR) && !isNaN(parseFloat(set.COLOR)) || /^[a-zA-Z]*$/.test(set.COLOR))
@@ -228,7 +228,7 @@ class MockupEntity {
         }
         this.imageInterpolation = set.IMAGE_INTERPOLATION ?? "bilinear";
         if (set.COLOR != null) {
-            if (typeof set.COLOR === "number" || typeof set.COLOR === 'string')
+            if (typeof set.COLOR === "number" || typeof set.COLOR === "string")
                 this.colorUnboxed.base = set.COLOR;
             else if (typeof set.COLOR === "object")
                 this.colorUnboxed = {

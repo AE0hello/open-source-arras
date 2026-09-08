@@ -135,9 +135,9 @@ const MazeZone = class {
       let map = Array(this.height).fill().map((_, i) => this.array.map(row => row[i]))
       return [
         `${ this.width }x${ this.height } (${ this.length })`,
-        map.map(row => row.map(cell => cell ? filled : unfilled).join('')).join('\n'),
+        map.map(row => row.map(cell => cell ? filled : unfilled).join("")).join("\n"),
         `+(${ this.offset.x }, ${ this.offset.y })`,
-      ].join('\n')
+      ].join("\n")
     }
   }
   
@@ -149,7 +149,7 @@ const MazeGenerator = class {
     }
   clear(mapString) {
         if (mapString) {
-            let map = mapString.trim().split('\n').map(r => r.trim().split('').map(r => r === '#' ? 1 : r === '@'))
+            let map = mapString.trim().split("\n").map(r => r.trim().split("").map(r => r === "#" ? 1 : r === "@"))
             this.maze = Array(map[0].length).fill().map((_, y) => Array(map.length).fill().map((_, x) => map[x][y]))
             this.width = map[0].length
             this.height = map.length

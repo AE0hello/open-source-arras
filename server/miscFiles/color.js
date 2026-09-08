@@ -50,7 +50,7 @@ class Color {
     				break;
     			}
 
-    			color = color.split(' ');
+    			color = color.split(" ");
 	            this.#base = color[0] ?? 16;
 	            this.#hueShift = parseFloat(color[1]) ?? 0;
 	            this.#saturationShift = parseFloat(color[2]) ?? 1;
