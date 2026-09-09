@@ -55,6 +55,7 @@ class Entity extends EventEmitter {
         this.upgradePending = null;
         this.skippedUpgrades = [];
         this.settings = {};
+        this.globalStore = {};
         this.eastereggs = { braindamage: false };
         this.aiSettings = {};
         this.children = [];
