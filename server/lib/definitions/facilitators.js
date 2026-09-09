@@ -956,7 +956,10 @@ exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) 
     COLOR: 17,
     GUNS: [
       {
-        POSITION: [0, 20, 1, 0, 0, 0, 0],
+        POSITION: {
+          LENGTH: 0,
+          WIDTH: 20
+        },
         PROPERTIES: {
           SHOOT_SETTINGS: exports.combineStats([g.aura, { size: sizeFactor, damage: damageFactor }]),
           TYPE: [auraType, {COLOR: auraColor, ALPHA: opacity}],
@@ -968,8 +971,12 @@ exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) 
     ],
     TURRETS: [
       {
-        POSITION: [20 - 7.5 * isHeal, 0, 0, 0, 360, 1],
-        TYPE: [symbolType, {COLOR: auraColor, INDEPENDENT: true}]
+        TYPE: [symbolType, {COLOR: auraColor, INDEPENDENT: true}],
+        POSITION: {
+          SIZE: 20 - 7.5 * isHeal,
+          ARC: 360,
+          LAYER: 1
+        }
       }
     ]
   };
@@ -1281,8 +1288,13 @@ class LayeredBoss {
       UPGRADE_COLOR: COLOR,
       NO_SIZE_ANIMATION: noSizeAn,
       TURRETS: Array(SHAPE).fill().map((_, i) => ({
-        POSITION: [trapTurretSize, 9, 0, 360 / SHAPE * (i + 0.5), 180, 0],
-        TYPE: trapTurretType
+        TYPE: trapTurretType,
+        POSITION: {
+          SIZE: trapTurretSize,
+          X: 9,
+          ANGLE: 360 / SHAPE * (i + 0.5),
+          ARC: 180
+        }
       }))
     };
     this.layerScale = layerScale;
@@ -1324,8 +1336,12 @@ class LayeredBoss {
 
     Class[this.identifier + "Layer" + this.layerID] = layer;
     Class[this.identifier].TURRETS.push({
-      POSITION: [this.layerSize, 0, 0, 0, 360, 1],
-      TYPE: this.identifier + "Layer" + this.layerID
+      TYPE: this.identifier + "Layer" + this.layerID,
+      POSITION: {
+        SIZE: this.layerSize,
+        ARC: 360,
+        LAYER: 1
+      }
     });
   }
 }
@@ -1359,7 +1375,14 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
     casings = isEgg ? 8 : type.SHAPE,
     fraction = 360 / casings,
     GUNS = [],
-    TURRETS = [{ POSITION: [32.5, 0, 0, 0, 0, 0], TYPE: relicBody }],
+    TURRETS = [
+      {
+        TYPE: relicBody,
+        POSITION: {
+          SIZE: 32.5
+        }
+      }
+    ],
     PARENT = type,
     additionalAngle = type.SHAPE % 2 === 0 ? 0 : fraction / 2;
 
@@ -1368,34 +1391,74 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
       gunAngle = angle + additionalAngle;
     if (isEgg) {
       GUNS.push({
-        POSITION: [4, width, 2.5, 12,  0, gunAngle, 0]
+        POSITION: {
+          LENGTH: 4,
+          WIDTH: width,
+          ASPECT: 2.5,
+          X: 12,
+          ANGLE: gunAngle
+        }
       });
       TURRETS.push({
-        POSITION: [8, -15,  0, angle, 0, 1],
-        TYPE: relicCasing
+        TYPE: relicCasing,
+        POSITION: {
+          SIZE: 8,
+          X: -15,
+          ANGLE: angle,
+          LAYER: 1
+        }
       });
     } else {
       GUNS.push({
-        POSITION: [4, width, 2.5, 12,  y, gunAngle, 0]
+        POSITION: {
+          LENGTH: 4,
+          WIDTH: width,
+          ASPECT: 2.5,
+          X: 12,
+          Y: y,
+          ANGLE: gunAngle
+        }
       });
       GUNS.push({
-        POSITION: [4, width, 2.5, 12, -y, gunAngle, 0]
+        POSITION: {
+          LENGTH: 4,
+          WIDTH: width,
+          ASPECT: 2.5,
+          X: 12,
+          Y: -y,
+          ANGLE: gunAngle
+        }
       });
       TURRETS.push({
-        POSITION: [8, -15,  y, angle, 0, 1],
-        TYPE: relicCasing
+        TYPE: relicCasing,
+        POSITION: {
+          SIZE: 8,
+          X: -15,
+          Y: y,
+          ANGLE: angle,
+          LAYER: 1
+        }
       });
       TURRETS.push({
-        POSITION: [8, -15, -y, angle, 0, 1],
-        TYPE: relicCasing
+        TYPE: relicCasing,
+        POSITION: {
+          SIZE: 8,
+          X: -15,
+          Y: -y,
+          ANGLE: angle,
+          LAYER: 1
+        }
       });
     }
   }
 
   if (gem) {
     TURRETS.push({
-      POSITION: [8, 0, 0, 0, 0, 1],
-      TYPE: [gem, { MIRROR_MASTER_ANGLE: true }]
+      TYPE: [gem, { MIRROR_MASTER_ANGLE: true }],
+      POSITION: {
+        SIZE: 8,
+        LAYER: 1
+      }
     });
   }
 
@@ -1538,14 +1601,12 @@ exports.makeLaby = (type, tier, rarity, level, baseScale = 1) => {
     GUNS: type.GUNS ?? [],
     TURRETS: type.TURRETS ?? [],
     PROPS: Array(level).fill().map((_, i) => ({
-      POSITION: [
-        20 * downscale ** (i + 1),
-        0,
-        0,
-        !(i & 1) ? 180 / usableSHAPE : 0,
-        1
-      ],
-      TYPE: [type, { COLOR: "mirror" }]
+      TYPE: [type, {COLOR: "mirror"}],
+      POSITION: {
+        SIZE: 20 * downscale ** (i + 1),
+        ANGLE: !(i & 1) ? 180 / usableSHAPE : 0,
+        LAYER: 1
+      }
     }))
   };
 };

@@ -51,13 +51,20 @@ const makeGenerator = (entity, entityLabel, shortEntityLabel, displayEntity, dis
     UPGRADES_TIER_0: [],
 
     TURRETS: [{
-      POSITION: [displayEntitySize, 0, 0, 0, 0, 1],
-      TYPE: [displayEntity, { INDEPENDENT: true }]
+      TYPE: [displayEntity, {INDEPENDENT: true}],
+      POSITION: {
+        SIZE: displayEntitySize,
+        LAYER: 1
+      }
     }],
 
     GUNS: [
       {
-        POSITION: [2, 10.5, 1, 15, 0, 0, 0],
+        POSITION: {
+          LENGTH: 2,
+          WIDTH: 10.5,
+          X: 15
+        },
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([{
             shudder: 0.1,
@@ -72,7 +79,12 @@ const makeGenerator = (entity, entityLabel, shortEntityLabel, displayEntity, dis
         }
       },
       {
-        POSITION: [11, 10.5, 1.4, 4, 0, 0, 0]
+        POSITION: {
+          LENGTH: 11,
+          WIDTH: 10.5,
+          ASPECT: 1.4,
+          X: 4
+        }
       }
     ]
   };
