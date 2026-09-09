@@ -217,14 +217,7 @@ Class.whirlwind_bent = {
                 ANGLE: 15
             }
         }
-    ], {delayIncrement: 0.5}),
-    UPGRADES_TIER_2: [
-        "maelstrom",
-        "hurricane",
-        "monsoon",
-        "typhoon",
-        "tempest",
-    ].map(x => x + "_bent")
+    ], {delayIncrement: 0.5})
 };
 
 // Tier 2 (Level 30)
@@ -1061,11 +1054,6 @@ Class.rifle_old = {
                 WIDTH: 9.5
             }
         }
-    ],
-    UPGRADES_TIER_3: [
-        "sniperRifle",
-        "ransacker_old",
-        "spreadRifle",
     ]
 };
 Class.smasher = {
@@ -1425,7 +1413,6 @@ Class.wark = {
 };
 Class.whirlwind_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Whirlwind" });
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind";
-Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"];
 
 // Tier 3 (Level 45)
 const autoTanksT3 = [
@@ -10530,7 +10517,7 @@ Class.worstTank = {
     ]
 };
 
-// Class Tree
+// Main Class Tree (from Basic)
 addUpgrades("basic", 1, ["twin", "sniper", "machineGun", "flankGuard", "director", "pounder", "trapper", "desmos"]);
     addUpgrades("basic", 2, ["smasher"]);
         addUpgrades("smasher", 3, ["megaSmasher", "spike", "autoSmasher", "landmine"]);
@@ -10598,15 +10585,23 @@ addUpgrades("basic", 1, ["twin", "sniper", "machineGun", "flankGuard", "director
         addUpgrades("undertow", 3, []);
         addUpgrades("repeater", 3, ["iterator", "duplicator"]);
 
-    addUpgrades("flail", 2, ["doubleFlail", "mace", "flangle"]);
-        addUpgrades("doubleFlail", 3, ["tripleFlail"]);
-        addUpgrades("mace", 3, ["bigMama", "itHurtsDontTouchIt", "flace"]);
-        addUpgrades("flangle", 3, ["flooster", "flace"]);
+// Separated Class Trees (Tier 2)
+addUpgrades("flail", 2, ["doubleFlail", "mace", "flangle"]);
+    addUpgrades("doubleFlail", 3, ["tripleFlail"]);
+    addUpgrades("mace", 3, ["bigMama", "itHurtsDontTouchIt", "flace"]);
+    addUpgrades("flangle", 3, ["flooster", "flace"]);
 
-    addUpgrades("whirlwind", 2, ["tornado", "hurricane"]);
-        addUpgrades("whirlwind", 3, ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"]);
-        addUpgrades("tornado", 3, ["megaTornado", "tempest", "thunderbolt"]);
-        addUpgrades("hurricane", 3, ["typhoon", "blizzard"]);
+addUpgrades("whirlwind", 2, ["tornado", "hurricane"]);
+    addUpgrades("whirlwind", 3, ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"]);
+    addUpgrades("tornado", 3, ["megaTornado", "tempest", "thunderbolt"]);
+    addUpgrades("hurricane", 3, ["typhoon", "blizzard"]);
+
+addUpgrades("whirlwind_bent", 2, ["maelstrom", "hurricane", "monsoon", "typhoon", "tempest"].map(x => x + "_bent"))
+    // rest of this branch isn't known lmao
+
+// Separated Class Trees (Tier 3)
+addUpgrades("rifle_old", 3, ["sniperRifle", "ransacker_old", "spreadRifle"]);
+addUpgrades("whirlwind_old", 3, ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"]);
 
 if (Config.retrograde) {
     addUpgrades("machineGun", 2, ["blaster", "gatlingGun", "machineFlank"]);
