@@ -636,15 +636,15 @@ global.convertExportsToClass = (exp) => {
 };
 
 global.makeHitbox = wall => {
-  const _size = wall.size - 4;
+  const z = wall.size - 4;
   //calculate the relative corners
   let relativeCorners = [
-      Math.atan2(    _size,     _size) + wall.angle,
-      Math.atan2(0 - _size,     _size) + wall.angle,
-      Math.atan2(0 - _size, 0 - _size) + wall.angle,
-      Math.atan2(    _size, 0 - _size) + wall.angle
+      Math.atan2(z, z) + wall.angle,
+      Math.atan2(0 - z, z) + wall.angle,
+      Math.atan2(0 - z, 0 - z) + wall.angle,
+      Math.atan2(z, 0 - z) + wall.angle
     ],
-    distance = Math.sqrt(_size ** 2 + _size ** 2);
+    distance = Math.sqrt(z ** 2 + z ** 2);
 
   //convert 4 corners into 4 lines
   for (let i = 0; i < 4; i++) {

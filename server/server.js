@@ -61,7 +61,7 @@ let server; // HTTP server instance
 try {
   const WebSocketServer = require("ws").WebSocketServer;
   wsServer = new WebSocketServer({ noServer: true });
-} catch (err) {
+} catch(err) {
   throw new Error(
     "Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal."
   );
@@ -344,7 +344,7 @@ server.on("upgrade", (req, socket, head) => {
 let bunLoop = setInterval(() => {
   try {
     Bun.gc(true);
-  } catch (e) {
+  } catch(e) {
     // If Bun.gc fails, clear the interval
     clearInterval(bunLoop);
   }

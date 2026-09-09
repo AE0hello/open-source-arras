@@ -159,7 +159,7 @@ Class.roaringLancer = {
       handler: ({body, gun}) => {
         switch (gun.identifier) {
           case "charge":
-            function afterImage(){
+            function afterImage() {
               o = new Entity({x: body.x, y: body.y})
               o.master = body
 

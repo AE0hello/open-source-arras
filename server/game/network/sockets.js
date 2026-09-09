@@ -428,7 +428,7 @@ class socketManager {
       case "#": {
         try {
           runKeyCommand(socket, m);
-        } catch (e) { 
+        } catch(e) { 
           console.error(e);
         }
       } break;
@@ -599,16 +599,16 @@ class socketManager {
             if (Config.mothership_time_limit <= 10_000) {
               if (player.body == null) return;
               player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? "" : "s") + " in control of the mothership!");
-              setTimeout(function (){
+              setTimeout(function() {
                 if (player.body == null) return;
                 player.body.sendMessage("You have lost control of the mothership.");
                 body.giveUp(player, body.isDominator ? "" : undefined);
               }, Config.mothership_time_limit)
             } else {
-              setTimeout(function (){
+              setTimeout(function() {
                 if (player.body == null) return;
                 player.body.sendMessage("You only have 10 seconds left in control of the mothership!");
-                setTimeout(function (){
+                setTimeout(function() {
                   if (player.body == null) return;
                   player.body.sendMessage("You have lost control of the mothership.");
                   body.giveUp(player, body.isDominator ? "" : undefined);
@@ -2074,7 +2074,7 @@ class socketManager {
         skill: socket.player.body.skill.raw,
         points: socket.player.body.skill.points
       })
-    }).then(async (r) => {
+    }).then(async(r) => {
       if (r.status === 200) {
         socket.talk("t", server.replace("http://", "").replace("https://", ""), id);
       }
@@ -2137,7 +2137,7 @@ class socketManager {
       }
     };
     socket.awaiting = {};
-    socket.awaitResponse = function (options, callback) {
+    socket.awaitResponse = function(options, callback) {
       socket.awaiting[options.packet] = {
         callback: callback,
         timeout: setTimeout(() => {
@@ -2146,7 +2146,7 @@ class socketManager {
         }, options.timeout)
       };
     };
-    socket.resolveResponse = function (id, packet) {
+    socket.resolveResponse = function(id, packet) {
       if (socket.awaiting[id]) {
         clearTimeout(socket.awaiting[id].timeout);
         socket.awaiting[id].callback(packet);
@@ -2239,7 +2239,7 @@ class socketManager {
           return;
         }
       }
-    } catch (e) {
+    } catch(e) {
       console.error("Error checking permanent bans:", e);
     }
     // Log it

@@ -337,7 +337,7 @@ if (!classic_3D_shapes) {
     VERTEXES_SCALE: 0.1
   })
   octahedron_shape = makePolyhedron({
-    FACES: (function () {
+    FACES: (function() {
       const x = 3 / (2 * Math.sqrt(2));
       const y = 3 / 2;
       return [
@@ -355,7 +355,7 @@ if (!classic_3D_shapes) {
     VERTEXES_SCALE: 0.1
   })
   dodecahedron_shape = makePolyhedron({
-    FACES: (function () {
+    FACES: (function() {
       let phi = (1 + Math.sqrt(5)) / 2,
         x = 1,
         y = 1 / phi,
@@ -456,7 +456,7 @@ if (!classic_3D_shapes) {
     VERTEXES_SCALE: 0.1
   })
   icosahedron_shape = makePolyhedron({
-    FACES: (function () {
+    FACES: (function() {
       let phi = (1 + Math.sqrt(5)) / 2, // golden ratio
         x = 1 / 2,
         y = 1 / (2 * phi);

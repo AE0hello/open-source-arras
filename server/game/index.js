@@ -522,7 +522,7 @@ class gameHandler {
           if (Config.enable_food) this.foodloop();
           global.gameManager.roomLoop();
           global.gameManager.gamemodeManager.request("quickloop");
-        } catch (e) {
+        } catch(e) {
           global.gameManager.gameSpeedCheckHandler.onError(e);
           this.stop();
         };

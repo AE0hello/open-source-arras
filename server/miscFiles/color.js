@@ -5,12 +5,12 @@ class Color {
   #brightnessShift = 0;
   #allowBrightnessInvert = false;
 
-  constructor (color, isTile) {
+  constructor(color, isTile) {
     this.isTile = isTile;
     this.interpret(color);
   }
 
-  reset () {
+  reset() {
     this.#base = -1;
     this.#hueShift = 0;
     this.#saturationShift = 1;
@@ -19,40 +19,40 @@ class Color {
     this.recompile();
   }
 
-  get base () {
+  get base() {
     return this.#base 
   }
-  get hueShift () {
+  get hueShift() {
     return this.#hueShift 
   }
-  get saturationShift () {
+  get saturationShift() {
     return this.#saturationShift 
   }
-  get brightnessShift () {
+  get brightnessShift() {
     return this.#brightnessShift 
   }
-  get allowBrightnessInvert () {
+  get allowBrightnessInvert() {
     return this.#allowBrightnessInvert 
   }
 
-  set base (value) {
+  set base(value) {
     this.#base = value; this.recompile() 
   }
-  set hueShift (value) {
+  set hueShift(value) {
     this.#hueShift = value; this.recompile() 
   }
-  set saturationShift (value) {
+  set saturationShift(value) {
     this.#saturationShift = value; this.recompile() 
   }
-  set brightnessShift (value) {
+  set brightnessShift(value) {
     this.#brightnessShift = value; this.recompile() 
   }
-  set allowBrightnessInvert (value) {
+  set allowBrightnessInvert(value) {
     this.#allowBrightnessInvert = value; this.recompile() 
   }
 
   //lets just say we have to deal with some kind of color value and we dont know what it is
-  interpret (color) {
+  interpret(color) {
     switch (typeof color) {
       case "number":
         this.#base = color;
@@ -80,7 +80,7 @@ class Color {
     this.recompile();
   }
 
-  recompile () {
+  recompile() {
     let oldColor = this.compiled;
     this.compiled = this.#base + " " + this.#hueShift + " " + this.#saturationShift + " " + this.#brightnessShift + " " + this.#allowBrightnessInvert;
     if (this.isTile && this.compiled != oldColor) {

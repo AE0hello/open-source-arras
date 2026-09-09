@@ -228,7 +228,7 @@ class Entity extends EventEmitter {
           addedSuccess = true;
         }
         this.addController(toAdd);
-      } catch (e) {
+      } catch(e) {
         console.error(addedSuccess ? `Controller ${set.CONTROLLERS} ran into an error!` : `Controller "${set.CONTROLLERS}" was attempted to be gotten but does not exist!`);
         throw new Error(e);
       }

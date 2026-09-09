@@ -32,7 +32,7 @@ class Activation {
   };
 }
 
-const dirtyCheck = function (p, r) {
+const dirtyCheck = function(p, r) {
   for (let i = 0; i < entitiesToAvoid.length; i++) {
     let e = entitiesToAvoid[i];
     if (Math.abs(p.x - e.x) < r + e.size && Math.abs(p.y - e.y) < r + e.size) return true;

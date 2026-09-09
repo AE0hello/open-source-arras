@@ -30,7 +30,7 @@ tileClass.portal = new Tile({
 
       //that tank is not close enough, suck them in!
       let eventHorizon = Math.min(room.tileWidth, room.tileHeight) / 5;
-      if (dist2 > eventHorizon ** 2 ) {
+      if (dist2 > eventHorizon ** 2) {
         force *= gravity / dist2;
         entity.velocity.x -= dx * force;
         entity.velocity.y -= dy * force;

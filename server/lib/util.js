@@ -117,7 +117,7 @@ exports.deepClone = (obj, hash = new WeakMap()) => {
   if (hash.has(obj)) return hash.get(obj); // Cyclic reference
   try { // Try to run constructor (without arguments, as we don't know them)
     result = new obj.constructor();
-  } catch (e) { // Constructor failed, create object without running the constructor
+  } catch(e) { // Constructor failed, create object without running the constructor
     result = Object.create(Object.getPrototypeOf(obj));
   }
   // Optional: support for some standard constructors (extend as desired)

@@ -243,7 +243,7 @@ let commands = [
         gameManager.reloadDefinitions();
 
         // Put the removal function back
-        Array.prototype.remove = function (index) {
+        Array.prototype.remove = function(index) {
           if (index === this.length - 1) return this.pop();
           let r = this[index];
           this[index] = this.pop();
@@ -325,7 +325,7 @@ function runCommand(socket, message, gameManager) {
     if (permissionsLevel >= level) {
       try {
         command.run({ socket, message, args, level: permissionsLevel, gameManager: gameManager });
-      } catch (e) {
+      } catch(e) {
         console.error("Error while running ", commandName);
         console.error(e);
         socket.talk("m", 5_000, "An error occurred while running this command.");
@@ -335,7 +335,7 @@ function runCommand(socket, message, gameManager) {
 
   return true;
 }
-global.addChatCommand = function (command) {
+global.addChatCommand = function(command) {
   if (!command.command || !command.run) {
     throw new Error("Invalid command format. A command must have at least a 'command' and a 'run' property.");
   }

@@ -424,7 +424,7 @@ class gameServer {
     };
 
     // Are we near the circle?
-    this.room.near = function (position, radius) {
+    this.room.near = function(position, radius) {
       let point = ran.pointInUnitCircle();
       return {
         x: Math.round(position.x + radius * point.x),
@@ -447,7 +447,7 @@ class gameServer {
         let a = Math.floor((location.y + this.room.height / 2) / this.room.tileWidth);
         let b = Math.floor((location.x + this.room.width / 2) / this.room.tileHeight);
         return this.room.setup[a][b];
-      } catch (e) {
+      } catch(e) {
         return undefined;
       }
     };

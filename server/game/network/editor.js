@@ -100,7 +100,7 @@ class Editor {
               classMap.set(i++, key);
             }
 
-            Array.prototype.remove = function (index) {
+            Array.prototype.remove = function(index) {
               if (index === this.length - 1) return this.pop();
               let r = this[index];
               this[index] = this.pop();
@@ -130,7 +130,7 @@ class Editor {
                 entity.refreshBodyAttributes();
                 entity.color.interpret(entityColor);
               }
-            } catch (e) {
+            } catch(e) {
               console.error("Failed to update definitions:", e);
               response.ok = false;
             }
@@ -155,12 +155,12 @@ class Editor {
                 delete socket.status.selectedLeaderboard2;
                 socket.talk("CC");
               });
-            } catch (e) {
+            } catch(e) {
               console.error("Failed to update definitions:", e);
               response.ok = false;
             }
             gameManager.gameHandler.run();
-          } catch (e) {
+          } catch(e) {
             console.error("Definitions parsing error:", e);
             response.ok = false;
           }

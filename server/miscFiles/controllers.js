@@ -10,7 +10,7 @@ let compressMovementOffsets = [
     { x: 1, y:-1}
   ],
   compressMovement = (current, goal) => {
-    let offset = compressMovementOffsets[Math.round(( Math.atan2(current.y - goal.y, current.x - goal.x) / (Math.PI * 2) ) * 8 + 4) % 8];
+    let offset = compressMovementOffsets[Math.round((Math.atan2(current.y - goal.y, current.x - goal.x) / (Math.PI * 2)) * 8 + 4) % 8];
     return {
       x: current.x + offset.x,
       y: current.y + offset.y
@@ -397,7 +397,7 @@ class io_stackGuns extends IO {
     super(body);
     this.timeUntilFire = opts.timeUntilFire || 0;
   }
-  think ({ target }) {
+  think({ target }) {
 
     //why even bother?
     if (!target) {
@@ -738,7 +738,7 @@ class io_avoid extends IO {
     this.avoid = nearest(entities, {
       x: this.body.x,
       y: this.body.y
-    }, function (test, sqrdst) {
+    }, function(test, sqrdst) {
       return (test.master.id !== masterId && (test.type === "bullet" || test.type === "drone" || test.type === "swarm" || test.type === "trap" || test.type === "block") && sqrdst < range);
     })
     // Aim at that target
@@ -980,7 +980,7 @@ class io_wanderAroundMap extends IO {
           if (!this.moveArray) this.botMove_active = true, this.moveArray = 0, this.arrayLength = e.MOVEMENT.length - 1; // Set flags
           let i = e.MOVEMENT[this.moveArray];
           let [locX, locY] = i;
-          if (new Vector( this.body.x - locX * 30, this.body.y - locY * 30 ).isShorterThan(e.RANGE ?? 50)) {
+          if (new Vector(this.body.x - locX * 30, this.body.y - locY * 30).isShorterThan(e.RANGE ?? 50)) {
             if (this.moveArray == this.arrayLength) this.botMoveEnabled = false, this.enabled = true;
             this.moveArray++;
           }
@@ -1036,7 +1036,7 @@ class io_wanderAroundMap extends IO {
           } : null
         }
       }
-      if (new Vector( this.body.x - this.spot.x, this.body.y - this.spot.y ).isShorterThan(50) || wouldHitWall(this.body, this.spot, true)) {
+      if (new Vector(this.body.x - this.spot.x, this.body.y - this.spot.y).isShorterThan(50) || wouldHitWall(this.body, this.spot, true)) {
         this.spot = ran.choose(global.gameManager.room.spawnableDefault).randomInside();
       }
       if (input.goal == null && !this.body.autoOverride) {
@@ -1058,7 +1058,7 @@ class io_wanderAroundMap extends IO {
 // returns deviation from origin angle in radians
 let io_formulaTarget_sineDefault = (frame, body) => Math.sin(frame / 30);
 class io_formulaTarget extends IO {
-  constructor (b, opts = {}) {
+  constructor(b, opts = {}) {
     super(b);
     this.masterAngle = opts.masterAngle;
     this.formula = opts.formula || io_formulaTarget_sineDefault;
@@ -1066,7 +1066,7 @@ class io_formulaTarget extends IO {
     this.originAngle = this.masterAngle ? b.master.facing : b.facing;
     this.frame = 0;
   }
-  think () {
+  think() {
     // if (this.updateOriginAngle) {
     //     this.originAngle = this.masterAngle ? b.master.facing : getTheGunThatSpawnedMe("how do i do that????").angle;
     // }
@@ -1096,12 +1096,12 @@ class io_whirlwind extends IO {
     this.body.angle += (this.body.skill.spd * 2 + this.body.aiSettings.SPEED) * Math.PI / 180;
     let trueMaxDistance = this.maxDistance * this.body.size;
     let trueMinDistance = this.minDistance * this.body.size;
-    if(input.fire){
+    if(input.fire) {
       if(this.body.dist <= trueMaxDistance) {
         this.body.dist += this.radiusScalingSpeed;
         this.body.inverseDist -= this.radiusScalingSpeed;
       }
-    } else if(input.alt){
+    } else if(input.alt) {
       if(this.body.dist >= trueMinDistance) {
         this.body.dist -= this.radiusScalingSpeed;
         this.body.inverseDist += this.radiusScalingSpeed;
@@ -1124,9 +1124,9 @@ class io_orbit extends IO {
       dist = this.invert ? master.inverseDist : master.dist,
       angle = (this.body.angle * Math.PI / 180 + master.angle) * invertFactor;
         
-    if(this.realDist > dist){
+    if(this.realDist > dist) {
       this.realDist -= Math.min(10, Math.abs(this.realDist - dist));
-    } else if(this.realDist < dist){
+    } else if(this.realDist < dist) {
       this.realDist += Math.min(10, Math.abs(dist - this.realDist));
     }
     this.body.x = master.x + Math.cos(angle) * this.realDist;

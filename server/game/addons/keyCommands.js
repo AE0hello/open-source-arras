@@ -166,7 +166,7 @@ function init() {
           killed++;
         });
         if (killed) {
-          socket.talk( "m", 5_000, `You have killed ${killed} entit${killed === 1 ? "y" : "ies"}.`);
+          socket.talk("m", 5_000, `You have killed ${killed} entit${killed === 1 ? "y" : "ies"}.`);
         } else {
           socket.talk("m", 3_000, "You haven't killed any entity!");
         }
@@ -1000,7 +1000,7 @@ function init() {
         });
         socket.player.body.refreshBodyAttributes();
         socket.player.body.minimapColor = "lime";
-      } catch (e) {
+      } catch(e) {
         console.error(`${command.name.toLowerCase()} key command error`, e);
       }
     }

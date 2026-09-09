@@ -1244,7 +1244,7 @@ const MazeGenerator = class {
           return null
           break
       }
-    } catch (e) {
+    } catch(e) {
       return null
     }
     if (this.isClosed()) {

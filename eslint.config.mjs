@@ -30,7 +30,10 @@ export default defineConfig([
       }],
       "@stylistic/comma-style": ["error", "last"],
       "@stylistic/indent": ["error", 2],
-      "@stylistic/quotes": ["error", "double"]
+      "@stylistic/quotes": ["error", "double"],
+      "@stylistic/space-before-blocks": ["error", "always"],
+      "@stylistic/space-before-function-paren": ["error", "never"],
+      "@stylistic/space-in-parens": ["error", "never"]
     }
   },
   {

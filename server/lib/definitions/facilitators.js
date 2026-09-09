@@ -14,7 +14,7 @@ let skcnv = {
 }
 
 // gun definitions
-exports.combineStats = function (stats) {
+exports.combineStats = function(stats) {
   try {
     // Build a blank array of the appropiate length
     let data = {
@@ -59,7 +59,7 @@ exports.combineStats = function (stats) {
       data.resist *= gStat.resist ?? 1;
     }
     return data;
-  } catch (err) {
+  } catch(err) {
     console.log(err);
     throw JSON.stringify(stats);
   }
@@ -1600,7 +1600,7 @@ exports.makePresent = (outcolor, wrapcolor) => {
  * }} info
  * @returns {`3d=${string}`}
  */
-exports.makePolyhedron = function (info) {
+exports.makePolyhedron = function(info) {
   let vertexes, faces;
 
   if (info.VERTEXES) vertexes = info.VERTEXES;
@@ -1656,7 +1656,7 @@ exports.makePolyhedron = function (info) {
  * }} info
  * @returns {`4d=${string}`}
  */
-exports.makePolychoron = function (info) {
+exports.makePolychoron = function(info) {
   let vertexes, faces;
 
   if (info.VERTEXES) vertexes = info.VERTEXES;

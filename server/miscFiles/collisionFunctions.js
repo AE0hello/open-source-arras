@@ -253,7 +253,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
       let resistDiff = my.health.resist - n.health.resist,
         damage = {
           _me: Config.damage_multiplier * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * Math.min(2, Math.max(speedFactor._me, 1) * speedFactor._me),
-          _n:  Config.damage_multiplier * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n, 1) * speedFactor._n )
+          _n:  Config.damage_multiplier * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n, 1) * speedFactor._n)
         };
       // Advanced damage calculations
       if (my.settings.ratioEffects) {
