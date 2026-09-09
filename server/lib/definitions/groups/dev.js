@@ -385,7 +385,7 @@ Class.menu_misc = makeMenu("Misc", {
   upgrades: [
     //"theAmalgamation",
     //"theConglomerate",
-    //"schoolShooter",
+    "schoolShooter",
     //"average4tdmScore",
     //"averageL39Hunt",
     "tracker3",

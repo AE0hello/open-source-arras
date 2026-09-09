@@ -10414,6 +10414,33 @@ Class.rapture = {
     }
   ]
 };
+Class.schoolShooter = {
+  PARENT: "genericTank",
+  LABEL: "School Shooter",
+  GUNS: [
+    {
+      POSITION: {
+        Y: 5,
+        LENGTH: 20,
+        WIDTH: 1.5,
+        X: 50
+      }
+    },
+    {
+      POSITION: {
+        LENGTH: 0,
+        WIDTH: 2,
+        Y: 5,
+        X: 50
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.op, {damage: 20, reload: 0.3, spray: 0, speed: 2}]),
+        TYPE: "developerBullet",
+        ALPHA: 0
+      }
+    }
+  ]
+}
 Class.smasher3 = makeRadialAuto("flailBall", { isTurret: true, danger: 8, label: "Smasher-3" });
 Class.tetraGunner = {
   PARENT: "genericTank",
