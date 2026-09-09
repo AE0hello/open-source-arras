@@ -981,7 +981,7 @@ Class.beemanTrap = {
       TYPE: "bee",
       SHOOT_ON_DEATH: true,
     }
-  }, 60)
+  }, 100)
 }
 
 // Pillboxes

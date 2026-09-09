@@ -372,6 +372,7 @@ class Gun extends EventEmitter {
         store: this.store,
         globalStore: this.globalStore,
         child: o,
+        body: this.master
       });
       return;
     }
