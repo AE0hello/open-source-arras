@@ -53,7 +53,7 @@ function init() {
         let key = command.displayKey ? command.displayKey : command.keys.map((keys) => keys.map((key) => key[1]).join("+")).join(" / ");
         let description = command.description ?? false;
         let asterisk = command.level > 1 ? "*" : "";
-        let text = ``;
+        let text = "";
         if (name.slice(0, 1).toUpperCase() === key) text = `- [${key}]${name.slice(1)}${asterisk}`;
         else text = `- [${key}] ${name}${asterisk}`;
         if (description) text += ` - ${description}`

@@ -11,5 +11,10 @@
   "engines": {
     "node": ">=22.0.0"
   },
-  "license": "MIT License"
+  "license": "MIT License",
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "eslint": "^10.10.0",
+    "globals": "^17.12.0"
+  }
 }

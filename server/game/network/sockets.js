@@ -570,7 +570,7 @@ class socketManager {
                     if (Config.mothership_time_limit != 0) {
                         if (Config.mothership_time_limit <= 10_000) {
                             if (player.body == null) return;
-                            player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? "" : "s") + ` in control of the mothership!`);
+                            player.body.sendMessage(`You only have ${Math.floor(Config.mothership_time_limit / 1000)} second` + (Math.floor(Config.mothership_time_limit / 1000) == 1 ? "" : "s") + " in control of the mothership!");
                             setTimeout(function (){
                                 if (player.body == null) return;
                                 player.body.sendMessage("You have lost control of the mothership.");
@@ -2047,7 +2047,7 @@ class socketManager {
     };
 
     connect(socket, req) {
-        util.log(`[INFO]: A client wants to connect...`);
+        util.log("[INFO]: A client wants to connect...");
         socket.player = { camera: {} };
         socket.nearby = [];
         socket.spectateEntity = null;
@@ -2215,7 +2215,7 @@ class socketManager {
         } else {
             global.gameManager.parentPort.postMessage([true, this.clients.length]);
         }
-        util.log(`[INFO]: Client has been welcomed!`);
+        util.log("[INFO]: Client has been welcomed!");
 
         if (Config.load_all_mockups) {
             for (let i = 0; i < mockupData.length; i++) {

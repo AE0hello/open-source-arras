@@ -307,7 +307,7 @@ let commands = [
                         socket.talk("CC"); // Clear cache
                     });
                     // Log it again.
-                    util.log(`[INFO]: Successfully reloaded all definitions`);
+                    util.log("[INFO]: Successfully reloaded all definitions");
                     gameManager.gameHandler.run();
                 }, 1000)
             } else sendAvailableDevCommandsMessage();

@@ -18,7 +18,7 @@ class definitionCombiner {
         if (Config.startup_logs && log) console.log("Loaded definitions in " + util.rounder(definitionGroupsLoadEnd - definitionGroupsLoadStart, 3) + " milliseconds. \n");
 
         // Now we can load the tank addons
-        if (Config.startup_logs && log) console.log(`Loading group addons...`);
+        if (Config.startup_logs && log) console.log("Loading group addons...");
         this.loadAddons(this.tankAddonLoc, log);
 
         // Calculate the length.
@@ -29,7 +29,7 @@ class definitionCombiner {
         if (Config.startup_logs && log) console.log("Loaded group addons in " + util.rounder(addonsLoadEnd - definitionGroupsLoadEnd, 3) + " milliseconds. \n");
 
         // Also include the other addons if needed!
-        if (Config.startup_logs && log) console.log(`Loading game addons...`);
+        if (Config.startup_logs && log) console.log("Loading game addons...");
         if (includeGameAddons) this.loadAddons(path.join(__dirname, "../../game/addons"), log, "game addon");
 
         let gameaddonsLoadEnd = performance.now();

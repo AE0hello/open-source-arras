@@ -258,7 +258,7 @@ class Siege {
             if (!this.gameActive) return;
             if (!--this.remainingEnemies) {
                 global.gameManager.socketManager.broadcast(`Wave ${this.waveId + 1} has been defeated!`);
-                global.gameManager.socketManager.broadcast(`The next wave will start shortly.`);
+                global.gameManager.socketManager.broadcast("The next wave will start shortly.");
             }
         });
         return enemy;
