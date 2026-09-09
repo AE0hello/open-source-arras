@@ -20,7 +20,7 @@ Class.genericEntity = {
     HUE_SHIFT: 0, // Additive, degrees
     SATURATION_SHIFT: 1, // Multiplicative
     BRIGHTNESS_SHIFT: 0, // Additive, ranges from -100 to 100
-    ALLOW_BRIGHTNESS_INVERT: false, // Toggles offset invert if exceeding normal color bounds
+    ALLOW_BRIGHTNESS_INVERT: false // Toggles offset invert if exceeding normal color bounds
   },
   INDEPENDENT: false,
   CONTROLLERS: [],
@@ -142,12 +142,12 @@ Class.genericTank = {
     FOV: base.FOV,
     DENSITY: base.DENSITY,
     PUSHABILITY: 1,
-    HETERO: 3,
+    HETERO: 3
   },
   GUNS: [],
   TURRETS: [],
   PROPS: [],
-  ON: [],
+  ON: []
 };
 Class.genericFlail = {
   PARENT: "genericTank",
@@ -164,7 +164,7 @@ Class.genericFlail = {
     MOVEMENT_SPEED: dfltskl,
     SHIELD_REGENERATION: dfltskl,
     SHIELD_CAPACITY: dfltskl
-  },
+  }
 };
 Class.genericHealer = {
   PARENT: "genericTank",
@@ -235,7 +235,7 @@ Class.food = {
   },
   DAMAGE_EFFECTS: false,
   RATEFFECTS: false,
-  HEALTH_WITH_LEVEL: false,
+  HEALTH_WITH_LEVEL: false
 };
 Class.genericObstacle = {
   TYPE: "wall",
@@ -249,7 +249,7 @@ Class.genericObstacle = {
     REGEN: 1000,
     DAMAGE: 1,
     RESIST: 100,
-    STEALTH: 1,
+    STEALTH: 1
   },
   VALUE: 0,
   COLOR: "lightGray",
@@ -405,12 +405,12 @@ Class.bullet = {
     DENSITY: 1.25,
     HEALTH: 0.165,
     DAMAGE: 6,
-    PUSHABILITY: 0.3,
+    PUSHABILITY: 0.3
   },
   FACING_TYPE: "smoothWithMotion",
   CAN_GO_OUTSIDE_ROOM: true,
   HITS_OWN_TYPE: "never",
-  DIE_AT_RANGE: true,
+  DIE_AT_RANGE: true
 };
 Class.drone = {
   LABEL: "Drone",
@@ -425,10 +425,10 @@ Class.drone = {
     "nearestDifferentMaster",
     "canRepel",
     "mapTargetToGoal",
-    "hangOutNearMaster",
+    "hangOutNearMaster"
   ],
   AI: {
-    BLIND: true,
+    BLIND: true
   },
   BODY: {
     PENETRATION: 1.2,
@@ -440,12 +440,12 @@ Class.drone = {
     RANGE: 200,
     DENSITY: 0.03,
     RESIST: 1.5,
-    FOV: 0.5,
+    FOV: 0.5
   },
   HITS_OWN_TYPE: "droneCollision",
   DRAW_HEALTH: false,
   CLEAR_ON_MASTER_UPGRADE: true,
-  BUFF_VS_FOOD: true,
+  BUFF_VS_FOOD: true
 };
 Class.satellite = { 
   LABEL: "Satellite",
@@ -466,7 +466,7 @@ Class.satellite = {
     RANGE: 200,
     DENSITY: 0.03,
     RESIST: 1.5,
-    FOV: 0.5,
+    FOV: 0.5
   },
   DRAW_HEALTH: false,
   CLEAR_ON_MASTER_UPGRADE: true,
@@ -492,10 +492,10 @@ Class.swarm = {
     RANGE: 225,
     DENSITY: 12,
     PUSHABILITY: 0.6,
-    FOV: 1.5,
+    FOV: 1.5
   },
   DIE_AT_RANGE: true,
-  BUFF_VS_FOOD: true,
+  BUFF_VS_FOOD: true
 };
 Class.trap = {
   LABEL: "Thrown Trap",
@@ -512,8 +512,8 @@ Class.trap = {
     RANGE: 450,
     DENSITY: 2.5,
     RESIST: 2.5,
-    SPEED: 0,
-  },
+    SPEED: 0
+  }
 };
 
 // Bosses
@@ -531,7 +531,7 @@ Class.genericBoss = {
     hlt: 1,
     shi: 0.7,
     rgn: 0.7,
-    mob: 0,
+    mob: 0
   }),
   LEVEL: 45,
   CONTROLLERS: [["nearestDifferentMaster", { lockThroughWalls: true }], "canRepel"],
@@ -544,7 +544,7 @@ Class.miniboss = {
   PARENT: "genericBoss",
   RENDER_ON_LEADERBOARD: true,
   CONTROLLERS: ["nearestDifferentMaster", ["minion", {turnwiserange: 360}], "canRepel"],
-  AI: { NO_LEAD: true },
+  AI: { NO_LEAD: true }
 };
 
 // Aura Components
@@ -566,7 +566,7 @@ Class.auraBase = {
     HEALTH: 1e9,
     DENSITY: 0,
     SPEED: 0,
-    PUSHABILITY: 0,
+    PUSHABILITY: 0
   }
 };
 Class.aura = {
@@ -574,8 +574,8 @@ Class.aura = {
   LABEL: "Aura",
   COLOR: "teal",
   BODY: {
-    DAMAGE: 0.4,
-  },
+    DAMAGE: 0.4
+  }
 };
 Class.healAura = {
   PARENT: "auraBase",
@@ -583,15 +583,15 @@ Class.healAura = {
   COLOR: "red",
   HEALER: true,
   BODY: {
-    DAMAGE: 0.4 / 3,
-  },
+    DAMAGE: 0.4 / 3
+  }
 };
 Class.auraSymbol = {
   PARENT: "genericTank",
   CONTROLLERS: [["spin", {speed: -0.04}]],
   INDEPENDENT: true,
   COLOR: "teal",
-  SHAPE: [[-0.598,-0.7796],[-0.3817,-0.9053],[0.9688,-0.1275],[0.97,0.125],[-0.3732,0.9116],[-0.593,0.785]]
+  SHAPE: [[-0.598, -0.7796], [-0.3817, -0.9053], [0.9688, -0.1275], [0.97, 0.125], [-0.3732, 0.9116], [-0.593, 0.785]]
 };
 
 // Server Travel Portal
@@ -606,7 +606,7 @@ Class.portalAura = {
     DAMAGE: 0,
     DENSITY: 0,
     SPEED: 0,
-    PUSHABILITY: 0,
+    PUSHABILITY: 0
   },
   DIE_AT_RANGE: false,
   ON: [
@@ -621,8 +621,8 @@ Class.portalAura = {
           if (body.SIZE < 32) body.growing = true;
         }
       }
-    },
-  ],
+    }
+  ]
 };
 Class.serverPortal = {
   PARENT: "genericTank",
@@ -637,7 +637,7 @@ Class.serverPortal = {
     SHIELD: 1e100,
     REGEN: 1e100,
     PUSHABILITY: 0,
-    DENSITY: 0,
+    DENSITY: 0
   },
   FACING_TYPE: "spin",
   HITS_OWN_TYPE: "never",
@@ -685,8 +685,7 @@ Class.serverPortal = {
                             instance.type === "bullet" ||
                             instance.type === "drone" ||
                             instance.type === "trap" ||
-                            instance.type === "minion")
-            {
+                            instance.type === "minion") {
               forceMulti = (3 / instance.size);
               instance.velocity.x -= util.clamp(body.x - instance.x, -90, 90) * instance.damp * forceMulti;//0.05
               instance.velocity.y -= util.clamp(body.y - instance.y, -90, 90) * instance.damp * forceMulti;//0.05
@@ -705,7 +704,7 @@ for (let i = 0; i < 60; i++) {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([
         g.basic,
-        { shudder: 0, speed: 2.7, spray: 0, reload: 0.8, recoil: 0, range: 0.15 },
+        { shudder: 0, speed: 2.7, spray: 0, reload: 0.8, recoil: 0, range: 0.15 }
       ]),
       SYNCS_SKILLS: true,
       AUTOFIRE: true,
@@ -726,9 +725,9 @@ for (let i = 0; i < 60; i++) {
               }
             }
           ]
-        },
-      ],
-    },
+        }
+      ]
+    }
   });
 };
 for (let i = 0; i < 2; i++) {
@@ -736,13 +735,13 @@ for (let i = 0; i < 2; i++) {
   Class.serverPortal.GUNS.push({
     POSITION: [2, 14, 1, 2.5, 0, 0, i],
     PROPERTIES: {
-      SHOOT_SETTINGS: combineStats([g.basic,{damage: 0, speed: 0, maxSpeed: 0, reload: 0.4, recoil: 0, size: 3}]),
+      SHOOT_SETTINGS: combineStats([g.basic, {damage: 0, speed: 0, maxSpeed: 0, reload: 0.4, recoil: 0, size: 3}]),
       TYPE: "portalAura",
       SYNCS_SKILLS: true,
       AUTOFIRE: true,
       NO_LIMITATIONS: true,
-      MAX_CHILDREN: 1,
-    },
+      MAX_CHILDREN: 1
+    }
   });
 };
 

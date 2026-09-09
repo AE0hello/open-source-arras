@@ -911,5 +911,5 @@ module.exports = {
     speed: 4.5,
     maxSpeed: 5.9,
     spray: 19
-  },
+  }
 };

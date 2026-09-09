@@ -96,7 +96,7 @@ class IO {
       fire: null,
       main: null,
       alt: null,
-      power: null,
+      power: null
     }
   }
 }
@@ -127,11 +127,11 @@ class io_doNothing extends IO {
     return {
       goal: {
         x: this.body.x,
-        y: this.body.y,
+        y: this.body.y
       },
       main: false,
       alt: false,
-      fire: false,
+      fire: false
     }
   }
 }
@@ -176,7 +176,7 @@ class io_listenToPlayer extends IO {
       alt = this.player.command.autoalt || this.player.command.rmb,
       target = {
         x: this.player.target.x,
-        y: this.player.target.y,
+        y: this.player.target.y
       };
     if (this.body.reverseTargetWithTank) {
       target.x *= this.body.reverseTank;
@@ -193,7 +193,7 @@ class io_listenToPlayer extends IO {
       }
       target = {
         x: 100 * Math.cos(kk),
-        y: 100 * Math.sin(kk),
+        y: 100 * Math.sin(kk)
       };
     }
     if (this.body.invuln) {
@@ -208,7 +208,7 @@ class io_listenToPlayer extends IO {
       alt,
       goal: this.static ? null : {
         x: this.body.x + this.player.command.right - this.player.command.left,
-        y: this.body.y + this.player.command.down - this.player.command.up,
+        y: this.body.y + this.player.command.down - this.player.command.up
       },
       main: fire || this.player.command.autospin
     };
@@ -223,9 +223,9 @@ class io_mapTargetToGoal extends IO {
       return {
         goal: {
           x: input.target.x + this.body.x,
-          y: input.target.y + this.body.y,
+          y: input.target.y + this.body.y
         },
-        power: 1,
+        power: 1
       }
     }
   }
@@ -243,7 +243,7 @@ class io_boomerang extends IO {
     }, b.master.control.target)
     this.myGoal = {
       x: 3 * b.master.control.target.x + b.master.x,
-      y: 3 * b.master.control.target.y + b.master.y,
+      y: 3 * b.master.control.target.y + b.master.y
     }
   }
   think(input) {
@@ -255,15 +255,15 @@ class io_boomerang extends IO {
       }
       return {
         goal: this.myGoal,
-        power: t,
+        power: t
       }
     } else {
       return {
         goal: {
           x: this.m.x,
-          y: this.m.y,
+          y: this.m.y
         },
-        power: t,
+        power: t
       }
     }
   }
@@ -292,7 +292,7 @@ class io_goToMasterTarget extends IO {
 
     this.myGoal = {
       x: master.x + offsetX,
-      y: master.y + offsetY,
+      y: master.y + offsetY
     }
     this.countdown = 5;
   }
@@ -304,8 +304,8 @@ class io_goToMasterTarget extends IO {
       return {
         goal: {
           x: this.myGoal.x,
-          y: this.myGoal.y,
-        },
+          y: this.myGoal.y
+        }
       }
     }
   }
@@ -322,9 +322,9 @@ class io_canRepel extends IO {
       return {
         target: {
           x: -input.target.x,
-          y: -input.target.y,
+          y: -input.target.y
         },
-        main: true,
+        main: true
       }
     }
   }
@@ -335,7 +335,7 @@ class io_alwaysFire extends IO {
   }
   think() {
     return {
-      fire: true,
+      fire: true
     }
   }
 }
@@ -348,8 +348,8 @@ class io_targetSelf extends IO {
       main: true,
       target: {
         x: 0,
-        y: 0,
-      },
+        y: 0
+      }
     }
   }
 }
@@ -360,7 +360,7 @@ class io_mapAltToFire extends IO {
   think(input) {
     if (input.alt) {
       return {
-        fire: true,
+        fire: true
       }
     }
   }
@@ -563,7 +563,7 @@ class io_nearestDifferentMaster extends IO {
       let radial = this.targetLock.velocity,
         diff = {
           x: this.targetLock.x - this.body.x,
-          y: this.targetLock.y - this.body.y,
+          y: this.targetLock.y - this.body.y
         };
       if (this.tick % 2 === 0) {
         this.lead = 0;
@@ -578,11 +578,11 @@ class io_nearestDifferentMaster extends IO {
       return {
         target: {
           x: diff.x + this.lead * radial.x,
-          y: diff.y + this.lead * radial.y,
+          y: diff.y + this.lead * radial.y
         },
         goal: this.mapGoal ? {
           x: this.targetLock.x,
-          y: this.targetLock.y,
+          y: this.targetLock.y
         } : undefined,
         fire: true,
         main: true
@@ -707,7 +707,7 @@ class io_healTeamMasters extends IO {
       let radial = this.targetLock.velocity,
         diff = {
           x: this.targetLock.x - this.body.x,
-          y: this.targetLock.y - this.body.y,
+          y: this.targetLock.y - this.body.y
         };
       if (this.tick % 2 === 0) {
         this.lead = 0;
@@ -718,7 +718,7 @@ class io_healTeamMasters extends IO {
       return {
         target: {
           x: diff.x + this.lead * radial.x,
-          y: diff.y + this.lead * radial.y,
+          y: diff.y + this.lead * radial.y
         },
         goal: undefined,
         fire: true,
@@ -753,12 +753,12 @@ class io_avoid extends IO {
           let goalDist = Math.sqrt(range / (input.goal.x * input.goal.x + input.goal.y * input.goal.y))
           goal = {
             x: input.goal.x * goalDist - diff.x * comp,
-            y: input.goal.y * goalDist - diff.y * comp,
+            y: input.goal.y * goalDist - diff.y * comp
           }
         } else {
           goal = {
             x: -diff.x * comp,
-            y: -diff.y * comp,
+            y: -diff.y * comp
           }
         }
         return goal
@@ -789,20 +789,20 @@ class io_minion extends IO {
         if (target.length < leash) {
           goal = {
             x: this.body.x + target.x,
-            y: this.body.y + target.y,
+            y: this.body.y + target.y
           }
           // Spiral repel
         } else if (target.length < repel) {
           let dir = -this.turnwise * target.direction + Math.PI / 5
           goal = {
             x: this.body.x + Math.cos(dir),
-            y: this.body.y + Math.sin(dir),
+            y: this.body.y + Math.sin(dir)
           }
           // Free repel
         } else {
           goal = {
             x: this.body.x - target.x,
-            y: this.body.y - target.y,
+            y: this.body.y - target.y
           }
         }
       } else if (input.main) {
@@ -810,7 +810,7 @@ class io_minion extends IO {
         let dir = this.turnwise * target.direction + 0.01
         goal = {
           x: this.body.x + target.x - orbit * Math.cos(dir),
-          y: this.body.y + target.y - orbit * Math.sin(dir),
+          y: this.body.y + target.y - orbit * Math.sin(dir)
         }
         if (Math.abs(target.length - orbit) < this.body.size * 2) {
           power = 0.7
@@ -818,7 +818,7 @@ class io_minion extends IO {
       }
       return {
         goal: goal,
-        power: power,
+        power: power
       }
     }
   }
@@ -830,7 +830,7 @@ class io_hangOutNearMaster extends IO {
     this.orbit = 30
     this.currentGoal = {
       x: this.body.source.x,
-      y: this.body.source.y,
+      y: this.body.source.y
     }
     this.timer = 0
   }
@@ -843,10 +843,10 @@ class io_hangOutNearMaster extends IO {
       let output = {
         target: {
           x: this.body.velocity.x,
-          y: this.body.velocity.y,
+          y: this.body.velocity.y
         },
         goal: this.currentGoal,
-        power: undefined,
+        power: undefined
       };
       // Set a goal
       if (dist > bound2 || this.timer > 30) {
@@ -885,9 +885,9 @@ class io_spin extends IO {
     return {
       target: {
         x: Math.cos(this.a + offset),
-        y: Math.sin(this.a + offset),
+        y: Math.sin(this.a + offset)
       },
-      main: true,
+      main: true
     };
   }
 }
@@ -929,8 +929,8 @@ class io_fleeAtLowHealth extends IO {
       return {
         goal: {
           x: this.body.x - input.target.x,
-          y: this.body.y - input.target.y,
-        },
+          y: this.body.y - input.target.y
+        }
       }
     }
   }
@@ -967,7 +967,7 @@ class io_wanderAroundMap extends IO {
     this.bossWander = opts.diepBossWander;
     this.howFarAwayFromEdgeOfMap = 15;
     this.tick = 0;
-    this.currentGoal = {x:0,y:0};
+    this.currentGoal = {x:0, y:0};
     this.i = 0;
     this.enabled = true;
     this.botMoveEnabled = true;
@@ -991,7 +991,7 @@ class io_wanderAroundMap extends IO {
                 x: locX * 30 - this.body.x,
                 y: locY * 30 - this.body.y
               } : null,
-              goal: loc,
+              goal: loc
             };
           }
         }
@@ -1101,8 +1101,7 @@ class io_whirlwind extends IO {
         this.body.dist += this.radiusScalingSpeed;
         this.body.inverseDist -= this.radiusScalingSpeed;
       }
-    }
-    else if(input.alt){
+    } else if(input.alt){
       if(this.body.dist >= trueMinDistance) {
         this.body.dist -= this.radiusScalingSpeed;
         this.body.inverseDist += this.radiusScalingSpeed;
@@ -1127,8 +1126,7 @@ class io_orbit extends IO {
         
     if(this.realDist > dist){
       this.realDist -= Math.min(10, Math.abs(this.realDist - dist));
-    }
-    else if(this.realDist < dist){
+    } else if(this.realDist < dist){
       this.realDist += Math.min(10, Math.abs(dist - this.realDist));
     }
     this.body.x = master.x + Math.cos(angle) * this.realDist;
@@ -1342,7 +1340,7 @@ let ioTypes = {
   snake: io_snake,
   hangOutNearMaster: io_hangOutNearMaster,
   fleeAtLowHealth: io_fleeAtLowHealth,
-  wanderAroundMap: io_wanderAroundMap,
+  wanderAroundMap: io_wanderAroundMap
 };
 
 module.exports = { ioTypes, IO };

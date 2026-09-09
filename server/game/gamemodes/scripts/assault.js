@@ -116,7 +116,7 @@ class Assault {
                     this.secondTimer == 1
         ) {
           global.gameManager.socketManager.broadcast(
-            `${this.secondTimer} secon${this.secondTimer == 1 ? "d" : "ds"} left until ${getTeamName(TEAM_GREEN)} wins!`,
+            `${this.secondTimer} secon${this.secondTimer == 1 ? "d" : "ds"} left until ${getTeamName(TEAM_GREEN)} wins!`
           );
         }
       }

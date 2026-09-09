@@ -15,8 +15,8 @@ Class.elite = {
     SPEED: 0.15 * base.SPEED,
     HEALTH: 9 * base.HEALTH,
     DAMAGE: 4.5 * base.DAMAGE,
-    REGEN: 0.5 * base.REGEN,
-  },
+    REGEN: 0.5 * base.REGEN
+  }
 }
 
 // Elite Crashers
@@ -29,19 +29,19 @@ Class.eliteDestroyer = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer]),
       TYPE: "bullet",
-      LABEL: "Devastator",
-    },
+      LABEL: "Devastator"
+    }
   }, 3),
   TURRETS: [
     ...weaponArray({
       POSITION: [11, 0, 0, 60, 360, 0],
-      TYPE: "crasherSpawner",
+      TYPE: "crasherSpawner"
     }, 3),
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: [ "bigauto4gun", { INDEPENDENT: true, COLOR: -1 } ],
-    },
-  ],
+      TYPE: ["bigauto4gun", { INDEPENDENT: true, COLOR: -1 }]
+    }
+  ]
 }
 Class.eliteGunner = {
   PARENT: "elite",
@@ -51,30 +51,30 @@ Class.eliteGunner = {
   AI: { NO_LEAD: false },
   GUNS: [
     {
-      POSITION: [14, 16, 1, 0, 0, 180, 0],
+      POSITION: [14, 16, 1, 0, 0, 180, 0]
     }, {
       POSITION: [4, 16, 1.5, 14, 0, 180, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {speed: 1.5, range: 0.3}]),
         TYPE: "unsetPillbox",
         NO_LIMITATIONS: true,
-        STAT_CALCULATOR: "trap",
-      },
+        STAT_CALCULATOR: "trap"
+      }
     }, {
-      POSITION: [6, 14, -2, 2, 0, 60, 0],
+      POSITION: [6, 14, -2, 2, 0, 60, 0]
     }, {
-      POSITION: [6, 14, -2, 2, 0, 300, 0],
-    },
+      POSITION: [6, 14, -2, 2, 0, 300, 0]
+    }
   ],
   TURRETS: [
     {
       POSITION: [14, 8, 0, 60, 180, 0],
-      TYPE: "auto4gun",
+      TYPE: "auto4gun"
     }, {
       POSITION: [14, 8, 0, 300, 180, 0],
-      TYPE: "auto4gun",
-    },
-  ],
+      TYPE: "auto4gun"
+    }
+  ]
 }
 Class.eliteSprayer = {
   PARENT: "elite",
@@ -86,18 +86,18 @@ Class.eliteSprayer = {
   TURRETS: [
     {
       POSITION: [6, 0, 0, 0, 360, 1],
-      TYPE: ["machineTripleTurret", { INDEPENDENT: true }],
+      TYPE: ["machineTripleTurret", { INDEPENDENT: true }]
     },
     ...weaponArray([
       {
         POSITION: [9, 6, -5, 60, 130, 0],
-        TYPE: ["sprayer", { COLOR: "grey", GUN_STAT_SCALE: {damage: 0.9, resist: 0.95} }],
+        TYPE: ["sprayer", { COLOR: "grey", GUN_STAT_SCALE: {damage: 0.9, resist: 0.95} }]
       }, {
         POSITION: [9, 6, 5, 60, 130, 0],
-        TYPE: ["sprayer", { COLOR: "grey", GUN_STAT_SCALE: {damage: 0.9, resist: 0.95} }],
-      }, 
+        TYPE: ["sprayer", { COLOR: "grey", GUN_STAT_SCALE: {damage: 0.9, resist: 0.95} }]
+      } 
     ], 3)
-  ],
+  ]
 }
 Class.eliteSprayer_old = {
   PARENT: "elite",
@@ -106,7 +106,7 @@ Class.eliteSprayer_old = {
   AI: { NO_LEAD: false },
   TURRETS: weaponArray({
     POSITION: [14, 6, 0, 60, 190, 0],
-    TYPE: [ "sprayer", { COLOR: -1 } ],
+    TYPE: ["sprayer", { COLOR: -1 }]
   }, 3)
 }
 Class.eliteBattleship = {
@@ -119,27 +119,27 @@ Class.eliteBattleship = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, 0, 60, 0.5],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, 8, 60, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
-    }, 
+        STAT_CALCULATOR: "swarm"
+      }
+    } 
   ], 3),
   TURRETS: weaponArray({
     POSITION: [5, 7, 0, 0, 360, 1],
-    TYPE: [ "autoTankGun", { INDEPENDENT: true, COLOR: -1 } ],
+    TYPE: ["autoTankGun", { INDEPENDENT: true, COLOR: -1 }]
   }, 3)
 }
 Class.eliteSpawner = {
@@ -152,11 +152,11 @@ Class.eliteSpawner = {
   SKILL: [15, 8, 8, 8, 5, 1, 0, 9, 1, 0],
   GUNS: [
     {
-      POSITION: [11, 16, 1, 0, 0, 60, 0],
+      POSITION: [11, 16, 1, 0, 0, 60, 0]
     }, {
-      POSITION: [11, 16, 1, 0, 0, 180, 0],
+      POSITION: [11, 16, 1, 0, 0, 180, 0]
     }, {
-      POSITION: [11, 16, 1, 0, 0, 300, 0],
+      POSITION: [11, 16, 1, 0, 0, 300, 0]
     }, {
       POSITION: [2, 18, 1, 11, 0, 60, 0],
       PROPERTIES: {
@@ -165,8 +165,8 @@ Class.eliteSpawner = {
         NO_LIMITATIONS: true,
         SYNCS_SKILLS: true,
         AUTOFIRE: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     }, {
       POSITION: [2, 18, 1, 11, 0, 180, 0],
       PROPERTIES: {
@@ -175,8 +175,8 @@ Class.eliteSpawner = {
         NO_LIMITATIONS: true,
         SYNCS_SKILLS: true,
         AUTOFIRE: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     }, {
       POSITION: [2, 18, 1, 11, 0, 300, 0],
       PROPERTIES: {
@@ -185,16 +185,16 @@ Class.eliteSpawner = {
         NO_LIMITATIONS: true,
         SYNCS_SKILLS: true,
         AUTOFIRE: true,
-        STAT_CALCULATOR: "drone",
-      },
-    },
+        STAT_CALCULATOR: "drone"
+      }
+    }
   ],
   TURRETS: [
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: ["auto4gun", { INDEPENDENT: false, COLOR: -1 }],
-    },
-  ],
+      TYPE: ["auto4gun", { INDEPENDENT: false, COLOR: -1 }]
+    }
+  ]
 }
 Class.eliteTrapGuard = {
   PARENT: "elite",
@@ -203,31 +203,31 @@ Class.eliteTrapGuard = {
   AI: { STRAFE: false },
   GUNS: weaponArray([
     {
-      POSITION: [10.5, 6, 1, 0, 0, 60, 0],
+      POSITION: [10.5, 6, 1, 0, 0, 60, 0]
     }, {
       POSITION: [3, 6, 1.7, 10.5, 0, 60, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, {speed: 1.1, maxSpeed: 1.1, reload: 1.5, damage: 1.6}]),
         TYPE: "trap",
-        STAT_CALCULATOR: "trap",
-      },
-    },
+        STAT_CALCULATOR: "trap"
+      }
+    }
   ], 3),
   TURRETS: [
     {
       POSITION: [9.5, 0, 0, 0, 360, 1],
-      TYPE: "triTrapGuardTurret",
+      TYPE: "triTrapGuardTurret"
     },
     ...weaponArray([
       {
         POSITION: [5, 8, -7, 60, 160, 0],
-        TYPE: ["autoTurret", { INDEPENDENT: false, GUN_STAT_SCALE: {health: 1.1} }],
+        TYPE: ["autoTurret", { INDEPENDENT: false, GUN_STAT_SCALE: {health: 1.1} }]
       }, {
         POSITION: [5, 8, 7, 60, 160, 0],
-        TYPE: ["autoTurret", { INDEPENDENT: false, GUN_STAT_SCALE: {health: 1.1} }],
-      },
+        TYPE: ["autoTurret", { INDEPENDENT: false, GUN_STAT_SCALE: {health: 1.1} }]
+      }
     ], 3)
-  ],
+  ]
 }
 Class.eliteSpinner = {
   PARENT: "elite",
@@ -240,30 +240,30 @@ Class.eliteSpinner = {
       POSITION: [9.5, 2, 1, -1.5, 11.5, 10, 2/3],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.5, maxSpeed: 1.25 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     }, {
       POSITION: [9.5, 2, 1, 3.5, 6.5, 10, 1/3],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.5, maxSpeed: 1.25 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     }, {
       POSITION: [9.5, 2, 1, 8.5, 1.5, 10, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.5, maxSpeed: 1.25 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     }, {
-      POSITION: [2, 20, 0.75, 8, 0, 60, 0],
-    },
+      POSITION: [2, 20, 0.75, 8, 0, 60, 0]
+    }
   ], 3),
   TURRETS: [
     {
       POSITION: [9.5, 0, 0, 0, 360, 1],
-      TYPE: ["eliteSpinnerCyclone", {COLOR: -1}],
-    },
-  ],
+      TYPE: ["eliteSpinnerCyclone", {COLOR: -1}]
+    }
+  ]
 }
 
 // Deltas (moving to Arms Race addon later)
@@ -279,22 +279,22 @@ Class.delta = {
     SPEED: 0.15 * base.SPEED,
     HEALTH: 14 * base.HEALTH,
     DAMAGE: 3 * base.DAMAGE,
-    REGEN: 0.5 * base.REGEN,
-  },
+    REGEN: 0.5 * base.REGEN
+  }
 }
 Class.deltaDestroyer = {
   PARENT: "delta",
   UPGRADE_LABEL: "Delta Destroyer",
   GUNS: [
     ...weaponArray({
-      POSITION: [ 7, 10.5, -1.4, 6, 0, 60, 0],
+      POSITION: [7, 10.5, -1.4, 6, 0, 60, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer, g.launcher, g.fake, {damage: 1.1, speed: 1.05}]),
         TYPE: "launcherMissile",
         LABEL: "Devastator",
         NO_LIMITATIONS: true,
         AUTOFIRE: true
-      },
+      }
     }, 3),
     ...weaponArray({
       POSITION: [5, 16, 1, 6, 0, 60, 0],
@@ -302,20 +302,20 @@ Class.deltaDestroyer = {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer, g.launcher, {damage: 1.1, speed: 1.05}]),
         TYPE: "launcherMissile",
         LABEL: "Devastator",
-        NO_LIMITATIONS: true,
-      },
-    }, 3),
+        NO_LIMITATIONS: true
+      }
+    }, 3)
   ],
   TURRETS: [
     ...weaponArray({
       POSITION: [11, 0, 0, 60, 360, 0],
-      TYPE: ["crasherSpawner", {GUN_STAT_SCALE: {health: 1.1, damage: 1.2, size: 1.1}}],
+      TYPE: ["crasherSpawner", {GUN_STAT_SCALE: {health: 1.1, damage: 1.2, size: 1.1}}]
     }, 3),
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: [ "bigauto4gun", { INDEPENDENT: true, COLOR: -1, GUN_STAT_SCALE: {health: 1.2, damage: 1.1} } ],
-    },
-  ],
+      TYPE: ["bigauto4gun", { INDEPENDENT: true, COLOR: -1, GUN_STAT_SCALE: {health: 1.2, damage: 1.1} }]
+    }
+  ]
 }
 Class.deltaGunner = {
   PARENT: "delta",
@@ -324,34 +324,34 @@ Class.deltaGunner = {
   AI: { NO_LEAD: false },
   GUNS: [
     {
-      POSITION: [14, 16, 1, 0, 0, 180, 0],
+      POSITION: [14, 16, 1, 0, 0, 180, 0]
     }, {
-      POSITION: [14, 6, 1, 0, 0, 180, 0],
+      POSITION: [14, 6, 1, 0, 0, 180, 0]
     }, {
       POSITION: [4, 16, 1.5, 14, 0, 180, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {speed: 1.5, range: 0.3, size: 0.6}]),
         TYPE: "legionaryPillbox",
         STAT_CALCULATOR: "trap",
-        NO_LIMITATIONS: true,
-      },
+        NO_LIMITATIONS: true
+      }
     }, {
-      POSITION: [6, 14, -2, 2, 0, 60, 0],
+      POSITION: [6, 14, -2, 2, 0, 60, 0]
     }, {
-      POSITION: [6, 14, -2, 2, 0, 300, 0],
+      POSITION: [6, 14, -2, 2, 0, 300, 0]
     }, {
-      POSITION: [6, 14, -2, 2, 0, 180, 0],
-    },
+      POSITION: [6, 14, -2, 2, 0, 180, 0]
+    }
   ],
   TURRETS: [
     {
       POSITION: [14, 8, 0, 60, 180, 0],
-      TYPE: ["bigauto4gun", {GUN_STAT_SCALE: {damage:1.05}}],
+      TYPE: ["bigauto4gun", {GUN_STAT_SCALE: {damage:1.05}}]
     }, {
       POSITION: [14, 8, 0, 300, 180, 0],
-      TYPE: ["bigauto4gun", {GUN_STAT_SCALE: {damage:1.05}}],
-    },
-  ],
+      TYPE: ["bigauto4gun", {GUN_STAT_SCALE: {damage:1.05}}]
+    }
+  ]
 }
 Class.deltaSprayer = {
   PARENT: "delta",
@@ -362,21 +362,21 @@ Class.deltaSprayer = {
   TURRETS: [
     {
       POSITION: [6, 0, 0, 0, 360, 1],
-      TYPE: ["gadgetGunTripleTurret", { INDEPENDENT: true }],
+      TYPE: ["gadgetGunTripleTurret", { INDEPENDENT: true }]
     },
     ...weaponArray([
       {
         POSITION: [7.75, 6, 8, 60, 130, 0],
-        TYPE: ["sprayer", { COLOR: "grey" }],
-      },{
+        TYPE: ["sprayer", { COLOR: "grey" }]
+      }, {
         POSITION: [7.75, 6, -8, 60, 130, 0],
-        TYPE: ["sprayer", { COLOR: "grey" }],
+        TYPE: ["sprayer", { COLOR: "grey" }]
       }, {
         POSITION: [9, 6, 0, 60, 130, 0],
-        TYPE: ["scatterer", { COLOR: "grey" }],
-      },
+        TYPE: ["scatterer", { COLOR: "grey" }]
+      }
     ], 3)
-  ],
+  ]
 }
 Class.deltaBattleship = {
   PARENT: "delta",
@@ -387,34 +387,34 @@ Class.deltaBattleship = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, -3.5, 60, 2/4],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, -10, 60, 3/4],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, 10, 60, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 0.95, maxSpeed: 0.95, health: 1.1, resist: 1.05}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }
   ], 3),
   TURRETS: weaponArray({
     POSITION: [5, 7, 0, 0, 360, 1],
-    TYPE: [ "bigAutoTankGun", { INDEPENDENT: true, COLOR: -1 } ],
+    TYPE: ["bigAutoTankGun", { INDEPENDENT: true, COLOR: -1 }]
   }, 3)
 }
 
@@ -427,26 +427,26 @@ Class.destroyerLegion = {
   AI: { NO_LEAD: false },
   SIZE: 30,
   BODY: {
-    HEALTH: 8 * base.HEALTH,
+    HEALTH: 8 * base.HEALTH
   },
   GUNS: weaponArray({
     POSITION: [5, 16, 1, 6, 0, 60, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.pounder, g.destroyer, {health: 1.1}]),
       TYPE: "bullet",
-      LABEL: "Devastator",
-    },
+      LABEL: "Devastator"
+    }
   }, 3),
   TURRETS: [
     ...weaponArray({
       POSITION: [11, 0, 0, 60, 360, 0],
-      TYPE: ["crasherSpawner", {GUN_STAT_SCALE: {health: 1.1}}],
+      TYPE: ["crasherSpawner", {GUN_STAT_SCALE: {health: 1.1}}]
     }, 3),
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: [ "bigauto4gun", { GUN_STAT_SCALE: {health: 1.1}, INDEPENDENT: true, COLOR: -1 } ],
-    },
-  ],
+      TYPE: ["bigauto4gun", { GUN_STAT_SCALE: {health: 1.1}, INDEPENDENT: true, COLOR: -1 }]
+    }
+  ]
 }
 Class.gunnerLegion = {
   PARENT: "elite",
@@ -457,33 +457,33 @@ Class.gunnerLegion = {
   AI: { NO_LEAD: false },
   SIZE: 30,
   BODY: {
-    HEALTH: 8 * base.HEALTH,
+    HEALTH: 8 * base.HEALTH
   },
   GUNS: [
     {
-      POSITION: [14, 16, 1, 0, 0, 180, 0],
+      POSITION: [14, 16, 1, 0, 0, 180, 0]
     }, {
       POSITION: [4, 16, 1.5, 14, 0, 180, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, {health: 1.1, speed: 1.5, range: 0.3}]),
         TYPE: "unsetPillbox",
-        STAT_CALCULATOR: "trap",
-      },
+        STAT_CALCULATOR: "trap"
+      }
     }, {
-      POSITION: [6, 14, -2, 2, 0, 60, 0],
+      POSITION: [6, 14, -2, 2, 0, 60, 0]
     }, {
-      POSITION: [6, 14, -2, 2, 0, 300, 0],
-    },
+      POSITION: [6, 14, -2, 2, 0, 300, 0]
+    }
   ],
   TURRETS: [
     {
       POSITION: [14, 8, 0, 60, 180, 0],
-      TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.15}}],
+      TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.15}}]
     }, {
       POSITION: [14, 8, 0, 300, 180, 0],
-      TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.15}}],
-    },
-  ],
+      TYPE: ["auto4gun", {GUN_STAT_SCALE: {health: 1.15}}]
+    }
+  ]
 }
 Class.sprayerLegion = {
   PARENT: "elite",
@@ -495,11 +495,11 @@ Class.sprayerLegion = {
   SKILL: [0, 9, 3, 9, 2, 9, 9, 9, 9, 0],
   HAS_NO_RECOIL: true,
   BODY: {
-    HEALTH: 8 * base.HEALTH,
+    HEALTH: 8 * base.HEALTH
   },
   TURRETS: weaponArray({
     POSITION: [14, 6, 0, 60, 190, 0],
-    TYPE: ["machineGun", {GUN_STAT_SCALE: {health: 1.1, damage: 1.2, speed: 1.2, resist: 1.05}, COLOR: -1}],
+    TYPE: ["machineGun", {GUN_STAT_SCALE: {health: 1.1, damage: 1.2, speed: 1.2, resist: 1.05}, COLOR: -1}]
   }, 3)
 }
 Class.battleshipLegion = {
@@ -510,7 +510,7 @@ Class.battleshipLegion = {
   AI: { NO_LEAD: false },
   SIZE: 30,
   BODY: {
-    HEALTH: 8 * base.HEALTH,
+    HEALTH: 8 * base.HEALTH
   },
   GUNS: weaponArray([
     {
@@ -518,27 +518,27 @@ Class.battleshipLegion = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 1.05, maxSpeed: 1.05, health: 1.2, resist: 1.1}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, 0, 60, 0.5],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 1.05, maxSpeed: 1.05, health: 1.2, resist: 1.1}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     }, {
       POSITION: [4, 6, 0.6, 7, 8, 60, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, {speed: 1.05, maxSpeed: 1.05, health: 1.2, resist: 1.1}]),
         TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm",
-      },
-    }, 
+        STAT_CALCULATOR: "swarm"
+      }
+    } 
   ], 3),
   TURRETS: weaponArray({
     POSITION: [5, 7, 0, 0, 360, 1],
-    TYPE: [ "autoTankGun", { GUN_STAT_SCALE: {health: 1.1}, INDEPENDENT: true, COLOR: -1 } ],
+    TYPE: ["autoTankGun", { GUN_STAT_SCALE: {health: 1.1}, INDEPENDENT: true, COLOR: -1 }]
   }, 3)
 }
 Class.spawnerLegion = {
@@ -549,15 +549,15 @@ Class.spawnerLegion = {
   AI: { NO_LEAD: false },
   SIZE: 30,
   BODY: {
-    HEALTH: 8 * base.HEALTH,
+    HEALTH: 8 * base.HEALTH
   },
   GUNS: [
     {
-      POSITION: [11, 16, 1, 0, 0, 60, 0],
+      POSITION: [11, 16, 1, 0, 0, 60, 0]
     }, {
-      POSITION: [11, 16, 1, 0, 0, 180, 0],
+      POSITION: [11, 16, 1, 0, 0, 180, 0]
     }, {
-      POSITION: [11, 16, 1, 0, 0, 300, 0],
+      POSITION: [11, 16, 1, 0, 0, 300, 0]
     }, {
       POSITION: [2, 18, 1, 11, 0, 60, 0],
       PROPERTIES: {
@@ -565,8 +565,8 @@ Class.spawnerLegion = {
         TYPE: "sentrySwarmMinion",
         SYNCS_SKILLS: true,
         AUTOFIRE: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     }, {
       POSITION: [2, 18, 1, 11, 0, 180, 0],
       PROPERTIES: {
@@ -574,8 +574,8 @@ Class.spawnerLegion = {
         TYPE: "sentryTrapMinion",
         SYNCS_SKILLS: true,
         AUTOFIRE: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     }, {
       POSITION: [2, 18, 1, 11, 0, 300, 0],
       PROPERTIES: {
@@ -583,23 +583,23 @@ Class.spawnerLegion = {
         TYPE: "sentryGunMinion",
         SYNCS_SKILLS: true,
         AUTOFIRE: true,
-        STAT_CALCULATOR: "drone",
-      },
-    },
+        STAT_CALCULATOR: "drone"
+      }
+    }
   ],
   TURRETS: [
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: ["auto4gun", { GUN_STAT_SCALE: {health: 1.15}, INDEPENDENT: false, COLOR: -1 }],
-    },
-  ],
+      TYPE: ["auto4gun", { GUN_STAT_SCALE: {health: 1.15}, INDEPENDENT: false, COLOR: -1 }]
+    }
+  ]
 }
 
 // Legionary Crasher
 Class.legionaryCrasherTop = {
   PARENT: "elite",
   AI: { STRAFE: false, NO_LEAD: false },
-  CONTROLLERS: [ ["spin", { independent: true, speed: -0.005 }] ],
+  CONTROLLERS: [["spin", { independent: true, speed: -0.005 }]],
   INDEPENDENT: true,
   DISPLAY_NAME: false,
   GUNS: weaponArray([
@@ -607,25 +607,25 @@ Class.legionaryCrasherTop = {
       POSITION: [4, 9.5, 0.7, 7, 5, 60, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.pounder, { speed: 2, maxSpeed: 1.7, size: 0.6, range: 2.8}]),
-        TYPE: [ "swarm", { INDEPENDENT: true } ],
+        TYPE: ["swarm", { INDEPENDENT: true }],
         STAT_CALCULATOR: "swarm",
-        AUTOFIRE: true,
+        AUTOFIRE: true
                 
-      },
+      }
     }, {
       POSITION: [4, 9.5, 0.7, 7, -5, 60, 0.5],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.pounder, { speed: 2, maxSpeed: 1.7, size: 0.6, range: 2.8}]),
-        TYPE: [ "swarm", { INDEPENDENT: true } ],
+        TYPE: ["swarm", { INDEPENDENT: true }],
         STAT_CALCULATOR: "swarm",
-        AUTOFIRE: true,
-      },
-    },
+        AUTOFIRE: true
+      }
+    }
   ], 3),
   TURRETS: weaponArray({
     POSITION: [9.5, 10, 0, 0, 190, 0],
-    TYPE: ["auto4gun", {GUN_STAT_SCALE: {damage: 1.4, health: 1.1, speed: 1.2, maxSpeed: 1.2, resist: 1.1, range: 1.3}}],
-  }, 3),
+    TYPE: ["auto4gun", {GUN_STAT_SCALE: {damage: 1.4, health: 1.1, speed: 1.2, maxSpeed: 1.2, resist: 1.1, range: 1.3}}]
+  }, 3)
 }
 Class.legionaryCrasherSpawner = {
   PARENT: "genericTank",
@@ -640,7 +640,7 @@ Class.legionaryCrasherSpawner = {
       INDEPENDENT_CHILDREN: true,
       MAX_CHILDREN: 3,
       IDENTIFIER: 1,
-      AUTOFIRE: true,
+      AUTOFIRE: true
     }
   }],
   ON: [{
@@ -648,7 +648,7 @@ Class.legionaryCrasherSpawner = {
     handler: ({ gun }) => {
       gun.setBulletType(["destroyerLegion", "gunnerLegion", "sprayerLegion", "battleshipLegion", "spawnerLegion"][gun.identifier++ % 5]);
     }
-  }],
+  }]
 }
 Class.legionaryCrasher = {
   PARENT: "elite",
@@ -662,40 +662,40 @@ Class.legionaryCrasher = {
     FOV: 1.5,
     SPEED: 0.1 * base.SPEED,
     HEALTH: 2000,
-    DAMAGE: 5 * base.DAMAGE,
+    DAMAGE: 5 * base.DAMAGE
   },
   GUNS: [
     ...weaponArray([
       {
-        POSITION: [14.5, 13, 1, 0, 0, 0, 0],
+        POSITION: [14.5, 13, 1, 0, 0, 0, 0]
       }, {
         POSITION: [3, 13, 1.7, 14.5, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, { reload: 2, speed: 2, size: 0.65, maxSpeed: 2, range: 0.65 }]),
           TYPE: "legionaryPillbox",
           NO_LIMITATIONS: true,
-          STAT_CALCULATOR: "trap",
-        },
-      },
+          STAT_CALCULATOR: "trap"
+        }
+      }
     ], 3),
     ...weaponArray({
-      POSITION: [5, 12, 1.6, -11, 0, 0, 0],
-    }, 3),
+      POSITION: [5, 12, 1.6, -11, 0, 0, 0]
+    }, 3)
   ],
   TURRETS: [
     {
       POSITION: [12, 0, 0, 0, 360, 1],
-      TYPE: "legionaryCrasherTop",
+      TYPE: "legionaryCrasherTop"
     },
     ...weaponArray({
       POSITION: [14, 8, 0, 60, 180, 0],
-      TYPE: [ "sprayer", { GUN_STAT_SCALE: {speed: 1.3, health: 1.5, damage: 1.4, resist: 1.2}, COLOR: -1 } ],
+      TYPE: ["sprayer", { GUN_STAT_SCALE: {speed: 1.3, health: 1.5, damage: 1.4, resist: 1.2}, COLOR: -1 }]
     }, 3),
     {
       POSITION: [12, 0, 0, 0, 0, 0],
       TYPE: "legionaryCrasherSpawner"
     }
-  ],
+  ]
 }
 Class.legionaryCrasherSpawnerFix = {
   PARENT: "genericTank",
@@ -710,7 +710,7 @@ Class.legionaryCrasherSpawnerFix = {
       INDEPENDENT_CHILDREN: false,
       MAX_CHILDREN: 3,
       IDENTIFIER: 1,
-      AUTOFIRE: true,
+      AUTOFIRE: true
     }
   }],
   ON: [{
@@ -718,7 +718,7 @@ Class.legionaryCrasherSpawnerFix = {
     handler: ({ gun }) => {
       gun.setBulletType(["destroyerLegion", "gunnerLegion", "sprayerLegion", "battleshipLegion", "spawnerLegion"][gun.identifier++ % 5]);
     }
-  }],
+  }]
 }
 Class.legionaryCrasherFix = {
   PARENT: "elite",
@@ -732,40 +732,40 @@ Class.legionaryCrasherFix = {
     FOV: 1.5,
     SPEED: 0.1 * base.SPEED,
     HEALTH: 2000,
-    DAMAGE: 5 * base.DAMAGE,
+    DAMAGE: 5 * base.DAMAGE
   },
   GUNS: [
     ...weaponArray([
       {
-        POSITION: [14.5, 13, 1, 0, 0, 0, 0],
+        POSITION: [14.5, 13, 1, 0, 0, 0, 0]
       }, {
         POSITION: [3, 13, 1.7, 14.5, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.pounder, { reload: 2, speed: 2, size: 0.65, maxSpeed: 2, range: 0.65 }]),
           TYPE: "legionaryPillbox",
           NO_LIMITATIONS: true,
-          STAT_CALCULATOR: "trap",
-        },
-      },
+          STAT_CALCULATOR: "trap"
+        }
+      }
     ], 3),
     ...weaponArray({
-      POSITION: [5, 12, 1.6, -11, 0, 0, 0],
-    }, 3),
+      POSITION: [5, 12, 1.6, -11, 0, 0, 0]
+    }, 3)
   ],
   TURRETS: [
     {
       POSITION: [12, 0, 0, 0, 360, 1],
-      TYPE: "legionaryCrasherTop",
+      TYPE: "legionaryCrasherTop"
     },
     ...weaponArray({
       POSITION: [14, 8, 0, 60, 180, 0],
-      TYPE: [ "sprayer", { GUN_STAT_SCALE: {speed: 1.3, health: 1.5, damage: 1.4, resist: 1.2}, COLOR: -1 } ],
+      TYPE: ["sprayer", { GUN_STAT_SCALE: {speed: 1.3, health: 1.5, damage: 1.4, resist: 1.2}, COLOR: -1 }]
     }, 3),
     {
       POSITION: [12, 0, 0, 0, 0, 0],
       TYPE: "legionaryCrasherSpawnerFix"
     }
-  ],
+  ]
 }
 
 // Miscellaneous Elites

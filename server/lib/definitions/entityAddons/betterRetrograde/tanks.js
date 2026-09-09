@@ -119,7 +119,7 @@ Class.splasher.GUNS = [
   {
     POSITION: {
       LENGTH: 20,
-      WIDTH: 7,
+      WIDTH: 7
     },
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }]),

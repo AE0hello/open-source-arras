@@ -7,7 +7,7 @@ module.exports = {
     [1/20, [
       [1, "sentinelGun"], [1, "sentinelSwarm"], [1, "sentinelTrap"]
     ]]
-  ],
+  ]
   /*boss_types: [
             {
             bosses: ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner"],

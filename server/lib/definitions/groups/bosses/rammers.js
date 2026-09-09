@@ -3,7 +3,7 @@ const {base} = require("../../constants.js")
 
 Class.ramMiniboss = {
   PARENT: "genericBoss",
-  CONTROLLERS: ["nearestDifferentMaster", "canRepel", "mapTargetToGoal"],
+  CONTROLLERS: ["nearestDifferentMaster", "canRepel", "mapTargetToGoal"]
 }
 
 Class.bob = {
@@ -19,7 +19,7 @@ Class.bob = {
     DAMAGE: 5 * base.DAMAGE,
     REGEN: 8 * base.REGEN,
     FOV: 0.5 * base.FOV,
-    DENSITY: 6 * base.DENSITY,
+    DENSITY: 6 * base.DENSITY
   },
   CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal"],
   TURRETS: [
@@ -47,6 +47,6 @@ Class.nemesis = {
     HEALTH: 1e6,
     DENSITY: 30,
     DAMAGE: 1e5,
-    FOV: 5,
-  },
+    FOV: 5
+  }
 }

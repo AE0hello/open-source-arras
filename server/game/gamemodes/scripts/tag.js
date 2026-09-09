@@ -13,7 +13,9 @@ class Tag {
         this.won = false;
         this.teams = Array(Config.teams).fill(0);
       },
-      redefineTeams: () => { this.teams = Array(Config.teams).fill(0); },
+      redefineTeams: () => {
+        this.teams = Array(Config.teams).fill(0); 
+      },
       addToTeam: (team) => {
         this.teams[team - 1]++;
         this.checkWin();

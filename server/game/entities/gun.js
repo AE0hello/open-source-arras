@@ -24,14 +24,14 @@ class Gun extends EventEmitter {
       goal: new Vector(0, 0),
       main: false,
       alt: false,
-      fire: false,
+      fire: false
     };
     this.color = new Color({
       BASE: "grey",
       HUE_SHIFT: 0,
       SATURATION_SHIFT: 1,
       BRIGHTNESS_SHIFT: 0,
-      ALLOW_BRIGHTNESS_INVERT: false,
+      ALLOW_BRIGHTNESS_INVERT: false
     });
     this.alpha = 1;
     this.strokeWidth = 1;
@@ -179,7 +179,7 @@ class Gun extends EventEmitter {
         this.body.skill.raw[2],
         this.body.skill.raw[3],
         this.body.skill.raw[4],
-        0, 0, 0, 0, 0, 
+        0, 0, 0, 0, 0 
       ];
     } 
     return this.bulletStats.raw;
@@ -287,7 +287,7 @@ class Gun extends EventEmitter {
       [...this.children, ...this.bulletchildren].forEach(function(o) {
         o.define({
           BODY: self.interpret(), 
-          SKILL: self.getSkillRaw(),
+          SKILL: self.getSkillRaw()
         });
         o.refreshBodyAttributes();
       });
@@ -333,7 +333,7 @@ class Gun extends EventEmitter {
     //create an independent entity
     let spawnOffset = {
       x: this.body.x + this.body.size * gx - s.x,
-      y: this.body.y + this.body.size * gy - s.y,
+      y: this.body.y + this.body.size * gy - s.y
     }
     if (this.independentMaster) {
       var o = new Entity(spawnOffset);
@@ -352,7 +352,7 @@ class Gun extends EventEmitter {
         gun: this,
         store: this.store,
         globalStore: this.globalStore,
-        child: o,
+        child: o
       });
       return;
     }
@@ -409,7 +409,7 @@ class Gun extends EventEmitter {
     o.define(this.bulletType);
     o.define({
       BODY: this.interpret(),
-      SKILL: this.getSkillRaw(),
+      SKILL: this.getSkillRaw()
     }, false);
 
     // Keep track of it for child counting
@@ -435,7 +435,7 @@ class Gun extends EventEmitter {
     // Pass the gun attributes
     o.define({
       BODY: this.interpret(),
-      SKILL: this.getSkillRaw(),
+      SKILL: this.getSkillRaw()
     }, false);
     o.color.base = o.color.base ?? this.body.master.color.base;
     o.color.hueShift = o.color.hueShift ?? this.body.master.color.hueShift;
@@ -472,12 +472,12 @@ class Gun extends EventEmitter {
     let save = {
       x: this.body.master.x,
       y: this.body.master.y,
-      angle: this.body.master.facing + this.angle,
+      angle: this.body.master.facing + this.angle
     };
     let s = this.body.size * this.width * this.settings2.size;
     let target = {
       x: save.x + this.body.master.control.target.x,
-      y: save.y + this.body.master.control.target.y,
+      y: save.y + this.body.master.control.target.y
     };
     let amount = (util.getDistance(target, save) / s) | 0;
     let gun = this;
@@ -486,7 +486,7 @@ class Gun extends EventEmitter {
         let o = new Entity(e, gun.body);
         o.accel = {
           x: 3 * Math.cos(save.angle),
-          y: 3 * Math.sin(save.angle),
+          y: 3 * Math.sin(save.angle)
         };
         o.color = gun.body.master.master.color;
         o.define(Class.hitScanExplosion);
@@ -495,7 +495,7 @@ class Gun extends EventEmitter {
           BODY: gun.interpret(gun.settings3),
           SKILL: gun.getSkillRaw(),
           SIZE: (gun.body.size * gun.width * gun.settings3.size) / 2,
-          LABEL: gun.master.label + (gun.label ? " " + gun.label + " " : " ") + o.label,
+          LABEL: gun.master.label + (gun.label ? " " + gun.label + " " : " ") + o.label
         });
         o.refreshBodyAttributes();
         o.life();
@@ -516,7 +516,7 @@ class Gun extends EventEmitter {
           let o = new Entity(
             {
               x,
-              y,
+              y
             },
             this.body
           );
@@ -532,7 +532,7 @@ class Gun extends EventEmitter {
                             this.master.label +
                             (this.label ? " " + this.label : "") +
                             " " +
-                            o.label,
+                            o.label
           });
           o.refreshBodyAttributes();
           o.life();
@@ -564,7 +564,7 @@ class Gun extends EventEmitter {
                         this.master.label +
                         (this.label ? " " + this.label : "") +
                         " " +
-                        e.label,
+                        e.label
         });
         e.refreshBodyAttributes();
         e.life();
@@ -600,7 +600,7 @@ class Gun extends EventEmitter {
                 this.bulletBodyStats.SPEED,
       range:  Math.sqrt((this.bulletStats == "master") ? this.body.skill.spd : this.bulletStats.spd) * 
                 this.settings.range * 
-                this.bulletBodyStats.RANGE,
+                this.bulletBodyStats.RANGE
     };
   }
 
@@ -619,7 +619,7 @@ class Gun extends EventEmitter {
       angle: this.angle,
       direction: this.direction,
       offset: this.offset,
-      layer: this.layer,
+      layer: this.layer
     };
   }
 
@@ -640,7 +640,7 @@ class Gun extends EventEmitter {
       RANGE: shoot.range / Math.sqrt(sk.spd),
       DENSITY: (shoot.density * sk.pen * sk.pen) / sizeFactor,
       PUSHABILITY: 1 / sk.pen,
-      HETERO: 3 - 2.8 * sk.ghost,
+      HETERO: 3 - 2.8 * sk.ghost
     };
     this.reloadRateFactor = sk.rld;
     // Special cases

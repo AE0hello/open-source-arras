@@ -17,7 +17,7 @@ Class.eternal = {
     SHIELD: 150,
     REGEN: base.REGEN * 0.1,
     SPEED: base.SPEED * 0.15,
-    DAMAGE: 18,
+    DAMAGE: 18
   },
   ON: [preset.on.retrograde_self_destruct]
 }
@@ -29,43 +29,43 @@ odin.addLayer({gun: {
     SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, g.destroyer, {speed: 1.25, maxSpeed: 1.25}]),
     TYPE: ["shamanDrone", {INDEPENDENT: true, DRAW_HEALTH: true, COLOR: "teal"}],
     AUTOFIRE: true,
-    SYNCS_SKILLS: true,
-  },
+    SYNCS_SKILLS: true
+  }
 }}, true, null, 18)
 odin.addLayer({turret: {
   POSITION: [7, 8, 0, null, 160, 0],
-  TYPE: "autoSmasherLauncherTurret",
+  TYPE: "autoSmasherLauncherTurret"
 }}, true, 5.5)
 odin.addLayer({turret: {
   POSITION: [8, 9, 0, null, 160, 0],
-  TYPE: "gunnerCruiserTurret",
+  TYPE: "gunnerCruiserTurret"
 }}, true, 4.5)
 
 let kronos = new LayeredBoss(null, "Kronos", "eternal", 11, "veryLightGrey", "baseTrapTurret", 6, 5.5)
 kronos.addLayer({turret: {
   POSITION: [6.5, 9, 0, null, 160, 0],
-  TYPE: "kronosSkimmerTurret",
+  TYPE: "kronosSkimmerTurret"
 }})
 kronos.addLayer({turret: {
   POSITION: [6.5, 9, 0, null, 160, 0],
-  TYPE: ["carrierTurret", {GUN_STAT_SCALE: g.battleship}],
+  TYPE: ["carrierTurret", {GUN_STAT_SCALE: g.battleship}]
 }}, true, 4)
 kronos.addLayer({turret: {
   POSITION: [8.5, 9, 0, null, 160, 0],
-  TYPE: ["kronosTripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}],
+  TYPE: ["kronosTripletTurret", {GUN_STAT_SCALE: {health: 1.15, damage: 1.1, resist: 1.3, speed: 1.1, maxSpeed: 0.9}}]
 }}, true, 4)
 
 let amun = new LayeredBoss(null, "Amun", "eternal", 11, "darkGrey", "baseTrapTurret", 6, 5.5)
 amun.addLayer({turret: {
   POSITION: [6, 9, 0, null, 160, 0],
-  TYPE: "desmosTurret",
+  TYPE: "desmosTurret"
 }})
 amun.addLayer({turret: {
   POSITION: [7.5, 9, 0, null, 160, 0],
-  TYPE: "undertowTurret",
+  TYPE: "undertowTurret"
 }}, true, 4)
 amun.addLayer({turret: {
   POSITION: [8.5, 9, 0, null, 160, 0],
-  TYPE: "forkTurret",
+  TYPE: "forkTurret"
 }}, true, 4)
 Class.amun.ALPHA = 0.3

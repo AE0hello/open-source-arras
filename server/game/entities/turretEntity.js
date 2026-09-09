@@ -22,7 +22,7 @@ class turretEntity extends EventEmitter {
       main: false,
       alt: false,
       fire: false,
-      power: 0,
+      power: 0
     };
     // Initalize.
     this.guns = new Map();
@@ -89,7 +89,9 @@ class turretEntity extends EventEmitter {
     if (this.facingType.includes("Target") || this.facingType.includes("Speed")) this.facingType = "bound", this.facingTypeArgs = {}, 
     this.facingTypeArgs = {smoothness: this.settings.smoothness ?? 4}; 
   }
-  life() { bringToLife(this); }
+  life() {
+    bringToLife(this); 
+  }
 
   addController(newIO) {
     if (!Array.isArray(newIO)) newIO = [newIO];
@@ -261,7 +263,9 @@ class turretEntity extends EventEmitter {
     this.blend = ref.blend;
   };
 
-  face() { global.runFace(this) };
+  face() {
+    global.runFace(this) 
+  };
     
   syncTurrets() {
     for (let gun of this.guns.values()) gun.syncChildren();
@@ -287,7 +291,7 @@ class turretEntity extends EventEmitter {
       layer: this.bound.layer,
       color: this.color.compiled,
       guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
-      turrets: Array.from(this.turrets.values()).map(turret => turret.camera()),
+      turrets: Array.from(this.turrets.values()).map(turret => turret.camera())
     };
   };
 

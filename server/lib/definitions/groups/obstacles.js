@@ -29,12 +29,12 @@ Class.moon = {
 Class.pumpkinLine = {
   LABEL: "Line",
   SHAPE: -1,
-  COLOR: "#ff9000",
+  COLOR: "#ff9000"
 };
 Class.pumpkinCircle = {
   LABEL: "Circle",
   SHAPE: 0,
-  COLOR: "#654320",
+  COLOR: "#654320"
 };
 Class.pumpkinStar = {
   LABEL: "Star",
@@ -51,17 +51,17 @@ Class.pumpkin = {
   PROPS: [
     ...weaponArray({
       POSITION: [6, -4.5, 0, 0, 360, 1],
-      TYPE: "pumpkinLine",
+      TYPE: "pumpkinLine"
     }, 9),
     {
       POSITION: [6.5, 0, 0, 0, 360, 2],
-      TYPE: "pumpkinCircle",
+      TYPE: "pumpkinCircle"
     },
     {
       POSITION: [4.5, 0, 0, 0, 360, 3],
-      TYPE: "pumpkinStar",
-    },
-  ],
+      TYPE: "pumpkinStar"
+    }
+  ]
 };
 
 // Walls

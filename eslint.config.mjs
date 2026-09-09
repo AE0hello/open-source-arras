@@ -15,7 +15,21 @@ export default defineConfig([
       globals: globals.browser
     },
     rules: {
-      "@stylistic/indent": ["error", 2, { SwitchCase: 1 }],
+      "no-unreachable": ["error"],
+      "@stylistic/array-bracket-spacing": ["error", "never"],
+      "@stylistic/arrow-spacing": ["error", {
+        "before": true,
+        "after": true
+      }],
+      "@stylistic/block-spacing": ["error", "always"],
+      "@stylistic/brace-style": ["error", "1tbs"],
+      "@stylistic/comma-dangle": ["error", "never"],
+      "@stylistic/comma-spacing": ["error", {
+        "before": false,
+        "after": true
+      }],
+      "@stylistic/comma-style": ["error", "last"],
+      "@stylistic/indent": ["error", 2],
       "@stylistic/quotes": ["error", "double"]
     }
   },

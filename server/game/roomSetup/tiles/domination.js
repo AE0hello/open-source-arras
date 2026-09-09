@@ -4,5 +4,5 @@ tileClass.dominationTile = new Tile({
   INIT: (tile, room) => {
     if (!room.spawnable["Dominators"]) room.spawnable["Dominators"] = [];
     room.spawnable["Dominators"].push(tile);
-  },
+  }
 });

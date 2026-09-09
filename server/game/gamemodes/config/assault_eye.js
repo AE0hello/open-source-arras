@@ -23,7 +23,7 @@ module.exports = {
     RANGE: 20,
     MOVEMENT: [
       [-17.81, -68.63],
-      [-18.11, -11.70],
+      [-18.11, -11.70]
     ]
   }],
   team_weights: {

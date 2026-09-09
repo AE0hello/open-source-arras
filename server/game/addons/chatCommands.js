@@ -17,14 +17,14 @@ let commands = [
           let text = `- ${prefix} ${commandText}`;
           if (description) text += ` - ${description}`;
           return text;
-        }),
+        })
       ];
       if (useOldMenu) {
         for (let line of lines.reverse()) {
           socket.talk("m", 15_000, line);
         }
       } else socket.talk("Em", 15_000, JSON.stringify(lines));
-    },
+    }
   },
   {
     command: ["leaderboard", "b"],
@@ -43,7 +43,7 @@ let commands = [
         "default",
         "players",
         "bosses",
-        "global",
+        "global"
       ];
       const choice = args[0];
 
@@ -83,7 +83,7 @@ let commands = [
           `- ${prefix} arena size <width> <height> - Set the size of the arena`,
           `- ${prefix} arena team <team> - Set the number of teams, from 0 (FFA) to 4 (4TDM)`,
           `- ${prefix} arena spawnpoint [x] [y] - Set a location where all players spawn on default`,
-          `- ${prefix} arena close - Close the arena`,
+          `- ${prefix} arena close - Close the arena`
         ];
         if (!Config.sandbox) lines.splice(1, 1)
         socket.talk("Em", 10_000, JSON.stringify(lines));
@@ -121,7 +121,7 @@ let commands = [
             socket.talk("m", 4_000, "Spawnpoint set.");
             global.spawnPoint = {
               x: parseInt(args[1] * 30),
-              y: parseInt(args[2] * 30),
+              y: parseInt(args[2] * 30)
             };
             break;
           case "close":
@@ -142,8 +142,7 @@ let commands = [
     run: ({ args, socket }) => {
       if (!args[0]) {
         socket.talk("m", 5_000, "No message specified.");
-      }
-      else {
+      } else {
         gameManager.socketManager.broadcast(args.join(" "));
       }
     }
@@ -156,13 +155,12 @@ let commands = [
     run: ({ args, socket }) => {
       if (!args[0]) {
         socket.talk("m", 5_000, "No entity specified.");
-      }
-      else {
+      } else {
         socket.player.body.define({RESET_UPGRADES: true, BATCH_UPGRADES: false});
         socket.player.body.define(args[0]);
         socket.talk("m", 5_000, `Changed to ${socket.player.body.label}`);
       }
-    },
+    }
   },
   {
     command: ["level"],
@@ -172,12 +170,11 @@ let commands = [
     run: ({ args, socket }) => {
       if (!args[0]) {
         socket.talk("m", 5_000, "No level specified.");
-      }
-      else {
+      } else {
         socket.player.body.define({ LEVEL: args[0] });
         socket.talk("m", 5_000, `Changed to level ${socket.player.body.level}`);
       }
-    },
+    }
   },
   {
     command: ["team"],
@@ -187,12 +184,11 @@ let commands = [
     run: ({ args, socket }) => {
       if (!args[0]) {
         socket.talk("m", 5_000, "No team specified.");
-      }
-      else {
+      } else {
         socket.player.body.define({ COLOR: getTeamColor(args[0]), TEAM: args[0] });
         socket.talk("m", 5_000, `Changed to team ${socket.player.body.team}`);
       }
-    },
+    }
   },
   {
     command: ["developer", "dev", "d"],
@@ -202,7 +198,7 @@ let commands = [
       let sendAvailableDevCommandsMessage = () => {
         let lines = [
           "Help menu:",
-          "- $ (developer / dev) reloaddefs - reloads definitions.",
+          "- $ (developer / dev) reloaddefs - reloads definitions."
         ];
         socket.talk("Em", 10_000, JSON.stringify(lines));
       }
@@ -211,7 +207,7 @@ let commands = [
         /* IMPORT FROM (defsReloadCommand.js) */
         if (!global.reloadDefinitionsInfo) {
           global.reloadDefinitionsInfo = {
-            lastReloadTime: 1,
+            lastReloadTime: 1
           };
         }
         // Rate limiter for anti-lag
@@ -311,8 +307,8 @@ let commands = [
           gameManager.gameHandler.run();
         }, 1000)
       } else sendAvailableDevCommandsMessage();
-    },
-  },
+    }
+  }
 ]
 
 /** COMMANDS RUN FUNCTION **/

@@ -10,7 +10,7 @@ let skcnv = {
   rld: 0,
   pen: 1,
   rgn: 8,
-  hlt: 7,
+  hlt: 7
 }
 
 // gun definitions
@@ -143,7 +143,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
     SYNCS_SKILLS: true,
     STAT_CALCULATOR: "drone",
     WAIT_TO_CYCLE: cycle,
-    MAX_CHILDREN: maxChildren,
+    MAX_CHILDREN: maxChildren
   }
   if (count % 2 == 1) {
     spawners.push({
@@ -154,7 +154,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
         X: 8,
         ANGLE: 180
       },
-      PROPERTIES: spawnerProperties,
+      PROPERTIES: spawnerProperties
     })
   }
   for (let i = 2; i <= (count - count % 2); i += 2) {
@@ -218,9 +218,9 @@ exports.makeBattle = (type, name = -1, options = {}) => {
         ASPECT: 0.6,
         X: 5,
         Y: 4,
-        ANGLE: 180,
+        ANGLE: 180
       },
-      PROPERTIES: autoSpawnerProperties,
+      PROPERTIES: autoSpawnerProperties
     }, {delayIncrement: 0.5}))
   }
   for (let i = 2; i <= (count - count % 2); i += 2) {
@@ -232,9 +232,9 @@ exports.makeBattle = (type, name = -1, options = {}) => {
           ASPECT: 0.6,
           X: 5,
           Y: 4,
-          ANGLE: 180 - angle * i / 2,
+          ANGLE: 180 - angle * i / 2
         },
-        PROPERTIES: guidedSpawnerProperties,
+        PROPERTIES: guidedSpawnerProperties
       }, {delayIncrement: 0.5}),
       ...exports.weaponMirror({
         POSITION: {
@@ -243,9 +243,9 @@ exports.makeBattle = (type, name = -1, options = {}) => {
           ASPECT: 0.6,
           X: 5,
           Y: 4,
-          ANGLE: 180 + angle * i / 2,
+          ANGLE: 180 + angle * i / 2
         },
-        PROPERTIES: autoSpawnerProperties,
+        PROPERTIES: autoSpawnerProperties
       }, {delayIncrement: 0.5})
     )
   }
@@ -282,7 +282,7 @@ exports.makeCap = (type, name = -1, options = {}) => {
     STAT_CALCULATOR: "drone",
     AUTOFIRE: true,
     SYNCS_SKILLS: true,
-    MAX_CHILDREN: maxChildren,
+    MAX_CHILDREN: maxChildren
   }
   if (count % 2 == 1) {
     spawners.push({
@@ -300,7 +300,7 @@ exports.makeCap = (type, name = -1, options = {}) => {
         X: 15,
         ANGLE: 180
       },
-      PROPERTIES: spawnerProperties,
+      PROPERTIES: spawnerProperties
     },
     {
       POSITION: {
@@ -326,7 +326,7 @@ exports.makeCap = (type, name = -1, options = {}) => {
         X: 15,
         ANGLE: 180 - angle * i / 2
       },
-      PROPERTIES: spawnerProperties,
+      PROPERTIES: spawnerProperties
     },
     {
       POSITION: {
@@ -381,7 +381,7 @@ exports.makeFore = (type, name = -1, options = {}) => {
     SYNCS_SKILLS: true,
     STAT_CALCULATOR: "drone",
     WAIT_TO_CYCLE: cycle,
-    MAX_CHILDREN: maxChildren,
+    MAX_CHILDREN: maxChildren
   }
   if (count % 2 == 1) {
     spawners.push({
@@ -392,7 +392,7 @@ exports.makeFore = (type, name = -1, options = {}) => {
         X: 2,
         ANGLE: 180
       },
-      PROPERTIES: spawnerProperties,
+      PROPERTIES: spawnerProperties
     })
   }
   for (let i = 2; i <= (count - count % 2); i += 2) {
@@ -609,8 +609,8 @@ exports.makeGunner = (type, name = -1, options  = {}) => {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: exports.combineStats([g.basic, g.pelleter, g.power, g.twin, {recoil: 4}, {recoil: 1.8}]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     }, {delayIncrement: 0.5})
   ]
   if (!options.noDeco) {
@@ -621,7 +621,8 @@ exports.makeGunner = (type, name = -1, options  = {}) => {
         ANGLE: 180
       }
     }
-    )}
+    ) 
+  }
 
   // Assign misc settings
   if (options.renderBehind) {
@@ -769,12 +770,28 @@ exports.makeWhirlwind = (type, options = {}) => {
     }
     return output
   })()
-  if (type.GUNS == null) {output.GUNS = [...satellites]} else {output.GUNS = [...type.GUNS, ...satellites]}
-  if (type.TURRETS == null) {output.TURRETS = [...hat]} else {output.TURRETS = [...type.TURRETS, ...hat]}
-  if (type == Class.genericTank) {output.STAT_NAMES = statnames.satellite} else {output.STAT_NAMES = statnames.mixed}
+  if (type.GUNS == null) {
+    output.GUNS = [...satellites] 
+  } else {
+    output.GUNS = [...type.GUNS, ...satellites] 
+  }
+  if (type.TURRETS == null) {
+    output.TURRETS = [...hat] 
+  } else {
+    output.TURRETS = [...type.TURRETS, ...hat] 
+  }
+  if (type == Class.genericTank) {
+    output.STAT_NAMES = statnames.satellite 
+  } else {
+    output.STAT_NAMES = statnames.mixed 
+  }
   output.AI = {SPEED: options.satelliteSpeed ??= 2}
   output.ANGLE = (360 / options.satellites)
-  if (type.CONTROLLERS == null) {output.CONTROLLERS = ["whirlwind"]} else {output.CONTROLLERS = [...type.CONTROLLERS, "whirlwind"]}
+  if (type.CONTROLLERS == null) {
+    output.CONTROLLERS = ["whirlwind"] 
+  } else {
+    output.CONTROLLERS = [...type.CONTROLLERS, "whirlwind"] 
+  }
   output.DANGER = options.danger ??= type.DANGER + 1
   if (options.label == -1) {
     output.LABEL = "Whirl " + type.LABEL;
@@ -827,13 +844,13 @@ exports.makeRadialAuto = (type, options = {}) => {
       PARENT: "genericTank",
       LABEL: "",
       BODY: {
-        FOV: 2,
+        FOV: 2
       },
       CONTROLLERS: ["canRepel", "onlyAcceptInArc", "mapAltToFire", "nearestDifferentMaster"],
       COLOR: "grey",
       GUNS: type.GUNS,
       TURRETS: type.TURRETS,
-      PROPS: type.PROPS,
+      PROPS: type.PROPS
     }
 
     for (let gun of Class[turretIdentifier].GUNS) {
@@ -924,7 +941,7 @@ exports.makeTurret = (type, options = {}) => {
     GUNS,
     AI: options.aiSettings,
     FACING_TYPE: options.facingType ?? null,
-    TURRETS: type.TURRETS,
+    TURRETS: type.TURRETS
   }
 }
 exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) => {
@@ -939,21 +956,21 @@ exports.makeAura = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) 
     COLOR: 17,
     GUNS: [
       {
-        POSITION: [0, 20, 1, 0, 0, 0, 0,],
+        POSITION: [0, 20, 1, 0, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: exports.combineStats([g.aura, { size: sizeFactor, damage: damageFactor }]),
           TYPE: [auraType, {COLOR: auraColor, ALPHA: opacity}],
           MAX_CHILDREN: 1,
           AUTOFIRE: true,
-          SYNCS_SKILLS: true,
-        }, 
-      }, 
+          SYNCS_SKILLS: true
+        } 
+      } 
     ],
     TURRETS: [
       {
         POSITION: [20 - 7.5 * isHeal, 0, 0, 0, 360, 1],
-        TYPE: [symbolType, {COLOR: auraColor, INDEPENDENT: true}],
-      },
+        TYPE: [symbolType, {COLOR: auraColor, INDEPENDENT: true}]
+      }
     ]
   };
 }
@@ -1265,8 +1282,8 @@ class LayeredBoss {
       NO_SIZE_ANIMATION: noSizeAn,
       TURRETS: Array(SHAPE).fill().map((_, i) => ({
         POSITION: [trapTurretSize, 9, 0, 360 / SHAPE * (i + 0.5), 180, 0],
-        TYPE: trapTurretType,
-      })),
+        TYPE: trapTurretType
+      }))
     };
     this.layerScale = layerScale;
     this.shape = SHAPE;
@@ -1283,16 +1300,16 @@ class LayeredBoss {
       SHAPE: this.shape,
       COLOR: -1,
       INDEPENDENT: true,
-      FACING_TYPE: ["spin", { speed: 0.05 / 1.5 * (this.layerID % 2 ? -1 : 1), }],
+      FACING_TYPE: ["spin", { speed: 0.05 / 1.5 * (this.layerID % 2 ? -1 : 1) }],
       MAX_CHILDREN, 
       GUNS: [],
-      TURRETS: [],
+      TURRETS: []
     };
     if (gun) {
       for (let i = 0; i < this.shape; i++) {
         layer.GUNS.push({
           POSITION: gun.POSITION.map(n => n ?? 360 / this.shape * (i + 0.5)),
-          PROPERTIES: gun.PROPERTIES,
+          PROPERTIES: gun.PROPERTIES
         });
       }
     }
@@ -1300,7 +1317,7 @@ class LayeredBoss {
       for (let i = 0; i < this.shape; i++) {
         layer.TURRETS.push({
           POSITION: turret.POSITION.map(n => n ?? 360 / this.shape * (i + 0.5)),
-          TYPE: turret.TYPE,
+          TYPE: turret.TYPE
         });
       }
     }
@@ -1308,7 +1325,7 @@ class LayeredBoss {
     Class[this.identifier + "Layer" + this.layerID] = layer;
     Class[this.identifier].TURRETS.push({
       POSITION: [this.layerSize, 0, 0, 0, 360, 1],
-      TYPE: this.identifier + "Layer" + this.layerID,
+      TYPE: this.identifier + "Layer" + this.layerID
     });
   }
 }
@@ -1325,7 +1342,7 @@ exports.makeRelic = (type, scale = 1, gem, SIZE, yBase = 8.25) => {
       LEVEL_CAP: 45,
       COLOR: type.COLOR,
       MIRROR_MASTER_ANGLE: true,
-      SHAPE: [[-0.4,-1],[0.4,-0.25],[0.4,0.25],[-0.4,1]].map(r => r.map(s => s * scale))
+      SHAPE: [[-0.4, -1], [0.4, -0.25], [0.4, 0.25], [-0.4, 1]].map(r => r.map(s => s * scale))
     }, relicBody = {
       PARENT: "genericEntity",
       LABEL: "Relic Mantle",
@@ -1422,7 +1439,7 @@ exports.makeCrasher = type => ({
     DENSITY: 10
   },
   AI: {
-    NO_LEAD: true,
+    NO_LEAD: true
   }
 });
 
@@ -1451,7 +1468,7 @@ exports.makeRare = (type, level) => {
     },
     DRAW_HEALTH: true,
     INTANGIBLE: type.INTANGIBLE,
-    GIVE_KILL_MESSAGE: true,
+    GIVE_KILL_MESSAGE: true
   }
 }
 
@@ -1748,7 +1765,7 @@ exports.makeSnake = (type, count = 2, name = -1, options = {}) => {
             body.store.snakeSegments.push(seg);
           }
         }
-        body.store.snakeSegments = body.store.snakeSegments.filter((x)=>!x.isDead())
+        body.store.snakeSegments = body.store.snakeSegments.filter((x) => !x.isDead())
 
         let previous = body;
         const children = body.store.snakeSegments;

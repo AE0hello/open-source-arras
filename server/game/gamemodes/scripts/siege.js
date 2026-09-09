@@ -6,11 +6,11 @@ let calculatePoints = wave => 5 + wave * 3;
 // Then it picks a boss at random, with all choices being equally likely.
 
 let oldGroups = {
-  elites: [ "eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner", "sprayerLegion" ],
-  deltas: [ "deltaDestroyer", "deltaGunner", "deltaSprayer", "deltaBattleship" ],
-  mysticals: [ "summoner", "eliteSkimmer", "nestKeeper", "roguePalisade" ],
-  celestials: [ "paladin", "freyja", "zaphkiel", "nyx", "theia" ],
-  eternals: [ "legionaryCrasher", "kronos", "odin" ],
+  elites: ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner", "sprayerLegion"],
+  deltas: ["deltaDestroyer", "deltaGunner", "deltaSprayer", "deltaBattleship"],
+  mysticals: ["summoner", "eliteSkimmer", "nestKeeper", "roguePalisade"],
+  celestials: ["paladin", "freyja", "zaphkiel", "nyx", "theia"],
+  eternals: ["legionaryCrasher", "kronos", "odin"]
 };
 
 class Siege {
@@ -29,11 +29,11 @@ class Siege {
       ran.chooseN(oldGroups.elites, 2).concat(ran.chooseN(oldGroups.mysticals, 4)),
       ran.chooseN(oldGroups.elites, 3).concat(ran.chooseN(oldGroups.mysticals, 4)),
       ran.chooseN(oldGroups.elites, 4).concat(ran.chooseN(oldGroups.mysticals, 4)),
-      [ oldGroups.celestials[0] ],
-      [ oldGroups.celestials[1] ],
-      [ oldGroups.celestials[2] ],
-      [ oldGroups.celestials[3] ],
-      [ oldGroups.celestials[4] ],
+      [oldGroups.celestials[0]],
+      [oldGroups.celestials[1]],
+      [oldGroups.celestials[2]],
+      [oldGroups.celestials[3]],
+      [oldGroups.celestials[4]],
       ran.chooseN(oldGroups.elites, 1).concat(ran.chooseN(oldGroups.mysticals, 1)).concat(ran.chooseN(oldGroups.celestials, 1)),
       ran.chooseN(oldGroups.elites, 3).concat(ran.chooseN(oldGroups.mysticals, 1)).concat(ran.chooseN(oldGroups.celestials, 1)),
       ran.chooseN(oldGroups.elites, 3).concat(ran.chooseN(oldGroups.mysticals, 3)).concat(ran.chooseN(oldGroups.celestials, 1)),
@@ -50,78 +50,78 @@ class Siege {
       ran.chooseN(oldGroups.elites, 4).concat(ran.chooseN(oldGroups.mysticals, 4)).concat(ran.chooseN(oldGroups.celestials, 4)),
       ran.chooseN(oldGroups.celestials, 5),
       ran.chooseN(oldGroups.elites, 4).concat(ran.chooseN(oldGroups.mysticals, 4)).concat(ran.chooseN(oldGroups.celestials, 5)),
-      ran.chooseN(oldGroups.eternals, 1),
+      ran.chooseN(oldGroups.eternals, 1)
     ];
     this.bossChoices = [
       // [ cost , definition reference ],
 
       //mysticals
-      [  5, "sorcerer"],
-      [  5, "summoner"],
-      [  5, "enchantress"],
-      [  5, "exorcistor"],
-      [  5, "shaman"],
-      [  5, "witch"],
+      [5, "sorcerer"],
+      [5, "summoner"],
+      [5, "enchantress"],
+      [5, "exorcistor"],
+      [5, "shaman"],
+      [5, "witch"],
 
       //elites
-      [  1, "eliteDestroyer"],
-      [  1, "eliteGunner"],
-      [  1, "eliteSprayer"],
-      [  5, "eliteBattleship"],
-      [  5, "eliteSpawner"],
-      [  5, "eliteTrapGuard"],
-      [  5, "eliteSpinner"],
-      [  5, "eliteSkimmer"],
+      [1, "eliteDestroyer"],
+      [1, "eliteGunner"],
+      [1, "eliteSprayer"],
+      [5, "eliteBattleship"],
+      [5, "eliteSpawner"],
+      [5, "eliteTrapGuard"],
+      [5, "eliteSpinner"],
+      [5, "eliteSkimmer"],
 
       //nesters
-      [  4, "nestKeeper"],
-      [  4, "nestWarden"],
-      [  4, "nestGuardian"],
+      [4, "nestKeeper"],
+      [4, "nestWarden"],
+      [4, "nestGuardian"],
 
       //terrestrials
-      [ 25, "ares"],
-      [ 25, "gersemi"],
-      [ 25, "ezekiel"],
-      [ 25, "eris"],
-      [ 25, "selene"],
+      [25, "ares"],
+      [25, "gersemi"],
+      [25, "ezekiel"],
+      [25, "eris"],
+      [25, "selene"],
 
       //celestials
-      [ 50, "paladin"],
-      [ 50, "freyja"],
-      [ 50, "zaphkiel"],
-      [ 50, "nyx"],
-      [ 50, "theia"],
-      [ 50, "atlas"],
-      [ 50, "hera"],
-      [ 50, "horus"],
-      [ 50, "anubis"],
-      [ 50, "isis"],
-      [ 50, "tethys"],
-      [ 50, "ullr"],
-      [ 50, "dellingr"],
-      [ 50, "osiris"],
-      [ 50, "alcis"],
-      [ 50, "khonsu"],
-      [ 50, "hyperion"],
-      [ 50, "nephthys"],
-      [ 50, "tyr"],
-      [ 50, "vor"],
-      [ 50, "aether"],
-      [ 50, "iapetus"],
-      [ 50, "baldr"],
-      [ 50, "eros"],
-      [ 50, "hjordis"],
-      [ 50, "sif"],
-      [ 50, "freyr"],
-      [ 50, "styx"],
-      [ 50, "apollo"],
-      [ 50, "ptah"],
+      [50, "paladin"],
+      [50, "freyja"],
+      [50, "zaphkiel"],
+      [50, "nyx"],
+      [50, "theia"],
+      [50, "atlas"],
+      [50, "hera"],
+      [50, "horus"],
+      [50, "anubis"],
+      [50, "isis"],
+      [50, "tethys"],
+      [50, "ullr"],
+      [50, "dellingr"],
+      [50, "osiris"],
+      [50, "alcis"],
+      [50, "khonsu"],
+      [50, "hyperion"],
+      [50, "nephthys"],
+      [50, "tyr"],
+      [50, "vor"],
+      [50, "aether"],
+      [50, "iapetus"],
+      [50, "baldr"],
+      [50, "eros"],
+      [50, "hjordis"],
+      [50, "sif"],
+      [50, "freyr"],
+      [50, "styx"],
+      [50, "apollo"],
+      [50, "ptah"],
 
       //eternals
       [100, "legionaryCrasherFix"], // fucking mid
       [100, "kronos"],
       [100, "odin"],
-      [100, "amun"],
+      [100, "amun"]
     ];
     this.friendlyBossChoices = ["roguePalisade", "rogueArmada", "julius", "genghis", "napoleon"];
     this.bigFodderChoices = ["sentryGun", "sentrySwarm", "sentryTrap"];
@@ -148,8 +148,8 @@ class Siege {
         choices = this.bossChoices;
 
       while (points > 0 && choices.length) {
-        choices = choices.filter(([ cost ]) => cost <= points);
-        let [ cost, boss ] = ran.choose(choices);
+        choices = choices.filter(([cost]) => cost <= points);
+        let [cost, boss] = ran.choose(choices);
         points -= cost;
         wave.push(boss);
       }
@@ -201,7 +201,7 @@ class Siege {
                             timeRemaining == 1
             ) {
               global.gameManager.socketManager.broadcast(
-                `Your team will lose in ${timeRemaining} Secon${timeRemaining == 1 ? "d" : "ds"}.`,
+                `Your team will lose in ${timeRemaining} Secon${timeRemaining == 1 ? "d" : "ds"}.`
               );
             }
           }, 1000) // 1 Second.
@@ -227,18 +227,24 @@ class Siege {
     if (this.gameActive) {
       this.gameActive = false;
       global.gameManager.socketManager.broadcast("Your team has won the game!");
-      setTimeout(() => {global.gameManager.closeArena()}, 1500);
+      setTimeout(() => {
+        global.gameManager.closeArena() 
+      }, 1500);
     }
   }
   bossWin() {
     global.gameManager.socketManager.broadcast("Team boss has won the game!");
-    setTimeout(() => {global.gameManager.closeArena()}, 1500);
+    setTimeout(() => {
+      global.gameManager.closeArena() 
+    }, 1500);
   }
   playerLose() {
     if (this.gameActive) {
       this.gameActive = false;
       global.gameManager.socketManager.broadcast("Your team has lost the game.");
-      setTimeout(() => {this.bossWin()}, 3000);
+      setTimeout(() => {
+        this.bossWin() 
+      }, 3000);
     }
   }
 

@@ -154,14 +154,14 @@ module.exports = {
         bot_cap: 40,
         server_travel_properties: {
           loop_interval: 10_000, // how often the portal loop executes in seconds
-          portals: 1, // amount of portals to spawn
+          portals: 1 // amount of portals to spawn
         },
         server_travel: [
           {
             ip: "localhost:3002", // destination server host, don't add "https://" or any slashes to it
             portal_properties: {
               spawn_chance: 3, // chance for a portal to spawn somewhere in the map each loop iteration (higher = lower chances, lower = higher chance)
-              color: "red", // portal color
+              color: "red" // portal color
             }
           }
         ]
@@ -208,7 +208,7 @@ module.exports = {
       properties: {
 
       }
-    },
+    }
   ],
 
   // Web Server
@@ -245,7 +245,7 @@ module.exports = {
   damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
   knockback_multiplier: 1.1, // General knockback multiplier everytime knockback is applied.
   glass_health_factor: 2, // TODO: Figure out how the math behind this works.
-  room_bound_force: 0.01,// How strong the force is that confines entities to the map and portals apply to entities.
+  room_bound_force: 0.01, // How strong the force is that confines entities to the map and portals apply to entities.
   soft_max_skill: 0.59, // TODO: Find out what the intention behind the implementation of this configuration is.
 
   mothership_time_limit: 0, // How long (in milliseconds) a player can have in control of their team's mothership. Set to 0 to disable.
@@ -365,18 +365,18 @@ module.exports = {
   boss_types: [
     {
       bosses: ["eliteDestroyer", "eliteGunner", "eliteSprayer", "eliteBattleship", "eliteSpawner"],
-      amount: [5, 5, 4, 2, 1], chance: 2, nameType: "a",
+      amount: [5, 5, 4, 2, 1], chance: 2, nameType: "a"
     },
     {
       bosses: ["roguePalisade"],
       amount: [4, 1], chance: 1, nameType: "castle",
-      message: "A strange trembling...",
+      message: "A strange trembling..."
     },
     {
       bosses: ["summoner", "eliteSkimmer", "nestKeeper"],
       amount: [2, 2, 1], chance: 1, nameType: "a",
-      message: "A strange trembling...",
-    },
+      message: "A strange trembling..."
+    }
     /*{
       bosses: ["paladin", "freyja", "zaphkiel", "nyx", "theia"],
       amount: [1], chance: 0.01,

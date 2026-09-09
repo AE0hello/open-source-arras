@@ -38,7 +38,7 @@ Class.menu_testing = makeMenu("Testing", {upgrades: [
   "syncWithTankTest",
   "airblast",
   "anglemancer",
-  "backwardsExports",
+  "backwardsExports"
 ], tooltip: "A large selection of tanks that use many of the features of Open Source Arras.\n" + "WARNING: There are a lot of entities in here and having this menu open may cause noticeable frame drops!"})
 
 const stressTestUpgrades = Array(100).fill(Config.spawn_class)
@@ -51,7 +51,7 @@ Class.rainbowTesseract = {
   PARENT: "tesseract",
   LABEL: "Rainbow Tesseract",
   NAME: "Rainbow Tesseract",
-  SHAPE: Class.tesseract.SHAPE + "/" + tessFaceColors.join(","),
+  SHAPE: Class.tesseract.SHAPE + "/" + tessFaceColors.join(",")
 };
 
 // Tagger
@@ -123,7 +123,9 @@ Class.roaringParent = {
 
         let k = body.master.facing
         Object.defineProperty(body, "facing", {
-          get:()=>{return k}, set:()=>{}
+          get:() => {
+            return k 
+          }, set:() => {}
         })
 
         body.alpha -= 0.1
@@ -300,12 +302,12 @@ ntf_tailConnector = [{
 }]
 Class.ntf_spike = {
   COLOR: "darkGrey",
-  SHAPE: [[-1,-0.5],[1,0],[-1,0.5]]
+  SHAPE: [[-1, -0.5], [1, 0], [-1, 0.5]]
 }
 Class.ntf_tailBolt0 = {
   PARENT: "genericTank",
   COLOR: "grey",
-  SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+  SHAPE: [[-1, -0.5], [1, -0.5], [1, 0.5], [-1, 0.5]],
   INDEPENDENT: true,
   HITS_OWN_TYPE: "hard",
   GUNS: [
@@ -320,7 +322,7 @@ Class.ntf_tailBolt0 = {
           reload: 0.1,
           damage: 4,
           size: 2,
-          health: 1,
+          health: 1
         }]),
         TYPE: ["bullet", {
           ALPHA: 0,
@@ -332,11 +334,11 @@ Class.ntf_tailBolt0 = {
               body.SIZE -= 0.6;
               if (body.SIZE < 1) body.kill();
             }
-          }],
+          }]
         }], 
         AUTOFIRE: true,
         BORDERLESS: true,
-        DRAW_FILL: false,
+        DRAW_FILL: false
       }
     }
   ],
@@ -353,7 +355,7 @@ Class.ntf_tailBolt0 = {
 Class.ntf_tailBolt1 = {
   PARENT: "genericTank",
   COLOR: "grey",
-  SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+  SHAPE: [[-1, -0.5], [1, -0.5], [1, 0.5], [-1, 0.5]],
   INDEPENDENT: true,
   GUNS: ntf_tailConnector,
   TURRETS: [
@@ -372,7 +374,7 @@ Class.ntf_tailBolt1 = {
 Class.ntf_tailBolt2 = {
   PARENT: "genericTank",
   COLOR: "grey",
-  SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+  SHAPE: [[-1, -0.5], [1, -0.5], [1, 0.5], [-1, 0.5]],
   INDEPENDENT: true,
   GUNS: ntf_tailConnector,
   TURRETS: [
@@ -386,12 +388,12 @@ Class.ntf_tailBolt2 = {
         LAYER: 1
       }
     }
-  ],
+  ]
 }
 Class.ntf_tailBolt3 = {
   PARENT: "genericTank",
   COLOR: "grey",
-  SHAPE: [[-1,-0.5],[1,-0.5],[1,0.5],[-1,0.5]],
+  SHAPE: [[-1, -0.5], [1, -0.5], [1, 0.5], [-1, 0.5]],
   GUNS: ntf_tailConnector,
   TURRETS: [
     {
@@ -412,11 +414,11 @@ Class.ntf_ear = {
 }
 Class.ntf_tailWhite = {
   COLOR: "pureWhite",
-  SHAPE: [[0,-0.5],[-0.25,-0],[0,0.5],[-1,0]],
+  SHAPE: [[0, -0.5], [-0.25, -0], [0, 0.5], [-1, 0]]
 }
 Class.ntf_tail = {
   COLOR: "mirror",
-  SHAPE: [[0,-0.5],[1,0],[0,0.5],[-1,0]],
+  SHAPE: [[0, -0.5], [1, 0], [0, 0.5], [-1, 0]],
   PROPS: [
     {
       TYPE: "ntf_tailWhite",
@@ -596,7 +598,7 @@ Class.bacteria = {
         SHOOT_SETTINGS: combineStats([g.basic, {reload: 2, recoil: 0.25, shudder: 0.1, size: 0.62, speed: 2}]),
         TYPE: "bacteriaClone",
         NO_LIMITATIONS: true,
-        WAIT_TO_CYCLE: true,
+        WAIT_TO_CYCLE: true
       }
     }
   ]
@@ -618,7 +620,7 @@ Class.bacteriaClone = {
         WIDTH: 32
       }
     }
-  ],
+  ]
   //GUNS: Class.bacteria.GUNS // server stress test mode
 }
 class io_turretWithMotion extends IO {
@@ -628,7 +630,7 @@ class io_turretWithMotion extends IO {
   think(input) {
     return {
       target: this.body.master.velocity,
-      main: true,
+      main: true
     };
   }
 }
@@ -639,7 +641,7 @@ Class.latDeco1 = {
   FACING_TYPE: ["turnWithSpeed"],
   COLOR: "#5C533F",
   SHAPE: "M -1 -2 C -1 -2 -1 -3 0 -3 C 1 -3 1 -2 1 -2 V 2 C 1 2 1 3 0 3 C -1 3 -1 2 -1 2 V -2",
-  MIRROR_MASTER_ANGLE: true,
+  MIRROR_MASTER_ANGLE: true
 }
 Class.latDeco2 = {
   PARENT: "genericTank",
@@ -647,7 +649,7 @@ Class.latDeco2 = {
   FACING_TYPE: ["turnWithSpeed"],
   COLOR: "#5C533F",
   SHAPE: "M -2 0 H 2 L 0 1 L -2 0",
-  MIRROR_MASTER_ANGLE: true,
+  MIRROR_MASTER_ANGLE: true
 }
 Class.latDeco3 = {
   PARENT: "genericTank",
@@ -655,7 +657,7 @@ Class.latDeco3 = {
   FACING_TYPE: ["turnWithSpeed"],
   COLOR: "#3F3B2D",
   SHAPE: "M -10 -1 L 10 -1 L 10 1 L -10 1 L -10 -1",
-  MIRROR_MASTER_ANGLE: true,
+  MIRROR_MASTER_ANGLE: true
 }
 Class.latRight = {
   PARENT: "genericTank",
@@ -667,32 +669,32 @@ Class.latRight = {
   TURRETS: [
     {
       POSITION: [4.8, 31, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, 24, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, 17, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, -42, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, -35, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, -28, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [18, -5, 0, 0, 0, 1],
-      TYPE: "latDeco2",
-    },
+      TYPE: "latDeco2"
+    }
   ]
 }
 Class.latLeft = {
@@ -705,32 +707,32 @@ Class.latLeft = {
   TURRETS: [
     {
       POSITION: [4.8, -31, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, -24, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, -17, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, 42, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, 35, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [4.8, 28, 10, 0, 0, 1],
-      TYPE: "latDeco1",
+      TYPE: "latDeco1"
     },
     {
       POSITION: [18, 5, 0, 0, 0, 1],
-      TYPE: "latDeco2",
-    },
+      TYPE: "latDeco2"
+    }
   ]
 }
 Class.latBase = {
@@ -788,21 +790,21 @@ Class.latBase = {
     },
     {
       POSITION: [8.5, 5.5, 1, 1, -6.5, 180, 0]
-    },
+    }
   ],
   TURRETS: [
     {
       POSITION: [5.3, 0, -10, 0, 0, 1],
-      TYPE: "latLeft",
+      TYPE: "latLeft"
     },
     {
       POSITION: [5.3, 0, -10, 180, 0, 1],
-      TYPE: "latRight",
+      TYPE: "latRight"
     },
     {
       POSITION: [2, 0, -1.4, 90, 0, 1],
-      TYPE: "latDeco3",
-    },
+      TYPE: "latDeco3"
+    }
   ]
 }
 Class.literallyATank = {
@@ -810,7 +812,7 @@ Class.literallyATank = {
   LABEL: "Literally A Tank",
   DANGER: 6,
   BODY: {
-    HEALTH: base.HEALTH * 1.2,
+    HEALTH: base.HEALTH * 1.2
   },
   SHAPE: "M -1 -1 H 0 C 1 -1 1 0 1 0 C 1 0 1 1 0 1 H -1 V -1",
   GUNS: [
@@ -834,16 +836,16 @@ Class.literallyATank = {
   TURRETS: [
     {
       POSITION: [15, 0, 0, 0, 360, 1],
-      TYPE: [ "circleHat", { COLOR: "#5C533F" } ],
+      TYPE: ["circleHat", { COLOR: "#5C533F" }]
     },
     {
       POSITION: [10, 0, 0, 0, 360, 1],
-      TYPE: [ "circleHat", { COLOR: "#736245" } ],
+      TYPE: ["circleHat", { COLOR: "#736245" }]
     },
     {
       POSITION: [35, 0, 0, 0, 360, 0],
-      TYPE: [ "latBase", { COLOR: "#96794E" } ],
-    },
+      TYPE: ["latBase", { COLOR: "#96794E" }]
+    }
   ]
 }
 
@@ -888,7 +890,7 @@ Class.anglemancer = {
   STAT_NAMES: statnames.drone,
   BODY: {
     SPEED: base.SPEED * 0.9,
-    FOV: base.FOV * 1.1,
+    FOV: base.FOV * 1.1
   },
   SHAPE: 3,
   MAX_CHILDREN: 12,
@@ -901,7 +903,7 @@ Class.anglemancer = {
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "necro",
       WAIT_TO_CYCLE: true,
-      DELAY_SPAWN: false,
+      DELAY_SPAWN: false
     }
   }, 3)
 }
@@ -964,8 +966,8 @@ Class.gunnerCruiser = {
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([g.swarm]),
           TYPE: "swarm",
-          STAT_CALCULATOR: "swarm",
-        },
+          STAT_CALCULATOR: "swarm"
+        }
       },
       {
         POSITION: {
@@ -1005,10 +1007,10 @@ Class.miscTestHelper2 = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.noSpread]),
         TYPE: "bullet",
-        COLOR: -1,
-      },
-    },
-  ],
+        COLOR: -1
+      }
+    }
+  ]
 }
 Class.miscTestHelper = {
   PARENT: "genericTank",
@@ -1016,7 +1018,7 @@ Class.miscTestHelper = {
   //MIRROR_MASTER_ANGLE: true,
   COLOR: {
     BASE: -1,
-    BRIGHTNESS_SHIFT: 15,
+    BRIGHTNESS_SHIFT: 15
   },
   GUNS: [
     {
@@ -1024,14 +1026,14 @@ Class.miscTestHelper = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.noSpread]),
         TYPE: "bullet",
-        COLOR: -1,
-      },
-    },
+        COLOR: -1
+      }
+    }
   ],
   TURRETS: [
     {
       POSITION: [20, 0, 20, 30, 0, 1],
-      TYPE: "miscTestHelper2",
+      TYPE: "miscTestHelper2"
     }
   ]
 }
@@ -1044,14 +1046,14 @@ Class.miscTest = {
       POSITION: [18, 8, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.noSpread]),
-        TYPE: "bullet",
-      },
-    },
+        TYPE: "bullet"
+      }
+    }
   ],
   TURRETS: [
     {
       POSITION: [20, 0, 20, 30, 0, 1],
-      TYPE: "miscTestHelper",
+      TYPE: "miscTestHelper"
     }
   ]
 }
@@ -1060,8 +1062,8 @@ Class.mmaTest2 = {
   MIRROR_MASTER_ANGLE: true,
   COLOR: "grey",
   GUNS: [{
-    POSITION: [40, 4, 1, -20, 0, 0, 0],
-  }],
+    POSITION: [40, 4, 1, -20, 0, 0, 0]
+  }]
 }
 Class.mmaTest1 = {
   PARENT: "genericTank",
@@ -1069,7 +1071,7 @@ Class.mmaTest1 = {
   TURRETS: [
     {
       POSITION: [10, 0, 0, 0, 360, 1],
-      TYPE: "mmaTest2",
+      TYPE: "mmaTest2"
     }
   ]
 }
@@ -1079,12 +1081,12 @@ Class.mmaTest = {
   TURRETS: [
     {
       POSITION: [10, 0, 0, 0, 360, 1],
-      TYPE: "mmaTest2",
+      TYPE: "mmaTest2"
     },
     {
       POSITION: [20, 0, 20, 0, 360, 1],
-      TYPE: "mmaTest1",
-    },
+      TYPE: "mmaTest1"
+    }
   ]
 }
 Class.vulnturrettest_turret = {
@@ -1092,14 +1094,14 @@ Class.vulnturrettest_turret = {
   COLOR: "grey",
   HITS_OWN_TYPE: "hard",
   LABEL: "Shield",
-  COLOR: "teal",
+  COLOR: "teal"
 }
 Class.vulnturrettest = {
   PARENT: "genericTank",
   LABEL: "Vulnerable Turrets",
   TOOLTIP: "[DEV NOTE] Vulnerable turrets are still being worked on and may not function as intended!",
   BODY: {
-    FOV: 2,
+    FOV: 2
   },
   DANGER: 6,
   GUNS: [{
@@ -1138,7 +1140,7 @@ Class.turretLayerTesting = {
     {
       POSITION: [20, -10, 5, 0, 0, -1],
       TYPE: ["basic", {COLOR: "grey", MIRROR_MASTER_ANGLE: true}]
-    },
+    }
   ]
 }
 Class.alphaGunTest = {
@@ -1164,7 +1166,7 @@ Class.radialAutoTest = makeRadialAuto("gunner", {
   angle: 36,
   label: "Radial Auto Test",
   rotation: 0.04,
-  danger: 10,
+  danger: 10
 })
 Class.imageShapeTest = {
   PARENT: "genericTank",
@@ -1180,26 +1182,26 @@ Class.screenShakeTest = {
     {
       CAMERA_SHAKE: {
         DURATION: 2000,
-        AMOUNT: 15,
+        AMOUNT: 15
       },
       GUI_SHAKE: {
         DURATION: 1000,
-        AMOUNT: 10,
+        AMOUNT: 10
       },
-      APPLY_ON_UPGRADE: true,
+      APPLY_ON_UPGRADE: true
     },
     {
       CAMERA_SHAKE: {
         DURATION: 800,
-        AMOUNT: 10,
+        AMOUNT: 10
       },
       GUI_SHAKE: {
         DURATION: 600,
-        AMOUNT: 6,
+        AMOUNT: 6
       },
       PUSH: true,
-      APPLY_ON_SHOOT: true,   
-    },
+      APPLY_ON_SHOOT: true   
+    }
   ],
   GUNS: Class.basic.GUNS
 }
@@ -1318,12 +1320,12 @@ Class.ghoster_ghosted = {
   BODY: {
     SPEED: 20,
     ACCELERATION: 10,
-    FOV: base.FOV + 1,
+    FOV: base.FOV + 1
   },
   GUNS: [{
-    POSITION: { WIDTH: 20, LENGTH: 20 },
+    POSITION: { WIDTH: 20, LENGTH: 20 }
   }],
-  ALPHA: 0.6,
+  ALPHA: 0.6
 }
 Class.ghoster = {
   PARENT: "genericTank",
@@ -1331,7 +1333,7 @@ Class.ghoster = {
   TOOLTIP: "Shooting will turn you invisible for 5 seconds",
   BODY: {
     SPEED: base.SPEED,
-    ACCELERATION: base.ACCEL,
+    ACCELERATION: base.ACCEL
   },
   ON: [
     {
@@ -1355,10 +1357,10 @@ Class.ghoster = {
     POSITION: {WIDTH: 20, LENGTH: 20},
     PROPERTIES: {
       TYPE: "bullet",
-      SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
+      SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator])
     }
   }],
-  ALPHA: 1,
+  ALPHA: 1
 }
 Class.switcheroo = {
   PARENT: "basic",
@@ -1394,7 +1396,7 @@ Class.vanquisher = {
   STAT_NAMES: statnames.mixed,
   CONTROLLERS: ["stackGuns"],
   BODY: {
-    SPEED: 0.8 * base.SPEED,
+    SPEED: 0.8 * base.SPEED
   },
   //destroyer
   GUNS: [{
@@ -1405,9 +1407,9 @@ Class.vanquisher = {
     }
 
     //builder
-  },{
-    POSITION: [18, 12, 1, 0, 0, 0, 0],
-  },{
+  }, {
+    POSITION: [18, 12, 1, 0, 0, 0, 0]
+  }, {
     POSITION: [2, 12, 1.1, 18, 0, 0, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.trap, g.setTrap]),
@@ -1416,35 +1418,35 @@ Class.vanquisher = {
     }
 
     //launcher
-  },{
-    POSITION: [10, 9, 1, 9, 0, 90, 0],
-  },{
+  }, {
+    POSITION: [10, 9, 1, 9, 0, 90, 0]
+  }, {
     POSITION: [17, 13, 1, 0, 0, 90, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery]), TYPE: "launcherMissile", STAT_CALCULATOR: "sustained" }
 
     //shotgun
-  },{
+  }, {
     POSITION: [4, 3, 1, 11, -3, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "bullet" }
-  },{
+  }, {
     POSITION: [4, 3, 1, 11, 3, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "bullet" }
-  },{
+  }, {
     POSITION: [4, 4, 1, 13, 0, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "casing" }
-  },{
+  }, {
     POSITION: [1, 4, 1, 12, -1, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "casing" }
-  },{
+  }, {
     POSITION: [1, 4, 1, 11, 1, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "casing" }
-  },{
+  }, {
     POSITION: [1, 3, 1, 13, -1, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "bullet" }
-  },{
+  }, {
     POSITION: [1, 3, 1, 13, 1, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "bullet" }
-  },{
+  }, {
     POSITION: [1, 2, 1, 13, 2, 270, 0],
     PROPERTIES: { SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun]), TYPE: "casing" }
   }, {
@@ -1478,23 +1480,23 @@ Class.armyOfOne = {
   SKILL_CAP: [31, 31, 31, 31, 31, 31, 31, 31, 31, 31],
   BODY: {
     SPEED: 0.5 * base.SPEED,
-    FOV: 1.8 * base.FOV,
+    FOV: 1.8 * base.FOV
   },
   GUNS: [
     {
       POSITION: [21, 19, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.destroyer, g.destroyer, g.destroyer, g.sniper, g.sniper, g.sniper, g.sniper, g.sniper, g.sniper, g.sniper, { reload: 0.5 }, { reload: 0.5 }, { reload: 0.5 }, { reload: 0.5 }]),
-        TYPE: "armyOfOneBullet",
-      },
-    },{
+        TYPE: "armyOfOneBullet"
+      }
+    }, {
       POSITION: [21, 11, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.destroyer, g.destroyer, g.destroyer, g.sniper, g.sniper, g.sniper, g.sniper, g.sniper, g.sniper, g.sniper, { reload: 0.5 }, { reload: 0.5 }, { reload: 0.5 }, { reload: 0.5 }, g.fake]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     }
-  ],
+  ]
 }
 Class.tooltipTank = {
   PARENT: "genericTank",
@@ -1510,14 +1512,14 @@ Class.bulletSpawnTest = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, {speed: 0, maxSpeed: 0, shudder: 0, spray: 0, recoil: 0}]),
         TYPE: ["bullet", {BORDERLESS: true}],
-        BORDERLESS: true,
+        BORDERLESS: true
       }
     }, {
       POSITION: [50, 10, 1, 0, 5, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, {speed: 0, maxSpeed: 0, shudder: 0, spray: 0, recoil: 0}]),
         TYPE: ["bullet", {BORDERLESS: true}],
-        BORDERLESS: true,
+        BORDERLESS: true
       }
     }
   ]
@@ -1529,10 +1531,10 @@ Class.propTestProp = {
   GUNS: [
     {
       POSITION: [20, 10, 1, 0, 0, 45, 0],
-      PROPERTIES: {COLOR: 13},
+      PROPERTIES: {COLOR: 13}
     }, {
       POSITION: [20, 10, 1, 0, 0, -45, 0],
-      PROPERTIES: {COLOR: 13},
+      PROPERTIES: {COLOR: 13}
     }
   ]
 }
@@ -1569,8 +1571,8 @@ Class.weaponArrayTest = {
     {
       POSITION: [7, 10, 0, -11, 180, 0],
       TYPE: "autoTankGun"
-    }
-    , 5),
+    },
+    5)
 }
 Class.gunBenchmark = {
   PARENT: "genericTank",
@@ -1595,7 +1597,7 @@ exports.backwardsExports = {
   PARENT: "genericTank",
   LABEL: "Basic `Exports` exported tank",
   BODY: Class.basic.BODY,
-  GUNS: Class.basic.GUNS,
+  GUNS: Class.basic.GUNS
 }
 let testLayeredBoss = new LayeredBoss("testLayeredBoss", "Test Layered Boss", "terrestrial", 7, 3, "terrestrialTrapTurret", 5, 7, true, {SPEED: 10});
 testLayeredBoss.addLayer({gun: {
@@ -1604,12 +1606,12 @@ testLayeredBoss.addLayer({gun: {
     SHOOT_SETTINGS: combineStats([g.minion, { size: 0.5 }]),
     TYPE: ["minion", {INDEPENDENT: true}],
     AUTOFIRE: true,
-    SYNCS_SKILLS: true,
-  },
+    SYNCS_SKILLS: true
+  }
 }}, true, null, 16)
 testLayeredBoss.addLayer({turret: {
   POSITION: [10, 7.5, 0, null, 160, 0],
-  TYPE: "crowbarTurret",
+  TYPE: "crowbarTurret"
 }}, true)
 
 // DigDig (WIP)

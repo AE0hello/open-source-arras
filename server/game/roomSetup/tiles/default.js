@@ -2,8 +2,8 @@ let spawnPermanentAntiTankMachineGun = (loc, gameManager) => {
   let o = new Entity(loc);
   o.define("antiTankMachineGun");
   o.define({
-    BODY: { FOV: 1.5, },
-    FACING_TYPE: "spinWhenIdle",
+    BODY: { FOV: 1.5 },
+    FACING_TYPE: "spinWhenIdle"
   })
   o.controllers = [new ioTypes.nearestDifferentMaster(o, {}, gameManager)]
   o.team = TEAM_ROOM;
@@ -15,7 +15,7 @@ let spawnPermanentAntiTankMachineGun = (loc, gameManager) => {
 tileClass.normal = new Tile({
   COLOR: "white",
   NAME: "Default Tile",
-  INIT: (tile, room) => room.spawnableDefault.push(tile),
+  INIT: (tile, room) => room.spawnableDefault.push(tile)
 });
 tileClass.nest = new Tile({
   COLOR: "nest",
@@ -23,7 +23,7 @@ tileClass.nest = new Tile({
   INIT: (tile, room) => {
     if (!room.spawnable[TEAM_ENEMIES]) room.spawnable[TEAM_ENEMIES] = [];
     room.spawnable[TEAM_ENEMIES].push(tile);
-  },
+  }
 });
 tileClass.wall = new Tile({
   COLOR: "white",

@@ -36,7 +36,9 @@ exports.interpolateAngle = (angle, desired, step) => angle + exports.angleDiffer
 
 exports.averageArray = arr => {
   if (!arr.length) return 0;
-  var sum = arr.reduce((a, b) => { return a + b; });
+  var sum = arr.reduce((a, b) => {
+    return a + b; 
+  });
   return sum / arr.length;
 };
 
@@ -207,5 +209,7 @@ exports.flattenDefinition = (output, definition) => {
 exports.isStringified = (str) => { 
   try {  
     return JSON.parse(str);  
-  } catch(e) { return str } 
+  } catch(e) {
+    return str 
+  } 
 }

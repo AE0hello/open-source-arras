@@ -62,7 +62,7 @@ tileClass.sbase1 = new Tile({
   INIT: (tile, room) => {
     if (!room.spawnable[TEAM_BLUE]) room.spawnable[TEAM_BLUE] = [];
     room.spawnable[TEAM_BLUE].push(tile);
-  },
+  }
 })
 
 tileClass.stopAI = new Tile({

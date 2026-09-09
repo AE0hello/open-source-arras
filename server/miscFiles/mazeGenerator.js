@@ -136,7 +136,7 @@ const MazeZone = class {
     return [
       `${ this.width }x${ this.height } (${ this.length })`,
       map.map(row => row.map(cell => cell ? filled : unfilled).join("")).join("\n"),
-      `+(${ this.offset.x }, ${ this.offset.y })`,
+      `+(${ this.offset.x }, ${ this.offset.y })`
     ].join("\n")
   }
 }
@@ -1277,7 +1277,7 @@ const MazeGenerator = class {
     return {
       squares: bestSquares,
       width: this.width,
-      height: this.height,
+      height: this.height
     }
   }
 };

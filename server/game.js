@@ -90,7 +90,7 @@ const getName = (name, gamemodeData) => {
     portal: "Portal",
     retrograde: "Retrograde",
     //skinwalkers: "Skinwalkers",
-    space: "Space",
+    space: "Space"
   };
   return nameMap[name];
 }
@@ -174,7 +174,7 @@ class gameServer {
       serverhost: this.serverhost,
       location: this.location,
       gameMode: this.name,
-      gameManager: includegameManager ? this : false,
+      gameManager: includegameManager ? this : false
     }
   }
 
@@ -219,7 +219,7 @@ class gameServer {
             res.end(JSON.stringify([{
               ip: this.host,
               players: this.socketManager.clients.length,
-              gameMode: this.name,
+              gameMode: this.name
             }]));
           } else {
             res.writeHead(404);
@@ -393,7 +393,7 @@ class gameServer {
         sandbox: {
           do_not_change_arena_size: false
         }
-      },
+      }
     };
     if (!this.wallGrid) {
       this.room.wallGrid = {
@@ -556,7 +556,7 @@ class gameServer {
         // Spawn the entity
         let o = new Entity({
           x: (this.room.width / 2 * this.room.xgrid / this.room.width) + (this.room.width / 0.7) * Math.cos(angle),
-          y: (this.room.width / 2 * this.room.xgrid / this.room.width) + (this.room.width / 0.7) * Math.sin(angle),
+          y: (this.room.width / 2 * this.room.xgrid / this.room.width) + (this.room.width / 0.7) * Math.sin(angle)
         });
 
         // Define it as arena closer
@@ -569,12 +569,12 @@ class gameServer {
             FULL_VIEW: true,
             SKYNET: true,
             BLIND: true,
-            CHASE: true,
+            CHASE: true
           },
           CAN_BE_ON_LEADERBOARD: false,
           CAN_GO_OUTSIDE_ROOM: true,
           CONTROLLERS: [["nearestDifferentMaster", { lockThroughWalls: true }], "mapTargetToGoal"],
-          SKILL: Array(10).fill(9),
+          SKILL: Array(10).fill(9)
         });
         // Set it's team, name and minimap color
         o.team = TEAM_ENEMIES;

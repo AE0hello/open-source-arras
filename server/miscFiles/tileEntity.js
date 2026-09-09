@@ -8,8 +8,12 @@ class tileEntity {
     // Now lets add their locations to the public.
     let gridLoc = this.gridLoc = { x: parseFloat(loc.x), y: parseFloat(loc.y) };
     this.loc = {
-      get x() { return gameManager.room.tileWidth * (gridLoc.x + 0.5) - gameManager.room.width / 2; },
-      get y() { return gameManager.room.tileHeight * (gridLoc.y + 0.5) - gameManager.room.height / 2; }
+      get x() {
+        return gameManager.room.tileWidth * (gridLoc.x + 0.5) - gameManager.room.width / 2; 
+      },
+      get y() {
+        return gameManager.room.tileHeight * (gridLoc.y + 0.5) - gameManager.room.height / 2; 
+      }
     };
 
     // Now lets add stuff.

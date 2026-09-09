@@ -131,7 +131,7 @@ let g = {
   lowPower: { shudder: 2, health: 0.5, damage: 0.5, pen: 0.7, spray: 0.5, resist: 0.7 },
   halfrange: { range: 0.5 },
   aura: { reload: 0.001, recoil: 0.001, shudder: 0.001, size: 6, speed: 0.001, maxSpeed: 0.001, spray: 0.001 },
-  noSpread: { shudder: 0, spray: 0 },
+  noSpread: { shudder: 0, spray: 0 }
 }
 
 const baseScenexe = {
@@ -159,8 +159,8 @@ Class.scenexeTrap = {
     RANGE: 450,
     DENSITY: 2.5,
     RESIST: 2.5,
-    SPEED: 0,
-  },
+    SPEED: 0
+  }
 }
 Class.scenexePillbox = {
   PARENT: "scenexeTrap",
@@ -170,9 +170,9 @@ Class.scenexePillbox = {
   TURRETS: [
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: "scenexePillboxTurret",
-    },
-  ],
+      TYPE: "scenexePillboxTurret"
+    }
+  ]
 }
 
 Class.triangle = {
@@ -190,7 +190,7 @@ Class.triangle = {
     ACCELERATION: 0.0075
   },
   DRAW_HEALTH: true,
-  INTANGIBLE: false,
+  INTANGIBLE: false
 }
 
 Class.square = {
@@ -208,7 +208,7 @@ Class.square = {
     PENETRATION: 1.5,
     ACCELERATION: 0.005
   },
-  DRAW_HEALTH: true,
+  DRAW_HEALTH: true
 }
 
 Class.hexagon = {
@@ -227,7 +227,7 @@ Class.hexagon = {
     PENETRATION: 1.1,
     ACCELERATION: 0.003
   },
-  DRAW_HEALTH: true,
+  DRAW_HEALTH: true
 }
 
 Class.octagonDeco = makeHat(8, { color: "green" })
@@ -244,25 +244,25 @@ makeHearth = (damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraColor) => {
     COLOR: "grey",
     GUNS: [
       {
-        POSITION: [0, 20, 1, 0, 0, 0, 0,],
+        POSITION: [0, 20, 1, 0, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([g.aura, { size: sizeFactor, damage: damageFactor }]),
           TYPE: [auraType, { COLOR: auraColor, ALPHA: opacity }],
           MAX_CHILDREN: 1,
           AUTOFIRE: true,
-          SYNCS_SKILLS: true,
-        },
-      },
+          SYNCS_SKILLS: true
+        }
+      }
     ],
     TURRETS: isHeal ? [
       {
         POSITION: [6.4 * sizeFactor, 0, 0, 0, 360, 1],
-        TYPE: ["octagonDeco", { INDEPENDENT: true }],
-      },
+        TYPE: ["octagonDeco", { INDEPENDENT: true }]
+      }
     ] : [
       {
         POSITION: [6.4 * sizeFactor, 0, 0, 0, 360, 1],
-        TYPE: ["hearthDeco", { INDEPENDENT: true }],
+        TYPE: ["hearthDeco", { INDEPENDENT: true }]
       }
     ]
   };
@@ -276,9 +276,9 @@ Class.scenexePillboxTurret = makeTurret({
         SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.autoTurret, g.power, { density: 0.1, speed: 0.5, range: 1.5 }]),
         TYPE: "bullet",
         WAIT_TO_CYCLE: true
-      },
-    },
-  ],
+      }
+    }
+  ]
 }, {independent: true, extraStats: []})
 Class.scenexeSentryTurret = makeTurret({
   GUNS: [
@@ -286,10 +286,10 @@ Class.scenexeSentryTurret = makeTurret({
       POSITION: [22, 10, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret]),
-        TYPE: "bullet",
-      },
-    },
-  ],
+        TYPE: "bullet"
+      }
+    }
+  ]
 }, {label: "Turret", fov: 0.8, extraStats: []})
 Class.scenexeTurretTurret = makeTurret({
   GUNS: weaponMirror(
@@ -297,9 +297,9 @@ Class.scenexeTurretTurret = makeTurret({
       POSITION: [22, 8, 1, 0, -5.5, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret]),
-        TYPE: "bullet",
-      },
-    }, {delayIncrement: 0.5}),
+        TYPE: "bullet"
+      }
+    }, {delayIncrement: 0.5})
 }, {label: "Turret", fov: 0.8, extraStats: []})
 Class.scenexeArtilleryTurret = makeTurret({
   GUNS: [
@@ -307,10 +307,10 @@ Class.scenexeArtilleryTurret = makeTurret({
       POSITION: [22, 14, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, { recoil: 1.15 }, g.turret, g.pounder]),
-        TYPE: "bullet",
-      },
-    },
-  ],
+        TYPE: "bullet"
+      }
+    }
+  ]
 }, {label: "Turret", fov: 0.8, extraStats: []})
 Class.scenexeTripletTurret = makeTurret({
   GUNS: [
@@ -373,16 +373,16 @@ Class.scenexeMinion = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.minionGun]),
         WAIT_TO_CYCLE: true,
-        TYPE: "bullet",
-      },
-    },
-  ],
+        TYPE: "bullet"
+      }
+    }
+  ]
 }
 
 Class.scenexeNode = {
   PARENT: "genericTank",
   REROOT_UPGRADE_TREE: ["scenexeNode", "scenexeBase"],
-  LABEL: "Node",
+  LABEL: "Node"
 }
 Class.scenexeBase = {
   PARENT: "genericTank",
@@ -391,7 +391,7 @@ Class.scenexeBase = {
   BODY: {
     FOV: baseScenexe.FOV,
     HEALTH: baseScenexe.HEALTH
-  },
+  }
 }
 /* NODE */
 /// MONO
@@ -404,7 +404,7 @@ Class.scenexeMono = {
       POSITION: { LENGTH: 21,  WIDTH: 10,  ASPECT: 1 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     }
   ]
@@ -435,14 +435,14 @@ Class.scenexeFlank = {
       POSITION: { LENGTH: 21, WIDTH: 10, ASPECT: 1 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
       POSITION: { LENGTH: 16, WIDTH: 10, ASPECT: 1, ANGLE: 180 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     }
   ]
@@ -458,13 +458,13 @@ Class.scenexeSplit = {
           SHOOT_SETTINGS: combineStats([g.basic, { damage: 0.75, pen: 1.15, recoil: 0.1 }]),
           TYPE: "bullet"
         }
-      },
+      }
     ),
     {
       POSITION: { LENGTH: 21,  WIDTH: 10,  ASPECT: 1 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, { recoil: 0.9 }]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     }
   ]
@@ -572,7 +572,7 @@ Class.scenexeQuad = {
     POSITION: { LENGTH: 21, WIDTH: 10, ASPECT: 1 },
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-      TYPE: "bullet",
+      TYPE: "bullet"
     }
   }, 4)
 }
@@ -674,13 +674,13 @@ Class.scenexeSpread = {
           SHOOT_SETTINGS: combineStats([g.basic, { damage: 0.75, pen: 1.15, recoil: 0.1 }, g.spreadshot]),
           TYPE: "bullet"
         }
-      },
+      }
     ]),
     {
       POSITION: { LENGTH: 21,  WIDTH: 10,  ASPECT: 1 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, { recoil: 0.9 }, g.spreadshotMain]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     }
   ]
@@ -693,10 +693,10 @@ Class.scenexeDestroyer = {
       POSITION: [21, 14, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer]),
-        TYPE: "bullet",
-      },
-    },
-  ],
+        TYPE: "bullet"
+      }
+    }
+  ]
 }
 Class.scenexeCompound = {
   PARENT: "scenexeNode",
@@ -746,7 +746,7 @@ Class.scenexeFactory = {
   STAT_NAMES: statnames.drone,
   GUNS: [
     {
-      POSITION: [7.5, 7, 1, 13.5, 0, 0, 0],
+      POSITION: [7.5, 7, 1, 13.5, 0, 0, 0]
     },
     {
       POSITION: [3, 9, 1, 20, 0, 0, 0],
@@ -756,13 +756,13 @@ Class.scenexeFactory = {
         TYPE: "scenexeMinion",
         STAT_CALCULATOR: "drone",
         AUTOFIRE: true,
-        SYNCS_SKILLS: true,
-      },
+        SYNCS_SKILLS: true
+      }
     },
     {
-      POSITION: [14.5, 9, 1, 0, 0, 0, 0],
-    },
-  ],
+      POSITION: [14.5, 9, 1, 0, 0, 0, 0]
+    }
+  ]
 }
 Class.scenexeManager = {
   PARENT: "scenexeNode",
@@ -836,9 +836,9 @@ Class.scenexeGuard = {
       POSITION: { LENGTH: 21,  WIDTH: 10,  ASPECT: 1 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
-    },
+    }
   ]
 }
 Class.scenexeBlockade = {
@@ -867,7 +867,7 @@ Class.scenexeBlockade = {
         TYPE: "scenexeTrap",
         STAT_CALCULATOR: "trap"
       }
-    },
+    }
   ]
 }
 Class.scenexeRubble = {
@@ -920,7 +920,7 @@ Class.scenexeEngineer = {
         SYNCS_SKILLS: true,
         DESTROY_OLDEST_CHILD: true,
         STAT_CALCULATOR: "block"
-      },
+      }
     },
     {
       POSITION: { LENGTH: 13, WIDTH: 9 }
@@ -989,7 +989,7 @@ Class.scenexeBarricade = {
         TYPE: "scenexeTrap",
         STAT_CALCULATOR: "trap"
       }
-    },
+    }
   ]
 }
 
@@ -1025,7 +1025,7 @@ Class.scenexeAlloy = {
       POSITION: { LENGTH: 21,  WIDTH: 10,  ASPECT: 1 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
@@ -1070,7 +1070,7 @@ Class.scenexeOverseer = {
         MAX_CHILDREN: 4,
         WAIT_TO_CYCLE: true
       }
-    },
+    }
   ]
 }
 Class.scenexeDirector = {
@@ -1150,7 +1150,7 @@ Class.scenexeWall = {
   SHAPE: 6,
   BODY: {
     HEALTH: 1.75 * baseScenexe.HEALTH,
-    SPEED: 0.95 * base.SPEED,
+    SPEED: 0.95 * base.SPEED
   }
 }
 
@@ -1161,7 +1161,7 @@ Class.scenexeStronghold = {
   SHAPE: 6,
   BODY: {
     HEALTH: 2.45 * baseScenexe.HEALTH,
-    SPEED: 0.92 * base.SPEED,
+    SPEED: 0.92 * base.SPEED
   },
   TURRETS: [
     {
@@ -1176,12 +1176,12 @@ Class.scenexeCitadel = {
   SHAPE: 6,
   BODY: {
     HEALTH: 1.75 * baseScenexe.HEALTH,
-    SPEED: 0.95 * base.SPEED,
+    SPEED: 0.95 * base.SPEED
   },
   TURRETS: [
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1193,7 +1193,7 @@ Class.scenexePalace = {
   SHAPE: 8.5,
   BODY: {
     HEALTH: 3.75 * baseScenexe.HEALTH,
-    SPEED: 0.9 * base.SPEED,
+    SPEED: 0.9 * base.SPEED
   },
   TURRETS: [
     {
@@ -1217,7 +1217,7 @@ Class.scenexeSmasher = {
   LABEL: "Smasher",
   BODY: {
     SPEED: 1.1 * base.SPEED,
-    DAMAGE: 1.5 * base.DAMAGE,
+    DAMAGE: 1.5 * base.DAMAGE
   },
   TURRETS: [
     {
@@ -1271,7 +1271,7 @@ Class.scenexeArmory = {
   LABEL: "Armory",
   BODY: {
     SPEED: 1.1 * base.SPEED,
-    DAMAGE: 1.5 * base.DAMAGE,
+    DAMAGE: 1.5 * base.DAMAGE
   },
   TURRETS: [
     {
@@ -1280,7 +1280,7 @@ Class.scenexeArmory = {
     },
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1320,7 +1320,7 @@ Class.scenexeBrigade = {
     },
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeTurretTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeTurretTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1361,7 +1361,7 @@ Class.scenexeCastle = {
     },
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 2 },
-      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     },
     {
       POSITION: [14.5, 0, 0, 0, 360, 1],
@@ -1378,7 +1378,7 @@ Class.scenexeSentry = {
   TURRETS: [
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeSentryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1390,7 +1390,7 @@ Class.scenexeTurret = {
   TURRETS: [
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeTurretTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeTurretTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1402,7 +1402,7 @@ Class.scenexeArtillery = {
   TURRETS: [
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeArtilleryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeArtilleryTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1412,7 +1412,7 @@ Class.scenexeTriplet = {
   TURRETS: [
     {
       POSITION: { SIZE: 10, ANGLE: 160, ARC: 360, LAYER: 1 },
-      TYPE: ["scenexeTripletTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }],
+      TYPE: ["scenexeTripletTurret", { CONTROLLERS: ["nearestDifferentMaster"], INDEPENDENT: true, COLOR: 16 }]
     }
   ]
 }
@@ -1428,7 +1428,7 @@ Class.scenexeHearth = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "hearthGen"
     }
-  ],
+  ]
 }
 
 //Tier 1
@@ -1441,7 +1441,7 @@ Class.scenexeBonfire = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "bonfireGen"
     }
-  ],
+  ]
 }
 Class.menderGen = makeHearth(-1, 1.6);
 Class.scenexeMender = {
@@ -1452,7 +1452,7 @@ Class.scenexeMender = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "menderGen"
     }
-  ],
+  ]
 }
 
 //Tier 2
@@ -1465,7 +1465,7 @@ Class.scenexeFlare = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "flareGen"
     }
-  ],
+  ]
 }
 Class.remedyGen = makeHearth(-1, 2);
 Class.scenexeRemedy = {
@@ -1476,7 +1476,7 @@ Class.scenexeRemedy = {
       POSITION: [14, 0, 0, 0, 0, 1],
       TYPE: "remedyGen"
     }
-  ],
+  ]
 }
 
 //HANGAR
@@ -1486,7 +1486,7 @@ Class.scenexeHangar = {
   TURRETS: [
     {
       POSITION: [8.5, 0, 0, 0, 0, 1],
-      TYPE: "scenexeHangarTurret",
+      TYPE: "scenexeHangarTurret"
     }
   ]
 }
@@ -1496,11 +1496,11 @@ Class.scenexeWarship = {
   TURRETS: [
     {
       POSITION: [8.5, 0, -8, 0, 0, 1],
-      TYPE: "scenexeHangarTurret",
+      TYPE: "scenexeHangarTurret"
     },
     {
       POSITION: [8.5, 0, 8, 0, 0, 1],
-      TYPE: "scenexeHangarTurret",
+      TYPE: "scenexeHangarTurret"
     }
   ]
 }
@@ -1510,15 +1510,15 @@ Class.scenexeBattleship = {
   TURRETS: [
     {
       POSITION: [8.5, 0, 8, -30, 0, 1],
-      TYPE: "scenexeHangarTurret",
+      TYPE: "scenexeHangarTurret"
     },
     {
       POSITION: [8.5, 0, 8, 90, 0, 1],
-      TYPE: "scenexeHangarTurret",
+      TYPE: "scenexeHangarTurret"
     },
     {
       POSITION: [8.5, 0, 8, -150, 0, 1],
-      TYPE: "scenexeBattleshipTurret",
+      TYPE: "scenexeBattleshipTurret"
     }
   ]
 }
@@ -1527,7 +1527,7 @@ Class.scenexeMothership = {
   LABEL: "Mothership",
   TURRETS: weaponArray({
     POSITION: [8.5, 0, 8, 0, 0, 1],
-    TYPE: "scenexeBattleshipTurret",
+    TYPE: "scenexeBattleshipTurret"
   }, 4)
 }
 

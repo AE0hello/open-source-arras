@@ -20,7 +20,7 @@ if (Config.march_madness) {
       "desmosMinion",
       "undertowBullet",
       "hive",
-      "assemblent",
+      "assemblent"
     ];
 
     for (const e of Object.values(c)) {

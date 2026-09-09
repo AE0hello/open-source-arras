@@ -47,7 +47,7 @@ let logs = {
   activation: new Logger(),
   loops: new Logger(),
   gamemodeLoop: new Logger(),
-  lagtesting: new Logger(),
+  lagtesting: new Logger()
 };
 
 module.exports = { logs };

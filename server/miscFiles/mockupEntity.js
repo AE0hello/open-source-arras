@@ -5,7 +5,7 @@ class MockupEntityGun {
       hueShift: 0,
       saturationShift: 1,
       brightnessShift: 0,
-      allowBrightnessInvert: false,
+      allowBrightnessInvert: false
     };
     this.color = "16 0 1 0 false";
     this.alpha = 1;
@@ -18,14 +18,13 @@ class MockupEntityGun {
         if (typeof info.PROPERTIES.COLOR === "number" || typeof info.PROPERTIES.COLOR === "string") {
           if (!isNaN(info.PROPERTIES.COLOR) && !isNaN(parseFloat(info.PROPERTIES.COLOR)) || /^[a-zA-Z]*$/.test(info.PROPERTIES.COLOR))
             this.colorUnboxed.base = info.PROPERTIES.COLOR; 
-        }
-        else if (typeof info.PROPERTIES.COLOR === "object")
+        } else if (typeof info.PROPERTIES.COLOR === "object")
           this.colorUnboxed = {
             base: info.PROPERTIES.COLOR.BASE ?? 16,
             hueShift: info.PROPERTIES.COLOR.HUE_SHIFT ?? 0,
             saturationShift: info.PROPERTIES.COLOR.SATURATION_SHIFT ?? 1,
             brightnessShift: info.PROPERTIES.COLOR.BRIGHTNESS_SHIFT ?? 0,
-            allowBrightnessInvert: info.PROPERTIES.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false,
+            allowBrightnessInvert: info.PROPERTIES.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false
           };
         this.color = this.colorUnboxed.base + " " + this.colorUnboxed.hueShift + " " + this.colorUnboxed.saturationShift + " " + this.colorUnboxed.brightnessShift + " " + this.colorUnboxed.allowBrightnessInvert;
       }
@@ -45,7 +44,7 @@ class MockupEntityGun {
         Y: position[4],
         ANGLE: position[5],
         DELAY: position[6],
-        DRAW_ABOVE: position[7],
+        DRAW_ABOVE: position[7]
       }
     }
     position = {
@@ -79,7 +78,7 @@ class MockupEntityProp {
       hueShift: 0,
       saturationShift: 1,
       brightnessShift: 0,
-      allowBrightnessInvert: false,
+      allowBrightnessInvert: false
     };
     this.color = "16 0 1 0 false";
     this.borderless = false;
@@ -112,7 +111,7 @@ class MockupEntityProp {
       angle: position.ANGLE * Math.PI / 180,
       direction: _off.direction,
       offset: _off.length / 10,
-      layer: position.LAYER,
+      layer: position.LAYER
     };
     // Initalize.
     this.forceAngle = def.FORCE_ANGLE ?? null;
@@ -150,14 +149,13 @@ class MockupEntityProp {
       if (typeof set.COLOR === "number" || typeof set.COLOR === "string") {
         if (!isNaN(set.COLOR) && !isNaN(parseFloat(set.COLOR)) || /^[a-zA-Z]*$/.test(set.COLOR))
           this.colorUnboxed.base = set.COLOR; 
-      }
-      else if (typeof set.COLOR === "object")
+      } else if (typeof set.COLOR === "object")
         this.colorUnboxed = {
           base: set.COLOR.BASE ?? 16,
           hueShift: set.COLOR.HUE_SHIFT ?? 0,
           saturationShift: set.COLOR.SATURATION_SHIFT ?? 1,
           brightnessShift: set.COLOR.BRIGHTNESS_SHIFT ?? 0,
-          allowBrightnessInvert: set.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false,
+          allowBrightnessInvert: set.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false
         };
       this.color = this.colorUnboxed.base + " " + this.colorUnboxed.hueShift + " " + this.colorUnboxed.saturationShift + " " + this.colorUnboxed.brightnessShift + " " + this.colorUnboxed.allowBrightnessInvert;
     }
@@ -183,7 +181,7 @@ class MockupEntity {
       hueShift: 0,
       saturationShift: 1,
       brightnessShift: 0,
-      allowBrightnessInvert: false,
+      allowBrightnessInvert: false
     };
     this.color = "16 0 1 0 false";
     this.glow = { radius: null, color: "16 0 1 0 false", alpha: 1, recursion: 1 };
@@ -236,7 +234,7 @@ class MockupEntity {
           hueShift: set.COLOR.HUE_SHIFT ?? 0,
           saturationShift: set.COLOR.SATURATION_SHIFT ?? 1,
           brightnessShift: set.COLOR.BRIGHTNESS_SHIFT ?? 0,
-          allowBrightnessInvert: set.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false,
+          allowBrightnessInvert: set.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false
         };
       this.color = this.colorUnboxed.base + " " + this.colorUnboxed.hueShift + " " + this.colorUnboxed.saturationShift + " " + this.colorUnboxed.brightnessShift + " " + this.colorUnboxed.allowBrightnessInvert;
     }
@@ -273,7 +271,7 @@ class MockupEntity {
       reload: set.STAT_NAMES?.RELOAD ?? "Reload",
       move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
       shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
-      shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity",
+      shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity"
     };
     if (set.ALPHA != null) {
       this.alpha = ("number" === typeof set.ALPHA) ? set.ALPHA : set.ALPHA[1];
@@ -291,8 +289,7 @@ class MockupEntity {
         deduction += levelScore();
         level += 1;
       }
-    }
-    else if (set.LEVEL != null) level = set.LEVEL;
+    } else if (set.LEVEL != null) level = set.LEVEL;
     this.size = (set.SIZE ?? 1) * (set.VARIES_IN_SIZE ? ran.randomRange(0.8, 1.2) : 1) * (1 + Math.min(set.LEVEL_CAP ?? Config.level_cap, level) / 45);
     this.realSize = util.rounder(this.size * lazyRealSizes[Math.floor(Math.abs(this.shape))]);
     this.size = util.rounder(this.size);
@@ -320,7 +317,7 @@ class MockupEntity {
           tier: i,
           branch: 0,
           branchLabel: this.branchLabel,
-          redefineAll,
+          redefineAll
         });
       }
     }
@@ -362,7 +359,7 @@ class MockupEntity {
             tier: i,
             branch,
             branchLabel: this.branchLabel,
-            redefineAll,
+            redefineAll
           });
         }
       }

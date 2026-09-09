@@ -48,7 +48,7 @@ exports.gaussRing = (radius, clustering) => {
   let d = exports.gauss(radius, radius * clustering)
   return {
     x: d * Math.cos(r),
-    y: d * Math.sin(r),
+    y: d * Math.sin(r)
   }
 }
 

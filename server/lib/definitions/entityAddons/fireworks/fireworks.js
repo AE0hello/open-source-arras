@@ -20,7 +20,7 @@ for (let i = 0; i < fireworkShapes.length; i++) {
   let name = `firework${i + 1}`;
   Class[name] = {
     PARENT: "firework",
-    SHAPE: fireworkShapes[i],
+    SHAPE: fireworkShapes[i]
   };
   fireworkShapesClasses.push(name);
 }

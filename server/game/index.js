@@ -62,8 +62,7 @@ class gameHandler {
           global.gameManager.socketManager.sendToServer(otherBody.socket, portal.settings.destination);
         } else if (["bullet", "drone", "trap", "satellite"].includes(otherBody.type)) {
           if (otherBody.master !== portal) otherBody.kill();
-        }
-        else if (!["wall", "aura"].includes(otherBody.type)) advancedcollide(portal, otherBody, false, false);
+        } else if (!["wall", "aura"].includes(otherBody.type)) advancedcollide(portal, otherBody, false, false);
         break;
       case instance.type === "wall" || other.type === "wall":
         if (instance.type === "wall" && other.type === "wall") return;
@@ -397,7 +396,9 @@ class gameHandler {
 
         for (let i = 0; i < amount; i++) {
           let spot, attempts = 30, name = names[i];
-          do { spot = getSpawnableArea(TEAM_ENEMIES, global.gameManager); } while (attempts-- && dirtyCheck(spot, 500));
+          do {
+            spot = getSpawnableArea(TEAM_ENEMIES, global.gameManager); 
+          } while (attempts-- && dirtyCheck(spot, 500));
 
           let boss = new Entity(spot);
           boss.define(selection.bosses.sort(() => 0.5 - Math.random())[i % selection.bosses.length]);
@@ -421,7 +422,7 @@ class gameHandler {
     for (let i = 0; i < this.bots.length; i++) {
       let o = this.bots[i];
       o.skill.maintain();
-      o.skillUp([ "atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi" ][ran.chooseChance(...Config.bot_skill_upgrade_chances)]);
+      o.skillUp(["atk", "hlt", "spd", "str", "pen", "dam", "rld", "mob", "rgn", "shi"][ran.chooseChance(...Config.bot_skill_upgrade_chances)]);
       o.refreshSkills();
       if (o.leftoverUpgrades && o.upgrade(ran.irandomRange(0, o.upgrades.length))) {
         o.leftoverUpgrades--;
@@ -473,14 +474,14 @@ class gameHandler {
       o.define({
         CONTROLLERS: CC.CONTROLLERS ? [...Class.bot.CONTROLLERS, ...CC.CONTROLLERS] : Class.bot.CONTROLLERS,
         FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
-        AI: Class.bot.AI,
+        AI: Class.bot.AI
       }, false, true, false)
       if (CC && CC.HEALING_TANK) {
         o.controllers = [];
         o.define({
           CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { replicatePlayerMovement: true, lookAtGoal: true }]],
           FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
-          AI: Class.bot.AI,
+          AI: Class.bot.AI
         }, false, true, false);
       }
       o.name = botName;
@@ -493,10 +494,10 @@ class gameHandler {
           o.define({ 
             CONTROLLERS: ["healTeamMasters", "minion", ["wanderAroundMap", { replicatePlayerMovement: true, lookAtGoal: true }]],
             FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE,
-            AI: Class.bot.AI,
+            AI: Class.bot.AI
           }, false, true, false);
         }
-        o.define({ FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE, AI: Class.bot.AI, }, false, true, false) // Just reoverride the facing type.
+        o.define({ FACING_TYPE: CC.FACING_TYPE ? CC.FACING_TYPE : Class.bot.FACING_TYPE, AI: Class.bot.AI }, false, true, false) // Just reoverride the facing type.
       })
     }, 3000 + Math.floor(Math.random() * 7000));
     o.on("dead", () => {

@@ -37,9 +37,9 @@ class socketManager {
         JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => { 
           return {
             color: t.color,
-            image: t.image ?? false,
+            image: t.image ?? false
           }
-        }))),
+        })))
       );
     }
   };
@@ -66,7 +66,7 @@ class socketManager {
       ip: socket.ip,
       time: time,
       name: (socket.player && socket.player.body && socket.player.body.name) || "Unnamed",
-      reason: reason,
+      reason: reason
     });
   }
 
@@ -92,7 +92,7 @@ class socketManager {
       ip: socket.ip,
       time: time,
       name: (socket.player && socket.player.body && socket.player.body.name) || "Unnamed",
-      reason: reason,
+      reason: reason
     });
 
     fs.writeFileSync(PERMABAN_FILE, JSON.stringify(permBans, null, 2));
@@ -120,7 +120,9 @@ class socketManager {
         }
       }
       if (view.socket.status.disablechat) {
-        view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array.map(o => {return {id: o.id, messages: []}})));
+        view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array.map(o => {
+          return {id: o.id, messages: []} 
+        })));
       } else view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array));
     }
   }
@@ -157,7 +159,7 @@ class socketManager {
           let disconnection = {
             body: player.body,
             ip: socket.ip,
-            timeout: timeout,
+            timeout: timeout
           };
           this.disconnections.push(disconnection);
           player.command.autospin = false;
@@ -200,8 +202,12 @@ class socketManager {
     }
     switch (m.shift()) {
       case "k": { // key verification
-        if (m.length > 1) { socket.kick("Ill-sized key request."); return 1; }
-        if (socket.status.verified) { socket.kick("Duplicate player spawn attempt."); return 1; }
+        if (m.length > 1) {
+          socket.kick("Ill-sized key request."); return 1; 
+        }
+        if (socket.status.verified) {
+          socket.kick("Duplicate player spawn attempt."); return 1; 
+        }
         socket.talk("w", true);
         if (m.length === 1) {
           let key = m[0].toString().trim();
@@ -222,7 +228,9 @@ class socketManager {
         }
       } break;
       case "s": { // spawn request
-        if (!socket.status.deceased) { socket.kick("Trying to spawn while already alive."); return 1; }
+        if (!socket.status.deceased) {
+          socket.kick("Trying to spawn while already alive."); return 1; 
+        }
         if (global.gameManager.private && !socket.permissions) return (
           socket.talk("message", "This server is private."),
           socket.kick("Tried to join private server without valid token.")
@@ -265,12 +273,24 @@ class socketManager {
           return;
         };
         // Verify it
-        if (typeof name != "string") { socket.kick("Bad spawn request. (name)"); return 1; }
-        if (encodeURI(name).split(/%..|./).length > 48) { socket.kick("Shorten your name!"); return 1; }
-        if (typeof m[1] !== "number") { socket.kick("Bad spawn request. (needsRoom)"); return 1; }
-        if (typeof autoLVLup !== "number") { socket.kick("Bad spawn request. (autoLVLup)"); return 1; }
-        if (typeof incognitoMode !== "number") { socket.kick("Bad spawn request. (incognito)"); return 1; }
-        if (transferbodyID && typeof transferbodyID != "string") { socket.kick("Bad body transfer. (transferbodyID)"); return 1; }
+        if (typeof name != "string") {
+          socket.kick("Bad spawn request. (name)"); return 1; 
+        }
+        if (encodeURI(name).split(/%..|./).length > 48) {
+          socket.kick("Shorten your name!"); return 1; 
+        }
+        if (typeof m[1] !== "number") {
+          socket.kick("Bad spawn request. (needsRoom)"); return 1; 
+        }
+        if (typeof autoLVLup !== "number") {
+          socket.kick("Bad spawn request. (autoLVLup)"); return 1; 
+        }
+        if (typeof incognitoMode !== "number") {
+          socket.kick("Bad spawn request. (incognito)"); return 1; 
+        }
+        if (transferbodyID && typeof transferbodyID != "string") {
+          socket.kick("Bad body transfer. (transferbodyID)"); return 1; 
+        }
         if (transferbodyID) transferbodyID = transferbodyID.replace(name, "");
                 
         // Get rid of the banned characters
@@ -288,16 +308,16 @@ class socketManager {
               return {
                 color: t.color,
                 visibleOnBlackout: t.visibleOnBlackout,
-                image: t.image ?? false,
+                image: t.image ?? false
               }
             }))),
             JSON.stringify(util.serverStartTime),
             global.gameManager.roomSpeed,
             JSON.stringify({
               active: Config.blackout,
-              color: Config.blackout_fog,
+              color: Config.blackout_fog
             }),
-            Config.round_arena,
+            Config.round_arena
           );
           return;
         }
@@ -319,20 +339,28 @@ class socketManager {
         }, 20)
       } break;
       case "S": { // clock syncing
-        if (m.length !== 1) { socket.kick("Ill-sized sync packet."); return 1; }
+        if (m.length !== 1) {
+          socket.kick("Ill-sized sync packet."); return 1; 
+        }
         // Get data
         let synctick = m[0];
         // Verify it
-        if (typeof synctick !== "number") { socket.kick("Weird sync packet."); return 1; }
+        if (typeof synctick !== "number") {
+          socket.kick("Weird sync packet."); return 1; 
+        }
         // Bounce it back
         socket.talk("S", synctick, util.time());
       } break;
       case "p": { // ping
-        if (m.length !== 1) { socket.kick("Ill-sized ping."); return 1; }
+        if (m.length !== 1) {
+          socket.kick("Ill-sized ping."); return 1; 
+        }
         // Get data
         let ping = m[0];
         // Verify it
-        if (typeof ping !== "number") { socket.kick("Weird ping."); return 1; }
+        if (typeof ping !== "number") {
+          socket.kick("Weird ping."); return 1; 
+        }
         // Pong
         socket.talk("p", ping.toFixed(1)); // Just pong it right back
         socket.status.lastHeartbeat = util.time();
@@ -364,7 +392,7 @@ class socketManager {
         // Get data
         let target = {
             x: m[0],
-            y: m[1],
+            y: m[1]
           },
           reverseTank = m[2],
           commands = m[3];
@@ -591,7 +619,7 @@ class socketManager {
         } else if (Config.domination) {
           let dominators = ent.map((entry) => {
             if (entry.isDominator && entry.team === player.body.team && !entry.underControl) return entry;
-          }).filter(x=>x);
+          }).filter(x => x);
           if (!dominators.length) {
             player.body.sendMessage("There are no dominators available that are on your team or not already controlled by a player.");
             return 1;
@@ -825,7 +853,7 @@ class socketManager {
           flagged = false;
           return value;
         }
-      },
+      }
     };
   }
 
@@ -883,7 +911,7 @@ class socketManager {
           out = [];
           return o;
         }
-      },
+      }
     };
   }
 
@@ -968,7 +996,7 @@ class socketManager {
       root: gui.root.publish(),
       class: gui.class.publish(),
       visibleName: gui.visibleName.publish(),
-      dailyTank: gui.dailyTank.publish(),
+      dailyTank: gui.dailyTank.publish()
     };
     // Encode which we'll be updating and capture those values only
     let oo = [0];
@@ -1048,12 +1076,12 @@ class socketManager {
       root: this.floppy(),
       class: this.floppy(),
       visibleName: this.floppy(),
-      dailyTank: this.floppy(),
+      dailyTank: this.floppy()
     };
     // This is the gui itself
     return {
       update: () => this.update(gui),
-      publish: () => this.publish(gui),
+      publish: () => this.publish(gui)
     };
   };
 
@@ -1067,9 +1095,13 @@ class socketManager {
     // Bring to life
     socket.status.deceased = false;
     // Define the player.
-    if (this.players.indexOf(socket.player) != -1) { util.remove(this.players, this.players.indexOf(socket.player));  }
+    if (this.players.indexOf(socket.player) != -1) {
+      util.remove(this.players, this.players.indexOf(socket.player));  
+    }
     // Free the old view
-    if (global.gameManager.views.indexOf(socket.view) != -1) { util.remove(global.gameManager.views, global.gameManager.views.indexOf(socket.view)); socket.makeView(); }
+    if (global.gameManager.views.indexOf(socket.view) != -1) {
+      util.remove(global.gameManager.views, global.gameManager.views.indexOf(socket.view)); socket.makeView(); 
+    }
         
     let spawn = true;
 
@@ -1212,7 +1244,7 @@ class socketManager {
         let team = filter.length ? player.team : getRandomTeam();
         body.team = team;
         body.color.base = Config.random_body_colors ? 
-          ran.choose([ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]) : getTeamColor(TEAM_RED);
+          ran.choose([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]) : getTeamColor(TEAM_RED);
         let loop = setInterval(() => {
           for (let e of entities.values()) {
             if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
@@ -1258,7 +1290,7 @@ class socketManager {
         player.body.killCount.bosses,
         player.body.killCount.polygons,
         player.body.killCount.killers.length,
-        ...player.body.killCount.killers,
+        ...player.body.killCount.killers
       ];
     }
     // Set up the player's gui
@@ -1300,7 +1332,7 @@ class socketManager {
         /*  8 */ data.angle,
         /*  9 */ data.direction,
         /* 10 */ data.offset,
-        /* 11 */ data.mirrorMasterAngle,
+        /* 11 */ data.mirrorMasterAngle
       );
     } else if (data.type & 0x10) {
       output.push(
@@ -1491,9 +1523,15 @@ class socketManager {
     let o = {
       socket,
       getNearby: () => nearby,
-      add: e => { if (check(socket.camera, e)) nearby.set(e.id, e); },
-      remove: e => { nearby.delete(e.id) },
-      check: (e) => { return check(socket.camera, e); },
+      add: e => {
+        if (check(socket.camera, e)) nearby.set(e.id, e); 
+      },
+      remove: e => {
+        nearby.delete(e.id) 
+      },
+      check: (e) => {
+        return check(socket.camera, e); 
+      },
       gazeUpon: (updateCam = false) => {
         logs.network.set();
         // If nothing has changed since the last update, wait (approximately) until then to update
@@ -1637,7 +1675,7 @@ class socketManager {
             "u",
             true,
             camera.x,
-            camera.y,
+            camera.y
           );
         } else {
           // Update the gui
@@ -1658,7 +1696,7 @@ class socketManager {
           );
         }
         logs.network.mark();
-      },
+      }
     };
     global.gameManager.views.push(o);
     return o;
@@ -1753,8 +1791,8 @@ class socketManager {
             color,
             entry.nameColor || "#FFFFFF",
             entry.label,
-            entry.settings.renderOnLeaderboard ?? true,
-          ],
+            entry.settings.renderOnLeaderboard ?? true
+          ]
         });
         list.splice(top, 1);
       }
@@ -1785,7 +1823,7 @@ class socketManager {
             entry.color.compiled,
             "#FFFFFF",
             Class.hp.LABEL,
-            false,
+            false
           ]
         });
         list.splice(top, 1);
@@ -1812,8 +1850,8 @@ class socketManager {
               util.clamp(Math.floor((256 * x) / global.gameManager.room.width), -128, 127),
               util.clamp(Math.floor((256 * y) / global.gameManager.room.height), -128, 127),
               Config.blackout ? Config.blackout_minimap_color + " 0 1 0 false" : my.minimapColor ? my.minimapColor + " 0 1 0 false" : my.color.compiled,
-              Math.round(my.SIZE),
-            ],
+              Math.round(my.SIZE)
+            ]
           });
         }
       }
@@ -1828,8 +1866,8 @@ class socketManager {
             data: [
               util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
               util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-              my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "10 0 1 0 false" : my.color.compiled,
-            ],
+              my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "10 0 1 0 false" : my.color.compiled
+            ]
           });
         }
       return all;
@@ -1843,8 +1881,8 @@ class socketManager {
             data: [
               util.clamp(Math.floor((256 * my.x) / global.gameManager.room.width), -128, 127),
               util.clamp(Math.floor((256 * my.y) / global.gameManager.room.height), -128, 127),
-              my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "12 0 1 0 false" : my.color.compiled,
-            ],
+              my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "12 0 1 0 false" : my.color.compiled
+            ]
           });
         }
       return all;
@@ -1864,8 +1902,8 @@ class socketManager {
               getTeamColor(-i - 1, true),
               "#FFFFFF",
               Class.tagMode.LABEL,
-              false,
-            ],
+              false
+            ]
           });
         }
         return list;
@@ -1885,7 +1923,7 @@ class socketManager {
                 getTeamColor(-i - 1, true),
                 "#FFFFFF",
                 Class.hp.LABEL,
-                false,
+                false
               ]
             });
           }
@@ -2011,11 +2049,11 @@ class socketManager {
       remove: socket => {
         let i = subscribers.indexOf(socket);
         if (i !== -1) util.remove(subscribers, i);
-      },
+      }
     };
     return {
       subscribe: (socket) => broadcast.add(socket),
-      unsubscribe: (socket) => broadcast.remove(socket),
+      unsubscribe: (socket) => broadcast.remove(socket)
     }
   })();
 
@@ -2034,8 +2072,8 @@ class socketManager {
         level: socket.player.body.skill.level,
         skillcap: socket.player.body.skill.caps,
         skill: socket.player.body.skill.raw,
-        points: socket.player.body.skill.points,
-      }),
+        points: socket.player.body.skill.points
+      })
     }).then(async (r) => {
       if (r.status === 200) {
         socket.talk("t", server.replace("http://", "").replace("https://", ""), id);
@@ -2069,7 +2107,7 @@ class socketManager {
     socket.permaban = (reason) => this.permaban(socket, reason);
     socket.lastWords = (...message) => {
       if (socket.readyState === socket.OPEN) { 
-        socket.send(protocol.encode(message), { binary: true, });
+        socket.send(protocol.encode(message), { binary: true });
         socket.terminate();
       } 
     };
@@ -2083,7 +2121,7 @@ class socketManager {
         receivedMockups: [],
         receivedUpgradePackIndexes: [],
         receivedUpgradePackMockups: [],
-        requestMockups: [],
+        requestMockups: []
       }
     }
     socket.messageManager = socket.on("message", message => this.incoming(message, socket));
@@ -2105,7 +2143,7 @@ class socketManager {
         timeout: setTimeout(() => {
           console.log("Socket did not respond to the eval packet, kicking...");
           socket.kick("Did not comply with the server's protocol.");
-        }, options.timeout),
+        }, options.timeout)
       };
     };
     socket.resolveResponse = function (id, packet) {
@@ -2133,7 +2171,7 @@ class socketManager {
       hasOperator: false,
       readyToBroadcast: false,
       mockupData: socket.initMockupList(),
-      lastHeartbeat: util.time(),
+      lastHeartbeat: util.time()
     };  
     // Set up loops
     let nextUpdateCall = null; // has to be started manually
@@ -2150,7 +2188,7 @@ class socketManager {
         clearTimeout(nextUpdateCall);
         clearTimeout(trafficMonitoring);
         this.deltaHandler.unsubscribe(socket);
-      },
+      }
     };
     // Set up the camera
     socket.camera = {
@@ -2161,10 +2199,12 @@ class socketManager {
       lastUpdate: performance.now(),
       lastDowndate: undefined,
       scoping: false,
-      fov: 2000,
+      fov: 2000
     };
     // Set up the viewer
-    socket.makeView = () => { socket.view = this.eyes(socket); };
+    socket.makeView = () => {
+      socket.view = this.eyes(socket); 
+    };
     socket.makeView();
 
     // Account for proxies

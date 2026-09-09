@@ -14,7 +14,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
       main: false,
       alt: false,
       fire: false,
-      power: 0,
+      power: 0
     };
     this.isInGrid = false;
     this.removeFromGrid = () => {
@@ -87,7 +87,9 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
     for (let v of global.gameManager.views) v.add(this);
   }
 
-  life() { bringToLife(this) };
+  life() {
+    bringToLife(this) 
+  };
 
   addController(newIO) {
     if (!Array.isArray(newIO)) newIO = [newIO];
@@ -349,8 +351,12 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
 
   updateBodyInfo() {};
 
-  move() { global.runMove(this) };
-  face() { global.runFace(this) };
+  move() {
+    global.runMove(this) 
+  };
+  face() {
+    global.runFace(this) 
+  };
 
   damageMultiplier() {
     switch (this.type) {
@@ -378,7 +384,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
       layer: this.layerID ? this.layerID : this.type === "wall" ? 11 : this.type === "food" ? 10 : this.type === "tank" ? 5 : this.type === "crasher" ? 1 : 0,
       color: this.color.compiled,
       guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
-      turrets: [],
+      turrets: []
     };
   };
 
@@ -433,7 +439,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
       if (Config.round_arena) {
         let centerPoint = {
             x: global.gameManager.room.width - global.gameManager.room.width,
-            y: global.gameManager.room.height - global.gameManager.room.height,
+            y: global.gameManager.room.height - global.gameManager.room.height
           }, dist = util.getDistance(this, centerPoint);
         if (dist > global.gameManager.room.width - global.gameManager.room.width / 2) {
           let strength = (dist - global.gameManager.room.width / 2) * Config.room_bound_force / (Config.run_speed * 350);
@@ -542,7 +548,9 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
     targetableEntities.delete(this.id);
   }
 
-  isDead() { return this.health.amount <= 0; };
+  isDead() {
+    return this.health.amount <= 0; 
+  };
   emit() {} // Placeholder
 }
 

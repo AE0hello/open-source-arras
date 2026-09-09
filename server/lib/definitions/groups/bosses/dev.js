@@ -16,7 +16,7 @@ Class.taureonCore = {
   INDEPENDENT: true,
   GUNS: [{
     POSITION: [10, 14, -0.5, 14, 0, 0, 0]
-  },{
+  }, {
     POSITION: [21, 15, -1.1, 0, 0, 0, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.destroyer, g.sniper]),
@@ -36,7 +36,7 @@ Class.taureonBase = {
 }
 let d = 1/4;
 Class.taureonStar = {
-  SHAPE: [[0,1],[d,d],[1,0],[d,-d],[0,-1],[-d,-d],[-1,0],[-d,d]],
+  SHAPE: [[0, 1], [d, d], [1, 0], [d, -d], [0, -1], [-d, -d], [-1, 0], [-d, d]],
   COLOR: "#3F48CC",
   MIRROR_MASTER_ANGLE: true
 }
@@ -48,14 +48,14 @@ Class.taureonRailgunTurret = {
   INDEPENDENT: true,
   GUNS: [{
     POSITION: [20, 7, 1, 0, 0, 0, 0]
-  },{
+  }, {
     POSITION: [24, 5, 1, 0, 0, 0, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.destroyer, { speed: 5, penetration: 0.8 }]),
       TYPE: "bullet"
     }
-  },{
-    POSITION: [5, 7.5, -1.6, 8, 0, 0, 0],
+  }, {
+    POSITION: [5, 7.5, -1.6, 8, 0, 0, 0]
   }]
 }
 Class.taureonThruster = {
@@ -74,7 +74,7 @@ Class.taureonThruster = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.machineGun, g.thruster, { range: 0.175, reload: 0.25, recoil: 0.25 }]),
       TYPE: ["bullet", { ALPHA: 0.5 }]
-    },
+    }
   }]
 }
 Class.taureonMissile = {
@@ -89,7 +89,7 @@ Class.taureonMissile = {
   },
   TURRETS: [{
     POSITION: [10, 0, 0, 0, 360, 1],
-    TYPE: ["genericTank", {COLOR: "grey"}],
+    TYPE: ["genericTank", {COLOR: "grey"}]
   }],
   GUNS: [{
     POSITION: [6, 12, 1.4, 8, 0, 180, 0],
@@ -99,7 +99,7 @@ Class.taureonMissile = {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { reload: 0.25, range: 0.075 }]),
       TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true, ALPHA: 0.5 }]
     }
-  },{
+  }, {
     POSITION: [10, 12, 0.8, 8, 0, 180, 0],
     PROPERTIES: {
       AUTOFIRE: true,
@@ -107,13 +107,13 @@ Class.taureonMissile = {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, { reload: 0.25, range: 0.075 }]),
       TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true, ALPHA: 0.5 }]
     }
-  },...Array(32).fill().map((_, i)=>({
+  }, ...Array(32).fill().map((_, i) => ({
     POSITION: [0, (i % 4) + 1, 0, 0, 0, 0, 9999],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, { spray: 1e6, range: 0.5, shudder: 1.5, damage: 1 + (i % 4) }]),
       TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
       SHOOT_ON_DEATH: true
-    },
+    }
   }))]
 }
 Class.taureonBoss = {
@@ -135,27 +135,27 @@ Class.taureonBoss = {
     FOV: 1,
     SPEED: 0.5 * base.SPEED,
     HEALTH: 20 * base.HEALTH,
-    DAMAGE: 3 * base.DAMAGE,
+    DAMAGE: 3 * base.DAMAGE
   },
   TURRETS: [{
     POSITION: [23.3, 0, 0, 0, 0, 0],
     TYPE: "taureonBase"
-  },{
+  }, {
     POSITION: [5, 10, 0, -45, 180, 0],
     TYPE: "taureonRailgunTurret"
-  },{
+  }, {
     POSITION: [5, 10, 0, 45, 180, 0],
     TYPE: "taureonRailgunTurret"
-  },{
+  }, {
     POSITION: [5, -10, -2, -45, 90, 0],
     TYPE: "taureonThruster"
-  },{
+  }, {
     POSITION: [5, -10, 2, 45, 90, 0],
     TYPE: "taureonThruster"
-  },{
+  }, {
     POSITION: [25, 0, 0, 0, 0, 1],
     TYPE: "taureonStar"
-  },{
+  }, {
     POSITION: [5, 0, 0, 0, 360, 1],
     TYPE: "taureonCore"
   }],
@@ -165,31 +165,31 @@ Class.taureonBoss = {
       SHOOT_SETTINGS: combineStats([g.basic, g.twin, { speed: 2, maxSpeed: 2, damage: 0.75, size: 0.8 }]),
       TYPE: "bullet"
     }
-  })),{
+  })), {
     POSITION: [4, 5, -0.5, 12, 0, -90, 0]
-  },{
+  }, {
     POSITION: [10, 5, -1.2, 5, 0, -90, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, g.destroyer, { shudder: 0.1, reload: 0.6, speed: 5, range: 2 }]),
       TYPE: "taureonMissile",
       STAT_CALCULATOR: "sustained"
     }
-  },{
+  }, {
     POSITION: [4, 5, -0.5, 12, 0, 90, 0]
-  },{
+  }, {
     POSITION: [10, 5, -1.2, 5, 0, 90, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, g.destroyer, { shudder: 0.1, reload: 0.6, speed: 5, range: 2 }]),
       TYPE: "taureonMissile",
       STAT_CALCULATOR: "sustained"
     }
-  },{
+  }, {
     POSITION: [5.5, 5, -1.5, 5, 0, -45, 0]
-  },{
+  }, {
     POSITION: [5.5, 5, -1.5, 5, 0, 45, 0]
-  },{
+  }, {
     POSITION: [2, 7, 1, 8, 0, 0, 0]
-  },{
+  }, {
     POSITION: [2, 7, 1, 14.5, 0, 0, 0]
   }]
 }
@@ -201,19 +201,19 @@ Class.tgsSunchip = {
   SHAPE: 4,
   HITS_OWN_TYPE: "hard",
   BODY: {
-    FOV: 0.5,
+    FOV: 0.5
   },
   AI: {
     BLIND: true,
-    FARMER: true,
+    FARMER: true
   },
   PROPS: [{
     POSITION: [20 * Math.SQRT1_2, 0, 0, 45, 1],
     TYPE: "squareHat"
-  },{
+  }, {
     POSITION: [20 * Math.SQRT1_2 ** 2, 0, 0, 0, 1],
     TYPE: "squareHat"
-  },{
+  }, {
     POSITION: [20 * Math.SQRT1_2 ** 3, 0, 0, 45, 1],
     TYPE: "squareHat"
   }]
@@ -224,11 +224,11 @@ Class.tgsEggchip = {
   SHAPE: 0,
   HITS_OWN_TYPE: "hard",
   BODY: {
-    FOV: 0.5,
+    FOV: 0.5
   },
   AI: {
     BLIND: true,
-    FARMER: true,
+    FARMER: true
   },
   PROPS: [
     {
@@ -260,13 +260,13 @@ Class.tgsBoss = {
     hlt: 1,
     shi: 1,
     rgn: 1,
-    mob: 1,
+    mob: 1
   }),
   BODY: {
     FOV: 0.75,
     SPEED: 0.05 * base.SPEED,
     HEALTH: 15 * base.HEALTH,
-    DAMAGE: 5 * base.DAMAGE,
+    DAMAGE: 5 * base.DAMAGE
   },
   UPGRADE_TOOLTIP: "Someone has taken their love of Shiny Squares one step too far.",
   GUNS: weaponArray([
@@ -280,7 +280,7 @@ Class.tgsBoss = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
-        NO_LIMITATIONS: true,
+        NO_LIMITATIONS: true
       }
     }),
     {
@@ -293,17 +293,17 @@ Class.tgsBoss = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
-        NO_LIMITATIONS: true,
+        NO_LIMITATIONS: true
       }
     }
   ], 4),
   TURRETS: [{
     POSITION: [20 * Math.SQRT1_2, 0, 0, 45, 0, 1],
     TYPE: "squareHat"
-  },{
+  }, {
     POSITION: [20 * Math.SQRT1_2 ** 2, 0, 0, 0, 0, 1],
     TYPE: "squareHat"
-  },{
+  }, {
     POSITION: [20 * Math.SQRT1_2 ** 3, 0, 0, 45, 0, 1],
     TYPE: "squareHat"
   }]
@@ -313,38 +313,38 @@ Class.tgsBoss = {
 Class.dogeiscutBody = {
   PARENT: "genericTank",
   COLOR: "grey",
-  SHAPE: [[1,0],[-0.7,0.7],[-0.35,0],[-0.7,-0.7]]
+  SHAPE: [[1, 0], [-0.7, 0.7], [-0.35, 0], [-0.7, -0.7]]
 }
 Class.dogeiscutTurret = {
   PARENT: "genericTank",
   COLOR: "grey",
-  GUNS: [ {
-    POSITION: [ 50, 5, 2.5, 0, 0, 0, 0, ],
+  GUNS: [{
+    POSITION: [50, 5, 2.5, 0, 0, 0, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.minigun, {reload: 0.1}]),
-      TYPE: "bullet",
-    },
+      TYPE: "bullet"
+    }
   }, {
-    POSITION: [ 18, 8, -2, 0, 0, 0, 0, ],
-  }, 
+    POSITION: [18, 8, -2, 0, 0, 0, 0]
+  } 
   ],
   TURRETS: [
     {
       POSITION: [16, 0, 0, 0, 360, 1],
-      TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: "#f6c6a2"}],
+      TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: "#f6c6a2"}]
     },
     {
       POSITION: [12, 0, 0, 0, 360, 1],
-      TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}],
-    },
+      TYPE: ["genericTank",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}]
+    }
   ]
 }
 function createDogeiscutMissileTurret(color) {
   return {
     PARENT: "genericTank",
     COLOR: "grey",
-    GUNS: [ {
-      POSITION: [ 15, 8, 2.5, 0, 0, 180, 0, ],
+    GUNS: [{
+      POSITION: [15, 8, 2.5, 0, 0, 180, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([
           g.basic,
@@ -359,13 +359,13 @@ function createDogeiscutMissileTurret(color) {
           {
             PERSISTS_AFTER_DEATH: true,
             COLOR: color
-          },
+          }
         ],
         AUTOFIRE: true,
-        STAT_CALCULATOR: "thruster",
-      },
-    },
-    ],
+        STAT_CALCULATOR: "thruster"
+      }
+    }
+    ]
   }
 }
 function createDogeiscutMissile(color) {
@@ -373,22 +373,22 @@ function createDogeiscutMissile(color) {
     PARENT: "bullet",
     LABEL: color + " Missile",
     COLOR: color,
-    GUNS: [...Array(11).fill().map((_, i)=>({
+    GUNS: [...Array(11).fill().map((_, i) => ({
       POSITION: [0, 8, 0, 0, 0, ((360) / 11)*i, 9999],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.noSpread, { recoil: 0, range: 0.4, damage: 2.5, density: 30 }]),
         TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true, COLOR: color }],
-        SHOOT_ON_DEATH: true,
-      },
+        SHOOT_ON_DEATH: true
+      }
     }))],
     TURRETS: [
       {
         POSITION: [16, 0, 0, 0, 360, 1],
-        TYPE: ["dogeiscutMissileTurret_" + color],
+        TYPE: ["dogeiscutMissileTurret_" + color]
       },
       {
         POSITION: [12, 0, 0, 0, 360, 1],
-        TYPE: ["genericTank", {COLOR: "grey"}],
+        TYPE: ["genericTank", {COLOR: "grey"}]
       }
     ]
   }
@@ -411,14 +411,14 @@ Class.dogeiscutBomb = {
   PARENT: "trap",
   LABEL: "Bomb",
   SHAPE: 0,
-  GUNS: [...Array(32).fill().map((_, i)=>({
+  GUNS: [...Array(32).fill().map((_, i) => ({
     POSITION: [0, 8, 0, 0, 0, ((360) / 32)*i, 9999],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.shotgun, g.noSpread, { recoil: 0, range: 0.4, damage: 2.5, size: 0.5}]),
       TYPE: ["bullet", { PERSISTS_AFTER_DEATH: true }],
-      SHOOT_ON_DEATH: true,
-    },
-  })),...Array(10).fill().map((_,i)=>({
+      SHOOT_ON_DEATH: true
+    }
+  })), ...Array(10).fill().map((_, i) => ({
     POSITION: [12, 3.5, 1, 0, 0, (360/10)*i, (i%3)/3],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([
@@ -429,14 +429,14 @@ Class.dogeiscutBomb = {
         {reload: 3}
       ]),
       TYPE: "bullet",
-      AUTOFIRE: true,
-    },
+      AUTOFIRE: true
+    }
   }))
   ],
   TURRETS: [
     {
       POSITION: [8, 0, 0, 0, 360, 1],
-      TYPE: ["genericTank", {COLOR: "grey"}],
+      TYPE: ["genericTank", {COLOR: "grey"}]
     }
   ]
 }
@@ -448,7 +448,7 @@ Class.dogeiscutBoss = {
   FACING_TYPE: "smoothToTarget",
   UPGRADE_TOOLTIP: "Huh? You want a cool and edgy boss tooltip? Too bad!", 
   SYNC_WITH_TANK: true,
-  SHAPE: [[1,0],[-0.7,0.7],[-0.35,0],[-0.7,-0.7]],
+  SHAPE: [[1, 0], [-0.7, 0.7], [-0.35, 0], [-0.7, -0.7]],
   COLOR: "yellow",
   UPGRADE_COLOR: "yellow",
   SIZE: 50,
@@ -458,24 +458,24 @@ Class.dogeiscutBoss = {
     FOV: 0.75,
     SPEED: 0.25 * base.SPEED,
     HEALTH: 14 * base.HEALTH,
-    DAMAGE: 4 * base.DAMAGE,
+    DAMAGE: 4 * base.DAMAGE
   },
-  GUNS: [ {
-    POSITION: [ 6, 8, 1.5, 3, 0, 180, 0, ],
+  GUNS: [{
+    POSITION: [6, 8, 1.5, 3, 0, 180, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator, {size: 1, reload: 3, recoil: 5}]),
       TYPE: ["dogeiscutBomb"],
-      STAT_CALCULATOR: "sustained",
+      STAT_CALCULATOR: "sustained"
     }
   }, {
-    POSITION: [ 4, 4, 1.5, 3, 0, 180, 0, ],
+    POSITION: [4, 4, 1.5, 3, 0, 180, 0],
     PROPERTIES: {
       COLOR: "black"
     }
   }, 
         
   {
-    POSITION: [ 1, 2, 1, 4, -8, 68, 0, ],
+    POSITION: [1, 2, 1, 4, -8, 68, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_red"],
@@ -483,7 +483,7 @@ Class.dogeiscutBoss = {
       COLOR: "red"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, -5.333, 68, 1/7, ],
+    POSITION: [1, 2, 1, 4, -5.333, 68, 1/7],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_orange"],
@@ -491,7 +491,7 @@ Class.dogeiscutBoss = {
       COLOR: "orange"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, -2.666, 68, (1/7)*2, ],
+    POSITION: [1, 2, 1, 4, -2.666, 68, (1/7)*2],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_yellow"],
@@ -499,7 +499,7 @@ Class.dogeiscutBoss = {
       COLOR: "yellow"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 0, 68, (1/7)*3, ],
+    POSITION: [1, 2, 1, 4, 0, 68, (1/7)*3],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_green"],
@@ -507,7 +507,7 @@ Class.dogeiscutBoss = {
       COLOR: "green"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 2.666, 68, (1/7)*4, ],
+    POSITION: [1, 2, 1, 4, 2.666, 68, (1/7)*4],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_cyan"],
@@ -515,7 +515,7 @@ Class.dogeiscutBoss = {
       COLOR: "cyan"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 5.333, 68, (1/7)*5, ],
+    POSITION: [1, 2, 1, 4, 5.333, 68, (1/7)*5],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_blue"],
@@ -523,7 +523,7 @@ Class.dogeiscutBoss = {
       COLOR: "blue"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 8, 68, (1/7)*6, ],
+    POSITION: [1, 2, 1, 4, 8, 68, (1/7)*6],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_purple"],
@@ -534,7 +534,7 @@ Class.dogeiscutBoss = {
         
         
   {
-    POSITION: [ 1, 2, 1, 4, 8, -68, 0, ],
+    POSITION: [1, 2, 1, 4, 8, -68, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_red"],
@@ -542,7 +542,7 @@ Class.dogeiscutBoss = {
       COLOR: "red"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 5.333, -68, 1/7, ],
+    POSITION: [1, 2, 1, 4, 5.333, -68, 1/7],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_orange"],
@@ -550,7 +550,7 @@ Class.dogeiscutBoss = {
       COLOR: "orange"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 2.666, -68, (1/7)*2, ],
+    POSITION: [1, 2, 1, 4, 2.666, -68, (1/7)*2],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_yellow"],
@@ -558,7 +558,7 @@ Class.dogeiscutBoss = {
       COLOR: "yellow"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, 0, -68, (1/7)*3, ],
+    POSITION: [1, 2, 1, 4, 0, -68, (1/7)*3],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_green"],
@@ -566,7 +566,7 @@ Class.dogeiscutBoss = {
       COLOR: "green"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, -2.666, -68, (1/7)*4, ],
+    POSITION: [1, 2, 1, 4, -2.666, -68, (1/7)*4],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_cyan"],
@@ -574,7 +574,7 @@ Class.dogeiscutBoss = {
       COLOR: "cyan"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, -5.333, -68, (1/7)*5, ],
+    POSITION: [1, 2, 1, 4, -5.333, -68, (1/7)*5],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_blue"],
@@ -582,32 +582,32 @@ Class.dogeiscutBoss = {
       COLOR: "blue"
     }
   }, {
-    POSITION: [ 1, 2, 1, 4, -8, -68, (1/7)*6, ],
+    POSITION: [1, 2, 1, 4, -8, -68, (1/7)*6],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder, {speed: 3, range: 0.8, reload: 4}]),
       TYPE: ["dogeiscutMissile_purple"],
       STAT_CALCULATOR: "sustained",
       COLOR: "purple"
     }
-  },
+  }
   ],
   TURRETS: [
     {
       POSITION: [16, 0, 0, 0, 360, 1],
-      TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: "#f6c6a2"}],
+      TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: "#f6c6a2"}]
     },
     {
       POSITION: [12, 0, 0, 0, 360, 1],
-      TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}],
+      TYPE: ["dogeiscutBody",  { MIRROR_MASTER_ANGLE: true, COLOR: "pink"}]
     },
     {
       POSITION: [5, 0, 0, 0, 360, 1],
-      TYPE: ["dogeiscutTurret",  { INDEPENDENT: true, CONTROLLERS: ["nearestDifferentMaster"], COLOR: "yellow" }],
+      TYPE: ["dogeiscutTurret",  { INDEPENDENT: true, CONTROLLERS: ["nearestDifferentMaster"], COLOR: "yellow" }]
     },
     {
       POSITION: [1, 10.5, 0, 0, 360, 0],
-      TYPE: ["genericTank",  {COLOR: "black"}],
-    },
+      TYPE: ["genericTank",  {COLOR: "black"}]
+    }
   ]
 }
 
@@ -619,7 +619,7 @@ Class.trplnrBossAuraBullet = {
   SHAPE: -4,
   PERSISTS_AFTER_DEATH: true,
   BODY: {
-    HEALTH: 100,
+    HEALTH: 100
   },
   SIZE: 25,
   COLOR: "#F49EFF",
@@ -635,8 +635,8 @@ Class.trplnrBossAuraBullet = {
       COLOR: "white",
       SHOOT_SETTINGS: combineStats([g.basic, g.pounder, { size: 0.8 }, {reload: 1.6, damage: 1.5}]),
       TYPE: "autoswarm",
-      AUTOFIRE: true,
-    },
+      AUTOFIRE: true
+    }
   }, 4),
   TURRETS: [
     {
@@ -669,7 +669,7 @@ const trplnrBossDecor = {
   }, {
     POSITION: { SIZE: 25 },
     TYPE: ["triangle", { COLOR: "black", MIRROR_MASTER_ANGLE: true }]
-  }],
+  }]
 }
 Class.trplnrBoss = {
   PARENT: "miniboss",
@@ -687,7 +687,7 @@ Class.trplnrBoss = {
                      "A sentry's child went missing, \n" +
                      "Coincidence? I think not.\"", 
   BODY: {
-    HEALTH: 500,
+    HEALTH: 500
   },
   ON: [
     {
@@ -705,9 +705,13 @@ Class.trplnrBoss = {
         global.gameManager.socketManager.broadcast("Lavender will turn into `BULL3T HELL F0rM`, Run!")
         for (let i = 0; i < 24; i++) {
           i < 12 ?
-            setTimeout(() => { body.SIZE /= 1.1; body.alpha /= 1.2 }, i * 50)
+            setTimeout(() => {
+              body.SIZE /= 1.1; body.alpha /= 1.2 
+            }, i * 50)
             :
-            setTimeout(() => { body.SIZE *= 1.1; body.alpha *= 1.2 }, i * 50)
+            setTimeout(() => {
+              body.SIZE *= 1.1; body.alpha *= 1.2 
+            }, i * 50)
         }
         setTimeout(() => {
           let range = 500
@@ -727,7 +731,7 @@ Class.trplnrBoss = {
         COLOR: "white",
         SHOOT_SETTINGS: combineStats([g.basic, {reload: 100}]),
         TYPE: "trplnrBossAuraBullet",
-        INDEPENDENT_CHILDREN: true,
+        INDEPENDENT_CHILDREN: true
       }
     }, 2),
     {
@@ -738,7 +742,7 @@ Class.trplnrBoss = {
         TYPE: "trplnrBossAuraBullet",
         INDEPENDENT_CHILDREN: true,
         IDENTIFIER: "onHandler",
-        ALPHA: 0,
+        ALPHA: 0
       }
     },
     ...weaponArray({
@@ -784,7 +788,7 @@ Class.trplnrBossBulletHellFormPentagons = {
       SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 0.4}]),
       TYPE: "trplnrBossBulletHellFormPentagonsAuraBullet",
       AUTOFIRE: true,
-      COLOR: "white",
+      COLOR: "white"
     }
   }, 5)
 }
@@ -793,7 +797,7 @@ Class.trplnrBossBulletHellForm = {
   ...trplnrBossDecor,
   LABEL: "Lavender - Bullet Hell Form",
   BODY: {
-    HEALTH: 500,
+    HEALTH: 500
   },
   ON: [
     {
@@ -805,9 +809,13 @@ Class.trplnrBossBulletHellForm = {
 
         for (let i = 0; i < 24; i++) {
           i < 12 ?
-            setTimeout(() => { body.SIZE /= 1.1; body.alpha /= 1.2 }, i * 50)
+            setTimeout(() => {
+              body.SIZE /= 1.1; body.alpha /= 1.2 
+            }, i * 50)
             :
-            setTimeout(() => { body.SIZE *= 1.1; body.alpha *= 1.2 }, i * 50)
+            setTimeout(() => {
+              body.SIZE *= 1.1; body.alpha *= 1.2 
+            }, i * 50)
         }
         setTimeout(() => {
           let range = 500
@@ -856,12 +864,12 @@ Class.trplnrBossBulletHellForm = {
       }, {
         POSITION: { WIDTH: 8, HEIGHT: 3, X: -1, ASPECT: 1.5, ANGLE: 180 },
         PROPERTIES: {
-          COLOR: "pureWhite",
+          COLOR: "pureWhite"
         }
       }, {
         POSITION: { WIDTH: 5, HEIGHT: 10, X: 5, ASPECT: 0.2, ANGLE: 180 },
         PROPERTIES: {
-          COLOR: -1,
+          COLOR: -1
         }
       }
     ], 3),
@@ -874,7 +882,7 @@ Class.trplnrBossBulletHellForm = {
         ALPHA: 0
       }
     }
-  ],
+  ]
 }
 Class.trplnrBossVulnerableForm = {
   PARENT: "miniboss",
@@ -939,7 +947,7 @@ Class.frostAuraSmallOutline = {
   DRAW_FILL: false,
   SHAPE: "M 1 0 L 0.715 0.519 L 0.309 0.951 L -0.273 0.84 L -0.809 0.588 L -0.883 0 L -0.809 -0.588 L -0.273 -0.84 L 0.309 -0.951 L 0.715 -0.519 L 1 0" + 
         "L 0.309 0.951 L -0.809 0.588 L -0.809 -0.588 L 0.309 -0.951 L 1 0" + 
-        "L 0 0 L 0.309 0.951 M 0 0 L -0.809 0.588 M 0 0 L -0.809 -0.588 M 0 0 L 0.309 -0.951",
+        "L 0 0 L 0.309 0.951 M 0 0 L -0.809 0.588 M 0 0 L -0.809 -0.588 M 0 0 L 0.309 -0.951"
 }
 Class.frostAuraLarge = {
   PARENT: "aura",
@@ -966,7 +974,7 @@ Class.frostAuraLargeOutline = {
         "L 0.413 0.3 L 0.183 0.563 L -0.158 0.485 L -0.479 0.348 L -0.51 0 L -0.479 -0.348 L -0.158 -0.485 L 0.183 -0.563 L 0.413 -0.3 L 0.592 0" + 
         "M 0.292 0 L 0.413 0.3 L 0.09 0.277 L -0.158 0.485 L -0.236 0.171 L -0.51 0 L -0.236 -0.171 L -0.158 -0.485 L 0.09 -0.277 L 0.413 -0.3 L 0.292 0 L 0.09 0.277" + 
         "L -0.236 0.171 L -0.236 -0.171 L 0.09 -0.277 L 0.292 0 M 0 0 L 0.949 0" + 
-        "M 0 0 L 0.293 0.902 M 0 0 L -0.768 0.558 M 0 0 L -0.768 -0.558 M 0 0 L 0.293 -0.902",
+        "M 0 0 L 0.293 0.902 M 0 0 L -0.768 0.558 M 0 0 L -0.768 -0.558 M 0 0 L 0.293 -0.902"
 }
 Class.frostAuraSymbol = {
   PARENT: "genericTank",
@@ -996,28 +1004,28 @@ function addIcosphereAura(damageFactor = 1, sizeFactor = 1, opacity = 0.3, auraS
     COLOR: 17,
     GUNS: [
       {
-        POSITION: [0, 20, 1, 0, 0, 0, 0,],
+        POSITION: [0, 20, 1, 0, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([g.aura, { size: sizeFactor, damage: damageFactor }]),
           TYPE: [auraType, {ALPHA: opacity}],
           MAX_CHILDREN: 1,
           AUTOFIRE: true,
-          SYNCS_SKILLS: true,
-        }, 
-      }, 
+          SYNCS_SKILLS: true
+        } 
+      } 
     ],
     TURRETS: [
       {
         POSITION: [20, 0, 0, 0, 360, 1],
         TYPE: "frostAuraSymbol"
-      },
+      }
     ]
   };
 }
 Class.frostAuraBlockTop = {
   SHAPE: "M -1.3 -0.15 L -1.3 0.15 L -0.3 0.3 L -0.15 1.3 L 0.15 1.3 L 0.3 0.3 L 1.3 0.15 L 1.3 -0.15 L 0.3 -0.3 L 0.15 -1.3 L -0.15 -1.3 L -0.3 -0.3 Z",
   COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 5 },
-  MIRROR_MASTER_ANGLE: true,
+  MIRROR_MASTER_ANGLE: true
 }
 Class.frostAuraBlockTurret = {
   PARENT: "genericTank",
@@ -1026,7 +1034,7 @@ Class.frostAuraBlockTurret = {
   CONTROLLERS: ["nearestDifferentMaster"],
   LABEL: "",
   BODY: {
-    FOV: 2,
+    FOV: 2
   },
   HAS_NO_RECOIL: true,
   GUNS: [
@@ -1036,23 +1044,23 @@ Class.frostAuraBlockTurret = {
         SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, g.fake]),
         TYPE: "bullet",
         COLOR: {BASE: 17, BRIGHTNESS_SHIFT: -7.5}
-      },
+      }
     }, {
       POSITION: [23, 11, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, {density: 0.2}]),
         TYPE: "bullet",
         COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -10, SATURATION_SHIFT: 0.6}
-      },
+      }
     }, {
       POSITION: [15, 13, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.minionGun, g.turret, g.power, g.autoTurret, g.fake]),
         TYPE: "bullet",
         COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
-      },
-    },
-  ],
+      }
+    }
+  ]
 }
 Class.frostAuraBlockAura = addIcosphereAura(0.25, 1.6, 0.15, "Small");
 Class.frostAuraBlock = {
@@ -1082,29 +1090,29 @@ Class.frostBossAutoTurret = {
         SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}, g.fake]),
         TYPE: "bullet",
         COLOR: {BASE: 17, BRIGHTNESS_SHIFT: -7.5}
-      },
+      }
     }, {
       POSITION: [22, 10, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}]),
         TYPE: "bullet",
         COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -10, SATURATION_SHIFT: 0.6}
-      },
+      }
     }, {
       POSITION: [14, 12, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.autoTurret, {recoil: 0.1}, g.fake]),
         TYPE: "bullet",
         COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
-      },
-    },
+      }
+    }
   ],
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 0, 1],
-      TYPE: ["egg", {COLOR: -1, BORDERLESS: true}],
-    },
-  ],
+      TYPE: ["egg", {COLOR: -1, BORDERLESS: true}]
+    }
+  ]
 }
 Class.frostBossBaseDeco = {
   SHAPE: "M -1.1 0 L -0.956 0.292 L -0.669 0.205 L -0.669 -0.205 L -0.956 -0.292 Z" +
@@ -1118,11 +1126,11 @@ Class.frostBossBaseDeco = {
   GUNS: weaponArray([
     {
       POSITION: [1.75, 3, -0.75, 7.5, 0, 0, 0],
-      PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 2.5, SATURATION_SHIFT: 0.9 }, DRAW_ABOVE: true },
+      PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 2.5, SATURATION_SHIFT: 0.9 }, DRAW_ABOVE: true }
     }, {
       POSITION: [1, 9, 0, 8.5, 0, 30, 0],
-      PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 10, SATURATION_SHIFT: 1.15 } },
-    },
+      PROPERTIES: { COLOR: { BASE: -1, BRIGHTNESS_SHIFT: 10, SATURATION_SHIFT: 1.15 } }
+    }
   ], 6)
 }
 Class.frostBossBaseDeco2 = {
@@ -1130,12 +1138,12 @@ Class.frostBossBaseDeco2 = {
   GUNS: weaponArray([
     {
       POSITION: [5, 10, 0.001, 9.5, 0, 0, 0],
-      PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}},
+      PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}}
     }, {
       POSITION: [1.6, 9, 0, 8.4, 0, 0, 0],
-      PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}, DRAW_ABOVE: true},
-    },
-  ], 6),
+      PROPERTIES: {COLOR: {BASE: 9, BRIGHTNESS_SHIFT: 10}, DRAW_ABOVE: true}
+    }
+  ], 6)
 }
 const trebuchetStats = [g.basic, g.sniper, g.predator, g.predator, g.predator, g.predator, {speed: 0.93, maxSpeed: 0.93, reload: 2, health: 1.7, damage: 1.4, size: 2}];
 const hielamanStats = [g.trap, g.setTrap, g.hexaTrapper, {reload: 2.85, health: 3.2, range: 1.2}];
@@ -1162,13 +1170,13 @@ Class.frostBoss = {
     REGEN: base.REGEN * 2.5,
     FOV: base.FOV * 1.4,
     RESIST: base.RESIST * 1.2,
-    DENSITY: base.DENSITY * 7.5,
+    DENSITY: base.DENSITY * 7.5
   },
   GUNS: [
     ...weaponArray({
       // Speed
       POSITION: [8, 14.5, 0.001, 9.5, 0, 0, 0],
-      PROPERTIES: {COLOR: 9},
+      PROPERTIES: {COLOR: 9}
     }, 6),
     ...weaponArray([
       { // Heavy Snipers
@@ -1176,8 +1184,8 @@ Class.frostBoss = {
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats(trebuchetStats),
           TYPE: "bullet",
-          COLOR: { BASE: -1, BRIGHTNESS_SHIFT: -15, SATURATION_SHIFT: 0.6 },
-        },
+          COLOR: { BASE: -1, BRIGHTNESS_SHIFT: -15, SATURATION_SHIFT: 0.6 }
+        }
       }, {
         POSITION: [24, 6.65, -1.3, 0, 0, 0, 0],
         PROPERTIES: { 
@@ -1185,36 +1193,36 @@ Class.frostBoss = {
           TYPE: "bullet",
           COLOR: { BASE: -1, BRIGHTNESS_SHIFT: -5, SATURATION_SHIFT: 0.6 }, 
           BORDERLESS: true
-        },
+        }
       }, {
         POSITION: [4.25, 9.5, -0.5, 1.425, -8.5, 90, 0],
-        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 } },
+        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 } }
       }, {
         POSITION: [4.25, 9.5, -0.5, 1.425, 8.5, -90, 0],
-        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 } },
+        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 } }
       }, {
         POSITION: [4.25, 6.65, -0.35, 0.67, -8.5, 90, 0],
-        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 7.5 }, BORDERLESS: true },
+        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 7.5 }, BORDERLESS: true }
       }, {
         POSITION: [4.25, 6.65, -0.35, 0.67, 8.5, -90, 0],
-        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 7.5 }, BORDERLESS: true },
+        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 7.5 }, BORDERLESS: true }
       }, {
         POSITION: [19.5, 3.8, -1.4, 0, 0, 0, 0],
-        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 10 } },
+        PROPERTIES: { COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 10 } }
       }, {
         POSITION: [4, 11.5, 1, 19.5, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([...trebuchetStats, g.fake]),
           TYPE: "bullet",
-          COLOR: { BASE: -1, BRIGHTNESS_SHIFT: -5, SATURATION_SHIFT: 0.6 },
-        },
+          COLOR: { BASE: -1, BRIGHTNESS_SHIFT: -5, SATURATION_SHIFT: 0.6 }
+        }
       }, {
         POSITION: [2, 12, 1, 20.5, 0, 0, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([...trebuchetStats, g.fake]),
           TYPE: "bullet",
-          COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 },
-        },
+          COLOR: { BASE: 17, BRIGHTNESS_SHIFT: 2.5 }
+        }
       },
       { // Aura Blocks
         POSITION: [15, 8.5, 1, 0, 0, 60, 0],
@@ -1235,37 +1243,37 @@ Class.frostBoss = {
           TYPE: "frostAuraBlock",
           STAT_CALCULATOR: "trap",
           COLOR: {BASE: -1, BRIGHTNESS_SHIFT: -15, SATURATION_SHIFT: 0.6}
-        },
+        }
       }, {
         POSITION: [2, 6, 1.6, 16, 0, 60, 0],
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([...hielamanStats, g.fake]),
           TYPE: "bullet",
           COLOR: {BASE: 17, BRIGHTNESS_SHIFT: 7.5}
-        },
-      },
-    ], 3),
+        }
+      }
+    ], 3)
   ],
   TURRETS: [
     ...weaponArray({
       POSITION: [2.95, 8.55, 0, 30, 180, 2],
-      TYPE: "frostBossAutoTurret",
+      TYPE: "frostBossAutoTurret"
     }, 6),
     {
       POSITION: [8.55, 0, 0, 0, 360, 2],
-      TYPE: "frostBossBigAura",
-    },
+      TYPE: "frostBossBigAura"
+    }
   ],
   PROPS: [
     {
       POSITION: [12, 0, 0, 180, 1],
-      TYPE: ["hexagon", {COLOR: {BASE: -1, BRIGHTNESS_SHIFT: 7.5}}],
+      TYPE: ["hexagon", {COLOR: {BASE: -1, BRIGHTNESS_SHIFT: 7.5}}]
     }, {
       POSITION: [12, 0, 0, 0, 1],
       TYPE: "frostBossBaseDeco2"
     }, {
       POSITION: [20, 0, 0, 0, 1],
-      TYPE: "frostBossBaseDeco",
+      TYPE: "frostBossBaseDeco"
     }
   ]
 }
@@ -1279,13 +1287,13 @@ Class.toothlessBase = {
     RADIUS: 2,
     COLOR: "#8610e6",
     ALPHA: 1,
-    RECURSION: 2,
+    RECURSION: 2
   },
   BODY: {
     SPEED: 0.8 * base.SPEED,
     FOV: 1.5 * base.FOV,
     HEALTH: 6 * base.HEALTH,
-    DAMAGE: 2 * base.DAMAGE,
+    DAMAGE: 2 * base.DAMAGE
   },
   LEVEL_CAP: 45,
   EXTRA_SKILL: 78, // 120 - 42
@@ -1299,13 +1307,13 @@ Class.toothlessBase = {
     if (level <= 40) return 1;
     if (level <= 45 && level & (1 == 1)) return 1;
     return 0;
-  },
+  }
 };
 Class.toothlessBossDeco = {
   PARENT: "genericTank",
   SHAPE: "m-.4239.5982c.009-.0756.0238-.1433.0314-.1504.0071-.0063.028-.0104.0457-.0071.0614.0077.0757-.0071.1363-.1361.0307-.0631.0534-.1204.0512-.1286C-.1611.1691-.1824.1279-.2071.0848l-.0449-.0802.0457-.0891c.0249-.0491.0456-.0949.0447-.1035C-.163-.2177-.2684-.4171-.2878-.4295-.2991-.436-.3262-.4389-.347-.437-.3682-.4343-.389-.4382-.3953-.4453-.4065-.4599-.4424-.7358-.4339-.7505c.006-.0104.0435.0147.169.1172l.0786.0639-.0249.0491c-.0133.027-.0236.0568-.021.0664.0033.0204.1304.2162.1451.2247.0061.0035.0507.0062.1004.006s.0978.0045.1082.0105.0385.0453.0632.0885.0494.0805.0554.084c.0147.0085.2479.0207.2671.0133.0096-.0026.0303-.0264.047-.0514l.0301-.0461.0946.0361c.1704.0649.193.0757.1855.0886-.008.0139-.2498.1167-.2768.1173C.5735.1187.5646.1101.5528.0825.5432.0631.5257.0414.5136.0344.4946.0234.2664.0326.2401.0462.2341.0485.2048.0893.1747.1355l-.0543.0841-.0919.0012c-.0511.0005-.0997.0048-.1077.0106-.0083.0044-.0458.0533-.084.1074C-.2408.451-.2454.4691-.2114.5142c.0121.0151.0202.0371.0181.0486-.0032.0155-.1795.1608-.2253.1863C-.4404.7607-.4418.7253-.4239.5982",
   LABEL: "",
-  COLOR: "purple",
+  COLOR: "purple"
 };
 Class.absoluteSolver = {
   PARENT: "toothlessBossDeco",
@@ -1318,7 +1326,7 @@ Class.absoluteSolver = {
         body.TIME_UNTIL = 0;
         body.ABSOLUTE_ANGLE = body.master.facing;
         body.SIZE = body.master.size * 2;
-      },
+      }
     },
     {
       event: "tick",
@@ -1339,15 +1347,15 @@ Class.absoluteSolver = {
         }
 
         body.facingTypeArgs.angle = body.ABSOLUTE_ANGLE;
-      },
-    },
-  ],
+      }
+    }
+  ]
 };
 Class.toothlessBossTurret = {
   PARENT: "genericTank",
   LABEL: "",
   BODY: {
-    FOV: 3,
+    FOV: 3
   },
   CONTROLLERS: ["onlyAcceptInArc", "nearestDifferentMaster"],
   COLOR: "grey",
@@ -1363,8 +1371,8 @@ Class.toothlessBossTurret = {
             pen: 0.8,
             damage: 0.2,
             health: 0.6,
-            recoil: 0,
-          },
+            recoil: 0
+          }
         ]),
         TYPE: [
           "bullet",
@@ -1398,12 +1406,12 @@ Class.toothlessBossTurret = {
               other.SOLVED = true;
 
               body.kill();
-            },
-          },
-        ],
-      },
-    },
-  ],
+            }
+          }
+        ]
+      }
+    }
+  ]
 };
 Class.toothlessBoss = {
   PARENT: "toothlessBase",
@@ -1411,22 +1419,22 @@ Class.toothlessBoss = {
   TURRETS: [
     {
       POSITION: { SIZE: 25, LAYER: 1 },
-      TYPE: ["toothlessBossDeco", { MIRROR_MASTER_ANGLE: true }],
+      TYPE: ["toothlessBossDeco", { MIRROR_MASTER_ANGLE: true }]
     },
     ...weaponArray(
       [
         {
           POSITION: [8, 6, -5.6, 180, 180, 0],
-          TYPE: "toothlessBossTurret",
+          TYPE: "toothlessBossTurret"
         },
         {
           POSITION: [8, 6, 5.6, 180, 180, 0],
-          TYPE: "toothlessBossTurret",
-        },
+          TYPE: "toothlessBossTurret"
+        }
       ],
       3
-    ),
-  ],
+    )
+  ]
 };
 
 // AESports
@@ -1441,8 +1449,8 @@ Class.MKDrone = {
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "MKDoneAura",
-    },
+      TYPE: "MKDoneAura"
+    }
   ]
 }
 Class.MKMinion = {
@@ -1451,8 +1459,8 @@ Class.MKMinion = {
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "MKMinionAura",
-    },
+      TYPE: "MKMinionAura"
+    }
   ]
 }
 Class.MKTurretFactoryWithController = {
@@ -1460,13 +1468,13 @@ Class.MKTurretFactoryWithController = {
   CONTROLLERS: ["nearestDifferentMaster"],
   INDEPENDENT: true,
   BODY: {
-    FOV: 2,
+    FOV: 2
   },
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "MKFactoryAura",
-    },
+      TYPE: "MKFactoryAura"
+    }
   ]
 }
 Class.MKTurretFactory = {
@@ -1478,7 +1486,7 @@ Class.MKTurretFactory = {
   DAMAGE_EFFECTS: false,
   GUNS: [
     {
-      POSITION: [5, 11, 1, 10.5, 0, 0, 0],
+      POSITION: [5, 11, 1, 10.5, 0, 0, 0]
     },
     {
       POSITION: [2, 14, 1, 15.5, 0, 0, 0],
@@ -1488,13 +1496,13 @@ Class.MKTurretFactory = {
         MAX_CHILDREN: 6,
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        NO_LIMITATIONS: true,
-      },
+        NO_LIMITATIONS: true
+      }
     },
     {
-      POSITION: [12, 14, 1, 0, 0, 0, 0],
-    },
-  ],
+      POSITION: [12, 14, 1, 0, 0, 0, 0]
+    }
+  ]
 }
 Class.MKTurretCarrier = {
   PARENT: "carrier",
@@ -1506,43 +1514,43 @@ Class.MKTurretCarrier = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.carrier, {reload: 0.5}]),
         TYPE: "swarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     },
     {
       POSITION: [7, 8, 0.6, 7, 2, 30, 0.5],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.carrier, {reload: 0.5}]),
         TYPE: "swarm",
-        STAT_CALCULATOR: "swarm",
-      },
+        STAT_CALCULATOR: "swarm"
+      }
     },
     {
       POSITION: [7, 8, 0.6, 7, -2, -30, 0.5],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm, g.battleship, g.carrier, {reload: 0.5}]),
         TYPE: "swarm",
-        STAT_CALCULATOR: "swarm",
-      },
-    },
+        STAT_CALCULATOR: "swarm"
+      }
+    }
   ],
   SKILL: [12, 12, 12, 12, 12, 12, 12, 12, 12, 12],
   COLOR: 16,
   IGNORED_BY_AI: true,
-  DAMAGE_EFFECTS: false,
+  DAMAGE_EFFECTS: false
 }
 Class.MKTurretCarrierWithController = {
   PARENT: "MKTurretCarrier",
   CONTROLLERS: ["nearestDifferentMaster"],
   INDEPENDENT: true,
   BODY: {
-    FOV: 2,
+    FOV: 2
   },
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "MKCarrierAura",
-    },
+      TYPE: "MKCarrierAura"
+    }
   ]
 }
 Class.MKTurretThruster = {
@@ -1563,7 +1571,7 @@ Class.MKTurretThruster = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.machineGun, g.thruster, { range: 0.375, reload: 0.75, recoil: 1.05 }]),
       TYPE: "bullet"
-    },
+    }
   }]
 }
 Class.MKTurret = {
@@ -1578,39 +1586,39 @@ Class.MKTurret = {
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 360, 1],
-      TYPE: "MKTurretFactory",
+      TYPE: "MKTurretFactory"
     },
     {
       POSITION: [10, 16.1, 2.6, 140, 180, 0],
-      TYPE: "MKTurretFactoryWithController",
+      TYPE: "MKTurretFactoryWithController"
     },
     {
       POSITION: [10, 16.1, 2.6, 203, 180, 0],
-      TYPE: "MKTurretFactoryWithController",
+      TYPE: "MKTurretFactoryWithController"
     },
     {
       POSITION: [10, 16.1, -3.9, 310, 180, 0],
-      TYPE: "MKTurretFactoryWithController",
+      TYPE: "MKTurretFactoryWithController"
     },
     {
       POSITION: [10, 16.1, 2.6, 413, 180, 0],
-      TYPE: "MKTurretFactoryWithController",
+      TYPE: "MKTurretFactoryWithController"
     },
     {
       POSITION: [10, 10.2, 0, 0, 360, 0],
-      TYPE: "MKTurretCarrier",
+      TYPE: "MKTurretCarrier"
     },
     {
       POSITION: [10, 10.2, 0, 105.5, 180, 0],
-      TYPE: "MKTurretCarrierWithController",
+      TYPE: "MKTurretCarrierWithController"
     },
     {
       POSITION: [10, 10.2, 0, 180, 180, 0],
-      TYPE: "MKTurretCarrierWithController",
+      TYPE: "MKTurretCarrierWithController"
     },
     {
       POSITION: [10, 10.2, 0, 255, 180, 0],
-      TYPE: "MKTurretCarrierWithController",
+      TYPE: "MKTurretCarrierWithController"
     },
     {
       POSITION: [8, -10, -2, -45, 90, 0],
@@ -1619,8 +1627,8 @@ Class.MKTurret = {
     {
       POSITION: [8, -10, 2, 45, 90, 0],
       TYPE: "MKTurretThruster"
-    },
-  ],
+    }
+  ]
 }
 Class.AEMKShipBoss = {
   PARENT: "genericTank",
@@ -1636,7 +1644,7 @@ Class.AEMKShipBoss = {
     RADIUS: 1.5,
     COLOR: 32,
     ALPHA: 0.9,
-    RECURSION: 3,
+    RECURSION: 3
   },
   DANGER: 10,
   LEVEL_CAP: 45,
@@ -1654,18 +1662,18 @@ Class.AEMKShipBoss = {
     HEALTH: 5000,
     PUSHABILITY: 0.15,
     DENSITY: 0.2,
-    DAMAGE: 4,
+    DAMAGE: 4
   },
   HITS_OWN_TYPE: "pushOnlyTeam",
   TURRETS: [
     {
       POSITION: [18, 0, 0, 0, 360, 1],
-      TYPE: "MKAura",
+      TYPE: "MKAura"
     },
     {
       POSITION: [11, 0, 0, 0, 360, 1],
-      TYPE: "MKTurret",
-    },
+      TYPE: "MKTurret"
+    }
   ],
   GUNS: (() => {
     let e = [],
@@ -1684,7 +1692,7 @@ Class.AEMKShipBoss = {
           SYNCS_SKILLS: true,
           STAT_CALCULATOR: "drone",
           WAIT_TO_CYCLE: true,
-          NO_LIMITATIONS: true,
+          NO_LIMITATIONS: true
         };
       t % 2 == 0 &&
             (E.NO_LIMITATIONS = true),
@@ -1692,23 +1700,23 @@ Class.AEMKShipBoss = {
         "MKDrone",
         {
           AI: {
-            skynet: true,
+            skynet: true
           },
           INDEPENDENT: true,
           LAYER: 10,
           BODY: {
-            FOV: 2,
-          },
-        },
+            FOV: 2
+          }
+        }
       ]);
       let O = {
         POSITION: [4.3, 3.1, 1.2, 8, 0, S, T[t]],
-        PROPERTIES: E,
+        PROPERTIES: E
       };
       e.push(O);
     }
     return e;
-  })(),
+  })()
 }
 
 // Helena
@@ -1758,7 +1766,7 @@ Class.helenaBossDpPropArmed = {
     {
       POSITION: [15, 8, 1, 0, 0, 60, 0],
       PROPERTIES: {
-        COLOR: "crasher",
+        COLOR: "crasher"
       }
     }, 3
   )
@@ -1795,7 +1803,7 @@ Class.helenaBossMinion = {
           TYPE: "swarm",
           STAT_CALCULATOR: "swarm",
           COLOR: "white"
-        },
+        }
       }
     ], 3
     )
@@ -1835,7 +1843,7 @@ Class.helenaBossChip = {
   PROPS: [
     {
       POSITION: { SIZE: 10, LAYER: 1, ANGLE: 180 },
-      TYPE: "helenaBossPropMiddle",
+      TYPE: "helenaBossPropMiddle"
     }
   ]
 }
@@ -1862,7 +1870,7 @@ Class.helenaBoss = {
     },
     {
       POSITION: { SIZE: 5.25, LAYER: 1, ANGLE: 360 },
-      TYPE: "helenaBossPropMiddle",
+      TYPE: "helenaBossPropMiddle"
     },
     {
       POSITION: { SIZE: 3, LAYER: 1, ANGLE: 360 },
@@ -1940,7 +1948,7 @@ Class.helenaBoss = {
             TYPE: "bullet",
             COLOR: "crasher"
           }
-        },
+        }
       ], 3)
   ],
   ON: [
@@ -1957,7 +1965,7 @@ Class.helenaBoss = {
         if (spawnSentries) new Entity(body, body, body.gameManager).define(sentries[Math.floor(Math.random() * sentries.length)])
         if (spawnLegions) new Entity(body, body, body.gameManager).define(legions[Math.floor(Math.random() * legions.length)])
         if (endGame) new Entity(body, body, body.gameManager).define("legionaryCrasher")
-      },
+      }
     }
   ]
 }
@@ -1970,7 +1978,7 @@ Class.zyrafaqBossHexagon = {
   SHAPE: 6,
   COLOR: "mirror",
   MIRROR_MASTER_ANGLE: true,
-  CONTROLLERS: [["spin", {speed: 0.04, independent: true}]],
+  CONTROLLERS: [["spin", {speed: 0.04, independent: true}]]
 }
 Class.zyrafaqBossTurret = {
   PARENT: "genericTank",
@@ -1979,22 +1987,22 @@ Class.zyrafaqBossTurret = {
   CONTROLLERS: [["spin", {speed: 0.04, independent: true}]],
   GUNS: [{
     POSITION: [20, 7, 1, 0, 0, 0, 0],
-    PROPERTIES: {SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.op]), TYPE: "developerBullet"},
+    PROPERTIES: {SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.op]), TYPE: "developerBullet"}
   }]
 }
 Class.zyrafaqBossDrone = {
   PARENT: "drone",
-  SHAPE: [[-1,-1],[1,-1],[2,0],[1,1],[-1,1]],
+  SHAPE: [[-1, -1], [1, -1], [2, 0], [1, 1], [-1, 1]],
   COLOR: "#226ef6",
   BODY: {FOV: 1.5, SPEED: 2.5 * base.SPEED},
-  TURRETS: [{POSITION: [13, 0, 0, 0, 360, 1], TYPE: "zyrafaqBossMiniAura"}],
+  TURRETS: [{POSITION: [13, 0, 0, 0, 360, 1], TYPE: "zyrafaqBossMiniAura"}]
 }
 Class.zyrafaqBoss = {
   PARENT: "miniboss",
   LABEL: "Developer",
   NAME: "ZyraFAQ",
   DANGER: 12,
-  SHAPE: [[-1,-0.8],[-0.8,-1],[0.8,-1],[1,-0.8],[0.2,0],[1,0.8],[0.8,1],[-0.8,1],[-1,0.8]],
+  SHAPE: [[-1, -0.8], [-0.8, -1], [0.8, -1], [1, -0.8], [0.2, 0], [1, 0.8], [0.8, 1], [-0.8, 1], [-1, 0.8]],
   COLOR: "#226ef6",
   UPGRADE_COLOR: "#226ef6",
   SIZE: 50,
@@ -2003,17 +2011,17 @@ Class.zyrafaqBoss = {
   UPGRADE_TOOLTIP: "Works on my machine.",
   BODY: {SPEED: 0.55*base.SPEED, HEALTH: 18*base.HEALTH, SHIELD: 8*base.SHIELD, REGEN: 3*base.REGEN, DAMAGE: 3.5*base.DAMAGE, FOV: 1.5*base.FOV, RESIST: 1.2*base.RESIST},
   GUNS: [
-    {POSITION: [26,14,-1.4,0,0,0,0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.basic,g.sniper,g.destroyer,g.op]), TYPE: "developerBullet"}},
-    ...weaponArray({POSITION: [16,5,1.2,12,0,0,0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.basic,g.twin,g.machineGun,g.op,{reload:2}]), TYPE: "developerBullet"}}, 3),
-    {POSITION: [6,12,1.2,8,0,180,0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.drone,g.summoner,g.pounder,{speed:1.5,maxSpeed:1.5}]), TYPE: "zyrafaqBossDrone", MAX_CHILDREN: 3, AUTOFIRE: true, SYNCS_SKILLS: true, STAT_CALCULATOR: "drone", WAIT_TO_CYCLE: true, NO_LIMITATIONS: true}},
-    ...weaponMirror({POSITION: [6,12,1.2,8,0,90,0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.drone,g.summoner,g.pounder,{speed:1.5,maxSpeed:1.5}]), TYPE: "zyrafaqBossDrone", MAX_CHILDREN: 3, AUTOFIRE: true, SYNCS_SKILLS: true, STAT_CALCULATOR: "drone", WAIT_TO_CYCLE: true, NO_LIMITATIONS: true}}),
+    {POSITION: [26, 14, -1.4, 0, 0, 0, 0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.destroyer, g.op]), TYPE: "developerBullet"}},
+    ...weaponArray({POSITION: [16, 5, 1.2, 12, 0, 0, 0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.machineGun, g.op, {reload:2}]), TYPE: "developerBullet"}}, 3),
+    {POSITION: [6, 12, 1.2, 8, 0, 180, 0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, {speed:1.5, maxSpeed:1.5}]), TYPE: "zyrafaqBossDrone", MAX_CHILDREN: 3, AUTOFIRE: true, SYNCS_SKILLS: true, STAT_CALCULATOR: "drone", WAIT_TO_CYCLE: true, NO_LIMITATIONS: true}},
+    ...weaponMirror({POSITION: [6, 12, 1.2, 8, 0, 90, 0], PROPERTIES: {SHOOT_SETTINGS: combineStats([g.drone, g.summoner, g.pounder, {speed:1.5, maxSpeed:1.5}]), TYPE: "zyrafaqBossDrone", MAX_CHILDREN: 3, AUTOFIRE: true, SYNCS_SKILLS: true, STAT_CALCULATOR: "drone", WAIT_TO_CYCLE: true, NO_LIMITATIONS: true}})
   ],
   TURRETS: [
-    {POSITION: [28,0,0,0,360,0], TYPE: "zyrafaqBossHexagon", INDEPENDENT: true},
-    {POSITION: [21,0,0,0,360,1], TYPE: "zyrafaqBossTurret", INDEPENDENT: true},
-    {POSITION: [21,0,0,180,360,1], TYPE: "zyrafaqBossTurret", INDEPENDENT: true},
-    {POSITION: [12,0,0,0,360,0], TYPE: "zyrafaqBossAura"},
-    {POSITION: [18,0,0,0,360,0], TYPE: "zyrafaqBossAura"},
-    {POSITION: [24,0,0,0,360,0], TYPE: "zyrafaqBossAura"},
+    {POSITION: [28, 0, 0, 0, 360, 0], TYPE: "zyrafaqBossHexagon", INDEPENDENT: true},
+    {POSITION: [21, 0, 0, 0, 360, 1], TYPE: "zyrafaqBossTurret", INDEPENDENT: true},
+    {POSITION: [21, 0, 0, 180, 360, 1], TYPE: "zyrafaqBossTurret", INDEPENDENT: true},
+    {POSITION: [12, 0, 0, 0, 360, 0], TYPE: "zyrafaqBossAura"},
+    {POSITION: [18, 0, 0, 0, 360, 0], TYPE: "zyrafaqBossAura"},
+    {POSITION: [24, 0, 0, 0, 360, 0], TYPE: "zyrafaqBossAura"}
   ]
 }

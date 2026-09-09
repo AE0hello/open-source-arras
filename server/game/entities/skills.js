@@ -8,7 +8,7 @@ const skcnv = {
   atk: 6,
   hlt: 7,
   rgn: 8,
-  mob: 9,
+  mob: 9
 };
 
 let curvePoints = [];
@@ -39,7 +39,7 @@ class Skill {
       "Body Damage",
       "Max Health",
       "Shield Regeneration",
-      "Movement Speed",
+      "Movement Speed"
     ];
     this.atk = 0;
     this.hlt = 0;

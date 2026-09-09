@@ -12,7 +12,7 @@ const eggnoughtBody = {
   FOV: base.FOV,
   RESIST: base.RESIST,
   DENSITY: base.DENSITY * 2.5,
-  ACCELERATION: base.ACCEL * 0.8,
+  ACCELERATION: base.ACCEL * 0.8
 };
 const squarenoughtBody = {
   SPEED: base.SPEED * 0.7,
@@ -22,7 +22,7 @@ const squarenoughtBody = {
   FOV: base.FOV * 0.95,
   RESIST: base.RESIST,
   DENSITY: base.DENSITY * 2.75,
-  ACCELERATION: base.ACCEL * 0.65,
+  ACCELERATION: base.ACCEL * 0.65
 };
 const trinoughtBody = {
   SPEED: base.SPEED * 0.65,
@@ -32,7 +32,7 @@ const trinoughtBody = {
   FOV: base.FOV * 0.95,
   RESIST: base.RESIST,
   DENSITY: base.DENSITY * 3,
-  ACCELERATION: base.ACCEL * 0.55,
+  ACCELERATION: base.ACCEL * 0.55
 };
 const pentanoughtBody = {
   SPEED: base.SPEED * 0.6,
@@ -42,7 +42,7 @@ const pentanoughtBody = {
   FOV: base.FOV * 0.95,
   RESIST: base.RESIST,
   DENSITY: base.DENSITY * 3.25,
-  ACCELERATION: base.ACCEL * 0.45,
+  ACCELERATION: base.ACCEL * 0.45
 };
 const hexnoughtBody = {
   SPEED: base.SPEED * 0.55,
@@ -52,23 +52,23 @@ const hexnoughtBody = {
   FOV: base.FOV * 0.95,
   RESIST: base.RESIST,
   DENSITY: base.DENSITY * 3.5,
-  ACCELERATION: base.ACCEL * 0.4,
+  ACCELERATION: base.ACCEL * 0.4
 };
 const hpBuffBodyStats = [
   { HEALTH: 1.4, SPEED: 1.25, SHIELD: 1.4,  REGEN: 1.3  },
   { HEALTH: 1.7, SPEED: 1.1,  SHIELD: 1.65, REGEN: 1.45 },
   { HEALTH: 1.8, SPEED: 1.17, SHIELD: 1.9,  REGEN: 1.6  },
-  { HEALTH: 1.9, SPEED: 1.17, SHIELD: 2.15, REGEN: 1.7  },
+  { HEALTH: 1.9, SPEED: 1.17, SHIELD: 2.15, REGEN: 1.7  }
 ];
 const speedBuffBodyStats = [
   { HEALTH: 0.85, SPEED: 1.4, SHIELD: 0.9,  REGEN: 1   },
   { HEALTH: 0.8,  SPEED: 1.5, SHIELD: 0.83, REGEN: 0.9 },
-  { HEALTH: 0.75, SPEED: 1.6, SHIELD: 0.75, REGEN: 0.8 },
+  { HEALTH: 0.75, SPEED: 1.6, SHIELD: 0.75, REGEN: 0.8 }
 ];
 const healerBodyStats = [
   { HEALTH: 1.1,  SPEED: 1.04, SHIELD: 1.2,  REGEN: 1.15 },
   { HEALTH: 1,    SPEED: 0.98, SHIELD: 1.28, REGEN: 1.2  },
-  { HEALTH: 0.92, SPEED: 0.94, SHIELD: 1.35, REGEN: 1.25 },
+  { HEALTH: 0.92, SPEED: 0.94, SHIELD: 1.35, REGEN: 1.25 }
 ];
 
 function combineBodyStats(...bodies) {
@@ -76,7 +76,7 @@ function combineBodyStats(...bodies) {
     HEALTH: 1,
     SPEED: 1,
     SHIELD: 1,
-    REGEN: 1,
+    REGEN: 1
   }
   for (let body of bodies) {
     for (let k in body) {
@@ -102,7 +102,7 @@ const hexnoughtScaleFactor = 0.9
 Class.genericDreadnought_dreadsV2 = {
   PARENT: "genericTank",
   SKILL_CAP: Array(10).fill(smshskl),
-  REROOT_UPGRADE_TREE: ["dreadWeapon_dreadsV2", "dreadBody_dreadsV2"],
+  REROOT_UPGRADE_TREE: ["dreadWeapon_dreadsV2", "dreadBody_dreadsV2"]
 }
 Class.genericEggnought = {
   PARENT: "genericDreadnought_dreadsV2",
@@ -110,7 +110,7 @@ Class.genericEggnought = {
   SHAPE: 0,
   COLOR: "egg",
   SIZE: 16,
-  DANGER: 8,
+  DANGER: 8
 }
 Class.genericSquarenought = {
   PARENT: "genericDreadnought_dreadsV2",
@@ -118,7 +118,7 @@ Class.genericSquarenought = {
   SHAPE: 4,
   COLOR: "square",
   SIZE: 20,
-  DANGER: 9,
+  DANGER: 9
 }
 Class.genericTrinought = {
   PARENT: "genericDreadnought_dreadsV2",
@@ -126,7 +126,7 @@ Class.genericTrinought = {
   SHAPE: 3.5,
   COLOR: "triangle",
   SIZE: 23,
-  DANGER: 10,
+  DANGER: 10
 }
 Class.genericPentanought = {
   PARENT: "genericDreadnought_dreadsV2",
@@ -134,7 +134,7 @@ Class.genericPentanought = {
   SHAPE: 5.5,
   COLOR: "pentagon",
   SIZE: 25,
-  DANGER: 11,
+  DANGER: 11
 }
 Class.genericHexnought = {
   PARENT: "genericDreadnought_dreadsV2",
@@ -142,7 +142,7 @@ Class.genericHexnought = {
   SHAPE: 6,
   COLOR: "hexagon",
   SIZE: 26,
-  DANGER: 12,
+  DANGER: 12
 }
 
 // Turrets
@@ -228,9 +228,9 @@ Class.showerTurret_dreadsV2 = {
   PARENT: "genericTank",
   LABEL: "",
   BODY: {
-    FOV: 1.5,
+    FOV: 1.5
   },
-  CONTROLLERS: [[ "spin", {speed: 0.03}]],
+  CONTROLLERS: [["spin", {speed: 0.03}]],
   COLOR: 16,
   INDEPENDENT: true,
   MAX_CHILDREN: 4,
@@ -243,10 +243,10 @@ Class.showerTurret_dreadsV2 = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
-        WAIT_TO_CYCLE: true,
-      },
-    },
-  ],
+        WAIT_TO_CYCLE: true
+      }
+    }
+  ]
 }
 Class.spamAutoTurret = {
   PARENT: "autoTankGun",
@@ -275,9 +275,9 @@ Class.aggressorMinion_dreadsV2 = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {speed: 1.06, maxSpeed: 1.06, reload: 1.75, health: 1.25}]),
       WAIT_TO_CYCLE: true,
-      TYPE: "bullet",
-    },
-  }, 3),
+      TYPE: "bullet"
+    }
+  }, 3)
 }
 Class.assailantMinion_dreadsV2 = {
   PARENT: "minion",
@@ -288,8 +288,8 @@ Class.assailantMinion_dreadsV2 = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {reload: 1.8, health: 1.1}]),
       WAIT_TO_CYCLE: true,
-      TYPE: "bullet",
-    },
+      TYPE: "bullet"
+    }
   }, 4)
 }
 Class.betadrone = {
@@ -297,15 +297,15 @@ Class.betadrone = {
   PROPS: [
     {
       POSITION: [10, 0, 0, 180, 1],
-      TYPE: ["triangle", {COLOR: -1}],
-    },
+      TYPE: ["triangle", {COLOR: -1}]
+    }
   ]
 }
 Class.gladiatorGenericMinion_dreadsV2 = {
   PARENT: "minion",
   SHAPE: 3.5,
   COLOR: "crasher",
-  GUNS: [],
+  GUNS: []
 }
 Class.gladiatorTritankMinion_dreadsV2 = {
   PARENT: "gladiatorGenericMinion_dreadsV2",
@@ -314,24 +314,24 @@ Class.gladiatorTritankMinion_dreadsV2 = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.assassin, g.minionGun, {speed: 1.06, maxSpeed: 1.06, reload: 1.8, health: 1.3}]),
       WAIT_TO_CYCLE: true,
-      TYPE: ["bullet", {COLOR: 5}],
-    },
-  }, 3),
+      TYPE: ["bullet", {COLOR: 5}]
+    }
+  }, 3)
 }
 Class.gladiatorTritrapMinion_dreadsV2 = {
   PARENT: "gladiatorGenericMinion_dreadsV2",
   GUNS: weaponArray([
     {
-      POSITION: [13, 7, 1, 0, 0, 0, 0],
+      POSITION: [13, 7, 1, 0, 0, 0, 0]
     }, {
       POSITION: [3, 7, 1.7, 13, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.pounder, g.flankGuard, g.minionGun, {reload: 1.2, speed: 0.8, maxSpeed: 0.8}]),
         TYPE: "trap",
-        STAT_CALCULATOR: "trap",
-      },
-    },
-  ], 3),
+        STAT_CALCULATOR: "trap"
+      }
+    }
+  ], 3)
 }
 Class.gladiatorTriswarmMinion_dreadsV2 = {
   PARENT: "gladiatorGenericMinion_dreadsV2",
@@ -340,19 +340,19 @@ Class.gladiatorTriswarmMinion_dreadsV2 = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.swarm, g.flankGuard, g.minionGun, {speed: 1.1, maxSpeed: 1.1, reload: 1.6, size: 1.6, range: 1.15}]),
       TYPE: ["swarm", {COLOR: 5}],
-      STAT_CALCULATOR: "swarm",
-    },
-  }, 3),
+      STAT_CALCULATOR: "swarm"
+    }
+  }, 3)
 }
 Class.gladiatorAutoMinion_dreadsV2 = makeAuto({
-  PARENT: "gladiatorGenericMinion_dreadsV2",
+  PARENT: "gladiatorGenericMinion_dreadsV2"
 }, "Minion", {size: 12, angle: 0});
 Class.gladiatorAuraMinion_dreadsV2 = {
   PARENT: "gladiatorGenericMinion_dreadsV2",
   TURRETS: [
     {
       POSITION: [12, 0, 0, 0, 360, 1],
-      TYPE: "gladiatorAuraMinionAura_dreadsV2",
+      TYPE: "gladiatorAuraMinionAura_dreadsV2"
     }
   ]
 }
@@ -361,7 +361,7 @@ Class.gladiatorHealAuraMinion_dreadsV2 = {
   TURRETS: [
     {
       POSITION: [12, 0, 0, 0, 360, 1],
-      TYPE: "gladiatorHealAuraMinionAura_dreadsV2",
+      TYPE: "gladiatorHealAuraMinionAura_dreadsV2"
     }
   ]
 }
@@ -383,7 +383,7 @@ Class.supermissile = {
   LABEL: "Missile",
   INDEPENDENT: true,
   BODY: {
-    RANGE: 120,
+    RANGE: 120
   },
   GUNS: [
     {
@@ -392,29 +392,29 @@ Class.supermissile = {
         AUTOFIRE: true,
         SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 1.15, speed: 1.3, maxSpeed: 1.3, recoil: 0.75}]),
         TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}],
-        STAT_CALCULATOR: "thruster",
-      },
+        STAT_CALCULATOR: "thruster"
+      }
     }, {
       POSITION: [14, 6, 1, 0, 2, 230, 0],
       PROPERTIES: {
         AUTOFIRE: true,
         SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, {reload: 1.15, speed: 1.3, maxSpeed: 1.3, recoil: 0.75}]),
         TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}],
-        STAT_CALCULATOR: "thruster",
-      },
+        STAT_CALCULATOR: "thruster"
+      }
     }, {
       POSITION: [14, 6, 1, 0, 0, 0, 0.2],
       PROPERTIES: {
         AUTOFIRE: true,
         SHOOT_SETTINGS: combineStats([g.basic, g.lowPower, g.skimmer, {reload: 1.15, speed: 1.15, maxSpeed: 1.15, recoil: 0.75}]),
-        TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}],
-      },
-    },
-  ],
+        TYPE: ["bullet", {PERSISTS_AFTER_DEATH: true}]
+      }
+    }
+  ]
 }
 
 // Bodies
-Class.colossusBody_dreadsV2 = makeHat([[0.8838834762573242,0.8838834762573242],[0,1.25],[-0.8838834762573242,0.8838834762573242],[-1.25,0],[-0.8838834762573242,-0.8838834762573242],[0,-1.25],[0.8838834762573242,-0.8838834762573242],[1.25,0]], { color: "black" })
+Class.colossusBody_dreadsV2 = makeHat([[0.8838834762573242, 0.8838834762573242], [0, 1.25], [-0.8838834762573242, 0.8838834762573242], [-1.25, 0], [-0.8838834762573242, -0.8838834762573242], [0, -1.25], [0.8838834762573242, -0.8838834762573242], [1.25, 0]], { color: "black" })
 
 // Miscellaneous
 Class.hexagonLeviathanTop_dreadsV2 = {
@@ -422,39 +422,39 @@ Class.hexagonLeviathanTop_dreadsV2 = {
   LABEL: "Leviathan",
   GUNS: weaponArray({
     POSITION: [6, 10, 0.001, 9.5, 0, 0, 0],
-    PROPERTIES: {COLOR: 9},
-  }, 6),
+    PROPERTIES: {COLOR: 9}
+  }, 6)
 }
 Class.hexagonLeviathanBottom_dreadsV2 = {
   PARENT: "genericHexnought",
   LABEL: "Leviathan",
   GUNS: weaponArray({
     POSITION: [7, 13.5, 0.001, 9.5, 0, 0, 0],
-    PROPERTIES: {COLOR: 9},
-  }, 6),
+    PROPERTIES: {COLOR: 9}
+  }, 6)
 }
 Class.pentagonLeviathanTop_dreadsV2 = {
   PARENT: "genericPentanought",
   LABEL: "Leviathan",
   GUNS: weaponArray({
     POSITION: [6, 13.5, 0.001, 9, 0, 0, 0],
-    PROPERTIES: {COLOR: 9},
-  }, 5),
+    PROPERTIES: {COLOR: 9}
+  }, 5)
 }
 Class.pentagonLeviathanBottom_dreadsV2 = {
   PARENT: "genericPentanought",
   LABEL: "Leviathan",
   GUNS: weaponArray({
     POSITION: [7, 17, 0.001, 9, 0, 0, 0],
-    PROPERTIES: {COLOR: 9},
-  }, 5),
+    PROPERTIES: {COLOR: 9}
+  }, 5)
 }
 Class.titanTop_dreadsV2 = {
   PARENT: "genericTrinought",
   GUNS: weaponArray({
     POSITION: [5, 26, 0.001, 8, 0, 0, 0],
-    PROPERTIES: {COLOR: 9},
-  }, 3),
+    PROPERTIES: {COLOR: 9}
+  }, 3)
 }
 
 // Auras
@@ -489,17 +489,17 @@ Class.dreadnought_dreadsV2 = {
   LABEL: "Dreadnought",
   //UPGRADE_LABEL: "Dreads V2",
   //LEVEL: 90,
-  EXTRA_SKILL: 18,
+  EXTRA_SKILL: 18
 }
 Class.dreadWeapon_dreadsV2 = {
   LABEL: "",
   COLOR: "egg",
-  REROOT_UPGRADE_TREE: "dreadWeapon_dreadsV2",
+  REROOT_UPGRADE_TREE: "dreadWeapon_dreadsV2"
 }
 Class.dreadBody_dreadsV2 = {
   LABEL: "",
   COLOR: "egg",
-  REROOT_UPGRADE_TREE: "dreadBody_dreadsV2",
+  REROOT_UPGRADE_TREE: "dreadBody_dreadsV2"
 }
 
 // T1 Weapons
@@ -793,7 +793,7 @@ Class.assailant_dreadsV2 = {
   LABEL: "Assailant",
   BODY: { 
     FOV: squarenoughtBody.FOV * 1.1,
-    SPEED: squarenoughtBody.SPEED * 0.85,
+    SPEED: squarenoughtBody.SPEED * 0.85
   },
   GUNS: weaponArray([
     {
@@ -1405,8 +1405,8 @@ Class.hydra_dreadsV2 = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.twin, g.pounder, {shudder: 0.6, health: 0.7, range: 0.85}]),
         TYPE: "trap",
-        STAT_CALCULATOR: "trap",
-      },
+        STAT_CALCULATOR: "trap"
+      }
     }]),
     {
       POSITION: {
@@ -1650,7 +1650,7 @@ Class.fusion_dreadsV2 = {
         SIZE: 9,
         LAYER: 2
       }
-    },
+    }
   ],
   PROPS: [
     {
@@ -1756,18 +1756,18 @@ Class.mechanism_dreadsV2 = {
   TURRETS: weaponArray([
     {
       POSITION: [3.5, 6, 0, 0, 180, 2],
-      TYPE: "spamAutoTurret",
+      TYPE: "spamAutoTurret"
     }, {
       POSITION: [3.5, 10, 0, 60, 180, 2],
-      TYPE: "spamAutoTurret",
-    },
+      TYPE: "spamAutoTurret"
+    }
   ], 3),
   PROPS: [
     {
       POSITION: [10, 0, 0, 180, 1],
       TYPE: "triangle"
-    },
-  ],
+    }
+  ]
 }
 Class.megabyte_dreadsV2 = {
   PARENT: "genericTrinought",
@@ -1775,14 +1775,14 @@ Class.megabyte_dreadsV2 = {
   TURRETS: [
     {
       POSITION: [12, 0, 0, 0, 360, 2],
-      TYPE: "megabyteTurret_dreadsV2",
-    },
+      TYPE: "megabyteTurret_dreadsV2"
+    }
   ],
   PROPS: [
     {
       POSITION: [15, 0, 0, 180, 1],
       TYPE: "triangle"
-    },
+    }
   ]
 }
 Class.mesosphere_dreadsV2 = {
@@ -1792,18 +1792,18 @@ Class.mesosphere_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.5, 10.5, 0, 60, 360, 2],
-      TYPE: "trinoughtSmallHealAura",
+      TYPE: "trinoughtSmallHealAura"
     }, 3),
     {
       POSITION: [9.5, 0, 0, 0, 360, 2],
-      TYPE: "trinoughtBigHealAura",
-    },
+      TYPE: "trinoughtBigHealAura"
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
       TYPE: "triangle"
-    },
+    }
   ]
 }
 Class.moon_dreadsV2 = {
@@ -1812,7 +1812,7 @@ Class.moon_dreadsV2 = {
   BODY: combineBodyStats(hpBuffBodyStats[1], healerBodyStats[0]),
   TURRETS: weaponArray({
     POSITION: [3.5, 10.5, 0, 60, 360, 2],
-    TYPE: "trinoughtSmallHealAura",
+    TYPE: "trinoughtSmallHealAura"
   }, 3),
   PROPS: [
     {
@@ -1822,7 +1822,7 @@ Class.moon_dreadsV2 = {
       POSITION: [12, 0, 0, 180, 1],
       TYPE: "triangle"
     }
-  ],
+  ]
 }
 Class.planet_dreadsV2 = {
   PARENT: "genericTrinought",
@@ -1830,7 +1830,7 @@ Class.planet_dreadsV2 = {
   BODY: hpBuffBodyStats[1],
   TURRETS: weaponArray({
     POSITION: [3.5, 10.5, 0, 60, 360, 2],
-    TYPE: "trinoughtSmallAura",
+    TYPE: "trinoughtSmallAura"
   }, 3),
   PROPS: [
     {
@@ -1840,7 +1840,7 @@ Class.planet_dreadsV2 = {
       POSITION: [12, 0, 0, 180, 1],
       TYPE: "triangle"
     }
-  ],
+  ]
 }
 Class.siren_dreadsV2 = {
   PARENT: "genericTrinought",
@@ -1848,7 +1848,7 @@ Class.siren_dreadsV2 = {
   BODY: speedBuffBodyStats[0],
   TURRETS: weaponArray({
     POSITION: [3.5, 10.5, 0, 60, 360, 2],
-    TYPE: "trinoughtSmallAura",
+    TYPE: "trinoughtSmallAura"
   }, 3),
   PROPS: [
     {
@@ -1857,8 +1857,8 @@ Class.siren_dreadsV2 = {
     }, {
       POSITION: [20, 0, 0, 0, 0],
       TYPE: "titanTop_dreadsV2"
-    },
-  ],
+    }
+  ]
 }
 Class.titan_dreadsV2 = {
   PARENT: "genericTrinought",
@@ -1871,8 +1871,8 @@ Class.titan_dreadsV2 = {
     }, {
       POSITION: [20, 0, 0, 0, 0],
       TYPE: "titanTop_dreadsV2"
-    },
-  ],
+    }
+  ]
 }
 Class.trojan_dreadsV2 = {
   PARENT: "genericTrinought",
@@ -1880,18 +1880,18 @@ Class.trojan_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.5, 11, 0, 60, 360, 2],
-      TYPE: "trinoughtSmallAura",
+      TYPE: "trinoughtSmallAura"
     }, 3),
     {
       POSITION: [10, 0, 0, 0, 360, 2],
-      TYPE: ["kilobyteTurret_dreadsV2", {GUN_STAT_SCALE: g.triKilobyte}],
-    },
+      TYPE: ["kilobyteTurret_dreadsV2", {GUN_STAT_SCALE: g.triKilobyte}]
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
       TYPE: "triangle"
-    },
+    }
   ]
 }
 
@@ -1908,7 +1908,7 @@ Class.arbitrator_dreadsV2 = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.7,  health: 1.05, range: 0.8, reload: 1}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
@@ -1919,7 +1919,7 @@ Class.arbitrator_dreadsV2 = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.65, health: 1.05, range: 0.8, reload: 1.05}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
@@ -1930,7 +1930,7 @@ Class.arbitrator_dreadsV2 = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.twin, g.triplet, g.spam, g.spam, {size: 0.7,  health: 1.05, range: 0.8, reload: 1.1}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     }
   ], 5)
@@ -2041,8 +2041,8 @@ Class.gladiator_dreadsV2 = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         MAX_CHILDREN: 2,
-        WAIT_TO_CYCLE: true,
-      },
+        WAIT_TO_CYCLE: true
+      }
     },
     {
       POSITION: {
@@ -2071,8 +2071,8 @@ Class.javelin_dreadsV2 = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.assassin, {reload: 1.13, health: 1.1, density: 0.55, range: 0.65}]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: {
@@ -2175,7 +2175,7 @@ Class.rapier_dreadsV2 = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.twin, {speed: 1.13, maxSpeed: 1.13, health: 1.15, range: 0.65}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     }, {delayIncrement: 0.5})
   ], 5)
@@ -2273,17 +2273,17 @@ Class.astronomic_dreadsV2 = {
   BODY: hpBuffBodyStats[2],
   TURRETS: weaponArray({
     POSITION: [4, 8.5, 0, 36, 360, 2],
-    TYPE: "pentanoughtSmallAura",
+    TYPE: "pentanoughtSmallAura"
   }, 5),
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
+      TYPE: "pentagon"
     }, {
       POSITION: [24, 0, 0, 180, 0],
-      TYPE: ["pentagon", {COLOR: 9}],
-    },
-  ],
+      TYPE: ["pentagon", {COLOR: 9}]
+    }
+  ]
 }
 Class.behemoth_dreadsV2 = {
   PARENT: "genericPentanought",
@@ -2292,12 +2292,12 @@ Class.behemoth_dreadsV2 = {
   PROPS: [
     {
       POSITION: [15, 0, 0, 180, 1],
-      TYPE: ["pentagon", {COLOR: 9}],
+      TYPE: ["pentagon", {COLOR: 9}]
     }, {
       POSITION: [24, 0, 0, 180, 0],
-      TYPE: ["pentagon", {COLOR: 9}],
-    },
-  ],
+      TYPE: ["pentagon", {COLOR: 9}]
+    }
+  ]
 }
 Class.cipher_dreadsV2 = {
   PARENT: "genericPentanought",
@@ -2305,18 +2305,18 @@ Class.cipher_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.25, 9, 0, 36, 180, 2],
-      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}],
+      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}]
     }, 5),
     {
       POSITION: [11.5, 0, 0, 0, 360, 2],
-      TYPE: ["megabyteTurret_dreadsV2", {GUN_STAT_SCALE: g.pentaMegabyte}],
-    },
+      TYPE: ["megabyteTurret_dreadsV2", {GUN_STAT_SCALE: g.pentaMegabyte}]
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.gigabyte_dreadsV2 = {
@@ -2325,14 +2325,14 @@ Class.gigabyte_dreadsV2 = {
   TURRETS: [
     {
       POSITION: [13, 0, 0, 0, 360, 2],
-      TYPE: "gigabyteTurret_dreadsV2",
-    },
+      TYPE: "gigabyteTurret_dreadsV2"
+    }
   ],
   PROPS: [
     {
       POSITION: [14.5, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.grandiose_dreadsV2 = {
@@ -2341,17 +2341,17 @@ Class.grandiose_dreadsV2 = {
   BODY: combineBodyStats(hpBuffBodyStats[2], healerBodyStats[1]),
   TURRETS: weaponArray({
     POSITION: [4, 8.5, 0, 36, 360, 2],
-    TYPE: "pentanoughtSmallHealAura",
+    TYPE: "pentanoughtSmallHealAura"
   }, 5),
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
+      TYPE: "pentagon"
     }, {
       POSITION: [24, 0, 0, 180, 0],
-      TYPE: ["pentagon", {COLOR: 9}],
-    },
-  ],
+      TYPE: ["pentagon", {COLOR: 9}]
+    }
+  ]
 }
 Class.interstellar_dreadsV2 = {
   PARENT: "genericPentanought",
@@ -2360,18 +2360,18 @@ Class.interstellar_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.25, 9, 0, 36, 180, 2],
-      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}],
+      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}]
     }, 5),
     {
       POSITION: [9.5, 0, 0, 0, 360, 2],
-      TYPE: "pentanoughtBigHealAura",
-    },
+      TYPE: "pentanoughtBigHealAura"
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.leviathan_dreadsV2 = {
@@ -2385,8 +2385,8 @@ Class.leviathan_dreadsV2 = {
     }, {
       POSITION: [20, 0, 0, 0, 0],
       TYPE: "pentagonLeviathanBottom_dreadsV2"
-    },
-  ],
+    }
+  ]
 }
 Class.malware_dreadsV2 = {
   PARENT: "genericPentanought",
@@ -2394,18 +2394,18 @@ Class.malware_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [4, 8.5, 0, 36, 360, 2],
-      TYPE: "pentanoughtSmallAura",
+      TYPE: "pentanoughtSmallAura"
     }, 5),
     {
       POSITION: [11.5, 0, 0, 0, 360, 2],
-      TYPE: ["megabyteTurret_dreadsV2", {GUN_STAT_SCALE: g.pentaMegabyte}],
-    },
+      TYPE: ["megabyteTurret_dreadsV2", {GUN_STAT_SCALE: g.pentaMegabyte}]
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.pegasus_dreadsV2 = {
@@ -2414,7 +2414,7 @@ Class.pegasus_dreadsV2 = {
   BODY: combineBodyStats(speedBuffBodyStats[1], healerBodyStats[1]),
   TURRETS: weaponArray({
     POSITION: [4, 8.5, 0, 36, 360, 2],
-    TYPE: "pentanoughtSmallHealAura",
+    TYPE: "pentanoughtSmallHealAura"
   }, 5),
   PROPS: [
     {
@@ -2423,8 +2423,8 @@ Class.pegasus_dreadsV2 = {
     }, {
       POSITION: [20, 0, 0, 0, 0],
       TYPE: "pentagonLeviathanBottom_dreadsV2"
-    },
-  ],
+    }
+  ]
 }
 Class.photosphere_dreadsV2 = {
   PARENT: "genericPentanought",
@@ -2432,9 +2432,9 @@ Class.photosphere_dreadsV2 = {
   PROPS: [
     {
       POSITION: [12, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
-  ],
+      TYPE: "pentagon"
+    }
+  ]
 }
 if (useOldPhotosphere) {
   Class.photosphere_dreadsV2.TURRETS = [
@@ -2447,7 +2447,7 @@ if (useOldPhotosphere) {
           ARC: 360,
           LAYER: 2
         },
-        TYPE: "photosphereSmallAura_dreadsV2",
+        TYPE: "photosphereSmallAura_dreadsV2"
       },
       {
         POSITION: {
@@ -2456,7 +2456,7 @@ if (useOldPhotosphere) {
           ARC: 360,
           LAYER: 2
         },
-        TYPE: "photosphereBigAura_dreadsV2",
+        TYPE: "photosphereBigAura_dreadsV2"
       }
     ], 5)
   ]
@@ -2464,12 +2464,12 @@ if (useOldPhotosphere) {
   Class.photosphere_dreadsV2.TURRETS = [
     ...weaponArray({
       POSITION: [4, 8.5, 0, 36, 360, 2],
-      TYPE: "pentanoughtSmallAura",
+      TYPE: "pentanoughtSmallAura"
     }, 5),
     {
       POSITION: [9, 0, 0, 0, 360, 2],
-      TYPE: "pentanoughtBigAura",
-    },
+      TYPE: "pentanoughtBigAura"
+    }
   ]
 }
 Class.skynet_dreadsV2 = {
@@ -2478,17 +2478,17 @@ Class.skynet_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.25, 4.5, 0, 0, 180, 2],
-      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.93, damage: 0.8}}],
+      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.93, damage: 0.8}}]
     }, 5),
     ...weaponArray({
       POSITION: [3.25, 8, 0, 36, 180, 2],
-      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.93, damage: 0.8}}],
+      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: {reload: 1.1, health: 0.93, damage: 0.8}}]
     }, 5)
   ],
   PROPS: [
     {
       POSITION: [12, 0, 0, 180, 1],
-      TYPE: "pentagon",
+      TYPE: "pentagon"
     }
   ]
 }
@@ -2499,18 +2499,18 @@ Class.software_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [4, 8.5, 0, 36, 360, 2],
-      TYPE: "pentanoughtSmallHealAura",
+      TYPE: "pentanoughtSmallHealAura"
     }, 5),
     {
       POSITION: [11.5, 0, 0, 0, 360, 2],
-      TYPE: ["megabyteTurret_dreadsV2", {GUN_STAT_SCALE: g.pentaMegabyte}],
-    },
+      TYPE: ["megabyteTurret_dreadsV2", {GUN_STAT_SCALE: g.pentaMegabyte}]
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.stratosphere_dreadsV2 = {
@@ -2520,18 +2520,18 @@ Class.stratosphere_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [4, 8.5, 0, 36, 360, 2],
-      TYPE: "pentanoughtSmallHealAura",
+      TYPE: "pentanoughtSmallHealAura"
     }, 5),
     {
       POSITION: [9.5, 0, 0, 0, 360, 2],
-      TYPE: "pentanoughtBigHealAura",
-    },
+      TYPE: "pentanoughtBigHealAura"
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.supernova_dreadsV2 = {
@@ -2540,18 +2540,18 @@ Class.supernova_dreadsV2 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.25, 9, 0, 36, 180, 2],
-      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}],
+      TYPE: ["spamAutoTurret", {GUN_STAT_SCALE: g.pentaSecondaryAuto}]
     }, 5),
     {
       POSITION: [9, 0, 0, 0, 360, 2],
-      TYPE: "pentanoughtBigAura",
-    },
+      TYPE: "pentanoughtBigAura"
+    }
   ],
   PROPS: [
     {
       POSITION: [13, 0, 0, 180, 1],
-      TYPE: "pentagon",
-    },
+      TYPE: "pentagon"
+    }
   ]
 }
 Class.valrayvn_dreadsV2 = {
@@ -2560,7 +2560,7 @@ Class.valrayvn_dreadsV2 = {
   BODY: speedBuffBodyStats[1],
   TURRETS: weaponArray({
     POSITION: [4, 8.5, 0, 36, 360, 2],
-    TYPE: "pentanoughtSmallAura",
+    TYPE: "pentanoughtSmallAura"
   }, 5),
   PROPS: [
     {
@@ -2569,8 +2569,8 @@ Class.valrayvn_dreadsV2 = {
     }, {
       POSITION: [20, 0, 0, 0, 0],
       TYPE: "pentagonLeviathanBottom_dreadsV2"
-    },
-  ],
+    }
+  ]
 }
 
 // Account for lower level cap
@@ -2756,7 +2756,7 @@ const hexDreadNames = {
     Lucifer: "Kitsune",
     Sterilizer: "Mastermind",
     Hielaman: "Swordsman", 
-    Jackhammer: "Fissure",
+    Jackhammer: "Fissure"
   },
   Rapier: {
     Rapier: "Rapier II",
@@ -2782,7 +2782,7 @@ const hexDreadNames = {
     Lucifer: "Damocles",
     Sterilizer: "Sanitizer",
     Hielaman: "Escutcheon", 
-    Jackhammer: "Borer",
+    Jackhammer: "Borer"
   },
   Woomera: {
     Woomera: "Woomera II",
@@ -2807,7 +2807,7 @@ const hexDreadNames = {
     Lucifer: "Hunkerer",
     Sterilizer: "Janitor",
     Hielaman: "Reinforcer", 
-    Jackhammer: "Pyroclastic",
+    Jackhammer: "Pyroclastic"
   },
   Trebuchet: {
     Trebuchet: "Trebuchet II",
@@ -2831,7 +2831,7 @@ const hexDreadNames = {
     Lucifer: "Sisyphus",
     Sterilizer: "Operation",
     Hielaman: "Entrencher", 
-    Jackhammer: "Demolitionist",
+    Jackhammer: "Demolitionist"
   },
   Bolt: {
     Bolt: "Bolt II",
@@ -2854,7 +2854,7 @@ const hexDreadNames = {
     Lucifer: "Barycenter",
     Sterilizer: "Greenhouse",
     Hielaman: "Nebula", 
-    Jackhammer: "Archaeologist",
+    Jackhammer: "Archaeologist"
   },
   Diplomat: {
     Diplomat: "Diplomat II",
@@ -2876,7 +2876,7 @@ const hexDreadNames = {
     Lucifer: "Manticore",
     Sterilizer: "Officer",
     Hielaman: "Investigator", 
-    Jackhammer: "Devourer", // Soap
+    Jackhammer: "Devourer" // Soap
   },
   Arbitrator: {
     Arbitrator: "Arbitrator II",
@@ -2897,7 +2897,7 @@ const hexDreadNames = {
     Lucifer: "Keres",
     Sterilizer: "Warden",
     Hielaman: "Crusader", 
-    Jackhammer: "Excavator",
+    Jackhammer: "Excavator"
   },
   Dissolver: {
     Dissolver: "Dissolver II",
@@ -2917,7 +2917,7 @@ const hexDreadNames = {
     Lucifer: "Styx",
     Sterilizer: "Peroxide",
     Hielaman: "Frontier", 
-    Jackhammer: "Fracker",
+    Jackhammer: "Fracker"
   },
   Eroder: {
     Eroder: "Eroder II",
@@ -2936,7 +2936,7 @@ const hexDreadNames = {
     Lucifer: "Fragment",
     Sterilizer: "Cynic",
     Hielaman: "Polisher", 
-    Jackhammer: "Hoser",
+    Jackhammer: "Hoser"
   },
   Gripper: {
     Gripper: "Gripper II",
@@ -2954,7 +2954,7 @@ const hexDreadNames = {
     Lucifer: "Mortician",
     Sterilizer: "Cleanser",
     Hielaman: "Periscope", 
-    Jackhammer: "Vice",
+    Jackhammer: "Vice"
   },
   Retardant: {
     Retardant: "Retardant II",
@@ -2971,7 +2971,7 @@ const hexDreadNames = {
     Lucifer: "Demogorgon",
     Sterilizer: "Fumigator",
     Hielaman: "Avalanche", 
-    Jackhammer: "Propagator",
+    Jackhammer: "Propagator"
   },
   Tyrant: {
     Tyrant: "Tyrant II",
@@ -2987,7 +2987,7 @@ const hexDreadNames = {
     Lucifer: "Raiju",
     Sterilizer: "Purifier",
     Hielaman: "Protectorate", 
-    Jackhammer: "Detailer",
+    Jackhammer: "Detailer"
   },
   Anesthesiologist: {
     Anesthesiologist: "Anesthesiologist II",
@@ -3002,7 +3002,7 @@ const hexDreadNames = {
     Lucifer: "Rehabilitator",
     Sterilizer: "Pestilence",
     Hielaman: "Heater", 
-    Jackhammer: "Sledgehammer",
+    Jackhammer: "Sledgehammer"
   },
   Helix: {
     Helix: "Helix II",
@@ -3016,7 +3016,7 @@ const hexDreadNames = {
     Lucifer: "Taipan",
     Sterilizer: "Networker",
     Hielaman: "Turbine", 
-    Jackhammer: "Spindler",
+    Jackhammer: "Spindler"
   },
   Bombardment: {
     Bombardment: "Bombardment II",
@@ -3029,7 +3029,7 @@ const hexDreadNames = {
     Lucifer: "Containment",
     Sterilizer: "Haven",
     Hielaman: "Ballistic", 
-    Jackhammer: "Mallet", // Soap
+    Jackhammer: "Mallet" // Soap
   },
   Raider: {
     Raider: "Raider II",
@@ -3041,7 +3041,7 @@ const hexDreadNames = {
     Lucifer: "Kraken",
     Sterilizer: "Splatterer",
     Hielaman: "Strategist", 
-    Jackhammer: "Extractor",
+    Jackhammer: "Extractor"
   },
   Gladiator: {
     Gladiator: "Gladiator II",
@@ -3052,7 +3052,7 @@ const hexDreadNames = {
     Lucifer: "Wendigo",
     Sterilizer: "Garrison", // Umbra
     Hielaman: "Uziel", // Zenphia
-    Jackhammer: "Warlord",
+    Jackhammer: "Warlord"
   },
   Starlight: {
     Starlight: "Starlight II",
@@ -3062,7 +3062,7 @@ const hexDreadNames = {
     Lucifer: "Galaxy",
     Sterilizer: "Evaporator",
     Hielaman: "Protostar", 
-    Jackhammer: "Illuminator",
+    Jackhammer: "Illuminator"
   },
   Bruiser: {
     Bruiser: "Bruiser II",
@@ -3071,7 +3071,7 @@ const hexDreadNames = {
     Lucifer: "Trident",
     Sterilizer: "Suture",
     Hielaman: "Heavyweight", 
-    Jackhammer: "Stapler",
+    Jackhammer: "Stapler"
   },
   Incapacitator: {
     Incapacitator: "Incapacitator II",
@@ -3079,33 +3079,33 @@ const hexDreadNames = {
     Lucifer: "Condemner",
     Sterilizer: "Poisoner",
     Hielaman: "Eyrie", 
-    Jackhammer: "Thrasher", // Soap
+    Jackhammer: "Thrasher" // Soap
   },
   Cerberus: {
     Cerberus: "Cerberus II",
     Lucifer: "Oni",
     Sterilizer: "Antibody",
     Hielaman: "Typhon", 
-    Jackhammer: "Paver",
+    Jackhammer: "Paver"
   },
   Lucifer: {
     Lucifer: "Lucifer II",
     Sterilizer: "Lipid",
     Hielaman: "Insulator", 
-    Jackhammer: "Earthquaker",
+    Jackhammer: "Earthquaker"
   },
   Sterilizer: {
     Sterilizer: "Sterilizer II",
     Hielaman: "Homeland", 
-    Jackhammer: "Bulldozer",
+    Jackhammer: "Bulldozer"
   },
   Hielaman: {
     Hielaman: "Hielaman II", 
-    Jackhammer: "Compactor",
+    Jackhammer: "Compactor"
   },
   Jackhammer: {
-    Jackhammer: "Jackhammer II",
-  },
+    Jackhammer: "Jackhammer II"
+  }
 };
 
 function setGladiatorMinion(gun, index) {
@@ -3268,7 +3268,7 @@ function makeHexnoughtBodyV2(body) {
             TURRETS.push(
               {
                 POSITION: [turret.POSITION[0] * hexnoughtScaleFactor, turret.POSITION[1] * hexnoughtScaleFactor ** 0.5, turret.POSITION[2], turret.POSITION[3] / 6 * 5 + 60 * j, turret.POSITION[4], turret.POSITION[5]],
-                TYPE: turret.TYPE,
+                TYPE: turret.TYPE
               }
             )
           }
@@ -3278,7 +3278,7 @@ function makeHexnoughtBodyV2(body) {
         TURRETS.push(
           {
             POSITION: [turret.POSITION[0] * hexnoughtScaleFactor ** 0.5, 0, 0, turret.POSITION[3], turret.POSITION[4], turret.POSITION[5]],
-            TYPE: turret.TYPE,
+            TYPE: turret.TYPE
           }
         ) 
       }
@@ -3306,7 +3306,7 @@ function makeHexnoughtBodyV2(body) {
 
   // Smash it together
   Class[className] = {
-    PARENT, BODY, LABEL, TURRETS, PROPS,
+    PARENT, BODY, LABEL, TURRETS, PROPS
   };
   return [className];
 }

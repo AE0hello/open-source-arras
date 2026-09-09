@@ -46,7 +46,7 @@ function getMockup(e, positionInfo) {
         borderless: gun.borderless,
         drawFill: gun.drawFill,
         drawAbove: gun.drawAbove,
-        layer: gun.layer,
+        layer: gun.layer
       };
     }),
     turrets: turretsAndProps.map(function(t) {
@@ -83,7 +83,7 @@ function buildMockup(className, Manager) {
     mockup.name = type.LABEL; // Rename it (for the upgrades menu).
     // Fetch the mockup.
     type.mockup = {
-      position: getDimensions(mockup),
+      position: getDimensions(mockup)
     };
     // Add the new data to the thing.
     mockupMap[mockup.index] = mockupData.length;
@@ -97,5 +97,5 @@ function buildMockup(className, Manager) {
 }
 
 module.exports = {
-  buildMockup,
+  buildMockup
 };

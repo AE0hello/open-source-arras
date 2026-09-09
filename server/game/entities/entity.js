@@ -21,7 +21,7 @@ class Entity extends EventEmitter {
       main: false,
       alt: false,
       fire: false,
-      power: 0,
+      power: 0
     };
     this.isInGrid = false;
     this.removeFromGrid = () => {
@@ -41,7 +41,7 @@ class Entity extends EventEmitter {
     this.definitionEvents = [];
     this.blend = {
       color: "#FFFFFF",
-      amount: 0,
+      amount: 0
     };
     // Objects
     this.skill = new Skill();
@@ -123,7 +123,9 @@ class Entity extends EventEmitter {
     Events.emit("spawn", this);
   }
 
-  life() { bringToLife(this); }
+  life() {
+    bringToLife(this); 
+  }
 
   reset(keepPlayerController = true) {
     this.controllers = keepPlayerController
@@ -157,12 +159,12 @@ class Entity extends EventEmitter {
     if (!player.body.isMothership) {
       player.body.controllers = [
         new ioTypes.nearestDifferentMaster(player.body),
-        new ioTypes.spin(player.body, { onlyWhenIdle: true }),
+        new ioTypes.spin(player.body, { onlyWhenIdle: true })
       ];
     } else {
       player.body.controllers = [
         new ioTypes.nearestDifferentMaster(player.body, {}, global.gameManager),
-        new ioTypes.mapTargetToGoal(player.body),
+        new ioTypes.mapTargetToGoal(player.body)
       ];
     }
     player.body.name = player.body.label;
@@ -292,7 +294,7 @@ class Entity extends EventEmitter {
       reload: set.STAT_NAMES?.RELOAD ?? "Reload",
       move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
       shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
-      shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity",
+      shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity"
     };
     if (set.AI != null) this.aiSettings = set.AI;
     if (set.INVISIBLE != null) this.invisible = set.INVISIBLE;
@@ -356,7 +358,7 @@ class Entity extends EventEmitter {
           tier: i,
           branch: 0,
           branchLabel: this.branchLabel,
-          redefineAll,
+          redefineAll
         });
       }
     }
@@ -503,7 +505,7 @@ class Entity extends EventEmitter {
             push: set.PUSH ?? false,
             applyOn: { // You can basicly add other stuff to trigger the shake.
               upgrade: set.APPLY_ON_UPGRADE ?? false,
-              shoot: set.APPLY_ON_SHOOT ?? false,
+              shoot: set.APPLY_ON_SHOOT ?? false
             }
           })
         }
@@ -516,7 +518,7 @@ class Entity extends EventEmitter {
             push: set.PUSH ?? false,
             applyOn: { // You can basicly add other stuff to trigger the shake.
               upgrade: set.APPLY_ON_UPGRADE ?? false,
-              shoot: set.APPLY_ON_SHOOT ?? false,
+              shoot: set.APPLY_ON_SHOOT ?? false
             }
           })
         }
@@ -621,7 +623,9 @@ class Entity extends EventEmitter {
     this.recoilMultiplier = this.RECOIL_MULTIPLIER * 1;
   }
 
-  updateBodyInfo() { this.fov = 1 * this.FOV * 275 * Math.sqrt(this.size); }
+  updateBodyInfo() {
+    this.fov = 1 * this.FOV * 275 * Math.sqrt(this.size); 
+  }
 
   bindToMaster(position, bond, isInvulnerable) {
     this.bond = bond;
@@ -636,7 +640,9 @@ class Entity extends EventEmitter {
       this.skipLife = true;
       targetableEntities.delete(this.id);
     }
-    if (isInvulnerable) this.on("dead", () => { this.master.turrets.delete(this.id); })
+    if (isInvulnerable) this.on("dead", () => {
+      this.master.turrets.delete(this.id); 
+    })
     this.settings.drawShape = false;
     // Get my position.
     if (Array.isArray(position)) position = { SIZE: position[0], X: position[1], Y: position[2], ANGLE: position[3], ARC: position[4], LAYER: position[5] };
@@ -766,7 +772,7 @@ class Entity extends EventEmitter {
       name: (this.nameColor || "#FFFFFF") + this.name,
       score: this.settings.scoreLabel || score,
       guns: Array.from(this.guns.values()).map(gun => gun.getPhotoInfo()),
-      turrets: turretsAndProps.map(turret => turret.camera()),
+      turrets: turretsAndProps.map(turret => turret.camera())
     };
         
     // Process child camera connections if needed
@@ -831,7 +837,9 @@ class Entity extends EventEmitter {
     for (let turret of this.turrets.values()) turret.syncTurrets();
   }
 
-  refreshSkills() { this.skill.update(); this.syncSkillsToGuns(); }
+  refreshSkills() {
+    this.skill.update(); this.syncSkillsToGuns(); 
+  }
 
   upgrade(number, branchId, skipDelay = false, dailyTankRequest = false) {
     // Account for upgrades that are too high level for the player to access
@@ -867,7 +875,7 @@ class Entity extends EventEmitter {
             tankLabel,
             lastReminder: now,
             lastIndex: this.index,
-            dailyTankRequest,
+            dailyTankRequest
           };
           this.sendMessage(`Upgrading to ${tankLabel}... Stay still for ${Math.ceil(Config.upgrade_delay / 1000)} seconds without firing to upgrade.`);
           return;
@@ -886,7 +894,9 @@ class Entity extends EventEmitter {
         } else this.sendMessage("You must watch an ad before you can upgrade.");
       }
     } else {
-      for (let i = 0; i < branchId; i++) { number += this.skippedUpgrades[i] ?? 0; };
+      for (let i = 0; i < branchId; i++) {
+        number += this.skippedUpgrades[i] ?? 0; 
+      };
       if (number < this.upgrades.length && this.skill.level >= this.upgrades[number].level) {
         upgraded = true;
         let upgrade = this.upgrades[number], upgradeClass = upgrade.class, upgradeBranch = upgrade.branch, redefineAll = upgrade.redefineAll;
@@ -954,9 +964,13 @@ class Entity extends EventEmitter {
     }
   }
 
-  move(now) { global.runMove(this, now ?? null) };
+  move(now) {
+    global.runMove(this, now ?? null) 
+  };
 
-  face() { global.runFace(this) };
+  face() {
+    global.runFace(this) 
+  };
 
   takeSelfie() {
     if (this.settings.drawShape) {
@@ -1015,7 +1029,7 @@ class Entity extends EventEmitter {
       if (Config.round_arena) {
         let centerPoint = {
             x: global.gameManager.room.width - global.gameManager.room.width,
-            y: global.gameManager.room.height - global.gameManager.room.height,
+            y: global.gameManager.room.height - global.gameManager.room.height
           }, dist = util.getDistance(this, centerPoint);
         if (dist > global.gameManager.room.width - global.gameManager.room.width / 2) {
           let strength = (dist - global.gameManager.room.width / 2) * Config.room_bound_force / (Config.run_speed * 350);
@@ -1252,7 +1266,9 @@ class Entity extends EventEmitter {
     // Remove from the protected entities list
     if (this.isProtected) util.remove(entitiesToAvoid, entitiesToAvoid.indexOf(this));
     // Remove from minimap
-    let i = global.gameManager.minimap.findIndex(entry => { return entry[0] === this.id; });
+    let i = global.gameManager.minimap.findIndex(entry => {
+      return entry[0] === this.id; 
+    });
     if (i != -1) util.remove(global.gameManager.minimap, i);
     // Remove this from views
     global.gameManager.views.forEach(v => v.remove(this));
@@ -1296,6 +1312,8 @@ class Entity extends EventEmitter {
     targetableEntities.delete(this.id);
   }
 
-  isDead() { return this.health.amount <= 0; }
+  isDead() {
+    return this.health.amount <= 0; 
+  }
 }
 module.exports = { Entity };

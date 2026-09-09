@@ -13,5 +13,5 @@ module.exports = {
   sanctuary_size: 20,
   citadel: true,
   bot_xp_gain: 500,
-  maze_type: 12,
+  maze_type: 12
 };

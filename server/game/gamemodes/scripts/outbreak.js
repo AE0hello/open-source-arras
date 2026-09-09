@@ -39,7 +39,9 @@ class Outbreak {
       zombieEntity.define({ FACING_TYPE: Class.FACING_TYPE != null ? Class.FACING_TYPE : "looseToTarget" });
     }, 1000)
   }
-  start() { this.gameActive = true; };
+  start() {
+    this.gameActive = true; 
+  };
 }
 
 module.exports = { Outbreak };

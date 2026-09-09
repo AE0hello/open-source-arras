@@ -18,7 +18,7 @@ module.exports = {
     SHIELD: 5.75,
     REGEN: 0.01,
     FOV: 1.02,
-    DENSITY: 0.5,
+    DENSITY: 0.5
   },
 
   // stat names
@@ -46,7 +46,7 @@ module.exports = {
       BULLET_HEALTH: "Drone Health",
       BULLET_PEN: "Drone Penetration",
       BULLET_DAMAGE: "Drone Damage",
-      RELOAD: "Respawn Rate",
+      RELOAD: "Respawn Rate"
     },
     necro: {
       BULLET_SPEED: "Drone Speed",

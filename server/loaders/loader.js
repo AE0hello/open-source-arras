@@ -24,7 +24,7 @@ const requires = [
   // Room setup
   "../miscFiles/tileEntity.js", // What this does, It creates tiles for the room setup.
   // Mockups
-  "../miscFiles/mockups.js", // This file loads the mockups.
+  "../miscFiles/mockups.js" // This file loads the mockups.
 ];
 
 for (let file of requires) {

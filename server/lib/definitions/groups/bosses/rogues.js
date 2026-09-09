@@ -7,7 +7,7 @@ Class.menu_rogues = makeMenu("Rogues", {upgrades: [
   "rogueArmada",
   "julius",
   "genghis",
-  "napoleon",
+  "napoleon"
 ], color: "darkGrey", boxColor: "darkGrey", shape: 6})
 
 Class.roguePalisade = {
@@ -25,12 +25,12 @@ Class.roguePalisade = {
     SPEED: 0.05 * base.SPEED,
     HEALTH: 16 * base.HEALTH,
     SHIELD: 3 * base.SHIELD,
-    DAMAGE: 3 * base.DAMAGE,
+    DAMAGE: 3 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: [4, 6, -1.6, 8, 0, 0, 0], 
     PROPERTIES: {
-      SHOOT_SETTINGS: combineStats([ g.minion, g.pounder, { reload: 2, damage: 0.7, density: 0.6 }]),
+      SHOOT_SETTINGS: combineStats([g.minion, g.pounder, { reload: 2, damage: 0.7, density: 0.6 }]),
       TYPE: ["minion", {INDEPENDENT: true}],
       STAT_CALCULATOR: "drone",
       AUTOFIRE: true,
@@ -59,7 +59,7 @@ Class.rogueArmada = {
     HEALTH: base.HEALTH * 16,
     SHIELD: base.SHIELD * 3,
     REGEN: base.REGEN,
-    DAMAGE: base.DAMAGE * 3,
+    DAMAGE: base.DAMAGE * 3
   },
   GUNS: weaponArray([
     {
@@ -123,5 +123,5 @@ Class.rogueArmada = {
   TURRETS: weaponArray({
     POSITION: [5, 10, 0, 0, 110, 0],
     TYPE: "shottrapTurret"
-  }, 7),
+  }, 7)
 }

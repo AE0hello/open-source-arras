@@ -3,51 +3,51 @@ let teams = require("../../gamemodes/config/tdm.js").teams,
   spacing = 0,
   locations = [
     [
-      [[ 0 + spacing,  0 + spacing], [ 1 + spacing,  0 + spacing], [ 0 + spacing,  1 + spacing]],
-      [[ 1 + spacing,  1 + spacing]]
-    ],[
+      [[0 + spacing,  0 + spacing], [1 + spacing,  0 + spacing], [0 + spacing,  1 + spacing]],
+      [[1 + spacing,  1 + spacing]]
+    ], [
       [
         [Config.roomHeight - 1 - spacing, Config.roomWidth - 1 - spacing], 
         [Config.roomHeight - 2 - spacing, Config.roomWidth - 1 - spacing], 
         [Config.roomHeight - 1 - spacing, Config.roomWidth - 2 - spacing]
       ],
       [[Config.roomHeight - 2 - spacing, Config.roomWidth - 2 - spacing]]
-    ],[
+    ], [
       [
-        [ 0 + spacing, Config.roomWidth - 1 - spacing], 
-        [ 1 + spacing, Config.roomWidth - 1 - spacing], 
-        [ 0 + spacing, Config.roomWidth - 2 - spacing]
+        [0 + spacing, Config.roomWidth - 1 - spacing], 
+        [1 + spacing, Config.roomWidth - 1 - spacing], 
+        [0 + spacing, Config.roomWidth - 2 - spacing]
       ],
-      [[ 1 + spacing, Config.roomWidth - 2 - spacing]]
-    ],[
+      [[1 + spacing, Config.roomWidth - 2 - spacing]]
+    ], [
       [
         [Config.roomHeight - 1 - spacing,  0 + spacing], 
         [Config.roomHeight - 1 - spacing,  1 + spacing], 
         [Config.roomHeight - 2 - spacing,  0 + spacing]
       ],
       [[Config.roomHeight - 2 - spacing,  1 + spacing]]
-    ],[
+    ], [
       [
         [0 + spacing,  Math.floor(Config.roomWidth / 2) - 1], 
         [1 + spacing,  Math.floor(Config.roomWidth / 2)], 
         [0 + spacing,  Math.floor(Config.roomWidth / 2) + 1]
       ],
       [[0 + spacing,  Math.floor(Config.roomWidth / 2)]]
-    ],[
+    ], [
       [
         [Math.floor(Config.roomHeight / 2) - 1,  Config.roomWidth - 1 - spacing], 
         [Math.floor(Config.roomHeight / 2),		 Config.roomWidth - 2 - spacing], 
         [Math.floor(Config.roomHeight / 2) + 1,  Config.roomWidth - 1 - spacing]
       ],
       [[Math.floor(Config.roomHeight / 2),  Config.roomWidth - 1 - spacing]]
-    ],[
+    ], [
       [
         [Config.roomHeight - 1 - spacing,  Math.floor(Config.roomWidth / 2) - 1], 
         [Config.roomHeight - 2 - spacing,  Math.floor(Config.roomWidth / 2)], 
         [Config.roomHeight - 1 - spacing,  Math.floor(Config.roomWidth / 2) + 1]
       ],
       [[Config.roomHeight - 1 - spacing,  Math.floor(Config.roomWidth / 2)]]
-    ],[
+    ], [
       [
         [Math.floor(Config.roomHeight / 2) - 1,  0 + spacing], 
         [Math.floor(Config.roomHeight / 2),  	 1 + spacing], 
@@ -70,7 +70,7 @@ if (teams === 2 && !spacing) {
   }
 } else {
   for (let i = 1; i <= teams; i++) {
-    let [ spawns, protectors ] = locations[i - 1];
+    let [spawns, protectors] = locations[i - 1];
     for (let [y, x] of spawns) room[y][x] = tileClass[`base${i}`];
     for (let [y, x] of protectors) room[y][x] = tileClass[`baseprotected${i}`];
   }

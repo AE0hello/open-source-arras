@@ -44,8 +44,12 @@ class speedcheckloop {
         util.error("FAILURE!");
         global.gameManager.socketManager.broadcast("Server overloaded! Restarting...");
         global.gameManager.gameHandler.stop();
-        setTimeout(() => {global.gameManager.close()}, 900);
-        setTimeout(() => {this.isRestarting = false}, 3000);
+        setTimeout(() => {
+          global.gameManager.close() 
+        }, 900);
+        setTimeout(() => {
+          this.isRestarting = false 
+        }, 3000);
       }
     } else {
       this.fails = 0;
@@ -56,8 +60,12 @@ class speedcheckloop {
     this.isRestarting = true;
     util.error("FAILURE!");
     global.gameManager.socketManager.broadcast("Server Error! Restarting...");
-    setTimeout(() => {global.gameManager.close()}, 900);
-    setTimeout(() => {this.isRestarting = false}, 3000);
+    setTimeout(() => {
+      global.gameManager.close() 
+    }, 900);
+    setTimeout(() => {
+      this.isRestarting = false 
+    }, 3000);
     console.error(error);
   }
 }

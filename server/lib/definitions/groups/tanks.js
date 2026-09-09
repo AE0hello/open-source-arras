@@ -205,7 +205,7 @@ Class.whirlwind_bent = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, { reload: 5/3 }]),
         TYPE: "satelliteBullet",
-        INDEPENDENT_MASTER: true,
+        INDEPENDENT_MASTER: true
       }
     },
     {
@@ -334,7 +334,7 @@ Class.builder = {
       POSITION: {
         LENGTH: 18,
         WIDTH: 12
-      },
+      }
     },
     {
       POSITION: {
@@ -358,7 +358,7 @@ Class.cruiser = {
   FACING_TYPE: "locksFacing",
   STAT_NAMES: statnames.swarm,
   BODY: {
-    FOV: 1.2 * base.FOV,
+    FOV: 1.2 * base.FOV
   },
   GUNS: weaponMirror({
     POSITION: {
@@ -555,7 +555,7 @@ Class.helix = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
         TYPE: ["bullet", {CONTROLLERS: ["snake"]}]
-      },
+      }
     },
     {
       POSITION: {
@@ -567,7 +567,7 @@ Class.helix = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos]),
         TYPE: ["bullet", {CONTROLLERS: [["snake", {invert: true}]]}]
-      },
+      }
     },
     {
       POSITION: {
@@ -662,7 +662,7 @@ Class.hurricane_bent = {
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.flankGuard, {reload: 5/3}]),
       TYPE: "satelliteBullet",
-      INDEPENDENT_MASTER: true,
+      INDEPENDENT_MASTER: true
     }
   },
   {
@@ -757,7 +757,7 @@ Class.maelstrom_bent = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, {reload: 5/3}]),
         TYPE: "satelliteBullet",
-        INDEPENDENT_MASTER: true,
+        INDEPENDENT_MASTER: true
       }
     },
     {
@@ -771,12 +771,12 @@ Class.maelstrom_bent = {
     {
       POSITION: {
         LENGTH: 17,
-        WIDTH: 8,
+        WIDTH: 8
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
         TYPE: "satelliteBullet",
-        INDEPENDENT_MASTER: true,
+        INDEPENDENT_MASTER: true
       }
     },
     {
@@ -1097,7 +1097,7 @@ Class.spawner = {
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
         MAX_CHILDREN: 4
-      },
+      }
     },
     {
       POSITION: {
@@ -1186,7 +1186,7 @@ Class.tempest_bent = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, {reload: 5/3}]), // guess, if it turns out to use satelliteDrones i'll change it
         TYPE: "satelliteBullet",
-        INDEPENDENT_MASTER: true,
+        INDEPENDENT_MASTER: true
       }
     },
     {
@@ -1290,12 +1290,12 @@ Class.typhoon_bent = {
     {
       POSITION: {
         LENGTH: 15,
-        WIDTH: 12,
+        WIDTH: 12
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, {reload: 5/3}]),
         TYPE: "satelliteBullet",
-        INDEPENDENT_MASTER: true,
+        INDEPENDENT_MASTER: true
       }
     },
     {
@@ -1454,19 +1454,19 @@ for (let i = 0; i < autoTanksT3.length; i++) {
 
 const hybridTanksT3 = [
   // Base Tank    //Director      //Cruiser           //Spawner       //Honcho            //Overseer  //Directordrive
-  ["artillery",   "Force",        "Mixer",            "Generator",    "Energizer"         ],
-  ["assassin",    "Hitman",       "Gunman",           "Formulator",   "Contractor"        ],
-  ["builder",     "Fashioner",    "Stylist",          "Experimenter", "Methodist"         ],
-  ["diesel",      "Polluter",     "Depraver",         "Tainter",      "Befouler"          ],
-  ["destroyer",   "Hybrid",       "Synthesis",        "Enactor",      "Crossbreed"        ],
-  ["hunter",      "Poacher",      "Plunderer",        "Maker",        "Nabber"            ],
-  ["launcher",    "Heaver",       "Lobber",           "Duper",        "Emitter"           ],
-  ["mech",        "Cobbler",      "Fuser",            "Automaton",    "Restorer"          ],
-  ["minigun",     "Crop Duster",  "Trimmer",          "Shearer",      "Sweeper"           ],
-  ["pen",         "Interner",     "Kettle",           "Ringer",       "Probationer"       ],
-  ["tripleShot",  "Bent Hybrid",  "Bent Synthesis",   "Hatcher",      "Bent Crossbreed",  "Overshot"  ],
-  ["rifle",       "Armsman",      "Partisan",         "Copier",       "Vendor"            ],
-  ["wark",        "Coalesce",     "Affiliator",       "Converger",    "Commix",           undefined,  "Warkdrive"],
+  ["artillery",   "Force",        "Mixer",            "Generator",    "Energizer"],
+  ["assassin",    "Hitman",       "Gunman",           "Formulator",   "Contractor"],
+  ["builder",     "Fashioner",    "Stylist",          "Experimenter", "Methodist"],
+  ["diesel",      "Polluter",     "Depraver",         "Tainter",      "Befouler"],
+  ["destroyer",   "Hybrid",       "Synthesis",        "Enactor",      "Crossbreed"],
+  ["hunter",      "Poacher",      "Plunderer",        "Maker",        "Nabber"],
+  ["launcher",    "Heaver",       "Lobber",           "Duper",        "Emitter"],
+  ["mech",        "Cobbler",      "Fuser",            "Automaton",    "Restorer"],
+  ["minigun",     "Crop Duster",  "Trimmer",          "Shearer",      "Sweeper"],
+  ["pen",         "Interner",     "Kettle",           "Ringer",       "Probationer"],
+  ["tripleShot",  "Bent Hybrid",  "Bent Synthesis",   "Hatcher",      "Bent Crossbreed",  "Overshot"],
+  ["rifle",       "Armsman",      "Partisan",         "Copier",       "Vendor"],
+  ["wark",        "Coalesce",     "Affiliator",       "Converger",    "Commix",           undefined,  "Warkdrive"]
   // The last two are optional and will be filled out automatically so long as the Base Tank and Director are defined.
 ];
 for (let i = 0; i < hybridTanksT3.length; i++) {
@@ -1534,7 +1534,7 @@ Class.ambulance = {
   BODY: {
     HEALTH: base.HEALTH * 0.8,
     SHIELD: base.SHIELD * 0.8,
-    DENSITY: base.DENSITY * 0.6,
+    DENSITY: base.DENSITY * 0.6
   },
   GUNS: [
     {
@@ -1683,8 +1683,8 @@ Class.banshee.GUNS = weaponArray({
     SYNCS_SKILLS: true,
     STAT_CALCULATOR: "drone",
     WAIT_TO_CYCLE: true,
-    MAX_CHILDREN: 2,
-  },
+    MAX_CHILDREN: 2
+  }
 }, 3);
 Class.barricade = {
   PARENT: "genericTank",
@@ -1842,7 +1842,7 @@ Class.bender = {
   BODY: Class.spawner.BODY,
   GUNS: [
     {
-      POSITION: [4.5, 10, 1, 10.5, 0, 0, 0],
+      POSITION: [4.5, 10, 1, 10.5, 0, 0, 0]
     },
     {
       POSITION: [1, 12, 1, 15, 0, 0, 0],
@@ -1992,7 +1992,7 @@ Class.blunderbuss = {
         LENGTH: 13,
         WIDTH: 4,
         Y: 3,
-        ANGLE: 9,
+        ANGLE: 9
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.blunderbuss]),
@@ -2005,7 +2005,7 @@ Class.blunderbuss = {
         LENGTH: 15,
         WIDTH: 4,
         Y: 2.5,
-        ANGLE: 6,
+        ANGLE: 6
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.blunderbuss]),
@@ -2018,7 +2018,7 @@ Class.blunderbuss = {
         LENGTH: 16,
         WIDTH: 4,
         Y: 2,
-        ANGLE: 3,
+        ANGLE: 3
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.blunderbuss]),
@@ -2106,7 +2106,7 @@ Class.bonker = {
   BODY: {
     FOV: 1.2 * base.FOV,
     HEALTH: 0.95 * base.HEALTH,
-    SPEED: 1.1 * base.SPEED,
+    SPEED: 1.1 * base.SPEED
   },
   TURRETS: Class.smasher.TURRETS
 };
@@ -2154,7 +2154,7 @@ Class.bentBoomer_old = {
   STAT_NAMES: statnames.trap,
   BODY: {
     SPEED: 0.8 * base.SPEED,
-    FOV: 1.15 * base.FOV,
+    FOV: 1.15 * base.FOV
   },
   GUNS: weaponMirror([
     {
@@ -2234,8 +2234,8 @@ Class.bulwark = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.twin]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: {
@@ -2275,8 +2275,8 @@ Class.bulwark_old = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.twin]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: {
@@ -2335,7 +2335,7 @@ Class.captain = {
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
         MAX_CHILDREN: 4
-      },
+      }
     },
     {
       POSITION: {
@@ -2441,7 +2441,7 @@ Class.coil = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos, { reload: 5/3 }]),
         TYPE: ["spiralBullet", {CONTROLLERS: ["snake"]}]
-      },
+      }
     },
     {
       POSITION: {
@@ -2453,7 +2453,7 @@ Class.coil = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.desmos, { reload: 5/3 }]),
         TYPE: ["spiralBullet", {CONTROLLERS: [["snake", {invert: true}]]}]
-      },
+      }
     },
     ...weaponMirror({
       POSITION: {
@@ -2555,7 +2555,7 @@ Class.commander_old = {
   DANGER: 7,
   STAT_NAMES: statnames.drone,
   BODY: {
-    FOV: 1.15 * base.FOV,
+    FOV: 1.15 * base.FOV
   },
   FACING_TYPE: "spin",
   GUNS: [
@@ -2573,7 +2573,7 @@ Class.commander_old = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         MAX_CHILDREN: 6
-      },
+      }
     },
     ...weaponMirror({
       POSITION: {
@@ -2590,7 +2590,7 @@ Class.commander_old = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
         MAX_CHILDREN: 6
-      },
+      }
     })
   ]
 };
@@ -3000,7 +3000,7 @@ Class.dreadnought_old = {
       TYPE: ["circleHat", {COLOR: "grey"}],
       POSITION: {
         SIZE: 19.5,
-        X: -4.5,
+        X: -4.5
       }
     }
   ],
@@ -3207,7 +3207,7 @@ Class.duplicator = {
     },
     {
       POSITION: [18, 8, 0.25, 0, 0, 0, 0]
-    },
+    }
   ]
 };
 Class.eagle = makeBird("pounder", "Eagle");
@@ -3426,7 +3426,7 @@ Class.fighter = {
   LABEL: "Fighter",
   DANGER: 7,
   BODY: {
-    DENSITY: 0.6 * base.DENSITY,
+    DENSITY: 0.6 * base.DENSITY
   },
   GUNS: [
     {
@@ -3467,7 +3467,7 @@ Class.fighter = {
           LABEL: "Thruster"
         }
       }
-    ]),
+    ])
   ]
 };
 Class.flace = {
@@ -3489,7 +3489,7 @@ Class.flace = {
     }
   }),
   TURRETS: Class.mace.TURRETS,
-  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl]
 };
 Class.flooster = {
   PARENT: "genericFlail",
@@ -3525,7 +3525,7 @@ Class.flooster = {
     }
   ]),
   TURRETS: Class.flail.TURRETS,
-  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl],
+  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl]
 };
 Class.focal = {
   PARENT: "genericTank",
@@ -3652,7 +3652,7 @@ Class.fortress = {
         }
       }
     ], 3)
-  ],
+  ]
 };
 Class.gunnerTrapper = {
   PARENT: "genericTank",
@@ -3692,8 +3692,8 @@ Class.gunnerTrapper = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { recoil: 4 }, { recoil: 1.8 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     }, {delayIncrement: 0.5}),
     {
       POSITION: {
@@ -4108,10 +4108,10 @@ Class.maleficitor = {
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "necro",
         WAIT_TO_CYCLE: true,
-        DELAY_SPAWN: false,
-      },
-    },
-  ],
+        DELAY_SPAWN: false
+      }
+    }
+  ]
 };
 Class.master = {
   PARENT: "genericTank",
@@ -4120,7 +4120,7 @@ Class.master = {
   BODY: {
     HEALTH: base.HEALTH * 0.4,
     SHIELD: base.SHIELD * 0.4,
-    DENSITY: base.DENSITY * 0.3,
+    DENSITY: base.DENSITY * 0.3
   },
   GUNS: [
     {
@@ -4651,7 +4651,7 @@ Class.oroboros = {
       POSITION: {
         LENGTH: 16.5,
         WIDTH: 12
-      },
+      }
     },
     {
       POSITION: {
@@ -4813,8 +4813,8 @@ Class.paramedic = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.healer]),
-        TYPE: "healerBullet",
-      },
+        TYPE: "healerBullet"
+      }
     }]),
     {
       POSITION: {
@@ -5004,7 +5004,7 @@ Class.prodigy = {
         WAIT_TO_CYCLE: true,
         DELAY_SPAWN: false,
         MAX_CHILDREN: 2
-      },
+      }
     }, 3, {delayIncrement: 1/3}),
     ...weaponArray([{
       POSITION: {
@@ -5025,7 +5025,7 @@ Class.prodigy = {
         STAT_CALCULATOR: "trap"
       }
     }], 3)
-  ],
+  ]
 };
 Class.productionist = {
   PARENT: "genericTank",
@@ -5224,7 +5224,7 @@ Class.railgun = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.railgun]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
@@ -5416,7 +5416,7 @@ Class.riptide = {
   DANGER: 7,
   GUNS: [
     {
-      POSITION: [6.5, 23.5, 0.25, 3, 0, 180, 0],
+      POSITION: [6.5, 23.5, 0.25, 3, 0, 180, 0]
     },
     {
       POSITION: [18, 16, 0.75, 0, 0, 0, 0],
@@ -5492,7 +5492,7 @@ Class.rocketeer = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.launcher, g.rocketeer]),
         TYPE: "rocketeerMissile",
-        STAT_CALCULATOR: "sustained",
+        STAT_CALCULATOR: "sustained"
       }
     },
     {
@@ -5774,10 +5774,10 @@ Class.skimmer = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.artillery, g.artillery, g.skimmer]),
         TYPE: "missile",
-        STAT_CALCULATOR: "sustained",
-      },
-    },
-  ],
+        STAT_CALCULATOR: "sustained"
+      }
+    }
+  ]
 };
 Class.sniper3 = makeRadialAuto("sniper3gun", { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11/15 * base.SPEED, FOV: 1.25 * base.FOV } });
 Class.sniperRifle = {
@@ -5833,7 +5833,7 @@ Class.spawnerdrive = {
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
         MAX_CHILDREN: 4
-      },
+      }
     },
     {
       POSITION: {
@@ -5893,7 +5893,7 @@ Class.splasher = {
     {
       POSITION: {
         LENGTH: 21,
-        WIDTH: 7,
+        WIDTH: 7
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }]),
@@ -6489,8 +6489,8 @@ Class.triplex = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, {speed: 1.25, maxSpeed: 1.25}]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: {
@@ -6503,7 +6503,7 @@ Class.triplex = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.desmos]),
         TYPE: ["bullet", {CONTROLLERS: ["snake"]}]
-      },
+      }
     },
     {
       POSITION: {
@@ -6516,7 +6516,7 @@ Class.triplex = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot, g.desmos]),
         TYPE: ["bullet", {CONTROLLERS: [["snake", {invert: true}]]}]
-      },
+      }
     },
     ...weaponMirror([{
       POSITION: {
@@ -6535,7 +6535,7 @@ Class.triplex = {
         ASPECT: -4,
         ANGLE: 22.5
       }
-    }], {delayIncrement: 0.5}),
+    }], {delayIncrement: 0.5})
   ]
 };
 Class.twister = {
@@ -6852,7 +6852,7 @@ const hybridTanksT4 = [
   ["single",      "Assistant"],
   ["sprayer",     "Shower"],
   ["spreadshot",  "Smearer"],
-  ["triplet",     "Triprid"],
+  ["triplet",     "Triprid"]
 ];
 for (let i = 0; i < hybridTanksT4.length; i++) {
   let type = hybridTanksT4[i][0];
@@ -7952,7 +7952,7 @@ Class.gale = {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
         TYPE: "bullet"
       }
-    },
+    }
   ], 4)
 };
 Class.guardrail = makeFlank("hutch", 2, "Guardrail", { extraStats: [g.doubleTwin] });
@@ -8495,7 +8495,7 @@ Class.refuge = makeAuto({
         STAT_CALCULATOR: "swarm"
       }
     }, 3, {delayIncrement: 1/3})
-  ],
+  ]
 }, "Refuge");
 Class.scatterer = {
   PARENT: "genericTank",
@@ -8620,7 +8620,7 @@ Class.skewnDouble = {
           LENGTH: 16,
           WIDTH: 8,
           Y: 5.5,
-          ANGLE: 225,
+          ANGLE: 225
         },
         PROPERTIES: {
           SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.twin, g.doubleTwin, g.hewnDouble, { recoil: 1.15 }]),
@@ -9148,7 +9148,7 @@ Class.whirlwind_AR = /*makeAuto(*/{
     {
       POSITION: {
         LENGTH: 14,
-        WIDTH: 3.5,
+        WIDTH: 3.5
       }
     },
     {
@@ -9300,7 +9300,7 @@ Class.dominator = {
     dam: 1,
     pen: 1,
     str: 1,
-    spd: 1,
+    spd: 1
   }),
   LEVEL: 45,
   LEVEL_CAP: 45,
@@ -9410,7 +9410,7 @@ Class.sanctuary = {
   SKILL: skillSet({
     rld: 1.25,
     dam: 1.25,
-    str: 1.25,
+    str: 1.25
   }),
   BODY: {
     HEALTH: 1280,
@@ -9439,7 +9439,7 @@ for (let tier of sancHealerTiers) {
           WIDTH: 9,
           ASPECT: -0.5,
           X: 12.5
-        },
+        }
       },
       {
         POSITION: {
@@ -9451,7 +9451,7 @@ for (let tier of sancHealerTiers) {
           SHOOT_SETTINGS: combineStats([g.basic, { range: 0.5, reload: 1.1, speed: 0.80 }, g.healer]),
           SPAWN_OFFSET: 0,
           TYPE: "healerSanctuaryBullet",
-          AUTOFIRE: true,
+          AUTOFIRE: true
         }
       }
     ], tier)
@@ -9472,17 +9472,17 @@ for (let tier of sancTiers) {
           SHOOT_SETTINGS: combineStats([g.trap, {shudder: 0.15, health: 7, reload: 1.5, speed: 1}]),
           TYPE: ["trap", {BODY: {PUSHABILITY: 0.5}}],
           STAT_CALCULATOR: "trap",
-          AUTOFIRE: true,
-        },
+          AUTOFIRE: true
+        }
       }
     ], tier)
   }
   Class["sanctuaryTier" + (sancIndex + 1)].TURRETS.push({
     POSITION: { SIZE: 22 },
-    TYPE: "dominationBody",
+    TYPE: "dominationBody"
   }, {
     POSITION: { SIZE: 9.3, LAYER: 1 },
-    TYPE: "sanctuaryHealerTier" + (sancIndex < 2 ? 1 : sancIndex < 4 ? 2 : sancIndex < 6 ? 3 : 3),
+    TYPE: "sanctuaryHealerTier" + (sancIndex < 2 ? 1 : sancIndex < 4 ? 2 : sancIndex < 6 ? 3 : 3)
   })
 };
 
@@ -9506,7 +9506,7 @@ Class.mothership = {
     HEALTH: 4000,
     PUSHABILITY: 0.15,
     DENSITY: 0.2,
-    DAMAGE: 1.5,
+    DAMAGE: 1.5
   },
   HITS_OWN_TYPE: "pushOnlyTeam",
   GUNS: 
@@ -9520,7 +9520,7 @@ Class.mothership = {
           AUTOFIRE: true,
           SYNCS_SKILLS: true,
           STAT_CALCULATOR: "drone",
-          WAIT_TO_CYCLE: true,
+          WAIT_TO_CYCLE: true
         }
       }, {
         POSITION: [4.3, 3.1, 1.2, 8, 0, 45, 1/32],
@@ -9530,12 +9530,12 @@ Class.mothership = {
           TYPE: ["drone", {
             AI: {skynet: true},
             INDEPENDENT: true,
-            BODY: {FOV: 2},
+            BODY: {FOV: 2}
           }],
           AUTOFIRE: true,
           SYNCS_SKILLS: true,
           STAT_CALCULATOR: "drone",
-          WAIT_TO_CYCLE: true,
+          WAIT_TO_CYCLE: true
         }
       }
     ], 8, {delayIncrement: 1/16})
@@ -9558,7 +9558,7 @@ Class.flagship = {
 Class.turkeyNose = {
   COLOR: 19,
   LABEL: "",
-  SIZE: 6.45,
+  SIZE: 6.45
 };
 Class.turkeyEye = {
   COLOR: 18,
@@ -9606,7 +9606,7 @@ Class.turkey = {
     HEALTH: 2000,
     PUSHABILITY: 0.15,
     DENSITY: 0.2,
-    DAMAGE: 1.5,
+    DAMAGE: 1.5
   },
   GUNS: [
     {
@@ -9616,8 +9616,8 @@ Class.turkey = {
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     },
     { 
       POSITION: [20.96, 6.69, 1, 0, 0, 157.5, 0],
@@ -9626,8 +9626,8 @@ Class.turkey = {
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      }, 
+        STAT_CALCULATOR: "drone"
+      } 
     },
     {
       POSITION: [18, 4.69, 1, 0, 0, 225, 0],
@@ -9636,8 +9636,8 @@ Class.turkey = {
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      },  
+        STAT_CALCULATOR: "drone"
+      }  
     },
     {
       POSITION: [20.96, 6.69, 1, 0, 0, 202.5, 0],
@@ -9646,8 +9646,8 @@ Class.turkey = {
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      }, 
+        STAT_CALCULATOR: "drone"
+      } 
     },
     {
       POSITION: [24.09, 8.69, 1, 0, 0, 180, 0],
@@ -9656,37 +9656,37 @@ Class.turkey = {
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     },
     {
-      POSITION: [ 24.09, 8.69, 1, 0, 0, 180, 0 ],
+      POSITION: [24.09, 8.69, 1, 0, 0, 180, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.mothership]),
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      },
+        STAT_CALCULATOR: "drone"
+      }
     },
     { 
-      POSITION: [ 4, 5, 1, 10, 0, 105, 0 ],
+      POSITION: [4, 5, 1, 10, 0, 105, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.mothership]),
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      }, 
+        STAT_CALCULATOR: "drone"
+      } 
     },
-    {   POSITION: [ 4, 5, 1, 10, 0, -105, 0 ],
+    {   POSITION: [4, 5, 1, 10, 0, -105, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.mothership]),
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
-        STAT_CALCULATOR: "drone",
-      }, 
+        STAT_CALCULATOR: "drone"
+      } 
     }
   ],
   TURRETS: [
@@ -9694,7 +9694,7 @@ Class.turkey = {
       POSITION: [10, 8.75, 0, 0, 360, 1],
       TYPE: "turkeyHead"
     }
-  ],
+  ]
 };
 
 // Special Tanks (Spectators)
@@ -9718,10 +9718,10 @@ Class.spectator = {
     DAMAGE: 0,
     HEALTH: 1e100,
     SHIELD: 1e100,
-    REGEN: 1e100,
+    REGEN: 1e100
   },
   GUNS: [{
-    POSITION: [0,0,0,0,0,0,0],
+    POSITION: [0, 0, 0, 0, 0, 0, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
       TYPE: "bullet",
@@ -9733,7 +9733,7 @@ Class.spectator = {
       SHOOT_SETTINGS: combineStats([g.basic, { reload: 0.25 }, g.fake]),
       TYPE: "bullet",
       ALPHA: 0,
-      ALT_FIRE: true,
+      ALT_FIRE: true
     }
   }],
   ON: [{
@@ -9807,7 +9807,7 @@ Class.banHammer = {
     DAMAGE: 0,
     HEALTH: 1e100,
     SHIELD: 1e100,
-    REGEN: 1e100,
+    REGEN: 1e100
   },
   GUNS: [
     {POSITION: [30, 7, 1.3, 0, 0, 0, 0]},
@@ -9860,7 +9860,7 @@ Class.antiTankMachineGun = {
     FOV: 1.35,
     PUSHABILITY: 0,
     HETERO: 0,
-    SHIELD: base.SHIELD * 1.4,
+    SHIELD: base.SHIELD * 1.4
   },
   SKILL_CAP: Array(10).fill(15),
   SKILL: Array(10).fill(15),
@@ -9869,21 +9869,21 @@ Class.antiTankMachineGun = {
       POSITION: { LENGTH: 15, WIDTH: 3.0000001192092896, X: -6.556708751634699e-8, Y: 1.5000000596046434, ANGLE: 0 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.op, {reload: 0.5, health: 100, damage: 100, recoil: 0, spray: 0.1, speed: 2, maxSpeed: 2}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
       POSITION: { LENGTH: 15, WIDTH: 3.0000001192092896, X: -6.556708770004402e-8, Y: -1.5000000596046434, ANGLE: 0 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.op, {reload: 0.5, health: 100, damage: 100, recoil: 0, spray: 0.1, speed: 2, maxSpeed: 2}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
       POSITION: { LENGTH: 17.000000476837158, WIDTH: 3.0000001192092896, X: 0, Y: 0, ANGLE: 0 },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.op, {reload: 0.5, health: 100, damage: 100, recoil: 0, spray: 0.1, speed: 2, maxSpeed: 2}]),
-        TYPE: "bullet",
+        TYPE: "bullet"
       }
     },
     {
@@ -9922,7 +9922,7 @@ Class.arenaCloser = {
     DENSITY: 30,
     DAMAGE: 1e5,
     FOV: 10,
-    SPEED: 4,
+    SPEED: 4
   },
   SKILL: skillSet({rld: 1, dam: 1, pen: 1, str: 1, spd: 1, atk: 1, hlt: 1, shi: 1, rgn: 1, mob: 1}),
   DRAW_HEALTH: false,
@@ -10043,7 +10043,7 @@ Class.baseProtector = {
     dam: 1,
     pen: 1,
     spd: 1,
-    str: 1,
+    str: 1
   }),
   BODY: {
     SPEED: 0,
@@ -10055,26 +10055,26 @@ Class.baseProtector = {
     FOV: 1,
     PUSHABILITY: 0,
     RESIST: 10000,
-    HETERO: 0,
+    HETERO: 0
   },
   FACING_TYPE: ["spin", {speed: 0.04}],
   TURRETS: [
     {
       POSITION: [25, 0, 0, 0, 360, 0],
-      TYPE: "dominationBody",
+      TYPE: "dominationBody"
     },
     ...weaponArray({
       POSITION: [12, 7, 0, 45, 100, 0],
-      TYPE: "baseSwarmTurret",
+      TYPE: "baseSwarmTurret"
     }, 4)
   ],
   GUNS: weaponArray([
     {
-      POSITION: [4.5, 11.5, -1.3, 6, 0, 45, 0],
+      POSITION: [4.5, 11.5, -1.3, 6, 0, 45, 0]
     },
     {
-      POSITION: [4.5, 8.5, -1.5, 7, 0, 45, 0],
-    },
+      POSITION: [4.5, 8.5, -1.5, 7, 0, 45, 0]
+    }
   ], 4)
 };
 
@@ -10169,7 +10169,7 @@ Class.cxATMG = {
     FOV: 1.35,
     PUSHABILITY: 0,
     HETERO: 0,
-    SHIELD: base.SHIELD * 1.4,
+    SHIELD: base.SHIELD * 1.4
   },
   SKILL_CAP: Array(10).fill(15),
   SKILL: Array(10).fill(15),
@@ -10178,35 +10178,35 @@ Class.cxATMG = {
       POSITION: [15, 2.5, 1, 0, 2, 0, 0.2],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-        TYPE: "cxATMGBullet",
+        TYPE: "cxATMGBullet"
       }
     },
     {
       POSITION: [15, 2.5, 1, 0, -2, 0, 0.2],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-        TYPE: "cxATMGBullet",
+        TYPE: "cxATMGBullet"
       }
     },
     {
       POSITION: [1, 2.5, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-        TYPE: "cxATMGBullet",
+        TYPE: "cxATMGBullet"
       }
     },
     {
       POSITION: [16.5, 3.5, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.5}]),
-        TYPE: "cxATMGBullet",
+        TYPE: "cxATMGBullet"
       }
     },
     {
-      POSITION: [24, 7, -1.3, 0, 0, 90, 0],
+      POSITION: [24, 7, -1.3, 0, 0, 90, 0]
     },
     {
-      POSITION: [24, 7, -1.3, 0, 0, -90, 0],
+      POSITION: [24, 7, -1.3, 0, 0, -90, 0]
     },
     {
       POSITION: [5.5, 6.5, -1.8, 6.5, 0, 0, 0]
@@ -10248,7 +10248,7 @@ Class.developer = {
     HEALTH: 100,
     DAMAGE: 10,
     DENSITY: 20,
-    FOV: 2,
+    FOV: 2
   },
   //COLOR: "mirror", // todo: make sure mirror colour doesnt grey out your leaderboard
   SKILL_CAP: Array(10).fill(dfltskl),
@@ -10273,7 +10273,7 @@ Class.developer = {
     [1, 0.8],
     [0.8, 1],
     [-0.8, 1],
-    [-1, 0.8],
+    [-1, 0.8]
   ],
   GUNS: [
     {
@@ -10441,7 +10441,7 @@ Class.tetraGunner = {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
         TYPE: "bullet"
       }
-    },
+    }
   ], 4)
 };
 Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
@@ -10454,7 +10454,7 @@ Class.wifeBeater = {
   BODY: {
     ACCELERATION: base.ACCEL * 0.75,
     SPEED: base.SPEED * 0.8,
-    FOV: base.FOV * 1.1,
+    FOV: base.FOV * 1.1
   },
   MAX_CHILDREN: 16,
   GUNS: weaponArray({

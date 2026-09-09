@@ -96,7 +96,7 @@ class Prop {
       borderless: this.borderless,
       drawFill: this.drawFill,
       guns: this.guns.map((gun) => gun.getPhotoInfo()),
-      turrets: this.turrets,
+      turrets: this.turrets
     };
   }
 }

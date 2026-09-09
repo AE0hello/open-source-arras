@@ -34,7 +34,7 @@ Class.menu_gameAdmin = makeMenu("Game Admin Menu", {
     "menu_gameMod",
     "spectator",
     "guillotine",
-    "banHammer",
+    "banHammer"
     //"menu_nostalgia",
     //"menu_scrapped"
   ]
@@ -44,7 +44,7 @@ Class.menu_gameMod = makeMenu("Game Mod Menu", {
     Config.spawn_class,
     "menu_betaTester",
     "spectator",
-    "guillotine",
+    "guillotine"
     //"menu_nostalgia",
     //"menu_scrapped"
   ]
@@ -53,7 +53,7 @@ Class.menu_betaTester = makeMenu("Beta Tester Menu", {
   upgrades: [
     Config.spawn_class,
     //"spectator",
-    "menu_tankChanges",
+    "menu_tankChanges"
     //"menu_nostalgia",
     //"menu_scrapped"
   ]
@@ -64,7 +64,7 @@ Class.menu_tankChanges = makeMenu("Tank Changes Menu", {
     Config.spawn_class,
     "bender",
     "repeater",
-    "spiral",
+    "spiral"
   ]
 });
 
@@ -144,7 +144,7 @@ Class.menu_dominators = makeMenu("Dominator Menu", {
     //"gunnerDominator_AR",
     //"trapperDominator_AR",
     "antiTankMachineGun",
-    "baseProtector",
+    "baseProtector"
     //"baseProtector_diep"
   ]
 });
@@ -301,7 +301,7 @@ Class.menu_retiredDevBosses = makeMenu("Retired Dev Bosses Menu", {
     "frostBoss",
     "helenaBoss",
     "taureonBoss",
-    "trplnrBoss",
+    "trplnrBoss"
   ]
 });
 
@@ -335,7 +335,7 @@ Class.menu_scrapped = makeMenu("Scrapped Menu", {
     "rocket",
     "volute",
     "whirlwind_bent",
-    "wrangler",
+    "wrangler"
   ]
 });
 
@@ -443,7 +443,7 @@ Class.menu_youtuber = {
     DAMAGE: 10,
     SHIELD: 1e4,
     REGEN: 10,
-    FOV: base.FOV * 3,
+    FOV: base.FOV * 3
   },
   PROPS: [
     {
@@ -451,7 +451,7 @@ Class.menu_youtuber = {
       POSITION: {
         SIZE: 6,
         LAYER: 1,
-        ANGLE: 0,
+        ANGLE: 0
       },
       FORCE_ANGLE: true
     }
@@ -465,7 +465,7 @@ Class.menu_youtuber = {
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic]),
-        TYPE: ["bullet", {COLOR: "#FFFFFF"}],
+        TYPE: ["bullet", {COLOR: "#FFFFFF"}]
       }
     }
   ]

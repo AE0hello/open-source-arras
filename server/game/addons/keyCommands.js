@@ -6,7 +6,7 @@ function init() {
         (o !== player.body) != null &&
             util.getDistance(o, {
               x: player.target.x + player.body.x,
-              y: player.target.y + player.body.y,
+              y: player.target.y + player.body.y
             }) <
               o.size * 1
       ) {
@@ -22,7 +22,7 @@ function init() {
             test(o) &&
             util.getDistance(o, {
               x: player.target.x + player.body.x,
-              y: player.target.y + player.body.y,
+              y: player.target.y + player.body.y
             }) <
               o.size * 1
       ) {
@@ -34,7 +34,7 @@ function init() {
   function target(player) {
     return {
       x: player.body.x + player.target.x,
-      y: player.body.y + player.target.y,
+      y: player.body.y + player.target.y
     };
   }
   function nearest(array, location, test = () => true) {
@@ -77,14 +77,14 @@ function init() {
                 (level >= c.level || (operator && c.operatorAccess)) && !c.hidden && !c.attribute && !c.skill
             )
             .map(command => makeHelpList(command)),
-          "Warning: Avoid zooming all the way out to prevent lagging the server.",
+          "Warning: Avoid zooming all the way out to prevent lagging the server."
         ];
         if (useOldMenu) {
           for (let line of lines.reverse()) {
             socket.talk("m", 15_000, line);
           }
         } else socket.talk("Em", 15_000, JSON.stringify(lines));
-      },
+      }
     },
     {
       name: "Preset tank #1",
@@ -118,7 +118,7 @@ function init() {
           player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
           player.body.define("healer");
         }
-      },
+      }
     },
     {
       name: "Preset Tank #2",
@@ -170,7 +170,7 @@ function init() {
         } else {
           socket.talk("m", 3_000, "You haven't killed any entity!");
         }
-      },
+      }
     },
     {
       name: "Whirlpool",
@@ -184,7 +184,7 @@ function init() {
         if (!e) e = player.body.store.selectedWhirlpool = nearest(entities, t);
         e.x = t.x;
         e.y = t.y;
-      },
+      }
     },
     {
       name: "Whirlpool",
@@ -238,7 +238,7 @@ function init() {
               }
           });
         }
-      },
+      }
     },
     {
       name: "Drag",
@@ -249,7 +249,7 @@ function init() {
       run({ player }) {
         clearInterval(player.body.store.dragInterval);
         delete player.body.store.dragInterval;
-      },
+      }
     },
     {
       name: "Color",
@@ -298,7 +298,7 @@ function init() {
               wall: o,
               target: pt,
               position: pos,
-              size: gameManager.room.wallGrid.width / gameManager.room.wallGrid.xgrid / 2,
+              size: gameManager.room.wallGrid.width / gameManager.room.wallGrid.xgrid / 2
             };
           } else {
             for (let wall of checkWall) {
@@ -370,7 +370,7 @@ function init() {
       operatorAccess: true,
       run({ player }) {
         delete player.body.store.wallCMD;
-      },
+      }
     },
     {
       name: "Vanish",
@@ -455,7 +455,7 @@ function init() {
           }
         }
         socket.talk("m", 5_000, `Changed to team ${changedTeamToEntity ? changedTeamToEntity.team : player.body.team}`);
-      },
+      }
     },
     {
       name: "Invite to team",
@@ -530,7 +530,7 @@ function init() {
             socket.talk("m", 15_000, line);
           }
         } else socket.talk("Em", 15_000, JSON.stringify(lines));
-      },
+      }
     },
     {
       name: "Reset skills",
@@ -548,7 +548,7 @@ function init() {
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
                 
-      },
+      }
     },
     {
       name: "Clear skills",
@@ -557,12 +557,12 @@ function init() {
       level: 1,
       operatorAccess: true,
       run: ({ player }) => {
-        let refundedSkillPoints = player.body.skill.raw.reduce((total, amount)=> total + amount, 0);
+        let refundedSkillPoints = player.body.skill.raw.reduce((total, amount) => total + amount, 0);
         player.body.skill.set(Array(10).fill(0));
         player.body.skill.points += refundedSkillPoints;
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
-      },
+      }
     },
     {
       name: "Maximize skills",
@@ -574,7 +574,7 @@ function init() {
         player.body.skill.set(player.body.skill.caps);
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
-      },
+      }
     },
     {
       name: "Remove skill point",
@@ -586,7 +586,7 @@ function init() {
         player.body.skill.points = Math.max(0, player.body.skill.points - 1);
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
-      },
+      }
     },
     {
       name: "Add skill point",
@@ -595,12 +595,12 @@ function init() {
       level: 1,
       operatorAccess: true,
       run: ({ player }) => {
-        let currentUsedPoints = player.body.skill.raw.reduce((total, v)=> total+v, 0);
+        let currentUsedPoints = player.body.skill.raw.reduce((total, v) => total+v, 0);
         let maxSkills = player.body.skill.caps.reduce((total, capAmount) => total + capAmount, 0);
         player.body.skill.points = Math.min(maxSkills - currentUsedPoints, player.body.skill.points + 1);
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
-      },
+      }
     },
     {
       name: "Reduce skill cap",
@@ -609,14 +609,14 @@ function init() {
       level: 1,
       operatorAccess: true,
       run: ({ player }) => {
-        let newSkillCaps = player.body.skill.caps.map((x)=> Math.max(0, x - 1));
+        let newSkillCaps = player.body.skill.caps.map((x) => Math.max(0, x - 1));
         let maxSkillPoints = newSkillCaps.reduce((total, x) => total + x, 0);
         player.body.skill.setCaps(newSkillCaps);
         maxSkillPoints -= player.body.skill.raw.reduce((total, x) => total + x, 0);
         player.body.skill.points = Math.min(player.body.skill.points, maxSkillPoints);
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
-      },
+      }
     },
     {
       name: "Increase skill cap",
@@ -625,11 +625,11 @@ function init() {
       level: 1,
       operatorAccess: true,
       run: ({ player }) => {
-        let skills = player.body.skill.caps.map((cap)=> cap = Math.min(20, cap + 1));
+        let skills = player.body.skill.caps.map((cap) => cap = Math.min(20, cap + 1));
         player.body.skill.setCaps(skills);
         player.body.syncTurrets();
         player.body.refreshBodyAttributes();
-      },
+      }
     },
     {
       name: "Get Data",
@@ -718,7 +718,7 @@ function init() {
             socket.talk("m", 15_000, line);
           }
         } else socket.talk("Em", 15_000, JSON.stringify(lines));
-      },
+      }
     },
     {
       name: "All team minimap",
@@ -730,7 +730,7 @@ function init() {
         socket.status.seesAllTeams = !socket.status.seesAllTeams;
         socket.status.needsNewBroadcast = true;
         socket.talk("m", 5_000, `${socket.status.seesAllTeams ? "Enabled" : "Disabled"} Attribute: all team minimap.`);
-      },
+      }
     },
     {
       name: "Hidden from minimap",
@@ -796,7 +796,7 @@ function init() {
       run: ({ socket }) => {
         socket.player.body.ac = !socket.player.body.ac;
         socket.talk("m", 5_000, `${socket.player.body.ac ? "Enabled" : "Disabled"} Attribute: pass through walls.`);
-      },
+      }
     },
     {
       name: "Accepts score",
@@ -824,7 +824,7 @@ function init() {
                             o.isPlayer &&
                             util.getDistance(o, {
                               x: player.target.x + player.body.x,
-                              y: player.target.y + player.body.y,
+                              y: player.target.y + player.body.y
                             }) < o.size * 1
             ) {
               found = o;
@@ -934,7 +934,7 @@ function init() {
             player.body.sendMessage("Operator access given to " + `${o.name === "" ? "A unnamed Player" : o.name}` + ".");
           }
         });
-      },
+      }
     },
     {
       name: "Demote user",
@@ -962,7 +962,7 @@ function init() {
             player.body.sendMessage("Operator access given to " + `${o.name === "" ? "A unnamed Player" : o.name}` + ".");
           }
         });
-      },
+      }
     },
     {
       name: "Unknown",
@@ -976,7 +976,7 @@ function init() {
           socket.talk("m", 10_000, "Press ` + ¹ or ` + / for help.");
         }
       }
-    },
+    }
   ];
   global.runKeyCommand = (socket, codes) => {
     if (!socket?.player?.body) return 1;
@@ -996,7 +996,7 @@ function init() {
           player: socket.player,
           level: permsLevel,
           operator: socket.player.body.hasOperator,
-          gameManager: global.gameManager,
+          gameManager: global.gameManager
         });
         socket.player.body.refreshBodyAttributes();
         socket.player.body.minimapColor = "lime";

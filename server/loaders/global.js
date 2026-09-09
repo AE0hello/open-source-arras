@@ -168,7 +168,7 @@ global.bringToLife = (() => {
       fire: faucet.fire,
       main: faucet.main,
       alt: faucet.alt,
-      power: undefined,
+      power: undefined
     };
 
     // Attention craver
@@ -238,7 +238,7 @@ global.runMove = (() => {
   return (my, now = Date.now()) => {
     let g = { x: my.control.goal.x - my.x, y: my.control.goal.y - my.y },
       gactive = (g.x !== 0 || g.y !== 0),
-      engine = { x: 0, y: 0, },
+      engine = { x: 0, y: 0 },
       a = my.acceleration / global.gameManager.roomSpeed;
     if (gactive && my.lastMovementTime) my.lastMovementTime = now;
     if (my.control.fire && my.lastFiredTime) my.lastFiredTime = now;
@@ -257,45 +257,45 @@ global.runMove = (() => {
         }
         if (gactive) {
           let len = Math.sqrt(g.x * g.x + g.y * g.y);
-          engine = { x: a * g.x / len, y: a * g.y / len, };
+          engine = { x: a * g.x / len, y: a * g.y / len };
         }
         break;
       case "swarm":
         my.maxSpeed = my.topSpeed;
-        let l = util.getDistance({ x: 0, y: 0, }, g) + 1;
+        let l = util.getDistance({ x: 0, y: 0 }, g) + 1;
         if (gactive && l > my.size) {
           let desiredxspeed = my.topSpeed * g.x / l,
             desiredyspeed = my.topSpeed * g.y / l,
             turning = Math.sqrt((my.topSpeed * Math.max(1, my.motionTypeArgs.turnVelocity ?? my.range) + 1) / a);
           engine = {
             x: (desiredxspeed - my.velocity.x) / Math.max(5, turning),
-            y: (desiredyspeed - my.velocity.y) / Math.max(5, turning),
+            y: (desiredyspeed - my.velocity.y) / Math.max(5, turning)
           };
         } else {
           if (my.velocity.length < my.topSpeed) {
             engine = {
               x: my.velocity.x * a / 20,
-              y: my.velocity.y * a / 20,
+              y: my.velocity.y * a / 20
             };
           }
         }
         break;
       case "chase":
         if (gactive) {
-          let l = util.getDistance({ x: 0, y: 0, }, g);
+          let l = util.getDistance({ x: 0, y: 0 }, g);
           if (l > my.size * 2) {
             my.maxSpeed = my.topSpeed;
             let desiredxspeed = my.topSpeed * g.x / l,
               desiredyspeed = my.topSpeed * g.y / l;
             engine = {
               x: (desiredxspeed - my.velocity.x) * a,
-              y: (desiredyspeed - my.velocity.y) * a,
+              y: (desiredyspeed - my.velocity.y) * a
             };
           } else if (my.motionTypeArgs.keepSpeed) {
             if (my.velocity.length < my.topSpeed) {
               engine = {
                 x: my.velocity.x * a / 20,
-                y: my.velocity.y * a / 20,
+                y: my.velocity.y * a / 20
               };
             }
           } else my.maxSpeed = 0;
@@ -303,14 +303,14 @@ global.runMove = (() => {
           if (my.velocity.length < my.topSpeed) {
             engine = {
               x: my.velocity.x * a / 20,
-              y: my.velocity.y * a / 20,
+              y: my.velocity.y * a / 20
             };
           }
         } else my.maxSpeed = 0;
         break;
       case "drift":
         my.maxSpeed = 0;
-        engine = { x: g.x * a, y: g.y * a, };
+        engine = { x: g.x * a, y: g.y * a };
         break;
       case "withMaster":
         my.x = my.source.x;
@@ -508,7 +508,7 @@ global.defineSplit = (() => {
           tier: i,
           branch,
           branchLabel: my.branchLabel,
-          redefineAll,
+          redefineAll
         });
       }
     }
@@ -547,7 +547,7 @@ global.handleBatchUpgradeSplit = (() => {
         tier: upgradeTier,
         branch: 0,
         branchLabel: "",
-        redefineAll: true,
+        redefineAll: true
       });
     }
   }
@@ -674,7 +674,7 @@ global.wallTypes = [
   { color: 17, label: "!up",     alpha: 1, class: "oneWayWallUp" },
   { color: 17, label: "!down",   alpha: 1, class: "oneWayWallDown" },
   { color: 17, label: "!left",   alpha: 1, class: "oneWayWallLeft" },
-  { color: 17, label: "!right",  alpha: 1, class: "oneWayWallRight" },
+  { color: 17, label: "!right",  alpha: 1, class: "oneWayWallRight" }
 ];
 
 global.becomeBulletChildren = (socket, player, exit, newgui) => {

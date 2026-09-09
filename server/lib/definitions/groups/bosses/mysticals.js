@@ -23,7 +23,7 @@ Class.sorcerer = {
     FOV: 0.5,
     SPEED: 0.12 * base.SPEED,
     HEALTH: 6 * base.HEALTH,
-    DAMAGE: 2 * base.DAMAGE,
+    DAMAGE: 2 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: mystical_gun_position,
@@ -33,8 +33,8 @@ Class.sorcerer = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 2)
 }
 Class.summoner = {
@@ -51,7 +51,7 @@ Class.summoner = {
     FOV: 0.5,
     SPEED: 0.1 * base.SPEED,
     HEALTH: 7 * base.HEALTH,
-    DAMAGE: 2.6 * base.DAMAGE,
+    DAMAGE: 2.6 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: mystical_gun_position,
@@ -61,8 +61,8 @@ Class.summoner = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 4)
 }
 Class.enchantress = {
@@ -79,7 +79,7 @@ Class.enchantress = {
     FOV: 0.5,
     SPEED: 0.09 * base.SPEED,
     HEALTH: 10 * base.HEALTH,
-    DAMAGE: 3 * base.DAMAGE,
+    DAMAGE: 3 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: mystical_gun_position,
@@ -89,8 +89,8 @@ Class.enchantress = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 3)
 }
 Class.exorcistor = {
@@ -107,7 +107,7 @@ Class.exorcistor = {
     FOV: 0.5,
     SPEED: 0.08 * base.SPEED,
     HEALTH: 15 * base.HEALTH,
-    DAMAGE: 4 * base.DAMAGE,
+    DAMAGE: 4 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: mystical_gun_position,
@@ -117,8 +117,8 @@ Class.exorcistor = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 5, {delayIncrement: 1/5})
 }
 Class.shaman = {
@@ -135,7 +135,7 @@ Class.shaman = {
     FOV: 0.5,
     SPEED: 0.07 * base.SPEED,
     HEALTH: 20 * base.HEALTH,
-    DAMAGE: 5 * base.DAMAGE,
+    DAMAGE: 5 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: mystical_gun_position,
@@ -145,8 +145,8 @@ Class.shaman = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 6, {delayIncrement: 1/6})
 }
 Class.sangoma = {
@@ -163,7 +163,7 @@ Class.sangoma = {
     FOV: 0.5,
     SPEED: 0.06 * base.SPEED,
     HEALTH: 25 * base.HEALTH,
-    DAMAGE: 6 * base.DAMAGE,
+    DAMAGE: 6 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: {
@@ -176,8 +176,8 @@ Class.sangoma = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 7, {delayIncrement: 1/7})
 }
 Class.preacher = {
@@ -194,7 +194,7 @@ Class.preacher = {
     FOV: 0.5,
     SPEED: 0.05 * base.SPEED,
     HEALTH: 30 * base.HEALTH,
-    DAMAGE: 7 * base.DAMAGE,
+    DAMAGE: 7 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: {
@@ -207,8 +207,8 @@ Class.preacher = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 8, {delayIncrement: 0.125})
 }
 Class.herbalist = {
@@ -225,7 +225,7 @@ Class.herbalist = {
     FOV: 0.5,
     SPEED: 0.04 * base.SPEED,
     HEALTH: 35 * base.HEALTH,
-    DAMAGE: 8 * base.DAMAGE,
+    DAMAGE: 8 * base.DAMAGE
   },
   GUNS: weaponArray({
     POSITION: {
@@ -238,8 +238,8 @@ Class.herbalist = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, 9, {delayIncrement: 1/9})
 }
 Class.witch = {
@@ -256,7 +256,7 @@ Class.witch = {
     FOV: 0.5,
     SPEED: 0.11 * base.SPEED,
     HEALTH: 6.5 * base.HEALTH,
-    DAMAGE: 2.3 * base.DAMAGE,
+    DAMAGE: 2.3 * base.DAMAGE
   },
   GUNS: weaponArray(weaponMirror({
     POSITION: {
@@ -269,8 +269,8 @@ Class.witch = {
       AUTOFIRE: true,
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
-      WAIT_TO_CYCLE: true,
-    },
+      WAIT_TO_CYCLE: true
+    }
   }, {delayIncrement: 0.5}), 3)
 }
 

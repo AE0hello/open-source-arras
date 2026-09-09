@@ -5,7 +5,7 @@ tileClass.abase2 = new Tile({
     if (!room.spawnable["assaultDominators"]) room.spawnable["assaultDominators"] = [];
     room.spawnable["assaultDominators"].push(tile);
     tile.isSanctuary = false;
-  },
+  }
 });
 tileClass.sabase2 = new Tile({
   COLOR: "green",
@@ -14,5 +14,5 @@ tileClass.sabase2 = new Tile({
     if (!room.spawnable["assaultDominators"]) room.spawnable["assaultDominators"] = [];
     room.spawnable["assaultDominators"].push(tile);
     tile.isSanctuary = true;
-  },
+  }
 });

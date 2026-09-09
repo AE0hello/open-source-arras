@@ -19,17 +19,37 @@ class Color {
     this.recompile();
   }
 
-  get base () { return this.#base }
-  get hueShift () { return this.#hueShift }
-  get saturationShift () { return this.#saturationShift }
-  get brightnessShift () { return this.#brightnessShift }
-  get allowBrightnessInvert () { return this.#allowBrightnessInvert }
+  get base () {
+    return this.#base 
+  }
+  get hueShift () {
+    return this.#hueShift 
+  }
+  get saturationShift () {
+    return this.#saturationShift 
+  }
+  get brightnessShift () {
+    return this.#brightnessShift 
+  }
+  get allowBrightnessInvert () {
+    return this.#allowBrightnessInvert 
+  }
 
-  set base (value) { this.#base = value; this.recompile() }
-  set hueShift (value) { this.#hueShift = value; this.recompile() }
-  set saturationShift (value) { this.#saturationShift = value; this.recompile() }
-  set brightnessShift (value) { this.#brightnessShift = value; this.recompile() }
-  set allowBrightnessInvert (value) { this.#allowBrightnessInvert = value; this.recompile() }
+  set base (value) {
+    this.#base = value; this.recompile() 
+  }
+  set hueShift (value) {
+    this.#hueShift = value; this.recompile() 
+  }
+  set saturationShift (value) {
+    this.#saturationShift = value; this.recompile() 
+  }
+  set brightnessShift (value) {
+    this.#brightnessShift = value; this.recompile() 
+  }
+  set allowBrightnessInvert (value) {
+    this.#allowBrightnessInvert = value; this.recompile() 
+  }
 
   //lets just say we have to deal with some kind of color value and we dont know what it is
   interpret (color) {

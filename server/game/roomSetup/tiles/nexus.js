@@ -22,7 +22,7 @@ tileClass.nexus_portal_tile = new Tile({
   COLOR: "white",
   NAME: "Portal tile",
   DATA: {
-    has_portal: false,
+    has_portal: false
   },
   INIT: (tile, room) => {
     if (!room.portalTiles) room.portalTiles = [];

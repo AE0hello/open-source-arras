@@ -65,7 +65,7 @@ function getDimensionsForTurrets(Dentity) { // This is specialy made for turrets
 
     return {
       axis: r * 2,
-      middle: {x, y},
+      middle: {x, y}
     };
   }
 
@@ -182,7 +182,7 @@ function getDimensionsNormal(Dentity) {
     let { x, y, r } = welzlMEC(endPoints, []);
     return {
       axis: r * 2,
-      middle: { x, y },
+      middle: { x, y }
     };
   }
 

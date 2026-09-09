@@ -72,11 +72,11 @@ function firmcollide(my, n, buffer = 0) {
 function firmcollidehard(my, n, buffer = 0) {
   let item1 = {
     x: my.x + my.xMotion,
-    y: my.y + my.yMotion,
+    y: my.y + my.yMotion
   };
   let item2 = {
     x: n.x + n.xMotion,
-    y: n.y + n.yMotion,
+    y: n.y + n.yMotion
   };
   let dist = util.getDistance(item1, item2);
   let s1 = Math.max(my.velocity.length, my.topSpeed);
@@ -89,7 +89,8 @@ function firmcollidehard(my, n, buffer = 0) {
     n.accel.x -= repel * (item1.x - item2.x) / dist;
     n.accel.y -= repel * (item1.y - item2.y) / dist;
   }
-  let cycles = 0; while (dist <= my.realSize + n.realSize && !(strike1 && strike2) && cycles < 150) { cycles += 1;
+  let cycles = 0; while (dist <= my.realSize + n.realSize && !(strike1 && strike2) && cycles < 150) {
+    cycles += 1;
     strike1 = false;
     strike2 = false;
     if (my.velocity.length <= s1) {
@@ -106,11 +107,11 @@ function firmcollidehard(my, n, buffer = 0) {
     }
     item1 = {
       x: my.x + my.xMotion,
-      y: my.y + my.yMotion,
+      y: my.y + my.yMotion
     };
     item2 = {
       x: n.x + n.xMotion,
-      y: n.y + n.yMotion,
+      y: n.y + n.yMotion
     };
     dist = util.getDistance(item1, item2);
   }
@@ -135,7 +136,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
     combinedRadius = n.size + my.size,
     motion = {
       _me: new Vector(my.xMotion, my.yMotion),
-      _n: new Vector(n.xMotion, n.yMotion),
+      _n: new Vector(n.xMotion, n.yMotion)
     },
     delta = new Vector(
       tock * (motion._me.x - motion._n.x),
@@ -206,7 +207,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
   let reductionFactor = 1,
     deathFactor = {
       _me: 1,
-      _n: 1,
+      _n: 1
     },
     accelerationFactor = (delta.length) ? (
       (combinedRadius / 4) / (Math.floor(combinedRadius / delta.length) + 1)
@@ -215,30 +216,30 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
     ),
     depth = {
       _me: util.clamp((combinedRadius - difference.length) / (2 * my.size), 0, 1), //1: I am totally within it
-      _n: util.clamp((combinedRadius - difference.length) / (2 * n.size), 0, 1), //1: It is totally within me
+      _n: util.clamp((combinedRadius - difference.length) / (2 * n.size), 0, 1) //1: It is totally within me
     },
     combinedDepth = {
       up: depth._me * depth._n,
-      down: (1 - depth._me) * (1 - depth._n),
+      down: (1 - depth._me) * (1 - depth._n)
     },
     pen = {
       _me: {
         sqr: Math.pow(my.penetration, 2),
-        sqrt: Math.sqrt(my.penetration),
+        sqrt: Math.sqrt(my.penetration)
       },
       _n: {
         sqr: Math.pow(n.penetration, 2),
-        sqrt: Math.sqrt(n.penetration),
-      },
+        sqrt: Math.sqrt(n.penetration)
+      }
     },
     savedHealthRatio = {
       _me: my.health.ratio,
-      _n: n.health.ratio,
+      _n: n.health.ratio
     };
   if (doDamage) {
     let speedFactor = { // Avoid NaNs and infinities
       _me: my.maxSpeed ? Math.pow(motion._me.length / my.maxSpeed, 0.25) : 1,
-      _n: n.maxSpeed ? Math.pow(motion._n.length / n.maxSpeed, 0.25) : 1,
+      _n: n.maxSpeed ? Math.pow(motion._n.length / n.maxSpeed, 0.25) : 1
     };
     /********** DO DAMAGE *********/
     let bail = false;
@@ -252,7 +253,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
       let resistDiff = my.health.resist - n.health.resist,
         damage = {
           _me: Config.damage_multiplier * my.damage * (1 + resistDiff) * (1 + n.heteroMultiplier  * (my.settings.damageClass === n.settings.damageClass)) * ((my.settings.buffVsFood && n.settings.damageType === 1) ? 3 : 1) * my.damageMultiplier() * Math.min(2, Math.max(speedFactor._me, 1) * speedFactor._me),
-          _n:  Config.damage_multiplier * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n , 1) * speedFactor._n ),
+          _n:  Config.damage_multiplier * n.damage  * (1 - resistDiff) * (1 + my.heteroMultiplier * (my.settings.damageClass === n.settings.damageClass)) * ((n.settings.buffVsFood && my.settings.damageType === 1) ? 3 : 1) * n.damageMultiplier()  * Math.min(2, Math.max(speedFactor._n, 1) * speedFactor._n )
         };
       // Advanced damage calculations
       if (my.settings.ratioEffects) {
@@ -276,7 +277,7 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
       // Find out if you'll die in this cycle, and if so how much damage you are able to do to the other target
       let damageToApply = {
         _me: damage._me,
-        _n: damage._n,
+        _n: damage._n
       };
       if (n.shield.max) {
         damageToApply._me -= n.shield.getDamage(damageToApply._me);
@@ -341,11 +342,11 @@ function advancedcollide(my, n, doDamage, doInelastic, nIsFirmCollide = false) {
       impulse = -(elasticImpulse + springImpulse) * (1 - my.intangibility) * (1 - n.intangibility),
       force = {
         x: impulse * direction.x,
-        y: impulse * direction.y,
+        y: impulse * direction.y
       },
       modifiers = {
         _me: knockback * my.pushability / my.mass * deathFactor._n,
-        _n: knockback * n.pushability / n.mass * deathFactor._me,
+        _n: knockback * n.pushability / n.mass * deathFactor._me
       };
     // Apply impulse as force
     my.accel.x += modifiers._me * force.x;
@@ -412,19 +413,19 @@ function mazewallcollide(wall, bounce) {
     bounce.x < wall.x,
     bounce.y < wall.y,
     bounce.x >= wall.x,
-    bounce.y > wall.y,
+    bounce.y > wall.y
   ];
   const extendedOverFaces = [
     bounce.x < wall.x - trueWallSize,
     bounce.y < wall.y - trueWallSize,
     bounce.x > wall.x + trueWallSize,
-    bounce.y > wall.y + trueWallSize,
+    bounce.y > wall.y + trueWallSize
   ];
   const wallPushPositions = [
     { x: wall.x - trueWallSize - bounce.size },
     { y: wall.y - trueWallSize - bounce.size },
     { x: wall.x + trueWallSize + bounce.size },
-    { y: wall.y + trueWallSize + bounce.size },
+    { y: wall.y + trueWallSize + bounce.size }
   ];
   for (let i = 0; i < 4; i++) {
     if (!collisionFaces[i] | extendedOverFaces[(i + 3) % 4] | extendedOverFaces[(i + 1) % 4]) continue;
@@ -440,7 +441,7 @@ function mazewallcollide(wall, bounce) {
     { x: wall.x - trueWallSize, y: wall.y - trueWallSize },
     { x: wall.x + trueWallSize, y: wall.y - trueWallSize },
     { x: wall.x + trueWallSize, y: wall.y + trueWallSize },
-    { x: wall.x - trueWallSize, y: wall.y + trueWallSize },
+    { x: wall.x - trueWallSize, y: wall.y + trueWallSize }
   ];
   for (let i = 0; i < 4; i++) {
     if (
@@ -490,19 +491,19 @@ function mazewallcustomcollide(wall, bounce) {
     bounce.x < wall.x,
     bounce.y < wall.y,
     bounce.x >= wall.x,
-    bounce.y > wall.y,
+    bounce.y > wall.y
   ];
   const extendedOverFaces = [
     bounce.x < wall.x - trueWallSize,
     bounce.y < wall.y - trueWallSize,
     bounce.x > wall.x + trueWallSize,
-    bounce.y > wall.y + trueWallSize,
+    bounce.y > wall.y + trueWallSize
   ];
   const wallPushPositions = [
     { x: wall.x - trueWallSize - bounce.size },
     { y: wall.y - trueWallSize - bounce.size },
     { x: wall.x + trueWallSize + bounce.size },
-    { y: wall.y + trueWallSize + bounce.size },
+    { y: wall.y + trueWallSize + bounce.size }
   ];
   for (let i = 0; i < 4; i++) {
     if (!collisionFaces[i] | extendedOverFaces[(i + 3) % 4] | extendedOverFaces[(i + 1) % 4]) continue;
@@ -567,7 +568,7 @@ function mazewallcustomcollide(wall, bounce) {
     { x: wall.x - trueWallSize, y: wall.y - trueWallSize },
     { x: wall.x + trueWallSize, y: wall.y - trueWallSize },
     { x: wall.x + trueWallSize, y: wall.y + trueWallSize },
-    { x: wall.x - trueWallSize, y: wall.y + trueWallSize },
+    { x: wall.x - trueWallSize, y: wall.y + trueWallSize }
   ];
   for (let i = 0; i < 4; i++) {
     if (!collisionFaces[i] | !collisionFaces[(i + 1) % 4] |

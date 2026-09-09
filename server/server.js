@@ -51,7 +51,7 @@ const publicRoot = path.join(__dirname, "../public/"),
     html: "text/html",
     md: "text/markdown",
     png: "image/png",
-    svg: "image/svg+xml",
+    svg: "image/svg+xml"
   };
 
 let wsServer; // WebSocket server instance
@@ -117,7 +117,7 @@ server = http.createServer((req, res) => {
         region: server.region,
         serverhost: server.serverhost,
         location: server.location,
-        gameMode: server.gameMode,
+        gameMode: server.gameMode
       })));
     } break;
     case "/getTotalPlayers": {
@@ -177,7 +177,7 @@ server = http.createServer((req, res) => {
         res.end(JSON.stringify(sserver.map((server) => ({
           ip: server.ip,
           players: server.players,
-          gameMode: server.gameMode,
+          gameMode: server.gameMode
         }))));
       } else {
         res.writeHead(404);
@@ -250,7 +250,7 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, serve
         isFeatured,
         isUnlisted,
         isPrivate,
-        index,
+        index
       }
     });
 

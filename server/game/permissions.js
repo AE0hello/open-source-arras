@@ -35,5 +35,5 @@ module.exports = [
     class: "menu_special",
     nameColor: "#FFFFFF",
     note: "note here"
-  },
+  }
 ]

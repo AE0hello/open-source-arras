@@ -8,12 +8,12 @@ const dreadnoughtBody = {
   SHIELD: base.SHIELD * 2.5,
   FOV: base.FOV * 1.25,
   DENSITY: base.DENSITY * 6,
-  REGEN: base.REGEN,
+  REGEN: base.REGEN
 };
 g.dreadv1Generic = {
   damage: 1.35,
   range: 0.8,
-  recoil: 0,
+  recoil: 0
 }
 g.dreadv1Sniper = {
   speed: 1.07,
@@ -24,14 +24,14 @@ g.dreadv1Sniper = {
   density: 1.8,
   pen: 1.05,
   resist: 1.2,
-  range: 0.8,
+  range: 0.8
 }
 g.dreadv1Slow = {
   health: 1.3,
   damage: 1.25,
   resist: 1.1,
   speed: 0.65,
-  maxSpeed: 0.65,
+  maxSpeed: 0.65
 }
 g.dreadv1Drone = {
   health: 1.1,
@@ -39,7 +39,7 @@ g.dreadv1Drone = {
   maxSpeed: 0.77,
   reload: 1.65,
   size: 1.2,
-  recoil: 0,
+  recoil: 0
 }
 g.dreadv1Trap = {
   range: 1.3,
@@ -49,7 +49,7 @@ g.dreadv1Trap = {
   damage: 1.45,
   health: 1.35,
   resist: 1.1,
-  size: 1.25,
+  size: 1.25
 }
 
 // Set the below variable to true to disable the level requirements for upgrading.
@@ -82,22 +82,22 @@ function portalRings(color = "#1c3766") {
 Class.portalRing1_dreadsV1 = {
   SHAPE: "M -1 0 A 1 1 90 0 0 1 0 L 0.7 0 A 0.7 0.7 90 0 1 -0.7 0 Z M -1 0 A 1 1 90 0 1 1 0 L 0.7 0 A 0.7 0.7 90 0 0 -0.7 0 Z",
   COLOR: "#1c3766",
-  BORDERLESS: true,
+  BORDERLESS: true
 }
 Class.portalRing2_dreadsV1 = {
   SHAPE: "M -0.707 0.707 A 1 1 0 0 1 -0.707 -0.707 A 1 1.225 0 0 0 -0.707 0.707 Z",
   COLOR: {BASE: "#1c3766", BRIGHTNESS_SHIFT: 16, SATURATION_SHIFT: 0.7},
-  BORDERLESS: true,
+  BORDERLESS: true
 }
 Class.portalRing3_dreadsV1 = {
   SHAPE: "M -0.5 0.866 A 1 1 0 0 1 -0.5 -0.866 A 1 1.1 0 0 0 -0.5 0.866 Z",
   COLOR: {BASE: "#1c3766", BRIGHTNESS_SHIFT: -6, SATURATION_SHIFT: 1.1},
-  BORDERLESS: true,
+  BORDERLESS: true
 }
 Class.portalRing4_dreadsV1 = {
   SHAPE: "M -0.92 0 A 0.92 0.92 90 0 0 0.92 0 L 0.84 0 A 0.84 0.84 90 0 1 -0.84 0 Z M -0.92 0 A 0.92 0.92 90 0 1 0.92 0 L 0.84 0 A 0.84 0.84 90 0 0 -0.84 0 Z",
   COLOR: {BASE: "#1c3766", BRIGHTNESS_SHIFT: 7, SATURATION_SHIFT: 0.9},
-  BORDERLESS: true,
+  BORDERLESS: true
 }
 Class.portal_dreadsV1 = {
   LABEL: "",
@@ -109,7 +109,7 @@ Class.portal_dreadsV1 = {
     DAMAGE: 0,
     PENETRATION: 1e10,
     DENSITY: 1e10,
-    RANGE: 2000,
+    RANGE: 2000
   },
   ALWAYS_ACTIVE: true,
   HITS_OWN_TYPE: "never",
@@ -129,13 +129,13 @@ Class.spikyPortalSpikes_dreadsV1 = {
   GUNS: weaponArray({
     POSITION: [30, 8, 0.001, 0, 0, 0, 0],
     PROPERTIES: {COLOR: "egg"}
-  }, 5),
+  }, 5)
 }
 Class.spikyPortalBumps_dreadsV1 = {
   SHAPE: "M 1 0 L 0.666 0.216 L 0.566 0.41 L 0.41 0.566 L 0.309 0.951 L 0 0.7 L -0.215 0.665 L -0.412 0.565 L -0.809 0.588 L -0.666 0.217 L -0.699 0.001 L -0.664 -0.217 L -0.809 -0.588 L -0.412 -0.566 L -0.217 -0.664 L 0.001 -0.699 L 0.309 -0.951 L 0.411 -0.567 L 0.565 -0.412 L 0.665 -0.215 Z",
   COLOR: "egg",
   INDEPENDENT: true,
-  FACING_TYPE: ["spin", {speed: 0.12}],
+  FACING_TYPE: ["spin", {speed: 0.12}]
 }
 Class.spikyPortal_dreadsV1 = {
   PARENT: "portal_dreadsV1",
@@ -185,7 +185,7 @@ Class.genericDreadnought1 = {
   COLOR: "hexagon",
   SIZE: 22.5,
   SKILL_CAP: Array(10).fill(smshskl+3),
-  REROOT_UPGRADE_TREE: "dreadnought_dreadsV1",
+  REROOT_UPGRADE_TREE: "dreadnought_dreadsV1"
 }
 if (old_dreadnought_color) Class.genericDreadnought1.COLOR = "darkGrey"
 
@@ -211,19 +211,19 @@ Class.medicareTurret = {
   COLOR: 16,
   GUNS: weaponArray([
     {
-      POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
+      POSITION: [8, 9, -0.5, 12.5, 0, 0, 0]
     }, {
       POSITION: [18, 10, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.flankGuard, g.healer]),
         TYPE: "healerBullet",
-        AUTOFIRE: true,
-      },
+        AUTOFIRE: true
+      }
     }
   ], 3),
   TURRETS: [{
     POSITION: [13, 0, 0, 0, 360, 1],
-    TYPE: "healerHat",
+    TYPE: "healerHat"
   }]
 }
 Class.medicaidTurret = {
@@ -234,19 +234,19 @@ Class.medicaidTurret = {
   COLOR: 16,
   GUNS: weaponArray([
     {
-      POSITION: [8, 9, -0.5, 12.5, 0, 0, 0],
+      POSITION: [8, 9, -0.5, 12.5, 0, 0, 0]
     }, {
       POSITION: [18, 10, 1, 0, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.flankGuard, g.flankGuard, g.healer]),
         TYPE: "healerBullet",
-        AUTOFIRE: true,
-      },
+        AUTOFIRE: true
+      }
     }
   ], 5),
   TURRETS: [{
     POSITION: [13, 0, 0, 0, 360, 1],
-    TYPE: "healerHat",
+    TYPE: "healerHat"
   }]
 }
 Class.turretedTrap = makeAuto("trap", "Auto-Trap", {size: 7.5, type: "droneAutoTurret"});
@@ -257,7 +257,7 @@ Class.dreadnought_dreadsV1 = {
   PARENT: "genericDreadnought1",
   LABEL: "Dreadnought",
   //UPGRADE_LABEL: "Dreads V1",
-  EXTRA_SKILL: 18,
+  EXTRA_SKILL: 18
 }
 
 // T1
@@ -300,7 +300,7 @@ Class.invader_dreadsV1 = {
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
       WAIT_TO_CYCLE: true,
-      MAX_CHILDREN: 4,
+      MAX_CHILDREN: 4
     }
   }, 3)
 }
@@ -311,14 +311,14 @@ Class.centaur_dreadsV1 = {
   UPGRADE_TOOLTIP: "Thrown Traps",
   GUNS: weaponArray([
     {
-      POSITION: [13, 7, 1, 0, 0, 0, 0],
+      POSITION: [13, 7, 1, 0, 0, 0, 0]
     }, {
       POSITION: [3, 7, 1.5, 13, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.dreadv1Generic, g.dreadv1Slow, g.dreadv1Trap]),
-        TYPE: ["trap", {HITS_OWN_TYPE: "never"} ],
-        STAT_CALCULATOR: "trap",
-      },
+        TYPE: ["trap", {HITS_OWN_TYPE: "never"}],
+        STAT_CALCULATOR: "trap"
+      }
     }
   ], 3)
 }
@@ -330,11 +330,11 @@ Class.automation_dreadsV1 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [3.5, 8.25, 0, 30, 180, 1],
-      TYPE: "dreadv1BodyTurret",
+      TYPE: "dreadv1BodyTurret"
     }, 6),
     {
       POSITION: [9, 0, 0, 0, 360, 1],
-      TYPE: ["dreadv1BodyTurret", {GUN_STAT_SCALE: {damage: 1.6}}],
+      TYPE: ["dreadv1BodyTurret", {GUN_STAT_SCALE: {damage: 1.6}}]
     }
   ]
 }
@@ -347,7 +347,7 @@ Class.juggernaut_dreadsV1 = {
     HEALTH: 1.7,
     SHIELD: 2.2,
     REGEN: 1.5,
-    SPEED: 1.1,
+    SPEED: 1.1
   },
   TURRETS: [{
     POSITION: [22, 0, 0, 0, 0, 0],
@@ -360,7 +360,7 @@ Class.medicare_dreadsV1 = {
   UPGRADE_TOOLTIP: "Healing",
   TURRETS: [{
     POSITION: [8, 0, 0, 0, 360, 1],
-    TYPE: "medicareTurret",
+    TYPE: "medicareTurret"
   }]
 }
 
@@ -426,7 +426,7 @@ Class.peacekeeper_dreadsV1 = {
     POSITION: [17.5, 9, 1, 0, 0, 0, 0],
     PROPERTIES: {
       SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.dreadv1Generic, g.dreadv1Slow, {reload: 1.3, health: 1.2, range: 1.1}]),
-      TYPE: "bullet",
+      TYPE: "bullet"
     }
   }, 3)
 }
@@ -470,7 +470,7 @@ Class.inquisitor_dreadsV1 = {
       SYNCS_SKILLS: true,
       STAT_CALCULATOR: "drone",
       WAIT_TO_CYCLE: true,
-      MAX_CHILDREN: 5,
+      MAX_CHILDREN: 5
     }
   }, 3)
 }
@@ -480,7 +480,7 @@ Class.assailant_dreadsV1 = {
   UPGRADE_TOOLTIP: "Minions",
   GUNS: weaponArray([
     {
-      POSITION: [14.25, 9, 1, 0, 0, 0, 0],
+      POSITION: [14.25, 9, 1, 0, 0, 0, 0]
     }, {
       POSITION: [1.5, 10, 1, 14.25, 0, 0, 0],
       PROPERTIES: {
@@ -490,7 +490,7 @@ Class.assailant_dreadsV1 = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         WAIT_TO_CYCLE: true,
-        MAX_CHILDREN: 4,
+        MAX_CHILDREN: 4
       }
     }, {
       POSITION: [11.5, 10, 1, 0, 0, 0, 0]
@@ -538,16 +538,16 @@ Class.cerberus_dreadsV1 = {
       POSITION: [1.75, 2.25, 1.7, 13.25, 4, 0, 2/3],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.dreadv1Generic, g.dreadv1Slow, g.dreadv1Trap, { reload: 1.22, health: 0.67, damage: 0.7 }]),
-        TYPE: ["trap", {HITS_OWN_TYPE: "never"} ],
-        STAT_CALCULATOR: "trap",
-      },
+        TYPE: ["trap", {HITS_OWN_TYPE: "never"}],
+        STAT_CALCULATOR: "trap"
+      }
     }, {
       POSITION: [13.25, 2.25, 1, 0, -4, 0, 0]
     }, {
       POSITION: [1.75, 2.25, 1.7, 13.25, -4, 0, 1/3],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.dreadv1Generic, g.dreadv1Slow, g.dreadv1Trap, { reload: 1.22, health: 0.67, damage: 0.7 }]),
-        TYPE: ["trap", {HITS_OWN_TYPE: "never"} ],
+        TYPE: ["trap", {HITS_OWN_TYPE: "never"}],
         STAT_CALCULATOR: "trap"
       }
     }, {
@@ -556,7 +556,7 @@ Class.cerberus_dreadsV1 = {
       POSITION: [2, 3, 1.7, 14.75, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.dreadv1Generic, g.dreadv1Slow, g.dreadv1Trap, { reload: 1.22, health: 0.67, damage: 0.7 }]),
-        TYPE: ["trap", {HITS_OWN_TYPE: "never"} ],
+        TYPE: ["trap", {HITS_OWN_TYPE: "never"}],
         STAT_CALCULATOR: "trap"
       }
     }
@@ -568,12 +568,12 @@ Class.minotaur_dreadsV1 = {
   UPGRADE_TOOLTIP: "\"Set\" Traps",
   GUNS: weaponArray([
     {
-      POSITION: [13, 9.5, 1, 0, 0, 0, 0],
+      POSITION: [13, 9.5, 1, 0, 0, 0, 0]
     }, {
       POSITION: [3, 9.5, 1.6, 13, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.dreadv1Generic, g.dreadv1Slow, g.dreadv1Trap, { damage: 0.9, reload: 1.55, range: 0.93, health: 1.55 }]),
-        TYPE: ["unsetTrap", {HITS_OWN_TYPE: "never"} ],
+        TYPE: ["unsetTrap", {HITS_OWN_TYPE: "never"}],
         STAT_CALCULATOR: "block"
       }
     }
@@ -585,12 +585,12 @@ Class.siren_dreadsV1 = {
   UPGRADE_TOOLTIP: "Auto-Thrown Traps",
   GUNS: weaponArray([
     {
-      POSITION: [6, 7, -1.5, 7, 0, 0, 0],
+      POSITION: [6, 7, -1.5, 7, 0, 0, 0]
     }, {
       POSITION: [3, 7, 1.5, 13, 0, 0, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.dreadv1Generic, g.dreadv1Slow, g.dreadv1Trap]),
-        TYPE: ["turretedTrap", {HITS_OWN_TYPE: "never"} ],
+        TYPE: ["turretedTrap", {HITS_OWN_TYPE: "never"}],
         STAT_CALCULATOR: "trap",
         NO_LIMITATIONS: true
       }
@@ -605,11 +605,11 @@ Class.mechanism_dreadsV1 = {
   TURRETS: [
     ...weaponArray({
       POSITION: [4, 8.25, 0, 30, 180, 1],
-      TYPE: ["dreadv1BodyTurret", {GUN_STAT_SCALE: {damage: 1.12}}],
+      TYPE: ["dreadv1BodyTurret", {GUN_STAT_SCALE: {damage: 1.12}}]
     }, 6),
     {
       POSITION: [9.5, 0, 0, 0, 360, 1],
-      TYPE: ["dreadv1BodyTurret", {GUN_STAT_SCALE: {damage: 1.8}}],
+      TYPE: ["dreadv1BodyTurret", {GUN_STAT_SCALE: {damage: 1.8}}]
     }
   ]
 }
@@ -622,7 +622,7 @@ Class.behemoth_dreadsV1 = {
     HEALTH: 2.3,
     SHIELD: 2.8,
     REGEN: 1.7,
-    SPEED: 1.15,
+    SPEED: 1.15
   },
   TURRETS: [{
     POSITION: [23.5, 0, 0, 0, 0, 0],
@@ -635,7 +635,7 @@ Class.medicaid_dreadsV1 = {
   UPGRADE_TOOLTIP: "Healing",
   TURRETS: [{
     POSITION: [8, 0, 0, 0, 360, 1],
-    TYPE: "medicaidTurret",
+    TYPE: "medicaidTurret"
   }]
 }
 
@@ -709,7 +709,7 @@ function mergeDreads(dread1, dread2, sourceDread, tier) {
   // Save definition to Class
   Class[definitionName] = {
     PARENT: "genericDreadnought1",
-    BODY, LABEL, UPGRADE_TOOLTIP, GUNS, TURRETS,
+    BODY, LABEL, UPGRADE_TOOLTIP, GUNS, TURRETS
   }
 
   // Save upgrade to previous dread

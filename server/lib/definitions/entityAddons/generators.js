@@ -7,37 +7,37 @@ const shapeGeneratorUpgrades = [
   ["triangle", "shinyTriangle", "legTriangle", "shadowTriangle", "rainbowTriangle", "transTriangle"].map(x => x + "Gen"),
   ["pentagon", "shinyPentagon", "legPentagon", "shadowPentagon", "rainbowPentagon", "transPentagon"].map(x => x + "Gen"),
   ["beta", "shinyBeta", "legBeta", "shadowBeta", "rainbowBeta", "transBeta"].map(x => x + "PentagonGen"),
-  ["alpha", "shinyAlpha", "legAlpha", "shadowAlpha", "rainbowAlpha", "transAlpha"].map(x => x + "PentagonGen"),
+  ["alpha", "shinyAlpha", "legAlpha", "shadowAlpha", "rainbowAlpha", "transAlpha"].map(x => x + "PentagonGen")
 ]
 const hostileShapeGeneratorUpgrades = [
   ["crasher", "sentrySwarm", "sentryGun", "sentryTrap"].map(x => x + "Gen"),
   ["Crasher", "SentrySwarm", "SentryGun", "SentryTrap"].map(x => "shiny" + x + "Gen"),
-  ["legCrasher", "sentinelLauncher", "sentinelCrossbow", "sentinelMinigun"].map(x => x + "Gen"),
+  ["legCrasher", "sentinelLauncher", "sentinelCrossbow", "sentinelMinigun"].map(x => x + "Gen")
 ]
 const eliteBossGeneratorUpgrades = [
   ["Destroyer", "Gunner", "Sprayer", "Battleship", "Spawner"].map(x => "elite" + x + "Gen"),
-  ["eliteSkimmer", "eliteSpinner", "oldEliteSprayer", "legionaryCrasher", "eliteTrapGuard"].map(x => x + "Gen"),
+  ["eliteSkimmer", "eliteSpinner", "oldEliteSprayer", "legionaryCrasher", "eliteTrapGuard"].map(x => x + "Gen")
 ]
 const mysticalBossGeneratorUpgrades = [
-  ["sorcerer", "summoner", "enchantress", "exorcistor", "shaman"].map(x => x + "Gen"),
+  ["sorcerer", "summoner", "enchantress", "exorcistor", "shaman"].map(x => x + "Gen")
 ]
 const nesterBossGeneratorUpgrades = [
-  ["Keeper", "Warden", "Guardian"].map(x => "nest" + x + "Gen"),
+  ["Keeper", "Warden", "Guardian"].map(x => "nest" + x + "Gen")
 ]
 const rogueBossGeneratorUpgrades = [
-  ["Palisade", "Armada"].map(x => "rogue" + x + "Gen"),
+  ["Palisade", "Armada"].map(x => "rogue" + x + "Gen")
 ]
 
 Class.genBody = {
   PARENT: "spectator",
   BODY: {
     SPEED: 25,
-    FOV: 1,
+    FOV: 1
   },
   SKILL_CAP: [15, 0, 0, 0, 0, 0, 0, 0, 0, 15],
   LAYER: 1e99,
   ON: [],
-  RESET_EVENTS: true,
+  RESET_EVENTS: true
 };
 
 const makeGenerator = (entity, entityLabel, shortEntityLabel, displayEntity, displayEntitySize, shape, color, entitySize, maxChildren = 100, launchSpeed = 1) => {
@@ -97,47 +97,47 @@ Class.genLegCrasher = {
 Class.genSentrySwarm = {
   TYPE: [],
   PARENT: ["sentrySwarm"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genSentryGun = {
   TYPE: [],
   PARENT: ["sentryGun"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genSentryTrap = {
   TYPE: [],
   PARENT: ["sentryTrap"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genShinySentrySwarm = {
   TYPE: [],
   PARENT: ["shinySentrySwarm"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genShinySentryGun = {
   TYPE: [],
   PARENT: ["shinySentryGun"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genShinySentryTrap = {
   TYPE: [],
   PARENT: ["shinySentryTrap"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genSentinelLauncher = {
   TYPE: [],
   PARENT: ["sentinelLauncher"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genSentinelCrossbow = {
   TYPE: [],
   PARENT: ["sentinelCrossbow"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 Class.genSentinelMinigun = {
   TYPE: [],
   PARENT: ["sentinelMinigun"],
-  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"],
+  CONTROLLERS: ["nearestDifferentMaster", "mapTargetToGoal", "hangOutNearMaster"]
 };
 
 //EGG GENERATOR
