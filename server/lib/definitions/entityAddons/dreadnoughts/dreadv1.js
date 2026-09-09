@@ -184,7 +184,7 @@ Class.genericDreadnought1 = {
   SHAPE: 6,
   COLOR: "hexagon",
   SIZE: 22.5,
-  SKILL_CAP: Array(10).fill(smshskl+3),
+  SKILL_CAP: Array(10).fill(smshskl + 3),
   REROOT_UPGRADE_TREE: "dreadnought_dreadsV1"
 }
 if (old_dreadnought_color) Class.genericDreadnought1.COLOR = "darkGrey"

@@ -464,7 +464,7 @@ Class.flangle = {
     }
   }),
   TURRETS: Class.flail.TURRETS,
-  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl]
+  SKILL_CAP: Array(10).fill(dfltskl)
 };
 Class.gatlingGun = {
   PARENT: "genericTank",
@@ -3489,7 +3489,7 @@ Class.flace = {
     }
   }),
   TURRETS: Class.mace.TURRETS,
-  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl]
+  SKILL_CAP: Array(10).fill(dfltskl)
 };
 Class.flooster = {
   PARENT: "genericFlail",
@@ -3525,7 +3525,7 @@ Class.flooster = {
     }
   ]),
   TURRETS: Class.flail.TURRETS,
-  SKILL_CAP: [dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl, dfltskl]
+  SKILL_CAP: Array(10).fill(dfltskl)
 };
 Class.focal = {
   PARENT: "genericTank",
@@ -5853,22 +5853,33 @@ Class.spike = {
   },
   TURRETS: weaponArray([{
     TYPE: ["triangleHat_spin", {COLOR: "black"}],
-    POSITION: {SIZE: 18}
+    POSITION: {
+      SIZE: 18
+    }
   }], 4)
 };
 Class.spike_old = {
-  PARENT: "genericTank",
+  PARENT: "genericSmasher",
   LABEL: "Spike",
   UPGRADE_LABEL: "Weird Spike",
   DANGER: 7,
   BODY: {
     DAMAGE: 1.15 * base.DAMAGE,
-    FOV: 1.05 * base.FOV,
-    DENSITY: 1.5 * base.DENSITY
+    DENSITY: 1.5 * base.DENSITY,
+    SPEED: base.SPEED
   },
-  IS_SMASHER: true,
-  SKILL_CAP: [smshskl, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl],
-  STAT_NAMES: statnames.smasher,
+  SKILL_CAP: {
+    BODY_DAMAGE: smshskl,
+    MAX_HEALTH: smshskl,
+    BULLET_SPEED: 0,
+    BULLET_HEALTH: 0,
+    PENETRATION: 0,
+    BULLET_DAMAGE: 0,
+    RELOAD: smshskl,
+    MOVEMENT_SPEED: smshskl,
+    SHIELD_REGENERATION: smshskl,
+    SHIELD_CAPACITY: smshskl
+  },
   TURRETS: [
     {
       TYPE: ["triangleHat_spinFast", {COLOR: "black"}],
@@ -10420,18 +10431,18 @@ Class.schoolShooter = {
   GUNS: [
     {
       POSITION: {
-        Y: 5,
         LENGTH: 20,
         WIDTH: 1.5,
-        X: 50
+        X: 50,
+        Y: -5
       }
     },
     {
       POSITION: {
         LENGTH: 0,
         WIDTH: 2,
-        Y: 5,
-        X: 50
+        X: 50,
+        Y: -5
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.op, {damage: 20, reload: 0.3, spray: 0, speed: 2}]),
@@ -10472,7 +10483,6 @@ Class.tetraGunner = {
   ], 4)
 };
 Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
-Class.tracker3.SKILL_CAP = [0, 0, 0, 0, 0, smshskl, smshskl, smshskl, smshskl, smshskl];
 Class.wifeBeater = {
   PARENT: "overlord",
   LABEL: "Wife Beater",
