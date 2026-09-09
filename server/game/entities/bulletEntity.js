@@ -36,6 +36,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
         this.x = position.x;
         this.y = position.y;
         this.settings = {};
+        this.globalStore = {};
         this.aiSettings = {};
         this.guns = new Map();
         this.children = [];
