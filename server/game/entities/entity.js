@@ -66,6 +66,7 @@ class Entity extends EventEmitter {
         this.necro = () => {};
         this.lastMovementTime = Date.now();
         this.lastFiredTime = Date.now();
+        this.globalStore = {};
         // Define it
         this.SIZE = 1;
         this.sizeMultiplier = 1;

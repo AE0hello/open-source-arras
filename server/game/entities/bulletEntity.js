@@ -40,6 +40,7 @@ class bulletEntity { // Basically an (Entity) but with heavy limitations to impr
         this.guns = new Map();
         this.children = [];
         this.bulletchildren = [];
+        this.globalStore = {};
         this.glow = { radius: null, color: new Color(-1).compiled, alpha: 1, recursion: 1 };
         this.necro = () => {};
         this.color = new Color(16);
