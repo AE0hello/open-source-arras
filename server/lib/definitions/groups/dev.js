@@ -396,7 +396,7 @@ Class.menu_adminTanks = makeMenu("Admin Tanks", {
 Class.menu_misc = makeMenu("Misc", {
   upgrades: [
     "theAmalgamation",
-    //"theConglomerate",
+    "theConglomerate",
     "schoolShooter",
     //"average4tdmScore",
     //"averageL39Hunt",

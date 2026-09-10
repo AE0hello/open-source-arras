@@ -10679,6 +10679,253 @@ Class.theAmalgamation = makeAuto({
     }
   ]
 }, "The Amalgamation");
+Class.theConglomerate = {
+  PARENT: "genericTank",
+  LABEL: "The Conglomerate",
+  DANGER: 13,
+  STAT_NAMES: statnames.mixed,
+  BODY: {
+    SPEED: base.SPEED * 0.85,
+    FOV: base.FOV * 1.1
+  },
+  GUNS: [
+    {
+      POSITION: [17, 10, 1, 0, 0, 180, 0]
+    },
+    {
+      POSITION: [5, 18, 1, -19, 0, 0, 0], // todo: work out cooldown time
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([
+          g.basic,
+          g.pounder,
+          g.destroyer,
+          g.healer,
+          //[2, 0, 1, 1, 1, -1, 1, 1, 1, 0.1, 1, 1, 1],
+        ]),
+        TYPE: "healerBullet",
+        ALT_FIRE: true
+      }
+    },
+    {
+      POSITION: [28, 2, 1, 0, 4, 180, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+        TYPE: "bullet",
+      },
+    },
+    {
+      POSITION: [40, 7, 1, 0, 0, 0, 0],
+    },
+    {
+      POSITION: [15, 9, -2, 0, 0, 0, 0]
+    },
+    {
+      POSITION: [28, 2, 1, 0, -4, 180, 0.8],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+        TYPE: "bullet",
+      },
+    },
+    {
+      POSITION: [28, 2, 1, 0, 2.25, 180, 0.2],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+        TYPE: "bullet",
+      },
+    },
+    {
+      POSITION: [28, 2, 1, 0, -2.25, 180, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+        TYPE: "bullet",
+      },
+    },
+    {
+      POSITION: [28, 2, 1, 0, 0, 180, 0.4],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
+        TYPE: "bullet",
+      },
+    },
+    {
+      POSITION: [5, 13, 1, 7, 0, 180, 0],
+    },
+    {
+      POSITION: [5, 13, 1, 20, 0, 180, 0],
+    },
+    {
+      POSITION: [14, 8, 1, 0, -1, 140, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [14, 8, 1, 0, 1, -140, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [16, 8, 1, 0, 0, -150, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [18, 16, 1, 0, 0, 180, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic]),
+        TYPE: "masterBullet",
+        MAX_CHILDREN: 4,
+        DESTROY_OLDEST_CHILD: true
+      }
+    },
+    {
+      POSITION: [14, 6, 1, 0, 0, 45, 0],
+    },
+    {
+      POSITION: [2, 6, 1.1, 14, 0, 45, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.weak]),
+        TYPE: "setTrap",
+      },
+    },
+    {
+      POSITION: [14, 6, 1, 0, 0, -45, 0],
+    },
+    {
+      POSITION: [2, 6, 1.1, 14, 0, -45, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.weak]),
+        TYPE: "setTrap",
+      },
+    },
+    {
+      POSITION: [16, 16, 1.4, 0, 0, 180, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.honcho, g.bigCheese]),
+        TYPE: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        MAX_CHILDREN: 1,
+      },
+    },
+    {
+      POSITION: [16, 10, 1, 0, 5, 0, 2 / 3],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [19, 10, 1, 0, 3, 0, 1 / 3],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [16, 10, 1, 0, -5, 0, 2 / 3],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [19, 10, 1, 0, -3, 0, 1 / 3],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [22, 10, 1, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.triplet, g.quintuplet]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [22, 7, -1.5, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [20, 7.5, -1.5, 0, 0, 0, 1 / 3],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.minigun, { size: 7 / 7.5 }]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [18, 8, -1.5, 0, 0, 0, 2 / 3],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.minigun, { size: 7 / 8 }]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [7, 7.5, 0.6, 7, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.swarm]),
+        TYPE: "swarm",
+        STAT_CALCULATOR: "swarm",
+      },
+    },
+  ],
+  TURRETS: [
+    {
+      POSITION: [6, 42, 0, 0, 180, 1],
+      TYPE: [
+        "crowbarTurretTank",
+        { INDEPENDENT: true }
+      ],
+    },
+    {
+      POSITION: [6, 32, 0, 0, 180, 1],
+      TYPE: [
+        "crowbarTurretTank",
+        { INDEPENDENT: true }
+      ],
+    },
+    {
+      POSITION: [6, 22, 0, 0, 180, 1],
+      TYPE: [
+        "crowbarTurretTank",
+        { INDEPENDENT: true }
+      ],
+    },
+    {
+      POSITION: [13, 8, 0, -90, 190, 0],
+      TYPE: "sniper3gun",
+    },
+    {
+      POSITION: [13, 8, 0, 90, 190, 0],
+      TYPE: "sniper3gun",
+    },
+    {
+      TYPE: ["triangleHat", {COLOR: "grey"}],
+      POSITION: { SIZE: 7, LAYER: 1 }
+    }
+  ],
+};
 Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
 Class.unknownClass = {
   PARENT: "genericTank",
