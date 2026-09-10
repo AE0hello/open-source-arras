@@ -10125,7 +10125,7 @@ Class.alas = {
         },
         {
             POSITION: {
-                LENGTH: 7.5,
+                LENGTH: 8,
                 WIDTH: 1.5,
                 ASPECT: -4,
                 X: 8
@@ -10194,7 +10194,7 @@ Class.quadCyclone = {
     PARENT: "genericTank",
     LABEL: "Quad Cyclone",
     TURRETS: weaponArray({
-        POSITION: {SIZE: 20, LAYER: 1, X: 25},
+        POSITION: {SIZE: 20, LAYER: 1, X: 25, ARC: 0},
         TYPE: 'cycloneTurret'
     }, 4),
     GUNS: weaponArray({
