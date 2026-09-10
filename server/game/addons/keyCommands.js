@@ -258,13 +258,26 @@ function init() {
       level: 1,
       operatorAccess: true,
       run: ({ player }) => {
+        const colors = [
+          "teal", "shiny", "triangle",
+          "yellow", "lavender", "aqua",
+          "crasher", "egg", "wall", 
+          "pureWhite", "black", "blue",
+          "green", "red", "square",
+          "pentagon", "magenta", "grey",
+          "rogue", "white", "pureBlack",
+          "animatedBlueRed", "animatedBlueGrey", "animatedGreyBlue",
+          "animatedRedGrey", "animatedGreyRed", "mustard",
+          "tangerine", "brown", "cyan", 
+          "lesbian", "rainbow", "trans",
+          "trueTrans", "bi", "animatedMagenta"
+        ]
         let target = targetEntities(player);
         if (target.length) {
           let o = target[0];
-          if (o.color.base > 42) {
-            o.color.base = 1;
-          }
-          o.color.base += 1;
+          const color = typeof o.color.base === "number" ? colors[o.color.base + 1] : colors[colors.indexOf(o.color.base) + 1];
+          if (!color) return o.color.base = colors[0];
+          o.color.base = color;
         }
       }
     },

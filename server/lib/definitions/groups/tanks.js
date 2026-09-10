@@ -10148,30 +10148,39 @@ Class.alas = {
   LABEL: "Alas",
   DANGER: 9,
   STAT_NAMES: statnames.drone,
-  BODY: Class.director.BODY,
+  BODY: Class.manager.BODY,
+  INVISIBLE: [0.08, 0.03],
   GUNS: [
     {
       POSITION: {
-        LENGTH: 5,
-        WIDTH: 11,
-        ASPECT: 1.3,
+        LENGTH: 6,
+        WIDTH: 12,
+        ASPECT: 1.2,
         X: 8
       },
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.drone, {speed: 5}]),
+        SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5, speed: 5 }]),
         TYPE: "drone",
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
-        MAX_CHILDREN: 6,
+        MAX_CHILDREN: 8,
         WAIT_TO_CYCLE: true
       }
     },
     {
       POSITION: {
-        LENGTH: 9,
-        WIDTH: 0.125,
-        ASPECT: -5,
+        LENGTH: 5.5,
+        WIDTH: 6,
+        ASPECT: -1.5,
+        X: 8
+      }
+    },
+    {
+      POSITION: {
+        LENGTH: 8,
+        WIDTH: 1.5,
+        ASPECT: -4,
         X: 8
       }
     }
