@@ -10398,11 +10398,6 @@ Class.quadCyclone = {
   PARENT: "genericTank",
   LABEL: "Quad-Cyclone",
   DANGER: 7,
-  STAT_NAMES: statnames.mixed,
-  BODY: {
-    SPEED: 0.8 * base.SPEED
-  },
-  REVERSE_TARGET_WITH_TANK: true,
   GUNS: weaponArray({
     POSITION: {
       LENGTH: 20,
