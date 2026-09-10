@@ -14,7 +14,7 @@ const enable_retrograde_menu = false;
 Class.menu_special = makeMenu("Special Menu", {
   upgrades: [
     Config.spawn_class,
-    "menu_gameAdmin",
+    //"menu_gameAdmin",
     "eggGen",
     "menu_specialTanks",
     "menu_bosses",
@@ -381,7 +381,8 @@ Class.menu_memes = makeMenu("Memes", {
 });
 Class.menu_diep = makeMenu("Diep Tanks", {
   upgrades: [
-    "menu_diep2"
+    "menu_diep2",
+    //"tank_diep"
   ]
 });
 Class.menu_diep2 = makeMenu("Diep2 Menu", {

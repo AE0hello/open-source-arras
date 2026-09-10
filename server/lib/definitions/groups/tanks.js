@@ -10260,7 +10260,7 @@ Class.developer = {
     HEALTH: 100,
     DAMAGE: 10,
     DENSITY: 20,
-    FOV: 2
+    FOV: 5
   },
   //COLOR: "mirror", // todo: make sure mirror colour doesnt grey out your leaderboard
   SKILL_CAP: Array(10).fill(dfltskl),
