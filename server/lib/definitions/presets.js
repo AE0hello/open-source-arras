@@ -61,7 +61,7 @@ module.exports = {
             type: 'ultraAutoTurret', size: 6.2, x: 7.3, angle: 0, total: 5
         },
         hepta: {
-            size: 4, x: 6.5, angle: 0, total: 7
+            size: 3.5, x: 6, angle: 0, total: 7
         },
         heptaMega: {
             type: 'megaAutoTurret', size: 4.25, x: 7, angle: 0, total: 7
