@@ -121,12 +121,13 @@ exports.deepClone = (obj, hash = new WeakMap()) => {
     result = Object.create(Object.getPrototypeOf(obj));
   }
   // Optional: support for some standard constructors (extend as desired)
-  if (obj instanceof Map)
+  if (obj instanceof Map) {
     Array.from(obj, ([key, val]) => result.set(exports.deepClone(key, hash),
-      exports.deepClone(val, hash)));
-  else if (obj instanceof Set)
-    Array.from(obj, (key) => result.add(exports.deepClone(key, hash)));
-    // Register in hash    
+      exports.deepClone(val, hash))); 
+  } else if (obj instanceof Set) {
+    Array.from(obj, (key) => result.add(exports.deepClone(key, hash))); 
+  }
+  // Register in hash    
   hash.set(obj, result);
   // Clone and assign enumerable own properties recursively
   return Object.assign(result, ...Object.keys(obj).map(
@@ -180,8 +181,10 @@ exports.flattenDefinition = (output, definition) => {
   if (definition.PARENT) {
     if (!Array.isArray(definition.PARENT)) {
       exports.flattenDefinition(output, definition.PARENT);
-    } else for (let parent of definition.PARENT) {
-      exports.flattenDefinition(output, parent);
+    } else {
+      for (let parent of definition.PARENT) {
+        exports.flattenDefinition(output, parent);
+      } 
     }
   }
 

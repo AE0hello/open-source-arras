@@ -231,14 +231,18 @@ class socketManager {
         if (!socket.status.deceased) {
           socket.kick("Trying to spawn while already alive."); return 1; 
         }
-        if (global.gameManager.private && !socket.permissions) return (
-          socket.talk("message", "This server seems to be private."),
-          socket.kick("Tried to join private server without valid token.")
-        )
-        if (!global.gameManager.webProperties.maxPlayers < 1 && this.clients.length > global.gameManager.webProperties.maxPlayers) return (
-          socket.talk("message", "This server is full, please rejoin later."),
-          socket.kick("Server full.")
-        )
+        if (global.gameManager.private && !socket.permissions) {
+          return (
+            socket.talk("message", "This server seems to be private."),
+            socket.kick("Tried to join private server without valid token.")
+          ) 
+        }
+        if (!global.gameManager.webProperties.maxPlayers < 1 && this.clients.length > global.gameManager.webProperties.maxPlayers) {
+          return (
+            socket.talk("message", "This server is full, please rejoin later."),
+            socket.kick("Server full.")
+          ) 
+        }
         let b = bans.find((ban) => ban.ip === socket.ip);
         if (b) {
           socket.talk("temporaryban"); // Important, kick the user after calling temporaryban in order to see the ban message.
@@ -885,8 +889,9 @@ class socketManager {
                  * excessive updates long after the first and only
                  * needed one as it slowly hits each updated value
                  */
-        for (let j = 0; j < vars.length; j++)
-          if (vars[j].publish() != null) needsupdate = true;
+        for (let j = 0; j < vars.length; j++) {
+          if (vars[j].publish() != null) needsupdate = true; 
+        }
         if (needsupdate) {
           // Update everything
           for (let j = 0; j < statnames.length; j++) {
@@ -1211,48 +1216,50 @@ class socketManager {
     socket.status.daily_tank_watched_ad = false;
     socket.status.daily_tank_watched_ad_client = false;
     // Decide how to color and team the body
-    if (!filter.length) switch (Config.mode) {
-      case "tdm": {
-        body.team = player.team;
-        body.color.base = global.getTeamColor(player.body.team);
-        socket.rememberedTeam = body.team;
-      } break;
-      case "tag": {
-        body.team = player.team;
-        body.color.base = global.getTeamColor(player.body.team);
-        socket.rememberedTeam = body.team;
-        Config.tag_data.addPlayer(body);
-      } break;
-      case "clan": {
-        body.team = player.team;
-        body.originalName = body.name;
-        body.clan = player.clan;
-        body.color.base = getTeamColor(TEAM_RED);
-        socket.rememberedTeam = body.team;
-        Config.clan_wars_ft.add(name, body);
-        if (!body.clan) {
+    if (!filter.length) {
+      switch (Config.mode) {
+        case "tdm": {
+          body.team = player.team;
+          body.color.base = global.getTeamColor(player.body.team);
+          socket.rememberedTeam = body.team;
+        } break;
+        case "tag": {
+          body.team = player.team;
+          body.color.base = global.getTeamColor(player.body.team);
+          socket.rememberedTeam = body.team;
+          Config.tag_data.addPlayer(body);
+        } break;
+        case "clan": {
+          body.team = player.team;
+          body.originalName = body.name;
+          body.clan = player.clan;
+          body.color.base = getTeamColor(TEAM_RED);
+          socket.rememberedTeam = body.team;
+          Config.clan_wars_ft.add(name, body);
+          if (!body.clan) {
+            let loop = setInterval(() => {
+              for (let e of Config.clan_wars_ft.getClans()) {
+                if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
+                  clearInterval(loop);
+                } else body.team = getRandomTeam();
+              }
+            })
+          }
+        } break;
+        default: {
+          let team = filter.length ? player.team : getRandomTeam();
+          body.team = team;
+          body.color.base = Config.random_body_colors ? 
+            ran.choose([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]) : getTeamColor(TEAM_RED);
           let loop = setInterval(() => {
-            for (let e of Config.clan_wars_ft.getClans()) {
+            for (let e of entities.values()) {
               if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
                 clearInterval(loop);
-              } else body.team = getRandomTeam();
+              } else body.team = team;
             }
           })
         }
-      } break;
-      default: {
-        let team = filter.length ? player.team : getRandomTeam();
-        body.team = team;
-        body.color.base = Config.random_body_colors ? 
-          ran.choose([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17]) : getTeamColor(TEAM_RED);
-        let loop = setInterval(() => {
-          for (let e of entities.values()) {
-            if (body.team !== e.team || body.team !== -101 || body.team !== -1 || body.team !== -2 || body.team !== -3 || body.team !== -4) {
-              clearInterval(loop);
-            } else body.team = team;
-          }
-        })
-      }
+      } 
     }
     this.preparePlayer(socket, player, body);
     return player;
@@ -1382,8 +1389,9 @@ class socketManager {
     // Add the gun data to the array
     output.push(data.guns.length);
     for (let i = 0; i < data.guns.length; i++) {
-      for (let k in data.guns[i])
-        output.push(data.guns[i][k]);
+      for (let k in data.guns[i]) {
+        output.push(data.guns[i][k]); 
+      }
     }
     // For each turret, add their own output
     output.push(data.turrets.length);
@@ -1729,11 +1737,12 @@ class socketManager {
             nowIndex++;
             oldIndex++;
             let updated = false;
-            for (let i = 0; i < this.dataLength; i++)
+            for (let i = 0; i < this.dataLength; i++) {
               if (oldElement.data[i] !== nowElement.data[i]) {
                 updated = true;
                 break;
-              }
+              } 
+            }
             if (updated) {
               updates.push(nowElement.id, ...nowElement.data);
               updatesLength++;
@@ -1859,7 +1868,7 @@ class socketManager {
     });
     let minimapTeams = new Delta(3, args => {
       let all = [];
-      for (const my of entities.values())
+      for (const my of entities.values()) {
         if (my.type === "tank" && my.team === args[0] && my.master === my && my.allowedOnMinimap) {
           all.push({
             id: my.id,
@@ -1869,12 +1878,13 @@ class socketManager {
               my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "10 0 1 0 false" : my.color.compiled
             ]
           });
-        }
+        } 
+      }
       return all;
     });
     let minimapAllTeams = new Delta(3, args => {
       let all = [];
-      for (const my of entities.values())
+      for (const my of entities.values()) {
         if (my.type === "tank" && my.master === my && !my.lifetime) {
           all.push({
             id: my.id,
@@ -1884,7 +1894,8 @@ class socketManager {
               my.minimapColor ? my.minimapColor + " 0 1 0 false" : Config.groups || (Config.mode == "ffa" || Config.mode == "clan" && !Config.tag) ? "12 0 1 0 false" : my.color.compiled
             ]
           });
-        }
+        } 
+      }
       return all;
     });
     let globalLeaderboard = new Delta(7, args => {

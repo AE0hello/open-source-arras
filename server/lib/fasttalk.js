@@ -122,13 +122,13 @@ let encode = message => {
           headerCodes.push(15)
           repeatTypeCount -= 19
         }
-        if (repeatTypeCount === 1)
-          headerCodes.push(lastTypeCode)
-        else if (repeatTypeCount === 2)
-          headerCodes.push(0b1100)
-        else if (repeatTypeCount === 3)
-          headerCodes.push(0b1101)
-        else if (repeatTypeCount < 20) {
+        if (repeatTypeCount === 1) {
+          headerCodes.push(lastTypeCode) 
+        } else if (repeatTypeCount === 2) {
+          headerCodes.push(0b1100) 
+        } else if (repeatTypeCount === 3) {
+          headerCodes.push(0b1101) 
+        } else if (repeatTypeCount < 20) {
           headerCodes.push(0b1110)
           headerCodes.push(repeatTypeCount - 4)
         }
@@ -144,20 +144,21 @@ let encode = message => {
       headerCodes.push(15)
       repeatTypeCount -= 19
     }
-    if (repeatTypeCount === 1)
-      headerCodes.push(lastTypeCode)
-    else if (repeatTypeCount === 2)
-      headerCodes.push(0b1100)
-    else if (repeatTypeCount === 3)
-      headerCodes.push(0b1101)
-    else if (repeatTypeCount < 20) {
+    if (repeatTypeCount === 1) {
+      headerCodes.push(lastTypeCode) 
+    } else if (repeatTypeCount === 2) {
+      headerCodes.push(0b1100) 
+    } else if (repeatTypeCount === 3) {
+      headerCodes.push(0b1101) 
+    } else if (repeatTypeCount < 20) {
       headerCodes.push(0b1110)
       headerCodes.push(repeatTypeCount - 4)
     }
   }
   headerCodes.push(0b1111)
-  if (headerCodes.length % 2 === 1)
-    headerCodes.push(0b1111)
+  if (headerCodes.length % 2 === 1) {
+    headerCodes.push(0b1111) 
+  }
 
   let output = new Uint8Array((headerCodes.length >> 1) + contentSize)
   for (let i = 0; i < headerCodes.length; i += 2) {
@@ -222,16 +223,18 @@ let encode = message => {
 
 let decode = packet => {
   let data = new Uint8Array(packet)
-  if (data[0] >> 4 !== 0b1111)
-    return null
+  if (data[0] >> 4 !== 0b1111) {
+    return null 
+  }
 
   let headers = []
   let lastTypeCode = 0b1111
   let index = 0
   let consumedHalf = true
   while (true) {
-    if (index >= data.length)
-      return null
+    if (index >= data.length) {
+      return null 
+    }
     let typeCode = data[index]
 
     if (consumedHalf) {
@@ -244,15 +247,17 @@ let decode = packet => {
 
     if ((typeCode & 0b1100) === 0b1100) {
       if (typeCode === 0b1111) {
-        if (consumedHalf)
-          index++
+        if (consumedHalf) {
+          index++ 
+        }
         break
       }
 
       let repeat = typeCode - 10 // 0b1100 - 2
       if (typeCode === 0b1110) {
-        if (index >= data.length)
-          return null
+        if (index >= data.length) {
+          return null 
+        }
         let repeatCode = data[index]
 
         if (consumedHalf) {
@@ -266,8 +271,9 @@ let decode = packet => {
         repeat += repeatCode
       }
 
-      for (let i = 0; i < repeat; i++)
-        headers.push(lastTypeCode)
+      for (let i = 0; i < repeat; i++) {
+        headers.push(lastTypeCode) 
+      }
     } else {
       headers.push(typeCode)
       lastTypeCode = typeCode

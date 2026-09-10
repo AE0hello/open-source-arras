@@ -81,8 +81,9 @@ exports.shuffle = (arr) => {
 
 exports.chooseChance = (...arg) => {
   let totalProb = 0
-  for (let value of arg)
-    totalProb += value
+  for (let value of arg) {
+    totalProb += value 
+  }
 
   let answer = exports.random(totalProb)
   for (let i = 0; i < arg.length; i++) {

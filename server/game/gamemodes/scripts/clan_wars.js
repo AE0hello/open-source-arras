@@ -54,9 +54,11 @@ class ClanWars {
             team: clan.team,
             clan: clan.fullClanName
           }
-        } else return {
-          clan: null,
-          team: getRandomTeam()
+        } else {
+          return {
+            clan: null,
+            team: getRandomTeam()
+          } 
         }
       }
     }

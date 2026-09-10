@@ -284,18 +284,20 @@ class Entity extends EventEmitter {
     if (set.RENDER_ON_LEADERBOARD != null) this.settings.renderOnLeaderboard = set.RENDER_ON_LEADERBOARD;
     if (set.INTANGIBLE != null) this.intangibility = set.INTANGIBLE;
     if (set.IS_SMASHER != null) this.settings.reloadToAcceleration = set.IS_SMASHER;
-    if (set.STAT_NAMES != null) this.settings.skillNames = {
-      body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? "Body Damage",
-      max_health: set.STAT_NAMES?.MAX_HEALTH ?? "Max Health",
-      bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? "Bullet Speed",
-      bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? "Bullet Health",
-      bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? "Bullet Penetration",
-      bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? "Bullet Damage",
-      reload: set.STAT_NAMES?.RELOAD ?? "Reload",
-      move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
-      shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
-      shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity"
-    };
+    if (set.STAT_NAMES != null) {
+      this.settings.skillNames = {
+        body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? "Body Damage",
+        max_health: set.STAT_NAMES?.MAX_HEALTH ?? "Max Health",
+        bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? "Bullet Speed",
+        bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? "Bullet Health",
+        bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? "Bullet Penetration",
+        bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? "Bullet Damage",
+        reload: set.STAT_NAMES?.RELOAD ?? "Reload",
+        move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
+        shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
+        shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity"
+      }; 
+    }
     if (set.AI != null) this.aiSettings = set.AI;
     if (set.INVISIBLE != null) this.invisible = set.INVISIBLE;
     if (set.ALPHA != null) {
@@ -640,9 +642,11 @@ class Entity extends EventEmitter {
       this.skipLife = true;
       targetableEntities.delete(this.id);
     }
-    if (isInvulnerable) this.on("dead", () => {
-      this.master.turrets.delete(this.id); 
-    })
+    if (isInvulnerable) {
+      this.on("dead", () => {
+        this.master.turrets.delete(this.id); 
+      }) 
+    }
     this.settings.drawShape = false;
     // Get my position.
     if (Array.isArray(position)) position = { SIZE: position[0], X: position[1], Y: position[2], ANGLE: position[3], ARC: position[4], LAYER: position[5] };
@@ -913,11 +917,13 @@ class Entity extends EventEmitter {
     }
     if (!upgraded) return;
     this.emit("upgrade", { body: this });
-    if (this.settings.shakeProperties) this.settings.shakeProperties.forEach(info => {
-      if (info.applyOn.upgrade) {
-        this.socket.talk("SH", JSON.stringify(info));
-      }
-    })
+    if (this.settings.shakeProperties) {
+      this.settings.shakeProperties.forEach(info => {
+        if (info.applyOn.upgrade) {
+          this.socket.talk("SH", JSON.stringify(info));
+        }
+      }) 
+    }
     this.sendMessage("You have upgraded to " + this.label + ".");
     for (let def of this.defs) {
       def = ensureIsClass(def);

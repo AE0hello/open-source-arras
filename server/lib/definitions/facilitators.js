@@ -66,8 +66,9 @@ exports.combineStats = function(stats) {
 }
 exports.setBuild = (build) => {
   let skills = build.split(build.includes("/") ? "/" : "").map((r) => +r);
-  if (skills.length !== 10)
-    throw new RangeError("Build must be made up of 10 numbers");
+  if (skills.length !== 10) {
+    throw new RangeError("Build must be made up of 10 numbers"); 
+  }
   return [6, 4, 3, 5, 2, 9, 0, 1, 8, 7].map((r) => skills[r]);
 }
 exports.skillSet = (args) => {
@@ -483,8 +484,10 @@ exports.makeBird = (type, name = -1, options = {}) => {
     }))
   }
   // Assign thruster color
-  if (color) for (let gun of shootyBois) {
-    gun.PROPERTIES.TYPE = [gun.PROPERTIES.TYPE, { COLOR: color }];
+  if (color) {
+    for (let gun of shootyBois) {
+      gun.PROPERTIES.TYPE = [gun.PROPERTIES.TYPE, { COLOR: color }];
+    } 
   }
 
   // Modify front barrels
@@ -576,12 +579,14 @@ exports.makeGuard = (type, name = -1, options = {}) => {
   }
 
   // Nerf existing barrels
-  if (output.GUNS) for (let gun of output.GUNS) {
-    if (gun.PROPERTIES) {
-      if (gun.PROPERTIES.SHOOT_SETTINGS) {
-        gun.PROPERTIES.SHOOT_SETTINGS = exports.combineStats([gun.PROPERTIES.SHOOT_SETTINGS, g.flankGuard, g.flankGuard])
+  if (output.GUNS) {
+    for (let gun of output.GUNS) {
+      if (gun.PROPERTIES) {
+        if (gun.PROPERTIES.SHOOT_SETTINGS) {
+          gun.PROPERTIES.SHOOT_SETTINGS = exports.combineStats([gun.PROPERTIES.SHOOT_SETTINGS, g.flankGuard, g.flankGuard])
+        }
       }
-    }
+    } 
   }
 
   // Assign misc settings
@@ -708,9 +713,11 @@ exports.makeHat = (shape = 0, options = {}) => {
   options.rotationSpeed ??= 0
   if (!options.rotationSpeed == 0) {
     spinProperties = ["spin", {speed: options.rotationSpeed}]
-  } else (
-    spinProperties = ["toTarget"]
-  )
+  } else {
+    (
+      spinProperties = ["toTarget"]
+    ) 
+  }
   return {
     LABEL: "",
     FACING_TYPE: spinProperties,
@@ -1784,8 +1791,10 @@ exports.removeUpgrades = (type, tier, upgrades = []) => {
   if (typeUpgrades == undefined) return;
   for (let i = typeUpgrades.length - 1; i >= 0; i--) {
     let string = typeUpgrades[i];
-    for (const upgrade of upgrades) if (string === upgrade) {
-      typeUpgrades.splice(i, 1)
+    for (const upgrade of upgrades) {
+      if (string === upgrade) {
+        typeUpgrades.splice(i, 1)
+      } 
     }
   }
 };

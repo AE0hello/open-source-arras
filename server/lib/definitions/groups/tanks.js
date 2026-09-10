@@ -10740,7 +10740,7 @@ Class.theConglomerate = {
           g.basic,
           g.pounder,
           g.destroyer,
-          g.healer,
+          g.healer
           //[2, 0, 1, 1, 1, -1, 1, 1, 1, 0.1, 1, 1, 1],
         ]),
         TYPE: "healerBullet",
@@ -10751,11 +10751,11 @@ Class.theConglomerate = {
       POSITION: [28, 2, 1, 0, 4, 180, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
-      POSITION: [40, 7, 1, 0, 0, 0, 0],
+      POSITION: [40, 7, 1, 0, 0, 0, 0]
     },
     {
       POSITION: [15, 9, -2, 0, 0, 0, 0]
@@ -10764,35 +10764,35 @@ Class.theConglomerate = {
       POSITION: [28, 2, 1, 0, -4, 180, 0.8],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: [28, 2, 1, 0, 2.25, 180, 0.2],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: [28, 2, 1, 0, -2.25, 180, 0.6],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
       POSITION: [28, 2, 1, 0, 0, 180, 0.4],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, { speed: 1.2 }]),
-        TYPE: "bullet",
-      },
+        TYPE: "bullet"
+      }
     },
     {
-      POSITION: [5, 13, 1, 7, 0, 180, 0],
+      POSITION: [5, 13, 1, 7, 0, 180, 0]
     },
     {
-      POSITION: [5, 13, 1, 20, 0, 180, 0],
+      POSITION: [5, 13, 1, 20, 0, 180, 0]
     },
     {
       POSITION: [14, 8, 1, 0, -1, 140, 0.6],
@@ -10836,24 +10836,24 @@ Class.theConglomerate = {
       }
     },
     {
-      POSITION: [14, 6, 1, 0, 0, 45, 0],
+      POSITION: [14, 6, 1, 0, 0, 45, 0]
     },
     {
       POSITION: [2, 6, 1.1, 14, 0, 45, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.weak]),
-        TYPE: "setTrap",
-      },
+        TYPE: "setTrap"
+      }
     },
     {
-      POSITION: [14, 6, 1, 0, 0, -45, 0],
+      POSITION: [14, 6, 1, 0, 0, -45, 0]
     },
     {
       POSITION: [2, 6, 1.1, 14, 0, -45, 0],
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, g.weak]),
-        TYPE: "setTrap",
-      },
+        TYPE: "setTrap"
+      }
     },
     {
       POSITION: [16, 16, 1.4, 0, 0, 180, 0],
@@ -10863,8 +10863,8 @@ Class.theConglomerate = {
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
-        MAX_CHILDREN: 1,
-      },
+        MAX_CHILDREN: 1
+      }
     },
     {
       POSITION: [16, 10, 1, 0, 5, 0, 2 / 3],
@@ -10927,9 +10927,9 @@ Class.theConglomerate = {
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.swarm]),
         TYPE: "swarm",
-        STAT_CALCULATOR: "swarm",
-      },
-    },
+        STAT_CALCULATOR: "swarm"
+      }
+    }
   ],
   TURRETS: [
     {
@@ -10937,35 +10937,35 @@ Class.theConglomerate = {
       TYPE: [
         "crowbarTurretTank",
         { INDEPENDENT: true }
-      ],
+      ]
     },
     {
       POSITION: [6, 32, 0, 0, 180, 1],
       TYPE: [
         "crowbarTurretTank",
         { INDEPENDENT: true }
-      ],
+      ]
     },
     {
       POSITION: [6, 22, 0, 0, 180, 1],
       TYPE: [
         "crowbarTurretTank",
         { INDEPENDENT: true }
-      ],
+      ]
     },
     {
       POSITION: [13, 8, 0, -90, 190, 0],
-      TYPE: "sniper3gun",
+      TYPE: "sniper3gun"
     },
     {
       POSITION: [13, 8, 0, 90, 190, 0],
-      TYPE: "sniper3gun",
+      TYPE: "sniper3gun"
     },
     {
       TYPE: ["triangleHat", {COLOR: "grey"}],
       POSITION: { SIZE: 7, LAYER: 1 }
     }
-  ],
+  ]
 };
 Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
 Class.unknownClass = {

@@ -16,16 +16,18 @@ class MockupEntityGun {
     if (info.PROPERTIES != null) {
       if (info.PROPERTIES.COLOR != null) {
         if (typeof info.PROPERTIES.COLOR === "number" || typeof info.PROPERTIES.COLOR === "string") {
-          if (!isNaN(info.PROPERTIES.COLOR) && !isNaN(parseFloat(info.PROPERTIES.COLOR)) || /^[a-zA-Z]*$/.test(info.PROPERTIES.COLOR))
+          if (!isNaN(info.PROPERTIES.COLOR) && !isNaN(parseFloat(info.PROPERTIES.COLOR)) || /^[a-zA-Z]*$/.test(info.PROPERTIES.COLOR)) {
             this.colorUnboxed.base = info.PROPERTIES.COLOR; 
-        } else if (typeof info.PROPERTIES.COLOR === "object")
+          } 
+        } else if (typeof info.PROPERTIES.COLOR === "object") {
           this.colorUnboxed = {
             base: info.PROPERTIES.COLOR.BASE ?? 16,
             hueShift: info.PROPERTIES.COLOR.HUE_SHIFT ?? 0,
             saturationShift: info.PROPERTIES.COLOR.SATURATION_SHIFT ?? 1,
             brightnessShift: info.PROPERTIES.COLOR.BRIGHTNESS_SHIFT ?? 0,
             allowBrightnessInvert: info.PROPERTIES.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false
-          };
+          }; 
+        }
         this.color = this.colorUnboxed.base + " " + this.colorUnboxed.hueShift + " " + this.colorUnboxed.saturationShift + " " + this.colorUnboxed.brightnessShift + " " + this.colorUnboxed.allowBrightnessInvert;
       }
       if (info.PROPERTIES.ALPHA != null) this.alpha = info.PROPERTIES.ALPHA;
@@ -147,16 +149,18 @@ class MockupEntityProp {
     this.imageInterpolation = set.IMAGE_INTERPOLATION != null ? set.IMAGE_INTERPOLATION : "bilinear"
     if (set.COLOR != null) {
       if (typeof set.COLOR === "number" || typeof set.COLOR === "string") {
-        if (!isNaN(set.COLOR) && !isNaN(parseFloat(set.COLOR)) || /^[a-zA-Z]*$/.test(set.COLOR))
+        if (!isNaN(set.COLOR) && !isNaN(parseFloat(set.COLOR)) || /^[a-zA-Z]*$/.test(set.COLOR)) {
           this.colorUnboxed.base = set.COLOR; 
-      } else if (typeof set.COLOR === "object")
+        } 
+      } else if (typeof set.COLOR === "object") {
         this.colorUnboxed = {
           base: set.COLOR.BASE ?? 16,
           hueShift: set.COLOR.HUE_SHIFT ?? 0,
           saturationShift: set.COLOR.SATURATION_SHIFT ?? 1,
           brightnessShift: set.COLOR.BRIGHTNESS_SHIFT ?? 0,
           allowBrightnessInvert: set.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false
-        };
+        }; 
+      }
       this.color = this.colorUnboxed.base + " " + this.colorUnboxed.hueShift + " " + this.colorUnboxed.saturationShift + " " + this.colorUnboxed.brightnessShift + " " + this.colorUnboxed.allowBrightnessInvert;
     }
     if (set.BORDERLESS != null) this.borderless = set.BORDERLESS;
@@ -226,16 +230,17 @@ class MockupEntity {
     }
     this.imageInterpolation = set.IMAGE_INTERPOLATION ?? "bilinear";
     if (set.COLOR != null) {
-      if (typeof set.COLOR === "number" || typeof set.COLOR === "string")
-        this.colorUnboxed.base = set.COLOR;
-      else if (typeof set.COLOR === "object")
+      if (typeof set.COLOR === "number" || typeof set.COLOR === "string") {
+        this.colorUnboxed.base = set.COLOR; 
+      } else if (typeof set.COLOR === "object") {
         this.colorUnboxed = {
           base: set.COLOR.BASE ?? 16,
           hueShift: set.COLOR.HUE_SHIFT ?? 0,
           saturationShift: set.COLOR.SATURATION_SHIFT ?? 1,
           brightnessShift: set.COLOR.BRIGHTNESS_SHIFT ?? 0,
           allowBrightnessInvert: set.COLOR.ALLOW_BRIGHTNESS_INVERT ?? false
-        };
+        }; 
+      }
       this.color = this.colorUnboxed.base + " " + this.colorUnboxed.hueShift + " " + this.colorUnboxed.saturationShift + " " + this.colorUnboxed.brightnessShift + " " + this.colorUnboxed.allowBrightnessInvert;
     }
     if (set.UPGRADE_COLOR) this.upgradeColor = set.UPGRADE_COLOR + " 0 1 0 false";
@@ -261,18 +266,20 @@ class MockupEntity {
       for (let root of this.rerootUpgradeTree) finalRoot += root + "\\/";
       this.rerootUpgradeTree = finalRoot.substring(0, finalRoot.length - 2);
     }
-    if (set.STAT_NAMES != null) this.settings.skillNames = {
-      body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? "Body Damage",
-      max_health: set.STAT_NAMES?.MAX_HEALTH ?? "Max Health",
-      bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? "Bullet Speed",
-      bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? "Bullet Health",
-      bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? "Bullet Penetration",
-      bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? "Bullet Damage",
-      reload: set.STAT_NAMES?.RELOAD ?? "Reload",
-      move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
-      shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
-      shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity"
-    };
+    if (set.STAT_NAMES != null) {
+      this.settings.skillNames = {
+        body_damage: set.STAT_NAMES?.BODY_DAMAGE ?? "Body Damage",
+        max_health: set.STAT_NAMES?.MAX_HEALTH ?? "Max Health",
+        bullet_speed: set.STAT_NAMES?.BULLET_SPEED ?? "Bullet Speed",
+        bullet_health: set.STAT_NAMES?.BULLET_HEALTH ?? "Bullet Health",
+        bullet_pen: set.STAT_NAMES?.BULLET_PEN ?? "Bullet Penetration",
+        bullet_damage: set.STAT_NAMES?.BULLET_DAMAGE ?? "Bullet Damage",
+        reload: set.STAT_NAMES?.RELOAD ?? "Reload",
+        move_speed: set.STAT_NAMES?.MOVE_SPEED ?? "Movement Speed",
+        shield_regen: set.STAT_NAMES?.SHIELD_REGEN ?? "Shield Regeneration",
+        shield_cap: set.STAT_NAMES?.SHIELD_CAP ?? "Shield Capacity"
+      }; 
+    }
     if (set.ALPHA != null) {
       this.alpha = ("number" === typeof set.ALPHA) ? set.ALPHA : set.ALPHA[1];
       this.alphaRange = [

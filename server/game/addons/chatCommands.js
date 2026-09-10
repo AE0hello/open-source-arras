@@ -295,8 +295,10 @@ let commands = [
             socket.status.selectedLeaderboard2 = socket.status.selectedLeaderboard;
             socket.status.selectedLeaderboard = "stop";
             socket.talk("RE"); // Also reset the global.entities in the client so it can refresh.
-            if (Config.load_all_mockups) for (let i = 0; i < mockupData.length; i++) {
-              socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
+            if (Config.load_all_mockups) {
+              for (let i = 0; i < mockupData.length; i++) {
+                socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
+              } 
             }
             socket.status.selectedLeaderboard = socket.status.selectedLeaderboard2;
             delete socket.status.selectedLeaderboard2;

@@ -530,7 +530,9 @@ global.handleBatchUpgradeSplit = (() => {
         chooseUpgradeFromBranch(remaining - 1, my);
       }
       if (branchUgrades.length == 0) // For when the branch has no upgrades
-        chooseUpgradeFromBranch(remaining - 1, my);
+      {
+        chooseUpgradeFromBranch(remaining - 1, my); 
+      }
     } else { // If there's nothing more to select
       let upgradeClass = [],
         upgradeTier = 0,
@@ -612,8 +614,10 @@ global.flatten = (output, definition) => {
   if (definition.PARENT) {
     if (!Array.isArray(definition.PARENT)) {
       flatten(output, definition.PARENT);
-    } else for (let parent of definition.PARENT) {
-      flatten(output, parent);
+    } else {
+      for (let parent of definition.PARENT) {
+        flatten(output, parent);
+      } 
     }
   }
 

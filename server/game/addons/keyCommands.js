@@ -228,14 +228,15 @@ function init() {
             }
             let tx = player.body.x + player.target.x;
             let ty = player.body.y + player.target.y;
-            for (let { e: entity, dx, dy } of dragged)
+            for (let { e: entity, dx, dy } of dragged) {
               if (!entity.isGhost) {
                 entity.x = dx + tx;
                 entity.y = dy + ty;
               } else {
                 clearInterval(body.store.dragInterval);
                 delete body.store.dragInterval;
-              }
+              } 
+            }
           });
         }
       }

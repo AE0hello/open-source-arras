@@ -15,6 +15,7 @@ export default defineConfig([
       globals: globals.browser
     },
     rules: {
+      "curly": ["error", "multi-line"],
       "no-unreachable": ["error"],
       "@stylistic/array-bracket-spacing": ["error", "never"],
       "@stylistic/arrow-spacing": ["error", {

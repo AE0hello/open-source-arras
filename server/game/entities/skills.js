@@ -15,8 +15,9 @@ let curvePoints = [];
 
 let curve = (x) => {
   let index = x * Config.skill_cap;
-  if (!curvePoints[index])
-    curvePoints[index] = Math.log(4 * (index / Config.skill_cap) + 1) / 1.6;
+  if (!curvePoints[index]) {
+    curvePoints[index] = Math.log(4 * (index / Config.skill_cap) + 1) / 1.6; 
+  }
   return curvePoints[index];
 };
 function apply(f, x) {

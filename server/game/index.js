@@ -191,8 +191,9 @@ class gameHandler {
             };
             break;
           case "hardOnlyBosses":
-            if (instance.type === other.type && instance.type === "miniboss")
-              firmcollide(instance, other);
+            if (instance.type === other.type && instance.type === "miniboss") {
+              firmcollide(instance, other); 
+            }
             break;
           case "repel":
             simplecollide(instance, other);

@@ -76,11 +76,13 @@ if (Config.allow_ACAO && Config.startup_logs) {
 server = http.createServer((req, res) => {
   let query = {};
   let pathname = req.url.split("?")[0];
-  if (req.url.includes("?")) req.url.split("?")[1].split("&").map(i => {
-    let key = i.split("=")[0];
-    let value = i.split("=")[1];
-    query[key] = value;
-  });
+  if (req.url.includes("?")) {
+    req.url.split("?")[1].split("&").map(i => {
+      let key = i.split("=")[0];
+      let value = i.split("=")[1];
+      query[key] = value;
+    }); 
+  }
   let readString = ""; // Response content for API endpoints
   let ok = true; // Flag to indicate whether we use default API response
   let serversIP = [];
@@ -88,9 +90,11 @@ server = http.createServer((req, res) => {
   let selectedHeader = null;
 
   // Set CORS headers if enabled in the configuration or allow only the children servers.
-  for (let server of global.servers) if (server.ip !== Config.host && server.ip) {
-    let http = server.ip.startsWith("localhost") ? `http://${server.ip}` : `https://${server.ip}`;
-    serversIP.push(http);
+  for (let server of global.servers) {
+    if (server.ip !== Config.host && server.ip) {
+      let http = server.ip.startsWith("localhost") ? `http://${server.ip}` : `https://${server.ip}`;
+      serversIP.push(http);
+    } 
   };
   if (Config.allow_ACAO || serversIP.includes(req.headers.origin)) {
     res.setHeader("Access-Control-Allow-Origin", "*");

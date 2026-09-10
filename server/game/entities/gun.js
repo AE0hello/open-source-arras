@@ -235,10 +235,12 @@ class Gun extends EventEmitter {
     }
     // Firing routines
     if (this.autofire || (this.altFire ? this.body.control.alt : this.body.control.fire)) {
-      if (this.body.settings.hasNoReloadDelay && shootPermission) return (
-        this.shoot(),
-        this.cycleTimer = this.maxCycleTimer
-      )
+      if (this.body.settings.hasNoReloadDelay && shootPermission) {
+        return (
+          this.shoot(),
+          this.cycleTimer = this.maxCycleTimer
+        ) 
+      }
       while (shootPermission && this.cycleTimer >= 1) {
         this.shoot();
         this.cycleTimer--;
@@ -399,11 +401,13 @@ class Gun extends EventEmitter {
       gunStore: this.store,
       globalGunStore: this.globalStore
     });
-    if (this.body.master.settings.shakeProperties && this.master.socket) this.body.master.settings.shakeProperties.forEach(info => {
-      if (info.applyOn.shoot) {
-        this.master.socket.talk("SH", JSON.stringify(info));
-      }
-    })
+    if (this.body.master.settings.shakeProperties && this.master.socket) {
+      this.body.master.settings.shakeProperties.forEach(info => {
+        if (info.applyOn.shoot) {
+          this.master.socket.talk("SH", JSON.stringify(info));
+        }
+      }) 
+    }
   }
   bulletInitIndependent(o) {
     o.define(this.bulletType);
@@ -508,7 +512,7 @@ class Gun extends EventEmitter {
       if (!b) branchAlt++;
       let total = (z / 5) | 0 || 2;
       let dir = (a ? Math.PI / 2 : -Math.PI / 2) + g;
-      for (let i = 0; i < total; i++)
+      for (let i = 0; i < total; i++) {
         setTimeout(() => {
           let ss = s * 1.5;
           let x = e.x + ss * Math.cos(save.angle + dir) * i;
@@ -543,7 +547,8 @@ class Gun extends EventEmitter {
               branch(o, a, true, dir + g, total);
             } else branchLength = 0;
           }
-        }, (500 / amount) * i);
+        }, (500 / amount) * i); 
+      }
     };
     const hitScanLevel = +this.onShoot.split("hitScan").pop();
     for (let i = 0; i < amount; i++) {
@@ -681,8 +686,9 @@ class Gun extends EventEmitter {
     if (this.independentChildren) return;
     // Go through and make sure we respect its natural properties
     for (let property in out) {
-      if (this.bulletBodyStats[property] == null)
-        continue;
+      if (this.bulletBodyStats[property] == null) {
+        continue; 
+      }
       out[property] *= this.bulletBodyStats[property];
     }
     return out;
