@@ -303,7 +303,7 @@ module.exports = {
         // laby_${poly}_${tier}_${shiny}_${rank}
         [
           [24, `laby_${i}_${j}_${k}_0`],
-          //[1, `laby_${i}_${j}_${k}_1`] // uncomment to enable crashers outside nest
+          [1, `laby_${i}_${j}_${k}_1`] // uncomment to enable crashers outside nest
         ]
       ])
     ])
@@ -324,7 +324,7 @@ module.exports = {
         // laby_${poly}_${tier}_${shiny}_${rank}
         [
           [24, `laby_${i + 3}_${j}_${k}_0`],
-          //[1, `laby_${i + 3}_${j}_${k}_1`] // uncomment to enable crashers in nest
+          [1, `laby_${i + 3}_${j}_${k}_1`] // uncomment to enable crashers in nest
         ]
       ])
     ])
