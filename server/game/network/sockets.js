@@ -232,7 +232,7 @@ class socketManager {
           socket.kick("Trying to spawn while already alive."); return 1; 
         }
         if (global.gameManager.private && !socket.permissions) return (
-          socket.talk("message", "This server is private."),
+          socket.talk("message", "This server seems to be private."),
           socket.kick("Tried to join private server without valid token.")
         )
         if (!global.gameManager.webProperties.maxPlayers < 1 && this.clients.length > global.gameManager.webProperties.maxPlayers) return (
