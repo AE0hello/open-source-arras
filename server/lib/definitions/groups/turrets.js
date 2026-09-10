@@ -453,6 +453,7 @@ Class.eliteSpinnerCyclone = {
         }
     ], 3)
 }
+Class.cycloneTurret = makeTurret('cyclone', {hasAI: false})
 Class.barricadeTurret = makeTurret('barricade', {aiSettings: {SKYNET: true, FULL_VIEW: true, independent: true, extraStats: []}})
 Class.ultraBarricadeTurret = makeTurret({
     GUNS: [

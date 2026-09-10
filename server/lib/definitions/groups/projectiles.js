@@ -974,10 +974,10 @@ Class.beemanTrap = {
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 1,
-            WIDTH: 10
+            WIDTH: 8
         },
         PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.swarm, g.bee]),
+            SHOOT_SETTINGS: combineStats([g.swarm, g.bee, {shudder: 10, speed: 1.5}]),
             TYPE: "bee",
             SHOOT_ON_DEATH: true,
         }

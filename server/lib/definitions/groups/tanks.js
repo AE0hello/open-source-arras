@@ -10096,6 +10096,7 @@ Class.alas = {
     DANGER: 9,
     STAT_NAMES: statnames.drone,
     BODY: Class.director.BODY,
+    INVISIBLE: [0.08, 0.03],
     GUNS: [
         {
             POSITION: {
@@ -10116,9 +10117,17 @@ Class.alas = {
         },
         {
             POSITION: {
-                LENGTH: 9,
-                WIDTH: 0.125,
-                ASPECT: -5,
+                LENGTH: 5,
+                WIDTH: 6,
+                ASPECT: -1.5,
+                X: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 7.5,
+                WIDTH: 1.5,
+                ASPECT: -4,
                 X: 8
             }
         }
@@ -10134,7 +10143,7 @@ Class.beeman = {
                 WIDTH: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {range: 0.5}]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {range: 0.5, reload: 0.5}]),
                 TYPE: 'beemanTrap'
             }
         }
@@ -10180,6 +10189,17 @@ Class.schoolShooter = {
             }
         }
     ]
+}
+Class.quadCyclone = {
+    PARENT: "genericTank",
+    LABEL: "Quad Cyclone",
+    TURRETS: weaponArray({
+        POSITION: {SIZE: 20, LAYER: 1, X: 25},
+        TYPE: 'cycloneTurret'
+    }, 4),
+    GUNS: weaponArray({
+        POSITION: {LENGTH: 18, WIDTH: 8}
+    }, 4)
 }
 Class.cxATMG = {
     PARENT: "dominator",
