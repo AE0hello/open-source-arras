@@ -10111,7 +10111,7 @@ Class.alas = {
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: 'drone',
-                MAX_CHILDREN: 6,
+                MAX_CHILDREN: 8,
                 WAIT_TO_CYCLE: true
             }
         },
