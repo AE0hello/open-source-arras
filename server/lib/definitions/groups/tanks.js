@@ -10095,7 +10095,7 @@ Class.alas = {
     LABEL: "Alas",
     DANGER: 9,
     STAT_NAMES: statnames.drone,
-    BODY: Class.director.BODY,
+    BODY: Class.manager.BODY,
     INVISIBLE: [0.08, 0.03],
     GUNS: [
         {
