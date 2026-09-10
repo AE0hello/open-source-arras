@@ -10400,7 +10400,7 @@ Class.quadCyclone = {
   DANGER: 7,
   STAT_NAMES: statnames.mixed,
   BODY: {
-      SPEED: 0.8 * base.SPEED
+    SPEED: 0.8 * base.SPEED
   },
   REVERSE_TARGET_WITH_TANK: true,
   GUNS: weaponArray({
@@ -10508,6 +10508,177 @@ Class.tetraGunner = {
     }
   ], 4)
 };
+Class.theAmalgamation = makeAuto({
+  PARENT: "genericTank",
+  DANGER: 12,
+  STAT_NAMES: statnames.mixed,
+  BODY: {
+    FOV: base.FOV * 1.1
+  },
+  GUNS: [
+    {
+      POSITION: [6, 12, 1.2, 8, 0, 0, 0],
+      PROPERTIES: {
+        MAX_CHILDREN: 4,
+        SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }]),
+        TYPE: ["drone", {
+          AI: { skynet: true },
+          INDEPENDENT: true,
+          BODY: { FOV: 1 }
+        }],
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        LABEL: "asswipe"
+      }
+    },
+    {
+      POSITION: [16, 8, 1, 0, 0, -90, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [16, 8, 1, 0, 0, 90, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [7, 7.5, 0.6, 7, -1, -90, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.swarm]),
+        TYPE: "autoswarm",
+        STAT_CALCULATOR: "swarm"
+      }
+    },
+    {
+      POSITION: [7, 7.5, 0.6, 7, 1, 90, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.swarm]),
+        TYPE: "autoswarm",
+        STAT_CALCULATOR: "swarm"
+      }
+    },
+    {
+      POSITION: [18, 8, 1, 0, 0, 130, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
+        TYPE: "bullet",
+        LABEL: "Wing 1"
+      }
+    },
+    {
+      POSITION: [18, 8, 1, 0, 0, -130, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
+        TYPE: "bullet",
+        LABEL: "Wing 2"
+      }
+    },
+    {
+      POSITION: [14, 8, 1, 0, -1, 140, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [16, 8, 1, 0, 0, 150, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [14, 8, 1, 0, 1, -140, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [16, 8, 1, 0, 0, -150, 0.1],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+        TYPE: "bullet",
+        LABEL: "thruster"
+      }
+    },
+    {
+      POSITION: [13.5, 3, 0.5, 0, -8, -7, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
+        TYPE: "bullet",
+        LABEL: "mort"
+      }
+    },
+    {
+      POSITION: [17.3, 3, 0.4, 0, -6, -7, 0.2],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
+        TYPE: "bullet",
+        LABEL: "mort"
+      }
+    },
+    {
+      POSITION: [13.5, 3, 0.5, 0, 8, 7, 0.6],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
+        TYPE: "bullet",
+        LABEL: "moert"
+      }
+    },
+    {
+      POSITION: [17.3, 3, 0.4, 0, 6, 7, 0.2],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
+        TYPE: "bullet",
+        LABEL: "moertseohhifesshg"
+      }
+    },
+    {
+      POSITION: [20, 8, 1, 0, 0, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic]),
+        TYPE: "bullet",
+        LABEL: "uhhhhhh frick"
+      }
+    },
+    {
+      POSITION: [19, 2, 1, 0, -2.5, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { recoil: 4 }, { recoil: 1.8 }]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [19, 2, 1, 0, 2.5, 0, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { recoil: 4 }, { recoil: 1.8 }]),
+        TYPE: "bullet"
+      }
+    },
+    {
+      POSITION: [12, 11, 1, 0, 0, 0, 0]
+    },
+    {
+      POSITION: [20.5, 19.5, 1, 0, 0, 180, 0],
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
+        TYPE: "bullet",
+        LABEL: "fuck you"
+      }
+    }
+  ]
+}, "The Amalgamation");
 Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
 Class.unknownClass = {
   PARENT: "genericTank",

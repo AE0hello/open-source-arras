@@ -85,10 +85,6 @@ Class.menu_specialTanks = makeMenu("Special Tanks Menu", {
     "turkey",
     //"developer",
     "arrasPolice"
-
-    /* Custom stuff, enable as you wish */
-    //"literallyATank",
-    //"nemesis"
   ]
 });
 Class.menu_healers = makeMenu("Healer Menu", {
@@ -149,7 +145,7 @@ Class.menu_dominators = makeMenu("Dominator Menu", {
     //"gunnerDominator_AR",
     //"trapperDominator_AR",
     "antiTankMachineGun",
-    "baseProtector"
+    "baseProtector",
     //"baseProtector_diep"
   ]
 });
@@ -324,14 +320,7 @@ Class.menu_nostalgia = makeMenu("Nostalgia Menu", {
     "commander_old",
     "blunderbuss",
     "rimfire_old",
-    "ransacker",
-
-    /* Custom stuff, enable as you wish */
-    //"jumpSmasher",
-    //"septaTrapper_old",
-    //"undertow",
-    //"whirlwind",
-    //"whirlwind_old"
+    "ransacker"
   ]
 });
 Class.menu_scrapped = makeMenu("Scrapped Menu", {
@@ -344,7 +333,7 @@ Class.menu_scrapped = makeMenu("Scrapped Menu", {
     "megaTrapper",
     "railgun",
     "megaSpawner",
-    "dreadnought_old",
+    "dreadnought_old"
   ]
 });
 Class.menu_scrapped2 = makeMenu("Scrapped Menu 2", {
@@ -357,16 +346,7 @@ Class.menu_scrapped2 = makeMenu("Scrapped Menu 2", {
     "spawnerdrive",
     "rimfire",
     "productionist",
-    "vulture", //"taser",
-
-    /* Custom stuff, enable as you wish */
-    //"cocci",
-    //"flail",
-    //"oroboros",
-    //"rocket",
-    //"volute",
-    //"whirlwind_bent",
-    //"wrangler"
+    "vulture" //"taser"
   ]
 });
 
@@ -415,7 +395,7 @@ Class.menu_adminTanks = makeMenu("Admin Tanks", {
 });
 Class.menu_misc = makeMenu("Misc", {
   upgrades: [
-    //"theAmalgamation",
+    "theAmalgamation",
     //"theConglomerate",
     "schoolShooter",
     //"average4tdmScore",
@@ -431,11 +411,7 @@ Class.menu_misc = makeMenu("Misc", {
     "quadCyclone",
     "beeman",
     "heptaAutoBasic",
-    "alas",
-
-    /* Custom stuff, enable as you wish */
-    //"riptide",
-    //"smasher3"
+    "alas"
   ]
 });
 Class.menu_digdig = makeMenu("DigDig", {
