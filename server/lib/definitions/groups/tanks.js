@@ -10134,7 +10134,7 @@ Class.beeman = {
                 WIDTH: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {range: 0.5}]),
+                SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {range: 0.5, reload: 0.5}]),
                 TYPE: 'beemanTrap'
             }
         }
