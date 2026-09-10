@@ -1,8 +1,9 @@
-const {makeCrasher, makeLaby, makePolychoron, makePolyhedron, makePresent, makeRarities, makeRelic} = require("../facilitators.js")
-const {basePolygonDamage, basePolygonHealth} = require("../constants.js")
+const { makeCrasher, makeLaby, makePolychoron, makePolyhedron, makePresent, makeRarities, makeRelic } = require("../facilitators.js");
+const { basePolygonDamage, basePolygonHealth } = require("../constants.js");
+const preset = require("../presets.js");
 
 // Set the below variable to true to enable the flat 3D shapes from Old Dreadnoughts.
-const classic_3D_shapes = false
+const classic_3D_shapes = false;
 
 // Eggs
 Class.egg = {
@@ -595,7 +596,7 @@ if (!classic_3D_shapes) {
     SCALE: 6
   })
 } else {
-  cube_shape = [[0.1, 0], [0.6, -0.8660254037844386], [1.1, 0], [0.6, 0.8660254037844386], [0.1, 0], [-0.05, 0.08660254037844387], [0.45, 0.9526279441628825], [-0.55, 0.9526279441628825], [-1.05, 0.08660254037844387], [-0.05, 0.08660254037844387], [0.1, 0], [-0.05, -0.08660254037844387], [-1.05, -0.08660254037844387], [-0.55, -0.9526279441628825], [0.45, -0.9526279441628825], [-0.05, -0.08660254037844387]]
+  cube_shape = preset.shape.flatCube
   tetrahedron_shape = "M -0.065 0.037 L -0.934 -0.477 L -0.054 1.047 Z M 0.065 0.037 L 0.054 1.047 L 0.934 -0.477 Z M 0 -0.075 L 0.88 -0.57 L -0.88 -0.57 Z"
   octahedron_shape = "M -0.053 0.053 L -0.947 0.053 L -0.053 0.947 Z M 0.053 0.053 L 0.053 0.947 L 0.947 0.053 Z M 0.053 -0.053 L 0.947 -0.053 L 0.053 -0.947 Z M -0.053 -0.053 L -0.053 -0.947 L -0.947 -0.053 Z"
   dodecahedron_shape = "M -0.341 -0.469 H 0.341 L 0.552 0.179 L 0 0.58 L -0.552 0.179 Z M -0.951 -0.309 L -0.95 0.238 L -0.674 0.149 L -0.458 -0.517 L -0.629 -0.751 Z M -0.588 0.809 L -0.067 0.977 L -0.067 0.687 L -0.633 0.276 L -0.909 0.366 Z M 0.588 0.809 L 0.908 0.366 L 0.633 0.276 L 0.067 0.687 L 0.067 0.977 Z M 0.951 -0.309 L 0.629 -0.751 L 0.458 -0.517 L 0.674 0.149 L 0.95 0.238 Z M 0 -1 L -0.52 -0.83 L -0.35 -0.595 H 0.35 L 0.52 -0.83 Z"
@@ -651,7 +652,7 @@ Class.cube = {
   NAME: "The Cube",
   VALUE: 2e7,
   SIZE: 10,
-  COLOR: "egg",
+  COLOR: "veryLightGrey",
   SHAPE: cube_shape,
   BODY: {
     DAMAGE: 4.8,
@@ -671,7 +672,7 @@ Class.tetrahedron = {
   NAME: "The Tetrahedron",
   VALUE: 3e7,
   SIZE: 12,
-  COLOR: "egg",
+  COLOR: "veryLightGrey",
   SHAPE: tetrahedron_shape,
   BODY: {
     DAMAGE: 6,
@@ -690,7 +691,7 @@ Class.octahedron = {
   NAME: "The Octahedron",
   VALUE: 4e7,
   SIZE: 13,
-  COLOR: "egg",
+  COLOR: "veryLightGrey",
   SHAPE: octahedron_shape,
   BODY: {
     DAMAGE: 6.5,
@@ -709,7 +710,7 @@ Class.dodecahedron = {
   NAME: "The Dodecahedron",
   VALUE: 5e7,
   SIZE: 18,
-  COLOR: "egg",
+  COLOR: "veryLightGrey",
   SHAPE: dodecahedron_shape,
   BODY: {
     DAMAGE: 7,
@@ -728,7 +729,7 @@ Class.icosahedron = {
   NAME: "The Icosahedron",
   VALUE: 1e8,
   SIZE: 20,
-  COLOR: "egg",
+  COLOR: "veryLightGrey",
   SHAPE: icosahedron_shape,
   BODY: {
     DAMAGE: 9,
@@ -749,7 +750,7 @@ Class.tesseract = {
   NAME: "The Tesseract",
   VALUE: 42e7,
   SIZE: 25,
-  COLOR: "egg",
+  COLOR: "veryLightGrey",
   SHAPE: tesseract_shape,
   BODY: {
     DAMAGE: 10,

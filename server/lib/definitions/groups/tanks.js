@@ -10134,7 +10134,7 @@ Class.beeman = {
         WIDTH: 8
       },
       PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, {range: 0.5}]),
+        SHOOT_SETTINGS: combineStats([g.trap, g.setTrap, { reload: 0.5, range: 0.5 }]),
         TYPE: "beemanTrap"
       }
     }
@@ -10168,7 +10168,8 @@ Class.cxATMG = {
   PARENT: "dominator",
   LABEL: "CX-ATMG",
   UPGRADE_LABEL: "CX-ATMG",
-  SHAPE: Class.cube.SHAPE,
+  COLOR: Class.cube.COLOR,
+  SHAPE: preset.shape.flatCube,
   SIZE: 12,
   BODY: {
     RESIST: 2,
@@ -10301,7 +10302,7 @@ Class.developer = {
   ]
 };
 Class.fat456 = makeRadialAuto("architectGun", { isTurret: true, danger: 7, size: 12, label: "Fat456", body: { FOV: base.FOV * 1.15, SPEED: base.SPEED * 4 } });
-Class.fat456.COLOR = "brown";
+Class.fat456.COLOR = "#654321";
 Class.fat456.SIZE = 30;
 Class.heptaAutoBasic = makeAuto("basic", "Hepta Auto-Basic", preset.makeAuto.hepta);
 Class.machineShot = {
@@ -10393,6 +10394,30 @@ Class.meOnMyWayToDoYourMom = {
     }
   ]
 };
+Class.quadCyclone = {
+  PARENT: "genericTank",
+  LABEL: "Quad-Cyclone",
+  DANGER: 7,
+  STAT_NAMES: statnames.mixed,
+  BODY: {
+      SPEED: 0.8 * base.SPEED
+  },
+  REVERSE_TARGET_WITH_TANK: true,
+  GUNS: weaponArray({
+    POSITION: {
+      LENGTH: 20,
+      WIDTH: 8
+    }
+  }, 4),
+  TURRETS: weaponArray({
+    TYPE: "cycloneTurret",
+    POSITION: {
+      SIZE: 20,
+      X: 25,
+      LAYER: 1
+    }
+  }, 4)
+};
 Class.rapture = {
   PARENT: "genericTank",
   LABEL: "Rapture",
@@ -10434,7 +10459,7 @@ Class.schoolShooter = {
         LENGTH: 20,
         WIDTH: 1.5,
         X: 50,
-        Y: -5
+        Y: 5
       }
     },
     {
@@ -10442,7 +10467,7 @@ Class.schoolShooter = {
         LENGTH: 0,
         WIDTH: 2,
         X: 50,
-        Y: -5
+        Y: 5
       },
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.op, {damage: 20, reload: 0.3, spray: 0, speed: 2}]),
@@ -10451,7 +10476,7 @@ Class.schoolShooter = {
       }
     }
   ]
-}
+};
 Class.smasher3 = makeRadialAuto("flailBall", { isTurret: true, danger: 8, label: "Smasher-3" });
 Class.tetraGunner = {
   PARENT: "genericTank",
@@ -10487,6 +10512,7 @@ Class.wifeBeater = {
   PARENT: "overlord",
   LABEL: "Wife Beater",
   DANGER: 8,
+  COLOR: "#FD9100",
   STAT_NAMES: statnames.drone,
   BODY: {
     ACCELERATION: base.ACCEL * 0.75,

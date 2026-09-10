@@ -1712,7 +1712,7 @@ import * as socketStuff from "./socketinit.js";
         let hover = false;
         if (clickable) hover = global.clickables[clickType].check({ x: global.mouse.x, y: global.mouse.y });
         // Draw boxes
-        ctx[2].globalAlpha = 0.5 * alpha;
+        ctx[2].globalAlpha = /*0.5 * */alpha;
         ctx[2].fillStyle = color1 ? color1 : color.grey;
         if (type == "rect") drawGuiRect(x - width / 2, y, width, height);
         else if (type == "bar") drawBar(x - width / 2, x + width / 2, y + height / 2, height, color1 ? color1 : color.grey);
@@ -5280,7 +5280,7 @@ import * as socketStuff from "./socketinit.js";
         scaleScreenRatio(ratio, true);
         clearScreen(gameDraw.mixColors(color.red, color.guiblack, 0.3), global.gameStart ? 0.25 : 1, ctx[2]);
         drawText("Disconnected", global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, "center");
-        if (global.message === "") global.message = "The connection has closed. You may attempt to regain score or reload the game.";
+        if (global.message === "") global.message = "The connection closed due to an error.\nTry reloading and clearing your cache, or joining another server.";
         drawText(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, "center");
         lastPing = 0;
         drawButton(global.screenWidth / 2 - 80, global.screenHeight / 2 + 135, 130, 30, 1, "rect", "Back", 15, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);

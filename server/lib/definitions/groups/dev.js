@@ -62,6 +62,8 @@ Class.menu_tankChanges = makeMenu("Tank Changes Menu", {
   upgrades: [
     "menu_betaTester",
     Config.spawn_class,
+
+    // Most recently available tanks in arras beta
     "bender",
     "repeater",
     "spiral"
@@ -71,19 +73,22 @@ Class.menu_tankChanges = makeMenu("Tank Changes Menu", {
 // Special Tanks Menu
 Class.menu_specialTanks = makeMenu("Special Tanks Menu", {
   upgrades: [
-    "menu_healers",
+    //"menu_healers",
     "menu_dominators",
     "menu_sanctuaries",
     "arenaCloser",
     "bacteria",
     "literallyAMachineGun",
-    "literallyATank",
     //"manager_special",
     "mothership",
     "flagship",
     "turkey",
-    "nemesis",
+    //"developer",
     "arrasPolice"
+
+    /* Custom stuff, enable as you wish */
+    //"literallyATank",
+    //"nemesis"
   ]
 });
 Class.menu_healers = makeMenu("Healer Menu", {
@@ -308,34 +313,60 @@ Class.menu_retiredDevBosses = makeMenu("Retired Dev Bosses Menu", {
 // Nostalgia/Scrapped Menus
 Class.menu_nostalgia = makeMenu("Nostalgia Menu", {
   upgrades: [
-    "bentBoomer_old",
-    "blunderbuss",
-    "commander_old",
-    "jumpSmasher",
-    "master",
-    "quadBuilder",
-    "rimfire_old",
-    "septaTrapper_old",
-    "spike_old",
     "spreadshot_old",
-    "undertow",
-    "whirlwind",
-    "whirlwind_old"
+    "bentBoomer_old",
+    "quadBuilder",
+    "quintuplet",
+    "vulcan",
+    "sniper3",
+    "spike_old",
+    "master",
+    "commander_old",
+    "blunderbuss",
+    "rimfire_old",
+    "ransacker",
+
+    /* Custom stuff, enable as you wish */
+    //"jumpSmasher",
+    //"septaTrapper_old",
+    //"undertow",
+    //"whirlwind",
+    //"whirlwind_old"
   ]
 });
 Class.menu_scrapped = makeMenu("Scrapped Menu", {
   upgrades: [
+    "menu_scrapped2",
+    "rocketeer",
+    "crowbar",
+    "peashooter",
     "autoTrapper",
-    "cocci",
+    "megaTrapper",
+    "railgun",
+    "megaSpawner",
     "dreadnought_old",
-    "flail",
+  ]
+});
+Class.menu_scrapped2 = makeMenu("Scrapped Menu 2", {
+  upgrades: [
+    "menu_gameMod",
+    "menu_scrapped",
     "mender",
-    "oroboros",
+    //"infestor",
     "prodigy",
-    "rocket",
-    "volute",
-    "whirlwind_bent",
-    "wrangler"
+    "spawnerdrive",
+    "rimfire",
+    "productionist",
+    "vulture", //"taser",
+
+    /* Custom stuff, enable as you wish */
+    //"cocci",
+    //"flail",
+    //"oroboros",
+    //"rocket",
+    //"volute",
+    //"whirlwind_bent",
+    //"wrangler"
   ]
 });
 
@@ -396,12 +427,14 @@ Class.menu_misc = makeMenu("Misc", {
     "tetraGunner",
     "worstTank",
     //"genericEntity",
-    //"quadCyclone",
+    "quadCyclone",
     "beeman",
     "heptaAutoBasic",
     "alas",
-    "riptide",
-    "smasher3"
+
+    /* Custom stuff, enable as you wish */
+    //"riptide",
+    //"smasher3"
   ]
 });
 Class.menu_digdig = makeMenu("DigDig", {

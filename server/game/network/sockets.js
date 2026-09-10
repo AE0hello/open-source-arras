@@ -267,7 +267,7 @@ class socketManager {
         else socket.status.incognito = false;
         if (global.gameManager.arenaClosed) {
           if (needsRoom) {
-            socket.talk("message", "Arena closed. Try again in a few seconds.");
+            socket.talk("message", "Arena closed. Wait a minute or try another server.");
             socket.terminate("Bad spawn while arena closed.");
           } else socket.talk("m", 5_000, "Arena Closed.");
           return;

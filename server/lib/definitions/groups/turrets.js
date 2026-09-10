@@ -1,6 +1,7 @@
 const { combineStats, makeAuto, makeTurret, weaponArray, weaponMirror } = require("../facilitators.js");
 const { base } = require("../constants.js");
 const g = require("../gunvals.js");
+const preset = require("../presets.js");
 
 // Radial Auto Guns
 Class.autoTankGun = makeTurret({
@@ -269,6 +270,7 @@ Class.machineTripleTurret = {
     }
   }, 3)
 }
+Class.cycloneTurret = makeTurret("cyclone", { hasAI: false })
 Class.launcherTurret = makeTurret("launcher", {canRepel: true, limitFov: true, extraStats: []})
 Class.skimmerTurret = makeTurret("skimmer", {canRepel: true, limitFov: true, extraStats: [], color: "mirror"})
 Class.hyperSkimmerTurret = makeTurret({
@@ -983,8 +985,8 @@ Class.antiTankMachineGunArm = {
 }
 Class.cxATMGArm = {
   PARENT: "genericTank",
-  COLOR: "white",
-  SHAPE: Class.cube.SHAPE,
+  COLOR: Class.cube.COLOR,
+  SHAPE: preset.shape.flatCube,
   SKILL_CAP: Array(10).fill(15),
   SKILL: Array(10).fill(15),
   GUNS: [

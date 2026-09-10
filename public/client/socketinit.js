@@ -1314,7 +1314,7 @@ const socketInit = () => {
             return flag;
         }
     };
-    // Learn how to talk
+
     socket.talk = async (...message) => {
         await new Promise(Resolve => setTimeout(Resolve, window.fakeLagMS));
         // Make sure the socket is open before we do anything
@@ -1323,18 +1323,15 @@ const socketInit = () => {
         socket.send(message);
         global.bandwidth.currentHa += message.byteLength;
     };
-    // Websocket functions for when stuff happens
-    // This is for when the socket first opens
+
     socket.onopen = function socketOpen() {
         socket.open = true;
         // define a pinging function
         socket.ping = payload => socket.talk("p", payload);
     };
 
-    // Handle incoming messages
     socket.onmessage = (msg) => incoming(msg, socket);
 
-    // Handle closing
     socket.onclose = () => {
         if (!global.gameLoading) return;
         clearInterval(socket.commandCycle);
@@ -1343,13 +1340,12 @@ const socketInit = () => {
         socket.open = false;
         global.disconnected = true;
     };
-    // Notify about errors
+
     socket.onerror = error => {
         clearInterval(socket.commandCycle);
         clearInterval(global.socketMotionCycle);
-        global.message = "Socket error. Maybe another server will work.";
     };
-    // Gift it to the rest of the world
+
     return socket;
 };
 
