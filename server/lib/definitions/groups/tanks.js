@@ -10414,6 +10414,7 @@ Class.quadCyclone = {
     POSITION: {
       SIZE: 20,
       X: 25,
+      ARC: 0,
       LAYER: 1
     }
   }, 4)
@@ -10508,6 +10509,15 @@ Class.tetraGunner = {
   ], 4)
 };
 Class.tracker3 = makeRadialAuto("tracker3gun", { isTurret: true, danger: 7, label: "Tracker-3" });
+Class.unknownClass = {
+  PARENT: "genericTank",
+  SHAPE: 0, // custom "wobbly" circle
+  SIZE: 1,
+  COLOR: "black",
+  BODY: {
+    FOV: base.FOV * 5
+  }
+};
 Class.wifeBeater = {
   PARENT: "overlord",
   LABEL: "Wife Beater",

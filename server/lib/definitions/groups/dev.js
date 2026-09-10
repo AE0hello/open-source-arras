@@ -427,7 +427,7 @@ Class.menu_misc = makeMenu("Misc", {
     "bigBalls",
     "tetraGunner",
     "worstTank",
-    //"genericEntity",
+    "unknownClass",
     "quadCyclone",
     "beeman",
     "heptaAutoBasic",
