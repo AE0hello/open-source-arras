@@ -10164,6 +10164,52 @@ Class.bigBalls = {
     }
   }, 2)
 };
+Class.cocogoat = { // WIP!!
+  PARENT: "genericTank",
+  LABEL: "Cocogoat",
+  COLOR: "#A2BCD2",
+  GUNS: Class.basic.GUNS,
+  TURRETS: [
+    {
+      TYPE: ["cocoHorn1", { MIRROR_MASTER_ANGLE: true }],
+      POSITION: {
+        SIZE: 20.125,
+        X: -1,
+        ANGLE: -5,
+        LAYER: 1
+      }
+    },
+    {
+      TYPE: ["cocoHorn2", { MIRROR_MASTER_ANGLE: true }],
+      POSITION: {
+        SIZE: 20.125,
+        X: -1,
+        ANGLE: 5,
+        LAYER: 1
+      }
+    },
+    {
+      TYPE: ["othercocoHorn1", { MIRROR_MASTER_ANGLE: true }],
+      POSITION: {
+        SIZE: 20.125,
+        X: -1,
+        Y: -2, 
+        ANGLE: -5,
+        LAYER: 1
+      }
+    },
+    {
+      TYPE: ["othercocoHorn2", { MIRROR_MASTER_ANGLE: true }],
+      POSITION: {
+        SIZE: 20.125,
+        X: -1,
+        Y: 2,
+        ANGLE: 5,
+        LAYER: 1
+      }
+    }
+  ]
+};
 Class.cxATMG = {
   PARENT: "dominator",
   LABEL: "CX-ATMG",
