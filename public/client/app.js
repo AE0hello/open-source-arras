@@ -1914,7 +1914,7 @@ import * as socketStuff from "./socketinit.js";
                             context.translate(centerX, centerY);
                             context.rotate(angle);
                             context.imageSmoothingEnabled = imageInterpolation;
-                            const imageSize = radius / 1.09;
+                            const imageSize = radius / 0.9;
                             context.drawImage(img, -imageSize, -imageSize, imageSize * 2, imageSize * 2);
                             context.imageSmoothingEnabled = true;
                             context.rotate(-angle);
