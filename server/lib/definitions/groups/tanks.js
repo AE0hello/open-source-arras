@@ -10088,6 +10088,59 @@ Class.baseProtector = {
     }
   ], 4)
 };
+Class.baseProtector_alt = {
+  PARENT: "genericTank",
+  LABEL: "Base",
+  UPGRADE_LABEL: "Base Protector",
+  STAT_NAMES: statnames.drone,
+  ON_MINIMAP: false,
+  SIZE: 20,
+  DAMAGE_CLASS: 0,
+  ACCEPTS_SCORE: false,
+  CAN_BE_ON_LEADERBOARD: false,
+  IGNORED_BY_AI: true,
+  HITS_OWN_TYPE: "pushOnlyTeam",
+  SKILL: skillSet({
+    rld: 1,
+    dam: 1,
+    pen: 1,
+    spd: 1,
+    str: 1
+  }),
+  BODY: {
+    SPEED: 0,
+    HEALTH: 1e4,
+    DAMAGE: 10,
+    PENETRATION: 0.25,
+    SHIELD: 1e3,
+    REGEN: 100,
+    FOV: 1,
+    PUSHABILITY: 0,
+    RESIST: 10000,
+    HETERO: 0
+  },
+  FACING_TYPE: ["spin", {speed: 0.04}],
+  ALPHA: 0,
+  GUNS: [
+    {
+      POSITION: {
+        LENGTH: 6,
+        WIDTH: 12,
+        ASPECT: 1.2,
+        X: 8
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5, size: 2/3 }]),
+        TYPE: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 12
+      }
+    }
+  ]
+};
 
 // Admin Tanks
 Class.alas = {

@@ -146,7 +146,7 @@ Class.menu_dominators = makeMenu("Dominator Menu", {
     //"trapperDominator_AR",
     "antiTankMachineGun",
     "baseProtector",
-    //"baseProtector_diep"
+    "baseProtector_alt"
   ]
 });
 Class.menu_sanctuaries = makeMenu("Sanctuary Tier Menu", {
