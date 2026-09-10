@@ -10181,6 +10181,17 @@ Class.schoolShooter = {
         }
     ]
 }
+Class.quadCyclone = {
+    PARENT: "genericTank",
+    LABEL: "Quad Cyclone",
+    TURRETS: weaponArray({
+        POSITION: {SIZE: 20, LAYER: 1, X: 25},
+        TYPE: 'cycloneTurret'
+    }, 4),
+    GUNS: weaponArray({
+        POSITION: {LENGTH: 18, WIDTH: 8}
+    }, 4)
+}
 Class.cxATMG = {
     PARENT: "dominator",
     LABEL: "CX-ATMG",
