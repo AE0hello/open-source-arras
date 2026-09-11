@@ -393,7 +393,7 @@ Class.menu_adminTanks = makeMenu("Admin Tanks", {
     "wifeBeater",
     "literallyATank",
     "cocogoat",
-    //"aeolus"
+    "aeolus"
   ]
 });
 Class.menu_misc = makeMenu("Misc", {

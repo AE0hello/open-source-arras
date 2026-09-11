@@ -1135,6 +1135,72 @@ class io_orbit extends IO {
     this.body.facing = angle;
   }
 }
+class io_advancedOrbit extends IO {
+    constructor(body, opts = {}) {
+        super(body);
+        this.realDist = 0;
+        this.invertRotation = opts.invertRotation ?? false;
+        this.invertDistance = opts.invertDistance ?? false;
+        this.offset = opts.offset ?? 0 // you can offset the satilites with this, make some of them further out than others, or closer
+        this.spinMulti = opts.spinMulti ?? 1; // you can increase or decrease spin speed with this.
+        this.ovalLengthMulti = opts.ovalLengthMulti ?? 0
+        this.ovalWidthMulti = opts.ovalWidthMulti ?? 0
+        this.rotation = opts.rotation ?? 0 // this is for oval, this sets where the long side is.
+        this.gradualSpin = opts.gradualSpin ?? 0 // this is for ovals, it makes the oval rotate.
+        this.centerOffset = opts.centerOffset ?? 0
+        this.centerOffsetAngle = opts.centerOffsetAngle ?? 0
+        this.distanceMulti = opts.distanceMulti ?? 1 // this changes how far the satiletties go when you repel them
+        this.minDistanceForFix = opts.minDistForFix ?? 3.5 // just min distance for whirlwind
+        this.fixDistance = opts.fixDistance ?? 0 // this works with distance multi, it moves the bullets back to the min distance
+        this.speedWithDistance = opts.speedWithDistance ?? 0 //the tempory increase of spin speed when you change the orbit distance in game
+        this.changeMaster = opts.changeMaster ?? false // make it so bullet whirlwinds work
+        this.mirrorMasterVelocity = opts.mirrorVelocity ?? false // adds the bodies velocity to the satellites
+        this.mirrorMasterAcceleration = opts.mirrorAcceleration ?? false // adds the bodies acceleration to the satellites
+        this.accountForVelocity = opts.accountForVelocity ?? false // fixes satellites that trail 
+    }
+    think(input) {
+        let invertRotationFactor = this.invertRotation ? -1 : 1,
+            invertDistance = this.invertDistance ? -1 : 1,
+            master = this.changeMaster ? this.body.source : this.body.master.master,
+            dist = this.invertDistance ? master.inverseDist : master.dist,
+            angle = (this.body.angle * Math.PI / 180 + (master.angle * (this.spinMulti)) + (this.realDist * (Math.PI / 180) * this.speedWithDistance)) * invertRotationFactor,
+            rotation = this.rotation * (Math.PI / 180);
+        let finalRotation = rotation + (master.angle * (this.gradualSpin / master.aiSettings.SPEED));
+
+        if (this.realDist > dist) {
+            this.realDist -= Math.min(10, Math.abs(this.realDist - dist));
+        }
+        else if (this.realDist < dist) {
+            this.realDist += Math.min(10, Math.abs(dist - this.realDist));
+        }
+        let fixAmount = this.minDistanceForFix * (this.distanceMulti - 1) * -1
+        let radiusSizeMulti = master.size * this.offset,
+            ovalLengthMultiplier = (this.ovalLengthMulti * master.size),
+            ovalWidthMultiplier = (this.ovalWidthMulti * master.size),
+            distanceMulti = this.realDist * this.distanceMulti,
+            fixAmountMulti = fixAmount * this.fixDistance * master.size,
+            xDistance = (Math.cos(angle) * (distanceMulti + radiusSizeMulti + ovalLengthMultiplier + fixAmountMulti)),
+            yDistance = (Math.sin(angle) * (distanceMulti + radiusSizeMulti + ovalWidthMultiplier + fixAmountMulti));
+
+        let addedX = this.accountForVelocity ? this.body.velocity.x : 0
+        let addedY = this.accountForVelocity ? this.body.velocity.y : 0
+        let centerX = master.x + ((this.centerOffset * Math.cos(this.centerOffsetAngle * (Math.PI / 180))) * master.size),
+            centerY = master.y + ((this.centerOffset * Math.sin(this.centerOffsetAngle * (Math.PI / 180))) * master.size);
+
+        this.body.x = (centerX + addedX) + (xDistance * Math.cos(finalRotation) - yDistance * Math.sin(finalRotation));
+        this.body.y = (centerY + addedY) + (xDistance * Math.sin(finalRotation) + yDistance * Math.cos(finalRotation));
+
+        if (this.mirrorMasterVelocity) {
+            this.body.velocity.x = master.velocity.x
+            this.body.velocity.y = master.velocity.y
+        }
+        if (this.mirrorMasterAcceleration) {
+            this.body.accel.x = master.accel.x
+            this.body.accel.y = master.accel.y
+        }
+        this.body.facing = angle;
+    }
+}
 class io_snake extends IO {
   constructor(body, opts = {}) {
     super(body);
@@ -1334,6 +1400,7 @@ let ioTypes = {
   boomerang: io_boomerang,
   formulaTarget: io_formulaTarget,
   orbit: io_orbit,
+  advancedOrbit: io_advancedOrbit,
   goToMasterTarget: io_goToMasterTarget,
   avoid: io_avoid,
   minion: io_minion,
