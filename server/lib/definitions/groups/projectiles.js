@@ -1,5 +1,6 @@
 const { combineStats, makeAuto, weaponArray, weaponMirror } = require('../facilitators.js');
 const g = require('../gunvals.js');
+const {base} = require('../constants.js')
 
 // Bullets
 Class.casing = {
@@ -818,7 +819,181 @@ Class.wranglerMinion = {
         }
     ]
 }
-
+const average4tdmScoreMinionStats = {
+    INDEPENDENT: true,
+    HITS_OWN_TYPE: "hardWithBuffer",
+    FACING_TYPE: "smoothToTarget",
+    BODY: {
+        SPEED: 1.8,
+        ACCELERATION: 0.5,
+    },
+    AI: {BLIND: true,},
+    CLEAR_ON_MASTER_UPGRADE: true,
+    GIVE_KILL_MESSAGE: false,
+    CONTROLLERS: [
+        "mapAltToFire",
+        "minion",
+        "canRepel",
+        "hangOutNearMaster",
+    ],
+}
+Class.average4tdmScoreOctoTank = {
+    PARENT: 'genericTank',
+    NAME: '',
+    DANGER: 7,
+    ...average4tdmScoreMinionStats,
+    FACING_TYPE: 'spin',
+    LABEL: 'Octo Tank',
+    GUNS: weaponArray([
+        // Must be kept like this to preserve visual layering
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8,
+                ANGLE: 45,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.flankGuard, g.spam]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        }
+    ], 4),
+};
+Class.average4tdmScoreSpike = {
+    PARENT: 'genericSmasher',
+    LABEL: "Spike",
+    DANGER: 7,
+    NAME: '',
+    BODY: {
+        DAMAGE: base.DAMAGE * 1.1,
+        SPEED: base.SPEED
+    },
+    ...average4tdmScoreMinionStats,
+    TURRETS: weaponArray([{
+        TYPE: ['triangleHat_spin', {COLOR: 'black'}],
+        POSITION: {SIZE: 18}
+    }], 4)
+};
+Class.average4tdmScoreCyclone = {
+    PARENT: 'genericTank',
+    LABEL: "Cyclone",
+    DANGER: 7,
+    NAME: '',
+    ...average4tdmScoreMinionStats,
+    FACING_TYPE: 'spin',
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5,
+                ANGLE: 30,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5,
+                ANGLE: 60,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 3.5,
+                ANGLE: 90,
+                DELAY: 0.75
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        }
+    ], 3)
+};
+Class.average4tdmScorePentaShot = {
+    PARENT: 'genericTank',
+    LABEL: "Penta Shot",
+    DANGER: 7,
+    ...average4tdmScoreMinionStats,
+    GUNS: [
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                Y: 3,
+                ANGLE: 30,
+                DELAY: 2/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 8,
+                Y: 2,
+                ANGLE: 15,
+                DELAY: 1/3
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        }]),
+        {
+            POSITION: {
+                LENGTH: 22,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.tripleShot]),
+                TYPE: 'bullet',
+                AUTOFIRE: true,
+            }
+        }
+    ]
+};
 // Satellites
 Class.satellite_old = {
     PARENT: "satellite",

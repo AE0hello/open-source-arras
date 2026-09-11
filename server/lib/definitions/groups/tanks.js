@@ -2,6 +2,7 @@ const { combineStats, skillSet, addUpgrades, removeUpgrades, makeAuto, makeBattl
 const { base, dfltskl, smshskl, statnames } = require('../constants.js');
 const g = require('../gunvals.js');
 const preset = require('../presets.js');
+const {getDistance} = require('../../util.js')
 let tier4_AR = 3;
 
 // Basic Tank
@@ -9784,7 +9785,8 @@ Class.guillotine = {
                 WIDTH: 2,
                 Y: 7
             }
-        })
+        }),
+        ...Class.spectator.GUNS
     ],
     TURRETS: [
         {
@@ -9794,6 +9796,33 @@ Class.guillotine = {
                 LAYER: 1
             },
             TYPE: ["circleHat", {COLOR: "grey"}]
+        }
+    ],
+    ON: [
+        {
+            event: "fire",
+            handler: ({body, masterStore: s}) => {
+                for (let e of entities.values()) {
+                    const cursor = {x: body.x + body.control.target.x, y: body.y + body.control.target.y}
+                    if (!e.bond && getDistance(cursor, e) < e.size) {
+                        let message = [
+                            `Selected ${e.name || (e.isPlayer ? "an unnamed player" : "a")}${(e.name || e.isPlayer) ? "'s" : ""} ${e.label} (ID #${e.id}).`,
+                            `Score: ${e.skill.score};`,
+                            `Build: ${e.skill.raw.join("/")};`
+                        ]
+                        body.socket.talk("Em", 20_000, JSON.stringify(message));
+                        s.selectedEntity = e;
+                    }
+                }
+            },
+        },
+        {
+            event: "control",
+            handler: ({body}) => {
+                const s = body.store;
+                if (!s.selectedEntity) return;
+                s.selectedEntity.kill();
+            }
         }
     ]
 };
@@ -9826,31 +9855,59 @@ Class.banHammer = {
         {POSITION: [3, 11, 0.75, 7.5, 36, -90, 0]},
         {POSITION: [11, 14, 1, 30.5, 0, 0, 0]},
         {POSITION: [13, 10.5, -1.2, 0, 0, 0, 0]},
-        /*{
+        {
             POSITION: [0,0,0,0,0,0,0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.25}, g.fake]),
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
                 TYPE: "bullet",
                 ALPHA: 0
             }
-        },*/
+        },
         {
             POSITION: [0, 0, 0, 0, 0, 0, 0],
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
+                SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.25}, g.fake]),
                 TYPE: "bullet",
                 ALPHA: 0,
                 ALT_FIRE: true
             }
         }
     ],
-    ON: [{
-        event: "altFire",
-        handler: ({ body }) => {
-            body.x = body.x + body.control.target.x
-            body.y = body.y + body.control.target.y
+    ON: [
+        {
+            event: "altFire",
+            handler: ({ body }) => {
+                body.x = body.x + body.control.target.x
+                body.y = body.y + body.control.target.y
+            },
+        },
+        {
+            event: "fire",
+            handler: ({body, masterStore: s}) => {
+                for (let e of entities.values()) {
+                    const cursor = {x: body.x + body.control.target.x, y: body.y + body.control.target.y}
+                    if (!e.bond && getDistance(cursor, e) < e.size) {
+                        let message = [
+                            `Selected ${e.name || (e.isPlayer ? "an unnamed player" : "a")}${(e.name || e.isPlayer) ? "'s" : ""} ${e.label} (ID #${e.id}).`,
+                            `Score: ${e.skill.score};`,
+                            `Build: ${e.skill.raw.join("/")};`
+                        ]
+                        body.socket.talk("Em", 20_000, JSON.stringify(message));
+                        s.selectedEntity = e;
+                    }
+                }
+            },
+        },
+        {
+            event: "control",
+            handler: ({body}) => {
+                const s = body.store;
+                const e = s.selectedEntity
+                if (!e || !e.isPlayer) return;
+                global.gameManager.socketManager.ban(e.socket, "Ban Hammer");
+            }
         }
-    }]
+    ]
 };
 
 // Special Tanks (Other)
@@ -10190,6 +10247,91 @@ Class.schoolShooter = {
         }
     ]
 }
+Class.average4tdmScore = {
+    PARENT: 'genericTank',
+    LABEL: "Average 4TDM Score",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        FOV: 1.1 * base.FOV,
+        SPEED: 13/15 * base.SPEED
+    },
+    MAX_CHILDREN: 8,
+    GUNS: [
+        ...weaponArray({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer]),
+                TYPE: 'drone',
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true
+            }
+        }, 4),
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScoreOctoTank',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 8,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScoreSpike',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 1,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScoreCyclone',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 2,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScorePentaShot',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 2,
+            }
+        },
+    ]
+};
 Class.quadCyclone = {
     PARENT: "genericTank",
     LABEL: "Quad Cyclone",
