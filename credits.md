@@ -1,13 +1,13 @@
 # Active Developers
 Developers who are actively contributing to this project at the time of writing.
-- `TGS`: Project Co-Owner and creator of `aps-template` (original OSA)\
-- `AE0Hello`: Project Co-Owner, Mobile Controls, Daily Tanks, In-Game UI\
+- `TGS`: Current Project Owner, Creator of `aps-template` (original OSA)\
 - `Dogeiscut`: TODO\
 - `Toothless`: TODO\
 - `ZyraFAQ`: TODO\
 
 # Former Developers
 Developers who used to be active but have either quit or stopped developing.
+- `AE0Hello`: Former Project Owner, Mobile Controls, Daily Tanks, In-Game UI\
 - `Frostbyte`: Split upgrades, Dreadnoughts (V1 + V2 + V2AR)\
 - `Helena`: March Madness\
 - `Taureon`: Project Founder, Major Project Refactoring\
