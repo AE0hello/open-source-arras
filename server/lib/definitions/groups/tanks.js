@@ -10247,6 +10247,91 @@ Class.schoolShooter = {
         }
     ]
 }
+Class.average4tdmScore = {
+    PARENT: 'genericTank',
+    LABEL: "Average 4TDM Score",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: {
+        FOV: 1.1 * base.FOV,
+        SPEED: 13/15 * base.SPEED
+    },
+    MAX_CHILDREN: 8,
+    GUNS: [
+        ...weaponArray({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer]),
+                TYPE: 'drone',
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true
+            }
+        }, 4),
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScoreOctoTank',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 8,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScoreSpike',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 1,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScoreCyclone',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 2,
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 0,
+                WIDTH: 20
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([{reload: 20}]),
+                TYPE: 'average4tdmScorePentaShot',
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: 'drone',
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 2,
+            }
+        },
+    ]
+};
 Class.quadCyclone = {
     PARENT: "genericTank",
     LABEL: "Quad Cyclone",
