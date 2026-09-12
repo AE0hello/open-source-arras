@@ -889,7 +889,7 @@ module.exports = {
 
     // Shiny menu
     worstTank: {
-        reload: 15,
+        reload: 3,
         damage: 0.01,
         health: 0.01,
         pen: 0.01

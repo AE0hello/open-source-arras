@@ -78,7 +78,7 @@ Class.menu_specialTanks = makeMenu("Special Tanks Menu", {
         'bacteria',
         'literallyAMachineGun',
         'literallyATank',
-        //'manager_special',
+        'manager_special',
         'mothership',
         'flagship',
         'turkey',
