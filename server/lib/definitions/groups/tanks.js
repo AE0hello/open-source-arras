@@ -11061,129 +11061,73 @@ Class.theAmalgamation = makeAuto({
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
-        LABEL: "asswipe"
       }
     },
-    {
-      POSITION: [16, 8, 1, 0, 0, -90, 0.1],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-        TYPE: "bullet",
-        LABEL: "thruster"
-      }
-    },
-    {
-      POSITION: [16, 8, 1, 0, 0, 90, 0.1],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-        TYPE: "bullet",
-        LABEL: "thruster"
-      }
-    },
-    {
-      POSITION: [7, 7.5, 0.6, 7, 0, -90, 0],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.swarm]),
-        TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm"
-      }
-    },
-    {
-      POSITION: [7, 7.5, 0.6, 7, 0, 90, 0],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.swarm]),
-        TYPE: "autoswarm",
-        STAT_CALCULATOR: "swarm"
-      }
-    },
-    {
-      POSITION: [18, 8, 1, 0, 0, 130, 0.1],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
-        TYPE: "bullet",
-        LABEL: "Wing 1"
-      }
-    },
-    {
-      POSITION: [18, 8, 1, 0, 0, -130, 0.1],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
-        TYPE: "bullet",
-        LABEL: "Wing 2"
-      }
-    },
-    {
-      POSITION: [14, 8, 1, 0, -1, 140, 0.6],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-        TYPE: "bullet",
-        LABEL: "thruster"
-      }
-    },
-    {
-      POSITION: [16, 8, 1, 0, 0, 150, 0.1],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-        TYPE: "bullet",
-        LABEL: "thruster"
-      }
-    },
-    {
-      POSITION: [14, 8, 1, 0, 1, -140, 0.6],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-        TYPE: "bullet",
-        LABEL: "thruster"
-      }
-    },
-    {
-      POSITION: [16, 8, 1, 0, 0, -150, 0.1],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
-        TYPE: "bullet",
-        LABEL: "thruster"
-      }
-    },
-    {
-      POSITION: [13.5, 3, 0.5, 0, -8, -7, 0.6],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
-        TYPE: "bullet",
-        LABEL: "mort"
-      }
-    },
-    {
-      POSITION: [17.3, 3, 0.4, 0, -6, -7, 0.2],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
-        TYPE: "bullet",
-        LABEL: "mort"
-      }
-    },
-    {
-      POSITION: [13.5, 3, 0.5, 0, 8, 7, 0.6],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
-        TYPE: "bullet",
-        LABEL: "moert"
-      }
-    },
-    {
-      POSITION: [17.3, 3, 0.4, 0, 6, 7, 0.2],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
-        TYPE: "bullet",
-        LABEL: "moertseohhifesshg"
-      }
-    },
-    {
-      POSITION: [20, 8, 1, 0, 0, 0, 0],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic]),
-        TYPE: "bullet",
-        LABEL: "uhhhhhh frick"
-      }
-    },
+    ...weaponMirror([
+        {
+          POSITION: [16, 8, 1, 0, 0, -90, 0.1],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+            TYPE: "bullet",
+            LABEL: "thruster"
+          }
+        },
+        {
+          POSITION: [7, 7.5, 0.6, 7, 0, -90, 0],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.swarm]),
+            TYPE: "autoswarm",
+            STAT_CALCULATOR: "swarm"
+          }
+        },
+        {
+          POSITION: [18, 8, 1, 0, 0, -130, 0.1],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle]),
+            TYPE: "bullet",
+         }
+        },
+        {
+          POSITION: [13, 8, 1, 0, 1, -135, 0.6],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+            TYPE: "bullet",
+            LABEL: "thruster"
+          }
+        },
+        {
+          POSITION: [16, 8, 1, 0, 0, -145, 0.1],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+            TYPE: "bullet",
+            LABEL: "thruster"
+          }
+        },
+        {
+          POSITION: [13.5, 3, 1, 0, -8.5, -10, 0.6],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
+            TYPE: "bullet",
+          }
+        },
+        {
+          POSITION: [17.3, 3, 1, 0, -7, -7, 0.2],
+          PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.artillery, g.twin]),
+            TYPE: "bullet",
+          }
+        },
+    ]),
+    ...weaponStack({
+        POSITION: {
+            LENGTH: 21,
+            WIDTH: 8
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
+            TYPE: 'bullet'
+        }
+    }, 3, {lengthOffset: 2, delayIncrement: 1/3}),
     {
       POSITION: [19, 2, 1, 0, -2.5, 0, 0],
       PROPERTIES: {
@@ -11206,7 +11150,6 @@ Class.theAmalgamation = makeAuto({
       PROPERTIES: {
         SHOOT_SETTINGS: combineStats([g.basic, g.pounder, g.destroyer, g.annihilator]),
         TYPE: "bullet",
-        LABEL: "fuck you"
       }
     }
   ]

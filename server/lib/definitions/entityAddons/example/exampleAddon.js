@@ -3,8 +3,8 @@
 // Addons that are dependant on other addons should be named something like
 // "[PARENT ADDON NAME]-[EXTENSION NAME].js", to make sure that it would run after that addon ran.
 
-const {base} = require("../../constants.js");
-const {makeMenu} = require("../../facilitators.js");
+const { base } = require("../../constants.js");
+const { makeMenu } = require("../../facilitators.js");
 
 // This addon is disabled by default.
 // You can also disable addons by not making them end with ".js"
@@ -43,7 +43,7 @@ while (next.length && limit--) {
   }
 }
 
-// This adds the tank to the definitions and to the fun menu
+// This adds the tank to the definitions and to the addons menu
 Class.abomination = {
   PARENT: "genericTank",
   LABEL: "The Abomination",
