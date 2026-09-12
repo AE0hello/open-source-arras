@@ -78,7 +78,7 @@ class Canvas {
     }
 
     wheel(event) {
-        if (!global.died && global.showTree) {
+        if (global.showTree) {
             if (event.deltaY > 1) {
                 global.targetTreeScale = Math.max(global.targetTreeScale / 1.2, 0.5);
             } else {

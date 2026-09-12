@@ -2531,7 +2531,7 @@ import * as socketStuff from "./socketinit.js";
         drawEntity(baseColor, entityX, entityY, picture, 1, 1, scale / picture.size, lineWidthMult, angle, true, ctx[2]);
 
         // Tank name
-        drawText(picture.upgradeName ?? picture.name, x + (upgradeKey ? 0.9 * len : len) / 2, y + height * 0.94, height / 10, color.guiwhite, "center");
+        drawText(picture.upgradeName ?? picture.name, x + (upgradeKey ? 0.925 * len : len) / 2, y + height * 0.94, height / 10.25, color.guiwhite, "center");
 
         // Upgrade key
         if (upgradeKey) {
@@ -2916,12 +2916,6 @@ import * as socketStuff from "./socketinit.js";
     global.searchTankByName = searchTankByName;
 
     function drawUpgradeTree(spacing, alcoveSize) {
-        if (global.died) {
-            // Hide the tree on death
-            global.tankTree("exit");
-            return;
-        }
-
         if (lastGuiType != gui.type || global.generateTankTree) {
             try {
                 let m = util.requestEntityImage(gui.type),
@@ -3470,6 +3464,7 @@ import * as socketStuff from "./socketinit.js";
     }
 
     function drawSelfInfo(max) {
+        if (global.died) return;
         //rendering information
         let width = 440,
             scorewidth = 70,
@@ -5303,7 +5298,7 @@ import * as socketStuff from "./socketinit.js";
         scaleScreenRatio(ratio, true);
         clearScreen(gameDraw.mixColors(color.red, color.guiblack, 0.3), global.gameStart ? 0.25 : 1, ctx[2]);
         drawText("Disconnected", global.screenWidth / 2, global.screenHeight / 2, 30, color.guiwhite, "center");
-        if (global.message === "") global.message = "The connection closed due to an error.\nTry reloading and clearing your cache, or joining another server.";
+        if (global.message === "") global.message = "The connection closed due to an error.\n" + "Try reloading and clearing your cache, or joining another server.";
         drawText(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, "center");
         lastPing = 0;
         drawButton(global.screenWidth / 2 - 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, {

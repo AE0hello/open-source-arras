@@ -8,6 +8,7 @@ require("../generics.js")
 require("../food.js")
 require("../projectiles.js")
 require("../tanks.js")
+require("../dev.js")
 require("../turrets.js")
 require("../hats.js")
 
