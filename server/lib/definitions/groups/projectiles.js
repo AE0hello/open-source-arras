@@ -839,7 +839,7 @@ const average4tdmScoreMinionStats = { // used for both tanks
 }
 Class.average4tdmScoreOctoTank = {
     PARENT: 'genericTank',
-    NAME: '',
+    NAME: '', // can't recreate the name of this because it's in a weird font
     DANGER: 7,
     ...average4tdmScoreMinionStats,
     FACING_TYPE: 'spin',
@@ -872,11 +872,10 @@ Class.average4tdmScoreOctoTank = {
         }
     ], 4),
 };
-Class.average4tdmScoreSpike = {
+Class.average4tdmScoreSpike = { // this has no name
     PARENT: 'genericSmasher',
     LABEL: "Spike",
     DANGER: 7,
-    NAME: '',
     BODY: {
         DAMAGE: base.DAMAGE * 1.1,
         SPEED: base.SPEED
@@ -894,6 +893,7 @@ Class.average4tdmScoreCyclone = {
     NAME: '',
     ...average4tdmScoreMinionStats,
     FACING_TYPE: 'spin',
+    NAME: "[APS] Protect",
     GUNS: weaponArray([
         {
             POSITION: {
@@ -952,6 +952,7 @@ Class.average4tdmScorePentaShot = {
     LABEL: "Penta Shot",
     DANGER: 7,
     ...average4tdmScoreMinionStats,
+    NAME: "<!k>",
     GUNS: [
         ...weaponMirror([{
             POSITION: {
