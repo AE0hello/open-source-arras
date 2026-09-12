@@ -1,6 +1,6 @@
 const { combineStats, makeAuto, weaponArray, weaponMirror } = require('../facilitators.js');
 const g = require('../gunvals.js');
-const {base} = require('../constants.js')
+const {base, statnames} = require('../constants.js')
 
 // Bullets
 Class.casing = {
@@ -819,9 +819,8 @@ Class.wranglerMinion = {
         }
     ]
 }
-const average4tdmScoreMinionStats = {
+const average4tdmScoreMinionStats = { // used for both tanks
     INDEPENDENT: true,
-    HITS_OWN_TYPE: "hardWithBuffer",
     FACING_TYPE: "smoothToTarget",
     BODY: {
         SPEED: 1.8,
@@ -836,6 +835,7 @@ const average4tdmScoreMinionStats = {
         "canRepel",
         "hangOutNearMaster",
     ],
+    TURRETS: [] // for some reason DRAW_HEALTH and NAME will not work without this
 }
 Class.average4tdmScoreOctoTank = {
     PARENT: 'genericTank',
@@ -992,6 +992,224 @@ Class.average4tdmScorePentaShot = {
                 AUTOFIRE: true,
             }
         }
+    ]
+};
+Class.averageL39HuntOctoTank = {
+    PARENT: "average4tdmScoreOctoTank",
+    NAME: "[L-39]",
+    TURRETS: [], // need to reapply for it to work again
+}
+Class.averageL39HuntSidewinder = {
+    PARENT: 'genericTank',
+    LABEL: "Sidewinder",
+    NAME: "[L-39]",
+    DANGER: 7,
+    BODY: {
+        SPEED: 0.8 * base.SPEED,
+        FOV: 1.3 * base.FOV
+    },
+    ...average4tdmScoreMinionStats,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 10,
+                WIDTH: 11,
+                ASPECT: -0.5,
+                X: 14
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 21,
+                WIDTH: 12,
+                ASPECT: -1.1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.sidewinder]),
+                TYPE: 'snake',
+                STAT_CALCULATOR: 'sustained',
+                AUTOFIRE: true,
+            }
+        }
+    ],
+};
+Class.averageL39HuntMegaSmasher = {
+    PARENT: 'genericSmasher',
+    LABEL: "Mega-Smasher",
+    NAME: "Salt",
+    BODY: {
+        FOV: 1.1 * base.FOV,
+        SPEED: 1.2 * base.SPEED,
+        DENSITY: 4 * base.DENSITY
+    },
+    ...average4tdmScoreMinionStats,
+    TURRETS: [
+        {
+            TYPE: ['hexagonHat_spin', {COLOR: 'black'}],
+            POSITION: { SIZE: 25 }
+        }
+    ]
+};
+Class.averageL39HuntSeptaTrapper = {
+    PARENT: 'genericTank',
+    LABEL: "Septa-Trapper",
+    DANGER: 7,
+    BODY: {
+        SPEED: base.SPEED * 0.8
+    },
+    ...average4tdmScoreMinionStats,
+    NAME: "[L-39]",
+    STAT_NAMES: statnames.trap,
+    HAS_NO_RECOIL: true,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 15,
+                WIDTH: 7
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 3,
+                WIDTH: 7,
+                ASPECT: 1.7,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                TYPE: 'trap',
+                STAT_CALCULATOR: 'trap',
+                AUTOFIRE: true,
+            }
+        },
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 15,
+                    WIDTH: 7,
+                    ANGLE: 360/7,
+                    DELAY: 1/3
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 3,
+                    WIDTH: 7,
+                    ASPECT: 1.7,
+                    X: 15,
+                    ANGLE: 360/7,
+                    DELAY: 1/3
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                    TYPE: 'trap',
+                    STAT_CALCULATOR: 'trap',
+                    AUTOFIRE: true,
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 15,
+                    WIDTH: 7,
+                    ANGLE: 360/7 * 2,
+                    DELAY: 2/3
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 3,
+                    WIDTH: 7,
+                    ASPECT: 1.7,
+                    X: 15,
+                    ANGLE: 360/7 * 2,
+                    DELAY: 2/3
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                    TYPE: 'trap',
+                    STAT_CALCULATOR: 'trap',
+                    AUTOFIRE: true,
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 15,
+                    WIDTH: 7,
+                    ANGLE: 360/7 * 3,
+                    DELAY: 1
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 3,
+                    WIDTH: 7,
+                    ASPECT: 1.7,
+                    X: 15,
+                    ANGLE: 360/7 * 3,
+                    DELAY: 1
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.trap, g.hexaTrapper]),
+                    TYPE: 'trap',
+                    STAT_CALCULATOR: 'trap',
+                    AUTOFIRE: true,
+                }
+            }
+        ], {delayOverflow: true})
+    ]
+};
+Class.averageL39HuntSurfer = {
+    PARENT: 'genericTank',
+    LABEL: "Surfer",
+    BODY: {
+        DENSITY: 0.6 * base.DENSITY
+    },
+    ...average4tdmScoreMinionStats,
+    DANGER: 7,
+    NAME: "[L-39]",
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 18,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.triAngleFront]),
+                TYPE: 'bullet',
+                LABEL: "Front",
+                AUTOFIRE: true,
+            }
+        },
+        ...weaponMirror([{
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 7.5,
+                ASPECT: 0.6,
+                X: 7,
+                Y: 1,
+                ANGLE: -90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: 'autoswarm',
+                STAT_CALCULATOR: 'swarm',
+                AUTOFIRE: true,
+            }
+        }]),
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 8,
+                ANGLE: 150,
+                DELAY: 0.1
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.flankGuard, g.triAngle, g.thruster]),
+                TYPE: 'bullet',
+                LABEL: "Thruster",
+                AUTOFIRE: true,
+            }
+        })
     ]
 };
 // Satellites
