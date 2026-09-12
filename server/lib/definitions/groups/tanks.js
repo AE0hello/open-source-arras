@@ -10159,7 +10159,7 @@ Class.alas = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5, speed: 5}]),
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5, speed: 2, maxSpeed: 2}]),
                 TYPE: 'drone',
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -10170,7 +10170,7 @@ Class.alas = {
         },
         {
             POSITION: {
-                LENGTH: 5.5,
+                LENGTH: 6,
                 WIDTH: 6,
                 ASPECT: -1.5,
                 X: 8
