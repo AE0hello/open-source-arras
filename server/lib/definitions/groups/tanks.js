@@ -9809,18 +9809,23 @@ Class.guillotine = {
     {
       event: "fire",
       handler: ({body, masterStore: s}) => {
-        for (let e of entities.values()) {
-          const cursor = {x: body.x + body.control.target.x, y: body.y + body.control.target.y}
-          if (!e.bond && getDistance(cursor, e) < e.size) {
-            let message = [
-              `Selected ${e.name || (e.isPlayer ? "an unnamed player" : "a")}${(e.name || e.isPlayer) ? "'s" : ""} ${e.label} (ID #${e.id}).`,
-              `Score: ${e.skill.score};`,
-              `Build: ${e.skill.raw.join("/")};`
-            ]
-            body.socket.talk("Em", 20_000, JSON.stringify(message));
-            s.selectedEntity = e;
+        const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y}
+        let lowest = Infinity, closest;
+        for (const instance of entities.values()) {
+          let distance = (instance.x - cursor.x) ** 2 + (instance.y - cursor.y) ** 2;
+          if (distance < lowest) {
+            lowest = distance;
+            closest = instance;
           }
         }
+        if (closest.bond) return;
+        let message = [
+          `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
+          `Score: ${closest.skill.score};`,
+          `Build: ${closest.skill.raw.join("/")};`
+        ]
+        body.socket.talk("Em", 20_000, JSON.stringify(message));
+        s.selectedEntity = closest;
       }
     },
     {
@@ -9862,23 +9867,6 @@ Class.banHammer = {
     {POSITION: [3, 11, 0.75, 7.5, 36, -90, 0]},
     {POSITION: [11, 14, 1, 30.5, 0, 0, 0]},
     {POSITION: [13, 10.5, -1.2, 0, 0, 0, 0]},
-    {
-      POSITION: [0, 0, 0, 0, 0, 0, 0],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.2}, g.fake]),
-        TYPE: "bullet",
-        ALPHA: 0
-      }
-    },
-    {
-      POSITION: [0, 0, 0, 0, 0, 0, 0],
-      PROPERTIES: {
-        SHOOT_SETTINGS: combineStats([g.basic, {reload: 0.25}, g.fake]),
-        TYPE: "bullet",
-        ALPHA: 0,
-        ALT_FIRE: true
-      }
-    },
     ...Class.spectator.GUNS
   ],
   ON: [
@@ -9892,18 +9880,23 @@ Class.banHammer = {
     {
       event: "fire",
       handler: ({body, masterStore: s}) => {
-        for (let e of entities.values()) {
-          const cursor = {x: body.x + body.control.target.x, y: body.y + body.control.target.y}
-          if (!e.bond && getDistance(cursor, e) < e.size) {
-            let message = [
-              `Selected ${e.name || (e.isPlayer ? "an unnamed player" : "a")}${(e.name || e.isPlayer) ? "'s" : ""} ${e.label} (ID #${e.id}).`,
-              `Score: ${e.skill.score};`,
-              `Build: ${e.skill.raw.join("/")};`
-            ]
-            body.socket.talk("Em", 20_000, JSON.stringify(message));
-            s.selectedEntity = e;
+        const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y}
+        let lowest = Infinity, closest;
+        for (const instance of entities.values()) {
+          let distance = (instance.x - cursor.x) ** 2 + (instance.y - cursor.y) ** 2;
+          if (distance < lowest) {
+            lowest = distance;
+            closest = instance;
           }
         }
+        if (closest.bond) return;
+        let message = [
+          `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
+          `Score: ${closest.skill.score};`,
+          `Build: ${closest.skill.raw.join("/")};`
+        ]
+        body.socket.talk("Em", 20_000, JSON.stringify(message));
+        s.selectedEntity = closest;
       }
     },
     {
@@ -10448,10 +10441,7 @@ Class.average4tdmScore = {
   LABEL: "Average 4TDM Score",
   DANGER: 7,
   STAT_NAMES: statnames.drone,
-  BODY: {
-    FOV: 1.1 * base.FOV,
-    SPEED: 13/15 * base.SPEED
-  },
+  BODY: Class.overlord.BODY,
   MAX_CHILDREN: 8,
   GUNS: [
     ...weaponArray({
@@ -10524,6 +10514,103 @@ Class.average4tdmScore = {
         STAT_CALCULATOR: "drone",
         WAIT_TO_CYCLE: true,
         MAX_CHILDREN: 2
+      }
+    }
+  ]
+};
+Class.averageL39Hunt = {
+  PARENT: "genericTank",
+  LABEL: "Average L-39 Hunt",
+  NAME: "[L-39] overprot?",
+  DANGER: 7,
+  STAT_NAMES: statnames.drone,
+  BODY: Class.overlord.BODY,
+  MAX_CHILDREN: 8,
+  GUNS: [
+    ...weaponArray({
+      POSITION: {
+        LENGTH: 6,
+        WIDTH: 12,
+        ASPECT: 1.2,
+        X: 8
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([g.drone, g.overseer]),
+        TYPE: "drone",
+        AUTOFIRE: true,
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true
+      }
+    }, 4),
+    {
+      POSITION: {
+        LENGTH: 0,
+        WIDTH: 20
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([{reload: 20}]),
+        TYPE: "averageL39HuntOctoTank",
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 5
+      }
+    },
+    {
+      POSITION: {
+        LENGTH: 0,
+        WIDTH: 20
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([{reload: 20}]),
+        TYPE: "averageL39HuntSidewinder",
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 2
+      }
+    },
+    {
+      POSITION: {
+        LENGTH: 0,
+        WIDTH: 20
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([{reload: 20}]),
+        TYPE: "averageL39HuntMegaSmasher",
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 3
+      }
+    },
+    {
+      POSITION: {
+        LENGTH: 0,
+        WIDTH: 20
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([{reload: 20}]),
+        TYPE: "averageL39HuntSeptaTrapper",
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 3
+      }
+    },
+    {
+      POSITION: {
+        LENGTH: 0,
+        WIDTH: 20
+      },
+      PROPERTIES: {
+        SHOOT_SETTINGS: combineStats([{reload: 20}]),
+        TYPE: "averageL39HuntSurfer",
+        SYNCS_SKILLS: true,
+        STAT_CALCULATOR: "drone",
+        WAIT_TO_CYCLE: true,
+        MAX_CHILDREN: 6
       }
     }
   ]

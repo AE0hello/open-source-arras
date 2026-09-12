@@ -650,15 +650,15 @@ function init() {
       keys: [[["KEY_SPECIAL_DATA", "G"]]],
       level: 1,
       run: ({ socket, player }) => {
-        selectedEntities(player, (o) => {
-          if (o.bond) return;
-          let message = [
-            `Selected ${o.name || (o.isPlayer ? "an unnamed player" : "a")}${(o.name || o.isPlayer) ? "'s" : ""} ${o.label} (ID #${o.id}).`,
-            `Score: ${o.skill.score};`,
-            `Build: ${o.skill.raw.join("/")};`
-          ]
-          socket.talk("Em", 20_000, JSON.stringify(message));
-        });
+        const t = target(player);
+        const e = nearest(entities, t);
+        if (e.bond) return;
+        let message = [
+          `Selected ${e.name || (e.isPlayer ? "an unnamed player" : "a")}${(e.name || e.isPlayer) ? "'s" : ""} ${e.label} (ID #${e.id}).`,
+          `Score: ${e.skill.score};`,
+          `Build: ${e.skill.raw.join("/")};`
+        ]
+        socket.talk("Em", 20_000, JSON.stringify(message));
       }
     },
     {
