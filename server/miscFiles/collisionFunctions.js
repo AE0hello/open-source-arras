@@ -398,7 +398,7 @@ function mazewallcollidekill(bounce, wall) {
 }
 
 function mazewallcollide(wall, bounce) {
-    if (bounce.god === true || bounce.passive === true || bounce.isArenaCloser || bounce.master.isArenaCloser) return;
+    if (bounce.god === true || bounce.passive === true || bounce.isArenaCloser || (bounce.isArenaCloser !== false && bounce.master.isArenaCloser)) return;
     if (bounce.store.noWallCollision) return;
     if (bounce.team === wall.team && bounce.type === "tank") return;
     const trueWallSize = wall.size * lazyRealSizes[4] / Math.SQRT2 + 2;

@@ -71,7 +71,7 @@ class gameHandler {
                 if (instance.type === "satellite" || other.type === "satellite") return;
                 let wall = instance.type === "wall" ? instance : other;
                 let entity = instance.type === "wall" ? other : instance;
-                if (entity.isArenaCloser || entity.master.isArenaCloser) return;
+                if (entity.isArenaCloser || (entity.isArenaCloser !== false && entity.master.isArenaCloser)) return;
                 switch (wall.shape) {
                     case 4:
                         switch (wall.walltype) {
