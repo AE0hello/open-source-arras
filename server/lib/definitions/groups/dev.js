@@ -387,7 +387,7 @@ Class.menu_misc = makeMenu("Misc", {
         //'theConglomerate',
         'schoolShooter',
         'average4tdmScore',
-        //'averageL39Hunt',
+        'averageL39Hunt',
         'tracker3',
         'meOnMyWayToDoYourMom',
         'meDoingYourMom',
