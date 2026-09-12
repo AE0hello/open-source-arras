@@ -1695,7 +1695,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].fill();
     }
 
-    function drawButton(x, y, width, height, alpha, type = "rect", text, textSize, color1, color2, color3, clickable = false, clickType, clickableRatio, index) {
+    function drawButton(x, y, width, height, alpha, type = "rect", text, textSize, color1, color2, color3, clickable = false, clickType, clickableRatio, index, options = {}) {
         // If width is set to true, that means we want to calculate it on the text's length.
         if (width == true) width = measureText(text, height);
         // Set the clickable's position
@@ -1738,7 +1738,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].strokeStyle = color.black;
 
         // Draw text
-        if (text) drawText(text, x, y + height * 0.5, textSize ? textSize : height * 0.6, color.guiwhite, "center", true);
+        if (text) drawText(text, x, y + height * 0.5, textSize ? textSize : height * 0.6, color.guiwhite, "center", true, 1, options.textOutline ??= true);
 
         // Draw the borders
         ctx[2].strokeStyle = color3 ? color3 : color.black;
@@ -3155,14 +3155,17 @@ import * as socketStuff from "./socketinit.js";
             1,
             "rect",
             "✕",
-            24,
+            32,
             color.red,
             color.black,
             color.black,
             true,
             "classTreeClose",
             global.canvas.height / global.screenHeight / global.ratio,
-            0
+            0,
+            {
+                textOutline: false
+            }
         );
 
         // Draw search results info
