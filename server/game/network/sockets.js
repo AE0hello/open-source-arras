@@ -548,10 +548,7 @@ class socketManager {
         //suicide squad
         if (player.body != null && !player.body.underControl && player.body.invuln) {
           for (const instance of entities.values()) {
-            if (
-              instance.settings.clearOnMasterUpgrade &&
-                            instance.master.id === player.body.id
-            ) {
+            if (instance.settings.clearOnMasterUpgrade && instance.master.id === player.body.id) {
               instance.kill();
             }
           }

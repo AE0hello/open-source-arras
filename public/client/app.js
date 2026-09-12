@@ -1716,7 +1716,7 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].fillStyle = color1 ? color1 : color.grey;
         if (type == "rect") drawGuiRect(x - width / 2, y, width, height);
         else if (type == "bar") drawBar(x - width / 2, x + width / 2, y + height / 2, height, color1 ? color1 : color.grey);
-        ctx[2].globalAlpha = 0.1 * alpha;
+        ctx[2].globalAlpha = 0.2 * alpha;
         // Shaders
         if (clickable && (index !== false && hover == index) || hover === true) {
             if (global.clickables.clicked) {
@@ -4304,8 +4304,10 @@ import * as socketStuff from "./socketinit.js";
                 txt += " " + util.addArticle(util.getEntityImageFromMockup(e).name) + " and";
             }
             txt = txt.slice(0, -4);
-        } else {
-            txt += "🤷 Well that was kinda dumb huh";
+        } /*else if () { //todo: check for self-destruct
+            txt += "💣 Self-destruct completed";
+        }*/ else {
+            txt += "⛈  Vanished into thin air";
         }
         return txt;
     };
@@ -4334,27 +4336,27 @@ import * as socketStuff from "./socketinit.js";
             picture = util.getEntityImageFromMockup(gui.type, gui.color),
             baseColor = picture.color,
             name = global.player.name.substring(7, global.player.name.length + 1),
-            timestamp = Math.floor(Date.now() / 1000);
+            timestamp = Math.floor(Date.now());
 
         clearScreen(color.black, 0.1 + 0.15 * global.lerp(0, 0.5, glide), ctx[2]);
         let ratio = util.getScreenRatio();
         scaleScreenRatio(ratio, true);
-        drawEntity(baseColor, (xx - 190 - len / 2 + 0.5) | 0, (yy - -5 + 0.5) | 0, picture, 1.5, 1, (0.5 * scale) / picture.realSize, 1, -Math.PI / 4, true, ctx[2]);
-        drawText("Level " + gui.__s.getLevel(), x - 275, y - -80, 14, color.guiwhite, "center");
-        drawText(picture.name, x - 275, y - -110, 24, color.guiwhite, "center");
-        drawText(timestamp + "", x, y - 80, 10, color.guiwhite, "center");
-        drawText(name == "" ? "Your Score: " : name + "'s Score: ", x - 170, y - 30, 24, color.guiwhite);
-        drawText(util.formatLargeNumber(Math.round(global.finalScore.get())), x - 170, y + 25, 50, color.guiwhite);
+        drawEntity(baseColor, (xx - 191 - len / 2 + 0.5) | 0, (yy - -26 + 0.5) | 0, picture, 1.5, 1, (0.5 * scale) / picture.realSize, 1, -Math.PI / 4, true, ctx[2]);
+        drawText("Level " + gui.__s.getLevel(), x - 270, y + 100, 12, color.guiwhite, "center");
+        drawText(picture.name, x - 270, y + 125, 18, color.guiwhite, "center");
+        drawText(new Date(timestamp).toISOString() + "", x, y - 165, 8.125, color.guiwhite, "center");
+        drawText(name == "" ? "Your Score: " : name + "'s Score: ", x - 170, y - 50, 23.75, color.guiwhite);
+        drawText(util.formatLargeNumber(Math.round(global.finalScore.get())), x - 170, y + 11, 48, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(1, 1.25, glide);
-        drawText("⌚ Survived for " + util.timeForHumans(Math.round(global.finalLifetime.get())), x - 170, y + 55, 16, color.guiwhite);
+        drawText("⌚ Survived for " + util.timeForHumans(Math.round(global.finalLifetime.get())), x - 170, y + 50, 14, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(1.25, 1.5, glide);
-        drawText(getKills(), x - 170, y + 77, 16, color.guiwhite);
+        drawText(getKills(), x - 170, y + 75, 14, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(1.5, 1.75, glide);
-        drawText(getDeath(), x - 170, y + 99, 16, color.guiwhite);
+        drawText(getTips(), x - 170, y + 100, 14, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(1.75, 2, glide);
-        drawText(getTips(), x - 170, y + 122, 16, color.guiwhite);
+        drawText(getDeath(), x - 170, y + 125, 14, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(2, 2.25, glide);
-        drawText("🦆 The server was alive for " + (100 * gui.fps).toFixed(0) + "%" + " for the run", x - 170, y + 144, 16, color.guiwhite);
+        drawText("📋 The server was " + (100 * gui.fps).toFixed(0) + "%" + " active", x - 170, y + 150, 14, color.guiwhite);
         ctx[2].globalAlpha = global.lerp(3, 3.25, glide);
         if (global.cannotRespawn || global.mobile || global.gamepadMode) drawText(global.cannotRespawn ?
             global.respawnTimeout ?
@@ -4368,9 +4370,9 @@ import * as socketStuff from "./socketinit.js";
             x, y + 189, 16, color.guiwhite, "center");
         if (!global.disconnected && !global.cannotRespawn) {
             if (!global.mobile && !global.gamepadMode) {
-                drawButton(x - 80, y + 195, 130, 30, global.lerp(3, 3.25, glide), "rect", "Back", 15, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
-                drawButton(x + 80, y + 195, 130, 30, global.lerp(3, 3.25, glide), "rect", "Respawn", 15, false, false, false, true, "deathRespawn", global.canvas.height / global.screenHeight / global.ratio, 0);
-            } else drawButton(x, y + 215, 150, 50, global.lerp(3, 3.25, glide), "rect", "Back", 25, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
+                drawButton(x - 75, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
+                drawButton(x + 75, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Respawn", 14, false, false, false, true, "deathRespawn", global.canvas.height / global.screenHeight / global.ratio, 0);
+            } else drawButton(x, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Back", 18, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
         }
     };
 
@@ -4633,7 +4635,7 @@ import * as socketStuff from "./socketinit.js";
         if (animValue > 0.1) {
             const textX = BTN_X + BTN_WIDTH_COLLAPSED / 2 + animatedWidth - 105;
             const textY = BTN_Y + BTN_SIZE / 2;
-            drawText("Options", textX, textY * 1.13, 13, color.guiwhite, "left");
+            drawText("Options", textX, textY * 1.13, 12, color.guiwhite, "left");
         }
         ctx[2].lineWidth = 3;
         gameDraw.setColor(ctx[2], color.black);
@@ -5283,8 +5285,8 @@ import * as socketStuff from "./socketinit.js";
         if (global.message === "") global.message = "The connection closed due to an error.\nTry reloading and clearing your cache, or joining another server.";
         drawText(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, "center");
         lastPing = 0;
-        drawButton(global.screenWidth / 2 - 80, global.screenHeight / 2 + 135, 130, 30, 1, "rect", "Back", 15, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
-        drawButton(global.screenWidth / 2 + 80, global.screenHeight / 2 + 135, 130, 30, 1, "rect", "Reconnect", 15, false, false, false, true, "reconnect", global.canvas.height / global.screenHeight / global.ratio, 0);
+        drawButton(global.screenWidth / 2 - 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
+        drawButton(global.screenWidth / 2 + 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Reconnect", 14, false, false, false, true, "reconnect", global.canvas.height / global.screenHeight / global.ratio, 0);
     };
 
     const drawResyncScreen = () => {

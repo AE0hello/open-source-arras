@@ -20,7 +20,7 @@ const config = {
         hexaGrid: true,
         gridDrawSize: 1,
         fontSizeBoost: 1.4,
-        fontStrokeRatio: 4.5,
+        fontStrokeRatio: 4.75,
         neon: false,
         coloredHealthbars: false,
         separatedHealthbars: false,

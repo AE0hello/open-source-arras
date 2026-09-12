@@ -196,6 +196,7 @@ class Canvas {
                 // Enter to respawn
                 if (global.died && !global.cannotRespawn) {
                     this.respawn();
+                    global.selfDestructed = false;
                     global.died = false;
                     break;
                 }
