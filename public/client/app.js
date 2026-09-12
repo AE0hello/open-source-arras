@@ -1695,7 +1695,9 @@ import * as socketStuff from "./socketinit.js";
         ctx[2].fill();
     }
 
-    function drawButton(x, y, width, height, alpha, type = "rect", text, textSize, color1, color2, color3, clickable = false, clickType, clickableRatio, index, options = {}) {
+    function drawButton(x, y, width, height, alpha, type = "rect", text, textSize, color1, color2, color3, clickable = false, clickType, clickableRatio, options = {}) {
+        let index = options.index;        
+
         // If width is set to true, that means we want to calculate it on the text's length.
         if (width == true) width = measureText(text, height);
         // Set the clickable's position
@@ -3120,7 +3122,9 @@ import * as socketStuff from "./socketinit.js";
             true,
             "classTreeZoomIn",
             global.canvas.height / global.screenHeight / global.ratio,
-            0
+            {
+                index: 0
+            }
         );
 
         // Zoom Out button
@@ -3139,7 +3143,9 @@ import * as socketStuff from "./socketinit.js";
             true,
             "classTreeZoomOut",
             global.canvas.height / global.screenHeight / global.ratio,
-            1
+            {
+                index: 1
+            }
         );
 
         // Draw close button (X) on the left
@@ -3162,8 +3168,8 @@ import * as socketStuff from "./socketinit.js";
             true,
             "classTreeClose",
             global.canvas.height / global.screenHeight / global.ratio,
-            0,
             {
+                index: 0,
                 textOutline: false
             }
         );
@@ -3899,7 +3905,9 @@ import * as socketStuff from "./socketinit.js";
                 buttonX = initialX + (rowWidth + len - initialX) / 2,
                 buttonY = initialY + height + internalSpacing - 5;
 
-            drawButton(buttonX, buttonY, m, h, 1, config.graphical.oldUIStyle ? "bar" : "rect", msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, 0);
+            drawButton(buttonX, buttonY, m, h, 1, config.graphical.oldUIStyle ? "bar" : "rect", msg, textScale - 3.3, color.vlgrey, false, false, true, "skipUpgrades", clickableRatio, {
+                index: 0
+            });
 
             if (gui.dailyTank && gui.dailyTank.tank) {
                 let image = util.requestEntityImage(gui.dailyTank.tank, gui.color);
@@ -3908,7 +3916,9 @@ import * as socketStuff from "./socketinit.js";
                 drawEntityIcon(image, xStart, initialY + height + internalSpacing + 50, len, height, 1, upgradeSpin, 0.4, 10, false, hover);
                 drawText("Daily Tank!", xStart + 50, initialY + height + internalSpacing + 67, 12, gameDraw.getColor(36), "center");
                 global.clickables.dailyTankUpgrade.set(xStart * clickableRatio, (initialY + height + internalSpacing + 50) * clickableRatio, len * clickableRatio, height * clickableRatio);
-                gui.dailyTank.ads && drawButton(xStart + 50, initialY + height + internalSpacing + 160, m, h, 1, "rect", "Watch An Ad", textScale - 3.3, color.vlgrey, false, false, true, "dailyTankAd", clickableRatio, false);
+                gui.dailyTank.ads && drawButton(xStart + 50, initialY + height + internalSpacing + 160, m, h, 1, "rect", "Watch An Ad", textScale - 3.3, color.vlgrey, false, false, true, "dailyTankAd", clickableRatio, {
+                    index: false
+                });
             }
 
             // Upgrade tooltip
@@ -4256,7 +4266,9 @@ import * as socketStuff from "./socketinit.js";
                         global.dailyTankAd.closebtnAnim.set(1);
                     }, 1000)
                 }
-                drawButton(x + width - 25, y + 7, 35, 35, global.dailyTankAd.closebtnAnim.get(), "rect", "✕", 24, color.red, color.red, false, true, "dailyTankCloseAd", global.canvas.height / global.screenHeight / global.ratio, false);
+                drawButton(x + width - 25, y + 7, 35, 35, global.dailyTankAd.closebtnAnim.get(), "rect", "✕", 24, color.red, color.red, false, true, "dailyTankCloseAd", global.canvas.height / global.screenHeight / global.ratio, {
+                    index: false
+                });
             }
         } else {
             drawText("Loading...", global.screenWidth / 2, global.screenHeight / 2, 40, "#fff", "center", false, 1, false);
@@ -4373,9 +4385,15 @@ import * as socketStuff from "./socketinit.js";
             x, y + 189, 16, color.guiwhite, "center");
         if (!global.disconnected && !global.cannotRespawn) {
             if (!global.mobile && !global.gamepadMode) {
-                drawButton(x - 75, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
-                drawButton(x + 75, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Respawn", 14, false, false, false, true, "deathRespawn", global.canvas.height / global.screenHeight / global.ratio, 0);
-            } else drawButton(x, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Back", 18, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
+                drawButton(x - 75, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, {
+                    index: 0
+                });
+                drawButton(x + 75, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Respawn", 14, false, false, false, true, "deathRespawn", global.canvas.height / global.screenHeight / global.ratio, {
+                    index: 0
+                });
+            } else drawButton(x, y + 198, 120, 30, global.lerp(3, 3.25, glide), "rect", "Back", 18, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, {
+                index: 0
+            });
         }
     };
 
@@ -5288,8 +5306,12 @@ import * as socketStuff from "./socketinit.js";
         if (global.message === "") global.message = "The connection closed due to an error.\nTry reloading and clearing your cache, or joining another server.";
         drawText(global.message, global.screenWidth / 2, global.screenHeight / 2 + 30, 15, color.orange, "center");
         lastPing = 0;
-        drawButton(global.screenWidth / 2 - 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, 0);
-        drawButton(global.screenWidth / 2 + 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Reconnect", 14, false, false, false, true, "reconnect", global.canvas.height / global.screenHeight / global.ratio, 0);
+        drawButton(global.screenWidth / 2 - 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Back", 14, false, false, false, true, "exitGame", global.canvas.height / global.screenHeight / global.ratio, {
+            index: 0
+        });
+        drawButton(global.screenWidth / 2 + 75, global.screenHeight / 2 + 138, 120, 30, 1, "rect", "Reconnect", 14, false, false, false, true, "reconnect", global.canvas.height / global.screenHeight / global.ratio, {
+            index: 0
+        });
     };
 
     const drawResyncScreen = () => {
