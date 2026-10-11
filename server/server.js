@@ -6,7 +6,7 @@ const path = require("path");
 const fs = require("fs");
 const http = require("http");
 const url = require("url");
-const pjson = require("../package.json")
+const pjson = require("../package.json");
 
 const { Worker } = require("worker_threads");
 
@@ -64,11 +64,9 @@ global.controlHandle = null; // Embedded control server, if it booted
 // Attempt to create a WebSocket server instance using the 'ws' package
 try {
     const WebSocketServer = require("ws").WebSocketServer;
-    wsServer = new WebSocketServer({ noServer: true });
+    wsServer = new WebSocketServer({ noServer: true, perMessageDeflate: Config.per_message_deflate });
 } catch(err) {
-    throw new Error(
-        "Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal."
-    );
+    throw new Error("Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal.");
 }
 
 // Log a warning if Access-Control-Allow-Origin is enabled
@@ -78,7 +76,7 @@ if (Config.allow_ACAO) {
 
 // Show a warning about default API key
 if (process.env.API_KEY === "ChangeAPIKeyNow!") {
-    util.warn("You are using the default API key, which lets anyone submit server-travel players to this server. Set a unique API_KEY in server/.env.")
+    util.warn("You are using the default API key, which lets anyone submit server-travel players to this server. Set a unique API_KEY in server/.env.");
 }
 
 // Create an HTTP server to handle both API and static file requests
@@ -136,25 +134,19 @@ server = http.createServer((req, res) => {
     // Handle specific API endpoints based on the request URL
     switch (pathname) {
         case "/getServers.json": {
-            // Control registry covers local and remote nodes; fall back
-            // to local worker state when control is not up.
-            if (global.controlHandle) {
-                readString = JSON.stringify(require("./control/serverList.js").snapshotToList(global.controlHandle.registry.snapshot()));
-            } else {
-                readString = JSON.stringify(servers.filter((s) => s && !s.hidden).map((server) => ({
-                    ip: server.ip,
-                    players: server.players,
-                    maxPlayers: server.maxPlayers,
-                    id: server.id,
-                    featured: server.featured,
-                    unlisted: server.unlisted,
-                    private: server.private,
-                    region: server.region,
-                    serverhost: server.serverhost,
-                    location: server.location,
-                    gameMode: server.gameMode
-                })));
-            }
+            // Serve a list of active servers (excluding hidden ones)
+            readString = JSON.stringify(servers.filter((s) => s && !s.hidden).map((server) => ({
+                ip: server.ip,
+                players: server.players,
+                maxPlayers: server.maxPlayers,
+                id: server.id,
+                featured: server.featured,
+                unlisted: server.unlisted,
+                private: server.private,
+                region: server.region,
+                location: server.location,
+                gameMode: server.gameMode
+            })));
         } break;
         case "/getTotalPlayers": {
             let countPlayers = 0;
@@ -216,6 +208,7 @@ server = http.createServer((req, res) => {
                 res.writeHead(200);
                 res.end(JSON.stringify(sserver.map((server) => ({
                     ip: server.ip,
+                    id: server.id,
                     players: server.players,
                     gameMode: server.gameMode
                 }))));
@@ -270,7 +263,7 @@ server = http.createServer((req, res) => {
 });
 
 // Loads a game server
-function loadGameServer(loadViaMain = false, host, port, gamemode, region, serverHost, location, webProperties, properties, isFeatured, isUnlisted, isPrivate) {
+function loadGameServer(loadViaMain = false, host, port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate) {
     // Determine the new server index and initialize an empty object in the global servers array
     if (!loadViaMain) {
         let index = global.servers.length;
@@ -283,7 +276,6 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, serve
                 port: port, // Increment port for each server
                 gamemode,
                 region,
-                serverHost,
                 location,
                 webProperties,
                 properties,
@@ -320,8 +312,8 @@ function loadGameServer(loadViaMain = false, host, port, gamemode, region, serve
                 process.exit(1);
             }
             global.launchedOnMainServer = true;
-            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, serverHost, location, webProperties, properties, isFeatured, isUnlisted, isPrivate, false);
-        }, 10)
+            new (require("./game.js").gameServer)(Config.host, Config.port, gamemode, region, location, webProperties, properties, isFeatured, isUnlisted, isPrivate, false);
+        }, 10);
     }
 }
 
@@ -335,7 +327,7 @@ global.onServerLoaded = () => {
         if (Config.verbose_logs) {
             util.log("Dumping endpoint -> gamemode/region routing table");
             for (const game of global.servers) {
-                console.log(`> ${Config.host}/#${game.id} -> ${game.region} | ${game.serverhost} - ${game.location} - ${game.gameMode}`)
+                console.log(`> ${Config.host}/#${game.id} -> ${game.region} | ${game.location} - ${game.gameMode}`);
             }
             console.log("\n");
         }
@@ -356,7 +348,6 @@ server.listen(Config.port, () => {
             server.port,
             server.gamemode,
             server.region,
-            server.serverhost,
             server.location,
             { id: server.id, maxPlayers: server.player_cap },
             server.properties,
@@ -364,7 +355,7 @@ server.listen(Config.port, () => {
             server.unlisted,
             server.private
         );
-    })
+    });
 });
 // Idle listener does not pin the process, live connections still do.
 server.unref();

@@ -2,6 +2,30 @@ import { global } from "./global.js";
 import { util } from "./util.js";
 import { config } from "./config.js";
 import { protocol } from "./protocol.js";
+// Common "u" colors sent as palette ids instead of full strings. Must match the server table.
+const U_COLOR_TABLE = [
+    "grey 0 1 0 false", "16 0 1 0 false", "black 0 1 0 false", "blue 0 1 0 false",
+    "red 0 1 0 false", "green 0 1 0 false", "gold 0 1 0 false", "orange 0 1 0 false",
+    "purple 0 1 0 false", "aqua 0 1 0 false", "pink 0 1 0 false", "white 0 1 0 false",
+    "lightGray 0 1 0 false", "veryLightGrey 0 1 0 false", "lightGrey 0 1 0 false", "darkGrey 0 1 0 false",
+    "lavender 0 1 0 false", "yellow 0 1 0 false", "teal 0 1 0 false", "pureBlack 0 1 0 false",
+    "magenta 0 1 0 false", "mirror 0 1 0 false", "-1 0 1 0 false", "10 0 1 0 false",
+    "11 0 1 0 false", "12 0 1 0 false", "0 0 1 0 false", "13 0 1 0 false",
+    "36 0 1 0 false", "mustard 0 1 0 false", "tangerine 0 1 0 false", "brown 0 1 0 false",
+    "cyan 0 1 0 false", "dgrey 0 1 0 false", "gray 0 1 0 false", "darkGray 0 1 0 false",
+    "veryLightGray 0 1 0 false", "vlgrey 0 1 0 false", "lgrey 0 1 0 false", "lgreen 0 1 0 false",
+    "egg 0 1 0 false", "crasher 0 1 0 false", "triangle 0 1 0 false", "square 0 1 0 false",
+    "hexagon 0 1 0 false", "pentagon 0 1 0 false", "lime 0 1 0 false", "pureWhite 0 1 0 false",
+    "trans 0 1 0 false", "1 0 1 0 false", "2 0 1 0 false", "3 0 1 0 false",
+    "4 0 1 0 false", "5 0 1 0 false", "6 0 1 0 false", "7 0 1 0 false",
+    "8 0 1 0 false", "9 0 1 0 false", "14 0 1 0 false", "15 0 1 0 false",
+    "17 0 1 0 false", "18 0 1 0 false", "19 0 1 0 false", "#000000 0 1 0 false",
+    "#96794E 0 1 0 false", "#226ef6 0 1 0 false", "#1c3766 0 1 0 false", "#ff1000 0 1 0 false",
+    "#FFFFFF 0 1 0 false", "#5C533F 0 1 0 false", "#ff9000 0 1 0 false", "#f6c6a2 0 1 0 false",
+    "#F49EFF 0 1 0 false", "#fff 0 1 0 false", "#FF0000 0 1 0 false",
+];
+const FALLBACK_COLOR = U_COLOR_TABLE[1];
+const decodeColor = value => typeof value === "number" ? (U_COLOR_TABLE[value] ?? FALLBACK_COLOR) : value;
 window.fakeLagMS = 0;
 var sync = [];
 var clockDiff = 0;
@@ -450,16 +474,16 @@ const process = (z = {}) => {
     let type = get.next();
     // Handle it appropiately
     if (type & 0x01) { // issa turret
-        z.facing = get.next();
+        z.facing = get.next() * Math.PI / 2048;
         z.layer = get.next();
-        z.index = get.next();
-        z.color = get.next();
-        z.size = get.next();
-        z.realSize = get.next();
-        z.sizeFactor = get.next();
-        z.angle = get.next();
-        z.direction = get.next();
-        z.offset = get.next();
+        z.index = String(get.next());
+        z.color = decodeColor(get.next());
+        z.size = get.next() / 16;
+        z.realSize = get.next() / 16;
+        z.sizeFactor = get.next() / 100;
+        z.angle = get.next() * Math.PI / 2048;
+        z.direction = get.next() * Math.PI / 2048;
+        z.offset = get.next() / 16;
         z.mirrorMasterAngle = get.next();
     } else { // issa something real
         z.interval = global.metrics.rendergap;
@@ -484,32 +508,32 @@ const process = (z = {}) => {
         // Either way, keep pulling information
         // For limited entities only by only pulling their limited information.
         if (type & 0x10) {
-            z.index = get.next();
-            z.x = get.next();
-            z.y = get.next();
-            z.vx = get.next();
-            z.vy = get.next();
-            z.size = get.next();
+            z.index = String(get.next());
+            z.x = get.next() / 4;
+            z.y = get.next() / 4;
+            z.vx = get.next() / 20;
+            z.vy = get.next() / 20;
+            z.size = get.next() / 16;
             let oldFacing = z.facing;
-            z.facing = get.next();
+            z.facing = get.next() * Math.PI / 2048;
             z.vfacing = isNew ? z.facing : z.facing - oldFacing;
-            z.vfacing = get.next();
+            z.vfacing = get.next() * Math.PI / 2048;
             z.layer = get.next();
-            z.color = get.next();
+            z.color = decodeColor(get.next());
         } else { // Else pull all information.
-            z.index = get.next();
-            z.x = get.next();
-            z.y = get.next();
-            z.vx = get.next();
-            z.vy = get.next();
-            z.size = get.next();
+            z.index = String(get.next());
+            z.x = get.next() / 4;
+            z.y = get.next() / 4;
+            z.vx = get.next() / 20;
+            z.vy = get.next() / 20;
+            z.size = get.next() / 16;
             let oldFacing = z.facing;
-            z.facing = get.next();
+            z.facing = get.next() * Math.PI / 2048;
             z.vfacing = isNew ? z.facing : z.facing - oldFacing;
-            z.vfacing = get.next();
+            z.vfacing = get.next() * Math.PI / 2048;
             z.twiggle = get.next();
             z.layer = get.next();
-            z.color = get.next();
+            z.color = decodeColor(get.next());
             z.borderless = get.next();
             z.drawFill = get.next();
         }
@@ -517,13 +541,13 @@ const process = (z = {}) => {
         z.invuln = invuln ? z.invuln || Date.now() : 0;
         // Update health, flagging as injured if needed
         if (isNew) {
-            z.health = get.next() / 65535;
-            z.shield = get.next() / 65535;
+            z.health = get.next() / 255;
+            z.shield = get.next() / 255;
         } else {
             let hh = z.health,
                 ss = z.shield;
-            z.health = get.next() / 65535;
-            z.shield = get.next() / 65535;
+            z.health = get.next() / 255;
+            z.shield = get.next() / 255;
             // Update stuff
             if (z.health < hh || z.shield < ss) {
                 z.render.status.set("injured");
@@ -533,6 +557,7 @@ const process = (z = {}) => {
             }
         }
         z.alpha = get.next() / 255;
+        let hit = get.next();
         z.drawsHealth = !!(type & 0x02); // force to boolean
         // Nameplates
         if (type & 0x04) { // has a nameplate
@@ -579,33 +604,32 @@ const process = (z = {}) => {
         z.render.xAnim.add(z.x);
         z.render.yAnim.add(z.y);
         z.render.faceAnim.add(z.facing);
+        if (hit) z.render.status.set("injured");
         // Figure out if the class changed (and if so, refresh the guns and turrets)
         if (!isNew && z.oldIndex !== z.index) isNew = true;
         z.oldIndex = z.index;
     }
     // If it needs to have a gun container made, make one
     let gunnumb = get.next();
-    if (isNew) {
+    if (isNew || gunnumb !== z.guns.length) {
         z.guns = GunContainer(gunnumb);
-    } else if (gunnumb !== z.guns.length) {
-        throw new Error("Mismatch between data gun number and remembered gun number!");
     }
     // Decide if guns need to be fired one by one
     for (let i = 0; i < gunnumb; i++) {
         let time = get.next(),
-            power = get.next(),
-            color = get.next(),
-            alpha = get.next(),
-            strokeWidth = get.next(),
+            power = get.next() / 255,
+            color = decodeColor(get.next()),
+            alpha = get.next() / 255,
+            strokeWidth = get.next() / 100,
             borderless = get.next(),
             drawFill = get.next(),
             drawAbove = get.next(),
-            length = get.next(),
-            width = get.next(),
-            aspect = get.next(),
-            angle = get.next(),
-            direction = get.next(),
-            offset = get.next(),
+            length = get.next() / 16,
+            width = get.next() / 16,
+            aspect = get.next() / 100,
+            angle = get.next() * Math.PI / 2048,
+            direction = get.next() * Math.PI / 2048,
+            offset = get.next() / 16,
             layer = get.next();
         z.guns.setConfig(i, {color, alpha, strokeWidth, borderless, drawFill, drawAbove, length, width, aspect, angle, direction, offset, layer}); // Load gun config into container
         if (time > global.player.lastUpdate - global.metrics.rendergap) z.guns.fire(i, power); // Shoot it
@@ -656,8 +680,8 @@ const patch = (z, mask) => {
             z.render.lastx = z.x;
             z.render.lasty = z.y;
         }
-        let x = get.next(),
-            y = get.next();
+        let x = get.next() / 4,
+            y = get.next() / 4;
         if (z) {
             z.x = x;
             z.y = y;
@@ -668,15 +692,15 @@ const patch = (z, mask) => {
             z.render.lastvx = z.vx;
             z.render.lastvy = z.vy;
         }
-        let vx = get.next(),
-            vy = get.next();
+        let vx = get.next() / 20,
+            vy = get.next() / 20;
         if (z) {
             z.vx = vx;
             z.vy = vy;
         }
     }
     if (mask & 0x0004) {
-        let size = get.next();
+        let size = get.next() / 16;
         if (z) {
             z.size = size;
             z.render.size.add(z.size);
@@ -684,16 +708,16 @@ const patch = (z, mask) => {
     }
     if (mask & 0x0008) {
         if (z) z.render.lastf = z.facing;
-        let facing = get.next(),
-            vfacing = get.next();
+        let facing = get.next() * Math.PI / 2048,
+            vfacing = get.next() * Math.PI / 2048;
         if (z) {
             z.facing = facing;
             z.vfacing = vfacing;
         }
     }
     if (mask & 0x0010) {
-        let health = get.next() / 65535,
-            shield = get.next() / 65535;
+        let health = get.next() / 255,
+            shield = get.next() / 255;
         if (z) {
             let hh = z.health,
                 ss = z.shield;
@@ -725,7 +749,7 @@ const patch = (z, mask) => {
         }
     }
     if (mask & 0x0080) {
-        let color = get.next();
+        let color = decodeColor(get.next());
         if (z) z.color = color;
     }
     if (mask & 0x0100) {
@@ -746,19 +770,19 @@ const patch = (z, mask) => {
         for (let i = 0; i < gunnumb; i++) {
             let gunMask = get.next();
             let time = gunMask & 0x0001 ? get.next() : 0,
-                power = gunMask & 0x0002 ? get.next() : 0,
-                color = gunMask & 0x0004 ? get.next() : "",
-                alpha = gunMask & 0x0008 ? get.next() : 1,
-                strokeWidth = gunMask & 0x0010 ? get.next() : 1,
+                power = gunMask & 0x0002 ? get.next() / 255 : 0,
+                color = gunMask & 0x0004 ? decodeColor(get.next()) : "",
+                alpha = gunMask & 0x0008 ? get.next() / 255 : 1,
+                strokeWidth = gunMask & 0x0010 ? get.next() / 100 : 1,
                 borderless = gunMask & 0x0020 ? get.next() : false,
                 drawFill = gunMask & 0x0040 ? get.next() : true,
                 drawAbove = gunMask & 0x0080 ? get.next() : false,
-                length = gunMask & 0x0100 ? get.next() : 0,
-                width = gunMask & 0x0200 ? get.next() : 0,
-                aspect = gunMask & 0x0400 ? get.next() : 0,
-                angle = gunMask & 0x0800 ? get.next() : 0,
-                direction = gunMask & 0x1000 ? get.next() : 0,
-                offset = gunMask & 0x2000 ? get.next() : 0,
+                length = gunMask & 0x0100 ? get.next() / 16 : 0,
+                width = gunMask & 0x0200 ? get.next() / 16 : 0,
+                aspect = gunMask & 0x0400 ? get.next() / 100 : 0,
+                angle = gunMask & 0x0800 ? get.next() * Math.PI / 2048 : 0,
+                direction = gunMask & 0x1000 ? get.next() * Math.PI / 2048 : 0,
+                offset = gunMask & 0x2000 ? get.next() / 16 : 0,
                 layer = gunMask & 0x4000 ? get.next() : 0;
             if (z) {
                 z.guns.setConfig(i, {color, alpha, strokeWidth, borderless, drawFill, drawAbove, length, width, aspect, angle, direction, offset, layer});
@@ -767,16 +791,24 @@ const patch = (z, mask) => {
         }
     }
     if (mask & 0x1000) {
-        let turnumb = get.next();
-        if (z && z.turrets.length !== turnumb) {
-            z.turrets = [];
-            for (let i = 0; i < turnumb; i++) z.turrets.push(process());
-        } else {
-            for (let i = 0; i < turnumb; i++) {
-                if (z) z.turrets[i] = process(z.turrets[i]);
-                else process();
+        const turnumb = get.next();
+        const rebuild = !z || z.turrets.length !== turnumb;
+        if (z && rebuild) z.turrets = [];
+        for (let i = 0; i < turnumb; i++) {
+            const tflag = get.next();
+            if (tflag === 1) {
+                const facing = get.next() * Math.PI / 2048;
+                if (z && !rebuild) z.turrets[i].facing = facing;
+            } else if (tflag === 2) {
+                if (!z) process();
+                else if (rebuild) z.turrets.push(process());
+                else z.turrets[i] = process(z.turrets[i]);
             }
         }
+    }
+    if (mask & 0x2000) {
+        let hit = get.next();
+        if (z && hit) z.render.status.set("injured");
     }
     if (z) {
         z.render.xAnim.add(z.x);
@@ -807,7 +839,7 @@ const convert = {
                 let index = global.entities.findIndex(x => x.id === id);
                 if (index !== -1) killEntity(global.entities.splice(index, 1)[0], output);
             }
-            for (let e of global.entities) output.push(e);
+            for (let e of global.entities) if (e.render.status.getFade() !== 0) output.push(e);
         } else {
             // Get the number of entities and work through them
             for (let i = 0, len = get.next(); i < len; i++) {
@@ -850,7 +882,7 @@ const convert = {
         }
         if (indices.label) {
             gui.type = get.next();
-            gui.color = get.next();
+            gui.color = decodeColor(get.next());
             gui.playerid = get.next();
         }
         if (indices.score) {
@@ -928,7 +960,7 @@ const convert = {
                 type: data[0],
                 x: (data[1] * global.gameWidth) / 255,
                 y: (data[2] * global.gameHeight) / 255,
-                color: data[3],
+                color: decodeColor(data[3]),
                 size: data[4]
             });
         }
@@ -941,7 +973,7 @@ const convert = {
                 type: 0,
                 x: (data[0] * global.gameWidth) / 255,
                 y: (data[1] * global.gameHeight) / 255,
-                color: data[2],
+                color: decodeColor(data[2]),
                 size: 0
             });
         }
@@ -954,11 +986,11 @@ const convert = {
             entries.push({
                 id,
                 score: data[0],
-                index: data[1],
+                index: String(data[1]),
                 name: data[2],
-                color: data[3],
-                bar: data[4],
-                nameColor: data[5],
+                color: decodeColor(data[3]),
+                bar: decodeColor(data[4]),
+                nameColor: decodeColor(data[5]),
                 label: data[6],
                 renderEntity: data[7],
             })
@@ -972,9 +1004,11 @@ const protocols = {
     "https:": "wss://"
 };
 let incoming = async function(message, socket) {
+    global.metrics.lastPacketTime = Date.now();
     await new Promise(Resolve => setTimeout(Resolve, window.fakeLagMS));
     // Make sure it looks legit.
     global.bandwidth.currentFa += message.data.byteLength;
+    global.bandwidth.totalFa += message.data.byteLength;
     let m = protocol.decode(message.data);
     if (m === -1) {
         throw new Error("Malformed packet.");
@@ -984,7 +1018,7 @@ let incoming = async function(message, socket) {
         case "W": {
             if (m[0]) {
                 global.message = "";
-                socket.talk("k", global.playerKey, 1);
+                socket.talk("k", global.playerKey, config.game.deltaEntities ? 1 : 0);
                 // define a pinging function
                 socket.ping = (payload) => {
                     socket.talk("p", payload);
@@ -1148,8 +1182,8 @@ let incoming = async function(message, socket) {
         case "u": { // uplink
             // Pull the camera info
             if (m[0] == true) { // Update camera only if we want to.
-                let camx = m[1],
-                    camy = m[2];
+                let camx = m[1] / 4,
+                    camy = m[2] / 4;
                 global.player.cx.x = camx;
                 global.player.cy.y = camy;
                 global.player.loc = { x: camx, y: camy };
@@ -1158,11 +1192,11 @@ let incoming = async function(message, socket) {
                 return;
             }
             let camtime = m[0],
-                camx = m[1],
-                camy = m[2],
+                camx = m[1] / 4,
+                camy = m[2] / 4,
                 camfov = m[3],
-                camvx = m[4],
-                camvy = m[5],
+                camvx = m[4] / 20,
+                camvy = m[5] / 20,
                 camscoping = m[6],
                 // We'll have to do protocol decoding on the remaining data
                 theshit = m.slice(7);
@@ -1275,7 +1309,7 @@ let incoming = async function(message, socket) {
             global.finalKills[3].set(m[6]);
             global.finalKillers = [];
             for (let i = 0; i < m[7]; i++) {
-                global.finalKillers.push(m[8 + i]);
+                global.finalKillers.push(String(m[8 + i]));
             }
             global.canvas.reverseDirection = false;
             global.died = true;
@@ -1421,7 +1455,7 @@ let incoming = async function(message, socket) {
             // Put your code while being kicked from the server.
         } break;
         case "z": { // name color
-            global.nameColor = m[0];
+            global.nameColor = decodeColor(m[0]);
         } break;
         case "Op": { // operator status change telling
             global.hasOperator = m[0];
@@ -1529,6 +1563,7 @@ const socketInit = () => {
         message = protocol.encode(message)
         socket.send(message);
         global.bandwidth.currentHa += message.byteLength;
+        global.bandwidth.totalHa += message.byteLength;
     };
 
     socket.onopen = function socketOpen() {

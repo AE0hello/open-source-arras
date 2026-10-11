@@ -404,6 +404,7 @@ handleOperatorKeyDown: function (key) {
         lastrender: 0,
         rendergap: 0,
         lastuplink: 0,
+        lastPacketTime: 0,
         mspt: 0,
     },
     advanced: {
@@ -419,6 +420,8 @@ handleOperatorKeyDown: function (key) {
         currentFa: 0,
         finalHa: 0,
         finalFa: 0,
+        totalHa: 0,
+        totalFa: 0,
     },
     mobileStatus: {
         enableCrosshair: false,
@@ -584,6 +587,7 @@ handleOperatorKeyDown: function (key) {
         global.chats = {};
         global.metrics.rendertime = 0;
         global.metrics.rendertimes = 1;
+        global.metrics.lastPacketTime = 0;
         global.time = 0;
         global.metrics.lag = 0;
         global.secondaryLoop = false;
@@ -618,6 +622,7 @@ handleOperatorKeyDown: function (key) {
         global.chats = {};
         global.metrics.rendertime = 0;
         global.metrics.rendertimes = 1;
+        global.metrics.lastPacketTime = 0;
         global.time = 0;
         global.metrics.lag = 0;
         global.secondaryLoop = false;

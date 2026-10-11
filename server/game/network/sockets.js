@@ -1,11 +1,42 @@
 let crypto = require("crypto"),
     net = require("net"),
     fs = require("fs");
+const { handleChatCommand } = require("../chatCommands.js");
 PERMABAN_FILE = "./server/permanentBans.json";
 let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
 global.chatID = 0;
 const GUN_PHOTO_FIELDS = 15;
+const numIndex = (index) => (typeof index === "string" && /^\d+$/.test(index) && index.length < 10 ? parseInt(index, 10) : index);
+const U_COLOR_TABLE = [
+    "grey 0 1 0 false", "16 0 1 0 false", "black 0 1 0 false", "blue 0 1 0 false",
+    "red 0 1 0 false", "green 0 1 0 false", "gold 0 1 0 false", "orange 0 1 0 false",
+    "purple 0 1 0 false", "aqua 0 1 0 false", "pink 0 1 0 false", "white 0 1 0 false",
+    "lightGray 0 1 0 false", "veryLightGrey 0 1 0 false", "lightGrey 0 1 0 false", "darkGrey 0 1 0 false",
+    "lavender 0 1 0 false", "yellow 0 1 0 false", "teal 0 1 0 false", "pureBlack 0 1 0 false",
+    "magenta 0 1 0 false", "mirror 0 1 0 false", "-1 0 1 0 false", "10 0 1 0 false",
+    "11 0 1 0 false", "12 0 1 0 false", "0 0 1 0 false", "13 0 1 0 false",
+    "36 0 1 0 false", "mustard 0 1 0 false", "tangerine 0 1 0 false", "brown 0 1 0 false",
+    "cyan 0 1 0 false", "dgrey 0 1 0 false", "gray 0 1 0 false", "darkGray 0 1 0 false",
+    "veryLightGray 0 1 0 false", "vlgrey 0 1 0 false", "lgrey 0 1 0 false", "lgreen 0 1 0 false",
+    "egg 0 1 0 false", "crasher 0 1 0 false", "triangle 0 1 0 false", "square 0 1 0 false",
+    "hexagon 0 1 0 false", "pentagon 0 1 0 false", "lime 0 1 0 false", "pureWhite 0 1 0 false",
+    "trans 0 1 0 false", "1 0 1 0 false", "2 0 1 0 false", "3 0 1 0 false",
+    "4 0 1 0 false", "5 0 1 0 false", "6 0 1 0 false", "7 0 1 0 false",
+    "8 0 1 0 false", "9 0 1 0 false", "14 0 1 0 false", "15 0 1 0 false",
+    "17 0 1 0 false", "18 0 1 0 false", "19 0 1 0 false", "#000000 0 1 0 false",
+    "#96794E 0 1 0 false", "#226ef6 0 1 0 false", "#1c3766 0 1 0 false", "#ff1000 0 1 0 false",
+    "#FFFFFF 0 1 0 false", "#5C533F 0 1 0 false", "#ff9000 0 1 0 false", "#f6c6a2 0 1 0 false",
+    "#F49EFF 0 1 0 false", "#fff 0 1 0 false", "#FF0000 0 1 0 false",
+];
+const U_COLOR_ID = new Map(U_COLOR_TABLE.map((color, id) => [color, id]));
+// Quantize floats to small ints for the wire; the client divides them back.
+const qpos = v => Math.round(v * 4);
+const qvel = v => Math.round(v * 20);
+const qsize = v => Math.round(v * 16);
+const qpct = v => Math.round(v * 100);
+const qangle = v => Math.round(v * 2048 / Math.PI);
+const qfrac = v => Math.round((v || 0) * 255);
 
 class socketManager {
     constructor(parent) {
@@ -34,7 +65,7 @@ class socketManager {
             return {
                 color: t.color,
                 image: t.image ?? false
-            }
+            };
         })));
         for (let i = 0; i < this.clients.length; i++) {
             this.clients[i].talk(
@@ -171,6 +202,8 @@ class socketManager {
         for (let view of global.gameManager.views) {
             let nearby = view.getNearby(),
                 array = [];
+            let viewerChannel = view.socket.status.selectedChannel ?? "global";
+            let viewerTeam = view.socket.player?.body?.team;
 
             for (let entity of nearby.values()) {
                 if (entity.settings.fullyInvisible && entity.alpha <= 0 && !(view.socket.player.body && view.socket.player.body.settings.canSeeInvisible)) continue;
@@ -179,13 +212,16 @@ class socketManager {
                     array.push({ id: id, messages: [] });
                     let index = array.length - 1;
                     for (let chat of chats[id].messages) {
+                        let chatChannel = chat.channel ?? "global";
+                        if (chatChannel !== viewerChannel) continue;
+                        if (chatChannel === "team" && chat.team !== viewerTeam) continue;
                         array[index].messages.push({ text: chat.message, id: chat.id });
                     }
                 }
             }
             if (view.socket.status.disablechat) {
                 view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array.map(o => {
-                    return {id: o.id, messages: []} 
+                    return {id: o.id, messages: []}; 
                 })));
             } else view.socket.talk("CHAT_MESSAGE_ENTITY", JSON.stringify(array));
         }
@@ -320,13 +356,13 @@ class socketManager {
                     return (
                         socket.talk("message", "This server seems to be private."),
                         socket.kick("Tried to join private server without valid token.")
-                    ) 
+                    ); 
                 }
                 if (!global.gameManager.webProperties.maxPlayers < 1 && this.clients.length > global.gameManager.webProperties.maxPlayers) {
                     return (
                         socket.talk("message", "This server is full, please rejoin later."),
                         socket.kick("Server full.")
-                    ) 
+                    ); 
                 }
                 let b = bans.find((ban) => ban.ip === socket.ip);
                 if (b) {
@@ -407,7 +443,7 @@ class socketManager {
                                 color: t.color,
                                 visibleOnBlackout: t.visibleOnBlackout,
                                 image: t.image ?? false
-                            }
+                            };
                         }))),
                         JSON.stringify(util.serverStartTime),
                         global.gameManager.roomSpeed,
@@ -435,7 +471,7 @@ class socketManager {
                         }
                         this.initalizePlayer(epackage, socket);
                     }
-                }, 20)
+                }, 20);
             } break;
             case "S": { // clock syncing
                 if (m.length !== 1) {
@@ -512,6 +548,15 @@ class socketManager {
                 // Put the new target in
                 if (!socket.player.body.eastereggs.braindamage) player.target = target;
                 // Reverse the tank's facing if we want.
+                if (Config.reverse_tank_cooldown && reverseTank !== player.body.reverseTank && reverseTank !== socket.status.lastReverseTank) {
+                    socket.status.reverseSpam = (socket.status.reverseSpam || 0) + 1;
+                    setTimeout(() => socket.status.reverseSpam--, 10_000);
+                    if (socket.status.reverseSpam > 7) {
+                        player.body.sendMessage("Please slow down!");
+                        reverseTank = player.body.reverseTank;
+                    }
+                }
+                socket.status.lastReverseTank = m[2];
                 player.body.reverseTank = reverseTank;
                 // Process the commands
                 if (player.command != null) {
@@ -522,6 +567,11 @@ class socketManager {
                     player.command.lmb = (commands & 16) >> 4;
                     player.command.mmb = (commands & 32) >> 5;
                     player.command.rmb = (commands & 64) >> 6;
+                    if (socket.status.isAFK) {
+                        // AFK players may rotate but cannot move or shoot themselves.
+                        player.command.up = player.command.down = player.command.left = player.command.right = 0;
+                        player.command.lmb = player.command.mmb = player.command.rmb = 0;
+                    }
                 }
             } break;
             case "#": {
@@ -558,6 +608,8 @@ class socketManager {
                     socket.kick("Bad toggle.");
                     return 1;
                 }
+                // AFK players may only toggle autospin.
+                if (socket.status.isAFK && given !== "autospin") return;
                 // Apply a good request.
                 if (player.command != null && player.body != null) {
                     player.command[given] = !player.command[given];
@@ -621,7 +673,7 @@ class socketManager {
                     let limit = 256;
                     do {
                         player.body.skillUp(stat);
-                    } while (limit-- && max && player.body.skill.points && player.body.skill.amount(stat) < player.body.skill.cap(stat))
+                    } while (limit-- && max && player.body.skill.points && player.body.skill.amount(stat) < player.body.skill.cap(stat));
                 }
                 
             } break;
@@ -665,7 +717,7 @@ class socketManager {
                         body.isDominator ? "dominator" : 
                             body.isMothership ? "mothership" :
                                 body.isBoss ? "visitor" :
-                                    "special tank"
+                                    "special tank";
                     player.body.sendMessage(`You have relinquished control of the ${relinquishedControlMessage}.`);
                     body.giveUp(player, body.isDominator ? "" : undefined);
                     return 1;
@@ -699,7 +751,7 @@ class socketManager {
                                 if (player.body == null) return;
                                 player.body.sendMessage("You have lost control of the mothership.");
                                 body.giveUp(player, body.isDominator ? "" : undefined);
-                            }, Config.mothership_time_limit)
+                            }, Config.mothership_time_limit);
                         } else {
                             setTimeout(function() {
                                 if (player.body == null) return;
@@ -708,8 +760,8 @@ class socketManager {
                                     if (player.body == null) return;
                                     player.body.sendMessage("You have lost control of the mothership.");
                                     body.giveUp(player, body.isDominator ? "" : undefined);
-                                }, 10_000)
-                            }, Config.mothership_time_limit - 10_000)
+                                }, 10_000);
+                            }, Config.mothership_time_limit - 10_000);
                         }
                     }
                 } else if (Config.domination) {
@@ -775,7 +827,9 @@ class socketManager {
                     message = message.replace(/§/g, "§§§§");
                     original = original.replace(/§/g, "§§§§");
                 }
-    
+
+                if (handleChatCommand(socket, message)) break;
+
                 Events.emit("chatMessage", { gameManager: global.gameManager, message: original, socket, preventDefault: () => abort = true, setMessage: str => message = str });
     
                 // we are not anti-choice here.
@@ -791,7 +845,7 @@ class socketManager {
                     chats[id].messages = [];
                 }
 
-                chats[id].messages.unshift({ message, expires: Date.now() + Config.chat_message_duration, id: global.chatID++ });
+                chats[id].messages.unshift({ message, channel: socket.status.selectedChannel ?? "global", team: player.body.team, expires: Date.now() + Config.chat_message_duration, id: global.chatID++ });
     
                 // do one tick of the chat loop so they don't need to wait 100ms to receive it.
                 this.chatLoop();
@@ -821,14 +875,14 @@ class socketManager {
                 if (!Config.daily_tank) return socket.kick("Bad daily tank ad request");
                 if (player.body && player.body.skill.level >= Config.tier_multiplier * Config.daily_tank.tier && Config.daily_tank.ads && !socket.status.daily_tank_watched_ad) {
                     let chosenAd = ran.choose(Config.daily_tank.ad_sources);
-                    let isImage = chosenAd.file.endsWith(".png") || chosenAd.file.endsWith(".jpg") || chosenAd.file.endsWith(".jpeg")
+                    let isImage = chosenAd.file.endsWith(".png") || chosenAd.file.endsWith(".jpg") || chosenAd.file.endsWith(".jpeg");
                     socket.talk("DTA", JSON.stringify({src: chosenAd.file, normalAdSize: chosenAd.use_regular_ad_size ?? true, waitTime: isImage ? chosenAd.image_wait_time : "isVideo"}));
                     if (isImage) {
                         setTimeout(() => {
                             setTimeout(() => {
                                 socket.status.daily_tank_watched_ad_client = true;
-                            }, `${chosenAd.image_wait_time ?? "3"}000`)
-                        }, socket.camera.ping) // make the counter accurate sycned as possible with the client.
+                            }, `${chosenAd.image_wait_time ?? "3"}000`);
+                        }, socket.camera.ping); // make the counter accurate sycned as possible with the client.
                     }
                 }
             } break;
@@ -846,14 +900,14 @@ class socketManager {
                 setTimeout(() => {
                     setTimeout(() => {
                         socket.status.daily_tank_watched_ad_client = true;
-                    }, `${time}000`)
+                    }, `${time}000`);
                 }, socket.camera.ping);
             }
             case "NWB": {
                 socket.status.forceNewBroadcast = true;
             } break;
             default: {
-                console.log(m)
+                console.log(m);
                 console.log("Invalid registered packet." + m);
             } break;
         }
@@ -1234,9 +1288,9 @@ class socketManager {
                         socket.player.body.facing = ran.randomAngle();
                         let stressFov = 0.5 + Math.floor(Math.random() * 2);
                         socket.player.body.FOV = stressFov * socket.player.body.orginFov;
-                    }, 20)
+                    }, 20);
                 }
-            }, 100)
+            }, 100);
             if (autoLVLup) {
                 if (!socket.player.body) return;
                 while (socket.player.body.skill.level < Config.level_cap_cheat) {
@@ -1353,7 +1407,7 @@ class socketManager {
                                     clearInterval(loop);
                                 } else body.team = getRandomTeam();
                             }
-                        })
+                        });
                     }
                 } break;
                 default: {
@@ -1367,7 +1421,7 @@ class socketManager {
                                 clearInterval(loop);
                             } else body.team = team;
                         }
-                    })
+                    });
                 }
             } 
         }
@@ -1424,8 +1478,11 @@ class socketManager {
 
         //send the welcome message
         if (!doNotTakeAction.dontSendWelcomeMessage) {
-            let msg = Config.spawn_message.split("\n");
-            for (let i = 0; i < msg.length; i++) {
+            let msg = ("" + Config.spawn_message).split(/\r\n|\r|\n/);
+            if (msg.length > 1 && msg[msg.length - 1] === "") msg.pop();
+            // reverse
+            for (let i = msg.length - 1; i >= 0; i--) {
+                if (msg[i] === "") continue;
                 body.sendMessage(msg[i]);
             }
             if (Config.dev_build) {
@@ -1439,58 +1496,63 @@ class socketManager {
     }
 
     flatten(data) {
+        for (let k of ["x", "y", "vx", "vy", "size", "realSize", "facing", "vfacing"]) {
+            if (typeof data[k] === "number") data[k] = Math.fround(data[k]);
+        }
         let output = [data.type]; // We will remove the first entry in the persepective method
         if (data.type & 0x01) {
             output.push(
-                /*  1 */ data.facing,
+                /*  1 */ qangle(data.facing),
                 /*  2 */ data.layer,
-                /*  3 */ data.index,
+                /*  3 */ numIndex(data.index),
                 /*  4 */ data.color,
-                /*  5 */ data.size,
-                /*  6 */ data.realSize,
-                /*  7 */ data.sizeFactor,
-                /*  8 */ data.angle,
-                /*  9 */ data.direction,
-                /* 10 */ data.offset,
+                /*  5 */ qsize(data.size),
+                /*  6 */ qsize(data.realSize),
+                /*  7 */ qpct(data.sizeFactor),
+                /*  8 */ qangle(data.angle),
+                /*  9 */ qangle(data.direction),
+                /* 10 */ qsize(data.offset),
                 /* 11 */ data.mirrorMasterAngle
             );
         } else if (data.type & 0x10) {
             output.push(
                 /*  1 */ data.id,
-                /*  2 */ data.index,
-                /*  3 */ data.x,
-                /*  4 */ data.y,
-                /*  5 */ data.vx,
-                /*  6 */ data.vy,
-                /*  7 */ data.size,
-                /*  8 */ data.facing,
-                /*  9 */ data.vfacing,
+                /*  2 */ numIndex(data.index),
+                /*  3 */ qpos(data.x),
+                /*  4 */ qpos(data.y),
+                /*  5 */ qvel(data.vx),
+                /*  6 */ qvel(data.vy),
+                /*  7 */ qsize(data.size),
+                /*  8 */ qangle(data.facing),
+                /*  9 */ qangle(data.vfacing),
                 /* 11 */ data.layer,
                 /* 12 */ data.color,
-                /* 14 */ Math.ceil(65535 * data.health),
-                /* 15 */ Math.round(65535 * data.shield),
-                /* 16 */ Math.round(255 * data.alpha)
+                /* 14 */ qfrac(data.health),
+                /* 15 */ qfrac(data.shield),
+                /* 16 */ Math.round(255 * data.alpha),
+                /* 17 */ data.hit
             );
         } else {
             output.push(
                 /*  1 */ data.id,
-                /*  2 */ data.index,
-                /*  3 */ data.x,
-                /*  4 */ data.y,
-                /*  5 */ data.vx,
-                /*  6 */ data.vy,
-                /*  7 */ data.size,
-                /*  8 */ data.facing,
-                /*  9 */ data.vfacing,
+                /*  2 */ numIndex(data.index),
+                /*  3 */ qpos(data.x),
+                /*  4 */ qpos(data.y),
+                /*  5 */ qvel(data.vx),
+                /*  6 */ qvel(data.vy),
+                /*  7 */ qsize(data.size),
+                /*  8 */ qangle(data.facing),
+                /*  9 */ qangle(data.vfacing),
                 /* 10 */ data.twiggle,
                 /* 11 */ data.layer,
                 /* 12 */ data.color,
                 /* 14 */ data.borderless,
                 /* 15 */ data.drawFill,
                 /* 16 */ data.invuln,
-                /* 17 */ Math.ceil(65535 * data.health),
-                /* 18 */ Math.round(65535 * data.shield),
-                /* 19 */ Math.round(255 * data.alpha)
+                /* 17 */ qfrac(data.health),
+                /* 18 */ qfrac(data.shield),
+                /* 19 */ Math.round(255 * data.alpha),
+                /* 20 */ data.hit
             );
             if (data.type & 0x04) {
                 output.push(
@@ -1502,9 +1564,24 @@ class socketManager {
         // Add the gun data to the array
         output.push(data.guns.length);
         for (let i = 0; i < data.guns.length; i++) {
-            for (let k in data.guns[i]) {
-                output.push(data.guns[i][k]); 
-            }
+            let g = data.guns[i];
+            output.push(
+                g.time,
+                qfrac(g.power),
+                g.color,
+                qfrac(g.alpha),
+                qpct(g.strokeWidth),
+                g.borderless,
+                g.drawFill,
+                g.drawAbove,
+                qsize(g.length),
+                qsize(g.width),
+                qpct(g.aspect),
+                qangle(g.angle),
+                qangle(g.direction),
+                qsize(g.offset),
+                g.layer
+            );
         }
         // For each turret, add their own output
         output.push(data.turrets.length);
@@ -1538,7 +1615,6 @@ class socketManager {
             let prev = sent.get(id);
             if (prev === undefined || prev[0] !== data[0] || prev[2] !== data[2]) {
                 // New entity, or its class changed: send it whole.
-                if (prev !== undefined) removed.push(id);
                 created.push(data);
                 sent.set(id, data.slice());
             } else if (this.diffEntity(prev, data, changed)) {
@@ -1578,19 +1654,21 @@ class socketManager {
             if (prev[14] !== now[14]) mask |= 0x0020;
             if (prev[11] !== now[11]) mask |= 0x0080;
             if (prev[10] !== now[10]) mask |= 0x0400;
+            if (prev[15] !== now[15]) mask |= 0x2000;
         } else {
             if (prev[16] !== now[16] || prev[17] !== now[17]) mask |= 0x0010;
             if (prev[18] !== now[18]) mask |= 0x0020;
             if (prev[10] !== now[10] || prev[13] !== now[13] || prev[14] !== now[14] || prev[15] !== now[15]) mask |= 0x0040;
             if (prev[12] !== now[12]) mask |= 0x0080;
             if (prev[11] !== now[11]) mask |= 0x0400;
+            if (prev[19] !== now[19]) mask |= 0x2000;
             if (type & 0x04) {
-                if (prev[19] !== now[19]) mask |= 0x0100;
-                if (prev[20] !== now[20]) mask |= 0x0200;
+                if (prev[20] !== now[20]) mask |= 0x0100;
+                if (prev[21] !== now[21]) mask |= 0x0200;
             }
         }
         // Guns come next. Only send the fields that actually changed per gun.
-        const gunStart = limited ? 15 : ((type & 0x04) ? 21 : 19);
+        const gunStart = limited ? 16 : ((type & 0x04) ? 22 : 20);
         const gunLen = now[gunStart];
         const countChanged = prev[gunStart] !== gunLen;
         let anyGunChanged = countChanged;
@@ -1621,8 +1699,8 @@ class socketManager {
         if (mask & 0x0020) out.push(limited ? now[14] : now[18]);
         if (mask & 0x0040) out.push((now[10] ? 1 : 0) | (now[15] ? 2 : 0) | (now[13] ? 4 : 0) | (now[14] ? 8 : 0));
         if (mask & 0x0080) out.push(limited ? now[11] : now[12]);
-        if (mask & 0x0100) out.push(now[19]);
-        if (mask & 0x0200) out.push(now[20]);
+        if (mask & 0x0100) out.push(now[20]);
+        if (mask & 0x0200) out.push(now[21]);
         if (mask & 0x0400) out.push(limited ? now[10] : now[11]);
         if (mask & 0x0800) {
             out.push(gunLen);
@@ -1635,6 +1713,7 @@ class socketManager {
                     for (let f = 0; f < GUN_PHOTO_FIELDS; f++) {
                         if (prev[off + f] !== now[off + f]) gunMask |= (1 << f);
                     }
+                    if (gunMask & 1) gunMask |= 1 << 1;
                 }
                 out.push(gunMask);
                 for (let f = 0; f < GUN_PHOTO_FIELDS; f++) {
@@ -1643,9 +1722,39 @@ class socketManager {
             }
         }
         if (mask & 0x1000) {
-            out.push(now[turretStart]);
-            for (let i = turretStart + 1; i < now.length; i++) out.push(now[i]);
+            const count = now[turretStart];
+            out.push(count);
+            if (prev[turretStart] !== count) {
+                // Turret layout changed: resend every turret in full.
+                for (let k = 0, q = turretStart + 1; k < count; k++) {
+                    const end = this.recordEnd(now, q);
+                    out.push(2);
+                    for (let j = q; j < end; j++) out.push(now[j]);
+                    q = end;
+                }
+            } else {
+                // Same layout: skip identical turrets, send only a new facing
+                // for turrets that merely rotated, full records for the rest.
+                const prevTurretStart = gunStart + 1 + prev[gunStart] * GUN_PHOTO_FIELDS;
+                let p = prevTurretStart + 1, q = turretStart + 1;
+                for (let k = 0; k < count; k++) {
+                    const pe = this.recordEnd(prev, p), qe = this.recordEnd(now, q);
+                    if (qe - q === pe - p && this.spansEqual(prev, p, now, q, qe - q)) {
+                        out.push(0);
+                    } else if (
+                        now[q] & 0x01 && qe - q === pe - p && prev[p] === now[q] &&
+                        this.spansEqual(prev, p + 2, now, q + 2, qe - q - 2)
+                    ) {
+                        out.push(1, now[q + 1]);
+                    } else {
+                        out.push(2);
+                        for (let j = q; j < qe; j++) out.push(now[j]);
+                    }
+                    p = pe; q = qe;
+                }
+            }
         }
+        if (mask & 0x2000) out.push(limited ? now[15] : now[19]);
         return true;
     }
 
@@ -1653,6 +1762,26 @@ class socketManager {
     sameRange(a, b, from, to) {
         for (let i = from; i < to; i++) {
             if (a[i] !== b[i]) return false;
+        }
+        return true;
+    }
+
+    // End offset (exclusive) of one flattened record starting at `from`:
+    // type + fields + guns + nested turrets, mirroring flatten().
+    recordEnd(a, from) {
+        let i = from + 1;
+        const type = a[from];
+        i += (type & 0x01) ? 11 : ((type & 0x10) ? 15 : 19 + ((type & 0x04) ? 2 : 0));
+        i += 1 + a[i] * GUN_PHOTO_FIELDS;
+        const turrets = a[i++];
+        for (let k = 0; k < turrets; k++) i = this.recordEnd(a, i);
+        return i;
+    }
+
+    // True when prev[p..p+len) and now[q..q+len) hold identical values.
+    spansEqual(prev, p, now, q, len) {
+        for (let j = 0; j < len; j++) {
+            if (prev[p + j] !== now[q + j]) return false;
         }
         return true;
     }
@@ -1779,11 +1908,11 @@ class socketManager {
 
     eyes(socket) {
         const check = (camera, obj) => {
-            let fov = global.gameManager.arenaClosed ? 1.6 : 1;
-            return Math.abs(obj.x - camera.x) < camera.fov * fov + 1.5 * obj.size + 100 &&
-                Math.abs(obj.y - camera.y) < camera.fov * fov * 0.5625 + 1.5 * obj.size + 100;
+            let fov = Math.min(camera.fov, Config.max_fov) * (global.gameManager.arenaClosed ? 1.6 : 1);
+            return Math.abs(obj.x - camera.x) < fov / 2 + Config.view_extra_margin + 1.5 * obj.size &&
+                Math.abs(obj.y - camera.y) < fov * 9 / 32 + Config.view_extra_margin + 1.5 * obj.size;
         };
-        let lastVisibleUpdate = 0;
+        let lastVisibleUpdate = 0, lastNearX = socket.camera.x, lastNearY = socket.camera.y;
         let nearby = new Map();
         let visible = [];
         let view = [];
@@ -1797,7 +1926,7 @@ class socketManager {
                 if (check(socket.camera, e)) nearby.set(e.id, e); 
             },
             remove: e => {
-                nearby.delete(e.id) 
+                nearby.delete(e.id); 
             },
             check: (e) => {
                 return check(socket.camera, e); 
@@ -1825,6 +1954,7 @@ class socketManager {
                         }
                         let die = () => { // The only reason this exist is because of bacteria's abilities.
                             socket.status.deceased = true;
+                            socket.status.isAFK = false;
                             let delay = (Config.instant_respawn ? 0 : 3000) + Config.respawn_delay * 1000;
                             if (delay > 0) {
                                 socket.status.readyToSpawn = false;
@@ -1837,7 +1967,7 @@ class socketManager {
                             purge(); // Call the function so it can remove the body.
                             // Start the timeout
                             socket.timeout.start();
-                        }
+                        };
                         if (player.body.master.label == "Bacteria") { // Why not trigger bacteria's abilities :) // (WHY IS THIS A LABEL CHECK)
                             let exit = () => die();
                             let newgui = (player) => this.newgui(player);
@@ -1869,16 +1999,22 @@ class socketManager {
                         }
                     }
                 }
+                if (fovNow > Config.max_fov) fovNow = Config.max_fov;
                 // The only reason this exists is because the client is smoothing to its updated fov, and so server does it the same.
                 camera.fov += Math.max((fovNow - camera.fov) / 30, fovNow - camera.fov);
+                if (camera.fov > Config.max_fov) camera.fov = Config.max_fov;
 
                 // Grab entities that we can see
-                if (camera.lastUpdate - lastVisibleUpdate > Config.visible_list_interval) {
+                // Re-query when due or the camera jumped.
+                let dx = camera.x - lastNearX, dy = camera.y - lastNearY;
+                if (camera.lastUpdate - lastVisibleUpdate > Config.visible_list_interval || dx * dx + dy * dy > 250 * 250) {
                     lastVisibleUpdate = camera.lastUpdate;
+                    lastNearX = camera.x;
+                    lastNearY = camera.y;
                     nearby.clear();
-                    const camFovBroad = camera.fov * (global.gameManager.arenaClosed ? 1.6 : 1);
-                    const camXBound = camFovBroad + 100;
-                    const camYBound = camFovBroad * 0.5625 + 100;
+                    const camFovBroad = Math.min(camera.fov, Config.max_fov) * (global.gameManager.arenaClosed ? 1.6 : 1);
+                    const camXBound = camFovBroad / 2 + Config.view_extra_margin + 250;
+                    const camYBound = camFovBroad * 9 / 32 + Config.view_extra_margin + 250;
                     for (const entity of global.viewGrid.query(camera.x - camXBound, camera.y - camYBound, camera.x + camXBound, camera.y + camYBound)) {
                         nearby.set(entity.id, entity);
                     }
@@ -1886,13 +2022,17 @@ class socketManager {
                 
                 visible.length = 0;
                 
-                const camX = camera.x, camY = camera.y, camFov = camera.fov;
-                const limitDistance = 1.5;
-                const fovDiv = camFov / limitDistance;
-                const fovDivY = fovDiv * (9 / 13);
+                const camX = camera.x, camY = camera.y, camFov = Math.min(camera.fov, Config.max_fov);
+                const fovDiv = camFov / 2 + Config.view_extra_margin;
+                const fovDivY = camFov * 9 / 32 + Config.view_extra_margin;
                 const mockupsToSend = new Set();
 
                 for (const entity of nearby.values()) {
+                    // Never broadcast the dead: a destroyed body can linger in the
+                    // per-socket nearby cache until its refresh, and re-sending it
+                    // as created resurrects it client-side as a ghost.
+                    // Removals still flow, so the death fade still plays once.
+                    if (entity.isGhost || (typeof entity.isDead === "function" && entity.isDead())) continue;
                     if (entity.settings.fullyInvisible && entity.alpha <= 0 && !(player.body && player.body.settings.canSeeInvisible)) continue;
                     if (entity.photo &&
                         Math.abs(entity.x - camX) < fovDiv + 1.5 * entity.size &&
@@ -1919,8 +2059,8 @@ class socketManager {
                     socket.talk(
                         "u",
                         true,
-                        camera.x,
-                        camera.y
+                        qpos(camera.x),
+                        qpos(camera.y)
                     );
                     lastSentCamX = NaN; // force a full packet next time
                 } else if (
@@ -1933,11 +2073,11 @@ class socketManager {
                     socket.talk(
                         "u",
                         lastCycle,
-                        camera.x,
-                        camera.y,
-                        fovNow,
-                        camera.vx,
-                        camera.vy,
+                        qpos(camera.x),
+                        qpos(camera.y),
+                        Math.round(fovNow),
+                        qvel(camera.vx),
+                        qvel(camera.vy),
                         camera.scoping
                     );
                 } else {
@@ -1947,11 +2087,11 @@ class socketManager {
                     msg.push(
                         "u",
                         lastCycle,
-                        camera.x,
-                        camera.y,
-                        fovNow,
-                        camera.vx,
-                        camera.vy,
+                        qpos(camera.x),
+                        qpos(camera.y),
+                        Math.round(fovNow),
+                        qvel(camera.vx),
+                        qvel(camera.vy),
                         camera.scoping
                     );
                     const gui = player.gui.publish();
@@ -2084,7 +2224,7 @@ class socketManager {
             }
             global.gameManager.room.topPlayerID = topTen.length ? topTen[0].id : -1;
             return topTen.sort((a, b) => a.id - b.id);
-        }
+        };
         let makeLeaderboardHPList = (list) => {
             let topTen = [];
             for (let i = 0; i < 10 && list.length; i++) {
@@ -2116,7 +2256,7 @@ class socketManager {
             }
             global.gameManager.room.topPlayerID = topTen.length ? topTen[0].id : -1;
             return topTen.sort((a, b) => a.id - b.id);
-        }
+        };
         // Deltas
         let minimapAll = new Delta(5, args => {
             let all = [];
@@ -2256,7 +2396,7 @@ class socketManager {
                 ) list.push(instance);
             }
             return makeLeaderboardList(list, args);
-        })
+        });
         let bossLeaderboard = new Delta(7, args => {
             let list = [];
             for (const instance of entities.values()) {
@@ -2269,7 +2409,7 @@ class socketManager {
                 ) list.push(instance);
             }
             return makeLeaderboardHPList(list);
-        })
+        });
         let subscribers = [];
         setInterval(() => {
             logs.minimap.set();
@@ -2342,7 +2482,7 @@ class socketManager {
         return {
             subscribe: (socket) => broadcast.add(socket),
             unsubscribe: (socket) => broadcast.remove(socket)
-        }
+        };
     })();
 
     sendToServer(socket, server) {
@@ -2388,12 +2528,31 @@ class socketManager {
         };
         socket.talk = (...message) => {
             if (socket.readyState === socket.OPEN) {
+                if (message[0] === "m" && typeof message[2] === "string") {
+                    let lines = message[2].split(/\r\n|\r|\n/);
+                    if (lines.length > 1 && lines[lines.length - 1] === "") lines.pop();
+                    message = lines.length > 1
+                        ? ["Em", message[1], JSON.stringify(lines)]
+                        : ["m", message[1], lines[0]];
+                }
+                for (let i = 0; i < message.length; i++) {
+                    if (typeof message[i] === "string") {
+                        const id = U_COLOR_ID.get(message[i]);
+                        if (id !== undefined) message[i] = id;
+                    }
+                }
                 socket.send(protocol.encode(message), { binary: true });
             }
         };
-        // Same as talk(), but takes an array.
+        // Same as talk(), but takes an array. Only used for "u" packets.
         socket.talkArr = (message) => {
             if (socket.readyState === socket.OPEN) {
+                for (let i = 0; i < message.length; i++) {
+                    if (typeof message[i] === "string") {
+                        const id = U_COLOR_ID.get(message[i]);
+                        if (id !== undefined) message[i] = id;
+                    }
+                }
                 socket.send(protocol.encode(message), { binary: true });
             }
         };
@@ -2416,8 +2575,8 @@ class socketManager {
                 receivedUpgradePackIndexes: [],
                 receivedUpgradePackMockups: [],
                 requestMockups: []
-            }
-        }
+            };
+        };
         socket.messageManager = socket.on("message", message => this.incoming(message, socket));
         socket.connectedTo = global.gameManager.name;
         let timer = 0;
@@ -2460,6 +2619,7 @@ class socketManager {
             needsNewBroadcast: true,
             forceNewBroadcast: false,
             selectedLeaderboard: false,
+            selectedChannel: "global",
             seesAllTeams: false,
             daily_tank_watched_ad: false,
             readyToSpawn: true,

@@ -149,6 +149,12 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         util.retrieveFromLocalStorage("optOldUiStyle");
         // Game
         util.retrieveFromLocalStorage("optIncognitoMode");
+        util.retrieveFromLocalStorage("optDeltaEntities");
+        // Default to true
+        if (localStorage.getItem("optDeltaEntitiesChecked") === null) {
+            document.getElementById("optDeltaEntities").checked = true;
+            util.submitToLocalStorage("optDeltaEntities");
+        }
         // Set default theme
         if (document.getElementById("optColors").value === "") {
             document.getElementById("optColors").value = "normal";
@@ -176,6 +182,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             document.getElementById("smoothCamera").checked = true;
             document.getElementById("optFancy").checked = true;
             document.getElementById("autoLevelUp").checked = true;
+            document.getElementById("optDeltaEntities").checked = true;
             if (global.mobile) document.getElementById("showCrosshair").checked = true, document.getElementById("showJoystick").checked = true;
             // Dont forget to save it.
             util.submitToLocalStorage("optRenderGui");
@@ -193,6 +200,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             util.submitToLocalStorage("smoothCamera");
             util.submitToLocalStorage("optFancy");
             util.submitToLocalStorage("autoLevelUp");
+            util.submitToLocalStorage("optDeltaEntities");
             localStorage.setItem("loadedForFirstTime", "true");
             localStorage.setItem("uiScaleSettings", null);
         }
@@ -1099,7 +1107,6 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 f = [c[1]];
             if (c[2]) {
                 var e = +new Date(c[2] + "T00:00:00Z") + 252e5;
-                if (e > Date.now()) return !0;
                 if (null != a && e + a < Date.now()) return !1;
                 f.push(new Date(e).toLocaleDateString("default", {
                     year: "numeric",
@@ -1176,6 +1183,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         config.graphical.oldUIStyle = document.getElementById("optOldUiStyle").checked;
         // Game
         config.game.incognitoMode = document.getElementById("optIncognitoMode").checked;
+        config.game.deltaEntities = document.getElementById("optDeltaEntities").checked;
         switch (document.getElementById("optBorders").value) {
             case "normal":
                 config.graphical.darkBorders = config.graphical.neon = false;
@@ -1283,6 +1291,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         util.submitToLocalStorage("optOldUiStyle");
         // Game
         util.submitToLocalStorage("optIncognitoMode");
+        util.submitToLocalStorage("optDeltaEntities");
         loadSettings();
         global.optionsCheckboxes = undefined;
         // Other more important stuff
@@ -3755,16 +3764,20 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
             global.tankSpeedHistory.push(rawSpeed);
             if (global.tankSpeedHistory.length > HISTORY_LENGTH) global.tankSpeedHistory.shift();
             let tankSpeed = global.tankSpeedHistory.reduce((sum, val) => sum + val, 0) / global.tankSpeedHistory.length;
-            drawText(watermarkText, x + len - versionLength - 4, y - 50 - 10 * 14 - 2, 15, watermarkColor, "right");
-            drawText(global.version ?? "v?", x + len, y - 50 - 10 * 14 - 2, 15, color.guiwhite, "right");
-            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
-            drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
-            drawText("Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
-            drawText("Memory: " + global.metrics.rendergap.toFixed(1) + " MiB", x + len, y - 50 - 6 * 14, 10, color.guiwhite, "right");
-            drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 5 * 14, 10, color.guiwhite, "right");
-            drawText(`Bandwidth: tx ${global.bandwidth.finalHa} rx ${global.bandwidth.finalFa}`, x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
-            drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
-            drawText("Prediction: " + Math.round(GRAPHDATA) + "ms", x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
+            let fmtData = n => n >= 1073741824 ? (n / 1073741824).toFixed(2) + " GB" : n >= 1048576 ? (n / 1048576).toFixed(2) + " MB" : n >= 1024 ? (n / 1024).toFixed(1) + " KB" : n + " B";
+            let lastPacketMs = global.metrics.lastPacketTime ? Math.max(0, Date.now() - global.metrics.lastPacketTime) : 0;
+            drawText(watermarkText, x + len - versionLength - 4, y - 50 - 12 * 14 - 2, 15, watermarkColor, "right");
+            drawText(global.version ?? "v?", x + len, y - 50 - 12 * 14 - 2, 15, color.guiwhite, "right");
+            drawText(`§${global.serverStats.lag_color}§ ${(100 * gui.fps).toFixed(2)}% §reset§/ ` + global.serverStats.players + ` player${global.serverStats.players == 1 ? "" : "s"}`, x + len, y - 50 - 11 * 14, 10, color.guiwhite, "right");
+            drawText(`Coordinates: (${xloc.toFixed(2)}, ${yloc.toFixed(2)})`, x + len, y - 50 - 10 * 14, 10, color.guiwhite, "right");
+            drawText("Speed: " + tankSpeed.toFixed(2) + " gu/s", x + len, y - 50 - 9 * 14, 10, color.guiwhite, "right");
+            drawText("Memory: " + global.metrics.rendergap.toFixed(1) + " MiB", x + len, y - 50 - 8 * 14, 10, color.guiwhite, "right");
+            drawText(`Rendering: e ${global.renderingInfo.entities} t: ${global.renderingInfo.turretEntities} n: ${global.renderingInfo.entitiesWithName}`, x + len, y - 50 - 7 * 14, 10, color.guiwhite, "right");
+            drawText(`WS sent: ${fmtData(global.bandwidth.totalHa)}`, x + len, y - 50 - 6 * 14, 10, color.guiwhite, "right");
+            drawText(`WS received: ${fmtData(global.bandwidth.totalFa)}`, x + len, y - 50 - 5 * 14, 10, color.guiwhite, "right");
+            drawText("Update Rate: " + global.metrics.updatetime + "Hz", x + len, y - 50 - 4 * 14, 10, color.guiwhite, "right");
+            drawText("Prediction: " + Math.round(GRAPHDATA) + "ms", x + len, y - 50 - 3 * 14, 10, color.guiwhite, "right");
+            drawText("Last packet: " + lastPacketMs + "ms ago", x + len, y - 50 - 2 * 14, 10, color.guiwhite, "right");
             drawText(`§${global.metrics.rendertime_color}§ ${global.metrics.rendertime} FPS §reset§/` + `§${global.serverStats.mspt_color}§ ${global.serverStats.mspt} mspt : ${global.metrics.mspt.toFixed(1)} gmspt`, x + len, y - 50 - 1 * 14, 10, color.guiwhite, "right");
             drawText(ping.toFixed(1) + " ms  " + global.serverStats.serverGamemodeName + " " + global.locationHash, x + len, y - 50, 10, color.guiwhite, "right");
         } else if (!global.GUIStatus.minimapReducedInfo) {
@@ -5191,7 +5204,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
         const rects = [];
         entries.forEach((e, i) => {
-            const col = (i / rows) | 0, row = i % rows;
+            const col = i % 2, row = (i / 2) | 0;
             const x = L + col * colW;
             const y = T + KB_ROW_TOP + row * KB_ROW_PITCH;
             const td = e.el.closest("td");
@@ -5552,6 +5565,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     },
                     { type: "checkbox",  id: "smoothCamera",           label: "Smooth Camera",         column: 0, row: 1, section: "extra", tooltip: "Make the camera follow your tank instead of being fixed at it." },
                     { type: "checkbox",  id: "autoLevelUp",            label: "Auto-Level Up",         column: 0, row: 2, section: "extra", tooltip: "Automatically level you up to level 45 upon joining the game." },
+                    { type: "checkbox",  id: "optDeltaEntities",       label: "Delta Entities",        column: 0, row: 0, section: "perf", tooltip: "Support delta entity updates from the server.\nTakes effect on next connection." },
 
                     { type: "checkbox",  id: "optFancy",               label: "Fading Animation",      column: 1, row: 1, section: "extra", tooltip: "Make dying entities fade out instead of shrinking until disappearing.\n" + "May slightly lower the frame rate." },
                     { type: "checkbox",  id: "optIncognitoMode",       label: "Incognito Mode",        column: 1, row: 2, section: "extra", tooltip: "Hide you from the leaderboard and make your score appear low to other players." },

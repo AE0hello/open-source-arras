@@ -69,12 +69,12 @@ function init() {
         let text = "";
         if (name.slice(0, 1).toUpperCase() === defaultChar) text = `- [${keyStr}]${name.slice(1)}${asterisk}`;
         else text = `- [${keyStr}] ${name}${asterisk}`;
-        if (description) text += ` - ${description}`
+        if (description) text += ` - ${description}`;
         return text;
     }
     
     // This is your commands does things.
-    let permissionLevelNames = ["player", "Arena Conductor", "Arena Supervisor", "Arena Operator", "Beta Tester", "Game Mod", "Game Admin", "Developer"];
+    let permissionLevelNames = ["player", "Arena Conductor", "Arena Supervisor", "Arena Operator", "Shiny Member", "Beta Tester", "Game Mod", "Game Admin", "Developer"];
     let commands = [
         {
             name: "Help",
@@ -120,12 +120,9 @@ function init() {
                 if (socket.permissions?.class) {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
                     player.body.define(socket.permissions?.class || Config.spawn_class);
-                    let msg = Config.token_message.split("\n");
                     if (!socket.status.specialTankWarned) {
                         socket.status.specialTankWarned = true;
-                        for (let i = 0; i < msg.length; i++) {
-                            player.body.sendMessage(msg[i]);
-                        }
+                        player.body.sendMessage(Config.token_message);
                     }
                 } else {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
@@ -134,15 +131,30 @@ function init() {
             }
         },
         {
-            name: "Preset Tank #2",
-            description: "Defines you as healer",
+            name: "Preset Tank #3",
             keys: [[["KEY_SPECIAL_PRESET_3", "3"]]],
             permissionLevel: 1,
             hidden: true,
             run: ({ socket, player }) => {
                 if (socket.permissions?.class) {
                     player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
-                    player.body.define("healer");
+                    if (Config.siege) {
+                        player.body.define("smasher");
+                    } else {
+                        player.body.define("healer");
+                    }
+                }
+            }
+        },
+        {
+            name: "Preset Tank #4",
+            keys: [[["KEY_SPECIAL_PRESET_4", "4"]]],
+            permissionLevel: 1,
+            hidden: true,
+            run: ({ socket, player }) => {
+                if (Config.siege && socket.permissions?.class) {
+                    player.body.define({ RESET_UPGRADES: true, BATCH_UPGRADES: false });
+                    player.body.define("underseer");
                 }
             }
         },
@@ -277,7 +289,7 @@ function init() {
                     "tangerine", "brown", "cyan", 
                     "lesbian", "rainbow", "trans",
                     "trueTrans", "bi", "animatedMagenta"
-                ]
+                ];
                 let target = targetEntities(player);
                 if (target.length) {
                     let o = target[0];
@@ -407,22 +419,22 @@ function init() {
             run: ({ player }) => {
                 if (player.body.alpha === 0) {
                     if (player.body.invisible[0] === 0) {
-                        player.body.invisible = [0.08, 0.03]
+                        player.body.invisible = [0.08, 0.03];
                     } else {
-                        player.body.invisible = [0, 0]
-                        player.body.alpha = 1
+                        player.body.invisible = [0, 0];
+                        player.body.alpha = 1;
                     }
                 } else if (player.body.alpha === 1) {
                     if (player.body.invisible[0] === 0) {
-                        player.body.invisible = [0, 0]
-                        player.body.alpha = 0
+                        player.body.invisible = [0, 0];
+                        player.body.alpha = 0;
                     } else {
-                        player.body.invisible = [0, 0]
-                        player.body.alpha = 1
+                        player.body.invisible = [0, 0];
+                        player.body.alpha = 1;
                     }
                 } else {
-                    player.body.invisible = [0, 0]
-                    player.body.alpha = 1
+                    player.body.invisible = [0, 0];
+                    player.body.alpha = 1;
                 }
             }
         },
@@ -492,7 +504,7 @@ function init() {
                     let color = getTeamColor(o.team);
                     o.color.base = color;
                     socket.talk("m", 5_000, "Changed entity to team " + player.body.team);
-                })
+                });
             }
         },
         {
@@ -611,7 +623,7 @@ function init() {
             skill: true,
             permissionLevel: 1,
             run: ({ player }) => {
-                let currentUsedPoints = player.body.skill.raw.reduce((total, v) => total+v, 0);
+                let currentUsedPoints = player.body.skill.raw.reduce((total, v) => total + v, 0);
                 let maxSkills = player.body.skill.caps.reduce((total, capAmount) => total + capAmount, 0);
                 player.body.skill.points = Math.min(maxSkills - currentUsedPoints, player.body.skill.points + 1);
                 player.body.syncTurrets();
@@ -657,7 +669,7 @@ function init() {
                     `Selected ${e.name || (e.isPlayer ? "an unnamed player" : "a")}${(e.name || e.isPlayer) ? "'s" : ""} ${e.label} (ID #${e.id}).`,
                     `Score: ${e.skill.score};`,
                     `Build: ${e.skill.raw.join("/")};`
-                ]
+                ];
                 socket.talk("Em", 20_000, JSON.stringify(message));
             }
         },
@@ -815,7 +827,7 @@ function init() {
         {
             name: "Ban",
             keys: [[["KEY_SPECIAL_BAN", "O"]]],
-            permissionLevel: 5,
+            permissionLevel: 6,
             run: ({ socket, player }) => {
                 const types = 2,
                     typeNames = [["permanent", "permanently"], ["temporary", "temporarily"]];
@@ -837,7 +849,7 @@ function init() {
                 }
                 let selected = selectPlayer(player);
                 if (selected && selected.socket) {
-                    if (selected.socket.status.permissionLevel >= 4) {
+                    if (selected.socket.status.permissionLevel >= 5) {
                         socket.talk("m", 5_000, "You cannot ban this player!");
                         return;
                     }

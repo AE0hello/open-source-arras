@@ -9,7 +9,17 @@ module.exports = {
     load_all_mockups: false, // Set to true if you want every mockup to be loaded when the server starts. May noticeably slow down server startup.
     verbose_logs: false, // Enable detailed startup logs and log speed loop warnings in the terminal.
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
-    delta_entities: false, // Send entity updates as created/changed/removed lists instead of a full snapshot every packet.
+    delta_entities: true, // Send entity updates as created/changed/removed lists instead of a full snapshot every packet.
+    per_message_deflate: { // Compress websocket messages, saves a lot of bandwidth on big packets. Set to false to disable.
+        threshold: 1024, // Don't bother compressing messages smaller than this.
+        concurrencyLimit: 10, // How many messages can be compressed at once.
+        zlibDeflateOptions: {
+            level: 3, // 1 (fast) - 9 (small). 3 is plenty for game traffic.
+            memLevel: 8, // 1-9. Higher uses more memory per player for slightly smaller packets.
+        },
+    },
+    max_fov: 25000, // Hard cap for camera FOV sent to clients.
+    view_extra_margin: 150, // Extra margin beyond the visible viewport.
     editor: true, // Enable the editor at '[host]/ext/editor'.
 
     // Control plane: game servers link here on boot for identity, bans,
@@ -30,9 +40,7 @@ module.exports = {
         id          - (<host>/#<id>)
 
         region      - The region tab the server is sorted into on the main menu.
-        serverhost  - The host of the server in the server list tooltip.
         location    - The location of the server in the server list tooltip.
-
         gamemode    - The selected gamemode.
         player_cap  - Not including bots. Set to 0 to disable.
 
@@ -52,7 +60,6 @@ module.exports = {
             id: "la",
 
             region: "Local",
-            serverhost: "Local",
             location: "Localhost",
             gamemode: ["ffa"],
             player_cap: 80,
@@ -87,7 +94,6 @@ module.exports = {
             id: "lb",
 
             region: "Local",
-            serverhost: "Local",
             location: "Localhost",
             gamemode: ["maze"],
             player_cap: 80,
@@ -106,8 +112,7 @@ module.exports = {
             port: 3003,
             id: "lc",
 
-            region: "Local",
-            serverhost: "Local",
+            region: "Europe",
             location: "Localhost",
             gamemode: ["tdm"],
             player_cap: 80,
@@ -140,8 +145,7 @@ module.exports = {
             port: 3004,
             id: "ld",
 
-            region: "Local",
-            serverhost: "Local",
+            region: "US Central",
             location: "Localhost",
             gamemode: ["mothership"],
             player_cap: 80,
@@ -158,12 +162,49 @@ module.exports = {
         },
         {
             share_client_server: false,
-            host: "localhost:3099",
-            port: 3099,
+            host: "localhost:3100",
+            port: 3100,
             id: "lz",
 
-            region: "Local",
-            serverhost: "Local",
+            region: "US West",
+            location: "Localhost",
+            gamemode: ["sandbox_nexus"],
+            player_cap: 80,
+
+            featured: false,
+            unlisted: false,
+            private: false,
+
+            properties: {
+                server_travel_properties: {
+                    loop_interval: 60_000,
+                    portals: 1
+                },
+                server_travel: [
+                    {
+                        ip: "localhost:3101",
+                        portal_properties: {
+                            spawn_chance: 2,
+                            color: "blue"
+                        }
+                    },
+                    {
+                        ip: "localhost:3102",
+                        portal_properties: {
+                            spawn_chance: 2,
+                            color: "blue"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            share_client_server: false,
+            host: "localhost:3101",
+            port: 3101,
+            id: "lpa",
+
+            region: "Asia",
             location: "Localhost",
             gamemode: ["sandbox"],
             player_cap: 80,
@@ -172,9 +213,55 @@ module.exports = {
             unlisted: false,
             private: false,
 
-            properties: {}
+            properties: {
+                allow_server_travel: true
+            }
+        },
+        {
+            share_client_server: false,
+            host: "localhost:3102",
+            port: 3102,
+            id: "lpb",
+
+            region: "Oceania",
+            location: "Localhost",
+            gamemode: ["sandbox"],
+            player_cap: 80,
+
+            featured: false,
+            unlisted: false,
+            private: false,
+
+            properties: {
+                allow_server_travel: true
+            }
         }
     ],
+
+    /* Proof of concept, not functional (+ assuming all Sandbox servers in a region can run from the same thread)
+
+    sandbox_servers: [
+        {
+            host: "localhost:3100", // all servers run on the same thread
+            port: 3100,
+            count: 32, // number of sandbox servers to run from this thread
+            starting_id: "lpa", // increments alphabetically per total count (lpa => lpb => ... => lpz => lqa => lqb => ...)
+
+            region: "Local",
+            location: "Localhost",
+            gamemode: ["arms_race"], // modifiers to put on the sandboxes
+            player_cap: 80, // player cap for all sandboxes on this thread
+
+            // featured/unlisted/private aren't available for sandbox servers (the non-nexus servers are unlisted by default)
+
+            nexus: true, // enable sandbox nexus in server + related commands
+            nexus_id: "lz", // nexus shares properties with all other sandbox servers
+
+            properties: {} // just in case you want to do wacky shit
+        }
+    ]
+    
+    */
 
     // Web Server
     allow_ACAO: false, // Access-Control-Allow-Origin, allows any server/client to access data from the web server.
@@ -207,6 +294,7 @@ module.exports = {
 
     upgrade_delay: 3_000, // How long (in milliseconds) you have to stay still to upgrade outside of a base. Set to 0 to disable.
     upgrade_delay_reminder: 20_000, // How often (in milliseconds) you will be reminded to stay still and not shoot to upgrade outside of a base if you haven't upgraded yet.
+    reverse_tank_cooldown: true, // Enable the "Please slow down!" cooldown when spamming Reverse Tank.
 
     bullet_spawn_offset: 1, // Where the bullet spawns, where 1 is fully outside the barrel and -1 is fully inside the barrel, and 0 is halfway between.
     damage_multiplier: 1, // General damage multiplier everytime damage is dealt.
@@ -303,10 +391,10 @@ module.exports = {
         [1, [
             [65, "egg"], [64, "triangle"], [45, "square"], [7, "pentagon"]//, [1, "hexagon"]
         ]],
-        [1/50000, [
+        [1 / 50000, [
             [625, "gem"], [125, "shinyTriangle"], [25, "shinySquare"], [5, "shinyPentagon"]//, [1, "shinyHexagon"]
         ]],
-        [1/1000000, [
+        [1 / 1000000, [
             [1296, "jewel"], [216, "legendaryTriangle"], [36, "legendarySquare"], [6, "legendaryPentagon"]//, [1, "legendaryHexagon"]
         ]]
     ],
@@ -319,7 +407,7 @@ module.exports = {
         [1, [
             [1, "crasher"]
         ]],
-        [1/20, [
+        [1 / 20, [
             [1, "sentryGun"], [1, "sentrySwarm"], [1, "sentryTrap"]
         ]]
     ],
@@ -372,4 +460,4 @@ module.exports = {
 
     // Development
     dev_build: true // Whether this version is unstable and should be clearly marked as such.
-}
+};

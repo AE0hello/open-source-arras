@@ -171,10 +171,10 @@ for (let tier of sancHealerTiers) {
                 }
             }
         ], tier)
-    }
+    };
 };
 for (let tier of sancTiers) {
-    let sancIndex = sancTiers.indexOf(tier)
+    let sancIndex = sancTiers.indexOf(tier);
     Class["sanctuaryTier" + (sancIndex + 1)] = {
         PARENT: "sanctuary",
         TURRETS: [],
@@ -192,14 +192,14 @@ for (let tier of sancTiers) {
                 }
             }
         ], tier)
-    }
+    };
     Class["sanctuaryTier" + (sancIndex + 1)].TURRETS.push({
         POSITION: { SIZE: 22 },
         TYPE: "dominationBody"
     }, {
         POSITION: { SIZE: 9.3, LAYER: 1 },
         TYPE: "sanctuaryHealerTier" + (sancIndex < 2 ? 1 : sancIndex < 4 ? 2 : sancIndex < 6 ? 3 : 3)
-    })
+    });
 };
 
 // Special Tanks (Motherships)
@@ -239,7 +239,7 @@ Class.mothership = {
                 WAIT_TO_CYCLE: true
             }
         }, {
-            POSITION: [4.3, 3.1, 1.2, 8, 0, 45, 1/32],
+            POSITION: [4.3, 3.1, 1.2, 8, 0, 45, 1 / 32],
             PROPERTIES: {
                 MAX_CHILDREN: 2,
                 SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.mothership]),
@@ -254,7 +254,7 @@ Class.mothership = {
                 WAIT_TO_CYCLE: true
             }
         }
-    ], 8, {delayIncrement: 1/16})
+    ], 8, {delayIncrement: 1 / 16})
 };
 Class.flagship = {
     PARENT: "mothership",
@@ -467,8 +467,8 @@ Class.spectator = {
     ON: [{
         event: "altFire",
         handler: ({ body }) => {
-            body.x = body.x + body.control.target.x
-            body.y = body.y + body.control.target.y
+            body.x = body.x + body.control.target.x;
+            body.y = body.y + body.control.target.y;
         }
     }]
 };
@@ -517,7 +517,7 @@ Class.guillotine = {
         {
             event: "fire",
             handler: ({body, masterStore: s}) => {
-                const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y}
+                const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y};
                 let lowest = Infinity, closest;
                 for (const instance of entities.values()) {
                     let distance = (instance.x - cursor.x) ** 2 + (instance.y - cursor.y) ** 2;
@@ -531,7 +531,7 @@ Class.guillotine = {
                     `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
                     `Score: ${closest.skill.score};`,
                     `Build: ${closest.skill.raw.join("/")};`
-                ]
+                ];
                 body.socket.talk("Em", 20_000, JSON.stringify(message));
                 s.selectedEntity = closest;
             }
@@ -563,7 +563,7 @@ Class.banHammer = {
         {
             event: "fire",
             handler: ({body, masterStore: s}) => {
-                const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y}
+                const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y};
                 let lowest = Infinity, closest;
                 for (const instance of entities.values()) {
                     if (instance === body || !instance.isPlayer) continue;
@@ -578,7 +578,7 @@ Class.banHammer = {
                     `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
                     `Score: ${closest.skill.score};`,
                     `Build: ${closest.skill.raw.join("/")};`
-                ]
+                ];
                 body.socket.talk("Em", 20_000, JSON.stringify(message));
                 s.selectedEntity = closest;
             }
@@ -586,7 +586,7 @@ Class.banHammer = {
         {
             event: "control",
             handler: ({body}) => {
-                const selected = body.store.selectedEntity
+                const selected = body.store.selectedEntity;
                 if (!selected || !selected.isPlayer || !selected.socket) return;
                 if (selected.socket.status.opera >= 4) {
                     body.sendMessage("You cannot ban this player!");
@@ -878,7 +878,7 @@ Class.baseProtector_diep = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1/3, size: 2/3 }]),
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 1 / 3, size: 2 / 3 }]),
                 TYPE: "drone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -933,7 +933,7 @@ Class.aeolus = {
         SPEED: 2
     },
     GUNS: (() => {
-        let output = []
+        let output = [];
         for (let j = 0; j < 9; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
@@ -950,18 +950,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 11; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/11) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 11) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/11)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 5/3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -0.625, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 11)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 5 / 3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -0.625, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -969,18 +969,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 13; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/13) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 13) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/13)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 7/3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 0.75, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 13)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 7 / 3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 0.75, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -988,18 +988,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 15; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/15) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 15) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/15)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 9/3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -0.875, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 15)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 9 / 3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -0.875, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -1007,18 +1007,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 17; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/17) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 17) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/17)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 11/3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 1, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 17)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 11 / 3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 1, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -1026,18 +1026,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 19; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/19) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 19) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/19)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 13/3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -1.125, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 19)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 13 / 3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -1.125, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -1045,18 +1045,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 21; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/21) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 21) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/21)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 15/3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 1.25, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 21)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 15 / 3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 1.25, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -1064,18 +1064,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 23; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/23) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 23) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/23)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 17/3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -1.375, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 23)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 17 / 3, invertRotation: false, spinMulti: -0.25, invertDistance: false, gradualSpin: -1.375, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -1083,18 +1083,18 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
         for (let j = 0; j < 25; j++) {
             for (let i = 3; i < 4; i++) {
                 output.push({
-                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360/25) },
+                    POSITION: { WIDTH: 4, LENGTH: 1, DELAY: 0, ANGLE: i * (360 / 25) },
                     PROPERTIES: {
                         SHOOT_SETTINGS: combineStats([g.satellite, { reload: 14 }]),
                         TYPE: ["satellite", {
-                            ANGLE: 45 * i + (j * (360/25)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
-                                offset: 19/3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 1.5, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
+                            ANGLE: 45 * i + (j * (360 / 25)), CAN_GO_OUTSIDE_ROOM: true, CONTROLLERS: [["advancedOrbit", {
+                                offset: 19 / 3, invertRotation: false, spinMulti: 0.25, invertDistance: false, gradualSpin: 1.5, ovalLengthMulti: 1, ovalWidthMulti: 1, rotation: -45 * i
                             }]]
                         }],
                         MAX_CHILDREN: 1,
@@ -1102,10 +1102,10 @@ Class.aeolus = {
                         SYNCS_SKILLS: false,
                         WAIT_TO_CYCLE: true
                     }
-                })
+                });
             }
         }
-        return output
+        return output;
     })()
 };
 Class.alas = {
@@ -1501,7 +1501,7 @@ Class.damoclone = {
             SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, g.cyclone, g.spam]),
             TYPE: "bullet"
         }
-    }, 24, {delayIncrement: 1/24})
+    }, 24, {delayIncrement: 1 / 24})
 };
 Class.developer = {
     PARENT: "genericTank",
@@ -1609,7 +1609,7 @@ Class.machineShot = {
                 WIDTH: 8,
                 Y: 3,
                 ANGLE: 30,
-                DELAY: 2/3
+                DELAY: 2 / 3
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.machineShot]),
@@ -1622,7 +1622,7 @@ Class.machineShot = {
                 WIDTH: 8,
                 Y: 2,
                 ANGLE: 15,
-                DELAY: 1/3
+                DELAY: 1 / 3
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.machineShot]),
@@ -1885,7 +1885,7 @@ Class.theAmalgamation = makeAuto({
                 SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
                 TYPE: "bullet"
             }
-        }, 3, {lengthOffset: 2, delayIncrement: 1/3}),
+        }, 3, {lengthOffset: 2, delayIncrement: 1 / 3}),
         {
             POSITION: [19, 2, 1, 0, -2.5, 0, 0],
             PROPERTIES: {
@@ -2101,17 +2101,11 @@ Class.theConglomerate = {
     TURRETS: [
         {
             POSITION: [6, 40, 0, 0, 180, 1],
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ]
+            TYPE: "crowbarTurretTank"
         },
         {
             POSITION: [6, 30, 0, 0, 180, 1],
-            TYPE: [
-                "crowbarTurretTank",
-                { INDEPENDENT: true }
-            ]
+            TYPE: "crowbarTurretTank"
         },
         ...weaponMirror({
             POSITION: [13, 8, 0, -90, 190, 0],

@@ -2,6 +2,27 @@ let EventEmitter = require("events");
 global.entitiesIdLog = 0;
 const forceTwiggle = ["autospin", "turnWithSpeed", "spin", "fastspin", "veryfastspin", "withMotion", "smoothWithMotion", "looseWithMotion"];
 const { combineStats } = require("../../lib/definitions/facilitators.js");
+let shapeMockups = new Map();
+let shapeMockupBase = new Map();
+let nextShapeIndex = 10000000;
+function shapeMockupIndex(base, shape, shapeNum) {
+    base = shapeMockupBase.get(parseInt(base)) || base;
+    let key = base + "|" + JSON.stringify(shape) + "|" + (shapeNum || 0);
+    if (shapeMockups.has(key)) return shapeMockups.get(key);
+    let baseName = classMap.get(parseInt(base));
+    if (baseName == null || Class[baseName] == null) return null;
+    let index = nextShapeIndex++;
+    let name = "__shape" + index;
+    let def = { PARENT: baseName, SHAPE: shape, index };
+    if (shapeNum != null) def.SHAPE_NUM = shapeNum;
+    Class[name] = def;
+    classMap.set(index, name);
+    buildMockup(name, global.gameManager);
+    shapeMockups.set(key, index);
+    shapeMockupBase.set(index, base);
+    return index;
+}
+
 class Entity extends EventEmitter {
     constructor(position, master) {
         super();
@@ -61,8 +82,7 @@ class Entity extends EventEmitter {
         this.children = [];
         this.bulletchildren = [];
         this.color = new Color(16);
-        this.glow = { radius: null, color: new Color(-1).compiled, alpha: 1, recursion: 1 }
-        this.confinement = { xMin: 0, xMax: global.gameManager.room.width, yMin: 0, yMax: global.gameManager.room.height };
+        this.glow = { radius: null, color: new Color(-1).compiled, alpha: 1, recursion: 1 };
         this.firingArc = [0, 360];
         this.necro = () => {};
         this.lastMovementTime = Date.now();
@@ -308,7 +328,7 @@ class Entity extends EventEmitter {
         if (set.SHOOT_ON_DEATH != null) this.shootOnDeath = set.SHOOT_ON_DEATH;
         if (set.BORDERLESS != null) this.borderless = set.BORDERLESS;
         if (set.DRAW_FILL != null) this.drawFill = set.DRAW_FILL;
-        if (set.IS_IMMUNE_TO_TILES) this.immuneToTiles = set.IS_IMMUNE_TO_TILES;
+        if (set.IS_IMMUNE_TO_TILES != null) this.immuneToTiles = set.IS_IMMUNE_TO_TILES;
         if (set.IS_IMMUNE_TO_PORTALS != null) this.immuneToPortals = set.IS_IMMUNE_TO_PORTALS;
         if (set.TEAM != null) {
             this.team = set.TEAM;
@@ -335,7 +355,7 @@ class Entity extends EventEmitter {
             this.alpha = 1;
             this.reset();
         }
-        if (set.RESET_UPGRADE_MENU) this.upgrades = []
+        if (set.RESET_UPGRADE_MENU) this.upgrades = [];
         if (set.ARENA_CLOSER != null) this.isArenaCloser = set.ARENA_CLOSER, this.ac = set.ARENA_CLOSER;
         if (set.BRANCH_LABEL != null) this.branchLabel = set.BRANCH_LABEL;
         if (set.BATCH_UPGRADES != null) this.batchUpgrades = set.BATCH_UPGRADES;
@@ -353,7 +373,7 @@ class Entity extends EventEmitter {
                     let e = ensureIsClass(k);
                     index += e.index + "-";
                 }
-                let i = parseInt(prop.split("_")[2])
+                let i = parseInt(prop.split("_")[2]);
                 this.upgrades.push({
                     class: trueUpgrades,
                     level: Config.tier_multiplier * i,
@@ -510,7 +530,7 @@ class Entity extends EventEmitter {
                             upgrade: set.APPLY_ON_UPGRADE ?? false,
                             shoot: set.APPLY_ON_SHOOT ?? false
                         }
-                    })
+                    });
                 }
                 if (set.GUI_SHAKE) {
                     info.push({
@@ -523,14 +543,14 @@ class Entity extends EventEmitter {
                             upgrade: set.APPLY_ON_UPGRADE ?? false,
                             shoot: set.APPLY_ON_SHOOT ?? false
                         }
-                    })
+                    });
                 }
                 info.forEach(info => {
                     if (info.applyOn.upgrade) {
                         this.socket.talk("SH", JSON.stringify(info));
                     }
                 });
-            })
+            });
             this.settings.shakeProperties = info;
         }
         if (set.NECRO != null) {
@@ -560,9 +580,9 @@ class Entity extends EventEmitter {
                 host.SIZE = savedSize;
                 host.health.amount = host.health.max;
                 return true;
-            }
+            };
         }
-        this.syncWithTank = set.SYNC_WITH_TANK ?? false
+        this.syncWithTank = set.SYNC_WITH_TANK ?? false;
         if (set.mockup != null) {
             this.mockup = set.mockup;
         }
@@ -575,11 +595,23 @@ class Entity extends EventEmitter {
             // We dont want a broken camera
             this.cameraOverrideX = null;
             this.cameraOverrideY = null;
+            for (let def of this.defs) {
+                def = ensureIsClass(def);
+                if (def.TOOLTIP != null && def.TOOLTIP.length > 0) this.sendMessage(def.TOOLTIP);
+            }
         }
 
         for (let branch = 1; branch < defs.length; branch++) defineSplit(defs, branch, set, this, emitEvent); // Define additional stats for other split upgrades
         // Batch upgrades
         if (this.batchUpgrades && emitEvent) handleBatchUpgradeSplit(this); // Batch upgrades
+        if (set.SHAPE != null && set.index == null && emitEvent && overwriteindex && this.index != null) {
+            let parts = String(this.index).split("-");
+            let shapeIndex = shapeMockupIndex(parts[0], set.SHAPE, set.SHAPE_NUM);
+            if (shapeIndex != null) {
+                parts[0] = shapeIndex;
+                this.index = parts.join("-");
+            }
+        }
 
         // Make the entity targetble if they arent a bullet, etc.
         const checkIfTargetAble = ["bullet", "drone", "swarm", "trap", "wall", "unknown"];
@@ -646,7 +678,7 @@ class Entity extends EventEmitter {
         if (isInvulnerable) {
             this.on("dead", () => {
                 this.master.turrets.delete(this.id); 
-            }) 
+            }); 
         }
         this.settings.drawShape = false;
         // Get my position.
@@ -704,7 +736,7 @@ class Entity extends EventEmitter {
             const wallSize = (global.gameManager.room.width / 32 / 2) * Math.SQRT2 * multiplier;
             levelMultiplier += ((scoreSince45 / 3e6) * wallSize) / Class.genericTank.SIZE / 2;
         }
-        return (this.coreSize || this.SIZE) * this.sizeMultiplier * levelMultiplier
+        return (this.coreSize || this.SIZE) * this.sizeMultiplier * levelMultiplier;
     }
     get mass() {
         return this.density * (this.size ** 2 + 1);
@@ -769,6 +801,7 @@ class Entity extends EventEmitter {
         cameraInfo.realSize = this.realSize;
         cameraInfo.health = this.health.display();
         cameraInfo.shield = this.shield.display();
+        cameraInfo.hit = this.blend.amount;
         cameraInfo.alpha = this.alpha;
         cameraInfo.facing = this.facing;
         cameraInfo.vfacing = this.vfacing;
@@ -869,7 +902,7 @@ class Entity extends EventEmitter {
                     }
                 } else {
                     upgrade = this.upgrades[number];
-                    list = Array.isArray(upgrade.class) ? upgrade.class : [upgrade.class]
+                    list = Array.isArray(upgrade.class) ? upgrade.class : [upgrade.class];
                 }
                 if (list) {
                     for (let entry of list) {
@@ -929,13 +962,9 @@ class Entity extends EventEmitter {
                 if (info.applyOn.upgrade) {
                     this.socket.talk("SH", JSON.stringify(info));
                 }
-            }) 
+            }); 
         }
         this.sendMessage("You have upgraded to " + this.label + ".");
-        for (let def of this.defs) {
-            def = ensureIsClass(def);
-            if (def.TOOLTIP != null && def.TOOLTIP.length > 0) this.sendMessage(def.TOOLTIP);
-        }
         for (let instance of entities.values()) {
             if (instance.settings.clearOnMasterUpgrade && instance.master.id === this.id) instance.kill();
         }
@@ -978,11 +1007,11 @@ class Entity extends EventEmitter {
     }
 
     move(now) {
-        global.runMove(this, now ?? null) 
+        global.runMove(this, now ?? null); 
     };
 
     face() {
-        global.runFace(this) 
+        global.runFace(this); 
     };
 
     takeSelfie() {
@@ -1056,6 +1085,57 @@ class Entity extends EventEmitter {
                 this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
             }
         }
+        this.pushAfkIntoBase();
+    }
+
+    pushAfkIntoBase() {
+        if (this.type !== "tank" || (!this.isPlayer && !this.isBot) || this.bond != null || this.immuneToTiles) return;
+        if (!(this.socket && this.socket.status && this.socket.status.isAFK)) return;
+        let room = global.gameManager.room;
+        if (!room.spawnable) return;
+        let tiles = room.spawnable[this.team];
+        if (!tiles || !tiles.length) return;
+        let halfW = room.tileWidth / 2,
+            halfH = room.tileHeight / 2,
+            margin = Math.max(50, this.realSize || 0),
+            seen = false, nx = 0, ny = 0;
+        let owned = new Set();
+        for (let t of tiles) owned.add(t.gridLoc.x + "," + t.gridLoc.y);
+        for (let t of tiles) {
+            // Inclusive bounds so a body exactly on the border counts as inside.
+            if (this.x < t.loc.x - halfW || this.x > t.loc.x + halfW || this.y < t.loc.y - halfH || this.y > t.loc.y + halfH) continue;
+            seen = true;
+            let gx = t.gridLoc.x, gy = t.gridLoc.y;
+            if (!owned.has(gx + "," + (gy - 1)) && this.y - (t.loc.y - halfH) < margin) ny++;
+            if (!owned.has(gx + "," + (gy + 1)) && t.loc.y + halfH - this.y < margin) ny--;
+            if (!owned.has((gx - 1) + "," + gy) && this.x - (t.loc.x - halfW) < margin) nx++;
+            if (!owned.has((gx + 1) + "," + gy) && t.loc.x + halfW - this.x < margin) nx--;
+        }
+        if (seen) {
+            let len = Math.hypot(nx, ny);
+            if (!len) return;
+            this.accel.x += nx / len * this.acceleration / global.gameManager.roomSpeed;
+            this.accel.y += ny / len * this.acceleration / global.gameManager.roomSpeed;
+            return;
+        }
+        // Outside: head for the closest point of the base border, not a tile's center.
+        let dist = Infinity, cx = 0, cy = 0;
+        for (let tile of tiles) {
+            let px = Math.max(tile.loc.x - halfW, Math.min(this.x, tile.loc.x + halfW)),
+                py = Math.max(tile.loc.y - halfH, Math.min(this.y, tile.loc.y + halfH)),
+                dx = px - this.x, dy = py - this.y,
+                d = dx * dx + dy * dy;
+            if (d < dist) {
+                dist = d;
+                cx = px;
+                cy = py;
+            }
+        }
+        if (dist > 600 * 600) return;
+        let len = Math.sqrt(dist);
+        if (!len) return;
+        this.accel.x += (cx - this.x) / len * this.acceleration / global.gameManager.roomSpeed;
+        this.accel.y += (cy - this.y) / len * this.acceleration / global.gameManager.roomSpeed;
     }
 
     contemplationOfMortality() {
@@ -1064,14 +1144,14 @@ class Entity extends EventEmitter {
             return 0;
         }
         if (this.damageReceived > 0) {
-            let damageInflictor = []
-            let damageTool = []
+            let damageInflictor = [];
+            let damageTool = [];
 
             for (let i = 0; i < this.collisionArray.length; i++) {
                 let instance = this.collisionArray[i];
                 if (instance.type === "wall" || !instance.damage) continue;
-                damageInflictor.push(instance.master)
-                damageTool.push(instance)
+                damageInflictor.push(instance.master);
+                damageTool.push(instance);
             }
             this.emit("damage", { body: this, damageInflictor, damageTool });
         }
@@ -1094,8 +1174,12 @@ class Entity extends EventEmitter {
             let healthDamage = this.health.getDamage(this.damageReceived);
             this.blend.amount = 1;
             this.health.amount -= healthDamage;
-        }
+        } else this.blend.amount = 0;
         this.damageReceived = 0;
+        if (this.spared) {
+            this.spared = false;
+            if (this.health.amount < 1) this.health.amount = 1;
+        }
 
         // Check for death
         if (this.readyToDie) return 1;
@@ -1156,7 +1240,7 @@ class Entity extends EventEmitter {
                     case "food":
                     case "crasher":
                         instance.killCount.polygons++;
-                        break
+                        break;
 
                     case "miniboss":
                         instance.killCount.bosses++;
@@ -1221,8 +1305,8 @@ class Entity extends EventEmitter {
                 killText = "You have died a stupid death";
             }
             if (Config.outbreak && !this.zombified) {
-                killText = `You died and became a Zombified ${this.label}`
-                killSuffix = "!"
+                killText = `You died and became a Zombified ${this.label}`;
+                killSuffix = "!";
             }
             if (!this.dontSendDeathMessage) {
                 this.sendMessage(killText + killSuffix);
