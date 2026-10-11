@@ -995,6 +995,7 @@ const protocols = {
     "https:": "wss://"
 };
 let incoming = async function(message, socket) {
+    global.metrics.lastPacketTime = Date.now();
     await new Promise(Resolve => setTimeout(Resolve, window.fakeLagMS));
     // Make sure it looks legit.
     global.bandwidth.currentFa += message.data.byteLength;
