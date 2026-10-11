@@ -188,6 +188,7 @@ export function resolveKeyReference(name) {
 }
 
 export function translateServerMessage(raw) {
+    if (typeof raw !== "string") return "" + raw;
     if (!raw || raw.indexOf("\x01") === -1) return raw;
     const translated = raw.replace(KEY_REF, (_, name) => resolveKeyReference(name));
     return translated.replace(STRAY_MARKER, "");
