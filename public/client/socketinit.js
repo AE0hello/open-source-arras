@@ -986,7 +986,7 @@ const convert = {
             entries.push({
                 id,
                 score: data[0],
-                index: data[1],
+                index: String(data[1]),
                 name: data[2],
                 color: decodeColor(data[3]),
                 bar: decodeColor(data[4]),
@@ -1301,7 +1301,7 @@ let incoming = async function(message, socket) {
             global.finalKills[3].set(m[6]);
             global.finalKillers = [];
             for (let i = 0; i < m[7]; i++) {
-                global.finalKillers.push(m[8 + i]);
+                global.finalKillers.push(String(m[8 + i]));
             }
             global.canvas.reverseDirection = false;
             global.died = true;
