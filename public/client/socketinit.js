@@ -587,10 +587,8 @@ const process = (z = {}) => {
     }
     // If it needs to have a gun container made, make one
     let gunnumb = get.next();
-    if (isNew) {
+    if (isNew || gunnumb !== z.guns.length) {
         z.guns = GunContainer(gunnumb);
-    } else if (gunnumb !== z.guns.length) {
-        throw new Error("Mismatch between data gun number and remembered gun number!");
     }
     // Decide if guns need to be fired one by one
     for (let i = 0; i < gunnumb; i++) {
@@ -813,7 +811,7 @@ const convert = {
                 let index = global.entities.findIndex(x => x.id === id);
                 if (index !== -1) killEntity(global.entities.splice(index, 1)[0], output);
             }
-            for (let e of global.entities) output.push(e);
+            for (let e of global.entities) if (e.render.status.getFade() !== 0) output.push(e);
         } else {
             // Get the number of entities and work through them
             for (let i = 0, len = get.next(); i < len; i++) {
@@ -981,6 +979,7 @@ let incoming = async function(message, socket) {
     await new Promise(Resolve => setTimeout(Resolve, window.fakeLagMS));
     // Make sure it looks legit.
     global.bandwidth.currentFa += message.data.byteLength;
+    global.bandwidth.totalFa += message.data.byteLength;
     let m = protocol.decode(message.data);
     if (m === -1) {
         throw new Error("Malformed packet.");
@@ -1527,6 +1526,7 @@ const socketInit = () => {
         message = protocol.encode(message)
         socket.send(message);
         global.bandwidth.currentHa += message.byteLength;
+        global.bandwidth.totalHa += message.byteLength;
     };
 
     socket.onopen = function socketOpen() {
