@@ -30,24 +30,7 @@ tileClass.nexus_portal_tile = new Tile({
     }
 });
 tileClass.grayWall = new Tile({
-    COLOR: "white",
-    NAME: "Gray Wall",
-    INIT: (tile, room) => {
-        let o = new Entity(tile.loc);
-        o.define("wall");
-        o.settings.no_collisions = true;
-        o.alpha = 0.5;
-        o.alphaRange = [0.5, 0.5];
-        o.team = TEAM_ROOM;
-        o.SIZE = room.tileWidth / 2 / lazyRealSizes[4] * Math.SQRT2 - 2;
-        o.protect();
-        o.life();
-        makeHitbox(o);
-        walls.push(o);
-        o.on("dead", () => {
-            util.remove(walls, walls.indexOf(o));
-        });
-    }
+    COLOR: "pureBlack"
 });
 tileClass.nexusKillTile = new Tile({
     COLOR: "red",
