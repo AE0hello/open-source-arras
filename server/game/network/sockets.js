@@ -38,6 +38,47 @@ const qsize = v => qnum(v, 16);
 const qpct = v => qnum(v, 100);
 const qangle = v => qnum(v, 2048 / Math.PI);
 const qfrac = v => qnum(v || 0, 255);
+// Key table; must match the client.
+const MOCKUP_KEYS = ["index","name","x","y","color","strokeWidth","glow","radius","alpha","recursion","borderless","drawFill","shape","imageInterpolation","size","realSize","mirrorMasterAngle","sendAllMockups","position","axis","middle","rerootUpgradeTree","className","upgrades","tier","guns","offset","direction","length","width","aspect","angle","drawAbove","layer","turrets","props","statnames","body_damage","max_health","bullet_speed","bullet_health","bullet_pen","bullet_damage","reload","move_speed","shield_regen","shield_cap","sizeFactor","isProp","forceAngle","visibleOnBlackout"];
+const MOCKUP_KEY_ID = new Map(MOCKUP_KEYS.map((k, i) => [k, i]));
+const encodeMockupVal = (v, colorOk) => {
+    if (Array.isArray(v)) return ["l", ...v.map(x => encodeMockupVal(x, false))];
+    if (v && typeof v === "object") {
+        const o = ["o"];
+        for (let k in v) {
+            // Drop what JSON.stringify drops.
+            if (typeof v[k] === "function" || typeof v[k] === "undefined" || typeof v[k] === "symbol") continue;
+            const id = MOCKUP_KEY_ID.get(k);
+            o.push(id ?? -1);
+            if (id === undefined) o.push(k);
+            o.push(encodeMockupVal(v[k], k === "color"));
+        }
+        return o;
+    }
+    if (colorOk && typeof v === "string") {
+        const id = U_COLOR_ID.get(v);
+        if (id !== undefined) return id;
+    }
+    return typeof v === "number" && !Number.isInteger(v) ? Math.round(v * 1e4) / 1e4 : v;
+};
+const encodeMockup = o => JSON.stringify(encodeMockupVal(o, false));
+// Room grids go as run lengths over distinct cell forms.
+const encodeRoom = (grid, blackout) => {
+    const forms = [], ids = new Map(), runs = [];
+    let cols = 0;
+    for (let row of grid) {
+        cols = row.length;
+        for (let t of row) {
+            const f = blackout ? [t.color, t.visibleOnBlackout ?? false, t.image ?? false] : [t.color, t.image ?? false];
+            const k = f.join("\x00");
+            let id = ids.get(k);
+            if (id === undefined) { id = forms.length; forms.push(f); ids.set(k, id); }
+            if (runs.length && runs[runs.length - 2] === id) runs[runs.length - 1]++;
+            else runs.push(id, 1);
+        }
+    }
+    return JSON.stringify([cols, forms, runs]);
+};
 
 class socketManager {
     constructor(parent) {
@@ -62,12 +103,7 @@ class socketManager {
         }
     };
     broadcastRoom() {
-        let data = JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => {
-            return {
-                color: t.color,
-                image: t.image ?? false
-            };
-        })));
+        let data = encodeRoom(global.gameManager.room.setup, false);
         for (let i = 0; i < this.clients.length; i++) {
             this.clients[i].talk(
                 "r",
@@ -369,13 +405,7 @@ class socketManager {
                         "R",
                         global.gameManager.room.width,
                         global.gameManager.room.height,
-                        JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => { 
-                            return {
-                                color: t.color,
-                                visibleOnBlackout: t.visibleOnBlackout,
-                                image: t.image ?? false
-                            };
-                        }))),
+                        encodeRoom(global.gameManager.room.setup, true),
                         JSON.stringify(util.serverStartTime),
                         global.gameManager.roomSpeed,
                         JSON.stringify({
@@ -1793,7 +1823,7 @@ class socketManager {
                 mockup = this.generateMockup(index);
             }
             // Send the mockup to the client.
-            socket.talk("M", index, JSON.stringify(mockup));
+            socket.talk("M", index, encodeMockup(mockup));
             // Also push it to the socket's status so we know it.
             socket.status.mockupData.receivedMockups.push(mockup);
             // Push the index so the function doesnt run a thousens of times.
@@ -2641,7 +2671,7 @@ class socketManager {
 
         if (Config.load_all_mockups) {
             for (let i = 0; i < mockupData.length; i++) {
-                socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
+                socket.talk("M", mockupData[i].index, encodeMockup(mockupData[i]));
             }
         }
 
