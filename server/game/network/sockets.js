@@ -448,7 +448,7 @@ class socketManager {
                 // Put the new target in
                 if (!socket.player.body.eastereggs.braindamage) player.target = target;
                 // Reverse the tank's facing if we want.
-                if (reverseTank !== player.body.reverseTank && reverseTank !== socket.status.lastReverseTank) {
+                if (Config.reverse_tank_cooldown && reverseTank !== player.body.reverseTank && reverseTank !== socket.status.lastReverseTank) {
                     socket.status.reverseSpam = (socket.status.reverseSpam || 0) + 1;
                     setTimeout(() => socket.status.reverseSpam--, 10_000);
                     if (socket.status.reverseSpam > 7) {
