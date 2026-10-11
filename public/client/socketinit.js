@@ -2,6 +2,21 @@ import { global } from "./global.js";
 import { util } from "./util.js";
 import { config } from "./config.js";
 import { protocol } from "./protocol.js";
+// Common "u" colors sent as palette ids instead of full strings. Must match the server table.
+const U_COLOR_TABLE = [
+    "grey 0 1 0 false", "16 0 1 0 false", "black 0 1 0 false", "blue 0 1 0 false",
+    "red 0 1 0 false", "green 0 1 0 false", "gold 0 1 0 false", "orange 0 1 0 false",
+    "purple 0 1 0 false", "aqua 0 1 0 false", "pink 0 1 0 false", "white 0 1 0 false",
+    "lightGray 0 1 0 false", "veryLightGrey 0 1 0 false", "lightGrey 0 1 0 false", "darkGrey 0 1 0 false",
+    "lavender 0 1 0 false", "yellow 0 1 0 false", "teal 0 1 0 false", "pureBlack 0 1 0 false",
+    "magenta 0 1 0 false", "mirror 0 1 0 false", "-1 0 1 0 false", "10 0 1 0 false",
+    "11 0 1 0 false", "12 0 1 0 false", "0 0 1 0 false", "13 0 1 0 false",
+    "36 0 1 0 false", "mustard 0 1 0 false", "tangerine 0 1 0 false", "brown 0 1 0 false",
+    "cyan 0 1 0 false", "dgrey 0 1 0 false", "gray 0 1 0 false", "darkGray 0 1 0 false",
+    "veryLightGray 0 1 0 false", "vlgrey 0 1 0 false", "lgrey 0 1 0 false", "lgreen 0 1 0 false",
+];
+const FALLBACK_COLOR = U_COLOR_TABLE[1];
+const decodeColor = value => typeof value === "number" ? (U_COLOR_TABLE[value] ?? FALLBACK_COLOR) : value;
 window.fakeLagMS = 0;
 var sync = [];
 var clockDiff = 0;
@@ -453,7 +468,7 @@ const process = (z = {}) => {
         z.facing = get.next();
         z.layer = get.next();
         z.index = get.next();
-        z.color = get.next();
+        z.color = decodeColor(get.next());
         z.size = get.next();
         z.realSize = get.next();
         z.sizeFactor = get.next();
@@ -495,7 +510,7 @@ const process = (z = {}) => {
             z.vfacing = isNew ? z.facing : z.facing - oldFacing;
             z.vfacing = get.next();
             z.layer = get.next();
-            z.color = get.next();
+            z.color = decodeColor(get.next());
         } else { // Else pull all information.
             z.index = get.next();
             z.x = get.next();
@@ -509,7 +524,7 @@ const process = (z = {}) => {
             z.vfacing = get.next();
             z.twiggle = get.next();
             z.layer = get.next();
-            z.color = get.next();
+            z.color = decodeColor(get.next());
             z.borderless = get.next();
             z.drawFill = get.next();
         }
@@ -594,7 +609,7 @@ const process = (z = {}) => {
     for (let i = 0; i < gunnumb; i++) {
         let time = get.next(),
             power = get.next(),
-            color = get.next(),
+            color = decodeColor(get.next()),
             alpha = get.next(),
             strokeWidth = get.next(),
             borderless = get.next(),
@@ -725,7 +740,7 @@ const patch = (z, mask) => {
         }
     }
     if (mask & 0x0080) {
-        let color = get.next();
+        let color = decodeColor(get.next());
         if (z) z.color = color;
     }
     if (mask & 0x0100) {
@@ -747,7 +762,7 @@ const patch = (z, mask) => {
             let gunMask = get.next();
             let time = gunMask & 0x0001 ? get.next() : 0,
                 power = gunMask & 0x0002 ? get.next() : 0,
-                color = gunMask & 0x0004 ? get.next() : "",
+                color = gunMask & 0x0004 ? decodeColor(get.next()) : "",
                 alpha = gunMask & 0x0008 ? get.next() : 1,
                 strokeWidth = gunMask & 0x0010 ? get.next() : 1,
                 borderless = gunMask & 0x0020 ? get.next() : false,
@@ -854,7 +869,7 @@ const convert = {
         }
         if (indices.label) {
             gui.type = get.next();
-            gui.color = get.next();
+            gui.color = decodeColor(get.next());
             gui.playerid = get.next();
         }
         if (indices.score) {

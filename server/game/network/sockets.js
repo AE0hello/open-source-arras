@@ -7,6 +7,19 @@ let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
 global.chatID = 0;
 const GUN_PHOTO_FIELDS = 15;
+const U_COLOR_TABLE = [
+    "grey 0 1 0 false", "16 0 1 0 false", "black 0 1 0 false", "blue 0 1 0 false",
+    "red 0 1 0 false", "green 0 1 0 false", "gold 0 1 0 false", "orange 0 1 0 false",
+    "purple 0 1 0 false", "aqua 0 1 0 false", "pink 0 1 0 false", "white 0 1 0 false",
+    "lightGray 0 1 0 false", "veryLightGrey 0 1 0 false", "lightGrey 0 1 0 false", "darkGrey 0 1 0 false",
+    "lavender 0 1 0 false", "yellow 0 1 0 false", "teal 0 1 0 false", "pureBlack 0 1 0 false",
+    "magenta 0 1 0 false", "mirror 0 1 0 false", "-1 0 1 0 false", "10 0 1 0 false",
+    "11 0 1 0 false", "12 0 1 0 false", "0 0 1 0 false", "13 0 1 0 false",
+    "36 0 1 0 false", "mustard 0 1 0 false", "tangerine 0 1 0 false", "brown 0 1 0 false",
+    "cyan 0 1 0 false", "dgrey 0 1 0 false", "gray 0 1 0 false", "darkGray 0 1 0 false",
+    "veryLightGray 0 1 0 false", "vlgrey 0 1 0 false", "lgrey 0 1 0 false", "lgreen 0 1 0 false",
+];
+const U_COLOR_ID = new Map(U_COLOR_TABLE.map((color, id) => [color, id]));
 
 class socketManager {
     constructor(parent) {
@@ -2368,9 +2381,15 @@ class socketManager {
                 socket.send(protocol.encode(message), { binary: true });
             }
         };
-        // Same as talk(), but takes an array.
+        // Same as talk(), but takes an array. Only used for "u" packets.
         socket.talkArr = (message) => {
             if (socket.readyState === socket.OPEN) {
+                for (let i = 0; i < message.length; i++) {
+                    if (typeof message[i] === "string") {
+                        const id = U_COLOR_ID.get(message[i]);
+                        if (id !== undefined) message[i] = id;
+                    }
+                }
                 socket.send(protocol.encode(message), { binary: true });
             }
         };
