@@ -138,48 +138,36 @@ let initializeFilter = () => {
     tbody.appendChild(noServerMatches);
 
     for (let s of servers) {
+
         // Regions
         global.filters.regions.all.push(s);
+        if (s.region.toLowerCase() === "europe") {
+            global.filters.regions.europe.push(s);
+        } else if (s.region.toLowerCase() === "asia" || s.region.toLowerCase() === "oceania") {
+            global.filters.regions.asia.push(s);
+        } else global.filters.regions.usa.push(s); // Local goes here too, arras lumps the default Local region localhost:5000 "server" entry with USA
 
-        // Europe
-        if (s.region.toLowerCase() === "europe") global.filters.regions.europe.push(s);
-
-        // Asia
-        if (s.region.toLowerCase() === "asia" || s.region.toLowerCase() === "oceania") global.filters.regions.asia.push(s);
-
-        // USA
-        if (!global.filters.regions.europe.includes(s) && !global.filters.regions.asia.includes(s)) {
-            global.filters.regions.usa.push(s); // Arras lumps the default Local region localhost:5000 "server" entry with USA
-        }
-
-        // Gamemodes
+        // Gamemodes (old sorting)
         global.filters.gamemodes.all.push(s);
+        if (s.gameMode.includes("Sandbox")) {
+            global.filters.gamemodes.sandbox.push(s);
+        } else if (s.gameMode.includes("FFA") || s.gameMode === "Maze") {
+            global.filters.gamemodes.ffa.push(s);
+        } else if (s.gameMode.includes("Duos") || s.gameMode.includes("Trios") || s.gameMode.includes("Squads") || s.gameMode.includes("Wars")) {
+            global.filters.gamemodes.squads.push(s);
+        } else if (s.gameMode.includes("TDM")) {
+            global.filters.gamemodes.tdm.push(s);
+        } else global.filters.gamemodes.minigames.push(s);
 
-        // Sandbox
-        if (s.gameMode.includes("Sandbox")) global.filters.gamemodes.sandbox.push(s);
-
-        // FFA
-        if (s.gameMode.includes("FFA") || s.gameMode === "Maze") global.filters.gamemodes.ffa.push(s);
-
-        // Squads
-        if (s.gameMode.includes("Duos") || s.gameMode.includes("Trios") || s.gameMode.includes("Squads") || s.gameMode.includes("Wars")) global.filters.gamemodes.squads.push(s);
-
-        // TDM
-        if (s.gameMode.includes("TDM")) global.filters.gamemodes.tdm.push(s);
-
-        // Minigames
-        if (
-            !global.filters.gamemodes.ffa.includes(s) &&
-            !global.filters.gamemodes.squads.includes(s) &&
-            !global.filters.gamemodes.tdm.includes(s) &&
-            !global.filters.gamemodes.sandbox.includes(s)
-        ) global.filters.gamemodes.minigames.push(s);
-
-        // Normal
-        if ((
-            !s.gameMode.includes("Arms Race") &&
-            !s.gameMode.toLowerCase().includes("growth")
-        ) && (
+        // Gamemodes (new sorting)
+        /*global.filters.gamemodes.all.push(s);
+        if (s.gameMode.includes("Sandbox")) {
+            global.filters.gamemodes.sandbox.push(s);
+        } else if (s.gameMode.includes("Arms Race") || s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
+            if (s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) {
+                global.filters.gamemodes.growth.push(s);
+            } else global.filters.gamemodes.armsRace.push(s);
+        } else if (
             s.gameMode.includes("FFA") ||
             s.gameMode === "Maze" ||
             s.gameMode.includes("Duos") ||
@@ -190,21 +178,9 @@ let initializeFilter = () => {
             s.gameMode.includes("Forge") ||
             s.gameMode.includes("Nexus") ||
             s.gameMode.includes("Labyrinth")
-        )) global.filters.gamemodes.normal.push(s);
-
-        // Growth
-        if (s.gameMode.toLowerCase().includes("growth") || s.gameMode.includes("Old Dreadnoughts")) global.filters.gamemodes.growth.push(s);
-
-        // Arms Race
-        if (s.gameMode.includes("Arms Race")) global.filters.gamemodes.armsRace.push(s);
-
-        // Other
-        if (
-            !global.filters.gamemodes.normal.includes(s) &&
-            !global.filters.gamemodes.growth.includes(s) &&
-            !global.filters.gamemodes.armsRace.includes(s) &&
-            !global.filters.gamemodes.sandbox.includes(s)
-        ) global.filters.gamemodes.other.push(s);
+        ) {
+            global.filters.gamemodes.normal.push(s);
+        } else global.filters.gamemodes.other.push(s);*/
 
     };
     let l = [];
