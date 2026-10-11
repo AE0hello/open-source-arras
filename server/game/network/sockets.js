@@ -7,6 +7,7 @@ let bans = global.bans || (global.bans = []);
 let permBans = global.permBans || (global.permBans = []);
 global.chatID = 0;
 const GUN_PHOTO_FIELDS = 15;
+const numIndex = (index) => (typeof index === "string" && /^\d+$/.test(index) && index.length < 10 ? parseInt(index, 10) : index);
 const U_COLOR_TABLE = [
     "grey 0 1 0 false", "16 0 1 0 false", "black 0 1 0 false", "blue 0 1 0 false",
     "red 0 1 0 false", "green 0 1 0 false", "gold 0 1 0 false", "orange 0 1 0 false",
@@ -1411,7 +1412,7 @@ class socketManager {
             output.push(
                 /*  1 */ data.facing,
                 /*  2 */ data.layer,
-                /*  3 */ data.index,
+                /*  3 */ numIndex(data.index),
                 /*  4 */ data.color,
                 /*  5 */ data.size,
                 /*  6 */ data.realSize,
@@ -1424,7 +1425,7 @@ class socketManager {
         } else if (data.type & 0x10) {
             output.push(
                 /*  1 */ data.id,
-                /*  2 */ data.index,
+                /*  2 */ numIndex(data.index),
                 /*  3 */ data.x,
                 /*  4 */ data.y,
                 /*  5 */ data.vx,
@@ -1442,7 +1443,7 @@ class socketManager {
         } else {
             output.push(
                 /*  1 */ data.id,
-                /*  2 */ data.index,
+                /*  2 */ numIndex(data.index),
                 /*  3 */ data.x,
                 /*  4 */ data.y,
                 /*  5 */ data.vx,

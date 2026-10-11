@@ -467,7 +467,7 @@ const process = (z = {}) => {
     if (type & 0x01) { // issa turret
         z.facing = get.next();
         z.layer = get.next();
-        z.index = get.next();
+        z.index = String(get.next());
         z.color = decodeColor(get.next());
         z.size = get.next();
         z.realSize = get.next();
@@ -499,7 +499,7 @@ const process = (z = {}) => {
         // Either way, keep pulling information
         // For limited entities only by only pulling their limited information.
         if (type & 0x10) {
-            z.index = get.next();
+            z.index = String(get.next());
             z.x = get.next();
             z.y = get.next();
             z.vx = get.next();
@@ -512,7 +512,7 @@ const process = (z = {}) => {
             z.layer = get.next();
             z.color = decodeColor(get.next());
         } else { // Else pull all information.
-            z.index = get.next();
+            z.index = String(get.next());
             z.x = get.next();
             z.y = get.next();
             z.vx = get.next();
