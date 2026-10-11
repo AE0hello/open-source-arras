@@ -1057,6 +1057,53 @@ class Entity extends EventEmitter {
                 this.accel.y -= Math.max(this.y + this.realSize - global.gameManager.room.height / 2 - 50, 0) * Config.room_bound_force / global.gameManager.roomSpeed;
             }
         }
+        this.pushAfkIntoBase();
+    }
+
+    pushAfkIntoBase() {
+        if (this.type !== "tank" || (!this.isPlayer && !this.isBot) || this.bond != null) return;
+        if (!(this.socket && this.socket.status && this.socket.status.isAFK) && Date.now() - Math.max(this.lastMovementTime, this.lastFiredTime) < 5_000) return;
+        let room = global.gameManager.room;
+        if (!room.spawnable) return;
+        let tiles = room.spawnable[this.team];
+        if (!tiles || !tiles.length) return;
+        let halfW = room.tileWidth / 2,
+            halfH = room.tileHeight / 2,
+            nearest = null, dist = Infinity;
+        for (let tile of tiles) {
+            let dx = Math.max(tile.loc.x - halfW - this.x, 0, this.x - (tile.loc.x + halfW)),
+                dy = Math.max(tile.loc.y - halfH - this.y, 0, this.y - (tile.loc.y + halfH));
+            let d = Math.sqrt(dx * dx + dy * dy);
+            if (d < dist) {
+                dist = d;
+                nearest = tile;
+            }
+        }
+        if (!nearest || dist > 6000) return;
+        let x = nearest.loc.x - this.x,
+            y = nearest.loc.y - this.y;
+        if (!dist) {
+            let owned = new Set();
+            for (let tile of tiles) owned.add(tile.gridLoc.x + "," + tile.gridLoc.y);
+            let gx = nearest.gridLoc.x,
+                gy = nearest.gridLoc.y,
+                depth = Math.min(
+                    owned.has(gx - 1 + "," + gy) ? Infinity : halfW - x,
+                    owned.has(gx + 1 + "," + gy) ? Infinity : halfW + x,
+                    owned.has(gx + "," + (gy - 1)) ? Infinity : halfH - y,
+                    owned.has(gx + "," + (gy + 1)) ? Infinity : halfH + y
+                );
+            if (depth > this.realSize) {
+                this.velocity.x *= 0.9;
+                this.velocity.y *= 0.9;
+                return;
+            }
+        }
+        let len = Math.sqrt(x * x + y * y);
+        if (!len) return;
+        let push = this.acceleration / global.gameManager.roomSpeed;
+        this.accel.x += x / len * push;
+        this.accel.y += y / len * push;
     }
 
     contemplationOfMortality() {
