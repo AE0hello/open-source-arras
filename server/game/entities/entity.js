@@ -1061,7 +1061,7 @@ class Entity extends EventEmitter {
     }
 
     pushAfkIntoBase() {
-        if (this.type !== "tank" || (!this.isPlayer && !this.isBot) || this.bond != null) return;
+        if (this.type !== "tank" || (!this.isPlayer && !this.isBot) || this.bond != null || this.immuneToTiles) return;
         if (!(this.socket && this.socket.status && this.socket.status.isAFK) && Date.now() - Math.max(this.lastMovementTime, this.lastFiredTime) < 5_000) return;
         let room = global.gameManager.room;
         if (!room.spawnable) return;
