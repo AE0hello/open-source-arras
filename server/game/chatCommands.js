@@ -197,7 +197,6 @@ const commands = [
                     count++;
                 }
             }
-            socket.talk("m", 5_000, count ? `Demoted ${count} player${count === 1 ? "" : "s"} to player!` : "No Arena Conductors to demote.");
         }
     },
     {
