@@ -19,6 +19,15 @@ const U_COLOR_TABLE = [
     "36 0 1 0 false", "mustard 0 1 0 false", "tangerine 0 1 0 false", "brown 0 1 0 false",
     "cyan 0 1 0 false", "dgrey 0 1 0 false", "gray 0 1 0 false", "darkGray 0 1 0 false",
     "veryLightGray 0 1 0 false", "vlgrey 0 1 0 false", "lgrey 0 1 0 false", "lgreen 0 1 0 false",
+    "egg 0 1 0 false", "crasher 0 1 0 false", "triangle 0 1 0 false", "square 0 1 0 false",
+    "hexagon 0 1 0 false", "pentagon 0 1 0 false", "lime 0 1 0 false", "pureWhite 0 1 0 false",
+    "trans 0 1 0 false", "1 0 1 0 false", "2 0 1 0 false", "3 0 1 0 false",
+    "4 0 1 0 false", "5 0 1 0 false", "6 0 1 0 false", "7 0 1 0 false",
+    "8 0 1 0 false", "9 0 1 0 false", "14 0 1 0 false", "15 0 1 0 false",
+    "17 0 1 0 false", "18 0 1 0 false", "19 0 1 0 false", "#000000 0 1 0 false",
+    "#96794E 0 1 0 false", "#226ef6 0 1 0 false", "#1c3766 0 1 0 false", "#ff1000 0 1 0 false",
+    "#FFFFFF 0 1 0 false", "#5C533F 0 1 0 false", "#ff9000 0 1 0 false", "#f6c6a2 0 1 0 false",
+    "#F49EFF 0 1 0 false", "#fff 0 1 0 false", "#FF0000 0 1 0 false", "#FFFFFF",
 ];
 const U_COLOR_ID = new Map(U_COLOR_TABLE.map((color, id) => [color, id]));
 // Quantize floats to small ints for the wire; the client divides them back.
@@ -2449,6 +2458,12 @@ class socketManager {
                     message = lines.length > 1
                         ? ["Em", message[1], JSON.stringify(lines)]
                         : ["m", message[1], lines[0]];
+                }
+                for (let i = 0; i < message.length; i++) {
+                    if (typeof message[i] === "string") {
+                        const id = U_COLOR_ID.get(message[i]);
+                        if (id !== undefined) message[i] = id;
+                    }
                 }
                 socket.send(protocol.encode(message), { binary: true });
             }

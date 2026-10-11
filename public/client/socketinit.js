@@ -14,6 +14,15 @@ const U_COLOR_TABLE = [
     "36 0 1 0 false", "mustard 0 1 0 false", "tangerine 0 1 0 false", "brown 0 1 0 false",
     "cyan 0 1 0 false", "dgrey 0 1 0 false", "gray 0 1 0 false", "darkGray 0 1 0 false",
     "veryLightGray 0 1 0 false", "vlgrey 0 1 0 false", "lgrey 0 1 0 false", "lgreen 0 1 0 false",
+    "egg 0 1 0 false", "crasher 0 1 0 false", "triangle 0 1 0 false", "square 0 1 0 false",
+    "hexagon 0 1 0 false", "pentagon 0 1 0 false", "lime 0 1 0 false", "pureWhite 0 1 0 false",
+    "trans 0 1 0 false", "1 0 1 0 false", "2 0 1 0 false", "3 0 1 0 false",
+    "4 0 1 0 false", "5 0 1 0 false", "6 0 1 0 false", "7 0 1 0 false",
+    "8 0 1 0 false", "9 0 1 0 false", "14 0 1 0 false", "15 0 1 0 false",
+    "17 0 1 0 false", "18 0 1 0 false", "19 0 1 0 false", "#000000 0 1 0 false",
+    "#96794E 0 1 0 false", "#226ef6 0 1 0 false", "#1c3766 0 1 0 false", "#ff1000 0 1 0 false",
+    "#FFFFFF 0 1 0 false", "#5C533F 0 1 0 false", "#ff9000 0 1 0 false", "#f6c6a2 0 1 0 false",
+    "#F49EFF 0 1 0 false", "#fff 0 1 0 false", "#FF0000 0 1 0 false", "#FFFFFF",
 ];
 const FALLBACK_COLOR = U_COLOR_TABLE[1];
 const decodeColor = value => typeof value === "number" ? (U_COLOR_TABLE[value] ?? FALLBACK_COLOR) : value;
@@ -951,7 +960,7 @@ const convert = {
                 type: data[0],
                 x: (data[1] * global.gameWidth) / 255,
                 y: (data[2] * global.gameHeight) / 255,
-                color: data[3],
+                color: decodeColor(data[3]),
                 size: data[4]
             });
         }
@@ -964,7 +973,7 @@ const convert = {
                 type: 0,
                 x: (data[0] * global.gameWidth) / 255,
                 y: (data[1] * global.gameHeight) / 255,
-                color: data[2],
+                color: decodeColor(data[2]),
                 size: 0
             });
         }
@@ -979,9 +988,9 @@ const convert = {
                 score: data[0],
                 index: data[1],
                 name: data[2],
-                color: data[3],
-                bar: data[4],
-                nameColor: data[5],
+                color: decodeColor(data[3]),
+                bar: decodeColor(data[4]),
+                nameColor: decodeColor(data[5]),
                 label: data[6],
                 renderEntity: data[7],
             })
@@ -1438,7 +1447,7 @@ let incoming = async function(message, socket) {
             // Put your code while being kicked from the server.
         } break;
         case "z": { // name color
-            global.nameColor = m[0];
+            global.nameColor = decodeColor(m[0]);
         } break;
         case "Op": { // operator status change telling
             global.hasOperator = m[0];
