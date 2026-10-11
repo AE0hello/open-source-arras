@@ -126,7 +126,7 @@ const commands = [
         }
     },
     {
-        command: ["report", "r"],
+        command: ["report"],
         description: "Report the last 10 minutes of chat messages",
         permissionLevel: 0,
         run: ({ socket }) => {
