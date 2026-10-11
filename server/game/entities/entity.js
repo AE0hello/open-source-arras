@@ -1069,41 +1069,45 @@ class Entity extends EventEmitter {
         if (!tiles || !tiles.length) return;
         let halfW = room.tileWidth / 2,
             halfH = room.tileHeight / 2,
-            nearest = null, dist = Infinity;
+            margin = Math.max(50, this.realSize || 0),
+            seen = false, nx = 0, ny = 0;
+        let owned = new Set();
+        for (let t of tiles) owned.add(t.gridLoc.x + "," + t.gridLoc.y);
+        for (let t of tiles) {
+            // Inclusive bounds so a body exactly on the border counts as inside.
+            if (this.x < t.loc.x - halfW || this.x > t.loc.x + halfW || this.y < t.loc.y - halfH || this.y > t.loc.y + halfH) continue;
+            seen = true;
+            let gx = t.gridLoc.x, gy = t.gridLoc.y;
+            if (!owned.has(gx + "," + (gy - 1)) && this.y - (t.loc.y - halfH) < margin) ny++;
+            if (!owned.has(gx + "," + (gy + 1)) && t.loc.y + halfH - this.y < margin) ny--;
+            if (!owned.has((gx - 1) + "," + gy) && this.x - (t.loc.x - halfW) < margin) nx++;
+            if (!owned.has((gx + 1) + "," + gy) && t.loc.x + halfW - this.x < margin) nx--;
+        }
+        if (seen) {
+            let len = Math.hypot(nx, ny);
+            if (!len) return;
+            this.accel.x += nx / len * this.acceleration / global.gameManager.roomSpeed;
+            this.accel.y += ny / len * this.acceleration / global.gameManager.roomSpeed;
+            return;
+        }
+        // Outside: head for the closest point of the base border, not a tile's center.
+        let dist = Infinity, cx = 0, cy = 0;
         for (let tile of tiles) {
-            let dx = Math.max(tile.loc.x - halfW - this.x, 0, this.x - (tile.loc.x + halfW)),
-                dy = Math.max(tile.loc.y - halfH - this.y, 0, this.y - (tile.loc.y + halfH));
-            let d = Math.sqrt(dx * dx + dy * dy);
+            let px = Math.max(tile.loc.x - halfW, Math.min(this.x, tile.loc.x + halfW)),
+                py = Math.max(tile.loc.y - halfH, Math.min(this.y, tile.loc.y + halfH)),
+                dx = px - this.x, dy = py - this.y,
+                d = dx * dx + dy * dy;
             if (d < dist) {
                 dist = d;
-                nearest = tile;
+                cx = px;
+                cy = py;
             }
         }
-        if (!nearest || dist > 6000) return;
-        let x = nearest.loc.x - this.x,
-            y = nearest.loc.y - this.y;
-        if (!dist) {
-            let owned = new Set();
-            for (let tile of tiles) owned.add(tile.gridLoc.x + "," + tile.gridLoc.y);
-            let gx = nearest.gridLoc.x,
-                gy = nearest.gridLoc.y,
-                depth = Math.min(
-                    owned.has(gx - 1 + "," + gy) ? Infinity : halfW - x,
-                    owned.has(gx + 1 + "," + gy) ? Infinity : halfW + x,
-                    owned.has(gx + "," + (gy - 1)) ? Infinity : halfH - y,
-                    owned.has(gx + "," + (gy + 1)) ? Infinity : halfH + y
-                );
-            if (depth > this.realSize) {
-                this.velocity.x *= 0.9;
-                this.velocity.y *= 0.9;
-                return;
-            }
-        }
-        let len = Math.sqrt(x * x + y * y);
+        if (dist > 600 * 600) return;
+        let len = Math.sqrt(dist);
         if (!len) return;
-        let push = this.acceleration / global.gameManager.roomSpeed;
-        this.accel.x += x / len * push;
-        this.accel.y += y / len * push;
+        this.accel.x += (cx - this.x) / len * this.acceleration / global.gameManager.roomSpeed;
+        this.accel.y += (cy - this.y) / len * this.acceleration / global.gameManager.roomSpeed;
     }
 
     contemplationOfMortality() {
