@@ -2,6 +2,27 @@ let EventEmitter = require("events");
 global.entitiesIdLog = 0;
 const forceTwiggle = ["autospin", "turnWithSpeed", "spin", "fastspin", "veryfastspin", "withMotion", "smoothWithMotion", "looseWithMotion"];
 const { combineStats } = require("../../lib/definitions/facilitators.js");
+let shapeMockups = new Map();
+let shapeMockupBase = new Map();
+let nextShapeIndex = 10000000;
+function shapeMockupIndex(base, shape, shapeNum) {
+    base = shapeMockupBase.get(parseInt(base)) || base;
+    let key = base + "|" + JSON.stringify(shape) + "|" + (shapeNum || 0);
+    if (shapeMockups.has(key)) return shapeMockups.get(key);
+    let baseName = classMap.get(parseInt(base));
+    if (baseName == null || Class[baseName] == null) return null;
+    let index = nextShapeIndex++;
+    let name = "__shape" + index;
+    let def = { PARENT: baseName, SHAPE: shape, index };
+    if (shapeNum != null) def.SHAPE_NUM = shapeNum;
+    Class[name] = def;
+    classMap.set(index, name);
+    buildMockup(name, global.gameManager);
+    shapeMockups.set(key, index);
+    shapeMockupBase.set(index, base);
+    return index;
+}
+
 class Entity extends EventEmitter {
     constructor(position, master) {
         super();
@@ -583,6 +604,14 @@ class Entity extends EventEmitter {
         for (let branch = 1; branch < defs.length; branch++) defineSplit(defs, branch, set, this, emitEvent); // Define additional stats for other split upgrades
         // Batch upgrades
         if (this.batchUpgrades && emitEvent) handleBatchUpgradeSplit(this); // Batch upgrades
+        if (set.SHAPE != null && set.index == null && emitEvent && overwriteindex && this.index != null) {
+            let parts = String(this.index).split("-");
+            let shapeIndex = shapeMockupIndex(parts[0], set.SHAPE, set.SHAPE_NUM);
+            if (shapeIndex != null) {
+                parts[0] = shapeIndex;
+                this.index = parts.join("-");
+            }
+        }
 
         // Make the entity targetble if they arent a bullet, etc.
         const checkIfTargetAble = ["bullet", "drone", "swarm", "trap", "wall", "unknown"];
