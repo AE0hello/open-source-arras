@@ -62,7 +62,6 @@ class Entity extends EventEmitter {
         this.bulletchildren = [];
         this.color = new Color(16);
         this.glow = { radius: null, color: new Color(-1).compiled, alpha: 1, recursion: 1 };
-        this.confinement = { xMin: 0, xMax: global.gameManager.room.width, yMin: 0, yMax: global.gameManager.room.height };
         this.firingArc = [0, 360];
         this.necro = () => {};
         this.lastMovementTime = Date.now();

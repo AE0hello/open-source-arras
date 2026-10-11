@@ -944,7 +944,7 @@ Class.onTest = {
             body.sendMessage("I fired my alt gun.");
         }
     }, {
-        event: "death",
+        event: "dead",
         handler: ({ body, killers, killTools }) => {
             const killedOrDied = killers.length === 0 ? "died." : "got killed.";
             body.sendMessage(`I ${killedOrDied}`);
