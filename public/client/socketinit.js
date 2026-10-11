@@ -782,14 +782,18 @@ const patch = (z, mask) => {
         }
     }
     if (mask & 0x1000) {
-        let turnumb = get.next();
-        if (z && z.turrets.length !== turnumb) {
-            z.turrets = [];
-            for (let i = 0; i < turnumb; i++) z.turrets.push(process());
-        } else {
-            for (let i = 0; i < turnumb; i++) {
-                if (z) z.turrets[i] = process(z.turrets[i]);
-                else process();
+        const turnumb = get.next();
+        const rebuild = !z || z.turrets.length !== turnumb;
+        if (z && rebuild) z.turrets = [];
+        for (let i = 0; i < turnumb; i++) {
+            const tflag = get.next();
+            if (tflag === 1) {
+                const facing = get.next();
+                if (z && !rebuild) z.turrets[i].facing = facing;
+            } else if (tflag === 2) {
+                if (!z) process();
+                else if (rebuild) z.turrets.push(process());
+                else z.turrets[i] = process(z.turrets[i]);
             }
         }
     }

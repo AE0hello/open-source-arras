@@ -1614,8 +1614,37 @@ class socketManager {
             }
         }
         if (mask & 0x1000) {
-            out.push(now[turretStart]);
-            for (let i = turretStart + 1; i < now.length; i++) out.push(now[i]);
+            const count = now[turretStart];
+            out.push(count);
+            if (prev[turretStart] !== count) {
+                // Turret layout changed: resend every turret in full.
+                for (let k = 0, q = turretStart + 1; k < count; k++) {
+                    const end = this.recordEnd(now, q);
+                    out.push(2);
+                    for (let j = q; j < end; j++) out.push(now[j]);
+                    q = end;
+                }
+            } else {
+                // Same layout: skip identical turrets, send only a new facing
+                // for turrets that merely rotated, full records for the rest.
+                const prevTurretStart = gunStart + 1 + prev[gunStart] * GUN_PHOTO_FIELDS;
+                let p = prevTurretStart + 1, q = turretStart + 1;
+                for (let k = 0; k < count; k++) {
+                    const pe = this.recordEnd(prev, p), qe = this.recordEnd(now, q);
+                    if (qe - q === pe - p && this.spansEqual(prev, p, now, q, qe - q)) {
+                        out.push(0);
+                    } else if (
+                        now[q] & 0x01 && qe - q === pe - p && prev[p] === now[q] &&
+                        this.spansEqual(prev, p + 2, now, q + 2, qe - q - 2)
+                    ) {
+                        out.push(1, now[q + 1]);
+                    } else {
+                        out.push(2);
+                        for (let j = q; j < qe; j++) out.push(now[j]);
+                    }
+                    p = pe; q = qe;
+                }
+            }
         }
         if (mask & 0x2000) out.push(limited ? now[15] : now[19]);
         return true;
@@ -1625,6 +1654,26 @@ class socketManager {
     sameRange(a, b, from, to) {
         for (let i = from; i < to; i++) {
             if (a[i] !== b[i]) return false;
+        }
+        return true;
+    }
+
+    // End offset (exclusive) of one flattened record starting at `from`:
+    // type + fields + guns + nested turrets, mirroring flatten().
+    recordEnd(a, from) {
+        let i = from + 1;
+        const type = a[from];
+        i += (type & 0x01) ? 11 : ((type & 0x10) ? 15 : 19 + ((type & 0x04) ? 2 : 0));
+        i += 1 + a[i] * GUN_PHOTO_FIELDS;
+        const turrets = a[i++];
+        for (let k = 0; k < turrets; k++) i = this.recordEnd(a, i);
+        return i;
+    }
+
+    // True when prev[p..p+len) and now[q..q+len) hold identical values.
+    spansEqual(prev, p, now, q, len) {
+        for (let j = 0; j < len; j++) {
+            if (prev[p + j] !== now[q + j]) return false;
         }
         return true;
     }
