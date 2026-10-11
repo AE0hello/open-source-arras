@@ -60,7 +60,7 @@ let server; // HTTP server instance
 // Attempt to create a WebSocket server instance using the 'ws' package
 try {
     const WebSocketServer = require("ws").WebSocketServer;
-    wsServer = new WebSocketServer({ noServer: true });
+    wsServer = new WebSocketServer({ noServer: true, perMessageDeflate: Config.per_message_deflate });
 } catch(err) {
     throw new Error("Package 'ws' is not installed! To install it, run 'npm install ws' in the terminal.");
 }

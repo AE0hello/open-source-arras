@@ -180,7 +180,7 @@ class gameServer {
     // Create a new web server class to handle incoming requests
     startWebServer(socketManager) {
     // Create the socket
-        this.wsServer = new ws.WebSocketServer({ noServer: true });
+        this.wsServer = new ws.WebSocketServer({ noServer: true, perMessageDeflate: Config.per_message_deflate });
         // Create the http server
         this.httpServer = http.createServer((req, res) => {
             res.setHeader("Access-Control-Allow-Origin", "*");

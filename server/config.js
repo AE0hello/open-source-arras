@@ -10,6 +10,14 @@ module.exports = {
     verbose_logs: false, // Enable detailed startup logs and log speed loop warnings in the terminal.
     visible_list_interval: 250, // How often to update the list of the entities that players can see. Has effects of when entities are activated.
     delta_entities: true, // Send entity updates as created/changed/removed lists instead of a full snapshot every packet.
+    per_message_deflate: { // Compress websocket messages, saves a lot of bandwidth on big packets. Set to false to disable.
+        threshold: 1024, // Don't bother compressing messages smaller than this.
+        concurrencyLimit: 10, // How many messages can be compressed at once.
+        zlibDeflateOptions: {
+            level: 3, // 1 (fast) - 9 (small). 3 is plenty for game traffic.
+            memLevel: 8, // 1-9. Higher uses more memory per player for slightly smaller packets.
+        },
+    },
     max_fov: 25000, // Hard cap for camera FOV sent to clients.
     view_extra_margin: 150, // Extra margin beyond the visible viewport.
     editor: true, // Enable the editor at '[host]/ext/editor'.
