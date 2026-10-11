@@ -31,12 +31,13 @@ const U_COLOR_TABLE = [
 ];
 const U_COLOR_ID = new Map(U_COLOR_TABLE.map((color, id) => [color, id]));
 // Quantize floats to small ints for the wire; the client divides them back.
-const qpos = v => Math.round(v * 4);
-const qvel = v => Math.round(v * 20);
-const qsize = v => Math.round(v * 16);
-const qpct = v => Math.round(v * 100);
-const qangle = v => Math.round(v * 2048 / Math.PI);
-const qfrac = v => Math.round((v || 0) * 255);
+const qnum = (v, k) => Number.isFinite(v) ? Math.round(v * k) : 0;
+const qpos = v => qnum(v, 4);
+const qvel = v => qnum(v, 20);
+const qsize = v => qnum(v, 16);
+const qpct = v => qnum(v, 100);
+const qangle = v => qnum(v, 2048 / Math.PI);
+const qfrac = v => qnum(v || 0, 255);
 
 class socketManager {
     constructor(parent) {
@@ -1453,7 +1454,7 @@ class socketManager {
                 /* 12 */ data.color,
                 /* 14 */ qfrac(data.health),
                 /* 15 */ qfrac(data.shield),
-                /* 16 */ Math.round(255 * data.alpha),
+                /* 16 */ qfrac(data.alpha),
                 /* 17 */ data.hit
             );
         } else {
@@ -1475,7 +1476,7 @@ class socketManager {
                 /* 16 */ data.invuln,
                 /* 17 */ qfrac(data.health),
                 /* 18 */ qfrac(data.shield),
-                /* 19 */ Math.round(255 * data.alpha),
+                /* 19 */ qfrac(data.alpha),
                 /* 20 */ data.hit
             );
             if (data.type & 0x04) {
@@ -1572,7 +1573,8 @@ class socketManager {
         if (prev[3] !== now[3] || prev[4] !== now[4]) mask |= 0x0001;
         if (prev[5] !== now[5] || prev[6] !== now[6]) mask |= 0x0002;
         if (prev[7] !== now[7]) mask |= 0x0004;
-        if (prev[8] !== now[8] || prev[9] !== now[9]) mask |= 0x0008;
+        const stopped = Math.abs(now[5]) + Math.abs(now[6]) <= 1;
+        if (prev[8] !== now[8] || (!stopped && prev[9] !== now[9])) mask |= 0x0008;
         if (limited) {
             if (prev[12] !== now[12] || prev[13] !== now[13]) mask |= 0x0010;
             if (prev[14] !== now[14]) mask |= 0x0020;
@@ -1735,7 +1737,7 @@ class socketManager {
     perspective(e, player, data) {
         if (player.body != null) {
             if (e.alpha < 1 && !e.limited && !player.body.settings.canSeeInvisible) {
-                data[18] = Math.round(255 * this.getInvisEntityAlpha(player, e));
+                data[18] = qfrac(this.getInvisEntityAlpha(player, e));
             }
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
@@ -1749,8 +1751,8 @@ class socketManager {
             if (player.body.settings.canSeeInvisible) {
                 data = data.slice();
                 let alpha = this.getInvisEntityAlpha(player, e, player.body.settings.canSeeInvisible);
-                if (e.limited) data[14] = Math.round(255 * alpha);
-                else data[18] = Math.round(255 * alpha);
+                if (e.limited) data[14] = qfrac(alpha);
+                else data[18] = qfrac(alpha);
             }
             if (
                 player.body.team === e.source.team &&
