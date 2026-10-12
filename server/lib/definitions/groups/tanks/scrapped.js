@@ -674,55 +674,6 @@ Class.oroboros = {
         })
     ]
 };
-Class.prodigy = {
-    PARENT: "genericTank",
-    LABEL: "Prodigy",
-    DANGER: 7,
-    STAT_NAMES: {
-        ...statnames.mixed,
-        RELOAD: "Reload / Max Drone Count"
-    },
-    SHAPE: 6,
-    GUNS: [
-        ...weaponArray({
-            POSITION: {
-                LENGTH: 13,
-                WIDTH: 7,
-                ASPECT: 1.6,
-                ANGLE: 180
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.5, size: 2, damage: 0.95}]),
-                TYPE: "sunchip",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "necro",
-                WAIT_TO_CYCLE: true,
-                DELAY_SPAWN: false,
-                MAX_CHILDREN: 2
-            }
-        }, 3, {delayIncrement: 1 / 3}),
-        ...weaponArray([{
-            POSITION: {
-                LENGTH: 14,
-                WIDTH: 9
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 4,
-                WIDTH: 9,
-                ASPECT: 1.5,
-                X: 14
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.trap, { range: 0.5, speed: 0.7, maxSpeed: 0.7 }]),
-                TYPE: "trap",
-                STAT_CALCULATOR: "trap"
-            }
-        }], 3)
-    ]
-};
 Class.rocket = makeSnake({
     PARENT: "genericTank",
     DANGER: 6,

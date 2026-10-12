@@ -8,7 +8,7 @@ const free_tier_4 = true;
 
 // Set the below variable to true to enable tanks that would otherwise be inaccessible in Arms Race.
 // This will also enable the Better Arms Race addon if it is present.
-const enable_missing_tanks = true;
+const enable_missing_tanks = false;
 
 // Tier 2 (Level 30)
 Class.diesel = {
@@ -240,7 +240,7 @@ const autoTanksT3 = [
     "pen",
     "rifle",
     "spawner",
-    //"sprayer",
+    "sprayer",
     "trapGuard",
     "triAngle",
     "tripleShot",
@@ -272,6 +272,7 @@ const hybridTanksT3 = [
     ["mech",        "Cobbler",      "Fuser",            "Automaton",    "Restorer"],
     ["minigun",     "Crop Duster",  "Trimmer",          "Shearer",      "Sweeper"],
     ["pen",         "Interner",     "Kettle",           "Ringer",       "Probationer"],
+    ["sprayer",     "Shower",       "Powder",           "Spritz",       "Waterspout",       undefined,  "Slosher"],
     ["tripleShot",  "Bent Hybrid",  "Bent Synthesis",   "Hatcher",      "Bent Crossbreed",  "Overshot"],
     ["rifle",       "Armsman",      "Partisan",         "Copier",       "Vendor"],
     ["wark",        "Coalesce",     "Affiliator",       "Converger",    "Commix",           undefined,  "Warkdrive"]
@@ -316,6 +317,7 @@ Class.autoAuto3.UPGRADES_TIER_4.push(...["Auto5", "Mega3", "Auto4", "Banshee", "
 Class.autoDirectordrive = makeAuto("directordrive", "Auto-Directordrive", preset.makeAuto.drive);
 Class.autoDirectordrive.UPGRADES_TIER_4 = [...["mega", "triple"].map(x => `${x}AutoDirectordrive`)];
 Class.autoHexaTank.UPGRADES_TIER_4.push(...["OctoTank", "Cyclone", "DeathStar", "Mingler", "Combo"].map(x => `auto${x}`));
+Class.autoSprayer.UPGRADES_TIER_4.push(...["Redistributor", "Phoenix", "Atomizer", "Focal"/*, "Frother", "Foamer"*/, "Shower"].map(x => `auto${x}`));
 Class.bentGunner = {
     PARENT: "genericTank",
     LABEL: "Bent Gunner",
@@ -947,6 +949,55 @@ Class.peashooter = makeGuard({
         }
     ]
 }, "Peashooter");
+Class.prodigy = {
+    PARENT: "genericTank",
+    LABEL: "Prodigy",
+    DANGER: 7,
+    STAT_NAMES: {
+        ...statnames.mixed,
+        RELOAD: "Reload / Max Drone Count"
+    },
+    SHAPE: 6,
+    GUNS: [
+        ...weaponArray({
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 7,
+                ASPECT: 1.6,
+                ANGLE: 180
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.5, size: 2, damage: 0.95}]),
+                TYPE: "sunchip",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false,
+                MAX_CHILDREN: 2
+            }
+        }, 3, {delayIncrement: 1 / 3}),
+        ...weaponArray([{
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 9
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 9,
+                ASPECT: 1.5,
+                X: 14
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, { range: 0.5, speed: 0.7, maxSpeed: 0.7 }]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }], 3)
+    ]
+};
 Class.productionist = {
     PARENT: "genericTank",
     LABEL: "Productionist",
@@ -1132,6 +1183,7 @@ Class.rocketeer = {
         }
     ]
 };
+Class.shower.UPGRADES_TIER_4.push("humidifier", "saturater", "mizzler"/*, "suds", "douser"*/, "autoShower");
 Class.sniper3 = makeRadialAuto("sniper3gun", { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11 / 15 * base.SPEED, FOV: 1.25 * base.FOV } });
 Class.sniper3.UPGRADES_TIER_4 = [/*"assassin3", "creeper", "sniper5", "phantom", "lever", */"autoSniper3", "alloy"/*, "rifle3", "hunter3"*/];
 Class.spawnerdrive = {
@@ -1334,6 +1386,7 @@ Class.warkwark.UPGRADES_TIER_4 = ["warkwarkwark", "warkwawarkrk", "autoWarkwark"
 
 // Tier 4 (Level 60)
 const autoTanksT4 = [
+    "atomizer",
     "auto4",
     "auto5",
     "banshee",
@@ -1349,6 +1402,7 @@ const autoTanksT4 = [
     "doubleGunner",
     "dual",
     "falcon",
+    "focal",
     "fighter",
     "hewnDouble",
     "jalopy",
@@ -1356,10 +1410,13 @@ const autoTanksT4 = [
     "mingler",
     "musket",
     "octoTank",
+    "phoenix",
+    "prodigy",
     "quadAngle",
+    "redistributor",
+    "shower",
     "single",
     "sniper3",
-    "sprayer",
     "stalker",
     "streamliner",
     "warkwark"
@@ -1386,17 +1443,19 @@ for (let i = 0; i < doubleTanksT4.length; i++) {
 };
 
 const hybridTanksT4 = [
-    // Base Tank    //Director
-    ["buttbuttin",  "Mercenary"],
-    ["crowbar",     "Spindle"],
-    ["dual",        "Ravisher"],
-    ["jalopy",      "Contaminator"],
-    ["musket",      "Matchlock"],
-    ["pentaShot",   "Flexed Hybrid"],
-    ["single",      "Assistant"],
-    ["sprayer",     "Shower"],
-    ["spreadshot",  "Smearer"],
-    ["triplet",     "Triprid"]
+    // Base Tank        //Director
+    ["atomizer",        "Saturater"],
+    ["buttbuttin",      "Mercenary"],
+    ["crowbar",         "Spindle"],
+    ["dual",            "Ravisher"],
+    ["focal",           "Mizzler"],
+    ["jalopy",          "Contaminator"],
+    ["musket",          "Matchlock"],
+    ["pentaShot",       "Flexed Hybrid"],
+    ["redistributor",   "Humidifier"],
+    ["single",          "Assistant"],
+    ["spreadshot",      "Smearer"],
+    ["triplet",         "Triprid"]
 ];
 for (let i = 0; i < hybridTanksT4.length; i++) {
     let type = hybridTanksT4[i][0];
@@ -4100,6 +4159,7 @@ Class.rifle.UPGRADES_TIER_3.push("autoRifle"/*, "enforcer", "courser"*/);
 Class.smasher.UPGRADES_TIER_3.push(/*"banger", "drifter"*/);
 Class.sniper.UPGRADES_TIER_3.push("railgun");
 Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "productionist", "spawnerdrive", "captain"/*, "hangar", "laborer", "foundry", "issuer"*/);
+Class.sprayer.UPGRADES_TIER_3.push(/*"frother", "foamer", */"shower", "autoSprayer")
 Class.trapGuard.UPGRADES_TIER_3.push("peashooter"/*, "incarcerator", "mechGuard"*/, "autoTrapGuard"/*, "machineGuard", "triTrapGuard"*/);
 Class.triAngle.UPGRADES_TIER_3.push(/*"taser", "cockatiel", */"integrator", "defect", "quadAngle");
 Class.triTrapper.UPGRADES_TIER_3.push(/*"triPen", "triMech", "triMachine", "triTrapGuard"*/);
@@ -4152,6 +4212,7 @@ Class.rifle.UPGRADES_TIER_4 = ["ransacker"/*, "thunderclap"*/];
 Class.single.UPGRADES_TIER_4 = ["duo", "sharpshooter", "gadgetGun", "ternion", "coordinator", "bruiser", "tricker", "mono", "avian", "custodian", "assistant", "autoSingle"];
 Class.sniper.UPGRADES_TIER_4 = ["sharpshooter"];
 Class.spawner.UPGRADES_TIER_4 = [/*"handler"*/];
+Class.sprayer.UPGRADES_TIER_4 = [/*"stauncher"*/];
 Class.stalker.UPGRADES_TIER_4 = ["autoStalker"];
 Class.streamliner.UPGRADES_TIER_4 = ["autoStreamliner"];
 Class.trapGuard.UPGRADES_TIER_4 = [/*"garrison", "maw", "overtrapGuard", */"custodian"];
@@ -4166,24 +4227,19 @@ module.exports = enable_missing_tanks;
 if (!enable_missing_tanks) {
     removeUpgrades("basic", 1, ["desmos"]);
 
-    removeUpgrades("machineGun", 2, ["sprayer"]);
-    removeUpgrades("sniper", 2, ["marksman"]);
+    //removeUpgrades("sniper", 2, ["marksman"]);
     removeUpgrades("twin", 2, ["helix"]);
 
-    removeUpgrades("assassin", 3, ["single", "deadeye"]);
+    removeUpgrades("assassin", 3, ["single"/*, "deadeye"*/]);
     addUpgrades("basic", 3, ["single"]);
-    removeUpgrades("builder", 3, ["assembler"]);
+    //removeUpgrades("builder", 3, ["assembler"]);
     removeUpgrades("flankGuard", 3, ["quadruplex"]);
-    removeUpgrades("hunter", 3, ["xHunter", "nimrod"]);
-    addUpgrades("machineGun", 3, ["sprayer"]);
-    removeUpgrades("minigun", 3, ["vulture"]);
-    removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
-    removeUpgrades("rifle", 3, ["revolver"]);
-    removeUpgrades("sprayer", 3, Class.sprayer.UPGRADES_TIER_3);
-    removeUpgrades("triAngle", 3, ["phoenix", "vulture"]);
-    removeUpgrades("tripleShot", 3, ["triplex"]);
-
-    Class.sprayer.UPGRADES_TIER_3 = [/*"duster", "frother", */"scatterer"/*, "foamer"*/, "shower", "autoSprayer", "phoenix"];
+    //removeUpgrades("hunter", 3, ["xHunter", "nimrod"]);
+    //removeUpgrades("minigun", 3, ["vulture"]);
+    //removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
+    //removeUpgrades("rifle", 3, ["revolver"]);
+    //removeUpgrades("triAngle", 3, ["phoenix", "vulture"]);
+    //removeUpgrades("tripleShot", 3, ["triplex"]);
 } else {
     removeUpgrades("trapper", 3, ["barricade"]);
     removeUpgrades("twin", 3, ["bulwark"]);
