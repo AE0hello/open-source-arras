@@ -3,28 +3,6 @@ const { base } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 
-// Gun Presets
-preset.gun.crossfireSide = [
-    {
-        POSITION: {
-            LENGTH: 17,
-            WIDTH: 1.4,
-            ASPECT: -9,
-            X: -20,
-            ANGLE: 180
-        }
-    },
-    ...weaponMirror({
-        POSITION: {
-            LENGTH: 8,
-            WIDTH: 2,
-            ASPECT: -1.7,
-            Y: -20,
-            ANGLE: 90
-        }
-    })
-];
-
 // Tier 2 (Level 30)
 Class.crossfire = {
     PARENT: "genericTank",
@@ -32,7 +10,24 @@ Class.crossfire = {
     DANGER: 6,
     BODY: Class.sniper.BODY,
     GUNS: [
-        ...preset.gun.crossfireSide,
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 2,
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
+            }
+        }),
         {
             POSITION: {
                 LENGTH: 24,
@@ -257,7 +252,7 @@ Class.puncturer = {
     ],
     UPGRADES_TIER_4: ["caltrop", "roofer"/*, "sheepfold", "cerberus", "cadger", "chauchat", "carabin"*/, "puncturerHybrid", "autoPuncturer"]
 };
-/*Class.quagmire = {
+Class.quagmire = {
     PARENT: "genericTank",
     LABEL: "Quagmire",
     DANGER: 7,
@@ -303,8 +298,8 @@ Class.puncturer = {
             }
         }
     ],
-    UPGRADES_TIER_4: ["ph_quagmire2", "ph_quagmireH", "autoQuagmire"]
-};*/
+    //UPGRADES_TIER_4: ["ph_quagmire2", "ph_quagmireH", "autoQuagmire"]
+};
 Class.quickdraw = {
     PARENT: "genericTank",
     LABEL: "Quickdraw",
@@ -317,7 +312,24 @@ Class.quickdraw = {
                 WIDTH: 12
             }
         },
-        ...preset.gun.crossfireSide,
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 2,
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
+            }
+        }),
         {
             POSITION: {
                 LENGTH: 24,
@@ -366,7 +378,24 @@ Class.vigilante = {
     DANGER: 7,
     BODY: Class.assassin.BODY,
     GUNS: [
-        ...preset.gun.crossfireSide,
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 2,
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
+            }
+        }),
         {
             POSITION: {
                 LENGTH: 27,
@@ -719,7 +748,7 @@ Class.hailshot = {
         }
     ]
 };
-/*Class.handgun = {
+Class.handgun = {
     PARENT: "genericTank",
     LABEL: "Handgun",
     DANGER: 8,
@@ -749,8 +778,8 @@ Class.hailshot = {
             }
         }
     ]
-};*/
-/*Class.hexaAngle = {
+};
+Class.hexaAngle = {
     PARENT: "genericTank",
     LABEL: "Hexa-Angle",
     DANGER: 8,
@@ -806,31 +835,28 @@ Class.hailshot = {
             LABEL: "thruster"
         }
     })
-};*/
-/*Class.jaywalker = {
+};
+Class.jaywalker = {
     PARENT: "genericTank",
     LABEL: "Jaywalker",
     DANGER: 8,
     GUNS: [
         {
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 7
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -15,
+                ANGLE: 180
             }
         },
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
+                ASPECT: -1.7,
                 Y: -15,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         {
@@ -852,7 +878,7 @@ Class.hailshot = {
             }
         }
     ]
-};*/
+};
 Class.jimmy = {
     PARENT: "genericTank",
     LABEL: "Jimmy",
@@ -916,7 +942,24 @@ Class.longbow = {
     DANGER: 8,
     BODY: Class.ranger.BODY,
     GUNS: [
-        ...preset.gun.crossfireSide,
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 2,
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
+            }
+        }),
         {
             POSITION: {
                 LENGTH: 32,
@@ -932,8 +975,8 @@ Class.longbow = {
         }
     ]
 };
-//Class.orifice = makeGunner("single", "Orifice");
-/*Class.pistol = {
+Class.orifice = makeGunner("single", "Orifice");
+Class.pistol = {
     PARENT: "genericTank",
     LABEL: "Pistol",
     DANGER: 8,
@@ -965,7 +1008,7 @@ Class.longbow = {
             }
         }
     ]
-};*/
+};
 Class.roofer = {
     PARENT: "genericTank",
     LABEL: "Roofer",
@@ -1051,7 +1094,7 @@ Class.rotary = {
         }, 3, {lengthOffset: 2, delayIncrement: 1 / 3})
     ]
 };
-/*Class.spy = {
+Class.spy = {
     PARENT: "genericTank",
     LABEL: "Spy",
     DANGER: 8,
@@ -1071,8 +1114,8 @@ Class.rotary = {
             }
         }
     ]
-};*/
-/*Class.stiletto = {
+};
+Class.stiletto = {
     PARENT: "genericTank",
     LABEL: "Stiletto",
     DANGER: 8,
@@ -1097,8 +1140,8 @@ Class.rotary = {
             }
         }, 5, { lengthOffset: 2, delayIncrement: 0.2 })
     ]
-};*/
-/*Class.subduer = {
+};
+Class.subduer = {
     PARENT: "genericTank",
     LABEL: "Subduer",
     DANGER: 8,
@@ -1138,7 +1181,7 @@ Class.rotary = {
             }
         }
     ]
-};*/
+};
 Class.talon = makeBird("vigilante", "Talon");
 Class.terminus = {
     PARENT: "genericTank",
@@ -1284,7 +1327,7 @@ Class.ph_artilleryHexa = {
         }
     ], 3)
 };
-/*Class.ph_quagmire2 = {
+Class.ph_quagmire2 = {
     PARENT: "genericTank",
     LABEL: "",
     DANGER: 8,
@@ -1345,8 +1388,6 @@ Class.ph_artilleryHexa = {
         }
     ]
 };
-Class.ph_quagmireH.LABEL = "";
-*/
 
 // Existing Upgrade Management
 const enable_missing_tanks = require("../../groups/tanks/armsRace.js");
