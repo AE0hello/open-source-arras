@@ -225,7 +225,7 @@ module.exports = {
 
             region: "Oceania",
             location: "Localhost",
-            gamemode: ["sandbox"],
+            gamemode: ["arms_race", "sandbox"],
             player_cap: 80,
 
             featured: false,
@@ -281,9 +281,11 @@ module.exports = {
     broadcast_leader_usurped: false, // Broadcasts "The leader has been usurped by..." when the leader dies.
 
     // Seasonal
-    fireworks: false, // Toggles fireworks (automatic around July 4 in US-region servers)
-    thanksgiving: false, // Toggles the seasonal thanksgiving theme (replaces Motherships with Turkeys)
-    spooky_theme: false, // Toggles the seasonal halloween theme (adds eyes to walls and replaces rocks to pumpkins)
+    seasonal_events: true, // Enable seasonal events at specific times of the year
+
+    force_fireworks: false, // Forcefully enable fireworks (automatic around 4th of July (should be only in US region servers tbh))
+    force_spooky_theme: false, // Forcefully enable seasonal halloween theme (adds eyes to walls and replaces rocks with pumpkins)
+    force_thanksgiving: false, // Forcefully enable seasonal american thanksgiving theme (replaces Motherships with Turkeys)
 
     // Gameplay
     game_speed: 1, // General game speed.

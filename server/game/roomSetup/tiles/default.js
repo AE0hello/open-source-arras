@@ -40,9 +40,9 @@ tileClass.wall = new Tile({
         o.on("dead", () => {
             util.remove(walls, walls.indexOf(o));
         });
-        if (Config.spooky_theme) {
+        if ((Config.seasonal_events && new Date().getMonth() === 9) || Config.force_spooky_theme) {
             let eyeSize = 12 * (Math.random() + 0.75);
-            let spookyEye = new Entity({ x: wall.x + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2, y: wall.y + (wall.size - eyeSize * 2) * Math.random() - wall.size / 2 });
+            let spookyEye = new Entity({ x: o.x + (o.size - eyeSize * 2) * Math.random() - o.size / 2, y: o.y + (o.size - eyeSize * 2) * Math.random() - o.size / 2 });
             spookyEye.define("hwEye");
             spookyEye.define({FACING_TYPE: ["manual", {angle: ran.randomAngle()}]});
             spookyEye.SIZE = eyeSize;

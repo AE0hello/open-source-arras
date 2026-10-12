@@ -31,12 +31,54 @@ const U_COLOR_TABLE = [
 ];
 const U_COLOR_ID = new Map(U_COLOR_TABLE.map((color, id) => [color, id]));
 // Quantize floats to small ints for the wire; the client divides them back.
-const qpos = v => Math.round(v * 4);
-const qvel = v => Math.round(v * 20);
-const qsize = v => Math.round(v * 16);
-const qpct = v => Math.round(v * 100);
-const qangle = v => Math.round(v * 2048 / Math.PI);
-const qfrac = v => Math.round((v || 0) * 255);
+const qnum = (v, k) => Number.isFinite(v) ? Math.round(v * k) : 0;
+const qpos = v => qnum(v, 4);
+const qvel = v => qnum(v, 20);
+const qsize = v => qnum(v, 16);
+const qpct = v => qnum(v, 100);
+const qangle = v => qnum(v, 2048 / Math.PI);
+const qfrac = v => qnum(v || 0, 255);
+// Key table; must match the client.
+const MOCKUP_KEYS = ["index","name","x","y","color","strokeWidth","glow","radius","alpha","recursion","borderless","drawFill","shape","imageInterpolation","size","realSize","mirrorMasterAngle","sendAllMockups","position","axis","middle","rerootUpgradeTree","className","upgrades","tier","guns","offset","direction","length","width","aspect","angle","drawAbove","layer","turrets","props","statnames","body_damage","max_health","bullet_speed","bullet_health","bullet_pen","bullet_damage","reload","move_speed","shield_regen","shield_cap","sizeFactor","isProp","forceAngle","visibleOnBlackout"];
+const MOCKUP_KEY_ID = new Map(MOCKUP_KEYS.map((k, i) => [k, i]));
+const encodeMockupVal = (v, colorOk) => {
+    if (Array.isArray(v)) return ["l", ...v.map(x => encodeMockupVal(x, false))];
+    if (v && typeof v === "object") {
+        const o = ["o"];
+        for (let k in v) {
+            // Drop what JSON.stringify drops.
+            if (typeof v[k] === "function" || typeof v[k] === "undefined" || typeof v[k] === "symbol") continue;
+            const id = MOCKUP_KEY_ID.get(k);
+            o.push(id ?? -1);
+            if (id === undefined) o.push(k);
+            o.push(encodeMockupVal(v[k], k === "color"));
+        }
+        return o;
+    }
+    if (colorOk && typeof v === "string") {
+        const id = U_COLOR_ID.get(v);
+        if (id !== undefined) return id;
+    }
+    return typeof v === "number" && !Number.isInteger(v) ? Math.round(v * 1e4) / 1e4 : v;
+};
+const encodeMockup = o => JSON.stringify(encodeMockupVal(o, false));
+// Room grids go as run lengths over distinct cell forms.
+const encodeRoom = (grid, blackout) => {
+    const forms = [], ids = new Map(), runs = [];
+    let cols = 0;
+    for (let row of grid) {
+        cols = row.length;
+        for (let t of row) {
+            const f = blackout ? [t.color, t.visibleOnBlackout ?? false, t.image ?? false] : [t.color, t.image ?? false];
+            const k = f.join("\x00");
+            let id = ids.get(k);
+            if (id === undefined) { id = forms.length; forms.push(f); ids.set(k, id); }
+            if (runs.length && runs[runs.length - 2] === id) runs[runs.length - 1]++;
+            else runs.push(id, 1);
+        }
+    }
+    return JSON.stringify([cols, forms, runs]);
+};
 
 class socketManager {
     constructor(parent) {
@@ -61,12 +103,7 @@ class socketManager {
         }
     };
     broadcastRoom() {
-        let data = JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => {
-            return {
-                color: t.color,
-                image: t.image ?? false
-            };
-        })));
+        let data = encodeRoom(global.gameManager.room.setup, false);
         for (let i = 0; i < this.clients.length; i++) {
             this.clients[i].talk(
                 "r",
@@ -438,13 +475,7 @@ class socketManager {
                         "R",
                         global.gameManager.room.width,
                         global.gameManager.room.height,
-                        JSON.stringify(global.gameManager.room.setup.map(x => x.map(t => { 
-                            return {
-                                color: t.color,
-                                visibleOnBlackout: t.visibleOnBlackout,
-                                image: t.image ?? false
-                            };
-                        }))),
+                        encodeRoom(global.gameManager.room.setup, true),
                         JSON.stringify(util.serverStartTime),
                         global.gameManager.roomSpeed,
                         JSON.stringify({
@@ -1502,33 +1533,33 @@ class socketManager {
         let output = [data.type]; // We will remove the first entry in the persepective method
         if (data.type & 0x01) {
             output.push(
-                /*  1 */ qangle(data.facing),
+                /*  1 */ data.facing,
                 /*  2 */ data.layer,
                 /*  3 */ numIndex(data.index),
                 /*  4 */ data.color,
-                /*  5 */ qsize(data.size),
-                /*  6 */ qsize(data.realSize),
-                /*  7 */ qpct(data.sizeFactor),
-                /*  8 */ qangle(data.angle),
-                /*  9 */ qangle(data.direction),
-                /* 10 */ qsize(data.offset),
+                /*  5 */ data.size,
+                /*  6 */ data.realSize,
+                /*  7 */ data.sizeFactor,
+                /*  8 */ data.angle,
+                /*  9 */ data.direction,
+                /* 10 */ data.offset,
                 /* 11 */ data.mirrorMasterAngle
             );
         } else if (data.type & 0x10) {
             output.push(
                 /*  1 */ data.id,
                 /*  2 */ numIndex(data.index),
-                /*  3 */ qpos(data.x),
-                /*  4 */ qpos(data.y),
-                /*  5 */ qvel(data.vx),
-                /*  6 */ qvel(data.vy),
-                /*  7 */ qsize(data.size),
-                /*  8 */ qangle(data.facing),
-                /*  9 */ qangle(data.vfacing),
+                /*  3 */ data.x,
+                /*  4 */ data.y,
+                /*  5 */ data.vx,
+                /*  6 */ data.vy,
+                /*  7 */ data.size,
+                /*  8 */ data.facing,
+                /*  9 */ data.vfacing,
                 /* 11 */ data.layer,
                 /* 12 */ data.color,
-                /* 14 */ qfrac(data.health),
-                /* 15 */ qfrac(data.shield),
+                /* 14 */ Math.ceil(65535 * data.health),
+                /* 15 */ Math.round(65535 * data.shield),
                 /* 16 */ Math.round(255 * data.alpha),
                 /* 17 */ data.hit
             );
@@ -1536,21 +1567,21 @@ class socketManager {
             output.push(
                 /*  1 */ data.id,
                 /*  2 */ numIndex(data.index),
-                /*  3 */ qpos(data.x),
-                /*  4 */ qpos(data.y),
-                /*  5 */ qvel(data.vx),
-                /*  6 */ qvel(data.vy),
-                /*  7 */ qsize(data.size),
-                /*  8 */ qangle(data.facing),
-                /*  9 */ qangle(data.vfacing),
+                /*  3 */ data.x,
+                /*  4 */ data.y,
+                /*  5 */ data.vx,
+                /*  6 */ data.vy,
+                /*  7 */ data.size,
+                /*  8 */ data.facing,
+                /*  9 */ data.vfacing,
                 /* 10 */ data.twiggle,
                 /* 11 */ data.layer,
                 /* 12 */ data.color,
                 /* 14 */ data.borderless,
                 /* 15 */ data.drawFill,
                 /* 16 */ data.invuln,
-                /* 17 */ qfrac(data.health),
-                /* 18 */ qfrac(data.shield),
+                /* 17 */ Math.ceil(65535 * data.health),
+                /* 18 */ Math.round(65535 * data.shield),
                 /* 19 */ Math.round(255 * data.alpha),
                 /* 20 */ data.hit
             );
@@ -1564,24 +1595,9 @@ class socketManager {
         // Add the gun data to the array
         output.push(data.guns.length);
         for (let i = 0; i < data.guns.length; i++) {
-            let g = data.guns[i];
-            output.push(
-                g.time,
-                qfrac(g.power),
-                g.color,
-                qfrac(g.alpha),
-                qpct(g.strokeWidth),
-                g.borderless,
-                g.drawFill,
-                g.drawAbove,
-                qsize(g.length),
-                qsize(g.width),
-                qpct(g.aspect),
-                qangle(g.angle),
-                qangle(g.direction),
-                qsize(g.offset),
-                g.layer
-            );
+            for (let k in data.guns[i]) {
+                output.push(data.guns[i][k]); 
+            }
         }
         // For each turret, add their own output
         output.push(data.turrets.length);
@@ -1648,7 +1664,8 @@ class socketManager {
         if (prev[3] !== now[3] || prev[4] !== now[4]) mask |= 0x0001;
         if (prev[5] !== now[5] || prev[6] !== now[6]) mask |= 0x0002;
         if (prev[7] !== now[7]) mask |= 0x0004;
-        if (prev[8] !== now[8] || prev[9] !== now[9]) mask |= 0x0008;
+        const stopped = Math.abs(now[5]) + Math.abs(now[6]) <= 1;
+        if (prev[8] !== now[8] || (!stopped && prev[9] !== now[9])) mask |= 0x0008;
         if (limited) {
             if (prev[12] !== now[12] || prev[13] !== now[13]) mask |= 0x0010;
             if (prev[14] !== now[14]) mask |= 0x0020;
@@ -1811,7 +1828,7 @@ class socketManager {
     perspective(e, player, data) {
         if (player.body != null) {
             if (e.alpha < 1 && !e.limited && !player.body.settings.canSeeInvisible) {
-                data[18] = Math.round(255 * this.getInvisEntityAlpha(player, e));
+                data[18] = qfrac(this.getInvisEntityAlpha(player, e));
             }
             if (player.body.id === e.master.id) {
                 data = data.slice(); // So we don't mess up references to the original
@@ -1825,8 +1842,8 @@ class socketManager {
             if (player.body.settings.canSeeInvisible) {
                 data = data.slice();
                 let alpha = this.getInvisEntityAlpha(player, e, player.body.settings.canSeeInvisible);
-                if (e.limited) data[14] = Math.round(255 * alpha);
-                else data[18] = Math.round(255 * alpha);
+                if (e.limited) data[14] = qfrac(alpha);
+                else data[18] = qfrac(alpha);
             }
             if (
                 player.body.team === e.source.team &&
@@ -1867,7 +1884,7 @@ class socketManager {
                 mockup = this.generateMockup(index);
             }
             // Send the mockup to the client.
-            socket.talk("M", index, JSON.stringify(mockup));
+            socket.talk("M", index, encodeMockup(mockup));
             // Also push it to the socket's status so we know it.
             socket.status.mockupData.receivedMockups.push(mockup);
             // Push the index so the function doesnt run a thousens of times.
@@ -2059,8 +2076,8 @@ class socketManager {
                     socket.talk(
                         "u",
                         true,
-                        qpos(camera.x),
-                        qpos(camera.y)
+                        camera.x,
+                        camera.y
                     );
                     lastSentCamX = NaN; // force a full packet next time
                 } else if (
@@ -2073,11 +2090,11 @@ class socketManager {
                     socket.talk(
                         "u",
                         lastCycle,
-                        qpos(camera.x),
-                        qpos(camera.y),
-                        Math.round(fovNow),
-                        qvel(camera.vx),
-                        qvel(camera.vy),
+                        camera.x,
+                        camera.y,
+                        fovNow,
+                        camera.vx,
+                        camera.vy,
                         camera.scoping
                     );
                 } else {
@@ -2087,11 +2104,11 @@ class socketManager {
                     msg.push(
                         "u",
                         lastCycle,
-                        qpos(camera.x),
-                        qpos(camera.y),
-                        Math.round(fovNow),
-                        qvel(camera.vx),
-                        qvel(camera.vy),
+                        camera.x,
+                        camera.y,
+                        fovNow,
+                        camera.vx,
+                        camera.vy,
                         camera.scoping
                     );
                     const gui = player.gui.publish();
@@ -2715,7 +2732,7 @@ class socketManager {
 
         if (Config.load_all_mockups) {
             for (let i = 0; i < mockupData.length; i++) {
-                socket.talk("M", mockupData[i].index, JSON.stringify(mockupData[i]));
+                socket.talk("M", mockupData[i].index, encodeMockup(mockupData[i]));
             }
         }
 
