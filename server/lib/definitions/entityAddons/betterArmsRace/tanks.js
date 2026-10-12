@@ -3,6 +3,28 @@ const { base } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 
+// Gun Presets
+preset.gun.crossfireSide = [
+    {
+        POSITION: {
+            LENGTH: 17,
+            WIDTH: 1.4,
+            ASPECT: -9,
+            X: -20,
+            ANGLE: 180
+        }
+    },
+    ...weaponMirror({
+        POSITION: {
+            LENGTH: 8,
+            WIDTH: 2,
+            ASPECT: -1.7,
+            Y: -20,
+            ANGLE: 90
+        }
+    })
+];
+
 // Tier 2 (Level 30)
 Class.crossfire = {
     PARENT: "genericTank",
@@ -10,40 +32,16 @@ Class.crossfire = {
     DANGER: 6,
     BODY: Class.sniper.BODY,
     GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 12
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
-                ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }),
+        ...preset.gun.crossfireSide,
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
-                TYPE: "bullet"
             }
         }
     ],
-    UPGRADES_TIER_3: ["dispute", "vigilante", "forager", "spitfire", "quickdraw", "quagmire", "ph_crossfireH", "autoCrossfire"],
-    UPGRADES_TIER_4: ["brushguard", "hailshot"]
+    UPGRADES_TIER_3: ["dispute", "puncturer", "vigilante", "forager", "spitfire", "quickdraw", "crossfireHybrid", "autoCrossfire"],
+    UPGRADES_TIER_4: ["brushguard", "hailshot"/*, "sheepfold"*/]
 };
 
 // Tier 3 (Level 45)
@@ -65,8 +63,8 @@ for (let i = 0; i < autoTanksT3.length; i++) {
 };
 
 const hybridTanksT3 = [
-    // Base Tank  //Director       //Cruiser         //Spawner         //Honcho          //Overseer  //Directordrive
-    ["crossfire", "ph_crossfireH", "ph_crossfireHC", "ph_crossfireHS", "ph_crossfireHO", undefined,  "ph_crossfireHD"]
+    // Base Tank  //Director          //Cruiser              //Spawner            //Honcho                //Overseer //Directordrive
+    ["crossfire", "Crossfire Hybrid", "Crossfire Synthesis", "Crossfire Enactor", "Crossfire Crossbreed"]
     // The last two are optional and will be filled out automatically so long as the Base Tank and Director are defined.
 ];
 for (let i = 0; i < hybridTanksT3.length; i++) {
@@ -106,57 +104,45 @@ for (let i = 0; i < hybridTanksT3.length; i++) {
 
 Class.dispute = {
     PARENT: "genericTank",
-    LABEL: "Dispute", //"Caltrop"
+    LABEL: "Dispute",
     DANGER: 7,
     BODY: Class.crossfire.BODY,
     GUNS: [
-        {
+        ...weaponStack({
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 7
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
             }
-        },
+        }, 2, { xPosOffset: -5 }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
+                ASPECT: -1.7,
+                Y: -15,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -15,
-                ANGLE: 90,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
             }
         }),
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
-                TYPE: "bullet"
             }
         }
     ],
-    UPGRADES_TIER_4: ["blade", "desperado", "trailblazer", "rotary", "delver", "ph_quagmire2", "autoDispute"]
+    UPGRADES_TIER_4: ["blade", "caltrop", "desperado", "trailblazer", "rotary", "delver", "disputeHybrid", "autoDispute"]
 };
 Class.forager = {
     PARENT: "genericTank",
@@ -167,33 +153,26 @@ Class.forager = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 11,
-                ASPECT: 1.5,
-                X: 7
+                LENGTH: 16,
+                WIDTH: 1.8,
+                ASPECT: -9,
+                X: -15,
+                ANGLE: 180
             }
         },
         ...weaponMirror({
             POSITION: {
-                LENGTH: 28 / 3,
+                LENGTH: 9.5,
                 WIDTH: 2,
-                ASPECT: -1.35,
+                ASPECT: -1.7,
                 Y: -15,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary]),
-                TYPE: "bullet"
             }
         },
         {
@@ -201,14 +180,10 @@ Class.forager = {
                 LENGTH: 21,
                 WIDTH: 11,
                 DELAY: 0.25
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter]),
-                TYPE: "bullet"
             }
         }
     ],
-    UPGRADES_TIER_4: ["trailblazer", /*"prowler", */"snarer"/*, "grapeshot", "bifurcate*/, "autoForager"/*, "megaForager", "lookout", "vanguard"*/]
+    UPGRADES_TIER_4: ["trailblazer"/*, "pathfinder", "cadger", "prowler"*/, "snarer"/*, "grapeshot", "bifurcate*/, "autoForager"/*, "megaForager", "lookout", "vanguard"*/]
 };
 Class.piercer = {
     PARENT: "genericTank",
@@ -235,9 +210,54 @@ Class.piercer = {
             }
         }, 3, { lengthOffset: 2, delayIncrement: 1 / 3 })
     ],
-    UPGRADES_TIER_4: ["stiletto", "saxton", "autoPiercer"]
+    UPGRADES_TIER_4: [/*"stiletto", "saxton", */"autoPiercer"]
 };
-Class.quagmire = {
+Class.puncturer = {
+    PARENT: "genericTank",
+    LABEL: "Puncturer",
+    DANGER: 7,
+    BODY: Class.crossfire.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        },
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 8,
+                    WIDTH: 2,
+                    ASPECT: -1.7,
+                    Y: -20,
+                    ANGLE: 90
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 2,
+                    WIDTH: 2.2,
+                    ASPECT: 1.7,
+                    X: 8,
+                    Y: -20,
+                    ANGLE: 90
+                }
+            }
+        ]),
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8
+            }
+        }
+    ],
+    UPGRADES_TIER_4: ["caltrop", "roofer"/*, "sheepfold", "cerberus", "cadger", "chauchat", "carabin"*/, "puncturerHybrid", "autoPuncturer"]
+};
+/*Class.quagmire = {
     PARENT: "genericTank",
     LABEL: "Quagmire",
     DANGER: 7,
@@ -284,7 +304,7 @@ Class.quagmire = {
         }
     ],
     UPGRADES_TIER_4: ["ph_quagmire2", "ph_quagmireH", "autoQuagmire"]
-};
+};*/
 Class.quickdraw = {
     PARENT: "genericTank",
     LABEL: "Quickdraw",
@@ -297,39 +317,15 @@ Class.quickdraw = {
                 WIDTH: 12
             }
         },
-        {
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 12
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
-                ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }),
+        ...preset.gun.crossfireSide,
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 7
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle]),
-                TYPE: "bullet"
             }
         }
     ],
-    UPGRADES_TIER_4: ["delver", "ph_quickdrawH", "autoQuickdraw"]
+    UPGRADES_TIER_4: ["delver"/*, "carabin", "skewer", "crossdraw"*/, "sentiel"/*, "hardcase", "vanguard"*/, "autoQuickdraw"]
 };
 Class.spitfire = {
     PARENT: "genericTank",
@@ -339,37 +335,30 @@ Class.spitfire = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 7
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -15,
+                ANGLE: 180
             }
         },
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
+                ASPECT: -1.7,
                 Y: -15,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         ...weaponStack({
             POSITION: {
                 LENGTH: 21,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
-                TYPE: "bullet"
             }
         }, 3, {lengthOffset: 2, delayIncrement: 1 / 3})
     ],
-    UPGRADES_TIER_4: ["rotary", "ph_spitfireH", "autoSpitfire"]
+    UPGRADES_TIER_4: ["rotary"/*, "chauchat", "uzi", "sander"*/, "fumigator"/*, "hindrance", "apostate", "cattleProd", "stitcher", "convex"*/, "autoSpitfire"/*, "dingus"*/]
 };
 Class.vigilante = {
     PARENT: "genericTank",
@@ -377,35 +366,11 @@ Class.vigilante = {
     DANGER: 7,
     BODY: Class.assassin.BODY,
     GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 12
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
-                ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }),
+        ...preset.gun.crossfireSide,
         {
             POSITION: {
                 LENGTH: 27,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
-                TYPE: "bullet"
             }
         },
         {
@@ -416,22 +381,24 @@ Class.vigilante = {
             }
         }
     ],
-    [`UPGRADES_TIER_${4}`]: ["desperado", "longbow", "talon", "crosswind", "autoVigilante", "jaywalker", "backlash", "bodyguard"]
+    UPGRADES_TIER_4: ["desperado"/*, "cerberus"*/, "longbow", "talon", "crosswind", "autoVigilante", "backlash", "bodyguard"/*, "vigilante3", "hardcase", "vanguard"*/]
 };
-
-Class.ph_crossfireH.LABEL = "";
-Class.ph_crossfireH.UPGRADES_TIER_4.push("bodyguard", "snarer", "ph_spitfireH", "ph_quickdrawH", "ph_quagmireH", "autoPh_crossfireH");
 
 // Tier 4 (Level 60)
 const autoTanksT4 = [
+    "crossfireHybrid",
+    "deadeye",
     "dispute",
     "forager",
+    "fork",
+    "nimrod",
     "piercer",
-    "quagmire",
+    "puncturer",
+    //"quagmire",
     "quickdraw",
+    "revolver",
     "spitfire",
-    "vigilante",
-    "ph_crossfireH"
+    "vigilante"
 ];
 for (let i = 0; i < autoTanksT4.length; i++) {
     let type = autoTanksT4[i];
@@ -440,11 +407,13 @@ for (let i = 0; i < autoTanksT4.length; i++) {
 
 const hybridTanksT4 = [
     // Base Tank  //Director
+    ["dispute",   "Dispute Hybrid"],
     ["forager",   "Snarer"],
-    ["piercer",   "Saxton"],
-    ["quagmire",  "ph_quagmireH"],
-    ["quickdraw", "ph_quickdrawH"],
-    ["spitfire",  "ph_spitfireH"],
+    //["piercer",   "Saxton"],
+    ["puncturer", "Puncturer Hybrid"],
+    //["quagmire",  "ph_quagmireH"],
+    ["quickdraw", "Sentiel"],
+    ["spitfire",  "Fumigator"],
     ["vigilante", "Bodyguard"]
 ];
 for (let i = 0; i < hybridTanksT4.length; i++) {
@@ -460,7 +429,8 @@ for (let i = 0; i < hybridTanksT4.length; i++) {
     Class[typeDirector] = makeOver(type, director, preset.hybrid);
 };
 
-Class.autoCrossfire.UPGRADES_TIER_4.push(...["Dispute", "Vigilante", "Forager", "Spitfire", "Quickdraw", "Quagmire", "Ph_crossfireH"].map(x => `auto${x}`));
+Class.autoCrossfire.UPGRADES_TIER_4.push(...["Dispute", "Puncturer", "Vigilante", "Forager", "Spitfire", "Quickdraw", "CrossfireHybrid"].map(x => `auto${x}`));
+Class.autoMarksman.UPGRADES_TIER_4.push(...["Deadeye", "Nimrod", "Revolver", "Fork", "Piercer"].map(x => `auto${x}`))
 Class.backlash = makeGunner("vigilante", "Backlash");
 Class.blade = {
     PARENT: "genericTank",
@@ -468,68 +438,117 @@ Class.blade = {
     DANGER: 8,
     BODY: Class.dispute.BODY,
     GUNS: [
-        {
+        ...weaponStack({
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 2
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
             }
-        },
+        }, 3, { xPosOffset: -5 }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
+                ASPECT: -1.7,
+                Y: -10,
+                ANGLE: 90
+            }
+        }),
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 2,
+                ASPECT: -1.7,
+                Y: -15,
+                ANGLE: 90
+            }
+        }),
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 2,
+                ASPECT: -1.7,
                 Y: -20,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }),
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -15,
-                ANGLE: 90,
-                DELAY: 1 / 3
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }),
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -10,
-                ANGLE: 90,
-                DELAY: 2 / 3
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper]),
-                TYPE: "bullet"
             }
         }
     ]
 };
 Class.brushguard = makeGuard("crossfire", "Brushguard");
+Class.caltrop = {
+    PARENT: "genericTank",
+    LABEL: "Caltrop",
+    DANGER: 8,
+    BODY: Class.puncturer.BODY,
+    GUNS: [
+        ...weaponStack({
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        }, 2, { xPosOffset: -5 }),
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 8,
+                    WIDTH: 2,
+                    ASPECT: -1.7,
+                    Y: -15,
+                    ANGLE: 90
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 2,
+                    WIDTH: 2.2,
+                    ASPECT: 1.7,
+                    X: 8,
+                    Y: -15,
+                    ANGLE: 90
+                }
+            }
+        ]),
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 8,
+                    WIDTH: 2,
+                    ASPECT: -1.7,
+                    Y: -20,
+                    ANGLE: 90
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 2,
+                    WIDTH: 2.2,
+                    ASPECT: 1.7,
+                    X: 8,
+                    Y: -20,
+                    ANGLE: 90
+                }
+            }
+        ]),
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8
+            }
+        }
+    ]
+};
+Class.crossfireHybrid.UPGRADES_TIER_4.push("disputeHybrid", "puncturerHybrid", "bodyguard", "snarer", "fumigator", "sentiel", "autoCrossfireHybrid");
 Class.crosswind = {
     PARENT: "genericTank",
     LABEL: "Crosswind",
@@ -540,23 +559,20 @@ Class.crosswind = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 12
+                LENGTH: 17,
+                WIDTH: 1.65,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
             }
         },
         ...weaponMirror({
             POSITION: {
                 LENGTH: 9,
                 WIDTH: 2,
-                ASPECT: -1.35,
+                ASPECT: -1.7,
                 Y: -20,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         {
@@ -564,10 +580,6 @@ Class.crosswind = {
                 LENGTH: 27,
                 WIDTH: 8,
                 ASPECT: -1.77
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
-                TYPE: "bullet"
             }
         }
     ]
@@ -584,49 +596,37 @@ Class.delver = {
                 WIDTH: 12
             }
         },
-        {
+        ...weaponStack({
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 7
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
             }
-        },
+        }, 2, { xPosOffset: -5 }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
+                ASPECT: -1.7,
+                Y: -15,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -15,
-                ANGLE: 90,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
             }
         }),
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 7
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle]),
-                TYPE: "bullet"
             }
         }
     ]
@@ -637,49 +637,37 @@ Class.desperado = {
     DANGER: 8,
     BODY: Class.vigilante.BODY,
     GUNS: [
-        {
+        ...weaponStack({
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 7
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
             }
-        },
+        }, 2, { xPosOffset: -5 }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
+                ASPECT: -1.7,
+                Y: -15,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -15,
-                ANGLE: 90,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
+                ASPECT: -1.7,
+                Y: -20,
+                ANGLE: 90
             }
         }),
         {
             POSITION: {
                 LENGTH: 27,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
-                TYPE: "bullet"
             }
         },
         {
@@ -699,33 +687,26 @@ Class.hailshot = {
     GUNS: [
         {
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 12
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
             }
         },
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
+                ASPECT: -1.7,
                 Y: -20,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.railgun]),
-                TYPE: "bullet"
             }
         },
         {
@@ -738,7 +719,7 @@ Class.hailshot = {
         }
     ]
 };
-Class.handgun = {
+/*Class.handgun = {
     PARENT: "genericTank",
     LABEL: "Handgun",
     DANGER: 8,
@@ -768,8 +749,8 @@ Class.handgun = {
             }
         }
     ]
-};
-Class.hexaAngle = {
+};*/
+/*Class.hexaAngle = {
     PARENT: "genericTank",
     LABEL: "Hexa-Angle",
     DANGER: 8,
@@ -825,8 +806,8 @@ Class.hexaAngle = {
             LABEL: "thruster"
         }
     })
-};
-Class.jaywalker = {
+};*/
+/*Class.jaywalker = {
     PARENT: "genericTank",
     LABEL: "Jaywalker",
     DANGER: 8,
@@ -871,7 +852,7 @@ Class.jaywalker = {
             }
         }
     ]
-};
+};*/
 Class.jimmy = {
     PARENT: "genericTank",
     LABEL: "Jimmy",
@@ -935,35 +916,11 @@ Class.longbow = {
     DANGER: 8,
     BODY: Class.ranger.BODY,
     GUNS: [
-        {
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 12
-            }
-        },
-        ...weaponMirror({
-            POSITION: {
-                LENGTH: 8,
-                WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -20,
-                ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
-            }
-        }),
+        ...preset.gun.crossfireSide,
         {
             POSITION: {
                 LENGTH: 32,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin]),
-                TYPE: "bullet"
             }
         },
         {
@@ -975,8 +932,8 @@ Class.longbow = {
         }
     ]
 };
-Class.orifice = makeGunner("single", "Orifice");
-Class.pistol = {
+//Class.orifice = makeGunner("single", "Orifice");
+/*Class.pistol = {
     PARENT: "genericTank",
     LABEL: "Pistol",
     DANGER: 8,
@@ -1008,6 +965,50 @@ Class.pistol = {
             }
         }
     ]
+};*/
+Class.roofer = {
+    PARENT: "genericTank",
+    LABEL: "Roofer",
+    DANGER: 8,
+    BODY: Class.puncturer.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -20,
+                ANGLE: 180
+            }
+        },
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 6.5,
+                    WIDTH: 4,
+                    ASPECT: -1.4,
+                    Y: -20,
+                    ANGLE: 90
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 1.5,
+                    WIDTH: 4,
+                    ASPECT: 1.2,
+                    X: 6.5,
+                    Y: -20,
+                    ANGLE: 90
+                }
+            }
+        ]),
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8
+            }
+        }
+    ]
 };
 Class.rotary = {
     PARENT: "genericTank",
@@ -1015,54 +1016,42 @@ Class.rotary = {
     DANGER: 8,
     BODY: Class.spitfire.BODY,
     GUNS: [
-        {
+        ...weaponStack({
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 8,
-                ASPECT: 1.5,
-                X: 2
+                LENGTH: 17,
+                WIDTH: 1.4,
+                ASPECT: -9,
+                X: -15,
+                ANGLE: 180
             }
-        },
+        }, 2, { xPosOffset: -5 }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -15,
+                ASPECT: -1.7,
+                Y: -10,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         ...weaponMirror({
             POSITION: {
                 LENGTH: 8,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -10,
-                ANGLE: 90,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
+                ASPECT: -1.7,
+                Y: -15,
+                ANGLE: 90
             }
         }),
         ...weaponStack({
             POSITION: {
                 LENGTH: 21,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.minigun]),
-                TYPE: "bullet"
             }
         }, 3, {lengthOffset: 2, delayIncrement: 1 / 3})
     ]
 };
-Class.spy = {
+/*Class.spy = {
     PARENT: "genericTank",
     LABEL: "Spy",
     DANGER: 8,
@@ -1082,8 +1071,8 @@ Class.spy = {
             }
         }
     ]
-};
-Class.stiletto = {
+};*/
+/*Class.stiletto = {
     PARENT: "genericTank",
     LABEL: "Stiletto",
     DANGER: 8,
@@ -1108,8 +1097,8 @@ Class.stiletto = {
             }
         }, 5, { lengthOffset: 2, delayIncrement: 0.2 })
     ]
-};
-Class.subduer = {
+};*/
+/*Class.subduer = {
     PARENT: "genericTank",
     LABEL: "Subduer",
     DANGER: 8,
@@ -1149,7 +1138,7 @@ Class.subduer = {
             }
         }
     ]
-};
+};*/
 Class.talon = makeBird("vigilante", "Talon");
 Class.terminus = {
     PARENT: "genericTank",
@@ -1206,49 +1195,37 @@ Class.trailblazer = {
     BODY: Class.forager.BODY,
     CONTROLLERS: Class.forager.CONTROLLERS,
     GUNS: [
-        {
+        ...weaponStack({
             POSITION: {
-                LENGTH: 8,
-                WIDTH: 11,
-                ASPECT: 1.5,
-                X: 2
+                LENGTH: 16,
+                WIDTH: 1.8,
+                ASPECT: -9,
+                X: -15,
+                ANGLE: 180
             }
-        },
+        }, 2, { xPosOffset: -5 }),
         ...weaponMirror({
             POSITION: {
-                LENGTH: 28 / 3,
+                LENGTH: 9.5,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -15,
+                ASPECT: -1.7,
+                Y: -10,
                 ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
             }
         }),
         ...weaponMirror({
             POSITION: {
-                LENGTH: 28 / 3,
+                LENGTH: 9.5,
                 WIDTH: 2,
-                ASPECT: -1.35,
-                Y: -10,
-                ANGLE: 90,
-                DELAY: 0.5
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, { speed: 0.7, maxSpeed: 0.7 }, g.flankGuard]),
-                TYPE: "bullet"
+                ASPECT: -1.7,
+                Y: -15,
+                ANGLE: 90
             }
         }),
         {
             POSITION: {
                 LENGTH: 24,
                 WIDTH: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter, g.hunterSecondary]),
-                TYPE: "bullet"
             }
         },
         {
@@ -1256,20 +1233,11 @@ Class.trailblazer = {
                 LENGTH: 21,
                 WIDTH: 11,
                 DELAY: 0.25
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.hunter]),
-                TYPE: "bullet"
             }
         }
     ]
 };
 
-Class.autoPh_crossfireH.LABEL = "";
-Class.ph_crossfireHC.LABEL = "";
-Class.ph_crossfireHD.LABEL = "";
-Class.ph_crossfireHO.LABEL = "";
-Class.ph_crossfireHS.LABEL = "";
 Class.ph_artilleryHexa = {
     PARENT: "genericTank",
     LABEL: "",
@@ -1316,7 +1284,7 @@ Class.ph_artilleryHexa = {
         }
     ], 3)
 };
-Class.ph_quagmire2 = {
+/*Class.ph_quagmire2 = {
     PARENT: "genericTank",
     LABEL: "",
     DANGER: 8,
@@ -1378,8 +1346,7 @@ Class.ph_quagmire2 = {
     ]
 };
 Class.ph_quagmireH.LABEL = "";
-Class.ph_quickdrawH.LABEL = "";
-Class.ph_spitfireH.LABEL = "";
+*/
 
 // Existing Upgrade Management
 const enable_missing_tanks = require("../../groups/tanks/armsRace.js");
@@ -1390,26 +1357,32 @@ if (Config.arms_race) {
 
     Class.assassin.UPGRADES_TIER_3.push("vigilante");
     Class.hunter.UPGRADES_TIER_3.push("forager");
-    Class.marksman.UPGRADES_TIER_3.push("piercer", "quagmire", "autoMarksman");
+    Class.marksman.UPGRADES_TIER_3.push("piercer", /*"quagmire", */"autoMarksman");
     Class.minigun.UPGRADES_TIER_3.push("piercer", "spitfire");
     Class.pounder.UPGRADES_TIER_3.push("deathStar");
     Class.rifle.UPGRADES_TIER_3.push("quickdraw");
 
     Class.artillery.UPGRADES_TIER_4.push("ph_artilleryHexa");
-    Class.autoAssassin.UPGRADES_TIER_4.push("autoVigilante");
+    Class.autoAssassin.UPGRADES_TIER_4.push("autoDeadeye", "autoVigilante");
+    Class.autoHunter.UPGRADES_TIER_4.push("autoNimrod", "autoForager");
     Class.autoMinigun.UPGRADES_TIER_4.push("autoPiercer", "autoSpitfire");
-    Class.buttbuttin.UPGRADES_TIER_4.push("backlash");
+    Class.autoRifle.UPGRADES_TIER_4.push("autoRevolver", "autoQuickdraw");
     Class.bushwhacker.UPGRADES_TIER_4.push("brushguard");
-    Class.cropDuster.UPGRADES_TIER_4.push("saxton", "ph_spitfireH");
+    Class.buttbuttin.UPGRADES_TIER_4.push("backlash");
+    Class.cropDuster.UPGRADES_TIER_4.push(/*"saxton", */"fumigator");
     Class.crowbar.UPGRADES_TIER_4.push("jimmy");
+    Class.deadeye.UPGRADES_TIER_4.push("autoDeadeye");
     Class.deathStar.UPGRADES_TIER_4.push("ph_artilleryHexa", "terminus");
     Class.destroyer.UPGRADES_TIER_4.push("orbitalStrike");
     Class.falcon.UPGRADES_TIER_4.push("talon");
+    Class.fork.UPGRADES_TIER_4.push("autoFork");
     Class.hitman.UPGRADES_TIER_4.push("bodyguard");
     Class.launcher.UPGRADES_TIER_4.push("terminus");
-    Class.quadAngle.UPGRADES_TIER_4.push("hexaAngle", "jimmy");
+    Class.nimrod.UPGRADES_TIER_4.push("autoNimrod");
+    Class.quadAngle.UPGRADES_TIER_4.push(/*"hexaAngle", */"jimmy");
     Class.railgun.UPGRADES_TIER_4.push("hailshot");
-    Class.single.UPGRADES_TIER_4.push("spy", "pistol", "orifice", "handgun", "subduer", "jaywalker");
+    Class.revolver.UPGRADES_TIER_4.push("autoRevolver");
+    Class.single.UPGRADES_TIER_4.push(/*"spy", "pistol", "orifice", "handgun", "subduer", "jaywalker"*/);
     Class.stalker.UPGRADES_TIER_4.push("crosswind");
-    Class.streamliner.UPGRADES_TIER_4.push("stiletto");
+    Class.streamliner.UPGRADES_TIER_4.push(/*"stiletto"*/);
 };

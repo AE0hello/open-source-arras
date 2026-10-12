@@ -218,7 +218,7 @@ module.exports = {
 
             region: "Oceania",
             location: "Localhost",
-            gamemode: ["sandbox"],
+            gamemode: ["arms_race", "sandbox"],
             player_cap: 80,
 
             featured: false,
