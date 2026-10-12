@@ -512,7 +512,7 @@ class socketManager {
                 if (Config.reverse_tank_cooldown && reverseTank !== player.body.reverseTank && reverseTank !== socket.status.lastReverseTank) {
                     socket.status.reverseSpam = (socket.status.reverseSpam || 0) + 1;
                     setTimeout(() => socket.status.reverseSpam--, 10_000);
-                    if (socket.status.reverseSpam > 7) {
+                    if (socket.status.reverseSpam >= 7) {
                         player.body.sendMessage("Please slow down!");
                         reverseTank = player.body.reverseTank;
                     }
