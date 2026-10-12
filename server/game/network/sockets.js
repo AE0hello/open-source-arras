@@ -1457,56 +1457,56 @@ class socketManager {
         let output = [data.type]; // We will remove the first entry in the persepective method
         if (data.type & 0x01) {
             output.push(
-                /*  1 */ data.facing,
+                /*  1 */ qangle(data.facing),
                 /*  2 */ data.layer,
                 /*  3 */ numIndex(data.index),
                 /*  4 */ data.color,
-                /*  5 */ data.size,
-                /*  6 */ data.realSize,
-                /*  7 */ data.sizeFactor,
-                /*  8 */ data.angle,
-                /*  9 */ data.direction,
-                /* 10 */ data.offset,
+                /*  5 */ qsize(data.size),
+                /*  6 */ qsize(data.realSize),
+                /*  7 */ qpct(data.sizeFactor),
+                /*  8 */ qangle(data.angle),
+                /*  9 */ qangle(data.direction),
+                /* 10 */ qsize(data.offset),
                 /* 11 */ data.mirrorMasterAngle
             );
         } else if (data.type & 0x10) {
             output.push(
                 /*  1 */ data.id,
                 /*  2 */ numIndex(data.index),
-                /*  3 */ data.x,
-                /*  4 */ data.y,
-                /*  5 */ data.vx,
-                /*  6 */ data.vy,
-                /*  7 */ data.size,
-                /*  8 */ data.facing,
-                /*  9 */ data.vfacing,
+                /*  3 */ qpos(data.x),
+                /*  4 */ qpos(data.y),
+                /*  5 */ qvel(data.vx),
+                /*  6 */ qvel(data.vy),
+                /*  7 */ qsize(data.size),
+                /*  8 */ qangle(data.facing),
+                /*  9 */ qangle(data.vfacing),
                 /* 11 */ data.layer,
                 /* 12 */ data.color,
-                /* 14 */ Math.ceil(65535 * data.health),
-                /* 15 */ Math.round(65535 * data.shield),
-                /* 16 */ Math.round(255 * data.alpha),
+                /* 14 */ qfrac(data.health),
+                /* 15 */ qfrac(data.shield),
+                /* 16 */ qfrac(data.alpha),
                 /* 17 */ data.hit
             );
         } else {
             output.push(
                 /*  1 */ data.id,
                 /*  2 */ numIndex(data.index),
-                /*  3 */ data.x,
-                /*  4 */ data.y,
-                /*  5 */ data.vx,
-                /*  6 */ data.vy,
-                /*  7 */ data.size,
-                /*  8 */ data.facing,
-                /*  9 */ data.vfacing,
+                /*  3 */ qpos(data.x),
+                /*  4 */ qpos(data.y),
+                /*  5 */ qvel(data.vx),
+                /*  6 */ qvel(data.vy),
+                /*  7 */ qsize(data.size),
+                /*  8 */ qangle(data.facing),
+                /*  9 */ qangle(data.vfacing),
                 /* 10 */ data.twiggle,
                 /* 11 */ data.layer,
                 /* 12 */ data.color,
                 /* 14 */ data.borderless,
                 /* 15 */ data.drawFill,
                 /* 16 */ data.invuln,
-                /* 17 */ Math.ceil(65535 * data.health),
-                /* 18 */ Math.round(65535 * data.shield),
-                /* 19 */ Math.round(255 * data.alpha),
+                /* 17 */ qfrac(data.health),
+                /* 18 */ qfrac(data.shield),
+                /* 19 */ qfrac(data.alpha),
                 /* 20 */ data.hit
             );
             if (data.type & 0x04) {
@@ -1519,9 +1519,24 @@ class socketManager {
         // Add the gun data to the array
         output.push(data.guns.length);
         for (let i = 0; i < data.guns.length; i++) {
-            for (let k in data.guns[i]) {
-                output.push(data.guns[i][k]); 
-            }
+            let g = data.guns[i];
+            output.push(
+                g.time,
+                qfrac(g.power),
+                g.color,
+                qfrac(g.alpha),
+                qpct(g.strokeWidth),
+                g.borderless,
+                g.drawFill,
+                g.drawAbove,
+                qsize(g.length),
+                qsize(g.width),
+                qpct(g.aspect),
+                qangle(g.angle),
+                qangle(g.direction),
+                qsize(g.offset),
+                g.layer
+            );
         }
         // For each turret, add their own output
         output.push(data.turrets.length);
@@ -2000,8 +2015,8 @@ class socketManager {
                     socket.talk(
                         "u",
                         true,
-                        camera.x,
-                        camera.y
+                        qpos(camera.x),
+                        qpos(camera.y)
                     );
                     lastSentCamX = NaN; // force a full packet next time
                 } else if (
@@ -2014,11 +2029,11 @@ class socketManager {
                     socket.talk(
                         "u",
                         lastCycle,
-                        camera.x,
-                        camera.y,
-                        fovNow,
-                        camera.vx,
-                        camera.vy,
+                        qpos(camera.x),
+                        qpos(camera.y),
+                        Math.round(fovNow),
+                        qvel(camera.vx),
+                        qvel(camera.vy),
                         camera.scoping
                     );
                 } else {
@@ -2028,11 +2043,11 @@ class socketManager {
                     msg.push(
                         "u",
                         lastCycle,
-                        camera.x,
-                        camera.y,
-                        fovNow,
-                        camera.vx,
-                        camera.vy,
+                        qpos(camera.x),
+                        qpos(camera.y),
+                        Math.round(fovNow),
+                        qvel(camera.vx),
+                        qvel(camera.vy),
                         camera.scoping
                     );
                     const gui = player.gui.publish();
@@ -2243,7 +2258,7 @@ class socketManager {
         let minimapAllTeams = new Delta(3, args => {
             let all = [];
             for (const my of entities.values()) {
-                if (my.type === "tank" && my.master === my && !my.lifetime && !my.settings.fullyInvisible) {
+                if (my.type === "tank" && my.master === my && my.allowedOnMinimap && !my.lifetime && !my.settings.fullyInvisible) {
                     all.push({
                         id: my.id,
                         data: [
@@ -2374,7 +2389,8 @@ class socketManager {
                     socket.id,
                     (Config.groups || (Config.mode == "ffa" && !Config.tag)) && socket.player.body ? socket.player.body.id : null
                 );
-                let team = socket.status.seesAllTeams ? minimapAllTeamsUpdate : minimapTeamUpdates;
+                let showAllTeams = socket.status.seesAllTeams || (!Config.groups && !Config.tag && (Config.mode == "ffa" || Config.mode == "clan"));
+                let team = showAllTeams ? minimapAllTeamsUpdate : minimapTeamUpdates;
                 
                 // Send the leaderboard tanks' mockups
                 if (global.gameManager.gameHandler.active) {

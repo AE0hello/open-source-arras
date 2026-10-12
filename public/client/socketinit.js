@@ -504,16 +504,16 @@ const process = (z = {}) => {
     let type = get.next();
     // Handle it appropiately
     if (type & 0x01) { // issa turret
-        z.facing = get.next();
+        z.facing = get.next() * Math.PI / 2048;
         z.layer = get.next();
         z.index = String(get.next());
         z.color = decodeColor(get.next());
-        z.size = get.next();
-        z.realSize = get.next();
-        z.sizeFactor = get.next();
-        z.angle = get.next();
-        z.direction = get.next();
-        z.offset = get.next();
+        z.size = get.next() / 16;
+        z.realSize = get.next() / 16;
+        z.sizeFactor = get.next() / 100;
+        z.angle = get.next() * Math.PI / 2048;
+        z.direction = get.next() * Math.PI / 2048;
+        z.offset = get.next() / 16;
         z.mirrorMasterAngle = get.next();
     } else { // issa something real
         z.interval = global.metrics.rendergap;
@@ -539,28 +539,28 @@ const process = (z = {}) => {
         // For limited entities only by only pulling their limited information.
         if (type & 0x10) {
             z.index = String(get.next());
-            z.x = get.next();
-            z.y = get.next();
-            z.vx = get.next();
-            z.vy = get.next();
-            z.size = get.next();
+            z.x = get.next() / 4;
+            z.y = get.next() / 4;
+            z.vx = get.next() / 20;
+            z.vy = get.next() / 20;
+            z.size = get.next() / 16;
             let oldFacing = z.facing;
-            z.facing = get.next();
+            z.facing = get.next() * Math.PI / 2048;
             z.vfacing = isNew ? z.facing : z.facing - oldFacing;
-            z.vfacing = get.next();
+            z.vfacing = get.next() * Math.PI / 2048;
             z.layer = get.next();
             z.color = decodeColor(get.next());
         } else { // Else pull all information.
             z.index = String(get.next());
-            z.x = get.next();
-            z.y = get.next();
-            z.vx = get.next();
-            z.vy = get.next();
-            z.size = get.next();
+            z.x = get.next() / 4;
+            z.y = get.next() / 4;
+            z.vx = get.next() / 20;
+            z.vy = get.next() / 20;
+            z.size = get.next() / 16;
             let oldFacing = z.facing;
-            z.facing = get.next();
+            z.facing = get.next() * Math.PI / 2048;
             z.vfacing = isNew ? z.facing : z.facing - oldFacing;
-            z.vfacing = get.next();
+            z.vfacing = get.next() * Math.PI / 2048;
             z.twiggle = get.next();
             z.layer = get.next();
             z.color = decodeColor(get.next());
@@ -571,13 +571,13 @@ const process = (z = {}) => {
         z.invuln = invuln ? z.invuln || Date.now() : 0;
         // Update health, flagging as injured if needed
         if (isNew) {
-            z.health = get.next() / 65535;
-            z.shield = get.next() / 65535;
+            z.health = get.next() / 255;
+            z.shield = get.next() / 255;
         } else {
             let hh = z.health,
                 ss = z.shield;
-            z.health = get.next() / 65535;
-            z.shield = get.next() / 65535;
+            z.health = get.next() / 255;
+            z.shield = get.next() / 255;
             // Update stuff
             if (z.health < hh || z.shield < ss) {
                 z.render.status.set("injured");
@@ -647,19 +647,19 @@ const process = (z = {}) => {
     // Decide if guns need to be fired one by one
     for (let i = 0; i < gunnumb; i++) {
         let time = get.next(),
-            power = get.next(),
+            power = get.next() / 255,
             color = decodeColor(get.next()),
-            alpha = get.next(),
-            strokeWidth = get.next(),
+            alpha = get.next() / 255,
+            strokeWidth = get.next() / 100,
             borderless = get.next(),
             drawFill = get.next(),
             drawAbove = get.next(),
-            length = get.next(),
-            width = get.next(),
-            aspect = get.next(),
-            angle = get.next(),
-            direction = get.next(),
-            offset = get.next(),
+            length = get.next() / 16,
+            width = get.next() / 16,
+            aspect = get.next() / 100,
+            angle = get.next() * Math.PI / 2048,
+            direction = get.next() * Math.PI / 2048,
+            offset = get.next() / 16,
             layer = get.next();
         z.guns.setConfig(i, {color, alpha, strokeWidth, borderless, drawFill, drawAbove, length, width, aspect, angle, direction, offset, layer}); // Load gun config into container
         if (time > global.player.lastUpdate - global.metrics.rendergap) z.guns.fire(i, power); // Shoot it
@@ -710,8 +710,8 @@ const patch = (z, mask) => {
             z.render.lastx = z.x;
             z.render.lasty = z.y;
         }
-        let x = get.next(),
-            y = get.next();
+        let x = get.next() / 4,
+            y = get.next() / 4;
         if (z) {
             z.x = x;
             z.y = y;
@@ -722,15 +722,15 @@ const patch = (z, mask) => {
             z.render.lastvx = z.vx;
             z.render.lastvy = z.vy;
         }
-        let vx = get.next(),
-            vy = get.next();
+        let vx = get.next() / 20,
+            vy = get.next() / 20;
         if (z) {
             z.vx = vx;
             z.vy = vy;
         }
     }
     if (mask & 0x0004) {
-        let size = get.next();
+        let size = get.next() / 16;
         if (z) {
             z.size = size;
             z.render.size.add(z.size);
@@ -738,16 +738,16 @@ const patch = (z, mask) => {
     }
     if (mask & 0x0008) {
         if (z) z.render.lastf = z.facing;
-        let facing = get.next(),
-            vfacing = get.next();
+        let facing = get.next() * Math.PI / 2048,
+            vfacing = get.next() * Math.PI / 2048;
         if (z) {
             z.facing = facing;
             z.vfacing = vfacing;
         }
     }
     if (mask & 0x0010) {
-        let health = get.next() / 65535,
-            shield = get.next() / 65535;
+        let health = get.next() / 255,
+            shield = get.next() / 255;
         if (z) {
             let hh = z.health,
                 ss = z.shield;
@@ -800,19 +800,19 @@ const patch = (z, mask) => {
         for (let i = 0; i < gunnumb; i++) {
             let gunMask = get.next();
             let time = gunMask & 0x0001 ? get.next() : 0,
-                power = gunMask & 0x0002 ? get.next() : 0,
+                power = gunMask & 0x0002 ? get.next() / 255 : 0,
                 color = gunMask & 0x0004 ? decodeColor(get.next()) : "",
-                alpha = gunMask & 0x0008 ? get.next() : 1,
-                strokeWidth = gunMask & 0x0010 ? get.next() : 1,
+                alpha = gunMask & 0x0008 ? get.next() / 255 : 1,
+                strokeWidth = gunMask & 0x0010 ? get.next() / 100 : 1,
                 borderless = gunMask & 0x0020 ? get.next() : false,
                 drawFill = gunMask & 0x0040 ? get.next() : true,
                 drawAbove = gunMask & 0x0080 ? get.next() : false,
-                length = gunMask & 0x0100 ? get.next() : 0,
-                width = gunMask & 0x0200 ? get.next() : 0,
-                aspect = gunMask & 0x0400 ? get.next() : 0,
-                angle = gunMask & 0x0800 ? get.next() : 0,
-                direction = gunMask & 0x1000 ? get.next() : 0,
-                offset = gunMask & 0x2000 ? get.next() : 0,
+                length = gunMask & 0x0100 ? get.next() / 16 : 0,
+                width = gunMask & 0x0200 ? get.next() / 16 : 0,
+                aspect = gunMask & 0x0400 ? get.next() / 100 : 0,
+                angle = gunMask & 0x0800 ? get.next() * Math.PI / 2048 : 0,
+                direction = gunMask & 0x1000 ? get.next() * Math.PI / 2048 : 0,
+                offset = gunMask & 0x2000 ? get.next() / 16 : 0,
                 layer = gunMask & 0x4000 ? get.next() : 0;
             if (z) {
                 z.guns.setConfig(i, {color, alpha, strokeWidth, borderless, drawFill, drawAbove, length, width, aspect, angle, direction, offset, layer});
@@ -827,7 +827,7 @@ const patch = (z, mask) => {
         for (let i = 0; i < turnumb; i++) {
             const tflag = get.next();
             if (tflag === 1) {
-                const facing = get.next();
+                const facing = get.next() * Math.PI / 2048;
                 if (z && !rebuild) z.turrets[i].facing = facing;
             } else if (tflag === 2) {
                 if (!z) process();
@@ -1205,21 +1205,21 @@ let incoming = async function(message, socket) {
         case "u": { // uplink
             // Pull the camera info
             if (m[0] == true) { // Update camera only if we want to.
-                let camx = m[1],
-                    camy = m[2];
+                let camx = m[1] / 4,
+                    camy = m[2] / 4;
                 global.player.cx.x = camx;
                 global.player.cy.y = camy;
                 global.player.loc = { x: camx, y: camy };
-                global.player.animX.add(m[1]);
-                global.player.animY.add(m[2]);
+                global.player.animX.add(camx);
+                global.player.animY.add(camy);
                 return;
             }
             let camtime = m[0],
-                camx = m[1],
-                camy = m[2],
+                camx = m[1] / 4,
+                camy = m[2] / 4,
                 camfov = m[3],
-                camvx = m[4],
-                camvy = m[5],
+                camvx = m[4] / 20,
+                camvy = m[5] / 20,
                 camscoping = m[6],
                 // We'll have to do protocol decoding on the remaining data
                 theshit = m.slice(7);
@@ -1259,8 +1259,8 @@ let incoming = async function(message, socket) {
                 global.player.isScoping = camscoping;
                 moveCompensation.reset();
                 // Animation stuff
-                global.player.animX.add(m[1]);
-                global.player.animY.add(m[2]);
+                global.player.animX.add(camx);
+                global.player.animY.add(camy);
                 // Fov stuff
                 global.player.view = camfov;
                 global.player.animv.add(global.player.view);
