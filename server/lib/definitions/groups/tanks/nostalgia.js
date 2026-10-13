@@ -1,7 +1,6 @@
-const { combineStats, skillSet, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeFlank, makeFore, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
-const { base, dfltskl, smshskl, statnames } = require("../../constants.js");
+const { combineStats, removeUpgrades, makeAuto, makeFlank, makeRadialAuto, makeWhirlwind, weaponArray, weaponMirror } = require("../../facilitators.js");
+const { base, smshskl, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
-const preset = require("../../presets.js");
 
 // Tier 1 (Level 15)
 Class.whirlwind = makeWhirlwind("genericTank", { label: "Whirlwind", satellites: 6, hat: "hexagonHat_spin", danger: 5 });

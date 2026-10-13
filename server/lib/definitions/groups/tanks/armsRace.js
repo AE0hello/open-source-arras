@@ -1,5 +1,5 @@
-const { combineStats, skillSet, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeFlank, makeFore, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
-const { base, dfltskl, smshskl, statnames } = require("../../constants.js");
+const { combineStats, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeOver, makeRadialAuto, makeGunner, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { base, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 
@@ -32,35 +32,9 @@ Class.diesel = {
     UPGRADES_TIER_3: ["jalopy", "machineGunner"/*, "dieselTrapper"*/, "polluter", "autoDiesel"],
     UPGRADES_TIER_4: [/*"foamer", "gizmo"*/]
 };
-Class.directordrive = {
-    PARENT: "genericTank",
-    LABEL: "Directordrive",
-    DANGER: 6,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.director.BODY,
-    TURRETS: preset.turret.driveHat,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5,
-                WIDTH: 11,
-                ASPECT: 1.3,
-                X: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone]),
-                TYPE: "autoDrone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                MAX_CHILDREN: 6,
-                WAIT_TO_CYCLE: true
-            }
-        }
-    ],
-    UPGRADES_TIER_3: [/*"directorstorm", */"overdrive", "cruiserdrive", "underdrive", "spawnerdrive", "autoDirectordrive", "honchodrive", "doperdrive"],
-    UPGRADES_TIER_4: ["managerdrive"]
-};
+Class.directordrive = makeDrive("director");
+Class.directordrive.UPGRADES_TIER_3 = ["directorstorm", "overdrive", "cruiserdrive", "underdrive", "spawnerdrive", "autoDirectordrive", "honchodrive", "doperdrive"];
+Class.directordrive.UPGRADES_TIER_4 = ["managerdrive"];
 Class.doper = {
     PARENT: "genericTank",
     LABEL: "Doper",
@@ -94,7 +68,7 @@ Class.doper = {
             }
         }
     ],
-    UPGRADES_TIER_3: [/*"brisker", "dopeseer", "mosey", */"overdose"/*, "issuer", "junkie"*/, "doperdrive", "autoDoper"],
+    UPGRADES_TIER_3: ["brisker", "dopeseer", "mosey", "overdose", "issuer", "junkie", "doperdrive", "autoDoper"],
     UPGRADES_TIER_4: ["controller"]
 };
 Class.honcho = {
@@ -122,7 +96,7 @@ Class.honcho = {
             }
         }
     ],
-    UPGRADES_TIER_3: ["foreman"/*, "baltimore", "foundry"*/, "bigCheese", "autoHoncho", "honchodrive"/*, "junkie"*/],
+    UPGRADES_TIER_3: ["foreman"/*, "baltimore", "foundry"*/, "bigCheese", "autoHoncho", "honchodrive", "junkie"],
     UPGRADES_TIER_4: [/*"minister"*/]
 };
 Class.machineTrapper = {
@@ -286,11 +260,13 @@ const autoTanksT3 = [
 ];
 for (let i = 0; i < autoTanksT3.length; i++) {
     let type = autoTanksT3[i];
-    if (!Class[`auto${type.charAt(0).toUpperCase() + type.slice(1)}`]) Class[`auto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type);
+    const alreadyDefined = Class[`auto${type.charAt(0).toUpperCase() + type.slice(1)}`] ? true : false;
+
+    if (!alreadyDefined) Class[`auto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type);
     Class[`megaAuto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type, `Mega Auto-${Class[type].LABEL}`, preset.makeAuto.mega);
     Class[`tripleAuto${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeAuto(type, `Triple Auto-${Class[type].LABEL}`, preset.makeAuto.triple);
 
-    if (Config.arms_race) {
+    if (Config.arms_race || !alreadyDefined) {
         Class[`auto${type.charAt(0).toUpperCase() + type.slice(1)}`].UPGRADES_TIER_4 = ["mega", "triple"].map(x => `${x}Auto${type.charAt(0).toUpperCase() + type.slice(1)}`);
     } else {
         Class[`auto${type.charAt(0).toUpperCase() + type.slice(1)}`].UPGRADES_TIER_4 = [];
@@ -336,14 +312,16 @@ for (let i = 0; i < hybridTanksT3.length; i++) {
     let typeHoncho = typeify(honcho);
     let typeDirectordrive = typeify(directordrive);
 
-    if (!Class[typeDirector]) Class[typeDirector] = makeOver(type, director, preset.hybrid);
+    const alreadyDefined = Class[typeDirector] ? true : false;
+
+    if (!alreadyDefined) Class[typeDirector] = makeOver(type, director, preset.hybrid);
     Class[typeOverseer] = makeOver(type, overseer);
     Class[typeCruiser] = makeBattle(type, cruiser, preset.hybrid);
     Class[typeSpawner] = makeCap(type, spawner, preset.hybrid);
     Class[typeHoncho] = makeFore(type, honcho, preset.makeFore.hybrid);
     Class[typeDirectordrive] = makeOver(type, directordrive, { ...preset.hybrid, drive: true });
 
-    if (Config.arms_race) {
+    if (Config.arms_race || !alreadyDefined) {
         Class[typeDirector].UPGRADES_TIER_4 = [typeOverseer, typeCruiser, typeSpawner, typeDirectordrive, typeHoncho];
     } else {
         Class[typeDirector].UPGRADES_TIER_4 = [];
@@ -352,7 +330,8 @@ for (let i = 0; i < hybridTanksT3.length; i++) {
 
 Class.autoAuto3.UPGRADES_TIER_4.push(...["Auto5", "Mega3", "Auto4", "Banshee", "Sniper3", "Crowbar", "Combo"].map(x => `auto${x}`));
 Class.autoDirectordrive = makeAuto("directordrive", "Auto-Directordrive", preset.makeAuto.drive);
-Class.autoDirectordrive.UPGRADES_TIER_4 = [...["mega", "triple"].map(x => `${x}AutoDirectordrive`)];
+Class.autoDirectordrive.UPGRADES_TIER_4 = [...["mega", "triple"].map(x => `${x}AutoDirectordrive`), ...["Overdrive"].map(x => `auto${x}`)];
+Class.autoDoper.UPGRADES_TIER_4.push(...["Brisker", "Dopeseer", "Mosey", "Overdose", "Issuer", "Junkie", "Doperdrive"].map(x => `auto${x}`));
 Class.autoHexaTank.UPGRADES_TIER_4.push(...["OctoTank", "Cyclone", "DeathStar", "Mingler", "Combo"].map(x => `auto${x}`));
 Class.autoSprayer.UPGRADES_TIER_4.push(...["Redistributor", "Phoenix", "Atomizer", "Focal"/*, "Frother", "Foamer"*/, "Shower"].map(x => `auto${x}`));
 Class.bentGunner = {
@@ -430,6 +409,41 @@ Class.bentMinigun = {
             }
         }, 3, {lengthOffset: 2, delayIncrement: 1 / 3})
     ]
+};
+Class.brisker = {
+    PARENT: "genericTank",
+    LABEL: "Brisker",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.doper.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.doper, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 7,
+				WIDTH: 0.5,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ],
+    UPGRADES_TIER_4: ["adderall", "briskseer", "briskerdrive", "autoBrisker"]
 };
 Class.captain = {
     PARENT: "genericTank",
@@ -589,37 +603,15 @@ Class.crowbar = {
     ],
     UPGRADES_TIER_4: [/*"pryer", "crank", "chisel", "lever", */"spindle", "autoCrowbar", "dualbar"/*, "spanner"*/, "wrench"]
 };
-Class.cruiserdrive = {
-    PARENT: "genericTank",
-    LABEL: "Cruiserdrive",
-    DANGER: 7,
-    FACING_TYPE: "locksFacing",
-    STAT_NAMES: statnames.swarm,
-    BODY: Class.cruiser.BODY,
-    TURRETS: preset.turret.swarmdriveHat,
-    GUNS: weaponMirror({
-        POSITION: {
-            LENGTH: 9,
-            WIDTH: 8.2,
-            ASPECT: 0.6,
-            X: 5,
-            Y: 4
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.swarm]),
-            TYPE: "autoSwarm",
-            STAT_CALCULATOR: "swarm"
-        }
-    }, {delayIncrement: 0.5})
-};
+Class.cruiserdrive = makeDrive("cruiser", "Cruiserdrive", "swarm");
 Class.defect = makeBird("tripleShot", "Defect");
-Class.doperdrive = {
+Class.directorstorm = {
     PARENT: "genericTank",
-    LABEL: "Doperdrive",
+    LABEL: "Directorstorm",
     DANGER: 7,
     STAT_NAMES: statnames.drone,
-    BODY: Class.doper.BODY,
-    TURRETS: preset.turret.driveHat,
+    BODY: Class.directordrive.BODY,
+    TURRETS: preset.turret.stormHat,
     GUNS: [
         {
             POSITION: {
@@ -629,25 +621,55 @@ Class.doperdrive = {
                 X: 8
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.doper]),
-                TYPE: "autoDrone",
+                SHOOT_SETTINGS: combineStats([g.drone]),
+                TYPE: "stormAutoDrone",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
                 STAT_CALCULATOR: "drone",
                 MAX_CHILDREN: 6,
                 WAIT_TO_CYCLE: true
             }
-        },
+        }
+    ],
+    UPGRADES_TIER_4: ["autoDirectorstorm"]
+};
+Class.doperdrive = makeDrive("doper");
+Class.dopeseer = {
+    PARENT: "genericTank",
+    LABEL: "Dopeseer",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.overseer.BODY,
+    GUNS: weaponMirror([
         {
             POSITION: {
                 LENGTH: 6,
-                WIDTH: 1,
-                ASPECT: -5,
-                X: 8
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 4
             }
-        }
-    ],
-    UPGRADES_TIER_4: []
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 9,
+				ANGLE: 90
+			}
+		}
+    ]),
+    UPGRADES_TIER_4: ["briskseer", /*"dopelord", "shade", */"autoDopeseer", "dopeseerdrive"/*, "adjurer", "mogul", "ganger"*/]
 };
 Class.doubleFlankTwin = makeFlank({
     PARENT: "genericTank",
@@ -792,33 +814,7 @@ Class.foreman = {
         }
     })
 };
-Class.honchodrive = {
-    PARENT: "genericTank",
-    LABEL: "Honchodrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.honcho.BODY,
-    TURRETS: preset.turret.driveHat,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 11,
-                WIDTH: 14,
-                ASPECT: 1.3,
-                X: 2
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.honcho]),
-                TYPE: "autoDrone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                MAX_CHILDREN: 3,
-                WAIT_TO_CYCLE: true
-            }
-        }
-    ]
-};
+Class.honchodrive = makeDrive("honcho");
 Class.hutch = {
     PARENT: "genericTank",
     LABEL: "Hutch",
@@ -855,6 +851,53 @@ Class.hutch = {
     ], {delayIncrement: 0.5})
 };
 Class.integrator = makeOver("triAngle", "Integrator", { ...preset.hybrid, renderBehind: true });
+Class.issuer = {
+    PARENT: "genericTank",
+    LABEL: "Issuer",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.spawner.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 10,
+                X: 10.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 12,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner, g.doper]),
+                TYPE: "minion",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.5,
+                WIDTH: 12
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ],
+    UPGRADES_TIER_4: ["autoIssuer"]
+};
 Class.iterator = {
     PARENT: "genericTank",
     LABEL: "Iterator",
@@ -899,6 +942,41 @@ Class.jalopy = {
         }
     ],
     UPGRADES_TIER_4: [/*"lorry", */"contaminator"/*, "jalopyTrapper"*/, "autoJalopy"/*, "clunker"*/]
+};
+Class.junkie = {
+    PARENT: "genericTank",
+    LABEL: "Junkie",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.honcho.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 11,
+                WIDTH: 14,
+                ASPECT: 1.3,
+                X: 2
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.honcho, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 3,
+                WAIT_TO_CYCLE: true
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ],
+    UPGRADES_TIER_4: ["autoJunkie"]
 };
 Class.megaSpawner = {
     PARENT: "genericTank",
@@ -993,6 +1071,40 @@ Class.mingler = {
     ], 6, {delayIncrement: 0.5}),
     UPGRADES_TIER_4: ["unity", "alloy", "gale", "cozen", "autoMingler"]
 };
+Class.mosey = {
+    PARENT: "genericTank",
+    LABEL: "Mosey",
+    DANGER: 7,
+    FACING_TYPE: "locksFacing",
+    STAT_NAMES: statnames.swarm,
+    BODY: Class.cruiser.BODY,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 8.2,
+                ASPECT: 0.6,
+                X: 5,
+                Y: 4
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm, g.doper]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 7,
+				WIDTH: 1,
+				ASPECT: -2.5,
+				X: 8,
+				Y: 4
+			}
+		}
+    ], {delayIncrement: 0.5}),
+    UPGRADES_TIER_4: ["autoMosey"]
+};
 Class.overdose = {
     PARENT: "genericTank",
     LABEL: "Overdose",
@@ -1029,8 +1141,8 @@ Class.overdose = {
                 ANGLE: 90
             }
         }
-    ], 2)
-    //UPGRADES_TIER_4: [ "mock_autoOverdose", "mock_dosedrive", "mock_adrenaline", "mock_parasite", "mock_virtuoso", "mock_darkmatter", "mock_ethereal", "mock_hastener" ],
+    ], 2),
+    UPGRADES_TIER_4: ["autoOverdose", "dosedrive"/*, "adrenaline", "parasite", "virtuoso", "darkmatter", "ethereal", "hastener"*/],
 };
 Class.peashooter = makeGuard({
     PARENT: "genericTank",
@@ -1298,45 +1410,7 @@ Class.rocketeer = {
 Class.shower.UPGRADES_TIER_4.push("humidifier", "saturater", "mizzler"/*, "suds", "douser"*/, "autoShower");
 Class.sniper3 = makeRadialAuto("sniper3gun", { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11 / 15 * base.SPEED, FOV: 1.25 * base.FOV } });
 Class.sniper3.UPGRADES_TIER_4 = [/*"assassin3", "creeper", "sniper5", "phantom", "lever", */"autoSniper3", "alloy"/*, "rifle3", "hunter3"*/];
-Class.spawnerdrive = {
-    PARENT: "genericTank",
-    LABEL: "Spawnerdrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.spawner.BODY,
-    TURRETS: preset.turret.driveHat,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 4.5,
-                WIDTH: 10,
-                X: 10.5
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 1,
-                WIDTH: 12,
-                X: 15
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
-                TYPE: "autoMinion",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true,
-                MAX_CHILDREN: 4
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 11.5,
-                WIDTH: 12
-            }
-        }
-    ]
-};
+Class.spawnerdrive = makeDrive("spawner", "Spawnerdrive", "minion");
 Class.splitShot = {
     PARENT: "genericTank",
     LABEL: "Split Shot",
@@ -1382,33 +1456,7 @@ Class.splitShot = {
 };
 Class.triHealer = makeFlank("healer", 3, "Tri-Healer", { extraStats: [g.flankGuard] });
 Class.triHealer.UPGRADES_TIER_4 = ["hexaHealer"];
-Class.underdrive = {
-    PARENT: "genericTank",
-    LABEL: "Underdrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    SHAPE: 4,
-    MAX_CHILDREN: 15,
-    TURRETS: preset.turret.driveHat,
-    GUNS: weaponArray({
-        POSITION: {
-            LENGTH: 6,
-            WIDTH: 12,
-            ASPECT: 1.2,
-            X: 7.4,
-            ANGLE: 90
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}]),
-            TYPE: "autoSunchip",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "necro",
-            WAIT_TO_CYCLE: true,
-            DELAY_SPAWN: false
-        }
-    }, 2)
-};
+Class.underdrive = makeDrive("underseer", "Underdrive", "sunchip");
 Class.volley = {
     PARENT: "genericTank",
     LABEL: "Volley",
@@ -1503,6 +1551,7 @@ const autoTanksT4 = [
     "banshee",
     "bentDouble",
     "bentHybrid",
+    "brisker",
     "bulwark",
     "bushwhacker",
     "buttbuttin",
@@ -1511,16 +1560,21 @@ const autoTanksT4 = [
     "cyclone",
     "deathStar",
     "doubleGunner",
+    "dopeseer",
     "dual",
     "falcon",
     "focal",
     "fighter",
     "hewnDouble",
+    "issuer",
     "jalopy",
+    "junkie",
     "mega3",
     "mingler",
+    "mosey",
     "musket",
     "octoTank",
+    "overdose",
     "phoenix",
     "prodigy",
     "quadAngle",
@@ -1606,6 +1660,40 @@ Class.actuary = {
         }
     ], 3, { lengthOffset: 2, delayIncrement: 1 / 3 })
 };
+Class.adderall = {
+    PARENT: "genericTank",
+    LABEL: "Adderall",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.brisker.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.doper, g.doper, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 8,
+				WIDTH: 0.25,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ]
+};
 Class.alloy = {
     PARENT: "genericTank",
     LABEL: "Alloy",
@@ -1658,8 +1746,11 @@ Class.alloy = {
         }
     }, 3)
 };
+Class.autoDirectorstorm = makeAuto("directorstorm", "Auto-Directorstorm", preset.makeAuto.storm);
+Class.autoDoperdrive = makeAuto("doperdrive", "Auto-Doperdrive", preset.makeAuto.drive);
 Class.autoDoubleFlank = makeAuto("doubleFlankTwin", "Auto-Double Flank");
 Class.autoHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
+Class.autoOverdrive = makeAuto("overdrive", "Auto-Overdrive", preset.makeAuto.drive);
 Class.autoTriple = makeAuto("tripleTwin", "Auto-Triple");
 Class.avian = makeBird("single", "Avian");
 Class.band = makeAuto({
@@ -1793,6 +1884,77 @@ Class.bentFlankDouble = makeFlank({
     ]
 }, 2, "Bent Flank Double", { extraStats: [g.doubleTwin] });
 Class.bentTriple = makeFlank("tripleShot", 3, "Bent Triple", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.briskerdrive = {
+    PARENT: "genericTank",
+    LABEL: "Briskerdrive",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.brisker.BODY,
+    TURRETS: preset.turret.driveHat,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.doper, g.doper]),
+                TYPE: "autoDrone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 7,
+				WIDTH: 0.5,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ]
+};
+Class.briskseer = {
+    PARENT: "genericTank",
+    LABEL: "Briskseer",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.dopeseer.BODY,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.doper, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 4
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 7,
+				WIDTH: 0.5,
+				ASPECT: -5,
+				X: 9,
+				ANGLE: 90
+			}
+		}
+    ])
+};
 Class.bruiser = {
     PARENT: "genericTank",
     LABEL: "Bruiser",
@@ -2259,6 +2421,117 @@ Class.doctor = {
             }
         }
     ]
+};
+Class.doperstorm = {
+    PARENT: "genericTank",
+    LABEL: "Doperstorm",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.doperdrive.BODY,
+    TURRETS: preset.turret.stormHat,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.doper]),
+                TYPE: "stormAutoDrone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
+    ]
+};
+Class.dopeseerdrive = {
+    PARENT: "genericTank",
+    LABEL: "Dopeseerdrive",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.dopeseer.BODY,
+    TURRETS: preset.turret.driveHat,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.doper]),
+                TYPE: "autoDrone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 4
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 9,
+				ANGLE: 90
+			}
+		}
+    ])
+};
+Class.dosedrive = {
+    PARENT: "genericTank",
+    LABEL: "Dosedrive",
+    DANGER: 8,
+    NECRO: [4],
+    STAT_NAMES: statnames.drone,
+    SHAPE: 4,
+    MAX_CHILDREN: 15,
+    TURRETS: preset.turret.driveHat,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}, g.doper]),
+                TYPE: "autoSunchip",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8,
+                ANGLE: 90
+            }
+        }
+    ], 2)
 };
 Class.doubleFlankGunner = {
     PARENT: "genericTank",
@@ -4329,7 +4602,7 @@ Class.hexaTank.UPGRADES_TIER_3.push("autoHexaTank", "mingler", "combo");
 Class.hunter.UPGRADES_TIER_3.push("autoHunter"/*, "megaHunter", "prober", "courser"*/);
 Class.launcher.UPGRADES_TIER_3.push("rocketeer"/*, "pitcher", "cluster", "projector"*/, "heaver", "autoLauncher"/*, "hurler", "inception"*/);
 Class.minigun.UPGRADES_TIER_3.push(/*"taser", "zipper", */"bentMinigun", "autoMinigun"/*, "widget"*/);
-Class.overseer.UPGRADES_TIER_3.push("captain", "foreman"/*, "dopeseer"*/);
+Class.overseer.UPGRADES_TIER_3.push("captain", "foreman", "dopeseer");
 Class.pounder.UPGRADES_TIER_3.push("subverter");
 Class.rifle.UPGRADES_TIER_3.push("autoRifle"/*, "enforcer", "courser"*/);
 Class.smasher.UPGRADES_TIER_3.push(/*"banger", "drifter"*/);

@@ -23,6 +23,15 @@ module.exports = {
                 }
             }
         ],
+        stormHat: [
+            {
+                TYPE: "stormHat",
+                POSITION: {
+                    SIZE: 9,
+                    LAYER: 1
+                }
+            }
+        ],
         swarmdriveHat: [
             {
                 TYPE: ["triangleHat", {COLOR: "grey"}],
@@ -83,6 +92,9 @@ module.exports = {
         },
         driveTriple: {
             type: "driveAutoTurret", clearTurrets: true, size: 6.5, x: 5.2, angle: 0, total: 3
+        },
+        storm: {
+            type: "stormAutoTurret", clearTurrets: true, size: 9
         }
     },
     makeFore: {

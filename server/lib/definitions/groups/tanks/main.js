@@ -1,5 +1,5 @@
-const { combineStats, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver, makeRadialAuto, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
-const { base, dfltskl, smshskl, statnames } = require("../../constants.js");
+const { combineStats, removeUpgrades, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { base, smshskl, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 
@@ -2633,32 +2633,7 @@ Class.ordnance = {
         }
     ]
 };
-Class.overdrive = {
-    PARENT: "genericTank",
-    LABEL: "Overdrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.overseer.BODY,
-    TURRETS: preset.turret.driveHat,
-    GUNS: weaponMirror({
-        POSITION: {
-            LENGTH: 6,
-            WIDTH: 12,
-            ASPECT: 1.2,
-            X: 8,
-            ANGLE: 90
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.overseer]),
-            TYPE: "autoDrone",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "drone",
-            WAIT_TO_CYCLE: true,
-            MAX_CHILDREN: 4
-        }
-    })
-};
+Class.overdrive = makeDrive("overseer", "Overdrive");
 Class.overgunner = makeOver({
     PARENT: "genericTank",
     LABEL: "Gunner",
