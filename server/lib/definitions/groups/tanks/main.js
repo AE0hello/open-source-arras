@@ -857,9 +857,11 @@ Class.underseer = {
     LABEL: "Underseer",
     DANGER: 6,
     NECRO: [4],
+    SIZE: 11.5,
     STAT_NAMES: statnames.drone,
     SHAPE: 4,
     MAX_CHILDREN: 15,
+    BODY: Class.director.BODY,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,
@@ -2177,6 +2179,7 @@ Class.infestor = {
     LABEL: "Infestor",
     DANGER: 7,
     NECRO: [0],
+    SIZE: 11.5,
     STAT_NAMES: statnames.necro,
     BODY: Class.underseer.BODY,
     GUNS: weaponArray(weaponMirror({
@@ -2303,6 +2306,7 @@ Class.maleficitor = {
     LABEL: "Maleficitor",
     DANGER: 7,
     NECRO: [4],
+    SIZE: 11.5,
     TOOLTIP: `Press ${key("override")} and wait to turn your drones invisible.`,
     STAT_NAMES: statnames.necro,
     SHAPE: 4,
@@ -2486,6 +2490,7 @@ Class.necromancer = {
     LABEL: "Necromancer",
     DANGER: 7,
     NECRO: [4],
+    SIZE: 11.5,
     STAT_NAMES: statnames.necro,
     SHAPE: 4,
     MAX_CHILDREN: 14,
