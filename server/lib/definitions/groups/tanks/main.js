@@ -2178,9 +2178,7 @@ Class.infestor = {
     DANGER: 7,
     NECRO: [0],
     STAT_NAMES: statnames.necro,
-    BODY: {
-        FOV: base.FOV * 1.125
-    },
+    BODY: Class.underseer.BODY,
     GUNS: weaponArray(weaponMirror({
         POSITION: {
             LENGTH: 10,
