@@ -61,6 +61,42 @@ Class.directordrive = {
     UPGRADES_TIER_3: [/*"directorstorm", */"overdrive", "cruiserdrive", "underdrive", "spawnerdrive", "autoDirectordrive", "honchodrive"/*, "doperdrive"*/],
     UPGRADES_TIER_4: [/*"managerdrive"*/]
 };
+Class.doper = {
+    PARENT: "genericTank",
+    LABEL: "Doper",
+    DANGER: 6,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.director.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
+    ],
+    UPGRADES_TIER_3: ["overdose"],
+    UPGRADES_TIER_4: []
+}
 Class.honcho = {
     PARENT: "genericTank",
     LABEL: "Honcho",
@@ -920,6 +956,45 @@ Class.mingler = {
     ], 6, {delayIncrement: 0.5}),
     UPGRADES_TIER_4: ["unity", "alloy", "gale", "cozen", "autoMingler"]
 };
+Class.overdose = {
+    PARENT: "genericTank",
+    LABEL: "Overdose",
+    DANGER: 7,
+    NECRO: [4],
+    STAT_NAMES: statnames.drone,
+    SHAPE: 4,
+    MAX_CHILDREN: 15,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 90
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}, g.doper]),
+                TYPE: "sunchip",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8,
+                ANGLE: 90
+            }
+        }
+    ], 2)
+    //UPGRADES_TIER_4: [ "mock_autoOverdose", "mock_dosedrive", "mock_adrenaline", "mock_parasite", "mock_virtuoso", "mock_darkmatter", "mock_ethereal", "mock_hastener" ],
+};
 Class.peashooter = makeGuard({
     PARENT: "genericTank",
     GUNS: [
@@ -1274,7 +1349,6 @@ Class.underdrive = {
     PARENT: "genericTank",
     LABEL: "Underdrive",
     DANGER: 7,
-    NECRO: [4],
     STAT_NAMES: statnames.drone,
     SHAPE: 4,
     MAX_CHILDREN: 15,
@@ -4133,7 +4207,7 @@ Class.wrench = {
 // Existing Upgrade Management
 if (!Config.arms_race) return;
 
-Class.director.UPGRADES_TIER_2.push("directordrive", "honcho"/*, "doper"*/);
+Class.director.UPGRADES_TIER_2.push("directordrive", "honcho", "doper");
 Class.machineGun.UPGRADES_TIER_2.push("diesel", "machineTrapper");
 Class.trapper.UPGRADES_TIER_2.push("pen", "mech", "machineTrapper", "wark");
 Class.twin.UPGRADES_TIER_2.push("wark");
