@@ -2457,82 +2457,8 @@ Class.doperstorm = {
         }
     ]
 };
-Class.dopeseerdrive = {
-    PARENT: "genericTank",
-    LABEL: "Dopeseerdrive",
-    DANGER: 8,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.dopeseer.BODY,
-    TURRETS: preset.turret.driveHat,
-    GUNS: weaponMirror([
-        {
-            POSITION: {
-                LENGTH: 6,
-                WIDTH: 12,
-                ASPECT: 1.2,
-                X: 8,
-                ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, g.doper]),
-                TYPE: "autoDrone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true,
-                MAX_CHILDREN: 4
-            }
-        },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 9,
-				ANGLE: 90
-			}
-		}
-    ])
-};
-Class.dosedrive = {
-    PARENT: "genericTank",
-    LABEL: "Dosedrive",
-    DANGER: 8,
-    NECRO: [4],
-    STAT_NAMES: statnames.drone,
-    SHAPE: 4,
-    MAX_CHILDREN: 15,
-    TURRETS: preset.turret.driveHat,
-    GUNS: weaponArray([
-        {
-            POSITION: {
-                LENGTH: 6,
-                WIDTH: 12,
-                ASPECT: 1.2,
-                X: 7.4,
-                ANGLE: 90
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}, g.doper]),
-                TYPE: "autoSunchip",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "necro",
-                WAIT_TO_CYCLE: true,
-                DELAY_SPAWN: false
-            }
-        },
-        {
-            POSITION: {
-                LENGTH: 6,
-                WIDTH: 1,
-                ASPECT: -5,
-                X: 8,
-                ANGLE: 90
-            }
-        }
-    ], 2)
-};
+Class.dopeseerdrive = makeDrive("dopeseer");
+Class.dosedrive = makeDrive("overdose", "Dosedrive", "sunchip");
 Class.doubleFlankGunner = {
     PARENT: "genericTank",
     LABEL: "Double Flank Gunner",
@@ -3462,35 +3388,7 @@ Class.intern = {
         }
     ]
 };
-Class.managerdrive = {
-    PARENT: "genericTank",
-    LABEL: "Managerdrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.manager.BODY,
-    INVISIBLE: Class.manager.INVISIBLE,
-    TOOLTIP: preset.tooltip.invisible,
-    TURRETS: preset.turret.driveHat,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 6,
-                WIDTH: 12,
-                ASPECT: 1.2,
-                X: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }]),
-                TYPE: "autoDrone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                WAIT_TO_CYCLE: true,
-                MAX_CHILDREN: 8
-            }
-        }
-    ]
-};
+Class.managerdrive = makeDrive("manager");
 Class.marine = makeGunner("ranger", "Marine");
 Class.megaAutoDirectordrive = makeAuto("directordrive", "Mega Auto-Directordrive", preset.makeAuto.driveMega);
 Class.megaAutoDouble = makeAuto("doubleTwin", "Mega Auto-Double", preset.makeAuto.mega);
