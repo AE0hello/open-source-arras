@@ -1195,7 +1195,7 @@ Class.overdose = {
             }
         }
     ], 2),
-    UPGRADES_TIER_4: ["autoOverdose", "dosedrive", "adrenaline", "parasite", "virtuoso", "darkmatter"/*, "ethereal", "hastener"*/],
+    UPGRADES_TIER_4: ["autoOverdose", "dosedrive", "adrenaline", "parasite", "virtuoso", "darkmatter", "ethereal", "hastener"],
 };
 Class.peashooter = makeGuard({
     PARENT: "genericTank",
@@ -1226,6 +1226,35 @@ Class.peashooter = makeGuard({
         }
     ]
 }, "Peashooter");
+Class.pentaseer = {
+    PARENT: "genericTank",
+    LABEL: "Pentaseer",
+    DANGER: 7,
+    NECRO: [5],
+    SHAPE: 5,
+    SIZE: 11.5,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.underseer.BODY,
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 6,
+            WIDTH: 11,
+            ASPECT: 1.2,
+            X: 7.4,
+            ANGLE: 36
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, { reload: 0.8, size: 1.5, health: 2 }]),
+            TYPE: "pentachip",
+            AUTOFIRE: true,
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: "necro",
+            WAIT_TO_CYCLE: true,
+            DELAY_SPAWN: false,
+            MAX_CHILDREN: 5
+        }
+    }, { delayIncrement: 0.5 })
+};
 Class.prodigy = {
     PARENT: "genericTank",
     LABEL: "Prodigy",
@@ -1786,7 +1815,7 @@ Class.addict = {
 Class.adrenaline = {
     PARENT: "genericTank",
     LABEL: "Adrenaline",
-    DANGER: 7,
+    DANGER: 8,
     NECRO: [4],
     SIZE: 11.5,
     STAT_NAMES: statnames.drone,
@@ -2462,7 +2491,7 @@ Class.dam = {
 Class.darkmatter = {
     PARENT: "genericTank",
     LABEL: "Darkmatter",
-    DANGER: 7,
+    DANGER: 8,
     NECRO: [4],
     SIZE: 11.5,
     STAT_NAMES: statnames.necro,
@@ -2982,6 +3011,45 @@ Class.dustStorm = {
         }
     ]
 };
+Class.ethereal = {
+    PARENT: "genericTank",
+    LABEL: "Ethereal",
+    DANGER: 8,
+    NECRO: [4],
+    SIZE: 11.5,
+    TOOLTIP: `Press ${key("override")} and wait to turn your drones invisible.`,
+    STAT_NAMES: statnames.necro,
+    SHAPE: 4,
+    MAX_CHILDREN: 20,
+    BODY: Class.maleficitor.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.maleficitor, g.doper]),
+                TYPE: ["sunchip", {INVISIBLE: [0.06, 0.03]}],
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ]
+};
 Class.flexedDouble = makeFlank("pentaShot", 2, "Flexed Double", { extraStats: [g.doubleTwin] });
 Class.foretrapper = makeFore({
     PARENT: "genericTank",
@@ -3094,10 +3162,50 @@ Class.gale = {
 };
 Class.guardrail = makeFlank("hutch", 2, "Guardrail", { extraStats: [g.doubleTwin] });
 Class.harpy = makeGunner("falcon", "Harpy", { gunLength: 20, noDeco: true, renderBehind: true });
+Class.hastener = {
+    PARENT: "genericTank",
+    LABEL: "Hastener",
+    DANGER: 8,
+    NECRO: [5],
+    SHAPE: 5,
+    SIZE: 11.5,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.pentaseer.BODY,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 11,
+                ASPECT: 1.2,
+                X: 7.4,
+                ANGLE: 36
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, { reload: 0.8, size: 1.5, health: 2 }, g.doper]),
+                TYPE: "pentachip",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false,
+                MAX_CHILDREN: 5
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 8,
+				ANGLE: 36
+			}
+		}
+    ], { delayIncrement: 0.5 })
+};
 Class.hewnFlankDouble = {
     PARENT: "genericTank",
     LABEL: "Hewn Flank Double",
-    DANGER: 7,
+    DANGER: 8,
     GUNS: [
         ...weaponMirror({
             POSITION: {
@@ -3662,7 +3770,7 @@ Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", { angle: 90, re
 Class.parasite = {
     PARENT: "genericTank",
     LABEL: "Parasite",
-    DANGER: 7,
+    DANGER: 8,
     NECRO: [0],
 	SIZE: 11.5,
     STAT_NAMES: statnames.necro,
@@ -4027,7 +4135,7 @@ Class.sharpshooter = {
 Class.skewnDouble = {
     PARENT: "genericTank",
     LABEL: "Skewn Double",
-    DANGER: 7,
+    DANGER: 8,
     GUNS: [
         ...weaponMirror([
             {
@@ -4773,7 +4881,7 @@ Class.assassin.UPGRADES_TIER_3.push("hitman", "sniper3"/*, "enforcer", "courser"
 Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar", "autoAuto3", "combo");
 Class.builder.UPGRADES_TIER_3.push(/*"forger", "stall", */"fashioner"/*, "charger"*/);
 Class.cruiser.UPGRADES_TIER_3.push("productionist", "cruiserdrive"/*, "hangar", "zipper", "baltimore", "mosey"*/);
-Class.destroyer.UPGRADES_TIER_3.push(/*"megaTrapper", "queller", */"autoDestroyer"/*, "hurler", "slinker"*/);
+Class.destroyer.UPGRADES_TIER_3.push("megaTrapper"/*, "queller"*/, "autoDestroyer"/*, "hurler", "slinker"*/);
 removeUpgrades("director", 3, ["bigCheese"]);
 Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin", "doubleGunner", "warkwark");
 Class.gunner.UPGRADES_TIER_3.push("buttbuttin", "blower", "rimfire", "volley", "doubleGunner", "bentGunner", "equalizer");
@@ -4794,7 +4902,7 @@ Class.trapGuard.UPGRADES_TIER_3.push("peashooter"/*, "incarcerator", "mechGuard"
 Class.triAngle.UPGRADES_TIER_3.push(/*"taser", "cockatiel", */"integrator", "defect", "quadAngle");
 Class.triTrapper.UPGRADES_TIER_3.push(/*"triPen", "triMech", "triMachine", "triTrapGuard"*/);
 Class.tripleShot.UPGRADES_TIER_3.push("splitShot", "autoTripleShot", "bentGunner", "bentMinigun", "defect", "waarrk");
-Class.underseer.UPGRADES_TIER_3.push("autoUnderseer", "underdrive"/*, "pentaseer"*/);
+Class.underseer.UPGRADES_TIER_3.push("autoUnderseer", "underdrive", "pentaseer", "prodigy", "overdose");
 
 Class.artillery.UPGRADES_TIER_4 = [/*"blare", "erne"*/];
 Class.assassin.UPGRADES_TIER_4 = [/*"executor", "finger"*/];
