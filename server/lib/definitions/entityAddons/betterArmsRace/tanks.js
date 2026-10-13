@@ -584,7 +584,7 @@ Class.crosswind = {
     DANGER: 8,
     BODY: Class.stalker.BODY,
     INVISIBLE: Class.stalker.INVISIBLE,
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     GUNS: [
         {
             POSITION: {
@@ -1099,7 +1099,7 @@ Class.spy = {
     LABEL: "Spy",
     DANGER: 8,
     INVISIBLE: Class.stalker.INVISIBLE,
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     GUNS: [
         {
             POSITION: {

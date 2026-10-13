@@ -58,8 +58,8 @@ Class.directordrive = {
             }
         }
     ],
-    UPGRADES_TIER_3: [/*"directorstorm", */"overdrive", "cruiserdrive", "underdrive", "spawnerdrive", "autoDirectordrive", "honchodrive"/*, "doperdrive"*/],
-    UPGRADES_TIER_4: [/*"managerdrive"*/]
+    UPGRADES_TIER_3: [/*"directorstorm", */"overdrive", "cruiserdrive", "underdrive", "spawnerdrive", "autoDirectordrive", "honchodrive", "doperdrive"],
+    UPGRADES_TIER_4: ["managerdrive"]
 };
 Class.doper = {
     PARENT: "genericTank",
@@ -94,9 +94,9 @@ Class.doper = {
             }
         }
     ],
-    UPGRADES_TIER_3: ["overdose"],
-    UPGRADES_TIER_4: []
-}
+    UPGRADES_TIER_3: [/*"brisker", "dopeseer", "mosey", */"overdose"/*, "issuer", "junkie"*/, "doperdrive", "autoDoper"],
+    UPGRADES_TIER_4: ["controller"]
+};
 Class.honcho = {
     PARENT: "genericTank",
     LABEL: "Honcho",
@@ -265,6 +265,7 @@ const autoTanksT3 = [
     "cruiser",
     "destroyer",
     "diesel",
+    "doper",
     "gunner",
     "hexaTank",
     "honcho",
@@ -612,6 +613,42 @@ Class.cruiserdrive = {
     }, {delayIncrement: 0.5})
 };
 Class.defect = makeBird("tripleShot", "Defect");
+Class.doperdrive = {
+    PARENT: "genericTank",
+    LABEL: "Doperdrive",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.doper.BODY,
+    TURRETS: preset.turret.driveHat,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 11,
+                ASPECT: 1.3,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.doper]),
+                TYPE: "autoDrone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                MAX_CHILDREN: 6,
+                WAIT_TO_CYCLE: true
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
+    ],
+    UPGRADES_TIER_4: []
+};
 Class.doubleFlankTwin = makeFlank({
     PARENT: "genericTank",
     DANGER: 6,
@@ -1952,6 +1989,42 @@ Class.consolidation = {
         }
     }, 4)
 };
+Class.controller = {
+    PARENT: "genericTank",
+    LABEL: "Controller",
+    DANGER: 8,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.manager.BODY,
+    INVISIBLE: Class.manager.INVISIBLE,
+    TOOLTIP: preset.tooltip.invisible,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }, g.doper]),
+                TYPE: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 8
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 10
+            }
+        }
+    ]
+};
 Class.coop = makeAuto({
     PARENT: "genericTank",
     LABEL: "Pen",
@@ -3112,6 +3185,35 @@ Class.intern = {
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.healer, g.sniper, g.assassin]),
                 TYPE: "healerBullet"
+            }
+        }
+    ]
+};
+Class.managerdrive = {
+    PARENT: "genericTank",
+    LABEL: "Managerdrive",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.manager.BODY,
+    INVISIBLE: Class.manager.INVISIBLE,
+    TOOLTIP: preset.tooltip.invisible,
+    TURRETS: preset.turret.driveHat,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.overseer, { reload: 0.5 }]),
+                TYPE: "autoDrone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 8
             }
         }
     ]

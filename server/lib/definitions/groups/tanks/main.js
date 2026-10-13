@@ -2206,7 +2206,7 @@ Class.landmine = {
     PARENT: "genericSmasher",
     LABEL: "Landmine",
     INVISIBLE: [0.06, 0.01],
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     TURRETS: [
         {
             TYPE: ["hexagonHat_spin", {COLOR: "black"}],
@@ -2279,7 +2279,7 @@ Class.manager = {
         SPEED: 14 / 15 * base.SPEED
     },
     INVISIBLE: [0.08, 0.03],
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     GUNS: [
         {
             POSITION: {
@@ -3480,7 +3480,7 @@ Class.stalker = {
     DANGER: 7,
     BODY: Class.assassin.BODY,
     INVISIBLE: [0.08, 0.03],
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     GUNS: [
         {
             POSITION: {
