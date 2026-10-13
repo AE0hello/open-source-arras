@@ -2311,6 +2311,7 @@ Class.maleficitor = {
     STAT_NAMES: statnames.necro,
     SHAPE: 4,
     MAX_CHILDREN: 20,
+    BODY: Class.underseer.BODY,
     GUNS: [
         {
             POSITION: {
@@ -2494,6 +2495,7 @@ Class.necromancer = {
     STAT_NAMES: statnames.necro,
     SHAPE: 4,
     MAX_CHILDREN: 14,
+    BODY: Class.underseer.BODY,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,

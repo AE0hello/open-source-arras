@@ -1176,7 +1176,7 @@ Class.overdose = {
                 ANGLE: 90
             },
             PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.8}, g.doper]),
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, { reload: 0.8 }, g.doper]),
                 TYPE: "sunchip",
                 AUTOFIRE: true,
                 SYNCS_SKILLS: true,
@@ -1195,7 +1195,7 @@ Class.overdose = {
             }
         }
     ], 2),
-    UPGRADES_TIER_4: ["autoOverdose", "dosedrive", "adrenaline", "parasite"/*, "virtuoso", "darkmatter", "ethereal", "hastener"*/],
+    UPGRADES_TIER_4: ["autoOverdose", "dosedrive", "adrenaline", "parasite", "virtuoso", "darkmatter"/*, "ethereal", "hastener"*/],
 };
 Class.peashooter = makeGuard({
     PARENT: "genericTank",
@@ -1232,11 +1232,9 @@ Class.prodigy = {
     DANGER: 7,
     NECRO: [4],
     SIZE: 10.5,
-    STAT_NAMES: {
-        ...statnames.mixed,
-        RELOAD: "Reload / Max Drone Count"
-    },
+    STAT_NAMES: statnames.mixed,
     SHAPE: 6,
+    BODY: Class.underseer.BODY,
     GUNS: [
         ...weaponArray({
             POSITION: {
@@ -2460,6 +2458,45 @@ Class.dam = {
             }
         ], {delayIncrement: 0.5})
     ]
+};
+Class.darkmatter = {
+    PARENT: "genericTank",
+    LABEL: "Darkmatter",
+    DANGER: 7,
+    NECRO: [4],
+    SIZE: 11.5,
+    STAT_NAMES: statnames.necro,
+    SHAPE: 4,
+    MAX_CHILDREN: 14,
+    BODY: Class.necromancer.BODY,
+    GUNS: weaponArray([
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 12,
+                ASPECT: 1.2,
+                X: 7.4,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, g.doper]),
+                TYPE: "sunchip",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "necro",
+                WAIT_TO_CYCLE: true,
+                DELAY_SPAWN: false
+            }
+        },
+		{
+			POSITION: {
+				LENGTH: 6,
+				WIDTH: 1,
+				ASPECT: -5,
+				X: 8
+			}
+		}
+    ], 4, {delayIncrement: 0.75})
 };
 Class.decaTank = {
     PARENT: "genericTank",
@@ -4366,6 +4403,66 @@ Class.unity = {
                 }
             }
         ], 3)
+    ]
+};
+Class.virtuoso = {
+    PARENT: "genericTank",
+    LABEL: "Virtuoso",
+    DANGER: 8,
+    NECRO: [4],
+    SIZE: 10.5,
+    STAT_NAMES: statnames.mixed,
+    SHAPE: 6,
+    BODY: Class.underseer.BODY,
+    GUNS: [
+        ...weaponArray([
+            {
+                POSITION: {
+                    LENGTH: 14,
+                    WIDTH: 7,
+                    ASPECT: 1.6,
+                    ANGLE: 180
+                },
+                PROPERTIES: {
+                    SHOOT_SETTINGS: combineStats([g.drone, g.sunchip, {reload: 0.5, size: 2, damage: 0.95}, g.doper]),
+                    TYPE: "sunchip",
+                    AUTOFIRE: true,
+                    SYNCS_SKILLS: true,
+                    STAT_CALCULATOR: "necro",
+                    WAIT_TO_CYCLE: true,
+                    DELAY_SPAWN: false,
+                    MAX_CHILDREN: 2
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 6,
+                    WIDTH: 1,
+                    ASPECT: -5,
+                    X: 8,
+                    ANGLE: 60
+                }
+            }
+        ], 3, {delayIncrement: 1 / 3}),
+        ...weaponArray([{
+            POSITION: {
+                LENGTH: 14,
+                WIDTH: 9
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 9,
+                ASPECT: 1.5,
+                X: 14
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.trap, { range: 0.5, speed: 0.7, maxSpeed: 0.7 }]),
+                TYPE: "trap",
+                STAT_CALCULATOR: "trap"
+            }
+        }], 3)
     ]
 };
 Class.vulcan = {
