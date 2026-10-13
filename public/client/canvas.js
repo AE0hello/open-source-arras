@@ -96,7 +96,7 @@ class Canvas {
         let now = Date.now();
         this.reverseSpam = this.reverseSpam.filter(t => now - t < 10_000);
         this.reverseSpam.push(now);
-        if (this.reverseSpam.length > 7) return global.createMessage("Please slow down!");
+        if (this.reverseSpam.length >= 7) return global.createMessage("Please slow down!");
         this.reverseDirection = !this.reverseDirection;
         global.createMessage(this.reverseDirection ? "Reverse tank enabled." : "Reverse tank disabled.");
     }

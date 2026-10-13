@@ -506,7 +506,7 @@ function runCommand(socket, message) {
     }
     try {
         command.run({ socket, message, args, gameManager: global.gameManager });
-    } catch (e) {
+    } catch(e) {
         console.error("Error while running " + name);
         console.error(e);
         socket.talk("m", 5_000, "An error occurred while running this command.");

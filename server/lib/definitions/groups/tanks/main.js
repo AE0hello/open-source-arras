@@ -1,5 +1,5 @@
-const { combineStats, removeUpgrades, makeAuto, makeBird, makeFlank, makeGuard, makeOver, makeRadialAuto, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
-const { base, dfltskl, smshskl, statnames } = require("../../constants.js");
+const { combineStats, removeUpgrades, makeAuto, makeBird, makeDrive, makeFlank, makeGuard, makeOver, makeRadialAuto, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { base, smshskl, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
 
@@ -857,9 +857,11 @@ Class.underseer = {
     LABEL: "Underseer",
     DANGER: 6,
     NECRO: [4],
+    SIZE: 11.5,
     STAT_NAMES: statnames.drone,
     SHAPE: 4,
     MAX_CHILDREN: 15,
+    BODY: Class.director.BODY,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,
@@ -2177,10 +2179,9 @@ Class.infestor = {
     LABEL: "Infestor",
     DANGER: 7,
     NECRO: [0],
+    SIZE: 11.5,
     STAT_NAMES: statnames.necro,
-    BODY: {
-        FOV: base.FOV * 1.125
-    },
+    BODY: Class.underseer.BODY,
     GUNS: weaponArray(weaponMirror({
         POSITION: {
             LENGTH: 10,
@@ -2206,7 +2207,7 @@ Class.landmine = {
     PARENT: "genericSmasher",
     LABEL: "Landmine",
     INVISIBLE: [0.06, 0.01],
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     TURRETS: [
         {
             TYPE: ["hexagonHat_spin", {COLOR: "black"}],
@@ -2279,7 +2280,7 @@ Class.manager = {
         SPEED: 14 / 15 * base.SPEED
     },
     INVISIBLE: [0.08, 0.03],
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     GUNS: [
         {
             POSITION: {
@@ -2305,10 +2306,12 @@ Class.maleficitor = {
     LABEL: "Maleficitor",
     DANGER: 7,
     NECRO: [4],
+    SIZE: 11.5,
     TOOLTIP: `Press ${key("override")} and wait to turn your drones invisible.`,
     STAT_NAMES: statnames.necro,
     SHAPE: 4,
     MAX_CHILDREN: 20,
+    BODY: Class.underseer.BODY,
     GUNS: [
         {
             POSITION: {
@@ -2488,9 +2491,11 @@ Class.necromancer = {
     LABEL: "Necromancer",
     DANGER: 7,
     NECRO: [4],
+    SIZE: 11.5,
     STAT_NAMES: statnames.necro,
     SHAPE: 4,
     MAX_CHILDREN: 14,
+    BODY: Class.underseer.BODY,
     GUNS: weaponArray({
         POSITION: {
             LENGTH: 6,
@@ -2633,32 +2638,7 @@ Class.ordnance = {
         }
     ]
 };
-Class.overdrive = {
-    PARENT: "genericTank",
-    LABEL: "Overdrive",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.overseer.BODY,
-    TURRETS: preset.turret.driveHat,
-    GUNS: weaponMirror({
-        POSITION: {
-            LENGTH: 6,
-            WIDTH: 12,
-            ASPECT: 1.2,
-            X: 8,
-            ANGLE: 90
-        },
-        PROPERTIES: {
-            SHOOT_SETTINGS: combineStats([g.drone, g.overseer]),
-            TYPE: "autoDrone",
-            AUTOFIRE: true,
-            SYNCS_SKILLS: true,
-            STAT_CALCULATOR: "drone",
-            WAIT_TO_CYCLE: true,
-            MAX_CHILDREN: 4
-        }
-    })
-};
+Class.overdrive = makeDrive("overseer", "Overdrive");
 Class.overgunner = makeOver({
     PARENT: "genericTank",
     LABEL: "Gunner",
@@ -3480,7 +3460,7 @@ Class.stalker = {
     DANGER: 7,
     BODY: Class.assassin.BODY,
     INVISIBLE: [0.08, 0.03],
-    TOOLTIP: "Stay still to turn invisible.",
+    TOOLTIP: preset.tooltip.invisible,
     GUNS: [
         {
             POSITION: {

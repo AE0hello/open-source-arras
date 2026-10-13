@@ -1,4 +1,4 @@
-const { makeHat, makePolygon } = require("../facilitators.js");
+const { makeHat, makePolygon, weaponArray, weaponMirror } = require("../facilitators.js");
 const preset = require("../presets.js");
 
 // Circle Hats
@@ -19,6 +19,31 @@ Class.squareHat = makeHat(4);
 Class.squareHat_spin = makeHat(4, preset.makeHat.spin);
 Class.squareHat_spinFast = makeHat(4, preset.makeHat.spinFast);
 Class.squareHatCurved = makeHat(-4);
+Class.stormHat = {
+    PARENT: "squareHat",
+    LABEL: "Storm Square",
+    COLOR: "grey",
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 9,
+            WIDTH: 8.2,
+            ASPECT: 0.6,
+            X: 5,
+            ANGLE: 90
+        }
+    })
+};
+Class.vortexHat = {
+    PARENT: "stormHat",
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 9,
+            WIDTH: 8.2,
+            ASPECT: 0.6,
+            X: 5
+        }
+    }, 4)
+};
 
 // Pentagon Hats
 Class.pentagonHat = makeHat(5);

@@ -785,6 +785,14 @@ Class.ultraAutoTurret = makeTurret({
 }, {label: "Turret", fov: 0.8, extraStats: []});
 Class.driveAutoTurret = { PARENT: "autoTurret", SHAPE: 4 };
 Class.driveMegaAutoTurret = { PARENT: "megaAutoTurret", SHAPE: 4 };
+Class.stormAutoTurret = {
+    PARENT: "autoTurret",
+    SHAPE: 4,
+    GUNS: [
+        ...Class.autoTurret.GUNS,
+        ...Class.stormHat.GUNS
+    ]
+};
 Class.droneAutoTurret = makeTurret({
     GUNS: [
         {
@@ -867,6 +875,22 @@ Class.legionaryTwin = makeTurret({
         }
     ]
 }, {fov: 5, independent: true, extraStats: []});
+Class.swarmAutoTurret = makeTurret({
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 9,
+            WIDTH: 8.2,
+            ASPECT: 0.6,
+            X: 5,
+            ANGLE: 90
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.swarm]),
+            TYPE: "swarm",
+            STAT_CALCULATOR: "swarm"
+        }
+    })
+}, {label: "Turret", fov: 0.8, extraStats: []});
 
 // Healer turrets
 Class.sanctuaryHealer = {

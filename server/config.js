@@ -15,8 +15,8 @@ module.exports = {
         concurrencyLimit: 10, // How many messages can be compressed at once.
         zlibDeflateOptions: {
             level: 3, // 1 (fast) - 9 (small). 3 is plenty for game traffic.
-            memLevel: 8, // 1-9. Higher uses more memory per player for slightly smaller packets.
-        },
+            memLevel: 8 // 1-9. Higher uses more memory per player for slightly smaller packets.
+        }
     },
     max_fov: 25000, // Hard cap for camera FOV sent to clients.
     view_extra_margin: 150, // Extra margin beyond the visible viewport.

@@ -14,8 +14,8 @@ require("../tanks/scrapped.js");
 require("../tanks/retrograde.js");
 require("../tanks/armsRace.js");
 require("../dev.js");
-require("../turrets.js");
 require("../hats.js");
+require("../turrets.js");
 
 Class.celestial = {
     PARENT: "miniboss",

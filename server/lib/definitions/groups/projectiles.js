@@ -633,6 +633,8 @@ Class.sunchip = {
     DRAW_HEALTH: false
 };
 Class.eggchip = {PARENT: "sunchip", NECRO: [0], SHAPE: 0};
+Class.pentachip = {PARENT: "sunchip", NECRO: [5], SHAPE: 5};
+Class.stormAutoDrone = makeAuto("drone", "Auto-Drone", {type: "swarmAutoTurret"});
 
 // Mystical Drones
 Class.summonerDrone = {PARENT: "sunchip", NECRO: false};
@@ -831,6 +833,7 @@ Class.satellite_old = {
 Class.squareSatellite = { PARENT: "satellite", SHAPE: 4 };
 
 // Traps
+Class.autoTrap = makeAuto("trap", "Auto-Trap", {type: "droneAutoTurret"}); //sorta counts
 Class.satelliteTrap = {
     PARENT: "trap",
     ANGLE: 60,
@@ -1175,13 +1178,6 @@ Class.superSplitterBullet = {
         }
     ]
 };
-
-// -Drive projectiles
-Class.autoDrone = makeAuto("drone", "Auto-Drone", {type: "droneAutoTurret"});
-Class.autoSwarm = makeAuto("swarm", "Auto-Swarm Drone", {type: "droneAutoTurret"});
-Class.autoSunchip = makeAuto("sunchip", "Auto-Drone", {type: "droneAutoTurret"});
-Class.autoMinion = makeAuto("minion", "Auto-Minion", {type: "droneAutoTurret"});
-Class.autoTrap = makeAuto("trap", "Auto-Trap", {type: "droneAutoTurret"}); //sorta counts
 
 // 4TDM Score Tanks (optimize this!!!)
 const averageMinionStats = {

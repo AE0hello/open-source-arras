@@ -556,6 +556,10 @@ module.exports = {
         //health: 4/3,
         speed: 2 / 3
     },
+    doper: { 
+        speed: 1.125, 
+        maxSpeed: 1.125 
+    },
     mothership: {
         reload: 1.25,
         pen: 1.1,

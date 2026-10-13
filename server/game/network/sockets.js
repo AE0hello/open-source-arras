@@ -27,7 +27,7 @@ const U_COLOR_TABLE = [
     "17 0 1 0 false", "18 0 1 0 false", "19 0 1 0 false", "#000000 0 1 0 false",
     "#96794E 0 1 0 false", "#226ef6 0 1 0 false", "#1c3766 0 1 0 false", "#ff1000 0 1 0 false",
     "#FFFFFF 0 1 0 false", "#5C533F 0 1 0 false", "#ff9000 0 1 0 false", "#f6c6a2 0 1 0 false",
-    "#F49EFF 0 1 0 false", "#fff 0 1 0 false", "#FF0000 0 1 0 false",
+    "#F49EFF 0 1 0 false", "#fff 0 1 0 false", "#FF0000 0 1 0 false"
 ];
 const U_COLOR_ID = new Map(U_COLOR_TABLE.map((color, id) => [color, id]));
 // Quantize floats to small ints for the wire; the client divides them back.
@@ -39,7 +39,7 @@ const qpct = v => qnum(v, 100);
 const qangle = v => qnum(v, 2048 / Math.PI);
 const qfrac = v => qnum(v || 0, 255);
 // Key table; must match the client.
-const MOCKUP_KEYS = ["index","name","x","y","color","strokeWidth","glow","radius","alpha","recursion","borderless","drawFill","shape","imageInterpolation","size","realSize","mirrorMasterAngle","sendAllMockups","position","axis","middle","rerootUpgradeTree","className","upgrades","tier","guns","offset","direction","length","width","aspect","angle","drawAbove","layer","turrets","props","statnames","body_damage","max_health","bullet_speed","bullet_health","bullet_pen","bullet_damage","reload","move_speed","shield_regen","shield_cap","sizeFactor","isProp","forceAngle","visibleOnBlackout"];
+const MOCKUP_KEYS = ["index", "name", "x", "y", "color", "strokeWidth", "glow", "radius", "alpha", "recursion", "borderless", "drawFill", "shape", "imageInterpolation", "size", "realSize", "mirrorMasterAngle", "sendAllMockups", "position", "axis", "middle", "rerootUpgradeTree", "className", "upgrades", "tier", "guns", "offset", "direction", "length", "width", "aspect", "angle", "drawAbove", "layer", "turrets", "props", "statnames", "body_damage", "max_health", "bullet_speed", "bullet_health", "bullet_pen", "bullet_damage", "reload", "move_speed", "shield_regen", "shield_cap", "sizeFactor", "isProp", "forceAngle", "visibleOnBlackout"];
 const MOCKUP_KEY_ID = new Map(MOCKUP_KEYS.map((k, i) => [k, i]));
 const encodeMockupVal = (v, colorOk) => {
     if (Array.isArray(v)) return ["l", ...v.map(x => encodeMockupVal(x, false))];
@@ -72,7 +72,9 @@ const encodeRoom = (grid, blackout) => {
             const f = blackout ? [t.color, t.visibleOnBlackout ?? false, t.image ?? false] : [t.color, t.image ?? false];
             const k = f.join("\x00");
             let id = ids.get(k);
-            if (id === undefined) { id = forms.length; forms.push(f); ids.set(k, id); }
+            if (id === undefined) {
+                id = forms.length; forms.push(f); ids.set(k, id); 
+            }
             if (runs.length && runs[runs.length - 2] === id) runs[runs.length - 1]++;
             else runs.push(id, 1);
         }
@@ -582,7 +584,7 @@ class socketManager {
                 if (Config.reverse_tank_cooldown && reverseTank !== player.body.reverseTank && reverseTank !== socket.status.lastReverseTank) {
                     socket.status.reverseSpam = (socket.status.reverseSpam || 0) + 1;
                     setTimeout(() => socket.status.reverseSpam--, 10_000);
-                    if (socket.status.reverseSpam > 7) {
+                    if (socket.status.reverseSpam >= 7) {
                         player.body.sendMessage("Please slow down!");
                         reverseTank = player.body.reverseTank;
                     }

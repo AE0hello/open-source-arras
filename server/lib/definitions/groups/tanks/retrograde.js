@@ -1,7 +1,6 @@
-const { combineStats, skillSet, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeFlank, makeFore, makeGuard, makeOver, makeRadialAuto, makeSnake, makeGunner, makeWhirlwind, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
-const { base, dfltskl, smshskl, statnames } = require("../../constants.js");
+const { combineStats, makeFlank, makeGuard, makeGunner, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { base } = require("../../constants.js");
 const g = require("../../gunvals.js");
-const preset = require("../../presets.js");
 
 // Tier 2 (Level 30)
 Class.blaster = {
