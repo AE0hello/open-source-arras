@@ -580,7 +580,7 @@ class Entity extends EventEmitter {
                 host.SIZE = savedSize;
                 host.health.amount = host.health.max;
                 return true;
-            }
+            };
         }
         this.syncWithTank = set.SYNC_WITH_TANK ?? false;
         if (set.mockup != null) {

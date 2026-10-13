@@ -434,14 +434,14 @@ Class.brisker = {
                 WAIT_TO_CYCLE: true
             }
         },
-		{
-			POSITION: {
-				LENGTH: 7,
-				WIDTH: 0.5,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 0.5,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ],
     UPGRADES_TIER_4: ["adderall", "briskseer", "sailor", "adrenaline", "circulator", "briskerdrive", "addict", "autoBrisker"]
 };
@@ -633,15 +633,15 @@ Class.dopeseer = {
                 MAX_CHILDREN: 4
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 9,
-				ANGLE: 90
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 9,
+                ANGLE: 90
+            }
+        }
     ]),
     UPGRADES_TIER_4: ["briskseer", /*"dopelord", "shade", */"autoDopeseer", "dopeseerdrive"/*, "adjurer", "mogul", "ganger"*/]
 };
@@ -772,7 +772,7 @@ Class.foamer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.lowPower, g.pelleter, { recoil: 1.15 }]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         },
         {
@@ -784,7 +784,7 @@ Class.foamer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.basic, g.machineGun, g.diesel]),
-                TYPE: 'bullet'
+                TYPE: "bullet"
             }
         }
     ]
@@ -938,14 +938,14 @@ Class.issuer = {
                 WIDTH: 12
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ],
     UPGRADES_TIER_4: ["circulator", "autoIssuer", "issuerdrive"]
 };
@@ -1018,14 +1018,14 @@ Class.junkie = {
                 WAIT_TO_CYCLE: true
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ],
     UPGRADES_TIER_4: ["addict", "junkiedrive", "autoJunkie"]
 };
@@ -1144,15 +1144,15 @@ Class.mosey = {
                 STAT_CALCULATOR: "swarm"
             }
         },
-		{
-			POSITION: {
-				LENGTH: 7,
-				WIDTH: 1,
-				ASPECT: -2.5,
-				X: 8,
-				Y: 4
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 1,
+                ASPECT: -2.5,
+                X: 8,
+                Y: 4
+            }
+        }
     ], {delayIncrement: 0.5}),
     UPGRADES_TIER_4: ["sailor", "autoMosey", "moseydrive"]
 };
@@ -1195,7 +1195,7 @@ Class.overdose = {
             }
         }
     ], 2),
-    UPGRADES_TIER_4: ["autoOverdose", "dosedrive", "adrenaline", "parasite", "virtuoso", "darkmatter", "ethereal", "hastener"],
+    UPGRADES_TIER_4: ["autoOverdose", "dosedrive", "adrenaline", "parasite", "virtuoso", "darkmatter", "ethereal", "hastener"]
 };
 Class.peashooter = makeGuard({
     PARENT: "genericTank",
@@ -1539,6 +1539,7 @@ Class.splitShot = {
 Class.triHealer = makeFlank("healer", 3, "Tri-Healer", { extraStats: [g.flankGuard] });
 Class.triHealer.UPGRADES_TIER_4 = ["hexaHealer"];
 Class.underdrive = makeDrive("underseer", "Underdrive", "sunchip");
+Class.underdrive.UPGRADES_TIER_4 = ["necrodrive", "hexer", "autoUnderdrive", "infestordrive", "pentadrive"];
 Class.volley = {
     PARENT: "genericTank",
     LABEL: "Volley",
@@ -1768,14 +1769,14 @@ Class.adderall = {
                 WAIT_TO_CYCLE: true
             }
         },
-		{
-			POSITION: {
-				LENGTH: 8,
-				WIDTH: 0.25,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 0.25,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ]
 };
 Class.addict = {
@@ -1802,14 +1803,14 @@ Class.addict = {
                 WAIT_TO_CYCLE: true
             }
         },
-		{
-			POSITION: {
-				LENGTH: 7,
-				WIDTH: 0.5,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 0.5,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ]
 };
 Class.adrenaline = {
@@ -1910,6 +1911,7 @@ Class.autoDoubleFlank = makeAuto("doubleFlankTwin", "Auto-Double Flank");
 Class.autoHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
 Class.autoOverdrive = makeAuto("overdrive", "Auto-Overdrive", preset.makeAuto.drive);
 Class.autoTriple = makeAuto("tripleTwin", "Auto-Triple");
+Class.autoUnderdrive = makeAuto("underdrive", "Auto-Underdrive", preset.makeAuto.drive);
 Class.avian = makeBird("single", "Avian");
 Class.band = makeAuto({
     PARENT: "genericTank",
@@ -2068,15 +2070,15 @@ Class.briskseer = {
                 MAX_CHILDREN: 4
             }
         },
-		{
-			POSITION: {
-				LENGTH: 7,
-				WIDTH: 0.5,
-				ASPECT: -5,
-				X: 9,
-				ANGLE: 90
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 0.5,
+                ASPECT: -5,
+                X: 9,
+                ANGLE: 90
+            }
+        }
     ])
 };
 Class.bruiser = {
@@ -2170,14 +2172,14 @@ Class.circulator = {
                 WIDTH: 12
             }
         },
-		{
-			POSITION: {
-				LENGTH: 7,
-				WIDTH: 0.5,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 7,
+                WIDTH: 0.5,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ]
 };
 Class.cleft = makeFlank({
@@ -2517,14 +2519,14 @@ Class.darkmatter = {
                 DELAY_SPAWN: false
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ], 4, {delayIncrement: 0.75})
 };
 Class.decaTank = {
@@ -3040,14 +3042,14 @@ Class.ethereal = {
                 DELAY_SPAWN: false
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 8
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8
+            }
+        }
     ]
 };
 Class.flexedDouble = makeFlank("pentaShot", 2, "Flexed Double", { extraStats: [g.doubleTwin] });
@@ -3191,15 +3193,15 @@ Class.hastener = {
                 MAX_CHILDREN: 5
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 8,
-				ANGLE: 36
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8,
+                ANGLE: 36
+            }
+        }
     ], { delayIncrement: 0.5 })
 };
 Class.hewnFlankDouble = {
@@ -3558,6 +3560,7 @@ Class.hexaTrapGuard = makeAuto({
         ], {delayOverflow: true})
     ]
 }, "Hexa-Trap Guard");
+Class.hexer = makeDrive("maleficitor", "Hexer", "sunchip");
 Class.hipwatch = {
     PARENT: "genericTank",
     LABEL: "Hipwatch",
@@ -3573,6 +3576,7 @@ Class.hipwatch = {
         }
     }, 2)
 };
+Class.infestordrive = makeDrive("infestor", "Infestordrive", "eggchip");
 Class.injection = {
     PARENT: "genericHealer",
     LABEL: "Injection",
@@ -3681,6 +3685,7 @@ Class.mono = {
     ]
 };
 Class.moseydrive = makeDrive("mosey", "Moseydrive", "swarm");
+Class.necrodrive = makeDrive("necromancer", "Necrodrive", "sunchip");
 Class.octoTrapper = makeAuto(makeFlank("trapper", 8, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Octo-Trapper");
 Class.ointment = {
     PARENT: "genericHealer",
@@ -3772,7 +3777,7 @@ Class.parasite = {
     LABEL: "Parasite",
     DANGER: 8,
     NECRO: [0],
-	SIZE: 11.5,
+    SIZE: 11.5,
     STAT_NAMES: statnames.necro,
     BODY: Class.infestor.BODY,
     GUNS: weaponArray(weaponMirror([
@@ -3796,18 +3801,19 @@ Class.parasite = {
                 MAX_CHILDREN: 10
             }
         },
-		{
-			POSITION: {
-				LENGTH: 6,
-				WIDTH: 1,
-				ASPECT: -5,
-				X: 8,
-				Y: 5,
-				ANGLE: 90
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 1,
+                ASPECT: -5,
+                X: 8,
+                Y: 5,
+                ANGLE: 90
+            }
+        }
     ]), 2)
 };
+Class.pentadrive = makeDrive("pentaseer", "Pentadrive", "pentachip");
 Class.physician = {
     PARENT: "genericSmasher",
     LABEL: "Physician",
@@ -3980,15 +3986,15 @@ Class.sailor = {
                 STAT_CALCULATOR: "swarm"
             }
         },
-		{
-			POSITION: {
-				LENGTH: 8,
-				WIDTH: 0.5,
-				ASPECT: -2.5,
-				X: 8,
-				Y: 4
-			}
-		}
+        {
+            POSITION: {
+                LENGTH: 8,
+                WIDTH: 0.5,
+                ASPECT: -2.5,
+                X: 8,
+                Y: 4
+            }
+        }
     ], {delayIncrement: 0.5})
 };
 Class.scatterer = {
@@ -4897,7 +4903,7 @@ Class.rifle.UPGRADES_TIER_3.push("autoRifle"/*, "enforcer", "courser"*/);
 Class.smasher.UPGRADES_TIER_3.push(/*"banger", "drifter"*/);
 Class.sniper.UPGRADES_TIER_3.push("railgun");
 Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "productionist", "spawnerdrive", "captain"/*, "hangar", "laborer", "foundry", "issuer"*/);
-Class.sprayer.UPGRADES_TIER_3.push("frother", "foamer", "shower", "autoSprayer")
+Class.sprayer.UPGRADES_TIER_3.push("frother", "foamer", "shower", "autoSprayer");
 Class.trapGuard.UPGRADES_TIER_3.push("peashooter"/*, "incarcerator", "mechGuard"*/, "autoTrapGuard"/*, "machineGuard", "triTrapGuard"*/);
 Class.triAngle.UPGRADES_TIER_3.push(/*"taser", "cockatiel", */"integrator", "defect", "quadAngle");
 Class.triTrapper.UPGRADES_TIER_3.push(/*"triPen", "triMech", "triMachine", "triTrapGuard"*/);

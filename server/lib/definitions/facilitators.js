@@ -739,12 +739,18 @@ exports.makeDrive = (type, name = -1, projectile = "drone", options = {}) => {
     for (let gun of GUNS) {
         if (!gun.PROPERTIES) continue;
         if (!gun.PROPERTIES.TYPE) continue;
-        autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeDrive`;
-        if (gun.PROPERTIES.TYPE == projectile) {
-            if (!Class[autoProjectile]) {
-                Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "droneAutoTurret"});
+
+        const autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeDrive`;
+        if (!Class[autoProjectile]) {
+            Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "droneAutoTurret"});
+        }
+
+        if (typeof gun.PROPERTIES.TYPE !== "string") {
+            if (gun.PROPERTIES.TYPE[0] == projectile) {
+                gun.PROPERTIES.TYPE[0] = autoProjectile;
             }
-            gun.PROPERTIES.TYPE = autoProjectile
+        } else if (gun.PROPERTIES.TYPE == projectile) {
+            gun.PROPERTIES.TYPE = autoProjectile;
         }
     };
 
@@ -782,12 +788,18 @@ exports.makeStorm = (type, name = -1, projectile = "drone", options = {}) => {
     for (let gun of GUNS) {
         if (!gun.PROPERTIES) continue;
         if (!gun.PROPERTIES.TYPE) continue;
-        autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeStorm`;
-        if (gun.PROPERTIES.TYPE == projectile) {
-            if (!Class[autoProjectile]) {
-                Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "swarmAutoTurret"});
+
+        const autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeStorm`;
+        if (!Class[autoProjectile]) {
+            Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "swarmAutoTurret"});
+        }
+
+        if (typeof gun.PROPERTIES.TYPE !== "string") {
+            if (gun.PROPERTIES.TYPE[0] == projectile) {
+                gun.PROPERTIES.TYPE[0] = autoProjectile;
             }
-            gun.PROPERTIES.TYPE = autoProjectile
+        } else if (gun.PROPERTIES.TYPE == projectile) {
+            gun.PROPERTIES.TYPE = autoProjectile;
         }
     };
 

@@ -40,7 +40,7 @@ Class.vortexHat = {
             LENGTH: 9,
             WIDTH: 8.2,
             ASPECT: 0.6,
-            X: 5,
+            X: 5
         }
     }, 4)
 };

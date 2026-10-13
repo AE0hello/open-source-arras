@@ -297,7 +297,7 @@ Class.quagmire = {
                 TYPE: "bullet"
             }
         }
-    ],
+    ]
     //UPGRADES_TIER_4: ["ph_quagmire2", "ph_quagmireH", "autoQuagmire"]
 };
 Class.quickdraw = {
@@ -459,7 +459,7 @@ for (let i = 0; i < hybridTanksT4.length; i++) {
 };
 
 Class.autoCrossfire.UPGRADES_TIER_4.push(...["Dispute", "Puncturer", "Vigilante", "Forager", "Spitfire", "Quickdraw", "CrossfireHybrid"].map(x => `auto${x}`));
-Class.autoMarksman.UPGRADES_TIER_4.push(...["Deadeye", "Nimrod", "Revolver", "Fork", "Piercer"].map(x => `auto${x}`))
+Class.autoMarksman.UPGRADES_TIER_4.push(...["Deadeye", "Nimrod", "Revolver", "Fork", "Piercer"].map(x => `auto${x}`));
 Class.backlash = makeGunner("vigilante", "Backlash");
 Class.blade = {
     PARENT: "genericTank",

@@ -890,7 +890,7 @@ Class.swarmAutoTurret = makeTurret({
             STAT_CALCULATOR: "swarm"
         }
     })
-}, {label: "Turret", fov: 0.8, extraStats: []})
+}, {label: "Turret", fov: 0.8, extraStats: []});
 
 // Healer turrets
 Class.sanctuaryHealer = {
