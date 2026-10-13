@@ -1,4 +1,4 @@
-const { combineStats, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeOver, makeRadialAuto, makeGunner, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { combineStats, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeGunner, makeOver, makeRadialAuto, makeStorm, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
 const { base, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
@@ -605,34 +605,7 @@ Class.crowbar = {
 };
 Class.cruiserdrive = makeDrive("cruiser", "Cruiserdrive", "swarm");
 Class.defect = makeBird("tripleShot", "Defect");
-Class.directorstorm = {
-    PARENT: "genericTank",
-    LABEL: "Directorstorm",
-    DANGER: 7,
-    STAT_NAMES: statnames.drone,
-    BODY: Class.directordrive.BODY,
-    TURRETS: preset.turret.stormHat,
-    GUNS: [
-        {
-            POSITION: {
-                LENGTH: 5,
-                WIDTH: 11,
-                ASPECT: 1.3,
-                X: 8
-            },
-            PROPERTIES: {
-                SHOOT_SETTINGS: combineStats([g.drone]),
-                TYPE: "stormAutoDrone",
-                AUTOFIRE: true,
-                SYNCS_SKILLS: true,
-                STAT_CALCULATOR: "drone",
-                MAX_CHILDREN: 6,
-                WAIT_TO_CYCLE: true
-            }
-        }
-    ],
-    UPGRADES_TIER_4: ["autoDirectorstorm"]
-};
+Class.directorstorm = makeStorm("director");
 Class.doperdrive = makeDrive("doper");
 Class.dopeseer = {
     PARENT: "genericTank",

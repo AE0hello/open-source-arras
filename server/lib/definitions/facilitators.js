@@ -759,6 +759,49 @@ exports.makeDrive = (type, name = -1, projectile = "drone", options = {}) => {
     output.DANGER = type.DANGER + 1;
     return output;
 };
+exports.makeStorm = (type, name = -1, projectile = "drone", options = {}) => {
+    type = ensureIsClass(type);
+    let output = exports.dereference(type);
+
+    let hat = projectile === "swarm" || projectile === "tinyMinion" ? {
+        TYPE: ["triangleHat", {COLOR: "grey"}], // use base triangleHat as placeholder for now
+        POSITION: {
+            SIZE: 8,
+            ANGLE: 180,
+            LAYER: 1
+        }
+    } : {
+        TYPE: "stormHat",
+        POSITION: {
+            SIZE: 9,
+            LAYER: 1
+        }
+    };
+
+    let GUNS = output.GUNS;
+    for (let gun of GUNS) {
+        if (!gun.PROPERTIES) continue;
+        if (!gun.PROPERTIES.TYPE) continue;
+        autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeStorm`;
+        if (gun.PROPERTIES.TYPE == projectile) {
+            if (!Class[autoProjectile]) {
+                Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "swarmAutoTurret"});
+            }
+            gun.PROPERTIES.TYPE = autoProjectile
+        }
+    };
+
+    if (type.GUNS != null) output.GUNS = GUNS;
+    if (type.TURRETS == null) {
+        output.TURRETS = [hat];
+    } else {
+        output.TURRETS = [...type.TURRETS, hat];
+    };
+    output.LABEL = name == -1 ? `${type.LABEL}storm` : output.LABEL = name;
+    output.UPGRADE_LABEL = undefined;
+    output.DANGER = type.DANGER + 1;
+    return output;
+};
 exports.makeHat = (shape = 0, options = {}) => {
     options.rotationSpeed ??= 0;
     if (!options.rotationSpeed == 0) {
