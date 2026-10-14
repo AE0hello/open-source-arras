@@ -634,7 +634,6 @@ Class.sunchip = {
 };
 Class.eggchip = {PARENT: "sunchip", NECRO: [0], SHAPE: 0};
 Class.pentachip = {PARENT: "sunchip", NECRO: [5], SHAPE: 5};
-Class.stormAutoDrone = makeAuto("drone", "Auto-Drone", {type: "swarmAutoTurret"});
 
 // Mystical Drones
 Class.summonerDrone = {PARENT: "sunchip", NECRO: false};

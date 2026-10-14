@@ -1,4 +1,4 @@
-const { combineStats, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeGunner, makeOver, makeRadialAuto, makeStorm, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
+const { combineStats, addUpgrades, removeUpgrades, makeAuto, makeBattle, makeBird, makeCap, makeDrive, makeFlank, makeFore, makeGuard, makeGunner, makeOver, makeRadialAuto, makeStorm, makeVortex, weaponArray, weaponMirror, weaponStack } = require("../../facilitators.js");
 const { base, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 const preset = require("../../presets.js");
@@ -304,7 +304,6 @@ for (let i = 0; i < hybridTanksT3.length; i++) {
     let overseer      = hybridTanksT3[i][5] ??= `Over${Class[type].LABEL.charAt(0).toLowerCase() + Class[type].LABEL.slice(1)}`;
     let directordrive = hybridTanksT3[i][6] ??= `${director}drive`;
 
-
     let typeDirector = typeify(director);
     let typeOverseer = typeify(overseer);
     let typeCruiser = typeify(cruiser);
@@ -319,7 +318,7 @@ for (let i = 0; i < hybridTanksT3.length; i++) {
     Class[typeCruiser] = makeBattle(type, cruiser, preset.hybrid);
     Class[typeSpawner] = makeCap(type, spawner, preset.hybrid);
     Class[typeHoncho] = makeFore(type, honcho, preset.makeFore.hybrid);
-    Class[typeDirectordrive] = makeOver(type, directordrive, { ...preset.hybrid, drive: true });
+    Class[typeDirectordrive] = makeDrive(typeDirector, directordrive);
 
     if (Config.arms_race || !alreadyDefined) {
         Class[typeDirector].UPGRADES_TIER_4 = [typeOverseer, typeCruiser, typeSpawner, typeDirectordrive, typeHoncho];
@@ -606,6 +605,7 @@ Class.crowbar = {
 Class.cruiserdrive = makeDrive("cruiser", "Cruiserdrive", "swarm");
 Class.defect = makeBird("tripleShot", "Defect");
 Class.directorstorm = makeStorm("director");
+Class.directorstorm.UPGRADES_TIER_4 = ["vortex_AR", "overstorm", "spawnerstorm", "autoDirectorstorm", "honchostorm"/*, "downpourer"*/, "doperstorm"];
 Class.doperdrive = makeDrive("doper");
 Class.doperdrive.UPGRADES_TIER_4 = ["briskerdrive", "doperstorm", "dopeseerdrive", "moseydrive", "dosedrive", "issuerdrive", "junkiedrive", "autoDoperdrive"];
 Class.dopeseer = {
@@ -1493,6 +1493,7 @@ Class.shower.UPGRADES_TIER_4.push("humidifier", "saturater", "mizzler", "suds", 
 Class.sniper3 = makeRadialAuto("sniper3gun", { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11 / 15 * base.SPEED, FOV: 1.25 * base.FOV } });
 Class.sniper3.UPGRADES_TIER_4 = [/*"assassin3", "creeper", "sniper5", "phantom", "lever", */"autoSniper3", "alloy"/*, "rifle3", "hunter3"*/];
 Class.spawnerdrive = makeDrive("spawner", "Spawnerdrive", "minion");
+Class.spawnerdrive.UPGRADES_TIER_4 = ["spawnerstorm"];
 Class.splitShot = {
     PARENT: "genericTank",
     LABEL: "Split Shot",
@@ -1948,6 +1949,7 @@ Class.band = makeAuto({
         }
     }, 3)
 }, "Band");
+Class.bansheedrive = makeDrive("banshee");
 Class.battletrapper = makeBattle({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -3053,6 +3055,7 @@ Class.ethereal = {
     ]
 };
 Class.flexedDouble = makeFlank("pentaShot", 2, "Flexed Double", { extraStats: [g.doubleTwin] });
+Class.foredrive = makeDrive("foreman", "Foredrive");
 Class.foretrapper = makeFore({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -3576,6 +3579,7 @@ Class.hipwatch = {
         }
     }, 2)
 };
+Class.honchostorm = makeStorm("honcho");
 Class.infestordrive = makeDrive("infestor", "Infestordrive", "eggchip");
 Class.injection = {
     PARENT: "genericHealer",
@@ -3621,6 +3625,7 @@ Class.injection = {
         }
     ]
 };
+Class.instructor = makeDrive("commander", "Instructor");
 Class.intern = {
     PARENT: "genericHealer",
     LABEL: "Intern",
@@ -3772,6 +3777,9 @@ Class.overdoubleGunner = makeOver({
     ], 2)
 }, "Overdouble Gunner", { angle: 90, renderBehind: true });
 Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", { angle: 90, renderBehind: true });
+Class.overgunnerdrive = makeDrive("overgunner");
+Class.overstorm = makeStorm("overseer", "Overstorm");
+Class.overtrapperdrive = makeDrive("overtrapper");
 Class.parasite = {
     PARENT: "genericTank",
     LABEL: "Parasite",
@@ -4182,6 +4190,7 @@ Class.skewnDouble = {
         }, {delayIncrement: 0.5}), 2)
     ]
 };
+Class.spawnerstorm = makeStorm("spawner", "Spawnerstorm", "minion");
 Class.splitDouble = makeFlank("splitShot", 2, "Split Double", { extraStats: [g.doubleTwin] });
 Class.tailer = makeGunner("stalker", "Tailer");
 Class.tempest_AR = {
@@ -4476,6 +4485,7 @@ Class.trove = {
         }
     }, 4)
 };
+Class.tyrant = makeDrive("overlord", "Tyrant");
 Class.unity = {
     PARENT: "genericTank",
     LABEL: "Unity",
@@ -4579,6 +4589,7 @@ Class.virtuoso = {
         }], 3)
     ]
 };
+Class.vortex_AR = makeVortex("director", "Vortex");
 Class.vulcan = {
     PARENT: "genericTank",
     LABEL: "Vulcan",
@@ -4915,7 +4926,7 @@ Class.assassin.UPGRADES_TIER_4 = [/*"executor", "finger"*/];
 Class.auto4.UPGRADES_TIER_4 = [/*"auto6", "batter4", */"autoAuto4"/*, "wraith", "volley4", "chisel"*/, "trove"];
 Class.auto5.UPGRADES_TIER_4 = [/*"auto7", "mega5", "auto6", "spectre", "sniper5", "pryer", */"autoAuto5"];
 Class.autoDouble.UPGRADES_TIER_4 = ["megaAutoDouble", "tripleAutoDouble", "autoTriple", "autoHewnDouble", "autoBentDouble", "autoDoubleFlank", "autoDoubleGunner", "autoWarkwark"];
-Class.banshee.UPGRADES_TIER_4 = [/*"spectre", "spirit", "wraith", "phantom", */"autoBanshee"/*, "revenant", "bansheedrive", "shade"*/];
+Class.banshee.UPGRADES_TIER_4 = [/*"spectre", "spirit", "wraith", "phantom", */"autoBanshee"/*, "revenant"*/, "bansheedrive"/*, "shade"*/];
 Class.bentDouble.UPGRADES_TIER_4 = ["bentTriple", "flexedDouble", "autoBentDouble", "doubleTriplet", "cleft", "doubleSpreadshot", "bentFlankDouble", "bentDoubleGunner", "bentDoubleMinigun", "splitDouble", "waarrkwaarrk"];
 Class.bentHybrid.UPGRADES_TIER_4 = ["flexedHybrid", "smearer"/*, "splitHybrid"*/, "autoBentHybrid"/*, "spambrid", "junker"*/, "triprid"/*, "bentCatcher"*/];
 Class.builder.UPGRADES_TIER_4 = [/*"blockade"*/];
@@ -4948,6 +4959,7 @@ Class.minigun.UPGRADES_TIER_4 = [/*"tommy", "machgun"*/];
 Class.musket.UPGRADES_TIER_4 = ["doubleMusket"/*, "flintlock", "arbalest"*/, "matchlock", "autoMusket"/*, "duelist", "bifold"*/];
 Class.nimrod.UPGRADES_TIER_4 = [];
 Class.octoTank.UPGRADES_TIER_4 = ["decaTank", "tempest_AR", "gale", "octoTrapper", "demise", "autoOctoTank", "consolidation"];
+Class.overdrive.UPGRADES_TIER_4 = ["tyrant", "overtrapperdrive", "overgunnerdrive", "bansheedrive", "autoOverdrive", "instructor", "overstorm", "foredrive", "dopeseerdrive"];
 Class.overseer.UPGRADES_TIER_4 = [/*"inspector"*/];
 Class.overtrapper.UPGRADES_TIER_4 = ["battletrapper", "captrapper", "foretrapper"];
 Class.pounder.UPGRADES_TIER_4 = ["bruiser"];
@@ -4980,7 +4992,7 @@ if (!enable_missing_tanks) {
     removeUpgrades("flankGuard", 3, ["quadruplex"]);
     //removeUpgrades("hunter", 3, ["xHunter", "nimrod"]);
     //removeUpgrades("minigun", 3, ["vulture"]);
-    //removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
+    removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
     //removeUpgrades("rifle", 3, ["revolver"]);
     //removeUpgrades("triAngle", 3, ["phoenix", "vulture"]);
     //removeUpgrades("tripleShot", 3, ["triplex"]);
