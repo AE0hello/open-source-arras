@@ -603,6 +603,7 @@ Class.crowbar = {
     UPGRADES_TIER_4: [/*"pryer", "crank", "chisel", "lever", */"spindle", "autoCrowbar", "dualbar"/*, "spanner"*/, "wrench"]
 };
 Class.cruiserdrive = makeDrive("cruiser", "Cruiserdrive", "swarm");
+Class.cruiserdrive.UPGRADES_TIER_4 = ["carrierdrive", "battledrive", "fortdrive"];
 Class.defect = makeBird("tripleShot", "Defect");
 Class.directorstorm = makeStorm("director");
 Class.directorstorm.UPGRADES_TIER_4 = ["vortex_AR", "overstorm", "spawnerstorm", "autoDirectorstorm", "honchostorm"/*, "downpourer"*/, "doperstorm"];
@@ -1950,6 +1951,7 @@ Class.band = makeAuto({
     }, 3)
 }, "Band");
 Class.bansheedrive = makeDrive("banshee");
+Class.battledrive = makeDrive("battleship", "Battledrive", "swarm");
 Class.battletrapper = makeBattle({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -2138,6 +2140,7 @@ Class.captrapper = makeCap({
         }
     ]
 });
+Class.carrierdrive = makeDrive("carrier", "Carrierdrive", "swarm");
 Class.circulator = {
     PARENT: "genericTank",
     LABEL: "Circulator",
@@ -3087,6 +3090,7 @@ Class.foretrapper = makeFore({
         }
     ]
 });
+Class.fortdrive = makeDrive("fortress", "Fortdrive", "swarm");
 Class.gadgetGun = {
     PARENT: "genericTank",
     LABEL: "Gadget Gun",

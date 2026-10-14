@@ -1834,7 +1834,7 @@ Class.theAmalgamation = makeAuto({
                 POSITION: [7, 7.5, 0.6, 7, 0, -90, 0],
                 PROPERTIES: {
                     SHOOT_SETTINGS: combineStats([g.swarm]),
-                    TYPE: "autoswarm",
+                    TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
                     STAT_CALCULATOR: "swarm"
                 }
             },

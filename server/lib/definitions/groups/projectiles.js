@@ -1050,13 +1050,6 @@ Class.medkit = {
 };
 
 // Swarms
-Class.autoswarm = {
-    PARENT: "swarm",
-    AI: {
-        FARMER: true
-    },
-    INDEPENDENT: true
-};
 Class.bee = {
     PARENT: "swarm",
     PERSISTS_AFTER_DEATH: true,
@@ -1552,7 +1545,7 @@ Class.averageL39HuntSurfer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "autoswarm",
+                TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm",
                 AUTOFIRE: true
             }

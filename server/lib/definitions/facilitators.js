@@ -194,7 +194,7 @@ exports.makeBattle = (type, name = -1, options = {}) => {
     };
     let autoSpawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.swarm, ...stats]),
-        TYPE: "autoswarm",
+        TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
         STAT_CALCULATOR: "swarm",
         LABEL: "Autonomous"
     };

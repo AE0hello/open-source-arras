@@ -1113,7 +1113,7 @@ Class.battleship = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "autoswarm",
+                TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm",
                 LABEL: "Autonomous"
             }
@@ -3523,7 +3523,7 @@ Class.surfer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "autoswarm",
+                TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm"
             }
         }]),
