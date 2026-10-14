@@ -633,6 +633,44 @@ Class.corvette = {
     ], {delayIncrement: 0.25}),
     UPGRADES_TIER_4: ["autoCorvette", "bracer", "doubleCorvette"]
 };
+Class.courser = {
+    PARENT: "genericTank",
+    LABEL: "Courser",
+    DANGER: 7,
+    BODY: Class.assassin.BODY,
+    CONTROLLERS: Class.hunter.CONTROLLERS,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 27,
+                WIDTH: 8
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.hunter, g.hunterSecondary]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 11,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.hunter]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 11,
+                ASPECT: -1.7
+            }
+        }
+    ]
+    //UPGRADES_TIER_4: ["sifter", "hunter3", "autoCourser", "immolater", "scrutiner", "acquirer", "cassowary", "garroter", "lyncher", "dyadic", "megaCourser", "flicher"]
+};
 Class.crowbar = {
     PARENT: "genericTank",
     LABEL: "Crowbar",
@@ -760,6 +798,38 @@ Class.doubleFlankTwin = makeFlank({
 Class.doubleFlankTwin.UPGRADES_TIER_4 = ["quadTwin", "tripleFlankTwin", "hewnFlankDouble", "autoDoubleFlank", "bentFlankDouble", "doubleFlankGunner", "hipwatch", "scuffler", "warkwawawark"];
 Class.doubleGunner = makeFlank("gunner", 2, "Double Gunner", { extraStats: [g.doubleTwin] });
 Class.doubleGunner.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner", "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire", "doubleVolley", "doubleEqualizer", "doubleCorvette"];
+Class.enforcer = {
+    PARENT: "genericTank",
+    LABEL: "Enforcer",
+    DANGER: 7,
+    BODY: Class.assassin.BODY,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 23,
+                WIDTH: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 27,
+                WIDTH: 7
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.assassin, g.rifle]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 13,
+                WIDTH: 7,
+                ASPECT: -2.2
+            }
+        }
+    ]
+    //UPGRADES_TIER_4: ["maverick", "examiner", "pique", "slayer", "autoEnforcer", "rifle3", "duelist", "armament", "merganser", "flicher"]
+};
 Class.equalizer = {
     PARENT: "genericTank",
     LABEL: "Equalizer",
@@ -1389,6 +1459,43 @@ Class.pentaseer = {
             MAX_CHILDREN: 5
         }
     }, { delayIncrement: 0.5 })
+};
+Class.prober = {
+    PARENT: "genericTank",
+    LABEL: "Prober",
+    DANGER: 7,
+    BODY: Class.hunter.BODY,
+    CONTROLLERS: Class.hunter.CONTROLLERS,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 26,
+                WIDTH: 5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.hunter, g.hunterSecondary]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 7,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.sniper, g.rifle, g.hunter]),
+                TYPE: "bullet"
+            }
+        }
+    ]
+    //UPGRADES_TIER_4: ["presage", "bifold", "pilfer", "autoProber", "carnage", "megaProber", "flicher"]
 };
 Class.prodigy = {
     PARENT: "genericTank",
@@ -5100,13 +5207,15 @@ Class.wrench = {
 // Existing Upgrade Management
 if (!Config.arms_race) return;
 
+removeUpgrades("twin", 3, ["bulwark"]);
+
 Class.director.UPGRADES_TIER_2.push("directordrive", "honcho", "doper");
 Class.machineGun.UPGRADES_TIER_2.push("diesel", "machineTrapper");
 Class.trapper.UPGRADES_TIER_2.push("pen", "mech", "machineTrapper", "wark");
 Class.twin.UPGRADES_TIER_2.push("wark");
 
 Class.artillery.UPGRADES_TIER_3.push(/*"queller", "forger", */"force", "autoArtillery"/*, "foctillery", "discharger"*/);
-Class.assassin.UPGRADES_TIER_3.push("hitman", "sniper3"/*, "enforcer", "courser"*/);
+Class.assassin.UPGRADES_TIER_3.push("hitman", "sniper3", "enforcer", "courser");
 Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar", "autoAuto3", "combo");
 Class.builder.UPGRADES_TIER_3.push(/*"forger", "stall", */"fashioner"/*, "charger"*/);
 Class.cruiser.UPGRADES_TIER_3.push("productionist", "cruiserdrive", "hangar"/*, "zipper"*/, "baltimore", "mosey");
@@ -5117,12 +5226,12 @@ Class.gunner.UPGRADES_TIER_3.push("buttbuttin", "blower", "rimfire", "volley", "
 removeUpgrades("healer", 3, ["ambulance", "surgeon", "paramedic"]);
 Class.healer.UPGRADES_TIER_3.push(/*"scientist", "nurse", */"triHealer"/*, "analyzer", "psychiatrist", "soother"*/);
 Class.hexaTank.UPGRADES_TIER_3.push("autoHexaTank", "mingler", "combo");
-Class.hunter.UPGRADES_TIER_3.push("autoHunter"/*, "megaHunter", "prober", "courser"*/);
+Class.hunter.UPGRADES_TIER_3.push("autoHunter"/*, "megaHunter"*/, "prober", "courser");
 Class.launcher.UPGRADES_TIER_3.push("rocketeer"/*, "pitcher", "cluster", "projector"*/, "heaver", "autoLauncher"/*, "hurler", "inception"*/);
 Class.minigun.UPGRADES_TIER_3.push(/*"taser", "zipper", */"bentMinigun", "autoMinigun"/*, "widget"*/);
 Class.overseer.UPGRADES_TIER_3.push("captain", "foreman", "dopeseer");
 Class.pounder.UPGRADES_TIER_3.push("subverter");
-Class.rifle.UPGRADES_TIER_3.push("autoRifle"/*, "enforcer", "courser"*/);
+Class.rifle.UPGRADES_TIER_3.push("autoRifle", "enforcer", "prober");
 Class.smasher.UPGRADES_TIER_3.push(/*"banger", "drifter"*/);
 Class.sniper.UPGRADES_TIER_3.push("railgun");
 Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "productionist", "spawnerdrive", "captain", "hangar"/*, "laborer", "foundry", "issuer"*/);
@@ -5207,7 +5316,7 @@ if (!enable_missing_tanks) {
     removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
     //removeUpgrades("rifle", 3, ["revolver"]);
     //removeUpgrades("triAngle", 3, ["phoenix", "vulture"]);
-    //removeUpgrades("tripleShot", 3, ["triplex"]);
+    removeUpgrades("tripleShot", 3, ["triplex"]);
 } else {
     removeUpgrades("trapper", 3, ["barricade"]);
     removeUpgrades("twin", 3, ["bulwark"]);
