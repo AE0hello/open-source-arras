@@ -95,6 +95,9 @@ module.exports = {
         },
         storm: {
             type: "stormAutoTurret", clearTurrets: true, size: 9
+        },
+        swarmdrive: {
+            type: "swarmdriveAutoTurret", clearTurrets: true, size: 8
         }
     },
     makeFore: {

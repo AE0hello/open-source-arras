@@ -603,7 +603,7 @@ Class.crowbar = {
     UPGRADES_TIER_4: [/*"pryer", "crank", "chisel", "lever", */"spindle", "autoCrowbar", "dualbar"/*, "spanner"*/, "wrench"]
 };
 Class.cruiserdrive = makeDrive("cruiser", "Cruiserdrive", "swarm");
-Class.cruiserdrive.UPGRADES_TIER_4 = ["carrierdrive", "battledrive", "fortdrive"];
+Class.cruiserdrive.UPGRADES_TIER_4 = ["carrierdrive", "battledrive", "fortdrive", "autoCruiserdrive", "prescriber", "productiondrive"];
 Class.defect = makeBird("tripleShot", "Defect");
 Class.directorstorm = makeStorm("director");
 Class.directorstorm.UPGRADES_TIER_4 = ["vortex_AR", "overstorm", "spawnerstorm", "autoDirectorstorm", "honchostorm"/*, "downpourer"*/, "doperstorm"];
@@ -1907,6 +1907,7 @@ Class.alloy = {
         }
     }, 3)
 };
+Class.autoCruiserdrive = makeAuto("cruiserdrive", "Auto-Cruiserdrive", preset.makeAuto.swarmdrive);
 Class.autoDirectorstorm = makeAuto("directorstorm", "Auto-Directorstorm", preset.makeAuto.storm);
 Class.autoDoperdrive = makeAuto("doperdrive", "Auto-Doperdrive", preset.makeAuto.drive);
 Class.autoDoubleFlank = makeAuto("doubleFlankTwin", "Auto-Double Flank");
@@ -3851,6 +3852,8 @@ Class.physician = {
         }
     ]
 };
+Class.prescriber = makeDrive("commander", "Prescriber", "swarm");
+Class.productiondrive = makeDrive("productionist", "Productiondrive", "tinyMinion");
 Class.protector = {
     PARENT: "genericTank",
     LABEL: "Protector",
@@ -5017,6 +5020,7 @@ if (!enable_missing_tanks) {
 
 if (Config.siege) {
     removeUpgrades("directordrive", 3, ["underdrive"]);
+    removeUpgrades("doper", 3, ["overdose"]);
 };
 
 if (!free_tier_4) return;

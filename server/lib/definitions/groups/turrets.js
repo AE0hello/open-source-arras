@@ -784,6 +784,7 @@ Class.ultraAutoTurret = makeTurret({
     ]
 }, {label: "Turret", fov: 0.8, extraStats: []});
 Class.driveAutoTurret = { PARENT: "autoTurret", SHAPE: 4 };
+Class.swarmdriveAutoTurret = { PARENT: "autoTurret", SHAPE: 3 };
 Class.driveMegaAutoTurret = { PARENT: "megaAutoTurret", SHAPE: 4 };
 Class.stormAutoTurret = {
     PARENT: "autoTurret",
