@@ -906,7 +906,7 @@ Class.vortexTurret = makeTurret({
             STAT_CALCULATOR: "swarm"
         }
     }, 4)
-}, {label: "Vortex Turret", fov: 0.8, extraStats: []})
+}, {label: "Vortex Turret", fov: 0.8, extraStats: []});
 
 // Healer turrets
 Class.sanctuaryHealer = {

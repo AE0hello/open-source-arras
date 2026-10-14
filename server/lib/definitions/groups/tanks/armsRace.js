@@ -549,6 +549,52 @@ Class.combo = {
     }, 3),
     UPGRADES_TIER_4: ["consolidation", "sequence", "trove", "alloy", "autoCombo", "band"]
 };
+Class.corvette = {
+    PARENT: "genericTank",
+    LABEL: "Corvette",
+    DANGER: 7,
+    GUNS: weaponMirror([
+        {
+            POSITION: {
+                LENGTH: 4,
+                WIDTH: 8.2,
+                ASPECT: 0.5,
+                X: 12,
+                Y: -4.5,
+                ANGLE: 45
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 12,
+                WIDTH: 3.5,
+                Y: 7.25,
+                DELAY: 0.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 16,
+                WIDTH: 3.5,
+                Y: 3.75
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.twin, g.gunner, {speed: 1.2}]),
+                TYPE: "bullet"
+            }
+        }
+    ], {delayIncrement: 0.25}),
+    UPGRADES_TIER_4: ["autoCorvette", "bracer", "doubleCorvette"]
+};
 Class.crowbar = {
     PARENT: "genericTank",
     LABEL: "Crowbar",
@@ -677,7 +723,7 @@ Class.doubleFlankTwin = makeFlank({
 }, 2, "Double Flank Twin", { extraStats: [g.doubleTwin] });
 Class.doubleFlankTwin.UPGRADES_TIER_4 = ["quadTwin", "tripleFlankTwin", "hewnFlankDouble", "autoDoubleFlank", "bentFlankDouble", "doubleFlankGunner", "hipwatch", "scuffler", "warkwawawark"];
 Class.doubleGunner = makeFlank("gunner", 2, "Double Gunner", { extraStats: [g.doubleTwin] });
-Class.doubleGunner.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner", "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire", "doubleVolley", "doubleEqualizer"];
+Class.doubleGunner.UPGRADES_TIER_4 = ["tripleGunner", "hewnGunner", "autoDoubleGunner", "bentDoubleGunner", "doubleFlankGunner", "doubleNailgun", "doubleMachineGunner", "overdoubleGunner", "doubleBattery", "doubleRimfire", "doubleVolley", "doubleEqualizer", "doubleCorvette"];
 Class.equalizer = {
     PARENT: "genericTank",
     LABEL: "Equalizer",
@@ -1641,6 +1687,7 @@ const autoTanksT4 = [
     "bushwhacker",
     "buttbuttin",
     "combo",
+    "corvette",
     "crowbar",
     "cyclone",
     "deathStar",
@@ -2049,6 +2096,59 @@ Class.bentFlankDouble = makeFlank({
     ]
 }, 2, "Bent Flank Double", { extraStats: [g.doubleTwin] });
 Class.bentTriple = makeFlank("tripleShot", 3, "Bent Triple", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 8 });
+Class.bracer = {
+    PARENT: "genericTank",
+    LABEL: "Bracer",
+    DANGER: 8,
+    BODY: Class.nailgun.BODY,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 9,
+                WIDTH: 8.2,
+                ASPECT: 0.6,
+                X: 4,
+                Y: 1.5,
+                ANGLE: 22.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        }, {delayIncrement: 0.5}),
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 19,
+                WIDTH: 3,
+                Y: -2,
+                DELAY: 0.25
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, g.nailgun, {size: 2 / 3}]),
+                TYPE: "bullet"
+            }
+        }, {delayIncrement: 0.5}),
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 2
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.pelleter, g.power, g.twin, g.nailgun]),
+                TYPE: "bullet"
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 5.5,
+                WIDTH: 7,
+                ASPECT: -1.8,
+                X: 6.5
+            }
+        }
+    ]
+};
 Class.briskerdrive = makeDrive("brisker");
 Class.briskseer = {
     PARENT: "genericTank",
@@ -2642,6 +2742,7 @@ Class.doctor = {
 Class.doperstorm = makeStorm("doper");
 Class.dopeseerdrive = makeDrive("dopeseer");
 Class.dosedrive = makeDrive("overdose", "Dosedrive", "sunchip");
+Class.doubleCorvette = makeFlank("corvette", 2, "Double Corvette", { extraStats: [g.doubleTwin] });
 Class.doubleFlankGunner = {
     PARENT: "genericTank",
     LABEL: "Double Flank Gunner",
@@ -4908,7 +5009,7 @@ Class.cruiser.UPGRADES_TIER_3.push("productionist", "cruiserdrive"/*, "hangar", 
 Class.destroyer.UPGRADES_TIER_3.push("megaTrapper"/*, "queller"*/, "autoDestroyer"/*, "hurler", "slinker"*/);
 removeUpgrades("director", 3, ["bigCheese"]);
 Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin", "doubleGunner", "warkwark");
-Class.gunner.UPGRADES_TIER_3.push("buttbuttin", "blower", "rimfire", "volley", "doubleGunner", "bentGunner", "equalizer");
+Class.gunner.UPGRADES_TIER_3.push("buttbuttin", "blower", "rimfire", "volley", "doubleGunner", "bentGunner", "equalizer", "corvette");
 removeUpgrades("healer", 3, ["ambulance", "surgeon", "paramedic"]);
 Class.healer.UPGRADES_TIER_3.push(/*"scientist", "nurse", */"triHealer"/*, "analyzer", "psychiatrist", "soother"*/);
 Class.hexaTank.UPGRADES_TIER_3.push("autoHexaTank", "mingler", "combo");
