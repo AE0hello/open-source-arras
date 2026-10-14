@@ -96,7 +96,7 @@ Class.honcho = {
             }
         }
     ],
-    UPGRADES_TIER_3: ["foreman"/*, "baltimore", "foundry"*/, "bigCheese", "autoHoncho", "honchodrive", "junkie"],
+    UPGRADES_TIER_3: ["foreman", "baltimore"/*, "foundry"*/, "bigCheese", "autoHoncho", "honchodrive", "junkie"],
     UPGRADES_TIER_4: [/*"minister"*/]
 };
 Class.machineTrapper = {
@@ -273,6 +273,22 @@ for (let i = 0; i < autoTanksT3.length; i++) {
     };
 };
 
+const driveTanksT3 = [
+    ["cruiser", "swarm"],
+    "doper",
+    "honcho",
+    ["spawner", "minion"],
+    ["underseer", "sunchip", "Underdrive"]
+];
+for (let i = 0; i < driveTanksT3.length; i++) {
+    if (!Array.isArray(driveTanksT3[i])) driveTanksT3[i] = [driveTanksT3[i]];
+    let type = driveTanksT3[i][0];
+    let projectile = driveTanksT3[i][1] ??= "drone";
+    let typedrive = driveTanksT3[i][2] ??= `${Class[driveTanksT3[i][0]].LABEL}drive`;
+
+    Class[typedrive.charAt(0).toLowerCase() + typedrive.slice(1).replace(/[\s-]+/g, "")] = makeDrive(type, typedrive, projectile);
+};
+
 const hybridTanksT3 = [
     // Base Tank    //Director      //Cruiser           //Spawner       //Honcho            //Overseer  //Directordrive
     ["artillery",   "Force",        "Mixer",            "Generator",    "Energizer"],
@@ -333,6 +349,28 @@ Class.autoDirectordrive.UPGRADES_TIER_4 = [...["mega", "triple"].map(x => `${x}A
 Class.autoDoper.UPGRADES_TIER_4.push(...["Brisker", "Dopeseer", "Mosey", "Overdose", "Issuer", "Junkie", "Doperdrive"].map(x => `auto${x}`));
 Class.autoHexaTank.UPGRADES_TIER_4.push(...["OctoTank", "Cyclone", "DeathStar", "Mingler", "Combo"].map(x => `auto${x}`));
 Class.autoSprayer.UPGRADES_TIER_4.push(...["Redistributor", "Phoenix", "Atomizer", "Focal"/*, "Frother", "Foamer"*/, "Shower"].map(x => `auto${x}`));
+Class.baltimore = {
+    PARENT: "genericTank",
+    LABEL: "Baltimore",
+    DANGER: 7,
+    STAT_NAMES: statnames.swarm,
+    BODY: Class.cruiser.BODY,
+    GUNS: weaponMirror({
+        POSITION: {
+            LENGTH: 12,
+            WIDTH: 8.7,
+            ASPECT: 0.75,
+            X: 3,
+            Y: 4.6
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.swarm, g.honcho]),
+            TYPE: 'swarm',
+            SYNCS_SKILLS: true,
+            STAT_CALCULATOR: 'swarm',
+        },
+    }, { delayIncrement: 0.5 })
+}
 Class.bentGunner = {
     PARENT: "genericTank",
     LABEL: "Bent Gunner",
@@ -648,12 +686,10 @@ Class.crowbar = {
     ],
     UPGRADES_TIER_4: [/*"pryer", "crank", "chisel", "lever", */"spindle", "autoCrowbar", "dualbar"/*, "spanner"*/, "wrench"]
 };
-Class.cruiserdrive = makeDrive("cruiser", "Cruiserdrive", "swarm");
-Class.cruiserdrive.UPGRADES_TIER_4 = ["carrierdrive", "battledrive", "fortdrive", "autoCruiserdrive", "prescriber", "productiondrive"];
+Class.cruiserdrive.UPGRADES_TIER_4 = ["carrierdrive", "battledrive", "fortdrive", "autoCruiserdrive", "prescriber", "productiondrive", "helipad", "baltimoredrive", "moseydrive"];
 Class.defect = makeBird("tripleShot", "Defect");
 Class.directorstorm = makeStorm("director");
 Class.directorstorm.UPGRADES_TIER_4 = ["vortex_AR", "overstorm", "spawnerstorm", "autoDirectorstorm", "honchostorm"/*, "downpourer"*/, "doperstorm"];
-Class.doperdrive = makeDrive("doper");
 Class.doperdrive.UPGRADES_TIER_4 = ["briskerdrive", "doperstorm", "dopeseerdrive", "moseydrive", "dosedrive", "issuerdrive", "junkiedrive", "autoDoperdrive"];
 Class.dopeseer = {
     PARENT: "genericTank",
@@ -912,7 +948,59 @@ Class.frother = {
         }
     ]
 };
-Class.honchodrive = makeDrive("honcho");
+Class.hangar = {
+    PARENT: "genericTank",
+    LABEL: "Hangar",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.cruiser.BODY,
+    GUNS: [
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 8.5,
+                WIDTH: 8.2,
+                ASPECT: 0.6,
+                X: 3,
+                Y: 5.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.swarm]),
+                TYPE: "swarm",
+                STAT_CALCULATOR: "swarm"
+            }
+        }, {delayIncrement: 0.5}),
+        {
+            POSITION: {
+                LENGTH: 4.5,
+                WIDTH: 10,
+                X: 10.5
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 1,
+                WIDTH: 12,
+                X: 15
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
+                TYPE: "minion",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true,
+                STAT_CALCULATOR: "drone",
+                WAIT_TO_CYCLE: true,
+                MAX_CHILDREN: 4
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 11.5,
+                WIDTH: 12
+            }
+        }
+    ],
+    UPGRADES_TIER_4: ["autoHangar", "airfield", "helipad"]
+};
 Class.hutch = {
     PARENT: "genericTank",
     LABEL: "Hutch",
@@ -1539,8 +1627,7 @@ Class.rocketeer = {
 Class.shower.UPGRADES_TIER_4.push("humidifier", "saturater", "mizzler", "suds", "douser", "autoShower");
 Class.sniper3 = makeRadialAuto("sniper3gun", { isTurret: true, danger: 7, size: 13, label: "Sniper-3", body: { SPEED: 11 / 15 * base.SPEED, FOV: 1.25 * base.FOV } });
 Class.sniper3.UPGRADES_TIER_4 = [/*"assassin3", "creeper", "sniper5", "phantom", "lever", */"autoSniper3", "alloy"/*, "rifle3", "hunter3"*/];
-Class.spawnerdrive = makeDrive("spawner", "Spawnerdrive", "minion");
-Class.spawnerdrive.UPGRADES_TIER_4 = ["spawnerstorm"];
+Class.spawnerdrive.UPGRADES_TIER_4 = ["spawnerstorm", "airfield"];
 Class.splitShot = {
     PARENT: "genericTank",
     LABEL: "Split Shot",
@@ -1586,7 +1673,6 @@ Class.splitShot = {
 };
 Class.triHealer = makeFlank("healer", 3, "Tri-Healer", { extraStats: [g.flankGuard] });
 Class.triHealer.UPGRADES_TIER_4 = ["hexaHealer"];
-Class.underdrive = makeDrive("underseer", "Underdrive", "sunchip");
 Class.underdrive.UPGRADES_TIER_4 = ["necrodrive", "hexer", "autoUnderdrive", "infestordrive", "pentadrive"];
 Class.volley = {
     PARENT: "genericTank",
@@ -1680,6 +1766,7 @@ const autoTanksT4 = [
     "auto4",
     "auto5",
     "banshee",
+    "baltimore",
     "bentDouble",
     "bentHybrid",
     "brisker",
@@ -1697,6 +1784,7 @@ const autoTanksT4 = [
     "falcon",
     "focal",
     "fighter",
+    "hangar",
     "hewnDouble",
     "issuer",
     "jalopy",
@@ -1737,6 +1825,42 @@ const doubleTanksT4 = [
 for (let i = 0; i < doubleTanksT4.length; i++) {
     let type = doubleTanksT4[i];
     Class[`double${type.charAt(0).toUpperCase() + type.slice(1)}`] = makeFlank(type, 2, `Double ${Class[type].LABEL}`, { extraStats: [g.doubleTwin] });
+};
+
+const driveTanksT4 = [
+    ["baltimore", "swarm"],
+    "banshee",
+    ["battleship", "swarm", "Battledrive"],
+    "brisker",
+    ["carrier", "swarm"],
+    ["commander", "drone", "Instructor"],
+    ["commander", "swarm", "Prescriber"],
+    "dopeseer",
+    ["foreman", "drone", "Foredrive"],
+    ["fortress", "swarm", "Fortdrive"],
+    ["hangar", "minion", "Airfield"],
+    ["hangar", "swarm", "Helipad"],
+    ["infestor", "eggchip"],
+    ["issuer", "minion"],
+    "junkie",
+    ["maleficitor", "sunchip", "Hexer"],
+    "manager",
+    ["mosey", "swarm"],
+    ["necromancer", "sunchip", "Necrodrive"],
+    ["overdose", "sunchip", "Dosedrive"],
+    "overgunner",
+    ["overlord", "drone", "Tyrant"],
+    "overtrapper",
+    ["pentaseer", "pentachip", "Pentadrive"],
+    ["productionist", "tinyMinion", "Productiondrive"]
+];
+for (let i = 0; i < driveTanksT4.length; i++) {
+    if (!Array.isArray(driveTanksT4[i])) driveTanksT4[i] = [driveTanksT4[i]];
+    let type = driveTanksT4[i][0];
+    let projectile = driveTanksT4[i][1] ??= "drone";
+    let typedrive = driveTanksT4[i][2] ??= `${Class[driveTanksT4[i][0]].LABEL}drive`;
+
+    Class[typedrive.charAt(0).toLowerCase() + typedrive.slice(1).replace(/[\s-]+/g, "")] = makeDrive(type, typedrive, projectile);
 };
 
 const hybridTanksT4 = [
@@ -1959,7 +2083,9 @@ Class.autoDirectorstorm = makeAuto("directorstorm", "Auto-Directorstorm", preset
 Class.autoDoperdrive = makeAuto("doperdrive", "Auto-Doperdrive", preset.makeAuto.drive);
 Class.autoDoubleFlank = makeAuto("doubleFlankTwin", "Auto-Double Flank");
 Class.autoHexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Auto-Hexa-Trapper", preset.makeAuto.triple);
+Class.autoHonchodrive = makeAuto("honchodrive", "Auto-Honchodrive", preset.makeAuto.drive);
 Class.autoOverdrive = makeAuto("overdrive", "Auto-Overdrive", preset.makeAuto.drive);
+Class.autoSpawnerdrive = makeAuto("spawnerdrive", "Auto-Spawnerdrive", preset.makeAuto.drive);
 Class.autoTriple = makeAuto("tripleTwin", "Auto-Triple");
 Class.autoUnderdrive = makeAuto("underdrive", "Auto-Underdrive", preset.makeAuto.drive);
 Class.avian = makeBird("single", "Avian");
@@ -1998,8 +2124,6 @@ Class.band = makeAuto({
         }
     }, 3)
 }, "Band");
-Class.bansheedrive = makeDrive("banshee");
-Class.battledrive = makeDrive("battleship", "Battledrive", "swarm");
 Class.battletrapper = makeBattle({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -2149,7 +2273,6 @@ Class.bracer = {
         }
     ]
 };
-Class.briskerdrive = makeDrive("brisker");
 Class.briskseer = {
     PARENT: "genericTank",
     LABEL: "Briskseer",
@@ -2241,7 +2364,6 @@ Class.captrapper = makeCap({
         }
     ]
 });
-Class.carrierdrive = makeDrive("carrier", "Carrierdrive", "swarm");
 Class.circulator = {
     PARENT: "genericTank",
     LABEL: "Circulator",
@@ -2740,8 +2862,6 @@ Class.doctor = {
     ]
 };
 Class.doperstorm = makeStorm("doper");
-Class.dopeseerdrive = makeDrive("dopeseer");
-Class.dosedrive = makeDrive("overdose", "Dosedrive", "sunchip");
 Class.doubleCorvette = makeFlank("corvette", 2, "Double Corvette", { extraStats: [g.doubleTwin] });
 Class.doubleFlankGunner = {
     PARENT: "genericTank",
@@ -3160,7 +3280,6 @@ Class.ethereal = {
     ]
 };
 Class.flexedDouble = makeFlank("pentaShot", 2, "Flexed Double", { extraStats: [g.doubleTwin] });
-Class.foredrive = makeDrive("foreman", "Foredrive");
 Class.foretrapper = makeFore({
     PARENT: "genericTank",
     LABEL: "Trapper",
@@ -3192,7 +3311,6 @@ Class.foretrapper = makeFore({
         }
     ]
 });
-Class.fortdrive = makeDrive("fortress", "Fortdrive", "swarm");
 Class.gadgetGun = {
     PARENT: "genericTank",
     LABEL: "Gadget Gun",
@@ -3669,7 +3787,6 @@ Class.hexaTrapGuard = makeAuto({
         ], {delayOverflow: true})
     ]
 }, "Hexa-Trap Guard");
-Class.hexer = makeDrive("maleficitor", "Hexer", "sunchip");
 Class.hipwatch = {
     PARENT: "genericTank",
     LABEL: "Hipwatch",
@@ -3686,7 +3803,6 @@ Class.hipwatch = {
     }, 2)
 };
 Class.honchostorm = makeStorm("honcho");
-Class.infestordrive = makeDrive("infestor", "Infestordrive", "eggchip");
 Class.injection = {
     PARENT: "genericHealer",
     LABEL: "Injection",
@@ -3731,7 +3847,6 @@ Class.injection = {
         }
     ]
 };
-Class.instructor = makeDrive("commander", "Instructor");
 Class.intern = {
     PARENT: "genericHealer",
     LABEL: "Intern",
@@ -3757,9 +3872,6 @@ Class.intern = {
         }
     ]
 };
-Class.issuerdrive = makeDrive("issuer", "Issuerdrive", "minion");
-Class.junkiedrive = makeDrive("junkie");
-Class.managerdrive = makeDrive("manager");
 Class.marine = makeGunner("ranger", "Marine");
 Class.megaAutoDirectordrive = makeAuto("directordrive", "Mega Auto-Directordrive", preset.makeAuto.driveMega);
 Class.megaAutoDouble = makeAuto("doubleTwin", "Mega Auto-Double", preset.makeAuto.mega);
@@ -3795,8 +3907,6 @@ Class.mono = {
         }
     ]
 };
-Class.moseydrive = makeDrive("mosey", "Moseydrive", "swarm");
-Class.necrodrive = makeDrive("necromancer", "Necrodrive", "sunchip");
 Class.octoTrapper = makeAuto(makeFlank("trapper", 8, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 7 }), "Octo-Trapper");
 Class.ointment = {
     PARENT: "genericHealer",
@@ -3883,9 +3993,7 @@ Class.overdoubleGunner = makeOver({
     ], 2)
 }, "Overdouble Gunner", { angle: 90, renderBehind: true });
 Class.overdoubleTwin = makeOver("doubleTwin", "Overdouble Twin", { angle: 90, renderBehind: true });
-Class.overgunnerdrive = makeDrive("overgunner");
 Class.overstorm = makeStorm("overseer", "Overstorm");
-Class.overtrapperdrive = makeDrive("overtrapper");
 Class.parasite = {
     PARENT: "genericTank",
     LABEL: "Parasite",
@@ -3927,7 +4035,6 @@ Class.parasite = {
         }
     ]), 2)
 };
-Class.pentadrive = makeDrive("pentaseer", "Pentadrive", "pentachip");
 Class.physician = {
     PARENT: "genericSmasher",
     LABEL: "Physician",
@@ -3953,8 +4060,6 @@ Class.physician = {
         }
     ]
 };
-Class.prescriber = makeDrive("commander", "Prescriber", "swarm");
-Class.productiondrive = makeDrive("productionist", "Productiondrive", "tinyMinion");
 Class.protector = {
     PARENT: "genericTank",
     LABEL: "Protector",
@@ -4593,7 +4698,6 @@ Class.trove = {
         }
     }, 4)
 };
-Class.tyrant = makeDrive("overlord", "Tyrant");
 Class.unity = {
     PARENT: "genericTank",
     LABEL: "Unity",
@@ -5005,7 +5109,7 @@ Class.artillery.UPGRADES_TIER_3.push(/*"queller", "forger", */"force", "autoArti
 Class.assassin.UPGRADES_TIER_3.push("hitman", "sniper3"/*, "enforcer", "courser"*/);
 Class.auto3.UPGRADES_TIER_3.push("sniper3", "crowbar", "autoAuto3", "combo");
 Class.builder.UPGRADES_TIER_3.push(/*"forger", "stall", */"fashioner"/*, "charger"*/);
-Class.cruiser.UPGRADES_TIER_3.push("productionist", "cruiserdrive"/*, "hangar", "zipper", "baltimore", "mosey"*/);
+Class.cruiser.UPGRADES_TIER_3.push("productionist", "cruiserdrive", "hangar"/*, "zipper"*/, "baltimore", "mosey");
 Class.destroyer.UPGRADES_TIER_3.push("megaTrapper"/*, "queller"*/, "autoDestroyer"/*, "hurler", "slinker"*/);
 removeUpgrades("director", 3, ["bigCheese"]);
 Class.doubleTwin.UPGRADES_TIER_3.push("doubleFlankTwin", "doubleGunner", "warkwark");
@@ -5021,7 +5125,7 @@ Class.pounder.UPGRADES_TIER_3.push("subverter");
 Class.rifle.UPGRADES_TIER_3.push("autoRifle"/*, "enforcer", "courser"*/);
 Class.smasher.UPGRADES_TIER_3.push(/*"banger", "drifter"*/);
 Class.sniper.UPGRADES_TIER_3.push("railgun");
-Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "productionist", "spawnerdrive", "captain"/*, "hangar", "laborer", "foundry", "issuer"*/);
+Class.spawner.UPGRADES_TIER_3.push("megaSpawner", "productionist", "spawnerdrive", "captain", "hangar"/*, "laborer", "foundry", "issuer"*/);
 Class.sprayer.UPGRADES_TIER_3.push("frother", "foamer", "shower", "autoSprayer");
 Class.trapGuard.UPGRADES_TIER_3.push("peashooter"/*, "incarcerator", "mechGuard"*/, "autoTrapGuard"/*, "machineGuard", "triTrapGuard"*/);
 Class.triAngle.UPGRADES_TIER_3.push(/*"taser", "cockatiel", */"integrator", "defect", "quadAngle");
