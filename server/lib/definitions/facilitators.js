@@ -898,7 +898,7 @@ exports.makeWhirlwind = (type, options = {}) => {
         let output = [];
         for (let i = 0; i < options.satellites; i++) { 
             output.push({
-                POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1, DELAY: i * 0.25},
+                POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1},
                 PROPERTIES: {
                     SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
                     TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites)}], 
@@ -912,7 +912,7 @@ exports.makeWhirlwind = (type, options = {}) => {
         if (options.dualLayer) {
             for (let i = 0; i < options.satellites; i++) { 
                 output.push({
-                    POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1, DELAY: i * 0.25},
+                    POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1},
                     PROPERTIES: {
                         SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
                         TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites), CONTROLLERS: [["orbit", {invert: true}]]}], 
