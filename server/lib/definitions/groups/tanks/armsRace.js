@@ -5645,21 +5645,16 @@ Class.underseer.UPGRADES_TIER_4 = ["conductor"];
 
 module.exports = enable_missing_tanks;
 if (!enable_missing_tanks) {
-    removeUpgrades("basic", 1, ["desmos"]);
-
     //removeUpgrades("sniper", 2, ["marksman"]);
-    removeUpgrades("twin", 2, ["helix"]);
 
     removeUpgrades("assassin", 3, ["single"/*, "deadeye"*/]);
     addUpgrades("basic", 3, ["single"]);
     //removeUpgrades("builder", 3, ["assembler"]);
-    removeUpgrades("flankGuard", 3, ["quadruplex"]);
     //removeUpgrades("hunter", 3, ["xHunter", "nimrod"]);
     //removeUpgrades("minigun", 3, ["vulture"]);
     removeUpgrades("overseer", 3, ["overtrapper", "overgunner"]);
     //removeUpgrades("rifle", 3, ["revolver"]);
     //removeUpgrades("triAngle", 3, ["phoenix", "vulture"]);
-    removeUpgrades("tripleShot", 3, ["triplex"]);
 } else {
     removeUpgrades("trapper", 3, ["barricade"]);
     removeUpgrades("twin", 3, ["bulwark"]);

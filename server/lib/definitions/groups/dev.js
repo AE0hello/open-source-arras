@@ -63,10 +63,8 @@ Class.menu_tankChanges = makeMenu("Tank Changes Menu", {
         "menu_betaTester",
         Config.spawn_class,
 
-        // Most recently available tanks in arras beta
-        "bender",
-        "repeater",
-        "spiral"
+        "coil",
+        "duplicator"
     ]
 });
 

@@ -882,14 +882,14 @@ exports.makeWhirlwind = (type, options = {}) => {
     options.satellites ??= 4;
     let hat = [
         {
-            POSITION: {SIZE: options.hatSize ??= 8, LAYER: options.hatLayer ??= 1},
+            POSITION: {SIZE: options.hatSize ??= 7.5, LAYER: options.hatLayer ??= 1},
             TYPE: [options.hat ??= "squareHat_spin", {COLOR: options.hatColor ??= "grey"}]
         }
     ];
     if (options.dualLayer || options.enableHat2) {
         hat.push(
             {
-                POSITION: {SIZE: options.hat2Size ??= 6, ANGLE: 180, LAYER: options.hat2Layer ??= 2},
+                POSITION: {SIZE: options.hat2Size ??= 5.5, ANGLE: 180, LAYER: options.hat2Layer ??= 2},
                 TYPE: [options.hat2 ??= "squareHat_spin", {COLOR: options.hat2Color ??= "grey"}]
             }
         );
@@ -898,7 +898,7 @@ exports.makeWhirlwind = (type, options = {}) => {
         let output = [];
         for (let i = 0; i < options.satellites; i++) { 
             output.push({
-                POSITION: {WIDTH: options.satelliteSize ??= 8, LENGTH: 1, DELAY: i * 0.25},
+                POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1, DELAY: i * 0.25},
                 PROPERTIES: {
                     SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
                     TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites)}], 
@@ -912,7 +912,7 @@ exports.makeWhirlwind = (type, options = {}) => {
         if (options.dualLayer) {
             for (let i = 0; i < options.satellites; i++) { 
                 output.push({
-                    POSITION: {WIDTH: options.satelliteSize ??= 8, LENGTH: 1, DELAY: i * 0.25},
+                    POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1, DELAY: i * 0.25},
                     PROPERTIES: {
                         SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
                         TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites), CONTROLLERS: [["orbit", {invert: true}]]}], 

@@ -305,6 +305,35 @@ Class.volute = {
 };
 
 // Tier 3 (Level 45)
+Class.bender = {
+    PARENT: "genericTank",
+    LABEL: "Bender",
+    DANGER: 7,
+    STAT_NAMES: statnames.drone,
+    BODY: Class.spawner.BODY,
+    GUNS: [
+        {
+            POSITION: [4.5, 10, 1, 10.5, 0, 0, 0]
+        },
+        {
+            POSITION: [1, 12, 1, 15, 0, 0, 0],
+            PROPERTIES: {
+                MAX_CHILDREN: 4, // todo: check if this is still 3
+                SHOOT_SETTINGS: combineStats([g.minion, g.spawner]),
+                TYPE: "desmosMinion",
+                STAT_CALCULATOR: "drone",
+                AUTOFIRE: true,
+                SYNCS_SKILLS: true
+            }
+        },
+        {
+            POSITION: [11.5, 12, 1, 0, 0, 0, 0]
+        },
+        ...weaponMirror({
+            POSITION: [5, 7.5, 2.5, 1, -4.5, 95, 0]
+        })
+    ]
+};
 Class.bigMama = {
     PARENT: "genericFlail",
     LABEL: "BIG MAMA",
@@ -670,6 +699,41 @@ Class.oroboros = {
                 X: -7.5,
                 Y: -7,
                 ANGLE: 90
+            }
+        })
+    ]
+};
+Class.python = {
+    PARENT: "genericTank",
+    LABEL: "Python", //"Super Spiral",
+    DANGER: 7,
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 22,
+                WIDTH: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 24,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5 / 3 }]),
+                TYPE: ["pythonBullet", {CONTROLLERS: ["snake"]}]
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 6,
+                ASPECT: -4,
+                X: -6.75,
+                Y: -6,
+                ANGLE: 87.5
             }
         })
     ]
