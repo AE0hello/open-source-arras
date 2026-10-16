@@ -2155,7 +2155,12 @@ Class.worstTank = {
     PARENT: "genericTank",
     LABEL: "Worst Tank",
     DANGER: 7,
-    BODY: Class.machineGunner.BODY,
+    BODY: {
+        HEALTH: base.HEALTH * 0.4,
+        SHIELD: base.SHIELD * 0.4,
+        DENSITY: base.DENSITY * 0.3,
+        SPEED: base.SPEED * 13 / 15
+    },
     GUNS: [
         ...weaponMirror([{
             POSITION: {
