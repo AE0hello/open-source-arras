@@ -107,6 +107,9 @@ module.exports = {
         }
     },
     makeHat: {
+        spinSlow: {
+            rotationSpeed: 0.08
+        },
         spin: {
             rotationSpeed: 0.16
         },

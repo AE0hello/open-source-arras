@@ -1087,7 +1087,7 @@ Class.bigCheese = {
         }
     ]
 };
-Class.blizzard = makeWhirlwind("genericTank", { dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinReverse", satellites: 5, label: "Blizzard", danger: 7 });
+Class.blizzard = makeWhirlwind("genericTank", { dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinSlow", satellites: 5, label: "Blizzard", danger: 7 });
 Class.blizzard.BODY = { FOV: base.FOV * 1.2 };
 Class.bomber = {
     PARENT: "genericTank",
@@ -2050,7 +2050,7 @@ Class.hewnDouble = {
     ]
 };
 Class.hexaTrapper = makeAuto(makeFlank("trapper", 6, "", { extraStats: [g.hexaTrapper], delayIncrement: 0.5, danger: 6 }), "Hexa-Trapper");
-Class.hexaWhirl = makeWhirlwind("hexaTank", { label: "Hexa Whirl" });
+Class.hexaWhirl = makeWhirlwind("hexaTank", { label: "Hexa Whirl", satellites: 3 });
 Class.hybrid = makeOver("destroyer", "Hybrid", preset.hybrid);
 Class.infestor = {
     PARENT: "genericTank",
@@ -3459,7 +3459,7 @@ Class.swarmer = {
         }
     ]
 };
-Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinReverse", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
+Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinSlow", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
 Class.tempest.BODY = { FOV: base.FOV * 1.1 };
 Class.thunderbolt = makeWhirlwind("genericTank", { hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7 });
 Class.thunderbolt.BODY = { FOV: base.FOV * 1.1 };
