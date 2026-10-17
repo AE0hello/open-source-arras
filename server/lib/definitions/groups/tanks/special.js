@@ -470,6 +470,28 @@ Class.spectator = {
             body.x = body.x + body.control.target.x;
             body.y = body.y + body.control.target.y;
         }
+    }, {
+        // Left clicking acts as the "Get Data" key command
+        event: "fire",
+        handler: ({body}) => {
+            if (!body.socket) return;
+            const cursor = {x: body.control.target.x + body.x, y: body.control.target.y + body.y};
+            let lowest = Infinity, closest;
+            for (const instance of entities.values()) {
+                let distance = (instance.x - cursor.x) ** 2 + (instance.y - cursor.y) ** 2;
+                if (distance < lowest) {
+                    lowest = distance;
+                    closest = instance;
+                }
+            }
+            if (!closest || closest.bond) return;
+            let message = [
+                `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
+                `Score: ${closest.skill.score};`,
+                `Build: ${closest.skill.raw.join("/")};`
+            ];
+            body.socket.talk("Em", 20_000, JSON.stringify(message));
+        }
     }]
 };
 Class.guillotine = {
@@ -526,13 +548,7 @@ Class.guillotine = {
                         closest = instance;
                     }
                 }
-                if (closest.bond) return;
-                let message = [
-                    `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
-                    `Score: ${closest.skill.score};`,
-                    `Build: ${closest.skill.raw.join("/")};`
-                ];
-                body.socket.talk("Em", 20_000, JSON.stringify(message));
+                if (!closest || closest.bond) return;
                 s.selectedEntity = closest;
             }
         },
@@ -574,12 +590,6 @@ Class.banHammer = {
                     }
                 }
                 if (!closest || closest.bond) return;
-                let message = [
-                    `Selected ${closest.name || (closest.isPlayer ? "an unnamed player" : "a")}${(closest.name || closest.isPlayer) ? "'s" : ""} ${closest.label} (ID #${closest.id}).`,
-                    `Score: ${closest.skill.score};`,
-                    `Build: ${closest.skill.raw.join("/")};`
-                ];
-                body.socket.talk("Em", 20_000, JSON.stringify(message));
                 s.selectedEntity = closest;
             }
         },
