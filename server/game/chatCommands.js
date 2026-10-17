@@ -222,8 +222,7 @@ const commands = [
                     `- ${prefix} arena team <team> - Set the number of teams, from 0 (FFA) to 4 (4TDM)`,
                     `- ${prefix} arena spawnpoint [x] [y] - Set a location where all players spawn by default`,
                     `- ${prefix} arena close - Close the arena`,
-                    `- ${prefix} arena public - Allow this server to be displayed in the Sandbox Nexus`,
-                    `- ${prefix} arena private - Prevent this server from being displayed`
+                    `- ${prefix} arena discoverable <true|false> - (WIP) Choose whether this server can be displayed in the Sandbox Nexus`
                 ];
                 if (!Config.sandbox) lines.splice(1, 1);
                 socket.talk("Em", 10_000, JSON.stringify(lines));
@@ -269,6 +268,10 @@ const commands = [
                             };
                             socket.talk("m", 4_000, "Spawnpoint set.");
                         }
+                        break;
+                    case "discoverable": // WIP
+                        if (args[1] !== "true" && args[1] !== "false") return socket.talk("m", 3_000, "Invalid arguments.");
+                        socket.talk("This is WIP lol.")
                         break;
                     case "close":
                         util.warn(`${socket.player.body.name === "" ? `An unnamed player (ip: ${socket.ip})` : socket.player.body.name} has closed the arena.`);
