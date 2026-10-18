@@ -1129,8 +1129,8 @@ class io_orbit extends IO {
         } else if(this.realDist < dist) {
             this.realDist += Math.min(10, Math.abs(dist - this.realDist));
         }
-        this.body.x = master.x + Math.cos(angle) * this.realDist;
-        this.body.y = master.y + Math.sin(angle) * this.realDist;
+        this.body.x = master.x + Math.cos(angle) * this.realDist * Math.sqrt(2);
+        this.body.y = master.y + Math.sin(angle) * this.realDist * Math.sqrt(2);
         
         this.body.facing = angle;
     }

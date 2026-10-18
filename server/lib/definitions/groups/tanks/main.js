@@ -666,7 +666,7 @@ Class.sprayer = {
     ],
     UPGRADES_TIER_3: ["redistributor", "phoenix", "atomizer", "focal"]
 };
-Class.tornado = makeWhirlwind("genericTank", { hat: "squareHat_spin", hatSize: 9, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
+Class.tornado = makeWhirlwind("genericTank", { hat: "squareHat_spin", hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
 Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"];
 Class.tornado.BODY = { FOV: base.FOV * 1.1 };
 Class.trapGuard = makeGuard({
@@ -2251,7 +2251,7 @@ Class.megaSmasher = {
         }
     ]
 };
-Class.megaTornado = makeWhirlwind("genericTank", { hat: "diamondHat_spin", hatSize: 16, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7 });
+Class.megaTornado = makeWhirlwind("genericTank", { hat: "diamondHat_spin", hatSize: 15, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7 });
 Class.megaTornado.BODY = { FOV: base.FOV * 1.1 };
 Class.mortar = {
     PARENT: "genericTank",
@@ -2477,9 +2477,7 @@ Class.ordnance = {
     PARENT: "genericTank",
     LABEL: "Ordnance",
     DANGER: 7,
-    BODY: {
-        FOV: base.FOV * 1.3
-    },
+    BODY: Class.hunter.BODY,
     CONTROLLERS: ["zoom"],
     GUNS: [
         ...weaponMirror({
@@ -2930,9 +2928,6 @@ Class.septaTrapper = {
     PARENT: "genericTank",
     LABEL: "Septa-Trapper",
     DANGER: 7,
-    BODY: {
-        SPEED: base.SPEED * 0.8
-    },
     STAT_NAMES: statnames.trap,
     HAS_NO_RECOIL: true,
     GUNS: [
@@ -3459,7 +3454,7 @@ Class.swarmer = {
         }
     ]
 };
-Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinSlow", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
+Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinSlow", hat2Size: 3.25, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
 Class.tempest.BODY = { FOV: base.FOV * 1.1 };
 Class.thunderbolt = makeWhirlwind("genericTank", { hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7 });
 Class.thunderbolt.BODY = { FOV: base.FOV * 1.1 };
