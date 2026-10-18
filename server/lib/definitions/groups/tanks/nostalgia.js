@@ -30,7 +30,7 @@ Class.desmos = {
             }
         })
     ],
-    UPGRADES_TIER_2: ["helix"]
+    UPGRADES_TIER_2: ["volute", "helix", "spiral", "undertow", "repeater"]
 };
 
 // Tier 2 (Level 30)
