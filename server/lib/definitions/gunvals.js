@@ -570,7 +570,6 @@ module.exports = {
     },
     satellite: {
         size: 0.8,
-        reload: 3,
         damage: 1.875
     },
 

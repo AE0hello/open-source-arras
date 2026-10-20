@@ -161,8 +161,12 @@ Class.twin = {
     UPGRADES_TIER_2: ["doubleTwin", "tripleShot", "gunner", "hexaTank", "helix"],
     UPGRADES_TIER_3: ["dual", "bulwark", "musket"]
 };
-Class.whirlwind = makeWhirlwind("genericTank", { label: "Whirlwind", satellites: 6, hat: "hexagonHat_spin", danger: 5 });
-Class.whirlwind.BODY = { FOV: base.FOV * 1.2 };
+Class.whirlwind = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.2
+    }
+}, { label: "Whirlwind", satellites: 6, hat: "hexagonHat_spin", danger: 5 });
 Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"];
 Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"];
 
@@ -449,8 +453,12 @@ Class.hunter = {
     ],
     UPGRADES_TIER_3: ["predator", "xHunter", "poacher", "ordnance", "dual", "nimrod"]
 };
-Class.hurricane = makeWhirlwind("genericTank", { hat: "octagonHat_spin", satellites: 8, label: "Hurricane" });
-Class.hurricane.BODY = { FOV: base.FOV * 1.2 };
+Class.hurricane = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.2
+    }
+}, { hat: "octagonHat_spin", satellites: 8, label: "Hurricane" });
 Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"];
 Class.launcher = {
     PARENT: "genericTank",
@@ -666,9 +674,13 @@ Class.sprayer = {
     ],
     UPGRADES_TIER_3: ["redistributor", "phoenix", "atomizer", "focal"]
 };
-Class.tornado = makeWhirlwind("genericTank", { hat: "squareHat_spin", hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
+Class.tornado = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.1
+    }
+}, { hat: "squareHat_spin", hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
 Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"];
-Class.tornado.BODY = { FOV: base.FOV * 1.1 };
 Class.trapGuard = makeGuard({
     PARENT: "genericTank",
     DANGER: 4,
@@ -1087,8 +1099,12 @@ Class.bigCheese = {
         }
     ]
 };
-Class.blizzard = makeWhirlwind("genericTank", { dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinSlow", satellites: 5, label: "Blizzard", danger: 7 });
-Class.blizzard.BODY = { FOV: base.FOV * 1.2 };
+Class.blizzard = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.2
+    }
+}, { dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinSlow", satellites: 5, label: "Blizzard", danger: 7 });
 Class.bomber = {
     PARENT: "genericTank",
     LABEL: "Bomber",
@@ -2251,8 +2267,12 @@ Class.megaSmasher = {
         }
     ]
 };
-Class.megaTornado = makeWhirlwind("genericTank", { hat: "diamondHat_spin", hatSize: 15, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7 });
-Class.megaTornado.BODY = { FOV: base.FOV * 1.1 };
+Class.megaTornado = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.1
+    }
+}, { hat: "diamondHat_spin", hatSize: 15, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7 });
 Class.mortar = {
     PARENT: "genericTank",
     LABEL: "Mortar",
@@ -3454,10 +3474,18 @@ Class.swarmer = {
         }
     ]
 };
-Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinSlow", hat2Size: 3.25, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
-Class.tempest.BODY = { FOV: base.FOV * 1.1 };
-Class.thunderbolt = makeWhirlwind("genericTank", { hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7 });
-Class.thunderbolt.BODY = { FOV: base.FOV * 1.1 };
+Class.tempest = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.1
+    }
+}, { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinSlow", hat2Size: 3.25, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
+Class.thunderbolt = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.1
+    }
+}, { hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7 });
 Class.tripleTwin = makeFlank("twin", 3, "Triple Twin", { extraStats: [g.spam, g.doubleTwin, g.tripleTwin], danger: 7 });
 Class.triplet = {
     PARENT: "genericTank",
@@ -3580,8 +3608,12 @@ Class.twister = {
         }
     ]
 };
-Class.typhoon = makeWhirlwind("genericTank", { hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7 });
-Class.typhoon.BODY = { FOV: base.FOV * 1.2 };
+Class.typhoon = makeWhirlwind({
+    PARENT: "genericTank",
+    BODY: {
+        FOV: base.FOV * 1.2
+    }
+}, { hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7 });
 Class.vortex = makeWhirlwind("launcher", { label: "Vortex" });
 Class.vulture = makeBird({
     PARENT: "genericTank",
