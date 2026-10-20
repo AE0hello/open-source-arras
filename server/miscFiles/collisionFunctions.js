@@ -394,7 +394,7 @@ function mooncollide(moon, bounce) {
 }
 
 function mazewallcollidekill(bounce, wall) {
-    if (bounce.type !== "tank" && bounce.type !== "miniboss" && bounce.type !== "food" && bounce.type !== "crasher") {
+    if (bounce.type !== "tank" && bounce.type !== "miniboss" && bounce.type !== "food" && bounce.type !== "crasher" && bounce.type !== "satellite") {
         bounce.destroy();
     } else {
         bounce.collisionArray.push(wall);
