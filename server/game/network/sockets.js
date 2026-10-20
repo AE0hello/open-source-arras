@@ -1262,6 +1262,9 @@ class socketManager {
                     socket.player.body.refreshBodyAttributes();
                 }
             }
+            else {
+                socket.talk("m", 5_000, "You have auto-level up disabled. Enable auto-level up in the options menu to get level 45.")
+            }
         }
         // Log it 
         util.log(`[INFO]: ${name == "" ? "An unnamed player" : name} has spawned into the game on team ${socket.player.body.team}! Players: ${this.players.length}`);
