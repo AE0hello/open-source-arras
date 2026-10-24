@@ -246,6 +246,6 @@ let initializeFilter = () => {
         //{ name: "Arms Race", filter: (h) => { return checkFilter(h, global.filters.gamemodes.armsRace) } },
         //{ name: "Other", filter: (h) => { return checkFilter(h, global.filters.gamemodes.other) } },
         { name: "Sandbox", filter: (h) => { return checkFilter(h, global.filters.gamemodes.sandbox) } }
-    ]);
+    ], "serverFilterMode");
     return restoreFilters;
 }
