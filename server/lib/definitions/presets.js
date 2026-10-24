@@ -9,6 +9,7 @@ module.exports = {
         flatTesseract: "M 0.47 -0.375 L 0.71 -0.615 L 0.71 0.615 L 0.47 0.375 Z M -0.375 -0.47 L -0.615 -0.71 L 0.615 -0.71 L 0.375 -0.47 Z M -0.47 0.375 L -0.71 0.615 L -0.71 -0.615 L -0.47 -0.375 Z M 0.375 0.47 L 0.615 0.71 L -0.615 0.71 L -0.375 0.47 Z M 0.35 0.35 L 0.35 -0.35 L -0.35 -0.35 L -0.35 0.35 Z"
     },
     tooltip: {
+        fullInvisible: "You are always invisible.",
         invisible: "Stay still to turn invisible."
     },
     gun: {},
@@ -95,6 +96,9 @@ module.exports = {
         },
         storm: {
             type: "stormAutoTurret", clearTurrets: true, size: 9
+        },
+        swarmdrive: {
+            type: "swarmdriveAutoTurret", clearTurrets: true, size: 8
         }
     },
     makeFore: {
@@ -103,6 +107,9 @@ module.exports = {
         }
     },
     makeHat: {
+        spinSlow: {
+            rotationSpeed: 0.08
+        },
         spin: {
             rotationSpeed: 0.16
         },

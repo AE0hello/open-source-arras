@@ -634,7 +634,6 @@ Class.sunchip = {
 };
 Class.eggchip = {PARENT: "sunchip", NECRO: [0], SHAPE: 0};
 Class.pentachip = {PARENT: "sunchip", NECRO: [5], SHAPE: 5};
-Class.stormAutoDrone = makeAuto("drone", "Auto-Drone", {type: "swarmAutoTurret"});
 
 // Mystical Drones
 Class.summonerDrone = {PARENT: "sunchip", NECRO: false};
@@ -1051,13 +1050,6 @@ Class.medkit = {
 };
 
 // Swarms
-Class.autoswarm = {
-    PARENT: "swarm",
-    AI: {
-        FARMER: true
-    },
-    INDEPENDENT: true
-};
 Class.bee = {
     PARENT: "swarm",
     PERSISTS_AFTER_DEATH: true,
@@ -1553,7 +1545,7 @@ Class.averageL39HuntSurfer = {
             },
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "autoswarm",
+                TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm",
                 AUTOFIRE: true
             }

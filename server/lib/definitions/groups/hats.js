@@ -10,8 +10,8 @@ Class.diamondHat_spin = makeHat(-2, preset.makeHat.spin);
 // Triangle Hats
 Class.triangleHat = makeHat(3);
 Class.triangleHat_spin = makeHat(3, preset.makeHat.spin);
+Class.triangleHat_spinSlow = makeHat(3, preset.makeHat.spinSlow);
 Class.triangleHat_spinFast = makeHat(3, preset.makeHat.spinFast);
-Class.triangleHat_spinReverse = makeHat(3, preset.makeHat.spinReverse);
 Class.triangleHat_weirdSpike = makeHat(3, {color: "black", rotationSpeed: -0.17});
 
 // Square Hats
@@ -48,7 +48,7 @@ Class.vortexHat = {
 // Pentagon Hats
 Class.pentagonHat = makeHat(5);
 Class.pentagonHat_spin = makeHat(5, preset.makeHat.spin);
-Class.pentagonHat_spinReverse = makeHat(5, preset.makeHat.spinReverse);
+Class.pentagonHat_spinSlow = makeHat(5, preset.makeHat.spinSlow);
 
 // Hexagon Hats
 Class.hexagonHat = makeHat(6);

@@ -123,23 +123,13 @@ exports.makeOver = (type, name = -1, options = {}) => {
     let cycle = options.cycle ?? true;
     let maxChildren = options.maxDrones ?? 3;
     let stats = options.extraStats ?? [];
-    let droneType = options.drive == true ? "autoDrone" : "drone";
 
     options.renderBehind ??= false;
 
-    let driveHat = [
-        {
-            TYPE: ["squareHat", {COLOR: "grey"}],
-            POSITION: {
-                SIZE: 9,
-                LAYER: 1
-            }
-        }
-    ];
     let spawners = [];
     let spawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.drone, g.overseer, ...stats]),
-        TYPE: [droneType, {INDEPENDENT: independent}],
+        TYPE: ["drone", {INDEPENDENT: independent}],
         AUTOFIRE: true,
         SYNCS_SKILLS: true,
         STAT_CALCULATOR: "drone",
@@ -175,10 +165,7 @@ exports.makeOver = (type, name = -1, options = {}) => {
     } else {
         output.GUNS = type.GUNS == null ? spawners : type.GUNS.concat(spawners);
     }
-    if (options.drive) {
-        output.TURRETS = type.TURRETS == null ? driveHat : type.TURRETS.concat(driveHat);
-    }
-    output.LABEL = name == -1 ? "Over" + type.LABEL.toLowerCase() + (options.drive ? "drive" : "") : name;
+    output.LABEL = name == -1 ? "Over" + type.LABEL.toLowerCase() : name;
     if (type.UPGRADE_LABEL !== undefined) {
         output.UPGRADE_LABEL = output.LABEL;
     }
@@ -207,7 +194,7 @@ exports.makeBattle = (type, name = -1, options = {}) => {
     };
     let autoSpawnerProperties = {
         SHOOT_SETTINGS: exports.combineStats([g.swarm, ...stats]),
-        TYPE: "autoswarm",
+        TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
         STAT_CALCULATOR: "swarm",
         LABEL: "Autonomous"
     };
@@ -735,24 +722,29 @@ exports.makeDrive = (type, name = -1, projectile = "drone", options = {}) => {
         }
     };
 
-    let GUNS = output.GUNS;
-    for (let gun of GUNS) {
-        if (!gun.PROPERTIES) continue;
-        if (!gun.PROPERTIES.TYPE) continue;
-
+    let GUNS = output.GUNS.map(gun => ({
+        ...gun,
+        PROPERTIES: gun.PROPERTIES && {
+            ...gun.PROPERTIES,
+            TYPE: Array.isArray(gun.PROPERTIES.TYPE) ? [...gun.PROPERTIES.TYPE] : gun.PROPERTIES.TYPE
+        }
+    }));
+    for (const gun of GUNS) {
+        if (!gun.PROPERTIES?.TYPE) continue;
         const autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeDrive`;
+
         if (!Class[autoProjectile]) {
-            Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "droneAutoTurret"});
+            Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "droneAutoTurret", size: 9});
         }
 
-        if (typeof gun.PROPERTIES.TYPE !== "string") {
-            if (gun.PROPERTIES.TYPE[0] == projectile) {
+        if (Array.isArray(gun.PROPERTIES.TYPE)) {
+            if (gun.PROPERTIES.TYPE[0] === projectile) {
                 gun.PROPERTIES.TYPE[0] = autoProjectile;
             }
-        } else if (gun.PROPERTIES.TYPE == projectile) {
+        } else if (gun.PROPERTIES.TYPE === projectile) {
             gun.PROPERTIES.TYPE = autoProjectile;
         }
-    };
+    }
 
     if (type.GUNS != null) output.GUNS = GUNS;
     if (type.TURRETS == null) {
@@ -762,7 +754,7 @@ exports.makeDrive = (type, name = -1, projectile = "drone", options = {}) => {
     };
     output.LABEL = name == -1 ? `${type.LABEL}drive` : output.LABEL = name;
     output.UPGRADE_LABEL = undefined;
-    output.DANGER = type.DANGER + 1;
+    output.DANGER = type.DANGER ? type.DANGER + 1 : undefined;
     return output;
 };
 exports.makeStorm = (type, name = -1, projectile = "drone", options = {}) => {
@@ -784,24 +776,29 @@ exports.makeStorm = (type, name = -1, projectile = "drone", options = {}) => {
         }
     };
 
-    let GUNS = output.GUNS;
-    for (let gun of GUNS) {
-        if (!gun.PROPERTIES) continue;
-        if (!gun.PROPERTIES.TYPE) continue;
-
+    let GUNS = output.GUNS.map(gun => ({
+        ...gun,
+        PROPERTIES: gun.PROPERTIES && {
+            ...gun.PROPERTIES,
+            TYPE: Array.isArray(gun.PROPERTIES.TYPE) ? [...gun.PROPERTIES.TYPE] : gun.PROPERTIES.TYPE
+        }
+    }));
+    for (const gun of GUNS) {
+        if (!gun.PROPERTIES?.TYPE) continue;
         const autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeStorm`;
+
         if (!Class[autoProjectile]) {
-            Class[autoProjectile] = exports.makeAuto(projectile, `Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "swarmAutoTurret"});
+            Class[autoProjectile] = exports.makeAuto(projectile, `Storm Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "stormTurret", size: 13});
         }
 
-        if (typeof gun.PROPERTIES.TYPE !== "string") {
-            if (gun.PROPERTIES.TYPE[0] == projectile) {
+        if (Array.isArray(gun.PROPERTIES.TYPE)) {
+            if (gun.PROPERTIES.TYPE[0] === projectile) {
                 gun.PROPERTIES.TYPE[0] = autoProjectile;
             }
-        } else if (gun.PROPERTIES.TYPE == projectile) {
+        } else if (gun.PROPERTIES.TYPE === projectile) {
             gun.PROPERTIES.TYPE = autoProjectile;
         }
-    };
+    }
 
     if (type.GUNS != null) output.GUNS = GUNS;
     if (type.TURRETS == null) {
@@ -811,7 +808,54 @@ exports.makeStorm = (type, name = -1, projectile = "drone", options = {}) => {
     };
     output.LABEL = name == -1 ? `${type.LABEL}storm` : output.LABEL = name;
     output.UPGRADE_LABEL = undefined;
-    output.DANGER = type.DANGER + 1;
+    output.DANGER = type.DANGER ? type.DANGER + 2 : undefined;
+    return output;
+};
+exports.makeVortex = (type, name = -1, projectile = "drone", options = {}) => {
+    type = ensureIsClass(type);
+    let output = exports.dereference(type);
+
+    let hat = {
+        TYPE: "vortexHat",
+        POSITION: {
+            SIZE: 9,
+            LAYER: 1
+        }
+    };
+
+    let GUNS = output.GUNS.map(gun => ({
+        ...gun,
+        PROPERTIES: gun.PROPERTIES && {
+            ...gun.PROPERTIES,
+            TYPE: Array.isArray(gun.PROPERTIES.TYPE) ? [...gun.PROPERTIES.TYPE] : gun.PROPERTIES.TYPE
+        }
+    }));
+    for (const gun of GUNS) {
+        if (!gun.PROPERTIES?.TYPE) continue;
+        const autoProjectile = `${projectile.charAt(0).toUpperCase() + projectile.slice(1)}_makeVortex`;
+
+        if (!Class[autoProjectile]) {
+            Class[autoProjectile] = exports.makeAuto(projectile, `Vortex Auto-${exports.dereference(gun.PROPERTIES.TYPE).LABEL}`, {type: "vortexTurret", size: 13});
+        }
+
+        if (Array.isArray(gun.PROPERTIES.TYPE)) {
+            if (gun.PROPERTIES.TYPE[0] === projectile) {
+                gun.PROPERTIES.TYPE[0] = autoProjectile;
+            }
+        } else if (gun.PROPERTIES.TYPE === projectile) {
+            gun.PROPERTIES.TYPE = autoProjectile;
+        }
+    }
+
+    if (type.GUNS != null) output.GUNS = GUNS;
+    if (type.TURRETS == null) {
+        output.TURRETS = [hat];
+    } else {
+        output.TURRETS = [...type.TURRETS, hat];
+    };
+    output.LABEL = name == -1 ? `${type.LABEL}` : output.LABEL = name;
+    output.UPGRADE_LABEL = undefined;
+    output.DANGER = type.DANGER ? type.DANGER + 3 : undefined;
     return output;
 };
 exports.makeHat = (shape = 0, options = {}) => {
@@ -838,14 +882,14 @@ exports.makeWhirlwind = (type, options = {}) => {
     options.satellites ??= 4;
     let hat = [
         {
-            POSITION: {SIZE: options.hatSize ??= 8, LAYER: options.hatLayer ??= 1},
+            POSITION: {SIZE: options.hatSize ??= 7.5, LAYER: options.hatLayer ??= 1},
             TYPE: [options.hat ??= "squareHat_spin", {COLOR: options.hatColor ??= "grey"}]
         }
     ];
     if (options.dualLayer || options.enableHat2) {
         hat.push(
             {
-                POSITION: {SIZE: options.hat2Size ??= 6, ANGLE: 180, LAYER: options.hat2Layer ??= 2},
+                POSITION: {SIZE: options.hat2Size ??= 5.5, ANGLE: 180, LAYER: options.hat2Layer ??= 2},
                 TYPE: [options.hat2 ??= "squareHat_spin", {COLOR: options.hat2Color ??= "grey"}]
             }
         );
@@ -854,7 +898,7 @@ exports.makeWhirlwind = (type, options = {}) => {
         let output = [];
         for (let i = 0; i < options.satellites; i++) { 
             output.push({
-                POSITION: {WIDTH: options.satelliteSize ??= 8, LENGTH: 1, DELAY: i * 0.25},
+                POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1},
                 PROPERTIES: {
                     SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
                     TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites)}], 
@@ -868,7 +912,7 @@ exports.makeWhirlwind = (type, options = {}) => {
         if (options.dualLayer) {
             for (let i = 0; i < options.satellites; i++) { 
                 output.push({
-                    POSITION: {WIDTH: options.satelliteSize ??= 8, LENGTH: 1, DELAY: i * 0.25},
+                    POSITION: {WIDTH: options.satelliteSize ??= 6, LENGTH: 1},
                     PROPERTIES: {
                         SHOOT_SETTINGS: exports.combineStats([g.satellite, ...options.extraStats ??= [{}], {recoil: 0}]), 
                         TYPE: [options.satelliteType ??= "satellite", {ANGLE: i * (360 / options.satellites), CONTROLLERS: [["orbit", {invert: true}]]}], 

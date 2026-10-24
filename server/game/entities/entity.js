@@ -753,9 +753,9 @@ class Entity extends EventEmitter {
     set gunStatScale(gunStatScale) {
         if (!Array.isArray(gunStatScale)) gunStatScale = [gunStatScale];
         for (let gun of this.guns.values()) {
-            if (!gun.shootSettings) continue;
-            gun.shootSettings = combineStats([gun.shootSettings, ...gunStatScale]);
-            gun.trueRecoil = gun.shootSettings.recoil;
+            if (!gun.canShoot || !gun.settings) continue;
+            gun.settings = combineStats([gun.settings, ...gunStatScale]);
+            gun.trueRecoil = gun.settings.recoil;
             gun.interpret();
         }
     }

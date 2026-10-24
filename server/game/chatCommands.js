@@ -41,7 +41,6 @@ const commands = [
             sendAvailableLeaderboardMessage();
             return;
         }
-
         if (leaderboards.includes(choice)) {
             socket.status.selectedLeaderboard = choice;
             socket.status.forceNewBroadcast = true;

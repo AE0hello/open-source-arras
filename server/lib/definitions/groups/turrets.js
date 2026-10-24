@@ -573,7 +573,7 @@ Class.swarmTurret = makeTurret({
             POSITION: [7, 7.5, 0.6, 7, 0, 0, 0],
             PROPERTIES: {
                 SHOOT_SETTINGS: combineStats([g.swarm]),
-                TYPE: "autoswarm",
+                TYPE: ["swarm", { AI: { FARMER: true }, INDEPENDENT: true }],
                 STAT_CALCULATOR: "swarm"
             }
         }
@@ -784,6 +784,7 @@ Class.ultraAutoTurret = makeTurret({
     ]
 }, {label: "Turret", fov: 0.8, extraStats: []});
 Class.driveAutoTurret = { PARENT: "autoTurret", SHAPE: 4 };
+Class.swarmdriveAutoTurret = { PARENT: "autoTurret", SHAPE: 3 };
 Class.driveMegaAutoTurret = { PARENT: "megaAutoTurret", SHAPE: 4 };
 Class.stormAutoTurret = {
     PARENT: "autoTurret",
@@ -875,7 +876,7 @@ Class.legionaryTwin = makeTurret({
         }
     ]
 }, {fov: 5, independent: true, extraStats: []});
-Class.swarmAutoTurret = makeTurret({
+Class.stormTurret = makeTurret({
     GUNS: weaponMirror({
         POSITION: {
             LENGTH: 9,
@@ -890,7 +891,22 @@ Class.swarmAutoTurret = makeTurret({
             STAT_CALCULATOR: "swarm"
         }
     })
-}, {label: "Turret", fov: 0.8, extraStats: []});
+}, {label: "Storm Turret", fov: 0.8, extraStats: []});
+Class.vortexTurret = makeTurret({
+    GUNS: weaponArray({
+        POSITION: {
+            LENGTH: 9,
+            WIDTH: 8.2,
+            ASPECT: 0.6,
+            X: 5
+        },
+        PROPERTIES: {
+            SHOOT_SETTINGS: combineStats([g.swarm]),
+            TYPE: "swarm",
+            STAT_CALCULATOR: "swarm"
+        }
+    }, 4)
+}, {label: "Vortex Turret", fov: 0.8, extraStats: []});
 
 // Healer turrets
 Class.sanctuaryHealer = {

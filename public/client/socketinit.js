@@ -1113,7 +1113,7 @@ let incoming = async function(message, socket) {
                 - Try to avoid duplicate ban IDs just in case of a 1 in 4 billion chance
             */
             case "ipBan": {
-                global.message = `Your IP address has been blacklisted due to suspicious activities.\nIf you are using a VPN, please turn it off.\nConnection ID: C-${"XXXXXXXX"}`;
+                global.message = `Your network has been flagged and is currently restricted.\nIf you are using a VPN or proxy, please turn it off.\nIf you are not using a VPN or proxy of any kind, please contact support at [DISCORD LINK HERE].\nConnection ID: C-${"XXXXXXXX"}`;
             } break;
             case "temporaryBan": {
                 global.message = `You have been temporarily banned from the game.\nYou will be able to rejoin after a server restart.\nBan ID: B-${"XXXXXXXX"}`;
@@ -1122,10 +1122,7 @@ let incoming = async function(message, socket) {
                 global.message = `You have been temporarily banned by a game moderator.\nYou will be able to rejoin after a server restart.\nBan ID: M-${"XXXXXXXX"}`;
             } break;
             case "permanentBan": {
-                global.message = "You have been permanently banned from the game.";
-            } break;
-            case "permaModBan": {
-                global.message = "You have been permanently banned by a game moderator.";
+                global.message = `You have been permanently banned from the game.\nReason: ${}\nBan ID: U-${"XXXXXXXX"}`;
             } break;
             case "svInfo": {
                 // For debugging.

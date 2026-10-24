@@ -413,7 +413,7 @@ class socketManager {
                     (bannedIP) => bannedIP.ip === socket.ip
                 );
                 if (permB) {
-                    socket.talk(b.reason === "Ban Hammer" ? "permaModBan" : "permanentBan"); 
+                    socket.talk("permanentBan"); 
                     socket.permaban("Permanently banned player detected!");
                     return 1;
                 }
@@ -1331,6 +1331,9 @@ class socketManager {
                     socket.player.body.skill.maintain();
                     socket.player.body.refreshBodyAttributes();
                 }
+            }
+            else {
+                socket.talk("m", 5_000, "You have auto-level up disabled. Enable auto-level up in the options menu to get level 45.")
             }
         }
         // Log it 

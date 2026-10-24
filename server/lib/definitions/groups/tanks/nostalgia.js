@@ -3,15 +3,114 @@ const { base, smshskl, statnames } = require("../../constants.js");
 const g = require("../../gunvals.js");
 
 // Tier 1 (Level 15)
-Class.whirlwind = makeWhirlwind("genericTank", { label: "Whirlwind", satellites: 6, hat: "hexagonHat_spin", danger: 5 });
-Class.whirlwind.UPGRADES_TIER_2 = ["tornado", "hurricane"];
-Class.whirlwind.UPGRADES_TIER_3 = ["hexaWhirl", "munition", "whirl3", "whirlGuard", "prophet", "vortex"];
+Class.desmos = {
+    PARENT: "genericTank",
+    LABEL: "Desmos",
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                TYPE: ["bullet", {CONTROLLERS: ["snake"]}]
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 5,
+                WIDTH: 5,
+                ASPECT: -4,
+                X: -5.25,
+                Y: -7,
+                ANGLE: 90
+            }
+        })
+    ],
+    UPGRADES_TIER_2: ["volute", "helix", "spiral", "undertow", "repeater"]
+};
 
 // Tier 2 (Level 30)
-Class.hurricane = makeWhirlwind("genericTank", { hat: "octagonHat_spin", satellites: 8, label: "Hurricane" });
-Class.hurricane.UPGRADES_TIER_3 = ["typhoon", "blizzard"];
-Class.tornado = makeWhirlwind("genericTank", { hat: "squareHat_spin", hatSize: 10, satellites: 4, satelliteSize: 12, extraStats: [g.pounder], label: "Tornado" });
-Class.tornado.UPGRADES_TIER_3 = ["megaTornado", "tempest", "thunderbolt"];
+Class.repeater = {
+    PARENT: "genericTank",
+    LABEL: "Repeater",
+    DANGER: 6,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos]),
+                TYPE: ["splitterBullet", {CONTROLLERS: ["snake"]}]
+            }
+        },
+        ...weaponMirror([
+            {
+                POSITION: {
+                    LENGTH: 5,
+                    WIDTH: 5,
+                    ASPECT: -3,
+                    X: -5.5,
+                    Y: -10,
+                    ANGLE: 90
+                }
+            },
+            {
+                POSITION: {
+                    LENGTH: 5,
+                    WIDTH: 5,
+                    ASPECT: -4,
+                    X: -5.25,
+                    Y: -5,
+                    ANGLE: 82.5
+                }
+            }
+        ])
+    ],
+    UPGRADES_TIER_3: ["iterator", "duplicator"]
+};
+Class.spiral = {
+    PARENT: "genericTank",
+    LABEL: "Spiral",
+    DANGER: 6,
+    STAT_NAMES: statnames.desmos,
+    GUNS: [
+        {
+            POSITION: {
+                LENGTH: 17,
+                WIDTH: 12
+            }
+        },
+        {
+            POSITION: {
+                LENGTH: 20,
+                WIDTH: 8,
+                ASPECT: -1.5
+            },
+            PROPERTIES: {
+                SHOOT_SETTINGS: combineStats([g.basic, g.desmos, { reload: 5 / 3 }]),
+                TYPE: ["spiralBullet", {CONTROLLERS: ["snake"]}]
+            }
+        },
+        ...weaponMirror({
+            POSITION: {
+                LENGTH: 6,
+                WIDTH: 5,
+                ASPECT: -4,
+                X: -6.5,
+                Y: -5,
+                ANGLE: 87.5
+            }
+        })
+    ],
+    UPGRADES_TIER_3: ["coil", "python"]
+};
 Class.whirlwind_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Whirlwind" });
 Class.whirlwind_old.UPGRADE_LABEL = "Old Whirlwind";
 Class.whirlwind_old.UPGRADES_TIER_3 = ["monsoon", "maelstrom", "tornado_old", "typhoon_old", "vortex_old"];
@@ -41,7 +140,6 @@ Class.bentBoomer_old = {
         }
     ], {delayIncrement: 0.5})
 };
-Class.blizzard = makeWhirlwind("genericTank", { dualLayer: true, hat: "pentagonHat_spin", hat2: "pentagonHat_spinReverse", satellites: 5, label: "Blizzard", danger: 7 });
 Class.blunderbuss = {
     PARENT: "genericTank",
     LABEL: "Blunderbuss",
@@ -183,7 +281,6 @@ Class.deathStar_old = {
         }
     ], 3)
 };
-Class.hexaWhirl = makeWhirlwind("hexaTank", { label: "Hexa Whirl" });
 Class.maelstrom = makeAuto("whirlwind_old", "Maelstrom");
 Class.master = {
     PARENT: "genericTank",
@@ -237,7 +334,6 @@ Class.master = {
         ])
     ]
 };
-Class.megaTornado = makeWhirlwind("genericTank", { hat: "diamondHat_spin", hatSize: 16, satellites: 2, satelliteSize: 16, extraStats: [g.pounder, g.destroyer], label: "Mega-Tornado", danger: 7 });
 Class.monsoon = makeWhirlwind({
     PARENT: "genericTank",
     TURRETS: [
@@ -247,8 +343,6 @@ Class.monsoon = makeWhirlwind({
         }
     ]
 }, {hat: "circleHat", hatSize: 24, hatLayer: 0, satellites: 6, satelliteType: "satellite_old", label: "Monsoon", danger: 7});
-Class.munition = makeWhirlwind("artillery", { label: "Munition" });
-Class.prophet = makeWhirlwind("underseer", { label: "Prophet", satelliteType: "squareSatellite" });
 Class.quadBuilder = {
     PARENT: "genericTank",
     LABEL: "Quad Builder",
@@ -444,15 +538,9 @@ Class.spreadshot_old = {
         }
     ]
 };
-Class.tempest = makeWhirlwind("genericTank", { dualLayer: true, hat: "triangleHat_spin", hat2: "triangleHat_spinReverse", hat2Size: 4, satellites: 3, satelliteSize: 12, extraStats: [g.pounder], label: "Tempest", danger: 7 });
-Class.thunderbolt = makeWhirlwind("genericTank", { hat: "squareHat_spinFast", hatSize: 10, satellites: 4, satelliteSize: 12, satelliteSpeed: 2.5, extraStats: [g.pounder], label: "Thunderbolt", danger: 7 });
 Class.tornado_old = makeWhirlwind("genericTank", { hat: "circleHat", hatSize: 30, hatLayer: 0, satellites: 1, satelliteSize: 16, satelliteType: "satellite_old", extraStats: [g.pounder, g.destroyer], label: "Tornado", danger: 7 });
-Class.typhoon = makeWhirlwind("genericTank", { hat: "decagonHat_spin", satellites: 10, label: "Typhoon", danger: 7 });
 Class.typhoon_old = makeWhirlwind("genericTank", { dualLayer: true, hat: "circleHat", hatSize: 28, hatLayer: 0, hat2: "circleHat", hat2Size: 24, hat2Layer: 0, satellites: 6, satelliteType: "satellite_old", label: "Typhoon" });
-Class.vortex = makeWhirlwind("launcher", { label: "Vortex" });
 Class.vortex_old = makeWhirlwind("genericTank", { enableHat2: true, hat: "pentagonHat_spin", hatSize: 21.5, hatLayer: 0, hat2: "pentagonHat_spin", hat2Size: 21.5, hat2Layer: 0, satellites: 10, satelliteType: "satellite_old", label: "Vortex" });
-Class.whirlGuard = makeWhirlwind("trapGuard", { label: "Whirl Guard" });
-Class.whirl3 = makeWhirlwind("auto3", { label: "Whirl-3" });
 
 // Class Tree Modification
 if (Config.siege) {
