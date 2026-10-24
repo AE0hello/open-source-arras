@@ -5229,12 +5229,72 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         global.ingameKeybindRects = rects;
     }
 
-    function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH) {
+    global.refreshBrainrotOption = () => {
+        const select = document.getElementById("optNames");
+        if (!select) return;
+        const enabled = localStorage.getItem("optBrainrotFilterChecked") === "true";
+        const option = select.querySelector('option[value="brainrot"]');
+        if (enabled && !option) {
+            const created = document.createElement("option");
+            created.value = "brainrot";
+            created.textContent = 'Filter "Brainrot" Words';
+            select.appendChild(created);
+        } else if (!enabled && option) {
+            if (select.value === "brainrot") select.value = "none";
+            option.remove();
+        }
+    };
+    global.refreshBrainrotOption();
+
+    function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio) {
         if (global.themeOverlay) global.themeOverlay.style.display = "none";
         global.ingameThemeSlider = null;
         global.ingameThemeNeon = null;
         global.ingameKeybindRects = null;
-        drawText("Secret Options (PLACEHOLDER)", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
+        drawText("Secret Options", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
+        const BOX_SIZE = 25;
+        const LINE_HEIGHT = 40;
+        for (let i = 0; i < global.optionsCheckboxes.length; i++) {
+            const cb = global.optionsCheckboxes[i];
+            if (cb.section !== "secret") continue;
+            const x = cb.column === 0 ? panelX + 20 : panelX + PANEL_WIDTH / 2 + 7.5;
+            const y = PANEL_Y + 45 + cb.row * LINE_HEIGHT;
+            const hitSize = BOX_SIZE * clickableRatio;
+            if (!cb.tooltipService) cb.tooltipService = {
+                text: cb.tooltip,
+                targetAlpha: 0,
+                alpha: Smoothbar(0, 2, 3, 0.06, 0.025, true),
+                x: 0,
+                y: 0
+            };
+            cb.tooltipService.x = x * clickableRatio;
+            cb.tooltipService.y = (y + BOX_SIZE + 10) * clickableRatio;
+            cb.tooltipService.targetAlpha = global.clickables.optionsMenu.HoverBoxes.check({ x: global.mouse.x, y: global.mouse.y }) === i ? 1 : 0;
+            if (cb.lastValue !== cb.value) {
+                cb.lastValue = cb.value;
+                localStorage.setItem(cb.id + "Checked", cb.value ? "true" : "false");
+                if (cb.id === "optBrainrotFilter") global.refreshBrainrotOption();
+            }
+            const isOn = !!cb.value;
+            global.clickables.optionsMenu.toggleBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize, hitSize);
+            global.clickables.optionsMenu.HoverBoxes.place(i, x * clickableRatio, y * clickableRatio, hitSize + measureText(cb.label, BOX_SIZE) * 0.65, hitSize);
+            ctx[2].lineWidth = 3;
+            gameDraw.setColor(ctx[2], isOn ? color.green : color.guiwhite);
+            drawGuiRect(x, y, BOX_SIZE, BOX_SIZE);
+            gameDraw.setColor(ctx[2], color.black);
+            drawGuiRect(x, y, BOX_SIZE, BOX_SIZE, true);
+            if (isOn) {
+                ctx[2].strokeStyle = "#FFFFFF";
+                ctx[2].lineWidth = 3;
+                ctx[2].beginPath();
+                ctx[2].moveTo(x + 5.5, y + BOX_SIZE / 1.8);
+                ctx[2].lineTo(x + BOX_SIZE / 2 - 3, y + BOX_SIZE - 7);
+                ctx[2].lineTo(x + BOX_SIZE - 6, y + 8);
+                ctx[2].stroke();
+            }
+            drawText(cb.label, x + BOX_SIZE + 10.5, y + BOX_SIZE / 2 + 6, 13.5, color.guiwhite, "left", false, 1, 5.5);
+            drawToolip(cb);
+        }
     }
 
     function drawOptionsMenu() {
@@ -5594,6 +5654,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
                     // Performance
                     { id: "optLowResolution",       label: "Low Resolution",        column: 1, row: 0, section: "perf", tooltip: "Lower the game's resolution.\n" + "May help to improve the frame rate." },
+
+                    // Secret
+                    { type: "checkbox", id: "optBrainrotFilter", label: '"Brainrot" Filter', column: 0, row: 0, section: "secret", tooltip: 'Add the option to filter "brainrot" words.' },
                 ];
 
                 for (const cb of global.optionsCheckboxes) {
@@ -5610,6 +5673,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
 
             for (let i = 0; i < global.optionsCheckboxes.length; i++) {
                 const cb = global.optionsCheckboxes[i];
+                if (cb.section === "secret") continue;
                 let baseY = PANEL_Y + 45;
                 if (cb.section === "ui")    baseY = PANEL_Y + 400;
                 if (cb.section === "extra") baseY = PANEL_Y + 590;
@@ -5778,6 +5842,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].restore();
 
         for (const cb of global.optionsCheckboxes) {
+            if (cb.section === "secret") continue;
             if (cb.type === "option" && cb.optionService) {
                 let above = cb.location === "top";
                 let height = 0;
@@ -5886,7 +5951,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         ctx[2].globalAlpha *= fadeSecret;
         ctx[2].translate(0, -scrollY);
         if (fadeSecret > 0.01 && activeTab === 3 && secretUnlocked) {
-            drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH);
+            drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio);
         }
         ctx[2].restore();
 
