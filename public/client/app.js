@@ -5229,6 +5229,14 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         global.ingameKeybindRects = rects;
     }
 
+    function drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH) {
+        if (global.themeOverlay) global.themeOverlay.style.display = "none";
+        global.ingameThemeSlider = null;
+        global.ingameThemeNeon = null;
+        global.ingameKeybindRects = null;
+        drawText("Secret Options (PLACEHOLDER)", panelX + PANEL_WIDTH / 2, PANEL_Y + 30, 16, color.guiwhite, "center");
+    }
+
     function drawOptionsMenu() {
         // Initialize tab offset for sliding animation and menu height animation
         if (!global.optionsMenu_Anim.tabOffset) {
@@ -5237,8 +5245,9 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                 Smoothbar(0, 2, 3, 0.05, 0.13, true),
                 Smoothbar(0, 2, 3, 0.05, 0.13, true),
                 Smoothbar(0, 2, 3, 0.05, 0.13, true),
+                Smoothbar(0, 2, 3, 0.05, 0.13, true),
             ];
-            global.optionsMenu_Anim.scrollTargets = [0, 0, 0]
+            global.optionsMenu_Anim.scrollTargets = [0, 0, 0, 0]
         }
 
         const RENDERX = global.optionsMenu_Anim.switchMenu_button.get();
@@ -5360,16 +5369,25 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const TAB_CONTENT_HEIGHTS = [
             (PANEL_Y + 685 + 1 * 40 + 45) - PANEL_Y,  // perf section: last row baseY + 1 row + padding
             THEME_PANEL_H,
-            keybindsPanelHeight()
+            keybindsPanelHeight(),
+            300
         ];
         const TAB_CONTENT_MAX_SCROLL = [
             0,
             THEME_PANEL_H,
-            keybindsPanelHeight()
+            keybindsPanelHeight(),
+            300
         ];
         global.optionsMenu_Anim.tabs[1][1] = THEME_PANEL_H;
         global.optionsMenu_Anim.tabs[2][1] = TAB_CONTENT_HEIGHTS[2];
+        global.optionsMenu_Anim.tabs[3][1] = 300;
+        const secretBox = (global.optionsCheckboxes || []).find(cb => cb.id === "optSecretOptions");
+        const secretUnlocked = secretBox ? !!secretBox.value : localStorage.getItem("optSecretOptionsChecked") === "true";
         global.clickables.optionsMenu.mainMenuIdle.set(panelX * clickableRatio, PANEL_Y * clickableRatio, PANEL_WIDTH * clickableRatio, PANEL_HEIGHT * clickableRatio);
+        if (!secretUnlocked && (global.optionsMenu_Anim.activeTab || 0) === 3) {
+            global.optionsMenu_Anim.activeTab = 0;
+            global.optionsMenu_Anim.tabOffset.set(0);
+        }
         const activeTab = global.optionsMenu_Anim.activeTab || 0;
         const scrollOffsetAnim = global.optionsMenu_Anim.scrollOffsets[activeTab];
         const contentH = TAB_CONTENT_HEIGHTS[activeTab];
@@ -5412,14 +5430,15 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         drawGuiRect(panelX, PANEL_Y, PANEL_WIDTH, PANEL_HEIGHT, true);
 
         // Top tabs with interactive functionality
-        const TAB_WIDTH = PANEL_WIDTH / 3.73; // 5.035
+        const TAB_NAMES = secretUnlocked ? global.optionsMenu_Anim.tabs : global.optionsMenu_Anim.tabs.slice(0, 3);
+        const TAB_WIDTH = PANEL_WIDTH / (TAB_NAMES.length === 4 ? 5.03 : 3.73);
         const TAB_HEIGHT = 50;
         const TAB_Y = PANEL_Y - TAB_HEIGHT;
-        const TAB_NAMES = global.optionsMenu_Anim.tabs;
 
         drawText("ingame options is not finished, expect missing features and bugs lol", panelX + PANEL_WIDTH / 2, PANEL_Y - 57, 13.5, color.guiwhite, "center");
 
         // Initialize tab clickables
+        global.optionsMenu_Anim.tabClickables.hide();
 
         // Draw tabs backgrounds and place clickables
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
@@ -5477,9 +5496,10 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         // Draw tabs labels
         for (let tabIndex = 0; tabIndex < TAB_NAMES.length; tabIndex++) {
             const x = panelX + tabIndex * TAB_WIDTH * 1.162;
+            const tabX = x + 50;
 
-            // Tab label
-            const cx = x + TAB_WIDTH - 11;
+            // Tab label, centered on the tab
+            const cx = tabX + TAB_WIDTH / 2;
             const cy = TAB_Y + TAB_HEIGHT - 18;
             drawText(TAB_NAMES[tabIndex][0], cx, cy, 16, color.guiwhite, "center");
         }
@@ -5488,6 +5508,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         const fadeOptions = Math.max(0, 1 - Math.abs(0 - currentTab));
         const fadeTheme = Math.max(0, 1 - Math.abs(1 - currentTab));
         const fadeKeybinds = Math.max(0, 1 - Math.abs(2 - currentTab));
+        const fadeSecret = Math.max(0, 1 - Math.abs(3 - currentTab));
 
         ctx[2].save();
         ctx[2].globalAlpha *= fadeOptions;
@@ -5579,6 +5600,7 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
                     if (cb.type === "checkbox") {
                         let doc = document.getElementById(cb.id);
                         if (doc) cb.value = doc.checked, cb.lastValue = cb.value;
+                        else cb.value = localStorage.getItem(cb.id + "Checked") === "true", cb.lastValue = cb.value;
                     }
                 }
             }
@@ -5857,6 +5879,14 @@ const THEME_V1_MAGIC = "\x6a\xba\xda\xb3\xf0";
         if (fadeKeybinds > 0.01) {
             // KEYBINDS TAB
             drawKeybindsTab(panelX, PANEL_Y, PANEL_WIDTH, clickableRatio);
+        }
+        ctx[2].restore();
+
+        ctx[2].save();
+        ctx[2].globalAlpha *= fadeSecret;
+        ctx[2].translate(0, -scrollY);
+        if (fadeSecret > 0.01 && activeTab === 3 && secretUnlocked) {
+            drawSecretTab(panelX, PANEL_Y, PANEL_WIDTH);
         }
         ctx[2].restore();
 
