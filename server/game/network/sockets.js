@@ -352,7 +352,7 @@ class socketManager {
                     (bannedIP) => bannedIP.ip === socket.ip
                 );
                 if (permB) {
-                    socket.talk(b.reason === "Ban Hammer" ? "permaModBan" : "permanentBan"); 
+                    socket.talk("permanentBan"); 
                     socket.permaban("Permanently banned player detected!");
                     return 1;
                 }
