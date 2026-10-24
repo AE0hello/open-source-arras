@@ -87,7 +87,6 @@ let loadEmptyServerSelector = (text) => {
     let serverSelector = document.getElementById("serverSelector"),
     tbody = document.createElement("tbody");
     serverSelector.innerHTML = "";
-    serverSelector.style.display = "block";
     serverSelector.appendChild(tbody);
     const tr = document.createElement("tr");
     const td1 = document.createElement("td");
