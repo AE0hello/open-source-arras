@@ -271,7 +271,7 @@ const commands = [
                         break;
                     case "discoverable": // WIP
                         if (args[1] !== "true" && args[1] !== "false") return socket.talk("m", 3_000, "Invalid arguments.");
-                        socket.talk("This is WIP lol.")
+                        socket.talk("This is WIP lol.");
                         break;
                     case "close":
                         util.warn(`${socket.player.body.name === "" ? `An unnamed player (ip: ${socket.ip})` : socket.player.body.name} has closed the arena.`);
