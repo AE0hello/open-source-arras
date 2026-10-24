@@ -1,4 +1,5 @@
 let EventEmitter = require("events");
+const { combineStats } = require('../../lib/definitions/facilitators.js');
 class turretEntity extends EventEmitter {
     constructor(position, bond, master) {
         super();
@@ -188,6 +189,15 @@ class turretEntity extends EventEmitter {
             }
             for (let guns of newGuns) {
                 this.guns.set(guns.id, guns);
+            }
+        }
+        if (set.GUN_STAT_SCALE) {
+            const gunStatScale = Array.isArray(set.GUN_STAT_SCALE) ? set.GUN_STAT_SCALE : [set.GUN_STAT_SCALE];
+            for (let gun of this.guns.values()) {
+                if (!gun.canShoot || !gun.settings) continue;
+                gun.settings = combineStats([gun.settings, ...gunStatScale]);
+                gun.trueRecoil = gun.settings.recoil;
+                gun.interpret();
             }
         }
         if (set.SIZE != null) this.SIZE = set.SIZE;
